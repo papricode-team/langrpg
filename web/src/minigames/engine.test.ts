@@ -176,7 +176,7 @@ describe('shared mini-game lifecycle and authoritative evidence',()=>{
     expect(vi.mocked(host.submit).mock.calls[0][0]).toMatchObject({hinted:false,answer:'Kaffee'});
   });
   it('registers all eighteen catalogue games as independent lifecycle controllers',async()=>{
-    expect(miniGameDefinitions).toHaveLength(18);expect(new Set(miniGameDefinitions.map(game=>game.id)).size).toBe(18);
+    expect(miniGameDefinitions).toHaveLength(20);expect(new Set(miniGameDefinitions.map(game=>game.id)).size).toBe(20);
     for(const definition of miniGameDefinitions){const game=await loadMiniGame(definition.id);expect(game.id).toBe(definition.id);expect(game.title).toBe(definition.title);expect(game.modalities).toEqual(definition.modalities);expect(game.levels).toEqual(definition.levels);}
     await expect(loadMiniGame('unknown')).rejects.toThrow('Unknown lantern game');
   });

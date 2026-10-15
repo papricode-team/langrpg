@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { maps, storyMaps, getMap, type StoryMapId } from './maps';
+import { maps, storyMaps, getMap, localCast, type StoryMapId } from './maps';
 import { expeditionIds, expeditionMaps, getExpedition, getExpeditionEncounter } from './expeditions';
 import { npcs, quests } from './content';
 import { createMapNavigation, type MapPoint, type NavigationGrid } from './navigation';
@@ -34,7 +34,9 @@ describe('painted region definitions', () => {
     for (const map of maps) {
       expect(map.objects.length).toBeGreaterThanOrEqual(4);
       const expedition = getExpedition(map.id);
-      expect(new Set(map.npcs.map(npc => npc.id))).toEqual(new Set((expedition?.npcs ?? npcs.filter(npc => npc.id !== 'elise' || map.id === 'nebelstadt')).map(npc => npc.id)));
+      const travelling = npcs.filter(npc => !localCast[npc.id] && (npc.id !== 'elise' || map.id === 'nebelstadt'));
+      const local = expedition ? [] : npcs.filter(npc => localCast[npc.id]?.includes(map.id as StoryMapId));
+      expect(new Set(map.npcs.map(npc => npc.id))).toEqual(new Set((expedition?.npcs ?? [...travelling, ...local]).map(npc => npc.id)));
       for (const object of map.objects) {
         expect(ids.has(object.id), `${object.id} must identify one discovery`).toBe(false);
         ids.add(object.id);

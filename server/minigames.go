@@ -15,6 +15,7 @@ var miniGameIDs = []string{
 	"workbench", "kettle-forecast", "seed-packets", "lost-hour",
 	"17-59", "looping-tape", "seven-chairs", "adas-alphabet",
 	"neighborhood-boards", "delivery-run", "expedition-encounters",
+	"lamp-walk", "hold-the-signal",
 }
 
 // Mini-game forms are derived from the canonical lexicon, never an answer or

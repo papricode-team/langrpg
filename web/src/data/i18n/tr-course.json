@@ -24805,6 +24805,1161 @@
     "explanation": "Tarifelerde 24 saatlik sistem kullanılır: 18 Uhr akşam altıdır.",
     "english": "Tren 18:00'de kalkıyor."
    }
+  },
+  "a1-notice-exercise-1": {
+   "german": "Warum darf ich das nicht?",
+   "source": {
+    "prompt": "Ask why you are not allowed to.",
+    "hint": "Warum first, then darf ich, then das nicht.",
+    "explanation": "dürfen asks about permission; nicht at the end says what is not allowed.",
+    "english": "Why am I not allowed to?"
+   },
+   "tr": {
+    "prompt": "Neden izin verilmediğini sor.",
+    "hint": "Önce Warum, sonra darf ich, sonra das nicht.",
+    "explanation": "dürfen izin sorar; sondaki nicht neyin yasak olduğunu söyler.",
+    "english": "Neden yapamıyorum?"
+   }
+  },
+  "a1-notice-exercise-2": {
+   "german": "Darf ich hier sitzen?",
+   "source": {
+    "prompt": "Ask if you may sit here.",
+    "hint": "dürfen asks for permission.",
+    "explanation": "Darf ich …? asks if something is allowed.",
+    "english": "May I sit here?"
+   },
+   "tr": {
+    "prompt": "Buraya oturup oturamayacağını sor.",
+    "hint": "dürfen izin ister.",
+    "explanation": "Darf ich …? bir şeye izin olup olmadığını sorar.",
+    "english": "Buraya oturabilir miyim?"
+   }
+  },
+  "a1-notice-exercise-3": {
+   "german": "Hier darf man nicht laut sprechen.",
+   "source": {
+    "prompt": "Listen. What is not allowed here?",
+    "hint": "laut means loud.",
+    "explanation": "man darf nicht … means it is not allowed.",
+    "english": "You may not speak loudly here."
+   },
+   "tr": {
+    "prompt": "Dinle. Burada ne yasak?",
+    "hint": "laut “yüksek sesle” demektir.",
+    "explanation": "man darf nicht … “yasaktır” anlamına gelir.",
+    "english": "Burada yüksek sesle konuşulmaz."
+   }
+  },
+  "a1-notice-exercise-4": {
+   "german": "Das ist nicht gut.",
+   "source": {
+    "prompt": "Say: “That is not good.”",
+    "hint": "nicht comes before gut.",
+    "explanation": "nicht makes a description negative.",
+    "english": "That is not good."
+   },
+   "tr": {
+    "prompt": "Söyle: “Bu iyi değil.”",
+    "hint": "nicht, gut’tan önce gelir.",
+    "explanation": "nicht bir tanımı olumsuz yapar.",
+    "english": "Bu iyi değil."
+   }
+  },
+  "a1-notice-exercise-5": {
+   "german": "Ich sage meinen Namen laut.",
+   "source": {
+    "prompt": "Say: “I say my name out loud.”",
+    "hint": "Name is masculine: meinen Namen.",
+    "explanation": "After sagen, der Name becomes den Namen; mein becomes meinen.",
+    "english": "I say my name out loud."
+   },
+   "tr": {
+    "prompt": "Söyle: “Adımı yüksek sesle söylüyorum.”",
+    "hint": "Name eril: meinen Namen.",
+    "explanation": "sagen’den sonra der Name, den Namen olur; mein, meinen olur.",
+    "english": "Adımı yüksek sesle söylüyorum."
+   }
+  },
+  "a1-notice-exercise-6": {
+   "german": "Wer sind Sie?",
+   "source": {
+    "prompt": "Ask the official politely who she is.",
+    "hint": "Use Sie with officials.",
+    "explanation": "Sie takes sind: Wer sind Sie?",
+    "english": "Who are you?"
+   },
+   "tr": {
+    "prompt": "Memura kibarca kim olduğunu sor.",
+    "hint": "Memurlarla Sie kullan.",
+    "explanation": "Sie ile sind kullanılır: Wer sind Sie?",
+    "english": "Siz kimsiniz?"
+   }
+  },
+  "a1-notice-exercise-7": {
+   "german": "Ab heute ist es hier ruhig.",
+   "source": {
+    "prompt": "Listen. Since when is it quiet here?",
+    "hint": "ab heute means from today.",
+    "explanation": "ab marks a starting point in time.",
+    "english": "From today it is quiet here."
+   },
+   "tr": {
+    "prompt": "Dinle. Burası ne zamandan beri sessiz?",
+    "hint": "ab heute “bugünden itibaren” demektir.",
+    "explanation": "ab zamanda bir başlangıç noktası gösterir.",
+    "english": "Bugünden itibaren burası sessiz."
+   }
+  },
+  "a1-chalk-exercise-1": {
+   "german": "Wie heißt du?",
+   "source": {
+    "prompt": "Ask the boy his name.",
+    "hint": "Wie first, then heißt du.",
+    "explanation": "heißen means to be called. With du it becomes heißt.",
+    "english": "What is your name?"
+   },
+   "tr": {
+    "prompt": "Çocuğa adını sor.",
+    "hint": "Önce Wie, sonra heißt du.",
+    "explanation": "heißen “adı … olmak” demektir. du ile heißt olur.",
+    "english": "Adın ne?"
+   }
+  },
+  "a1-chalk-exercise-2": {
+   "german": "Wie alt bist du?",
+   "source": {
+    "prompt": "Ask how old he is.",
+    "hint": "alt means old.",
+    "explanation": "Wie alt bist du? asks for an age.",
+    "english": "How old are you?"
+   },
+   "tr": {
+    "prompt": "Kaç yaşında olduğunu sor.",
+    "hint": "alt “yaşlı, eski” demektir.",
+    "explanation": "Wie alt bist du? yaşı sorar.",
+    "english": "Kaç yaşındasın?"
+   }
+  },
+  "a1-chalk-exercise-3": {
+   "german": "Ich bin zwölf Jahre alt.",
+   "source": {
+    "prompt": "Listen. How old is Pip?",
+    "hint": "zwölf is twelve.",
+    "explanation": "Ages use Jahre alt.",
+    "english": "I am twelve years old."
+   },
+   "tr": {
+    "prompt": "Dinle. Pip kaç yaşında?",
+    "hint": "zwölf on iki demektir.",
+    "explanation": "Yaşlar Jahre alt ile söylenir.",
+    "english": "On iki yaşındayım."
+   }
+  },
+  "a1-chalk-exercise-4": {
+   "german": "Das ist mein Bruder.",
+   "source": {
+    "prompt": "Say: “This is my brother.”",
+    "hint": "Bruder is masculine: mein Bruder.",
+    "explanation": "Das ist … introduces a person.",
+    "english": "This is my brother."
+   },
+   "tr": {
+    "prompt": "Söyle: “Bu benim kardeşim.”",
+    "hint": "Bruder eril: mein Bruder.",
+    "explanation": "Das ist … birini tanıtır.",
+    "english": "Bu benim erkek kardeşim."
+   }
+  },
+  "a1-chalk-exercise-5": {
+   "german": "Meine Schwester heißt Lina.",
+   "source": {
+    "prompt": "Say: “My sister is called Lina.”",
+    "hint": "Schwester is feminine: meine Schwester.",
+    "explanation": "heißen with a name: … heißt Lina.",
+    "english": "My sister is called Lina."
+   },
+   "tr": {
+    "prompt": "Söyle: “Kız kardeşimin adı Lina.”",
+    "hint": "Schwester dişil: meine Schwester.",
+    "explanation": "İsimle heißen: … heißt Lina.",
+    "english": "Kız kardeşimin adı Lina."
+   }
+  },
+  "a1-chalk-exercise-6": {
+   "german": "Wo wohnst du?",
+   "source": {
+    "prompt": "Ask where he lives.",
+    "hint": "wohnen means to live somewhere.",
+    "explanation": "Wo asks for a place.",
+    "english": "Where do you live?"
+   },
+   "tr": {
+    "prompt": "Nerede yaşadığını sor.",
+    "hint": "wohnen bir yerde oturmak demektir.",
+    "explanation": "Wo bir yer sorar.",
+    "english": "Nerede oturuyorsun?"
+   }
+  },
+  "a1-chalk-exercise-7": {
+   "german": "Wir wohnen am Kanal.",
+   "source": {
+    "prompt": "Listen. Where do they live?",
+    "hint": "am Kanal means by the canal.",
+    "explanation": "am is an + dem.",
+    "english": "We live by the canal."
+   },
+   "tr": {
+    "prompt": "Dinle. Nerede oturuyorlar?",
+    "hint": "am Kanal “kanalın yanında” demektir.",
+    "explanation": "am, an + dem demektir.",
+    "english": "Kanalın yanında oturuyoruz."
+   }
+  },
+  "a1-bench-exercise-1": {
+   "german": "Wie heißen Sie?",
+   "source": {
+    "prompt": "Ask the old woman her name politely.",
+    "hint": "Use Sie: heißen Sie.",
+    "explanation": "With Sie the verb ends in -en: heißen.",
+    "english": "What is your name?"
+   },
+   "tr": {
+    "prompt": "Yaşlı kadına adını kibarca sor.",
+    "hint": "Sie kullan: heißen Sie.",
+    "explanation": "Sie ile fiil -en ile biter: heißen.",
+    "english": "Adınız nedir?"
+   }
+  },
+  "a1-bench-exercise-2": {
+   "german": "Wie geht es Ihnen?",
+   "source": {
+    "prompt": "Ask her politely how she is.",
+    "hint": "Ihnen is the polite form.",
+    "explanation": "Wie geht es Ihnen? is polite; Wie geht es dir? is informal.",
+    "english": "How are you?"
+   },
+   "tr": {
+    "prompt": "Ona kibarca nasıl olduğunu sor.",
+    "hint": "Ihnen kibar biçimdir.",
+    "explanation": "Wie geht es Ihnen? kibardır; Wie geht es dir? samimidir.",
+    "english": "Nasılsınız?"
+   }
+  },
+  "a1-bench-exercise-3": {
+   "german": "Ich wohne in der Gartenstraße.",
+   "source": {
+    "prompt": "Listen. Where does she live?",
+    "hint": "Straße means street.",
+    "explanation": "wohnen in der … names a street.",
+    "english": "I live on Gartenstraße."
+   },
+   "tr": {
+    "prompt": "Dinle. Nerede oturuyor?",
+    "hint": "Straße “sokak” demektir.",
+    "explanation": "wohnen in der … bir sokak adı verir.",
+    "english": "Gartenstraße’de oturuyorum."
+   }
+  },
+  "a1-bench-exercise-4": {
+   "german": "Kommen Sie mit.",
+   "source": {
+    "prompt": "Say politely: “Come along.”",
+    "hint": "Verb first, then Sie, then mit.",
+    "explanation": "A polite instruction starts with the verb: Kommen Sie mit.",
+    "english": "Come along."
+   },
+   "tr": {
+    "prompt": "Kibarca söyle: “Benimle gelin.”",
+    "hint": "Önce fiil, sonra Sie, sonra mit.",
+    "explanation": "Kibar bir rica fiille başlar: Kommen Sie mit.",
+    "english": "Benimle gelin."
+   }
+  },
+  "a1-bench-exercise-5": {
+   "german": "Sie sind meine Lehrerin.",
+   "source": {
+    "prompt": "Say: “You are my teacher.”",
+    "hint": "Lehrerin is feminine: meine Lehrerin.",
+    "explanation": "Sie sind is the polite you are.",
+    "english": "You are my teacher."
+   },
+   "tr": {
+    "prompt": "Söyle: “Siz benim öğretmenimsiniz.”",
+    "hint": "Lehrerin dişil: meine Lehrerin.",
+    "explanation": "Sie sind kibar “sizsiniz” demektir.",
+    "english": "Siz benim öğretmenimsiniz."
+   }
+  },
+  "a1-bench-exercise-6": {
+   "german": "Möchten Sie einen Tee?",
+   "source": {
+    "prompt": "Offer her a tea politely.",
+    "hint": "With Sie: möchten Sie.",
+    "explanation": "Möchten Sie …? is a polite offer.",
+    "english": "Would you like a tea?"
+   },
+   "tr": {
+    "prompt": "Ona kibarca çay teklif et.",
+    "hint": "Sie ile: möchten Sie.",
+    "explanation": "Möchten Sie …? kibar bir tekliftir.",
+    "english": "Çay ister misiniz?"
+   }
+  },
+  "a1-bench-exercise-7": {
+   "german": "Ich bin seit vierzig Jahren Lehrerin.",
+   "source": {
+    "prompt": "Listen. How long has she been a teacher?",
+    "hint": "vierzig is forty.",
+    "explanation": "seit + time says how long something has lasted.",
+    "english": "I have been a teacher for forty years."
+   },
+   "tr": {
+    "prompt": "Dinle. Ne zamandır öğretmen?",
+    "hint": "vierzig kırk demektir.",
+    "explanation": "seit + zaman bir şeyin ne kadar sürdüğünü söyler.",
+    "english": "Kırk yıldır öğretmenim."
+   }
+  },
+  "a1-office-window-exercise-1": {
+   "german": "Das haben Sie geschrieben.",
+   "source": {
+    "prompt": "Tell Frau Kessler she wrote it.",
+    "hint": "haben near the front, geschrieben at the end.",
+    "explanation": "The perfect tense uses haben + participle. The participle geschrieben goes to the end.",
+    "english": "You wrote that."
+   },
+   "tr": {
+    "prompt": "Frau Kessler’e bunu onun yazdığını söyle.",
+    "hint": "haben başa yakın, geschrieben sonda.",
+    "explanation": "Geçmiş zaman haben + ortaçla kurulur. geschrieben sona gider.",
+    "english": "Bunu siz yazdınız."
+   }
+  },
+  "a1-office-window-exercise-2": {
+   "german": "Wer hat das geschrieben?",
+   "source": {
+    "prompt": "Ask who wrote it.",
+    "hint": "Wer takes hat.",
+    "explanation": "Wer hat … geschrieben? asks who did it.",
+    "english": "Who wrote that?"
+   },
+   "tr": {
+    "prompt": "Bunu kimin yazdığını sor.",
+    "hint": "Wer ile hat kullanılır.",
+    "explanation": "Wer hat … geschrieben? bunu kimin yaptığını sorar.",
+    "english": "Bunu kim yazdı?"
+   }
+  },
+  "a1-office-window-exercise-3": {
+   "german": "Ich habe den Namen gelesen.",
+   "source": {
+    "prompt": "Listen. What did she do with the name?",
+    "hint": "gelesen comes from lesen.",
+    "explanation": "lesen → gelesen in the perfect.",
+    "english": "I read the name."
+   },
+   "tr": {
+    "prompt": "Dinle. İsimle ne yaptı?",
+    "hint": "gelesen, lesen’den gelir.",
+    "explanation": "Geçmiş zamanda lesen → gelesen.",
+    "english": "İsmi okudum."
+   }
+  },
+  "a1-office-window-exercise-4": {
+   "german": "Ich habe es gesehen.",
+   "source": {
+    "prompt": "Say: “I saw it.”",
+    "hint": "sehen becomes gesehen.",
+    "explanation": "Perfect: habe … gesehen.",
+    "english": "I saw it."
+   },
+   "tr": {
+    "prompt": "Söyle: “Onu gördüm.”",
+    "hint": "sehen, gesehen olur.",
+    "explanation": "Geçmiş zaman: habe … gesehen.",
+    "english": "Onu gördüm."
+   }
+  },
+  "a1-office-window-exercise-5": {
+   "german": "Wir haben das Buch gefunden.",
+   "source": {
+    "prompt": "Say: “We found the book.”",
+    "hint": "finden becomes gefunden.",
+    "explanation": "wir haben … gefunden: the participle goes to the end.",
+    "english": "We found the book."
+   },
+   "tr": {
+    "prompt": "Söyle: “Kitabı bulduk.”",
+    "hint": "finden, gefunden olur.",
+    "explanation": "wir haben … gefunden: ortaç sona gider.",
+    "english": "Kitabı bulduk."
+   }
+  },
+  "a1-office-window-exercise-6": {
+   "german": "Das ist nicht Ihr Buch.",
+   "source": {
+    "prompt": "Tell her politely it is not her book.",
+    "hint": "Ihr with a capital I is polite your.",
+    "explanation": "nicht Ihr Buch: nicht comes before the possessive.",
+    "english": "That is not your book."
+   },
+   "tr": {
+    "prompt": "Ona kibarca bunun onun kitabı olmadığını söyle.",
+    "hint": "Büyük I ile Ihr kibar “sizin” demektir.",
+    "explanation": "nicht Ihr Buch: nicht iyelikten önce gelir.",
+    "english": "Bu sizin kitabınız değil."
+   }
+  },
+  "a1-office-window-exercise-7": {
+   "german": "Das Büro ist um acht Uhr zu.",
+   "source": {
+    "prompt": "Listen. When does the office close?",
+    "hint": "acht is eight.",
+    "explanation": "um + time gives the hour.",
+    "english": "The office closes at eight o’clock."
+   },
+   "tr": {
+    "prompt": "Dinle. Büro ne zaman kapanıyor?",
+    "hint": "acht sekiz demektir.",
+    "explanation": "um + saat, saati verir.",
+    "english": "Büro saat sekizde kapanıyor."
+   }
+  },
+  "a2-upstairs-exercise-1": {
+   "german": "Darf ich Sie etwas fragen?",
+   "source": {
+    "prompt": "Ask Oma Hilde politely if you may ask her something.",
+    "hint": "Darf ich first, then Sie etwas, then fragen.",
+    "explanation": "dürfen asks for permission; fragen goes to the end.",
+    "english": "May I ask you something?"
+   },
+   "tr": {
+    "prompt": "Hilde Nine’ye ona bir şey sorup soramayacağını kibarca sor.",
+    "hint": "Önce Darf ich, sonra Sie etwas, sonra fragen.",
+    "explanation": "dürfen izin ister; fragen sona gider.",
+    "english": "Size bir şey sorabilir miyim?"
+   }
+  },
+  "a2-upstairs-exercise-2": {
+   "german": "Wie lange wohnen Sie schon hier?",
+   "source": {
+    "prompt": "Ask how long she has lived here.",
+    "hint": "German uses the present with schon for something still going on.",
+    "explanation": "Wie lange … schon? asks how long something has lasted.",
+    "english": "How long have you lived here?"
+   },
+   "tr": {
+    "prompt": "Ne zamandır burada oturduğunu sor.",
+    "hint": "Almanca, süren bir şey için schon ile şimdiki zamanı kullanır.",
+    "explanation": "Wie lange … schon? bir şeyin ne kadar sürdüğünü sorar.",
+    "english": "Ne zamandır burada oturuyorsunuz?"
+   }
+  },
+  "a2-upstairs-exercise-3": {
+   "german": "Früher war hier ein Bahnhof.",
+   "source": {
+    "prompt": "Listen. What used to be here?",
+    "hint": "war is the past of sein.",
+    "explanation": "Früher war … describes how a place used to be.",
+    "english": "There used to be a station here."
+   },
+   "tr": {
+    "prompt": "Dinle. Eskiden burada ne vardı?",
+    "hint": "war, sein fiilinin geçmişidir.",
+    "explanation": "Früher war … bir yerin eskiden nasıl olduğunu anlatır.",
+    "english": "Eskiden burada bir istasyon vardı."
+   }
+  },
+  "a2-upstairs-exercise-4": {
+   "german": "Meine Großmutter ist neunzig Jahre alt.",
+   "source": {
+    "prompt": "Say: “My grandmother is ninety years old.”",
+    "hint": "neunzig is ninety.",
+    "explanation": "Großmutter is feminine: meine Großmutter.",
+    "english": "My grandmother is ninety years old."
+   },
+   "tr": {
+    "prompt": "Söyle: “Büyükannem doksan yaşında.”",
+    "hint": "neunzig doksan demektir.",
+    "explanation": "Großmutter dişil: meine Großmutter.",
+    "english": "Büyükannem doksan yaşında."
+   }
+  },
+  "a2-upstairs-exercise-5": {
+   "german": "Ich war noch nie in Waldruh.",
+   "source": {
+    "prompt": "Say: “I have never been to Waldruh.”",
+    "hint": "noch nie means never before.",
+    "explanation": "With sein, everyday German often uses war instead of the perfect.",
+    "english": "I have never been to Waldruh."
+   },
+   "tr": {
+    "prompt": "Söyle: “Waldruh’da hiç bulunmadım.”",
+    "hint": "noch nie “daha önce hiç” demektir.",
+    "explanation": "sein ile günlük Almancada geçmiş zaman yerine sık sık war kullanılır.",
+    "english": "Waldruh’da hiç bulunmadım."
+   }
+  },
+  "a2-upstairs-exercise-6": {
+   "german": "Erzählen Sie mir bitte von früher.",
+   "source": {
+    "prompt": "Ask her politely to tell you about the old days.",
+    "hint": "Polite request: verb first, then Sie.",
+    "explanation": "von früher means about the past.",
+    "english": "Please tell me about the old days."
+   },
+   "tr": {
+    "prompt": "Ondan kibarca eski günleri anlatmasını iste.",
+    "hint": "Kibar rica: önce fiil, sonra Sie.",
+    "explanation": "von früher “eskiden” demektir.",
+    "english": "Lütfen bana eski günleri anlatın."
+   }
+  },
+  "a2-upstairs-exercise-7": {
+   "german": "Das Haus hatte früher zwei Türen.",
+   "source": {
+    "prompt": "Listen. What did the house have?",
+    "hint": "hatte is the past of haben.",
+    "explanation": "hatte + früher describes how things were.",
+    "english": "The house used to have two doors."
+   },
+   "tr": {
+    "prompt": "Dinle. Evin neyi vardı?",
+    "hint": "hatte, haben fiilinin geçmişidir.",
+    "explanation": "hatte + früher eskiden nasıl olduğunu anlatır.",
+    "english": "Evin eskiden iki kapısı vardı."
+   }
+  },
+  "a2-ink-seller-exercise-1": {
+   "german": "Haben Sie auch etwas Günstigeres?",
+   "source": {
+    "prompt": "Ask Herr Falk if he has something cheaper.",
+    "hint": "Günstigeres is the comparative of günstig.",
+    "explanation": "etwas + comparative + -es: etwas Günstigeres.",
+    "english": "Do you have something cheaper?"
+   },
+   "tr": {
+    "prompt": "Herr Falk’a daha ucuz bir şeyi olup olmadığını sor.",
+    "hint": "Günstigeres, günstig sıfatının karşılaştırma biçimidir.",
+    "explanation": "etwas + karşılaştırma + -es: etwas Günstigeres.",
+    "english": "Daha ucuz bir şeyiniz var mı?"
+   }
+  },
+  "a2-ink-seller-exercise-2": {
+   "german": "Diese Tinte ist teurer als die blaue.",
+   "source": {
+    "prompt": "Say that this ink is more expensive than the blue one.",
+    "hint": "teuer becomes teurer.",
+    "explanation": "Compare with als: teurer als.",
+    "english": "This ink is more expensive than the blue one."
+   },
+   "tr": {
+    "prompt": "Bu mürekkebin mavisinden daha pahalı olduğunu söyle.",
+    "hint": "teuer, teurer olur.",
+    "explanation": "als ile karşılaştır: teurer als.",
+    "english": "Bu mürekkep mavisinden daha pahalı."
+   }
+  },
+  "a2-ink-seller-exercise-3": {
+   "german": "Die schwarze Flasche kostet zwölf Euro.",
+   "source": {
+    "prompt": "Listen. How much is the black bottle?",
+    "hint": "zwölf is twelve.",
+    "explanation": "kosten + price.",
+    "english": "The black bottle costs twelve euros."
+   },
+   "tr": {
+    "prompt": "Dinle. Siyah şişe ne kadar?",
+    "hint": "zwölf on iki demektir.",
+    "explanation": "kosten + fiyat.",
+    "english": "Siyah şişe on iki avro."
+   }
+  },
+  "a2-ink-seller-exercise-4": {
+   "german": "Das ist mir zu teuer.",
+   "source": {
+    "prompt": "Say: “That is too expensive for me.”",
+    "hint": "mir means for me here.",
+    "explanation": "zu teuer: too expensive.",
+    "english": "That is too expensive for me."
+   },
+   "tr": {
+    "prompt": "Söyle: “Bu benim için çok pahalı.”",
+    "hint": "mir burada “benim için” demektir.",
+    "explanation": "zu teuer: fazla pahalı.",
+    "english": "Bu benim için çok pahalı."
+   }
+  },
+  "a2-ink-seller-exercise-5": {
+   "german": "Ich nehme lieber die kleine Flasche.",
+   "source": {
+    "prompt": "Say: “I would rather take the small bottle.”",
+    "hint": "lieber means rather.",
+    "explanation": "lieber comes after the verb: ich nehme lieber.",
+    "english": "I would rather take the small bottle."
+   },
+   "tr": {
+    "prompt": "Söyle: “Küçük şişeyi almayı tercih ederim.”",
+    "hint": "lieber “tercihen” demektir.",
+    "explanation": "lieber fiilden sonra gelir: ich nehme lieber.",
+    "english": "Küçük şişeyi tercih ederim."
+   }
+  },
+  "a2-ink-seller-exercise-6": {
+   "german": "Kann ich mit Karte bezahlen?",
+   "source": {
+    "prompt": "Ask if you can pay by card.",
+    "hint": "mit Karte: by card.",
+    "explanation": "können + infinitive at the end.",
+    "english": "Can I pay by card?"
+   },
+   "tr": {
+    "prompt": "Kartla ödeyip ödeyemeyeceğini sor.",
+    "hint": "mit Karte: kartla.",
+    "explanation": "können + sonda mastar.",
+    "english": "Kartla ödeyebilir miyim?"
+   }
+  },
+  "a2-ink-seller-exercise-7": {
+   "german": "Heute gibt es zwei Flaschen zum Preis von einer.",
+   "source": {
+    "prompt": "Listen. What is today’s offer?",
+    "hint": "zum Preis von einer: for the price of one.",
+    "explanation": "es gibt + accusative.",
+    "english": "Today there are two bottles for the price of one."
+   },
+   "tr": {
+    "prompt": "Dinle. Bugünün teklifi ne?",
+    "hint": "zum Preis von einer: bir fiyatına.",
+    "explanation": "es gibt + belirtme hâli.",
+    "english": "Bugün bir fiyatına iki şişe var."
+   }
+  },
+  "a2-forest-rails-exercise-1": {
+   "german": "Was ist damals passiert?",
+   "source": {
+    "prompt": "Ask Lina what happened back then.",
+    "hint": "passieren takes sein in the perfect: ist passiert.",
+    "explanation": "damals means back then.",
+    "english": "What happened back then?"
+   },
+   "tr": {
+    "prompt": "Lina’ya o zaman ne olduğunu sor.",
+    "hint": "passieren geçmiş zamanda sein alır: ist passiert.",
+    "explanation": "damals “o zamanlar” demektir.",
+    "english": "O zaman ne oldu?"
+   }
+  },
+  "a2-forest-rails-exercise-2": {
+   "german": "Ich war damals zehn Jahre alt.",
+   "source": {
+    "prompt": "Say that you were ten years old back then.",
+    "hint": "war is the past of sein.",
+    "explanation": "damals refers to a time in the past.",
+    "english": "I was ten years old back then."
+   },
+   "tr": {
+    "prompt": "O zaman on yaşında olduğunu söyle.",
+    "hint": "war, sein fiilinin geçmişidir.",
+    "explanation": "damals geçmişteki bir zamanı gösterir.",
+    "english": "O zaman on yaşındaydım."
+   }
+  },
+  "a2-forest-rails-exercise-3": {
+   "german": "Der Zug ist um sechs Uhr nicht abgefahren.",
+   "source": {
+    "prompt": "Listen. What did the train do?",
+    "hint": "abfahren takes sein: ist abgefahren.",
+    "explanation": "nicht stands before the participle.",
+    "english": "The train did not leave at six o’clock."
+   },
+   "tr": {
+    "prompt": "Dinle. Tren ne yaptı?",
+    "hint": "abfahren sein alır: ist abgefahren.",
+    "explanation": "nicht ortaçtan önce gelir.",
+    "english": "Tren saat altıda kalkmadı."
+   }
+  },
+  "a2-forest-rails-exercise-4": {
+   "german": "Wir haben lange gewartet.",
+   "source": {
+    "prompt": "Say: “We waited a long time.”",
+    "hint": "warten → gewartet.",
+    "explanation": "haben + gewartet: the participle goes to the end.",
+    "english": "We waited a long time."
+   },
+   "tr": {
+    "prompt": "Söyle: “Uzun süre bekledik.”",
+    "hint": "warten → gewartet.",
+    "explanation": "haben + gewartet: ortaç sona gider.",
+    "english": "Uzun süre bekledik."
+   }
+  },
+  "a2-forest-rails-exercise-5": {
+   "german": "Auf den Schienen lagen große Steine.",
+   "source": {
+    "prompt": "Say: “There were big stones on the rails.”",
+    "hint": "lagen is the past of liegen.",
+    "explanation": "auf + dative for where something lies.",
+    "english": "There were big stones on the rails."
+   },
+   "tr": {
+    "prompt": "Söyle: “Rayların üstünde büyük taşlar vardı.”",
+    "hint": "lagen, liegen fiilinin geçmişidir.",
+    "explanation": "Bir şeyin nerede durduğu için auf + -e hâli.",
+    "english": "Rayların üstünde büyük taşlar vardı."
+   }
+  },
+  "a2-forest-rails-exercise-6": {
+   "german": "Ich erinnere mich an den Abend.",
+   "source": {
+    "prompt": "Say that you remember the evening.",
+    "hint": "sich erinnern an + accusative.",
+    "explanation": "The reflexive pronoun mich belongs to ich.",
+    "english": "I remember the evening."
+   },
+   "tr": {
+    "prompt": "O akşamı hatırladığını söyle.",
+    "hint": "sich erinnern an + belirtme hâli.",
+    "explanation": "Dönüşlü zamir mich, ich’e aittir.",
+    "english": "O akşamı hatırlıyorum."
+   }
+  },
+  "a2-forest-rails-exercise-7": {
+   "german": "Danach ist niemand mehr gekommen.",
+   "source": {
+    "prompt": "Listen. Who came afterwards?",
+    "hint": "niemand means nobody.",
+    "explanation": "kommen takes sein: ist gekommen.",
+    "english": "After that, nobody came any more."
+   },
+   "tr": {
+    "prompt": "Dinle. Sonra kim geldi?",
+    "hint": "niemand “hiç kimse” demektir.",
+    "explanation": "kommen sein alır: ist gekommen.",
+    "english": "Ondan sonra artık kimse gelmedi."
+   }
+  },
+  "a2-cellar-exercise-1": {
+   "german": "Warum haben Sie das gemacht?",
+   "source": {
+    "prompt": "Ask Herr Falk why he did it.",
+    "hint": "Warum first, then haben Sie, then gemacht.",
+    "explanation": "Perfect question: haben + participle at the end.",
+    "english": "Why did you do that?"
+   },
+   "tr": {
+    "prompt": "Herr Falk’a bunu neden yaptığını sor.",
+    "hint": "Önce Warum, sonra haben Sie, sonra gemacht.",
+    "explanation": "Geçmiş zaman sorusu: haben + sonda ortaç.",
+    "english": "Bunu neden yaptınız?"
+   }
+  },
+  "a2-cellar-exercise-2": {
+   "german": "Ich habe es gemacht, weil ich Angst hatte.",
+   "source": {
+    "prompt": "Say you did it because you were afraid.",
+    "hint": "After weil the verb goes to the end.",
+    "explanation": "weil gives a reason.",
+    "english": "I did it because I was afraid."
+   },
+   "tr": {
+    "prompt": "Korktuğun için yaptığını söyle.",
+    "hint": "weil’den sonra fiil sona gider.",
+    "explanation": "weil bir sebep verir.",
+    "english": "Korktuğum için yaptım."
+   }
+  },
+  "a2-cellar-exercise-3": {
+   "german": "Ich habe drei Jahre im Büro gearbeitet.",
+   "source": {
+    "prompt": "Listen. How long did he work in the office?",
+    "hint": "drei Jahre: three years.",
+    "explanation": "arbeiten → gearbeitet.",
+    "english": "I worked in the office for three years."
+   },
+   "tr": {
+    "prompt": "Dinle. Büroda ne kadar çalışmış?",
+    "hint": "drei Jahre: üç yıl.",
+    "explanation": "arbeiten → gearbeitet.",
+    "english": "Büroda üç yıl çalıştım."
+   }
+  },
+  "a2-cellar-exercise-4": {
+   "german": "Das war nicht richtig.",
+   "source": {
+    "prompt": "Say: “That was not right.”",
+    "hint": "war: the past of sein.",
+    "explanation": "nicht before richtig.",
+    "english": "That was not right."
+   },
+   "tr": {
+    "prompt": "Söyle: “Bu doğru değildi.”",
+    "hint": "war: sein fiilinin geçmişi.",
+    "explanation": "nicht, richtig’ten önce.",
+    "english": "Bu doğru değildi."
+   }
+  },
+  "a2-cellar-exercise-5": {
+   "german": "Ich wollte niemandem schaden.",
+   "source": {
+    "prompt": "Say: “I did not want to harm anyone.”",
+    "hint": "schaden takes the dative: niemandem.",
+    "explanation": "wollte is the past of wollen.",
+    "english": "I did not want to harm anyone."
+   },
+   "tr": {
+    "prompt": "Söyle: “Kimseye zarar vermek istemedim.”",
+    "hint": "schaden -e hâli alır: niemandem.",
+    "explanation": "wollte, wollen fiilinin geçmişidir.",
+    "english": "Kimseye zarar vermek istemedim."
+   }
+  },
+  "a2-cellar-exercise-6": {
+   "german": "Es tut mir leid.",
+   "source": {
+    "prompt": "Apologise.",
+    "hint": "A fixed phrase.",
+    "explanation": "Es tut mir leid is the everyday apology.",
+    "english": "I am sorry."
+   },
+   "tr": {
+    "prompt": "Özür dile.",
+    "hint": "Kalıp bir ifade.",
+    "explanation": "Es tut mir leid günlük özür ifadesidir.",
+    "english": "Üzgünüm."
+   }
+  },
+  "a2-cellar-exercise-7": {
+   "german": "Die Maschine steht im Hafen von Nebelstadt.",
+   "source": {
+    "prompt": "Listen. Where is the machine?",
+    "hint": "im Hafen: in the harbour.",
+    "explanation": "stehen + in + dative for location.",
+    "english": "The machine stands in the harbour of Nebelstadt."
+   },
+   "tr": {
+    "prompt": "Dinle. Makine nerede?",
+    "hint": "im Hafen: limanda.",
+    "explanation": "Yer için stehen + in + -de hâli.",
+    "english": "Makine Nebelstadt limanında duruyor."
+   }
+  },
+  "b1-record-room-exercise-1": {
+   "german": "Könnten Sie mir zeigen, wo die Unterlagen sind?",
+   "source": {
+    "prompt": "Ask Frau Kessler formally to show you where the documents are.",
+    "hint": "Könnten Sie … zeigen, then an indirect question: wo … sind.",
+    "explanation": "In an indirect question the verb goes to the end: wo die Unterlagen sind.",
+    "english": "Could you show me where the documents are?"
+   },
+   "tr": {
+    "prompt": "Frau Kessler’den belgelerin nerede olduğunu göstermesini resmî olarak rica et.",
+    "hint": "Könnten Sie … zeigen, sonra dolaylı soru: wo … sind.",
+    "explanation": "Dolaylı soruda fiil sona gider: wo die Unterlagen sind.",
+    "english": "Belgelerin nerede olduğunu bana gösterebilir misiniz?"
+   }
+  },
+  "b1-record-room-exercise-2": {
+   "german": "Wissen Sie, wann die Lieferung angekommen ist?",
+   "source": {
+    "prompt": "Ask whether she knows when the delivery arrived.",
+    "hint": "Indirect question: the verb goes last.",
+    "explanation": "Wissen Sie, wann …? asks politely for a time.",
+    "english": "Do you know when the delivery arrived?"
+   },
+   "tr": {
+    "prompt": "Teslimatın ne zaman geldiğini bilip bilmediğini sor.",
+    "hint": "Dolaylı soru: fiil en sona gider.",
+    "explanation": "Wissen Sie, wann …? kibarca bir zaman sorar.",
+    "english": "Teslimatın ne zaman geldiğini biliyor musunuz?"
+   }
+  },
+  "b1-record-room-exercise-3": {
+   "german": "Die Akten werden jeden Freitag ins Archiv gebracht.",
+   "source": {
+    "prompt": "Listen. When are the files brought to the archive?",
+    "hint": "werden + gebracht is the passive.",
+    "explanation": "The passive says what happens, not who does it.",
+    "english": "The files are brought to the archive every Friday."
+   },
+   "tr": {
+    "prompt": "Dinle. Dosyalar arşive ne zaman getiriliyor?",
+    "hint": "werden + gebracht edilgen çatıdır.",
+    "explanation": "Edilgen çatı kimin yaptığını değil, ne olduğunu söyler.",
+    "english": "Dosyalar her cuma arşive getiriliyor."
+   }
+  },
+  "b1-record-room-exercise-4": {
+   "german": "Ich möchte wissen, wer das unterschrieben hat.",
+   "source": {
+    "prompt": "Say: “I would like to know who signed that.”",
+    "hint": "wer starts the indirect question; hat goes last.",
+    "explanation": "unterschreiben → unterschrieben.",
+    "english": "I would like to know who signed that."
+   },
+   "tr": {
+    "prompt": "Söyle: “Bunu kimin imzaladığını bilmek istiyorum.”",
+    "hint": "wer dolaylı soruyu başlatır; hat en sona gider.",
+    "explanation": "unterschreiben → unterschrieben.",
+    "english": "Bunu kimin imzaladığını bilmek istiyorum."
+   }
+  },
+  "b1-record-room-exercise-5": {
+   "german": "Mir ist aufgefallen, dass hier eine Seite fehlt.",
+   "source": {
+    "prompt": "Say: “I noticed that a page is missing here.”",
+    "hint": "auffallen takes the dative: mir.",
+    "explanation": "After dass the verb fehlt goes last.",
+    "english": "I noticed that a page is missing here."
+   },
+   "tr": {
+    "prompt": "Söyle: “Burada bir sayfanın eksik olduğunu fark ettim.”",
+    "hint": "auffallen -e hâli alır: mir.",
+    "explanation": "dass’tan sonra fehlt fiili en sona gider.",
+    "english": "Burada bir sayfanın eksik olduğunu fark ettim."
+   }
+  },
+  "b1-record-room-exercise-6": {
+   "german": "Darf ich eine Kopie davon machen?",
+   "source": {
+    "prompt": "Ask if you may make a copy of it.",
+    "hint": "davon refers to the document.",
+    "explanation": "Darf ich …? asks for permission.",
+    "english": "May I make a copy of it?"
+   },
+   "tr": {
+    "prompt": "Ondan bir kopya yapıp yapamayacağını sor.",
+    "hint": "davon belgeyi gösterir.",
+    "explanation": "Darf ich …? izin ister.",
+    "english": "Bunun bir kopyasını alabilir miyim?"
+   }
+  },
+  "b1-record-room-exercise-7": {
+   "german": "Frau Kessler hat die Formulare selbst ausgefüllt.",
+   "source": {
+    "prompt": "Listen. What did Frau Kessler do?",
+    "hint": "ausfüllen → ausgefüllt.",
+    "explanation": "selbst means herself here.",
+    "english": "Frau Kessler filled in the forms herself."
+   },
+   "tr": {
+    "prompt": "Dinle. Frau Kessler ne yaptı?",
+    "hint": "ausfüllen → ausgefüllt.",
+    "explanation": "selbst burada “kendisi” demektir.",
+    "english": "Frau Kessler formları kendisi doldurdu."
+   }
+  },
+  "b1-signalman-exercise-1": {
+   "german": "Ich bitte Sie, es einmal laut zu sagen.",
+   "source": {
+    "prompt": "Ask Jonas politely to say it out loud once.",
+    "hint": "bitten + zu + infinitive at the end.",
+    "explanation": "After a comma, zu sagen completes the request.",
+    "english": "I ask you to say it out loud once."
+   },
+   "tr": {
+    "prompt": "Jonas’tan bunu bir kez yüksek sesle söylemesini kibarca rica et.",
+    "hint": "bitten + zu + sonda mastar.",
+    "explanation": "Virgülden sonra zu sagen ricayı tamamlar.",
+    "english": "Bunu bir kez yüksek sesle söylemenizi rica ediyorum."
+   }
+  },
+  "b1-signalman-exercise-2": {
+   "german": "Es wäre schön, wenn Sie mitkommen könnten.",
+   "source": {
+    "prompt": "Say it would be nice if he could come along.",
+    "hint": "wäre and könnten are polite subjunctive forms.",
+    "explanation": "After wenn the verb goes to the end.",
+    "english": "It would be nice if you could come along."
+   },
+   "tr": {
+    "prompt": "Onun da gelebilmesinin güzel olacağını söyle.",
+    "hint": "wäre ve könnten kibar dilek kipleridir.",
+    "explanation": "wenn’den sonra fiil sona gider.",
+    "english": "Siz de gelebilseniz güzel olurdu."
+   }
+  },
+  "b1-signalman-exercise-3": {
+   "german": "Seit zwölf Jahren hat er kein Wort gesagt.",
+   "source": {
+    "prompt": "Listen. What has he not said in twelve years?",
+    "hint": "kein Wort: not a single word.",
+    "explanation": "seit + duration with the present perfect.",
+    "english": "He has not said a word in twelve years."
+   },
+   "tr": {
+    "prompt": "Dinle. On iki yıldır neyi söylemedi?",
+    "hint": "kein Wort: tek kelime bile.",
+    "explanation": "seit + süre, geçmiş zamanla.",
+    "english": "On iki yıldır tek kelime söylemedi."
+   }
+  },
+  "b1-signalman-exercise-4": {
+   "german": "Sie müssen keine Angst haben.",
+   "source": {
+    "prompt": "Say: “You need not be afraid.”",
+    "hint": "nicht müssen / kein … müssen: need not.",
+    "explanation": "Angst haben: to be afraid.",
+    "english": "You need not be afraid."
+   },
+   "tr": {
+    "prompt": "Söyle: “Korkmanıza gerek yok.”",
+    "hint": "kein … müssen: gerek yok.",
+    "explanation": "Angst haben: korkmak.",
+    "english": "Korkmanıza gerek yok."
+   }
+  },
+  "b1-signalman-exercise-5": {
+   "german": "Ohne Ihre Hilfe schaffen wir es nicht.",
+   "source": {
+    "prompt": "Say: “We will not manage without your help.”",
+    "hint": "ohne + accusative.",
+    "explanation": "es schaffen: to manage it.",
+    "english": "We will not manage without your help."
+   },
+   "tr": {
+    "prompt": "Söyle: “Sizin yardımınız olmadan başaramayız.”",
+    "hint": "ohne + belirtme hâli.",
+    "explanation": "es schaffen: başarmak.",
+    "english": "Sizin yardımınız olmadan başaramayız."
+   }
+  },
+  "b1-signalman-exercise-6": {
+   "german": "Was hält Sie davon ab?",
+   "source": {
+    "prompt": "Ask what is stopping him.",
+    "hint": "abhalten von: to stop someone from.",
+    "explanation": "davon refers to the action.",
+    "english": "What is stopping you?"
+   },
+   "tr": {
+    "prompt": "Onu neyin durdurduğunu sor.",
+    "hint": "abhalten von: birini bir şeyden alıkoymak.",
+    "explanation": "davon eylemi gösterir.",
+    "english": "Sizi ne alıkoyuyor?"
+   }
+  },
+  "b1-signalman-exercise-7": {
+   "german": "Das Signal leuchtet jede Nacht von acht bis sechs.",
+   "source": {
+    "prompt": "Listen. When does the signal shine?",
+    "hint": "von … bis: from … to.",
+    "explanation": "jede Nacht: every night.",
+    "english": "The signal shines every night from eight to six."
+   },
+   "tr": {
+    "prompt": "Dinle. Sinyal ne zaman yanıyor?",
+    "hint": "von … bis: …den …e kadar.",
+    "explanation": "jede Nacht: her gece.",
+    "english": "Sinyal her gece sekizden altıya kadar yanıyor."
+   }
+  },
+  "b1-temptation-exercise-1": {
+   "german": "Wenn ich den Schlüssel drehe, was passiert dann?",
+   "source": {
+    "prompt": "Ask Ada what happens if you turn the key.",
+    "hint": "wenn-clause first, verb at its end; then the question.",
+    "explanation": "After a wenn-clause the main clause starts with its verb or question word.",
+    "english": "If I turn the key, what happens then?"
+   },
+   "tr": {
+    "prompt": "Ada’ya anahtarı çevirirsen ne olacağını sor.",
+    "hint": "Önce wenn cümlesi, fiil sonunda; sonra soru.",
+    "explanation": "wenn cümlesinden sonra ana cümle fiil ya da soru kelimesiyle başlar.",
+    "english": "Anahtarı çevirirsem o zaman ne olur?"
+   }
+  },
+  "b1-temptation-exercise-2": {
+   "german": "Was würde passieren, wenn wir nichts tun?",
+   "source": {
+    "prompt": "Ask what would happen if we did nothing.",
+    "hint": "würde + infinitive for something imagined.",
+    "explanation": "wenn sends tun to the end.",
+    "english": "What would happen if we did nothing?"
+   },
+   "tr": {
+    "prompt": "Hiçbir şey yapmazsak ne olacağını sor.",
+    "hint": "Hayal edilen bir şey için würde + mastar.",
+    "explanation": "wenn, tun fiilini sona gönderir.",
+    "english": "Hiçbir şey yapmasak ne olurdu?"
+   }
+  },
+  "b1-temptation-exercise-3": {
+   "german": "Falls der Strahl stärker wird, schließen wir die Fenster.",
+   "source": {
+    "prompt": "Listen. What will they close if the beam gets stronger?",
+    "hint": "falls: in case.",
+    "explanation": "falls works like wenn: the verb goes to the end.",
+    "english": "If the beam gets stronger, we will close the windows."
+   },
+   "tr": {
+    "prompt": "Dinle. Işın güçlenirse neyi kapatacaklar?",
+    "hint": "falls: … durumunda.",
+    "explanation": "falls, wenn gibi çalışır: fiil sona gider.",
+    "english": "Işın güçlenirse pencereleri kapatırız."
+   }
+  },
+  "b1-temptation-exercise-4": {
+   "german": "Ich würde lieber warten.",
+   "source": {
+    "prompt": "Say: “I would rather wait.”",
+    "hint": "würde lieber + infinitive.",
+    "explanation": "lieber expresses a preference.",
+    "english": "I would rather wait."
+   },
+   "tr": {
+    "prompt": "Söyle: “Beklemeyi tercih ederim.”",
+    "hint": "würde lieber + mastar.",
+    "explanation": "lieber bir tercihi ifade eder.",
+    "english": "Beklemeyi tercih ederim."
+   }
+  },
+  "b1-temptation-exercise-5": {
+   "german": "Das hätte ich nicht gedacht.",
+   "source": {
+    "prompt": "Say: “I would not have thought that.”",
+    "hint": "hätte + participle for the past that did not happen.",
+    "explanation": "denken → gedacht.",
+    "english": "I would not have thought that."
+   },
+   "tr": {
+    "prompt": "Söyle: “Bunu düşünmezdim.”",
+    "hint": "Gerçekleşmemiş geçmiş için hätte + ortaç.",
+    "explanation": "denken → gedacht.",
+    "english": "Bunu düşünmezdim."
+   }
+  },
+  "b1-temptation-exercise-6": {
+   "german": "Unter welchen Bedingungen wäre das möglich?",
+   "source": {
+    "prompt": "Ask under which conditions that would be possible.",
+    "hint": "wäre: would be.",
+    "explanation": "unter + dative plural: welchen Bedingungen.",
+    "english": "Under which conditions would that be possible?"
+   },
+   "tr": {
+    "prompt": "Bunun hangi koşullarda mümkün olacağını sor.",
+    "hint": "wäre: olurdu.",
+    "explanation": "unter + -de hâli çoğul: welchen Bedingungen.",
+    "english": "Bu hangi koşullarda mümkün olurdu?"
+   }
+  },
+  "b1-temptation-exercise-7": {
+   "german": "Wenn die Strecke zu ist, kann der Strahl Waldruh nicht erreichen.",
+   "source": {
+    "prompt": "Listen. What can the beam not reach if the route is closed?",
+    "hint": "erreichen: to reach.",
+    "explanation": "wenn + condition, then the main clause.",
+    "english": "If the route is closed, the beam cannot reach Waldruh."
+   },
+   "tr": {
+    "prompt": "Dinle. Hat kapalıyken ışın neye ulaşamaz?",
+    "hint": "erreichen: ulaşmak.",
+    "explanation": "wenn + koşul, sonra ana cümle.",
+    "english": "Hat kapalıyken ışın Waldruh’a ulaşamaz."
+   }
   }
  },
  "texts": {

@@ -51,7 +51,22 @@ const rules = graphs.map(graph => {
     return { id: object.id, x: object.x, y: object.y };
   });
   const replies = graph.nodes.flatMap(node => node.lines.flatMap(line => line.reply ? [line.reply.exerciseId] : []));
-  return { questId: graph.questId, mapId: map.id, npcId: quest.npcId, npc: {id:npc.id,x:npc.x,y:npc.y}, gateExerciseId: graph.gateExerciseId, replyExerciseIds: replies, choiceIds: choiceNode.choices.map(choice => choice.id), choices: choiceNode.choices.map(choice => ({ id: choice.id, effects: choice.effects, ...(choice.condition ? { condition: choice.condition } : {}) })), investigationObjectIds: objects.map(object => object.id), objects };
+  // A locked investigation opens only with the named key, ledger or trust.
+  const locks = graph.investigations.filter(item => item.lock).map(item => ({ objectId: item.objectId, condition: item.lock.condition, reason: item.lock.reason }));
+  return { questId: graph.questId, mapId: map.id, npcId: quest.npcId, npc: {id:npc.id,x:npc.x,y:npc.y}, gateExerciseId: graph.gateExerciseId, replyExerciseIds: replies, choiceIds: choiceNode.choices.map(choice => choice.id), choices: choiceNode.choices.map(choice => ({ id: choice.id, effects: choice.effects, ...(choice.condition ? { condition: choice.condition } : {}) })), investigationObjectIds: objects.map(object => object.id), objects, ...(locks.length ? { locks } : {}) };
 });
-await exportJSON('server/story_rules.json', { rules });
+// Fading names and Otto's tickets: authored apart from the scenes, placed on the scene's anchors.
+const { getWorldScene } = await import('../web/src/scene-data.ts');
+const mechanics = JSON.parse(await readFile(resolve(root, 'content/story-mechanics.json'), 'utf8'));
+const place = (row, label) => {
+  if (!row.anchor) return row;
+  const scene = getWorldScene(row.mapId), [kind, id] = row.anchor.split(':');
+  const anchor = (kind === 'npc' ? scene.npcs : kind === 'object' ? scene.objects : kind === 'scenery' ? scene.scenery : []).find(item => item.id === id);
+  if (!anchor) throw new Error(`Missing ${label} anchor ${row.anchor} for ${row.id}`);
+  const { anchor: name, ...rest } = row;
+  return { id: rest.id, mapId: rest.mapId, anchor: name, x: anchor.x / scene.width, y: anchor.y / scene.height, ...rest };
+};
+const ink = { ...mechanics.ink, entries: mechanics.ink.entries.map(entry => place(entry, 'ink')) };
+const sideQuests = mechanics.sideQuests.map(side => place(side, 'ticket'));
+await exportJSON('server/story_rules.json', { rules, ink, sideQuests });
 process.stdout.write(`Exported ${rules.length} investigations, ${encounters.length} encounters and ${games.length} validated neighborhood plans.\n`);

@@ -260,6 +260,8 @@ func (a *App) heartbeat(w http.ResponseWriter, r *http.Request) {
 		migrateIntake(&account.Progress, a.curriculum.Syllabus)
 		creditHeartbeat(&account.Progress, a.curriculum.Syllabus, input.Seconds, now)
 		introduced = introduceDue(&account.Progress, a.curriculum.Syllabus, now)
+		// Names fade with visible play; the heartbeat saves each new crack or start.
+		ensureStory(&account.Progress)
 		return Receipt{}, nil
 	})
 	if err != nil {

@@ -20,6 +20,7 @@ import { TravelScene, raiseTravelCurtain } from './travel-scene';
 import type { ExploreScene } from './explore-scene';
 import type { EditBridge } from './world-edit-mode';
 import type { WorldEditOp } from './world-edit-ops';
+import { emptyStoryMarks, type StoryMarks } from './story-mechanics';
 import { readWorld, SceneKeys, WorldEvents, writeWorld, type Avatar, type WorldMotion, type WorldPlayer, type WorldPresentation, type WorldRegistry, type WorldStoryState } from './world-state';
 
 export type { Avatar, WorldPlayer, WorldMotion, WorldStoryState, WorldPresentation } from './world-state';
@@ -85,7 +86,7 @@ export class World {
     const seed = (target: Phaser.Game) => {
       const initial: WorldRegistry = {
         mapId: 'lindenhafen', interiorId: undefined, players: { players: [], selfId: '' }, avatar: DEFAULT_AVATAR,
-        objective: undefined, storyState: { completedQuestIds: [], bellCount: 0 }, conversationTarget: undefined, cinematicBeat: undefined,
+        objective: undefined, storyState: { completedQuestIds: [], bellCount: 0 }, storyMarks: emptyStoryMarks(), conversationTarget: undefined, cinematicBeat: undefined,
         inputEnabled: true, windowFocused: typeof document === 'undefined' || document.hasFocus(), reducedMotion: this.reducedMotion,
         watching: false, terrainOnly: false, screenFilter: normalizeScreenFilterSettings(undefined),
         learning: { lexicon: [], progress: { words: {} } }, weatherPreview: 'regional', observedResident: undefined,
@@ -192,6 +193,9 @@ export class World {
   setTerrainOnly(terrainOnly: boolean): void { this.set('terrainOnly', terrainOnly); }
   setConversationTarget(id: string | undefined): void { this.set('conversationTarget', id); }
   setStoryState(state: WorldStoryState): void { this.set('storyState', state); }
+  setStoryMarks(marks: StoryMarks): void { this.set('storyMarks', marks); }
+  /** How strongly the carried lamp leans toward a fading name (0–1). */
+  lampStrength(): number { const scene = this.game.scene.getScene(SceneKeys.World) as WorldScene | null; return scene?.lampStrength ?? 0; }
   setObjective(npcId: string | undefined): void { this.set('objective', npcId); }
   setInputEnabled(enabled: boolean): void { this.set('inputEnabled', enabled); }
   setAudioPreferences(preferences: { silent: boolean; muted: boolean }): void { this.audio.setPreferences(preferences); }

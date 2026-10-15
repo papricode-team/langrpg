@@ -1,6 +1,9 @@
 import { mountSupportBanner } from './support-session';
 import { startAnalytics, trackAnalytics, browserAnalyticsEnabled, setBrowserAnalyticsEnabled } from './analytics-client';
 import { castPortraitMarkup } from './cast-portrait';
+import { castActor } from './character-cast';
+import { StoryMechanicsUi } from './story-mechanics-ui';
+import { ticketsPage } from './story-mechanics';
 import { pendingReferral, referralAvailable } from './referrals';
 import { brandMarkup } from './branding';
 import {loadPublishedWorld,sceneContentVersion,sceneDocument} from './scene-data';
@@ -52,6 +55,7 @@ import { expeditionGames, getExpeditionGame, expeditionGameStatus, expeditionNot
 import { adventureHome } from './game-panels';
 import './interiors.css';
 import './quest-cta.css';
+import './story-mechanics.css';
 import './hud.css';
 import { World } from './world';
 import type { Avatar, WorldPlayer, WorldMotion, WorldPresentation } from './world';
@@ -87,6 +91,7 @@ import { maps, getMap, isStoryMap } from './maps';
 import type { MapId, WorldObjectSpec } from './maps';
 import { actFor, clueFor, discoveredClues, journalNarratives, objectStories, storyActs } from './story';
 import { activityDiscoveries } from './activity-stories';
+import { coastPage, coastThreadMarkup } from './coast-threads';
 import { ScreenFilterControls } from './screen-filter-controls';
 import { MenuMemory, MenuNavigator, menuChromeMarkup, menuSections, sectionOf, viewLabel, type MenuPage, type MenuView } from './menu-navigation';
 import { bindOptionRows, optionsMarkup, optionsTabs, type OptionRow, type OptionsTab } from './options-menu';
@@ -167,12 +172,13 @@ let progress: Progress = emptyProgress();
 const progressStore = createStateStore(progress);
 let questController: QuestController | undefined;
 let investigationQuest: string | undefined;
+let mechanicsUi: StoryMechanicsUi | undefined;
 let placementController: { destroy(): void } | undefined;
 let storySaves: { slot: string; name: string; at: string }[] = [];
 let cinematicActive = false;
 let pendingStoryBeat: CutsceneKind | undefined;
 let pendingTravelBeat = false;
-const questCinematics: Record<string, CutsceneKind> = { 'a1-arrival':'platform', 'a1-station':'recording', 'a1-lost-parcel':'erasure', 'a2-broken-clock':'clockmill', 'a2-archive':'confession', 'b1-new-route':'dark-beam', 'b1-work':'ledger', 'b1-storm':'storm', 'b1-atlas':'bell' };
+const questCinematics: Record<string, CutsceneKind> = { 'a1-arrival':'platform', 'a1-bench':'remembered', 'a1-station':'recording', 'a1-lost-parcel':'erasure', 'a2-broken-clock':'clockmill', 'a2-forest-rails':'rails', 'a2-archive':'confession', 'b1-new-route':'dark-beam', 'b1-work':'ledger', 'b1-temptation':'temptation', 'b1-storm':'storm', 'b1-atlas':'bell' };
 let started = false;
 let entryTarget: 'de' | 'en' = sessionStorage.getItem('atlas.entryTarget') === 'en' ? 'en' : 'de';
 let worldEdit: { bridge: EditBridge; overlay: WorldEditOverlay; session: WorldEditSession } | undefined;
@@ -351,6 +357,9 @@ function portrait(id: string, className = '', expression = 'neutral') {
     const region = expeditionRegions.find(region => region.npcs.some(npc => npc.id === local.id))!;
     return `<span class="expedition-portrait ${className}" style="background-image:url('/assets/${region.id}-portraits.webp?v=2');background-size:800% 100%;background-position:${local.artVariant / 7 * 100}% 50%" aria-hidden="true"></span>`;
   }
+  // Story characters without a painted portrait use their own component recipe.
+  const recipe = castActor(id)?.recipe;
+  if (recipe) return avatarPortraitMarkup(recipe, `portrait ${className}`, false, expression);
   const index = Math.max(0, npcs.findIndex(n => n.id === id));
   return `<span class="portrait ${className}" style="--portrait-x:${(index % 4) * 100 / 3}%;--portrait-y:${index < 4 ? 0 : 100}%" aria-hidden="true"></span>`;
 }
@@ -406,6 +415,22 @@ function renderShell() {
     onBarkShown: bark => { if (bark.wordIds.length) recordExposure({wordIds:bark.wordIds}); },
     onCinematicLine: (speaker,german,clipId) => { if(!silentMode&&!muted)speak(german,speaker,clipId); },
     onCinematicEnd: stopSpeech,
+  });
+  mechanicsUi?.stop();
+  mechanicsUi = new StoryMechanicsUi({
+    request: (path, body) => api.request(path, body), progress: () => progress, mapId: () => mapId, playerName: () => profile.name,
+    setMarks: marks => world.setStoryMarks(marks), lampStrength: () => world.lampStrength(),
+    acceptProgress: value => { acceptProgress(value); updateProgress(); },
+    openDialog: (html, className) => openDialog(html, className), closeDialog: () => document.querySelector<HTMLDialogElement>('#dialog')!.close(),
+    toast, cue: playCue, soundAllowed: () => !muted && !silentMode && view === 'world' && !document.hidden,
+    onTick: () => updateFadingNameChip(),
+  });
+  mechanicsUi.start(document.querySelector<HTMLElement>('#game-hud')!);
+  document.querySelector<HTMLDialogElement>('#dialog')!.addEventListener('submit', event => {
+    const form = event.target as HTMLFormElement;
+    if (!form.dataset.inkForm && !form.dataset.sideForm) return;
+    event.preventDefault();
+    void mechanicsUi?.submit(form);
   });
   questController?.destroy();
   questController = new QuestController({
@@ -665,6 +690,7 @@ function updateProgress() {
   document.querySelector<HTMLElement>('#game-shell')!.dataset.crest = rewards.crest;
   updatePlayerHud(titleLabel(rewards.title));
   world.setStoryState({ completedQuestIds: progress.completedQuestIds, bellCount: savedStory.bell, flags: savedStory.flags, playerName: profile.name });
+  mechanicsUi?.progressChanged();
   if (course) world.setLearningContext(course.courseLexicon,progress,introducedSet(),barkLineAllowed);
   const expedition = getExpedition(mapId);
   if (expedition) {
@@ -693,14 +719,26 @@ function updateProgress() {
   const objective = finished ? nextAct ? t('Travel to {place}',{place:getMap(nextAct.mapId).name}) : t('Read your discoveries') : investigation ? t('Inspect {name}',{name:findObject(investigationWorldId(investigation))?.label??t('the evidence')}) : t('Speak with {name}',{name:localizedName(npc.name)});
   document.querySelector('#quest-panel')!.innerHTML = interiorId
     ? storyBeacon({ attributes: 'data-action="leave-interior"', glyph: 'arrow', label: getMap(mapId).name, text: t('Leave {name}', { name: getInterior(interiorId).name }), quiet: true })
-    : storyBeacon({ attributes: 'data-action="next-objective"', glyph: finished ? 'map' : 'flag', label: finished ? t('Chapter complete') : t('Follow the story'), text: objective, bell: savedStory.bell > 0 && savedStory.bell < 7 ? savedStory.bell : undefined });
+    : storyBeacon({ attributes: 'data-action="next-objective"', glyph: finished ? 'map' : 'flag', label: finished ? t('Chapter complete') : t('Follow the story'), text: objective, bell: savedStory.bell > 0 && savedStory.bell < 7 ? savedStory.bell : undefined, cracks: (savedStory as { inkWarnings?: number }).inkWarnings ?? 0 });
+  updateFadingNameChip();
   document.querySelector<HTMLElement>('#review-dot')!.hidden = !dueItems(progress).length;
   if (view === 'journal' || view === 'quests' || view === 'story' || view === 'menu') refreshLearningMenu(document.querySelector<HTMLElement>('#other-view')!,renderOther);
 }
 /** The next story step is the one golden action over the world; indoors it quietens to a way back out. */
-function storyBeacon(options: { attributes: string; glyph: string; label: string; text: string; bell?: number; quiet?: boolean }): string {
-  const { attributes, glyph, label, text, bell, quiet } = options;
-  return `<button class="story-beacon${quiet ? ' quiet' : ''}" ${attributes}><span class="beacon-mark" aria-hidden="true">${quiet ? '' : '<span class="quest-spark"></span>'}${icon(glyph)}</span><span class="beacon-copy"><span class="beacon-label">${e(label)}</span><strong class="objective-text">${e(text)}</strong></span>${bell ? `<span class="objective-bell" aria-label="${e(t('The seventh bell'))}">${icon('clock')}${bell}/7</span>` : ''}${quiet ? '' : icon('chevron', 'beacon-chevron')}</button>`;
+function storyBeacon(options: { attributes: string; glyph: string; label: string; text: string; bell?: number; quiet?: boolean; cracks?: number }): string {
+  const { attributes, glyph, label, text, bell, quiet, cracks } = options;
+  const cracked = cracks ? ` cracked" title="${e(t('A name in town is lost. Say it again to heal the bell.'))}` : '';
+  return `<button class="story-beacon${quiet ? ' quiet' : ''}" ${attributes}><span class="beacon-mark" aria-hidden="true">${quiet ? '' : '<span class="quest-spark"></span>'}${icon(glyph)}</span><span class="beacon-copy"><span class="beacon-label">${e(label)}</span><strong class="objective-text">${e(text)}</strong></span>${bell ? `<span class="objective-bell${cracked}" aria-label="${e(cracks ? t('The seventh bell, cracked by a lost name') : t('The seventh bell'))}">${icon('clock')}${bell}/7</span>` : ''}${quiet ? '' : icon('chevron', 'beacon-chevron')}</button>`;
+}
+/** The player's own name pales on the ticket; a small chip offers to say it. */
+function updateFadingNameChip() {
+  const tracker = document.querySelector<HTMLElement>('#quest-tracker');
+  if (!tracker) return;
+  const fading = !interiorId && mechanicsUi?.fadingOwnName();
+  let chip = tracker.querySelector<HTMLButtonElement>('.name-fading-chip');
+  if (!fading) { chip?.remove(); return; }
+  if (!chip) { chip = document.createElement('button'); chip.className = 'name-fading-chip'; chip.dataset.inkOpen = fading.id; tracker.append(chip); }
+  chip.innerHTML = `${icon('lantern')}<span>${e(t('Your name is fading on the ticket. Say it.'))}</span>`;
 }
 function updatePlayerHud(title: string) {
   const done = completedAtLevel(level), total = quests.filter(item => item.level === level).length || 1;
@@ -873,6 +911,8 @@ async function playPendingCinematic(): Promise<boolean> {
     syncWorldMode();
     document.querySelector<HTMLElement>('#world-container')!.focus();
   }
+  // The seventh bell is followed by the first train: the epilogue.
+  if (kind === 'bell') { pendingStoryBeat = 'epilogue'; queueMicrotask(() => void playPendingCinematic()); }
 }
 const loadedRegions = new Set<string>();
 const loadingRegions = new Set<string>();
@@ -901,7 +941,7 @@ async function showActIntro(id: MapId) {
   if (expedition) {
     const map = getMap(id), game = getExpeditionGame(id)!;
     rememberSeen('acts', id);
-    openDialog(`<div class="act-intro" style="--region-art:url('${map.previewAsset}')"><div class="act-art"><span>${t('EXPEDITION')} · A1 / A2 / B1</span></div><div class="act-copy"><h2>${e(expedition.name)}</h2><details class="lore-detail"><summary>${e(t('Read opening'))}</summary><p>${e(expedition.description)}</p><p>${e(expedition.culture)}</p></details><div class="story-objective">${icon('flag')}<span>${e(game.summary)}</span></div><button class="primary-button" data-action="act-begin">${e(t('Explore {place}', { place: expedition.name }))} ${icon('arrow')}</button></div></div>`, 'act-dialog');
+    openDialog(`<div class="act-intro" style="--region-art:url('${map.previewAsset}')"><div class="act-art"><span>${t('EXPEDITION')} · A1 / A2 / B1</span></div><div class="act-copy"><h2>${e(expedition.name)}</h2><details class="lore-detail"><summary>${e(t('Read opening'))}</summary><p>${e(expedition.description)}</p><p>${e(expedition.culture)}</p></details>${coastThreadMarkup(id, progress)}<div class="story-objective">${icon('flag')}<span>${e(game.summary)}</span></div><button class="primary-button" data-action="act-begin">${e(t('Explore {place}', { place: expedition.name }))} ${icon('arrow')}</button></div></div>`, 'act-dialog');
     return;
   }
   const act = await hydrateNarratives(actFor(id)), map = getMap(id);
@@ -1008,7 +1048,7 @@ function expeditionOverview(): string {
   const region=getExpedition(mapId)!,game=getExpeditionGame(mapId);
   if (!game) return `<section class="expedition-overview"><h2>${e(region.name)}</h2><button class="primary-button" data-expedition-game="${region.id}">${e(t('Build the plan'))}</button></section>`;
   const status=expeditionGameStatus(mapId,level,progress.story?.expeditionPlans??{});
-  return `<section class="expedition-overview"><h2>${e(region.name)}</h2><p>${e(game.summary)}</p><button class="primary-button" data-expedition-game="${region.id}">${status==='started'?t('Resume the plan'):status==='completed'?t('Revisit the agreement'):t('Build the plan')}</button><div class="expedition-cast">${region.npcs.map(npc=>`<button data-expedition-target="${npc.id}">${portrait(npc.id)}<strong>${e(npc.name)}</strong>${icon('chevron')}</button>`).join('')}</div><button class="text-button" data-travel="lindenhafen">${t('Return to the missing-route story')}</button></section>`;
+  return `<section class="expedition-overview"><h2>${e(region.name)}</h2>${coastThreadMarkup(region.id, progress)}<p>${e(game.summary)}</p><button class="primary-button" data-expedition-game="${region.id}">${status==='started'?t('Resume the plan'):status==='completed'?t('Revisit the agreement'):t('Build the plan')}</button><div class="expedition-cast">${region.npcs.map(npc=>`<button data-expedition-target="${npc.id}">${portrait(npc.id)}<strong>${e(npc.name)}</strong>${icon('chevron')}</button>`).join('')}</div><button class="text-button" data-travel="lindenhafen">${t('Return to the missing-route story')}</button></section>`;
 }
 async function startExpeditionGame(id: string, requestedLevel?: Level) {
   invalidateContext('expeditionGame', id);
@@ -1028,6 +1068,7 @@ async function startExpeditionGame(id: string, requestedLevel?: Level) {
 }
 async function showObject(id: string) {
   if(deliveryController)return;
+  if (mechanicsUi?.open(id)) return;
   const active = currentQuest();
   const graph = questGraph(active.id) ?? await loadQuestGraph(active.id).catch(() => undefined);
   const investigation = graph?.investigations.find(item => investigationWorldId(item) === id);
@@ -1038,7 +1079,8 @@ async function showObject(id: string) {
   const objectMap = maps.find(map => map.objects.some(item => item.id === id))!;
   const lore = objectStories[id] ? await hydrateNarratives(objectStories[id]) : undefined, queue = objectMap.id === mapId ? availableObjectExercises(object) : [];
   const miniGames = objectMap.id === mapId ? miniGameHostLinks(object.minigame) : '';
-  openDialog(`<div class="object-encounter"><h2>${e(object.label)}</h2><blockquote>${id === 'nebelstadt-observatory' && !progress.completedQuestIds.includes('b1-atlas') ? renderNarrative(journalNarratives.observatoryWaiting) : lore ? renderNarrative(lore.secret) : e(localized(object.prompt))}</blockquote>${lore ? `<details class="lore-detail"><summary>${e(t('Read more'))}</summary><p>${renderNarrative(lore.detail)}</p></details>` : ''}${objectMap.id !== mapId ? `<button class="primary-button" data-travel="${objectMap.id}">${e(t('Travel to {place}',{place:objectMap.name}))}</button>` : queue.length ? `<button class="primary-button" data-practice-object="${id}">${t('Try a short language encounter')}</button>` : `<button class="primary-button" data-action="close-dialog">${t('Back to exploring')}</button>`}<div class="encounter-secondary">${miniGames}${queue.length ? `<button class="text-button" data-action="close-dialog">${t('Leave')}</button>` : ''}</div></div>`, 'object-dialog');
+  const inkPanel = objectMap.id === mapId ? mechanicsUi?.objectPanel(id) ?? '' : '';
+  openDialog(`<div class="object-encounter"><h2>${e(object.label)}</h2>${inkPanel}<blockquote>${id === 'nebelstadt-observatory' && !progress.completedQuestIds.includes('b1-atlas') ? renderNarrative(journalNarratives.observatoryWaiting) : lore ? renderNarrative(lore.secret) : e(localized(object.prompt))}</blockquote>${lore ? `<details class="lore-detail"><summary>${e(t('Read more'))}</summary><p>${renderNarrative(lore.detail)}</p></details>` : ''}${objectMap.id !== mapId ? `<button class="primary-button" data-travel="${objectMap.id}">${e(t('Travel to {place}',{place:objectMap.name}))}</button>` : queue.length ? `<button class="primary-button" data-practice-object="${id}">${t('Try a short language encounter')}</button>` : `<button class="primary-button" data-action="close-dialog">${t('Back to exploring')}</button>`}<div class="encounter-secondary">${miniGames}${queue.length ? `<button class="text-button" data-action="close-dialog">${t('Leave')}</button>` : ''}</div></div>`, 'object-dialog');
 }
 function startObjectPractice(id: string) {
   const object = findObject(id); if (!object) return;
@@ -1117,7 +1159,7 @@ async function startMiniGame(id:string):Promise<void>{
   const levels:Level[]=['A1','A2','B1'],gameLevel=definition.levels.filter(value=>levels.indexOf(value)<=levels.indexOf(level)).at(-1);
   if(!gameLevel){toast(`This lantern round belongs to ${definition.levels.join(' / ')}.`);return;}
   if(definition.modalities.every(mode=>mode==='production')&&!writingReady()){showOpeningPracticeNotice(true);return;}
-  if(['lantern-lighting','word-chain'].includes(id)){const hour=world.getWorldTime().hour;if(hour>=6&&hour<18){toast('The lantern games open at dusk, after 18:00.');return;}}
+  if(['lantern-lighting','word-chain','hold-the-signal'].includes(id)){const hour=world.getWorldTime().hour;if(hour>=6&&hour<18){toast('The lantern games open at dusk, after 18:00.');return;}}
   const questId=definition.questIds?.find(id=>quests.find(quest=>quest.id===id)?.level===gameLevel)??definition.questIds?.[0];
   if(questId&&!questUnlocked(questId,progress.completedQuestIds)){toast('Follow the story to this scene first.');return;}
   deliveryController?.destroy();deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;
@@ -1398,7 +1440,7 @@ function renderOther() {
     el.innerHTML = `<div class="quest-log-heading"><h2>${e(localized(act.title))}</h2></div>${questGraph(currentQuest().id) ? questObjectivesMarkup(questGraph(currentQuest().id)!,progress) : ''}<div class="quest-log-list">${chapterQuests.map((q, i) => { const done = progress.completedQuestIds.includes(q.id), next = q.id === currentQuest().id && !done; return `<button class="quest-log-entry ${done ? 'found' : next ? 'next' : ''}" data-follow-quest="${q.id}" ${questAvailable(q.id, progress) ? '' : 'disabled'}><span class="quest-log-number">${done ? icon('check') : String(i + 1).padStart(2, '0')}</span>${portrait(q.npcId)}<span class="quest-log-copy"><strong>${e(localized(q.title))}</strong></span>${icon('chevron')}</button>`; }).join('')}</div><button class="primary-button" data-action="next-objective">${icon('flag')} ${completedAtLevel(level) === 6 ? t('Follow the next route') : t('Find my next lead')}</button><div class="quest-region-strip">${maps.filter(map => !getExpedition(map.id) || routeUnlocked(map.id, progress.completedQuestIds)).map(map => `<button ${routeUnlocked(map.id, progress.completedQuestIds) ? '' : 'disabled'} data-travel="${map.id}" class="${map.id === mapId ? 'here' : ''}"><span>${map.level}</span>${e(map.name)}${icon(map.id === mapId ? 'pin' : 'arrow')}</button>`).join('')}</div>`;
   } else if (view === 'story') {
     const found = discoveredClues(progress.completedQuestIds), inspected = readSeen('objects');
-    el.innerHTML = `<header class="learning-page-header"><h2>${t('Discoveries')}</h2></header>${evidenceBoard(progress)}<div class="story-acts">${storyActs.map(act=>{
+    el.innerHTML = `<header class="learning-page-header"><h2>${t('Discoveries')}</h2></header>${evidenceBoard(progress)}${mechanicsUi ? ticketsPage(progress, mechanicsUi.mechanics, id => getMap(id as MapId).name) : ''}${coastPage(progress, maps.filter(item => getExpedition(item.id) && routeUnlocked(item.id, progress.completedQuestIds)))}<div class="story-acts">${storyActs.map(act=>{
       const qs=quests.filter(q=>q.level===act.level),clues=found.filter(clue=>qs.some(q=>q.id===clue.questId));
       if(!clues.length)return '';
       return `<section class="story-act"><header><h3>${e(localized(act.title))}</h3><span class="clue-count">${clues.length}/6</span></header><div class="clue-pages">${clues.map(clue=>`<details class="clue-page"><summary>${e(localized(clue.title))}${icon('chevron')}</summary><p>${renderNarrative(clue.text)}</p>${eliseLetter(clue.letter,clue.questId)}<p>${renderNarrative(clue.lead)}</p></details>`).join('')}</div>${clues.length===6?`<details class="lore-detail"><summary>${t('Next chapter')}</summary><blockquote>${renderNarrative(act.cliffhanger)}</blockquote></details>`:''}</section>`;
@@ -1893,6 +1935,8 @@ function bindGlobalEvents() {
       if(action==='encounter'){showInteriorObject(interiorConversation.objectId);return;}
       interiorConversation=action==='back'?backInteriorConversation(interiorConversation):replayInteriorConversation(interiorConversation);renderInteriorConversationDialog();return;
     }
+    if (target.dataset.inkOpen) { mechanicsUi?.open(`ink:${target.dataset.inkOpen}`); return; }
+    if (target.dataset.followTicket) { document.querySelector<HTMLDialogElement>('#dialog')!.close(); setView('world'); world.focusObject(`side:${target.dataset.followTicket}`); toast(t('Following the address on the ticket…')); return; }
     if (target.dataset.minigame) { void startMiniGame(target.dataset.minigame); return; }
     if (target.dataset.activity) { void startActivity(target.dataset.activity as ActivityId); return; }
     if (target.dataset.action === 'load-story-page') { void loadStoryPage(); return; }
@@ -1919,7 +1963,7 @@ function bindGlobalEvents() {
     if (target.dataset.npc) { document.querySelector<HTMLDialogElement>('#dialog')!.close(); setView('world'); world.focusNpc(target.dataset.npc); return; }
     if (target.dataset.practiceQuest) { startQuestPractice(target.dataset.practiceQuest); return; }
     if (target.dataset.replayDialogue) { document.querySelector<HTMLDialogElement>('#dialog')!.close(); setView('world'); void questController?.open(target.dataset.replayDialogue); return; }
-    if (target.dataset.saveStory) { const slot = target.dataset.saveStory; void api.saveStory(slot, document.querySelector<HTMLInputElement>(`#save-name-${slot}`)!.value).then(() => api.story()).then(result => { storySaves = result.saves ?? []; acceptProgress(result.progress); renderOther(); toast(t('This point in your story is saved.')); }).catch(error => toast(error.message, true)); return; }
+    if (target.dataset.saveStory) { const slot = target.dataset.saveStory; void api.saveStory(slot, document.querySelector<HTMLInputElement>(`#save-name-${slot}`)!.value).then(() => api.story()).then(result => { storySaves = result.saves ?? []; acceptProgress(result.progress); mechanicsUi?.setMechanics(result.mechanics); renderOther(); toast(t('This point in your story is saved.')); }).catch(error => toast(error.message, true)); return; }
     if (target.dataset.loadStory) { void api.loadStory(target.dataset.loadStory).then(() => location.reload()).catch(error => toast(error.message, true)); return; }
     if (target.dataset.startQuest) { startQuest(target.dataset.startQuest); return; }
     if (target.dataset.speak) { speak(target.dataset.speak); return; }
@@ -2127,7 +2171,7 @@ async function enterGame(result: SessionResult): Promise<boolean> {
   void sendHeartbeat(0);
   void loadCourse().catch(error => toast(error.message, true));
   const owner = result.player.id;
-  void api.story().then(result => { if (api.selfId !== owner) return; storySaves = result.saves ?? []; acceptProgress(result.progress, owner); updateProgress(); }).catch(error => toast(error.message, true));
+  void api.story().then(result => { if (api.selfId !== owner) return; storySaves = result.saves ?? []; acceptProgress(result.progress, owner); mechanicsUi?.setMechanics(result.mechanics); updateProgress(); }).catch(error => toast(error.message, true));
   accountReminder = new AccountReminder(result.player.id, localStorage);
   accountReminder.tick(performance.now(), false);
   if (reminderTimer !== undefined) clearInterval(reminderTimer);

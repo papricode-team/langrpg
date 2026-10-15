@@ -1,0 +1,44 @@
+{
+  "recipe": {
+    "v": 2,
+    "build": "regular",
+    "skin": "#b07a55",
+    "hair": "#302b2d",
+    "parts": {
+      "face": "angular",
+      "markings": null,
+      "facial-hair": null,
+      "hair": "crop",
+      "headwear": "cap",
+      "top": "turtleneck",
+      "outer": "raincoat",
+      "bottom": "straight",
+      "footwear": "boots",
+      "eyewear": null,
+      "neck": null,
+      "bag": null,
+      "held": null
+    },
+    "colors": {
+      "outer.primary": "#2f4c5c",
+      "outer.secondary": "#253d4a",
+      "headwear.primary": "#2b3a44",
+      "headwear.secondary": "#c9a25c",
+      "top.primary": "#e8e2d4",
+      "bottom.primary": "#3b3b40",
+      "footwear.primary": "#2a2420"
+    }
+  },
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#b07a55\",\"#302b2d\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",\"cap\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"raincoat\"],[\"top\",\"turtleneck\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#3b3b40\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#2a2420\"],[\"headwear.primary\",\"#2b3a44\"],[\"headwear.secondary\",\"#c9a25c\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#2f4c5c\"],[\"outer.secondary\",\"#253d4a\"],[\"top.primary\",\"#e8e2d4\"],[\"top.secondary\",\"#a88e67\"]]]",
+  "preview": false,
+  "frames": 36,
+  "cell": [
+    384,
+    576
+  ],
+  "sha256": "b630ec8b007e584bd614661b48c2eef1125b409a4c40bd6beffa67c3ec41115b",
+  "atlasSha256": "b19d6ebb8f481e816fd88ea9d22b3353db46624e9c41aa5cb404db75b982ce82",
+  "textureBytes": 14540248,
+  "atlas": "web/public/assets/character-cast/jonas.atlas.json"
+}

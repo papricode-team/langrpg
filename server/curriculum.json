@@ -27,6 +27,19 @@
       ]
     },
     {
+      "id": "a1-notice",
+      "reward": 40,
+      "requiredItemIds": [
+        "a1-notice-item-1",
+        "a1-notice-item-2",
+        "a1-notice-item-3",
+        "a1-notice-item-4",
+        "a1-notice-item-5",
+        "a1-notice-item-6",
+        "a1-notice-item-7"
+      ]
+    },
+    {
       "id": "a1-cafe",
       "reward": 40,
       "requiredItemIds": [
@@ -79,6 +92,19 @@
       ]
     },
     {
+      "id": "a1-chalk",
+      "reward": 40,
+      "requiredItemIds": [
+        "a1-chalk-item-1",
+        "a1-chalk-item-2",
+        "a1-chalk-item-3",
+        "a1-chalk-item-4",
+        "a1-chalk-item-5",
+        "a1-chalk-item-6",
+        "a1-chalk-item-7"
+      ]
+    },
+    {
       "id": "a1-neighbour",
       "reward": 40,
       "requiredItemIds": [
@@ -115,6 +141,19 @@
         "a1-directions-item-5",
         "a1-directions-item-6",
         "a1-directions-item-7"
+      ]
+    },
+    {
+      "id": "a1-bench",
+      "reward": 50,
+      "requiredItemIds": [
+        "a1-bench-item-1",
+        "a1-bench-item-2",
+        "a1-bench-item-3",
+        "a1-bench-item-4",
+        "a1-bench-item-5",
+        "a1-bench-item-6",
+        "a1-bench-item-7"
       ]
     },
     {
@@ -183,6 +222,19 @@
       ]
     },
     {
+      "id": "a1-office-window",
+      "reward": 50,
+      "requiredItemIds": [
+        "a1-office-window-item-1",
+        "a1-office-window-item-2",
+        "a1-office-window-item-3",
+        "a1-office-window-item-4",
+        "a1-office-window-item-5",
+        "a1-office-window-item-6",
+        "a1-office-window-item-7"
+      ]
+    },
+    {
       "id": "a1-invitation",
       "reward": 40,
       "requiredItemIds": [
@@ -248,6 +300,19 @@
       ]
     },
     {
+      "id": "a2-upstairs",
+      "reward": 50,
+      "requiredItemIds": [
+        "a2-upstairs-item-1",
+        "a2-upstairs-item-2",
+        "a2-upstairs-item-3",
+        "a2-upstairs-item-4",
+        "a2-upstairs-item-5",
+        "a2-upstairs-item-6",
+        "a2-upstairs-item-7"
+      ]
+    },
+    {
       "id": "a2-evening-plans",
       "reward": 60,
       "requiredItemIds": [
@@ -261,6 +326,19 @@
       ]
     },
     {
+      "id": "a2-ink-seller",
+      "reward": 50,
+      "requiredItemIds": [
+        "a2-ink-seller-item-1",
+        "a2-ink-seller-item-2",
+        "a2-ink-seller-item-3",
+        "a2-ink-seller-item-4",
+        "a2-ink-seller-item-5",
+        "a2-ink-seller-item-6",
+        "a2-ink-seller-item-7"
+      ]
+    },
+    {
       "id": "a2-rail-trip",
       "reward": 60,
       "requiredItemIds": [
@@ -271,6 +349,19 @@
         "a2-rail-trip-item-5",
         "a2-rail-trip-item-6",
         "a2-rail-trip-item-7"
+      ]
+    },
+    {
+      "id": "a2-forest-rails",
+      "reward": 60,
+      "requiredItemIds": [
+        "a2-forest-rails-item-1",
+        "a2-forest-rails-item-2",
+        "a2-forest-rails-item-3",
+        "a2-forest-rails-item-4",
+        "a2-forest-rails-item-5",
+        "a2-forest-rails-item-6",
+        "a2-forest-rails-item-7"
       ]
     },
     {
@@ -300,6 +391,19 @@
       ]
     },
     {
+      "id": "a2-cellar",
+      "reward": 60,
+      "requiredItemIds": [
+        "a2-cellar-item-1",
+        "a2-cellar-item-2",
+        "a2-cellar-item-3",
+        "a2-cellar-item-4",
+        "a2-cellar-item-5",
+        "a2-cellar-item-6",
+        "a2-cellar-item-7"
+      ]
+    },
+    {
       "id": "a2-archive",
       "reward": 60,
       "requiredItemIds": [
@@ -326,6 +430,19 @@
       ]
     },
     {
+      "id": "b1-record-room",
+      "reward": 70,
+      "requiredItemIds": [
+        "b1-record-room-item-1",
+        "b1-record-room-item-2",
+        "b1-record-room-item-3",
+        "b1-record-room-item-4",
+        "b1-record-room-item-5",
+        "b1-record-room-item-6",
+        "b1-record-room-item-7"
+      ]
+    },
+    {
       "id": "b1-new-route",
       "reward": 90,
       "requiredItemIds": [
@@ -336,6 +453,19 @@
         "b1-new-route-item-5",
         "b1-new-route-item-6",
         "b1-new-route-item-7"
+      ]
+    },
+    {
+      "id": "b1-signalman",
+      "reward": 70,
+      "requiredItemIds": [
+        "b1-signalman-item-1",
+        "b1-signalman-item-2",
+        "b1-signalman-item-3",
+        "b1-signalman-item-4",
+        "b1-signalman-item-5",
+        "b1-signalman-item-6",
+        "b1-signalman-item-7"
       ]
     },
     {
@@ -362,6 +492,19 @@
         "b1-council-item-5",
         "b1-council-item-6",
         "b1-council-item-7"
+      ]
+    },
+    {
+      "id": "b1-temptation",
+      "reward": 80,
+      "requiredItemIds": [
+        "b1-temptation-item-1",
+        "b1-temptation-item-2",
+        "b1-temptation-item-3",
+        "b1-temptation-item-4",
+        "b1-temptation-item-5",
+        "b1-temptation-item-6",
+        "b1-temptation-item-7"
       ]
     },
     {
@@ -446,6 +589,34 @@
     },
     {
       "id": "a1-timetable-item-7",
+      "level": "A1"
+    },
+    {
+      "id": "a1-notice-item-1",
+      "level": "A1"
+    },
+    {
+      "id": "a1-notice-item-2",
+      "level": "A1"
+    },
+    {
+      "id": "a1-notice-item-3",
+      "level": "A1"
+    },
+    {
+      "id": "a1-notice-item-4",
+      "level": "A1"
+    },
+    {
+      "id": "a1-notice-item-5",
+      "level": "A1"
+    },
+    {
+      "id": "a1-notice-item-6",
+      "level": "A1"
+    },
+    {
+      "id": "a1-notice-item-7",
       "level": "A1"
     },
     {
@@ -561,6 +732,34 @@
       "level": "A1"
     },
     {
+      "id": "a1-chalk-item-1",
+      "level": "A1"
+    },
+    {
+      "id": "a1-chalk-item-2",
+      "level": "A1"
+    },
+    {
+      "id": "a1-chalk-item-3",
+      "level": "A1"
+    },
+    {
+      "id": "a1-chalk-item-4",
+      "level": "A1"
+    },
+    {
+      "id": "a1-chalk-item-5",
+      "level": "A1"
+    },
+    {
+      "id": "a1-chalk-item-6",
+      "level": "A1"
+    },
+    {
+      "id": "a1-chalk-item-7",
+      "level": "A1"
+    },
+    {
       "id": "a1-neighbour-item-1",
       "level": "A1"
     },
@@ -642,6 +841,34 @@
     },
     {
       "id": "a1-directions-item-7",
+      "level": "A1"
+    },
+    {
+      "id": "a1-bench-item-1",
+      "level": "A1"
+    },
+    {
+      "id": "a1-bench-item-2",
+      "level": "A1"
+    },
+    {
+      "id": "a1-bench-item-3",
+      "level": "A1"
+    },
+    {
+      "id": "a1-bench-item-4",
+      "level": "A1"
+    },
+    {
+      "id": "a1-bench-item-5",
+      "level": "A1"
+    },
+    {
+      "id": "a1-bench-item-6",
+      "level": "A1"
+    },
+    {
+      "id": "a1-bench-item-7",
       "level": "A1"
     },
     {
@@ -785,6 +1012,34 @@
       "level": "A1"
     },
     {
+      "id": "a1-office-window-item-1",
+      "level": "A1"
+    },
+    {
+      "id": "a1-office-window-item-2",
+      "level": "A1"
+    },
+    {
+      "id": "a1-office-window-item-3",
+      "level": "A1"
+    },
+    {
+      "id": "a1-office-window-item-4",
+      "level": "A1"
+    },
+    {
+      "id": "a1-office-window-item-5",
+      "level": "A1"
+    },
+    {
+      "id": "a1-office-window-item-6",
+      "level": "A1"
+    },
+    {
+      "id": "a1-office-window-item-7",
+      "level": "A1"
+    },
+    {
       "id": "a1-invitation-item-1",
       "level": "A1"
     },
@@ -925,6 +1180,34 @@
       "level": "A2"
     },
     {
+      "id": "a2-upstairs-item-1",
+      "level": "A2"
+    },
+    {
+      "id": "a2-upstairs-item-2",
+      "level": "A2"
+    },
+    {
+      "id": "a2-upstairs-item-3",
+      "level": "A2"
+    },
+    {
+      "id": "a2-upstairs-item-4",
+      "level": "A2"
+    },
+    {
+      "id": "a2-upstairs-item-5",
+      "level": "A2"
+    },
+    {
+      "id": "a2-upstairs-item-6",
+      "level": "A2"
+    },
+    {
+      "id": "a2-upstairs-item-7",
+      "level": "A2"
+    },
+    {
       "id": "a2-evening-plans-item-1",
       "level": "A2"
     },
@@ -953,6 +1236,34 @@
       "level": "A2"
     },
     {
+      "id": "a2-ink-seller-item-1",
+      "level": "A2"
+    },
+    {
+      "id": "a2-ink-seller-item-2",
+      "level": "A2"
+    },
+    {
+      "id": "a2-ink-seller-item-3",
+      "level": "A2"
+    },
+    {
+      "id": "a2-ink-seller-item-4",
+      "level": "A2"
+    },
+    {
+      "id": "a2-ink-seller-item-5",
+      "level": "A2"
+    },
+    {
+      "id": "a2-ink-seller-item-6",
+      "level": "A2"
+    },
+    {
+      "id": "a2-ink-seller-item-7",
+      "level": "A2"
+    },
+    {
       "id": "a2-rail-trip-item-1",
       "level": "A2"
     },
@@ -978,6 +1289,34 @@
     },
     {
       "id": "a2-rail-trip-item-7",
+      "level": "A2"
+    },
+    {
+      "id": "a2-forest-rails-item-1",
+      "level": "A2"
+    },
+    {
+      "id": "a2-forest-rails-item-2",
+      "level": "A2"
+    },
+    {
+      "id": "a2-forest-rails-item-3",
+      "level": "A2"
+    },
+    {
+      "id": "a2-forest-rails-item-4",
+      "level": "A2"
+    },
+    {
+      "id": "a2-forest-rails-item-5",
+      "level": "A2"
+    },
+    {
+      "id": "a2-forest-rails-item-6",
+      "level": "A2"
+    },
+    {
+      "id": "a2-forest-rails-item-7",
       "level": "A2"
     },
     {
@@ -1037,6 +1376,34 @@
       "level": "A2"
     },
     {
+      "id": "a2-cellar-item-1",
+      "level": "A2"
+    },
+    {
+      "id": "a2-cellar-item-2",
+      "level": "A2"
+    },
+    {
+      "id": "a2-cellar-item-3",
+      "level": "A2"
+    },
+    {
+      "id": "a2-cellar-item-4",
+      "level": "A2"
+    },
+    {
+      "id": "a2-cellar-item-5",
+      "level": "A2"
+    },
+    {
+      "id": "a2-cellar-item-6",
+      "level": "A2"
+    },
+    {
+      "id": "a2-cellar-item-7",
+      "level": "A2"
+    },
+    {
       "id": "a2-archive-item-1",
       "level": "A2"
     },
@@ -1093,6 +1460,34 @@
       "level": "B1"
     },
     {
+      "id": "b1-record-room-item-1",
+      "level": "B1"
+    },
+    {
+      "id": "b1-record-room-item-2",
+      "level": "B1"
+    },
+    {
+      "id": "b1-record-room-item-3",
+      "level": "B1"
+    },
+    {
+      "id": "b1-record-room-item-4",
+      "level": "B1"
+    },
+    {
+      "id": "b1-record-room-item-5",
+      "level": "B1"
+    },
+    {
+      "id": "b1-record-room-item-6",
+      "level": "B1"
+    },
+    {
+      "id": "b1-record-room-item-7",
+      "level": "B1"
+    },
+    {
       "id": "b1-new-route-item-1",
       "level": "B1"
     },
@@ -1118,6 +1513,34 @@
     },
     {
       "id": "b1-new-route-item-7",
+      "level": "B1"
+    },
+    {
+      "id": "b1-signalman-item-1",
+      "level": "B1"
+    },
+    {
+      "id": "b1-signalman-item-2",
+      "level": "B1"
+    },
+    {
+      "id": "b1-signalman-item-3",
+      "level": "B1"
+    },
+    {
+      "id": "b1-signalman-item-4",
+      "level": "B1"
+    },
+    {
+      "id": "b1-signalman-item-5",
+      "level": "B1"
+    },
+    {
+      "id": "b1-signalman-item-6",
+      "level": "B1"
+    },
+    {
+      "id": "b1-signalman-item-7",
       "level": "B1"
     },
     {
@@ -1174,6 +1597,34 @@
     },
     {
       "id": "b1-council-item-7",
+      "level": "B1"
+    },
+    {
+      "id": "b1-temptation-item-1",
+      "level": "B1"
+    },
+    {
+      "id": "b1-temptation-item-2",
+      "level": "B1"
+    },
+    {
+      "id": "b1-temptation-item-3",
+      "level": "B1"
+    },
+    {
+      "id": "b1-temptation-item-4",
+      "level": "B1"
+    },
+    {
+      "id": "b1-temptation-item-5",
+      "level": "B1"
+    },
+    {
+      "id": "b1-temptation-item-6",
+      "level": "B1"
+    },
+    {
+      "id": "b1-temptation-item-7",
       "level": "B1"
     },
     {
@@ -1347,6 +1798,58 @@
       "mode": "listening",
       "answer": "achtzehn Uhr",
       "explanation": "Trains use the 24-hour clock: 18 Uhr is 6 p.m."
+    },
+    {
+      "id": "a1-notice-exercise-1",
+      "itemId": "a1-notice-item-1",
+      "mode": "production",
+      "answer": "Warum darf ich das nicht?",
+      "caseSensitive": true,
+      "explanation": "dürfen asks about permission; nicht at the end says what is not allowed."
+    },
+    {
+      "id": "a1-notice-exercise-2",
+      "itemId": "a1-notice-item-2",
+      "mode": "recognition",
+      "answer": "Darf ich hier sitzen?",
+      "explanation": "Darf ich …? asks if something is allowed."
+    },
+    {
+      "id": "a1-notice-exercise-3",
+      "itemId": "a1-notice-item-3",
+      "mode": "listening",
+      "answer": "nicht laut sprechen",
+      "explanation": "man darf nicht … means it is not allowed."
+    },
+    {
+      "id": "a1-notice-exercise-4",
+      "itemId": "a1-notice-item-4",
+      "mode": "production",
+      "answer": "Das ist nicht gut.",
+      "caseSensitive": true,
+      "explanation": "nicht makes a description negative."
+    },
+    {
+      "id": "a1-notice-exercise-5",
+      "itemId": "a1-notice-item-5",
+      "mode": "production",
+      "answer": "Ich sage meinen Namen laut.",
+      "caseSensitive": true,
+      "explanation": "After sagen, der Name becomes den Namen; mein becomes meinen."
+    },
+    {
+      "id": "a1-notice-exercise-6",
+      "itemId": "a1-notice-item-6",
+      "mode": "recognition",
+      "answer": "Wer sind Sie?",
+      "explanation": "Sie takes sind: Wer sind Sie?"
+    },
+    {
+      "id": "a1-notice-exercise-7",
+      "itemId": "a1-notice-item-7",
+      "mode": "listening",
+      "answer": "ab heute",
+      "explanation": "ab marks a starting point in time."
     },
     {
       "id": "a1-cafe-exercise-1",
@@ -1565,6 +2068,58 @@
       "explanation": "zu teuer expresses that something costs more than the speaker wants to pay."
     },
     {
+      "id": "a1-chalk-exercise-1",
+      "itemId": "a1-chalk-item-1",
+      "mode": "production",
+      "answer": "Wie heißt du?",
+      "caseSensitive": true,
+      "explanation": "heißen means to be called. With du it becomes heißt."
+    },
+    {
+      "id": "a1-chalk-exercise-2",
+      "itemId": "a1-chalk-item-2",
+      "mode": "recognition",
+      "answer": "Wie alt bist du?",
+      "explanation": "Wie alt bist du? asks for an age."
+    },
+    {
+      "id": "a1-chalk-exercise-3",
+      "itemId": "a1-chalk-item-3",
+      "mode": "listening",
+      "answer": "zwölf",
+      "explanation": "Ages use Jahre alt."
+    },
+    {
+      "id": "a1-chalk-exercise-4",
+      "itemId": "a1-chalk-item-4",
+      "mode": "production",
+      "answer": "Das ist mein Bruder.",
+      "caseSensitive": true,
+      "explanation": "Das ist … introduces a person."
+    },
+    {
+      "id": "a1-chalk-exercise-5",
+      "itemId": "a1-chalk-item-5",
+      "mode": "production",
+      "answer": "Meine Schwester heißt Lina.",
+      "caseSensitive": true,
+      "explanation": "heißen with a name: … heißt Lina."
+    },
+    {
+      "id": "a1-chalk-exercise-6",
+      "itemId": "a1-chalk-item-6",
+      "mode": "recognition",
+      "answer": "Wo wohnst du?",
+      "explanation": "Wo asks for a place."
+    },
+    {
+      "id": "a1-chalk-exercise-7",
+      "itemId": "a1-chalk-item-7",
+      "mode": "listening",
+      "answer": "am Kanal",
+      "explanation": "am is an + dem."
+    },
+    {
       "id": "a1-neighbour-exercise-1",
       "itemId": "a1-neighbour-item-1",
       "mode": "production",
@@ -1731,6 +2286,58 @@
       "mode": "listening",
       "answer": "Die erste links.",
       "explanation": "die erste Straße links is the first street on the left."
+    },
+    {
+      "id": "a1-bench-exercise-1",
+      "itemId": "a1-bench-item-1",
+      "mode": "production",
+      "answer": "Wie heißen Sie?",
+      "caseSensitive": true,
+      "explanation": "With Sie the verb ends in -en: heißen."
+    },
+    {
+      "id": "a1-bench-exercise-2",
+      "itemId": "a1-bench-item-2",
+      "mode": "recognition",
+      "answer": "Wie geht es Ihnen?",
+      "explanation": "Wie geht es Ihnen? is polite; Wie geht es dir? is informal."
+    },
+    {
+      "id": "a1-bench-exercise-3",
+      "itemId": "a1-bench-item-3",
+      "mode": "listening",
+      "answer": "in der Gartenstraße",
+      "explanation": "wohnen in der … names a street."
+    },
+    {
+      "id": "a1-bench-exercise-4",
+      "itemId": "a1-bench-item-4",
+      "mode": "production",
+      "answer": "Kommen Sie mit.",
+      "caseSensitive": true,
+      "explanation": "A polite instruction starts with the verb: Kommen Sie mit."
+    },
+    {
+      "id": "a1-bench-exercise-5",
+      "itemId": "a1-bench-item-5",
+      "mode": "production",
+      "answer": "Sie sind meine Lehrerin.",
+      "caseSensitive": true,
+      "explanation": "Sie sind is the polite you are."
+    },
+    {
+      "id": "a1-bench-exercise-6",
+      "itemId": "a1-bench-item-6",
+      "mode": "recognition",
+      "answer": "Möchten Sie einen Tee?",
+      "explanation": "Möchten Sie …? is a polite offer."
+    },
+    {
+      "id": "a1-bench-exercise-7",
+      "itemId": "a1-bench-item-7",
+      "mode": "listening",
+      "answer": "seit vierzig Jahren",
+      "explanation": "seit + time says how long something has lasted."
     },
     {
       "id": "a1-station-exercise-1",
@@ -2010,6 +2617,58 @@
       "explanation": "Spelling aloud is very common on the phone."
     },
     {
+      "id": "a1-office-window-exercise-1",
+      "itemId": "a1-office-window-item-1",
+      "mode": "production",
+      "answer": "Das haben Sie geschrieben.",
+      "caseSensitive": true,
+      "explanation": "The perfect tense uses haben + participle. The participle geschrieben goes to the end."
+    },
+    {
+      "id": "a1-office-window-exercise-2",
+      "itemId": "a1-office-window-item-2",
+      "mode": "recognition",
+      "answer": "Wer hat das geschrieben?",
+      "explanation": "Wer hat … geschrieben? asks who did it."
+    },
+    {
+      "id": "a1-office-window-exercise-3",
+      "itemId": "a1-office-window-item-3",
+      "mode": "listening",
+      "answer": "gelesen",
+      "explanation": "lesen → gelesen in the perfect."
+    },
+    {
+      "id": "a1-office-window-exercise-4",
+      "itemId": "a1-office-window-item-4",
+      "mode": "production",
+      "answer": "Ich habe es gesehen.",
+      "caseSensitive": true,
+      "explanation": "Perfect: habe … gesehen."
+    },
+    {
+      "id": "a1-office-window-exercise-5",
+      "itemId": "a1-office-window-item-5",
+      "mode": "production",
+      "answer": "Wir haben das Buch gefunden.",
+      "caseSensitive": true,
+      "explanation": "wir haben … gefunden: the participle goes to the end."
+    },
+    {
+      "id": "a1-office-window-exercise-6",
+      "itemId": "a1-office-window-item-6",
+      "mode": "recognition",
+      "answer": "Das ist nicht Ihr Buch.",
+      "explanation": "nicht Ihr Buch: nicht comes before the possessive."
+    },
+    {
+      "id": "a1-office-window-exercise-7",
+      "itemId": "a1-office-window-item-7",
+      "mode": "listening",
+      "answer": "um acht Uhr",
+      "explanation": "um + time gives the hour."
+    },
+    {
       "id": "a1-invitation-exercise-1",
       "itemId": "a1-invitation-item-1",
       "mode": "production",
@@ -2277,6 +2936,58 @@
       "explanation": "In a weil clause, the finite verb goes at the end: zu klein ist."
     },
     {
+      "id": "a2-upstairs-exercise-1",
+      "itemId": "a2-upstairs-item-1",
+      "mode": "production",
+      "answer": "Darf ich Sie etwas fragen?",
+      "caseSensitive": true,
+      "explanation": "dürfen asks for permission; fragen goes to the end."
+    },
+    {
+      "id": "a2-upstairs-exercise-2",
+      "itemId": "a2-upstairs-item-2",
+      "mode": "recognition",
+      "answer": "Wie lange wohnen Sie schon hier?",
+      "explanation": "Wie lange … schon? asks how long something has lasted."
+    },
+    {
+      "id": "a2-upstairs-exercise-3",
+      "itemId": "a2-upstairs-item-3",
+      "mode": "listening",
+      "answer": "ein Bahnhof",
+      "explanation": "Früher war … describes how a place used to be."
+    },
+    {
+      "id": "a2-upstairs-exercise-4",
+      "itemId": "a2-upstairs-item-4",
+      "mode": "production",
+      "answer": "Meine Großmutter ist neunzig Jahre alt.",
+      "caseSensitive": true,
+      "explanation": "Großmutter is feminine: meine Großmutter."
+    },
+    {
+      "id": "a2-upstairs-exercise-5",
+      "itemId": "a2-upstairs-item-5",
+      "mode": "production",
+      "answer": "Ich war noch nie in Waldruh.",
+      "caseSensitive": true,
+      "explanation": "With sein, everyday German often uses war instead of the perfect."
+    },
+    {
+      "id": "a2-upstairs-exercise-6",
+      "itemId": "a2-upstairs-item-6",
+      "mode": "recognition",
+      "answer": "Erzählen Sie mir bitte von früher.",
+      "explanation": "von früher means about the past."
+    },
+    {
+      "id": "a2-upstairs-exercise-7",
+      "itemId": "a2-upstairs-item-7",
+      "mode": "listening",
+      "answer": "zwei Türen",
+      "explanation": "hatte + früher describes how things were."
+    },
+    {
       "id": "a2-evening-plans-exercise-1",
       "itemId": "a2-evening-plans-item-1",
       "mode": "production",
@@ -2333,6 +3044,58 @@
       "explanation": "verschieben means reschedule or postpone. den Termin is the object."
     },
     {
+      "id": "a2-ink-seller-exercise-1",
+      "itemId": "a2-ink-seller-item-1",
+      "mode": "production",
+      "answer": "Haben Sie auch etwas Günstigeres?",
+      "caseSensitive": true,
+      "explanation": "etwas + comparative + -es: etwas Günstigeres."
+    },
+    {
+      "id": "a2-ink-seller-exercise-2",
+      "itemId": "a2-ink-seller-item-2",
+      "mode": "recognition",
+      "answer": "Diese Tinte ist teurer als die blaue.",
+      "explanation": "Compare with als: teurer als."
+    },
+    {
+      "id": "a2-ink-seller-exercise-3",
+      "itemId": "a2-ink-seller-item-3",
+      "mode": "listening",
+      "answer": "zwölf Euro",
+      "explanation": "kosten + price."
+    },
+    {
+      "id": "a2-ink-seller-exercise-4",
+      "itemId": "a2-ink-seller-item-4",
+      "mode": "production",
+      "answer": "Das ist mir zu teuer.",
+      "caseSensitive": true,
+      "explanation": "zu teuer: too expensive."
+    },
+    {
+      "id": "a2-ink-seller-exercise-5",
+      "itemId": "a2-ink-seller-item-5",
+      "mode": "production",
+      "answer": "Ich nehme lieber die kleine Flasche.",
+      "caseSensitive": true,
+      "explanation": "lieber comes after the verb: ich nehme lieber."
+    },
+    {
+      "id": "a2-ink-seller-exercise-6",
+      "itemId": "a2-ink-seller-item-6",
+      "mode": "recognition",
+      "answer": "Kann ich mit Karte bezahlen?",
+      "explanation": "können + infinitive at the end."
+    },
+    {
+      "id": "a2-ink-seller-exercise-7",
+      "itemId": "a2-ink-seller-item-7",
+      "mode": "listening",
+      "answer": "zwei Flaschen",
+      "explanation": "es gibt + accusative."
+    },
+    {
       "id": "a2-rail-trip-exercise-1",
       "itemId": "a2-rail-trip-item-1",
       "mode": "production",
@@ -2384,6 +3147,58 @@
       "mode": "listening",
       "answer": "Der Bus",
       "explanation": "wegen introduces the reason; einer Störung means a disruption."
+    },
+    {
+      "id": "a2-forest-rails-exercise-1",
+      "itemId": "a2-forest-rails-item-1",
+      "mode": "production",
+      "answer": "Was ist damals passiert?",
+      "caseSensitive": true,
+      "explanation": "damals means back then."
+    },
+    {
+      "id": "a2-forest-rails-exercise-2",
+      "itemId": "a2-forest-rails-item-2",
+      "mode": "recognition",
+      "answer": "Ich war damals zehn Jahre alt.",
+      "explanation": "damals refers to a time in the past."
+    },
+    {
+      "id": "a2-forest-rails-exercise-3",
+      "itemId": "a2-forest-rails-item-3",
+      "mode": "listening",
+      "answer": "nicht abgefahren",
+      "explanation": "nicht stands before the participle."
+    },
+    {
+      "id": "a2-forest-rails-exercise-4",
+      "itemId": "a2-forest-rails-item-4",
+      "mode": "production",
+      "answer": "Wir haben lange gewartet.",
+      "caseSensitive": true,
+      "explanation": "haben + gewartet: the participle goes to the end."
+    },
+    {
+      "id": "a2-forest-rails-exercise-5",
+      "itemId": "a2-forest-rails-item-5",
+      "mode": "production",
+      "answer": "Auf den Schienen lagen große Steine.",
+      "caseSensitive": true,
+      "explanation": "auf + dative for where something lies."
+    },
+    {
+      "id": "a2-forest-rails-exercise-6",
+      "itemId": "a2-forest-rails-item-6",
+      "mode": "recognition",
+      "answer": "Ich erinnere mich an den Abend.",
+      "explanation": "The reflexive pronoun mich belongs to ich."
+    },
+    {
+      "id": "a2-forest-rails-exercise-7",
+      "itemId": "a2-forest-rails-item-7",
+      "mode": "listening",
+      "answer": "niemand",
+      "explanation": "kommen takes sein: ist gekommen."
     },
     {
       "id": "a2-broken-clock-exercise-1",
@@ -2496,6 +3311,58 @@
       "mode": "listening",
       "answer": "Die Versicherungskarte",
       "explanation": "mitbringen is separable: bringen … mit."
+    },
+    {
+      "id": "a2-cellar-exercise-1",
+      "itemId": "a2-cellar-item-1",
+      "mode": "production",
+      "answer": "Warum haben Sie das gemacht?",
+      "caseSensitive": true,
+      "explanation": "Perfect question: haben + participle at the end."
+    },
+    {
+      "id": "a2-cellar-exercise-2",
+      "itemId": "a2-cellar-item-2",
+      "mode": "recognition",
+      "answer": "Ich habe es gemacht, weil ich Angst hatte.",
+      "explanation": "weil gives a reason."
+    },
+    {
+      "id": "a2-cellar-exercise-3",
+      "itemId": "a2-cellar-item-3",
+      "mode": "listening",
+      "answer": "drei Jahre",
+      "explanation": "arbeiten → gearbeitet."
+    },
+    {
+      "id": "a2-cellar-exercise-4",
+      "itemId": "a2-cellar-item-4",
+      "mode": "production",
+      "answer": "Das war nicht richtig.",
+      "caseSensitive": true,
+      "explanation": "nicht before richtig."
+    },
+    {
+      "id": "a2-cellar-exercise-5",
+      "itemId": "a2-cellar-item-5",
+      "mode": "production",
+      "answer": "Ich wollte niemandem schaden.",
+      "caseSensitive": true,
+      "explanation": "wollte is the past of wollen."
+    },
+    {
+      "id": "a2-cellar-exercise-6",
+      "itemId": "a2-cellar-item-6",
+      "mode": "recognition",
+      "answer": "Es tut mir leid.",
+      "explanation": "Es tut mir leid is the everyday apology."
+    },
+    {
+      "id": "a2-cellar-exercise-7",
+      "itemId": "a2-cellar-item-7",
+      "mode": "listening",
+      "answer": "im Hafen",
+      "explanation": "stehen + in + dative for location."
     },
     {
       "id": "a2-archive-exercise-1",
@@ -2616,6 +3483,58 @@
       "explanation": "vielleicht expresses uncertainty. nehmen has the past participle genommen."
     },
     {
+      "id": "b1-record-room-exercise-1",
+      "itemId": "b1-record-room-item-1",
+      "mode": "production",
+      "answer": "Könnten Sie mir zeigen, wo die Unterlagen sind?",
+      "caseSensitive": true,
+      "explanation": "In an indirect question the verb goes to the end: wo die Unterlagen sind."
+    },
+    {
+      "id": "b1-record-room-exercise-2",
+      "itemId": "b1-record-room-item-2",
+      "mode": "recognition",
+      "answer": "Wissen Sie, wann die Lieferung angekommen ist?",
+      "explanation": "Wissen Sie, wann …? asks politely for a time."
+    },
+    {
+      "id": "b1-record-room-exercise-3",
+      "itemId": "b1-record-room-item-3",
+      "mode": "listening",
+      "answer": "jeden Freitag",
+      "explanation": "The passive says what happens, not who does it."
+    },
+    {
+      "id": "b1-record-room-exercise-4",
+      "itemId": "b1-record-room-item-4",
+      "mode": "production",
+      "answer": "Ich möchte wissen, wer das unterschrieben hat.",
+      "caseSensitive": true,
+      "explanation": "unterschreiben → unterschrieben."
+    },
+    {
+      "id": "b1-record-room-exercise-5",
+      "itemId": "b1-record-room-item-5",
+      "mode": "production",
+      "answer": "Mir ist aufgefallen, dass hier eine Seite fehlt.",
+      "caseSensitive": true,
+      "explanation": "After dass the verb fehlt goes last."
+    },
+    {
+      "id": "b1-record-room-exercise-6",
+      "itemId": "b1-record-room-item-6",
+      "mode": "recognition",
+      "answer": "Darf ich eine Kopie davon machen?",
+      "explanation": "Darf ich …? asks for permission."
+    },
+    {
+      "id": "b1-record-room-exercise-7",
+      "itemId": "b1-record-room-item-7",
+      "mode": "listening",
+      "answer": "selbst ausgefüllt",
+      "explanation": "selbst means herself here."
+    },
+    {
       "id": "b1-new-route-exercise-1",
       "itemId": "b1-new-route-item-1",
       "mode": "production",
@@ -2678,6 +3597,58 @@
       ],
       "caseSensitive": true,
       "explanation": "vorschlagen is separable; losfahren goes last in the dass clause."
+    },
+    {
+      "id": "b1-signalman-exercise-1",
+      "itemId": "b1-signalman-item-1",
+      "mode": "production",
+      "answer": "Ich bitte Sie, es einmal laut zu sagen.",
+      "caseSensitive": true,
+      "explanation": "After a comma, zu sagen completes the request."
+    },
+    {
+      "id": "b1-signalman-exercise-2",
+      "itemId": "b1-signalman-item-2",
+      "mode": "recognition",
+      "answer": "Es wäre schön, wenn Sie mitkommen könnten.",
+      "explanation": "After wenn the verb goes to the end."
+    },
+    {
+      "id": "b1-signalman-exercise-3",
+      "itemId": "b1-signalman-item-3",
+      "mode": "listening",
+      "answer": "kein Wort",
+      "explanation": "seit + duration with the present perfect."
+    },
+    {
+      "id": "b1-signalman-exercise-4",
+      "itemId": "b1-signalman-item-4",
+      "mode": "production",
+      "answer": "Sie müssen keine Angst haben.",
+      "caseSensitive": true,
+      "explanation": "Angst haben: to be afraid."
+    },
+    {
+      "id": "b1-signalman-exercise-5",
+      "itemId": "b1-signalman-item-5",
+      "mode": "production",
+      "answer": "Ohne Ihre Hilfe schaffen wir es nicht.",
+      "caseSensitive": true,
+      "explanation": "es schaffen: to manage it."
+    },
+    {
+      "id": "b1-signalman-exercise-6",
+      "itemId": "b1-signalman-item-6",
+      "mode": "recognition",
+      "answer": "Was hält Sie davon ab?",
+      "explanation": "davon refers to the action."
+    },
+    {
+      "id": "b1-signalman-exercise-7",
+      "itemId": "b1-signalman-item-7",
+      "mode": "listening",
+      "answer": "von acht bis sechs",
+      "explanation": "jede Nacht: every night."
     },
     {
       "id": "b1-work-exercise-1",
@@ -2802,6 +3773,58 @@
       ],
       "caseSensitive": true,
       "explanation": "schrittweise means step by step. The infinitive phrase explains the compromise."
+    },
+    {
+      "id": "b1-temptation-exercise-1",
+      "itemId": "b1-temptation-item-1",
+      "mode": "production",
+      "answer": "Wenn ich den Schlüssel drehe, was passiert dann?",
+      "caseSensitive": true,
+      "explanation": "After a wenn-clause the main clause starts with its verb or question word."
+    },
+    {
+      "id": "b1-temptation-exercise-2",
+      "itemId": "b1-temptation-item-2",
+      "mode": "recognition",
+      "answer": "Was würde passieren, wenn wir nichts tun?",
+      "explanation": "wenn sends tun to the end."
+    },
+    {
+      "id": "b1-temptation-exercise-3",
+      "itemId": "b1-temptation-item-3",
+      "mode": "listening",
+      "answer": "die Fenster",
+      "explanation": "falls works like wenn: the verb goes to the end."
+    },
+    {
+      "id": "b1-temptation-exercise-4",
+      "itemId": "b1-temptation-item-4",
+      "mode": "production",
+      "answer": "Ich würde lieber warten.",
+      "caseSensitive": true,
+      "explanation": "lieber expresses a preference."
+    },
+    {
+      "id": "b1-temptation-exercise-5",
+      "itemId": "b1-temptation-item-5",
+      "mode": "production",
+      "answer": "Das hätte ich nicht gedacht.",
+      "caseSensitive": true,
+      "explanation": "denken → gedacht."
+    },
+    {
+      "id": "b1-temptation-exercise-6",
+      "itemId": "b1-temptation-item-6",
+      "mode": "recognition",
+      "answer": "Unter welchen Bedingungen wäre das möglich?",
+      "explanation": "unter + dative plural: welchen Bedingungen."
+    },
+    {
+      "id": "b1-temptation-exercise-7",
+      "itemId": "b1-temptation-item-7",
+      "mode": "listening",
+      "answer": "Waldruh",
+      "explanation": "wenn + condition, then the main clause."
     },
     {
       "id": "b1-storm-exercise-1",

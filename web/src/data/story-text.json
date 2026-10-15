@@ -206,8 +206,8 @@
             "english": "One night, Elise’s voice came from two places here at once."
           },
           {
-            "german": "Lina hat deshalb eine Anhörung angesetzt, mit Protokoll, Zeugin und einer sehr nervösen Taube.",
-            "english": "So Lina has called a hearing, with minutes, a witness and a very nervous pigeon."
+            "german": "Lina hat deshalb eine Anhörung angesetzt, mit Protokoll und Zeugen.",
+            "english": "So Lina has called a hearing, with minutes and witnesses."
           }
         ],
         [
@@ -319,11 +319,41 @@
       ],
       "lead": [
         {
-          "german": "Geh zu Marta ins Café.",
-          "english": "Go to Marta at the café."
+          "german": "Eine Frau vom Messingamt steht an Ottos Plan.",
+          "english": "A woman from the Brass Office is standing at Otto’s board."
         }
       ],
       "letter": []
+    },
+    {
+      "questId": "a1-notice",
+      "title": "Rule four",
+      "text": [
+        {
+          "german": "Frau Kessler vom Messingamt bringt eine Regel.",
+          "english": "Frau Kessler from the Brass Office brings a rule."
+        },
+        {
+          "german": "Regel vier: Namen nicht laut sagen.",
+          "english": "Rule four: do not say names out loud."
+        },
+        {
+          "german": "Aber hier bleiben Namen nur laut.",
+          "english": "But here names only stay when they are said aloud."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Marta hat Kaffee für dich. Geh ins Café.",
+          "english": "Marta has coffee for you. Go to the café."
+        }
+      ],
+      "letter": [
+        {
+          "german": "Sie sagen: Sei ruhig. Ich sage: Sag die Namen.",
+          "english": "They say: be quiet. I say: say the names."
+        }
+      ]
     },
     {
       "questId": "a1-cafe",
@@ -436,14 +466,44 @@
       ],
       "lead": [
         {
-          "german": "Marta kennt Frau Berg gut.",
-          "english": "Marta knows Frau Berg well."
+          "german": "Pip schreibt am Wasser alle Namen auf.",
+          "english": "Pip writes down every name by the water."
         }
       ],
       "letter": [
         {
           "german": "Sag ihren Namen. Dann bleibt sie.",
           "english": "Say her name. Then she stays."
+        }
+      ]
+    },
+    {
+      "questId": "a1-chalk",
+      "title": "Pip’s chalk wall",
+      "text": [
+        {
+          "german": "Pip ist Linas Bruder. Er schreibt Namen an eine Wand.",
+          "english": "Pip is Lina’s brother. He writes names on a wall."
+        },
+        {
+          "german": "Zwei Namen gehen weg: Mutter und Vater.",
+          "english": "Two names are fading: Mother and Father."
+        },
+        {
+          "german": "Lina hat die Namen lange nicht gesagt.",
+          "english": "Lina has not said the names for a long time."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Marta kennt Frau Berg gut. Geh zu ihr.",
+          "english": "Marta knows Frau Berg well. Go to her."
+        }
+      ],
+      "letter": [
+        {
+          "german": "Spiel laut mit ihm. Er braucht das.",
+          "english": "Play out loud with him. He needs it."
         }
       ]
     },
@@ -520,11 +580,41 @@
       ],
       "lead": [
         {
-          "german": "Otto wartet am Bahnhof.",
-          "english": "Otto is waiting at the station."
+          "german": "Am Brunnen sitzt eine alte Frau.",
+          "english": "An old woman is sitting by the fountain."
         }
       ],
       "letter": []
+    },
+    {
+      "questId": "a1-bench",
+      "title": "The woman on the bench",
+      "text": [
+        {
+          "german": "Frau Berg sitzt am Brunnen. Sie weiß ihren Namen nicht.",
+          "english": "Frau Berg sits by the fountain. She does not know her name."
+        },
+        {
+          "german": "Marta, Fritz und Pip sagen ihren Namen laut.",
+          "english": "Marta, Fritz and Pip say her name out loud."
+        },
+        {
+          "german": "Jetzt weiß sie es wieder: Ich bin Frau Berg.",
+          "english": "Now she knows again: I am Frau Berg."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Otto ist am Bahnhof.",
+          "english": "Otto is at the station."
+        }
+      ],
+      "letter": [
+        {
+          "german": "Sie war auch meine Lehrerin. Danke.",
+          "english": "She was my teacher too. Thank you."
+        }
+      ]
     },
     {
       "questId": "a1-station",
@@ -663,11 +753,41 @@
       ],
       "lead": [
         {
+          "german": "Das Büro vom Messingamt ist beim Bahnhof.",
+          "english": "The Brass Office is by the station."
+        }
+      ],
+      "letter": []
+    },
+    {
+      "questId": "a1-office-window",
+      "title": "The same hand",
+      "text": [
+        {
+          "german": "Im Register ist ein Name weg. Daneben steht: Regel vier.",
+          "english": "A name is gone from the register. Beside it: Rule four."
+        },
+        {
+          "german": "Frau Kessler macht laute Namen leise.",
+          "english": "Frau Kessler makes loud names quiet."
+        },
+        {
+          "german": "Sie sagt: Herr Voss weiß das.",
+          "english": "She says: Mr Voss knows about it."
+        }
+      ],
+      "lead": [
+        {
           "german": "Fritz hat eine Frage für dich.",
           "english": "Fritz has a question for you."
         }
       ],
-      "letter": []
+      "letter": [
+        {
+          "german": "Ruhig ist nicht leer. Aber leer ist nicht ruhig.",
+          "english": "Quiet is not empty. But empty is not quiet."
+        }
+      ]
     },
     {
       "questId": "a1-invitation",
@@ -699,16 +819,16 @@
       "title": "The lost-and-found table",
       "text": [
         {
-          "german": "Deine Tasche ist blau und klein.",
-          "english": "Your bag is blue and small."
+          "german": "Lina findet deine blaue Tasche.",
+          "english": "Lina finds your blue bag."
         },
         {
-          "german": "Lina hat sie auf dem Tisch gefunden.",
-          "english": "Lina found it on the table."
+          "german": "Auf der Bank bei Gleis sieben lag ein schwarzer Handschuh. Die Tinte ist neu.",
+          "english": "A black glove lay on the bench at platform seven. The ink is fresh."
         },
         {
-          "german": "Ein alter Handschuh mit Tinte lag bei Gleis sieben.",
-          "english": "An old glove with ink lay at platform seven."
+          "german": "In der Kiste liegt eine alte Fahrkarte für Gleis sieben. Der Name: Lenz.",
+          "english": "In the box is an old ticket for platform seven. The name: Lenz."
         }
       ],
       "lead": [
@@ -789,505 +909,571 @@
     },
     {
       "questId": "a2-apartment",
-      "title": "A room waiting for you",
+      "title": "The room already waiting",
       "text": [
         {
-          "german": "Martas Küchentür verbindet Lindenhafen mit dem Gasthaus in Waldruh. Voss hat den klemmenden Rahmen repariert.",
-          "english": "Marta’s kitchen door connects Lindenhafen to the Waldruh inn. Voss repaired its stuck frame."
+          "german": "Marta hält eine Tür. Dahinter liegt Waldruh.",
+          "english": "Marta holds a door. Waldruh lies behind it."
         },
         {
-          "german": "Zimmer 7 ist seit drei Monaten auf deinen Namen gemietet. Elise hat ein Jahr im Voraus bezahlt.",
-          "english": "Room 7 has been rented in your name for three months. Elise paid a year in advance."
+          "german": "Elise hat Zimmer 7 für dich gemietet, ein Jahr im Voraus.",
+          "english": "Elise rented Room 7 for you, a year in advance."
         },
         {
-          "german": "Am Vertrag hängt ein schwerer Schlüssel mit einer kleinen Laterne. Voss’ Register beginnt erst mit deiner Ankunft.",
-          "english": "A heavy key with a small lantern hangs from the lease. Voss’s register begins only with your arrival."
+          "german": "Am Vertrag hängt ein schwerer Schlüssel mit einer kleinen Laterne.",
+          "english": "A heavy key with a little lantern hangs from the lease."
         }
       ],
       "lead": [
         {
-          "german": "Fritz deckt einen Tisch für alle. Wenn jemand nach dem Termin fragt, nennt er keinen Tag.",
-          "english": "Fritz sets a table for everyone. Whenever anyone asks for a date, he won’t name a day."
+          "german": "Oma Hilde wohnt oben im Gasthaus.",
+          "english": "Oma Hilde lives upstairs at the inn."
         }
       ],
       "letter": [
         {
-          "german": "Das Fenster geht zum Wald. Ich habe es oft offen gelassen.",
-          "english": "The window faces the forest. I often left it open."
+          "german": "Das Fenster zeigt zum Wald. Ich habe es oft offen gelassen. Das Zimmer wartet auf dich, seit ich die Miete bezahlt habe.",
+          "english": "The window faces the forest. I often left it open. The room has waited for you since I paid the rent."
+        }
+      ]
+    },
+    {
+      "questId": "a2-upstairs",
+      "title": "Nobody asked Oma Hilde",
+      "text": [
+        {
+          "german": "Oma Hilde wohnt seit siebzig Jahren im Gasthaus.",
+          "english": "Oma Hilde has lived at the inn for seventy years."
         },
         {
-          "german": "Das Zimmer wartet auf dich, seit ich die Miete bezahlt habe.",
-          "english": "The room has been waiting for you since I paid the rent."
+          "german": "Am Morgen nach der Schließung stand auf einem Papier: freiwillig. Niemand hat sie gefragt.",
+          "english": "The morning after the closure a paper said: voluntary. Nobody asked her."
         },
         {
-          "german": "Ich weiß nicht, ob du auf mich warten möchtest.",
-          "english": "I don’t know whether you want to wait for me."
+          "german": "Zwei Eltern aus Lindenhafen warten seit zwölf Jahren auf den Kinderzug.",
+          "english": "Two parents from Lindenhafen have waited twelve years for the children’s train."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Fritz kocht am Kräutergarten.",
+          "english": "Fritz is cooking by the herb garden."
+        }
+      ],
+      "letter": [
+        {
+          "german": "Hilde hat mir einmal Tee gemacht, als ich nicht schlafen konnte. Grüß sie von mir. Sie weiß, wer ich bin.",
+          "english": "Hilde once made me tea when I could not sleep. Give her my regards. She knows who I am."
         }
       ]
     },
     {
       "questId": "a2-evening-plans",
-      "title": "A place at the table",
+      "title": "Two plates at the end of the table",
       "text": [
         {
-          "german": "Im Kreis der Ungeschriebenen erinnern sich Menschen aneinander, deren Namen aus den Akten fehlen.",
-          "english": "In the Unwritten Circle, people remember each other when their names are missing from the files."
+          "german": "Zwei Gäste warten jeden Abend um sechs auf einen Zug.",
+          "english": "Two guests wait every evening at six for a train."
         },
         {
-          "german": "Niemand fragte sie vor der Schließung. Trotzdem nennt das Messingamt sie freiwillig.",
-          "english": "Nobody asked them before the closure. The Brass Office still calls it voluntary."
+          "german": "Es sind Jakob und Ruth Lenz, die Eltern von Lina und Pip.",
+          "english": "They are Jakob and Ruth Lenz, Lina and Pip’s parents."
         },
         {
-          "german": "Damals aßen sie um sechs bei Fritz. Danach war die Strecke weg. Seitdem vermied er feste Einladungen.",
-          "english": "They ate at Fritz’s table at six that evening. Afterwards the route was gone. Since then, he avoided definite invitations."
-        },
-        {
-          "german": "Jetzt hat er sich festgelegt: morgen, halb sieben. Lina kann die Einladungen verschicken.",
-          "english": "Now he has committed: tomorrow, half past six. Lina can send the invitations."
+          "german": "Lina hat ihre Namen zwölf Jahre lang nicht gesagt.",
+          "english": "Lina did not say their names for twelve years."
         }
       ],
       "lead": [
         {
-          "german": "Otto hat unter dem Bahnhof einen alten Fahrplan gefunden. Er will den Zug mit dir sehen.",
-          "english": "Otto found an old timetable under the station. He wants to see the train with you."
+          "german": "Auf dem Marktplatz verkauft ein Mann Tinte.",
+          "english": "A man is selling ink on the market square."
         }
       ],
       "letter": [
         {
-          "german": "Fritz ließ an seinem Tisch immer einen Platz frei.",
-          "english": "Fritz always left one place free at his table."
+          "german": "Ich habe die beiden jeden Abend gesehen. Ich hätte sie fragen können. Ich habe es nicht getan.",
+          "english": "I saw the two of them every evening. I could have asked them. I did not."
+        }
+      ]
+    },
+    {
+      "questId": "a2-ink-seller",
+      "title": "Ink that never fades",
+      "text": [
+        {
+          "german": "Herr Falk verkauft Tinte, die nie verblassen soll.",
+          "english": "Herr Falk sells ink that is supposed never to fade."
         },
         {
-          "german": "Er nannte ihn meinen Platz.",
-          "english": "He called it my place."
+          "german": "Emil sagt: Das ist ganz normale Tinte.",
+          "english": "Emil says: it is completely ordinary ink."
         },
         {
-          "german": "Heute weiß ich nicht, ob ich mich dort noch setzen darf.",
-          "english": "Today I don’t know whether I’m still allowed to sit there."
+          "german": "An Falks Weste ist ein Knopf aus Messing, wie beim Amt.",
+          "english": "Falk’s waistcoat has a brass button, like at the Office."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Otto sucht dich am Bahnhof von Waldruh.",
+          "english": "Otto is looking for you at Waldruh station."
+        }
+      ],
+      "letter": [
+        {
+          "german": "Tinte hält keinen Namen. Nur eine Stimme hält ihn. Das hat er vergessen.",
+          "english": "Ink keeps no name. Only a voice keeps it. He has forgotten that."
         }
       ]
     },
     {
       "questId": "a2-rail-trip",
-      "title": "One minute without witnesses",
+      "title": "The minute nobody saw",
       "text": [
         {
-          "german": "Du warst rechtzeitig am Bahnsteig. Der Zug fuhr um 17:59, obwohl auf deiner Fahrkarte 18:00 steht.",
-          "english": "You reached the platform on time. The train left at 17:59, although your ticket says 18:00."
+          "german": "Der Zug nach Nebelstadt fährt um 17:59, nicht um 18:00.",
+          "english": "The train to Nebelstadt leaves at 17:59, not at 18:00."
         },
         {
-          "german": "Fahrgäste, die der Fahrkarte folgen, finden nur einen leeren Bahnsteig. Deine Aussage hat den Fehler festgehalten.",
-          "english": "Passengers following the ticket find only an empty platform. Your account preserved the error."
+          "german": "Die Strecke wurde von innen geschlossen, mit einem Hüterschlüssel.",
+          "english": "The route was closed from inside, with a keeper’s key."
         },
         {
-          "german": "Die Tinte hält nun den Vermerk: von innen geschlossen, mit einem Hüterschlüssel. Die frühe Abfahrt hält Zeugen fern.",
-          "english": "The ink now holds the entry: closed from inside, with a keeper’s key. Leaving early keeps witnesses away."
-        },
-        {
-          "german": "Voss erkannte das Pfeifen von seiner Aufnahme. Seine Akte behauptet weiterhin, dass hier kein Zug fährt.",
-          "english": "Voss recognized the whistle from his recording. His file still claims no train runs here."
+          "german": "Voss kennt die Pfeife von seiner Aufnahme.",
+          "english": "Voss knows the whistle from his recording."
         }
       ],
       "lead": [
         {
-          "german": "Emils Werkzeuge verschwanden für eine Nacht. Danach lag ein Dankesbrief dabei.",
-          "english": "Emil’s tools vanished for a night. Afterwards, a thank-you note appeared beside them."
+          "german": "Lina zählt an den alten Schienen im Wald.",
+          "english": "Lina is counting by the old rails in the forest."
         }
       ],
       "letter": [
         {
-          "german": "Du warst rechtzeitig da.",
-          "english": "You were there on time."
+          "german": "Du warst pünktlich da. Lass dir nichts anderes erzählen. Ich weiß, wie lang eine Minute sein kann.",
+          "english": "You were there on time. Do not let anyone tell you otherwise. I know how long one minute can be."
+        }
+      ]
+    },
+    {
+      "questId": "a2-forest-rails",
+      "title": "Eleven stones",
+      "text": [
+        {
+          "german": "Lina war zehn und saß mit Pip im Kinderzug.",
+          "english": "Lina was ten and sat in the children’s train with Pip."
         },
         {
-          "german": "Lass dir nichts anderes einreden.",
-          "english": "Don’t let anyone tell you otherwise."
+          "german": "Auf den Schienen lagen elf Steine. Der Zug fuhr nicht ab.",
+          "english": "Eleven stones lay on the rails. The train did not leave."
         },
         {
-          "german": "Ich weiß, wie lange eine Minute dauern kann.",
-          "english": "I know how long one minute can last."
+          "german": "Am Gleis stand eine Frau mit schwarzen Händen und weinte.",
+          "english": "A woman with black hands stood at the platform, crying."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Emil arbeitet in der Uhrenmühle.",
+          "english": "Emil is working at the clockmill."
+        }
+      ],
+      "letter": [
+        {
+          "german": "Ich habe die Steine gezählt, bevor ich sie weggelegt habe. Elf. Ich habe Lina gesagt, sie soll zählen. Sie hat nie damit aufgehört.",
+          "english": "I counted the stones before I moved them. Eleven. I told Lina to count. She never stopped."
         }
       ]
     },
     {
       "questId": "a2-broken-clock",
-      "title": "The handwriting in the margin",
+      "title": "The borrowed hour",
       "text": [
         {
-          "german": "Die Mühle wiederholt die Stunde vor Mitternacht. Nach jeder Runde fehlt ein Name am Stein.",
-          "english": "The mill repeats the hour before midnight. After each cycle, a name is missing from the stone."
+          "german": "Die Uhrenmühle wiederholt die Stunde vor Mitternacht. Danach fehlt ein Name.",
+          "english": "The clockmill repeats the hour before midnight. Afterwards a name is missing."
         },
         {
-          "german": "Der blaue Anschluss zum Streckensignal wurde mit Emils Werkzeug getrennt. Der Schnitt war absichtlich.",
-          "english": "The blue connection to the route signal was cut with Emil’s tools. The cut was deliberate."
+          "german": "Der Dankeszettel und die Anleitung sind in Elises Handschrift.",
+          "english": "The thank-you note and the manual are in Elise’s handwriting."
         },
         {
-          "german": "Der Dankesbrief und die Notiz in der Anleitung tragen Elises Handschrift. Du hast sie mit dem Mietvertrag verglichen.",
-          "english": "The thank-you note and the manual’s margin note are in Elise’s handwriting. You compared them with the lease."
-        },
-        {
-          "german": "Der Hebel stoppt die Wiederholung. Was in der fehlenden Stunde nicht festgehalten wird, kann überschrieben werden.",
-          "english": "The lever stops the repetition. Anything not preserved from the missing hour can be overwritten."
+          "german": "Elise hat die Verbindung zum Streckensignal getrennt.",
+          "english": "Elise cut the connection to the route signal."
         }
       ],
       "lead": [
         {
-          "german": "Greta hat einen Patienten, der von einer unmöglichen Reise spricht. Man fand ihn an den alten Schienen.",
-          "english": "Greta has a patient who speaks of an impossible journey. He was found by the old tracks."
+          "german": "Greta hat in der Klinik einen Patienten mit Laternenfieber.",
+          "english": "Greta has a patient with lantern fever at the clinic."
         }
       ],
       "letter": [
         {
-          "german": "Ja, das ist meine Schrift.",
-          "english": "Yes, that is my handwriting."
-        },
-        {
-          "german": "Die Zange habe ich geputzt. Den Namen am Stein kann ich nicht einfach zurückschreiben.",
-          "english": "I cleaned the pliers. I can’t simply write the name back onto the stone."
-        },
-        {
-          "german": "Ich schulde Emil mehr als Danke.",
-          "english": "I owe Emil more than thanks."
+          "german": "Ja, das ist meine Handschrift. Ich habe die Zange geputzt. Den Namen auf dem Stein kann ich nicht einfach zurückschreiben. Ich schulde Emil mehr als Dank.",
+          "english": "Yes, that is my handwriting. I cleaned the pliers. I cannot simply write the name back onto the stone. I owe Emil more than thanks."
         }
       ]
     },
     {
       "questId": "a2-clinic",
-      "title": "The traveller behind the file",
+      "title": "What the records forgot",
       "text": [
         {
-          "german": "Voss wurde an den alten Schienen gefunden. Er behauptete, nie gereist zu sein.",
-          "english": "Voss was found by the old tracks. He claimed never to have travelled."
+          "german": "Voss hat im Fieber drei alte Haltestellen genannt.",
+          "english": "In his fever Voss named three old stops."
         },
         {
-          "german": "Drei Adressen auf Gretas Samentüten stimmen mit seinen Worten überein. Die blaue Gartentür steht auf keiner Tüte.",
-          "english": "Three addresses on Greta’s seed packets match his words. The blue garden gate appears on no packet."
+          "german": "Er ist die Strecke vor der Schließung gefahren. Seine Akte sagt etwas anderes.",
+          "english": "He travelled the route before the closure. His file says otherwise."
         },
         {
-          "german": "Er erinnert sich an den Pflaumenkuchen und die Zugfahrt vor der Schließung. Seine Akte bestreitet diese Strecke.",
-          "english": "He remembers the plum cake and the train journey before the closure. His file denies that route existed."
-        },
-        {
-          "german": "Voss gab zu, mit dieser Akte die Erinnerungen anderer Menschen zurückgewiesen zu haben. Jetzt lässt er sie prüfen.",
-          "english": "Voss admitted using that file to dismiss other people’s memories. Now he is allowing it to be examined."
+          "german": "Unter der Uhrenmühle ist ein Keller mit einem Laternenschloss.",
+          "english": "There is a cellar under the clockmill with a lantern lock."
         }
       ],
       "lead": [
         {
-          "german": "Im fahrenden Archiv arbeitet Ada. Sie kennt die alten Beschlüsse zur Schließung.",
-          "english": "Ada works in the travelling archive. She knows the old closure orders."
+          "german": "Der Keller unter der Uhrenmühle hat ein Laternenschloss.",
+          "english": "The cellar under the clockmill has a lantern lock."
         }
       ],
       "letter": [
         {
-          "german": "Ich erinnere mich an die blaue Tür.",
-          "english": "I remember the blue gate."
+          "german": "Ich erinnere mich an das blaue Tor. Dort bekam jeder ein Stück Kuchen für den Heimweg. Bitte pass auf Voss auf.",
+          "english": "I remember the blue gate. Everyone got a piece of cake there for the journey home. Please look after Voss."
+        }
+      ]
+    },
+    {
+      "questId": "a2-cellar",
+      "title": "Rule four, signed F.",
+      "text": [
+        {
+          "german": "Herr Falk war Schreiber im Messingamt in Nebelstadt.",
+          "english": "Herr Falk was a clerk at the Brass Office in Nebelstadt."
         },
         {
-          "german": "Dort bekam jeder ein Stück Kuchen für den Rückweg.",
-          "english": "Everyone got a slice of cake there for the journey home."
+          "german": "Er hat Regel vier geschrieben. Dann hat er die Maschine am Hafen gesehen.",
+          "english": "He wrote rule four. Then he saw the machine at the harbour."
         },
         {
-          "german": "Pass bitte auf Voss auf.",
-          "english": "Please look after Voss."
+          "german": "Die Maschine schickt einen dunklen Strahl. Wer schweigt, verschwindet schneller.",
+          "english": "The machine sends a dark beam. Whoever stays silent disappears faster."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Ada wartet im Archiv am Bahnhof.",
+          "english": "Ada is waiting in the archive at the station."
+        }
+      ],
+      "letter": [
+        {
+          "german": "Ich kenne die Maschine. Ich hätte sie anhalten können. Ich habe stattdessen eine Tür geschlossen.",
+          "english": "I know the machine. I could have stopped it. Instead I closed a door."
         }
       ]
     },
     {
       "questId": "a2-archive",
-      "title": "The key you carry",
+      "title": "The second signature",
       "text": [
         {
-          "german": "Ada unterschrieb als Elises Lehrling die erste Schließung: für eine Woche. Sie fragte den Kreis nicht.",
-          "english": "As Elise’s apprentice, Ada signed the first closure: for one week. She did not ask the Circle."
+          "german": "Ada hat die erste Schließung für eine Woche unterschrieben.",
+          "english": "Ada signed the first closure, for one week."
         },
         {
-          "german": "Der endgültige Beschluss trägt Elises Schlüsselzeichen und den Stempel des Messingamts. Voss erkannte den echten Stempel.",
-          "english": "The permanent order bears Elise’s key mark and the Brass Office stamp. Voss recognized the genuine stamp."
+          "german": "Der zweite Befehl trägt Elises Schlüssel und den Stempel des Messingamts.",
+          "english": "The second order bears Elise’s key and the Brass Office stamp."
         },
         {
-          "german": "Elise benutzte den Schlüssel von innen. Danach hängte sie ihn an deinen Mietvertrag für Zimmer 7.",
-          "english": "Elise used the key from inside. Afterwards she attached it to your lease for Room 7."
-        },
-        {
-          "german": "Im Register steht dein Name unter Nachfolge der Hüterin. Mit dem Schlüssel kannst du die Schließung wiederholen.",
-          "english": "The register names you as the Keeper’s successor. With the key, you can repeat the closure."
-        },
-        {
-          "german": "„Bevor du uns wieder auslöschst, komm.“ Elises Warnung betrifft die Macht, die sie dir übergeben hat.",
-          "english": "“Before you erase us again, come.” Elise’s warning concerns the power she has passed to you."
+          "german": "Im Register steht: die Nachfolge der Hüterin. Darunter dein Name.",
+          "english": "The register says: the Keeper’s successor. Beneath it, your name."
         }
       ],
       "lead": [
         {
-          "german": "Der zweite Stempel stammt aus Nebelstadt. Dort liegen seine Unterlagen. Die siebte Glocke lässt wenig Zeit.",
-          "english": "The second stamp came from Nebelstadt. Its records are there. The seventh bell leaves little time."
+          "german": "Die Akten zum zweiten Stempel liegen in Nebelstadt.",
+          "english": "The records for the second stamp are in Nebelstadt."
         }
       ],
       "letter": [
         {
-          "german": "Ich gab dir den Schlüssel, bevor ich dir die Wahrheit gab.",
-          "english": "I gave you the key before I gave you the truth."
-        },
-        {
-          "german": "Das war falsch.",
-          "english": "That was wrong."
-        },
-        {
-          "german": "Du darfst anders entscheiden als ich.",
-          "english": "You are allowed to choose differently from me."
+          "german": "Ich habe dir den Schlüssel vor der Wahrheit gegeben. Das war falsch. Du darfst anders wählen als ich.",
+          "english": "I gave you the key before I gave you the truth. That was wrong. You are allowed to choose differently from me."
         }
       ]
     },
     {
       "questId": "b1-witness",
-      "title": "One voice, two reports",
+      "title": "A voice without a witness",
       "text": [
         {
-          "german": "Marta hörte „Ist da jemand? Ich bin noch hier.“ Der Husten und die Pause wiederholten sich unverändert.",
-          "english": "Marta heard “Is anyone there? I’m still here.” The cough and pause repeated exactly."
+          "german": "Elises Stimme am Hafen und an der Sternwarte war ein altes Band.",
+          "english": "Elise’s voice at the harbour and the observatory was an old tape."
         },
         {
-          "german": "Hafen und Sternwarte spielten dieselbe alte Aufnahme. Elise war nicht an zwei Orten.",
-          "english": "The harbour and observatory played the same old recording. Elise wasn’t in two places."
+          "german": "Marta hat jemanden an der Maschine gesehen. Der Stempel klang zweimal.",
+          "english": "Marta saw someone at the machine. The stamp sounded twice."
         },
         {
-          "german": "Marta sah das Gesicht an der Maschine nicht. Sie erkannte den Stempel. Voss bestätigte, dass er dort stand.",
-          "english": "Marta couldn’t see the man’s face. She recognised his stamp. Voss confirmed he was at the machine."
+          "german": "Voss gibt zu: Ich stand an der Maschine.",
+          "english": "Voss admits: I was standing at the machine."
         }
       ],
       "lead": [
         {
-          "german": "Otto und Greta haben zwei Streckenpläne. Beide führen nach Waldruh; nur einer lässt den Garten stehen.",
-          "english": "Otto and Greta have two route plans. Both reach Waldruh; only one keeps the garden intact."
+          "german": "Frau Kessler wartet im Archiv des Amtes.",
+          "english": "Frau Kessler is waiting in the Office archive."
         }
       ],
       "letter": [
         {
-          "german": "Du hast Marta zugehört, bevor du entschieden hast. Ich habe damals zuerst entschieden.",
-          "english": "You listened to Marta before deciding. Back then, I decided first."
+          "german": "Du hast Marta zugehört, bevor du entschieden hast. Damals habe ich zuerst entschieden. Die Stimme auf dem Band ist meine. Ich bin nicht an zwei Orten. Ich bin hier, hinter einer geschlossenen Tür.",
+          "english": "You listened to Marta before deciding. Back then I decided first. The voice on the tape is mine. I am not in two places. I am here, behind a closed door."
+        }
+      ]
+    },
+    {
+      "questId": "b1-record-room",
+      "title": "Three coils, one hand",
+      "text": [
+        {
+          "german": "Frau Kessler hat drei Bestellungen für neue Spulen ausgefüllt.",
+          "english": "Frau Kessler filled in three orders for new coils."
         },
         {
-          "german": "Die Stimme auf dem Band ist meine. „Ist da jemand? Ich bin noch hier.“ Ich wollte eine Antwort.",
-          "english": "The voice on the tape is mine. “Is anyone there? I’m still here.” I wanted an answer."
+          "german": "Voss hat alle drei unterschrieben.",
+          "english": "Voss signed all three."
         },
         {
-          "german": "Ich bin nicht an zwei Orten. Ich bin hier, hinter einer geschlossenen Tür.",
-          "english": "I’m not in two places. I’m here, behind a closed door."
+          "german": "Unter jedem Zettel steht: Wer schweigt, stimmt zu.",
+          "english": "At the bottom of every slip: whoever stays silent agrees."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Otto wartet am Bahnkai mit zwei Plänen.",
+          "english": "Otto is waiting on the quay with two plans."
+        }
+      ],
+      "letter": [
+        {
+          "german": "Sie hat nur abgeschrieben, sagt sie. Ich auch. Ich habe nur eine Tür geschlossen. So beginnt es immer.",
+          "english": "She only copied, she says. So did I. I only closed a door. That is how it always begins."
         }
       ]
     },
     {
       "questId": "b1-new-route",
-      "title": "The price of a line",
+      "title": "The price of a shortcut",
       "text": [
         {
-          "german": "Die gerade Linie spart vierzig Minuten. Dafür müssen drei Beete weichen; die Klinik bekommt keinen eigenen Halt.",
-          "english": "The straight line saves forty minutes. Three beds must move; the clinic gets no stop of its own."
+          "german": "Die gerade Linie ist schneller, aber sie geht durch Gretas Garten.",
+          "english": "The straight line is faster, but it runs through Greta’s garden."
         },
         {
-          "german": "Die Kurve erhält den Garten und erreicht die Klinik. Jede Fahrt dauert länger.",
-          "english": "The curve preserves the garden and reaches the clinic. Every journey takes longer."
+          "german": "Die Kurve ist länger und hält an der Klinik.",
+          "english": "The curve is longer and stops at the clinic."
         },
         {
-          "german": "Otto hatte den Klinikpunkt dreimal wegradiert. Er konnte ihn nie ganz entfernen.",
-          "english": "Otto had erased the clinic dot three times. He could never remove it entirely."
-        },
-        {
-          "german": "Während die Karte trocknete, richtete sich der dunkle Strahl nach Waldruh.",
-          "english": "As the map dried, the dark beam turned towards Waldruh."
+          "german": "Der Leuchtturm leuchtet dunkel. Wo der Strahl hinfällt, gehen die Laternen aus.",
+          "english": "The lighthouse shines dark. Where the beam falls, the lanterns go out."
         }
       ],
       "lead": [
         {
-          "german": "Emil wartet am Reparaturdock. Die Maschine hinter dem Strahl wurde weiter gepflegt, während Häuser verschwanden.",
-          "english": "Emil waits at the repair dock. The machine behind the beam was maintained while homes vanished."
+          "german": "Am Signalturm sitzt ein Mann, der nicht spricht.",
+          "english": "A man who does not speak sits at the signal tower."
         }
       ],
       "letter": [
         {
-          "german": "Du hast gesehen, was jeder Weg kostet. Ich wollte meinen Preis damals nicht sehen.",
-          "english": "You saw what each route costs. Back then, I didn’t want to see my own price."
+          "german": "Du hast gesehen, was jede Strecke kostet. Damals wollte ich meinen eigenen Preis nicht sehen. Bald sage ich dir, warum ich die Tür geschlossen habe.",
+          "english": "You saw what each route costs. Back then I did not want to see my own price. Soon I will tell you why I closed the door."
+        }
+      ]
+    },
+    {
+      "questId": "b1-signalman",
+      "title": "The man who writes",
+      "text": [
+        {
+          "german": "Jonas hält das Signal seit zwölf Jahren und spricht nicht.",
+          "english": "Jonas has kept the signal for twelve years and does not speak."
         },
         {
-          "german": "Auf einer Karte ist ein Beet nur ein Fleck. Greta weiß, wer dort etwas gepflanzt hat.",
-          "english": "On a map, a garden bed is only a patch. Greta knows who planted something there."
+          "german": "Das Amt hat ihm Geld für Schweigen gezahlt.",
+          "english": "The Office paid him money for silence."
         },
         {
-          "german": "Bald erzähle ich dir, warum ich die Tür geschlossen habe. Ich werde dabei hierbleiben.",
-          "english": "Soon I’ll tell you why I closed the door. I’ll stay here while I do."
+          "german": "Mit Namen leuchtet das Signal heller.",
+          "english": "With names the signal shines brighter."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Emil liest am Reparaturdock das Wartungsbuch.",
+          "english": "Emil is reading the maintenance ledger at the repair dock."
+        }
+      ],
+      "letter": [
+        {
+          "german": "Ich kenne Jonas. Er hat einmal Lieder gesungen, am Hafen, für die Fischer. Ich hoffe, du hast seine Stimme gehört.",
+          "english": "I know Jonas. He used to sing songs at the harbour, for the fishermen. I hope you heard his voice."
         }
       ]
     },
     {
       "questId": "b1-work",
-      "title": "The signature beneath the closure",
+      "title": "The hand that kept it running",
       "text": [
         {
-          "german": "Voss genehmigte die dauerhafte Schließung persönlich. Seine Unterschrift steht unter dem Beschluss.",
-          "english": "Voss personally authorised the permanent closure. His signature is beneath the order."
+          "german": "Voss hat die dauerhafte Schließung genehmigt.",
+          "english": "Voss authorised the permanent closure."
         },
         {
-          "german": "Auch die drei neuen Löschspulen bestellte er. Bei der dritten wusste er bereits von den fehlenden Namen.",
-          "english": "He also ordered the three new eraser coils. By the third, he already knew about the missing names."
+          "german": "Er hat drei Löschspulen bezahlt, auch als er von den fehlenden Namen wusste.",
+          "english": "He paid for three eraser coils, even when he knew about the missing names."
         },
         {
-          "german": "Emils Auftrag nannte den Leuchtturm. Voss verschwieg ihm, was die eingebauten Spulen taten.",
-          "english": "Emil’s work order named the lighthouse. Voss concealed what the installed coils did."
-        },
-        {
-          "german": "Die neuen Spulen können abgeschaltet werden. Die alten Leitungen tragen den Strahl noch weiter.",
-          "english": "The new coils can be disconnected. The old connections still carry the beam."
+          "german": "Emil hat sie eingebaut. Auf dem Auftrag stand nur: Leuchtturm.",
+          "english": "Emil installed them. The work order only said: lighthouse."
         }
       ],
       "lead": [
         {
-          "german": "Ada versammelt die drei Gruppen im Rat. Voss bringt sein Buch und muss ihre Fragen beantworten.",
-          "english": "Ada gathers the three groups at council. Voss will bring his ledger and answer their questions."
+          "german": "Ada ruft den Rat zusammen.",
+          "english": "Ada is calling the council together."
         }
       ],
       "letter": [
         {
-          "german": "Voss hat ausgesprochen, was unter seiner Unterschrift steht. Jetzt fehlt noch meine Antwort.",
-          "english": "Voss said what his signature authorised. My answer is still missing."
-        },
-        {
-          "german": "Mein Schlüssel schloss die Strecke von innen. Ohne ihn hätte sein Stempel diese Tür nicht erreicht.",
-          "english": "My key closed the route from inside. Without it, his stamp would never have reached that door."
-        },
-        {
-          "german": "Ich werde dir erklären, warum ich ihn umgedreht habe. Du schuldest mir dafür keine Vergebung.",
-          "english": "I’ll explain why I turned it. You owe me no forgiveness for that."
+          "german": "Voss hat gesagt, was seine Unterschrift erlaubt hat. Meine Antwort fehlt noch. Mein Schlüssel hat die Strecke von innen geschlossen. Ohne ihn hätte sein Stempel diese Tür nie erreicht.",
+          "english": "Voss said what his signature authorised. My answer is still missing. My key closed the route from inside. Without it, his stamp would never have reached that door."
         }
       ]
     },
     {
       "questId": "b1-council",
-      "title": "The empty chair cannot vote",
+      "title": "Whose silence counts?",
       "text": [
         {
-          "german": "Das Amt schrieb „Wer schweigt, stimmt zu“ auf seine Formulare. Die Maschine behandelt jedes Schweigen als Ja zur Schließung.",
-          "english": "The Office printed “Silence means consent” on its forms. The machine treats every silence as approval of closure."
+          "german": "Wer schweigt, stimmt zu: Das war die Regel des Amtes, nicht die Regel des Atlas.",
+          "english": "Whoever stays silent agrees: that was the Office’s rule, not the Atlas’s."
         },
         {
-          "german": "Greta widersprach: Menschen ohne Stimme können nicht zustimmen. Der leere Stuhl blieb für die schon Vergessenen frei.",
-          "english": "Greta objected: people without a voice cannot consent. The empty chair stayed reserved for those already forgotten."
+          "german": "Der Rat öffnet die Strecke Schritt für Schritt.",
+          "english": "The council opens the route step by step."
         },
         {
-          "german": "Der Rat vereinbarte einzelne Schritte. Vor jedem fragt er die Stadt; auch ein Nein kommt ins Protokoll.",
-          "english": "The council agreed on individual steps. Each town is asked beforehand; a no goes on record too."
-        },
-        {
-          "german": "Voss legte seinen Titel ab und bot das Du an. Seine Unterschrift blieb auf dem Tisch.",
-          "english": "Voss set aside his title and offered du. His signature stayed on the table."
+          "german": "Voss bietet das Du an.",
+          "english": "Voss offers du."
         }
       ],
       "lead": [
         {
-          "german": "Der Sturm erreicht den Hafen. Greta braucht Helfer, keine weiteren Formulare.",
-          "english": "The storm reaches the harbour. Greta needs helpers, not more forms."
+          "german": "Ada wartet an der Treppe zur Sternwarte.",
+          "english": "Ada is waiting at the observatory stairs."
         }
       ],
       "letter": [
         {
-          "german": "Der leere Stuhl war richtig. Dort hätte jemand sitzen müssen, den meine Entscheidung fortgenommen hat.",
-          "english": "The empty chair belonged there. Someone my decision took away should have been sitting in it."
+          "german": "Der leere Stuhl gehörte dorthin. Jemand, den meine Entscheidung weggenommen hat, hätte darauf sitzen sollen. Du hast ihr Schweigen nicht als Ja gezählt.",
+          "english": "The empty chair belonged there. Someone my decision took away should have been sitting in it. You did not count their silence as a yes."
+        }
+      ]
+    },
+    {
+      "questId": "b1-temptation",
+      "title": "One minute, one key",
+      "text": [
+        {
+          "german": "Mit dem Schlüssel kann man die Strecke von der Sternwarte aus schließen.",
+          "english": "With the key the route can be closed from the observatory."
         },
         {
-          "german": "Ihr habt sein Schweigen nicht als Ja genommen. Das Amt tat es, und ich ließ es zu.",
-          "english": "You didn’t treat their silence as a yes. The Office did, and I allowed it."
+          "german": "Dann hört der Strahl auf. Aber Waldruh wird wieder dunkel.",
+          "english": "Then the beam stops. But Waldruh goes dark again."
         },
         {
-          "german": "Wenn die letzte Glocke läutet, möchte ich meine Antwort vor euch geben.",
-          "english": "When the last bell rings, I want to give my answer in front of you."
+          "german": "Voss sagt: Es ist leicht. Das ist das Schlimme daran.",
+          "english": "Voss says: it is easy. That is the terrible thing about it."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Greta braucht dich im Garten. Der Sturm ist da.",
+          "english": "Greta needs you in the garden. The storm is here."
+        }
+      ],
+      "letter": [
+        {
+          "german": "Ich stand an derselben Stelle. Ich hatte Angst und eine Minute Zeit. Was du auch gewählt hast: Du hast es nicht allein gewählt.",
+          "english": "I stood in the same place. I was afraid and had one minute. Whatever you chose: you did not choose it alone."
         }
       ]
     },
     {
       "questId": "b1-storm",
-      "title": "Hands from three towns",
+      "title": "Three lanterns in the rain",
       "text": [
         {
-          "german": "Der Sturm brachte Wasser in die Beete. Jede Gruppe hatte Werkzeug; keiner hatte allein genug Hände.",
-          "english": "The storm flooded the garden beds. Every group had tools; none had enough hands alone."
+          "german": "Nur mit Händen aus allen drei Städten hält das Signal.",
+          "english": "Only with hands from all three towns does the signal hold."
         },
         {
-          "german": "Otto und Voss hielten die Leiter. Lina reichte Greta das Seil. Emil brachte das Signal zur Ruhe.",
-          "english": "Otto and Voss held the ladder. Lina passed Greta the rope. Emil steadied the signal."
+          "german": "Marta erinnert sich wieder: die Familie Lenz, mit dem roten Boot.",
+          "english": "Marta remembers again: the Lenz family, with the red boat."
         },
         {
-          "german": "Marta erinnerte sich an die Familie Lenz. Ihre Namen machten die Suche wieder möglich.",
-          "english": "Marta remembered the Lenz family. Their names made it possible to find them again."
-        },
-        {
-          "german": "Alle fanden Schutz in der Halle. Das Signal musste gesichert werden; beim Retten konnte nicht alles erhalten bleiben.",
-          "english": "Everyone found shelter in the hall. The signal needed securing; the rescue couldn’t save everything."
+          "german": "Oben in der Sternwarte brennt ein Licht. Elise wartet.",
+          "english": "A light burns up in the observatory. Elise is waiting."
         }
       ],
       "lead": [
         {
-          "german": "In der Sternwarte brennt wieder Licht. Elise hat die Tür zum alten Signalraum offengelassen.",
-          "english": "A light burns in the observatory again. Elise has left the old signal room’s door open."
+          "german": "Elise wartet oben in der Sternwarte.",
+          "english": "Elise is waiting up in the observatory."
         }
       ],
       "letter": [
         {
-          "german": "Ich sehe eure Lampen. Eine steigt die Leiter hinauf, die anderen gehen zum Garten.",
-          "english": "I can see your lamps. One climbs the ladder; the others head towards the garden."
-        },
-        {
-          "german": "Ihr bleibt zusammen, obwohl ihr gestritten habt. Ich blieb allein, weil ich jeden Streit beenden wollte.",
-          "english": "You stay together after arguing. I stayed alone because I wanted every argument to end."
-        },
-        {
-          "german": "Die Tür ist offen. Der Tee ist fertig. Ich habe Angst, aber ich bleibe hier.",
-          "english": "The door is open. The tea is ready. I’m afraid, but I’m staying here."
+          "german": "Ich sehe eure Lampen. Eine steigt die Leiter hinauf, die anderen gehen zum Garten. Ihr bleibt zusammen, nachdem ihr gestritten habt. Die Tür ist offen. Der Tee ist fertig.",
+          "english": "I can see your lamps. One climbs the ladder; the others head for the garden. You stay together after arguing. The door is open. The tea is ready."
         }
       ]
     },
     {
       "questId": "b1-atlas",
-      "title": "The key stays downstairs",
+      "title": "A promise with witnesses",
       "text": [
         {
-          "german": "Elise wollte einen Zug mit Kindern vor Steinen auf den Gleisen schützen. Sie schloss die Strecke für eine Woche.",
-          "english": "Elise wanted to protect a train carrying children from stones on the tracks. She closed the route for a week."
+          "german": "Elise hat die Strecke geschlossen, um einen Kinderzug zu schützen. Dann konnte sie nicht mehr loslassen.",
+          "english": "Elise closed the route to protect a children’s train. Then she could not let go."
         },
         {
-          "german": "Danach verlangte sie Zustimmung zu ihrer Lösung. Als Voss die Schließung dauerhaft machte, widersprach sie nicht.",
-          "english": "Afterwards, she demanded agreement with her solution. When Voss made the closure permanent, she didn’t object."
+          "german": "Sie hat deinen Kaffee bezahlt, damit jemand deinen Namen laut sagt.",
+          "english": "She paid for your coffee so that someone would say your name aloud."
         },
         {
-          "german": "Sie bezahlte deinen Kaffee bei Marta. So musste jemand deinen Namen laut sagen.",
-          "english": "She paid for your coffee at Marta’s, so that someone would have to say your name aloud."
-        },
-        {
-          "german": "Das „wieder“ im Brief galt dem geerbten Schlüssel. Es machte dich nicht für Elises Entscheidung verantwortlich.",
-          "english": "“Again” in the letter meant the inherited key. It didn’t make you responsible for Elise’s decision."
-        },
-        {
-          "german": "Voss antwortete der Frau vor ihm: „Ich bin hier.“ Elise gab den Schlüssel ab und ging mit hinunter.",
-          "english": "Voss answered the woman before him: “I’m here.” Elise surrendered the key and went downstairs with you."
+          "german": "Der Schlüssel bekommt einen öffentlichen Platz.",
+          "english": "The key gets a public place."
         }
       ],
       "lead": [
         {
-          "german": "Die drei Städte stehen wieder im Atlas. Am Rand erscheint eine Küste ohne Namen.",
-          "english": "The three towns stand in the Atlas again. At its edge, a coast appears without a name."
+          "german": "Hinter der Strecke erscheint eine Küste ohne Namen.",
+          "english": "Beyond the route a coast with no name appears."
         }
       ],
       "letter": [
         {
-          "german": "Diesen Brief schreibe ich unten, bei den anderen. Der Schlüssel liegt nicht auf meinem Tisch.",
-          "english": "I’m writing this letter downstairs, among the others. The key isn’t on my desk."
-        },
-        {
-          "german": "Ada hat meine Entwürfe. Frau Berg hat meine Adresse. Sie braucht mir noch nicht zu antworten.",
-          "english": "Ada has my drafts. Frau Berg has my address. She doesn’t have to answer me yet."
-        },
-        {
-          "german": "Wenn du an die Küste fährst, schreib mir. Du weißt jetzt, wo du mich findest.",
-          "english": "If you travel to the coast, write to me. Now you know where to find me."
+          "german": "Ich schreibe diesen Brief unten, bei den anderen. Der Schlüssel liegt nicht auf meinem Tisch. Ada hat meine Entwürfe. Frau Berg hat meine Adresse. Wenn du zur Küste fährst, schreib mir.",
+          "english": "I am writing this letter downstairs, among the others. The key is not on my desk. Ada has my drafts. Frau Berg has my address. If you travel to the coast, write to me."
         }
       ]
     }
@@ -1437,6 +1623,34 @@
         }
       ]
     },
+    "lindenhafen-chalk-wall": {
+      "detail": [
+        {
+          "german": "Eine Wand am Kanal. Überall stehen Namen in Kreide.",
+          "english": "A wall by the canal. Chalk names everywhere."
+        }
+      ],
+      "secret": [
+        {
+          "german": "Unten, ganz klein: Mama. Papa.",
+          "english": "At the bottom, very small: Mama. Papa."
+        }
+      ]
+    },
+    "lindenhafen-office-window": {
+      "detail": [
+        {
+          "german": "Ein Schalter, ein Register und ein Stempel.",
+          "english": "A counter, a register and a stamp."
+        }
+      ],
+      "secret": [
+        {
+          "german": "Auf jedem Zettel steht: Regel vier.",
+          "english": "Every notice says: Rule four."
+        }
+      ]
+    },
     "waldruh-clock": {
       "detail": [
         {
@@ -1520,8 +1734,8 @@
           "english": "There is still old paint under the newer plaque."
         },
         {
-          "german": "Die Tauben auf dem Bahnhofsdach landen jeden Abend kurz vor einem Zug, den es nicht gibt.",
-          "english": "Every evening the pigeons on the station roof land just before a train that does not exist."
+          "german": "Jeden Abend um 17:59 bleibt die Bahnhofsuhr kurz stehen.",
+          "english": "Every evening at 17:59 the station clock stops for a moment."
         }
       ]
     },
@@ -1544,6 +1758,62 @@
         {
           "german": "Auch auf einen ausgelöschten Namen können noch Menschen warten.",
           "english": "An erased name can still have people waiting for it."
+        }
+      ]
+    },
+    "waldruh-hilde-window": {
+      "detail": [
+        {
+          "german": "Ein Fenster zum Wald. Am Rahmen steht ein Name in blauer Tinte.",
+          "english": "A window facing the forest. A name in blue ink on the frame."
+        }
+      ],
+      "secret": [
+        {
+          "german": "Von hier sieht man beide Städte. Wenn die Tür offen ist.",
+          "english": "From here you can see both towns. When the door is open."
+        }
+      ]
+    },
+    "waldruh-ink-cart": {
+      "detail": [
+        {
+          "german": "Flaschen in Blau, Schwarz und Grün. Ein Schild: Verblasst nie!",
+          "english": "Bottles in blue, black and green. A sign: Never fades!"
+        }
+      ],
+      "secret": [
+        {
+          "german": "Unter dem Schild klebt ein altes Etikett: Messingamt Nebelstadt.",
+          "english": "Under the sign sticks an old label: Brass Office Nebelstadt."
+        }
+      ]
+    },
+    "waldruh-old-rails": {
+      "detail": [
+        {
+          "german": "Rostige Schienen. Daneben elf Steine in einer Reihe.",
+          "english": "Rusty rails. Beside them eleven stones in a row."
+        }
+      ],
+      "secret": [
+        {
+          "german": "Auf einem Stein ist ein schwarzer Fingerabdruck. Wie von Tinte.",
+          "english": "One stone carries a black fingerprint. As if from ink."
+        }
+      ]
+    },
+    "waldruh-mill-cellar": {
+      "detail": [
+        {
+          "german": "Eine niedrige Tür unter der Mühle. Ein Schloss mit einer kleinen Laterne.",
+          "english": "A low door under the mill. A lock with a little lantern."
+        }
+      ],
+      "secret": [
+        {
+          "german": "Drinnen riecht es nach Tinte und alten Stempeln.",
+          "english": "Inside it smells of ink and old stamps."
         }
       ]
     },
@@ -1676,6 +1946,48 @@
         {
           "german": "Daneben steht klein, in Ottos Schrift: „Klinik?“",
           "english": "Beside it, small, in Otto’s handwriting: “Clinic?”"
+        }
+      ]
+    },
+    "nebelstadt-record-room": {
+      "detail": [
+        {
+          "german": "Schubladen voller Zettel. Alle in derselben ordentlichen Schrift.",
+          "english": "Drawers full of slips. All in the same tidy hand."
+        }
+      ],
+      "secret": [
+        {
+          "german": "Unter jedem Zettel steht: Wer schweigt, stimmt zu.",
+          "english": "Under every slip: whoever stays silent agrees."
+        }
+      ]
+    },
+    "nebelstadt-signal-slate": {
+      "detail": [
+        {
+          "german": "Oben steht: Keine Beschwerden. Unten, ganz blass: Jonas.",
+          "english": "At the top: No complaints. At the bottom, very pale: Jonas."
+        }
+      ],
+      "secret": [
+        {
+          "german": "Auf der Rückseite: alte Liedzeilen für die Fischer.",
+          "english": "On the back: old song lines for the fishermen."
+        }
+      ]
+    },
+    "nebelstadt-observatory-stairs": {
+      "detail": [
+        {
+          "german": "Eine schmale Treppe nach oben. Am Schloss eine kleine Laterne.",
+          "english": "A narrow staircase upwards. A little lantern on the lock."
+        }
+      ],
+      "secret": [
+        {
+          "german": "Auf der obersten Stufe: 17:59, in Elises Schrift.",
+          "english": "On the top step: 17:59, in Elise’s hand."
         }
       ]
     }

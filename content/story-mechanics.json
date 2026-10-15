@@ -1,0 +1,968 @@
+{
+  "ink": {
+    "decaySeconds": 1500,
+    "paleBelow": 0.5,
+    "entries": [
+      {
+        "id": "ticket-name",
+        "mapId": "lindenhafen",
+        "x": 0.5,
+        "y": 0.5,
+        "kind": "hud",
+        "german": "{name}",
+        "english": "your name",
+        "from": "a1-arrival",
+        "keep": "a1-departure",
+        "restoredBy": [
+          "a1-cafe",
+          "a1-chalk",
+          "a1-bench",
+          "a1-phone",
+          "a1-invitation"
+        ],
+        "bell": true
+      },
+      {
+        "id": "board-w",
+        "mapId": "lindenhafen",
+        "anchor": "object:lindenhafen-noticeboard",
+        "kind": "sign",
+        "german": "Waldruh",
+        "english": "Waldruh",
+        "display": "Bahnsteig 7 · nach W…",
+        "from": "a1-timetable",
+        "until": "a1-departure",
+        "silent": true
+      },
+      {
+        "id": "board-waldruh",
+        "mapId": "lindenhafen",
+        "anchor": "object:lindenhafen-noticeboard",
+        "kind": "sign",
+        "german": "Bahnsteig 7 · nach Waldruh",
+        "english": "Platform 7 · to Waldruh",
+        "from": "a1-departure",
+        "keep": "a1-departure"
+      },
+      {
+        "id": "berg-plate",
+        "mapId": "lindenhafen",
+        "anchor": "object:lindenhafen-berg-house",
+        "kind": "plate",
+        "german": "Frau Berg",
+        "english": "Mrs Berg",
+        "accepted": [
+          "Berg",
+          "Frau Berg"
+        ],
+        "from": "a1-market",
+        "until": "a1-lost-parcel",
+        "restoredBy": [
+          "a1-neighbour",
+          "a1-directions",
+          "a1-bench",
+          "a1-invitation"
+        ],
+        "bell": true
+      },
+      {
+        "id": "berg-plate-blank",
+        "mapId": "lindenhafen",
+        "anchor": "object:lindenhafen-berg-house",
+        "kind": "plate",
+        "german": "Frau Berg",
+        "english": "Mrs Berg",
+        "display": "Gartenstraße · · ·",
+        "from": "a1-lost-parcel",
+        "until": "b1-atlas",
+        "silent": true
+      },
+      {
+        "id": "berg-plate-restored",
+        "mapId": "lindenhafen",
+        "anchor": "object:lindenhafen-berg-house",
+        "kind": "plate",
+        "german": "Frau Berg · Gartenstraße 7",
+        "english": "Mrs Berg · 7 Garden Street",
+        "from": "b1-atlas",
+        "keep": "b1-atlas"
+      },
+      {
+        "id": "fritz-list",
+        "mapId": "lindenhafen",
+        "anchor": "object:lindenhafen-market-crate",
+        "kind": "chalk",
+        "german": "Frau Berg",
+        "english": "Mrs Berg",
+        "accepted": [
+          "Berg",
+          "Frau Berg"
+        ],
+        "from": "a1-market",
+        "keep": "a1-invitation",
+        "bell": true
+      },
+      {
+        "id": "pip-wall",
+        "mapId": "lindenhafen",
+        "anchor": "object:lindenhafen-chalk-wall",
+        "kind": "chalk",
+        "german": "Mama · Papa",
+        "english": "Mum · Dad",
+        "display": "Mama · Papa",
+        "from": "a1-chalk",
+        "until": "a1-lost-found",
+        "silent": true
+      },
+      {
+        "id": "pip-wall-lenz",
+        "mapId": "lindenhafen",
+        "anchor": "object:lindenhafen-chalk-wall",
+        "kind": "chalk",
+        "german": "Mama · Papa Lenz",
+        "english": "Mum · Dad Lenz",
+        "accepted": [
+          "Lenz",
+          "Familie Lenz",
+          "Mama Papa Lenz"
+        ],
+        "from": "a1-lost-found",
+        "keep": "a1-departure",
+        "restoredBy": [
+          "a1-lost-parcel"
+        ],
+        "bell": true
+      },
+      {
+        "id": "stone-jakob",
+        "mapId": "waldruh",
+        "anchor": "object:waldruh-memory-stone",
+        "kind": "stone",
+        "german": "Jakob Lenz",
+        "english": "Jakob Lenz",
+        "accepted": [
+          "Jakob",
+          "Lenz"
+        ],
+        "from": "a2-evening-plans",
+        "keep": "a2-archive",
+        "restoredBy": [
+          "a2-forest-rails",
+          "a2-broken-clock"
+        ],
+        "darkFlag": "route-closed-again",
+        "bell": true
+      },
+      {
+        "id": "stone-ruth",
+        "mapId": "waldruh",
+        "anchor": "object:waldruh-memory-stone",
+        "kind": "stone",
+        "german": "Ruth Lenz",
+        "english": "Ruth Lenz",
+        "accepted": [
+          "Ruth",
+          "Lenz"
+        ],
+        "from": "a2-evening-plans",
+        "keep": "a2-archive",
+        "untilFlag": "ruth-lost",
+        "restoredBy": [
+          "a2-forest-rails",
+          "a2-broken-clock"
+        ],
+        "darkFlag": "route-closed-again",
+        "bell": true
+      },
+      {
+        "id": "stone-ruth-lost",
+        "mapId": "waldruh",
+        "anchor": "object:waldruh-memory-stone",
+        "kind": "stone",
+        "german": "Ruth Lenz",
+        "english": "Ruth Lenz",
+        "display": "R… L…",
+        "fromFlag": "ruth-lost",
+        "until": "b1-atlas",
+        "silent": true
+      },
+      {
+        "id": "hilde-window",
+        "mapId": "waldruh",
+        "anchor": "object:waldruh-hilde-window",
+        "kind": "plate",
+        "german": "Hilde",
+        "english": "Hilde",
+        "accepted": [
+          "Oma Hilde"
+        ],
+        "from": "a2-upstairs",
+        "keep": "a2-archive",
+        "restoredBy": [
+          "a2-evening-plans"
+        ],
+        "bell": true
+      },
+      {
+        "id": "pip-wall-names",
+        "mapId": "lindenhafen",
+        "anchor": "object:lindenhafen-chalk-wall",
+        "kind": "chalk",
+        "german": "Jakob · Ruth Lenz",
+        "english": "Jakob · Ruth Lenz",
+        "fromFlag": "lina-tells-pip",
+        "keep": "a2-forest-rails"
+      },
+      {
+        "id": "slate-jonas",
+        "mapId": "nebelstadt",
+        "anchor": "object:nebelstadt-signal-slate",
+        "kind": "slate",
+        "german": "Jonas",
+        "english": "Jonas",
+        "from": "b1-new-route",
+        "keep": "b1-signalman",
+        "restoredBy": [
+          "b1-signalman"
+        ],
+        "darkFlag": "route-closed-again",
+        "bell": true
+      },
+      {
+        "id": "boat-lenz",
+        "mapId": "nebelstadt",
+        "anchor": "scenery:nebelstadt-east-harbor-boat",
+        "kind": "hull",
+        "german": "Lenz",
+        "english": "Lenz",
+        "accepted": [
+          "Familie Lenz"
+        ],
+        "from": "b1-witness",
+        "keep": "b1-storm",
+        "restoredBy": [
+          "b1-signalman",
+          "b1-council"
+        ],
+        "darkFlag": "route-closed-again",
+        "bell": true
+      }
+    ]
+  },
+  "sideQuests": [
+    {
+      "id": "ticket-anna-kuehn",
+      "mapId": "lindenhafen",
+      "host": "otto",
+      "kind": "ticket",
+      "anchor": "scenery:high-street-house",
+      "german": "Anna Kühn",
+      "english": "Anna Kühn",
+      "place": {
+        "german": "Hochstraße 2",
+        "english": "2 High Street"
+      },
+      "memory": {
+        "german": "Anna Kühn hat hier Brot gebacken. Jeden Morgen um sechs.",
+        "english": "Anna Kühn baked bread here. Every morning at six."
+      },
+      "quest": "a1-station",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Kühn",
+        "Anna Kuehn"
+      ]
+    },
+    {
+      "id": "ticket-paul-winter",
+      "mapId": "lindenhafen",
+      "host": "otto",
+      "kind": "ticket",
+      "anchor": "scenery:high-street-east-house",
+      "german": "Paul Winter",
+      "english": "Paul Winter",
+      "place": {
+        "german": "Hochstraße 9",
+        "english": "9 High Street"
+      },
+      "memory": {
+        "german": "Paul Winter hat die Uhren am Bahnhof gestellt.",
+        "english": "Paul Winter set the clocks at the station."
+      },
+      "quest": "a1-station",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Winter"
+      ]
+    },
+    {
+      "id": "ticket-lotte-brandt",
+      "mapId": "lindenhafen",
+      "host": "otto",
+      "kind": "ticket",
+      "anchor": "scenery:east-canal-house",
+      "german": "Lotte Brandt",
+      "english": "Lotte Brandt",
+      "place": {
+        "german": "Am Kanal 1",
+        "english": "1 Canal Side"
+      },
+      "memory": {
+        "german": "Lotte Brandt hatte ein blaues Boot. Alle Kinder kannten es.",
+        "english": "Lotte Brandt had a blue boat. All the children knew it."
+      },
+      "quest": "a1-station",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Brandt"
+      ]
+    },
+    {
+      "id": "ticket-max-vogel",
+      "mapId": "lindenhafen",
+      "host": "otto",
+      "kind": "ticket",
+      "anchor": "scenery:north-central-house",
+      "german": "Max Vogel",
+      "english": "Max Vogel",
+      "place": {
+        "german": "Nordweg 4",
+        "english": "4 North Lane"
+      },
+      "memory": {
+        "german": "Max Vogel hat jeden Tag die Zeitung gelesen. Laut, auf der Bank.",
+        "english": "Max Vogel read the newspaper every day. Aloud, on the bench."
+      },
+      "quest": "a1-station",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Vogel"
+      ]
+    },
+    {
+      "id": "ticket-ida-sommer",
+      "mapId": "lindenhafen",
+      "host": "otto",
+      "kind": "ticket",
+      "anchor": "scenery:north-library-house",
+      "german": "Ida Sommer",
+      "english": "Ida Sommer",
+      "place": {
+        "german": "Bücherweg 1",
+        "english": "1 Book Lane"
+      },
+      "memory": {
+        "german": "Ida Sommer hat alte Bücher repariert. Frau Berg hat sie oft besucht.",
+        "english": "Ida Sommer repaired old books. Frau Berg often visited her."
+      },
+      "quest": "a1-station",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Sommer"
+      ]
+    },
+    {
+      "id": "ticket-karl-fink",
+      "mapId": "lindenhafen",
+      "host": "otto",
+      "kind": "ticket",
+      "anchor": "scenery:workshop-west-house",
+      "german": "Karl Fink",
+      "english": "Karl Fink",
+      "place": {
+        "german": "Werkstattgasse 3",
+        "english": "3 Workshop Alley"
+      },
+      "memory": {
+        "german": "Karl Fink war Emils Lehrer. Er hat ihm die erste Lampe gezeigt.",
+        "english": "Karl Fink was Emil's teacher. He showed him his first lamp."
+      },
+      "quest": "a1-station",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Fink"
+      ]
+    },
+    {
+      "id": "ticket-rosa-klein",
+      "mapId": "lindenhafen",
+      "host": "otto",
+      "kind": "ticket",
+      "anchor": "scenery:high-street-cottage",
+      "german": "Rosa Klein",
+      "english": "Rosa Klein",
+      "place": {
+        "german": "Marktplatz 5",
+        "english": "5 Market Square"
+      },
+      "memory": {
+        "german": "Rosa Klein hat Blumen verkauft. Rote und gelbe.",
+        "english": "Rosa Klein sold flowers. Red ones and yellow ones."
+      },
+      "quest": "a1-station",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Klein"
+      ]
+    },
+    {
+      "id": "ticket-hans-moeller",
+      "mapId": "lindenhafen",
+      "host": "otto",
+      "kind": "ticket",
+      "anchor": "scenery:harbor-workshop",
+      "german": "Hans Möller",
+      "english": "Hans Möller",
+      "place": {
+        "german": "Hafen 7",
+        "english": "7 Harbour"
+      },
+      "memory": {
+        "german": "Hans Möller hat Boote gebaut. Kleine und große.",
+        "english": "Hans Möller built boats. Small ones and big ones."
+      },
+      "quest": "a1-station",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Möller",
+        "Hans Moeller",
+        "Moeller"
+      ]
+    },
+    {
+      "id": "ticket-emma-roth",
+      "mapId": "waldruh",
+      "host": "hilde",
+      "kind": "ticket",
+      "anchor": "scenery:waldruh-inn",
+      "german": "Emma Roth",
+      "english": "Emma Roth",
+      "place": {
+        "german": "Gasthaus, Zimmer 4",
+        "english": "Inn, room 4"
+      },
+      "memory": {
+        "german": "Emma Roth hat im Gasthaus gekocht. Ihre Pflaumensuppe kannte jeder.",
+        "english": "Emma Roth cooked at the inn. Everyone knew her plum soup."
+      },
+      "quest": "a2-upstairs",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Roth"
+      ]
+    },
+    {
+      "id": "ticket-georg-keller",
+      "mapId": "waldruh",
+      "host": "hilde",
+      "kind": "ticket",
+      "anchor": "scenery:waldruh-west-workshop",
+      "german": "Georg Keller",
+      "english": "Georg Keller",
+      "place": {
+        "german": "Werkstatt am Weg",
+        "english": "Workshop by the path"
+      },
+      "memory": {
+        "german": "Georg Keller hat hier Stühle gebaut. Drei stehen noch im Gasthaus.",
+        "english": "Georg Keller built chairs here. Three still stand in the inn."
+      },
+      "quest": "a2-upstairs",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Keller"
+      ]
+    },
+    {
+      "id": "ticket-klara-engel",
+      "mapId": "waldruh",
+      "host": "hilde",
+      "kind": "ticket",
+      "anchor": "scenery:waldruh-north-chapel",
+      "german": "Klara Engel",
+      "english": "Klara Engel",
+      "place": {
+        "german": "An der Kapelle",
+        "english": "By the chapel"
+      },
+      "memory": {
+        "german": "Klara Engel hat jeden Sonntag die Glocke geläutet. Seitdem läutet niemand.",
+        "english": "Klara Engel rang the bell every Sunday. Nobody has rung it since."
+      },
+      "quest": "a2-upstairs",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Engel"
+      ]
+    },
+    {
+      "id": "ticket-walter-busch",
+      "mapId": "waldruh",
+      "host": "hilde",
+      "kind": "ticket",
+      "anchor": "scenery:waldruh-east-cottage",
+      "german": "Walter Busch",
+      "english": "Walter Busch",
+      "place": {
+        "german": "Haus am Hang",
+        "english": "House on the slope"
+      },
+      "memory": {
+        "german": "Walter Busch hat im Wald Holz gesammelt. Sein Hund wartet noch vor der Tür.",
+        "english": "Walter Busch gathered wood in the forest. His dog still waits at the door."
+      },
+      "quest": "a2-upstairs",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Busch"
+      ]
+    },
+    {
+      "id": "ticket-erika-lang",
+      "mapId": "waldruh",
+      "host": "hilde",
+      "kind": "ticket",
+      "anchor": "scenery:waldruh-north-cottage",
+      "german": "Erika Lang",
+      "english": "Erika Lang",
+      "place": {
+        "german": "Kleines Haus im Norden",
+        "english": "Little house in the north"
+      },
+      "memory": {
+        "german": "Erika Lang hat Briefe für alle geschrieben, die nicht schreiben konnten.",
+        "english": "Erika Lang wrote letters for everyone who could not write."
+      },
+      "quest": "a2-upstairs",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Lang"
+      ]
+    },
+    {
+      "id": "ticket-peter-fischer",
+      "mapId": "waldruh",
+      "host": "hilde",
+      "kind": "ticket",
+      "anchor": "scenery:waldruh-river-boat-south",
+      "german": "Peter Fischer",
+      "english": "Peter Fischer",
+      "place": {
+        "german": "Das Boot am Fluss",
+        "english": "The boat on the river"
+      },
+      "memory": {
+        "german": "Peter Fischer hat Leute über den Fluss gebracht. Für einen Apfel.",
+        "english": "Peter Fischer took people across the river. For an apple."
+      },
+      "quest": "a2-upstairs",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Fischer"
+      ]
+    },
+    {
+      "id": "ticket-sophie-wolf",
+      "mapId": "waldruh",
+      "host": "hilde",
+      "kind": "ticket",
+      "anchor": "scenery:waldruh-yard-house",
+      "german": "Sophie Wolf",
+      "english": "Sophie Wolf",
+      "place": {
+        "german": "Haus am Hof",
+        "english": "House by the yard"
+      },
+      "memory": {
+        "german": "Sophie Wolf hatte zwölf Hühner. Sie kannte jedes beim Namen.",
+        "english": "Sophie Wolf had twelve hens. She knew each one by name."
+      },
+      "quest": "a2-upstairs",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Wolf"
+      ]
+    },
+    {
+      "id": "ticket-heinz-albrecht",
+      "mapId": "waldruh",
+      "host": "hilde",
+      "kind": "ticket",
+      "anchor": "scenery:waldruh-terrace-workshop",
+      "german": "Heinz Albrecht",
+      "english": "Heinz Albrecht",
+      "place": {
+        "german": "Werkstatt auf der Terrasse",
+        "english": "Workshop on the terrace"
+      },
+      "memory": {
+        "german": "Heinz Albrecht hat die Uhren der Mühle gestellt. Seitdem fehlen elf Minuten.",
+        "english": "Heinz Albrecht set the mill’s clocks. Eleven minutes have been missing since."
+      },
+      "quest": "a2-upstairs",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Albrecht"
+      ]
+    },
+    {
+      "id": "ticket-johann-becker",
+      "mapId": "nebelstadt",
+      "host": "jonas",
+      "kind": "ticket",
+      "anchor": "scenery:nebelstadt-shipwright-workshop",
+      "german": "Johann Becker",
+      "english": "Johann Becker",
+      "place": {
+        "german": "Werft am Kai",
+        "english": "Shipyard on the quay"
+      },
+      "memory": {
+        "german": "Johann Becker hat Boote gebaut, die nie gesunken sind. Er war stolz auf die Boote, nie auf sich.",
+        "english": "Johann Becker built boats that never sank. He was proud of the boats, never of himself."
+      },
+      "quest": "b1-signalman",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Becker"
+      ]
+    },
+    {
+      "id": "ticket-mia-hansen",
+      "mapId": "nebelstadt",
+      "host": "jonas",
+      "kind": "ticket",
+      "anchor": "scenery:nebelstadt-west-fishing-boat",
+      "german": "Mia Hansen",
+      "english": "Mia Hansen",
+      "place": {
+        "german": "Fischerboot am Westkai",
+        "english": "Fishing boat on the west quay"
+      },
+      "memory": {
+        "german": "Mia Hansen ist jeden Morgen um vier hinausgefahren. Ihre Netze hängen noch am Kai.",
+        "english": "Mia Hansen went out every morning at four. Her nets still hang on the quay."
+      },
+      "quest": "b1-signalman",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Hansen"
+      ]
+    },
+    {
+      "id": "ticket-ole-petersen",
+      "mapId": "nebelstadt",
+      "host": "jonas",
+      "kind": "ticket",
+      "anchor": "scenery:nebelstadt-southwest-fishing-boat",
+      "german": "Ole Petersen",
+      "english": "Ole Petersen",
+      "place": {
+        "german": "Fischerboot am Südkai",
+        "english": "Fishing boat on the south quay"
+      },
+      "memory": {
+        "german": "Ole Petersen hat mit Jonas am Hafen gesungen. Die Lieder stehen noch auf der Rückseite der Tafel.",
+        "english": "Ole Petersen sang with Jonas at the harbour. The songs are still on the back of the slate."
+      },
+      "quest": "b1-signalman",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Petersen"
+      ]
+    },
+    {
+      "id": "ticket-lene-voigt",
+      "mapId": "nebelstadt",
+      "host": "jonas",
+      "kind": "ticket",
+      "anchor": "scenery:nebelstadt-conservatory-fishing-boat",
+      "german": "Lene Voigt",
+      "english": "Lene Voigt",
+      "place": {
+        "german": "Boot am Gewächshaus",
+        "english": "Boat by the greenhouse"
+      },
+      "memory": {
+        "german": "Lene Voigt hat Blumen nach Waldruh gebracht, als die Strecke noch offen war.",
+        "english": "Lene Voigt took flowers to Waldruh when the route was still open."
+      },
+      "quest": "b1-signalman",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Voigt"
+      ]
+    },
+    {
+      "id": "ticket-konrad-weiss",
+      "mapId": "nebelstadt",
+      "host": "jonas",
+      "kind": "ticket",
+      "anchor": "scenery:harbour-front-storefront-1",
+      "german": "Konrad Weiß",
+      "english": "Konrad Weiß",
+      "place": {
+        "german": "Laden an der Hafenfront",
+        "english": "Shop on the harbour front"
+      },
+      "memory": {
+        "german": "Konrad Weiß hat Laternen verkauft. Die letzte hängt noch im Fenster.",
+        "english": "Konrad Weiß sold lanterns. The last one still hangs in the window."
+      },
+      "quest": "b1-signalman",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Weiß",
+        "Konrad Weiss",
+        "Weiss"
+      ]
+    },
+    {
+      "id": "ticket-elsa-graf",
+      "mapId": "nebelstadt",
+      "host": "jonas",
+      "kind": "ticket",
+      "anchor": "scenery:harbour-front-storefront-2",
+      "german": "Elsa Graf",
+      "english": "Elsa Graf",
+      "place": {
+        "german": "Zweiter Laden an der Hafenfront",
+        "english": "Second shop on the harbour front"
+      },
+      "memory": {
+        "german": "Elsa Graf hat Karten gezeichnet. Auf ihren Karten gab es immer drei Städte.",
+        "english": "Elsa Graf drew maps. Her maps always had three towns."
+      },
+      "quest": "b1-signalman",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Graf"
+      ]
+    },
+    {
+      "id": "ticket-friedrich-kurz",
+      "mapId": "nebelstadt",
+      "host": "jonas",
+      "kind": "ticket",
+      "anchor": "scenery:harbour-supply-storefront-1",
+      "german": "Friedrich Kurz",
+      "english": "Friedrich Kurz",
+      "place": {
+        "german": "Hafenlager, erstes Tor",
+        "english": "Harbour store, first gate"
+      },
+      "memory": {
+        "german": "Friedrich Kurz hat Seile verkauft. Im Sturm haben seine Seile gehalten, auch ohne seinen Namen.",
+        "english": "Friedrich Kurz sold ropes. In the storm his ropes held, even without his name."
+      },
+      "quest": "b1-signalman",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Kurz"
+      ]
+    },
+    {
+      "id": "ticket-hanna-seidel",
+      "mapId": "nebelstadt",
+      "host": "jonas",
+      "kind": "ticket",
+      "anchor": "scenery:harbour-supply-storefront-2",
+      "german": "Hanna Seidel",
+      "english": "Hanna Seidel",
+      "place": {
+        "german": "Hafenlager, zweites Tor",
+        "english": "Harbour store, second gate"
+      },
+      "memory": {
+        "german": "Hanna Seidel hat jeden Brief im Hafen gestempelt. Mit einem Stempel, nie mit zwei.",
+        "english": "Hanna Seidel stamped every letter at the harbour. With one stamp, never two."
+      },
+      "quest": "b1-signalman",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Seidel"
+      ]
+    },
+    {
+      "id": "pupil-ella",
+      "mapId": "lindenhafen",
+      "host": "berg",
+      "kind": "memory",
+      "x": 0.8229166666666666,
+      "y": 0.234375,
+      "german": "Ella",
+      "english": "Ella",
+      "place": {
+        "german": "Ella, bei der Post",
+        "english": "Ella, by the post office"
+      },
+      "memory": {
+        "german": "Frau Berg hat mir Lesen beigebracht. Mit Briefen, nicht mit Büchern.",
+        "english": "Frau Berg taught me to read. With letters, not with books."
+      },
+      "quest": "a1-bench",
+      "requires": {},
+      "xp": 5,
+      "group": "pupils-remembered"
+    },
+    {
+      "id": "pupil-karl",
+      "mapId": "lindenhafen",
+      "host": "berg",
+      "kind": "memory",
+      "x": 0.9019097222222222,
+      "y": 0.2532552083333333,
+      "german": "Karl",
+      "english": "Karl",
+      "place": {
+        "german": "Karl, am Paketstand",
+        "english": "Karl, at the parcel stall"
+      },
+      "memory": {
+        "german": "Ich war immer zu spät. Frau Berg hat trotzdem gewartet. Jeden Tag.",
+        "english": "I was always late. Frau Berg waited anyway. Every day."
+      },
+      "quest": "a1-bench",
+      "requires": {},
+      "xp": 5,
+      "group": "pupils-remembered"
+    },
+    {
+      "id": "pupil-bea",
+      "mapId": "lindenhafen",
+      "host": "berg",
+      "kind": "memory",
+      "x": 0.9188368055555556,
+      "y": 0.8815104166666666,
+      "german": "Bea",
+      "english": "Bea",
+      "place": {
+        "german": "Bea, in der Bibliothek",
+        "english": "Bea, in the library"
+      },
+      "memory": {
+        "german": "Frau Berg hatte eine rote Brille. Sie hat sie immer verloren.",
+        "english": "Frau Berg had red glasses. She was always losing them."
+      },
+      "quest": "a1-bench",
+      "requires": {},
+      "xp": 5,
+      "group": "pupils-remembered"
+    },
+    {
+      "id": "pupil-theo",
+      "mapId": "lindenhafen",
+      "host": "berg",
+      "kind": "memory",
+      "x": 0.9583333333333334,
+      "y": 0.890625,
+      "german": "Theo",
+      "english": "Theo",
+      "place": {
+        "german": "Theo, am Fluss",
+        "english": "Theo, by the river"
+      },
+      "memory": {
+        "german": "Ich habe die Brille gefunden. Unter der Bank. Ich bringe sie ihr.",
+        "english": "I found the glasses. Under the bench. I will bring them to her."
+      },
+      "quest": "a1-bench",
+      "requires": {},
+      "xp": 5,
+      "group": "pupils-remembered"
+    },
+    {
+      "id": "customer-hilde",
+      "mapId": "waldruh",
+      "host": "falk",
+      "kind": "customer",
+      "anchor": "object:waldruh-hilde-window",
+      "german": "Hilde",
+      "english": "Hilde",
+      "place": {
+        "german": "Hildes Fenster",
+        "english": "Hilde’s window"
+      },
+      "memory": {
+        "german": "Falk hat meinen Namen auf das Glas geschrieben. Nach drei Tagen war er weg.",
+        "english": "Falk wrote my name on the jar. After three days it was gone."
+      },
+      "quest": "a2-ink-seller",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Oma Hilde"
+      ],
+      "group": "falk-customers"
+    },
+    {
+      "id": "customer-paula-brenner",
+      "mapId": "waldruh",
+      "host": "falk",
+      "kind": "customer",
+      "anchor": "object:waldruh-herb-garden",
+      "german": "Paula Brenner",
+      "english": "Paula Brenner",
+      "place": {
+        "german": "Gretas Garten, die Bank",
+        "english": "Greta’s garden, the bench"
+      },
+      "memory": {
+        "german": "Ich war Patientin bei Greta. Mein Name auf der Liste war blau, dann grau, dann nichts.",
+        "english": "I was Greta’s patient. My name on the list was blue, then grey, then nothing."
+      },
+      "quest": "a2-ink-seller",
+      "requires": {},
+      "xp": 10,
+      "accepted": [
+        "Brenner"
+      ],
+      "group": "falk-customers"
+    },
+    {
+      "id": "customer-fritz",
+      "mapId": "nebelstadt",
+      "host": "falk",
+      "kind": "customer",
+      "anchor": "npc:fritz",
+      "german": "Fritz",
+      "english": "Fritz",
+      "place": {
+        "german": "Fritz’ Suppentopf",
+        "english": "Fritz’s soup pot"
+      },
+      "memory": {
+        "german": "Ich habe meinen Namen mit Falks Tinte auf den Topf geschrieben. Jetzt steht nur noch Suppe darauf.",
+        "english": "I wrote my name on the pot in Falk’s ink. Now it only says soup."
+      },
+      "quest": "a2-ink-seller",
+      "requires": {},
+      "xp": 10,
+      "group": "falk-customers"
+    }
+  ]
+}

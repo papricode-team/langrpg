@@ -21,6 +21,23 @@ type StoryRule struct {
 	InvestigationObjectIDs []string          `json:"investigationObjectIds"`
 	Objects                []StoryObject     `json:"objects"`
 	Choices                []StoryChoiceRule `json:"choices"`
+	// Locked evidence opens only with the named key, ledger or trust.
+	Locks []StoryLock `json:"locks,omitempty"`
+}
+
+type StoryLock struct {
+	ObjectID  string            `json:"objectId"`
+	Condition StoryCondition    `json:"condition"`
+	Reason    map[string]string `json:"reason"`
+}
+
+func (r StoryRule) lockFor(objectID string) (StoryLock, bool) {
+	for _, lock := range r.Locks {
+		if lock.ObjectID == objectID {
+			return lock, true
+		}
+	}
+	return StoryLock{}, false
 }
 
 type StoryChoiceRule struct {
@@ -36,12 +53,25 @@ type StoryCondition struct {
 	Faction     string `json:"faction"`
 	Minimum     int    `json:"minimum"`
 	Ending      string `json:"ending"`
+	// At least one alternative must hold (a door several keys open).
+	AnyOf []StoryCondition `json:"anyOf,omitempty"`
 }
 
 func (c StoryCondition) met(s *StoryState) bool {
-	return (c.Flag == "" || s.Flags[c.Flag]) && (c.WithoutFlag == "" || !s.Flags[c.WithoutFlag]) &&
+	if !((c.Flag == "" || s.Flags[c.Flag]) && (c.WithoutFlag == "" || !s.Flags[c.WithoutFlag]) &&
 		(c.Item == "" || contains(s.Inventory, c.Item)) && (c.MissingItem == "" || !contains(s.Inventory, c.MissingItem)) &&
-		(c.Faction == "" || s.Reputation[c.Faction] >= c.Minimum) && (c.Ending == "" || s.Ending == c.Ending)
+		(c.Faction == "" || s.Reputation[c.Faction] >= c.Minimum) && (c.Ending == "" || s.Ending == c.Ending)) {
+		return false
+	}
+	if len(c.AnyOf) == 0 {
+		return true
+	}
+	for _, alternative := range c.AnyOf {
+		if alternative.met(s) {
+			return true
+		}
+	}
+	return false
 }
 
 type StoryEffect struct {
@@ -143,6 +173,10 @@ func ensureStory(p *Progress) {
 	if contains(p.CompletedQuestIDs, "a2-archive") {
 		s.Flags["route:nebelstadt"] = true
 	}
+	// Elise's key hangs on the Waldruh lease; saves past that scene carry it.
+	if contains(p.CompletedQuestIDs, "a2-apartment") {
+		giveStoryItem(s, "keeper-key")
+	}
 	if contains(p.CompletedQuestIDs, "b1-atlas") {
 		s.Flags["route:coastline"] = true
 		giveStoryItem(s, "restored-atlas")
@@ -173,7 +207,10 @@ func ensureStory(p *Progress) {
 	if contains(p.CompletedQuestIDs, "b1-atlas") {
 		limit = 7
 	}
-	s.Bell = max(min(limit, earned+s.BellWarnings), min(s.Bell, min(limit, ceiling+s.BellWarnings)))
+	prior := s.Bell - s.InkWarnings
+	s.Bell = max(min(limit, earned+s.BellWarnings), min(prior, min(limit, ceiling+s.BellWarnings)))
+	s.InkWarnings = 0
+	applyInkToBell(s, refreshInk(p, currentStoryMechanics().Ink, ""), limit)
 }
 
 // Pressure survives canonical beats. Two early warnings leave the last bell
@@ -181,7 +218,8 @@ func ensureStory(p *Progress) {
 func warnStoryBell(s *StoryState) {
 	if s.BellWarnings < 2 {
 		s.BellWarnings++
-		s.Bell = min(6, s.Bell+1)
+		s.Bell = min(6, s.Bell-s.InkWarnings+1)
+		s.InkWarnings = 0
 	}
 }
 func recordStoryGateFailure(s *StoryState, questID string) {
@@ -263,7 +301,7 @@ func (a *App) story(w http.ResponseWriter, r *http.Request) {
 		saves = append(saves, map[string]any{"slot": save.Slot, "name": save.Name, "at": save.At})
 	}
 	sort.Slice(saves, func(i, j int) bool { return saves[i]["slot"].(string) < saves[j]["slot"].(string) })
-	writeJSON(w, 200, map[string]any{"story": account.Progress.Story, "progress": account.Progress, "rules": rules, "saves": saves})
+	writeJSON(w, 200, map[string]any{"story": account.Progress.Story, "progress": account.Progress, "rules": rules, "saves": saves, "mechanics": a.mechanics()})
 }
 
 type StoryTransitionInput struct {
@@ -381,6 +419,7 @@ func (a *App) transitionStory(w http.ResponseWriter, r *http.Request) {
 			giveStoryItem(s, input.QuestID+"-evidence")
 			a.applyStoryChoice(s, input.QuestID, input.ChoiceID)
 			account.Progress.CompletedQuestIDs = append(account.Progress.CompletedQuestIDs, input.QuestID)
+			refreshInk(&account.Progress, currentStoryMechanics().Ink, input.QuestID)
 			ensureStory(&account.Progress)
 			reward := 0
 			if !contains(account.RewardedQuestIDs, input.QuestID) {
@@ -589,6 +628,13 @@ func (a *App) inspectStory(w http.ResponseWriter, r *http.Request) {
 		if !a.nearCourseStoryTarget(account, rule.MapID, target, storyEvidenceRange) {
 			return Receipt{}, &APIError{409, "walk to this piece of evidence first"}
 		}
+		if lock, locked := rule.lockFor(input.ObjectID); locked && !lock.Condition.met(&account.Progress.Story) {
+			message := lock.Reason["en"]
+			if message == "" {
+				message = "this door is locked"
+			}
+			return Receipt{}, &APIError{409, message}
+		}
 		inspected := account.Progress.Story.Inspections[input.QuestID]
 		if !contains(inspected, input.ObjectID) {
 			account.Progress.Story.Inspections[input.QuestID] = append(inspected, input.ObjectID)
@@ -616,7 +662,7 @@ func (a *App) storyCinematic(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	prerequisites := map[string]string{"arrival": "", "platform": "a1-arrival", "recording": "a1-station", "erasure": "a1-lost-parcel", "clockmill": "a2-broken-clock", "confession": "a2-archive", "dark-beam": "b1-new-route", "ledger": "b1-work", "storm": "b1-storm", "bell": "b1-atlas"}
+	prerequisites := map[string]string{"arrival": "", "platform": "a1-arrival", "recording": "a1-station", "erasure": "a1-lost-parcel", "remembered": "a1-bench", "clockmill": "a2-broken-clock", "rails": "a2-forest-rails", "confession": "a2-archive", "dark-beam": "b1-new-route", "ledger": "b1-work", "temptation": "b1-temptation", "storm": "b1-storm", "bell": "b1-atlas", "epilogue": "b1-atlas"}
 	questID, ok := prerequisites[input.Kind]
 	if !ok || !safeID.MatchString(input.ID) {
 		writeError(w, 400, "unknown cinematic or action ID")
