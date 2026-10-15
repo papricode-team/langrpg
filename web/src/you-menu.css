@@ -176,24 +176,60 @@
 .account-credential-error:empty { display:none; }
 .account-credential-actions { display:flex; align-items:center; gap:12px; margin-top:6px; }
 
+#menu-layer .course-picker {
+  border-color:var(--game-line);
+  border-radius:4px;
+  color:var(--game-text);
+  background:#14292366;
+}
+
+#menu-layer .course-picker label {
+  min-width:0;
+  max-width:100%;
+}
+
 #menu-layer .options-panel .course-picker {
   margin:0;
   padding:20px 0;
   border:0;
   border-top:1px solid var(--game-line);
   border-radius:0;
+  background:none;
 }
 
-#menu-layer .options-panel .course-picker select {
+#menu-layer .course-picker select {
+  appearance:none;
+  color-scheme:dark;
   min-height:48px;
+  min-width:0;
   max-width:100%;
+  padding:12px 40px 12px 14px;
   border:1px solid #d8bb8040;
   border-radius:4px;
+  color:var(--game-text);
+  background-color:#0d1e19;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%23d8bb80' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 14px center;
+  cursor:pointer;
+}
+
+#menu-layer .course-picker select:hover:not(:disabled) {
+  border-color:#d8bb8070;
+  background-color:#142923;
+}
+
+#menu-layer .course-picker select:disabled {
+  opacity:.48;
+  cursor:default;
+}
+
+#menu-layer .course-picker option {
   color:var(--game-text);
   background:#0d1e19;
 }
 
-#menu-layer .options-panel .course-picker [role=status]:empty { display:none; }
+#menu-layer .course-picker [role=status]:empty { display:none; }
 
 /* Nine-slice SVG artwork gives every menu control the same painted focus effect.
    Border-image widths do not change layout or replace a control's background.
@@ -206,6 +242,11 @@
 }
 
 @media (forced-colors:active) {
+  #menu-layer .course-picker select {
+    appearance:auto;
+    background-image:none;
+  }
+
   #menu-layer :is(button,input,select,textarea,summary,a[href]):focus-visible,
   #menu-layer[data-input='pad'] :is(button,input,select,textarea,summary,a[href]):focus {
     border-image:none;
