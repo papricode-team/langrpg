@@ -56,6 +56,9 @@ const fillPolygon = (g: Phaser.GameObjects.Graphics, polygon: readonly (readonly
   g.beginPath(); polygon.forEach(([x, y], index) => index ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.fillPath();
 };
 
+/** "the parcel" reads as "Parcel" on a map label. */
+const capitalName = (text: string) => { const bare = text.replace(/^the /, ''); return bare.charAt(0).toLocaleUpperCase() + bare.slice(1); };
+
 export class AdminMapScene extends Phaser.Scene {
   private mapId: MapId = 'lindenhafen';
   private readonly period = 'day' as const;
@@ -558,14 +561,24 @@ export class AdminMapScene extends Phaser.Scene {
     }
     // Story characters and evidence, which play draws as people and markers.
     const selected = new Set(this.selection.map(item => item.id)), offset = this.drag?.moved ? {x: this.drag.dx, y: this.drag.dy} : this.nudge ? {x: this.nudge.dx, y: this.nudge.dy} : {x: 0, y: 0};
+    const names: {text: string; x: number; y: number; rank: number}[] = [];
     for (const anchor of this.anchors()) {
       const moving = selected.has(anchor.id), x = anchor.x + (moving ? offset.x : 0), y = anchor.y + (moving ? offset.y : 0);
       const color = anchor.kind === 'npc' ? 0xf3c76a : 0x9fd3e0;
       g.fillStyle(0x132a22, .88).fillCircle(x, y - 20, 13 / zoom);
       g.lineStyle(2.5 / zoom, color, 1).strokeCircle(x, y - 20, 13 / zoom);
       g.fillStyle(color, 1).fillCircle(x, y - 20, 4 / zoom);
-      if (this.layers.labels && (zoom >= LABEL_ZOOM || moving || this.hovered?.id === anchor.id))
-        labels = this.label(labels, objectLabel(scene, anchor.id), x, y - 2);
+      const focused = moving || this.hovered?.id === anchor.id;
+      if (this.layers.labels && (zoom >= LABEL_ZOOM || focused))
+        names.push({text: capitalName(objectLabel(scene, anchor.id)), x, y: y - 2, rank: focused ? 0 : anchor.kind === 'npc' ? 1 : 2});
+    }
+    // Names never pile up: a name that would cover a more important one waits until hovered.
+    const placed: {left: number; right: number; top: number; bottom: number}[] = [];
+    for (const name of names.sort((a, b) => a.rank - b.rank)) {
+      const width = (name.text.length * 7 + 14) / zoom, box = {left: name.x - width / 2, right: name.x + width / 2, top: name.y, bottom: name.y + 22 / zoom};
+      if (name.rank && placed.some(other => box.left < other.right && box.right > other.left && box.top < other.bottom && box.bottom > other.top)) continue;
+      placed.push(box);
+      labels = this.label(labels, name.text, name.x, name.y);
     }
     for (const [id, name] of locks) {
       const item = this.itemFor(id), position = item && this.position(item);
