@@ -1,4 +1,4 @@
-FROM node:24-alpine AS frontend
+FROM node:25-alpine AS frontend
 WORKDIR /app
 COPY package.json package-lock.json ./
 COPY web/package.json web/package.json
@@ -27,7 +27,7 @@ COPY server/ ./
 RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/world .
 RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/import-content ./cmd/import-content
 
-FROM node:24-alpine
+FROM node:25-alpine
 RUN apk add --no-cache ca-certificates && addgroup -S game && adduser -S game -G game
 WORKDIR /app
 COPY --from=build /out/world /app/world
