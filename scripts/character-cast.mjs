@@ -20,8 +20,10 @@ const characterCatalogue=await json(resolve(ROOT,SOURCE,'component-catalogue.jso
 
 export async function castInventory() {
   await import('./register-content-loader.mjs');
-  const [{npcs},{expeditionRegions},{worldResidentSpecs},{sceneDocument}]=await Promise.all([
-    import('../web/src/content.ts'),import('../web/src/expeditions.ts'),
+  // The authored registries are filled before any web module that reads them is evaluated.
+  const {npcs}=await import('./content-source.mjs');
+  const [{expeditionRegions},{worldResidentSpecs},{sceneDocument}]=await Promise.all([
+    import('../web/src/expeditions.ts'),
     import('../web/src/world-life.ts'),import('../web/src/scene-data.ts'),
   ]);
   return [

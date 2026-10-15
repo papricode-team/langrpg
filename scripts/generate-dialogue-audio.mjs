@@ -6,6 +6,7 @@ import { readFile, writeFile, mkdtemp, rm, access } from 'node:fs/promises';
 import { spawn } from 'node:child_process';
 import { tmpdir, homedir } from 'node:os';
 import { resolve } from 'node:path';
+import { quests, npcs } from './content-source.mjs';
 import { cast, jobs } from './dialogue-audio-content.mjs';
 import {canVoiceDialogue} from '../web/src/dialogue.ts';
 
@@ -23,7 +24,6 @@ for (const job of jobs) {
   seen.add(job.clipId);
   if (!cast[job.speaker]) throw new Error(`No voice for ${job.speaker}`);
 }
-const { quests, npcs } = await import('../web/src/content.ts');
 const exerciseJobs = [
   ...quests.flatMap(quest => quest.exercises.map(exercise => ({ clipId: exercise.id, speaker: quest.npcId, german: exercise.german }))),
   ...npcs.map(npc => ({ clipId: `npc-${npc.id}`, speaker: npc.id, german: npc.greeting })),

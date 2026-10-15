@@ -23,7 +23,9 @@ Ranges are compiled in UTF-16 offsets. Placeholder personalization changes offse
 
 `node --test scripts/word-map.test.mjs scripts/content-runtime-plugin.test.mjs` checks the review round trip, exact occurrence selectors, range substitutions, authored acceptance cases, course proof and production browser transformations. Production transforms replace authoring banks with authenticated runtime registries, preserve static presentation anchors and replace legacy learning references with committed UUIDs. Authoring tests still use their original source fixtures.
 
-`scripts/content-snapshot.mjs` is a legacy importer. Normal rebuilds use `content/source.json`; rerun the importer only when deliberately incorporating a change to the retained legacy authoring files.
+`source.json` is the only copy of the quests, characters and chapters. `web/src/content.ts` keeps their types and empty registries: the browser fills them from the content API (production builds replace them with runtime registries), Node tools fill them by importing `scripts/content-source.mjs` before any web module that reads them, and Vitest fills them from `web/src/test-support/authored-content.ts`. Edit quest, character and chapter data in `source.json`, then rebuild.
+
+`scripts/content-snapshot.mjs` is a legacy importer for the other retained TypeScript authoring modules (interiors, activities, routines and so on). It carries quests, characters and chapters over from `source.json` unchanged. Normal rebuilds use `source.json`; rerun the importer only when deliberately incorporating a change to those legacy modules, and review its diff: it rewrites the whole file, and the legacy modules have drifted from `source.json` (Turkish interface strings and interior mini-game links).
 
 ## Course voices
 

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { auditDialogueCorpus } from './dialogue-level-audit.mjs';
-import { quests, npcs } from '../web/src/content.ts';
+import { quests, npcs } from './content-source.mjs';
 
 const course = JSON.parse(await readFile(new URL('../web/src/data/course.json', import.meta.url), 'utf8'));
 const graphs = JSON.parse(await readFile(new URL('../web/src/data/dialogue-graphs.json', import.meta.url), 'utf8'));

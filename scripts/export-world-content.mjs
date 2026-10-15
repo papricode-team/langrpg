@@ -4,6 +4,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import './register-content-loader.mjs';
+import { quests } from './content-source.mjs';
 const { applyAuthoredMapPlacements } = await import('../web/src/map-authoring.ts');
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -37,7 +38,6 @@ const { maps: rawMaps } = await import('../web/src/maps.ts');
 // Match getMap() exactly: physical proof must use the editor's placements,
 // including after a designer moves an investigation object or its speaker.
 const maps = rawMaps.map(map => applyAuthoredMapPlacements(map));
-const { quests } = await import('../web/src/content.ts');
 const graphs = JSON.parse(await readFile(resolve(root, 'web/src/data/dialogue-graphs.json'), 'utf8'));
 const rules = graphs.map(graph => {
   const quest = quests.find(quest => quest.id === graph.questId);

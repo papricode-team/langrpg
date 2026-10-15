@@ -279,7 +279,9 @@ export function contentRuntimePlugin(root) {
           const source=resolve(root,'web/src').replaceAll('\\','/')+'/';
           const query=new URLSearchParams(module.slice(module.indexOf('?')+1));
           const rawAuthoring=path.startsWith(source)&&retainedLearningModules.has(path.slice(source.length))&&(query.has('raw')||query.has('url'));
-          if(rawAuthoring||path.startsWith(resolve(root,'content').replaceAll('\\','/')+'/')||path===resolve(root,'content_ids.json').replaceAll('\\','/')||path.startsWith(resolve(root,'server').replaceAll('\\','/')+'/')&&path.endsWith('.json')||forbidden.test(module.replaceAll('\\','/'))||/\/test-fixtures\/content-public\.json(?:\?|$)/.test(module.replaceAll('\\','/'))) throw new Error(`Learning content entered the browser bundle: ${module}`);
+          // Test support reads the private authoring source from disk; content.ts imports it only under Vitest.
+          const testSupport=path.startsWith(source+'test-support/');
+          if(rawAuthoring||testSupport||path.startsWith(resolve(root,'content').replaceAll('\\','/')+'/')||path===resolve(root,'content_ids.json').replaceAll('\\','/')||path.startsWith(resolve(root,'server').replaceAll('\\','/')+'/')&&path.endsWith('.json')||forbidden.test(module.replaceAll('\\','/'))||/\/test-fixtures\/content-public\.json(?:\?|$)/.test(module.replaceAll('\\','/'))) throw new Error(`Learning content entered the browser bundle: ${module}`);
         }
       }
     },

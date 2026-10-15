@@ -41,7 +41,7 @@ export function summarizeInput(entries, adjusted = false) {
 
 /** Preserve the conservative raw audit, then explain each bounded resolution.
  * Introductions are editorial vocabulary with an English gloss, not evidence
- * that an individual learner knows a word. Quest order follows content.ts.
+ * that an individual learner knows a word. Quest order follows content/source.json.
  */
 export function auditDialogueCorpus({ graphs, lexicon, questOrder = graphs.map(graph => graph.questId), properNames = [], quests = [] }) {
   const exact = new Map(), forms = new Map();

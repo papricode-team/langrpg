@@ -116,7 +116,16 @@ test('bundle validation rejects accidental learning JSON imports',()=>{
   assert.throws(()=>plugin.generateBundle({}, {bad:{type:'chunk',modules:{[resolve(root,'web/src/test-fixtures/content-public.json')]:{} }}}),/Learning content entered/);
   for(const path of ['content/source.json','content/imported-alignment-drafts.json','content/imported-drafts/9a83d89d/reviewed.json','server/content.json','content_ids.json'])assert.throws(()=>plugin.generateBundle({}, {bad:{type:'chunk',modules:{[resolve(root,path)+'?import']:{} }}}),/Learning content entered/);
   for(const path of ['web/src/content.ts?raw','web/src/story-panels.ts?url','web/src/expeditions.ts?r%61w'])assert.throws(()=>plugin.generateBundle({}, {bad:{type:'chunk',modules:{[resolve(root,path)]:{} }}}),/Learning content entered/);
+  // content.ts loads quests from content/source.json through test support under Vitest only.
+  for(const path of ['web/src/test-support/authored-content.ts','web/src/test-support/ui-content-preview.ts'])assert.throws(()=>plugin.generateBundle({}, {bad:{type:'chunk',modules:{[resolve(root,path)]:{} }}}),/Learning content entered/);
   assert.doesNotThrow(()=>plugin.generateBundle({}, {safe:{type:'chunk',modules:{[resolve(root,'web/src/data/world-scenes.json')]:{} }}}));
+});
+test('content.ts keeps no authored data and production replaces its registries',()=>{
+  const path=resolve(root,'web/src/content.ts'),code=readFileSync(path,'utf8');
+  assert.ok(code.split('\n').length<150,'content.ts holds types and empty registries only');
+  assert.doesNotMatch(code,/a1-arrival|"exercises"\s*:/);
+  const output=plugin.transform(code,path).code;
+  for(const name of ['npcs','chapters','quests','vocabulary'])assert.match(output,new RegExp(`\\b${name}(?::[^=]+)? = runtimeArray\\("${name}"`),name);
 });
 test('public media metadata excludes transcripts, model answers and lexical facts',()=>{
   const input={clips:[{id:'clip-1',text:'A full target sentence.',path:'/audio/clip-1.mp3',speaker:'Sam',answer:'a model answer',nested:{acceptedAnswers:['another'],explanation:'private feedback'}}],frames:{sprite:{lexemeId:'opaque-id',lemma:'word',article:'the',plural:'words',subject:'one picture',url:'/sprite.webp',atlasFrame:{x:12,y:24,w:64,h:64}}}};

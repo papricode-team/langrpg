@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /** Generate the shared client/server vocabulary syllabus from the course lexicon and the story graphs. */
 import './register-content-loader.mjs';
+import { quests, npcs } from './content-source.mjs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { buildSyllabus } from './syllabus.mjs';
-import { quests, npcs } from '../web/src/content.ts';
 
 const course = JSON.parse(await readFile(new URL('../web/src/data/course.json', import.meta.url), 'utf8'));
 const graphs = JSON.parse(await readFile(new URL('../web/src/data/dialogue-graphs.json', import.meta.url), 'utf8'));

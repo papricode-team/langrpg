@@ -112,7 +112,7 @@ The no-microphone contract remains in force. Speech playback and the fictional s
 
 ## Content and server contract
 
-`web/src/content.ts` exports `Level`, `ExerciseMode`, `Exercise`, `Quest`, `NPC`, `chapters`, `npcs`, `quests`, `vocabulary` and `npcQuests`. `server/curriculum.json` is the server's canonical grading and completion manifest.
+The quests, characters and chapters live in `content/source.json`. `web/src/content.ts` exports their types (`Level`, `ExerciseMode`, `Exercise`, `Quest`, `NPC`) and the `chapters`, `npcs`, `quests`, `vocabulary` registries plus `npcQuests`; the browser fills the registries from the content API, Node tools through `scripts/content-source.mjs`. `server/curriculum.json` is the server's canonical grading and completion manifest.
 
 The course generator preserves the full `web/src/data/course.json` as its auditable source output and derives four compact browser files: metadata and A1/A2/B1 exercise sets. The browser assembles the same ordered exercises using their canonical source indices. Each transport file stays bounded, with build checks limiting the largest JavaScript chunk to 4 MiB. The split changes delivery, not exercise IDs, accepted answers or progress.
 

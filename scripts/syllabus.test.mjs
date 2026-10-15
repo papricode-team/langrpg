@@ -2,8 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import './register-content-loader.mjs';
+import { quests, npcs } from './content-source.mjs';
 import { buildSyllabus, pacingReport, questVocabularyDemand, secondsUntilPosition, syllabusDefaults } from './syllabus.mjs';
-import { quests, npcs } from '../web/src/content.ts';
 
 const read = async path => JSON.parse(await readFile(new URL(path, import.meta.url), 'utf8'));
 const course = await read('../web/src/data/course.json');

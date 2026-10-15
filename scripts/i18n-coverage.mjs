@@ -7,6 +7,7 @@
 //   node scripts/i18n-coverage.mjs --review   print a de/en/tr TSV for native-speaker review
 //   node scripts/i18n-coverage.mjs --write    refresh web/src/data/i18n/tr-coverage.json (shown in Settings)
 import './register-content-loader.mjs';
+import './content-source.mjs';
 import { readFileSync, readdirSync, writeFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 

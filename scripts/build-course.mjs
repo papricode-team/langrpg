@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /** Build the canonical client/server course together. Imported dictionary facts are kept separate from authored teaching. */
 import './register-content-loader.mjs';
+import {quests as legacyQuests,npcs as legacyNPCs} from './content-source.mjs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve, dirname } from 'node:path';
@@ -208,7 +209,6 @@ for(const level of levels) {
 const oldManifest=await read('server/curriculum.json');
 const contextWordIds={};
 // Existing source content is parsed as data; no IDs, text or teaching behavior are changed.
-const {quests:legacyQuests,npcs:legacyNPCs}=await import('../web/src/content.ts');
 for(const quest of legacyQuests)for(const exercise of quest.exercises)contextWordIds[exercise.id]=wordsIn(exercise.german);
 const activityWordIds={};
 let activityBoards;

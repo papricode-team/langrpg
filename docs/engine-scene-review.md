@@ -68,7 +68,7 @@ The engine now uses Phaser's scenes, loader, registry, events, camera, tweens, c
 - `showNpc` opens dialogue offline; the first transition fails and leaves the scene mid-gate (`quest-controller.ts:227`).
 - Interaction ids are string-prefix sniffed (`building:`, `interior:`, `exit:`, `object:`) in `main.ts:354-358` and `world.ts:1480-1497`; expedition and story NPC ids share one namespace.
 - Hard-coded cross-content maps with no lint: `questCinematics` (`main.ts:123`), NPC→drill (`main.ts:326`), `activityForObject` substring heuristics (`main.ts:637`). `quests.find(...)!` crashes on a bad id.
-- `level` has three writers; `progress` exists as a bare variable, a store, and a captured copy in `mountActivity`. `content.ts` NPC x/y are dead (overridden by scene data).
+- `level` has three writers; `progress` exists as a bare variable, a store, and a captured copy in `mountActivity`. Authored NPC x/y (now in `content/source.json`) are dead (overridden by scene data).
 - Localization stops at the HUD and dialogue: `activities.ts`, `minigames/engine.ts`, `expedition-games.ts`, `expedition-encounter.ts` contain no `t()` calls, so Turkish players get English mini-games.
 
 ### D. Living world and characters (`world.ts:1527-1932`, `world-routines.ts`, `resident-*.ts`, `world-atmosphere.ts`)

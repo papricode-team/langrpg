@@ -5,9 +5,9 @@
  * words an hour, which hour is that? These measurements never gate story access.
  */
 import './register-content-loader.mjs';
+import { quests, npcs } from './content-source.mjs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { pacingReport, questVocabularyDemand } from './syllabus.mjs';
-import { quests, npcs } from '../web/src/content.ts';
 
 const read = async path => JSON.parse(await readFile(new URL(path, import.meta.url), 'utf8'));
 const course = await read('../web/src/data/course.json');

@@ -1,5 +1,8 @@
 #!/usr/bin/env node
-/** One-time importer for the previous client data. Authoring lives in content afterwards. */
+/**
+ * Legacy importer: rebuilds content/source.json from the retained TypeScript authoring modules. Quests,
+ * characters and chapters are no longer kept in TypeScript; they are carried over from source.json itself.
+ */
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -12,7 +15,7 @@ async function moduleAt(path, bindings = {}, exports = []) {
   const compiled = stripTypeScriptTypes(prefix + source, { mode:'strip' });
   return import(`data:text/javascript;base64,${Buffer.from(compiled).toString('base64')}`);
 }
-const content = await moduleAt('web/src/content.ts');
+const content = await import('./content-source.mjs');
 const course = await read('web/src/data/course-meta.json');
 const exerciseParts = await Promise.all(['a1','a2','b1'].map(level => read(`web/src/data/course-exercises-${level}.json`)));
 course.exercises = exerciseParts.flatMap(part => part.exercises.map((exercise, index) => ({ exercise, index: part.indices[index] }))).sort((a,b) => a.index-b.index).map(row=>row.exercise);

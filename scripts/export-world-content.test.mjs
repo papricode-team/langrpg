@@ -4,9 +4,9 @@ import { readFile } from 'node:fs/promises';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import './register-content-loader.mjs';
+import { quests } from './content-source.mjs';
 
 const { getMap } = await import('../web/src/maps.ts');
-const { quests } = await import('../web/src/content.ts');
 const { rules } = JSON.parse(await readFile(new URL('../server/story_rules.json', import.meta.url), 'utf8'));
 const graphs = JSON.parse(await readFile(new URL('../web/src/data/dialogue-graphs.json', import.meta.url), 'utf8'));
 

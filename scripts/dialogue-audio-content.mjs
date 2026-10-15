@@ -1,7 +1,7 @@
 // Canonical voiced scene corpus shared by generation and build validation.
 import { readFile } from 'node:fs/promises';
 import './register-content-loader.mjs';
-const { npcs,quests } = await import('../web/src/content.ts');
+import { npcs, quests } from './content-source.mjs';
 const { grammarForQuest } = await import('../web/src/contextual-grammar.ts');
 const { residentConversation,earnedTitleGreeting,ambientCallbackLines } = await import('../web/src/npc-dialogue.ts');
 const { canVoiceDialogue, emptyStory } = await import('../web/src/dialogue.ts');
