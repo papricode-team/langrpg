@@ -267,7 +267,7 @@ func (a *App) enforceGameAccess(w http.ResponseWriter, r *http.Request) bool {
 		path = "/api/progress"
 	}
 	switch path {
-	case "/api/progress", "/api/attempt", "/api/retrievals", "/api/exposure", "/api/intake/heartbeat", "/api/quest/complete", "/api/course/complete", "/api/activity/complete", "/api/story", "/api/story/transition", "/api/story/inspect", "/api/story/save", "/api/story/load", "/api/story/sleep", "/api/story/cinematic", "/api/expedition/answer", "/api/expedition/plan":
+	case "/api/progress", "/api/attempt", "/api/retrievals", "/api/exposure", "/api/intake/heartbeat", "/api/quest/complete", "/api/course/complete", "/api/activity/complete", "/api/story", "/api/story/transition", "/api/story/inspect", "/api/story/ink", "/api/story/side", "/api/story/save", "/api/story/load", "/api/story/sleep", "/api/story/cinematic", "/api/expedition/answer", "/api/expedition/plan":
 	default:
 		return true
 	}

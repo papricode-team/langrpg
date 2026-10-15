@@ -29,6 +29,7 @@ type (
 	SavedAction         = store.SavedAction
 	Intake              = store.Intake
 	StoryState          = store.StoryState
+	InkRecord           = store.InkRecord
 	StorySave           = store.StorySave
 	ExpeditionRecord    = store.ExpeditionRecord
 	ExpeditionPlanState = store.ExpeditionPlanState

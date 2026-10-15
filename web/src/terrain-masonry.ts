@@ -1,4 +1,7 @@
 import type {ScenePolygon} from './scene-schema';
+import polygonClipping from 'polygon-clipping';
+import type {MultiPolygon,Polygon} from 'polygon-clipping';
+import type {TerrainSurface} from './modular-terrain';
 import {terrainMaterial} from './terrain-materials';
 import {curbStones,paintStoneCourse,type CurbStone} from './terrain-curbs';
 import type {TerrainView} from './terrain-residency';
@@ -8,12 +11,29 @@ export function terrainMaterialDependencies(ids:string[]):string[]{
 }
 const path=(ctx:CanvasRenderingContext2D,p:ScenePolygon)=>{ctx.beginPath();p.forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y));ctx.closePath();};
 const capCache=new WeakMap<ScenePolygon,CurbStone[]>();
+const bankCache=new WeakMap<TerrainSurface[],{polygon:ScenePolygon;height:number}[]>();
+/** Banks belong to the exposed water, not to water subsequently covered by land. */
+export function visibleQuayRings(surfaces:TerrainSurface[]):{polygon:ScenePolygon;height:number}[]{
+ const cached=bankCache.get(surfaces);if(cached)return cached;
+ const materials=[...new Set(surfaces.filter(s=>terrainMaterial(s.material)?.edge?.kind==='quay').map(s=>s.material))];
+ const result=materials.flatMap(material=>{
+  let water:MultiPolygon=[];
+  for(const surface of surfaces){
+   const polygon:Polygon=[surface.polygon.map(([x,y])=>[x,y])];
+   if(surface.material===material)water=polygonClipping.union(water,polygon);
+   else if(water.length)water=polygonClipping.difference(water,polygon);
+  }
+  return water.flatMap(p=>p.map(ring=>({polygon:ring.slice(0,-1),height:terrainMaterial(material)!.edge!.height??34})));
+ });
+ bankCache.set(surfaces,result);return result;
+}
 /** Edge treatment follows the editable polygon, with stone courses projected onto vertical faces. */
 export function paintTerrainEdge(ctx:CanvasRenderingContext2D,p:ScenePolygon,kind:'quay',source:(id:string)=>CanvasImageSource|undefined,depth=34,view?:TerrainView):void{
  ctx.save();ctx.lineJoin='round';
  if(kind==='quay'){
-  // Normalize winding so only bank faces towards the camera have visible height.
-  const area=p.reduce((sum,a,i)=>{const b=p[(i+1)%p.length];return sum+a[0]*b[1]-b[0]*a[1];},0),ring=area>0?p:[...p].reverse();
+  // Clipping returns water on the same side of outer rings and island holes.
+  // Preserve that winding so island walls face the water, too.
+  const ring=p;
   const material=terrainMaterial('canal-masonry')!,image=source('canal-masonry');
   let station=0;
   for(let i=0;i<ring.length;i++){

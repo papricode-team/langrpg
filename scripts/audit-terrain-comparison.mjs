@@ -1,5 +1,6 @@
 import {chromium} from 'playwright';
-import {mkdir,writeFile} from 'node:fs/promises';
+import {mkdir,writeFile,readFile} from 'node:fs/promises';
+const expectedShapes=JSON.parse(await readFile('web/src/data/lindenhafen-terrain-rebuild.json','utf8')).modularTerrain.surfaces.length;
 const browser=await chromium.launch({headless:true});
 try{
  const page=await browser.newPage({viewport:{width:1900,height:1100},deviceScaleFactor:1}),errors=[],sceneryRequests=[];
@@ -57,10 +58,10 @@ try{
  await page.locator('#water').check();await page.locator('#ground').check();
  await page.getByRole('button',{name:'Zoom in',exact:true}).click();
  const box=await page.locator('#original').boundingBox();await page.mouse.move(box.x+box.width/2,box.y+box.height/2);await page.mouse.down();await page.mouse.move(box.x+box.width/2+80,box.y+box.height/2+25,{steps:5});await page.mouse.up();
- const state=await page.evaluate(()=>window.terrainComparisonState);if(!state.offset.x||state.zoom<=1||state.sceneryLayers!==0||state.originalTiles!==9||state.worldWidth!==2304||state.worldHeight!==1536||state.editableShapes!==40)throw Error('Camera or terrain-only state failed');
+ const state=await page.evaluate(()=>window.terrainComparisonState);if(!state.offset.x||state.zoom<=1||state.sceneryLayers!==0||state.originalTiles!==9||state.worldWidth!==2304||state.worldHeight!==1536||state.editableShapes!==expectedShapes)throw Error('Camera or terrain-only state failed');
  await page.locator('#period').selectOption('day');await page.waitForFunction(()=>window.terrainComparisonReady,null,{timeout:60000});
  if(!(await page.locator('#status').textContent()).includes('day'))throw Error('Day terrain failed to load');
  if(errors.length||sceneryRequests.length)throw Error(JSON.stringify({errors,sceneryRequests}));
- await writeFile('docs/audits/modular-terrain/terrain-comparison.json',JSON.stringify({errors,sceneryRequests,originalTiles:9,sceneryLayers:0,sharedScale:true,matchingCoordinates:true,worldSize:[2304,1536],editableShapes:40,paintedPlacements:5,synchronizedPan:true,dayAndNight:true,independentLayerControls:true,pieceOutlines:true,roadBordersCloseup:true,bridgeLandings:['main','harbor'],chunkCheck},null,2)+'\n');
+ await writeFile('docs/audits/modular-terrain/terrain-comparison.json',JSON.stringify({errors,sceneryRequests,originalTiles:9,sceneryLayers:0,sharedScale:true,matchingCoordinates:true,worldSize:[2304,1536],editableShapes:expectedShapes,paintedPlacements:5,synchronizedPan:true,dayAndNight:true,independentLayerControls:true,pieceOutlines:true,roadBordersCloseup:true,bridgeLandings:['main','harbor'],chunkCheck},null,2)+'\n');
  console.log(`PASS: terrain-only comparison, lighting, cameras, layers and border close-up. Chunk seams: ${chunkCheck.different}/${chunkCheck.checked} pixels differ by >3; maximum channel difference ${chunkCheck.maxDelta}.`);
 }finally{await browser.close();}

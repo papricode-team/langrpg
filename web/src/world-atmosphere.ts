@@ -74,6 +74,9 @@ export class WorldAtmosphere {
   private visible = true;
   private reduced = false;
   private moteTint = 0xffeed0;
+  /** The Act III dark beam puts out lanterns as it sweeps over them. */
+  darkAt?: (x: number, y: number) => boolean;
+  private darkness = new WeakMap<Lamp, number>();
   constructor(private scene: Phaser.Scene, private id: MapId, lights: readonly LampLight[], private bounds = getWorldScene(id)) {
     createAtmosphereTextures(scene);
     const profile = atmosphereProfile(id, false);
@@ -152,10 +155,14 @@ export class WorldAtmosphere {
     for (const lamp of this.lamps) {
       const { light } = lamp;
       const shown = light.x >= view.x - 120 && light.x <= view.right + 120 && light.y >= view.y - 120 && light.y <= view.bottom + 120;
+      const covered = this.darkAt?.(light.x, light.y) ? 1 : 0, previous = this.darkness.get(lamp) ?? 0;
+      const dark = reduced ? covered : previous + (covered - previous) * .12;
+      this.darkness.set(lamp, dark);
+      const lit = night * (1 - .92 * dark);
       // A small amber halo preserves the painted lantern and nearby silhouettes.
-      lamp.halo.setVisible(shown).setAlpha(night * lamp.flicker.value * LAMP_HALO_ALPHA);
-      lamp.core.setVisible(shown).setAlpha(night * LAMP_CORE_ALPHA);
-      lamp.pool.setVisible(shown).setAlpha(night * lamp.flicker.value * LAMP_POOL_ALPHA);
+      lamp.halo.setVisible(shown).setAlpha(lit * lamp.flicker.value * LAMP_HALO_ALPHA);
+      lamp.core.setVisible(shown).setAlpha(lit * LAMP_CORE_ALPHA);
+      lamp.pool.setVisible(shown).setAlpha(lit * lamp.flicker.value * LAMP_POOL_ALPHA);
     }
   }
 

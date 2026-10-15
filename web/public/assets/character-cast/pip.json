@@ -1,0 +1,50 @@
+{
+  "id": "pip",
+  "poseSet": "walk",
+  "recipe": "art/source/character-kit/cast/pip.json",
+  "recipeSha256": "35daa018e6fac0de7f2a8a8c2baedf868eb2be76690a8a31451eef6c4be0cd3b",
+  "atlas": "web/public/assets/character-cast/pip.webp",
+  "atlasSha256": "0c073620179d66941e0235cf76eaca5e71b95b406914df31102d069d90b2cb9a",
+  "geometry": "web/public/assets/character-cast/pip.atlas.json",
+  "geometrySha256": "ec67441fd6fdee0d924669d2703026b9b09b0a786d15fa21464a7e7b2688b544",
+  "textureBytes": 14734720,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "5a17d25e429207916200cc00f914bbfcced3ebf3998dd34d6f31968cef592a20",
+  "proof": "art/proofs/character-cast/pip.png",
+  "proofSha256": "95f40a3df8fe02da6f87e4f62a537753042814dc12de5b71b594c9079e535322",
+  "editorSha256": "2979b75444054b27eb967a7f7a5edb12d38a85187643f33eb771fb38b4fa90b6",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "native": {
+    "key": "character-cast-pip-native",
+    "image": "web/public/assets/character-cast/native/pip.webp",
+    "atlas": "web/public/assets/character-cast/native/pip.atlas.json",
+    "sha256": "71c311d9a6ec455e72b541a223cb18ac6ade249ff5a65d1bfe841e849d81b0d4",
+    "atlasSha256": "3bb3e9c8fc97c3353978d2b9924d457892e203ead94d91d69fefdee80f95f4e5",
+    "textureBytes": 28709232,
+    "multiAtlas": true,
+    "images": [
+      {
+        "path": "web/public/assets/character-cast/native/pip.webp",
+        "sha256": "71c311d9a6ec455e72b541a223cb18ac6ade249ff5a65d1bfe841e849d81b0d4",
+        "firstFrame": 0,
+        "frameCount": 18
+      },
+      {
+        "path": "web/public/assets/character-cast/native/pip.1.webp",
+        "sha256": "448aad343cfe37a6dd7af22309e1f5ce6eca017438c6c891275ac6da7bbfbdb6",
+        "firstFrame": 18,
+        "frameCount": 18
+      }
+    ],
+    "cell": [
+      512,
+      768
+    ],
+    "source": "art/proofs/character-cast/pip.webp",
+    "sourceSha256": "2979b75444054b27eb967a7f7a5edb12d38a85187643f33eb771fb38b4fa90b6"
+  }
+}

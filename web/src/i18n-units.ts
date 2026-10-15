@@ -10,7 +10,9 @@ import { quests, npcs, chapters } from './content';
 import { storyActs, storyClues, objectStories, journalNarratives } from './story';
 import { residentConversation, ambientCallbackLines, earnedTitleGreeting } from './npc-dialogue';
 import { emptyStory, type DialogueLine } from './dialogue';
-import { cinematicBeats, endingIds, type CutsceneKind } from './cinematic-content';
+import storyMechanics from '../../content/story-mechanics.json';
+import { coastSentences } from './coast-threads';
+import { cinematicBeats, cutsceneKinds, endingIds, type CutsceneKind } from './cinematic-content';
 import { grammarForQuest } from './contextual-grammar';
 import { beginnerGateTranslations, greetingMeanings } from './beginner-dialogue';
 import { storyMaps } from './maps';
@@ -91,14 +93,18 @@ export function storyUnits(): TranslationUnit[] {
       if (greeting) sentence(`resident:${greeting.clipId}`, greeting.german, greeting.english);
     }
   }
+  for (const side of storyMechanics.sideQuests) {
+    sentence(`side:${side.id}:place`, side.place.german, side.place.english);
+    sentence(`side:${side.id}:memory`, side.memory.german, side.memory.english);
+  }
+  for (const { id, sentence: line } of coastSentences()) sentence(id, line.german, line.english);
   for (const callback of ambientCallbackLines()) sentence(`resident:${callback.clipId}`, callback.german, callback.english);
   for (const [id, turn] of Object.entries(placementDialogue)) sentence(`placement:${id}`, turn.german, turn.english);
   sentence('ambient:practice', 'Ich möchte üben.', 'I would like to practise.');
   sentence('ambient:leave', 'Bis später!', 'See you later!');
 
-  const kinds: CutsceneKind[] = ['arrival', 'platform', 'recording', 'erasure', 'clockmill', 'confession', 'dark-beam', 'ledger', 'storm', 'bell', 'travel'];
-  for (const kind of kinds) cinematicBeats(kind, 'lindenhafen').forEach((beat, index) => sentence(`cinematic:${kind}:${index}`, beat.german, ''));
-  for (const ending of endingIds) cinematicBeats('bell', 'nebelstadt', ending).forEach((beat, index) => sentence(`cinematic:bell-${ending}:${index}`, beat.german, ''));
+  for (const kind of cutsceneKinds) cinematicBeats(kind, 'lindenhafen').forEach((beat, index) => sentence(`cinematic:${kind}:${index}`, beat.german, ''));
+  for (const ending of endingIds) for (const kind of ['bell', 'epilogue'] as CutsceneKind[]) cinematicBeats(kind, 'nebelstadt', ending).forEach((beat, index) => sentence(`cinematic:${kind}-${ending}:${index}`, beat.german, ''));
 
   for (const quest of quests) {
     const note = grammarForQuest(quest.id);

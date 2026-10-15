@@ -117,6 +117,8 @@ func (a *App) Handler() http.Handler {
 	mux.HandleFunc("GET /api/story", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.story(w, r) }))
 	mux.HandleFunc("POST /api/story/transition", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.transitionStory(w, r) }))
 	mux.HandleFunc("POST /api/story/inspect", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.inspectStory(w, r) }))
+	mux.HandleFunc("POST /api/story/ink", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.speakInk(w, r) }))
+	mux.HandleFunc("POST /api/story/side", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.completeSideQuest(w, r) }))
 	mux.HandleFunc("POST /api/story/save", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.saveStory(w, r) }))
 	mux.HandleFunc("POST /api/story/load", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.loadStory(w, r) }))
 	mux.HandleFunc("POST /api/story/sleep", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.sleepStory(w, r) }))

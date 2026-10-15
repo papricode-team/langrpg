@@ -12,6 +12,8 @@ describe('painted terrain in the game camera',()=>{
   const terrain:ModularTerrain={version:1,base:'deep-water',surfaces:[],features:[bridge]};
   expect(blocked(terrain,100+800*.5,80+800*.44)).toBe(false);
   expect(blocked(terrain,100+800*.25,80+800*.52)).toBe(true);
+  // The near pillar cap is raised masonry, even though it projects into the deck.
+  expect(blocked(terrain,100+800*.28,80+800*.38)).toBe(true);
   expect(blocked(terrain,100+800*.5,80+800*.8)).toBe(true);
   expect(blocked({...terrain,features:[]},100+800*.5,80+800*.44)).toBe(true);
  });

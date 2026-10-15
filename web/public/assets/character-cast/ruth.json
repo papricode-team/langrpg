@@ -1,0 +1,50 @@
+{
+  "id": "ruth",
+  "poseSet": "walk",
+  "recipe": "art/source/character-kit/cast/ruth.json",
+  "recipeSha256": "887c22ac9eb0c54a8fbf9b6cb5fc42f544e31a95557f57aea1041be72c63985c",
+  "atlas": "web/public/assets/character-cast/ruth.webp",
+  "atlasSha256": "238f6107e9ebdd3b563b751fb2a6e5a12d7d058b47dca36b8dbea1d2891707f5",
+  "geometry": "web/public/assets/character-cast/ruth.atlas.json",
+  "geometrySha256": "5327b89c9d22dfbef80a411045a23cfed51fc9d2a733eb6e74b2685454083ab9",
+  "textureBytes": 14861096,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "0dafccdceb642baaf0ec5f1a1a75cc10cd658a9272f3932dd8dfa1b3f1546556",
+  "proof": "art/proofs/character-cast/ruth.png",
+  "proofSha256": "da3f8fe2ed3be1a835804c67f1a74c92389c6643fb75585579458f7584afa4a7",
+  "editorSha256": "df2d791ac0418da35b1f89886016d266c059d15fc120b61c3e8fb187388da565",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "native": {
+    "key": "character-cast-ruth-native",
+    "image": "web/public/assets/character-cast/native/ruth.webp",
+    "atlas": "web/public/assets/character-cast/native/ruth.atlas.json",
+    "sha256": "256a1a1b3b669ac14e3aca9bc7f51970cb9df08772d619c52e060f947e76a01a",
+    "atlasSha256": "b5fc205788dce60f5252f95370d87ccb5d30e5e8872e85ac979984b7df9de4a2",
+    "textureBytes": 28060828,
+    "multiAtlas": true,
+    "images": [
+      {
+        "path": "web/public/assets/character-cast/native/ruth.webp",
+        "sha256": "256a1a1b3b669ac14e3aca9bc7f51970cb9df08772d619c52e060f947e76a01a",
+        "firstFrame": 0,
+        "frameCount": 18
+      },
+      {
+        "path": "web/public/assets/character-cast/native/ruth.1.webp",
+        "sha256": "66d585406d1b4fa68283ea335650782d9c7381b09968e492d370d15f7517ff3c",
+        "firstFrame": 18,
+        "frameCount": 18
+      }
+    ],
+    "cell": [
+      512,
+      768
+    ],
+    "source": "art/proofs/character-cast/ruth.webp",
+    "sourceSha256": "df2d791ac0418da35b1f89886016d266c059d15fc120b61c3e8fb187388da565"
+  }
+}

@@ -59,7 +59,8 @@ export function auditDialogueCorpus({ graphs, lexicon, questOrder = graphs.map(g
   }
   const candidates = surface => exact.get(normalize(surface)) ?? forms.get(normalize(surface)) ?? [];
   const known = (surface, level) => candidates(surface).find(word => levels.indexOf(word.level) <= levels.indexOf(level));
-  const names = new Set(properNames.flatMap(tokens).map(normalize));
+  // A surname that is also a common word (Frau Berg, der Berg) is a name only after Frau or Herr.
+  const names = new Set(properNames.flatMap(name => tokens(name).filter(token => !/^(?:Frau|Herr)\s/u.test(name) || !candidates(token).length)).map(normalize));
   const ordered = questOrder.map(id => graphs.find(graph => graph.questId === id)).filter(Boolean);
   const errors = [], introductions = [], entries = [], introduced = new Map();
   if (ordered.length !== graphs.length || new Set(questOrder).size !== questOrder.length) errors.push('Quest order must include every dialogue graph exactly once');

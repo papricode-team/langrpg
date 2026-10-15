@@ -21,7 +21,7 @@ describe('Lindenhafen terrain reconstruction',()=>{
   expect(grid.findPath(route.from,route.to).at(-1)).toEqual(route.to);
  });
  it.each([
-  {id:'market bridge',from:{x:1260,y:555},to:{x:1720,y:945},limit:850},
+  {id:'market bridge',from:{x:1260,y:455},to:{x:1720,y:945},limit:850},
   {id:'harbor bridge',from:{x:1050,y:855},to:{x:1420,y:1160},limit:650},
  ])('crosses $id directly without detouring around the canal',({from,to,limit})=>{
   expect(grid.isWalkable(from.x,from.y)).toBe(true);expect(grid.isWalkable(to.x,to.y)).toBe(true);

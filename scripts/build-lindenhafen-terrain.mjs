@@ -33,7 +33,7 @@ road('west-gate',[[0,340],[240,410]],110);
 road('cafe-street',[[240,410],[425,330],[610,260],[800,290],[820,540]],105);
 road('high-street',[[640,0],[980,190],[1130,285],[1310,395]],110);
 road('library-road-north',[[1400,0],[1170,100],[980,190],[800,290]],95);
-road('market-axis',[[240,410],[490,535],[820,540],[1100,500],[1180,535],[1285,605]],150);
+road('market-axis',[[240,410],[490,535],[820,540],[1100,500],[1180,480],[1260,465]],150);
 road('west-workshop-street',[[0,700],[160,580],[310,580],[520,680],[660,780]],110);
 road('market-garden-road',[[490,535],[520,680],[660,780],[825,770],[960,660],[1100,550]],100);
 
@@ -69,14 +69,18 @@ water('harbor-basin',[[190,1536],[170,1400],[130,1310],[150,1250],[240,1220],[30
 road('ferry-promenade',[[460,1240],[660,1210],[646,1321],[581,1389],[456,1428],[371,1406],[291,1339],[310,1192]],95);
 road('workyard-riverside',[[139,1111],[90,1220],[68,1360],[68,1536]],85);
 road('ferry-resident-route',[[660,1090],[708,1092],[817,1092],[871,1113],[940,1080],[1010,950]],85);
-road('bridge-lamp-landing',[[1240,840],[1330,895],[1413,937]],65);
-road('north-canal-landing',[[1250,500],[1380,530],[1480,572]],75);
+// A continuous quay joins the bakery approach, bridge mouth and fixed lamp.
+// Its bank follows one broad edge instead of a narrow spur over the canal.
+surfaces.push({id:'bakery-bridge-quay',material:'town-cobble',polygon:[[985,805],[1100,805],[1210,825],[1330,880],[1445,925],[1445,955],[1390,975],[1250,920],[1130,870],[1040,890],[985,870]]});
+road('north-canal-landing',[[1100,500],[1190,450],[1260,465]],155);
 road('canal-garden-frontage',[[1770,710],[1750,640],[1706,578],[1840,540],[1950,520]],65);
+ellipse('harbor-west-abutment',985,880,110,75);
+surfaces.push({id:'market-west-abutment',material:'town-cobble',polygon:[[1170,410],[1280,370],[1355,410],[1340,465],[1290,500],[1190,470]]});
 // Painted bridges retain their native projection; road approaches meet their actual deck endpoints.
-features.push({id:'market-bridge',asset:'canal-arch-bridge',x:1170,y:445,width:600});
+features.push({id:'market-bridge',asset:'canal-arch-bridge',x:1170,y:345,width:600});
 features.push({id:'harbor-bridge',asset:'canal-arch-bridge',x:990,y:760,width:480});
 // The landings extend from the bridge ends, avoiding a wall across either exit.
-road('east-bridge-landing',[[1695,905],[1750,945],[1790,995],[1830,1070]],130);
+road('east-bridge-landing',[[1695,825],[1750,865],[1780,955],[1790,995],[1830,1070]],130);
 road('south-bridge-landing',[[1395,1124],[1450,1165],[1510,1205],[1560,1240]],115);
 // A small shared court joins the shop door to the landing without a dead-end
 // spur and a grass notch immediately beside the bridge support.

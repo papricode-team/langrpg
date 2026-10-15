@@ -27,7 +27,7 @@ export function lastQuestOf(level: 'A1' | 'A2' | 'B1'): string {
 }
 
 /** Everyday scenes inserted into Act I after adventures had already begun (mirrors server/progression.go). */
-export const everydayQuestIds: ReadonlySet<string> = new Set(['a1-timetable', 'a1-room', 'a1-shopping', 'a1-neighbour', 'a1-pharmacy', 'a1-directions', 'a1-weather', 'a1-bike', 'a1-phone', 'a1-invitation', 'a1-lost-found', 'a1-departure']);
+export const everydayQuestIds: ReadonlySet<string> = new Set(['a1-timetable', 'a1-notice', 'a1-room', 'a1-shopping', 'a1-chalk', 'a1-neighbour', 'a1-pharmacy', 'a1-directions', 'a1-bench', 'a1-weather', 'a1-bike', 'a1-phone', 'a1-office-window', 'a1-invitation', 'a1-lost-found', 'a1-departure', 'a2-upstairs', 'a2-ink-seller', 'a2-forest-rails', 'a2-cellar', 'b1-record-room', 'b1-signalman', 'b1-temptation']);
 
 /** The chain is linear. An inserted scene before the furthest completed one counts as
  * passed, so new scenes never lock an existing adventure; original scenes always count. */

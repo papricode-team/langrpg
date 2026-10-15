@@ -1,0 +1,50 @@
+{
+  "id": "falk",
+  "poseSet": "walk",
+  "recipe": "art/source/character-kit/cast/falk.json",
+  "recipeSha256": "9c6b932e25b0abe70cfb1bdd872dd9271b87ec80098f026da22cea7beb37b09a",
+  "atlas": "web/public/assets/character-cast/falk.webp",
+  "atlasSha256": "9630897b15412aba4162e0a0693595344583e7283156a245173caf68755030cc",
+  "geometry": "web/public/assets/character-cast/falk.atlas.json",
+  "geometrySha256": "8ccb568b6cde60ba7155587badd6a4e4f77299f73bd1552ccddd49986af9faf4",
+  "textureBytes": 14761308,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "fccd8779e27016cc93dc2cbcb1778e14784365c66d3664e71e05b08d9e228add",
+  "proof": "art/proofs/character-cast/falk.png",
+  "proofSha256": "77ccf283d0a762fb0f8d570a7e990e047007eb41140e6bced07e1453323e2e6d",
+  "editorSha256": "0a1b9d272a323d44bdc5f89e9fe33b4ccd1db39378e30d28d02049ae62067b6c",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "native": {
+    "key": "character-cast-falk-native",
+    "image": "web/public/assets/character-cast/native/falk.webp",
+    "atlas": "web/public/assets/character-cast/native/falk.atlas.json",
+    "sha256": "45c133203ddd44e8ca2f667a389427eae19a4be4f57c139df354b6c4e0b9d945",
+    "atlasSha256": "bb70474efada6ed42040ec0d18da56b7064a2b06ca1afb8d3af80b73045a8ce3",
+    "textureBytes": 29035552,
+    "multiAtlas": true,
+    "images": [
+      {
+        "path": "web/public/assets/character-cast/native/falk.webp",
+        "sha256": "45c133203ddd44e8ca2f667a389427eae19a4be4f57c139df354b6c4e0b9d945",
+        "firstFrame": 0,
+        "frameCount": 18
+      },
+      {
+        "path": "web/public/assets/character-cast/native/falk.1.webp",
+        "sha256": "7e2122291d967cb2f1cef2c82533616929f2a673e9414180952e8c5ece4b6330",
+        "firstFrame": 18,
+        "frameCount": 18
+      }
+    ],
+    "cell": [
+      512,
+      768
+    ],
+    "source": "art/proofs/character-cast/falk.webp",
+    "sourceSha256": "0a1b9d272a323d44bdc5f89e9fe33b4ccd1db39378e30d28d02049ae62067b6c"
+  }
+}

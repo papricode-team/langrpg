@@ -4,11 +4,13 @@ import "fmt"
 
 // This is the authored clue chain, rather than map order or CEFR settings.
 var storyQuestOrder = []string{
-	"a1-arrival", "a1-timetable", "a1-cafe", "a1-room", "a1-shopping", "a1-market",
-	"a1-neighbour", "a1-pharmacy", "a1-directions", "a1-station", "a1-weather", "a1-workshop",
-	"a1-bike", "a1-phone", "a1-invitation", "a1-lost-found", "a1-lost-parcel", "a1-departure",
-	"a2-apartment", "a2-evening-plans", "a2-rail-trip", "a2-broken-clock", "a2-clinic", "a2-archive",
-	"b1-witness", "b1-new-route", "b1-work", "b1-council", "b1-storm", "b1-atlas",
+	"a1-arrival", "a1-timetable", "a1-notice", "a1-cafe", "a1-room", "a1-shopping",
+	"a1-market", "a1-chalk", "a1-neighbour", "a1-pharmacy", "a1-directions", "a1-bench",
+	"a1-station", "a1-weather", "a1-workshop", "a1-bike", "a1-phone", "a1-office-window",
+	"a1-invitation", "a1-lost-found", "a1-lost-parcel", "a1-departure", "a2-apartment", "a2-upstairs",
+	"a2-evening-plans", "a2-ink-seller", "a2-rail-trip", "a2-forest-rails", "a2-broken-clock", "a2-clinic",
+	"a2-cellar", "a2-archive", "b1-witness", "b1-record-room", "b1-new-route", "b1-signalman",
+	"b1-work", "b1-council", "b1-temptation", "b1-storm", "b1-atlas",
 }
 
 // The last scene of each act opens the next town.
@@ -31,12 +33,16 @@ func storyQuestsThrough(questID string) []string {
 	return storyQuestOrder[:storyQuestIndex(questID)+1]
 }
 
-// Everyday scenes inserted into Act I after adventures had already begun. A save
-// that has completed a later scene may skip them; every original scene still counts.
-var insertedActOneQuests = map[string]bool{
-	"a1-timetable": true, "a1-room": true, "a1-shopping": true, "a1-neighbour": true,
-	"a1-pharmacy": true, "a1-directions": true, "a1-weather": true, "a1-bike": true,
-	"a1-phone": true, "a1-invitation": true, "a1-lost-found": true, "a1-departure": true,
+// Scenes inserted after adventures had already begun (everyday errands and the
+// expansion scenes in every act). A save that has completed a later scene may
+// skip them; every original scene still counts.
+var insertedStoryQuests = map[string]bool{
+	"a1-timetable": true, "a1-notice": true, "a1-room": true, "a1-shopping": true,
+	"a1-chalk": true, "a1-neighbour": true, "a1-pharmacy": true, "a1-directions": true,
+	"a1-bench": true, "a1-weather": true, "a1-bike": true, "a1-phone": true,
+	"a1-office-window": true, "a1-invitation": true, "a1-lost-found": true, "a1-departure": true,
+	"a2-upstairs": true, "a2-ink-seller": true, "a2-forest-rails": true, "a2-cellar": true,
+	"b1-record-room": true, "b1-signalman": true, "b1-temptation": true,
 }
 
 // The chain is linear. An inserted scene before the furthest completed one counts
@@ -55,7 +61,7 @@ func questPrerequisite(questID string, completed []string) string {
 		if id == questID {
 			return ""
 		}
-		if !contains(completed, id) && !(insertedActOneQuests[id] && index < furthest) {
+		if !contains(completed, id) && !(insertedStoryQuests[id] && index < furthest) {
 			return id
 		}
 	}

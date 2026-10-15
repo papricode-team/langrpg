@@ -66,7 +66,7 @@ export class QuestController {
   private replay = false;
   private beginner = false;
   private error = '';
-  private artifact?: { objectId: string; german: string; english: string };
+  private artifact?: { objectId: string; german: string; english: string; locked?: boolean };
   private pending?: { id: string; key: string; attempt?: Readonly<SceneAttemptInput> };
   private generation = 0;
   private startedAt = 0;
@@ -114,7 +114,10 @@ export class QuestController {
     const graph = this.options.loadGraph ? await this.options.loadGraph(questId) : questGraph(questId), artifact = graph?.investigations.find(item => item.objectId === objectId);
     if (generation !== this.generation) return false;
     if (!graph || !artifact) return false;
-    this.topic = undefined; this.replyCorrection = undefined; this.ambient = undefined; this.graph = graph; this.node = undefined; this.artifact = artifact; this.index = 0; this.answerShown = false;
+    // A locked door explains what opens it; nothing is recorded until it opens.
+    const locked = artifact.lock && !conditionMet(artifact.lock.condition, storyState(this.options.progress().story)) ? artifact.lock : undefined;
+    this.topic = undefined; this.replyCorrection = undefined; this.ambient = undefined; this.graph = graph; this.node = undefined; this.index = 0; this.answerShown = false;
+    this.artifact = locked ? { objectId: artifact.objectId, german: locked.reason.german ?? '', english: locked.reason.english, locked: true } : artifact;
     this.beginner = this.options.beginnerMode?.() ?? needsBeginnerStorySupport(this.options.progress());
     this.translated = false; this.hinted = false; this.busy = false; this.error = ''; this.pending = undefined;
     this.replay = (this.options.progress().story?.inspections?.[questId] ?? []).includes(objectId) || this.options.progress().completedQuestIds.includes(questId);
@@ -231,7 +234,7 @@ export class QuestController {
     const topicMenu = !this.topic && !this.artifact && !guidedGate && !reply && atEnd && this.node?.stage === 'intro' ? this.topicChoices(graph, state) : [];
     const choiceRows = guidedGate ? beginnerGateChoices(gate.id) : topicMenu.length ? topicMenu : reply ? (reply.options ?? []).map(german => ({ id: german, german, ...(reply.optionSentenceIds?.[german] ? { sentenceId: reply.optionSentenceIds[german] } : {}), english: this.beginner ? beginnerReplyMeaning(german) ?? '' : '', next: '', effects: [] })) : !this.artifact && atEnd ? dialogueChoices(this.node!, state) : [];
     const { choices, loading: choicesLoading } = this.hydrateChoices(choiceRows);
-    this.view.render({ audioEnabled, title: this.artifact ? t('READ THE EVIDENCE') : localized(quests.find(q => q.id === graph.questId)?.title ?? ''), line, name: this.options.playerName(), npc: npcs.find(npc => npc.id === line.speaker), portrait: this.artifact ? '' : this.options.portrait(line.speaker,line.expression ?? 'neutral'), index: this.index, total: lines.length, help: this.translationVisible(line), busy: this.busy || !!(gateId && !gate) || !!(replyId && !reply) || choicesLoading, error: this.error, glosses: { ...(this.options.glosses?.(line.german) ?? {}), ...localizedGlosses(line.glosses ?? {}) }, powers,wordlight:this.wordlight, grammar: gate && !guidedGate ? this.options.grammar?.(graph.questId) ?? grammarForQuest(graph.questId) : undefined, grammarShown:this.grammarShown, answerShown:this.answerShown, exactAnswer:this.exactAnswers.get(graph.gateExerciseId), answerAvailable:this.exactAnswers.has(graph.gateExerciseId) || !!this.options.progress().exerciseStats[graph.gateExerciseId]?.attempts, choices, gate: guidedGate ? undefined : gate, choicePrompt: guidedGate ? localized(graph.gatePrompt) : undefined, gatePrompt: localized(graph.gatePrompt), advanceLabel: this.topic ? t('Back to the conversation') : this.artifact ? this.replay ? t('Return to the investigation') : t('Record this evidence') : atEnd && this.node?.stage === 'intro' && !this.replay ? t('Examine the evidence') : atEnd && this.node?.terminal ? t('Keep exploring') : t('Continue') });
+    this.view.render({ audioEnabled, title: this.artifact?.locked ? t('LOCKED') : this.artifact ? t('READ THE EVIDENCE') : localized(quests.find(q => q.id === graph.questId)?.title ?? ''), line, name: this.options.playerName(), npc: npcs.find(npc => npc.id === line.speaker), portrait: this.artifact ? '' : this.options.portrait(line.speaker,line.expression ?? 'neutral'), index: this.index, total: lines.length, help: this.translationVisible(line), busy: this.busy || !!(gateId && !gate) || !!(replyId && !reply) || choicesLoading, error: this.error, glosses: { ...(this.options.glosses?.(line.german) ?? {}), ...localizedGlosses(line.glosses ?? {}) }, powers,wordlight:this.wordlight, grammar: gate && !guidedGate ? this.options.grammar?.(graph.questId) ?? grammarForQuest(graph.questId) : undefined, grammarShown:this.grammarShown, answerShown:this.answerShown, exactAnswer:this.exactAnswers.get(graph.gateExerciseId), answerAvailable:this.exactAnswers.has(graph.gateExerciseId) || !!this.options.progress().exerciseStats[graph.gateExerciseId]?.attempts, choices, gate: guidedGate ? undefined : gate, choicePrompt: guidedGate ? localized(graph.gatePrompt) : undefined, gatePrompt: localized(graph.gatePrompt), advanceLabel: this.topic ? t('Back to the conversation') : this.artifact?.locked ? t('Keep exploring') : this.artifact ? this.replay ? t('Return to the investigation') : t('Record this evidence') : atEnd && this.node?.stage === 'intro' && !this.replay ? t('Examine the evidence') : atEnd && this.node?.terminal ? t('Keep exploring') : t('Continue') });
     if (voice) { this.options.onOpen(line.speaker === 'Evidence' ? '' : line.speaker); this.speakLine(line, rate); }
     if (gate && focusGate) { this.startedAt = performance.now(); if (!guidedGate) this.view.focusGate(); }
   }
@@ -297,6 +300,7 @@ export class QuestController {
     }
     const current = this.node && dialogueLines(this.node, storyState(this.options.progress().story))[this.index];
     if (!this.replay && current?.reply && !this.options.progress().story?.flags[`reply:${current.reply.exerciseId}`]) return;
+    if (this.artifact?.locked) { this.close(); return; }
     if (this.artifact) {
       if (!this.replay) {
         const key = `inspect:${this.graph.questId}:${this.artifact.objectId}`;

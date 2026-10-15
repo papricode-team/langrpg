@@ -21441,6 +21441,516 @@
       "text": "Du bist gekommen. Lass uns die Namen gemeinsam bewahren.",
       "path": "/audio/npc-elise.mp3",
       "voice": "qwen3:elise"
+    },
+    {
+      "id": "a1-notice-exercise-1",
+      "text": "Warum darf ich das nicht?",
+      "path": "/audio/a1-notice-exercise-1.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-notice-exercise-2",
+      "text": "Darf ich hier sitzen?",
+      "path": "/audio/a1-notice-exercise-2.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-notice-exercise-3",
+      "text": "Hier darf man nicht laut sprechen.",
+      "path": "/audio/a1-notice-exercise-3.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-notice-exercise-4",
+      "text": "Das ist nicht gut.",
+      "path": "/audio/a1-notice-exercise-4.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-notice-exercise-5",
+      "text": "Ich sage meinen Namen laut.",
+      "path": "/audio/a1-notice-exercise-5.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-notice-exercise-6",
+      "text": "Wer sind Sie?",
+      "path": "/audio/a1-notice-exercise-6.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-notice-exercise-7",
+      "text": "Ab heute ist es hier ruhig.",
+      "path": "/audio/a1-notice-exercise-7.mp3",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "a1-chalk-exercise-1",
+      "text": "Wie heißt du?",
+      "path": "/audio/a1-chalk-exercise-1.mp3",
+      "voice": "qwen3:pip"
+    },
+    {
+      "id": "a1-chalk-exercise-2",
+      "text": "Wie alt bist du?",
+      "path": "/audio/a1-chalk-exercise-2.mp3",
+      "voice": "qwen3:pip"
+    },
+    {
+      "id": "a1-chalk-exercise-3",
+      "text": "Ich bin zwölf Jahre alt.",
+      "path": "/audio/a1-chalk-exercise-3.mp3",
+      "voice": "qwen3:pip"
+    },
+    {
+      "id": "a1-chalk-exercise-4",
+      "text": "Das ist mein Bruder.",
+      "path": "/audio/a1-chalk-exercise-4.mp3",
+      "voice": "qwen3:pip"
+    },
+    {
+      "id": "a1-chalk-exercise-5",
+      "text": "Meine Schwester heißt Lina.",
+      "path": "/audio/a1-chalk-exercise-5.mp3",
+      "voice": "qwen3:pip"
+    },
+    {
+      "id": "a1-chalk-exercise-6",
+      "text": "Wo wohnst du?",
+      "path": "/audio/a1-chalk-exercise-6.mp3",
+      "voice": "qwen3:pip"
+    },
+    {
+      "id": "a1-chalk-exercise-7",
+      "text": "Wir wohnen am Kanal.",
+      "path": "/audio/a1-chalk-exercise-7.mp3",
+      "voice": "qwen3:pip"
+    },
+    {
+      "id": "a1-bench-exercise-1",
+      "text": "Wie heißen Sie?",
+      "path": "/audio/a1-bench-exercise-1.mp3",
+      "voice": "qwen3:berg"
+    },
+    {
+      "id": "a1-bench-exercise-2",
+      "text": "Wie geht es Ihnen?",
+      "path": "/audio/a1-bench-exercise-2.mp3",
+      "voice": "qwen3:berg"
+    },
+    {
+      "id": "a1-bench-exercise-3",
+      "text": "Ich wohne in der Gartenstraße.",
+      "path": "/audio/a1-bench-exercise-3.mp3",
+      "voice": "qwen3:berg"
+    },
+    {
+      "id": "a1-bench-exercise-4",
+      "text": "Kommen Sie mit.",
+      "path": "/audio/a1-bench-exercise-4.mp3",
+      "voice": "qwen3:berg"
+    },
+    {
+      "id": "a1-bench-exercise-5",
+      "text": "Sie sind meine Lehrerin.",
+      "path": "/audio/a1-bench-exercise-5.mp3",
+      "voice": "qwen3:berg"
+    },
+    {
+      "id": "a1-bench-exercise-6",
+      "text": "Möchten Sie einen Tee?",
+      "path": "/audio/a1-bench-exercise-6.mp3",
+      "voice": "qwen3:berg"
+    },
+    {
+      "id": "a1-bench-exercise-7",
+      "text": "Ich bin seit vierzig Jahren Lehrerin.",
+      "path": "/audio/a1-bench-exercise-7.mp3",
+      "voice": "qwen3:berg"
+    },
+    {
+      "id": "a1-office-window-exercise-1",
+      "text": "Das haben Sie geschrieben.",
+      "path": "/audio/a1-office-window-exercise-1.mp3",
+      "voice": "qwen3:kessler"
+    },
+    {
+      "id": "a1-office-window-exercise-2",
+      "text": "Wer hat das geschrieben?",
+      "path": "/audio/a1-office-window-exercise-2.mp3",
+      "voice": "qwen3:kessler"
+    },
+    {
+      "id": "a1-office-window-exercise-3",
+      "text": "Ich habe den Namen gelesen.",
+      "path": "/audio/a1-office-window-exercise-3.mp3",
+      "voice": "qwen3:kessler"
+    },
+    {
+      "id": "a1-office-window-exercise-4",
+      "text": "Ich habe es gesehen.",
+      "path": "/audio/a1-office-window-exercise-4.mp3",
+      "voice": "qwen3:kessler"
+    },
+    {
+      "id": "a1-office-window-exercise-5",
+      "text": "Wir haben das Buch gefunden.",
+      "path": "/audio/a1-office-window-exercise-5.mp3",
+      "voice": "qwen3:kessler"
+    },
+    {
+      "id": "a1-office-window-exercise-6",
+      "text": "Das ist nicht Ihr Buch.",
+      "path": "/audio/a1-office-window-exercise-6.mp3",
+      "voice": "qwen3:kessler"
+    },
+    {
+      "id": "a1-office-window-exercise-7",
+      "text": "Das Büro ist um acht Uhr zu.",
+      "path": "/audio/a1-office-window-exercise-7.mp3",
+      "voice": "qwen3:kessler"
+    },
+    {
+      "id": "a2-upstairs-exercise-1",
+      "text": "Darf ich Sie etwas fragen?",
+      "path": "/audio/a2-upstairs-exercise-1.mp3",
+      "voice": "qwen3:hilde"
+    },
+    {
+      "id": "a2-upstairs-exercise-2",
+      "text": "Wie lange wohnen Sie schon hier?",
+      "path": "/audio/a2-upstairs-exercise-2.mp3",
+      "voice": "qwen3:hilde"
+    },
+    {
+      "id": "a2-upstairs-exercise-3",
+      "text": "Früher war hier ein Bahnhof.",
+      "path": "/audio/a2-upstairs-exercise-3.mp3",
+      "voice": "qwen3:hilde"
+    },
+    {
+      "id": "a2-upstairs-exercise-4",
+      "text": "Meine Großmutter ist neunzig Jahre alt.",
+      "path": "/audio/a2-upstairs-exercise-4.mp3",
+      "voice": "qwen3:hilde"
+    },
+    {
+      "id": "a2-upstairs-exercise-5",
+      "text": "Ich war noch nie in Waldruh.",
+      "path": "/audio/a2-upstairs-exercise-5.mp3",
+      "voice": "qwen3:hilde"
+    },
+    {
+      "id": "a2-upstairs-exercise-6",
+      "text": "Erzählen Sie mir bitte von früher.",
+      "path": "/audio/a2-upstairs-exercise-6.mp3",
+      "voice": "qwen3:hilde"
+    },
+    {
+      "id": "a2-upstairs-exercise-7",
+      "text": "Das Haus hatte früher zwei Türen.",
+      "path": "/audio/a2-upstairs-exercise-7.mp3",
+      "voice": "qwen3:hilde"
+    },
+    {
+      "id": "a2-ink-seller-exercise-1",
+      "text": "Haben Sie auch etwas Günstigeres?",
+      "path": "/audio/a2-ink-seller-exercise-1.mp3",
+      "voice": "qwen3:falk"
+    },
+    {
+      "id": "a2-ink-seller-exercise-2",
+      "text": "Diese Tinte ist teurer als die blaue.",
+      "path": "/audio/a2-ink-seller-exercise-2.mp3",
+      "voice": "qwen3:falk"
+    },
+    {
+      "id": "a2-ink-seller-exercise-3",
+      "text": "Die schwarze Flasche kostet zwölf Euro.",
+      "path": "/audio/a2-ink-seller-exercise-3.mp3",
+      "voice": "qwen3:falk"
+    },
+    {
+      "id": "a2-ink-seller-exercise-4",
+      "text": "Das ist mir zu teuer.",
+      "path": "/audio/a2-ink-seller-exercise-4.mp3",
+      "voice": "qwen3:falk"
+    },
+    {
+      "id": "a2-ink-seller-exercise-5",
+      "text": "Ich nehme lieber die kleine Flasche.",
+      "path": "/audio/a2-ink-seller-exercise-5.mp3",
+      "voice": "qwen3:falk"
+    },
+    {
+      "id": "a2-ink-seller-exercise-6",
+      "text": "Kann ich mit Karte bezahlen?",
+      "path": "/audio/a2-ink-seller-exercise-6.mp3",
+      "voice": "qwen3:falk"
+    },
+    {
+      "id": "a2-ink-seller-exercise-7",
+      "text": "Heute gibt es zwei Flaschen zum Preis von einer.",
+      "path": "/audio/a2-ink-seller-exercise-7.mp3",
+      "voice": "qwen3:falk"
+    },
+    {
+      "id": "a2-forest-rails-exercise-1",
+      "text": "Was ist damals passiert?",
+      "path": "/audio/a2-forest-rails-exercise-1.mp3",
+      "voice": "qwen3:lina"
+    },
+    {
+      "id": "a2-forest-rails-exercise-2",
+      "text": "Ich war damals zehn Jahre alt.",
+      "path": "/audio/a2-forest-rails-exercise-2.mp3",
+      "voice": "qwen3:lina"
+    },
+    {
+      "id": "a2-forest-rails-exercise-3",
+      "text": "Der Zug ist um sechs Uhr nicht abgefahren.",
+      "path": "/audio/a2-forest-rails-exercise-3.mp3",
+      "voice": "qwen3:lina"
+    },
+    {
+      "id": "a2-forest-rails-exercise-4",
+      "text": "Wir haben lange gewartet.",
+      "path": "/audio/a2-forest-rails-exercise-4.mp3",
+      "voice": "qwen3:lina"
+    },
+    {
+      "id": "a2-forest-rails-exercise-5",
+      "text": "Auf den Schienen lagen große Steine.",
+      "path": "/audio/a2-forest-rails-exercise-5.mp3",
+      "voice": "qwen3:lina"
+    },
+    {
+      "id": "a2-forest-rails-exercise-6",
+      "text": "Ich erinnere mich an den Abend.",
+      "path": "/audio/a2-forest-rails-exercise-6.mp3",
+      "voice": "qwen3:lina"
+    },
+    {
+      "id": "a2-forest-rails-exercise-7",
+      "text": "Danach ist niemand mehr gekommen.",
+      "path": "/audio/a2-forest-rails-exercise-7.mp3",
+      "voice": "qwen3:lina"
+    },
+    {
+      "id": "a2-cellar-exercise-1",
+      "text": "Warum haben Sie das gemacht?",
+      "path": "/audio/a2-cellar-exercise-1.mp3",
+      "voice": "qwen3:falk"
+    },
+    {
+      "id": "a2-cellar-exercise-2",
+      "text": "Ich habe es gemacht, weil ich Angst hatte.",
+      "path": "/audio/a2-cellar-exercise-2.mp3",
+      "voice": "qwen3:falk"
+    },
+    {
+      "id": "a2-cellar-exercise-3",
+      "text": "Ich habe drei Jahre im Büro gearbeitet.",
+      "path": "/audio/a2-cellar-exercise-3.mp3",
+      "voice": "qwen3:falk"
+    },
+    {
+      "id": "a2-cellar-exercise-4",
+      "text": "Das war nicht richtig.",
+      "path": "/audio/a2-cellar-exercise-4.mp3",
+      "voice": "qwen3:falk"
+    },
+    {
+      "id": "a2-cellar-exercise-5",
+      "text": "Ich wollte niemandem schaden.",
+      "path": "/audio/a2-cellar-exercise-5.mp3",
+      "voice": "qwen3:falk"
+    },
+    {
+      "id": "a2-cellar-exercise-6",
+      "text": "Es tut mir leid.",
+      "path": "/audio/a2-cellar-exercise-6.mp3",
+      "voice": "qwen3:falk"
+    },
+    {
+      "id": "a2-cellar-exercise-7",
+      "text": "Die Maschine steht im Hafen von Nebelstadt.",
+      "path": "/audio/a2-cellar-exercise-7.mp3",
+      "voice": "qwen3:falk"
+    },
+    {
+      "id": "b1-record-room-exercise-1",
+      "text": "Könnten Sie mir zeigen, wo die Unterlagen sind?",
+      "path": "/audio/b1-record-room-exercise-1.mp3",
+      "voice": "qwen3:kessler"
+    },
+    {
+      "id": "b1-record-room-exercise-2",
+      "text": "Wissen Sie, wann die Lieferung angekommen ist?",
+      "path": "/audio/b1-record-room-exercise-2.mp3",
+      "voice": "qwen3:kessler"
+    },
+    {
+      "id": "b1-record-room-exercise-3",
+      "text": "Die Akten werden jeden Freitag ins Archiv gebracht.",
+      "path": "/audio/b1-record-room-exercise-3.mp3",
+      "voice": "qwen3:kessler"
+    },
+    {
+      "id": "b1-record-room-exercise-4",
+      "text": "Ich möchte wissen, wer das unterschrieben hat.",
+      "path": "/audio/b1-record-room-exercise-4.mp3",
+      "voice": "qwen3:kessler"
+    },
+    {
+      "id": "b1-record-room-exercise-5",
+      "text": "Mir ist aufgefallen, dass hier eine Seite fehlt.",
+      "path": "/audio/b1-record-room-exercise-5.mp3",
+      "voice": "qwen3:kessler"
+    },
+    {
+      "id": "b1-record-room-exercise-6",
+      "text": "Darf ich eine Kopie davon machen?",
+      "path": "/audio/b1-record-room-exercise-6.mp3",
+      "voice": "qwen3:kessler"
+    },
+    {
+      "id": "b1-record-room-exercise-7",
+      "text": "Frau Kessler hat die Formulare selbst ausgefüllt.",
+      "path": "/audio/b1-record-room-exercise-7.mp3",
+      "voice": "qwen3:kessler"
+    },
+    {
+      "id": "b1-signalman-exercise-1",
+      "text": "Ich bitte Sie, es einmal laut zu sagen.",
+      "path": "/audio/b1-signalman-exercise-1.mp3",
+      "voice": "qwen3:jonas"
+    },
+    {
+      "id": "b1-signalman-exercise-2",
+      "text": "Es wäre schön, wenn Sie mitkommen könnten.",
+      "path": "/audio/b1-signalman-exercise-2.mp3",
+      "voice": "qwen3:jonas"
+    },
+    {
+      "id": "b1-signalman-exercise-3",
+      "text": "Seit zwölf Jahren hat er kein Wort gesagt.",
+      "path": "/audio/b1-signalman-exercise-3.mp3",
+      "voice": "qwen3:jonas"
+    },
+    {
+      "id": "b1-signalman-exercise-4",
+      "text": "Sie müssen keine Angst haben.",
+      "path": "/audio/b1-signalman-exercise-4.mp3",
+      "voice": "qwen3:jonas"
+    },
+    {
+      "id": "b1-signalman-exercise-5",
+      "text": "Ohne Ihre Hilfe schaffen wir es nicht.",
+      "path": "/audio/b1-signalman-exercise-5.mp3",
+      "voice": "qwen3:jonas"
+    },
+    {
+      "id": "b1-signalman-exercise-6",
+      "text": "Was hält Sie davon ab?",
+      "path": "/audio/b1-signalman-exercise-6.mp3",
+      "voice": "qwen3:jonas"
+    },
+    {
+      "id": "b1-signalman-exercise-7",
+      "text": "Das Signal leuchtet jede Nacht von acht bis sechs.",
+      "path": "/audio/b1-signalman-exercise-7.mp3",
+      "voice": "qwen3:jonas"
+    },
+    {
+      "id": "b1-temptation-exercise-1",
+      "text": "Wenn ich den Schlüssel drehe, was passiert dann?",
+      "path": "/audio/b1-temptation-exercise-1.mp3",
+      "voice": "qwen3:ada"
+    },
+    {
+      "id": "b1-temptation-exercise-2",
+      "text": "Was würde passieren, wenn wir nichts tun?",
+      "path": "/audio/b1-temptation-exercise-2.mp3",
+      "voice": "qwen3:ada"
+    },
+    {
+      "id": "b1-temptation-exercise-3",
+      "text": "Falls der Strahl stärker wird, schließen wir die Fenster.",
+      "path": "/audio/b1-temptation-exercise-3.mp3",
+      "voice": "qwen3:ada"
+    },
+    {
+      "id": "b1-temptation-exercise-4",
+      "text": "Ich würde lieber warten.",
+      "path": "/audio/b1-temptation-exercise-4.mp3",
+      "voice": "qwen3:ada"
+    },
+    {
+      "id": "b1-temptation-exercise-5",
+      "text": "Das hätte ich nicht gedacht.",
+      "path": "/audio/b1-temptation-exercise-5.mp3",
+      "voice": "qwen3:ada"
+    },
+    {
+      "id": "b1-temptation-exercise-6",
+      "text": "Unter welchen Bedingungen wäre das möglich?",
+      "path": "/audio/b1-temptation-exercise-6.mp3",
+      "voice": "qwen3:ada"
+    },
+    {
+      "id": "b1-temptation-exercise-7",
+      "text": "Wenn die Strecke zu ist, kann der Strahl Waldruh nicht erreichen.",
+      "path": "/audio/b1-temptation-exercise-7.mp3",
+      "voice": "qwen3:ada"
+    },
+    {
+      "id": "npc-kessler",
+      "text": "Guten Tag. Bitte leise.",
+      "path": "/audio/npc-kessler.mp3",
+      "voice": "qwen3:kessler"
+    },
+    {
+      "id": "npc-pip",
+      "text": "Hallo! Wie heißt du?",
+      "path": "/audio/npc-pip.mp3",
+      "voice": "qwen3:pip"
+    },
+    {
+      "id": "npc-berg",
+      "text": "Guten Tag. Haben Sie heute schon gelesen?",
+      "path": "/audio/npc-berg.mp3",
+      "voice": "qwen3:berg"
+    },
+    {
+      "id": "npc-hilde",
+      "text": "Setz dich, Kind. Hier fragen wir zuerst.",
+      "path": "/audio/npc-hilde.mp3",
+      "voice": "qwen3:hilde"
+    },
+    {
+      "id": "npc-falk",
+      "text": "Tinte, die nie verblasst! Nur heute, nur hier!",
+      "path": "/audio/npc-falk.mp3",
+      "voice": "qwen3:falk"
+    },
+    {
+      "id": "npc-jakob",
+      "text": "Hast du ein rotes Boot gesehen?",
+      "path": "/audio/npc-jakob.mp3",
+      "voice": "qwen3:jakob"
+    },
+    {
+      "id": "npc-ruth",
+      "text": "Hallo. Bist du müde? Setz dich.",
+      "path": "/audio/npc-ruth.mp3",
+      "voice": "qwen3:ruth"
+    },
+    {
+      "id": "npc-jonas",
+      "text": "Er schreibt: Hallo.",
+      "path": "/audio/npc-jonas.mp3",
+      "voice": "qwen3:jonas"
     }
   ]
 }
