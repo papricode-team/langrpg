@@ -35,7 +35,6 @@ export interface WorldOptions {
   onReady?: () => void;
   onNearby?: (id: string | undefined) => void;
   onObject?: (id: string) => void;
-  onMiniGame?: (id: string) => void;
   onMapReady?: (id: MapId) => void;
   onInteriorChange?: (id: InteriorId | undefined) => void;
   onInteriorInteract?: (id: string) => void;
@@ -121,7 +120,6 @@ export class World {
     events.on(WorldEvents.Move, (x: number, y: number) => options.onMove(x, y));
     events.on(WorldEvents.Npc, (id: string) => options.onNpc(id));
     events.on(WorldEvents.Object, (id: string) => options.onObject?.(id));
-    events.on(WorldEvents.MiniGame, (id: string) => options.onMiniGame?.(id));
     events.on(WorldEvents.Nearby, (id: string | undefined) => options.onNearby?.(id));
     events.on(WorldEvents.MapReady, (id: MapId) => options.onMapReady?.(id));
     events.on(WorldEvents.InteriorInteract, (id: string) => options.onInteriorInteract?.(id));

@@ -81,7 +81,6 @@ export const WorldEvents = {
   Move: 'atlas:move',
   Npc: 'atlas:npc',
   Object: 'atlas:object',
-  MiniGame: 'atlas:minigame',
   Nearby: 'atlas:nearby',
   MapReady: 'atlas:map-ready',
   InteriorChange: 'atlas:interior-change',
@@ -97,7 +96,6 @@ export interface WorldEventPayloads {
   [WorldEvents.Move]: [x: number, y: number];
   [WorldEvents.Npc]: [id: string];
   [WorldEvents.Object]: [id: string];
-  [WorldEvents.MiniGame]: [id: string];
   [WorldEvents.Nearby]: [id: string | undefined];
   [WorldEvents.MapReady]: [id: MapId];
   [WorldEvents.InteriorChange]: [id: InteriorId | undefined];

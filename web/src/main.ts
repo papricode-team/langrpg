@@ -372,7 +372,6 @@ function renderShell() {
     },
     onNpc: showNpc,
     onObject: showObject,
-    onMiniGame: id=>void startMiniGame(id),
     onInteriorChange: onInteriorChange,
     onInteriorInteract: showInteriorObject,
     onMapReady: id => { regionReady = true; onRegionReady(id); },
@@ -525,17 +524,16 @@ function interiorPracticeQueue(object: InteriorObjectSpec): Exercise[] {
 async function showInteriorObject(id: string) {
   const generation = ++interiorLoading;
   if (interiorId) { try { await loadInterior(interiorId); } catch (error) { toast((error as Error).message, true); return; } }
+  const object = getInteriorObject(id), room = interiorId ? getInterior(interiorId) : undefined;
+  if (!object || !room || !room.objects.some(item => item.id === id)) return;
   if (interiorId === 'inn') {
     if (id === 'interior:inn:review') { void startAdaptiveReview(); return; }
     if (id === 'interior:inn:evidence') { setView('story'); return; }
-    if (id === 'interior:inn:bed') { openDialog(`<div class="completion">${portrait('self')}<h2>${t('The lantern can rest.')}</h2><p>${t('Give a few familiar words another moment, or let the day end. Your discoveries stay with you.')}</p><button class="primary-button" data-action="review">${t('Evening review')} ${icon('leaf')}</button><button class="outline-button" data-action="sleep">${t('Sleep and begin tomorrow')} ${icon('clock')}</button>${miniGameHostLinks("re-ink")}<button class="text-button" data-action="close-dialog">${t('Keep exploring')}</button></div>`, 'inn-dialog'); return; }
+    if (id === 'interior:inn:bed') { openDialog(`<div class="completion">${portrait('self')}<h2>${t('The lantern can rest.')}</h2><p>${t('Give a few familiar words another moment, or let the day end. Your discoveries stay with you.')}</p><button class="primary-button" data-action="review">${t('Evening review')} ${icon('leaf')}</button><button class="outline-button" data-action="sleep">${t('Sleep and begin tomorrow')} ${icon('clock')}</button>${miniGameHostLinks(object.minigame)}<button class="text-button" data-action="close-dialog">${t('Keep exploring')}</button></div>`, 'inn-dialog'); return; }
   }
-  const object = getInteriorObject(id), room = interiorId ? getInterior(interiorId) : undefined;
-  if (!object || !room || !room.objects.some(item => item.id === id)) return;
   const npc = object.npcId ? npcs.find(item => item.id === object.npcId) : undefined;
   if (npc) recordExposure({npcId:npc.id});
-  const miniGameId = id === 'interior:cafe:coffee' ? 'tray-rush' : id === 'interior:cafe:tea' ? 'kettle-forecast' : id === 'interior:supermarket:scales' ? 'numbered-apples' : room.id === 'cafe' || room.id === 'bakery' ? 'tray-rush' : room.id === 'supermarket' ? 'numbered-apples' : 're-ink';
-  const miniGame = miniGameId ? miniGameById.get(miniGameId) : undefined;
+  const miniGame = object.minigame ? miniGameById.get(object.minigame) : undefined;
   try { await loadInteriorConversation(id); } catch (error) { toast((error as Error).message, true); return; }
   if (generation !== interiorLoading || interiorId !== room.id) return;
   interiorConversation = undefined;

@@ -23,6 +23,8 @@ export interface InteriorObjectSpec extends MapPosition {
   dialogue?: string;
   npcId?: string;
   activityId?: 'cafe' | 'market';
+  /** Optional mini-game explicitly offered at this station. */
+  minigame?: string;
   exerciseIds: string[];
   vocabulary: InteriorVocabulary[];
 }
@@ -102,7 +104,7 @@ export const interiors: readonly InteriorSpec[] = [
     objects: [
       {
         id: 'interior:cafe:coffee', label: 'Marta’s coffee counter', germanName: 'Die Kaffeetheke', sessionTitle: 'Order your favourite coffee',
-        ...position(590, 555), npcId: 'marta', activityId: 'cafe', dialogue: 'Guten Morgen! Was möchtest du trinken?',
+        ...position(590, 555), npcId: 'marta', activityId: 'cafe', minigame: 'tray-rush', dialogue: 'Guten Morgen! Was möchtest du trinken?',
         prompt: 'Order a coffee, choose milk, and finish your order politely.',
         description: 'The espresso machine gives a tiny satisfied puff after every order. Marta waits patiently while you find your words.',
         exerciseIds: cafeExercise(1, 2, 7),
@@ -110,7 +112,7 @@ export const interiors: readonly InteriorSpec[] = [
       },
       {
         id: 'interior:cafe:tea', label: 'The tea kettle', germanName: 'Der Wasserkocher', sessionTitle: 'Ask about drinks and prices',
-        ...position(790, 555), dialogue: 'Der Tee kostet drei Euro. Möchtest du auch ein Wasser?',
+        ...position(790, 555), minigame: 'kettle-forecast', dialogue: 'Der Tee kostet drei Euro. Möchtest du auch ein Wasser?',
         prompt: 'Ask the price of tea, listen to the answer, and choose another drink.',
         description: 'A copper kettle rests on the service bar beside the coffee machine. Take your time asking about the drinks and their prices.',
         exerciseIds: cafeExercise(3, 4, 5),
@@ -263,7 +265,7 @@ export const interiors: readonly InteriorSpec[] = [
       },
       {
         id: 'interior:supermarket:scales', label: 'Fritz’s honest scales', germanName: 'Die Waage', sessionTitle: 'Quantities and prices',
-        ...position(455, 720), dialogue: 'Ein Kilo, bitte. Das kostet fünf Euro fünfzig.',
+        ...position(455, 720), minigame: 'numbered-apples', dialogue: 'Ein Kilo, bitte. Das kostet fünf Euro fünfzig.',
         prompt: 'Request a weight, understand a price, and recognise when something costs too much.',
         description: 'The brass needle settles with a soft wobble. Fritz swears these scales have never weighed a customer’s shopping list by mistake.',
         exerciseIds: marketExercise(3, 4, 7),
@@ -313,7 +315,7 @@ export const interiors: readonly InteriorSpec[] = [
     ],
     objects: [
       { id: 'interior:inn:welcome', label: 'Greta · ein warmer Tee', germanName: 'Ein Besuch von Greta', sessionTitle: 'A friendly welcome', npcId: 'greta', dialogue: npcs.find(npc => npc.id === 'greta')!.greeting, prompt: 'Say hello and ask for a warm drink.', description: 'Greta visits between 07:00 and 21:00 with tea. Your room is quiet overnight; your lamp, desk and bed are always ready.', ...position(1040, 745), exerciseIds: ['a1-arrival-exercise-1', 'a1-cafe-exercise-3', 'a1-cafe-exercise-7'], vocabulary: [vocabulary('der', 'Tee', 'die Tees', 'tea'), vocabulary('die', 'Tasse', 'die Tassen', 'cup'), vocabulary('das', 'Zimmer', 'die Zimmer', 'room')] },
-      { id: 'interior:inn:bed', label: 'Das Bett', germanName: 'Das Bett', sessionTitle: 'Begin tomorrow', prompt: 'Rest here when your day is done.', description: 'Schlaf gut. Deine Beweise und deine Wörter bleiben im Atlas.', ...position(610, 570), exerciseIds: ['a1-arrival-exercise-6'], vocabulary: [vocabulary('das','Bett','Betten','bed')] },
+      { id: 'interior:inn:bed', label: 'Das Bett', germanName: 'Das Bett', sessionTitle: 'Begin tomorrow', prompt: 'Rest here when your day is done.', description: 'Schlaf gut. Deine Beweise und deine Wörter bleiben im Atlas.', ...position(610, 570), minigame: 're-ink', exerciseIds: ['a1-arrival-exercise-6'], vocabulary: [vocabulary('das','Bett','Betten','bed')] },
       { id: 'interior:inn:review', label: 'Die Abendlampe', germanName: 'Die Abendlampe', sessionTitle: 'An evening review', prompt: 'Keep one small promise to your words.', description: 'Die Lampe wartet. Ein paar Wörter für heute, dann kannst du schlafen.', ...position(810, 470), exerciseIds: ['a1-cafe-exercise-6'], vocabulary: [vocabulary('die','Lampe','Lampen','lamp')] },
       { id: 'interior:inn:evidence', label: 'Dein Schreibtisch', germanName: 'Der Schreibtisch', sessionTitle: 'Connect the evidence', prompt: 'Lay out your letters and clues.', description: 'Hier liegen deine Briefe. Jeder Brief zeigt einen Weg. Wer hilft dir morgen?', ...position(1030, 490), exerciseIds: ['a1-arrival-exercise-6'], vocabulary: [vocabulary('der','Brief','Briefe','letter')] },
     ],

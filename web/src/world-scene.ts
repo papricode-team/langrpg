@@ -5,7 +5,7 @@ import { worldRain, type WorldWeatherMode } from './world-weather';
 import { residentActionKey, residentActionPose, residentComponentPose, residentSeatedOffset, RESIDENT_ACTION_ART } from './resident-action-art';
 import { npcs } from './content';
 import { createMapNavigation, type MapPoint, type NavigationGrid } from './navigation';
-import { getMap, maps, type MapId, type WorldMapSpec, type WorldObjectSpec } from './maps';
+import { getMap, maps, type MapId, type WorldMapSpec } from './maps';
 import { castActor } from './character-cast';
 import { poseColumn } from './character-pose';
 import { characterFrame, MODULAR_ART } from './avatar-options';
@@ -190,11 +190,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
     this.scenery = new WorldScenery(this, map.id, this.period, undefined, createSceneryOcclusion);
     this.scenery.setReducedMotion(this.reducedMotion);
     this.createMapCharacters(map);
-    const lampHosts: WorldObjectSpec[] = getWorldScene(map.id).scenery.filter(prop => prop.asset === 'lamp').map(prop => ({
-      id: `lantern-drill-${prop.id}`, label: 'Die Laterne', kind: 'lantern', x: prop.x / this.worldWidth, y: prop.y / this.worldHeight,
-      exerciseIds: [], prompt: 'Listen to the whisper in the lantern.', description: 'The ink answers after dusk.', minigame: 'lantern-lighting',
-    }));
-    this.createMapObjects([...map.objects, ...lampHosts]);
+    this.createMapObjects(map.objects);
     for (const entrance of buildingEntrances(map.id)) {
       const signKey = sceneryTextureKey(map.id);
       const sign = this.textures.exists(signKey) && this.textures.get(signKey).has('sign') ? this.add.image(0, -21, signKey, 'sign').setDisplaySize(38, 46) : undefined;
@@ -276,15 +272,8 @@ export class WorldScene extends ExploreScene implements EditSurface {
     this.refreshNearby();
   }
 
-  private lampHosts(): WorldObjectSpec[] {
-    return getWorldScene(this.mapSpec.id).scenery.filter(prop => prop.asset === 'lamp').map(prop => ({
-      id: `lantern-drill-${prop.id}`, label: 'Die Laterne', kind: 'lantern', x: prop.x / this.worldWidth, y: prop.y / this.worldHeight,
-      exerciseIds: [], prompt: 'Listen to the whisper in the lantern.', description: 'The ink answers after dusk.', minigame: 'lantern-lighting',
-    }));
-  }
-
   private syncMapObjects(): void {
-    const wanted = new Map([...this.mapSpec.objects, ...this.lampHosts()].map(spec => [spec.id, spec]));
+    const wanted = new Map(this.mapSpec.objects.map(spec => [spec.id, spec]));
     for (const [id, object] of [...this.objects]) {
       const spec = wanted.get(id);
       if (!spec) { object.root.destroy(); this.objects.delete(id); continue; }

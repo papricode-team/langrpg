@@ -490,7 +490,6 @@ export abstract class ExploreScene extends Phaser.Scene {
       const object = this.objects.get(id.slice(7));
       if (!object) return;
       object.activatedUntil = this.elapsed + 4;
-      if (object.spec.id.startsWith('lantern-drill-') && object.spec.minigame) { emitWorld(this.game, WorldEvents.MiniGame, object.spec.minigame); return; }
       emitWorld(this.game, WorldEvents.Object, object.spec.id);
       return;
     }
