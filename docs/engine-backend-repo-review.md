@@ -132,11 +132,11 @@ Implemented on branch `claude/engine-backend-repo-review-09e6dc`.
 **CI and repository**
 
 - `npm run check` runs the structural word-map check (`content:check-schema`). The native-review gate moved to `npm run release:check`.
-- The workflow is four parallel jobs: `server` (gofmt, vet, full race suite against PostgreSQL 18), `web` (lint, check, Vitest, tooling tests, generated-content drift), `ui` (screenshots) and `build` (bundle, budgets, Docker image). Only `web` fetches LFS; art tests compare against reviewed proofs named in the catalogues, so it fetches all of it.
+- Hosted CI was removed on 2026-10-15 at the team's request. `npm run verify` runs every former CI check locally in sequence: Go formatting, vet and the race suite against PostgreSQL (a disposable cluster when `initdb` is installed), lint, check, Vitest, tooling tests, asset drift, dialogue and i18n audits, build and budgets; `--ui` and `--docker` add the screenshot check and image build.
 - `test:tooling` uses a glob; two passing tests that had fallen out of the hand-written list now run.
 - `server/content.json` is untracked and ignored. `npm run dev`, CI and the Docker build regenerate it; the rebuild is byte-identical and takes about 3 s.
 - `art/source/*.png` and `art/source/expeditions/*.png` are LFS-tracked; 164 masters were renormalized to pointers. History still holds the old blobs.
-- Added `.nvmrc`, an `engines` field and Dependabot for npm, Go modules, Actions and Docker.
+- Added `.nvmrc` and an `engines` field. Dependabot was added and then removed with the hosted CI.
 - Vitest's default timeout is 20 s.
 - `compact-translations.test.mjs` failed on `main` since 2026-10-14, hidden by the red CI. It now bundles with the content-runtime plugin, as production does.
 

@@ -15,6 +15,7 @@
     "terrain:check": "node scripts/check-terrain-materials.mjs && node scripts/check-terrain-features.mjs && node scripts/check-terrain-objects.mjs",
     "test": "npm run test --workspace web",
     "test:tooling": "node --test 'scripts/*.test.mjs'",
+    "verify": "node scripts/verify.mjs",
     "maps:check": "node scripts/map-editor.mjs check",
     "lint": "npm run lint --workspace web",
     "assets": "node scripts/assets.mjs",

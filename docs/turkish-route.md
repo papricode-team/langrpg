@@ -73,7 +73,7 @@ Coverage figures are produced by `node scripts/i18n-coverage.mjs` (see §4).
 
 ## 4. Coverage
 
-Measured by `npm run i18n` (`scripts/i18n-coverage.mjs`), which also runs in CI and fails on incomplete course support, missing/stale story units, lost placeholders, inconsistent meanings or untranslated `t()` keys. The rounded figures shown in Settings live in `web/src/data/i18n/tr-coverage.json`; a test fails if they drift from the measurement (`npm run i18n -- --write` refreshes them).
+Measured by `npm run i18n` (`scripts/i18n-coverage.mjs`), which also runs in `npm run verify` and fails on incomplete course support, missing/stale story units, lost placeholders, inconsistent meanings or untranslated `t()` keys. The rounded figures shown in Settings live in `web/src/data/i18n/tr-coverage.json`; a test fails if they drift from the measurement (`npm run i18n -- --write` refreshes them).
 
 | Area | Turkish | Required |
 | --- | --- | --- |

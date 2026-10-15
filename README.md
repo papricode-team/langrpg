@@ -91,6 +91,14 @@ Enable **Silent mode** in Settings or an exercise to mute audio and skip optiona
 
 ## Checks
 
+There is no hosted CI. Run every check locally before pushing:
+
+```sh
+npm run verify
+```
+
+It runs the Go formatting, vet and race suite (against `TEST_DATABASE_URL`, or a disposable PostgreSQL it starts when `initdb` is installed), lint, `npm run check`, Vitest, the tooling tests, asset regeneration with a drift check, the dialogue and i18n audits, the production build and the distribution budgets, then prints a summary. Add `-- --ui` for the UI font and screenshot check and `-- --docker` to build the runtime image. Individual commands:
+
 ```sh
 npm test
 npm run test:tooling
@@ -105,7 +113,7 @@ go test -race ./...
 go vet ./...
 ```
 
-CI runs four parallel jobs: the Go service against PostgreSQL, frontend lint, types and tests, the UI screenshot check, and the production build with distribution budgets and the Docker image. `npm run check` validates word-map structure only. `npm run release:check` additionally requires every sentence to carry a native reviewer and is a release gate, not a CI step. Frontend tests cover dialogue graph reachability, scene receipts and retries, earned progression, preview recovery, learning behavior, complete vocabulary/course/server parity, legal solutions for all 48 activity scenes, saved-board and retry behavior, bounded review selection, navigation and map-aware connection recovery. World regressions check independent scenery, fixed building foundations, registered sprite frames, complete day/night sets, reduced-motion freeze, culling and revisit cleanup. The development fixture at [http://localhost:5187/qa/world-assets.html](http://localhost:5187/qa/world-assets.html) offers region and time selection, Terrain only, Still scenery and camera-tour views. [Character motion](http://localhost:5187/qa/character-motion.html) enlarges all sixteen regional identities with fixed ground pivots, pose selection, walking speeds and pauses. Go tests cover grading, persistence, idempotency, scheduling, story proximity and ordering, save/load reward safety, expedition solutions, days, region isolation, travel and reconnects. Optional PostgreSQL integration checks are described in the [server guide](server/README.md).
+`npm run check` validates word-map structure only. `npm run release:check` additionally requires every sentence to carry a native reviewer and is a release gate, not part of `npm run verify`. Frontend tests cover dialogue graph reachability, scene receipts and retries, earned progression, preview recovery, learning behavior, complete vocabulary/course/server parity, legal solutions for all 48 activity scenes, saved-board and retry behavior, bounded review selection, navigation and map-aware connection recovery. World regressions check independent scenery, fixed building foundations, registered sprite frames, complete day/night sets, reduced-motion freeze, culling and revisit cleanup. The development fixture at [http://localhost:5187/qa/world-assets.html](http://localhost:5187/qa/world-assets.html) offers region and time selection, Terrain only, Still scenery and camera-tour views. [Character motion](http://localhost:5187/qa/character-motion.html) enlarges all sixteen regional identities with fixed ground pivots, pose selection, walking speeds and pauses. Go tests cover grading, persistence, idempotency, scheduling, story proximity and ordering, save/load reward safety, expedition solutions, days, region isolation, travel and reconnects. Optional PostgreSQL integration checks are described in the [server guide](server/README.md).
 
 Content and asset tooling has one entry point:
 
