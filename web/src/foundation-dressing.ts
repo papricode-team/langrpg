@@ -25,7 +25,7 @@ export function foundationGround(mapId:string,x:number,y:number,modular:ModularT
   if(modular){
     const material=terrainMaterial(terrainSurfaces(modular).reverse().find(surface=>terrainContains(surface.polygon,x,y))?.material??modular.base)!;
     const hex=material.color.replace('#',''),colour=[0,2,4].map(offset=>parseInt(hex.slice(offset,offset+2),16)) as [number,number,number];
-    return {colour,vegetation:['meadow','forest-floor','moss','marsh'].includes(material.id)?1:material.id==='dry-grass'?.5:0,water:material.id.endsWith('water')?1:0};
+    return {colour,vegetation:['meadow','forest-floor','moss','marsh','canal-grass'].includes(material.id)?1:material.id==='dry-grass'?.5:0,water:material.id.endsWith('water')?1:0};
   }
   const tile=sceneDocument.maps[mapId]?.terrain?.slice().reverse().find(tile=>x>=tile.x&&y>=tile.y&&x<tile.x+tile.width&&y<tile.y+tile.height);
   const source=tile&&(tile.dayPreviewAsset??tile.dayAsset);

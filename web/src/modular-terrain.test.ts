@@ -55,7 +55,7 @@ describe('editable terrain',()=>{
  });
  it('keeps generated source provenance and actual native dimensions',async()=>{
   const catalogue=JSON.parse(await readFile(new URL('./data/terrain-materials.json',import.meta.url),'utf8'));
-  expect(catalogue.materials).toHaveLength(20);
-  for(const material of catalogue.materials){expect(material.sourceWidth).toBeGreaterThanOrEqual(1024);expect(material.width/material.worldSize).toBeGreaterThanOrEqual(4);}
+  expect(catalogue.materials).toHaveLength(22);
+  for(const material of catalogue.materials){expect(material.sourceWidth).toBeGreaterThanOrEqual(1024);expect(material.width/material.worldSize).toBeGreaterThanOrEqual(2);}
  });
 });

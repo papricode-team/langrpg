@@ -41,8 +41,8 @@ describe('painted terrain in the game camera',()=>{
   expect(drawImage).toHaveBeenCalledExactlyOnceWith(image,100,80,800,800);
  });
  it('has varied independently painted geometry at actual HD resolution',()=>{
-  expect(terrainFeatures).toHaveLength(12);
-  expect(new Set(terrainFeatures.map(a=>JSON.stringify(a.outline))).size).toBe(12);
+  expect(terrainFeatures).toHaveLength(14);
+  expect(new Set(terrainFeatures.map(a=>JSON.stringify(a.outline))).size).toBe(14);
   for(const art of terrainFeatures){expect(Math.min(art.width,art.height)).toBeGreaterThanOrEqual(1024);expect(art.surfaces.some(s=>!s.blocked)).toBe(true);}
  });
 });

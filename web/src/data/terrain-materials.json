@@ -300,6 +300,36 @@
       "sourceHeight": 1254,
       "worldSize": 256,
       "repeat": "periodic-overlap"
+    },
+    {
+      "id": "canal-water",
+      "name": "Dark canal water",
+      "group": "Water",
+      "color": "#0b2b40",
+      "blocked": true,
+      "asset": "/assets/terrain-materials/canal-water.webp",
+      "thumbnail": "/assets/terrain-materials/canal-water-thumb.webp",
+      "width": 1152,
+      "height": 1152,
+      "sourceWidth": 1254,
+      "sourceHeight": 1254,
+      "worldSize": 512,
+      "repeat": "periodic-overlap"
+    },
+    {
+      "id": "canal-grass",
+      "name": "Cool canal undergrowth",
+      "group": "Ground",
+      "color": "#183b39",
+      "blocked": false,
+      "asset": "/assets/terrain-materials/canal-grass.webp",
+      "thumbnail": "/assets/terrain-materials/canal-grass-thumb.webp",
+      "width": 1152,
+      "height": 1152,
+      "sourceWidth": 1254,
+      "sourceHeight": 1254,
+      "worldSize": 384,
+      "repeat": "periodic-overlap"
     }
   ]
 }

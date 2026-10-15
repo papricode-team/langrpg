@@ -31,7 +31,7 @@ for(const item of manifest.materials){
  await sharp(`${output}/${item.id}.webp`).resize(160,160).webp({quality:85}).toFile(`${output}/${item.id}-thumb.webp`);
  materials.push({id:item.id,name:item.name,group:item.group,color:item.color,blocked:!!item.blocked,
   asset:`/assets/terrain-materials/${item.id}.webp`,thumbnail:`/assets/terrain-materials/${item.id}-thumb.webp`,
-  width:periodic.width,height:periodic.height,sourceWidth:info.width,sourceHeight:info.height,worldSize:256,repeat:'periodic-overlap'});
+  width:periodic.width,height:periodic.height,sourceWidth:info.width,sourceHeight:info.height,worldSize:item.worldSize??256,repeat:'periodic-overlap'});
 }
 await writeFile('web/src/data/terrain-materials.json',JSON.stringify({version:1,materials},null,2)+'\n');
 console.log(`Exported ${materials.length} lossless periodic materials without mirroring or upscaling.`);

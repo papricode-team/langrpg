@@ -21,6 +21,9 @@ const MAX_IMPORT_BYTES = 2 * 1024 * 1024;
 
 export interface MapEditorHandle { destroy(): void; }
 export interface MapEditorOptions {
+  /** Optional isolated transport for local authoring studies. Never used by the admin page. */
+  request?: typeof fetch;
+  localDraft?: boolean;
   token: () => string;
   selfId: () => string;
   /** Extra tab content provided by other admin features. */
@@ -28,7 +31,8 @@ export interface MapEditorOptions {
 }
 
 export async function mountMapEditor(host: HTMLElement, options: MapEditorOptions): Promise<MapEditorHandle> {
-  host.innerHTML = `<header class="topbar map-topbar"><div><strong>Map editor</strong><span id="map-status" role="status">Loading the published world…</span></div>
+  if(options.localDraft&&!options.request)throw new Error('A local draft needs an isolated transport.');
+  host.innerHTML = `<header class="topbar map-topbar"><div><strong>Map editor</strong><span id="map-status" role="status">${options.localDraft?'Loading the local draft…':'Loading the published world…'}</span></div>
       <div class="toolbar"><label class="select-label">Town<select id="map-town">${maps.map(map => `<option value="${map.id}">${escape(map.name)}</option>`).join('')}</select></label>
       <button id="map-fit" type="button">Fit</button><button id="map-export" type="button">Export</button><button id="map-import" type="button">Import</button>
       <input id="map-import-file" type="file" accept=".json,application/json" hidden></div></header>
@@ -45,10 +49,10 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
       <p class="map-help">Drag to move. Scroll to zoom. Right-drag, Space-drag or WASD to pan. Esc deselects.</p></aside></div>`;
   const query = <T extends HTMLElement>(selector: string) => host.querySelector<T>(selector)!;
   const status = (text: string) => { query('#map-status').textContent = text; };
-  await loadPublishedWorld();
+  await loadPublishedWorld(options.request);
   let mapId: MapId = maps[0].id, tab: Tab = 'edit', lastState: EditState | undefined, destroyed = false;
 
-  const session = new WorldEditSession(options.token, () => sceneDocument);
+  const session = new WorldEditSession(options.token, () => sceneDocument, options.request);
   const overlay = new WorldEditOverlay({mount: query('[data-panel="edit"]')});
   const view = {
     state: (state: EditState) => {
@@ -77,7 +81,7 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
     else void reloadWorld();
   };
   const afterChange = () => {
-    status(`Published · ${new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}`);
+    status(`${options.localDraft?'Saved locally':'Published'} · ${new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}`);
     if(tab==='terrain')terrainEditor.refresh();
     if (tab === 'town') renderTown(); else if (tab === 'residents') renderResidents();
   };
@@ -87,7 +91,7 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
     reloading = true;
     try {
       const before = getWorldScene(mapId);
-      await loadPublishedWorld();
+      await loadPublishedWorld(options.request);
       const after = getWorldScene(mapId);
       if (rebuild || after.width !== before.width || after.height !== before.height) await scene.rebuild(bridge);
       else scene.refresh();
@@ -109,7 +113,7 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
     mapId = id;
     status(`Loading ${townName(id)}…`);
     await scene.show(id, bridge);
-    status(`${townName(id)} · changes go live for everyone`);
+    status(`${townName(id)} · ${options.localDraft?'local draft, saved in this browser':'changes go live for everyone'}`);
     if(tab==='terrain')terrainEditor.refresh();
     if (tab === 'town') renderTown(); else if (tab === 'residents') renderResidents();
   };
@@ -182,7 +186,7 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
     try {
       const world = await session.loadWorld();
       const url = URL.createObjectURL(new Blob([`${JSON.stringify(world.document, null, 2)}\n`], {type: 'application/json'}));
-      const link = document.createElement('a'); link.href = url; link.download = `glotworld-world-${new Date().toISOString().slice(0, 10)}.json`; link.click();
+      const link = document.createElement('a'); link.href = url; link.download = `glotworld-${options.localDraft?'terrain-draft':'world'}-${new Date().toISOString().slice(0, 10)}.json`; link.click();
       window.setTimeout(() => URL.revokeObjectURL(url), 1000);
     } catch (error) { overlay.toast(error instanceof Error ? error.message : 'Export failed.', true); }
   };
@@ -198,16 +202,16 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
       catch (error) { throw new Error(`This is not a world file: ${error instanceof Error ? error.message.replace(/^Invalid world scene: /, '') : 'unreadable'}`, {cause: error}); }
       status('Checking the imported world…');
       await session.validate(document);
-      if (!confirm('Replace the whole published world with this file? Players see it immediately.')) { status(`${townName(mapId)} · changes go live for everyone`); return; }
+      if (!confirm(options.localDraft?'Replace this local draft with the imported file?':'Replace the whole published world with this file? Players see it immediately.')) { status(`${townName(mapId)} · ${options.localDraft?'local draft':'changes go live for everyone'}`); return; }
       const current = await session.loadWorld();
       await session.replaceWorld(document, current.revision);
       await reloadWorld(true);
-      overlay.toast('The imported world is now live.');
+      overlay.toast(options.localDraft?'The imported draft is saved locally.':'The imported world is now live.');
     } catch (error) {
       const problems = error instanceof WorldEditRequestError ? error.problems : [];
       overlay.toast(error instanceof Error ? error.message : 'Import failed.', true);
       if (problems.length > 1) { audit = problems; selectTab('town'); }
-      status(`${townName(mapId)} · changes go live for everyone`);
+      status(`${townName(mapId)} · ${options.localDraft?'local draft':'changes go live for everyone'}`);
     }
   };
 
