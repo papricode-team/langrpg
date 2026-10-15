@@ -1,6 +1,6 @@
 import polygonClipping from 'polygon-clipping';
 import type {MultiPolygon,Polygon} from 'polygon-clipping';
-import type {ModularTerrain,TerrainSurface} from './modular-terrain';
+import {surfaceAt,type ModularTerrain,type TerrainSurface} from './modular-terrain';
 import type {ScenePolygon} from './scene-schema';
 import {terrainMaterial} from './terrain-materials';
 import type {TerrainView} from './terrain-residency';
@@ -107,7 +107,10 @@ function geometry(terrain:ModularTerrain):CurbStone[]{
   const surfaces=terrain.surfaces;
   const cached=cache.find(c=>c.surfaces.length===surfaces.length&&c.surfaces.every((s,i)=>s.polygon===surfaces[i].polygon&&s.material===surfaces[i].material));
   if(cached)return cached.stones;
-  const stones=visibleRoadCurbRings(surfaces).flatMap(curbStones);
+  // A shared road/water boundary already has a quay coping course. A second
+  // road course would straddle it and look like two unrelated walls.
+  const stones=visibleRoadCurbRings(surfaces).flatMap(curbStones).filter(stone=>
+    ![stone.center,...stone.top].some(([x,y])=>terrainMaterial(surfaceAt(terrain,x,y)?.material??terrain.base)?.edge?.kind==='quay'));
   cache.unshift({surfaces:[...surfaces],stones});if(cache.length>4)cache.pop();return stones;
 }
 
