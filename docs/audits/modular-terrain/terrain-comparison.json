@@ -14,5 +14,11 @@
   "synchronizedPan": true,
   "dayAndNight": true,
   "independentLayerControls": true,
-  "pieceOutlines": true
+  "pieceOutlines": true,
+  "roadBordersCloseup": true,
+  "chunkCheck": {
+    "checked": 10215,
+    "different": 47,
+    "maxDelta": 10
+  }
 }

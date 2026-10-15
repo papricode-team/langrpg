@@ -2,7 +2,7 @@ import type {ScenePolygon} from './scene-schema';
 import {terrainMaterial} from './terrain-materials';
 
 export function terrainMaterialDependencies(ids:string[]):string[]{
- return [...new Set(ids.flatMap(id=>{const edge=terrainMaterial(id)?.edge;return edge?.material?[id,edge.material]:[id];}))];
+ return [...new Set(ids.flatMap(id=>{const edge=terrainMaterial(id)?.edge;return edge?.kind==='curb'?[id,'canal-masonry']:edge?.material?[id,edge.material]:[id];}))];
 }
 const path=(ctx:CanvasRenderingContext2D,p:ScenePolygon)=>{ctx.beginPath();p.forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y));ctx.closePath();};
 /** Edge treatment follows the editable polygon, with stone courses projected onto vertical faces. */

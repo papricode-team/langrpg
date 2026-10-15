@@ -6,6 +6,7 @@ import {terrainFeature,terrainFeatureKey,featureBounds} from './terrain-features
 import type {TerrainView} from './terrain-residency';
 import type {TerrainResidency} from './terrain-residency';
 import {paintTerrainEdge,terrainMaterialDependencies} from './terrain-masonry';
+import {paintRoadCurbs} from './terrain-curbs';
 const CHUNK=256;
 let sequence=0;
 interface Chunk {key:string;image:Phaser.GameObjects.Image;}
@@ -24,15 +25,15 @@ export function paintModularTerrain(context:CanvasRenderingContext2D,terrain:Mod
     context.restore();
   };
   fill(terrain.base);
-  // Lay curbs first; adjoining paving covers internal seams at street junctions.
-  for(const surface of terrain.surfaces)if(terrainMaterial(surface.material)?.edge?.kind==='curb')
-    paintTerrainEdge(context,surface.polygon,'curb',source);
   for(const surface of terrain.surfaces){
     const p=surface.polygon;
     if(Math.max(...p.map(v=>v[0]))<view.x||Math.min(...p.map(v=>v[0]))>view.x+view.width
       ||Math.max(...p.map(v=>v[1]))<view.y||Math.min(...p.map(v=>v[1]))>view.y+view.height)continue;
     fill(surface.material,p);
   }
+  // Borders follow the final road silhouette, including gardens painted over paving.
+  // Draw after the ground so grass cannot bury the raised stones around its islands.
+  paintRoadCurbs(context,terrain,view,source);
   for(const surface of terrain.surfaces){
     const edge=terrainMaterial(surface.material)?.edge;
     if(edge?.kind==='quay')paintTerrainEdge(context,surface.polygon,'quay',source,edge.height);

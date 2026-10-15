@@ -11,6 +11,37 @@ try{
  await page.getByRole('button',{name:'Bridge detail',exact:true}).click();
  await page.screenshot({path:'docs/audits/modular-terrain/terrain-comparison-bridge.png',fullPage:true});
  await page.locator('#components').screenshot({path:'docs/audits/modular-terrain/bridge-paving-match.png'});
+ await page.getByRole('button',{name:'Road borders',exact:true}).click();
+ await page.screenshot({path:'docs/audits/modular-terrain/road-borders-comparison.png',fullPage:true});
+ await page.locator('#components').screenshot({path:'docs/audits/modular-terrain/road-borders-detail.png'});
+ // Exercise the game's padded 256-unit chunk composition against a single canvas.
+ const chunkCheck=await page.evaluate(async()=>{
+  const {paintModularTerrain}=await import('/src/modular-terrain-renderer.ts');
+  const {terrainMaterial}=await import('/src/terrain-materials.ts');
+  const {terrainMaterialDependencies}=await import('/src/terrain-masonry.ts');
+  const {default:draft}=await import('/src/data/lindenhafen-terrain-rebuild.json');
+  const terrain={...draft.modularTerrain,features:[]},images=new Map();
+  await Promise.all(terrainMaterialDependencies([terrain.base,...terrain.surfaces.map(s=>s.material)]).map(async id=>{
+   const image=new Image();image.src=terrainMaterial(id).asset;await image.decode();images.set(id,image);
+  }));
+  const make=(size)=>{const c=document.createElement('canvas');c.width=c.height=size;return c;};
+  const full=make(1024),tiled=make(1024),ctx=full.getContext('2d'),out=tiled.getContext('2d');
+  ctx.scale(2,2);ctx.translate(-512,-512);paintModularTerrain(ctx,terrain,{x:512,y:512,width:512,height:512},id=>images.get(id));
+  for(let y=0;y<2;y++)for(let x=0;x<2;x++){
+   const c=make(514),g=c.getContext('2d'),wx=512+x*256,wy=512+y*256;
+   g.translate(1,1);g.scale(2,2);g.translate(-wx,-wy);
+   paintModularTerrain(g,terrain,{x:wx-.5,y:wy-.5,width:257,height:257},id=>images.get(id));
+   out.drawImage(c,1,1,512,512,x*512,y*512,512,512);
+  }
+  const a=ctx.getImageData(0,0,1024,1024).data,b=out.getImageData(0,0,1024,1024).data;
+  let different=0,checked=0,maxDelta=0;
+  for(let y=0;y<1024;y++)for(let x=0;x<1024;x++)if(Math.abs(x-512)<3||Math.abs(y-512)<3){
+   checked++;const i=(y*1024+x)*4,delta=Math.max(...[0,1,2,3].map(c=>Math.abs(a[i+c]-b[i+c])));maxDelta=Math.max(maxDelta,delta);if(delta>3)different++;
+  }
+  return {checked,different,maxDelta};
+ });
+ if(chunkCheck.different/chunkCheck.checked>.005||chunkCheck.maxDelta>16)throw Error(`Terrain chunk seam differs: ${JSON.stringify(chunkCheck)}`);
+ await page.getByRole('button',{name:'Bridge detail',exact:true}).click();
  const before=await page.evaluate(()=>[document.querySelector('#original').toDataURL(),document.querySelector('#components').toDataURL()]);
  await page.locator('#roads').uncheck();
  const hidden=await page.evaluate(()=>[document.querySelector('#original').toDataURL(),document.querySelector('#components').toDataURL()]);
@@ -24,6 +55,6 @@ try{
  await page.locator('#period').selectOption('day');await page.waitForFunction(()=>window.terrainComparisonReady,null,{timeout:60000});
  if(!(await page.locator('#status').textContent()).includes('day'))throw Error('Day terrain failed to load');
  if(errors.length||sceneryRequests.length)throw Error(JSON.stringify({errors,sceneryRequests}));
- await writeFile('docs/audits/modular-terrain/terrain-comparison.json',JSON.stringify({errors,sceneryRequests,originalTiles:9,sceneryLayers:0,sharedScale:true,matchingCoordinates:true,worldSize:[2304,1536],editableShapes:40,paintedPlacements:5,synchronizedPan:true,dayAndNight:true,independentLayerControls:true,pieceOutlines:true},null,2)+'\n');
- console.log('PASS: terrain-only comparison, both lighting versions, synchronized cameras and independent new layers.');
+ await writeFile('docs/audits/modular-terrain/terrain-comparison.json',JSON.stringify({errors,sceneryRequests,originalTiles:9,sceneryLayers:0,sharedScale:true,matchingCoordinates:true,worldSize:[2304,1536],editableShapes:40,paintedPlacements:5,synchronizedPan:true,dayAndNight:true,independentLayerControls:true,pieceOutlines:true,roadBordersCloseup:true,chunkCheck},null,2)+'\n');
+ console.log(`PASS: terrain-only comparison, lighting, cameras, layers and border close-up. Chunk seams: ${chunkCheck.different}/${chunkCheck.checked} pixels differ by >3; maximum channel difference ${chunkCheck.maxDelta}.`);
 }finally{await browser.close();}
