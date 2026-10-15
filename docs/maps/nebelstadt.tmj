@@ -9,8 +9,8 @@
   "height": 1024,
   "tilewidth": 1,
   "tileheight": 1,
-  "nextobjectid": 207,
-  "nextlayerid": 207,
+  "nextobjectid": 216,
+  "nextlayerid": 216,
   "properties": [
     {
       "name": "mapId",
@@ -11022,7 +11022,7 @@
       ]
     },
     {
-      "id": 196,
+      "id": 202,
       "name": "NPCs",
       "type": "objectgroup",
       "visible": true,
@@ -11192,17 +11192,101 @@
               "value": "re-ink"
             }
           ]
+        },
+        {
+          "id": 196,
+          "name": "kessler",
+          "point": true,
+          "x": 270,
+          "y": 440,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "kessler"
+            }
+          ]
+        },
+        {
+          "id": 197,
+          "name": "jonas",
+          "point": true,
+          "x": 1300,
+          "y": 450,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "jonas"
+            }
+          ]
+        },
+        {
+          "id": 198,
+          "name": "pip",
+          "point": true,
+          "x": 1160,
+          "y": 420,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "pip"
+            }
+          ]
+        },
+        {
+          "id": 199,
+          "name": "falk",
+          "point": true,
+          "x": 280,
+          "y": 740,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "falk"
+            }
+          ]
+        },
+        {
+          "id": 200,
+          "name": "jakob",
+          "point": true,
+          "x": 1182,
+          "y": 734,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "jakob"
+            }
+          ]
+        },
+        {
+          "id": 201,
+          "name": "ruth",
+          "point": true,
+          "x": 1206,
+          "y": 750,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "ruth"
+            }
+          ]
         }
       ]
     },
     {
-      "id": 203,
+      "id": 212,
       "name": "Objects",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 197,
+          "id": 203,
           "name": "nebelstadt-repair-ledger",
           "point": true,
           "x": 437.76,
@@ -11226,7 +11310,7 @@
           ]
         },
         {
-          "id": 198,
+          "id": 204,
           "name": "nebelstadt-council-board",
           "point": true,
           "x": 388.608,
@@ -11255,7 +11339,7 @@
           ]
         },
         {
-          "id": 199,
+          "id": 205,
           "name": "nebelstadt-signal-lantern",
           "point": true,
           "x": 1354.752,
@@ -11284,7 +11368,7 @@
           ]
         },
         {
-          "id": 200,
+          "id": 206,
           "name": "nebelstadt-observatory",
           "point": true,
           "x": 769.5360000000001,
@@ -11313,7 +11397,7 @@
           ]
         },
         {
-          "id": 201,
+          "id": 207,
           "name": "nebelstadt-evidence-crate",
           "point": true,
           "x": 228.86399999999998,
@@ -11342,7 +11426,7 @@
           ]
         },
         {
-          "id": 202,
+          "id": 208,
           "name": "nebelstadt-harbor-chart",
           "point": true,
           "x": 961.5360000000001,
@@ -11364,11 +11448,88 @@
               "value": "[\"collision\"]"
             }
           ]
+        },
+        {
+          "id": 209,
+          "name": "nebelstadt-record-room",
+          "point": true,
+          "x": 300,
+          "y": 395,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-record-room"
+            },
+            {
+              "name": "collision",
+              "type": "string",
+              "value": "{\"referenceWidth\":1,\"polygons\":[]}"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"collision\"]"
+            }
+          ]
+        },
+        {
+          "id": 210,
+          "name": "nebelstadt-signal-slate",
+          "point": true,
+          "x": 1378,
+          "y": 446,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-signal-slate"
+            },
+            {
+              "name": "collision",
+              "type": "string",
+              "value": "{\"referenceWidth\":1,\"polygons\":[]}"
+            },
+            {
+              "name": "minigame",
+              "type": "string",
+              "value": "hold-the-signal"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"collision\"]"
+            }
+          ]
+        },
+        {
+          "id": 211,
+          "name": "nebelstadt-observatory-stairs",
+          "point": true,
+          "x": 690,
+          "y": 300,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "nebelstadt-observatory-stairs"
+            },
+            {
+              "name": "collision",
+              "type": "string",
+              "value": "{\"referenceWidth\":1,\"polygons\":[]}"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"collision\"]"
+            }
+          ]
         }
       ]
     },
     {
-      "id": 204,
+      "id": 213,
       "name": "Districts",
       "type": "objectgroup",
       "visible": true,
@@ -11376,7 +11537,7 @@
       "objects": []
     },
     {
-      "id": 205,
+      "id": 214,
       "name": "Activities",
       "type": "objectgroup",
       "visible": true,
@@ -11708,7 +11869,7 @@
       ]
     },
     {
-      "id": 206,
+      "id": 215,
       "name": "Generation zones",
       "type": "objectgroup",
       "visible": true,

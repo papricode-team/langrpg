@@ -10,6 +10,7 @@ import type { CameraBeat } from './cutscene';
 import type { RoutineLexeme, WorldBark } from './world-routines';
 import type { WorldWeatherMode } from './world-weather';
 import type { ModularAvatar } from './modular-character';
+import type { StoryMarks } from './story-mechanics';
 
 export type Avatar = ModularAvatar;
 
@@ -42,6 +43,8 @@ export interface WorldRegistry {
   avatar: Avatar;
   objective: string | undefined;
   storyState: WorldStoryState;
+  /** Fading names, ticket addresses, the lamp and the train for the current town. */
+  storyMarks: StoryMarks;
   conversationTarget: string | undefined;
   cinematicBeat: CameraBeat | undefined;
   inputEnabled: boolean;

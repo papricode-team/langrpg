@@ -25,6 +25,9 @@ import { WorldMapAssets, regionAssets } from './world-map-assets';
 import { WorldAnimationAssets } from './world-animation-assets';
 import { worldAmbient, timeAmbient } from './world-lighting';
 import { WorldAtmosphere } from './world-atmosphere';
+import { WorldStoryMarks } from './world-story-marks';
+import { emptyStoryMarks, type StoryMarks } from './story-mechanics';
+import type { WorldObjectSpec } from './maps';
 import { npcRoutine, residentRoutine, WorldBarkDirector } from './world-routines';
 import { NpcRoutineWalk } from './npc-motion';
 import { sceneryAnimationManifestKey, sceneryAnimationTextureKeys, type SceneryAnimationManifest } from './scenery-animation';
@@ -120,8 +123,12 @@ export class WorldScene extends ExploreScene implements EditSurface {
   private editController?: WorldEditController;
   private readonly occlusionList: OcclusionCharacter[] = [];
   private readonly occlusionPool: OcclusionCharacter[] = [];
+  private storyMarks?: WorldStoryMarks;
+  /** Ticket addresses and fading names that need their own marker in the world. */
+  private mechanicsObjects: WorldObjectSpec[] = [];
 
   constructor() { super({ key: SceneKeys.World }); }
+  get lampStrength(): number { return this.storyMarks?.lampStrength ?? 0; }
 
   get worldWidth(): number { return this.mapSpec.width; }
   get worldHeight(): number { return this.mapSpec.height; }
@@ -135,6 +142,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
     this.periodFade = undefined; this.previousPeriod = undefined; this.pendingPeriod = undefined;
     this.mapAnimationsReady = false; this.animationRetryAt = 0; this.lastAmbient = '';
     this.atmosphere = undefined; this.residents = []; this.activityWorld = undefined; this.activityResidents = [];
+    this.storyMarks = undefined; this.mechanicsObjects = [];
     this.observedResidentId = readWorld(this.registry, 'observedResident');
     this.weatherPreview = readWorld(this.registry, 'weatherPreview') ?? 'regional';
     this.deliveryMarkers = []; this.bark = undefined; this.barkSpeaker = undefined; this.barkUntil = 0;
@@ -202,6 +210,10 @@ export class WorldScene extends ExploreScene implements EditSurface {
     }
     this.createResidents();
     this.atmosphere = new WorldAtmosphere(this, map.id, this.scenery.lampLights);
+    const marks = readWorld(this.registry, 'storyMarks') ?? emptyStoryMarks(map.id);
+    this.storyMarks = new WorldStoryMarks(this, map.id, this.worldWidth, this.worldHeight, marks);
+    this.atmosphere.darkAt = (x, y) => this.storyMarks?.beamCovers(x, y) ?? false;
+    this.applyStoryMarks(marks);
     this.audio?.setRegion(map.id);
     this.setTerrainOnly(this.terrainOnly);
     this.followWorldOnly();
@@ -210,6 +222,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
 
   private followWorldOnly(): void {
     followWorld(this, 'learning', context => { this.learning = context; });
+    followWorld(this, 'storyMarks', marks => this.applyStoryMarks(marks));
     followWorld(this, 'weatherPreview', mode => { this.weatherPreview = mode; this.updateActivityResidents(); });
     followWorld(this, 'observedResident', id => { this.observedResidentId = id; });
     followWorld(this, 'editBridge', () => this.syncEditMode());
@@ -282,8 +295,22 @@ export class WorldScene extends ExploreScene implements EditSurface {
     this.refreshNearby();
   }
 
+  /** Fading names are written on the map; tickets and loose names become markers. */
+  private applyStoryMarks(marks: StoryMarks): void {
+    if (!this.storyMarks) return;
+    const own = marks.mapId === this.mapSpec.id;
+    this.storyMarks.setMarks(marks);
+    this.storyMarks.setTrain(own ? marks.train : undefined, this.reducedMotion);
+    const base = { exerciseIds: [], prompt: '', description: '' };
+    this.mechanicsObjects = own ? [
+      ...marks.tickets.map(ticket => ({ ...base, id: `side:${ticket.id}`, label: ticket.label, kind: 'parcel' as const, x: ticket.x, y: ticket.y })),
+      ...marks.inks.filter(ink => ink.interactive).map(ink => ({ ...base, id: `ink:${ink.id}`, label: ink.text, kind: 'noticeboard' as const, x: ink.x, y: ink.y })),
+    ] : [];
+    this.syncMapObjects();
+  }
+
   private syncMapObjects(): void {
-    const wanted = new Map(this.mapSpec.objects.map(spec => [spec.id, spec]));
+    const wanted = new Map([...this.mapSpec.objects, ...this.mechanicsObjects].map(spec => [spec.id, spec]));
     for (const [id, object] of [...this.objects]) {
       const spec = wanted.get(id);
       if (!spec) { object.root.destroy(); this.objects.delete(id); continue; }
@@ -323,6 +350,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
   private shutdownMap(): void {
     this.finishPeriodTransition();
     this.atmosphere?.destroy();
+    this.storyMarks?.destroy(); this.storyMarks = undefined;
     this.residents = []; this.activityResidents = []; this.activityWorld = undefined;
     this.deliveryMarkers = [];
     // The loader was reset with this run, so nothing of this map is still pending: release it now,
@@ -495,6 +523,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
     this.updateSilhouette();
     this.updateNavigationOverlay();
     this.editController?.update();
+    this.storyMarks?.update(seconds, this.local, view, this.labelScale, this.reducedMotion, this.terrainOnly || this.watching);
     this.atmosphere?.update(this.decorativeElapsed, time.hour, view, this.reducedMotion,
       this.storyState.flags?.storm_active ?? (this.storyState.completedQuestIds.includes('b1-council') && !this.storyState.completedQuestIds.includes('b1-storm')), this.rainIntensity());
     this.background?.update(view, this.cameras.main.zoom);

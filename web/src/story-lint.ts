@@ -10,6 +10,10 @@ const metaInstruction = /(^|[.!?]\s+)(Bitte (mich|dich|ihn|sie|die Zeugin)\b|Fra
 const informalAddress = /\b(du|dir|dich|dein[esnm]?r?)\b/i;
 const formalAddress = /\b(Ihnen|Ihre[mnrs]?|Ihr)\b/;
 const questionWord = /^(Wer|Was|Wo|Wohin|Woher|Wann|Warum|Wieso|Wie|Wem|Wen|Welche[rsnm]?|Womit|Wovon|Wozu)\b/;
+/** Officials and elders who say Sie to the player; residents say du. */
+const formalSpeakers = new Set(['inspector', 'ada', 'elise', 'kessler', 'berg', 'falk']);
+/** People residents address with Sie: officials, an elder they were taught by, a salesman. */
+const formalAddressees = new Set(['inspector', 'kessler', 'berg', 'falk', 'ruth', 'jakob']);
 
 /** Reveals: the keyword must not appear in any quest earlier than the one named. */
 const reveals: { word: RegExp; firstIn: string; label: string }[] = [
@@ -83,8 +87,11 @@ export function lintStory(graphs: QuestGraph[], rules: StoryRule[], quests: Pick
     for (const { line } of lines) {
       if (line.speaker === 'inspector' && index < order.indexOf('b1-council') && informalAddress.test(line.german)) errors.push(`${id}/${line.id}: Voss must use Sie before the council`);
       const addressText = line.german.replace(/(^|[.!?]\s+)(Ihr(?:e[mnrs]?)?)\b/g, (_, boundary: string, possessive: string) => boundary + possessive.toLowerCase());
-      const formalContext = id === 'b1-witness' || line.addressedTo === 'inspector' || /\b(?:Ihr(?:e[mnrs]?)?|Ihnen)\b.*\bVoss\b/.test(line.german);
-      if (!['inspector', 'ada'].includes(line.speaker) && line.speaker !== 'elise' && formalAddress.test(addressText) && !formalContext) errors.push(`${id}/${line.id}: residents say du, not Sie: ${line.german}`);
+      const formalContext = id === 'b1-witness' || formalAddressees.has(line.addressedTo ?? '') || /\b(?:Ihr(?:e[mnrs]?)?|Ihnen)\b.*\b(?:Voss|Kessler)\b/.test(line.german);
+      if (!formalSpeakers.has(line.speaker) && formalAddress.test(addressText) && !formalContext) errors.push(`${id}/${line.id}: residents say du, not Sie: ${line.german}`);
+      // Frau Kessler never offers du; Pip, a child, never says Sie.
+      if (line.speaker === 'kessler' && informalAddress.test(line.german)) errors.push(`${id}/${line.id}: Frau Kessler always says Sie`);
+      if (line.speaker === 'pip' && /\b(Sie|Ihnen)\b/.test(line.german.replace(/^Sie\b/, '')) && !/\bsie\b/.test(line.german)) errors.push(`${id}/${line.id}: Pip says du`);
     }
 
     // Reveals appear no earlier than their row of the reveal map.

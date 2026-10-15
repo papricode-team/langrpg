@@ -1,4 +1,5 @@
 import { supportSession, clearSupportSession } from './support-session';
+import type { StoryMechanics } from './story-mechanics';
 import { analyticsHeaders, analyticsAdmin, rotateAnalytics, trackAnalytics } from './analytics-client';
 import type { Avatar, WorldPlayer } from './world';
 import {parseSharedWorldTime, type SharedWorldTime} from './shared-world-time';
@@ -69,7 +70,7 @@ export interface AccountStatus { registered: boolean; email: string; admin?: boo
 /** Account-wide settings that follow the player across devices. */
 export interface Preferences { baseLanguage: BaseLanguage; }
 export interface SessionResult { token: string; player: WorldPlayer; progress: Progress; account: AccountStatus; preferences: Preferences; access?: GameAccess; activeCourseId?: string; }
-export interface StoryResult { story: StoryState; progress: Progress; xpAdded?: number; duplicate?: boolean; saves?: { slot: string; name: string; at: string }[]; rules?: { questId: string; gateExerciseId: string; choiceIds: string[]; investigationObjectIds?: string[] }[]; }
+export interface StoryResult { story: StoryState; progress: Progress; mechanics?: StoryMechanics; xpAdded?: number; duplicate?: boolean; saves?: { slot: string; name: string; at: string }[]; rules?: { questId: string; gateExerciseId: string; choiceIds: string[]; investigationObjectIds?: string[] }[]; }
 export interface ExpeditionAnswerResult { progress: Progress; feedback?: string; duplicate?: boolean; }
 /** Older servers omitted account metadata and preferences. Normalize at the boundary. */
 export function normalizeSession(result: SessionResult): SessionResult {

@@ -9,8 +9,8 @@
   "height": 1536,
   "tilewidth": 1,
   "tileheight": 1,
-  "nextobjectid": 307,
-  "nextlayerid": 307,
+  "nextobjectid": 312,
+  "nextlayerid": 312,
   "properties": [
     {
       "name": "mapId",
@@ -15697,7 +15697,7 @@
       ]
     },
     {
-      "id": 287,
+      "id": 290,
       "name": "NPCs",
       "type": "objectgroup",
       "visible": true,
@@ -15848,17 +15848,59 @@
               "value": "brass-stamp"
             }
           ]
+        },
+        {
+          "id": 287,
+          "name": "kessler",
+          "point": true,
+          "x": 1760,
+          "y": 300,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "kessler"
+            }
+          ]
+        },
+        {
+          "id": 288,
+          "name": "pip",
+          "point": true,
+          "x": 1150,
+          "y": 640,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "pip"
+            }
+          ]
+        },
+        {
+          "id": 289,
+          "name": "berg",
+          "point": true,
+          "x": 760,
+          "y": 560,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "berg"
+            }
+          ]
         }
       ]
     },
     {
-      "id": 298,
+      "id": 303,
       "name": "Objects",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 288,
+          "id": 291,
           "name": "lindenhafen-platform-ticket",
           "point": true,
           "x": 1285.632,
@@ -15887,7 +15929,7 @@
           ]
         },
         {
-          "id": 289,
+          "id": 292,
           "name": "lindenhafen-cafe-receipt",
           "point": true,
           "x": 703.488,
@@ -15916,7 +15958,7 @@
           ]
         },
         {
-          "id": 290,
+          "id": 293,
           "name": "lindenhafen-market-crate",
           "point": true,
           "x": 1170.432,
@@ -15945,7 +15987,7 @@
           ]
         },
         {
-          "id": 291,
+          "id": 294,
           "name": "lindenhafen-fountain",
           "point": true,
           "x": 818.6880000000001,
@@ -15974,7 +16016,7 @@
           ]
         },
         {
-          "id": 292,
+          "id": 295,
           "name": "lindenhafen-noticeboard",
           "point": true,
           "x": 1242.624,
@@ -16003,7 +16045,7 @@
           ]
         },
         {
-          "id": 293,
+          "id": 296,
           "name": "lindenhafen-parcel",
           "point": true,
           "x": 1021.44,
@@ -16032,7 +16074,7 @@
           ]
         },
         {
-          "id": 294,
+          "id": 297,
           "name": "lindenhafen-workbench",
           "point": true,
           "x": 370.176,
@@ -16061,7 +16103,7 @@
           ]
         },
         {
-          "id": 295,
+          "id": 298,
           "name": "lindenhafen-garden",
           "point": true,
           "x": 637.4399999999999,
@@ -16085,7 +16127,7 @@
           ]
         },
         {
-          "id": 296,
+          "id": 299,
           "name": "lindenhafen-berg-house",
           "point": true,
           "x": 591.36,
@@ -16109,7 +16151,7 @@
           ]
         },
         {
-          "id": 297,
+          "id": 300,
           "name": "lindenhafen-bench",
           "point": true,
           "x": 1330.176,
@@ -16131,18 +16173,71 @@
               "value": "[\"collision\"]"
             }
           ]
+        },
+        {
+          "id": 301,
+          "name": "lindenhafen-chalk-wall",
+          "point": true,
+          "x": 1190,
+          "y": 690,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "lindenhafen-chalk-wall"
+            },
+            {
+              "name": "collision",
+              "type": "string",
+              "value": "{\"referenceWidth\":1,\"polygons\":[]}"
+            },
+            {
+              "name": "minigame",
+              "type": "string",
+              "value": "lamp-walk"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"collision\"]"
+            }
+          ]
+        },
+        {
+          "id": 302,
+          "name": "lindenhafen-office-window",
+          "point": true,
+          "x": 1814,
+          "y": 262,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "lindenhafen-office-window"
+            },
+            {
+              "name": "collision",
+              "type": "string",
+              "value": "{\"referenceWidth\":1,\"polygons\":[]}"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"collision\"]"
+            }
+          ]
         }
       ]
     },
     {
-      "id": 304,
+      "id": 309,
       "name": "Districts",
       "type": "objectgroup",
       "visible": true,
       "opacity": 0.25,
       "objects": [
         {
-          "id": 299,
+          "id": 304,
           "name": "station-yard",
           "x": 0,
           "y": 0,
@@ -16178,7 +16273,7 @@
           ]
         },
         {
-          "id": 300,
+          "id": 305,
           "name": "canal-walk",
           "x": 0,
           "y": 0,
@@ -16214,7 +16309,7 @@
           ]
         },
         {
-          "id": 301,
+          "id": 306,
           "name": "harbor-court",
           "x": 0,
           "y": 0,
@@ -16250,7 +16345,7 @@
           ]
         },
         {
-          "id": 302,
+          "id": 307,
           "name": "bridge-quay",
           "x": 0,
           "y": 0,
@@ -16286,7 +16381,7 @@
           ]
         },
         {
-          "id": 303,
+          "id": 308,
           "name": "library-square",
           "x": 0,
           "y": 0,
@@ -16324,7 +16419,7 @@
       ]
     },
     {
-      "id": 305,
+      "id": 310,
       "name": "Activities",
       "type": "objectgroup",
       "visible": true,
@@ -18980,7 +19075,7 @@
       ]
     },
     {
-      "id": 306,
+      "id": 311,
       "name": "Generation zones",
       "type": "objectgroup",
       "visible": true,

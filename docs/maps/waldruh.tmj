@@ -9,8 +9,8 @@
   "height": 1024,
   "tilewidth": 1,
   "tileheight": 1,
-  "nextobjectid": 227,
-  "nextlayerid": 227,
+  "nextobjectid": 235,
+  "nextlayerid": 235,
   "properties": [
     {
       "name": "mapId",
@@ -13377,7 +13377,7 @@
       ]
     },
     {
-      "id": 215,
+      "id": 219,
       "name": "NPCs",
       "type": "objectgroup",
       "visible": true,
@@ -13528,17 +13528,73 @@
               "value": "brass-stamp"
             }
           ]
+        },
+        {
+          "id": 215,
+          "name": "hilde",
+          "point": true,
+          "x": 360,
+          "y": 390,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "hilde"
+            }
+          ]
+        },
+        {
+          "id": 216,
+          "name": "falk",
+          "point": true,
+          "x": 1098,
+          "y": 594,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "falk"
+            }
+          ]
+        },
+        {
+          "id": 217,
+          "name": "jakob",
+          "point": true,
+          "x": 1030,
+          "y": 780,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "jakob"
+            }
+          ]
+        },
+        {
+          "id": 218,
+          "name": "ruth",
+          "point": true,
+          "x": 1050,
+          "y": 815,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "ruth"
+            }
+          ]
         }
       ]
     },
     {
-      "id": 221,
+      "id": 229,
       "name": "Objects",
       "type": "objectgroup",
       "visible": true,
       "objects": [
         {
-          "id": 216,
+          "id": 220,
           "name": "waldruh-clock",
           "point": true,
           "x": 1184.256,
@@ -13567,7 +13623,7 @@
           ]
         },
         {
-          "id": 217,
+          "id": 221,
           "name": "waldruh-housing-board",
           "point": true,
           "x": 582.144,
@@ -13591,7 +13647,7 @@
           ]
         },
         {
-          "id": 218,
+          "id": 222,
           "name": "waldruh-herb-garden",
           "point": true,
           "x": 978.432,
@@ -13620,7 +13676,7 @@
           ]
         },
         {
-          "id": 219,
+          "id": 223,
           "name": "waldruh-route-sign",
           "point": true,
           "x": 961.5360000000001,
@@ -13649,7 +13705,7 @@
           ]
         },
         {
-          "id": 220,
+          "id": 224,
           "name": "waldruh-memory-stone",
           "point": true,
           "x": 299.52,
@@ -13676,18 +13732,114 @@
               "value": "[\"collision\"]"
             }
           ]
+        },
+        {
+          "id": 225,
+          "name": "waldruh-hilde-window",
+          "point": true,
+          "x": 300,
+          "y": 365,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-hilde-window"
+            },
+            {
+              "name": "collision",
+              "type": "string",
+              "value": "{\"referenceWidth\":1,\"polygons\":[]}"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"collision\"]"
+            }
+          ]
+        },
+        {
+          "id": 226,
+          "name": "waldruh-ink-cart",
+          "point": true,
+          "x": 1058,
+          "y": 602,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-ink-cart"
+            },
+            {
+              "name": "collision",
+              "type": "string",
+              "value": "{\"referenceWidth\":1,\"polygons\":[]}"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"collision\"]"
+            }
+          ]
+        },
+        {
+          "id": 227,
+          "name": "waldruh-old-rails",
+          "point": true,
+          "x": 600,
+          "y": 970,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-old-rails"
+            },
+            {
+              "name": "collision",
+              "type": "string",
+              "value": "{\"referenceWidth\":1,\"polygons\":[]}"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"collision\"]"
+            }
+          ]
+        },
+        {
+          "id": 228,
+          "name": "waldruh-mill-cellar",
+          "point": true,
+          "x": 1240,
+          "y": 610,
+          "properties": [
+            {
+              "name": "key",
+              "type": "string",
+              "value": "waldruh-mill-cellar"
+            },
+            {
+              "name": "collision",
+              "type": "string",
+              "value": "{\"referenceWidth\":1,\"polygons\":[]}"
+            },
+            {
+              "name": "_jsonFields",
+              "type": "string",
+              "value": "[\"collision\"]"
+            }
+          ]
         }
       ]
     },
     {
-      "id": 224,
+      "id": 232,
       "name": "Districts",
       "type": "objectgroup",
       "visible": true,
       "opacity": 0.25,
       "objects": [
         {
-          "id": 222,
+          "id": 230,
           "name": "mill-supply-terrace",
           "x": 0,
           "y": 0,
@@ -13723,7 +13875,7 @@
           ]
         },
         {
-          "id": 223,
+          "id": 231,
           "name": "mill-service-yard",
           "x": 0,
           "y": 0,
@@ -13761,7 +13913,7 @@
       ]
     },
     {
-      "id": 225,
+      "id": 233,
       "name": "Activities",
       "type": "objectgroup",
       "visible": true,
@@ -14486,7 +14638,7 @@
       ]
     },
     {
-      "id": 226,
+      "id": 234,
       "name": "Generation zones",
       "type": "objectgroup",
       "visible": true,

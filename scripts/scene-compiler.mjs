@@ -61,6 +61,19 @@ export function compileStoryRules(document, authored) {
       return normalize(object);
     });
   }
+  // Fading names and ticket addresses follow the anchors they are written on.
+  const resolve = (row, label) => {
+    const scene = document.maps[row.mapId];
+    if (!scene) throw new Error(`Missing scene for ${label} ${row.id}`);
+    if (!row.anchor) return;
+    const [kind, id] = row.anchor.split(':');
+    const rows = kind === 'npc' ? scene.npcs : kind === 'object' ? scene.objects : kind === 'scenery' ? scene.scenery : undefined;
+    const anchor = rows?.find(item => item.id === id);
+    if (!anchor) throw new Error(`Missing ${label} anchor ${row.anchor} for ${row.id}`);
+    row.x = anchor.x / scene.width; row.y = anchor.y / scene.height;
+  };
+  for (const entry of storyRules.ink?.entries ?? []) resolve(entry, 'ink');
+  for (const side of storyRules.sideQuests ?? []) resolve(side, 'ticket');
   return storyRules;
 }
 

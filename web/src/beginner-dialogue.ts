@@ -91,6 +91,22 @@ export const beginnerGateTranslations: Record<string, readonly (readonly [german
     ['Eine Fahrkarte nach Waldruh, bitte.', 'A ticket to Waldruh, please.'],
     ['Wo ist der Zug?', 'Where is the train?'],
   ],
+  'a1-notice-exercise-1': [
+    ['Wo ist der Bahnhof?', 'Where is the station?'],
+    ['Warum darf ich das nicht?', 'Why am I not allowed to?'],
+  ],
+  'a1-chalk-exercise-1': [
+    ['Wie heißt du?', 'What is your name?'],
+    ['Wie spät ist es?', 'What time is it?'],
+  ],
+  'a1-bench-exercise-1': [
+    ['Wie spät ist es?', 'What time is it?'],
+    ['Wie heißen Sie?', 'What is your name?'],
+  ],
+  'a1-office-window-exercise-1': [
+    ['Das habe ich gelesen.', 'I read that.'],
+    ['Das haben Sie geschrieben.', 'You wrote that.'],
+  ],
 };
 
 /** Choice IDs remain canonical German answers so the existing server can grade them. */

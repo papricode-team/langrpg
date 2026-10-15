@@ -1,0 +1,60 @@
+{
+  "recipe": {
+    "v": 2,
+    "build": "regular",
+    "skin": "#ecc4a2",
+    "hair": "#e6e2da",
+    "parts": {
+      "face": "mature",
+      "markings": null,
+      "facial-hair": null,
+      "hair": "bun",
+      "headwear": null,
+      "top": "blouse",
+      "outer": "cardigan",
+      "bottom": "skirt-long",
+      "footwear": "flats",
+      "eyewear": "round",
+      "neck": "scarf",
+      "bag": null,
+      "held": null
+    },
+    "colors": {
+      "outer.primary": "#8c6fa6",
+      "outer.secondary": "#76598e",
+      "top.primary": "#f1e9dc",
+      "top.secondary": "#cdbfa7",
+      "bottom.primary": "#4b4660",
+      "footwear.primary": "#3d3330",
+      "eyewear.primary": "#6b5a3a",
+      "neck.primary": "#b05a6a"
+    }
+  },
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#ecc4a2\",\"#e6e2da\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",\"round\"],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"flats\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",\"scarf\"],[\"outer\",\"cardigan\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#4b4660\"],[\"eyewear.primary\",\"#6b5a3a\"],[\"footwear.primary\",\"#3d3330\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#b05a6a\"],[\"outer.primary\",\"#8c6fa6\"],[\"outer.secondary\",\"#76598e\"],[\"top.primary\",\"#f1e9dc\"],[\"top.secondary\",\"#cdbfa7\"]]]",
+  "preview": false,
+  "frames": 36,
+  "cell": [
+    384,
+    576
+  ],
+  "sha256": "5addd75c18ff28c0235d57545f5efb5f82482458732c800e6086a03211ff13ec",
+  "atlasSha256": "f2705033ed56bb03a0b9d8156cd99796dd4197f33ad2658d60662a8733fd7974",
+  "textureBytes": 14739904,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/berg.webp",
+      "sha256": "5addd75c18ff28c0235d57545f5efb5f82482458732c800e6086a03211ff13ec",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/berg.1.webp",
+      "sha256": "b0dabe2f79e5c2103954d293c5e59fc9c3200c4371821d6cf73f815ca95a7279",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/berg.atlas.json"
+}

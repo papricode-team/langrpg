@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
 import { npcs } from './content';
 import type { NavigationGrid, MapPoint } from './navigation';
+import { castPresent } from './cast-presence';
 import type { WorldObjectSpec, WorldMapSpec } from './maps';
 import { NPC_ART, INTERIOR_CHARACTER_HEIGHT, characterArtScale, createContactShadow } from './character-art';
 import { characterFrame, MODULAR_ART, NATIVE_MODULAR_ART } from './avatar-options';
@@ -96,6 +97,8 @@ export interface WorldPortal {
 export interface ResidentGait { moving: boolean; distance: number; velocityX: number; velocityY: number; facingLeft?: boolean }
 
 export const WALK_SPEED = 225;
+/** Pip is twelve: the shared adult mannequin is drawn smaller for him. */
+export const childScale = (id: string): number => id === 'pip' ? .8 : 1;
 export const INTERACTION_DISTANCE = 140;
 export const DEFAULT_AVATAR: Avatar = { hair: '#4d3229', skin: '#dfad85', outfit: '#497d75' };
 export const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
@@ -364,7 +367,7 @@ export abstract class ExploreScene extends Phaser.Scene {
 
   protected characterRevealed(character: Character): boolean {
     if (character.id === this.conversationTarget) return true; // A reader can finish after visiting hours.
-    return character.id !== 'elise' || this.storyState.completedQuestIds.includes('b1-storm');
+    return castPresent(character.id, this.regionId, this.storyState);
   }
   protected objectAvailable(_object: WorldObject): boolean { return true; }
 
@@ -1053,7 +1056,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     const bodyHeight = animation ? canvasHeight - 6 : art.bodyHeight;
     const indoors = this.indoor;
     const indoorHeight = this.indoorCharacterHeight;
-    const scale = (character.componentCast || character.modularNpc || !character.npc && this.playerArtReady) && !indoors ? MODULAR_ART.worldHeight / bodyHeight : characterArtScale(bodyHeight, canvasHeight, indoors, indoorHeight);
+    const scale = ((character.componentCast || character.modularNpc || !character.npc && this.playerArtReady) && !indoors ? MODULAR_ART.worldHeight / bodyHeight : characterArtScale(bodyHeight, canvasHeight, indoors, indoorHeight)) * childScale(character.id);
     if (character.artScale === scale) return;
     character.artScale = scale;
     character.breathe = 1;
@@ -1117,7 +1120,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     const frame = 0;
     const nativePixels=this.indoor;
     const art = nativePixels ? NATIVE_MODULAR_ART : baked ? CAST_ART : MODULAR_ART;
-    const artScale = art.worldHeight / art.bodyHeight;
+    const artScale = art.worldHeight / art.bodyHeight * childScale(id);
     // Reserve the interaction target until a cached or newly baked texture is
     // available; indoor entry can reuse the town's frames immediately.
     const layers = [this.add.sprite(0, 0, baked?.key ?? '__WHITE', baked ? frame : undefined).setOrigin(.5, art.footY).setScale(artScale)];

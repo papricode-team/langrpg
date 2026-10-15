@@ -9080,7 +9080,452 @@
       "sha256": "d1f0eafd797c2a82f78807da81e38ac17b59ef466293ea8d0175a891de79cbda",
       "recipeSha256": "5aea4e6efc09a2319a1bbae8a0783a13d005e8d8b07a8cf62506c565f54adbdb",
       "textureBytes": 13891752
+    },
+    {
+      "id": "kessler",
+      "name": "Frau Kessler",
+      "mapId": null,
+      "recipe": {
+        "v": 2,
+        "build": "regular",
+        "skin": "#e2b896",
+        "hair": "#4a4038",
+        "parts": {
+          "face": "angular",
+          "markings": null,
+          "facial-hair": null,
+          "hair": "bun",
+          "headwear": null,
+          "top": "shirt",
+          "outer": "blazer",
+          "bottom": "skirt-long",
+          "footwear": "shoes",
+          "eyewear": "square",
+          "neck": null,
+          "bag": "satchel",
+          "held": null
+        },
+        "colors": {
+          "outer.primary": "#5d6670",
+          "outer.secondary": "#4a525b",
+          "top.primary": "#e8e4da",
+          "top.secondary": "#b9b3a6",
+          "bottom.primary": "#4f565e",
+          "footwear.primary": "#2f2b28",
+          "eyewear.primary": "#3a3633",
+          "bag.primary": "#6b4a33"
+        }
+      },
+      "key": "character-cast-kessler",
+      "image": "/assets/character-cast/kessler.webp",
+      "atlas": "/assets/character-cast/kessler.atlas.json",
+      "atlasSha256": "a47e62e60e370ea6c51eb83c3cf2189a2d1f3e54efa19ce5b5ff7f065c1201dd",
+      "sha256": "f892d118bf85d9813882756494a7b13016d6a3ed5345afe05d08bebc37da0210",
+      "recipeSha256": "4819d63ad0dd436c7ad0e48b8c8cb29ba9702b23cbe1fe48cd2d105fa485e9c9",
+      "textureBytes": 14874720,
+      "native": {
+        "key": "character-cast-kessler-native",
+        "image": "/assets/character-cast/native/kessler.webp",
+        "atlas": "/assets/character-cast/native/kessler.atlas.json",
+        "sha256": "2c2a74c1ebad59edb3cb4213d76fdc18ed8ca0c64902f4fe3851331110ff5013",
+        "atlasSha256": "98257e154cd35b25f2c71b52334820567324c9f960e2a083ca2f926b399c38ff",
+        "recipeSha256": "4819d63ad0dd436c7ad0e48b8c8cb29ba9702b23cbe1fe48cd2d105fa485e9c9",
+        "cell": [
+          512,
+          768
+        ],
+        "textureBytes": 28297400,
+        "multiAtlas": true
+      }
+    },
+    {
+      "id": "pip",
+      "name": "Pip",
+      "mapId": null,
+      "recipe": {
+        "v": 2,
+        "build": "regular",
+        "skin": "#c18b60",
+        "hair": "#a75532",
+        "parts": {
+          "face": "round",
+          "markings": "freckles",
+          "facial-hair": null,
+          "hair": "curls",
+          "headwear": null,
+          "top": "tee",
+          "outer": null,
+          "bottom": "shorts",
+          "footwear": "boots",
+          "eyewear": null,
+          "neck": null,
+          "bag": null,
+          "held": null
+        },
+        "colors": {
+          "top.primary": "#d9a441",
+          "top.secondary": "#b58331",
+          "bottom.primary": "#4e6a8a",
+          "footwear.primary": "#5b3f2a"
+        }
+      },
+      "key": "character-cast-pip",
+      "image": "/assets/character-cast/pip.webp",
+      "atlas": "/assets/character-cast/pip.atlas.json",
+      "atlasSha256": "ec67441fd6fdee0d924669d2703026b9b09b0a786d15fa21464a7e7b2688b544",
+      "sha256": "0c073620179d66941e0235cf76eaca5e71b95b406914df31102d069d90b2cb9a",
+      "recipeSha256": "35daa018e6fac0de7f2a8a8c2baedf868eb2be76690a8a31451eef6c4be0cd3b",
+      "textureBytes": 14734720,
+      "native": {
+        "key": "character-cast-pip-native",
+        "image": "/assets/character-cast/native/pip.webp",
+        "atlas": "/assets/character-cast/native/pip.atlas.json",
+        "sha256": "71c311d9a6ec455e72b541a223cb18ac6ade249ff5a65d1bfe841e849d81b0d4",
+        "atlasSha256": "3bb3e9c8fc97c3353978d2b9924d457892e203ead94d91d69fefdee80f95f4e5",
+        "recipeSha256": "35daa018e6fac0de7f2a8a8c2baedf868eb2be76690a8a31451eef6c4be0cd3b",
+        "cell": [
+          512,
+          768
+        ],
+        "textureBytes": 28709232,
+        "multiAtlas": true
+      }
+    },
+    {
+      "id": "berg",
+      "name": "Frau Berg",
+      "mapId": null,
+      "recipe": {
+        "v": 2,
+        "build": "regular",
+        "skin": "#ecc4a2",
+        "hair": "#e6e2da",
+        "parts": {
+          "face": "mature",
+          "markings": null,
+          "facial-hair": null,
+          "hair": "bun",
+          "headwear": null,
+          "top": "blouse",
+          "outer": "cardigan",
+          "bottom": "skirt-long",
+          "footwear": "flats",
+          "eyewear": "round",
+          "neck": "scarf",
+          "bag": null,
+          "held": null
+        },
+        "colors": {
+          "outer.primary": "#8c6fa6",
+          "outer.secondary": "#76598e",
+          "top.primary": "#f1e9dc",
+          "top.secondary": "#cdbfa7",
+          "bottom.primary": "#4b4660",
+          "footwear.primary": "#3d3330",
+          "eyewear.primary": "#6b5a3a",
+          "neck.primary": "#b05a6a"
+        }
+      },
+      "key": "character-cast-berg",
+      "image": "/assets/character-cast/berg.webp",
+      "atlas": "/assets/character-cast/berg.atlas.json",
+      "atlasSha256": "f2705033ed56bb03a0b9d8156cd99796dd4197f33ad2658d60662a8733fd7974",
+      "sha256": "5addd75c18ff28c0235d57545f5efb5f82482458732c800e6086a03211ff13ec",
+      "recipeSha256": "70a9819d302c02a56ba15f440f5e8c9760e9d301cd1e8c65230b2a0c93afa67e",
+      "textureBytes": 14739904,
+      "multiAtlas": true,
+      "native": {
+        "key": "character-cast-berg-native",
+        "image": "/assets/character-cast/native/berg.webp",
+        "atlas": "/assets/character-cast/native/berg.atlas.json",
+        "sha256": "52609fcaa2a3f28bc12517050c19e8da5615e52b41d98fe4ce16f3f88dc10d9d",
+        "atlasSha256": "6b2e2397957adf90b93de5d8ee6d282257a498e3bc9d2fae4a378dff9234cfd0",
+        "recipeSha256": "70a9819d302c02a56ba15f440f5e8c9760e9d301cd1e8c65230b2a0c93afa67e",
+        "cell": [
+          512,
+          768
+        ],
+        "textureBytes": 28578928,
+        "multiAtlas": true
+      }
+    },
+    {
+      "id": "hilde",
+      "name": "Oma Hilde",
+      "mapId": null,
+      "recipe": {
+        "v": 2,
+        "build": "regular",
+        "skin": "#d6a07d",
+        "hair": "#f0ede6",
+        "parts": {
+          "face": "mature",
+          "markings": null,
+          "facial-hair": null,
+          "hair": "bob",
+          "headwear": null,
+          "top": "dress-long",
+          "outer": "apron",
+          "bottom": null,
+          "footwear": "clogs",
+          "eyewear": null,
+          "neck": "kerchief",
+          "bag": null,
+          "held": null
+        },
+        "colors": {
+          "top.primary": "#6e4f6a",
+          "top.secondary": "#5a3f57",
+          "outer.primary": "#d9c8a8",
+          "outer.secondary": "#c2af8c",
+          "footwear.primary": "#7a5431",
+          "neck.primary": "#b0573f"
+        }
+      },
+      "key": "character-cast-hilde",
+      "image": "/assets/character-cast/hilde.webp",
+      "atlas": "/assets/character-cast/hilde.atlas.json",
+      "atlasSha256": "3c99b14d02f0dae01e006ba644f67e9efe93d90d7936b7c426e24f46c0aa13d5",
+      "sha256": "ff024e4d0971004bf9328bf5565705c72a8097b53652826d616c8550bc91d68f",
+      "recipeSha256": "fe24811fbf62020c50b2f7cf207cb6bf5b11c64aefe6c3d0277dca67415280d7",
+      "textureBytes": 14821224,
+      "native": {
+        "key": "character-cast-hilde-native",
+        "image": "/assets/character-cast/native/hilde.webp",
+        "atlas": "/assets/character-cast/native/hilde.atlas.json",
+        "sha256": "d8cb4efd1460cd5c5ced4923358a26a9ac4fa998e51e78e889706476d2167f3e",
+        "atlasSha256": "11c7aa1431088adf7505c99c04ea5cd572d2f19db878e078108d151367760547",
+        "recipeSha256": "fe24811fbf62020c50b2f7cf207cb6bf5b11c64aefe6c3d0277dca67415280d7",
+        "cell": [
+          512,
+          768
+        ],
+        "textureBytes": 29107564,
+        "multiAtlas": true
+      }
+    },
+    {
+      "id": "falk",
+      "name": "Herr Falk",
+      "mapId": null,
+      "recipe": {
+        "v": 2,
+        "build": "regular",
+        "skin": "#e2b896",
+        "hair": "#2f2a28",
+        "parts": {
+          "face": "angular",
+          "markings": null,
+          "facial-hair": "moustache",
+          "hair": "crop",
+          "headwear": "brimmed",
+          "top": "shirt",
+          "outer": "waistcoat",
+          "bottom": "straight",
+          "footwear": "shoes",
+          "eyewear": null,
+          "neck": null,
+          "bag": "satchel",
+          "held": null
+        },
+        "colors": {
+          "outer.primary": "#3f5f8a",
+          "outer.secondary": "#2f4a6e",
+          "headwear.primary": "#2b2b33",
+          "headwear.secondary": "#8c7448",
+          "top.primary": "#f2efe6",
+          "top.secondary": "#cfc8b8",
+          "bottom.primary": "#3a3a44",
+          "footwear.primary": "#2a2522",
+          "bag.primary": "#7a5431"
+        }
+      },
+      "key": "character-cast-falk",
+      "image": "/assets/character-cast/falk.webp",
+      "atlas": "/assets/character-cast/falk.atlas.json",
+      "atlasSha256": "8ccb568b6cde60ba7155587badd6a4e4f77299f73bd1552ccddd49986af9faf4",
+      "sha256": "9630897b15412aba4162e0a0693595344583e7283156a245173caf68755030cc",
+      "recipeSha256": "9c6b932e25b0abe70cfb1bdd872dd9271b87ec80098f026da22cea7beb37b09a",
+      "textureBytes": 14761308,
+      "native": {
+        "key": "character-cast-falk-native",
+        "image": "/assets/character-cast/native/falk.webp",
+        "atlas": "/assets/character-cast/native/falk.atlas.json",
+        "sha256": "45c133203ddd44e8ca2f667a389427eae19a4be4f57c139df354b6c4e0b9d945",
+        "atlasSha256": "bb70474efada6ed42040ec0d18da56b7064a2b06ca1afb8d3af80b73045a8ce3",
+        "recipeSha256": "9c6b932e25b0abe70cfb1bdd872dd9271b87ec80098f026da22cea7beb37b09a",
+        "cell": [
+          512,
+          768
+        ],
+        "textureBytes": 29035552,
+        "multiAtlas": true
+      }
+    },
+    {
+      "id": "jakob",
+      "name": "Jakob Lenz",
+      "mapId": null,
+      "recipe": {
+        "v": 2,
+        "build": "regular",
+        "skin": "#c18b60",
+        "hair": "#7d7468",
+        "parts": {
+          "face": "mature",
+          "markings": null,
+          "facial-hair": "full-beard",
+          "hair": "crop",
+          "headwear": "beanie",
+          "top": "sweater",
+          "outer": null,
+          "bottom": "cargo",
+          "footwear": "boots",
+          "eyewear": null,
+          "neck": null,
+          "bag": null,
+          "held": null
+        },
+        "colors": {
+          "top.primary": "#a4513a",
+          "top.secondary": "#88402d",
+          "headwear.primary": "#2f4c5c",
+          "bottom.primary": "#4f4a3c",
+          "footwear.primary": "#3b2c22"
+        }
+      },
+      "key": "character-cast-jakob",
+      "image": "/assets/character-cast/jakob.webp",
+      "atlas": "/assets/character-cast/jakob.atlas.json",
+      "atlasSha256": "668cfda0f76215bfcf819acc589674607a90476dbb8bdda8b69042df55c14107",
+      "sha256": "36ffa96ca6e47c08f2a073f7e576dade4eb14921d6d54bba20dd815324904b58",
+      "recipeSha256": "a533db99913ea5201ec69eee9a46861396ce30365b2685845b6f7e7664cef5d5",
+      "textureBytes": 14197024,
+      "native": {
+        "key": "character-cast-jakob-native",
+        "image": "/assets/character-cast/native/jakob.webp",
+        "atlas": "/assets/character-cast/native/jakob.atlas.json",
+        "sha256": "705d0ccb33ebefa9b15b60f5e585f0fec5286392390393a3f327ee4fc61ec484",
+        "atlasSha256": "11a2348ca76907dcbb5fca65ac5a88e5405cec8a60bbc5e22d0108539a011362",
+        "recipeSha256": "a533db99913ea5201ec69eee9a46861396ce30365b2685845b6f7e7664cef5d5",
+        "cell": [
+          512,
+          768
+        ],
+        "textureBytes": 28776368,
+        "multiAtlas": true
+      }
+    },
+    {
+      "id": "ruth",
+      "name": "Ruth Lenz",
+      "mapId": null,
+      "recipe": {
+        "v": 2,
+        "build": "regular",
+        "skin": "#c18b60",
+        "hair": "#a75532",
+        "parts": {
+          "face": "soft",
+          "markings": null,
+          "facial-hair": null,
+          "hair": "ponytail",
+          "headwear": null,
+          "top": "dress-day",
+          "outer": "apron",
+          "bottom": null,
+          "footwear": "flats",
+          "eyewear": null,
+          "neck": null,
+          "bag": null,
+          "held": null
+        },
+        "colors": {
+          "top.primary": "#6f8f6a",
+          "top.secondary": "#5a7656",
+          "outer.primary": "#f3efe5",
+          "outer.secondary": "#d9d2c2",
+          "footwear.primary": "#4a3b30"
+        }
+      },
+      "key": "character-cast-ruth",
+      "image": "/assets/character-cast/ruth.webp",
+      "atlas": "/assets/character-cast/ruth.atlas.json",
+      "atlasSha256": "5327b89c9d22dfbef80a411045a23cfed51fc9d2a733eb6e74b2685454083ab9",
+      "sha256": "238f6107e9ebdd3b563b751fb2a6e5a12d7d058b47dca36b8dbea1d2891707f5",
+      "recipeSha256": "887c22ac9eb0c54a8fbf9b6cb5fc42f544e31a95557f57aea1041be72c63985c",
+      "textureBytes": 14861096,
+      "native": {
+        "key": "character-cast-ruth-native",
+        "image": "/assets/character-cast/native/ruth.webp",
+        "atlas": "/assets/character-cast/native/ruth.atlas.json",
+        "sha256": "256a1a1b3b669ac14e3aca9bc7f51970cb9df08772d619c52e060f947e76a01a",
+        "atlasSha256": "b5fc205788dce60f5252f95370d87ccb5d30e5e8872e85ac979984b7df9de4a2",
+        "recipeSha256": "887c22ac9eb0c54a8fbf9b6cb5fc42f544e31a95557f57aea1041be72c63985c",
+        "cell": [
+          512,
+          768
+        ],
+        "textureBytes": 28060828,
+        "multiAtlas": true
+      }
+    },
+    {
+      "id": "jonas",
+      "name": "Jonas",
+      "mapId": null,
+      "recipe": {
+        "v": 2,
+        "build": "regular",
+        "skin": "#b07a55",
+        "hair": "#302b2d",
+        "parts": {
+          "face": "angular",
+          "markings": null,
+          "facial-hair": null,
+          "hair": "crop",
+          "headwear": "cap",
+          "top": "turtleneck",
+          "outer": "raincoat",
+          "bottom": "straight",
+          "footwear": "boots",
+          "eyewear": null,
+          "neck": null,
+          "bag": null,
+          "held": null
+        },
+        "colors": {
+          "outer.primary": "#2f4c5c",
+          "outer.secondary": "#253d4a",
+          "headwear.primary": "#2b3a44",
+          "headwear.secondary": "#c9a25c",
+          "top.primary": "#e8e2d4",
+          "bottom.primary": "#3b3b40",
+          "footwear.primary": "#2a2420"
+        }
+      },
+      "key": "character-cast-jonas",
+      "image": "/assets/character-cast/jonas.webp",
+      "atlas": "/assets/character-cast/jonas.atlas.json",
+      "atlasSha256": "b19d6ebb8f481e816fd88ea9d22b3353db46624e9c41aa5cb404db75b982ce82",
+      "sha256": "b630ec8b007e584bd614661b48c2eef1125b409a4c40bd6beffa67c3ec41115b",
+      "recipeSha256": "89bd91641c12dd292d11c861b7f061d225ed63d08ba92f084b72091189500cb7",
+      "textureBytes": 14540248,
+      "native": {
+        "key": "character-cast-jonas-native",
+        "image": "/assets/character-cast/native/jonas.webp",
+        "atlas": "/assets/character-cast/native/jonas.atlas.json",
+        "sha256": "4c3d33af20b2a40e6f2ad4d6b5e2d7fb1c1210eb9632847d3c807ed897e25c11",
+        "atlasSha256": "36b3f1d53f78e840190d5bd54e76aa2cc9915146b92db0ed073be466ea070474",
+        "recipeSha256": "89bd91641c12dd292d11c861b7f061d225ed63d08ba92f084b72091189500cb7",
+        "cell": [
+          512,
+          768
+        ],
+        "textureBytes": 27869096,
+        "multiAtlas": true
+      }
     }
   ],
-  "versionHash": "7b486dcc83cb70ea"
+  "versionHash": "031bdc8e2161e69e"
 }

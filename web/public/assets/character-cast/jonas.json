@@ -1,0 +1,50 @@
+{
+  "id": "jonas",
+  "poseSet": "walk",
+  "recipe": "art/source/character-kit/cast/jonas.json",
+  "recipeSha256": "89bd91641c12dd292d11c861b7f061d225ed63d08ba92f084b72091189500cb7",
+  "atlas": "web/public/assets/character-cast/jonas.webp",
+  "atlasSha256": "b630ec8b007e584bd614661b48c2eef1125b409a4c40bd6beffa67c3ec41115b",
+  "geometry": "web/public/assets/character-cast/jonas.atlas.json",
+  "geometrySha256": "b19d6ebb8f481e816fd88ea9d22b3353db46624e9c41aa5cb404db75b982ce82",
+  "textureBytes": 14540248,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "052c4b9d33eac8c56861e9c1cb8032fd0cc7b961317294270a9ccb8ba4b380e0",
+  "proof": "art/proofs/character-cast/jonas.png",
+  "proofSha256": "6080f94479bbb9398291cdb3d066fff5066bf370038286094eb87f6a130e1db7",
+  "editorSha256": "d0ed29a507d27a00d9138e4e624ed796085371c613d745fe4681c36a54e2f78d",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "native": {
+    "key": "character-cast-jonas-native",
+    "image": "web/public/assets/character-cast/native/jonas.webp",
+    "atlas": "web/public/assets/character-cast/native/jonas.atlas.json",
+    "sha256": "4c3d33af20b2a40e6f2ad4d6b5e2d7fb1c1210eb9632847d3c807ed897e25c11",
+    "atlasSha256": "36b3f1d53f78e840190d5bd54e76aa2cc9915146b92db0ed073be466ea070474",
+    "textureBytes": 27869096,
+    "multiAtlas": true,
+    "images": [
+      {
+        "path": "web/public/assets/character-cast/native/jonas.webp",
+        "sha256": "4c3d33af20b2a40e6f2ad4d6b5e2d7fb1c1210eb9632847d3c807ed897e25c11",
+        "firstFrame": 0,
+        "frameCount": 18
+      },
+      {
+        "path": "web/public/assets/character-cast/native/jonas.1.webp",
+        "sha256": "91efe48f50b1e4eefa69da65f711829e2819d2989538b28255cbce31dab8de50",
+        "firstFrame": 18,
+        "frameCount": 18
+      }
+    ],
+    "cell": [
+      512,
+      768
+    ],
+    "source": "art/proofs/character-cast/jonas.webp",
+    "sourceSha256": "d0ed29a507d27a00d9138e4e624ed796085371c613d745fe4681c36a54e2f78d"
+  }
+}

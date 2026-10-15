@@ -50,7 +50,7 @@ const wordFacts = await moduleAt('web/src/word-detail.ts',{},['interiorMeanings'
 const storyPanels = await moduleAt('web/src/story-panels.ts');
 const learningContext = await moduleAt('web/src/learning-context.ts');
 const cinematicRows=[];
-for(const mapId of ['lindenhafen','waldruh','nebelstadt'])for(const kind of ['arrival','platform','recording','erasure','clockmill','confession','dark-beam','ledger','storm','bell','travel'])for(const ending of kind==='bell'?[undefined,...cinemas.endingIds]:[undefined])cinematicRows.push({kind,mapId,...(ending?{ending}:{}),beats:cinemas.cinematicBeats(kind,mapId,ending)});
+for(const mapId of ['lindenhafen','waldruh','nebelstadt'])for(const kind of cinemas.cutsceneKinds)for(const ending of kind==='bell'||kind==='epilogue'?[undefined,...cinemas.endingIds]:[undefined])cinematicRows.push({kind,mapId,...(ending?{ending}:{}),beats:cinemas.cinematicBeats(kind,mapId,ending)});
 const overlays = await Promise.all(['tr-story','tr-course','tr-ui'].map(name => read(`web/src/data/i18n/${name}.json`)));
 const translate = (source,vars) => (overlays[2][source] ?? source).replace(/\{(\w+)\}/g,(match,key)=>vars?.[key] ?? match);
 const lexicalTranslations=new Map(Object.values(overlays[1].lexicon).map(value=>[value.en,value.tr]));

@@ -10529,6 +10529,21 @@
           "x": 1311.744,
           "y": 320.512,
           "minigame": "brass-stamp"
+        },
+        {
+          "id": "kessler",
+          "x": 1760,
+          "y": 300
+        },
+        {
+          "id": "pip",
+          "x": 1150,
+          "y": 640
+        },
+        {
+          "id": "berg",
+          "x": 760,
+          "y": 560
         }
       ],
       "objects": [
@@ -10624,6 +10639,25 @@
           "id": "lindenhafen-bench",
           "x": 1330.176,
           "y": 348.16,
+          "collision": {
+            "referenceWidth": 1,
+            "polygons": []
+          }
+        },
+        {
+          "id": "lindenhafen-chalk-wall",
+          "x": 1190,
+          "y": 690,
+          "collision": {
+            "referenceWidth": 1,
+            "polygons": []
+          },
+          "minigame": "lamp-walk"
+        },
+        {
+          "id": "lindenhafen-office-window",
+          "x": 1814,
+          "y": 262,
           "collision": {
             "referenceWidth": 1,
             "polygons": []
@@ -11224,6 +11258,26 @@
           "x": 1090,
           "y": 392,
           "minigame": "brass-stamp"
+        },
+        {
+          "id": "hilde",
+          "x": 360,
+          "y": 390
+        },
+        {
+          "id": "falk",
+          "x": 1098,
+          "y": 594
+        },
+        {
+          "id": "jakob",
+          "x": 1030,
+          "y": 780
+        },
+        {
+          "id": "ruth",
+          "x": 1050,
+          "y": 815
         }
       ],
       "objects": [
@@ -11349,6 +11403,42 @@
                 ]
               ]
             ]
+          }
+        },
+        {
+          "id": "waldruh-hilde-window",
+          "x": 300,
+          "y": 365,
+          "collision": {
+            "referenceWidth": 1,
+            "polygons": []
+          }
+        },
+        {
+          "id": "waldruh-ink-cart",
+          "x": 1058,
+          "y": 602,
+          "collision": {
+            "referenceWidth": 1,
+            "polygons": []
+          }
+        },
+        {
+          "id": "waldruh-old-rails",
+          "x": 600,
+          "y": 970,
+          "collision": {
+            "referenceWidth": 1,
+            "polygons": []
+          }
+        },
+        {
+          "id": "waldruh-mill-cellar",
+          "x": 1240,
+          "y": 610,
+          "collision": {
+            "referenceWidth": 1,
+            "polygons": []
           }
         }
       ],
@@ -20954,6 +21044,36 @@
           "x": 769.5360000000001,
           "y": 286.72,
           "minigame": "re-ink"
+        },
+        {
+          "id": "kessler",
+          "x": 270,
+          "y": 440
+        },
+        {
+          "id": "jonas",
+          "x": 1300,
+          "y": 450
+        },
+        {
+          "id": "pip",
+          "x": 1160,
+          "y": 420
+        },
+        {
+          "id": "falk",
+          "x": 280,
+          "y": 740
+        },
+        {
+          "id": "jakob",
+          "x": 1182,
+          "y": 734
+        },
+        {
+          "id": "ruth",
+          "x": 1206,
+          "y": 750
         }
       ],
       "objects": [
@@ -21010,6 +21130,34 @@
           "id": "nebelstadt-harbor-chart",
           "x": 961.5360000000001,
           "y": 316.416,
+          "collision": {
+            "referenceWidth": 1,
+            "polygons": []
+          }
+        },
+        {
+          "id": "nebelstadt-record-room",
+          "x": 300,
+          "y": 395,
+          "collision": {
+            "referenceWidth": 1,
+            "polygons": []
+          }
+        },
+        {
+          "id": "nebelstadt-signal-slate",
+          "x": 1378,
+          "y": 446,
+          "collision": {
+            "referenceWidth": 1,
+            "polygons": []
+          },
+          "minigame": "hold-the-signal"
+        },
+        {
+          "id": "nebelstadt-observatory-stairs",
+          "x": 690,
+          "y": 300,
           "collision": {
             "referenceWidth": 1,
             "polygons": []

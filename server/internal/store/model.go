@@ -342,6 +342,18 @@ type StoryState struct {
 	ExpeditionPlans map[string]ExpeditionPlanState `json:"expeditionPlans"`
 	Inspections     map[string][]string            `json:"inspections"`
 	GateAttempts    map[string][]string            `json:"gateAttempts"`
+	// Fading names: when each was last said aloud, in visible play seconds.
+	Ink map[string]InkRecord `json:"ink,omitempty"`
+	// Bell cracks from lost story names; restoring a name heals its crack.
+	InkWarnings int `json:"inkWarnings,omitempty"`
+	InkLost     int `json:"inkLost,omitempty"`
+}
+
+// InkRecord is one fading name's state: when it was last said aloud.
+type InkRecord struct {
+	SpokenAt int  `json:"spokenAt"`
+	Spoken   int  `json:"spoken,omitempty"`
+	Kept     bool `json:"kept,omitempty"`
 }
 
 type ExpeditionRecord struct {

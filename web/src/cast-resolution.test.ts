@@ -78,7 +78,7 @@ describe('complete native-detail in-game cast', () => {
       ...Object.entries(worldResidentSpecs).flatMap(([mapId, residents]) => residents.map(actor => ({ ...actor, mapId }))),
       ...Object.entries(sceneDocument.maps).flatMap(([mapId, scene]) => (scene.residents ?? []).map(actor => ({ ...actor, mapId }))),
     ];
-    expect(expected).toHaveLength(192);
+    expect(expected).toHaveLength(200);
     expect(new Set(expected.map(actor => actor.id)).size).toBe(expected.length);
     expect(castActors.map(actor => actor.id).sort()).toEqual(expected.map(actor => actor.id).sort());
     for (const person of expected) {
@@ -227,7 +227,7 @@ describe('complete native-detail in-game cast', () => {
   });
 
   it('provides native indoor aliases for all shared characters and every room resident', () => {
-    expect(castActorsForMap(null)).toHaveLength(9);
+    expect(castActorsForMap(null)).toHaveLength(17);
     for (const actor of castActorsForMap(null)) {
       expect(actor.native, actor.id).toBeDefined();
       const asset = actor.native!;

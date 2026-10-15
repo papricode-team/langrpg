@@ -1,0 +1,50 @@
+{
+  "id": "kessler",
+  "poseSet": "walk",
+  "recipe": "art/source/character-kit/cast/kessler.json",
+  "recipeSha256": "4819d63ad0dd436c7ad0e48b8c8cb29ba9702b23cbe1fe48cd2d105fa485e9c9",
+  "atlas": "web/public/assets/character-cast/kessler.webp",
+  "atlasSha256": "f892d118bf85d9813882756494a7b13016d6a3ed5345afe05d08bebc37da0210",
+  "geometry": "web/public/assets/character-cast/kessler.atlas.json",
+  "geometrySha256": "a47e62e60e370ea6c51eb83c3cf2189a2d1f3e54efa19ce5b5ff7f065c1201dd",
+  "textureBytes": 14874720,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "7b34175331c76c991a44b21c2bf9b9f15eaf9daac03272c24d636aa4da3bd3ad",
+  "proof": "art/proofs/character-cast/kessler.png",
+  "proofSha256": "b0ada242f49b4e146f4d800e6e29407abf0a4c3c89221be6eb17a5da77a66cad",
+  "editorSha256": "16ff044370d437c45ac38fb72d184dca48a5dcdec11d8a52bf806b183e3c8dab",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "native": {
+    "key": "character-cast-kessler-native",
+    "image": "web/public/assets/character-cast/native/kessler.webp",
+    "atlas": "web/public/assets/character-cast/native/kessler.atlas.json",
+    "sha256": "2c2a74c1ebad59edb3cb4213d76fdc18ed8ca0c64902f4fe3851331110ff5013",
+    "atlasSha256": "98257e154cd35b25f2c71b52334820567324c9f960e2a083ca2f926b399c38ff",
+    "textureBytes": 28297400,
+    "multiAtlas": true,
+    "images": [
+      {
+        "path": "web/public/assets/character-cast/native/kessler.webp",
+        "sha256": "2c2a74c1ebad59edb3cb4213d76fdc18ed8ca0c64902f4fe3851331110ff5013",
+        "firstFrame": 0,
+        "frameCount": 18
+      },
+      {
+        "path": "web/public/assets/character-cast/native/kessler.1.webp",
+        "sha256": "111e903e4624f5f4f524fa7b97ea45c0af3b9ee64329dee2ba2237c556320ee1",
+        "firstFrame": 18,
+        "frameCount": 18
+      }
+    ],
+    "cell": [
+      512,
+      768
+    ],
+    "source": "art/proofs/character-cast/kessler.webp",
+    "sourceSha256": "16ff044370d437c45ac38fb72d184dca48a5dcdec11d8a52bf806b183e3c8dab"
+  }
+}

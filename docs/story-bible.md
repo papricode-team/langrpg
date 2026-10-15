@@ -1,6 +1,6 @@
 # glotworld — story bible
 
-Single source of truth for the main story (30 quests, three acts: 18 in Act I, 6 each in Acts II and III). Dialogue, clues, letters and cinematics must agree with it. `scripts/story-lint` style checks live in `web/src/story-lint.test.ts`.
+Single source of truth for the main story (41 quests, three acts: 22 in Act I, 10 in Act II, 9 in Act III; expanded on 2026-10-15 from `docs/story-expansion-plan.md`). Dialogue, clues, letters and cinematics must agree with it. `scripts/story-lint` style checks live in `web/src/story-lint.test.ts`.
 
 The dramatic spine is a ticket carrying the player's name → a neighbour whose place stays empty → evidence that the closure was imposed → choosing who may reopen a route. Every discovery must change a relationship or a practical decision. Humour belongs to how people cope; it must leave room for the loss to land.
 
@@ -11,6 +11,8 @@ The dramatic spine is a ticket carrying the player's name → a neighbour whose 
 There is **no other magic in Act I**. Platform seven is a real old platform, closed for twelve years. The receipt is an ordinary receipt. Emil's lamp is an ordinary repaired lantern that happens to burn dimmer where a name is fading (an application of the rule, not a second one). Everything else is people: who paid, who forgot, who kept listening. The door between two towns, the repeating hour, the keeper's key and the eraser machine arrive in Acts II and III.
 
 Elise's notes are short and simple in Act I because the ink cannot hold long sentences yet; they grow as the player's German does.
+
+**The rule is a mechanic.** Written names in the world (Frau Berg's plate, Pip's chalk wall, the memory stone, Jonas's slate, the Lenz boat, the player's own name on the ticket) fade with visible play time and are kept by saying them aloud beside the writing (`server/story_mechanics.go`, authored in `content/story-mechanics.json`). A story name that fades completely cracks the bell (at most two cracks, healed when the name is said again). In Act III the dark beam empties every name on the route that is not yet kept if the player closes the route again.
 
 ## 2. Dramatic question per act
 
@@ -42,6 +44,14 @@ Elise's notes are short and simple in Act I because the ink cannot hold long sen
 | R16 | Every silence counts as consent to the dark beam; promises must be public | b1-council | R8, R15 |
 | R17 | People from all three towns can hold the signal together | b1-storm | factions |
 | R18 | Elise's motive, her mistake, why she paid for the player's coffee (so someone would have to say the name aloud) | b1-atlas | the café note in a1-cafe, letters in every quest |
+| R19 | The Brass Office enforces silence: *„Wer schweigt, stimmt zu.“* is posted as rule four on its notices | a1-notice | — |
+| R20 | Frau Berg is alive and on her bench; she has forgotten her own name and her pupils give it back | a1-bench | R3 |
+| R21 | Frau Kessler wrote the notices and removed Marta's guest book; her list holds rules one to ten | a1-office-window | R19 |
+| R22 | Falk's "ink that never fades" is a lie; he is a former Office clerk who quit after seeing the machine | a2-cellar | a2-ink-seller |
+| R23 | Lina was on the children's train Elise stopped at 17:59; her parents are Jakob and Ruth Lenz | a2-forest-rails | a2-evening-plans, Pip's chalk wall |
+| R24 | Frau Kessler filled in the maintenance slips for all three coils; Voss signed | b1-record-room | R15 setup |
+| R25 | Jonas was paid to stay silent; his own name is fading from his slate | b1-signalman | — |
+| R26 | The keeper's key can close the route again from the observatory; doing so stops the beam and darkens Waldruh | b1-temptation | a2-apartment (key granted), a2-archive |
 
 Never reveal a fact twice and never reveal one before its row. Hints are fine; confirmations are not.
 
@@ -62,6 +72,8 @@ Never reveal a fact twice and never reveal one before its row. Hints are fine; c
 | A11 | At Friday soup everyone says every guest's name aloud before eating; that is how names stay at Fritz's table; Frau Berg's chair | a1-invitation |
 | A12 | The player's bag came off the train; a black glove with fresh ink lay on the bench at platform 7 | a1-lost-found |
 | A13 | Otto sells the first platform-7 ticket in twelve years and writes *Waldruh* on the sign himself, aloud | a1-departure |
+| A14 | Pip, Lina's little brother, writes every name he hears on the chalk wall by the water; at the bottom, very small: *Mama. Papa.* | a1-chalk |
+| A15 | Frau Kessler's office window behind the station: a counter, a register, a stamp, every notice marked "Regel vier" | a1-office-window |
 
 ## 4. Cast and voices
 
@@ -74,8 +86,14 @@ Address rule (**du / Sie**): residents say *du* to the player and to each other 
 | **Fritz**, market | Soup shared at one table | Disagreement spoiling dinner | Cheerful, rambling, food metaphors | Friday soup at seven; everyone says every guest's name before eating |
 | **Lina**, courier | Every letter delivered | A letter nobody can address | Clipped, fast, lists | Numbers everything she holds: "Nummer eins: Tasche. Nummer zwei: Handschuh." |
 | **Emil**, inventor | His lamp and clockmill running | Being the tool of someone's mistake | Enthusiastic, cuts himself off | Everything "works mostly" |
-| **Greta**, botanist | Her garden and her people kept | The garden erased again | Calm, practical, talks to her fern | In Act I she runs Lindenhafen's small pharmacy and garden (tea for Frau Berg); the fern is "under observation" (Act II) |
-| **Frau Berg**, retired teacher | Her pupils, her Friday seat | Being forgotten | Old, kind, strict about commas — heard only through others in Act I | Lives at Gartenstraße 7 and reads on the fountain bench each morning; never seen in Act I. Marta, Fritz and Lina were all her pupils |
+| **Greta**, botanist | Her garden and her people kept | The garden erased again | Calm, practical | In Act I she runs Lindenhafen's small pharmacy and garden (tea for Frau Berg); in Act II she keeps seeds from vanished houses |
+| **Frau Berg**, retired teacher | Her pupils, her Friday seat | Being forgotten | Old, kind, strict about commas; formal *Sie* | Lives at Gartenstraße 7 and reads on the fountain bench each morning. Heard only through others until a1-bench, where she is found on her bench without her own name. Marta, Fritz, Lina, Ella, Karl, Bea and Theo were her pupils |
+| **Frau Kessler**, Brass Office clerk | A town that matches the file | Being wrong out loud | Always *Sie*; A1 imperatives three words long (*„Nicht sprechen. Regel vier.“*), B1 full sentences | Pins a notice before she speaks; always has a copy. Can be invited to speak at the council and strike rule four herself |
+| **Pip**, Lina's brother | Every name on his wall | A blank wall | Child, *du*, short and loud | Plays the name game; counts trains in Act III |
+| **Oma Hilde**, Waldruh | To be asked first | Being left upstairs | *du*, slow, wry | Sees both towns from her window; knows every Waldruh house (hosts the Waldruh tickets) |
+| **Herr Falk**, ink seller | A clean conscience he can sell | The machine | Formal *Sie*, salesman's patter that collapses | Former Office clerk; sells ink that fades in three days; can testify (`falk-witness`) |
+| **Jakob and Ruth Lenz**, Lina and Pip's parents | Their children's names | Their own names | *du*, halting | Forgotten in Waldruh; the red boat with *Lenz* on the hull. Ruth can be lost (`ruth-lost`) and is restored by Lina in the finale |
+| **Jonas**, signalman | Quiet | His own voice | Writes on a slate; speaks only if the player waits (`jonas-speaks`) | Sang for the fishermen before the Office paid him for silence; hosts the Nebelstadt tickets |
 | **Ada**, archivist | To be honest at last | Her signature | Careful, precise, drily funny | Files truth alphabetically |
 | **Inspector Voss**, Brass Office | Order; to believe the records | Finding the records wrong | Formal Sie, quotes regulations, softens slowly | Stamps things; never raises his voice |
 | **Elise**, Keeper of the Atlas | To be forgiven without being excused | Repeating her mistake | Warm, guilty, writes in letters | Writes the way she speaks — simply |
@@ -88,7 +106,7 @@ Elise arc: absent but audible — one **letter** (2–4 short sentences) is unlo
 
 ## 5. Tone
 
-Whimsical-melancholy: comedy lives in the residents (Otto's distrust of punctuality, soup, Emil's "works mostly", a fern under observation); seriousness lives in the erasures (names, houses, hours). Never state the theme as a slogan; show somebody losing or recovering something. Every scene has a small funny detail **and** one moment of unease.
+Whimsical-melancholy: comedy lives in the residents (Otto's distrust of punctuality, soup, Emil's "works mostly", Frau Kessler's copies); seriousness lives in the erasures (names, houses, hours). Since the 2026-10-15 pass there are no second magic rules: no fern, no pigeons, no fridge that predicts the weather, no receipt from tomorrow. Never state the theme as a slogan; show somebody losing or recovering something. Every scene has a small funny detail **and** one moment of unease.
 
 ## 6. Scene template (variety is required)
 
@@ -98,32 +116,43 @@ Not every scene may be "monologue → gate → choice". Each scene has one of th
 |---|---|
 | a1-arrival | Cold open + confrontation (Voss vs Otto, ticket fading) |
 | a1-timetable | Reading the board (a faded word) |
+| a1-notice | A rule on a wall (the Office's notice) |
 | a1-cafe | Mystery at a table (the paid note, the untouched tea) |
 | a1-room | Evidence in a room (guest book, cold cup) |
 | a1-shopping | Errand with a gap (the nameless line on the list) |
 | a1-market | Memory loss (Fritz recovers a name by counting) |
+| a1-chalk | A child's game (Pip's chalk wall) |
 | a1-neighbour | Portrait through a pupil's memory |
 | a1-pharmacy | Care errand (the uncollected bag) |
 | a1-directions | Walk to a door (blank name plate, week-old note) |
+| a1-bench | Finding the lost person (Frau Berg's own name) |
 | a1-station | Overheard conversation (Voss + recording) |
 | a1-weather | Small kindness in the rain (the umbrella) |
 | a1-workshop | Comic object (the lamp has opinions) |
 | a1-bike | Errand with a stray clue (Emil's order book) |
 | a1-phone | Formal phone call (Sie with Voss) |
+| a1-office-window | Confronting the clerk (Kessler's handwriting) |
 | a1-invitation | Social ritual (the Friday table, the empty chair) |
 | a1-lost-found | Object recovery (bag, inked glove) |
 | a1-lost-parcel | Letter + visible erasure |
 | a1-departure | Departure (first ticket in twelve years) |
 | a2-apartment | Bureaucratic comedy (Voss must approve a door) |
+| a2-upstairs | A visit upstairs (Oma Hilde's window) |
 | a2-evening-plans | Two groups argue; player commits a time |
+| a2-ink-seller | A sales pitch with a lie in it |
 | a2-rail-trip | Deduction (17:59 vs 18:00) |
+| a2-forest-rails | A witness remembers (Lina at the old rails) |
 | a2-broken-clock | Technical walkthrough with a clue in handwriting |
 | a2-clinic | Care scene; Voss as patient |
+| a2-cellar | A locked room and a confession (Falk) |
 | a2-archive | Confession; Sie → du |
 | b1-witness | Formal hearing |
+| b1-record-room | An archive search (Kessler's slips) |
 | b1-new-route | Two proposals, player must mediate |
+| b1-signalman | Patience (getting one name out of Jonas) |
 | b1-work | Confrontation and confession |
 | b1-council | Three parties; the ledger as evidence |
+| b1-temptation | The only scene where the player can do harm |
 | b1-storm | Crisis coordination |
 | b1-atlas | Reunion and promise |
 
@@ -162,6 +191,10 @@ Topics appear on the last line of the `intro` node. They are optional, unlimited
 | `erasure` | a1-lost-parcel | Lindenhafen | Frau Berg's house number blurs out of the street sign |
 | `confession` | a2-archive | Waldruh | Ada puts her pen down and offers *du* |
 | `ledger` | b1-work | Nebelstadt | Voss opens his own ledger in front of everyone |
+| `remembered` | a1-bench | Lindenhafen | Frau Berg says her own name; Pip writes it on the wall |
+| `rails` | a2-forest-rails | Waldruh | Eleven stones on the old rails; Lina counts them |
+| `temptation` | b1-temptation | Nebelstadt | The key in the lock, one minute, the tape playing |
+| `epilogue` | after the bell | Nebelstadt | The first train through three towns; the Lenz family; an ending-specific line; Frau Berg's answer |
 
 ## 10. Continuity facts (do not contradict)
 
@@ -181,6 +214,10 @@ Topics appear on the last line of the `intro` node. They are optional, unlimited
 - There is no kettle in Act I and no kettle gag; the a2-apartment kettle topic was removed. Elise paid for the player's coffee in advance (a1-cafe) so that someone would have to say the player's name aloud to collect it; the b1-atlas finale pays this off (*„Ich habe deinen Kaffee bei Marta bezahlt. Dann musste jemand deinen Namen laut sagen.“*).
 - The finale must keep: *Kaffee*, *Schlüssel*, `{name}`, *meinen ersten Fehler* (the needles checked by `web/src/story-lint.ts`).
 - *„Wer schweigt, stimmt zu.“* is a coercive Brass Office rule, explicitly challenged by the residents. It is not a moral or natural rule of the Atlas.
+- The keeper's key (`keeper-key`) is granted in a2-apartment (older saves past that scene receive it on load). It opens the mill cellar (a2-cellar), the Office record room (one of three keys) and the observatory stairs (b1-temptation).
+- The Lenz family: Jakob and Ruth, parents of Lina and Pip, forgotten in Waldruh; their red boat carries *Lenz* on the hull. If the player restores the clock in a2-broken-clock, Ruth's name is lost (`ruth-lost`) until Lina says it in the finale.
+- Frau Kessler always says *Sie*; Pip always says *du*.
+- Ticket names, pupils' names and Falk's customers are side errands (`sideQuests`); no main scene depends on them.
 - The three endings preserve different commitments: immediate family reunions with disputed changes still to resolve; town consent with the cost of waiting; or public institutional accountability that requires continued scrutiny. Their cinematics and case-board text must agree.
 
 ## 11. Scene-by-scene beats
@@ -193,18 +230,22 @@ Topics appear on the last line of the `intro` node. They are optional, unlimited
 
 1. **a1-arrival** (Otto; Voss). Gate `a1-arrival-exercise-7` *„Noch einmal, bitte.“* Shape: cold open. Otto: platform seven has been closed twelve years, yet today a train arrived there; he still lights its lantern every morning. The ticket carries the player's name, platform seven and "E."; the name fades, and saying it aloud makes it dark again (the rule). Voss of the Brass Office arrives, declares the ticket invalid and demands it — so fast the player must ask him to repeat. Choice `report`: Voss keeps the ticket and leaves the player his ledger / `protect`: Otto keeps it and gives the platform-door key. Prompt: *„Wer bekommt Ihre Fahrkarte: Otto oder ich?“* Ends: Otto goes to read the timetable. No Elise.
 2. **a1-timetable** (Otto). Gate `a1-timetable-exercise-1` *„Wann fährt der Zug?“* Shape: reading the board. Platforms one to six with times; the line for platform seven (*18 Uhr*) is almost gone — only a W of the town name is left. Otto has known that town for twenty years and cannot say its name. Choice `light` / `dark`: light platform seven's lantern tonight as always, or leave it dark (`lantern-lit` / `lantern-dark`). Callbacks: key, ticket with Voss. Ends: Otto sends the player to Marta's café.
+2a. **a1-notice** (Otto). Gate *„Warum darf ich das nicht?“* A Brass Office notice by the station: *Nicht sprechen. Regel vier. Wer schweigt, stimmt zu.* (R19). Choice `notice-torn` (+Lamplighters) / `notice-read` (+Circle).
 3. **a1-cafe** (Marta). Gate `a1-cafe-exercise-1` *„Ich möchte einen Kaffee.“* Shape: mystery at a table. A note on the counter: *Ein Kaffee für {name}. Bezahlt. — E.* A woman paid yesterday; she was tired, ink on her hands, and left her tea untouched; Marta, who asks every guest's name, cannot remember hers. The receipt carries the Brass Office stamp (an old voucher). Choice `report` (Voss sees the receipt, `receipt-filed`) / `protect` (keep the original, `receipt-kept`). Ends: Marta offers a room.
 4. **a1-room** (Marta). Gate `a1-room-exercise-1` *„Hast du ein Zimmer frei?“* Marta's many questions; five rooms, four free. Room three: the woman stayed a week ago, the guest book says only *E.*, the table is stained with ink, the tea is still there. Choice `room-three` / `room-five`. Ends: Fritz has bread, go to him.
 5. **a1-shopping** (Fritz). Gate `a1-shopping-exercise-1` *„Was kostet das Brot?“* Shape: errand with a gap. Fritz lists his Friday soup guests (Otto, Marta, Lina, Emil, Greta …) and stops at a line with no name: a guest always sat there. He cannot say who. (Frau Berg is **not** named.) Choice `extra-bread` (buy bread for the empty line too) / `own-bread`. Ends: Fritz needs more, come back soon.
 6. **a1-market** (Fritz). Gate `a1-market-exercise-1` *„Ich brauche zwei Äpfel.“* Shape: memory loss. An order slip: *Äpfel. Gartenstraße sieben.* — the number has faded. Saying *zwei Äpfel* brings the name back: **Frau Berg**, who taught half the town to read; her seat has been empty for a week and nobody said a word (R3). Choice `report` (Voss writes her address, `crate-number-filed`) / `protect` (write her name down for Friday, `berg-remembered`, item `berg-address`). Prompt: *„Bekommt Voss ihre Adresse, oder schreiben wir ihren Namen auf?“* Ends: Marta knew her well.
+6a. **a1-chalk** (Pip). Gate *„Wie heißt du?“* Pip's name game at the chalk wall by the water; at the bottom, very small, *Mama. Papa.* (A14). Choice `pip-game-loud` / `pip-game-quiet`.
 7. **a1-neighbour** (Marta). Gate `a1-neighbour-exercise-1` *„Wie ist Frau Berg?“* Marta was her pupil: old, kind, strict about every mistake, read on the fountain bench each morning; Marta lives on her street and has not known her name for a week. Choice `say-name` (say it aloud, `berg-name-said`) / `write-name` (write it on the board, `berg-name-written`). Ends: Greta has tea for her.
 8. **a1-pharmacy** (Greta). Gate `a1-pharmacy-exercise-1` *„Ich habe Kopfschmerzen.“* Greta's small pharmacy and garden; she asks the tired player what is wrong (headache; drink water, not only coffee). The tea bag for Frau Berg's cough has not been collected for a week and the name on it is pale. Choice `take-bag` / `ask-lina` (`berg-bag-taken` / `berg-bag-lina`). Ends: Lina knows every street.
 9. **a1-directions** (Lina). Gate `a1-directions-exercise-1` *„Wo ist die Gartenstraße?“* Lina gives the way (straight to the fountain, left, opposite the school); at number seven the name plate is blank and a week-old note says *Bin gleich zurück*. Choice `knock` (call her name aloud) / `leave-note` (`berg-door-knocked` / `berg-note-left`). Ends: Otto is looking for the player at the station.
+9a. **a1-bench** (Frau Berg). Gate *„Wie heißen Sie?“* Frau Berg on the fountain bench with a book from her pupils; she does not know her own name until the player and her pupils say it (R20; cinematic `remembered`). Choice `berg-at-marta` / `berg-on-bench`. Her house is still lost in a1-lost-parcel.
 10. **a1-station** (Otto; Voss on the bench). Gate `a1-station-exercise-5` *„Ist dieser Platz frei?“* Shape: overheard conversation. Evening. Voss sits on the bench with an old recorder; his coat takes the seat. A woman's voice: *„Ist da jemand? Ich bin noch hier.“* He hears her every evening; she cannot hear him (R4). Otto's old office, shut for twelve years, holds a hundred tickets for platform seven, all signed E., never sold. Cinematic `recording`. Choices keep ids and conditions: `report` / `protect` (needs key) / `show-ledger` (needs ledger) / `ask-otto`. Prompt: *„Schreibt Voss das W auf, oder öffnen wir das Büro?“* **No mention of Waldruh.** Ends: Otto will be here in the morning.
 11. **a1-weather** (Otto). Gate `a1-weather-exercise-1` *„Wie ist das Wetter morgen?“* Rainy morning; Voss sat on the bench in the rain until late — he has come every evening for twelve years, since platform seven closed. The lantern of platform seven is missing: Emil has it. Choice `return-umbrella` / `leave-umbrella` (`voss-umbrella-returned` / `voss-umbrella-left`). Ends: Emil has the lantern.
 12. **a1-workshop** (Emil). Gate `a1-workshop-exercise-2` *„Ich brauche eine Lampe.“* Shape: comic object. Emil built a lamp from platform seven's old lantern; it is bright at the bench and next to the player, goes out on Gartenstraße and flickers towards the post office: a name is fading there (R5). It "works mostly". Choice `report` (Voss registers it) / `protect` (take it) with the existing item and flag ids. Ends: Lina's bike is here too.
 13. **a1-bike** (Emil). Gate `a1-bike-exercise-1` *„Wann ist das Fahrrad fertig?“* The player collects Lina's bike (twenty euros). In Emil's order book: a week ago a woman bought glass for an old lantern, paid cash, signed *E.*, black hands; Emil knows her but her name is gone. Choice `pay-now` / `pay-later` (`bike-paid` / `bike-on-account`). Ends: Marta has a phone call for the player.
 14. **a1-phone** (Marta; Voss on the phone). Gate `a1-phone-exercise-1` *„Kann ich bitte Otto sprechen?“* The player calls the station; Voss answers (*Sie*), spells his own name and reads the register: no name next to Gartenstraße seven — and the player's name is not in it either. Choice `spell` (spell the name for the register, `name-in-register`) / `refuse` (`name-withheld`). Ends: Fritz has a question.
+14a. **a1-office-window** (Frau Kessler). Gate *„Das haben Sie geschrieben.“* The Office window behind the station; the notices are in Kessler's hand, Marta's guest book is on her counter (R21, A15). Choice `guestbook-returned` (+Circle) / `notice-list-taken` (+Lamplighters, item `notice-list`).
 15. **a1-invitation** (Fritz). Gate `a1-invitation-exercise-1` *„Ja, ich komme gern.“* Friday soup at seven; twelve glasses, eleven guests. Before eating everyone says every guest's name aloud — that is why names stay at Fritz's table; one seat is Frau Berg's, who never missed it until now. Choice `keep-chair` (keep it empty with her name card) / `share-chair` (sit there and say her name) (`berg-chair-kept` / `berg-chair-shared`). Ends: Lina has the player's bag.
 16. **a1-lost-found** (Lina). Gate `a1-lost-found-exercise-1` *„Meine Tasche ist blau.“* Eleven bags on the table; the player's blue one is found. In the box also a black glove with fresh ink, found on the bench at platform seven, name tag blank. Choice `take-glove` / `leave-glove` (`glove-taken` / `glove-left`). Ends: Lina is still looking for the player's post.
 17. **a1-lost-parcel** (Lina). Gate `a1-lost-parcel-exercise-2` *„Wie ist die Adresse?“* Shape: letter + visible erasure. A parcel from E.; the address fades as Lina reads it. The player asks aloud and the ink holds: **Waldruh**. Inside: *„Ich bin Elise. Ich warte in Waldruh.“* E. is Elise (R6). A second letter is for Frau Berg, whose house number is fading from the plate; her neighbours ask who lives there (cinematic `erasure`). Choice `report` (Voss gets the address, `waldruh-address-public`) / `protect` (keep the letter private, `elise-letter-private`). Exact closing line: *„Bevor du uns wieder auslöschst, komm.“* (id `a1-lost-parcel-complete-1`, always translated). Ends: a train waits at the station this evening.
@@ -213,17 +254,24 @@ Topics appear on the last line of the `intro` node. They are optional, unlimited
 ### Act II — Waldruh (A2)
 
 19. **a2-apartment** (Marta; Voss). Gate `a2-apartment-exercise-6` *„Könnten Sie das bitte reparieren?“* — spoken to **Voss**, who has come to inspect the building: the stuck door joins Marta's Lindenhafen café and the Waldruh inn, and he cannot repair what is not in the register. Marta explains why the café and inn share a door. Lease: Room 7, tenant **{name}**, rented in advance by Elise (no "successor" yet).
-20. **a2-evening-plans** (Fritz; Greta, Lina). Gate `a2-evening-plans-exercise-1` *„Hast du morgen Zeit?“* — to **Fritz**, who always says he is busy with soup; the Unwritten Circle wants a fixed time. The Circle were never asked about the closure (R8).
+19a. **a2-upstairs** (Oma Hilde). Gate *„Darf ich Sie etwas fragen?“* Hilde sees both towns from her window and knows every house; nobody asked her either. Choice `hilde-invited` (+Circle; she comes to the council) / `hilde-rests`.
+20. **a2-evening-plans** (Fritz; Greta, Lina; Jakob and Ruth Lenz). Gate `a2-evening-plans-exercise-1` *„Hast du morgen Zeit?“* — to **Fritz**, who always says he is busy with soup; the Unwritten Circle wants a fixed time. The Circle were never asked about the closure (R8).
+20a. **a2-ink-seller** (Falk). Gate *„Haben Sie auch etwas Günstigeres?“* Falk sells "ink that never fades"; under his sign an old label: Brass Office Nebelstadt. Choice `ink-bought` (item `falk-ink`) / `falk-questioned`.
 21. **a2-rail-trip** (Otto; Voss). Gate (see exercise list) *„Ich habe meinen Anschluss verpasst.“* Shape: deduction. The ticket promises 18:00; the player hears a departure and reports missing the connection. Otto then compares the station log and discovers 17:59 (R9). Intro, optional questions and pre-gate evidence cannot give away that conclusion. The complaint creates a witnessed discrepancy; no repeated "only counts aloud" explanation. No Ada yet.
-22. **a2-broken-clock** (Emil). Gate *„Kannst du mir die Anleitung erklären?“* Shape: technical walkthrough. Red lever, blue connection, the hour before midnight; the borrowed-tools thank-you note is in **Elise's handwriting** (R10). Cinematic `clockmill` after (one hour, not minutes).
+21a. **a2-forest-rails** (Lina). Gate *„Was ist damals passiert?“* Eleven stones on the old rails; Lina was on the children's train Elise stopped at 17:59, her parents on the other side (R23; cinematic `rails`). Choice `lina-tells-pip` / `lina-waits`.
+22. **a2-broken-clock** (Emil). Choice `restore` now costs Ruth's name (`ruth-lost`); `consult` keeps it (`ruth-kept`). Gate *„Kannst du mir die Anleitung erklären?“* Shape: technical walkthrough. Red lever, blue connection, the hour before midnight; the borrowed-tools thank-you note is in **Elise's handwriting** (R10). Cinematic `clockmill` after (one hour, not minutes).
 23. **a2-clinic** (Greta; **Voss as patient**). Gate *„Sie sollten sich ausruhen.“* — to Voss. Exhausted after a journey he says he never made; his own memory matches three old addresses on the seed packets (R11). Care scene; Voss's first doubt.
+23a. **a2-cellar** (Falk). Locked by the keeper's key. Gate *„Warum haben Sie das gemacht?“* Falk quit the Office after seeing the machine; his ink fades in three days (R22). Choice `falk-released` (+Circle) / `falk-witness` (+Brass; he testifies in b1-witness).
 24. **a2-archive** (Ada; Voss). Gate *„Können Sie mir das genauer erklären?“* — Ada uses Sie; at the end of her confession she offers *du* (cinematic `confession`). R12: Ada signed the temporary order; the permanent order bears Elise's key **and** the Brass Office's stamp; the player is the successor; the warning concerns the key.
 
 ### Act III — Nebelstadt (B1)
 
 25. **b1-witness** (Lina; Marta as witness). Gate *„Könnten Sie beschreiben, was Sie gesehen haben?“* — formal hearing; Marta plays along with Sie. R13: the double signal was an old recording; Voss was at the machine.
-26. **b1-new-route** (Otto; Greta). Gate *„Wir müssen eine Lösung finden, die für alle passt.“* Two proposals; Greta's garden vs. a clinic stop; player mediates.
-27. **b1-work** (Emil; Voss). Gate *„Bevor ich anfange, möchte ich die Bedingungen klären.“* Emil offers the job of rebuilding the signal; the repair ledger shows who kept the eraser maintained. **Voss confesses (R15)**; he keeps Sie until b1-council, where he asks to be addressed by name and offers du. Cinematic `ledger` after.
-28. **b1-council** (Ada; Voss). Gate *„Ein Kompromiss wäre, die Strecke schrittweise zu öffnen.“* Three parties; each silence counts as consent to the dark beam (R16); publishing the ledger is a choice with its item condition.
-29. **b1-storm** (Greta; Marta, Voss). Gate *„Wir können das Problem nur gemeinsam lösen.“* Crisis coordination; faction-conditioned arrivals (keep).
-30. **b1-atlas** (Elise). Gate `b1-atlas-exercise-6` *„Wir vereinbaren, dass wir Probleme frühzeitig besprechen.“* Reunion. Elise reads the letters back; Elise explains the paid coffee (R18: she paid so that someone would have to say the player's name aloud); the finale must keep *Kaffee*, *Schlüssel*, `{name}`, *meinen ersten Fehler*; ending lines (conditions `ending`) stay.
+25a. **b1-record-room** (Frau Kessler). Opened with the ledger, the notice list or the key. Gate *„Könnten Sie mir zeigen, wo die Unterlagen sind?“* Three coil orders in Kessler's hand, Voss's signature (R24). Choice `kessler-invited` (+Brass) / `slips-filed` (+Lamplighters).
+26. **b1-new-route** (Otto; Greta). `reopen` sets `straight-route`; `remember` sets `clinic-stop`. The beam starts after this scene. Gate *„Wir müssen eine Lösung finden, die für alle passt.“* Two proposals; Greta's garden vs. a clinic stop; player mediates.
+26a. **b1-signalman** (Jonas; Emil). Gate *„Ich bitte Sie, es einmal laut zu sagen.“* Jonas, paid for twelve years of silence, writes his name and wipes it away (R25). Choice `jonas-speaks` (+Circle) / `jonas-writes` (+Lamplighters).
+27. **b1-work** (Emil; Voss). Kessler is named as the hands that filled in the slips. Gate *„Bevor ich anfange, möchte ich die Bedingungen klären.“* Emil offers the job of rebuilding the signal; the repair ledger shows who kept the eraser maintained. **Voss confesses (R15)**; he keeps Sie until b1-council, where he asks to be addressed by name and offers du. Cinematic `ledger` after.
+28. **b1-council** (Ada; Voss; Frau Kessler if invited; Oma Hilde if invited). A fourth choice `kessler-list` (needs `kessler-invited`): Kessler reads her rules aloud and strikes rule four (+2 Brass, +1 Circle). With Falk's testimony this makes the Brass ending reachable without the ledger. Gate *„Ein Kompromiss wäre, die Strecke schrittweise zu öffnen.“* Three parties; each silence counts as consent to the dark beam (R16); publishing the ledger is a choice with its item condition.
+28a. **b1-temptation** (Ada; Voss). Observatory stairs locked by the key. Gate *„Wenn ich den Schlüssel drehe, was passiert dann?“* (R26; cinematic `temptation`). Choice `route-closed-again` (the beam stops tonight; Waldruh goes dark; the finale opens differently) / `key-refused` (+Circle). Neither is a game over.
+29. **b1-storm** (Greta; Marta, Voss). The roll-call reacts to `clinic-stop`, `jonas-speaks`, `kessler-turned`, `ruth-lost` and `route-closed-again`; Marta remembers the Lenz family. Gate *„Wir können das Problem nur gemeinsam lösen.“* Crisis coordination; faction-conditioned arrivals (keep).
+30. **b1-atlas** (Elise). Gate `b1-atlas-exercise-6` *„Wir vereinbaren, dass wir Probleme frühzeitig besprechen.“* Reunion. The player lays the key between them; Elise's first line depends on b1-temptation; Lina says Ruth's name if it was lost; a letter for Lina lies on top. Elise reads the letters back; Elise explains the paid coffee (R18: she paid so that someone would have to say the player's name aloud); the finale must keep *Kaffee*, *Schlüssel*, `{name}`, *meinen ersten Fehler*; ending lines (conditions `ending`) stay.

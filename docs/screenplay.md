@@ -13,16 +13,22 @@ Scene-only notes for review are in `> REVIEW:` blocks.
 | | |
 |---|---|
 | **THE PLAYER** `{name}` | A newcomer holding a ticket signed "E." Says *Sie* to officials, *du* to everyone else. |
-| **OTTO** | Stationmaster. Counts platforms. Distrusts punctual pigeons. |
+| **OTTO** | Stationmaster. Counts platforms. Still lights the lantern on platform seven every morning. |
 | **MARTA** | Café and inn keeper. Asks every guest's name and writes it down twice. Was Frau Berg's pupil. Her café and the Waldruh inn share one door. |
 | **FRITZ** | Market trader and cook. Nobody eats alone at his table. |
 | **LINA** | Courier. Every letter must arrive. Numbers and labels everything. |
-| **EMIL** | Inventor. His lamp has opinions. Everything "works mostly". |
-| **GRETA** | Botanist. Runs Lindenhafen's small pharmacy and garden in Act I, the clinic in Act II. Her fern is under observation. |
+| **EMIL** | Inventor. Built a lamp from platform seven's old lantern. Everything "works mostly". |
+| **GRETA** | Botanist. Runs Lindenhafen's small pharmacy and garden in Act I, the clinic in Act II. She keeps seeds from vanished houses. |
 | **ADA** | Archivist of the travelling archive. Files the truth alphabetically. Elise's former apprentice. |
 | **INSPECTOR VOSS** | Brass Office. Formal *Sie*, stamps things, never raises his voice. Listens to a recording every night. |
-| **ELISE** | Keeper of the Atlas. Absent for twenty-nine scenes; present only in letters, a voice on tape, and her handwriting. |
-| **FRAU BERG** | Retired teacher at Gartenstraße 7; taught half the town to read, reads on the fountain bench every morning, strict about commas. Never seen: a neighbour whose name, then house, disappears. |
+| **ELISE** | Keeper of the Atlas. Absent for forty scenes; present only in letters, a voice on tape, and her handwriting. |
+| **FRAU BERG** | Retired teacher at Gartenstraße 7; taught half the town to read, reads on the fountain bench every morning, strict about commas. Found on her bench in a1-bench without her own name; her house still disappears. |
+| **FRAU KESSLER** | Brass Office clerk. Always *Sie*. Pins a notice before she speaks. Wrote rule four. |
+| **PIP** | Lina's little brother. Writes every name he hears on the chalk wall by the water. |
+| **OMA HILDE** | Waldruh. Sees both towns from her upstairs window. Nobody asked her either. |
+| **HERR FALK** | Ink seller in Waldruh. His ink fades in three days. Former Office clerk. |
+| **JAKOB and RUTH LENZ** | Lina and Pip's parents, forgotten in Waldruh. A red boat with their name on it. |
+| **JONAS** | Signalman in Nebelstadt. Paid to stay silent for twelve years. Writes on a slate. |
 
 **The factions** (the player's choices shift reputation):
 - **The Lamplighters** want every route reopened now.
@@ -36,1066 +42,1890 @@ Scene-only notes for review are in `> REVIEW:` blocks.
 # ACT ONE — LINDENHAFEN
 ### "The names that fade" (A1)
 
-**Dramatic question:** Who is "E.", who sent me a ticket for a platform closed for twelve years, and why are people being forgotten?
+### 1. LINDENHAFEN · RAILWAY STATION — A ticket from nowhere `a1-arrival`
 
-**Shape of the act.** Eighteen scenes on one linear path: **six story scenes** (1, 3, 6, 10, 12, 17) and **twelve everyday errands** (the rest: timetable, room, shopping, a neighbour, the pharmacy, directions, weather, a bike, a phone call, an invitation, lost property, a ticket). Each scene ends with a character pointing the player to the next. The only rule of the world is Otto's: **a name fades unless somebody says it aloud.** Errand choices set a single flag and are echoed by one callback line in a later scene; the story scenes carry the factions, items and reveals. (A save that is already past an inserted errand may skip it.)
+*Your train is here. It is standing at platform seven. No train has come there for years.*
 
----
-
-### 1. EXT. LINDENHAFEN RAILWAY STATION, PLATFORM SEVEN — MORNING
-
-*A small harbour town. Six platforms on the board; a seventh at the far end, shut for years, its old lantern lit. A train stands there. It should not.*
-
-**CINEMATIC — ARRIVAL**
-> OTTO: The train is here. On platform seven?
-> OTTO: No train has stopped here in twelve years.
-
-OTTO, stationmaster, counts the platforms out loud.
-
-> **OTTO:** Good morning! Welcome to Lindenhafen. *(The player returns the greeting.)*
-> **OTTO:** Hang on. You came in on platform seven? It has been closed for twelve years. I still light its lantern every morning. Rules are rules, train or no train.
-> **OTTO:** And today your train comes in. On time! I do not like that. Your ticket, please.
+> **OTTO:** Good morning! Welcome to Lindenhafen.
+> **OTTO:** Hang on. You came in on platform seven?
+> **OTTO:** Platform seven has been closed for twelve years.
+> **OTTO:** No train has stopped here in twelve years.
+> **OTTO:** But I still light the lantern every morning.
+> **OTTO:** Rules are rules. Train or no train.
+> **OTTO:** And today your train comes in. On time!
+> **OTTO:** I do not like that.
+> **OTTO:** Your ticket, please.
 > **OTTO:** It says {name}. Platform seven. At the bottom: E.
-> **OTTO:** Look! Your name is fading. Here in Lindenhafen, names fade. Say your name out loud. Then it stays.
-> *(The player says it. The ink goes black again.)* **OTTO:** Good. See? The ink is dark again.
+> **OTTO:** Look! Your name is fading.
+> **OTTO:** Here in Lindenhafen, names fade.
+> **OTTO:** Say your name out loud. Then it stays.
+> **OTTO:** Good. See? The ink is dark again.
+> **VOSS:** Good morning. Voss, from the Brass Office.
 
-*The player can examine: the ticket (the old platform, the lantern Otto lights out of habit) and the timetable board (platforms one to six).*
+*The player can examine:* **lindenhafen-platform-ticket** — Ticket: {name}. Platform seven. At the bottom: E. · **lindenhafen-noticeboard** — Platforms one to six. No platform seven.
 
-INSPECTOR VOSS enters: brass buttons, a ledger, very fast.
+*Optional questions:* “Who is Voss?” · “Why do you light the lantern?” · “Who is E.?”
 
-> **VOSS:** Good morning. Voss, from the Brass Office. Ticket-not-valid-platform-seven-not-on-the-timetable! Hand-it-over-please-thank-you!
+> **VOSS:** Ticket-not-valid-platform-seven-not-on-the-timetable!
+> **VOSS:** Hand-it-over-please-thank-you!
 
 **GATE — PLAYER:** *„Noch einmal, bitte.“* (Voss talks too fast. Ask him to say it again.)
 
-> **VOSS:** Certainly. Slowly: your ticket is not valid. Platform seven is not on the timetable.
+> **VOSS:** Certainly. Slowly: your ticket is not valid.
+> **VOSS:** Platform seven is not on the timetable.
 > **OTTO:** But the train was here. I was there.
 > **VOSS:** The timetable is right, Otto. Always.
-> **OTTO:** Your timetable, Mr Voss. My platform. Or the ticket stays here, with us.
-> **VOSS:** The ticket goes into my ledger. Who gets your ticket: Otto or me?
+> **OTTO:** Your timetable, Mr Voss. My platform.
+> **VOSS:** The ticket goes into my ledger. Please.
+> **OTTO:** Or it stays here. With us.
+> **VOSS:** Who gets your ticket: Otto or me?
 
-**[CHOICE — Who keeps the ticket?]**
-- **REPORT** — "Here you are, Mr Voss." → Voss: *"Thank you. Now everything is in order. A copy of my ledger, for you."* Otto: *"Now Voss has your name. Say it often."* (+Brass Office, **ledger**, bell warning)
-- **PROTECT** — "The ticket stays with me." → Voss: *"I will be back. With a form."* Otto gives the player his old **key** for platform seven. (+Lamplighters)
+**[CHOICE `report`]** *„Bitte, Herr Voss. Hier ist die Fahrkarte.“* — Here you are, Mr Voss. Here is the ticket.
+> **VOSS:** Thank you. Now everything is in order.
+> **VOSS:** A copy of my ledger, for you. Everything is in it.
+> **OTTO:** Now Voss has your name. Say it often.
 
-**PLATFORM CINEMATIC** (Otto: *"Platform seven. The lantern is burning again."*)
+**[CHOICE `protect`]** *„Die Fahrkarte bleibt bei mir.“* — The ticket stays with me.
+> **VOSS:** Fine. I will be back. With a form.
+> **OTTO:** Here. My old key. For platform seven.
+> **OTTO:** Say your name every day. Then it stays.
 
-> **OTTO:** Come along. We will read the timetable together.
+> **OTTO:** Come with me. Let us read the timetable.
 
-**ELISE (V.O., journal letter):** *You are here. Good. Say your name out loud every day.*
-
-> REVIEW: R1. One rule, said once, by the person who runs the platform. Voss is pure obstruction; Otto is pure habit. Nothing here is supernatural except the ink — and the ink answers only to speech.
+**CINEMATIC — PLATFORM**
+> OTTO: Bahnsteig sieben. Die Laterne brennt wieder.
 
 ---
 
-### 2. INT. STATION BOARD — MORNING
+### 2. LINDENHAFEN · STATION BOARD — Six platforms and a faded word `a1-timetable`
 
-*The departure board in Otto's handwriting. Six platforms, six times. A seventh line at the bottom, almost washed out.*
+*Otto is standing in front of the board. He knows every time. Only one word is gone.*
 
-> **OTTO:** Good morning. It is ten to eight. The train is on time. I do not like that!
-> *(if protected)* You have my key. Very good. *(if reported)* Voss has your ticket. I know the times.
-> **OTTO:** Platform one, eight o'clock. Platform two, half past eight. Platform seven is on here too: six p.m. A word is written next to it. Only the W is left.
-> **OTTO:** You have been looking at the board a long time. You want to travel?
+> **OTTO:** Good morning. It is ten to eight.
+> **OTTO:** The train is on time. I do not like that!
+> **OTTO:** You have my key. Very good. *(if flag platform-protected)*
+> **OTTO:** Voss has your ticket. I know the times. *(if flag platform-reported)*
+> **OTTO:** Six platforms, six times. I know them all.
+> **OTTO:** Platform one: eight o’clock. Platform two: half past eight.
+> **OTTO:** Platform seven is on here too. Six p.m.
+> **OTTO:** A word is written there. Only the W is left.
+
+*The player can examine:* **lindenhafen-noticeboard** — Platform 1: eight o’clock. Platform 7: to W… — 6 p.m.
+
+*Optional questions:* “When does the train come to platform seven?” · “What is the town with W called?”
+
+> **OTTO:** You are looking at the board a long time. You want to travel?
 
 **GATE — PLAYER:** *„Wann fährt der Zug?“* (Ask Otto when the train leaves.)
 
-> **OTTO:** At ten past eight, from platform three. It arrives on time. That is not good.
-> **OTTO:** I have known that town for twenty years. But I cannot say its name. It is gone.
+> **OTTO:** At ten past eight. From platform three.
+> **OTTO:** It arrives on time. That is not good.
+> **OTTO:** I have known the town for twenty years.
+> **OTTO:** But I cannot say its name.
+> **OTTO:** It is gone. That is not good.
 > **OTTO:** Should the lantern be on today, or off?
 
-**[CHOICE — Platform seven's lantern tonight]**
-- **LIGHT** — "Yes, please light it." → *"At six o'clock I will light it. Maybe a train will come after all."* (flag `lantern-lit`)
-- **DARK** — "No, it stays off." → *"Today it stays off. But at six o'clock I will stand there."* (flag `lantern-dark`)
+**[CHOICE `light`]** *„Ja, mach sie bitte an.“* — Yes, please light it.
+> **OTTO:** Good. At six o’clock I will light it.
+> **OTTO:** Maybe a train will come after all.
 
-> **OTTO:** You are hungry. Go to Marta at the café.
+**[CHOICE `dark`]** *„Nein, sie bleibt aus.“* — No, it stays off.
+> **OTTO:** Good. Today it stays off.
+> **OTTO:** But at six o’clock I will stand here.
 
-> REVIEW: A2. A faded W is the whole mystery of the next sixteen scenes. The lantern choice is echoed in scenes 4, 10, 11 and 18.
+> **OTTO:** I will read the board again.
+> **OTTO:** Wait. Who is the woman there at the board?
 
 ---
 
-### 3. INT. MARTA'S CAFÉ — DAY
+### 3. LINDENHAFEN · STATION BOARD — Rule four `a1-notice`
 
-*A warm room. A telephone on the counter, a guest book, receipts. A paper on the counter, waiting.*
+*A woman from the Brass Office comes to the station. She brings a notice for Otto’s board. There is a rule on the notice.*
+
+> **FRAU KESSLER:** Good morning. Kessler, from the Brass Office.
+> **FRAU KESSLER:** Here is a rule. From Voss.
+> **OTTO:** A rule? I have my timetable. It is good.
+> **FRAU KESSLER:** Otto, you said a W. Out loud.
+> **FRAU KESSLER:** Rule four: do not say names out loud. Here, the notice.
+> **OTTO:** And my lantern? Is it too loud as well? *(if flag lantern-lit)*
+> **OTTO:** My lantern is out. Is that order now? *(if flag lantern-dark)*
+> **FRAU KESSLER:** Your ticket is with Voss. Very good. *(if flag platform-reported)*
+> **FRAU KESSLER:** And Otto has your ticket. I am writing that down. *(if flag platform-protected)*
+> **OTTO:** Order is order. But this is not order.
+
+*The player can examine:* **lindenhafen-noticeboard** — A new notice: Rule four. Do not say names out loud. Brass Office.
+
+*Optional questions:* “Who is Frau Kessler?” · “Why do you say names out loud?”
+
+> **FRAU KESSLER:** Now you say no names either. Yes?
+
+**GATE — PLAYER:** *„Warum darf ich das nicht?“* (Ask Frau Kessler why you are not allowed to.)
+
+> **FRAU KESSLER:** Names are loud. Loud is not in order.
+> **FRAU KESSLER:** Quiet is good. Quiet is order. Good day.
+> **OTTO:** Here we say names out loud. Always.
+> **OTTO:** Here names fade. Said aloud, they stay.
+> **OTTO:** The notice is on my board.
+> **OTTO:** Will you take it down? Or shall we read it out loud?
+
+**[CHOICE `notice-torn`]** *„Ich nehme den Zettel weg.“* — I will take the notice down.
+> **OTTO:** Good. That is my board again.
+> **FRAU KESSLER:** I see that, Otto. I am writing that down.
+
+**[CHOICE `notice-read`]** *„Wir lesen ihn laut. Für alle.“* — We read it out loud. For everyone.
+> **OTTO:** Rule four! Do not say names out loud!
+> **OTTO:** See? Now everyone knows the rule.
+
+> **OTTO:** A W, a notice, a rule. And now?
+> **OTTO:** You are hungry. Go to Marta at the café.
+
+---
+
+### 4. LINDENHAFEN · MARTA’S CAFÉ — A coffee already paid for `a1-cafe`
+
+*Marta runs a café. Your coffee is already paid for. Who paid?*
 
 > **MARTA:** Hello! I am Marta. Welcome to the café!
-> *(if protected)* You have Otto's key? He never lends it to me! *(if reported)* Voss has your ticket? He has everything.
-> **MARTA:** There is a note here, for a guest: *"One coffee for {name}. Paid. — E."* You are {name}? Then this is for you.
-> **MARTA:** A woman paid for you yesterday. Her name? I cannot remember it. And I ask every guest their name!
-> **MARTA:** So. Your coffee is already paid for. What would you like?
+> **MARTA:** You have Otto’s key? He never lends it to me! *(if flag platform-protected)*
+> **MARTA:** Voss has your ticket? He has everything. *(if flag platform-reported)*
+> **MARTA:** There is a note here. For a guest.
+> **MARTA:** One coffee for {name}. Paid. E.
+> **MARTA:** You are {name}? Then this is for you.
+> **MARTA:** A woman paid for you yesterday.
+> **MARTA:** Her name? I cannot remember it.
+> **MARTA:** And I ask every guest their name!
+
+*The player can examine:* **lindenhafen-cafe-receipt** — One coffee for {name}. Paid. — E.
+
+*Optional questions:* “What was the woman like?” · “How much is a coffee?”
+
+> **MARTA:** So. Your coffee is already paid for.
+> **MARTA:** What would you like?
 
 **GATE — PLAYER:** *„Ich möchte einen Kaffee.“* (Order a coffee from Marta.)
 
-> **MARTA:** One coffee. Coming right up! The woman sat over there, alone. She was very tired. Her hands were black with ink. She did not drink her tea.
-> **MARTA:** Here is your receipt. Wait… a stamp? That is the Brass Office stamp. She paid with an old voucher. They have not made those for years.
-> *(if reported)* Voss already has your ticket. And now this?
+> **MARTA:** One coffee. Coming right up!
+> **MARTA:** The woman sat over there, alone.
+> **MARTA:** She was very tired. Her hands were black with ink.
+> **MARTA:** She did not drink her tea.
+> **MARTA:** Here is your receipt. Wait… a stamp?
+> **MARTA:** That is the Brass Office stamp.
+> **MARTA:** She paid with an old voucher.
+> **MARTA:** They have not made those for years.
+> **MARTA:** Voss already has your ticket. And now this? *(if flag platform-reported)*
 > **MARTA:** Does Voss get the receipt, or do you take it?
 
-**[CHOICE — Who keeps the receipt?]**
-- **REPORT** — "Voss should see the receipt." → *"I will write you a second receipt. Voss loves reading. Receipts, forms, everything."* (+Brass Office, receipt copy, flag `receipt-filed`)
-- **PROTECT** — "I will take the receipt with me." → *"Voss does not need to know everything. I do. I always want to know everything!"* (+Lamplighters, **original receipt**, flag `receipt-kept`)
+**[CHOICE `report`]** *„Voss soll die Rechnung sehen.“* — Voss should see the receipt.
+> **MARTA:** All right. I will write you a second receipt.
+> **MARTA:** Voss loves reading. Receipts, forms, everything.
 
-> **MARTA:** You are staying, aren't you? You need a room.
+**[CHOICE `protect`]** *„Ich nehme die Rechnung mit.“* — I will take the receipt with me.
+> **MARTA:** Good. Voss does not need to know everything.
+> **MARTA:** I do. I always want to know everything!
 
-**ELISE (V.O.):** *Drink your coffee. It is for you.*
-
-> REVIEW: R2. No kettle, no tomorrow-dated receipt: a woman paid, a woman was tired, a stamp is odd. The coffee is a plant — it is paid off in scene 30.
+> **MARTA:** You are staying, right? You need a room.
 
 ---
 
-### 4. INT. MARTA'S GUEST ROOMS, UPSTAIRS — DAY
+### 5. LINDENHAFEN · MARTA’S GUEST ROOMS — Two rooms upstairs `a1-room`
 
-*Five doors. The third is slightly open. A table stained with black.*
+*Marta has rooms above the café. You need a bed. A woman was in one of the rooms.*
 
-> **MARTA:** Another coffee? You look tired. Where are you from? Where are you going? How long? Sorry. I ask a lot.
-> *(if receipt filed)* The receipt is with Voss? Then I will not see it. *(if kept)* You still have the receipt? Good. *(if lantern lit)* Otto has the lantern lit? I can see it from here.
-> **MARTA:** There are five rooms upstairs. Four are free. You have a bag, but no bed for today. My house is small, but there is room upstairs. And you?
+> **MARTA:** Another coffee? You look tired.
+> **MARTA:** Where are you from? Where are you going? How long?
+> **MARTA:** Sorry. I ask a lot. I like to know everything.
+> **MARTA:** The receipt is with Voss? Then I will not see it. *(if flag receipt-filed)*
+> **MARTA:** You still have the receipt? Good. *(if flag receipt-kept)*
+> **MARTA:** Otto has the lantern lit? I can see it from here. *(if flag lantern-lit)*
+> **MARTA:** There are five rooms upstairs. Four are free.
+> **MARTA:** You have a bag, but no bed for today.
+
+*The player can examine:* **lindenhafen-cafe-receipt** — Guest book: Room 3 — E, then a small L. Room 5 — free.
+
+*Optional questions:* “How long was the woman here?” · “Where is the bathroom?”
+
+> **MARTA:** My house is small, but there is room upstairs. And you?
 
 **GATE — PLAYER:** *„Hast du ein Zimmer frei?“* (Ask Marta if she has a room free.)
 
-> **MARTA:** Yes! A room costs forty euros. Room three has a bed and a table. A week ago a woman was there.
-> **MARTA:** In the guest book it only says: E. No name. Her hands were black. So is the table. The tea is still there.
+> **MARTA:** Yes! A room costs forty euros.
+> **MARTA:** Room three has a bed and a table.
+> **MARTA:** A week ago a woman was there.
+> **MARTA:** In the guest book it only says: E. No name.
+> **MARTA:** Her hands were black. So is the table.
+> **MARTA:** The tea is still there. She is not drinking it.
 > **MARTA:** Will you take room three, or the quiet room five?
 
-**[CHOICE — Which room]**
-- **ROOM THREE** — "I will take room three." → *"Here is the key. The tea stays. It is for her."* (flag `room-three`)
-- **ROOM FIVE** — "I will take room five." → *"The room is quiet. Room three stays for her."* (flag `room-five`)
+**[CHOICE `room-three`]** *„Ich nehme Zimmer drei.“* — I will take room three.
+> **MARTA:** All right. Here is the key.
+> **MARTA:** The tea stays. It is for her.
 
-> **MARTA:** Breakfast is at eight. Fritz has bread for us. Go to him.
+**[CHOICE `room-five`]** *„Ich nehme Zimmer fünf.“* — I will take room five.
+> **MARTA:** All right. The room is quiet.
+> **MARTA:** Room three stays for her.
 
-> REVIEW: A3. Same woman, same ink, a week earlier: she was in town before the player and left no name. The player now sleeps either inside her trace or beside it.
+> **MARTA:** Breakfast is at eight o’clock.
+> **MARTA:** Fritz has bread for us. Go to him.
 
 ---
 
-### 5. EXT. LINDENHAFEN MARKET — MORNING
+### 6. LINDENHAFEN · LANTERN MARKET — Bread for Friday `a1-shopping`
 
-*Crates of bread, milk, eggs, fish. A chalkboard: "FRIDAY SOUP".*
+*Fritz is buying bread for the soup. All the guests have a name. One place has none.*
 
-> **FRITZ:** Hello! The water here costs nothing. The bread, though, costs money.
-> *(if room three)* Marta says you have room three. Good! *(if room five)* Marta says you have room five. Quiet, right?
-> **FRITZ:** On Friday I cook soup for everyone. Here are the names: Otto, Marta, Lina, Emil, Greta. Then comes a place. There is no name there.
-> **FRITZ:** A guest always sat here. But who? I have bread, milk, eggs and fish.
+> **FRITZ:** Hello! The water here costs nothing.
+> **FRITZ:** The bread, though, costs money.
+> **FRITZ:** Marta says you have room three. Good! *(if flag room-three)*
+> **FRITZ:** Marta says you have room five. Quiet, right? *(if flag room-five)*
+> **FRITZ:** On Friday I cook soup for everyone.
+> **FRITZ:** Here are the names: Otto, Marta, Lina, Emil, Greta.
+> **FRITZ:** Then comes a place. There is no name there.
+> **FRITZ:** A guest always sat here. But who?
+
+*The player can examine:* **lindenhafen-market-crate** — Names for Friday: Otto, Marta, Lina, Emil, Greta, …
+
+*Optional questions:* “What are you cooking on Friday?” · “Who sat there?”
+
+> **FRITZ:** I have bread, milk, eggs and fish.
 
 **GATE — PLAYER:** *„Was kostet das Brot?“* (Ask Fritz what the bread costs.)
 
-> **FRITZ:** Three euros. For you, two fifty. The milk costs one euro, the fish six.
-> **FRITZ:** I write down every name. Every one! There is no name here. I do not like that.
-> **FRITZ:** I am buying bread for six. Or seven? Will you buy one loaf or two?
+> **FRITZ:** Three euros. For you two fifty.
+> **FRITZ:** The milk costs one euro, the fish six.
+> **FRITZ:** I write down every name. Every one!
+> **FRITZ:** There is no name here. I do not like that.
+> **FRITZ:** I am buying bread for six. Or seven?
+> **FRITZ:** Will you buy one loaf or two?
 
-**[CHOICE — Bread for the empty line?]**
-- **EXTRA BREAD** — "Two, please. One is for the free place." → *"A loaf for the guest. He is hungry."* (flag `bread-for-empty-seat`)
-- **OWN BREAD** — "Just one, please. For me." → *"The place stays free. I will wait."* (flag `bread-own`)
+**[CHOICE `extra-bread`]** *„Zwei, bitte. Eins ist für den freien Platz.“* — Two, please. One is for the free place.
+> **FRITZ:** Good. Two loaves. That makes five euros.
+> **FRITZ:** A loaf for the guest. He is hungry.
 
+**[CHOICE `own-bread`]** *„Nur eins, bitte. Für mich.“* — Just one, please. For me.
+> **FRITZ:** Good. One loaf. That makes two fifty.
+> **FRITZ:** The place stays free. I will wait.
+
+> **FRITZ:** Thanks! I need a lot before Friday.
 > **FRITZ:** I still have to buy more. Come back to me soon.
-
-> REVIEW: A4. The empty line is a hole in a list. Frau Berg is **not named** here, so scene 6 can reveal her.
 
 ---
 
-### 6. EXT. LINDENHAFEN MARKET, FRITZ'S STALL — AFTERNOON
+### 7. LINDENHAFEN · MARKET — The empty place `a1-market`
 
-*Friday. A soup pot. A guest list. An order slip in a crate.*
+*It is Friday. Fritz is cooking soup for everyone. One seat at the table is empty.*
 
-> **FRITZ:** There you are! It is Friday. Soup! On Fridays everyone eats here together.
-> *(if bread for the seat)* Your bread for the empty seat is here. Thank you. *(if own bread)* Only one loaf for you? Fine, I have plenty.
-> *(if receipt filed)* **VOSS:** Good afternoon. I have your receipt. And your name.
-> **FRITZ:** Here are my guests. One seat is empty. A woman sits there every Friday. But who? Here is an order slip of hers: *Apples. Garden Street seven. No name.* And how many? The number has faded.
-> **FRITZ:** Come on, you are cooking with me. Here are apples, for the soup. How many do you need?
+> **FRITZ:** There you are! It is Friday. Soup!
+> **FRITZ:** On Fridays everyone eats here together.
+> **FRITZ:** Your bread for the empty seat is here. Thank you. *(if flag bread-for-empty-seat)*
+> **FRITZ:** Only one loaf, for you? Fine, I have plenty. *(if flag bread-own)*
+> **VOSS:** Good afternoon. I have your receipt. And your name. *(if flag receipt-filed)*
+> **FRITZ:** Here are my guests. One seat is empty.
+> **FRITZ:** A woman sits there every Friday. But who?
+> **FRITZ:** I know every guest. Every one! Except her.
+> **FRITZ:** Here is an order slip of hers.
+> **FRITZ:** Apples. Garden Street seven. No name.
+> **FRITZ:** And how many? The number has faded.
+
+*The player can examine:* **lindenhafen-market-crate** — An order slip: … apples. Garden Street 7. No name.
+
+*Optional questions:* “Who eats soup on Friday?” · “What is in the soup?”
+
+> **FRITZ:** Come on, you are cooking with me. Here are apples.
+> **FRITZ:** For the soup. How many do you need?
 
 **GATE — PLAYER:** *„Ich brauche zwei Äpfel.“* (Tell Fritz how many apples you need.)
 
-*Saying the number aloud brings the memory back.*
-
-> **FRITZ:** Two apples. Two apples… wait! Two apples every Friday. Always two! Now I remember. **Frau Berg!**
-> **FRITZ:** This whole town learned to read with her. Me too. Very slowly. Her seat has been empty for a week. A week! And I did not say a word.
+> **FRITZ:** Two apples. Two apples… wait!
+> **FRITZ:** Two apples every Friday. Always two!
+> **FRITZ:** Now I remember. Frau Berg!
+> **FRITZ:** This whole town learned to read with her.
+> **FRITZ:** Me too. Very slowly.
+> **FRITZ:** Her seat has been empty for a week.
+> **FRITZ:** A week! And I did not say a word.
 > **FRITZ:** Does Voss get her address, or do we write her name down?
 
-**[CHOICE — Address or name]**
-- **REPORT** — "Voss should put her address in his ledger." → *"Then she is in Voss's ledger. But here at the table her seat is still empty."* (+Brass Office, flag `crate-number-filed`)
-- **PROTECT** — "I will write her name down. For Friday." → *"Frau Berg. There. Now she is written down again. Take her address: Garden Street seven."* (+Lamplighters, +Circle, **Berg's address**, flag `berg-remembered`)
+**[CHOICE `report`]** *„Voss soll ihre Adresse in sein Buch schreiben.“* — Voss should put her address in his ledger.
+> **FRITZ:** All right. Then she is in Voss’s ledger.
+> **FRITZ:** But here at the table her seat is still empty.
 
-> **FRITZ:** Marta knows Frau Berg well. Go and see her.
+**[CHOICE `protect`]** *„Ich schreibe ihren Namen auf. Für Freitag.“* — I will write her name down. For Friday.
+> **FRITZ:** Frau Berg. There. Now she is written down again.
+> **FRITZ:** Take her address with you. Garden Street seven.
 
-**ELISE (V.O.):** *Say her name. Then she stays.*
-
-> REVIEW: R3. The spine's emotional anchor is revealed by counting, in a kitchen, by a man who feels guilty. She is a retired teacher — never a mystery object.
+> **FRITZ:** Lina’s brother Pip writes down every name. By the water.
 
 ---
 
-### 7. EXT. FOUNTAIN SQUARE — MORNING
+### 8. LINDENHAFEN · CANAL WALL — The chalk game `a1-chalk`
 
-*A stone fountain. A wooden bench. A bookmark on the seat, no book.*
+*By the water a child writes names on a wall. The child is called Pip. He is Lina’s brother. Two names on the wall are fading.*
 
-> **MARTA:** There you are. Fritz was here today. He says: Frau Berg. She was my teacher!
-> *(if berg-remembered)* You said her name. Thank you.
-> **MARTA:** She sat here at the fountain every morning. For a week I have not known her name. And I live on her street.
-> **MARTA:** You do not know Frau Berg, do you? I will tell you about her. What do you want to know?
+> **LINA:** Hello! Slowly, please. Pip is writing here.
+> **LINA:** This is my brother. He is twelve.
+> **PIP:** I write names. With chalk. On the wall.
+> **PIP:** Otto. Marta. Fritz. Lina. They all stay here.
+> **PIP:** And Frau Berg! Fritz said her name. Out loud! *(if flag berg-remembered)*
+> **LINA:** Otto’s notice is gone? Very good. *(if flag notice-torn)*
+> **LINA:** You read the rule out loud? Good. *(if flag notice-read)*
+> **LINA:** His name is Pip. He likes saying it.
+
+*The player can examine:* **lindenhafen-chalk-wall** — On the wall: Otto, Marta, Lina, Pip. At the bottom: Mother, Father.
+
+*Optional questions:* “Where is your family?” · “How do you play it?”
+
+> **PIP:** I do not know you. And you do not know me.
+
+**GATE — PLAYER:** *„Wie heißt du?“* (Ask the boy his name.)
+
+> **PIP:** My name is Pip! And now I am writing you.
+> **PIP:** Here: {name}. Now you stay.
+> **PIP:** But down here. Two names are fading.
+> **PIP:** Mother. Father. I do not know their names.
+> **LINA:** I have not said them for a long time. Now they are gone.
+> **LINA:** The woman from the Brass Office writes everything down.
+> **LINA:** Are you playing out loud? Or quietly?
+
+**[CHOICE `pip-game-loud`]** *„Laut. Namen sind für alle.“* — Out loud. Names are for everyone.
+> **PIP:** Pip! Lina! {name}! Otto! Marta!
+> **LINA:** Now the town knows. The Brass Office too.
+
+**[CHOICE `pip-game-quiet`]** *„Leise. Nur für uns.“* — Quietly. Just for us.
+> **PIP:** Pip. Lina. {name}. Quietly.
+> **LINA:** Good. Nobody sees the wall here.
+
+> **PIP:** Do you know Frau Berg? Lina knows her.
+> **LINA:** Marta knows her even better. Go to Marta.
+
+---
+
+### 9. LINDENHAFEN · FOUNTAIN SQUARE — The woman on the fountain bench `a1-neighbour`
+
+*Marta is standing at the fountain. A woman sat here every morning. The bench is free.*
+
+> **MARTA:** There you are. Fritz was here today.
+> **MARTA:** He says: Frau Berg. She was my teacher!
+> **MARTA:** You said her name. Thank you. *(if flag berg-remembered)*
+> **MARTA:** She sat here at the fountain every morning.
+> **MARTA:** For a week I have not known her name.
+> **MARTA:** And I live on her street.
+> **MARTA:** A woman from the Brass Office was here today.
+> **MARTA:** She took my guest book. Rule four, she says.
+> **MARTA:** Pip says names out loud. I can hear him from here. *(if flag pip-game-loud)*
+> **MARTA:** You do not know Frau Berg, do you?
+
+*The player can examine:* **lindenhafen-fountain** — The bench is free. No book, nobody.
+
+*Optional questions:* “Where does Frau Berg live?” · “What was Frau Berg like at school?”
+
+> **MARTA:** I will tell you about her. What do you want to know?
 
 **GATE — PLAYER:** *„Wie ist Frau Berg?“* (Ask Marta what Frau Berg is like.)
 
-> **MARTA:** She is old and very dear. But strict! One mistake? Write it all again! Every letter of mine had mistakes. She sees everything!
-> **MARTA:** Half of Lindenhafen learned to read with her. And I have not known her name for a week.
+> **MARTA:** She is old and very dear.
+> **MARTA:** But strict! One mistake? Write it all again!
+> **MARTA:** Every letter of mine has mistakes. She sees everything!
+> **MARTA:** Half of Lindenhafen learned to read with her.
+> **MARTA:** And for a week I have not known her name.
 > **MARTA:** Say her name aloud, or write it on the board?
 
-**[CHOICE — Say it or write it]**
-- **SAY** — "I will say her name aloud. Frau Berg!" → *"Frau Berg. Yes. Now I can hear her. The word stays."* (flag `berg-name-said`)
-- **WRITE** — "I will write her name on the board." → *"Good. I will read it aloud every day. No mistakes. She will like that."* (flag `berg-name-written`)
+**[CHOICE `say-name`]** *„Ich sage ihren Namen laut. Frau Berg!“* — I will say her name aloud. Frau Berg!
+> **MARTA:** Frau Berg. Yes. Now I can hear her.
+> **MARTA:** The word stays. I will say it again.
 
-> **MARTA:** Greta has tea for her. Please go to Greta.
+**[CHOICE `write-name`]** *„Ich schreibe ihren Namen auf die Tafel.“* — I will write her name on the board.
+> **MARTA:** Good. I will read it aloud every day.
+> **MARTA:** Frau Berg. No mistakes. She will like that.
 
-> REVIEW: A5. Frau Berg's character arrives through her pupils, with warmth and a joke. The same choice, speak or write, returns in scenes 9 and 15.
+> **MARTA:** Greta has tea for her.
+> **MARTA:** Please go to Greta. She has the tea.
 
 ---
 
-### 8. INT. GRETA'S PHARMACY AND GARDEN — DAY
+### 10. LINDENHAFEN · GRETA’S PHARMACY — Tea for a cough `a1-pharmacy`
 
-*Herbs drying. A shelf of small bottles. A paper bag with a pale name.*
+*Greta has a pharmacy. A bag of tea has been waiting for a week.*
 
-> **GRETA:** Good day! This is my pharmacy. The tea is from my garden. A bag for Frau Berg is lying here. I cannot see the name well any more.
-> *(if said)* You said her name at the fountain. Good. *(if written)* Marta wrote her name down. Good.
-> **GRETA:** She has not come for a week. You look tired. What is wrong?
+> **GRETA:** Good day! This is my pharmacy.
+> **GRETA:** The tea is from my garden.
+> **GRETA:** A bag for Frau Berg is lying here.
+> **GRETA:** I cannot see the name well any more.
+> **GRETA:** You said her name at the fountain. Good. *(if flag berg-name-said)*
+> **GRETA:** Marta wrote her name down. Good. *(if flag berg-name-written)*
+> **GRETA:** Another bag. For A. K. Who is that?
+> **GRETA:** She has not come for a week.
+
+*The player can examine:* **lindenhafen-garden** — Two bags: Frau Berg and A. K. Both names are fading.
+
+*Optional questions:* “How often do I take the tea?” · “Who is Frau Berg?”
+
+> **GRETA:** You look tired. What is wrong?
 
 **GATE — PLAYER:** *„Ich habe Kopfschmerzen.“* (Tell Greta what is wrong: you have a headache.)
 
-> **GRETA:** A headache? That is not good. Drink lots of water. Not only coffee!
-> **GRETA:** The tea in the bag is for Frau Berg. She is ill. She drinks it every day. A week without tea. I did not ask.
-> **GRETA:** Will you take the bag yourself, or will Lina?
+> **GRETA:** A headache? That is not good.
+> **GRETA:** Drink lots of water. Not only coffee!
+> **GRETA:** Otto says: I am never ill. He comes every week.
+> **GRETA:** The tea in the bag is for Frau Berg.
+> **GRETA:** She is ill. She drinks it every day.
+> **GRETA:** A week without tea. I did not ask.
+> **GRETA:** Will you take the bag yourself, or will Lina take it?
 
-**[CHOICE — Who brings the tea]**
-- **TAKE** — "I will take the bag to her." → *"Here you are. Morning and evening. Say her name aloud. Then it stays."* (flag `berg-bag-taken`)
-- **ASK LINA** — "Lina should bring the bag." → *"Lina is fast. She knows every house. I will write the name again."* (flag `berg-bag-lina`)
+**[CHOICE `take-bag`]** *„Ich bringe den Beutel zu ihr.“* — I will take the bag to her.
+> **GRETA:** Good. Here you are. Morning and evening.
+> **GRETA:** Say her name aloud. Then it stays.
+
+**[CHOICE `ask-lina`]** *„Lina soll den Beutel bringen.“* — Lina should bring the bag.
+> **GRETA:** Good. Lina is fast. She knows every house.
+> **GRETA:** I will write the name again.
 
 > **GRETA:** You will find Lina at the post office. She knows every street.
 
-> REVIEW: A6. Greta is Lindenhafen's pharmacist/gardener in Act I. See Appendix B on how she is the Waldruh gardener in Act II.
-
 ---
 
-### 9. EXT. GARTENSTRASSE — DAY
+### 11. LINDENHAFEN · GARTENSTRASSE — The way to number seven `a1-directions`
 
-*A quiet street opposite the school. Number seven: a small house, a garden, a letterbox, a blank name plate.*
+*Lina delivers letters to Gartenstraße. Number seven has no name.*
 
-> **LINA:** One moment! I still have letters to deliver. Every letter must arrive. Every one!
-> *(if bag taken)* You have tea from Greta? It is for number seven. *(if ask Lina)* Greta gave me tea. For number seven.
-> **LINA:** On my letter there is a house, no name. You are new here. Where do you want to go?
+> **LINA:** One moment! I still have letters to deliver.
+> **LINA:** Every letter must arrive. Every one!
+> **LINA:** You have tea from Greta? It is for number seven. *(if flag berg-bag-taken)*
+> **LINA:** Greta gave me tea. For number seven. *(if flag berg-bag-lina)*
+> **LINA:** On my letter there is a house, no name.
+
+*The player can examine:* **lindenhafen-berg-house** — A door without a name. A note: Back soon.
+
+*Optional questions:* “Where is the letter going?” · “Where is the post office?” · “How do I get to the station?”
+
+> **LINA:** You are new here. Where do you want to go?
 
 **GATE — PLAYER:** *„Wo ist die Gartenstraße?“* (Ask Lina where Gartenstraße is.)
 
-> **LINA:** Gartenstraße? That is easy. Go straight ahead to the fountain. Left there. Number seven is opposite the school.
-> **LINA:** There is no name on the house any more. A paper on the door says: *Back soon.* A week old. A week of back soon? That is not punctual.
+> **LINA:** Gartenstraße? That is easy.
+> **LINA:** Go straight ahead to the fountain.
+> **LINA:** Left there. The fountain is by the school.
+> **LINA:** Here is number seven, opposite the school.
+> **LINA:** There is no name on the house any more.
+> **LINA:** Paper says: Back soon. A week old.
+> **LINA:** A week of back soon? That is not punctual.
 > **LINA:** Will you say her name aloud, or write it down?
 
-**[CHOICE — Knock or note]**
-- **KNOCK** — "I will say aloud: Frau Berg!" → *"Nobody answers. But the street has heard the name."* (flag `berg-door-knocked`)
-- **LEAVE A NOTE** — "I will write her name on paper." → *"Here is paper for you. Frau Berg, we are waiting. That is good."* (flag `berg-note-left`)
+**[CHOICE `knock`]** *„Ich sage laut: Frau Berg!“* — I will say aloud: Frau Berg!
+> **LINA:** Frau Berg! Frau Berg! Nobody answers.
+> **LINA:** But the street has heard the name.
 
-> **LINA:** I must go. Otto is looking for you at the station.
+**[CHOICE `leave-note`]** *„Ich schreibe ihren Namen auf Papier.“* — I will write her name on paper.
+> **LINA:** Good. Here is paper for you.
+> **LINA:** Frau Berg, we are waiting. That is good.
 
-> REVIEW: A7. The first place we see where Frau Berg lived. The empty name plate is the same visual as the fading ticket in scene 1.
+> **LINA:** An old woman is sitting by the fountain. She is reading.
+> **LINA:** I have to go. Go to her.
 
 ---
 
-### 10. EXT. STATION, DEPARTURE BOARD AND BENCH — EVENING
+### 12. LINDENHAFEN · FOUNTAIN SQUARE — A teacher without a name `a1-bench`
 
-*Lamp light on wet stones. At the end of the bench, a man in a coat with an old recorder; the coat covers the seat beside him.*
+*An old woman sits by the fountain. She is reading a book. She does not know her name. Who still knows her?*
+
+> **FRAU BERG:** Good day. Excuse me, is this my bench?
+> **FRAU BERG:** I sit here every morning. I think.
+> **FRAU BERG:** I am reading a book. But I do not understand it.
+> **FRAU BERG:** I am waiting. For whom? I do not know.
+> **FRAU BERG:** You have tea for me? How lovely. But from whom? *(if flag berg-bag-taken)*
+> **FRAU BERG:** A note on my house? We are waiting. Who is waiting? *(if flag berg-note-left)*
+> **FRAU BERG:** A comma is missing here. I see that at once.
+
+*The player can examine:* **lindenhafen-fountain** — A book on the bench: For my pupils. No name.
+
+*Optional questions:* “What are you reading?” · “Where do you live?”
+
+> **FRAU BERG:** And you? Perhaps you know me?
+
+**GATE — PLAYER:** *„Wie heißen Sie?“* (Ask the old woman her name politely.)
+
+> **FRAU BERG:** My name is … my name is …
+> **FRAU BERG:** The word is gone. My name is gone.
+> **PIP:** Wait! I will get Marta and Fritz!
+> **MARTA:** Frau Berg! It is you!
+> **FRITZ:** Frau Berg. Two apples, every Friday.
+> **PIP:** Frau Berg! Frau Berg! I am writing it on the wall!
+> **FRAU BERG:** Berg. Yes. I am Frau Berg.
+> **FRAU BERG:** And you are Marta. Your letters always had mistakes.
+> **MARTA:** Her sign has no name. Her house does not know her.
+> **MARTA:** Will she come with us to the café? Or does she stay here?
+
+**[CHOICE `berg-at-marta`]** *„Sie kommt mit ins Café.“* — She comes with us to the café.
+> **MARTA:** Come, Frau Berg. A tea, a bed, a name.
+> **FRAU BERG:** Thank you, Marta. But please, no mistakes.
+
+**[CHOICE `berg-on-bench`]** *„Sie bleibt an ihrer Bank.“* — She stays at her bench.
+> **FRAU BERG:** Here I read. Here my pupils find me.
+> **FRITZ:** Then I will bring soup every morning. And two apples.
+
+> **FRAU BERG:** And you? What is your name?
+> **FRAU BERG:** {name}. A good name. Say it often.
+> **MARTA:** Otto is at the station. Go to him quickly.
+
+**CINEMATIC — REMEMBERED**
+> BERG: Berg. Ja. Ich bin Frau Berg.
+> PIP: Frau Berg! Ich schreibe es an die Wand.
+
+---
+
+### 13. LINDENHAFEN · RAILWAY STATION — A voice on the bench `a1-station`
+
+*It is evening. Voss is sitting on the bench at the station. He is sitting alone.*
 
 > **OTTO:** Good evening. No more trains today.
-> *(if lantern lit)* The lantern is lit. Can you see it? *(if dark)* The lantern is dark. That is not right.
-> *(if knocked)* Lina says you went to Frau Berg's house. *(if note)* Lina says you left Frau Berg a note.
-> **OTTO:** The W is still on the board. See the bench? That is Voss. He comes every evening. He never travels. He has a little machine. He listens to it. His coat takes the right-hand seat.
+> **OTTO:** The lantern is lit. Can you see it? *(if flag lantern-lit)*
+> **OTTO:** The lantern is dark. That is not right. *(if flag lantern-dark)*
+> **OTTO:** Lina says you went to Frau Berg’s house. *(if flag berg-door-knocked)*
+> **OTTO:** Lina says you left Frau Berg a note. *(if flag berg-note-left)*
+> **OTTO:** Frau Berg is back? That is good. Very good. *(if flag scene a1-bench)*
+> **OTTO:** The W is still on the board.
+> **OTTO:** See the bench? That is Voss.
+> **OTTO:** He comes every evening. He never travels.
+> **OTTO:** He has a little machine. He listens to it.
+> **OTTO:** He always sits on the left. His coat takes the right.
+
+*The player can examine:* **lindenhafen-bench** — The bench at the station. Voss sits here every evening. · **lindenhafen-noticeboard** — Platform 7: To W… 6 pm. No train.
+
+*Optional questions:* “Who is the man?” · “What is Voss listening to?”
+
 > **OTTO:** There is only one bench. Come on.
+> **VOSS:** Good evening.
 
 **GATE — PLAYER:** *„Ist dieser Platz frei?“* (Ask the man on the bench if the seat is free.)
 
-> **VOSS:** Yes. Please. The coat has no ticket. One moment, please. She is speaking now.
-> **THE RECORDER (a woman's voice):** *„Ist da jemand? Ich bin noch hier.“* — Is anyone there? I am still here.
-> **VOSS:** I hear her every evening. She cannot hear me. Who is she? She is not in my ledger.
-> *(if reported in scene 1)* Your ticket is in my office. Your name has gone from it. *(if Berg's address filed)* Frau Berg is in my ledger now. Rules are rules.
-> **OTTO:** That is my old office. Shut for twelve years. Does Voss write down the W, or do we open the office?
+> **VOSS:** Yes. Please. The coat has no ticket.
+> **VOSS:** One moment, please. She is speaking now.
+> **OTTO:** A woman. She speaks very quietly.
+> **VOSS:** Is anyone there? I am still here.
+> **VOSS:** I hear her every evening. She cannot hear me.
+> **VOSS:** Who is she? She is not in my ledger.
+> **VOSS:** Your ticket is in my office. Your name has gone from it. *(if flag platform-reported)*
+> **VOSS:** Frau Berg is in my ledger now. Rules are rules. *(if flag crate-number-filed)*
+> **OTTO:** That is my old office. Shut for twelve years.
+> **OTTO:** Does Voss write down the W, or do we open the office?
 
-**[CHOICE — The W or the old office]**
-- **REPORT** — "Mr Voss, write down the W." → *"Platform seven, to W. I am writing it down."* Otto: *"The W is in the ledger now. My office stays shut."* (+Brass Office)
-- **PROTECT** (needs Otto's key) — "I will open the office with Otto's key."
-- **SHOW LEDGER** (needs Voss's ledger) — "Mr Voss, here is your ledger. Will you come with me?" → *"I will come with you. Rules are rules."* (flag `archive-witnessed`)
-- **ASK OTTO** (no key, didn't report) — "Otto, do you have another key?" → *"Of course. I always have two."*
+**[CHOICE `report`]** *„Herr Voss, schreiben Sie das W auf.“* — Mr Voss, write down the W.
+> **VOSS:** Platform seven, to W. I am writing it down.
+> **OTTO:** The W is in the ledger now. My office stays shut.
 
-*On any opening branch:*
-> **OTTO:** The office is open. Everything is still there. My old register. And here, tickets: a hundred tickets for platform seven. Every one says E. And I never sold them. Never.
+**[CHOICE `protect`]** *„Ich öffne das Büro mit Ottos Schlüssel.“* — I will open the office with Otto’s key. *(if holding lamplighter-key)*
+> **OTTO:** Another key? Of course. I always have two. *(if not archive-witnessed, without lamplighter-key)*
+> **VOSS:** I will come with you. Rules are rules. *(if flag archive-witnessed)*
+> **OTTO:** The office is open. Everything is still there.
+> **OTTO:** My old register. And here: tickets.
+> **OTTO:** A hundred tickets for platform seven. Every one says E.
+> **OTTO:** And I never sold them. Never.
 
-**CINEMATIC — RECORDING**
-> VOICE: Is anyone there? I am still here.
-> VOSS: I hear her every evening. She cannot hear me.
+**[CHOICE `show-ledger`]** *„Herr Voss, hier ist Ihr Buch. Kommen Sie mit?“* — Mr Voss, here is your ledger. Will you come with me? *(if holding inspector-ledger)*
+> **OTTO:** Another key? Of course. I always have two. *(if not archive-witnessed, without lamplighter-key)*
+> **VOSS:** I will come with you. Rules are rules. *(if flag archive-witnessed)*
+> **OTTO:** The office is open. Everything is still there.
+> **OTTO:** My old register. And here: tickets.
+> **OTTO:** A hundred tickets for platform seven. Every one says E.
+> **OTTO:** And I never sold them. Never.
+
+**[CHOICE `ask-otto`]** *„Otto, hast du noch einen Schlüssel?“* — Otto, do you have another key? *(if not platform-reported, without lamplighter-key)*
+> **OTTO:** Another key? Of course. I always have two. *(if not archive-witnessed, without lamplighter-key)*
+> **VOSS:** I will come with you. Rules are rules. *(if flag archive-witnessed)*
+> **OTTO:** The office is open. Everything is still there.
+> **OTTO:** My old register. And here: tickets.
+> **OTTO:** A hundred tickets for platform seven. Every one says E.
+> **OTTO:** And I never sold them. Never.
 
 > **OTTO:** It is late. I will be here again in the morning.
 
-**ELISE (V.O.):** *I am waiting. I am not far.*
-
-> REVIEW: R4. No Waldruh yet. The player's polite question is the first thing Voss answers like a person. The hundred unsold tickets answer "who prepared this?" without naming anyone.
+**CINEMATIC — RECORDING**
+> STIMME: Ist da jemand? Ich bin noch hier.
+> INSPECTOR: Ich höre sie jeden Abend. Sie hört mich nicht.
 
 ---
 
-### 11. EXT. STATION, PLATFORM SEVEN IN THE RAIN — MORNING
+### 14. LINDENHAFEN · STATION — Rain on platform seven `a1-weather`
 
-*Rain on the platform. A bare hook where the lantern hung. An umbrella on the bench.*
+*It is raining at the station. The old lantern from platform seven is gone.*
 
-> **OTTO:** Good morning. It is raining. The rain is punctual. I do not like that. Too punctual.
-> **OTTO:** The lantern of platform seven is gone. Emil has it. He is repairing it.
-> *(if lit)* Last night it was still bright. *(if dark)* Last night it was not bright. Today it is gone.
+> **OTTO:** Good morning. It is raining. The rain is punctual.
+> **OTTO:** I do not like that. Too punctual.
+> **OTTO:** The lantern of platform seven is gone.
+> **OTTO:** Emil has it. He is repairing it.
+> **OTTO:** Frau Kessler comes every morning now. With a notice. *(if flag platform-protected)*
+> **FRAU KESSLER:** The lantern is gone? Very good. Quiet is good. *(if flag platform-protected)*
+> **OTTO:** Last night it was still bright. *(if flag lantern-lit)*
+> **OTTO:** Last night it was not bright. Today it is gone. *(if flag lantern-dark)*
+
+*The player can examine:* **lindenhafen-platform-ticket** — Platform seven. The old lantern is missing.
+
+*Optional questions:* “What was the weather like yesterday?” · “When does the sun come?” · “Where is the lantern?”
+
 > **OTTO:** It is raining today. You want to leave tomorrow.
 
 **GATE — PLAYER:** *„Wie ist das Wetter morgen?“* (Ask Otto what the weather is like tomorrow.)
 
-> **OTTO:** Tomorrow the sun comes. The wind goes away. Today it is bad: rain and wind.
-> **OTTO:** Voss was on the bench until late yesterday. He comes every evening. For twelve years. No train runs on platform seven any more.
-> **OTTO:** I said: Take an umbrella. He said: Rain is not in the plan. His umbrella is still on the bench.
+> **OTTO:** Tomorrow the sun comes. The wind goes away.
+> **OTTO:** Today it is bad: rain and wind.
+> **OTTO:** Voss was on the bench until late yesterday.
+> **OTTO:** He comes every evening. For twelve years.
+> **OTTO:** No train runs on platform seven any more.
+> **OTTO:** I said: Take an umbrella.
+> **OTTO:** He said: Rain is not in the plan.
+> **OTTO:** His umbrella is still on the bench.
 > **OTTO:** Will you bring Voss the umbrella, or will it stay there?
 
-**[CHOICE — The umbrella]**
-- **RETURN** — "I will bring him the umbrella." → *"He will not say thank you. But I will see it."* (flag `voss-umbrella-returned`)
-- **LEAVE** — "The umbrella stays on the bench." → *"This evening he will see it. He always comes."* (flag `voss-umbrella-left`)
+**[CHOICE `return-umbrella`]** *„Ich bringe ihm den Schirm.“* — I will bring him the umbrella.
+> **OTTO:** Good. He is sitting on the bench again.
+> **OTTO:** He will not say thank you. But I will see it.
+
+**[CHOICE `leave-umbrella`]** *„Der Schirm bleibt auf der Bank.“* — The umbrella stays on the bench.
+> **OTTO:** Good. The umbrella stays on the bench.
+> **OTTO:** He will see it this evening. He always comes.
 
 > **OTTO:** Go to Emil now. He has the lantern.
 
-> REVIEW: A8. Twelve years is stated in scenes 1, 10 and 11 from three angles: the platform closed, the office shut, the man who still comes. The first piece of kindness toward Voss is optional.
-
 ---
 
-### 12. INT. EMIL'S WORKSHOP — DAY
+### 15. LINDENHAFEN · EMIL’S WORKSHOP — The lamp from platform seven `a1-workshop`
 
-*Glass, tools, half a bicycle. A lamp on the bench that looks like a very old lantern with very new glass.*
+*Emil repairs everything. He has made a lamp out of the old lantern. It does not work properly.*
 
-> **EMIL:** Hello! Careful, there is glass here. And there. And there! I am Emil. I repair everything. Mostly.
-> *(if station register)* Otto's old register? A hundred tickets signed E? That is a lot! *(if sign filed)* Voss was here today. He even writes down my coffee.
-> **EMIL:** Otto sent you? The lantern is here. I made a lamp out of it. New glass, new light. But it does not work properly.
-> **EMIL:** Here at the bench it is bright. Over there it goes out. Is it broken? I do not know.
-> **EMIL:** Come! Look! Next to you it is bright. Everybody needs me. And you? What do you need?
+> **EMIL:** Hello! Careful, there is glass here. And there. And there!
+> **EMIL:** I am Emil. I repair everything. Mostly.
+> **EMIL:** Otto’s old register? A hundred tickets signed E? That is a lot! *(if holding station-register)*
+> **EMIL:** Voss was here today. He even writes down my coffee. *(if flag station-sign-filed)*
+> **EMIL:** Otto sent you? The lantern is here.
+> **EMIL:** I made a lamp. Out of the old lantern.
+> **EMIL:** New glass, new light. But it does not work properly.
+> **EMIL:** Here at the bench it is bright. Over there it goes out.
+> **EMIL:** Is it broken? I do not know.
+
+*The player can examine:* **lindenhafen-workbench** — Glass, paper, coffee. And a lamp made from the old lantern.
+
+*Optional questions:* “Where does the lantern come from?” · “How does the lamp work?”
+
+> **EMIL:** Come here. Look! Next to you it is bright.
+> **EMIL:** Everybody needs me. And you? What do you need?
 
 **GATE — PLAYER:** *„Ich brauche eine Lampe.“* (Tell Emil you need a lamp.)
 
-> **EMIL:** A lamp? Good. It works for you. *(if original receipt)* Your receipt from Marta! It is bright there too.
-> **EMIL:** Yesterday I was on Garden Street. It went out there. Look, to the left, towards the post office: on, off, on, off. A name is fading over there. Or an address.
-> **EMIL:** My clock mostly works. The lamp? Not like that. Does Voss write the lamp down, or do you take it with you?
+> **EMIL:** A lamp? Good. It works for you.
+> **EMIL:** Next to your ticket it is very bright. *(if not platform-reported)*
+> **EMIL:** It is bright next to you. Next to your name, I think. *(if flag platform-reported)*
+> **EMIL:** Your receipt from Marta! It is bright there too. *(if holding original-receipt)*
+> **EMIL:** Yesterday I was on Garden Street. It went out there.
+> **EMIL:** Look, to the left, towards the post office: on, off, on, off.
+> **EMIL:** A name is fading over there. Or an address.
+> **EMIL:** My clock mostly works. The lamp? Not like that.
+> **EMIL:** Does Voss write the lamp down, or do you take it with you?
 
-**[CHOICE — The lamp]**
-- **REPORT** — "Voss should put the lamp in his ledger." → *"Lamp number one. With a stamp, of course."* (+Brass Office, **registered lamp**, flag `lamp-registered`)
-- **PROTECT** — "I will take the lamp with me." → *"It works for you. And bring it back — Otto wants his lantern!"* (+Lamplighters, **signal lamp**, flag `lamp-carried`)
+**[CHOICE `report`]** *„Voss soll die Lampe in sein Buch schreiben.“* — Voss should put the lamp in his ledger.
+> **EMIL:** All right. Voss gives it a number. Lamp number one.
+> **EMIL:** Then you get it. With a stamp, of course.
 
-> **EMIL:** Wait! Lina's bike is here too.
+**[CHOICE `protect`]** *„Ich nehme die Lampe mit.“* — I will take the lamp with me.
+> **EMIL:** Good. Take it. It works for you.
+> **EMIL:** And bring it back. Otto wants his lantern back!
 
-**ELISE (V.O.):** *Go with the light.*
-
-> REVIEW: R5. The comic object is still comic ("works mostly") but its function is simple: it dims where a name is fading. No flying, no personality; one ordinary lantern, repaired.
+> **EMIL:** Wait! Lina’s bike is here too.
 
 ---
 
-### 13. INT. EMIL'S WORKSHOP — LATER
+### 16. LINDENHAFEN · EMIL’S WORKSHOP — A bike that mostly works `a1-bike`
 
-*Lina's bike on a stand. An order book open on the bench.*
+*Emil is repairing Lina’s bike. You are collecting it for Lina.*
 
-> **EMIL:** Hello! I find everything. Just not right away. The bike is Lina's. It was broken.
-> *(if lamp carried)* You have my light? Good. *(if registered)* Voss wrote my light in his book.
-> **EMIL:** I am almost done. Soon! You are collecting Lina's bike? It is not ready yet.
+> **EMIL:** Hello! I find everything. Just not right away.
+> **EMIL:** The bike is Lina’s. It was broken.
+> **EMIL:** You have my light? Good. *(if flag lamp-carried)*
+> **EMIL:** Voss wrote my light in his book. *(if flag lamp-registered)*
+> **EMIL:** I am almost done. Soon!
 
-**GATE — PLAYER:** *„Wann ist das Fahrrad fertig?“* (Ask Emil when Lina's bike will be ready.)
+*The player can examine:* **lindenhafen-workbench** — Emil’s book: glass for a lantern. Signed: E.
 
-> **EMIL:** This afternoon. The bike mostly works. The repair costs twenty euros.
-> **EMIL:** Here is my book. Everything is written here. A week ago a woman bought glass for an old lantern. She paid cash.
-> **EMIL:** Signature: E. Her hands were black. I know her. But her name is gone.
+*Optional questions:* “Where is Lina’s bike?” · “How much does it cost?” · “Who was the woman?”
+
+> **EMIL:** You are collecting Lina’s bike? It is not ready yet.
+
+**GATE — PLAYER:** *„Wann ist das Fahrrad fertig?“* (Ask Emil when Lina’s bike will be ready.)
+
+> **EMIL:** This afternoon. The bike mostly works.
+> **EMIL:** The repair costs twenty euros.
+> **EMIL:** Here is my book. Everything is written here.
+> **EMIL:** A week ago a woman bought glass.
+> **EMIL:** It was for an old lantern. She paid cash.
+> **EMIL:** Signature: E. Her hands were black.
+> **EMIL:** I know her. But her name is gone.
 > **EMIL:** Will you pay for the bike now, or shall I write it down?
 
-**[CHOICE — Pay]**
-- **PAY NOW** — "I will pay now." → *"Thanks! Twenty euros. Lina gets a finished bike today."* (flag `bike-paid`)
-- **PAY LATER** — "Please write it in the book." → *"No problem. Lina pays on Friday."* (flag `bike-on-account`)
+**[CHOICE `pay-now`]** *„Ich bezahle jetzt.“* — I will pay now.
+> **EMIL:** Thanks! Twenty euros. That is quick.
+> **EMIL:** Lina gets a finished bike today.
+
+**[CHOICE `pay-later`]** *„Bitte schreib es ins Buch.“* — Please write it in the book.
+> **EMIL:** No problem. I will write it in the book.
+> **EMIL:** Lina pays on Friday. Then it is there.
 
 > **EMIL:** Marta has a phone call for you. Go to the café.
 
-> REVIEW: A9. The glass for the old lantern is bought a week ago by E. — the same woman, the same ink. It quietly says she prepared platform seven's lantern before the player's train.
-
 ---
 
-### 14. INT. MARTA'S CAFÉ, THE TELEPHONE — DAY
+### 17. LINDENHAFEN · MARTA’S CAFÉ — A call to the station `a1-phone`
 
-*A heavy black telephone on the counter. Marta pretends not to listen.*
+*Otto has called the café. You speak to the station.*
 
-> **MARTA:** The telephone! Otto has called. You have to call him back. The station number: three, four, seven. I am not listening. Only a little. Here, take the telephone.
+> **MARTA:** The telephone! Otto has called.
+> **MARTA:** You have to call him. It is important.
+> **MARTA:** The station number: three, four, seven.
+> **MARTA:** I am not listening. Only a little.
+> **MARTA:** Here, take the telephone. It is for you.
+
+*The player can examine:* **lindenhafen-cafe-receipt** — The telephone. Beside it lie receipts and letters.
+
+*Optional questions:* “Where is Otto now?” · “What is in your register?”
+
 > **MARTA:** It takes a moment. Then a man answers.
-> **VOSS (on the phone):** Lindenhafen station, Voss. Whom would you like to speak to?
+> **VOSS:** Lindenhafen station, Voss. Whom would you like to speak to?
 
 **GATE — PLAYER:** *„Kann ich bitte Otto sprechen?“* (Ask on the phone to speak to Otto.)
 
 > **VOSS:** Mr Otto is at platform seven. He is coming soon.
-> *(if receipt filed)* I have the receipt from the café. Thank you. *(if kept)* You took the receipt with you. Fine.
+> **VOSS:** I have the receipt from the café. Thank you. *(if flag receipt-filed)*
+> **VOSS:** You took the receipt with you. Fine. *(if flag receipt-kept)*
 > **VOSS:** I spell: V, O, S, S. Understood?
 > **MARTA:** Everyone here knows that, Mr Voss!
-> **VOSS:** I have the register in front of me. Gartenstraße seven. There is no name there. That is not normal. Your name is not in the register either.
+> **VOSS:** I have the register in front of me. Gartenstraße seven.
+> **VOSS:** There is no name there. That is not normal.
+> **VOSS:** One moment. A name was written here. Now it is gone.
+> **VOSS:** That is not my hand. Who did that?
+> **VOSS:** Your name is not in the register either.
 > **VOSS:** Do you want to spell your name now?
 
-**[CHOICE — The register]**
-- **SPELL** — "Yes, Mr Voss. I will spell my name." → *"Thank you. Slowly, please. I am writing it down."* Marta: *"Now your name is in the register."* (flag `name-in-register`)
-- **REFUSE** — "No, thank you, Mr Voss. The name stays with me." → *"As you wish. The register will wait."* (flag `name-withheld`)
+**[CHOICE `spell`]** *„Ja, Herr Voss. Ich buchstabiere meinen Namen.“* — Yes, Mr Voss. I will spell my name.
+> **VOSS:** Thank you. Slowly, please. I am writing it down.
+> **MARTA:** Now your name is in the register.
 
-> **MARTA:** The telephone is quiet again. Go to Fritz. He has a question for you.
+**[CHOICE `refuse`]** *„Nein, danke, Herr Voss. Der Name bleibt bei mir.“* — No, thank you, Mr Voss. The name stays with me.
+> **VOSS:** As you wish. The register will wait.
+> **MARTA:** Your name stays with you. That is good.
 
-> REVIEW: A10. Voss is a voice on a line, courteous and procedural. The question is whether a person's name belongs in an office register or in their own mouth — the Act's theme at its smallest.
+> **MARTA:** The telephone is quiet again.
+> **MARTA:** Go to the Brass Office. It is by the station.
 
 ---
 
-### 15. EXT. FRITZ'S STALL — EVENING
+### 18. LINDENHAFEN · BRASS OFFICE DEPOT — The Office window `a1-office-window`
 
-*Twelve glasses on a long table. A chair at the end with nothing in front of it.*
+*A name is gone from the register. Who makes names disappear? The answer is in the Brass Office.*
 
-> **FRITZ:** There you are! I am cooking on Friday. Every Friday at seven there is soup. Everyone comes: Otto, Marta, Lina and Greta. Unfortunately Emil is often late. His machines!
-> **FRITZ:** I have twelve glasses. Eleven guests. One glass is too many. Always.
-> **FRITZ:** You are new here. That is good. Will you come on Friday at seven?
+> **FRAU KESSLER:** The office is closed. Please leave.
+> **VOSS:** One moment, Frau Kessler. The guest has my ledger. *(if flag platform-reported)*
+> **VOSS:** My ledger may be read. That is order. *(if flag platform-reported)*
+> **OTTO:** There is another entrance at the back. I have the key. *(if flag platform-protected)*
+> **FRAU KESSLER:** Mr Otto! You may not do that! *(if flag platform-protected)*
+> **FRAU KESSLER:** Here is the register. Everything is in order.
+> **FRAU KESSLER:** A name too loud? I make it quiet.
 
-**GATE — PLAYER:** *„Ja, ich komme gern.“* (Accept Fritz's invitation.)
+*The player can examine:* **lindenhafen-office-window** — 7 Gartenstraße: no name. Beside it: Rule four. Written as on the notice.
 
-> **FRITZ:** Wonderful! Please bring bread. *(if bought two)* You already bought bread. Very good! *(if said her name)* You have already said her name. Good.
-> **FRITZ:** With us, everyone says all the names aloud before we eat. That way the names stay at my table.
-> **FRITZ:** That seat over there is Frau Berg's. She never missed it. Until now.
+*Optional questions:* “Why should names be quiet?” · “How long have you worked here?”
+
+> **FRAU KESSLER:** What do you want? I have a lot of work.
+
+**GATE — PLAYER:** *„Das haben Sie geschrieben.“* (Tell Frau Kessler that she wrote it.)
+
+> **FRAU KESSLER:** Yes. I write everything. And I make names quiet.
+> **FRAU KESSLER:** That is what rule four says.
+> **FRAU KESSLER:** A child writes names on a wall. Loudly. *(if flag pip-game-loud)*
+> **VOSS:** Frau Kessler, that is not in my plan. *(if flag platform-reported)*
+> **FRAU KESSLER:** There is also a guest book here. Marta’s.
+> **FRAU KESSLER:** And here is my list. Rule one to ten.
+> **FRAU KESSLER:** You only get one. The guest book or the list?
+
+**[CHOICE `guestbook-returned`]** *„Ich nehme Martas Gästebuch.“* — I will take Marta’s guest book.
+> **FRAU KESSLER:** Here. But your name is now in my book.
+> **OTTO:** Marta will be happy. Every guest is back in it.
+
+**[CHOICE `notice-list-taken`]** *„Ich nehme die Liste.“* — I will take the list.
+> **FRAU KESSLER:** The list is not for you! I am writing that down.
+> **OTTO:** Good. Now everyone sees what quiet means.
+
+> **FRAU KESSLER:** Mr Voss knows about this. All of it. Good day.
+> **OTTO:** Fritz has a question for you. Go to him.
+
+---
+
+### 19. LINDENHAFEN · FRITZ’S STALL — A seat at Friday’s table `a1-invitation`
+
+*Fritz cooks every Friday. Today he asks you: are you coming too?*
+
+> **FRITZ:** There you are! I am cooking on Friday.
+> **FRITZ:** Every Friday at seven there is soup.
+> **FRITZ:** Everyone comes: Otto, Marta, Lina and Greta.
+> **FRITZ:** Unfortunately Emil is often late. His machines!
+> **FRITZ:** I have twelve glasses. Eleven guests.
+> **FRITZ:** One glass is too many. Always.
+
+*The player can examine:* **lindenhafen-market-crate** — The table for Friday. One seat is free.
+
+*Optional questions:* “Who is coming on Friday?” · “What should I bring?”
+
+> **FRITZ:** You are new here. That is good.
+> **FRITZ:** Will you come on Friday at seven?
+
+**GATE — PLAYER:** *„Ja, ich komme gern.“* (Accept Fritz’s invitation.)
+
+> **FRITZ:** Wonderful! Please bring bread.
+> **FRITZ:** You already bought bread. Very good! *(if flag bread-for-empty-seat)*
+> **FRITZ:** You have already said her name. Good. *(if flag berg-name-said)*
+> **FRITZ:** With us, everyone says all the names aloud.
+> **FRITZ:** That way the names stay at my table.
+> **FRITZ:** Marta’s guest book is back. Every guest is in the book. *(if flag guestbook-returned)*
+> **FRITZ:** There is a seat over there. It is free.
+> **FRITZ:** That is Frau Berg’s seat.
+> **FRITZ:** She never missed it. Until now. *(if not quest:a1-bench)*
+> **FRITZ:** She is staying at her bench. I will take her soup. *(if flag berg-on-bench)*
+> **FRITZ:** Today she is coming with Marta. At eight o’clock. *(if flag berg-at-marta)*
 > **FRITZ:** Does the seat stay free, or will you sit there?
 
-**[CHOICE — Frau Berg's chair]**
-- **KEEP** — "The seat stays free. I will write her name." → *"A card with her name. That way her seat waits for her."* (flag `berg-chair-kept`)
-- **SHARE** — "I will sit there and say her name." → *"Frau Berg. Now her name is here again. You eat for two. I like that!"* (flag `berg-chair-shared`)
+**[CHOICE `keep-chair`]** *„Der Platz bleibt frei. Ich schreibe ihren Namen.“* — The seat stays free. I will write her name.
+> **FRITZ:** Good. A card with her name.
+> **FRITZ:** That way her seat waits for her.
 
-> **FRITZ:** See you Friday! Your bag is at the post office. Lina has it.
+**[CHOICE `share-chair`]** *„Ich sitze dort und sage ihren Namen.“* — I will sit there and say her name.
+> **FRITZ:** Frau Berg. Now her name is here again.
+> **FRITZ:** You eat for two. I like that!
 
-> REVIEW: A11. The remedy for the rule of Act I is a dinner table: say everyone's name before you eat. Nobody explains it as magic.
+> **FRITZ:** See you Friday! Your bag is there too.
+> **FRITZ:** Lina has it. Go to her at the post office.
 
 ---
 
-### 16. INT. POST OFFICE, LOST PROPERTY — DAY
+### 20. LINDENHAFEN · LINA’S POST COUNTER — The lost-and-found table `a1-lost-found`
 
-*A long table of bags and coats, each with a numbered tag in Lina's handwriting.*
+*Lina has eleven bags from the train. One bag is yours.*
 
-> **LINA:** There you are! I write everything down. Number one: bag. Number two: glove.
-> *(if bike paid)* My bike is running again. Thanks! *(if on account)* My bike is running again. Emil is writing it down.
-> **LINA:** A bag came off the train. Eleven bags are lying on the table. Five are green. Two are old. One is big.
-> **LINA:** With me everyone only gets their own bag. What colour is your bag?
+> **LINA:** There you are! I write everything down.
+> **LINA:** Number one: bag. Number two: glove.
+> **LINA:** My bike is running again. Thanks! *(if flag bike-paid)*
+> **LINA:** My bike is running again. Emil is writing it down. *(if flag bike-on-account)*
+> **LINA:** A bag came off the train. It is lying here.
+> **LINA:** Eleven bags are lying on the table.
+> **LINA:** Five are green. Two are old. One is big.
+
+*The player can examine:* **lindenhafen-parcel** — The table: eleven bags, a black glove and an old ticket.
+
+*Optional questions:* “Where was my bag?” · “What does the glove look like?”
+
+> **LINA:** With me everyone only gets their own bag.
+> **LINA:** What colour is your bag?
 
 **GATE — PLAYER:** *„Meine Tasche ist blau.“* (Tell Lina your bag is blue.)
 
-> **LINA:** Blue and small? Here it is! Bag found, one of two. I am writing it down.
-> **LINA:** And this here: a black glove. It was lying on the bench at platform seven. The glove is old, but the ink is new. There is a tag on the glove. The name is gone.
+> **LINA:** Blue and small? Here it is!
+> **LINA:** Bag found. One of two. I am writing it down.
+> **LINA:** And this here: a black glove.
+> **LINA:** It was lying on the bench at platform seven.
+> **LINA:** The glove is old, but the ink is new.
+> **LINA:** There is a tag on the glove. The name is gone.
+> **LINA:** And here: an old ticket. Platform seven.
+> **LINA:** The name is still there: Lenz.
+> **LINA:** Lenz. That is our name. Pip and I.
 > **LINA:** Will you take the glove, or does it stay here?
 
-**[CHOICE — The glove]**
-- **TAKE** — "I will take the glove with me." → *"Good. I will write: glove, taken. Whose it is? I do not know."* (flag `glove-taken`)
-- **LEAVE** — "It stays here. It does not belong to me." → *"I will put it on top of the table. Then everyone sees it at once."* (flag `glove-left`)
+**[CHOICE `take-glove`]** *„Ich nehme den Handschuh mit.“* — I will take the glove with me.
+> **LINA:** Good. I will write: glove, taken.
+> **LINA:** Whose it is? I do not know.
 
+**[CHOICE `leave-glove`]** *„Er bleibt hier. Er gehört nicht mir.“* — It stays here. It does not belong to me.
+> **LINA:** Good. I will put it on top of the table.
+> **LINA:** Then everyone sees it at once.
+
+> **LINA:** Your blue bag is with you again.
 > **LINA:** Wait a moment. I am still looking for your post.
-
-> REVIEW: A12. Evidence without exposition: a glove with fresh ink on the bench where Voss listens. By now the player has met all of E.'s traces: coffee, room, glass, glove.
 
 ---
 
-### 17. INT. POST OFFICE, PARCEL COUNTER — DAY
+### 21. LINDENHAFEN · POST OFFICE — A letter without a door `a1-lost-parcel`
 
-*A parcel. Its address fades while being read.*
+*Lina has a parcel for you. The sender is E. The address is fading.*
 
-> **LINA:** There you are! I have a parcel for you. For {name}. Sender: E. Like on your ticket.
-> *(if lamp carried)* Look at your lamp! By the parcel it is very bright. *(if registered)* Voss brought your lamp. With three forms. *(if glove)* Your hands are black. The same ink is here too.
-> **LINA:** But the address… Look! The ink is fading. I read it and it is gone again. This cannot happen. Every letter arrives. Every one!
-> **LINA:** Here is the address. I can only see a W. Hold on. I will read it again. Slowly.
+> **LINA:** There you are! I have a parcel for you.
+> **LINA:** For {name}. Sender: E. Like on your ticket.
+> **LINA:** Look at your lamp! By the parcel it is very bright. *(if flag lamp-carried)*
+> **LINA:** Voss brought your lamp. With three forms. *(if flag lamp-registered)*
+> **LINA:** Your hands are black. The same ink is here too. *(if flag glove-taken)*
+> **LINA:** But the address… Look! The ink is fading.
+> **LINA:** I read it. And it is gone again.
+> **LINA:** This cannot happen. Every letter arrives. Every one!
+
+*The player can examine:* **lindenhafen-parcel** — Parcel for {name}. Sender: E. Address: W… · **lindenhafen-berg-house** — Garden Street 7. No name. The number is fading.
+
+*Optional questions:* “What is in the parcel?” · “Who is E.?”
+
+> **LINA:** Here is the address. I can only see a W.
+> **LINA:** Hold on. I will read it again. Slowly.
 
 **GATE — PLAYER:** *„Wie ist die Adresse?“* (Ask Lina for the address on your parcel.)
 
-*The ink holds.*
-
-> **LINA:** The address? W… A… L… D… You asked out loud. And now the ink is holding! **Waldruh.** W for Waldruh. Like on Otto's timetable!
-> **LINA:** There is a letter in the parcel. It is very short: *„Ich bin Elise. Ich warte in Waldruh.“*
-> **LINA:** Elise. E. is Elise. And here is another letter. For Frau… Frau…
-> *(if chair kept)* Fritz says her name every Friday. Frau Berg! Garden Street seven. Yes.
-> **LINA:** I was there today. Now even the seven on her plate is fading. The people in her street say: who lives there?
+> **LINA:** The address? W… A… L… D…
+> **LINA:** You asked out loud. And now the ink is holding!
+> **LINA:** Waldruh. It says Waldruh.
+> **LINA:** W for Waldruh. Like on Otto’s timetable!
+> **LINA:** There is a letter in the parcel. It is very short.
+> **LINA:** “I am Elise. I am waiting in Waldruh.”
+> **LINA:** Elise. E. is Elise.
+> **LINA:** And here is another letter. For Frau… Frau… *(if not quest:a1-bench)*
+> **LINA:** And here is another letter. For Frau Berg. *(if flag scene a1-bench)*
+> **LINA:** Fritz says her name every Friday. Frau Berg! *(if flag berg-chair-kept)*
+> **LINA:** Frau Berg. Garden Street seven. Yes.
+> **LINA:** I was there today. Now even the seven on her plate is fading.
+> **LINA:** She sits at her bench. But her house no longer knows her. *(if flag berg-on-bench)*
+> **LINA:** She sleeps at Marta’s. But her house no longer knows her. *(if flag berg-at-marta)*
+> **LINA:** The people on her street say: who lives there?
 > **LINA:** Do I send Voss the address, or does the letter stay with you?
 
-**[CHOICE — Who has Elise's address]**
-- **REPORT** — "Voss gets the address. For his ledger." → *"I will take it to Voss today. Then Waldruh is in his ledger, in black and white."* (+Brass Office, flag `waldruh-address-public`)
-- **PROTECT** — "The letter stays with me. Only with me." → *"Your letter, your post. Voss gets nothing."* (+Lamplighters, +Circle, flag `elise-letter-private`)
+**[CHOICE `report`]** *„Voss bekommt die Adresse. Für sein Buch.“* — Voss gets the address. For his ledger.
+> **LINA:** All right. I will take Voss the address. Today.
+> **LINA:** Then Waldruh is in his ledger. In black and white.
 
-*(after the choice)* **CINEMATIC — ERASURE**
-> LINA: Her sign was here. It said Frau Berg.
-> LINA: And now the seven is going too.
+**[CHOICE `protect`]** *„Der Brief bleibt bei mir. Nur bei mir.“* — The letter stays with me. Only with me.
+> **LINA:** Fine. Your letter, your post. Voss gets nothing.
+> **LINA:** I will not say a word. Only to my bike. It does not talk.
 
-> *(if berg-remembered)* **LINA:** Her name is still written down at Fritz's. It stays.
-> **LINA:** Go to Otto. A train is waiting this evening. There is one more sentence in the letter. Very small:
-> **LINA:** *„Bevor du uns wieder auslöschst, komm.“* — Before you erase us again, come.
+> **LINA:** Her name is still written down at Fritz’s. It is staying. *(if flag berg-remembered)*
+> **LINA:** Go to Otto. A train is waiting this evening.
+> **LINA:** There is one more sentence in the letter. Very small:
+> **LINA:** Before you erase us again, come.
 
-**ELISE (V.O., letter):** *I am Elise. I am waiting in Waldruh. Before you erase us again, come.*
-
-> REVIEW: R6. A single reveal: the address holds when asked aloud — the rule of the act shown at its most concrete. Frau Berg's plate fading beside it keeps the cost visible. "Erase us *again*" is the hook, explained in scene 24 and resolved in scene 30.
+**CINEMATIC — ERASURE**
+> LINA: Hier war ihr Schild. Da stand Frau Berg.
+> LINA: Und jetzt geht auch die Sieben weg.
 
 ---
 
-### 18. EXT. LINDENHAFEN STATION, PLATFORM SEVEN — EVENING
+### 22. LINDENHAFEN · STATION — Platform seven, six o’clock `a1-departure`
 
-*Eighteen hundred, to the minute. A train stands at platform seven. Its windows are lit.*
+*A train stands at platform seven. Otto sells the ticket.*
 
-> **OTTO:** Eighteen hundred. To the minute. A train is standing at platform seven. Twelve years without a train, and now one is standing here.
-> *(if lit)* The lantern is on. Like every morning. *(if dark)* The lantern is off. But the train is here. *(if protected)* You still have my key. Good.
+> **OTTO:** Eighteen hundred. To the minute.
+> **OTTO:** A train is standing at platform seven.
+> **OTTO:** Twelve years without a train. And now one is standing here.
+> **OTTO:** The lantern is on. Like every morning. *(if flag lantern-lit)*
+> **OTTO:** The lantern is off. But the train is here. *(if flag lantern-dark)*
+> **OTTO:** You still have my key. Good. *(if flag platform-protected)*
 > **VOSS:** The train is not in the plan, Otto.
-> **OTTO:** I know. It is too punctual. I do not believe in it. But I sell tickets. That is my job. Where would you like to go?
+> **FRAU KESSLER:** Mr Voss, the train is loud. Rule four!
+> **VOSS:** Frau Kessler. Not today.
+> **OTTO:** I know. It is too punctual. I do not believe in it.
+
+*The player can examine:* **lindenhafen-noticeboard** — The sign: platforms one to six. And platform seven.
+
+*Optional questions:* “When does the train leave?” · “How much does the ticket cost?”
+
+> **OTTO:** I sell tickets. That is my job.
+> **OTTO:** Where would you like to go?
 
 **GATE — PLAYER:** *„Eine Fahrkarte nach Waldruh, bitte.“* (Buy a ticket to Waldruh.)
 
-> **OTTO:** The word was gone. Now it is back. I write it on the sign. Aloud: *Waldruh.* Platform seven, six o'clock, to Waldruh.
-> **VOSS:** That is not in the plan. I see nothing. I am not writing anything down either. Safe journey.
-> **OTTO:** This is my first ticket in twelve years. Single, or return?
+> **OTTO:** The word was gone. Now it is back.
+> **OTTO:** I write it on the sign. Aloud: Waldruh.
+> **OTTO:** Platform seven, six o’clock, to Waldruh.
+> **VOSS:** That is not in the plan. I see nothing.
+> **VOSS:** I am not writing anything down either. Safe journey.
+> **OTTO:** This is my first ticket in twelve years.
+> **OTTO:** Single, or return?
 
-**[CHOICE — The ticket]**
-- **SINGLE** — "Single, please." → *"Single to Waldruh. Ten euros. Platform seven, carriage one."* (flag `ticket-single`)
-- **RETURN** — "Return, please." → *"Eighteen euros. Then we will see each other again. Punctually!"* (flag `ticket-return`)
+**[CHOICE `single`]** *„Einfach, bitte.“* — Single, please.
+> **OTTO:** Single to Waldruh. Ten euros, please.
+> **OTTO:** Here. Platform seven, carriage one.
 
-> **OTTO:** All aboard, please! It is six o'clock. The train is leaving. Elise is waiting in Waldruh.
+**[CHOICE `return`]** *„Hin und zurück, bitte.“* — Return, please.
+> **OTTO:** Return. Eighteen euros, please.
+> **OTTO:** Then we will see each other again. Punctually!
 
-**ELISE (V.O.):** *The train is waiting. So am I.*
-
-**ACT ONE CLIFFHANGER (journal):** The letter finally names a person and a place: Elise. Waldruh. Beneath it, very small: "Before you erase us again, come." At Gartenstraße 7, nobody remembers Frau Berg any more. And on platform seven, a train is waiting.
-
-> REVIEW: The act ends on an act of speech, not a revelation: Otto says a town's name aloud and a platform opens. Voss, who would have stopped it in scene 1, now watches and writes nothing.
-
----
-
-**CINEMATIC — TRAVEL**
-> OTTO: All aboard. The next place is waiting for you.
+> **OTTO:** All aboard, please! It is six o’clock.
+> **OTTO:** The train is leaving. Elise is waiting in Waldruh.
+> **PIP:** Bye, {name}! I will write you every day! Out loud! *(if flag pip-game-loud)*
+> **PIP:** Bye, {name}. Quietly, but every day. *(if flag pip-game-quiet)*
 
 ---
 
 # ACT TWO — WALDRUH
-### "The village that lost an hour" (A2)
+### "The door between two towns" (A2)
 
-**Dramatic question:** Who closed the route, and why does everybody pretend they agreed?
+### 23. WALDRUH · THE WAYWARD INN — The room already waiting `a2-apartment`
 
-*Waldruh is on no map. According to the Brass Office the village "voluntarily ceased to exist". It lies in the forest around an old clockmill whose waterwheel turns but whose clocks cannot agree. Every night the mill plays the same hour, and afterwards a name is missing.*
+*Another village lies behind Marta’s kitchen door. A room is waiting upstairs, but the door is stuck. Voss is inspecting the house missing from his file.*
 
----
+> **MARTA:** Quick, {name}, come in! I am holding the door. Today it leads to Waldruh.
+> **MARTA:** Five minutes ago my kitchen was behind it. The coffee is on the other side.
+> **MARTA:** The café and the inn share one door. When it sticks, I cannot get into either.
+> **VOSS:** Good afternoon. I am inspecting this building. Please hold the frame steady.
+> **VOSS:** Thank you for the address from Lindenhafen. It led me straight here. *(if flag waldruh-address-public)*
+> **MARTA:** He came through my kitchen. Without knocking. With three forms. *(if flag elise-letter-private)*
+> **VOSS:** Frau Kessler says you have her list. We will talk about that later. *(if flag notice-list-taken)*
+> **VOSS:** My file says Waldruh voluntarily stopped existing.
+> **MARTA:** For a village that does not exist, we have very good potatoes.
+> **VOSS:** This door is in no register. Without a request I may not repair it.
+> **MARTA:** There is a lease on the board. With your name. I never even offered you a room.
 
-### 19. INT. MARTA'S KITCHEN DOOR / THE WALDRUH INN, UPSTAIRS — DAY
+*The player can examine:* **waldruh-housing-board** — Lease, Room 7. Tenant: {name}. Paid a year in advance by Elise. A key hangs from the paper.
 
-*Marta is holding a door. On one side: her Lindenhafen café. On the other: an inn in Waldruh. The door sticks.*
+*Optional questions:* “Why do the café and the inn share a door?” · “How long are you staying in Waldruh, Mr Voss?” · “What does the key open?”
 
-> **MARTA:** Quick, {name}, come in! I'm holding the door. Today it leads to Waldruh. Five minutes ago it led into my kitchen. The coffee is still on the other side.
-> **MARTA:** The café and inn share this door. When it sticks, I can't get into either.
-> **VOSS:** Good afternoon. I am inspecting this building. Please hold the doorframe steady.
-> *(if address public)* Thank you for the address from Lindenhafen. It brought me straight here.
-> *(if letter private)* **MARTA:** He came through my kitchen. Without knocking. I expected more paperwork from an inspector.
-> **VOSS:** This file says Waldruh vanished voluntarily. A strange sentence for a village full of people.
-> **MARTA:** The people want breakfast. For a vanished village, we have remarkably good potatoes.
-> **VOSS:** The refrigerator has a register number. This door does not. That means I cannot alter its frame.
-> **VOSS:** A request from the tenant authorizes the repair. Who lives behind this door, in Room 7?
-> **MARTA:** There's a lease on the board. It has your name, {name}. I haven't even offered you a room.
+> **VOSS:** The lease names you as the tenant. If you request it, I will begin.
 
-*Examine the housing board: Lease for Room 7. Tenant: {name}. Elise paid a year's rent in advance. Two addresses, one door. Valid for three months. A heavy key with a small lantern hangs from the paper.*
+**GATE — PLAYER:** *„Könnten Sie das bitte reparieren?“* (Ask Inspector Voss politely whether he could please repair it.)
 
-> **VOSS:** The lease names you as the tenant, {name}. You can request the repair.
-> **MARTA:** For three months. Yet you only arrived today. I've never seen your room key before.
-> **VOSS:** The lock is stuck. My tools are ready. If you request the repair, I can begin.
+> **VOSS:** Request accepted. First the stamp, then the screw.
+> **MARTA:** It opens! And my coffee is still warm.
+> **VOSS:** The rent is paid for a year. By Elise. Three months before your arrival.
+> **VOSS:** A heavy key hangs from the lease. With a little lantern on the handle.
+> **MARTA:** She left it here. For you. I do not know what it opens.
+> **MARTA:** My grandmother lives upstairs. Seventy years in this house. Nobody ever asked her.
+> **MARTA:** An open door lets anyone in. Do we leave it open, or ask the neighbours first?
 
-**GATE — PLAYER:** *„Könnten Sie das bitte reparieren?“*
+**[CHOICE `restore`]** *„Wir lassen sie offen. Lindenhafen soll Waldruh sehen.“* — We leave it open. Lindenhafen should see Waldruh.
+> **MARTA:** I will wedge a chair in the door.
+> **LINA:** Post for Waldruh! Three letters, all from yesterday.
 
-> **VOSS:** Request accepted. First the stamp, then the screw. The frame is holding now.
-> **MARTA:** It opens! My coffee is still there. I've never had such a short journey.
-> **VOSS:** The rent is paid for a year. By Elise. Three months before your arrival. Excuse me. I need to compare the dates. My register begins with your ticket.
-> **MARTA:** He's holding the lease upside down. Usually he only does that with my menus.
-> **MARTA:** An open door lets anyone travel through. Do we leave it open, or ask the neighbours first?
+**[CHOICE `consult`]** *„Wir fragen zuerst die Nachbarn hier.“* — We ask the neighbours here first.
+> **MARTA:** I will hang up a note: Please knock first.
+> **FRITZ:** I heard knocking. Is there a meeting? I brought soup.
 
-**[CHOICE]** *(from here on every choice is RESTORE = Lamplighters vs CONSULT = Circle)*
-- **RESTORE** — "We leave it open. Lindenhafen should see Waldruh." → Marta wedges a chair in the door. Lina bursts through: *"Post for Waldruh! Three letters, all from yesterday."*
-- **CONSULT** — "We ask the neighbours here first." → Marta hangs a "knock first" note. Fritz: *"I heard knocking. Is there a meeting? I've brought soup."*
-
-> **MARTA:** Fritz wants to set a table for everyone here again. But he won't name a day. Whenever anyone asks for a date, he stirs the soup. Even when the pot is empty.
-
-**ELISE (V.O.):** *The window faces the forest. I often left it open. The room has been waiting for you since I paid the rent. I don't know whether you want to wait for me.*
-
-> REVIEW: R7. Bureaucratic comedy. Note the key on the lease is the Keeper's key — planted here, explained in Scene 24. Nobody says "successor" yet.
+> **MARTA:** Go upstairs to Oma Hilde. She has been waiting a long time for a question.
 
 ---
 
-### 20. EXT. LANTERN SQUARE / HERB GARDEN — EVENING
+### 24. WALDRUH · UPSTAIRS AT THE INN — Seventy years upstairs `a2-upstairs`
 
-*An argument. A fern under observation. A calendar where every date reads "postponed".*
+*Marta’s grandmother lives upstairs at the inn. She has lived in this house for seventy years. Nobody asked her when the route closed.*
 
-> **LINA:** Tonight we send the signal. When Lindenhafen sees our light, they'll know Waldruh is still here.
-> **GRETA:** And what do we tell the people living here? Once again, they're last to hear what happens to their village.
-> **FRITZ:** Ah, {name}. Take a bowl. While everyone's eating, nobody argues. Usually.
-> **GRETA:** I'm Greta. We grow our food here. The fern supervises everything. Keep your distance; he sneezes.
-> **GRETA:** We belong to the Unwritten Circle. Some of us appear in no file. All of us sit at Fritz's table.
-> **GRETA:** Nobody asked us before the route closed. The paper still says: voluntary.
-> **FRITZ:** We ate here that evening. At six. I went to fetch more bread. Afterwards the route was gone.
-> **GRETA:** Ever since, he sets the table every evening. But he never invites anyone for a definite time.
-> *(if berg-remembered)* Frau Berg wrote to us. Her house is gone. She still has her name. We'll set a place for her.
-> *(if number filed)* **FRITZ:** The woman from Lindenhafen, with the apples. I want to write to her. I can't remember her name.
+> **OMA HILDE:** Sit down, child. Marta says you repaired her door.
+> **OMA HILDE:** I am Hilde. To the whole street I am the grandmother.
+> **OMA HILDE:** I have lived in this house for seventy years. I saw two towns through this window.
+> **OMA HILDE:** The morning after the closure a man from the Office came. He had a paper.
+> **OMA HILDE:** The paper said: voluntary. He asked me nothing. Nobody did.
+> **OMA HILDE:** The door to Lindenhafen opens again? Then the house has two sides again. *(if flag scene a2-apartment)*
+> **OMA HILDE:** Do you see my name on the window? In new ink. It is fading anyway.
 
-> **LINA:** My letters have to leave today.
-> **GRETA:** Everyone can come tomorrow. Fritz, it's your decision whether your table will be waiting for us.
-> **FRITZ:** There's nothing in my calendar tomorrow. But if I invite everyone, I'm promising we'll see each other again.
+*The player can examine:* **waldruh-hilde-window** — On the window frame, in blue ink: Hilde. The ink is new, but the name is fading anyway.
 
-**GATE — PLAYER:** *„Hast du morgen Zeit?“*
+*Optional questions:* “What was the house like before?” · “Who was the man from the Office?”
+
+> **OMA HILDE:** For twelve years nobody has asked me anything. People talk about me, not to me.
+
+**GATE — PLAYER:** *„Darf ich Sie etwas fragen?“* (Ask Oma Hilde politely if you may ask her something.)
+
+> **OMA HILDE:** Finally. Ask. Ask everything.
+> **OMA HILDE:** That evening two people came from Lindenhafen. A man with a red boat and a nurse.
+> **OMA HILDE:** They waited for their children. The children’s train came at six. It never came.
+> **OMA HILDE:** They are still waiting today. Every evening they sit at Fritz’s table.
+> **OMA HILDE:** A man at the market sold me this ink. He says it stays forever.
+> **MARTA:** Oma, Fritz is setting the table for everyone today. The Circle is coming too.
+> **MARTA:** Will she come to the table today? Or is the walk too far for her?
+
+**[CHOICE `hilde-invited`]** *„Sie kommt mit. Wir fragen sie vor allen anderen.“* — She comes along. We ask her before anyone else.
+> **OMA HILDE:** Then fetch my stick. And my best scarf.
+> **MARTA:** Seventy years, and she is going to a meeting for the first time.
+
+**[CHOICE `hilde-rests`]** *„Sie ruht sich aus. Ich erzähle ihr später alles.“* — She rests. I will tell her everything later.
+> **OMA HILDE:** Good. But really come back. Everyone says that.
+> **MARTA:** I will bring her soup. And every name I hear.
+
+> **OMA HILDE:** There are old tickets in my box. With names from here. Take them.
+> **MARTA:** Fritz is cooking down by the herb garden. Go while the soup is warm.
+
+---
+
+### 25. WALDRUH · AUTUMN MARKET — An empty chair at dinner `a2-evening-plans`
+
+*Fritz is cooking for everyone in Waldruh. At the end of the table sit two guests nobody knows. Fritz never invites people for a fixed time.*
+
+> **FRITZ:** Ah, {name}! Take a bowl. Nobody argues while eating. Usually.
+> **FRITZ:** I came through Marta’s door yesterday. With the big pot.
+> **GRETA:** Me too. The clinic here has had no doctor for twelve years. Now it has me.
+> **LINA:** Tonight we send a light to Lindenhafen. So they see: Waldruh is still here.
+> **GRETA:** And the people here? Nobody asked them before the closure. Again they will be the last to know.
+> **OMA HILDE:** Someone is asking me today. That is new. I am staying until dessert. *(if flag hilde-invited)*
+> **GRETA:** Frau Berg wrote to us. Her house is gone, but she still has her name. *(if flag berg-remembered)*
+> **FRITZ:** Do you see the two at the end of the table? They come every evening at six.
+> **FRITZ:** They are waiting for a train. Nobody here knows their names any more.
+> **LINA:** I have to go on in a moment. My letters …
+
+*The player can examine:* **waldruh-herb-garden** — A long table in the herb garden. At the end stand two plates that wait every evening.
+
+*Optional questions:* “Who belongs to the Circle?” · “Why do the two of them wait every evening?” · “How did you get to Waldruh, Fritz?”
+
+> **FRITZ:** Tomorrow I want to bring everyone to one table. But I never name a fixed time. Then someone is missing again.
+
+**GATE — PLAYER:** *„Hast du morgen Zeit?“* (Ask Fritz whether he has time tomorrow.)
 
 > **FRITZ:** Tomorrow? Yes. I have time for you. And for everyone else too.
-> **FRITZ:** Half past six. Six is too much. I want to hear the clock without seeing the empty station.
-> **GRETA:** I'll write it down. Lina, this time the invitation goes to everyone.
-> **LINA:** Good. But Lindenhafen is waiting for a sign we're still here. We can send the light tonight.
-> **FRITZ:** Do we send a sign tonight, or wait until everyone here has said what they want?
+> **FRITZ:** Half past six. Not six. At six those two wait for their train.
+> **RUTH LENZ:** Excuse me. The girl with the letters … is that Lina?
+> **LINA:** How do you know my name?
+> **JAKOB LENZ:** We left our children in Lindenhafen. For one hour. Twelve years ago.
+> **LINA:** My name is Lina Lenz. My brother is called Pip.
+> **JAKOB LENZ:** Pip. He was a baby. I am Jakob Lenz. I am your father.
+> **RUTH LENZ:** My name is Ruth. Say it, Lina. Please. Once, out loud.
+> **LINA:** Ruth. Jakob. I stopped saying your names. It hurt too much.
+> **GRETA:** I will write the names on the old stone. Then they stay.
+> **FRITZ:** Lindenhafen is waiting for a sign.
+> **FRITZ:** Do we send the light today? Or do we wait until everyone here has spoken?
 
-**[CHOICE]**
-- **RESTORE** → Lanterns on. *"Lindenhafen is answering! Three short flashes. Marta still remembers our signal."*
-- **CONSULT** → Greta writes down everyone's wishes. *"People are coming from the forest with chairs. They've brought their names. Today they won't be left outside."*
+**[CHOICE `restore`]** *„Wir senden das Licht heute Abend.“* — We send the light tonight.
+> **LINA:** Lindenhafen is answering! Three short flashes. That is Pip, I know it.
+> **JAKOB LENZ:** Pip at a lamp? Then he has grown up.
 
-> **FRITZ:** Tomorrow, half past six. I'll put out the little bowls too. The children should find us here. Oh, and Otto is looking for you. He found an old timetable under the station.
+**[CHOICE `consult`]** *„Wir warten. Erst sagen alle hier, was sie wollen.“* — We wait. First everyone here says what they want.
+> **GRETA:** People are coming out of the forest with chairs. Today nobody stays outside.
+> **RUTH LENZ:** Then I will say something too: I want to go home. But not without the others.
 
-**ELISE (V.O.):** *Fritz always left one place free at his table. He called it my place. Today I don't know whether I'm still allowed to sit there.*
-
-> REVIEW: R8. The Circle was never asked. Fritz committing to a time is the scene's emotional turn; the "six o'clock" detail sets up 17:59.
-
----
-
-### 21. EXT. WALDRUH STATION — 17:59
-
-*A whistle. A train with its doors already shut. The station clock has not reached six.*
-
-> **OTTO:** To the platform, {name}! Hear that whistle? Today we'll see this train for ourselves.
-> **OTTO:** The old timetable lists a connection to Nebelstadt. Departure: 18:00. The ticket says the same.
-> **OTTO:** The station clock hasn't reached six. It should be waiting. Its doors are already closed.
-> **VOSS:** Your ticket, please. I cannot skip this inspection.
-> **OTTO:** Mr Voss, you can see it's leaving!
-> **VOSS:** Valid. Departure: 18:00. You are here on time. The train should …
-> **OTTO:** Gone. We were right outside the door. It left without us.
-> **VOSS:** My file says no train runs here. I just saw one. I will write down both.
-> **OTTO:** The paint is peeling off the old sign. The destination is underneath. The time is missing.
-
-*Examine the route sign: new plaque "There was never a route here." Under the paint: "Connection to Nebelstadt." Departure time blank. A small lantern burned into the wood.*
-
-> **OTTO:** I'll open the ticket window. Your ticket stays here beside the station clock.
-> **VOSS:** I confirm that you were here before departure. For the report I need your account.
-> **OTTO:** Waldruh station, window one. The ticket is valid. Why couldn't you continue your journey?
-
-**GATE — PLAYER:** *„Ich habe meinen Anschluss verpasst.“*
-
-> **OTTO:** Missed connection. I'll compare your ticket with the clock. It stopped as the train departed.
-> **OTTO:** 17:59. Your ticket says 18:00. Anyone following the ticket arrives to find an empty platform.
-> **OTTO:** The sign now says: closed from inside, with a keeper's key. Leaving early keeps witnesses away.
-> **VOSS:** Closed from inside. My file omits that. It also omits your arrival on time.
-> **VOSS:** I know that whistle. It's on my recording. Every evening I hear a train that supposedly doesn't exist.
-> **OTTO:** I can adjust the station clock. But the timetable changes with it. The false time stays visible only until we correct it.
-> **OTTO:** Do we adjust the clock for passengers, or leave the error visible until more witnesses arrive?
-
-**[CHOICE]**
-- **RESTORE** → *"One minute forward. The clock is running again. The pigeons are furious; their evening schedule is ruined. Nebelstadt, 18:00. Tomorrow people will be waiting here."*
-- **CONSULT** → Otto copies both times. Lina: *"Tomorrow there'll be people here who can no longer be left out of the report."*
-
-> **OTTO:** A keeper's key doesn't close an ordinary door. Bring your key. We need to know what it can do.
-> **OTTO:** Emil's tools vanished for a night. Afterwards a thank-you note appeared beside them. Perhaps the two are connected.
-
-**ELISE (V.O.):** *You were there on time. Don't let anyone tell you otherwise. I know how long one minute can last.*
-
-> REVIEW: R9. Deduction scene. Voss links the whistle to his recording — second crack in his certainty.
+> **FRITZ:** Tomorrow, half past six. With little bowls. For everyone.
+> **FRITZ:** On the market square a man is selling ink. He says it never fades. Have a look at him.
 
 ---
 
-### 22. INT. THE CLOCKMILL — NIGHT, THE HOUR BEFORE MIDNIGHT
+### 26. WALDRUH · LANTERN SQUARE — Ink that never fades `a2-ink-seller`
 
-*A waterwheel. A memory stone listing names from the last lantern festival; one spot polished smooth.*
+*On the market square stands a cart full of ink. Herr Falk says: this ink never fades. But the names on his test sheet are already pale.*
 
-> **EMIL:** Careful, {name}! The floor is solid. Sometimes it's the hour standing on it that disappears.
-> **EMIL:** Every night the mill repeats the hour before midnight. Outside, morning comes. Here, the same hour begins again.
-> **EMIL:** After every cycle, a name disappears from the stone. Yesterday I knew the person. Today I know the gap.
-> **EMIL:** My repair receipt is dated tomorrow. The coffee on it was definitely from yesterday.
-> **EMIL:** My tools vanished for a night. That was when the mill began repeating this hour. They came back clean. With a thank-you note. Even my worst pair of pliers looked lovely.
-> **EMIL:** The manual hangs from the clock. Compare it with the stone. We're missing more than a cog here.
+> **HERR FALK:** Ink that never fades! Write your name, and it stays forever!
+> **HERR FALK:** My name is Falk. Delighted. You look like someone who wants to keep their name.
+> **HERR FALK:** Oma Hilde has already bought some. Fritz too. All of Waldruh writes with my ink.
+> **HERR FALK:** Oma Hilde? Her name on the window is pale anyway? The light upstairs is poor. *(if flag scene a2-upstairs)*
+> **HERR FALK:** You rescued a guest book? Then you urgently need good ink. *(if flag guestbook-returned)*
+> **HERR FALK:** The big bottle: fifty euros. For you today, only fifty euros.
 
-*Examine the manual: red lever stops the mill; blue connection links it to the route signal. The blue connection is cut. Two lines in the margin in a different hand.*
+*The player can examine:* **waldruh-ink-cart** — A sign: Guaranteed! Never fades! Beside it a test sheet. The names from last week are already pale.
 
-> **EMIL:** Red lever, blue connection. The diagram looks simple. The mill doesn't always follow it.
+*Optional questions:* “Where does your ink come from?” · “Why are the names on your sheet pale?” · “Who were you before you sold ink?”
 
-**GATE — PLAYER:** *„Kannst du mir die Anleitung erklären?“*
+> **HERR FALK:** Fifty is a good price for eternity. Or do you want to haggle?
 
-> **EMIL:** The red lever stops the mill. The blue connection links it to the route signal. Someone disconnected it. No break. A clean cut.
-> **EMIL:** The margin says: *"Disconnect only if necessary. Thank you for the tools."*
-> **EMIL:** Put the lease beside it. The same loop on the E. The manual and thank-you note are in Elise's handwriting.
-> **EMIL:** Elise disconnected it. With my pliers. They were on the table. I heard nothing.
-> **EMIL:** She cleaned my pliers. A name is still missing from the stone. What am I supposed to do with her thanks?
-> **EMIL:** The lever stops the next cycle. But the hour gets overwritten. We must preserve its missing names first.
-> **EMIL:** Do we stop the mill now, or let the village preserve the names before this hour disappears?
+**GATE — PLAYER:** *„Haben Sie auch etwas Günstigeres?“* (Ask Herr Falk if he has something cheaper.)
 
-**[CHOICE]**
-- **RESTORE** → Red lever. *"For the first time, the hour ends. One name returns. The other patch stays smooth. I can't remember who it was for."*
-- **CONSULT** → Emil holds the mill by hand; Greta and the village read every name aloud, even the faded ones. Then the lever.
+> **HERR FALK:** Cheaper? For you: the small bottle. Twelve euros. And a free smile.
+> **HERR FALK:** My test sheet? The names are from last week. They are … very discreet.
+> **EMIL:** I smelled one of the bottles. It is completely ordinary ink.
+> **HERR FALK:** Ordinary? The recipe is secret! Very secret. I hardly know it myself.
+> **EMIL:** There is a brass button on his waistcoat. Like at the Office.
+> **HERR FALK:** So? Will you buy the small bottle? Or would you rather ask questions?
+
+**[CHOICE `ink-bought`]** *„Ich nehme die kleine Flasche.“* — I will take the small bottle.
+> **HERR FALK:** A wise choice! Write quickly, before … I mean: write whenever you like.
+> **EMIL:** Twelve euros for ordinary ink. Good thing you have a name that stays when said aloud.
+
+**[CHOICE `falk-questioned`]** *„Ich will wissen, woher Ihre Tinte kommt.“* — I want to know where your ink comes from.
+> **HERR FALK:** From where? From … Nebelstadt. From a workshop at the harbour. I will say no more.
+> **HERR FALK:** Please. Tell nobody that I said that.
+
+> **HERR FALK:** The stationmaster is looking for you. Very punctual, that man. Too punctual for my business.
+
+---
+
+### 27. WALDRUH · FOREST STATION — The minute nobody saw `a2-rail-trip`
+
+*Your ticket says six o’clock. Otto waits with you for the connection. A train whistle comes from the forest.*
+
+> **OTTO:** To the platform, {name}! Hear that whistle? Today we see the train ourselves.
+> **OTTO:** The old timetable lists a connection to Nebelstadt. Departure: six p.m. As on your ticket.
+> **OTTO:** The station clock does not show six yet. But the doors are already shut.
+> **VOSS:** Your ticket, please. I may not skip this inspection.
+> **OTTO:** Mr Voss, you can see it is leaving!
+> **VOSS:** Valid. Departure six p.m. You are here on time. The train should …
+> **OTTO:** Gone. We were standing at the door. It left without us.
+> **VOSS:** In my file no train runs here. I just saw one. I will write down both.
+> **OTTO:** Lina did not want to come. She is standing back by the old rails, counting. *(if flag scene a2-evening-plans)*
+> **OTTO:** The paint is peeling off the old sign. A destination is underneath. The time is missing.
+
+*The player can examine:* **waldruh-route-sign** — A new sign: There was never a route here. Underneath, under the paint: Connection to Nebelstadt. The time is missing.
+
+*Optional questions:* “Why is punctual suspicious?” · “How did you get to Waldruh, Mr Voss?” · “Where does the train actually go?”
+
+> **OTTO:** Waldruh station, window one. The ticket is valid. Why could you not continue your journey?
+
+**GATE — PLAYER:** *„Ich habe meinen Anschluss verpasst.“* (Tell Otto that you missed your connection.)
+
+> **OTTO:** Missed connection. I will compare your ticket with the clock. It stopped when the train left.
+> **OTTO:** 17:59. Your ticket says 18:00. Anyone who follows the ticket finds an empty platform.
+> **OTTO:** Under the paint it says: closed from inside, with a keeper’s key. One minute early. So no witness comes.
+> **VOSS:** Closed from inside. That is missing from my file. So is your punctual arrival.
+> **VOSS:** I know that whistle. It is on my recording. Every evening I hear a train that does not exist.
+> **OTTO:** I can set the clock. Then the timetable changes with it.
+> **OTTO:** Do we set the clock for the passengers? Or does the error stay visible until more witnesses come?
+
+**[CHOICE `restore`]** *„Wir stellen die Uhr. Morgen sollen die Leute den Zug bekommen.“* — We set the clock. Tomorrow people should catch the train.
+> **OTTO:** One minute forward. The clock is running again. Nebelstadt, six p.m. This time it is right.
+
+**[CHOICE `consult`]** *„Der Fehler bleibt sichtbar. Wir brauchen mehr Zeugen.“* — The error stays visible. We need more witnesses.
+> **OTTO:** I will write both times on the board. 17:59 and 18:00.
+> **LINA:** Tomorrow there will be people here. Nobody can leave them out of the report any more.
+
+> **OTTO:** A keeper’s key does not close an ordinary door. Look after your key.
+> **OTTO:** Go to Lina by the old rails. She has been counting alone for too long.
+
+---
+
+### 28. WALDRUH · THE OLD RAILS — Eleven stones `a2-forest-rails`
+
+*Old rails lie in the forest. Lina stands there counting stones. She was ten when the children’s train did not leave.*
+
+> **LINA:** Nine. Ten. Eleven. Eleven stones. There are always eleven.
+> **LINA:** I count when I do not want to cry. Frau Berg taught me that.
+> **LINA:** The children’s train to the clinic ran here. Every evening at six.
+> **LINA:** I had a cough. Pip was a baby. Mum and Dad went on ahead.
+> **LINA:** Ruth and Jakob. I say it every day now. It hurts, but it stays. *(if flag scene a2-evening-plans)*
+> **LINA:** You set the clock? Good. A train should never again leave a minute early. *(if flag scene a2-rail-trip)*
+
+*The player can examine:* **waldruh-old-rails** — Old rails in the forest. Beside them eleven stones, neatly in a row.
+
+*Optional questions:* “Who was the woman at the platform?” · “Who moved the stones aside?”
+
+> **LINA:** You want to know why I count. Everyone does. Nobody asks.
+
+**GATE — PLAYER:** *„Was ist damals passiert?“* (Ask Lina what happened back then.)
+
+> **LINA:** We were sitting in the train. I had Pip on my lap. At six the train did not leave.
+> **LINA:** The conductor said: stones on the rails. Eleven of them. We would have died.
+> **LINA:** A woman with black hands stood at the platform. She was crying. Then she was gone.
+> **LINA:** After that no train ran any more. Mum and Dad were on the other side.
+> **LINA:** Frau Berg brought us bread every morning. And words. And numbers.
+> **LINA:** Pip knows nothing. He only knows Mum and Dad from my wall.
+> **LINA:** Do I write to him today? Or do I tell him myself when I am back?
+
+**[CHOICE `lina-tells-pip`]** *„Schreib ihm heute. Er soll die Namen sofort sagen.“* — Write to him today. He should say the names right away.
+> **LINA:** Dear Pip. Mum is called Ruth. Dad is called Jakob. Say it out loud. Every day.
+> **LINA:** The letter goes through Marta’s door. Tonight it will be on his wall.
+
+**[CHOICE `lina-waits`]** *„Sag es ihm selbst. Er soll dein Gesicht dabei sehen.“* — Tell him yourself. He should see your face when you do.
+> **LINA:** Then I will take the first train. With both names in my mouth.
+> **LINA:** Until then I will say them here. Ruth. Jakob. Eleven stones.
+
+> **LINA:** Emil is at the clockmill. Every night an hour goes missing there. Go to him.
+
+**CINEMATIC — RAILS**
+> LINA: Elf Steine auf den Schienen. Ich habe sie gezählt.
+> LINA: Der Zug ist nicht gefahren. Wir waren sicher. Mama und Papa waren auf der anderen Seite.
+
+---
+
+### 29. WALDRUH · CLOCKMILL WORKSHOP — The borrowed hour `a2-broken-clock`
+
+*The clockmill repeats the hour before midnight. Emil has the manual and a box of tools. A letter lies beside the box.*
+
+> **EMIL:** Careful, {name}! The floor holds. Only the hour on it sometimes disappears.
+> **EMIL:** Marta let me through her door. The mill needs a mechanic.
+> **EMIL:** Every night the mill repeats the hour before midnight. Outside, morning comes. In here, the same hour starts again.
+> **EMIL:** After every round a name is missing from the stone. Yesterday I knew the person. Today I know the gap.
+> **EMIL:** My tools were gone for a night. Then they came back clean. With a thank-you note.
+> **EMIL:** The lamp from Lindenhafen? Here it is completely dark. Many names are missing here. *(if flag lamp-carried)*
+> **EMIL:** The manual is hanging on the clock. Compare it with the stone. More than a cog is missing here.
+
+*The player can examine:* **waldruh-clock** — The manual: Red lever stops the mill. Blue connection to the route signal. Two lines in a different hand in the margin. · **waldruh-memory-stone** — The stone carries the names from the last lantern festival. Some are smooth. New: Jakob Lenz, Ruth Lenz.
+
+*Optional questions:* “What actually works around here?” · “Why are you in Waldruh too, Emil?” · “Who built the clockmill?”
+
+> **EMIL:** Red lever, blue connection. The drawing looks simple. The mill does not always follow it.
+
+**GATE — PLAYER:** *„Kannst du mir die Anleitung erklären?“* (Ask Emil whether he can explain the manual to you.)
+
+> **EMIL:** The red lever stops the mill. The blue connection leads to the route signal. Someone cut it. Cleanly.
+> **EMIL:** The margin says: disconnect only in an emergency. Thank you for the tools.
+> **EMIL:** Put the lease beside it. The same E. The manual and the thank-you note are in Elise’s handwriting.
+> **EMIL:** Elise cut the connection. With my pliers. They were on the table. I heard nothing.
+> **EMIL:** She cleaned my pliers. A name is still missing from the stone. What do I do with her thanks?
+> **GRETA:** Tonight’s names are on the stone too. Jakob Lenz. Ruth Lenz. They are already pale.
+> **EMIL:** The lever stops the next round. But the hour gets overwritten. Whoever has not been said stays gone.
+> **EMIL:** Do we stop the mill now? Or do we first read every name aloud before this hour disappears?
+
+**[CHOICE `restore`]** *„Wir halten die Mühle jetzt an.“* — We stop the mill now.
+> **EMIL:** The red lever. For the first time the hour ends.
+> **GRETA:** One spot on the stone is smooth. A name stood there. I no longer know whose.
+
+**[CHOICE `consult`]** *„Erst lesen wir alle Namen vor. Dann der Hebel.“* — First we read every name aloud. Then the lever.
+> **EMIL:** I will hold the mill by hand. Read, quickly!
+> **GRETA:** We read them all. Ruth Lenz and Jakob Lenz too. Everyone is still there.
+
+> **EMIL:** Greta has a patient with lantern fever. He talks about a journey that never happened.
+> **EMIL:** He was found at the old rails last night. He had been waiting for a train.
 
 **CINEMATIC — CLOCKMILL**
-> EMIL: The clock is running again. But we are missing an hour.
-> EMIL: Not all the names come back. We need the old records.
-
-> **EMIL:** Greta has a patient with lantern fever. He talks about a journey that never happened. He was found at the old rails last night. He had been waiting for a train.
-
-**ELISE (V.O.):** *Yes, that is my handwriting. I cleaned the pliers. I can't simply write the name back onto the stone. I owe Emil more than thanks.*
-
-> REVIEW: R10. First hard evidence that Elise is the saboteur. The restore branch has a real cost (a name lost for good) — good.
+> EMIL: Die Uhr läuft wieder. Aber uns fehlt eine Stunde.
+> EMIL: Nicht alle Namen kommen zurück. Wir brauchen die alten Unterlagen.
 
 ---
 
-### 23. EXT. CLINIC GARDEN — DAY
+### 30. WALDRUH · CONSERVATORY CLINIC — What the records forgot `a2-clinic`
 
-*A queue. A fern that sneezes on every patient. Seed packets labelled with old addresses.*
+*Voss sits in Greta’s clinic, still wearing his coat. He grips a file. Greta puts water beside him. Three old seed packets lie on the table.*
 
-> **GRETA:** Stay behind the line, {name}. The fern examined everyone in the queue.
-> **GRETA:** Lantern fever. They watch vanished tracks for too long. Their eyes keep searching when their legs can't go on.
-> **GRETA:** My most difficult patient wanted to register his blanket. He didn't want to sleep.
-> **VOSS:** *(in a cot)* Nothing is wrong with me. I am merely tired. Please do not record a diagnosis.
-> **GRETA:** We found him at the old station. Wet shoes, cold hands. He was holding a blank ticket.
+> **GRETA:** Stay behind the line, {name}. Many are waiting here.
+> **GRETA:** Lantern fever. People look too long at vanished rails. Their eyes keep searching when their legs cannot go on.
+> **RUTH LENZ:** I am helping Greta. I used to be a nurse here. For twelve years I waited and did nothing. *(if not ruth-lost)*
+> **GRETA:** A woman helped me early today. I do not know her name. She has gone again. *(if flag ruth-lost)*
+> **VOSS:** There is nothing wrong with me. I am merely tired. Please do not write down a diagnosis.
+> **GRETA:** We found him at the old station. Wet shoes, cold hands. A blank ticket in his hand.
 > **VOSS:** I have never travelled this route. My file records every day at the office.
-> **GRETA:** In his fever he named three stops. With house numbers. None appears in his file.
-> **GRETA:** My seed packets have old addresses. Let's compare them. Perhaps he needs someone to listen, rather than another file.
+> **GRETA:** In his fever he named three stops. With house numbers. None is in his file.
+> **GRETA:** My seed packets carry old addresses. Let us compare them.
 
-*Examine: six seed packets, old addresses along the route. Greta's note: the patient named three of them. And a blue garden gate that is on no packet.*
+*The player can examine:* **waldruh-herb-garden** — Six seed packets with old addresses along the route. Greta has marked three. And a blue garden gate, on no packet.
+
+*Optional questions:* “What is lantern fever?” · “Where was the blue gate?” · “How long do people have to wait here?”
 
 > **GRETA:** Three addresses match. He also described a blue garden gate.
-> **VOSS:** I must return to the office. If I keep reading the file, this will make sense.
-> **GRETA:** He can barely stand. Today he needs your advice.
-> **VOSS:** You have seen both, {name}. My file, and me. What do you advise?
+> **VOSS:** I must go back to the office. If I keep reading the file, it will all make sense.
+> **VOSS:** You have seen both, {name}. My file and me. What do you advise?
 
-**GATE — PLAYER:** *„Sie sollten sich ausruhen.“*
+**GATE — PLAYER:** *„Sie sollten sich ausruhen.“* (Advise Inspector Voss politely that he should rest.)
 
 > **VOSS:** Rest. Very well. Please leave the packets here.
-> **VOSS:** Behind the blue gate, there was plum cake. The hostess always cut one slice more than there were guests.
-> **VOSS:** I travelled there before the closure. My file says the route never existed. I was there.
-> *(if Berg's address)* One packet carries Frau Berg's address. Her apples were the best on the whole route.
-> **VOSS:** I used this file to turn people away. I told them their memories were wrong.
-> **GRETA:** Put the file down, Mr Voss. You don't have to prove anything today.
-> **GRETA:** These addresses could reach the old lanterns. But Voss hasn't given us permission. Do we reach them today, or wait until Voss can speak for his own memories?
+> **VOSS:** Behind the blue gate there was plum cake. The hostess always cut one piece more than there were guests.
+> **VOSS:** I travelled there. Before the closure. My file says the route never existed. I was there.
+> **VOSS:** One packet carries Frau Berg’s address. Her apples were the best on the whole route. *(if flag berg-remembered)*
+> **RUTH LENZ:** In the night he kept asking: is anyone there? *(if not ruth-lost)*
+> **VOSS:** I used this file to send people away. I told them their memories were wrong.
+> **GRETA:** Put the file down, Mr Voss. You do not have to prove anything today.
+> **GRETA:** With these addresses we can reach the old lanterns.
+> **GRETA:** Do we do it today? Or wait until Voss can speak for himself?
 
-**[CHOICE]**
-- **RESTORE** → Greta reads the addresses. Three lanterns light along the tracks. Voss, asleep: *"The blue gate … one more slice of cake. For the guest who comes later."*
-- **CONSULT** → The packets stay beside his file. Voss: *"I'd like to read them myself. When I can stand again."* Greta: *"The fern has stopped sneezing. For the first time today."*
+**[CHOICE `restore`]** *„Wir lesen die Adressen heute vor.“* — We read the addresses aloud today.
+> **GRETA:** Three lanterns light up along the rails.
+> **VOSS:** The blue gate … one more piece of cake. For the guest who comes later.
 
-> **GRETA:** Someone wrote that false file. The travelling archive holds the old orders. Ada works there. Today we need an answer, rather than another copy.
+**[CHOICE `consult`]** *„Wir warten, bis Herr Voss selbst sprechen kann.“* — We wait until Mr Voss can speak for himself.
+> **VOSS:** I would like to read them myself. When I can stand again.
+> **GRETA:** For the first time today he is sleeping peacefully.
 
-**ELISE (V.O.):** *I remember the blue gate. Everyone got a slice of cake there for the journey home. Please look after Voss.*
-
-> REVIEW: R11. Voss's doubt becomes personal: his own body remembers what his file denies. The gentlest scene in the game.
+> **GRETA:** Someone wrote that false file. The old archive has the orders from back then.
+> **GRETA:** There is a cellar under the clockmill. The door has a lock with a little lantern.
 
 ---
 
-### 24. INT. THE TRAVELLING ARCHIVE (A RAILWAY CARRIAGE) — DAY
+### 31. WALDRUH · CLOCKMILL CELLAR — The cellar under the mill `a2-cellar`
 
-*Drawers. A memorial stone outside bearing the first closure order. Voss, on doctor's orders, sits and listens.*
+*There is a cellar under the clockmill. Elise’s key opens its door. Someone is hiding inside.*
 
-> **ADA:** You're looking for a signature. I have the paper here. I wanted to wait until you left.
-> **ADA:** I'm Ada. I file the truth alphabetically. At least that tells me which drawer I'm hiding it in.
+> **EMIL:** The key fits! The little lantern on the handle and the one on the lock are the same.
+> **HERR FALK:** Don’t shoot! I mean: good evening. I am selling … nothing here.
+> **EMIL:** Herr Falk. Among ink bottles. And a brass badge from the Office.
+> **HERR FALK:** You asked where my ink comes from. I got scared. *(if flag falk-questioned)*
+> **HERR FALK:** You bought my ink. Is your name already pale? I am sorry. *(if flag ink-bought)*
+> **EMIL:** On the table lies an old copy. Rule four. Signed F.
+
+*The player can examine:* **waldruh-mill-cellar** — A brass badge, ink bottles and an old copy: Rule four. Do not say names out loud. Signed: F. *(locked: The door has a lock with a little lantern on it. You do not have its key.)*
+
+*Optional questions:* “What exactly does the machine do?” · “Who gave you the rule?”
+
+> **HERR FALK:** Yes. The F is me. And now you look at me as if I had sold the world.
+
+**GATE — PLAYER:** *„Warum haben Sie das gemacht?“* (Ask Herr Falk why he did it.)
+
+> **HERR FALK:** I was a clerk at the Brass Office in Nebelstadt. Three years. I had the most beautiful handwriting in the building.
+> **HERR FALK:** They gave me a sentence: do not say names out loud. I wrote it beautifully. A hundred times.
+> **HERR FALK:** Then I saw the machine at the harbour. Under a grey tarpaulin. It makes names quiet.
+> **HERR FALK:** My rule helps it. Whoever stays silent disappears faster. That is when I left.
+> **HERR FALK:** Now I sell ink to people who are afraid. Because I am afraid too.
+> **EMIL:** Ordinary ink against a machine. That does not even mostly work.
+> **HERR FALK:** Will you let me go? Or will you take me to the archive, before everyone?
+
+**[CHOICE `falk-released`]** *„Gehen Sie. Aber verkaufen Sie keine Versprechen mehr.“* — Go. But sell no more promises.
+> **HERR FALK:** Thank you. I will give away the rest of the ink. To children. For drawing.
+> **EMIL:** And he left the badge here. I will take it.
+
+**[CHOICE `falk-witness`]** *„Sie kommen mit ins Archiv. Als Zeuge.“* — You come with us to the archive. As a witness.
+> **HERR FALK:** As a witness. I have never been that. Only a clerk.
+> **EMIL:** This time he does not write. This time he speaks.
+
+> **EMIL:** The archive stands at the station, in an old carriage. Ada knows the orders from back then.
+
+---
+
+### 32. WALDRUH · THE KEEPER’S RECORDS — The second signature `a2-archive`
+
+*Ada lays two documents side by side. One is valid for a week. The other has no end date. She holds the pen, but does not write.*
+
+> **ADA:** You are looking for a signature. I have the paper here. I wanted to wait until you had gone.
+> **ADA:** I am Ada. I file the truth alphabetically. At least that tells me which drawer I am hiding it in.
 > **VOSS:** I have been told to rest. I will listen. I brought the file.
-> **ADA:** Stay, Mr Voss. I don't want to sign something again after hearing only one side.
-> **ADA:** I was Elise's apprentice. She asked for one week. I signed the first closure. My name is here.
-> **ADA:** I wanted to show her she could trust me. I didn't ask the Circle. I had time to.
-> **ADA:** My order is on the memorial stone. Beneath it: *ask the residents*. I wrote that sentence myself.
+> **HERR FALK:** I am here as a witness. I wrote rule four. I will tell everything. *(if flag falk-witness)*
+> **ADA:** I was Elise’s apprentice. She asked for one week. I signed the first closure.
+> **ADA:** I wanted to show her she could trust me. I did not ask the Circle. I had time to.
+> **ADA:** My order is on the memorial stone. Beneath it: ask the residents. I wrote that sentence myself.
 
-*Examine the stone: "Temporary closure of the route, for one week. Signed: Ada, the Keeper's apprentice. Under the seal, very small: 'Ask the residents.'"*
+*The player can examine:* **waldruh-memory-stone** — Temporary closure of the route, one week. Signed: Ada, the Keeper’s apprentice. Under the seal, very small: Ask the residents.
 
-> **VOSS:** One week. My file says: permanent. Both dates bear the same seal.
-> **ADA:** The first paper is here. The second is underneath. All these years, I never took it out. I owe you more than dates.
+*Optional questions:* “How long have you worked here?” · “Where do you file the truth?” · “Why does your archive travel?”
 
-**GATE — PLAYER:** *„Können Sie mir das genauer erklären?“*
+> **VOSS:** One week. My file says: permanent. Both dates carry the same seal.
+> **ADA:** The first paper is here. The second is underneath. All these years I never took it out.
+
+**GATE — PLAYER:** *„Können Sie mir das genauer erklären?“* (Ask Ada politely whether she can explain that more precisely.)
 
 > **ADA:** My order lasted one week. The second was permanent. My signature opened the door for it.
-> **ADA:** The permanent order bears two marks: the lantern from Elise's key and the Brass Office stamp.
-> **VOSS:** Our stamp is genuine. My file omits this order. That does not make it any less real.
-> **ADA:** Elise used the key from inside. Afterwards she passed it on. You've already seen its mark. Room 7. The key attached to your lease.
-> **ADA:** The register says: *the Keeper's successor*. Beneath it, your name, {name}. Elise gave you her key.
-> **ADA:** *"Before you erase us again, come."* She means the key you carry. It can close the route again.
-> **ADA:** I'm putting down my pen. My name stays on the paper. I won't cross it out.
-> **ADA:** I'm Ada. If you like, we can say *du* now. I've hidden behind forms long enough.
-> **VOSS:** I will keep to *Sie*. I'll take my file with me. This time to examine it, rather than prove it right.
-> **ADA:** The second stamp came from Nebelstadt. Do you go now, or first gather witnesses to both orders?
+> **ADA:** The permanent order bears two marks: the lantern from Elise’s key and the Brass Office stamp.
+> **VOSS:** Our stamp is genuine. My file leaves out this order. That does not make it any less true.
+> **ADA:** Elise used the key from inside. Afterwards she passed it on. Room 7. Your lease.
+> **ADA:** The register says: the Keeper’s successor. Beneath it, your name, {name}.
+> **ADA:** “Before you erase us again, come.” She means the key in your pocket. It can close the route again.
+> **HERR FALK:** I saw the second stamp. In Nebelstadt. Pressed twice. Clack, clack. *(if flag falk-witness)*
+> **ADA:** That night her voice was heard at the harbour and at the observatory. At the same time.
+> **ADA:** I am putting my pen down. My name stays on the paper. I will not cross it out.
+> **ADA:** I am Ada. If you like, we can say du now. I have hidden behind forms long enough.
+> **VOSS:** I will keep to Sie. I am taking my file. This time to examine it, not to defend it.
+> **ADA:** The second stamp came from Nebelstadt. Do you go now? Or do you first gather witnesses for both orders?
 
-**[CHOICE]**
-- **RESTORE** — "I'm going now. Elise must explain to me herself." → Otto: *"Leaving on time matters less today."*
-- **CONSULT** — "I'll bring witnesses. No order should hear only one side again." → Ada comes along, *"as the woman whose name is on the first order."* Lina fetches Greta and the others: *"Three witnesses, one fern. No empty seats this time."*
+**[CHOICE `restore`]** *„Ich gehe jetzt. Elise muss es mir selbst erklären.“* — I am going now. Elise must explain it to me herself.
+> **OTTO:** Today punctuality matters less. I will take you.
+
+**[CHOICE `consult`]** *„Ich hole Zeugen. Kein Befehl soll wieder nur eine Seite hören.“* — I will bring witnesses. No order should hear only one side again.
+> **ADA:** I will come along. As the woman whose name is on the first order.
+> **LINA:** Three witnesses, two platforms. This time no chair stays empty.
+
+> **ADA:** The records for the second stamp are in Nebelstadt. The seventh bell leaves us little time.
+> **ADA:** But this time you know what you carry.
 
 **CINEMATIC — CONFESSION**
-> ADA: One week, I said. After that I stopped asking.
-> ADA: You may say *du*. My signature stays here, where everyone can see it.
-
-> **ADA:** The records for the second stamp are in Nebelstadt. The seventh bell leaves us little time. But this time you know what you carry.
-
-**ELISE (V.O.):** *I gave you the key before I gave you the truth. That was wrong. You are allowed to choose differently from me.*
-
-**ACT TWO CLIFFHANGER (journal):** Elise closed the route from inside, then hung the key on your lease. In Ada's register: the Keeper's successor. Your name follows. The key is in your pocket. And Waldruh is wondering what you will do with it.
-
-> REVIEW: R12 — the mid-point reversal. The player is not just investigating the erasure; they hold the instrument of it. Note Voss explicitly refuses *du* here so his offer in Scene 28 lands.
+> ADA: Eine Woche, habe ich gesagt. Danach habe ich nicht mehr gefragt.
+> ADA: Du darfst du sagen. Meine Unterschrift bleibt hier, wo alle sie sehen.
 
 ---
 
 # ACT THREE — NEBELSTADT
-### "The promise in the mist" (B1)
+### "Whose silence counts" (B1)
 
-**Dramatic question:** Can the towns reopen the route without erasing someone else?
+### 33. NEBELSTADT · HARBOR POST OFFICE — A voice without a witness `b1-witness`
 
-*A signal harbour, an old observatory, a machine humming under a grey tarpaulin. Every time the great bell rings, a name in Waldruh grows quieter. The Brass Office counts missing replies as consent. With the seventh stroke the closure becomes permanent.*
+*Two signals arrived together. Only one had a witness. Lina lays out the statements. Marta waits for her first question. This time, a convincing story will not be enough.*
 
----
-
-### 25. INT. HARBOUR POST OFFICE — THE HEARING — DAY
-
-*A table. A tape reel. A pigeon that refuses to testify. Marta in the witness chair without her apron.*
-
-> **LINA:** The hearing begins. Two reports, the same voice. Elise's voice came from the harbour and the observatory simultaneously.
-> **ADA:** I'm taking the minutes. Alphabetically, unless anyone objects.
-> **LINA:** Marta brought tea to the harbour that night. Her statement covers only what she personally saw and heard.
-> **MARTA:** Lina, I feel like I'm in court. Can I at least keep my tea?
-> **LINA:** No. The tea is an exhibit.
-> **LINA:** Every answer goes on record today. So even Marta will use formal address during this hearing.
-> **MARTA:** As you wish, Madam Chair. I've even taken my apron off.
+> **LINA:** The hearing begins. Two reports, the same voice. At the harbour and at the observatory, at the same time.
+> **ADA:** I will keep the minutes. Alphabetically, unless anyone objects.
+> **LINA:** Marta took tea to the harbour that night. She will only say what she herself saw and heard.
+> **MARTA:** Lina, I feel as if I am in court. And without my apron.
+> **LINA:** Today every answer goes on record. That is why even we speak formally today.
 > **VOSS:** The Brass Office is attending as an observer. I will listen. I will not interrupt.
-> **LINA:** The tape is here. Marta is there. We must keep their evidence separate.
-> **LINA:** Marta, your cup is back beside you. We're ready to hear your statement.
+> **HERR FALK:** I am the second witness. I know the stamp. Pressed twice. *(if flag falk-witness)*
+> **LINA:** The tape is here. Marta is sitting there. We keep the evidence separate.
 
-**GATE — PLAYER:** *„Könnten Sie beschreiben, was Sie gesehen haben?“*
+*The player can examine:* **nebelstadt-evidence-crate** — Delivery slips, Marta’s tea list from that night and a reel of tape. · **nebelstadt-signal-lantern** — An old recorder with an endless tape hangs beneath the lantern.
 
-> **MARTA:** I put the teapot beside the lantern. Through the fog, I heard a woman. *"Is anyone there? I'm still here."* Then a cough. Then the whole thing again from the start.
-> **MARTA:** By the third cough, I knew. Even the tiny pause was identical.
-> **LINA:** An old recording. Elise wasn't standing in two places in the fog.
-> **ADA:** The harbour and observatory repeat the same tape. Two connections, one voice.
-> **MARTA:** Someone stood at the machine beside the lantern. When I approached, the words on my tea list vanished.
-> **MARTA:** I couldn't see his face. But his stamp sounded like yours, Voss. Twice: clack, clack.
+*Optional questions:* “What is a hearing?” · “Where is the machine?”
+
+> **LINA:** Madam witness, your cup is beside you. We are ready for your statement.
+
+**GATE — PLAYER:** *„Könnten Sie beschreiben, was Sie gesehen haben?“* (Politely ask the witness to describe what she saw (formal Sie).)
+
+> **MARTA:** I put the teapot down beside the lantern. Then I heard a woman in the fog.
+> **MARTA:** She called: “Is anyone there? I am still here.”
+> **MARTA:** Then a cough. Then everything from the start. By the third cough I knew.
+> **LINA:** An old recording. Elise was not standing in two places in the fog.
+> **ADA:** The harbour and the observatory play the same tape. Two connections, one voice.
+> **MARTA:** Someone stood at the machine beside the lantern. When I came closer, the words on my tea list were gone.
+> **MARTA:** I did not see his face. But his stamp sounded like yours, Mr Voss. Twice: clack, clack.
 > **VOSS:** I was standing at the machine. Your statement is correct.
 > **LINA:** Then your name stays in the record. Even while we wait for your explanation.
-> **LINA:** Publish her statement immediately, or send the Circle a checked copy first?
+> **LINA:** Do we publish the statement right away? Or send the Circle a checked copy first?
 
-**[CHOICE]** *(REOPEN = Lamplighters / REMEMBER = Circle)*
-- **REOPEN** → Posted at the harbour. Voss: *"I will answer here. Before these same people."*
-- **REMEMBER** → Marta checks every word *"so nobody can dismiss it as a rumour."* Greta reads it to the Circle.
+**[CHOICE `reopen`]** *„Wir hängen sie sofort am Hafen aus.“* — We post it at the harbour right away.
+> **VOSS:** I will answer here. Before these same people.
 
-> **LINA:** Next appointment: Otto on the railway quay. Two plans, one garden, bad mood.
+**[CHOICE `remember`]** *„Erst bekommt der Kreis eine geprüfte Abschrift.“* — First the Circle receives a checked copy.
+> **MARTA:** I will check every word. Then nobody can call it a rumour.
+> **GRETA:** I will read it to the Circle tonight.
 
-**ELISE (V.O.):** *You listened to Marta before deciding. Back then, I decided first. The voice on the tape is mine. I'm not in two places. I'm here, behind a closed door.*
-
-> REVIEW: R13. Voss admits presence at the machine but not yet what he did. Two-step confession across scenes 25 → 27.
+> **LINA:** Next appointment: Frau Kessler in the Office archive. She has notices. Many notices.
 
 ---
 
-### 26. EXT. RAILWAY QUAY, HARBOUR CHART — DAY
+### 34. NEBELSTADT · BRASS OFFICE ARCHIVE — The Office record room `b1-record-room`
 
-*Otto with a pen. Greta holding the map down. A fern between them.*
+*The maintenance slips lie in the Brass Office archive. Frau Kessler filled them all in herself. Who kept the machine running?*
 
-> **OTTO:** Two plans for the route to Waldruh. One is good. The other is Greta's.
-> **GRETA:** I heard that, Otto. So did the fern.
-> **OTTO:** My line is straight and forty minutes faster. Every journey matters to the people of Waldruh.
-> **GRETA:** Your straight line goes right through my garden. These beds hold the last seeds from vanished homes. Their addresses survive on the packets.
-> *(if berg-remembered)* Frau Berg's rhubarb grows there too. Nothing is left of her house, only this bed.
-> **OTTO:** The clinic needs supplies. I can't offer them a garden as a timetable.
-> *(if Lamplighters ≥ 4)* The Lamplighters have already ordered rails, by the way. Without asking me. Typical.
+> **FRAU KESSLER:** You again. From Lindenhafen. You travelled very loudly.
+> **FRAU KESSLER:** Mr Voss has become an observer. I have not. I am still on duty.
+> **FRAU KESSLER:** You have my list. Rules one to ten. It belongs in the archive, not in your bag. *(if holding notice-list)*
+> **FRAU KESSLER:** You took Marta’s guest book. Your name has been in my book since then. *(if flag guestbook-returned)*
+> **FRAU KESSLER:** A man from the writing office was a witness? Herr Falk. His letters were always too beautiful. *(if flag falk-witness)*
+> **FRAU KESSLER:** The archive is locked. To unauthorised persons. And you are very unauthorised.
+
+*The player can examine:* **nebelstadt-record-room** — Maintenance slips for the harbour machine. Three coils. All in Frau Kessler’s hand, all with Voss’s signature. *(locked: The archive is locked. You need a key or one of the Office’s books.)*
+
+*Optional questions:* “Why do you work for the Office?” · “Where does rule four come from?”
+
+> **FRAU KESSLER:** You are inside anyway. With a key that should not exist. What are you looking for?
+
+**GATE — PLAYER:** *„Könnten Sie mir zeigen, wo die Unterlagen sind?“* (Ask Frau Kessler formally to show you where the documents are.)
+
+> **FRAU KESSLER:** Third drawer. Maintenance, harbour, signal. All complete. All in order.
+> **FRAU KESSLER:** Three orders for new coils. March, July, December. I filled them in. Mr Voss signed.
+> **FRAU KESSLER:** I never asked what the machine does. That was not on the form.
+> **ADA:** The same sentence is at the bottom of every slip: whoever stays silent agrees.
+> **FRAU KESSLER:** That is not a threat. That is a simplification. Whoever says nothing makes no work.
+> **ADA:** For you, Frau Kessler. For the others it was a disappearance.
+> **FRAU KESSLER:** The council meets tomorrow. Will you invite me? Or will you simply put my slips on the table?
+
+**[CHOICE `kessler-invited`]** *„Sie sprechen selbst vor dem Rat. Mit Ihren Zetteln.“* — You speak before the council yourself. With your slips.
+> **FRAU KESSLER:** I have never spoken in front of people. Only in front of forms.
+> **ADA:** Then you start tomorrow. We will listen. Even if you make a mistake.
+
+**[CHOICE `slips-filed`]** *„Die Zettel kommen auf den Tisch. Sie müssen nichts sagen.“* — The slips go on the table. You need not say anything.
+> **FRAU KESSLER:** Of course. Whoever stays silent … No. I will not say that any more.
+> **ADA:** I will take the slips. Alphabetically, by date.
+
+> **ADA:** Otto is waiting on the railway quay. He has two plans for the route and a bad mood.
+
+---
+
+### 35. NEBELSTADT · RAILWAY QUAY — The price of a shortcut `b1-new-route`
+
+*Otto has drawn two routes. Greta has brought her own map. What looks simple on paper will cost someone dearly.*
+
+> **OTTO:** Two plans for the route to Waldruh. One is good. The other is Greta’s.
+> **GRETA:** I heard that, Otto.
+> **OTTO:** My line is straight and forty minutes faster. For the people of Waldruh every journey counts.
+> **GRETA:** Your straight line goes right through my garden. The last seeds from vanished houses grow there.
+> **GRETA:** Frau Berg’s rhubarb grows there too. Only this bed is left of her house. *(if flag berg-remembered)*
+> **OTTO:** The clinic needs supplies. I cannot offer it a garden as a timetable.
+> **OTTO:** The Lamplighters have already ordered rails, by the way. Without asking me. Typical. *(if lamplighters ≥ 4)*
 > **GRETA:** Then draw a route that brings us home without leaving something behind again.
 
-*Examine the chart: a straight line through the garden; a curve along the road; next to the curve a dot rubbed out three times. In Otto's hand: "Clinic?"*
+*The player can examine:* **nebelstadt-harbor-chart** — A straight line through Greta’s garden. A curve along the road. Beside it a dot, erased three times: Clinic?
 
-> **OTTO:** I'm holding the pen; Greta's holding the map down. This won't bring our route back.
+*Optional questions:* “Why does being on time matter so much to you?” · “What grows in your garden?” · “Who built the old route?”
 
-**GATE — PLAYER:** *„Wir müssen eine Lösung finden, die für alle passt.“*
+> **OTTO:** I am holding the pen; Greta is holding the map down. This will not bring our route back.
 
-> **OTTO:** For everyone. Then I suppose I should show you my second drawing.
-> **OTTO:** The curve follows the road. Forty minutes longer. Nobody gets much to celebrate.
+**GATE — PLAYER:** *„Wir müssen eine Lösung finden, die für alle passt.“* (Say that we must find a solution that suits everyone.)
+
+> **OTTO:** For everyone. Then I suppose I should show my second drawing.
+> **OTTO:** The curve follows the road. Forty minutes longer. Nobody has much to celebrate.
 > **GRETA:** And a stop at the clinic?
-> **OTTO:** The stop is for people who can't walk. That's why I could never quite erase that dot.
-> **OTTO:** You're right. My second drawing shouldn't have been hidden beneath the first.
-> **GRETA:** Both routes cost something. This time, we can see the price before anyone signs.
+> **OTTO:** The stop is for people who cannot walk. That is why I could never quite erase that dot.
+> **OTTO:** You are right. My second drawing should not have been hidden beneath the first.
+> **GRETA:** Both routes cost something. This time we can see the price before anyone signs.
 > **OTTO:** Which line stays on the map?
 
-**[CHOICE]**
-- **REOPEN** — the straight line. *"Three beds must move; the clinic gets no stop."* Greta: *"Some only grow here. I'll copy their addresses, at least."*
-- **REMEMBER** — the curve. *"Every journey takes longer. At the clinic, I'll stop without anyone waving."* Greta: *"The Circle will tend the beds. You've given us work, {name}."*
+**[CHOICE `reopen`]** *„Die gerade Linie. Sie bringt die Leute schneller heim.“* — The straight line. It brings people home faster.
+> **OTTO:** Three beds must go. The clinic gets no stop.
+> **GRETA:** Some only grow here. I will copy their addresses, at least.
 
-> **OTTO:** Wait. Do you see the lighthouse? It's shining *dark*. That isn't even possible.
-> **GRETA:** The beam points at Waldruh. Emil says he knows the machine behind it. He's waiting at the repair dock.
+**[CHOICE `remember`]** *„Die Kurve mit dem Halt an der Klinik.“* — The curve with the stop at the clinic.
+> **OTTO:** Every journey takes longer. At the clinic I will stop without anyone having to wave.
+> **GRETA:** The Circle will tend the beds. You have given us work, {name}.
 
-**CINEMATIC — DARK BEAM**
-> LINA: The beam takes the names with it. We must stop it.
+> **OTTO:** Wait. Do you see the lighthouse? It is shining dark. That is not even possible.
+> **GRETA:** The beam points at Waldruh. Where it falls, the lanterns go out.
+> **GRETA:** At the signal tower sits a man who does not speak. He knows the signal. Go to him.
 
-*(The storm flag is set here; weather turns for scenes 27–29.)*
-
-**ELISE (V.O.):** *You saw what each route costs. Back then, I didn't want to see my own price. Soon I'll tell you why I closed the door. I'll stay here while I do.*
-
-> REVIEW: R14. Mediation scene; neither branch is "right". Otto hiding his own second drawing mirrors Ada hiding the second order.
+**CINEMATIC — DARK-BEAM**
+> LINA: Der Strahl nimmt die Namen mit. Wir müssen ihn stoppen.
 
 ---
 
-### 27. EXT. REPAIR DOCK — THE ERASER MACHINE — DUSK, WIND RISING
+### 36. NEBELSTADT · SIGNAL TOWER — The man who writes `b1-signalman`
 
-*A grey tarpaulin. Under it, a machine that works perfectly. Its maintenance ledger.*
+*Jonas keeps the signal at the harbour. He has not said a word in twelve years. His name on the slate is fading.*
 
-> **EMIL:** {name}! I need help. This time, I'll put the job in writing before we start.
-> **EMIL:** We're rebuilding the harbour signal to carry names back.
-> **EMIL:** The machine under the tarpaulin works perfectly. Unfortunately. That's exactly the problem.
-> **EMIL:** Three new coils. Someone has cared for this machine longer than for my lighthouse.
+> **EMIL:** This is Jonas. He has kept the signal for twelve years. He does not speak. He writes.
+> **JONAS:** He writes: Good evening. Quietly, please. The signal is listening.
+> **EMIL:** The Office paid him a bonus every year. For zero complaints.
+> **JONAS:** He writes: whoever says nothing loses nothing. That is what the form said.
+> **EMIL:** Frau Kessler is coming to the council. She will speak. Jonas, do you hear? Even her. *(if flag kessler-invited)*
+> **EMIL:** Look at his slate. His own name is almost gone.
+> **EMIL:** Tonight the storm comes. Without voices the signal cannot hold off the beam.
+
+*The player can examine:* **nebelstadt-signal-slate** — A slate beside the signal. At the top: No complaints. At the bottom, almost wiped away: Jonas.
+
+*Optional questions:* “Why does Jonas not speak?” · “What does the signal do?”
+
+> **JONAS:** He writes his name. Then he wipes it away. Then he writes it again.
+
+**GATE — PLAYER:** *„Ich bitte Sie, es einmal laut zu sagen.“* (Ask Jonas politely to say it out loud once.)
+
+> **JONAS:** J … Jo …
+> **EMIL:** His voice is twelve years old. It has to remember first.
+> **JONAS:** He writes: when I speak, I hear how quiet I have become.
+> **EMIL:** The signal has three levers. One for each town. One name per lever, out loud, or it slips.
+> **EMIL:** Will you give him time? Or will you read his name aloud for him now?
+
+**[CHOICE `jonas-speaks`]** *„Ich warte. Er sagt ihn selbst.“* — I will wait. He will say it himself.
+> **JONAS:** I … My name is Jonas.
+> **EMIL:** Do you hear? The signal is brighter. Just one name, and it is brighter.
+
+**[CHOICE `jonas-writes`]** *„Ich lese ihn für ihn. Laut.“* — I will read it for him. Out loud.
+> **JONAS:** He writes: thank you. It is easier when someone else says it.
+> **EMIL:** The signal holds. Quietly, but it holds.
+
+> **EMIL:** The machine’s maintenance ledger is at the repair dock. I want to read it before I touch anything.
+
+---
+
+### 37. NEBELSTADT · LANTERN REPAIR DOCK — The hand that kept it running `b1-work`
+
+*Emil offers you work on the signal. The next bell is close. Voss stands beside the maintenance ledger. He has not opened it yet.*
+
+> **EMIL:** {name}! I need help. This time I will put the job in writing before we start.
+> **EMIL:** We are rebuilding the harbour signal. It should carry names back.
+> **EMIL:** The machine under the tarpaulin works perfectly. Unfortunately. That is exactly the problem.
+> **EMIL:** Three new coils. Someone has looked after this machine better than my lighthouse.
 > **VOSS:** This installation belongs to the Brass Office. Anyone working on it needs a permit.
-> **EMIL:** Then approve it. You've got a stamp, after all.
-> **VOSS:** Today, I'm keeping my stamp down. First, you'll see the maintenance ledger.
-> *(if Voss's ledger)* **EMIL:** Do you still have the ledger Voss gave you in Lindenhafen? Keep it handy.
+> **EMIL:** Then approve it. You have a stamp, after all.
+> **VOSS:** Today my stamp stays down. First you will see the maintenance ledger.
+> **EMIL:** Frau Kessler’s slips are already here. Three orders. All tidy. *(if flag scene b1-record-room)*
+> **EMIL:** Do you still have the ledger Voss gave you in Lindenhafen? Keep it ready. *(if holding inspector-ledger)*
+> **EMIL:** Pay: soup. I will not downplay the danger. We are working on an eraser machine.
 
-*Examine: "Maintenance ledger, harbour eraser machine. Three new coils, all ordered after the closure. Approved with two stamps and one signature." Pencilled in the margin of the last page: "Did she call again today?"*
+*The player can examine:* **nebelstadt-repair-ledger** — Maintenance ledger, harbour eraser machine. Three new coils, all after the closure. Approved with two stamps and one signature.
 
-> **EMIL:** Work starts today. Pay: soup. I won't downplay the danger: we're working on an eraser machine.
+*Optional questions:* “What does “works mostly” mean?” · “Why does the machine belong to the Office?”
 
-**GATE — PLAYER:** *„Bevor ich anfange, möchte ich die Bedingungen klären.“*
+> **EMIL:** Before you touch a screw: what do you want to know?
+
+**GATE — PLAYER:** *„Bevor ich anfange, möchte ich die Bedingungen klären.“* (Say that before starting you want to clarify the conditions.)
 
 > **EMIL:** Yes. Before you touch a screw, this ledger stays open.
-> **EMIL:** Three new coils, all ordered after the closure: the second of March, the ninth of July, the first of December. Every time the same stamp, pressed twice. Clack, clack.
-> *(if ledger)* And now your ledger from Lindenhafen. The same signature. The same crooked stamp.
+> **EMIL:** Three new coils, all ordered after the closure: on the second of March, the ninth of July, the first of December.
+> **EMIL:** Every time the same stamp, pressed twice. Clack, clack.
+> **EMIL:** And now your ledger from Lindenhafen. The same signature. The same crooked stamp. *(if holding inspector-ledger)*
 > **VOSS:** I personally authorised the permanent closure. My signature is beneath it.
 > **VOSS:** And all three eraser coils. I paid to keep the machine running.
-> **VOSS:** The register said "quiet". Outside, homes were missing. I chose to believe the register.
-> **VOSS:** At night I heard: *"Is anyone there? I'm still here."* Then I closed the ledger.
+> **VOSS:** Frau Kessler filled in the slips. I signed. The responsibility is mine.
+> **VOSS:** The register said: quiet. Outside, homes were missing. I chose to believe the register.
 > **VOSS:** When I ordered the third coil, I knew about the missing names. I ordered it anyway.
-> **EMIL:** I installed them. Your work order said "lighthouse". Not one word about names.
+> **EMIL:** I installed them. The work order said: lighthouse. Not a word about names.
 > **VOSS:** You carried out my order. I concealed what your work would do.
-> **EMIL:** Then sign exactly that. And I'll read every line before I install another coil.
-> **EMIL:** We can shut down the new coils today, or explain the conversion first. Which risk do we face first?
+> **EMIL:** Then sign exactly that. And I will read every line before I install another coil.
+> **EMIL:** Do we switch off the new coils today? Or explain the conversion first? Which risk do we take first?
 
-**[CHOICE]**
-- **REOPEN** → Power off. Voss holds the lamp while Emil pulls the coils. *"The beam weakens. The old wiring still hums. For the rest, I need people willing to answer."*
-- **REMEMBER** → The plan is posted at council; Emil guards the switch. Voss: *"Put my name beside it. Anyone who loses something while we wait must know where to find me."*
+**[CHOICE `reopen`]** *„Wir schalten die Spulen heute ab.“* — We switch off the coils today.
+> **EMIL:** Power off. Voss, hold the lamp.
+> **EMIL:** The beam is weakening. The old wiring still hums. For the rest I need people who answer.
 
-**CINEMATIC — LEDGER**
-> VOSS: The permanent closure. The three coils. I signed both.
-> VOSS: Leave the book open. On my page too.
+**[CHOICE `remember`]** *„Erst erklären wir den Umbau vor dem Rat.“* — First we explain the conversion before the council.
+> **EMIL:** The plan is posted at the council. I will guard the switch.
+> **VOSS:** Write my name beside it. Anyone who loses something while we wait must know where to find me.
 
-> **EMIL:** Ada is calling the council for tomorrow morning. Everyone has to come. Really everyone.
+> **EMIL:** Ada is calling the council for tomorrow morning. Everyone should come. Really everyone.
 > **VOSS:** I will bring my ledger and open it in front of everyone. It has been shut long enough.
 
-**ELISE (V.O.):** *Voss said what his signature authorised. My answer is still missing. My key closed the route from inside. Without it, his stamp would never have reached that door. You owe me no forgiveness for that.*
-
-> REVIEW: R15. Voss's full confession is on the common path, before the choice — correct per the bible. The machine "always works" vs Emil's "works mostly" is the scene's thematic joke.
+**CINEMATIC — LEDGER**
+> INSPECTOR: Die dauerhafte Schließung. Die drei Spulen. Ich habe beides unterschrieben.
+> INSPECTOR: Lassen Sie das Buch offen. Auch auf meiner Seite.
 
 ---
 
-### 28. INT. THE ARCHIVE — COUNCIL SESSION — MORNING
+### 38. NEBELSTADT · COUNCIL ARCHIVE — Whose silence counts? `b1-council`
 
-*Seven chairs, one empty. A pot of soup. The council board: "Open now!", "Ask first!", "Soup from twelve". Beneath: an old Brass Office rule — WER SCHWEIGT, STIMMT ZU. Silence means consent.*
+*Ada places three chairs around a table. Voss stays standing at first. The evidence is open. A decision is still missing. Outside the window, the dark beam grows brighter.*
 
 > **ADA:** The session is open. Seven chairs, eight opinions and a pot of soup.
 > **FRITZ:** The soup is neutral. It has no opinions, only potatoes.
-> **ADA:** The board carries the Office's rule: "Silence means consent." The machine follows that rule. Every silence registers as a vote for closure.
+> **ADA:** The board carries the Office’s rule: whoever stays silent agrees. The machine follows that rule.
 > **LINA:** Fritz! You said nothing for three seconds, and the beam got brighter!
 > **FRITZ:** No! I mean: no. I was only chewing.
-> **GRETA:** The empty chair can't object, Ada. That doesn't mean it can agree.
+> **GRETA:** The empty chair cannot object, Ada. That does not mean it agrees.
+> **GRETA:** Today someone we no longer know is sitting there. I can feel it. *(if flag ruth-lost)*
 > **OTTO:** The Lamplighters say: open it. Today, all of it, right now.
 > **GRETA:** The Circle says: nothing opens before every town has been asked. That is exactly what was missing last time.
-> **VOSS:** I haven't come to chair this meeting. I authorised the closure, and I will answer your questions.
-> **VOSS:** My name is Voss. The title helps nobody here. If you agree, we can use *du*.
-> *(if ledger)* Put my ledger on the table. Keep the signature visible while I speak.
-> *(if Circle ≥ 5)* **LINA:** The Circle has brought the old objections. Forty pages. Back then, nobody read them.
-> **ADA:** An entire route at once, with everyone answering immediately. Is there a smaller first step, {name}?
+> **OMA HILDE:** And I say: ask the old ones first. We have waited the longest. *(if flag hilde-invited)*
+> **VOSS:** I am not chairing this meeting. I authorised the closure. I will answer your questions.
+> **VOSS:** My name is Voss. The title helps nobody here. If you agree, we can use du.
+> **FRAU KESSLER:** I am Frau Kessler. I wrote the slips. I will keep to Sie. But I am speaking. *(if flag kessler-invited)*
+> **LINA:** The Circle has brought the old objections. Forty pages. Back then nobody read them. *(if unwritten ≥ 5)*
 
-**GATE — PLAYER:** *„Ein Kompromiss wäre, die Strecke schrittweise zu öffnen.“*
+*The player can examine:* **nebelstadt-council-board** — Three notices: Open now! Ask first! Soup from twelve. Beneath them an old Office rule: whoever stays silent agrees. · **nebelstadt-harbor-chart** — The chart with both lines. A note from Otto: ask first, then draw.
+
+*Optional questions:* “Why does silence count as yes?” · “Why is one chair empty?” · “What is in the soup?”
+
+> **ADA:** A whole route at once, with everyone answering immediately. Is there a smaller first step, {name}?
+
+**GATE — PLAYER:** *„Ein Kompromiss wäre, die Strecke schrittweise zu öffnen.“* (Propose opening the route gradually as a compromise.)
 
 > **OTTO:** Step by step. One station after another. I can live with that. Slowly.
-> **GRETA:** Before each step, we ask the town. A no goes on record too.
-> **ADA:** The objections are on record now. Hear that? The beam is weakening.
-> **VOSS:** And the authorisations must be readable. A stamp alone must never replace an answer again.
+> **GRETA:** Before each step we ask the town. A no goes on record too.
+> **ADA:** The objections are on record now. Do you hear? The beam is weakening.
+> **VOSS:** And the authorisations must be readable. A stamp must never again replace an answer.
 > **FRITZ:** My yes is in the record. Now I can finally swallow this potato.
 > **ADA:** One step has to come first. The first train or the first vote?
 
-**[CHOICE]**
-- **REOPEN** — the first train, Lamplighter-escorted. Otto: *"Anyone afraid of the first train gets a seat beside me."*
-- **REMEMBER** — the first vote, in every town. Lina carries the question and the clinic's post.
-- **PUBLISH THE LEDGER** (needs Voss's ledger) — *"It goes on public display, and we review every decision."* Voss: *"Nobody has to beg for an explanation at my office door again."* (+2 Brass Office, +1 Circle, flag `ledger-published`)
+**[CHOICE `reopen`]** *„Der erste Zug. Mit den Laternenhütern an Bord.“* — The first train. With the Lamplighters on board.
+> **OTTO:** Anyone afraid of the first train gets a seat beside me.
 
-> **ADA:** Do you hear the wind? The storm is coming sooner than the next bell.
-> **GRETA:** Promises are easy in the dry. Now we'll see whether ours holds in the rain.
+**[CHOICE `remember`]** *„Die erste Abstimmung. In jeder Stadt.“* — The first vote. In every town.
+> **LINA:** I will carry the question to every town. And the clinic’s post.
 
-**ELISE (V.O.):** *The empty chair belonged there. Someone my decision took away should have been sitting in it. You didn't treat their silence as a yes. The Office did, and I allowed it. When the last bell rings, I want to give my answer in front of you.*
+**[CHOICE `publish-ledger`]** *„Das Buch des Amtes wird öffentlich ausgehängt. Wir prüfen jede Entscheidung.“* — The Office’s ledger goes on public display. We review every decision. *(if holding inspector-ledger)*
+> **VOSS:** Nobody has to beg for an explanation at my office door again.
 
-> REVIEW: R16. The only scene with a third, item-gated option, and the only route to the "Brass Office reformed" ending in practice. Voss's *Sie → du* arc completes here.
+**[CHOICE `kessler-list`]** *„Frau Kessler liest ihre Liste vor. Alle Regeln, öffentlich.“* — Frau Kessler reads her list aloud. Every rule, in public. *(if flag kessler-invited)*
+> **FRAU KESSLER:** Rules one to ten. I will read them aloud. Then I will strike out rule four. Myself.
+> **ADA:** For the first time everyone hears what they were only allowed to sign before.
+
+> **ADA:** Do you hear the wind? The storm is coming before the next bell.
+> **ADA:** {name}, come with me to the observatory. Before the storm comes, you must know something about your key.
 
 ---
 
-### 29. EXT. LIGHTHOUSE STEPS, SIGNAL HARBOUR — THE STORM — NIGHT
+### 39. NEBELSTADT · OBSERVATORY STAIRS — One minute, one key `b1-temptation`
 
-*Water between the garden beds. The signal flickers; the dark beam presses against it "like a hand over a mouth". A red boat with a family still out beyond the beds.*
+*The dark beam is stronger than ever. With the key you could close the route tonight. Then the beam stops. But Waldruh goes dark again.*
 
-> **GRETA:** The water is already between the beds. The fern is safe. Now the people.
-> **OTTO:** The storm has read the timetable. It's arriving on time. Suspicious.
-> **EMIL:** The signal is flickering. The beam presses against it like a hand over a mouth.
-> **MARTA:** I've got tea, blankets and a list. Greta, who's still missing?
-> **GRETA:** The family from Waldruh, with the red boat. I can still see their light beyond the beds.
-> **MARTA:** I wrote their names down. There's only a wet streak left. Yesterday I could read them.
-> **VOSS:** The office storehouse is open. Sandbags, ropes, lamps. No forms.
-> *(if Brass ≥ 3)* My staff are coming too. You brought us evidence instead of rumours.
-> *(if Circle ≥ 3)* **LINA:** The Circle is here. Its people know every way to the clinic, even the ones on no map.
-> *(if Lamplighters ≥ 3)* **OTTO:** The Lamplighters are here, with ladders and tools. You kept your word. Now we keep ours.
-> *(if ledger published)* **GRETA:** People have read Voss's ledger. Now they ask him for ropes instead of avoiding him.
-> **OTTO:** I'll climb to the lantern. But someone must hold the ladder, and my people are already in the water.
-> **LINA:** The Circle knows the paths to the garden. We need hands on the ropes.
-> **VOSS:** My storehouse is open. But lamps alone won't pull anyone out of the water.
-> **GRETA:** The ladder is slipping. The ropes are here. Everyone needs hands from another group.
-> **GRETA:** Working separately, we don't even have enough hands for the ladder.
+> **ADA:** The stairs to the observatory are locked. With a lantern lock. You know which key fits.
+> **ADA:** Up at the desk is the place where Elise closed the route back then.
+> **VOSS:** The beam is stronger tonight than ever. The coils are off, but the old wiring is enough.
+> **VOSS:** The coils are still running. The council wanted the plan first. Now we are paying for it. *(if flag scene b1-work)*
+> **ADA:** The beam runs along the route. Where it is open, it reaches the names.
+> **ADA:** Listen. The tape is running again.
 
-**GATE — PLAYER:** *„Wir können das Problem nur gemeinsam lösen.“*
+*The player can examine:* **nebelstadt-observatory-stairs** — A staircase leading up. A little lantern on the lock. Your key fits. *(locked: The stairs are locked. There is a little lantern on the lock.)*
+
+*Optional questions:* “Why did Elise turn it back then?” · “Who recorded the tape?”
+
+> **ADA:** I will not tell you what to do. I will only tell you what your key can do.
+
+**GATE — PLAYER:** *„Wenn ich den Schlüssel drehe, was passiert dann?“* (Ask Ada what happens if you turn the key.)
+
+> **ADA:** Then the route closes. One minute, one turn. The beam has no path any more.
+> **ADA:** Tonight there would be peace. No storm over the names. Tomorrow you start again.
+> **ADA:** But Waldruh would be dark again. All the new names there, on the stone and at the table.
+> **VOSS:** I have done this once before. One signature. It is easy. That is the terrible thing about it.
+> **ADA:** From the harbour, quietly: “Is anyone there? I am still here.”
+> **ADA:** Will you turn the key tonight? Or do we weather the storm without it?
+
+**[CHOICE `route-closed-again`]** *„Ich drehe ihn. Nur für diese Nacht.“* — I will turn it. Just for tonight.
+> **ADA:** The beam breaks off. It is quiet over the harbour.
+> **LINA:** Waldruh is dark. I cannot see a single light any more. Not even at the table.
+> **VOSS:** Now you know how easy it is. I do not judge you. I recognise you.
+
+**[CHOICE `key-refused`]** *„Nein. Wir halten den Sturm aus. Zusammen.“* — No. We weather the storm. Together.
+> **ADA:** Then we weather it. The key stays in your pocket.
+> **VOSS:** Back then someone should have said no. Today someone did.
+
+> **ADA:** Do you hear the wind? Greta is already in the garden. The water is rising.
+
+**CINEMATIC — TEMPTATION**
+> ADA: Ein Schlüssel. Eine Minute. Dann ist der Strahl dunkel.
+> STIMME: Ist da jemand? Ich bin noch hier.
+
+---
+
+### 40. NEBELSTADT · OBSERVATORY GARDEN — Three lanterns in the rain `b1-storm`
+
+*The storm cuts the power. The bell keeps going. Greta counts people; Emil counts connections. Both need help in different places. Now you find out who keeps a promise in the rain.*
+
+> **GRETA:** The water is already between the beds. Now the people.
+> **EMIL:** The signal is flickering. The beam presses against it like a hand over a mouth. *(if not route-closed-again)*
+> **EMIL:** No beam tonight. Only storm. But Waldruh is dark, and the signal cannot find the names there. *(if flag route-closed-again)*
+> **MARTA:** I have tea, blankets and a list. Greta, who is still missing?
+> **GRETA:** The family from Waldruh, with the red boat. I can see their light beyond the beds.
+> **MARTA:** I wrote their names down. Only a wet streak is left. Yesterday I could still read them.
+> **VOSS:** The Office storehouse is open. Sandbags, ropes, lamps. No forms.
+> **VOSS:** My staff are coming too. You brought us evidence instead of rumours. *(if brassOffice ≥ 3)*
+> **FRAU KESSLER:** I unlocked the storehouse. Without a form. It feels wrong. And right. *(if flag kessler-turned)*
+> **LINA:** The Circle is here. Its people know every way to the clinic, even those on no map. *(if unwritten ≥ 3)*
+> **OTTO:** The Lamplighters are here, with ladders and tools. You kept your word. Now we keep ours. *(if lamplighters ≥ 3)*
+> **OTTO:** The clinic train is at the stop. It can take people out of the water. Good that we chose the curve. *(if flag clinic-stop)*
+> **EMIL:** Jonas calls from the tower: here! The signal is here! *(if flag jonas-speaks)*
+> **OTTO:** I will climb to the lantern. But someone must hold the ladder, and my people are already in the water.
+> **GRETA:** The ladder is slipping. The ropes are here. Every group needs hands from another.
+
+*The player can examine:* **nebelstadt-signal-lantern** — The signal lantern flickers in the storm. Three levers, one for each town.
+
+*Optional questions:* “Why was the festival called off?” · “What is the beam doing to the signal?”
+
+> **GRETA:** Each on their own, and we do not even have enough hands for the ladder.
+
+**GATE — PLAYER:** *„Wir können das Problem nur gemeinsam lösen.“* (Say that we can only solve the problem together.)
 
 > **OTTO:** Voss, hold the ladder with me. Lina, pass the rope to Greta. Emil climbs.
 > **EMIL:** Keep your hands there. Lindenhafen, Waldruh, Nebelstadt. Now the signal holds!
 > **MARTA:** Lenz! The Lenz family! Now I remember.
-> **GRETA:** Then I'll call their names. They need to know we still remember who they are.
+> **LINA:** Dad! Jakob! We are here!
+> **LINA:** Mum! Ruth! Hold on! *(if not ruth-lost)*
 > **GRETA:** The signal is tipping again. Water is rising in the garden. Where do we take the strong ropes first?
 
-**[CHOICE]**
-- **REOPEN** — ropes to the signal; families out across the greenhouse roof. *"The signal holds. The Lenz family waves from the hall. Their red boat drifts away without them."* (flag `signal-secured`)
-- **REMEMBER** — ropes to the garden; Emil holds the signal by hand. *"Eighteen people, two dogs, one fern. All dry. Emil needs a new support; the old one's in the water."* (flag `families-sheltered`)
+**[CHOICE `reopen`]** *„Zum Signal. Dann holen wir die Familien über das Gewächshausdach.“* — To the signal. Then we bring the families out over the greenhouse roof.
+> **OTTO:** The signal holds. The Lenz family waves from the hall. Their red boat drifts away without them.
 
-**CINEMATIC — STORM**
-> GRETA: The last person is in the dry. Now we hold the light.
-> OTTO: Three towns answer. No voice comes from the tape.
+**[CHOICE `remember`]** *„Zum Garten. Emil hält das Signal mit der Hand.“* — To the garden. Emil holds the signal by hand.
+> **GRETA:** Eighteen people and two dogs. All dry. Emil needs a new support.
 
 > **GRETA:** The wind is turning. Do you see the light up in the observatory? No lamp has burned there for years.
 > **LINA:** Mail for you. Sender: the old signal room. Signed: E.
-> **MARTA:** We'll stay here with the families. Go upstairs, {name}. This time, Elise must open her own door.
+> **MARTA:** We will stay with the families. Go upstairs, {name}. This time Elise must open her own door.
 
-**ELISE (V.O.):** *I can see your lamps. One climbs the ladder; the others head towards the garden. You stay together after arguing. I stayed alone because I wanted every argument to end. The door is open. The tea is ready. I'm afraid, but I'm staying here.*
-
-> REVIEW: R17. The one scene where the faction reputation visibly pays off in who shows up. "No voice comes from the tape" is the recorder finally going silent, answered by living voices.
+**CINEMATIC — STORM**
+> GRETA: Die letzte Person ist im Trockenen. Jetzt halten wir das Licht.
+> OTTO: Drei Städte antworten. Keine Stimme kommt vom Band.
 
 ---
 
-### 30. INT. THE OBSERVATORY — THE OLD SIGNAL ROOM — DAWN
+### 41. NEBELSTADT · THE LAST ATLAS PAGE — A promise with witnesses `b1-atlas`
 
-*A desk with a pot of tea gone cold. A brass instrument showing three routes with blank metal at its edge. A pile of draft letters to {name}; the earliest are only a few words long. A key on the desk between two chairs.*
+*Elise waits at the desk. Your letters lie before her. A page in the Atlas is blank. The key still fits. She looks at the others first, then at you.*
 
-ELISE, finally. Tired. Black ink on her hands.
-
-> **ELISE:** {name}. I left the door open. Even so, your knock frightened me.
-> **ELISE:** And now all I can think of is: would you like some tea? I'm afraid it's already cold.
-> **ELISE:** My letters to you are beside my drafts. Here, I crossed out every word that sounded like an excuse.
-> **ELISE:** The letter said: *"Before you erase us again, come."* I was afraid of this key.
-> **ELISE:** And later: *"I'm not in two places."* I was here. Behind a door I had closed myself.
-> **ELISE:** At first, the ink held only short sentences. As you listened to people, I could write whole letters again.
-> **ELISE:** Now the key lies between us. I'll leave it there while I tell you everything.
-> **ELISE:** Stones lay on the tracks. The next train was meant to take children to the clinic. I wanted to stop it departing. At 17:59, I closed the route from inside. For one week.
-> **ELISE:** I call it my first mistake: I took people's choice away to keep them safe.
-> **ELISE:** After a week, I wanted everyone to accept my solution first. The doors stayed closed.
-> **ELISE:** When Voss made the closure permanent, I didn't object. I let him carry on what I had started.
-> **ELISE:** I paid for your coffee at Marta's. Then someone had to say your name aloud.
-> **ELISE:** You hadn't met the towns yet. I hoped you would open their doors. I wanted mine to stay closed.
-> *(if letter private)* You kept the letter. Today, Ada gets its drafts too. Even the sentences I crossed out.
-> *(if address public)* You gave the Office my address. I was still hiding then. Today, everyone knows where I am.
-
-VOSS, in the doorway.
-
-> **VOSS:** Elise. I heard your voice every night. Now I'm done waiting for a recording.
-> **ELISE:** Then answer me. Here, in front of the open door.
+> **ELISE SANDER:** {name}. I left the door open. Even so, your knock frightened me.
+> **ELISE SANDER:** You turned the key. Now you know how easy it is. I do not condemn you. *(if flag route-closed-again)*
+> **ELISE SANDER:** You did not turn the key. I saw it from the window. *(if flag key-refused)*
+> **ELISE SANDER:** And now all I can think of is: would you like some tea? I am afraid it is already cold.
+> **ELISE SANDER:** My letters to you are beside my drafts. Here I crossed out every word that sounded like an excuse.
+> **ELISE SANDER:** The letter said: “Before you erase us again, come.” I was afraid of this key.
+> **ELISE SANDER:** And later: “I am not in two places.” I was here. Behind a door I had closed myself.
+> **ELISE SANDER:** Lay the key between us. I will leave it there while I tell you everything.
+> **ELISE SANDER:** Lina told you about the stones. Eleven. I counted them before I moved them. *(if flag scene a2-forest-rails)*
+> **ELISE SANDER:** There were stones on the tracks at the station. The next train was meant to take children to the clinic.
+> **ELISE SANDER:** I wanted to stop it leaving. At 17:59 I closed the route from inside. For one week.
+> **ELISE SANDER:** I call it my first mistake: I took people’s choice away to keep them safe.
+> **ELISE SANDER:** After a week I wanted to be sure everyone agreed with my solution first. The doors stayed closed.
+> **ELISE SANDER:** When Voss made the closure permanent, I did not object. I let him carry out what I had begun.
+> **ELISE SANDER:** I paid for your coffee at Marta’s. Then someone had to say your name aloud.
+> **ELISE SANDER:** You did not know the towns yet. I hoped you would open their doors. I wanted to keep mine closed.
+> **ELISE SANDER:** You kept the letter. Today Ada gets its drafts too. Even the sentences I crossed out. *(if flag elise-letter-private)*
+> **ELISE SANDER:** You gave the Office my address. I was still hiding then. Today everyone knows where I am. *(if flag waldruh-address-public)*
+> **ELISE SANDER:** One letter is right on top. For Lina. I stopped the train she was sitting in.
+> **VOSS:** Elise. I heard your voice every evening. Now I am done waiting for a recording.
+> **ELISE SANDER:** Then answer me. Here, in front of the open door.
 > **VOSS:** I am here.
-> **ELISE:** I'm coming downstairs with you today. First, let's look at what lies beside the key.
-> **ELISE:** The seventh bell is about to ring. This page has room for a rule that binds me too.
-> **ELISE:** Last time, I spoke only after everything closed. What do we agree before someone must decide alone again?
+> **ELISE SANDER:** I am coming downstairs with you today. First, let us look at what lies beside the key.
 
-**GATE — PLAYER (writes):** *„Wir vereinbaren, dass wir Probleme frühzeitig besprechen.“* — We agree to discuss problems early.
+*The player can examine:* **nebelstadt-observatory** — On the desk a pile of draft letters to {name}. The first ones are only a few words long. Beside them an empty place for a key. · **nebelstadt-council-board** — One line on the council board has been left blank. Above it, in Ada’s handwriting: “Our rule:”
 
-> **ELISE:** I write "we". Then I pause. I leave room for your name beside mine.
-> **ELISE:** The ink holds. A stop reappears on the Waldruh line. And another towards Lindenhafen.
-> *(if ledger published)* **VOSS:** I'll write the sentence in my ledger too. The ledger that now hangs in the town hall.
-> **ELISE:** The key stays in front of me. I won't take it upstairs again.
-> **ELISE:** "Again" meant the key you inherited. My guilt doesn't make you guilty.
-> **ELISE:** The key needs a permanent, public place. Who will keep it: the council or the Circle?
+*Optional questions:* “How did you live up here?” · “What will you do now?” · “Why did you make the recording?”
 
-**[CHOICE — Who keeps the key?]**
-- **REOPEN** — the council, in public custody. Ada takes it; Elise lays her drafts beside it. *"Tomorrow, I'll answer their questions. Even if the first train leaves without me."*
-- **REMEMBER** — the Circle, for the towns. Greta takes it; Lina records where it is. *"No more hidden drawers. The fern gets no key. I get a chair beside the people whose questions I must answer."*
+> **ELISE SANDER:** The seventh bell is about to ring. This page has room for a rule that binds me too.
+> **ELISE SANDER:** Last time, I spoke only after everything was closed. What do we agree before someone must decide alone again?
+
+**GATE — PLAYER:** *„Wir vereinbaren, dass wir Probleme frühzeitig besprechen.“* (Write that we agree to discuss problems early.)
+
+> **ELISE SANDER:** I write “we”. Then I pause. I leave room for your name beside mine.
+> **ELISE SANDER:** The ink holds. A stop reappears on the Waldruh line. And another towards Lindenhafen.
+> **LINA:** Ruth. My mother’s name is Ruth. I never stopped knowing it. I only stopped saying it. *(if flag ruth-lost)*
+> **ELISE SANDER:** A name stands on the stone in Waldruh again. Ruth Lenz. *(if flag ruth-lost)*
+> **VOSS:** I will write the sentence in my ledger too. The ledger that now hangs in the town hall. *(if flag ledger-published)*
+> **ELISE SANDER:** The key stays in front of me. I will not take it upstairs again.
+> **ELISE SANDER:** “Again” meant the key you inherited. My guilt does not make you guilty.
+> **ELISE SANDER:** The key needs a permanent, public place. Who will keep it: the council or the Circle?
+
+**[CHOICE `reopen`]** *„Der Rat verwahrt ihn öffentlich.“* — The council keeps it, in public.
+> **ELISE SANDER:** Ada takes the key. I lay my drafts beside it. Both stay downstairs with the others.
+> **ELISE SANDER:** Tomorrow I will answer their questions. Even if the first train leaves without me.
+
+**[CHOICE `remember`]** *„Der Kreis verwahrt ihn für die Städte.“* — The Circle keeps it, for the towns.
+> **ELISE SANDER:** Greta takes the key for the Circle. Lina records where it is. No more hidden drawers.
+> **ELISE SANDER:** I get a chair among the people I must answer to.
+
+> **OTTO:** The first train runs. Not every connection is settled yet. I will stay with the people on the platform. *(if ending routes-reopened)*
+> **GRETA:** People are going home. We will look for the missing addresses together; they do not come back with the timetable. *(if ending routes-reopened)*
+> **GRETA:** Each town decides on its own connection. Lina brings every answer back. *(if ending towns-consent)*
+> **LINA:** The trains wait for the answers. Today I carry the medicines on foot. Tomorrow I will ask again. *(if ending towns-consent)*
+> **VOSS:** My stamp stays with the council. Ada checks every old authorisation. I answer questions under my own name. *(if ending brass-reformed)*
+> **ADA:** Disputed connections stay closed for now. Even good work now waits for review. I begin today. *(if ending brass-reformed)*
+> **ELISE SANDER:** {name}, I am coming downstairs now. Frau Berg knows my voice. This time she should see my face too.
+> **ELISE SANDER:** At 7 Gartenstraße there is a name on the house again. I saw it from the window.
+> **ELISE SANDER:** Three towns stand in the Atlas again. A coast appears at its edge. Its name is still missing.
 
 ---
 
@@ -1107,7 +1937,7 @@ VOSS, in the doorway.
 |---|---|---|
 | **The routes reopen** | default (Lamplighters lead) | OTTO: *The first train runs. Some connections remain uncertain. I'll stay with the people on the platform.* GRETA: *We'll find the missing addresses together; a timetable alone won't bring them back.* **Bell cinematic:** Otto: "For the new coast we have no safe timetable yet." Elise: "My key is now public. I travel with an ordinary ticket." |
 | **The towns choose** | Circle ≥ Lamplighters | GRETA: *Each town decides on its own connection.* LINA: *The trains wait for answers. Today, I carry medicines on foot. Tomorrow, I'll ask again.* **Bell cinematic:** Greta: "Three towns, three voices. The coast waits until its people answer themselves." Elise: "Waiting is hard. This time the people who live there decide." |
-| **The Brass Office changes** | Brass > 0 and Brass ≥ both others (practically requires publishing the ledger) | VOSS: *My stamp stays with the council. Ada checks every old authorisation. I answer under my own name.* ADA: *Disputed connections remain closed for now. Even good work must wait for review. I begin today.* **Bell cinematic:** Voss: "My stamp lies on the table. My signature stays in the book." Ada: "Tomorrow we open the office. The first complaint concerns ourselves." |
+| **The Brass Office changes** | Brass > 0 and Brass ≥ both others (reachable through the published ledger, Falk's testimony or Frau Kessler's public list) | VOSS: *My stamp stays with the council. Ada checks every old authorisation. I answer under my own name.* ADA: *Disputed connections remain closed for now. Even good work must wait for review. I begin today.* **Bell cinematic:** Voss: "My stamp lies on the table. My signature stays in the book." Ada: "Tomorrow we open the office. The first complaint concerns ourselves." |
 
 *All endings close on:*
 
@@ -1121,13 +1951,21 @@ VOSS, in the doorway.
 
 **FINAL JOURNAL CARD:** Three towns are back in the Atlas. Their people will decide on the next route. Beyond the route, a faint coastline appears with no name. Somewhere out there, someone is still waiting for a question.
 
+**CINEMATIC — EPILOGUE** *(after the bell)*
+> OTTO: The first train through all three towns. On time. Today I believe it.
+> PIP: Mum! Dad! I said your names every day!
+> *(one line per ending: every route open / Waldruh voted first / rule four struck out by Kessler herself)*
+> FRAU BERG's answer: Come to the fountain.
+
 FADE OUT.
 
 ---
 
 ## APPENDIX A — THE PLOT IN ONE PAGE
 
-**Act I (18 scenes: 6 story, 12 errands)**
+*Scene numbers below follow the original 30-scene order. The 2026-10-15 expansion added eleven scenes, listed after them; the scene text above is generated from the dialogue graphs and is authoritative.*
+
+**Act I (18 original scenes: 6 story, 12 errands)**
 
 1. A ticket with your name, signed "E.", for platform seven, closed twelve years but where your train just stopped. Names fade unless said aloud. Voss declares the ticket invalid; the player gives it up or keeps it. *(Who is E.?)*
 2. The timetable's line for platform seven reads "nach W…"; Otto has known the town for twenty years and cannot say its name.
@@ -1163,6 +2001,20 @@ FADE OUT.
 29. Storm: only hands from all three towns can hold the signal. The Lenz family's names are remembered.
 30. Elise: she closed the route to protect a children's train from stones on the track, then could not let go. Voss answers her at last: "I am here." The key goes into public custody. Three towns return; an unnamed coast appears.
 
+**Added in the 2026-10-15 expansion**
+
+- a1-notice: the Office's notice, *Wer schweigt, stimmt zu*, posted as rule four.
+- a1-chalk: Pip's chalk wall; at the bottom, *Mama. Papa.*
+- a1-bench: Frau Berg on her bench without her own name; her pupils give it back.
+- a1-office-window: Frau Kessler's handwriting on every notice; Marta's guest book on her counter.
+- a2-upstairs: Oma Hilde, who sees both towns and was never asked.
+- a2-ink-seller: Herr Falk sells ink that never fades. It does.
+- a2-forest-rails: eleven stones on the old rails; Lina was on the children's train; her parents are the Lenz family.
+- a2-cellar: the keeper's key opens the mill cellar; Falk quit the Office after seeing the machine.
+- b1-record-room: three coil orders in Kessler's hand, Voss's signature; she may speak at the council.
+- b1-signalman: Jonas, paid for silence, says (or writes) his own name.
+- b1-temptation: the player may turn the key and close the route again for one night.
+
 ## APPENDIX B — THREADS TO CHECK IN REVIEW
 
 *Status after the Act I rebuild (commit 7dd9507): resolved items are marked **Resolved**; Acts II and III have not been reworked yet.*
@@ -1183,6 +2035,8 @@ FADE OUT.
 - **The unnamed coast** is the sequel hook. It appears only in the final two lines.
 
 ## APPENDIX C — WHIMSY AUDIT
+
+*Status 2026-10-15: every Tier 1 item in Acts II and III is removed (pigeons, fern, fridge, tree complaint, pigeon receipt, soup comparison, hearing theatre). The table is kept as the record of what was cut.*
 
 *Updated for the Act I rebuild: Act I items below are marked **Removed in Act I**. Acts II and III are unchanged except that the a2-apartment kettle topic and the finale's kettle explanation are gone.*
 

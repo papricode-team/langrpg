@@ -29,7 +29,9 @@ type WorldContent struct {
 	ContentVersion string           `json:"contentVersion"`
 	WorldMaps      WorldMapRegistry `json:"worldMaps"`
 	Investigations struct {
-		Rules []StoryRule `json:"rules"`
+		Rules      []StoryRule `json:"rules"`
+		Ink        InkRegistry `json:"ink"`
+		SideQuests []SideQuest `json:"sideQuests"`
 	} `json:"investigations"`
 	Diagnostics []string `json:"diagnostics"`
 	// Admin story overrides ride along with the world publication.
@@ -43,8 +45,10 @@ type worldEditing struct {
 	compile func(context.Context, json.RawMessage) (*WorldContent, error)
 	worker  *worldWorker
 	store   worldContentStore
-	cancel  context.CancelFunc
-	done    chan struct{}
+	// The canonical scene file a saved publication is reconciled against.
+	source string
+	cancel context.CancelFunc
+	done   chan struct{}
 }
 
 func worldRevision(document json.RawMessage) string {
@@ -102,6 +106,8 @@ func (a *App) initWorldEditing(ctx context.Context, source, compiler string) err
 		if err = json.Unmarshal(rules, &saved.Investigations); err != nil {
 			return err
 		}
+	} else {
+		saved = a.reconcileStoredWorld(ctx, saved, source)
 	}
 	if err := validateWorldContent(saved); err != nil {
 		return err
@@ -111,7 +117,7 @@ func (a *App) initWorldEditing(ctx context.Context, source, compiler string) err
 		return err
 	}
 	root := filepath.Dir(filepath.Dir(absolute))
-	a.editing = &worldEditing{current: saved, store: storage, compile: func(ctx context.Context, document json.RawMessage) (*WorldContent, error) {
+	a.editing = &worldEditing{current: saved, store: storage, source: source, compile: func(ctx context.Context, document json.RawMessage) (*WorldContent, error) {
 		command := exec.CommandContext(ctx, "node", absolute, "--root", root)
 		command.Stdin = bytes.NewReader(document)
 		var output, diagnostics bytes.Buffer
@@ -238,6 +244,9 @@ func (a *App) refreshWorldContent(ctx context.Context) error {
 	}
 	if saved == nil {
 		return nil
+	}
+	if editing.source != "" {
+		saved = a.reconcileStoredWorld(ctx, saved, editing.source)
 	}
 	if err = validateWorldContent(saved); err != nil {
 		return err

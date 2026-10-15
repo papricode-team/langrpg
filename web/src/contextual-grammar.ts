@@ -38,6 +38,17 @@ const notes: Record<string, Omit<ContextualGrammar, 'clipId'>> = {
   'b1-council': { guideId:'b1-hypothetical', german:'Wäre schlägt eine Möglichkeit vor. Nach dem Komma erklärt der Infinitiv, was der Kompromiss wäre.', english:'Wäre proposes a possibility. After the comma, the infinitive explains what the compromise would be.' },
   'b1-storm': { guideId:'b1-argument-links', german:'Nur gemeinsam betont die Bedingung. Mit können steht lösen am Ende.', english:'Nur gemeinsam stresses the condition. With können, lösen goes at the end.' },
   'b1-atlas': { guideId:'a2-because', german:'Dass führt die gemeinsame Zusage ein. Besprechen steht am Ende dieses Nebensatzes.', english:'Dass introduces the shared promise. Besprechen goes at the end of this subordinate clause.' },
+  'a1-notice': { guideId:'a1-modal', german:'Mit dürfen fragst du nach einer Regel: Warum darf ich das nicht?', english:'With dürfen you ask about a rule: Warum darf ich das nicht?' },
+  'a1-chalk': { guideId:'a1-questions', german:'Wie heißt du? Das Fragewort steht vorne, dann kommt das Verb.', english:'Wie heißt du? The question word comes first, then the verb.' },
+  'a1-bench': { guideId:'a1-present', german:'Mit Sie hat das Verb die Endung -en: Wie heißen Sie?', english:'With Sie the verb ends in -en: Wie heißen Sie?' },
+  'a1-office-window': { guideId:'a2-perfect', german:'Das Perfekt hat zwei Teile: haben vorne, geschrieben am Ende.', english:'The perfect has two parts: haben near the front, geschrieben at the end.' },
+  'a2-upstairs': { guideId:'a1-modal', german:'Darf ich Sie etwas fragen? Mit dürfen bittest du höflich um Erlaubnis.', english:'Darf ich Sie etwas fragen? With dürfen you politely ask for permission.' },
+  'a2-ink-seller': { guideId:'a2-comparison', german:'Etwas Günstigeres: Der Komparativ bekommt nach etwas die Endung -es.', english:'Etwas Günstigeres: after etwas, the comparative takes the ending -es.' },
+  'a2-forest-rails': { guideId:'a2-perfect', german:'Was ist damals passiert? Passieren bildet das Perfekt mit sein.', english:'Was ist damals passiert? Passieren forms the perfect with sein.' },
+  'a2-cellar': { guideId:'a2-because', german:'Warum haben Sie das gemacht? Die Antwort kommt oft mit weil, das Verb steht dann am Ende.', english:'Warum haben Sie das gemacht? The answer often comes with weil, and then the verb goes at the end.' },
+  'b1-record-room': { guideId:'b1-indirect-questions', german:'Könnten Sie mir zeigen, wo die Unterlagen sind? In der indirekten Frage steht das Verb am Ende.', english:'Könnten Sie mir zeigen, wo die Unterlagen sind? In the indirect question the verb goes at the end.' },
+  'b1-signalman': { guideId:'a2-infinitive', german:'Ich bitte Sie, es zu sagen: Nach bitten folgt ein Infinitiv mit zu.', english:'Ich bitte Sie, es zu sagen: after bitten comes an infinitive with zu.' },
+  'b1-temptation': { guideId:'b1-hypothetical', german:'Wenn ich den Schlüssel drehe: Im wenn-Satz steht das Verb am Ende, danach beginnt der Hauptsatz.', english:'Wenn ich den Schlüssel drehe: in the wenn-clause the verb goes last, then the main clause begins.' },
 };
 
 export function grammarForQuest(questId: string, guides?: readonly CourseGrammar[]): ContextualGrammar | undefined {

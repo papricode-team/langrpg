@@ -39,6 +39,16 @@ export interface WorldMapSpec {
   objects: ReadonlyArray<WorldObjectSpec>;
 }
 
+/**
+ * The core cast travels with the story. These people belong to one town (or a
+ * few): the Office clerk, Pip and Frau Berg in Lindenhafen, Waldruh's own
+ * residents and Nebelstadt's signalman.
+ */
+export const localCast: Readonly<Record<string, readonly StoryMapId[]>> = {
+  kessler: ['lindenhafen', 'nebelstadt'], pip: ['lindenhafen', 'nebelstadt'], berg: ['lindenhafen'],
+  hilde: ['waldruh'], falk: ['waldruh', 'nebelstadt'], jakob: ['waldruh', 'nebelstadt'], ruth: ['waldruh', 'nebelstadt'], jonas: ['nebelstadt'],
+};
+
 /** Story routes open through restored evidence. The cast travels with the story. */
 export const storyMaps: readonly WorldMapSpec[] = [
   {
@@ -46,6 +56,9 @@ export const storyMaps: readonly WorldMapSpec[] = [
     description: 'A sunlit canal town with excellent coffee, unreliable timetables and one platform that officially does not exist.',
     asset: '/assets/lindenhafen-terrain.webp', previewAsset: '/assets/lindenhafen-preview.webp', sceneryAsset: '/assets/lindenhafen-props.webp', sceneryAtlas: '/assets/lindenhafen-props.json', variationAsset: '/assets/lindenhafen-variations.webp', variationAtlas: '/assets/lindenhafen-variations.json', spawn: { x: .52, y: .61 },
     npcs: [
+      { id: 'berg', x: 0.330, y: 0.365 },
+      { id: 'pip', x: 0.499, y: 0.417 },
+      { id: 'kessler', x: 0.764, y: 0.195 },
       { id: 'marta', minigame: 'tray-rush', x: .442, y: .459 }, { id: 'otto', minigame: 'departure-board', x: .815, y: .299 },
       { id: 'lina', minigame: 'sorting-office', x: .603, y: .680 }, { id: 'emil', minigame: 'workbench', x: .228, y: .738 },
       { id: 'ada', minigame: 'adas-alphabet', x: .132, y: .322 }, { id: 'fritz', minigame: 'numbered-apples', x: .775, y: .475 },
@@ -90,6 +103,8 @@ export const storyMaps: readonly WorldMapSpec[] = [
         exerciseIds: ['a1-station-exercise-5', 'a1-station-exercise-6'], prompt: 'Look at the bench by the platforms.',
         description: 'An old wooden bench by the platforms. Inspector Voss sits here every evening.',
       },
+      { id: 'lindenhafen-chalk-wall', label: 'Pips Wand', kind: 'noticeboard', x: 0.516, y: 0.449, exerciseIds: ['a1-chalk-exercise-4', 'a1-chalk-exercise-5'], prompt: 'Read the names on Pip’s chalk wall.', description: 'A wall by the canal, covered in chalk names. Pip adds new ones every day.', minigame: 'lamp-walk' },
+      { id: 'lindenhafen-office-window', label: 'Messingamt', kind: 'noticeboard', x: 0.787, y: 0.171, exerciseIds: ['a1-office-window-exercise-4', 'a1-office-window-exercise-5'], prompt: 'Look through the Brass Office window.', description: 'The Brass Office depot behind the station. A counter, a register and a stamp.' },
     ],
   },
   {
@@ -97,6 +112,10 @@ export const storyMaps: readonly WorldMapSpec[] = [
     description: 'Autumn paths lead to a clockmill village where yesterday’s errands are still waiting and every clock tells a different story.',
     asset: '/assets/waldruh-terrain.webp', previewAsset: '/assets/waldruh-preview.webp', sceneryAsset: '/assets/waldruh-props.webp', sceneryAtlas: '/assets/waldruh-props.json', variationAsset: '/assets/waldruh-variations.webp', variationAtlas: '/assets/waldruh-variations.json', spawn: { x: .52, y: .54 },
     npcs: [
+      { id: 'ruth', x: 0.456, y: 0.796 },
+      { id: 'jakob', x: 0.447, y: 0.762 },
+      { id: 'falk', x: 0.477, y: 0.580 },
+      { id: 'hilde', x: 0.156, y: 0.381 },
       { id: 'marta', minigame: 'tray-rush', x: .280, y: .346 }, { id: 'otto', minigame: 'departure-board', x: .730, y: .307 },
       { id: 'lina', minigame: 'sorting-office', x: .430, y: .868 }, { id: 'emil', minigame: 'workbench', x: .300, y: .657 },
       { id: 'ada', minigame: 'adas-alphabet', x: .242, y: .836 }, { id: 'fritz', minigame: 'numbered-apples', x: .592, y: .719 },
@@ -106,28 +125,32 @@ export const storyMaps: readonly WorldMapSpec[] = [
       {
         id: 'waldruh-clock', minigame: 'lost-hour', label: 'Die Uhrmühle', kind: 'clock', x: .771, y: .548,
         exerciseIds: ['a2-broken-clock-exercise-1', 'a2-broken-clock-exercise-3'], prompt: 'Piece together the clockmill’s instructions.',
-        description: 'The clockmill lost eleven minutes. Its maintenance log says “Found ten. Looking under the chair for the last one.”',
+        description: 'The clockmill lost eleven minutes. Its maintenance log says: found ten; the eleventh is still missing.',
       },
       {
         id: 'waldruh-housing-board', label: 'Das Zimmer im Gasthaus', kind: 'noticeboard', x: .379, y: .363,
         exerciseIds: ['a2-apartment-exercise-2', 'a2-apartment-exercise-6'], prompt: 'Read a rental notice and request a repair.',
-        description: 'The inn advertises a balcony, two rooms and a fridge that predicts the weather. This is apparently how they describe a broken fridge.',
+        description: 'The inn advertises a balcony and two rooms. Under the notice, in smaller print: the door to room two does not close.',
       },
       {
         id: 'waldruh-herb-garden', minigame: 'seed-packets', label: 'Gretas Garten', kind: 'garden', x: .637, y: .782,
         exerciseIds: ['a2-clinic-exercise-5', 'a2-clinic-exercise-6'], prompt: 'Give some advice after a long woodland walk.',
-        description: 'A bench offers sensible advice: rest, drink water and stop asking the fern for a second opinion.',
+        description: 'Greta’s beds, each with a small label: the seeds come from houses that are no longer on the map.',
       },
       {
         id: 'waldruh-route-sign', minigame: '17-59', label: 'Der Wegweiser', kind: 'noticeboard', x: .626, y: .295,
         exerciseIds: ['a2-rail-trip-exercise-2', 'a2-rail-trip-exercise-4'], prompt: 'Compare the connections out of Waldruh.',
-        description: 'One arrow points to the station. One points to a tree. Otto has filed a complaint against the tree for misleading passengers.',
+        description: 'One arrow points to the station. A second arrow has been painted over; under the paint it still says Nebelstadt.',
       },
       {
         id: 'waldruh-memory-stone', minigame: 'adas-alphabet', label: 'Der alte Wegstein', kind: 'instrument', x: .195, y: .827,
         exerciseIds: ['a2-archive-exercise-1', 'a2-archive-exercise-4'], prompt: 'Compare the old maps with the village you see.',
         description: 'The old route marker is older than the archive’s oldest map. Ada looks pleased in the way other people look worried.',
       },
+      { id: 'waldruh-hilde-window', label: 'Hildes Fenster', kind: 'noticeboard', x: 0.130, y: 0.356, exerciseIds: ['a2-upstairs-exercise-3', 'a2-upstairs-exercise-7'], prompt: 'Read the name on Oma Hilde’s window.', description: 'An upstairs window facing the forest. A name is written on the frame in fresh blue ink.' },
+      { id: 'waldruh-ink-cart', label: 'Falks Wagen', kind: 'parcel', x: 0.459, y: 0.588, exerciseIds: ['a2-ink-seller-exercise-3', 'a2-ink-seller-exercise-7'], prompt: 'Look at the ink seller’s cart.', description: 'A painted cart full of ink bottles. A sign promises names that never fade.' },
+      { id: 'waldruh-old-rails', label: 'Alte Schienen', kind: 'lantern', x: 0.260, y: 0.947, exerciseIds: ['a2-forest-rails-exercise-3', 'a2-forest-rails-exercise-7'], prompt: 'Look at the old rails in the forest.', description: 'Rusted rails leading into the forest. Eleven stones lie beside them in a neat row.' },
+      { id: 'waldruh-mill-cellar', label: 'Mühlenkeller', kind: 'clock', x: 0.538, y: 0.596, exerciseIds: ['a2-cellar-exercise-3', 'a2-cellar-exercise-7'], prompt: 'Open the cellar under the clockmill.', description: 'A low door under the clockmill. Its lock carries the same little lantern as Elise’s key.' },
     ],
   },
   {
@@ -135,6 +158,12 @@ export const storyMaps: readonly WorldMapSpec[] = [
     description: 'A misty harbor, a council with too many minutes and an observatory keeping the last secret of the Lantern Atlas.',
     asset: '/assets/nebelstadt-harbour-bridge-day-terrain.webp', previewAsset: '/assets/nebelstadt-preview.webp', sceneryAsset: '/assets/nebelstadt-props.webp', sceneryAtlas: '/assets/nebelstadt-props.json', variationAsset: '/assets/nebelstadt-variations.webp', variationAtlas: '/assets/nebelstadt-variations.json', spawn: { x: .50, y: .55 },
     npcs: [
+      { id: 'ruth', x: 0.523, y: 0.732 },
+      { id: 'jakob', x: 0.513, y: 0.717 },
+      { id: 'falk', x: 0.122, y: 0.723 },
+      { id: 'pip', x: 0.503, y: 0.410 },
+      { id: 'jonas', x: 0.564, y: 0.439 },
+      { id: 'kessler', x: 0.117, y: 0.430 },
       { id: 'marta', minigame: 'tray-rush', x: .296, y: .490 }, { id: 'otto', minigame: 'departure-board', x: .697, y: .348 },
       { id: 'lina', minigame: 'sorting-office', x: .860, y: .602 }, { id: 'emil', minigame: 'workbench', x: .257, y: .734 },
       { id: 'ada', minigame: 'adas-alphabet', x: .342, y: .362 }, { id: 'fritz', minigame: 'numbered-apples', x: .515, y: .745 },
@@ -160,13 +189,16 @@ export const storyMaps: readonly WorldMapSpec[] = [
       {
         id: 'nebelstadt-evidence-crate', minigame: 'looping-tape', label: 'Linas Beweise', kind: 'parcel', x: .149, y: .774,
         exerciseIds: ['b1-witness-exercise-3', 'b1-witness-exercise-5'], prompt: 'Weigh a claim against the evidence.',
-        description: 'Inside the crate: a timetable, a witness statement and a receipt for one suspiciously punctual pigeon. Lina has numbered all three.',
+        description: 'Inside the crate: a timetable, Marta’s tea list from that night and a reel of tape. Lina has numbered all three.',
       },
       {
         id: 'nebelstadt-harbor-chart', label: 'Der Weg durch den Nebel', kind: 'noticeboard', x: .626, y: .309,
         exerciseIds: ['b1-new-route-exercise-5', 'b1-new-route-exercise-6'], prompt: 'Compare the routes before choosing one.',
-        description: 'The shorter route costs more. The longer route serves better soup. The harbor master requests that both facts remain in the official comparison.',
+        description: 'Two lines to Waldruh. The straight one crosses Greta’s garden. The curved one has a dot beside it, erased three times: Clinic?',
       },
+      { id: 'nebelstadt-record-room', label: 'Archiv des Amtes', kind: 'noticeboard', x: 0.130, y: 0.386, exerciseIds: ['b1-record-room-exercise-3', 'b1-record-room-exercise-7'], prompt: 'Open the Brass Office record room.', description: 'A locked door behind the council archive. Drawers of slips, each one filled in by the same careful hand.' },
+      { id: 'nebelstadt-signal-slate', label: 'Jonas’ Tafel', kind: 'noticeboard', x: 0.598, y: 0.436, exerciseIds: ['b1-signalman-exercise-3', 'b1-signalman-exercise-7'], prompt: 'Read the slate beside the signal.', description: 'A slate where the signalman writes what he will not say. His own name is at the bottom, almost wiped away.', minigame: 'hold-the-signal' },
+      { id: 'nebelstadt-observatory-stairs', label: 'Treppe zur Sternwarte', kind: 'lantern', x: 0.299, y: 0.293, exerciseIds: ['b1-temptation-exercise-3', 'b1-temptation-exercise-7'], prompt: 'Unlock the stairs to the observatory.', description: 'A narrow staircase to the old signal room. The lock carries the same little lantern as your key.' },
     ],
   },
 ];

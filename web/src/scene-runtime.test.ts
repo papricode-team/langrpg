@@ -57,7 +57,10 @@ describe('canonical scenes in the game runtime',()=>{
         const relocated=id==='waldruh'&&key==='npcs'?new Map([
           ['otto',{x:1060,y:390}],['inspector',{x:1090,y:392}],
         ]):new Map<string,{x:number;y:number}>();
-        expect(scene[key].map(({id,x,y})=>({id,x,y}))).toEqual(core[key].map(({id,x,y})=>({id,...(relocated.get(id)??{x,y})})));
+        // The story expansion appends its characters and evidence after the core anchors.
+        const coreIds=new Set(core[key].map(({id})=>id));
+        expect(scene[key].slice(0,core[key].length).map(({id,x,y})=>({id,x,y}))).toEqual(core[key].map(({id,x,y})=>({id,...(relocated.get(id)??{x,y})})));
+        expect(scene[key].slice(core[key].length).every(({id})=>!coreIds.has(id))).toBe(true);
       }
     }
     expect(sceneDocument.maps.lindenhafen.activities!.length).toBeGreaterThanOrEqual(43);

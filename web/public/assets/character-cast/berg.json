@@ -1,0 +1,65 @@
+{
+  "id": "berg",
+  "poseSet": "walk",
+  "recipe": "art/source/character-kit/cast/berg.json",
+  "recipeSha256": "70a9819d302c02a56ba15f440f5e8c9760e9d301cd1e8c65230b2a0c93afa67e",
+  "atlas": "web/public/assets/character-cast/berg.webp",
+  "atlasSha256": "5addd75c18ff28c0235d57545f5efb5f82482458732c800e6086a03211ff13ec",
+  "geometry": "web/public/assets/character-cast/berg.atlas.json",
+  "geometrySha256": "f2705033ed56bb03a0b9d8156cd99796dd4197f33ad2658d60662a8733fd7974",
+  "textureBytes": 14739904,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/berg.webp",
+      "sha256": "5addd75c18ff28c0235d57545f5efb5f82482458732c800e6086a03211ff13ec",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/berg.1.webp",
+      "sha256": "b0dabe2f79e5c2103954d293c5e59fc9c3200c4371821d6cf73f815ca95a7279",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "56732af864c5254d9e649a5be6c776168b8d27541b85a1130307725526068052",
+  "proof": "art/proofs/character-cast/berg.png",
+  "proofSha256": "379dd412ce4a639d32d211b5fb44b6fb8a5eda16f49217143c00bfbcfbc4fc0c",
+  "editorSha256": "5c6697c843a11ac5ad8f877668f9045e303206d1a4cf8ada3ded0c82ebb1efd2",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "native": {
+    "key": "character-cast-berg-native",
+    "image": "web/public/assets/character-cast/native/berg.webp",
+    "atlas": "web/public/assets/character-cast/native/berg.atlas.json",
+    "sha256": "52609fcaa2a3f28bc12517050c19e8da5615e52b41d98fe4ce16f3f88dc10d9d",
+    "atlasSha256": "6b2e2397957adf90b93de5d8ee6d282257a498e3bc9d2fae4a378dff9234cfd0",
+    "textureBytes": 28578928,
+    "multiAtlas": true,
+    "images": [
+      {
+        "path": "web/public/assets/character-cast/native/berg.webp",
+        "sha256": "52609fcaa2a3f28bc12517050c19e8da5615e52b41d98fe4ce16f3f88dc10d9d",
+        "firstFrame": 0,
+        "frameCount": 18
+      },
+      {
+        "path": "web/public/assets/character-cast/native/berg.1.webp",
+        "sha256": "75854303c71990c3373ed881109fb289678a20a19c25c67cd6f43268d60b633b",
+        "firstFrame": 18,
+        "frameCount": 18
+      }
+    ],
+    "cell": [
+      512,
+      768
+    ],
+    "source": "art/proofs/character-cast/berg.webp",
+    "sourceSha256": "5c6697c843a11ac5ad8f877668f9045e303206d1a4cf8ada3ded0c82ebb1efd2"
+  }
+}

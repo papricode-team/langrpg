@@ -1,0 +1,50 @@
+{
+  "id": "hilde",
+  "poseSet": "walk",
+  "recipe": "art/source/character-kit/cast/hilde.json",
+  "recipeSha256": "fe24811fbf62020c50b2f7cf207cb6bf5b11c64aefe6c3d0277dca67415280d7",
+  "atlas": "web/public/assets/character-cast/hilde.webp",
+  "atlasSha256": "ff024e4d0971004bf9328bf5565705c72a8097b53652826d616c8550bc91d68f",
+  "geometry": "web/public/assets/character-cast/hilde.atlas.json",
+  "geometrySha256": "3c99b14d02f0dae01e006ba644f67e9efe93d90d7936b7c426e24f46c0aa13d5",
+  "textureBytes": 14821224,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "1fbb42da71764e41b268a25200dad114e1da3bc4247146524c83d6b179137c49",
+  "proof": "art/proofs/character-cast/hilde.png",
+  "proofSha256": "4952f6aa07938bdd3e3818752fa06b28442c6380daf0275a2705def862bfa5f9",
+  "editorSha256": "8bbaa4653356c37043e3b62d9588328d1b15b5db03f9c2d17453e86057f07895",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "native": {
+    "key": "character-cast-hilde-native",
+    "image": "web/public/assets/character-cast/native/hilde.webp",
+    "atlas": "web/public/assets/character-cast/native/hilde.atlas.json",
+    "sha256": "d8cb4efd1460cd5c5ced4923358a26a9ac4fa998e51e78e889706476d2167f3e",
+    "atlasSha256": "11c7aa1431088adf7505c99c04ea5cd572d2f19db878e078108d151367760547",
+    "textureBytes": 29107564,
+    "multiAtlas": true,
+    "images": [
+      {
+        "path": "web/public/assets/character-cast/native/hilde.webp",
+        "sha256": "d8cb4efd1460cd5c5ced4923358a26a9ac4fa998e51e78e889706476d2167f3e",
+        "firstFrame": 0,
+        "frameCount": 18
+      },
+      {
+        "path": "web/public/assets/character-cast/native/hilde.1.webp",
+        "sha256": "c7af10ac69f7d6a20751e982429d2eb82da88f2e21bea13d3294d0e189e6d5f2",
+        "firstFrame": 18,
+        "frameCount": 18
+      }
+    ],
+    "cell": [
+      512,
+      768
+    ],
+    "source": "art/proofs/character-cast/hilde.webp",
+    "sourceSha256": "8bbaa4653356c37043e3b62d9588328d1b15b5db03f9c2d17453e86057f07895"
+  }
+}
