@@ -10,6 +10,14 @@ const {sceneNavigationGeometry}=await import('../web/src/scene-navigation.ts');
 
 const source = JSON.parse(await readFile(new URL('../web/src/data/world-scenes.json', import.meta.url), 'utf8'));
 
+test('publishes authored town terrain while retaining every existing world placement',async()=>{
+  const value=structuredClone(source);
+  const draft=JSON.parse(await readFile(new URL('../web/src/data/lindenhafen-terrain-rebuild.json',import.meta.url),'utf8'));
+  value.maps.lindenhafen.modularTerrain=draft.modularTerrain;
+  const compiled=await compileSceneDocument(value,{strictQuality:false});
+  assert.deepEqual(compiled.document,value);
+});
+
 // Draft barriers belong to a registered object. Express their world vertices
 // in that owner's local coordinates so these tests exercise the save contract.
 const attachCollision = (scene, polygons) => {

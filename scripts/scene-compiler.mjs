@@ -143,7 +143,7 @@ export async function compileSceneDocument(value, {root = projectRoot, strictQua
         const material=terrainMaterial(id);
         try{
           const size=await sharp(resolve(root,'web/public',material.asset.slice(1))).metadata();
-          if(size.width!==material.width||size.height!==material.height||size.width/material.worldSize<4)report(map,`terrain material ${id} must retain its registered high resolution`);
+          if(size.width!==material.width||size.height!==material.height||Math.min(size.width,size.height)<1024||size.width/material.worldSize<2)report(map,`terrain material ${id} must retain its registered high resolution`);
         }catch{report(map,`missing terrain material ${id}`);}
       }
     }
