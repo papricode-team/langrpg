@@ -76,7 +76,7 @@ export class QuestController {
   private ambient?: { npc: NPC; lines: ReturnType<typeof residentConversation> };
   private loadedLines = new Map<string, DialogueLine>();
   private loadedExercises = new Map<string, Exercise>();
-  private loading = new Map<string, Promise<unknown>>();
+  private loading = new Map<string, { rerender: boolean; voice: boolean; rate?: number }>();
   private exactAnswers = new Map<string, string>();
   constructor(private options: QuestControllerOptions) {
     this.view = new DialogueView({ action: action => void this.action(action), choice: id => void this.choose(id), answer: answer => void this.answer(answer), gloss: () => { this.translated = true; this.hint(); this.render(); } });
@@ -140,16 +140,22 @@ export class QuestController {
     return this.translated;
   }
   private load(key: string, run: () => Promise<unknown>, rerender = true, voice = false, rate?: number): void {
-    if (this.loading.has(key)) return;
+    const pending = this.loading.get(key);
+    if (pending) {
+      // Continue may reach a line before its speculative request finishes.
+      if (rerender) Object.assign(pending, { rerender, voice, rate });
+      return;
+    }
     const generation = this.generation;
-    const promise = run().catch(error => {
-      if (generation === this.generation && !(error instanceof DOMException && error.name === 'AbortError')) this.error = error instanceof Error ? error.message : t('The route could not save. Try again.');
+    const request = { rerender, voice, rate };
+    this.loading.set(key, request);
+    void run().catch(error => {
+      if (request.rerender && generation === this.generation && !(error instanceof DOMException && error.name === 'AbortError')) this.error = error instanceof Error ? error.message : t('The route could not save. Try again.');
     }).finally(() => {
       if (generation !== this.generation) return;
       this.loading.delete(key);
-      if (rerender) this.render(voice, rate);
+      if (request.rerender) this.render(request.voice, request.rate);
     });
-    this.loading.set(key, promise);
   }
   private line(source: DialogueLine, voice = false, rate?: number): DialogueLine | undefined {
     if (!this.options.loadSentence) return source;
@@ -207,7 +213,8 @@ export class QuestController {
     const source = lines[this.index]; if (!source) return;
     const presented = this.line(this.replyCorrection ?? source, voice, rate);
     if (!presented) return;
-    const next = lines[this.index + 1] ?? (this.node?.next ? this.graph?.nodes.find(node => node.id === this.node?.next)?.lines[0] : undefined);
+    // Later stages are unreadable until the server accepts the transition.
+    const next = lines[this.index + 1];
     if (next && this.options.loadSentence && !this.loadedLines.has(next.id)) {
       const generation = this.generation;
       this.load(`sentence:${next.id}`, async () => { const line = await this.options.loadSentence!(next); if (generation === this.generation) this.loadedLines.set(next.id, line); }, false);

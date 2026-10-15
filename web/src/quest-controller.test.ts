@@ -558,6 +558,58 @@ describe('optional conversation topics', () => {
 });
 
 describe('server content loading', () => {
+  it.each(['a1-arrival', 'a1-cafe', 'a1-station'])('renders and voices %s when Continue overtakes its pending preload', async questId => {
+    const f = fixture('gate', questId);
+    const graph = questGraphs.find(graph => graph.questId === questId)!;
+    const lines = graph.nodes.find(node => node.stage === 'gate')!.lines;
+    let finish!: (line: DialogueLine) => void;
+    const delayed = new Promise<DialogueLine>(resolve => { finish = resolve; });
+    Object.assign(f.options, { loadSentence: vi.fn(async (line: DialogueLine) => line.id === lines[1].id ? delayed : line) });
+    await f.controller.open(graph.questId);
+    await vi.waitFor(() => expect(document.querySelector('.dialogue-line')?.textContent).toBe(lines[0].german));
+    f.options.speak.mockClear();
+    f.click('[data-dialogue-action="next"]');
+    finish(lines[1]);
+    await vi.waitFor(() => expect(document.querySelector('.dialogue-line')?.textContent).toBe(lines[1].german));
+    expect(f.options.speak).toHaveBeenCalledWith(lines[1].german, lines[1].speaker, lines[1].clipId, undefined);
+  });
+
+  it.each(['a1-arrival', 'a1-cafe', 'a1-station'])('does not request locked next-stage sentences while showing the %s gate', async questId => {
+    const f = fixture('gate', questId);
+    const graph = questGraphs.find(graph => graph.questId === questId)!;
+    const lines = graph.nodes.find(node => node.stage === 'gate')!.lines;
+    const loadSentence = vi.fn(async (line: DialogueLine) => {
+      if (!lines.some(current => current.id === line.id)) throw new Error('This sentence is not available yet.');
+      return line;
+    });
+    Object.assign(f.options, { loadSentence });
+    await f.controller.open(graph.questId);
+    await vi.waitFor(() => expect(loadSentence).toHaveBeenCalledTimes(2));
+    f.click('[data-dialogue-action="next"]');
+    await vi.waitFor(() => expect(document.querySelector('.dialogue-line')?.textContent).toBe(lines[1].german));
+    await new Promise(resolve => setTimeout(resolve, 0));
+    expect(loadSentence.mock.calls.map(([line]) => line.id)).toEqual(lines.map(line => line.id));
+    expect(document.querySelector('.dialogue-feedback')).toBeNull();
+  });
+
+  it('retries a failed speculative load when that line becomes current', async () => {
+    const f = fixture('gate');
+    const graph = questGraphs.find(graph => graph.questId === 'a1-arrival')!;
+    const lines = graph.nodes.find(node => node.stage === 'gate')!.lines;
+    let attempts = 0;
+    Object.assign(f.options, { loadSentence: vi.fn(async (line: DialogueLine) => {
+      if (line.id === lines[1].id && ++attempts === 1) throw new Error('Temporary connection failure');
+      return line;
+    }) });
+    await f.controller.open(graph.questId);
+    await vi.waitFor(() => expect(document.querySelector('.dialogue-line')?.textContent).toBe(lines[0].german));
+    expect(document.querySelector('.dialogue-feedback')).toBeNull();
+    f.click('[data-dialogue-action="next"]');
+    await vi.waitFor(() => expect(document.querySelector('.dialogue-line')?.textContent).toBe(lines[1].german));
+    expect(attempts).toBe(2);
+    expect(f.options.speak).toHaveBeenCalledWith(lines[1].german, lines[1].speaker, lines[1].clipId, undefined);
+  });
+
   it('loads a graph on approach and requests only the displayed and next line', async () => {
     const f = fixture('intro');
     const graph = questGraphs.find(graph => graph.questId === 'a1-arrival')!;
