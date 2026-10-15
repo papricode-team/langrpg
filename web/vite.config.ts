@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import { defineConfig } from 'vite';
 import { fileURLToPath } from 'node:url';
 import { gameDistributionPlugin } from '../scripts/optimize-game-distribution.mjs';
@@ -24,6 +25,8 @@ export default defineConfig(({ command, mode }) => {
         '/api': { target: process.env.ATLAS_API_ORIGIN || 'http://127.0.0.1:8097', ws: true },
       },
     },
+    // Content and map tests parse multi-megabyte JSON; 5 s fails on shared CI runners.
+    test: { testTimeout: 20000 },
     build: {
       target: 'es2022', chunkSizeWarningLimit: 1800,
       rolldownOptions: {

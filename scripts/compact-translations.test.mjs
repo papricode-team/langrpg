@@ -7,6 +7,7 @@ import {fileURLToPath,pathToFileURL} from 'node:url';
 import {performance} from 'node:perf_hooks';
 import {build} from 'vite';
 import {packTranslationJSON,unpackTranslationJSON,compactTranslationsPlugin} from './compact-translations.mjs';
+import {contentRuntimePlugin} from './content-runtime-plugin.mjs';
 
 const root=fileURLToPath(new URL('..',import.meta.url));
 const paths=['story','ui','course'].map(part=>resolve(root,`web/src/data/i18n/tr-${part}.json`));
@@ -49,8 +50,9 @@ test('the plugin is build-only and its allowlist excludes unrelated JSON and raw
 test('actual Vite production bundling keeps only UI translations and leaves authored JSON unchanged',async()=>{
  const output=await mkdtemp(resolve(tmpdir(),'atlas-turkish-bundle-'));
  try{
-  await build({configFile:false,root,publicDir:false,logLevel:'silent',plugins:[compactTranslationsPlugin(root)],build:{outDir:output,emptyOutDir:true,target:'es2022',minify:true,lib:{entry:resolve(root,'web/src/i18n-tr.ts'),formats:['es'],fileName:()=> 'overlay.mjs'}}});
-  const publicOverlay={ui:overlay.ui,story:{},course:{lexicon:{},grammar:{},exercises:{}}};
+  await build({configFile:false,root,publicDir:false,logLevel:'silent',plugins:[contentRuntimePlugin(root),compactTranslationsPlugin(root)],build:{outDir:output,emptyOutDir:true,target:'es2022',minify:true,lib:{entry:resolve(root,'web/src/i18n-tr.ts'),formats:['es'],fileName:()=> 'overlay.mjs'}}});
+  // Production bundles with both plugins: the content runtime replaces the story and course overlays.
+  const publicOverlay={ui:overlay.ui,story:{},course:{lexicon:{},grammar:{},exercises:{},texts:{}}};
   const module=await import(pathToFileURL(resolve(output,'overlay.mjs')).href);assert.deepEqual(module.turkishOverlay,publicOverlay);
   // The smaller UI-only dictionary saves at least 20%. The large private
   // overlays retain their separate authoring round-trip and savings test above.
