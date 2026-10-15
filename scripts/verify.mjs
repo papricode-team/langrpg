@@ -113,7 +113,9 @@ async function uiCheck() {
     note: 'screenshots in output/ui-screenshots'});
 }
 
-process.on('SIGINT', () => { for (const cleanup of cleanups.splice(0)) cleanup(); process.exit(130); });
+for (const [signal, code] of [['SIGINT', 130], ['SIGTERM', 143]]) {
+  process.on(signal, () => { for (const cleanup of cleanups.splice(0)) cleanup(); process.exit(code); });
+}
 
 try {
   run('content bundle', process.execPath, ['scripts/build-content.mjs']);
