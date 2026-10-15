@@ -3,7 +3,7 @@ import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {resolve,dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import './register-content-loader.mjs';
-const {buildingBounds}=await import('../web/src/building-spacing.ts');
+const {buildingBounds}=await import('../web/src/building-bounds.ts');
 
 const projectRoot=resolve(import.meta.dirname,'..');
 const towns=['lindenhafen','waldruh','nebelstadt'];

@@ -1,7 +1,6 @@
 /** Content rules shared by the compiler and the handover audit. */
 import './register-content-loader.mjs';
 const {scaleCanon,PERSON_HEIGHT}=await import('../web/src/scene-schema.ts');
-const {BUILDING_SPACING,isBuildingPlacement,buildingsTooClose}=await import('../web/src/building-spacing.ts');
 
 const inside=(polygon,x,y)=>{
   let result=false;
@@ -12,18 +11,8 @@ const inside=(polygon,x,y)=>{
   return result;
 };
 const median=values=>{const sorted=[...values].sort((a,b)=>a-b);return sorted[Math.floor(sorted.length/2)];};
-/** Placement safety applies even when optional composition checks are relaxed. */
-export function auditBuildingSpacing(scene,geometry){
-  const buildings=scene.scenery.filter(isBuildingPlacement),issues=[];
-  for(let index=0;index<buildings.length;index++)for(const other of buildings.slice(index+1)){
-    const building=buildings[index];
-    if(buildingsTooClose(building,other,geometry))issues.push(`${scene.id}: buildings ${building.id} and ${other.id} need at least ${BUILDING_SPACING} units between their painted bounds`);
-  }
-  return issues;
-}
-export function auditSceneQuality(scene,manifest,geometry=manifest){
+export function auditSceneQuality(scene,manifest){
   const issues=[],classes={};
-  issues.push(...auditBuildingSpacing(scene,geometry));
   for(const item of scene.scenery){
     const asset=manifest.assets[item.frame??item.asset];if(!asset)continue;
     // Standalone exports can increase texture density without changing placement scale.

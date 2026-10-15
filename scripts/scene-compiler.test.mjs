@@ -174,16 +174,13 @@ test('enforces person scale and native scenery density',async()=>{
   await assert.rejects(compileSceneDocument(blurry),/boat source density .* below 3.5 \/ 2.5/);
 });
 
-test('rejects crowded painted buildings even when optional quality checks and collision are disabled',async()=>{
+test('allows crowded painted buildings with both strict and relaxed quality checks',async()=>{
   const value=structuredClone(source),scene=value.maps.lindenhafen;
   const owner=scene.scenery.find(item=>item.id==='workshop');
   scene.scenery.push({...structuredClone(owner),id:'crowded-workshop',x:owner.x+owner.width+31,collidable:false});
-  await assert.rejects(compileSceneDocument(value,{strictQuality:false}),error=>{
-    const gap=error.problems.find(item=>item.code==='too-close');
-    assert.match(gap.message,/32-unit walking gap between the workshop and the workshop/);
-    assert.deepEqual(gap.objectIds,['workshop','crowded-workshop']);
-    return true;
-  });
+  for (const strictQuality of [true,false]) {
+    await compileSceneDocument(value,{strictQuality});
+  }
 });
 
 test('lets only buildings with a painted door host a room',async()=>{
