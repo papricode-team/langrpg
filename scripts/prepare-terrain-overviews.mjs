@@ -3,6 +3,7 @@
 import {readFile, writeFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import sharp from 'sharp';
+import {WEBP_QUALITY} from './webp-quality.mjs';
 const root = resolve(import.meta.dirname,'..');
 const document = JSON.parse(await readFile(resolve(root,'web/src/data/world-scenes.json'),'utf8'));
 let count=0, bytes=0;
@@ -14,7 +15,7 @@ for (const scene of Object.values(document.maps)) for (const tile of scene.terra
     if (!asset) throw new Error(`${scene.id}/${tile.id}: overview has no matching ${period} artwork`);
     let pipeline=sharp(resolve(root,'web/public',asset.slice(1)));
     if (crop) pipeline=pipeline.extract({left:crop.x,top:crop.y,width:crop.width,height:crop.height});
-    const data=await pipeline.resize(tile.width,tile.height,{fit:'fill'}).webp({quality:78,effort:6}).toBuffer();
+    const data=await pipeline.resize(tile.width,tile.height,{fit:'fill'}).webp({quality: WEBP_QUALITY,effort:6}).toBuffer();
     await writeFile(resolve(root,'web/public',destination.slice(1)),data);
     count++;bytes+=data.length;
   }

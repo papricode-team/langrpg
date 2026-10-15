@@ -3,6 +3,7 @@
 import sharp from 'sharp';
 import {access,mkdir,readFile,rename,writeFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
+import {WEBP_QUALITY, MIN_WEBP_QUALITY} from './webp-quality.mjs';
 
 const root=resolve(import.meta.dirname,'..'),assets=resolve(root,'web/public/assets');
 const source=resolve(root,'art/source/terrain-expansion/nebelstadt');
@@ -10,7 +11,7 @@ const archive=resolve(root,'art/archive/unused-terrain/nebelstadt');
 const exists=async path=>{try{await access(path);return true;}catch(error){if(error.code==='ENOENT')return false;throw error;}};
 const records=[];
 async function boundedWebP(painting){
-  for(let quality=94;quality>=70;quality-=2){
+  for(let quality=WEBP_QUALITY;quality>=MIN_WEBP_QUALITY;quality--){
     const buffer=await painting.clone().webp({quality,effort:6}).toBuffer();
     if(buffer.length<=2*1024*1024)return {buffer,quality};
   }
@@ -32,7 +33,7 @@ for(const period of ['day','night']){
   await writeFile(resolve(assets,`${key}.webp`),detail.buffer);
   const composited=await painting.clone().png().toBuffer();
   const visible=sharp(composited).extract({left:1,top:0,width:3072,height:2048});
-  await visible.clone().resize(768,512).webp({quality:90,effort:6}).toFile(resolve(assets,`${key}-overview.webp`));
+  await visible.clone().resize(768,512).webp({quality: WEBP_QUALITY,effort:6}).toFile(resolve(assets,`${key}-overview.webp`));
   // Loading plates use the exact same world position at their own density.
   const fallbackSource=resolve(assets,`nebelstadt-${period}-terrain.webp`),fallbackMetadata=await sharp(fallbackSource).metadata();
   const density=fallbackMetadata.width/1536;

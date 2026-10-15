@@ -5,6 +5,7 @@ import { readFile, writeFile, rename, stat } from 'node:fs/promises';
 import { resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { projectRoot } from './item-art-plan.mjs';
+import {WEBP_QUALITY} from './webp-quality.mjs';
 
 export const legacyMapPlates=[
   'lindenhafen-terrain.webp','lindenhafen-night-terrain.webp',
@@ -25,7 +26,7 @@ export async function optimizeGameDistribution({root=projectRoot,outputDir=resol
   for(const name of legacyMapPlates){
     const destination=resolve(output,'assets',name),before=await stat(destination),previous=await sharp(destination).metadata();
     if(previous.format==='webp'&&previous.width<=768&&previous.height<=512){results.push({asset:`/assets/${name}`,width:previous.width,height:previous.height,before:before.size,after:before.size});continue;}
-    const encoded=await sharp(destination).resize(768,512,{fit:'inside',withoutEnlargement:true}).webp({quality:80,alphaQuality:100,effort:6}).toBuffer();
+    const encoded=await sharp(destination).resize(768,512,{fit:'inside',withoutEnlargement:true}).webp({quality: WEBP_QUALITY,alphaQuality:100,effort:6}).toBuffer();
     // A second packaging pass may be smaller already. Never enlarge an asset.
     if(encoded.length<before.size){await writeFile(`${destination}.tmp`,encoded);await rename(`${destination}.tmp`,destination);}
     const metadata=await sharp(destination).metadata(),after=await stat(destination);

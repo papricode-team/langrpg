@@ -2,6 +2,7 @@
 /** Export native painted terrain, retaining generated alpha and artist-authored geometry. */
 import sharp from 'sharp';
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {WEBP_QUALITY} from './webp-quality.mjs';
 const source='art/source/terrain-features',output='web/public/assets/terrain-features';
 const {features:requests}=JSON.parse(await readFile(`${source}/requests.json`,'utf8'));
 const {features:geometry}=JSON.parse(await readFile(`${source}/geometry.json`,'utf8'));
@@ -12,7 +13,7 @@ for(const request of requests){
  const input=`${source}/${request.id}.png`,g=geometry[request.id],size=await sharp(input).metadata();
  if(!g||!size.hasAlpha||Math.min(size.width,size.height)<1024)throw Error(`Missing HD art or traced geometry for ${request.id}`);
  await sharp(input).webp({lossless:true,effort:6}).toFile(`${output}/${request.id}.webp`);
- await sharp(input).resize(320,320,{fit:'inside',withoutEnlargement:true}).webp({quality:90}).toFile(`${output}/${request.id}-thumb.webp`);
+ await sharp(input).resize(320,320,{fit:'inside',withoutEnlargement:true}).webp({quality: WEBP_QUALITY}).toFile(`${output}/${request.id}-thumb.webp`);
  const outline=normalize(g.outline),material=g.material??'cobble';
  features.push({id:request.id,name:request.id==='market-fork'?'Asymmetric market junction':request.label,category:request.category,
    width:size.width,height:size.height,worldWidth:request.width,asset:`/assets/terrain-features/${request.id}.webp`,thumbnail:`/assets/terrain-features/${request.id}-thumb.webp`,

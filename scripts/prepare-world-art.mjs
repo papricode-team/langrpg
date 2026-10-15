@@ -5,6 +5,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
+import {WEBP_QUALITY} from './webp-quality.mjs';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const roles = ['archive','cafe','station','workshop','house','tree','cypress','lamp','stall','fountain','arch','greenhouse','boat','bench','planter','sign'];
 const regions = process.argv.slice(2);
@@ -40,7 +41,7 @@ for (const map of regions.length ? regions : ['lindenhafen','waldruh','nebelstad
   const out = resolve(root, 'web/public/assets');
   await mkdir(out, { recursive: true });
   await sharp({ create: { width: 1024, height, channels: 4, background: { r:0,g:0,b:0,alpha:0 } } })
-    .composite(images).webp({ quality: 90, alphaQuality: 100, effort: 6 }).toFile(resolve(out, `${map}-props.webp`));
+    .composite(images).webp({ quality: WEBP_QUALITY, alphaQuality: 100, effort: 6 }).toFile(resolve(out, `${map}-props.webp`));
   await writeFile(resolve(out, `${map}-props.json`), JSON.stringify({ frames, meta: { image: `${map}-props.webp`, size: { w:1024,h:height }, scale:'1' } }, null, 2) + '\n');
   console.log(`${map}: 16 isolated frames → 1024×${height} atlas`);
 }

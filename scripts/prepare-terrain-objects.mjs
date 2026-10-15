@@ -2,6 +2,7 @@
 /** Keep generated alpha and native resolution; describe pivots and physical bases explicitly. */
 import sharp from 'sharp';
 import {readFile,writeFile,mkdir,access} from 'node:fs/promises';
+import {WEBP_QUALITY} from './webp-quality.mjs';
 const source='art/source/terrain-objects',output='web/public/assets/terrain-objects';
 const requests=JSON.parse(await readFile(`${source}/requests.json`,'utf8'));
 await mkdir(output,{recursive:true});
@@ -17,7 +18,7 @@ for(const request of requests.objects){
  }
  if(Math.min(width,height)<1024||transparent<width*height*.05)throw new Error(`${request.id}: expected native HD art with genuine transparent background`);
  await sharp(input).webp({lossless:true,effort:6}).toFile(`${output}/${request.id}.webp`);
- await sharp(input).resize(160,160,{fit:'inside',withoutEnlargement:true}).webp({quality:88}).toFile(`${output}/${request.id}-thumb.webp`);
+ await sharp(input).resize(160,160,{fit:'inside',withoutEnlargement:true}).webp({quality: WEBP_QUALITY}).toFile(`${output}/${request.id}-thumb.webp`);
  const collidable=['river-rocks','barrels','crates','birdbath','firepit'].some(id=>request.id===`detail-${id}`);
  const footprint=collidable?Array.from({length:8},(_,i)=>[Math.cos(i*Math.PI/4)*width*.22,-width*.04+Math.sin(i*Math.PI/4)*width*.07]):[];
  objects.push({id:request.id,name:request.name,role:request.asset,worldWidth:request.worldWidth,motion:request.motion,collidable,

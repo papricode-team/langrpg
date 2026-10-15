@@ -4,6 +4,7 @@ import sharp from 'sharp';
 import { readFile, writeFile, mkdir, access } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { createItemArtPlan, projectRoot } from './item-art-plan.mjs';
+import {WEBP_QUALITY} from './webp-quality.mjs';
 
 const root=projectRoot, source=resolve(root,'art/source/minigames'), output=resolve(root,'web/public/assets/minigames');
 const allowMissing=process.argv.includes('--allow-missing');
@@ -50,7 +51,7 @@ for(const sheet of plan.sheets){
     const native=await sharp(filename).extract({left,top,width,height}).png().toBuffer();
     const master=await sharp(native).resize(480,480,{fit:'contain',background:{r:0,g:0,b:0,alpha:0}}).extend({top:16,bottom:16,left:16,right:16,background:{r:0,g:0,b:0,alpha:0}}).png().toBuffer();
     await writeFile(resolve(source,`masters/${frame.name}.png`),master);
-    const buffer=await sharp(master).resize(256,256).webp({quality:92,alphaQuality:100,effort:5}).toBuffer();
+    const buffer=await sharp(master).resize(256,256).webp({quality: WEBP_QUALITY,alphaQuality:100,effort:5}).toBuffer();
     await writeFile(resolve(output,`sprites/${frame.name}.webp`),buffer);
     sprites.push({...frame,sheet:sheet.id,source:`art/source/minigames/${sheet.id}.png`,url:`/assets/minigames/sprites/${frame.name}.webp`,buffer});
   }
@@ -68,7 +69,7 @@ for(const size of [256,128]){
       frames[sprite.name]={frame:{x,y,w:size,h:size},rotated:false,trimmed:false,spriteSourceSize:{x:0,y:0,w:size,h:size},sourceSize:{w:size,h:size},pivot:{x:.5,y:.5}};
     }
     const name=size===256?(page===0?'items':`items-${page+1}`):'items-128',key=page===0?'minigame-items':`minigame-items-${page+1}`;
-    const encoded=await sharp({create:{width,height,channels:4,background:{r:0,g:0,b:0,alpha:0}}}).composite(parts).webp({quality:size===256?88:92,alphaQuality:100,effort:6}).toBuffer();
+    const encoded=await sharp({create:{width,height,channels:4,background:{r:0,g:0,b:0,alpha:0}}}).composite(parts).webp({quality: WEBP_QUALITY,alphaQuality:100,effort:6}).toBuffer();
     if(encoded.length>2*1024*1024)throw Error(`${name}: atlas exceeds the 2 MiB download budget`);
     await writeFile(resolve(output,`${name}.webp`),encoded);
     await writeFile(resolve(output,`${name}.json`),`${JSON.stringify({frames,meta:{app:'glotworld prepare-item-art',image:`${name}.webp`,size:{w:width,h:height},scale:String(size/256)}},null,2)}\n`);

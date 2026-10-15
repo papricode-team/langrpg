@@ -1,5 +1,6 @@
 import sharp from 'sharp';
 import { mkdir, writeFile } from 'node:fs/promises';
+import {WEBP_QUALITY} from './webp-quality.mjs';
 const source = 'art/source/story-cast/inspector-elise-directions.png';
 const { data, info } = await sharp(source).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
 if (info.width !== 1536 || info.height !== 1024) throw new Error('Expected a 4 by 2 sheet of 384 by 512 cells');
@@ -23,11 +24,11 @@ for (let row = 0; row < 2; row++) {
   }
 }
 await mkdir('web/public/assets/story-cast', { recursive: true });
-await sharp('art/source/story-cast/inn-room.png').webp({ quality: 92 }).toFile('web/public/assets/interior-inn-room.webp');
-await sharp('art/source/story-cast/greenhouse-train.png').webp({quality:92}).toFile('web/public/assets/story-cast/greenhouse-train.webp');
+await sharp('art/source/story-cast/inn-room.png').webp({ quality: WEBP_QUALITY }).toFile('web/public/assets/interior-inn-room.webp');
+await sharp('art/source/story-cast/greenhouse-train.png').webp({quality: WEBP_QUALITY}).toFile('web/public/assets/story-cast/greenhouse-train.webp');
 await sharp({ create: { width: 1024, height: 768, channels: 4, background: '#00000000' } }).composite(frames).webp({ lossless: true }).toFile('web/public/assets/story-cast/directions.webp');
 for (const [row, id] of ['inspector', 'elise'].entries()) {
-  await sharp(source).extract({ left: 65, top: row * 512 + 6, width: 260, height: 250 }).resize(256, 256, { fit: 'contain', background: '#00000000' }).webp({ quality: 92 }).toFile(`web/public/assets/story-cast/${id}-portrait.webp`);
+  await sharp(source).extract({ left: 65, top: row * 512 + 6, width: 260, height: 250 }).resize(256, 256, { fit: 'contain', background: '#00000000' }).webp({ quality: WEBP_QUALITY }).toFile(`web/public/assets/story-cast/${id}-portrait.webp`);
 }
 await writeFile('web/public/assets/story-cast/manifest.json', JSON.stringify({ source, tool: 'Built-in image_gen', cell: [256,384], rows: ['inspector','elise'], directions: ['south','east','north','west'], registration: 'One uniform scale per character; soles at y=346; generated alpha preserved.', license: 'Generated for glotworld', prompt: 'art/source/story-cast/prompt.txt' }, null, 2) + '\n');
 

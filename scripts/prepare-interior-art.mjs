@@ -3,6 +3,7 @@
 import sharp from 'sharp';
 import { access, writeFile, mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import {WEBP_QUALITY} from './webp-quality.mjs';
 
 const root = process.cwd();
 const sourceDir = resolve(root, 'art/source/interiors');
@@ -65,7 +66,7 @@ for (const [key, names] of Object.entries(sheets)) {
   }
   const height = packY + rowHeight + 2;
   await sharp({ create: { width: 1024, height, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
-    .composite(parts).webp({ quality: 90, alphaQuality: 100, effort: 6 }).toFile(resolve(assetDir, `${key}.webp`));
+    .composite(parts).webp({ quality: WEBP_QUALITY, alphaQuality: 100, effort: 6 }).toFile(resolve(assetDir, `${key}.webp`));
   await writeFile(resolve(assetDir, `${key}.json`), JSON.stringify({ frames, meta: { image: `${key}.webp`, size: { w: 1024, h: height }, scale: '1' } }, null, 2) + '\n');
   console.log(`${key}: ${names.length} objects × 4 frames, 1024 × ${height}`);
 }
@@ -75,7 +76,7 @@ for (const id of ['cafe', 'bakery', 'supermarket']) {
   await access(source);
   const metadata = await sharp(source).metadata();
   if (metadata.width !== 1536 || metadata.height !== 1024) throw Error(`${id}: unexpected room dimensions`);
-  await sharp(source).webp({ quality: 91, effort: 6 }).toFile(resolve(assetDir, `interior-${id}-room.webp`));
+  await sharp(source).webp({ quality: WEBP_QUALITY, effort: 6 }).toFile(resolve(assetDir, `interior-${id}-room.webp`));
 }
 console.log('Three distinct room paintings and 120 authored animation frames exported.');
 await import('./prepare-interior-effects.mjs');

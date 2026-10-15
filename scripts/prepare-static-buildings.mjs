@@ -7,6 +7,7 @@ import { resolve } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { expeditionArt } from './expedition-art-plan.mjs';
 import {exportStaticBuilding} from './static-building-export.mjs';
+import {WEBP_QUALITY} from './webp-quality.mjs';
 
 const root = resolve(import.meta.dirname, '..');
 const out = resolve(root, 'web/public/assets');
@@ -139,7 +140,7 @@ async function exportBases(map, period) {
     const pixels = Buffer.alloc(width * height * 4);
     for (const item of parts) for (let row = 0; row < item.height; row++) item.pixels.copy(pixels,
       ((item.y + row) * width + item.x) * 4, row * item.width * 4, (row + 1) * item.width * 4);
-    await sharp(pixels, { raw: { width, height, channels: 4 } }).webp({ quality: 88, alphaQuality: 100, effort: 6 }).toFile(resolve(out, `${key}.webp`));
+    await sharp(pixels, { raw: { width, height, channels: 4 } }).webp({ quality: WEBP_QUALITY, alphaQuality: 100, effort: 6 }).toFile(resolve(out, `${key}.webp`));
     await writeFile(resolve(out, `${key}.json`), JSON.stringify({ frames, meta: { image: `${key}.webp`, size: { w: width, h: height }, scale: '1',
       provenance: 'Built-in ImageGen static paintings; native rectangular crops, no upscaling' } }, null, 2) + '\n');
     page++; parts = []; frames = {}; x = 4; y = 4; rowHeight = 0;
