@@ -44,8 +44,9 @@ describe('editable terrain',()=>{
   expect(applied.maps.lindenhafen.modularTerrain?.base).toBe('snow');expect(before.base).not.toBe('snow');
   expect(applyEditOps(applied,undo).document).toEqual(sceneDocument);
  });
- it('rejects stale terrain edits instead of overwriting another admin',()=>{
-  expect(()=>applyEditOps(sceneDocument,[{kind:'terrain',map:'lindenhafen',terrain:null,expected:'stale'}])).toThrow(/changed/);
+ it('lets the newest terrain edit win, like any other absolute edit',()=>{
+  const applied=applyEditOps(sceneDocument,[{kind:'terrain',map:'lindenhafen',terrain:null,expected:'stale'}]).document;
+  expect(applied.maps.lindenhafen.modularTerrain).toBeUndefined();
  });
  it('preserves building and object edits made before a terrain publication',()=>{
   const published=structuredClone(sceneDocument),scene=published.maps.lindenhafen;

@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"strings"
 	"testing"
 	"time"
@@ -131,12 +132,19 @@ func TestWorldOpsPublishCheckedEditsAndStreamPatches(t *testing.T) {
 		}
 	}
 
-	// Refused edits name the object and leave the publication alone.
-	published := app.editing.current.Revision
+	// Layout is the admin's call: an oversized lamp publishes with a warning.
 	code, body = postOps(app, token, []map[string]any{{"kind": "update", "map": "waldruh", "id": lamp.ID, "width": 4000}})
+	warnings, _ := body["warnings"].([]any)
+	if code != 200 || len(warnings) == 0 || !strings.Contains(fmt.Sprint(warnings), "lamp") {
+		t.Fatalf("oversized lamp: %d %v", code, body)
+	}
+
+	// Edits that break the world are refused, name the object and leave the publication alone.
+	published := app.editing.current.Revision
+	code, body = postOps(app, token, []map[string]any{{"kind": "move", "map": "waldruh", "id": lamp.ID, "x": -500, "y": lamp.Y}})
 	problems, _ := body["problems"].([]any)
 	if code != 422 || len(problems) == 0 || !strings.Contains(body["error"].(string), "lamp") || app.editing.current.Revision != published {
-		t.Fatalf("oversized lamp: %d %v", code, body)
+		t.Fatalf("lamp outside the town: %d %v", code, body)
 	}
 
 	// Another admin's lock blocks edits to that object only.
