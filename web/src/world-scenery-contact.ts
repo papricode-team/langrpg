@@ -36,12 +36,12 @@ export class SceneryContact {
   private cache:Map<string,Entry>;
   private signature:string;
   private entry:Entry;
-  constructor(private scene:Phaser.Scene,mapId:string,spec:PlacedScenerySpec,readonly kind:SceneryContactKind,artwork?:FoundationArtwork){
+  constructor(private scene:Phaser.Scene,mapId:string,spec:PlacedScenerySpec,readonly kind:SceneryContactKind,artwork?:FoundationArtwork,sample=(x:number,y:number)=>foundationGround(mapId,x,y)){
     const painted=paintedFeet(artwork,kind,!!spec.flipX),lines=painted??fallbackSceneryContact(kind);
-    const ground=foundationGround(mapId,spec.x,spec.y-2);
+    const ground=sample(spec.x,spec.y-2);
     // Inspect under the hull too: the foot anchor may lie just over the quay edge.
     if(kind==='boat'){
-      const samples=[-.22,0,.22].map(x=>foundationGround(mapId,spec.x+x*spec.width,spec.y-spec.width*.08));
+      const samples=[-.22,0,.22].map(x=>sample(spec.x+x*spec.width,spec.y-spec.width*.08));
       ground.water=samples.reduce((sum,sample)=>sum+sample.water,ground.water)/4;
     }
     const material=contactMaterial(ground,Math.floor(sceneryPhase(spec.id)/Math.PI*2)%4);

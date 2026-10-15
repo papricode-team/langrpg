@@ -11,6 +11,9 @@ import { BuildingFoundation } from './world-foundations';
 import { SceneryContact } from './world-scenery-contact';
 import { sceneryContactKind } from './scenery-contact-shape';
 import {terrainObject,sampleDetailMotion,ensureTerrainObject,type DetailMotion} from './terrain-objects';
+import {foundationGround} from './foundation-dressing';
+import {sceneDocument} from './scene-data';
+import {terrainFingerprint,type ModularTerrain} from './modular-terrain';
 interface AnimatedSprite {
   sprite:Phaser.GameObjects.Sprite;
   scale:number;
@@ -58,7 +61,9 @@ export class WorldScenery {
   private preview?:{id:string;dx:number;dy:number};
   private destroyed=false;
   private loadingDetails=new Set<string>();
-  constructor(private scene:Phaser.Scene,private mapId:MapId,private period:WorldPeriod='day',private placements:readonly PlacedScenerySpec[]=getPlacedScenery(mapId),private createCutout?:SceneryOcclusionFactory){
+  private terrainStamp='';
+  constructor(private scene:Phaser.Scene,private mapId:MapId,private period:WorldPeriod='day',private placements:readonly PlacedScenerySpec[]=getPlacedScenery(mapId),private createCutout?:SceneryOcclusionFactory,private terrain:ModularTerrain|undefined=sceneDocument.maps[mapId]?.modularTerrain){
+    this.terrainStamp=terrainFingerprint(terrain);
     this.manifest=scene.cache.json.get(sceneryAnimationManifestKey(mapId,period)) as SceneryAnimationManifest|undefined;
     for(const spec of placements)this.addLayer(spec);
     const ambient=worldAmbient(mapId,period);
@@ -79,7 +84,7 @@ export class WorldScenery {
       if(detail&&!scene.textures.exists(requestedKey)){
         if(!this.loadingDetails.has(detail.id)){
           this.loadingDetails.add(detail.id);
-          ensureTerrainObject(scene,mapId,detail,loaded=>{this.loadingDetails.delete(detail.id);if(loaded&&!this.destroyed)this.sync(this.placements);});
+          ensureTerrainObject(scene,mapId,detail,loaded=>{this.loadingDetails.delete(detail.id);if(loaded&&!this.destroyed)this.sync(this.placements,this.terrain);});
         }return false;
       }
       const key=scene.textures.exists(requestedKey)?requestedKey:sceneryTextureKey(mapId);
@@ -113,9 +118,9 @@ export class WorldScenery {
         parts.push({sprite:detail,scale:detailScale,animation:overlay,currentFrame:detailFrame,phaseId});
       }
       const contactArtwork={frame,referenceWidth:spec.width/scale,originX:sprite.originX,originY:sprite.originY};
-      const contactKind=sceneryContactKind(spec);
-      const foundation=building?new BuildingFoundation(scene,mapId,spec,authoredGeometry??animation,contactArtwork)
-        :contactKind?new SceneryContact(scene,mapId,spec,contactKind,contactArtwork):undefined;
+      const contactKind=sceneryContactKind(spec),groundAt=(x:number,y:number)=>foundationGround(mapId,x,y,this.terrain);
+      const foundation=building?new BuildingFoundation(scene,mapId,spec,authoredGeometry??animation,contactArtwork,groundAt)
+        :contactKind?new SceneryContact(scene,mapId,spec,contactKind,contactArtwork,groundAt):undefined;
       // Each narrow strip has its own wall segment depth. This also sorts two
       // characters correctly when they stand on opposite sides of one building.
       // A camera-dependent single depth cannot represent both relationships.
@@ -147,14 +152,16 @@ export class WorldScenery {
    * changed, add new ones and drop removed ones. Unchanged objects keep
    * their sprites and animation phase.
    */
-  sync(placements:readonly PlacedScenerySpec[]):void{
+  sync(placements:readonly PlacedScenerySpec[],terrain:ModularTerrain|undefined=sceneDocument.maps[this.mapId]?.modularTerrain):void{
+    const stamp=terrain===this.terrain?this.terrainStamp:terrainFingerprint(terrain),groundChanged=stamp!==this.terrainStamp;
+    this.terrain=terrain;this.terrainStamp=stamp;
     this.placements=placements;
     this.clearPreview();
     const wanted=new Map(placements.map(spec=>[spec.id,spec]));
     const kept:SceneryLayer[]=[];
     for(const layer of this.layers){
       const next=wanted.get(layer.spec.id);
-      if(next&&JSON.stringify(next)===JSON.stringify(layer.spec)){kept.push(layer);wanted.delete(layer.spec.id);}
+      if(next&&(!groundChanged||!layer.foundation)&&JSON.stringify(next)===JSON.stringify(layer.spec)){kept.push(layer);wanted.delete(layer.spec.id);}
       else this.destroyLayer(layer);
     }
     this.layers=kept;

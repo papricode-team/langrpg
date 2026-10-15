@@ -1,4 +1,4 @@
-import {describe,expect,it} from 'vitest';
+import {describe,expect,it,vi} from 'vitest';
 import type * as Phaser from 'phaser';
 import {foundationScene} from './test-support/foundation-scene';
 import {SceneryContact} from './world-scenery-contact';
@@ -7,6 +7,14 @@ import {contactMaterial,paintSceneryContact} from './scenery-contact-paint';
 
 const art={width:256,height:256,referenceWidth:256,originX:.5,originY:1};
 describe('scenery-specific ground contact',()=>{
+  it('samples edited terrain under a boat anchor and hull during conversion preview',()=>{
+    const ground=foundationScene(),scene={textures:{createCanvas:ground.createCanvas,remove:ground.remove},add:{image:ground.image}} as unknown as Phaser.Scene;
+    const sample=vi.fn(()=>({colour:[35,75,100] as const,vegetation:0,water:1}));
+    const contact=new SceneryContact(scene,'unknown-region',{id:'preview-boat',asset:'boat',x:100,y:200,width:100},'boat',undefined,sample);
+    expect(sample.mock.calls).toEqual([[100,198],[78,192],[100,192],[122,192]]);
+    expect(ground.createCanvas.mock.results[0].value.context.stroke).toHaveBeenCalled();
+    contact.destroy();
+  });
   it('chooses physical treatments independently of motion labels and variant names',()=>{
     const expected={tree:'leaf-tree',cypress:'conifer',lamp:'post',sign:'post',bench:'bench',stall:'market',planter:'planter',fountain:'fountain',boat:'boat',house:undefined} as const;
     for(const [asset,kind] of Object.entries(expected))expect(sceneryContactKind({asset:asset as keyof typeof expected})).toBe(kind);

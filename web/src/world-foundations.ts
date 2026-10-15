@@ -2,7 +2,7 @@ import type * as Phaser from 'phaser';
 import { sceneryFootprints, type PlacedScenerySpec } from './placed-scenery';
 import type { SceneryGeometry, ScenePolygon } from './scene-schema';
 import { worldDepth } from './world-depth';
-import { foundationGround, foundationPatches, paintFoundationDressing } from './foundation-dressing';
+import { foundationGround, foundationPatches, paintFoundationDressing,type FoundationGround } from './foundation-dressing';
 
 // Feathered ground marks do not need the native resolution of the building art.
 const REFERENCE_WIDTH = 256, MARGIN = 24;
@@ -128,10 +128,10 @@ export class BuildingFoundation {
   private cache: Map<string, CachedFoundation>;
   private signature: string;
   private entry: CachedFoundation;
-  constructor(private scene: Phaser.Scene, mapId: string, spec: PlacedScenerySpec, geometry?: SceneryGeometry, artwork?: FoundationArtwork) {
+  constructor(private scene: Phaser.Scene, mapId: string, spec: PlacedScenerySpec, geometry?: SceneryGeometry, artwork?: FoundationArtwork,sample:(x:number,y:number)=>FoundationGround=(x,y)=>foundationGround(mapId,x,y)) {
     const polygons = foundationPolygons(spec, geometry);
     const contact = paintedContact(artwork, polygons, !!spec.flipX);
-    const patches = contact ? foundationPatches(contact,spec,geometry,(x,y)=>foundationGround(mapId,x,y)) : [];
+    const patches = contact ? foundationPatches(contact,spec,geometry,sample) : [];
     this.signature = JSON.stringify([mapId, polygons, patches, !!spec.flipX, artwork && [artwork.frame.texture?.key,artwork.frame.name,artwork.referenceWidth,artwork.originX,artwork.originY]]);
     this.cache = caches.get(scene.textures) ?? new Map();
     caches.set(scene.textures, this.cache);

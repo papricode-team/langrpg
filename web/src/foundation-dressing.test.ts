@@ -2,6 +2,7 @@ import {describe,expect,it} from 'vitest';
 import {foundationGround,foundationPatches,foundationSites,type FoundationGround} from './foundation-dressing';
 import terrain from './data/foundation-terrain.json';
 import {sceneDocument} from './scene-data';
+import {rectangleSurface,type ModularTerrain} from './modular-terrain';
 
 const spec={id:'garden-house',asset:'house' as const,x:100,y:200,width:256};
 const line=[Array.from({length:25},(_,i)=>[-120+i*10,0] as const)];
@@ -9,6 +10,14 @@ const paving:FoundationGround={colour:[202,182,154],vegetation:0,water:0};
 const grass:FoundationGround={colour:[115,124,57],vegetation:1,water:0};
 
 describe('foundation dirt and vegetation',()=>{
+  it('samples edited materials and bridge overlays instead of the old baked painting',()=>{
+    const modular:ModularTerrain={version:1,base:'meadow',surfaces:[rectangleSurface('water','deep-water',0,0,200,200),rectangleSurface('bridge','timber',0,80,200,40)]};
+    expect(foundationGround('lindenhafen',30,30,modular).water).toBe(1);
+    expect(foundationGround('lindenhafen',30,100,modular).water).toBe(0);
+    expect(foundationGround('lindenhafen',300,300,modular).vegetation).toBe(1);
+    expect(foundationGround('lindenhafen',30,100,modular).vegetation).toBe(0);
+    expect(foundationGround('lindenhafen',300,300,{...modular,base:'snow'}).colour).not.toEqual(foundationGround('lindenhafen',300,300,modular).colour);
+  });
   it('samples every authored terrain tile from its own daylight painting',()=>{
     for(const world of Object.values(sceneDocument.maps))for(const tile of world.terrain??[]){
       const key=tile.dayPreviewAsset??tile.dayAsset;

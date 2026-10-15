@@ -8,7 +8,8 @@ try{
  await page.goto('http://127.0.0.1:4178/qa/terrain-kit.html');await page.waitForFunction(()=>window.terrainKitReady);
  await mkdir('docs/audits/modular-terrain',{recursive:true});
  await page.screenshot({path:'docs/audits/modular-terrain/construction-kit.png',fullPage:true});
- await page.locator('#family').selectOption('canal');await page.locator('#pieces img').evaluateAll(images=>Promise.all(images.map(img=>img.decode())));
+ await page.locator('#world').screenshot({path:'docs/audits/modular-terrain/assembled-kit.png'});
+ await page.locator('[data-piece=quay-inlet]').click();await page.locator('#pieces img').evaluateAll(images=>Promise.all(images.map(img=>img.decode())));
  await page.locator('#pieces').screenshot({path:'docs/audits/modular-terrain/stone-bank-pieces.png'});
  const result=await page.evaluate(async()=>{
   const {Phaser}=await import('/qa/terrain-runtime.ts');

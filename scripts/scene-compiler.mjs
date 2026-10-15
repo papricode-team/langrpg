@@ -131,6 +131,14 @@ export async function compileSceneDocument(value, {root = projectRoot, strictQua
     }
     if(scene.modularTerrain){
       const {terrainMaterial}=await import('../web/src/terrain-materials.ts');
+      const {terrainFeature}=await import('../web/src/terrain-features.ts');
+      for(const id of new Set((scene.modularTerrain.features??[]).map(feature=>feature.asset))){
+        const art=terrainFeature(id);
+        try{
+          const size=await sharp(resolve(root,'web/public',art.asset.slice(1))).metadata();
+          if(size.width!==art.width||size.height!==art.height||Math.min(size.width,size.height)<1024||!size.hasAlpha)report(map,`terrain piece ${id} needs native HD art with transparency`);
+        }catch{report(map,`missing painted terrain piece ${id}`);}
+      }
       for(const id of new Set([scene.modularTerrain.base,...scene.modularTerrain.surfaces.map(surface=>surface.material)])){
         const material=terrainMaterial(id);
         try{

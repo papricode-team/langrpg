@@ -5,8 +5,10 @@ import type {MultiPolygon,Polygon} from 'polygon-clipping';
 import earcut,{flatten} from 'earcut';
 import {terrainMaterial} from './terrain-materials.ts';
 import type {ScenePolygon,WorldScene} from './scene-schema';
+import {featureSurfaces,type TerrainFeature} from './terrain-features';
 export interface TerrainSurface {id:string;material:string;polygon:ScenePolygon;blocked?:boolean;groupId?:string;}
-export interface ModularTerrain {version:1;base:string;surfaces:TerrainSurface[];}
+export interface ModularTerrain {version:1;base:string;surfaces:TerrainSurface[];features?:TerrainFeature[];}
+export function terrainSurfaces(terrain:ModularTerrain):TerrainSurface[]{return [...terrain.surfaces,...(terrain.features??[]).flatMap(featureSurfaces)];}
 export function surfaceBlocks(surface:TerrainSurface):boolean{return surface.blocked??terrainMaterial(surface.material)?.blocked??false;}
 const polygon=(shape:ScenePolygon):Polygon=>[shape.map(([x,y])=>[x,y])];
 const cache=new WeakMap<ModularTerrain,{width:number;height:number;polygons:ScenePolygon[]}>();
@@ -14,7 +16,7 @@ const cache=new WeakMap<ModularTerrain,{width:number;height:number;polygons:Scen
 export function modularTerrainBarriers(terrain:ModularTerrain,width:number,height:number):ScenePolygon[]{
   const cached=cache.get(terrain);if(cached?.width===width&&cached.height===height)return cached.polygons;
   let blocked:MultiPolygon=terrainMaterial(terrain.base)?.blocked?[[[[0,0],[width,0],[width,height],[0,height],[0,0]]]]:[];
-  for(const surface of terrain.surfaces){
+  for(const surface of terrainSurfaces(terrain)){
     const shape=polygon(surface.polygon);
     blocked=surfaceBlocks(surface)?polygonClipping.union(blocked,shape):blocked.length?polygonClipping.difference(blocked,shape):blocked;
   }

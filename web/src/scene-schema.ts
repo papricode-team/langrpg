@@ -1,4 +1,5 @@
 import {terrainMaterial} from './terrain-materials.ts';
+import {terrainFeature,featureBounds,type TerrainFeature} from './terrain-features.ts';
 import {terrainObjectGeometry} from './terrain-objects.ts';
 import type {ModularTerrain} from './modular-terrain';
 import {residentActionLooks,type ResidentActionLook} from './resident-action-art.ts';
@@ -348,6 +349,17 @@ export function parseWorldSceneDocument(value: unknown): WorldSceneDocument {
         polygon(surface.polygon, `${id} terrain surface ${surface.id}`, input.width, input.height);
         if (surface.blocked !== undefined && typeof surface.blocked !== 'boolean') fail(`${id} terrain surface needs a boolean blocked value`);
         if (surface.groupId !== undefined && !validId(surface.groupId)) fail(`${id} terrain surface has an invalid group`);
+      }
+      if(modular.features!==undefined){
+        list(modular.features,`${id} authored terrain pieces`);
+        if(modular.features.length>256)fail(`${id} supports at most 256 authored terrain pieces`);
+        for(const feature of modular.features){
+          if(typeof feature.asset!=='string'||!terrainFeature(feature.asset))fail(`${id} has unknown authored terrain art`);
+          point(feature,`${id} terrain piece ${feature.id}`,input.width,input.height);
+          positive(feature.width,`${id} terrain piece ${feature.id} width`,2048);
+          const bounds=featureBounds(feature as unknown as TerrainFeature);
+          if(bounds.x+bounds.width>input.width||bounds.y+bounds.height>input.height)fail(`${id} terrain piece ${feature.id} exceeds scene bounds`);
+        }
       }
     }
     list(input.terrain, `${id} terrain`);

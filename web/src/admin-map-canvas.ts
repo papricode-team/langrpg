@@ -128,6 +128,7 @@ export class AdminMapScene extends Phaser.Scene implements EditSurface {
     const world=getWorldScene(this.mapId);this.terrain?.destroy();
     this.terrain=new StreamedWorldTerrain(this,terrain?{...world,modularTerrain:terrain}:world,this.period).setDepth(-1e6);
     this.terrainDocument=world.modularTerrain;
+    this.scenery?.sync(world.scenery,terrain??world.modularTerrain);
   }
   setTerrainEditing(active:boolean,bridge:EditBridge):void{
     this.terrainEditing=active;this.controller?.destroy();this.controller=undefined;
