@@ -227,6 +227,43 @@
       "worldSize": 384,
       "source": "canal-grass.png",
       "promptFile": "docs/prompts/terrain-materials/canal-grass.txt"
+    },
+    {
+      "id": "town-cobble",
+      "name": "Lindenhafen blue cobbles",
+      "group": "Paving",
+      "color": "#476178",
+      "worldSize": 190,
+      "edge": {
+        "kind": "curb"
+      },
+      "source": "town-cobble.png",
+      "generatedFile": "exec-c0354ebf-c0b2-4a9b-853e-2cef936dd3d2.png",
+      "promptFile": "docs/prompts/terrain-materials/town-cobble.txt"
+    },
+    {
+      "id": "canal-masonry",
+      "name": "Canal wall masonry",
+      "group": "Paving",
+      "color": "#344d61",
+      "worldSize": 240,
+      "source": "canal-masonry.png",
+      "generatedFile": "exec-8512b952-8e55-4183-aeb6-653d56f97c98.png",
+      "promptFile": "docs/prompts/terrain-materials/canal-masonry.txt"
+    },
+    {
+      "id": "banked-water",
+      "name": "Stone-edged canal",
+      "group": "Water",
+      "color": "#0b2b40",
+      "blocked": true,
+      "worldSize": 512,
+      "source": "canal-water.png",
+      "edge": {
+        "kind": "quay",
+        "material": "canal-masonry",
+        "height": 34
+      }
     }
   ]
 }

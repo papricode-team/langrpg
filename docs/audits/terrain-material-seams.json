@@ -174,5 +174,29 @@
     "sourcePixelsPerWorldUnit": 3,
     "maxHorizontalSeamDifference": 0,
     "maxVerticalSeamDifference": 0
+  },
+  {
+    "id": "town-cobble",
+    "width": 1152,
+    "height": 1152,
+    "sourcePixelsPerWorldUnit": 6.063157894736842,
+    "maxHorizontalSeamDifference": 0,
+    "maxVerticalSeamDifference": 0
+  },
+  {
+    "id": "canal-masonry",
+    "width": 1152,
+    "height": 1152,
+    "sourcePixelsPerWorldUnit": 4.8,
+    "maxHorizontalSeamDifference": 0,
+    "maxVerticalSeamDifference": 0
+  },
+  {
+    "id": "banked-water",
+    "width": 1152,
+    "height": 1152,
+    "sourcePixelsPerWorldUnit": 2.25,
+    "maxHorizontalSeamDifference": 0,
+    "maxVerticalSeamDifference": 0
   }
 ]

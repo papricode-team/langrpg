@@ -330,6 +330,59 @@
       "sourceHeight": 1254,
       "worldSize": 384,
       "repeat": "periodic-overlap"
+    },
+    {
+      "id": "town-cobble",
+      "name": "Lindenhafen blue cobbles",
+      "group": "Paving",
+      "color": "#476178",
+      "blocked": false,
+      "asset": "/assets/terrain-materials/town-cobble.webp",
+      "thumbnail": "/assets/terrain-materials/town-cobble-thumb.webp",
+      "width": 1152,
+      "height": 1152,
+      "sourceWidth": 1254,
+      "sourceHeight": 1254,
+      "worldSize": 190,
+      "repeat": "periodic-overlap",
+      "edge": {
+        "kind": "curb"
+      }
+    },
+    {
+      "id": "canal-masonry",
+      "name": "Canal wall masonry",
+      "group": "Paving",
+      "color": "#344d61",
+      "blocked": false,
+      "asset": "/assets/terrain-materials/canal-masonry.webp",
+      "thumbnail": "/assets/terrain-materials/canal-masonry-thumb.webp",
+      "width": 1152,
+      "height": 1152,
+      "sourceWidth": 1254,
+      "sourceHeight": 1254,
+      "worldSize": 240,
+      "repeat": "periodic-overlap"
+    },
+    {
+      "id": "banked-water",
+      "name": "Stone-edged canal",
+      "group": "Water",
+      "color": "#0b2b40",
+      "blocked": true,
+      "asset": "/assets/terrain-materials/banked-water.webp",
+      "thumbnail": "/assets/terrain-materials/banked-water-thumb.webp",
+      "width": 1152,
+      "height": 1152,
+      "sourceWidth": 1254,
+      "sourceHeight": 1254,
+      "worldSize": 512,
+      "repeat": "periodic-overlap",
+      "edge": {
+        "kind": "quay",
+        "material": "canal-masonry",
+        "height": 34
+      }
     }
   ]
 }

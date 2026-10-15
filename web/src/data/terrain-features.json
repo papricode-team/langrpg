@@ -3363,6 +3363,180 @@
       ],
       "source": "compass-landing.png",
       "prompt": "docs/prompts/terrain-features/compass-landing.txt"
+    },
+    {
+      "id": "compass-inlay",
+      "name": "Flush compass paving inlay",
+      "category": "Roads",
+      "width": 1254,
+      "height": 1254,
+      "worldWidth": 200,
+      "asset": "/assets/terrain-features/compass-inlay.webp",
+      "thumbnail": "/assets/terrain-features/compass-inlay-thumb.webp",
+      "outline": [
+        [
+          0.02,
+          0.52
+        ],
+        [
+          0.04,
+          0.46
+        ],
+        [
+          0.12,
+          0.4
+        ],
+        [
+          0.24,
+          0.36
+        ],
+        [
+          0.38,
+          0.33
+        ],
+        [
+          0.53,
+          0.33
+        ],
+        [
+          0.68,
+          0.35
+        ],
+        [
+          0.81,
+          0.39
+        ],
+        [
+          0.92,
+          0.45
+        ],
+        [
+          0.98,
+          0.51
+        ],
+        [
+          0.98,
+          0.56
+        ],
+        [
+          0.94,
+          0.62
+        ],
+        [
+          0.84,
+          0.68
+        ],
+        [
+          0.69,
+          0.73
+        ],
+        [
+          0.52,
+          0.76
+        ],
+        [
+          0.35,
+          0.74
+        ],
+        [
+          0.19,
+          0.69
+        ],
+        [
+          0.08,
+          0.62
+        ],
+        [
+          0.03,
+          0.57
+        ]
+      ],
+      "surfaces": [
+        {
+          "material": "town-cobble",
+          "blocked": false,
+          "polygon": [
+            [
+              0.02,
+              0.52
+            ],
+            [
+              0.04,
+              0.46
+            ],
+            [
+              0.12,
+              0.4
+            ],
+            [
+              0.24,
+              0.36
+            ],
+            [
+              0.38,
+              0.33
+            ],
+            [
+              0.53,
+              0.33
+            ],
+            [
+              0.68,
+              0.35
+            ],
+            [
+              0.81,
+              0.39
+            ],
+            [
+              0.92,
+              0.45
+            ],
+            [
+              0.98,
+              0.51
+            ],
+            [
+              0.98,
+              0.56
+            ],
+            [
+              0.94,
+              0.62
+            ],
+            [
+              0.84,
+              0.68
+            ],
+            [
+              0.69,
+              0.73
+            ],
+            [
+              0.52,
+              0.76
+            ],
+            [
+              0.35,
+              0.74
+            ],
+            [
+              0.19,
+              0.69
+            ],
+            [
+              0.08,
+              0.62
+            ],
+            [
+              0.03,
+              0.57
+            ]
+          ]
+        }
+      ],
+      "source": "compass-inlay.png",
+      "prompt": "docs/prompts/terrain-features/compass-inlay.txt"
     }
   ]
 }

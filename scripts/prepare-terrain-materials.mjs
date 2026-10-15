@@ -24,14 +24,14 @@ export function periodicTexture(data,width,height,channels){
 }
 const materials=[];
 for(const item of manifest.materials){
- const input=`${source}/${item.id}.png`,{data,info}=await sharp(input).removeAlpha().raw().toBuffer({resolveWithObject:true});
+ const input=`${source}/${item.source??`${item.id}.png`}`,{data,info}=await sharp(input).removeAlpha().raw().toBuffer({resolveWithObject:true});
  if(info.width<1024||info.height<1024)throw new Error(`${item.id}: source is not high resolution`);
  const periodic=periodicTexture(data,info.width,info.height,info.channels);
  await sharp(periodic.data,{raw:periodic}).webp({lossless:true,effort:6}).toFile(`${output}/${item.id}.webp`);
  await sharp(`${output}/${item.id}.webp`).resize(160,160).webp({quality:85}).toFile(`${output}/${item.id}-thumb.webp`);
  materials.push({id:item.id,name:item.name,group:item.group,color:item.color,blocked:!!item.blocked,
   asset:`/assets/terrain-materials/${item.id}.webp`,thumbnail:`/assets/terrain-materials/${item.id}-thumb.webp`,
-  width:periodic.width,height:periodic.height,sourceWidth:info.width,sourceHeight:info.height,worldSize:item.worldSize??256,repeat:'periodic-overlap'});
+  width:periodic.width,height:periodic.height,sourceWidth:info.width,sourceHeight:info.height,worldSize:item.worldSize??256,repeat:'periodic-overlap',...(item.edge?{edge:item.edge}:{})});
 }
 await writeFile('web/src/data/terrain-materials.json',JSON.stringify({version:1,materials},null,2)+'\n');
 console.log(`Exported ${materials.length} lossless periodic materials without mirroring or upscaling.`);
