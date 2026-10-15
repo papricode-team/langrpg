@@ -114,14 +114,15 @@
         "station"
       ],
       "fps": 0,
-      "width": 1144,
-      "height": 1174,
+      "width": 4576,
+      "height": 4696,
       "referenceWidth": 1144,
       "originX": 0.5,
       "originY": 0.9965928449744463,
       "base": {
         "key": "lindenhafen-day-building-station",
-        "frame": "station"
+        "frame": "station",
+        "referenceWidth": 4576
       },
       "overlays": [],
       "footprint": [
