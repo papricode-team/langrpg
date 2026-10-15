@@ -106,6 +106,10 @@ func TestMetricsCoverWorldLimiterAndCreem(t *testing.T) {
 	app := testApp(t)
 	app.metricsToken = testMetricsToken
 	token, player := createSession(t, app, "Measured Ada")
+	// Install the billing client before any socket goroutine can read it.
+	f := billingtest.NewFixture(player.ID, "monthly", app.now())
+	app.billing = billingtest.NewClient(http.HandlerFunc(f.Serve))
+	app.billing.Observe = app.metrics.observeCreem
 	server := httptest.NewServer(app.Handler())
 	t.Cleanup(server.Close)
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
@@ -122,9 +126,6 @@ func TestMetricsCoverWorldLimiterAndCreem(t *testing.T) {
 	if err = app.store.SetCredentials(ctx, tokenHash(token), "measured@example.com", "encoded"); err != nil {
 		t.Fatal(err)
 	}
-	f := billingtest.NewFixture(player.ID, "monthly", app.now())
-	app.billing = billingtest.NewClient(http.HandlerFunc(f.Serve))
-	app.billing.Observe = app.metrics.observeCreem
 	if _, err = app.store.UpdateAccountByID(ctx, player.ID, func(account *Account) error { account.Billing = f.State(); return nil }); err != nil {
 		t.Fatal(err)
 	}

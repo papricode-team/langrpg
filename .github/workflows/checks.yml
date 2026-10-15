@@ -4,9 +4,10 @@ on: [push, pull_request]
 permissions:
   contents: read
 
+# Superseded pull request runs are cancelled; every push to main keeps its own result.
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   # Go service against a real PostgreSQL so integration tests run instead of skipping.
@@ -31,11 +32,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
+          cache: npm
       - uses: actions/setup-go@v5
         with:
           go-version-file: server/go.mod
           cache-dependency-path: server/go.sum
-      # server/content.json is generated, not committed; it uses only Node built-ins.
+      # World-edit tests run the Node scene compiler, which needs sharp and typescript.
+      - run: npm ci
+      # server/content.json is generated, not committed.
       - run: node scripts/build-content.mjs
       - name: Check formatting
         run: test -z "$(gofmt -l .)" || { gofmt -l .; exit 1; }
