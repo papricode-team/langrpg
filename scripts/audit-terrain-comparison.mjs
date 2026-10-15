@@ -10,6 +10,7 @@ try{
  await page.screenshot({path:'docs/audits/modular-terrain/terrain-comparison.png',fullPage:true});
  await page.getByRole('button',{name:'Bridge detail',exact:true}).click();
  await page.screenshot({path:'docs/audits/modular-terrain/terrain-comparison-bridge.png',fullPage:true});
+ await page.locator('#components').screenshot({path:'docs/audits/modular-terrain/bridge-paving-match.png'});
  const before=await page.evaluate(()=>[document.querySelector('#original').toDataURL(),document.querySelector('#components').toDataURL()]);
  await page.locator('#roads').uncheck();
  const hidden=await page.evaluate(()=>[document.querySelector('#original').toDataURL(),document.querySelector('#components').toDataURL()]);
