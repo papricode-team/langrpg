@@ -22,9 +22,9 @@ All four phases are implemented on branch `claude/map-editor-redesign-c085b2`. S
 | Compiler with structured problems; composition hints are warnings for admins | [scene-compiler.mjs](../scripts/scene-compiler.mjs), [admin-world-compiler.mjs](../scripts/admin-world-compiler.mjs) |
 | Long-running edit worker | [admin-world-worker.mjs](../scripts/admin-world-worker.mjs), [admin_world_worker.go](../server/admin_world_worker.go) |
 | Operations, locks, status, patch broadcast | [admin_world_ops.go](../server/admin_world_ops.go) |
-| Hidden story lines | [story_overrides.go](../server/story_overrides.go) |
+| Story overrides: hidden and rewritten lines, the admin story listing | [story_overrides.go](../server/story_overrides.go) |
 | In-game edit mode | [world-edit-mode.ts](../web/src/world-edit-mode.ts), [world-edit-overlay.ts](../web/src/world-edit-overlay.ts), `applyWorldEdits` in [world-scene.ts](../web/src/world-scene.ts) |
-| Admin area map editor and Story tab | [admin-map-editor.ts](../web/src/admin-map-editor.ts), [admin-map-canvas.ts](../web/src/admin-map-canvas.ts), [admin-story.ts](../web/src/admin-story.ts), [admin-residents.ts](../web/src/admin-residents.ts) |
+| Admin area map editor and Story tab | [admin-map-editor.ts](../web/src/admin-map-editor.ts), [admin-map-canvas.ts](../web/src/admin-map-canvas.ts), [admin-story.ts](../web/src/admin-story.ts), [admin-story-model.ts](../web/src/admin-story-model.ts), [admin-residents.ts](../web/src/admin-residents.ts) |
 
 World Studio (`/editor.html`, the iframe overlay and all `level-editor*` modules) is deleted. The committed world was migrated to version 3; positions and the server coordinate file are unchanged apart from the content version.
 

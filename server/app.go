@@ -136,8 +136,9 @@ func (a *App) Handler() http.Handler {
 	mux.HandleFunc("POST /api/admin/world/ops", a.applyWorldOps)
 	mux.HandleFunc("POST /api/admin/world/locks", a.editWorldLock)
 	mux.HandleFunc("GET /api/admin/world/status", a.worldEditStatus)
-	mux.HandleFunc("GET /api/admin/story/lines", a.readStoryLines)
+	mux.HandleFunc("GET /api/admin/story", a.readStory)
 	mux.HandleFunc("POST /api/admin/story/lines", a.setStoryLine)
+	mux.HandleFunc("POST /api/admin/story/check", a.checkStoryText)
 	missing := func(w http.ResponseWriter, r *http.Request) { writeError(w, 404, "endpoint not found") }
 	mux.HandleFunc("GET /api/content/courses", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.listCourses(w, r) }))
 	mux.HandleFunc("GET /api/content/{path...}", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.readContent(w, r) }))

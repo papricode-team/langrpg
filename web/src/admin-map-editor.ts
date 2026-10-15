@@ -39,7 +39,7 @@ export interface MapEditorOptions {
   token: () => string;
   selfId: () => string;
   /** Extra tab content provided by other admin features. */
-  storyTab?: (host: HTMLElement, session: WorldEditSession) => void;
+  storyTab?: (host: HTMLElement, session: WorldEditSession, hooks: {showOnMap(npcId: string): boolean}) => void;
 }
 
 const capital = (text: string): string => text.charAt(0).toLocaleUpperCase() + text.slice(1);
@@ -106,7 +106,7 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
         <div class="me-panel" data-panel="objects"></div>
         <div class="me-panel map-tab" data-panel="terrain" hidden></div>
         <div class="me-panel map-tab" data-panel="residents" hidden></div>
-        <div class="me-panel map-tab" data-panel="story" hidden></div>
+        <div class="me-panel" data-panel="story" hidden></div>
       </aside>
     </div>
     <dialog class="me-help" aria-label="Keyboard shortcuts"><header><h2>Keyboard shortcuts</h2><button type="button" data-cmd="close-help" class="me-icon">${icon('close')}<span class="me-sr">Close</span></button></header>
@@ -539,9 +539,21 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
     terrainEditor.setActive(next === 'terrain');
     scene.setActive(next === 'objects' || next === 'residents');
     if (next === 'terrain' || next === 'story') scene.setSelection([]);
-    if (next === 'story') options.storyTab?.(panel('story'), session);
+    if (next === 'story') options.storyTab?.(panel('story'), session, {showOnMap});
     inspectorKey = ''; residentsKey = [];
     queueRender();
+  };
+  /** Story mode's way back to the map: open the town a character stands in and select them. */
+  const showOnMap = (npcId: string): boolean => {
+    const town = maps.find(map => getWorldScene(map.id).npcs.some(npc => npc.id === npcId));
+    if (!town) return false;
+    setMode('objects');
+    void (async () => {
+      if (town.id !== mapId) { query<HTMLSelectElement>('#me-town').value = town.id; await showTown(town.id); }
+      const item = scene.itemFor(npcId);
+      if (item) { scene.setSelection([item]); scene.frameSelection(); }
+    })();
+    return true;
   };
   const setSide = (next: Side) => {
     side = next;
@@ -687,7 +699,8 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
     return !!element && (element.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(element.tagName));
   };
   const keydown = (event: KeyboardEvent) => {
-    if (destroyed || host.offsetParent === null || query<HTMLDialogElement>('.me-help').open) return;
+    // Story mode has its own keys and nothing on the canvas to act on.
+    if (destroyed || host.offsetParent === null || query<HTMLDialogElement>('.me-help').open || mode === 'story') return;
     if (typing(event.target)) {
       if (event.key === 'Escape') (event.target as HTMLElement).blur();
       if (event.key === 'Enter' && (event.target as HTMLInputElement).type === 'number') (event.target as HTMLElement).blur();

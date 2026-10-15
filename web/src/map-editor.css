@@ -52,8 +52,7 @@
 /* Body ------------------------------------------------------------------------------------------- */
 .me-body { flex: 1; min-height: 0; display: grid; grid-template-columns: 264px minmax(0, 1fr) 300px; }
 .me[data-mode=terrain] .me-body, .me[data-mode=residents] .me-body { grid-template-columns: 0 minmax(0, 1fr) 340px; }
-.me[data-mode=story] .me-body { grid-template-columns: 0 minmax(0, 1fr) min(560px, 48vw); }
-.me[data-mode=terrain] .me-left, .me[data-mode=residents] .me-left, .me[data-mode=story] .me-left { visibility: hidden; }
+.me[data-mode=terrain] .me-left, .me[data-mode=residents] .me-left { visibility: hidden; }
 .me-left, .me-right { min-height: 0; overflow: hidden; background: var(--me-panel); display: flex; flex-direction: column; }
 .me-left { border-right: 1px solid var(--me-line); }
 .me-right { border-left: 1px solid var(--me-line); overflow-y: auto; }

@@ -5,13 +5,15 @@
 import type {WorldSceneDocument} from './scene-schema';
 import {applyEditOps,inverseEditOps,type WorldEditOp} from './world-edit-ops';
 import type {WorldProblem} from './world-edit-rules';
+import type {StoryLexeme,StoryListing,StoryScene,StoryWord} from './admin-story-model';
 
 export interface WorldLock { map: string; id: string; adminId: string; adminName: string; expires: string; }
 /** `from` is the published version the edit was applied on top of. */
 export interface EditResult { revision: string; from: string; contentVersion: string; applied: WorldEditOp[]; warnings: WorldProblem[]; }
 export interface AdminWorld { document: WorldSceneDocument; revision: string; }
-export interface StoryLine { id: string; speaker: string; german: string; english: string; hidden: boolean; locked?: string; }
-export interface StoryGraph { id: string; courseId: string; questId: string; level: string; blocks: {kind: string; label: string; lines: StoryLine[]}[]; }
+/** One change to a story line: hide or restore it, rewrite it, or drop the rewrite. */
+export type StoryLineChange = {hidden: boolean} | {text: string; translations: Record<string, string>} | {reset: true};
+export interface StoryDraftCheck { words: StoryWord[]; lexemes: Record<string, StoryLexeme>; problems: string[]; }
 
 export class WorldEditRequestError extends Error {
   readonly status: number;
@@ -131,9 +133,12 @@ export class WorldEditSession {
   }
   clearHistory(): void { this.undoStack = []; }
 
-  /** Every scene's monologue, with which lines are hidden or must stay. */
-  storyLines(): Promise<{graphs: StoryGraph[]}> { return this.request('/admin/story/lines'); }
+  /** The whole story in play order, with every admin change to it. */
+  story(): Promise<StoryListing> { return this.request('/admin/story'); }
   /** Hide or restore one monologue line for every player. */
-  setStoryLine(lineId: string, hidden: boolean): Promise<{graph?: StoryGraph}> { return this.request('/admin/story/lines', {body: {lineId, hidden}}); }
+  setStoryLine(lineId: string, hidden: boolean): Promise<{scene?: StoryScene}> { return this.changeStoryLine(lineId, {hidden}); }
+  changeStoryLine(lineId: string, change: StoryLineChange): Promise<{scene?: StoryScene}> { return this.request('/admin/story/lines', {body: {lineId, ...change}}); }
+  /** Links a draft line's words to the lexicon before it is saved. */
+  checkStoryText(text: string, authored: string): Promise<StoryDraftCheck> { return this.request('/admin/story/check', {body: {text, authored}}); }
   dispose(): void { void this.releaseAll(); this.stopRenewal(); }
 }

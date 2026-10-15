@@ -734,7 +734,7 @@ func (a *App) publicRecordForAccount(record contentstore.Record, account Account
 	value := a.publicRecord(record, account.Preferences.BaseLanguage)
 	if record.Kind == "graph" {
 		body, _ := value["body"].(map[string]any)
-		a.filterHiddenLines(body)
+		a.applyStoryOverrides(body, account.Preferences.BaseLanguage)
 		for _, entry := range anyValues(body["investigations"]) {
 			object, _ := entry.(map[string]any)
 			id := stringValue(object["objectId"])
