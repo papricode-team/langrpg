@@ -11,10 +11,11 @@ import {getWorldScene,sceneDocument} from './scene-data';
 import {getSceneryGeometryMap,sceneEntrancePoint,type SceneInteriorKind,type SceneScenery,type ScenePoint} from './scene-schema';
 import {applyEditOps,type WorldEditOp} from './world-edit-ops';
 import {defaultActivities,newPlacement,paletteChoices,type PaletteChoice} from './world-edit-palette';
-import {objectLabel,placementProblems,roomOptions,SceneReach,sizeRange,WorldEditError,type WorldProblem} from './world-edit-rules';
+import {variantChoices} from './world-edit-catalogue';
+import {clampSize,objectLabel,placementProblems,roomOptions,SceneReach,sizeRange,WorldEditError,type WorldProblem} from './world-edit-rules';
 import type {WorldEditSession,WorldLock} from './world-edit-session';
 import type {WorldScenery} from './world-scenery';
-import {sceneryTextureKey} from './placed-scenery';
+import {sceneryTextureKey,sceneryVariationKey} from './placed-scenery';
 import {sceneryAnimationManifestKey,type SceneryAnimationManifest} from './scenery-animation';
 import {worldDepth} from './world-depth';
 
@@ -321,6 +322,14 @@ export class WorldEditController {
 
   private selectedItem(): SceneScenery | undefined { return this.selected?.kind === 'scenery' ? this.item(this.selected.id) : undefined; }
 
+  setVariant(frame: string): void {
+    const item = this.selectedItem();
+    if (!item || this.busy || this.bridge.locks.has(item.id) || frame === (item.frame ?? item.asset)) return;
+    if (!variantChoices(this.palette, item).some(choice => choice.frame === frame)) return;
+    const width = clampSize(this.map, {...item, frame}, item.width);
+    void this.commit([{kind: 'update', map: this.map, id: item.id, frame, width}]);
+  }
+
   flip(): void {
     const item = this.selectedItem();
     if (item) void this.commit([{kind: 'update', map: this.map, id: item.id, flipX: !item.flipX}]);
@@ -360,6 +369,7 @@ export class WorldEditController {
   }
 
   startPlacing(choice: PaletteChoice): void {
+    if (this.busy) return;
     this.cancelPlacing(false);
     this.select(undefined);
     const thumbnail = this.thumbnails[choice.frame];
@@ -474,6 +484,7 @@ export function sceneryThumbnail(scene: Phaser.Scene, mapId: MapId, period: 'day
   const animation = manifest?.assets[frame];
   let key = animation?.base?.key ?? animation?.key, name = animation ? animation.base?.frame ?? animation.frames[0] : frame;
   if (!key || !scene.textures.exists(key) || !scene.textures.get(key).has(name)) { key = sceneryTextureKey(mapId); name = frame; }
+  if (!scene.textures.exists(key) || !scene.textures.get(key).has(name)) { key = sceneryVariationKey(mapId); name = frame; }
   if (!scene.textures.exists(key) || !scene.textures.get(key).has(name)) return undefined;
   const source = scene.textures.getFrame(key, name), image = source.source.image as CanvasImageSource;
   const canvas = document.createElement('canvas'), scale = Math.min(1, 256 / source.cutWidth, 256 / source.cutHeight);

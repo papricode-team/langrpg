@@ -2,6 +2,7 @@
 import './world-edit.css';
 import {escapeHtml as escape} from './icons';
 import type {EditBridge,EditState,EditView} from './world-edit-mode';
+import {catalogueGroups,variantChoices,variantLabel} from './world-edit-catalogue';
 import {roomNames,townName} from './world-edit-rules';
 import type {SceneInteriorKind} from './scene-schema';
 
@@ -14,6 +15,8 @@ export class WorldEditOverlay implements EditView {
   private readonly palette: HTMLElement;
   private readonly toasts: HTMLElement;
   private paletteOpen = false;
+  private catalogueGroup = '';
+  private readonly docked: boolean;
   private last?: EditState;
   private paletteKey = '';
   private inspectorKey = '';
@@ -26,6 +29,7 @@ export class WorldEditOverlay implements EditView {
    */
   constructor(options: {onDone?: () => void; mount?: HTMLElement} = {}) {
     this.onDone = options.onDone;
+    this.docked = !!options.mount;
     this.root = document.createElement('div');
     this.root.className = options.mount ? 'world-edit world-edit-docked' : 'world-edit';
     this.paletteOpen = !!options.mount;
@@ -33,7 +37,7 @@ export class WorldEditOverlay implements EditView {
         <span class="world-edit-title"><strong>Editing</strong> <span data-edit-town></span><span class="world-edit-live">Changes go live for everyone</span></span>
         <span class="world-edit-status" role="status" aria-live="polite"></span>
         <button type="button" data-edit="undo">Undo</button>
-        ${options.mount ? '' : '<button type="button" data-edit="add" aria-expanded="false">Add</button>'}
+        ${options.mount ? '' : '<button type="button" data-edit="add" aria-expanded="false">Add objects</button>'}
         ${options.onDone ? '<button type="button" data-edit="done" class="primary">Done</button>' : ''}
       </div>
       <div class="world-edit-toasts" aria-live="polite"></div>
@@ -59,7 +63,7 @@ export class WorldEditOverlay implements EditView {
     switch (action) {
       case 'done': this.onDone?.(); break;
       case 'undo': void controller?.undo(); break;
-      case 'add': this.paletteOpen = !this.paletteOpen; if (!this.paletteOpen) controller?.cancelPlacing(); this.render(); break;
+      case 'add': this.paletteOpen = !this.paletteOpen; if (this.paletteOpen) controller?.deselect(); else controller?.cancelPlacing(); this.render(); break;
       case 'flip': controller?.flip(); break;
       case 'delete': controller?.remove(); break;
       case 'deselect': controller?.deselect(); break;
@@ -68,6 +72,7 @@ export class WorldEditOverlay implements EditView {
         if (choice) controller?.startPlacing(choice);
         break;
       }
+      case 'variant': controller?.setVariant(button.dataset.frame!); break;
       case 'cancel-place': controller?.cancelPlacing(); break;
     }
   };
@@ -75,12 +80,16 @@ export class WorldEditOverlay implements EditView {
   private change = (event: Event): void => {
     const input = event.target as HTMLInputElement | HTMLSelectElement;
     const controller = this.controller;
-    if (input.name === 'size') controller?.resize(Number(input.value));
+    if (input.name === 'catalogue-group') { this.catalogueGroup = input.value; this.render(); }
+    else if (input.name === 'size') controller?.resize(Number(input.value));
     else if (input.name === 'room') controller?.setRoom((input.value || null) as SceneInteriorKind | null);
     else if (input.name === 'solid') controller?.setSolid((input as HTMLInputElement).checked);
   };
 
-  state(state: EditState): void { this.last = state; this.render(); }
+  state(state: EditState): void {
+    if (!this.docked && state.selection) this.paletteOpen = false;
+    this.last = state; this.render();
+  }
 
   toast(message: string, error = false): void {
     const item = document.createElement('p');
@@ -109,7 +118,7 @@ export class WorldEditOverlay implements EditView {
     this.inspector.hidden = !selection;
     if (!selection) { this.inspector.innerHTML = ''; this.inspectorKey = ''; return; }
     // Rebuild only when what is shown changes, so a slider drag or an open list survives.
-    const key = JSON.stringify([selection.target, selection.item, selection.lockedBy, selection.size, selection.rooms]);
+    const key = JSON.stringify([selection.target, selection.item, selection.lockedBy, selection.size, selection.rooms, state.busy, state.palette, Object.keys(state.thumbnails)]);
     if (key === this.inspectorKey) {
       const locked = state.busy || !!selection.lockedBy;
       this.inspector.querySelectorAll<HTMLButtonElement | HTMLInputElement | HTMLSelectElement>('button[data-edit="flip"], button[data-edit="delete"], select, input[type=checkbox]').forEach(control => { control.disabled = locked; });
@@ -124,6 +133,11 @@ export class WorldEditOverlay implements EditView {
         <p class="world-edit-hint">Drag to move.</p>`;
     } else {
       const size = selection.size!, room = item.interior?.kind ?? '';
+      const variants = variantChoices(state.palette, item);
+      if (variants.length > 1) body += `<div class="world-edit-versions"><h3>Version</h3><div class="world-edit-palette-grid" role="group" aria-label="Object versions">${variants.map(choice => {
+        const active = choice.frame === (item.frame ?? item.asset), image = state.thumbnails[choice.frame];
+        return `<button type="button" data-edit="variant" data-frame="${escape(choice.frame)}" aria-pressed="${active}" class="${active ? 'active' : ''}"${disabled}>${image ? `<img src="${escape(image)}" alt="">` : ''}<span>${escape(capital(variantLabel(choice)))}</span></button>`;
+      }).join('')}</div></div>`;
       body += `<div class="world-edit-row"><button type="button" data-edit="flip"${disabled}>Flip</button><button type="button" data-edit="delete" class="danger"${disabled}>Delete</button></div>
         <label class="world-edit-field"><span>Size</span><input type="range" name="size" min="${size.min}" max="${size.max}" step="1" value="${Math.min(size.max, Math.max(size.min, item.width))}"${disabled || size.min === size.max ? ' disabled' : ''}></label>`;
       if (selection.rooms.length) body += `<label class="world-edit-field"><span>Room inside</span><select name="room"${disabled}>
@@ -139,15 +153,19 @@ export class WorldEditOverlay implements EditView {
   private renderPalette(state: EditState): void {
     this.palette.hidden = !this.paletteOpen;
     if (!this.paletteOpen) return;
-    const key = `${state.map}:${state.placing?.frame ?? ''}:${Object.keys(state.thumbnails).length}`;
+    const groups = catalogueGroups(state.palette);
+    const group = groups.find(value => value.asset === this.catalogueGroup) ?? groups[0];
+    const key = JSON.stringify([state.map, state.placing?.frame, state.busy, group?.asset, state.palette, Object.keys(state.thumbnails)]);
     if (key === this.paletteKey) return;
     this.paletteKey = key;
     const placing = state.placing;
-    this.palette.innerHTML = `<p class="world-edit-hint">${placing ? `Click in ${escape(townName(state.map))} to place the ${escape(placing.label)}. Esc cancels.` : 'Choose an object, then click in the town to place it.'}</p>
-      <div class="world-edit-palette-grid">${state.palette.map(choice => {
-        const image = state.thumbnails[choice.frame];
-        return `<button type="button" data-edit="place" data-frame="${escape(choice.frame)}" class="${placing?.frame === choice.frame ? 'active' : ''}" title="${escape(capital(choice.label))}${choice.rooms.length ? ' · can hold a room' : ''}">
-          ${image ? `<img src="${image}" alt="">` : ''}<span>${escape(capital(choice.label))}</span></button>`;
-      }).join('')}</div>`;
+    this.palette.innerHTML = `<div class="world-edit-catalogue-heading"><h2>Object catalogue</h2>${placing ? '<button type="button" data-edit="cancel-place">Cancel placement</button>' : ''}</div>
+      <label class="world-edit-field"><span>Object group</span><select name="catalogue-group">${groups.map(value => `<option value="${value.asset}"${value === group ? ' selected' : ''}>${escape(capital(value.label))} · ${value.choices.length} versions</option>`).join('')}</select></label>
+      <p class="world-edit-hint">${placing ? `Click in ${escape(townName(state.map))} to place ${escape(variantLabel(placing))}. Esc cancels.` : 'Choose a version, then click in the town to place it.'}</p>
+      <div class="world-edit-palette-grid">${(group?.choices ?? []).map(choice => {
+        const image = state.thumbnails[choice.frame], active = placing?.frame === choice.frame;
+        return `<button type="button" data-edit="place" data-frame="${escape(choice.frame)}" aria-pressed="${active}" class="${active ? 'active' : ''}"${state.busy ? ' disabled' : ''} title="${escape(capital(variantLabel(choice)))}${choice.rooms.length ? ' · can hold a room' : ''}">
+          ${image ? `<img src="${escape(image)}" alt="">` : ''}<span>${escape(capital(variantLabel(choice)))}</span></button>`;
+      }).join('')}</div>${groups.length ? '' : '<p class="world-edit-note">No objects are available in this town.</p>'}`;
   }
 }

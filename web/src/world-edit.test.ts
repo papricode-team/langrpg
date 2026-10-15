@@ -4,6 +4,9 @@ import {sceneEntrancePoint, sceneEntrances, type WorldScene} from './scene-schem
 import {sceneNavigationGeometry} from './scene-navigation';
 import {NavigationGrid, PLAYER_RADIUS} from './navigation';
 import {applyEditOps, inverseEditOps, nextObjectId, parseEditOps, type WorldEditOp} from './world-edit-ops';
+import {catalogueGroups,variantChoices,variantLabel} from './world-edit-catalogue';
+import {sceneryFootprints,withSceneryCollision} from './placed-scenery';
+import {getSceneryGeometryMap} from './scene-schema';
 import {defaultActivities, newPlacement, paletteChoices} from './world-edit-palette';
 import {auditScene, objectLabel, placementProblems, roomOptions, SceneReach, sizeRange, WorldEditError} from './world-edit-rules';
 
@@ -51,6 +54,46 @@ describe('world edit operations', () => {
     expect(next.scenery.find(item => item.id === host.id)!.interior!.returnOffset!.x).toBeCloseTo(10.2);
     const flipped = apply(next, [{kind: 'update', map: scene.id, id: host.id, flipX: !host.flipX}]).scene;
     expect(flipped.scenery.find(item => item.id === host.id)!.interior!.returnOffset!.x).toBeCloseTo(-10.2);
+  });
+  it('swaps artwork in place, refreshes collision and restores authored metadata on undo', () => {
+    const scene = town(), item = scene.scenery.find(item => item.asset === 'tree')!;
+    item.frame = 'tree-1'; item.variant = true; item.flipX = true;
+    item.collision = {referenceWidth: 100, polygons: [[[0, 0], [10, 0], [0, -10]]]};
+    item.sortLine = [[-10, -2], [10, -2]];
+    scene.activities = [{id: 'tree-wait', ownerId: item.id, kind: 'wait', offsetX: 0, offsetY: 20}];
+    const document = {version: 3 as const, maps: {[scene.id]: scene}};
+    const op = parseEditOps([{kind: 'update', map: scene.id, id: item.id, frame: 'tree-2'}])[0];
+    const undo = parseEditOps(JSON.parse(JSON.stringify(inverseEditOps(document, op))));
+    const result = applyEditOps(document, [op]).document, changed = result.maps[scene.id].scenery.find(value => value.id === item.id)!;
+    expect(changed).toMatchObject({id: item.id, x: item.x, y: item.y, width: item.width, flipX: true, frame: 'tree-2', variant: true});
+    expect(changed.sortLine).toBeUndefined();
+    const expected = withSceneryCollision({...item, frame: 'tree-2', collision: undefined}, getSceneryGeometryMap(scene.id));
+    expect(sceneryFootprints([changed])).toEqual(sceneryFootprints([expected]));
+    expect(result.maps[scene.id].activities).toEqual(scene.activities);
+    expect(applyEditOps(result, undo).document.maps[scene.id].scenery).toStrictEqual(scene.scenery);
+    expect(item.frame).toBe('tree-1');
+  });
+  it('keeps a usable new footprint when a decorative variant becomes solid again', () => {
+    const scene = town(), item = scene.scenery.find(item => item.asset === 'tree')!;
+    item.collidable = false;
+    item.collision = {referenceWidth: item.width, polygons: []};
+    const swapped = apply(scene, [{kind: 'update', map: scene.id, id: item.id, frame: 'tree-3'}]).scene;
+    const changed = swapped.scenery.find(value => value.id === item.id)!;
+    expect(changed.collidable).toBe(false);
+    expect(changed.collision!.polygons.length).toBeGreaterThan(0);
+    const solid = apply(swapped, [{kind: 'update', map: scene.id, id: item.id, collidable: true}]).scene;
+    expect(sceneryFootprints([solid.scenery.find(value => value.id === item.id)!]).length).toBeGreaterThan(0);
+  });
+  it('rejects unknown, unrelated and doorless replacements', () => {
+    const scene = structuredClone(sceneDocument.maps.lindenhafen);
+    const house = scene.scenery.find(item => item.asset === 'house' && item.interior)!;
+    for (const frame of ['tree-2', 'house-999', 'house-1']) {
+      expect(() => apply(scene, [{kind: 'update', map: scene.id, id: house.id, frame}])).toThrow('compatible version');
+    }
+    expect(() => parseEditOps([{kind: 'update', map: scene.id, id: house.id, frame: 123}])).toThrow('object version');
+    expect(() => parseEditOps([{kind: 'update', map: scene.id, id: house.id, frame: 'house-2', restoreArtwork: {collision: {referenceWidth: 0, polygons: []}}}])).toThrow('artwork');
+    const changed = apply(scene, [{kind: 'update', map: scene.id, id: house.id, frame: 'house-inn'}]).scene.scenery.find(item => item.id === house.id)!;
+    expect(changed.interior).toEqual(house.interior);
   });
   it('rejects malformed operations from clients', () => {
     expect(() => parseEditOps([])).toThrow(WorldEditError);
@@ -119,6 +162,19 @@ describe('incremental navigation', () => {
 });
 
 describe('palette', () => {
+  it('groups all variants with distinct names and limits swaps to compatible objects', () => {
+    const choices = paletteChoices('waldruh'), groups = catalogueGroups(choices);
+    expect(groups.flatMap(group => group.choices)).toEqual(choices);
+    const trees = groups.find(group => group.asset === 'tree')!.choices;
+    expect(trees.map(choice => choice.frame)).toEqual(['tree', 'tree-1', 'tree-2', 'tree-3', 'tree-4']);
+    expect(new Set(trees.map(variantLabel)).size).toBe(trees.length);
+    const item = newPlacement(town(), trees[1], {x: 500, y: 500});
+    expect(item.variant).toBe(true);
+    expect(variantChoices(choices, item)).toEqual(trees);
+    const original = newPlacement(town(), trees[0], item);
+    expect(original.frame).toBeUndefined();
+    expect(original.variant).toBeUndefined();
+  });
   it('offers registered artwork with sizes inside the canon and copies activity spots', () => {
     const scene = structuredClone(sceneDocument.maps.lindenhafen), choices = paletteChoices(scene.id);
     expect(choices.length).toBeGreaterThan(10);

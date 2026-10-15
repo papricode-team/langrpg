@@ -265,7 +265,7 @@ export function placementProblems(before: WorldScene, after: WorldScene, changed
       continue;
     }
     if (!onGround(after, item)) { problems.push(problem('off-ground', map, `There is no ground under ${name} there.`, [id], item)); continue; }
-    if (!old || old.width !== item.width || !!old.interior !== !!item.interior) {
+    if (!old || old.frame !== item.frame || old.width !== item.width || !!old.interior !== !!item.interior) {
       const range = sizeRange(map, item);
       if (item.width < range.min - .01 || item.width > range.max + .01) problems.push(problem('size', map, `${capital(name)} can be between ${Math.round(range.min)} and ${Math.round(range.max)} wide.`, [id], item));
     }

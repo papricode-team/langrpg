@@ -3,6 +3,7 @@
  * published document and broadcasts the same operations, so every client
  * reaches the same document by applying them in order.
  */
+import {paletteChoices,usesVariationAtlas,variantChoices} from './world-edit-catalogue';
 import {withSceneryCollision} from './placed-scenery';
 import {
   getSceneryGeometryMap,sceneActivityUsers,sceneInteriorIds,sceneSceneryAssets,
@@ -10,9 +11,12 @@ import {
 } from './scene-schema';
 import {objectLabel,problem,WorldEditError} from './world-edit-rules';
 
+/** Exact artwork metadata retained by undo, including authored collision overrides. */
+type ArtworkState = Pick<SceneScenery, 'frame' | 'variant' | 'collision' | 'sortLine'>;
+
 export type WorldEditOp =
   | {kind: 'move'; map: string; id: string; x: number; y: number}
-  | {kind: 'update'; map: string; id: string; width?: number; flipX?: boolean; collidable?: boolean; interior?: SceneInterior | null}
+  | {kind: 'update'; map: string; id: string; frame?: string; restoreArtwork?: ArtworkState; width?: number; flipX?: boolean; collidable?: boolean; interior?: SceneInterior | null}
   /** `restore` reinstates an object exactly as it was, for undo; routes are still checked. */
   | {kind: 'place'; map: string; item: SceneScenery; activities?: SceneActivity[]; restore?: boolean}
   | {kind: 'remove'; map: string; id: string}
@@ -42,6 +46,17 @@ export function parseEditOps(value: unknown): WorldEditOp[] {
       case 'update': {
         needId();
         const update: Extract<WorldEditOp, {kind: 'update'}> = {kind: 'update', map, id: id as string};
+        if (op.frame !== undefined) { if (typeof op.frame !== 'string' || !slug.test(op.frame)) throw invalid(map, 'Choose an object version.'); update.frame = op.frame; }
+        if (op.restoreArtwork !== undefined) {
+          const art = op.restoreArtwork;
+          const points = (value: unknown, min: number): boolean => Array.isArray(value) && value.length >= min && value.every(p => Array.isArray(p) && p.length === 2 && p.every(finite));
+          if (!record(art) || op.frame === undefined || (art.frame !== undefined && (typeof art.frame !== 'string' || !slug.test(art.frame)))
+            || (art.variant !== undefined && typeof art.variant !== 'boolean')
+            || (art.sortLine !== undefined && !points(art.sortLine, 2))
+            || (art.collision !== undefined && (!record(art.collision) || !finite(art.collision.referenceWidth) || art.collision.referenceWidth <= 0
+              || !Array.isArray(art.collision.polygons) || !art.collision.polygons.every(p => points(p, 3))))) throw invalid(map, 'Invalid artwork to restore.');
+          update.restoreArtwork = Object.fromEntries(['frame', 'variant', 'collision', 'sortLine'].filter(key => art[key] !== undefined).map(key => [key, art[key]])) as ArtworkState;
+        }
         if (op.width !== undefined) { if (!finite(op.width) || op.width <= 0) throw invalid(map, 'Choose a size.'); update.width = op.width; }
         for (const key of ['flipX', 'collidable'] as const) if (op[key] !== undefined) {
           if (typeof op[key] !== 'boolean') throw invalid(map, 'Choose on or off.');
@@ -125,6 +140,19 @@ function applyOne(document: WorldSceneDocument, op: WorldEditOp): WorldSceneDocu
         if (op.interior === null) delete changed.interior;
         else changed.interior = {kind: op.interior.kind, ...(item.interior?.returnOffset ? {returnOffset: item.interior.returnOffset} : {})};
       }
+      if (op.frame !== undefined && op.frame !== (item.frame ?? item.asset)) {
+        if (!variantChoices(paletteChoices(scene.id), changed).some(choice => choice.frame === op.frame)) throw invalid(scene.id, 'Choose a compatible version of this object.');
+        if (op.frame === item.asset) delete changed.frame; else changed.frame = op.frame;
+        if (usesVariationAtlas(op.frame)) changed.variant = true; else delete changed.variant;
+        delete changed.collision;
+        delete changed.sortLine;
+        if (scene.navigation || item.collision) changed.collision = withSceneryCollision({...changed, collidable: true}, getSceneryGeometryMap(scene.id)).collision;
+      }
+      if (op.restoreArtwork) {
+        if ((op.restoreArtwork.frame ?? item.asset) !== op.frame) throw invalid(scene.id, 'The restored artwork must match the chosen version.');
+        for (const key of ['frame', 'variant', 'collision', 'sortLine'] as const) delete changed[key];
+        Object.assign(changed, structuredClone(op.restoreArtwork));
+      }
       next = transformOwned({...scene, scenery: scene.scenery.map(value => value === item ? changed : value)}, item, changed);
       break;
     }
@@ -190,6 +218,11 @@ export function inverseEditOps(document: WorldSceneDocument, op: WorldEditOp): W
     }
     case 'update': {
       const item = itemOf(scene, op.id), undo: Extract<WorldEditOp, {kind: 'update'}> = {kind: 'update', map: op.map, id: op.id};
+      if (op.frame !== undefined) {
+        undo.frame = item.frame ?? item.asset;
+        undo.restoreArtwork = structuredClone({...(item.frame !== undefined ? {frame: item.frame} : {}),
+          ...(item.variant !== undefined ? {variant: item.variant} : {}), ...(item.collision ? {collision: item.collision} : {}), ...(item.sortLine ? {sortLine: item.sortLine} : {})});
+      }
       if (op.width !== undefined) undo.width = item.width;
       if (op.flipX !== undefined) undo.flipX = !!item.flipX;
       if (op.collidable !== undefined) undo.collidable = item.collidable !== false;
