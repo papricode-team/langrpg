@@ -14,6 +14,7 @@ const {residentActionFrames,RESIDENT_ACTION_ART} = await import('../web/src/resi
 const {NavigationGrid,PLAYER_RADIUS} = await import('../web/src/navigation.ts');
 const {withSceneryCollision} = await import('../web/src/placed-scenery.ts');
 const {getSceneryGeometryMap} = await import('../web/src/scene-schema.ts');
+const {terrainObjects,terrainObject}=await import('../web/src/terrain-objects.ts');
 const {sceneNavigationGeometry} = await import('../web/src/scene-navigation.ts');
 const {maps: contentMaps} = await import('../web/src/maps.ts');
 const {auditScene,SceneReach,problem} = await import('../web/src/world-edit-rules.ts');
@@ -180,8 +181,15 @@ export async function compileSceneDocument(value, {root = projectRoot, strictQua
       for (const issue of quality[scene.id].issues.filter(issue=>!spacingIssues.includes(issue))) quality_(map, issue.replace(`${map}: `, ''));
       for(const [variant,atlas] of atlases.entries())for(const frame of Object.keys(atlas.frames??{}))prefabFrames.add(`${!!variant}:${frame}`);
       for(const frame of Object.keys(manifests[0].assets??{}))if(manifests.every(manifest=>manifest.assets?.[frame]))for(const variant of [false,true])prefabFrames.add(`${variant}:${frame}`);
+      for(const detail of terrainObjects)for(const variant of [false,true])prefabFrames.add(`${variant}:${detail.id}`);
       for (const item of scene.scenery) {
         const frame = item.frame ?? item.asset, atlas = atlases[item.variant ? 1 : 0];
+        const detail=terrainObject(frame);
+        if(detail){
+          try{const size=await sharp(resolve(root,`web/public${detail.asset}`)).metadata();if(size.width!==detail.width||size.height!==detail.height||detail.width/item.width<4)report(map,`scenery ${item.id} needs native high-resolution detail artwork`,{ids:[item.id]});}
+          catch{report(map,`missing detail artwork ${detail.asset}`,{ids:[item.id]});}
+          continue;
+        }
         if (!atlas.frames?.[frame] && !manifests.every(manifest => manifest.assets?.[frame])) report(map, `scenery ${item.id} has no registered frame ${frame}`, {ids: [item.id]});
       }
     }

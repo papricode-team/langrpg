@@ -2,6 +2,7 @@
 import {type SceneActivity,type ScenePoint,type SceneScenery,type WorldScene} from './scene-schema';
 import {nextObjectId} from './world-edit-ops';
 import {defaultSize} from './world-edit-rules';
+import {terrainObject} from './terrain-objects';
 
 export {paletteChoices} from './world-edit-catalogue';
 import {usesVariationAtlas,type PaletteChoice} from './world-edit-catalogue';
@@ -17,6 +18,8 @@ export function newPlacement(scene: WorldScene, choice: PaletteChoice, point: {x
     width: defaultSize(scene.id, choice), motion: motionFor(choice.asset)};
   if (choice.frame !== choice.asset) item.frame = choice.frame;
   if (usesVariationAtlas(choice.frame)) item.variant = true;
+  const detail=terrainObject(choice.frame);
+  if(detail){item.collidable=detail.collidable;item.motion=detail.motion==='sway'?'tree':detail.motion==='bob'?'boat':detail.motion==='still'?'still':'lamp';}
   return item;
 }
 

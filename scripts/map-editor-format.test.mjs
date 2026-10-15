@@ -9,6 +9,17 @@ const scenes=JSON.parse(await readFile(new URL('../web/src/data/world-scenes.jso
 test('Tiled roundtrip preserves canonical geometry and foot placements',()=>{
   for(const id of Object.keys(document.maps))assert.deepEqual(fromTiled(toTiled(id,document),document),document);
 });
+test('Tiled preserves modular terrain layers, blocked water and construction groups',()=>{
+  const source=structuredClone(scenes),scene=source.maps.lindenhafen;
+  scene.modularTerrain={version:1,base:'meadow',surfaces:[{id:'canal-water',groupId:'canal-piece',material:'deep-water',blocked:true,polygon:[[100,100],[200,100],[200,200],[100,200]]}]};
+  const tiled=toTiled(scene.id,source);
+  assert.equal(tiled.layers.find(layer=>layer.name==='Terrain').visible,false);
+  assert.deepEqual(fromTiled(tiled,source),source);
+  tiled.layers.find(layer=>layer.name==='Terrain surfaces').objects[0].x+=20;
+  const moved=fromTiled(tiled,source).maps.lindenhafen.modularTerrain.surfaces[0];
+  assert.deepEqual(moved.polygon,[[120,100],[220,100],[220,200],[120,200]]);
+  assert.equal(moved.groupId,'canal-piece');assert.equal(moved.blocked,true);
+});
 test('all three checked-in editor documents preserve canonical scene data',async()=>{
   assert.equal(Object.keys(scenes.maps).length,3);
   for(const id of Object.keys(scenes.maps)) {

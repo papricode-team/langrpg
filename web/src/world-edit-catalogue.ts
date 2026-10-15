@@ -1,6 +1,7 @@
 /** Shared catalogue for placement and compatible artwork swaps. */
 import {sceneSceneryAssets as sceneryAssets,getSceneryGeometryMap,type SceneScenery} from './scene-schema';
 import {assetLabel,roomOptions} from './world-edit-rules';
+import {terrainObjects} from './terrain-objects';
 
 export interface PaletteChoice {
   asset: SceneScenery['asset'];
@@ -21,7 +22,8 @@ export function paletteChoices(mapId: string): PaletteChoice[] {
     if (!sceneryAssets.includes(name as SceneScenery['asset'])) return [];
     const asset = name as SceneScenery['asset'];
     return [{asset, frame, label: assetLabel({asset, frame}), rooms: roomOptions(mapId, {asset, frame})}];
-  }).sort((a, b) => groupOrder.indexOf(a.asset) - groupOrder.indexOf(b.asset) || a.frame.localeCompare(b.frame, undefined, {numeric: true}));
+  }).sort((a, b) => groupOrder.indexOf(a.asset) - groupOrder.indexOf(b.asset) || a.frame.localeCompare(b.frame, undefined, {numeric: true}))
+    .concat(terrainObjects.map(object=>({asset:object.role,frame:object.id,label:object.name,rooms:[]})));
 }
 
 /** Group interchangeable objects by their physical role. */

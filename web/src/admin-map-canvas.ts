@@ -42,7 +42,7 @@ export class AdminMapScene extends Phaser.Scene implements EditSurface {
 
   create(): void {
     this.cameras.main.setBackgroundColor('#c8d0bc');
-    this.regionAssets = new WorldMapAssets(this, false);
+    this.regionAssets = new WorldMapAssets(this, false, true);
     this.animationAssets = new WorldAnimationAssets(this, false);
     this.markers = this.add.graphics().setDepth(1e7);
     this.input.mouse?.disableContextMenu();

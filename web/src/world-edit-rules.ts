@@ -8,6 +8,7 @@ import {BUILDING_SPACING,buildingsTooClose,isBuildingPlacement,type BuildingGeom
 import {NavigationGrid,PLAYER_RADIUS,type MapPoint} from './navigation';
 import {sceneNavigationGeometry} from './scene-navigation';
 import {sceneryFootprints} from './placed-scenery';
+import {terrainObject} from './terrain-objects';
 import {
   getSceneryGeometry,getSceneryGeometryMap,scaleCanon,PERSON_HEIGHT,sceneEntrances,sceneEntrancePoint,sceneActivityPoint,
   sceneActivityPlaces,sceneryHasDoor,sceneInteriorIds,
@@ -49,7 +50,7 @@ const words = (id: string): string => id.replace(/-/g, ' ');
 const capital = (text: string): string => text.charAt(0).toLocaleUpperCase('de') + text.slice(1);
 
 /** A short name for an asset choice, such as "inn house" or "bench". */
-export const assetLabel = (item: {asset: string; frame?: string}): string => frameNames[item.frame ?? ''] ?? assetNames[item.asset] ?? words(item.asset);
+export const assetLabel = (item: {asset: string; frame?: string}): string => terrainObject(item.frame)?.name??frameNames[item.frame ?? ''] ?? assetNames[item.asset] ?? words(item.asset);
 
 /** "the bakery", "the bench", "Otto", "the receipt". Names in messages, never IDs. */
 export function objectLabel(scene: WorldScene, id: string): string {
@@ -76,6 +77,7 @@ const DOOR_PERSONS = 1.1;
  * stay tall enough to walk through.
  */
 export function sizeRange(mapId: string, item: {asset: string; frame?: string; interior?: unknown}): {min: number; max: number} {
+  const detail=terrainObject(item.frame);if(detail)return {min:Math.round(detail.worldWidth*.5),max:Math.min(Math.round(detail.worldWidth*1.6),Math.floor(detail.width/4))};
   const geometry = getSceneryGeometry(mapId, item), canon = scaleCanon[item.asset];
   const bounds = geometry?.visualBounds;
   if (!geometry || !bounds || !canon || geometry.referenceWidth <= 0) return {min: 8, max: 1024};
@@ -93,6 +95,7 @@ export const clampSize = (mapId: string, item: {asset: string; frame?: string; i
 };
 /** A natural default width when an object is first placed. */
 export const defaultSize = (mapId: string, item: {asset: string; frame?: string; interior?: unknown}): number => {
+  const detail=terrainObject(item.frame);if(detail)return detail.worldWidth;
   const range = sizeRange(mapId, item);
   return Math.round((range.min + range.max) / 2 * 100) / 100;
 };

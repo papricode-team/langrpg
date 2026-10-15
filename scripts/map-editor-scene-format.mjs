@@ -116,7 +116,8 @@ export function sceneFromTiled(tiled, document) {
   }
   // Pre-entrance v2 exports stored unfamiliar collections in map metadata.
   if (groups.get('Entrances')?.objects.length) throw new Error('Doors now belong to buildings. Remove the Entrances layer and set the room in the building\'s interior property.');
-  for (const name of names) if (name !== 'Entrances' && !groups.has(name)) throw new Error(`Missing Tiled layer ${name}`);
+  for (const name of names) if (name !== 'Entrances' && (name !== 'Terrain surfaces'||metadata.modularTerrain) && !groups.has(name)) throw new Error(`Missing Tiled layer ${name}`);
+  if(!metadata.modularTerrain&&groups.has('Terrain surfaces'))throw new Error('Terrain surfaces need modular terrain metadata');
   if(metadata.navigation&&!groups.has('Terrain collision'))throw new Error('Missing Tiled layer Terrain collision');
   if(!metadata.navigation&&groups.has('Terrain collision'))throw new Error('Terrain collision needs a clear-land navigation model');
   const imageInfo = object => {

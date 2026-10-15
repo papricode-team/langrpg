@@ -153,7 +153,9 @@ type worldOpTarget struct {
 }
 
 func (t worldOpTarget) objectID() string {
-	if t.Kind == "terrain" { return "terrain" }
+	if t.Kind == "terrain" {
+		return "terrain"
+	}
 	if t.Kind == "place" {
 		return t.Item.ID
 	}

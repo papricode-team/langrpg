@@ -1,4 +1,5 @@
 import {terrainMaterial} from './terrain-materials.ts';
+import {terrainObjectGeometry} from './terrain-objects.ts';
 import type {ModularTerrain} from './modular-terrain';
 import {residentActionLooks,type ResidentActionLook} from './resident-action-art.ts';
 import sceneryGeometry from './data/scenery-geometry.json' with {type:'json'};
@@ -17,8 +18,11 @@ export interface SceneryGeometry {
   /** Painted opening relative to the foot anchor, in reference pixels. */
   door?: {x:number;y:number;width:number;height:number};
 }
+const sceneryGeometryCache=new Map<string,{assets:Readonly<Record<string,SceneryGeometry>>}>();
 export function getSceneryGeometryMap(mapId:string):{assets:Readonly<Record<string,SceneryGeometry>>} {
-  return (sceneryGeometry as unknown as Record<string,{assets:Record<string,SceneryGeometry>}>)[mapId]??{assets:{}};
+  let geometry=sceneryGeometryCache.get(mapId);
+  if(!geometry){geometry={assets:{...((sceneryGeometry as unknown as Record<string,{assets:Record<string,SceneryGeometry>}>)[mapId]?.assets??{}),...terrainObjectGeometry}};sceneryGeometryCache.set(mapId,geometry);}
+  return geometry;
 }
 export const getSceneryGeometry=(mapId:string,placement:{asset:string;frame?:string}):SceneryGeometry|undefined=>
   getSceneryGeometryMap(mapId).assets[placement.frame??placement.asset];
@@ -343,6 +347,7 @@ export function parseWorldSceneDocument(value: unknown): WorldSceneDocument {
         if (typeof surface.material !== 'string' || !terrainMaterial(surface.material)) fail(`${id} has unknown terrain material`);
         polygon(surface.polygon, `${id} terrain surface ${surface.id}`, input.width, input.height);
         if (surface.blocked !== undefined && typeof surface.blocked !== 'boolean') fail(`${id} terrain surface needs a boolean blocked value`);
+        if (surface.groupId !== undefined && !validId(surface.groupId)) fail(`${id} terrain surface has an invalid group`);
       }
     }
     list(input.terrain, `${id} terrain`);

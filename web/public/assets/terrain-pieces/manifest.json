@@ -1,0 +1,1450 @@
+{
+  "version": 1,
+  "width": 1152,
+  "height": 1152,
+  "worldSize": 256,
+  "connectorWidth": 96,
+  "edgeWidth": 12,
+  "pieces": [
+    {
+      "id": "cobble-straight-ns",
+      "name": "Cobbled road · Straight ↕",
+      "style": "cobble",
+      "shape": "straight-ns",
+      "kind": "road",
+      "ports": 5,
+      "asset": "/assets/terrain-pieces/cobble-straight-ns.webp",
+      "thumbnail": "/assets/terrain-pieces/cobble-straight-ns-thumb.webp"
+    },
+    {
+      "id": "cobble-straight-ew",
+      "name": "Cobbled road · Straight ↔",
+      "style": "cobble",
+      "shape": "straight-ew",
+      "kind": "road",
+      "ports": 10,
+      "asset": "/assets/terrain-pieces/cobble-straight-ew.webp",
+      "thumbnail": "/assets/terrain-pieces/cobble-straight-ew-thumb.webp"
+    },
+    {
+      "id": "cobble-bend-ne",
+      "name": "Cobbled road · Bend ↗",
+      "style": "cobble",
+      "shape": "bend-ne",
+      "kind": "road",
+      "ports": 3,
+      "asset": "/assets/terrain-pieces/cobble-bend-ne.webp",
+      "thumbnail": "/assets/terrain-pieces/cobble-bend-ne-thumb.webp"
+    },
+    {
+      "id": "cobble-bend-es",
+      "name": "Cobbled road · Bend ↘",
+      "style": "cobble",
+      "shape": "bend-es",
+      "kind": "road",
+      "ports": 6,
+      "asset": "/assets/terrain-pieces/cobble-bend-es.webp",
+      "thumbnail": "/assets/terrain-pieces/cobble-bend-es-thumb.webp"
+    },
+    {
+      "id": "cobble-bend-sw",
+      "name": "Cobbled road · Bend ↙",
+      "style": "cobble",
+      "shape": "bend-sw",
+      "kind": "road",
+      "ports": 12,
+      "asset": "/assets/terrain-pieces/cobble-bend-sw.webp",
+      "thumbnail": "/assets/terrain-pieces/cobble-bend-sw-thumb.webp"
+    },
+    {
+      "id": "cobble-bend-wn",
+      "name": "Cobbled road · Bend ↖",
+      "style": "cobble",
+      "shape": "bend-wn",
+      "kind": "road",
+      "ports": 9,
+      "asset": "/assets/terrain-pieces/cobble-bend-wn.webp",
+      "thumbnail": "/assets/terrain-pieces/cobble-bend-wn-thumb.webp"
+    },
+    {
+      "id": "cobble-tee-nes",
+      "name": "Cobbled road · Junction →",
+      "style": "cobble",
+      "shape": "tee-nes",
+      "kind": "road",
+      "ports": 7,
+      "asset": "/assets/terrain-pieces/cobble-tee-nes.webp",
+      "thumbnail": "/assets/terrain-pieces/cobble-tee-nes-thumb.webp"
+    },
+    {
+      "id": "cobble-tee-esw",
+      "name": "Cobbled road · Junction ↓",
+      "style": "cobble",
+      "shape": "tee-esw",
+      "kind": "road",
+      "ports": 14,
+      "asset": "/assets/terrain-pieces/cobble-tee-esw.webp",
+      "thumbnail": "/assets/terrain-pieces/cobble-tee-esw-thumb.webp"
+    },
+    {
+      "id": "cobble-tee-swn",
+      "name": "Cobbled road · Junction ←",
+      "style": "cobble",
+      "shape": "tee-swn",
+      "kind": "road",
+      "ports": 13,
+      "asset": "/assets/terrain-pieces/cobble-tee-swn.webp",
+      "thumbnail": "/assets/terrain-pieces/cobble-tee-swn-thumb.webp"
+    },
+    {
+      "id": "cobble-tee-wne",
+      "name": "Cobbled road · Junction ↑",
+      "style": "cobble",
+      "shape": "tee-wne",
+      "kind": "road",
+      "ports": 11,
+      "asset": "/assets/terrain-pieces/cobble-tee-wne.webp",
+      "thumbnail": "/assets/terrain-pieces/cobble-tee-wne-thumb.webp"
+    },
+    {
+      "id": "cobble-cross",
+      "name": "Cobbled road · Crossroads",
+      "style": "cobble",
+      "shape": "cross",
+      "kind": "road",
+      "ports": 15,
+      "asset": "/assets/terrain-pieces/cobble-cross.webp",
+      "thumbnail": "/assets/terrain-pieces/cobble-cross-thumb.webp"
+    },
+    {
+      "id": "cobble-end-n",
+      "name": "Cobbled road · End ↑",
+      "style": "cobble",
+      "shape": "end-n",
+      "kind": "road",
+      "ports": 1,
+      "asset": "/assets/terrain-pieces/cobble-end-n.webp",
+      "thumbnail": "/assets/terrain-pieces/cobble-end-n-thumb.webp"
+    },
+    {
+      "id": "cobble-end-e",
+      "name": "Cobbled road · End →",
+      "style": "cobble",
+      "shape": "end-e",
+      "kind": "road",
+      "ports": 2,
+      "asset": "/assets/terrain-pieces/cobble-end-e.webp",
+      "thumbnail": "/assets/terrain-pieces/cobble-end-e-thumb.webp"
+    },
+    {
+      "id": "cobble-end-s",
+      "name": "Cobbled road · End ↓",
+      "style": "cobble",
+      "shape": "end-s",
+      "kind": "road",
+      "ports": 4,
+      "asset": "/assets/terrain-pieces/cobble-end-s.webp",
+      "thumbnail": "/assets/terrain-pieces/cobble-end-s-thumb.webp"
+    },
+    {
+      "id": "cobble-end-w",
+      "name": "Cobbled road · End ←",
+      "style": "cobble",
+      "shape": "end-w",
+      "kind": "road",
+      "ports": 8,
+      "asset": "/assets/terrain-pieces/cobble-end-w.webp",
+      "thumbnail": "/assets/terrain-pieces/cobble-end-w-thumb.webp"
+    },
+    {
+      "id": "cobble-round",
+      "name": "Cobbled road · Round plaza / pond",
+      "style": "cobble",
+      "shape": "round",
+      "kind": "road",
+      "ports": 0,
+      "asset": "/assets/terrain-pieces/cobble-round.webp",
+      "thumbnail": "/assets/terrain-pieces/cobble-round-thumb.webp"
+    },
+    {
+      "id": "cobble-square",
+      "name": "Cobbled road · Square plaza / pool",
+      "style": "cobble",
+      "shape": "square",
+      "kind": "road",
+      "ports": 0,
+      "asset": "/assets/terrain-pieces/cobble-square.webp",
+      "thumbnail": "/assets/terrain-pieces/cobble-square-thumb.webp"
+    },
+    {
+      "id": "cobble-plaza",
+      "name": "Cobbled road · Open plaza / basin",
+      "style": "cobble",
+      "shape": "plaza",
+      "kind": "road",
+      "ports": 15,
+      "asset": "/assets/terrain-pieces/cobble-plaza.webp",
+      "thumbnail": "/assets/terrain-pieces/cobble-plaza-thumb.webp"
+    },
+    {
+      "id": "brick-straight-ns",
+      "name": "Brick road · Straight ↕",
+      "style": "brick",
+      "shape": "straight-ns",
+      "kind": "road",
+      "ports": 5,
+      "asset": "/assets/terrain-pieces/brick-straight-ns.webp",
+      "thumbnail": "/assets/terrain-pieces/brick-straight-ns-thumb.webp"
+    },
+    {
+      "id": "brick-straight-ew",
+      "name": "Brick road · Straight ↔",
+      "style": "brick",
+      "shape": "straight-ew",
+      "kind": "road",
+      "ports": 10,
+      "asset": "/assets/terrain-pieces/brick-straight-ew.webp",
+      "thumbnail": "/assets/terrain-pieces/brick-straight-ew-thumb.webp"
+    },
+    {
+      "id": "brick-bend-ne",
+      "name": "Brick road · Bend ↗",
+      "style": "brick",
+      "shape": "bend-ne",
+      "kind": "road",
+      "ports": 3,
+      "asset": "/assets/terrain-pieces/brick-bend-ne.webp",
+      "thumbnail": "/assets/terrain-pieces/brick-bend-ne-thumb.webp"
+    },
+    {
+      "id": "brick-bend-es",
+      "name": "Brick road · Bend ↘",
+      "style": "brick",
+      "shape": "bend-es",
+      "kind": "road",
+      "ports": 6,
+      "asset": "/assets/terrain-pieces/brick-bend-es.webp",
+      "thumbnail": "/assets/terrain-pieces/brick-bend-es-thumb.webp"
+    },
+    {
+      "id": "brick-bend-sw",
+      "name": "Brick road · Bend ↙",
+      "style": "brick",
+      "shape": "bend-sw",
+      "kind": "road",
+      "ports": 12,
+      "asset": "/assets/terrain-pieces/brick-bend-sw.webp",
+      "thumbnail": "/assets/terrain-pieces/brick-bend-sw-thumb.webp"
+    },
+    {
+      "id": "brick-bend-wn",
+      "name": "Brick road · Bend ↖",
+      "style": "brick",
+      "shape": "bend-wn",
+      "kind": "road",
+      "ports": 9,
+      "asset": "/assets/terrain-pieces/brick-bend-wn.webp",
+      "thumbnail": "/assets/terrain-pieces/brick-bend-wn-thumb.webp"
+    },
+    {
+      "id": "brick-tee-nes",
+      "name": "Brick road · Junction →",
+      "style": "brick",
+      "shape": "tee-nes",
+      "kind": "road",
+      "ports": 7,
+      "asset": "/assets/terrain-pieces/brick-tee-nes.webp",
+      "thumbnail": "/assets/terrain-pieces/brick-tee-nes-thumb.webp"
+    },
+    {
+      "id": "brick-tee-esw",
+      "name": "Brick road · Junction ↓",
+      "style": "brick",
+      "shape": "tee-esw",
+      "kind": "road",
+      "ports": 14,
+      "asset": "/assets/terrain-pieces/brick-tee-esw.webp",
+      "thumbnail": "/assets/terrain-pieces/brick-tee-esw-thumb.webp"
+    },
+    {
+      "id": "brick-tee-swn",
+      "name": "Brick road · Junction ←",
+      "style": "brick",
+      "shape": "tee-swn",
+      "kind": "road",
+      "ports": 13,
+      "asset": "/assets/terrain-pieces/brick-tee-swn.webp",
+      "thumbnail": "/assets/terrain-pieces/brick-tee-swn-thumb.webp"
+    },
+    {
+      "id": "brick-tee-wne",
+      "name": "Brick road · Junction ↑",
+      "style": "brick",
+      "shape": "tee-wne",
+      "kind": "road",
+      "ports": 11,
+      "asset": "/assets/terrain-pieces/brick-tee-wne.webp",
+      "thumbnail": "/assets/terrain-pieces/brick-tee-wne-thumb.webp"
+    },
+    {
+      "id": "brick-cross",
+      "name": "Brick road · Crossroads",
+      "style": "brick",
+      "shape": "cross",
+      "kind": "road",
+      "ports": 15,
+      "asset": "/assets/terrain-pieces/brick-cross.webp",
+      "thumbnail": "/assets/terrain-pieces/brick-cross-thumb.webp"
+    },
+    {
+      "id": "brick-end-n",
+      "name": "Brick road · End ↑",
+      "style": "brick",
+      "shape": "end-n",
+      "kind": "road",
+      "ports": 1,
+      "asset": "/assets/terrain-pieces/brick-end-n.webp",
+      "thumbnail": "/assets/terrain-pieces/brick-end-n-thumb.webp"
+    },
+    {
+      "id": "brick-end-e",
+      "name": "Brick road · End →",
+      "style": "brick",
+      "shape": "end-e",
+      "kind": "road",
+      "ports": 2,
+      "asset": "/assets/terrain-pieces/brick-end-e.webp",
+      "thumbnail": "/assets/terrain-pieces/brick-end-e-thumb.webp"
+    },
+    {
+      "id": "brick-end-s",
+      "name": "Brick road · End ↓",
+      "style": "brick",
+      "shape": "end-s",
+      "kind": "road",
+      "ports": 4,
+      "asset": "/assets/terrain-pieces/brick-end-s.webp",
+      "thumbnail": "/assets/terrain-pieces/brick-end-s-thumb.webp"
+    },
+    {
+      "id": "brick-end-w",
+      "name": "Brick road · End ←",
+      "style": "brick",
+      "shape": "end-w",
+      "kind": "road",
+      "ports": 8,
+      "asset": "/assets/terrain-pieces/brick-end-w.webp",
+      "thumbnail": "/assets/terrain-pieces/brick-end-w-thumb.webp"
+    },
+    {
+      "id": "brick-round",
+      "name": "Brick road · Round plaza / pond",
+      "style": "brick",
+      "shape": "round",
+      "kind": "road",
+      "ports": 0,
+      "asset": "/assets/terrain-pieces/brick-round.webp",
+      "thumbnail": "/assets/terrain-pieces/brick-round-thumb.webp"
+    },
+    {
+      "id": "brick-square",
+      "name": "Brick road · Square plaza / pool",
+      "style": "brick",
+      "shape": "square",
+      "kind": "road",
+      "ports": 0,
+      "asset": "/assets/terrain-pieces/brick-square.webp",
+      "thumbnail": "/assets/terrain-pieces/brick-square-thumb.webp"
+    },
+    {
+      "id": "brick-plaza",
+      "name": "Brick road · Open plaza / basin",
+      "style": "brick",
+      "shape": "plaza",
+      "kind": "road",
+      "ports": 15,
+      "asset": "/assets/terrain-pieces/brick-plaza.webp",
+      "thumbnail": "/assets/terrain-pieces/brick-plaza-thumb.webp"
+    },
+    {
+      "id": "slate-straight-ns",
+      "name": "Slate road · Straight ↕",
+      "style": "slate",
+      "shape": "straight-ns",
+      "kind": "road",
+      "ports": 5,
+      "asset": "/assets/terrain-pieces/slate-straight-ns.webp",
+      "thumbnail": "/assets/terrain-pieces/slate-straight-ns-thumb.webp"
+    },
+    {
+      "id": "slate-straight-ew",
+      "name": "Slate road · Straight ↔",
+      "style": "slate",
+      "shape": "straight-ew",
+      "kind": "road",
+      "ports": 10,
+      "asset": "/assets/terrain-pieces/slate-straight-ew.webp",
+      "thumbnail": "/assets/terrain-pieces/slate-straight-ew-thumb.webp"
+    },
+    {
+      "id": "slate-bend-ne",
+      "name": "Slate road · Bend ↗",
+      "style": "slate",
+      "shape": "bend-ne",
+      "kind": "road",
+      "ports": 3,
+      "asset": "/assets/terrain-pieces/slate-bend-ne.webp",
+      "thumbnail": "/assets/terrain-pieces/slate-bend-ne-thumb.webp"
+    },
+    {
+      "id": "slate-bend-es",
+      "name": "Slate road · Bend ↘",
+      "style": "slate",
+      "shape": "bend-es",
+      "kind": "road",
+      "ports": 6,
+      "asset": "/assets/terrain-pieces/slate-bend-es.webp",
+      "thumbnail": "/assets/terrain-pieces/slate-bend-es-thumb.webp"
+    },
+    {
+      "id": "slate-bend-sw",
+      "name": "Slate road · Bend ↙",
+      "style": "slate",
+      "shape": "bend-sw",
+      "kind": "road",
+      "ports": 12,
+      "asset": "/assets/terrain-pieces/slate-bend-sw.webp",
+      "thumbnail": "/assets/terrain-pieces/slate-bend-sw-thumb.webp"
+    },
+    {
+      "id": "slate-bend-wn",
+      "name": "Slate road · Bend ↖",
+      "style": "slate",
+      "shape": "bend-wn",
+      "kind": "road",
+      "ports": 9,
+      "asset": "/assets/terrain-pieces/slate-bend-wn.webp",
+      "thumbnail": "/assets/terrain-pieces/slate-bend-wn-thumb.webp"
+    },
+    {
+      "id": "slate-tee-nes",
+      "name": "Slate road · Junction →",
+      "style": "slate",
+      "shape": "tee-nes",
+      "kind": "road",
+      "ports": 7,
+      "asset": "/assets/terrain-pieces/slate-tee-nes.webp",
+      "thumbnail": "/assets/terrain-pieces/slate-tee-nes-thumb.webp"
+    },
+    {
+      "id": "slate-tee-esw",
+      "name": "Slate road · Junction ↓",
+      "style": "slate",
+      "shape": "tee-esw",
+      "kind": "road",
+      "ports": 14,
+      "asset": "/assets/terrain-pieces/slate-tee-esw.webp",
+      "thumbnail": "/assets/terrain-pieces/slate-tee-esw-thumb.webp"
+    },
+    {
+      "id": "slate-tee-swn",
+      "name": "Slate road · Junction ←",
+      "style": "slate",
+      "shape": "tee-swn",
+      "kind": "road",
+      "ports": 13,
+      "asset": "/assets/terrain-pieces/slate-tee-swn.webp",
+      "thumbnail": "/assets/terrain-pieces/slate-tee-swn-thumb.webp"
+    },
+    {
+      "id": "slate-tee-wne",
+      "name": "Slate road · Junction ↑",
+      "style": "slate",
+      "shape": "tee-wne",
+      "kind": "road",
+      "ports": 11,
+      "asset": "/assets/terrain-pieces/slate-tee-wne.webp",
+      "thumbnail": "/assets/terrain-pieces/slate-tee-wne-thumb.webp"
+    },
+    {
+      "id": "slate-cross",
+      "name": "Slate road · Crossroads",
+      "style": "slate",
+      "shape": "cross",
+      "kind": "road",
+      "ports": 15,
+      "asset": "/assets/terrain-pieces/slate-cross.webp",
+      "thumbnail": "/assets/terrain-pieces/slate-cross-thumb.webp"
+    },
+    {
+      "id": "slate-end-n",
+      "name": "Slate road · End ↑",
+      "style": "slate",
+      "shape": "end-n",
+      "kind": "road",
+      "ports": 1,
+      "asset": "/assets/terrain-pieces/slate-end-n.webp",
+      "thumbnail": "/assets/terrain-pieces/slate-end-n-thumb.webp"
+    },
+    {
+      "id": "slate-end-e",
+      "name": "Slate road · End →",
+      "style": "slate",
+      "shape": "end-e",
+      "kind": "road",
+      "ports": 2,
+      "asset": "/assets/terrain-pieces/slate-end-e.webp",
+      "thumbnail": "/assets/terrain-pieces/slate-end-e-thumb.webp"
+    },
+    {
+      "id": "slate-end-s",
+      "name": "Slate road · End ↓",
+      "style": "slate",
+      "shape": "end-s",
+      "kind": "road",
+      "ports": 4,
+      "asset": "/assets/terrain-pieces/slate-end-s.webp",
+      "thumbnail": "/assets/terrain-pieces/slate-end-s-thumb.webp"
+    },
+    {
+      "id": "slate-end-w",
+      "name": "Slate road · End ←",
+      "style": "slate",
+      "shape": "end-w",
+      "kind": "road",
+      "ports": 8,
+      "asset": "/assets/terrain-pieces/slate-end-w.webp",
+      "thumbnail": "/assets/terrain-pieces/slate-end-w-thumb.webp"
+    },
+    {
+      "id": "slate-round",
+      "name": "Slate road · Round plaza / pond",
+      "style": "slate",
+      "shape": "round",
+      "kind": "road",
+      "ports": 0,
+      "asset": "/assets/terrain-pieces/slate-round.webp",
+      "thumbnail": "/assets/terrain-pieces/slate-round-thumb.webp"
+    },
+    {
+      "id": "slate-square",
+      "name": "Slate road · Square plaza / pool",
+      "style": "slate",
+      "shape": "square",
+      "kind": "road",
+      "ports": 0,
+      "asset": "/assets/terrain-pieces/slate-square.webp",
+      "thumbnail": "/assets/terrain-pieces/slate-square-thumb.webp"
+    },
+    {
+      "id": "slate-plaza",
+      "name": "Slate road · Open plaza / basin",
+      "style": "slate",
+      "shape": "plaza",
+      "kind": "road",
+      "ports": 15,
+      "asset": "/assets/terrain-pieces/slate-plaza.webp",
+      "thumbnail": "/assets/terrain-pieces/slate-plaza-thumb.webp"
+    },
+    {
+      "id": "earth-straight-ns",
+      "name": "Earth path · Straight ↕",
+      "style": "earth",
+      "shape": "straight-ns",
+      "kind": "road",
+      "ports": 5,
+      "asset": "/assets/terrain-pieces/earth-straight-ns.webp",
+      "thumbnail": "/assets/terrain-pieces/earth-straight-ns-thumb.webp"
+    },
+    {
+      "id": "earth-straight-ew",
+      "name": "Earth path · Straight ↔",
+      "style": "earth",
+      "shape": "straight-ew",
+      "kind": "road",
+      "ports": 10,
+      "asset": "/assets/terrain-pieces/earth-straight-ew.webp",
+      "thumbnail": "/assets/terrain-pieces/earth-straight-ew-thumb.webp"
+    },
+    {
+      "id": "earth-bend-ne",
+      "name": "Earth path · Bend ↗",
+      "style": "earth",
+      "shape": "bend-ne",
+      "kind": "road",
+      "ports": 3,
+      "asset": "/assets/terrain-pieces/earth-bend-ne.webp",
+      "thumbnail": "/assets/terrain-pieces/earth-bend-ne-thumb.webp"
+    },
+    {
+      "id": "earth-bend-es",
+      "name": "Earth path · Bend ↘",
+      "style": "earth",
+      "shape": "bend-es",
+      "kind": "road",
+      "ports": 6,
+      "asset": "/assets/terrain-pieces/earth-bend-es.webp",
+      "thumbnail": "/assets/terrain-pieces/earth-bend-es-thumb.webp"
+    },
+    {
+      "id": "earth-bend-sw",
+      "name": "Earth path · Bend ↙",
+      "style": "earth",
+      "shape": "bend-sw",
+      "kind": "road",
+      "ports": 12,
+      "asset": "/assets/terrain-pieces/earth-bend-sw.webp",
+      "thumbnail": "/assets/terrain-pieces/earth-bend-sw-thumb.webp"
+    },
+    {
+      "id": "earth-bend-wn",
+      "name": "Earth path · Bend ↖",
+      "style": "earth",
+      "shape": "bend-wn",
+      "kind": "road",
+      "ports": 9,
+      "asset": "/assets/terrain-pieces/earth-bend-wn.webp",
+      "thumbnail": "/assets/terrain-pieces/earth-bend-wn-thumb.webp"
+    },
+    {
+      "id": "earth-tee-nes",
+      "name": "Earth path · Junction →",
+      "style": "earth",
+      "shape": "tee-nes",
+      "kind": "road",
+      "ports": 7,
+      "asset": "/assets/terrain-pieces/earth-tee-nes.webp",
+      "thumbnail": "/assets/terrain-pieces/earth-tee-nes-thumb.webp"
+    },
+    {
+      "id": "earth-tee-esw",
+      "name": "Earth path · Junction ↓",
+      "style": "earth",
+      "shape": "tee-esw",
+      "kind": "road",
+      "ports": 14,
+      "asset": "/assets/terrain-pieces/earth-tee-esw.webp",
+      "thumbnail": "/assets/terrain-pieces/earth-tee-esw-thumb.webp"
+    },
+    {
+      "id": "earth-tee-swn",
+      "name": "Earth path · Junction ←",
+      "style": "earth",
+      "shape": "tee-swn",
+      "kind": "road",
+      "ports": 13,
+      "asset": "/assets/terrain-pieces/earth-tee-swn.webp",
+      "thumbnail": "/assets/terrain-pieces/earth-tee-swn-thumb.webp"
+    },
+    {
+      "id": "earth-tee-wne",
+      "name": "Earth path · Junction ↑",
+      "style": "earth",
+      "shape": "tee-wne",
+      "kind": "road",
+      "ports": 11,
+      "asset": "/assets/terrain-pieces/earth-tee-wne.webp",
+      "thumbnail": "/assets/terrain-pieces/earth-tee-wne-thumb.webp"
+    },
+    {
+      "id": "earth-cross",
+      "name": "Earth path · Crossroads",
+      "style": "earth",
+      "shape": "cross",
+      "kind": "road",
+      "ports": 15,
+      "asset": "/assets/terrain-pieces/earth-cross.webp",
+      "thumbnail": "/assets/terrain-pieces/earth-cross-thumb.webp"
+    },
+    {
+      "id": "earth-end-n",
+      "name": "Earth path · End ↑",
+      "style": "earth",
+      "shape": "end-n",
+      "kind": "road",
+      "ports": 1,
+      "asset": "/assets/terrain-pieces/earth-end-n.webp",
+      "thumbnail": "/assets/terrain-pieces/earth-end-n-thumb.webp"
+    },
+    {
+      "id": "earth-end-e",
+      "name": "Earth path · End →",
+      "style": "earth",
+      "shape": "end-e",
+      "kind": "road",
+      "ports": 2,
+      "asset": "/assets/terrain-pieces/earth-end-e.webp",
+      "thumbnail": "/assets/terrain-pieces/earth-end-e-thumb.webp"
+    },
+    {
+      "id": "earth-end-s",
+      "name": "Earth path · End ↓",
+      "style": "earth",
+      "shape": "end-s",
+      "kind": "road",
+      "ports": 4,
+      "asset": "/assets/terrain-pieces/earth-end-s.webp",
+      "thumbnail": "/assets/terrain-pieces/earth-end-s-thumb.webp"
+    },
+    {
+      "id": "earth-end-w",
+      "name": "Earth path · End ←",
+      "style": "earth",
+      "shape": "end-w",
+      "kind": "road",
+      "ports": 8,
+      "asset": "/assets/terrain-pieces/earth-end-w.webp",
+      "thumbnail": "/assets/terrain-pieces/earth-end-w-thumb.webp"
+    },
+    {
+      "id": "earth-round",
+      "name": "Earth path · Round plaza / pond",
+      "style": "earth",
+      "shape": "round",
+      "kind": "road",
+      "ports": 0,
+      "asset": "/assets/terrain-pieces/earth-round.webp",
+      "thumbnail": "/assets/terrain-pieces/earth-round-thumb.webp"
+    },
+    {
+      "id": "earth-square",
+      "name": "Earth path · Square plaza / pool",
+      "style": "earth",
+      "shape": "square",
+      "kind": "road",
+      "ports": 0,
+      "asset": "/assets/terrain-pieces/earth-square.webp",
+      "thumbnail": "/assets/terrain-pieces/earth-square-thumb.webp"
+    },
+    {
+      "id": "earth-plaza",
+      "name": "Earth path · Open plaza / basin",
+      "style": "earth",
+      "shape": "plaza",
+      "kind": "road",
+      "ports": 15,
+      "asset": "/assets/terrain-pieces/earth-plaza.webp",
+      "thumbnail": "/assets/terrain-pieces/earth-plaza-thumb.webp"
+    },
+    {
+      "id": "gravel-straight-ns",
+      "name": "Gravel path · Straight ↕",
+      "style": "gravel",
+      "shape": "straight-ns",
+      "kind": "road",
+      "ports": 5,
+      "asset": "/assets/terrain-pieces/gravel-straight-ns.webp",
+      "thumbnail": "/assets/terrain-pieces/gravel-straight-ns-thumb.webp"
+    },
+    {
+      "id": "gravel-straight-ew",
+      "name": "Gravel path · Straight ↔",
+      "style": "gravel",
+      "shape": "straight-ew",
+      "kind": "road",
+      "ports": 10,
+      "asset": "/assets/terrain-pieces/gravel-straight-ew.webp",
+      "thumbnail": "/assets/terrain-pieces/gravel-straight-ew-thumb.webp"
+    },
+    {
+      "id": "gravel-bend-ne",
+      "name": "Gravel path · Bend ↗",
+      "style": "gravel",
+      "shape": "bend-ne",
+      "kind": "road",
+      "ports": 3,
+      "asset": "/assets/terrain-pieces/gravel-bend-ne.webp",
+      "thumbnail": "/assets/terrain-pieces/gravel-bend-ne-thumb.webp"
+    },
+    {
+      "id": "gravel-bend-es",
+      "name": "Gravel path · Bend ↘",
+      "style": "gravel",
+      "shape": "bend-es",
+      "kind": "road",
+      "ports": 6,
+      "asset": "/assets/terrain-pieces/gravel-bend-es.webp",
+      "thumbnail": "/assets/terrain-pieces/gravel-bend-es-thumb.webp"
+    },
+    {
+      "id": "gravel-bend-sw",
+      "name": "Gravel path · Bend ↙",
+      "style": "gravel",
+      "shape": "bend-sw",
+      "kind": "road",
+      "ports": 12,
+      "asset": "/assets/terrain-pieces/gravel-bend-sw.webp",
+      "thumbnail": "/assets/terrain-pieces/gravel-bend-sw-thumb.webp"
+    },
+    {
+      "id": "gravel-bend-wn",
+      "name": "Gravel path · Bend ↖",
+      "style": "gravel",
+      "shape": "bend-wn",
+      "kind": "road",
+      "ports": 9,
+      "asset": "/assets/terrain-pieces/gravel-bend-wn.webp",
+      "thumbnail": "/assets/terrain-pieces/gravel-bend-wn-thumb.webp"
+    },
+    {
+      "id": "gravel-tee-nes",
+      "name": "Gravel path · Junction →",
+      "style": "gravel",
+      "shape": "tee-nes",
+      "kind": "road",
+      "ports": 7,
+      "asset": "/assets/terrain-pieces/gravel-tee-nes.webp",
+      "thumbnail": "/assets/terrain-pieces/gravel-tee-nes-thumb.webp"
+    },
+    {
+      "id": "gravel-tee-esw",
+      "name": "Gravel path · Junction ↓",
+      "style": "gravel",
+      "shape": "tee-esw",
+      "kind": "road",
+      "ports": 14,
+      "asset": "/assets/terrain-pieces/gravel-tee-esw.webp",
+      "thumbnail": "/assets/terrain-pieces/gravel-tee-esw-thumb.webp"
+    },
+    {
+      "id": "gravel-tee-swn",
+      "name": "Gravel path · Junction ←",
+      "style": "gravel",
+      "shape": "tee-swn",
+      "kind": "road",
+      "ports": 13,
+      "asset": "/assets/terrain-pieces/gravel-tee-swn.webp",
+      "thumbnail": "/assets/terrain-pieces/gravel-tee-swn-thumb.webp"
+    },
+    {
+      "id": "gravel-tee-wne",
+      "name": "Gravel path · Junction ↑",
+      "style": "gravel",
+      "shape": "tee-wne",
+      "kind": "road",
+      "ports": 11,
+      "asset": "/assets/terrain-pieces/gravel-tee-wne.webp",
+      "thumbnail": "/assets/terrain-pieces/gravel-tee-wne-thumb.webp"
+    },
+    {
+      "id": "gravel-cross",
+      "name": "Gravel path · Crossroads",
+      "style": "gravel",
+      "shape": "cross",
+      "kind": "road",
+      "ports": 15,
+      "asset": "/assets/terrain-pieces/gravel-cross.webp",
+      "thumbnail": "/assets/terrain-pieces/gravel-cross-thumb.webp"
+    },
+    {
+      "id": "gravel-end-n",
+      "name": "Gravel path · End ↑",
+      "style": "gravel",
+      "shape": "end-n",
+      "kind": "road",
+      "ports": 1,
+      "asset": "/assets/terrain-pieces/gravel-end-n.webp",
+      "thumbnail": "/assets/terrain-pieces/gravel-end-n-thumb.webp"
+    },
+    {
+      "id": "gravel-end-e",
+      "name": "Gravel path · End →",
+      "style": "gravel",
+      "shape": "end-e",
+      "kind": "road",
+      "ports": 2,
+      "asset": "/assets/terrain-pieces/gravel-end-e.webp",
+      "thumbnail": "/assets/terrain-pieces/gravel-end-e-thumb.webp"
+    },
+    {
+      "id": "gravel-end-s",
+      "name": "Gravel path · End ↓",
+      "style": "gravel",
+      "shape": "end-s",
+      "kind": "road",
+      "ports": 4,
+      "asset": "/assets/terrain-pieces/gravel-end-s.webp",
+      "thumbnail": "/assets/terrain-pieces/gravel-end-s-thumb.webp"
+    },
+    {
+      "id": "gravel-end-w",
+      "name": "Gravel path · End ←",
+      "style": "gravel",
+      "shape": "end-w",
+      "kind": "road",
+      "ports": 8,
+      "asset": "/assets/terrain-pieces/gravel-end-w.webp",
+      "thumbnail": "/assets/terrain-pieces/gravel-end-w-thumb.webp"
+    },
+    {
+      "id": "gravel-round",
+      "name": "Gravel path · Round plaza / pond",
+      "style": "gravel",
+      "shape": "round",
+      "kind": "road",
+      "ports": 0,
+      "asset": "/assets/terrain-pieces/gravel-round.webp",
+      "thumbnail": "/assets/terrain-pieces/gravel-round-thumb.webp"
+    },
+    {
+      "id": "gravel-square",
+      "name": "Gravel path · Square plaza / pool",
+      "style": "gravel",
+      "shape": "square",
+      "kind": "road",
+      "ports": 0,
+      "asset": "/assets/terrain-pieces/gravel-square.webp",
+      "thumbnail": "/assets/terrain-pieces/gravel-square-thumb.webp"
+    },
+    {
+      "id": "gravel-plaza",
+      "name": "Gravel path · Open plaza / basin",
+      "style": "gravel",
+      "shape": "plaza",
+      "kind": "road",
+      "ports": 15,
+      "asset": "/assets/terrain-pieces/gravel-plaza.webp",
+      "thumbnail": "/assets/terrain-pieces/gravel-plaza-thumb.webp"
+    },
+    {
+      "id": "timber-straight-ns",
+      "name": "Boardwalk / bridge · Straight ↕",
+      "style": "timber",
+      "shape": "straight-ns",
+      "kind": "road",
+      "ports": 5,
+      "asset": "/assets/terrain-pieces/timber-straight-ns.webp",
+      "thumbnail": "/assets/terrain-pieces/timber-straight-ns-thumb.webp"
+    },
+    {
+      "id": "timber-straight-ew",
+      "name": "Boardwalk / bridge · Straight ↔",
+      "style": "timber",
+      "shape": "straight-ew",
+      "kind": "road",
+      "ports": 10,
+      "asset": "/assets/terrain-pieces/timber-straight-ew.webp",
+      "thumbnail": "/assets/terrain-pieces/timber-straight-ew-thumb.webp"
+    },
+    {
+      "id": "timber-bend-ne",
+      "name": "Boardwalk / bridge · Bend ↗",
+      "style": "timber",
+      "shape": "bend-ne",
+      "kind": "road",
+      "ports": 3,
+      "asset": "/assets/terrain-pieces/timber-bend-ne.webp",
+      "thumbnail": "/assets/terrain-pieces/timber-bend-ne-thumb.webp"
+    },
+    {
+      "id": "timber-bend-es",
+      "name": "Boardwalk / bridge · Bend ↘",
+      "style": "timber",
+      "shape": "bend-es",
+      "kind": "road",
+      "ports": 6,
+      "asset": "/assets/terrain-pieces/timber-bend-es.webp",
+      "thumbnail": "/assets/terrain-pieces/timber-bend-es-thumb.webp"
+    },
+    {
+      "id": "timber-bend-sw",
+      "name": "Boardwalk / bridge · Bend ↙",
+      "style": "timber",
+      "shape": "bend-sw",
+      "kind": "road",
+      "ports": 12,
+      "asset": "/assets/terrain-pieces/timber-bend-sw.webp",
+      "thumbnail": "/assets/terrain-pieces/timber-bend-sw-thumb.webp"
+    },
+    {
+      "id": "timber-bend-wn",
+      "name": "Boardwalk / bridge · Bend ↖",
+      "style": "timber",
+      "shape": "bend-wn",
+      "kind": "road",
+      "ports": 9,
+      "asset": "/assets/terrain-pieces/timber-bend-wn.webp",
+      "thumbnail": "/assets/terrain-pieces/timber-bend-wn-thumb.webp"
+    },
+    {
+      "id": "timber-tee-nes",
+      "name": "Boardwalk / bridge · Junction →",
+      "style": "timber",
+      "shape": "tee-nes",
+      "kind": "road",
+      "ports": 7,
+      "asset": "/assets/terrain-pieces/timber-tee-nes.webp",
+      "thumbnail": "/assets/terrain-pieces/timber-tee-nes-thumb.webp"
+    },
+    {
+      "id": "timber-tee-esw",
+      "name": "Boardwalk / bridge · Junction ↓",
+      "style": "timber",
+      "shape": "tee-esw",
+      "kind": "road",
+      "ports": 14,
+      "asset": "/assets/terrain-pieces/timber-tee-esw.webp",
+      "thumbnail": "/assets/terrain-pieces/timber-tee-esw-thumb.webp"
+    },
+    {
+      "id": "timber-tee-swn",
+      "name": "Boardwalk / bridge · Junction ←",
+      "style": "timber",
+      "shape": "tee-swn",
+      "kind": "road",
+      "ports": 13,
+      "asset": "/assets/terrain-pieces/timber-tee-swn.webp",
+      "thumbnail": "/assets/terrain-pieces/timber-tee-swn-thumb.webp"
+    },
+    {
+      "id": "timber-tee-wne",
+      "name": "Boardwalk / bridge · Junction ↑",
+      "style": "timber",
+      "shape": "tee-wne",
+      "kind": "road",
+      "ports": 11,
+      "asset": "/assets/terrain-pieces/timber-tee-wne.webp",
+      "thumbnail": "/assets/terrain-pieces/timber-tee-wne-thumb.webp"
+    },
+    {
+      "id": "timber-cross",
+      "name": "Boardwalk / bridge · Crossroads",
+      "style": "timber",
+      "shape": "cross",
+      "kind": "road",
+      "ports": 15,
+      "asset": "/assets/terrain-pieces/timber-cross.webp",
+      "thumbnail": "/assets/terrain-pieces/timber-cross-thumb.webp"
+    },
+    {
+      "id": "timber-end-n",
+      "name": "Boardwalk / bridge · End ↑",
+      "style": "timber",
+      "shape": "end-n",
+      "kind": "road",
+      "ports": 1,
+      "asset": "/assets/terrain-pieces/timber-end-n.webp",
+      "thumbnail": "/assets/terrain-pieces/timber-end-n-thumb.webp"
+    },
+    {
+      "id": "timber-end-e",
+      "name": "Boardwalk / bridge · End →",
+      "style": "timber",
+      "shape": "end-e",
+      "kind": "road",
+      "ports": 2,
+      "asset": "/assets/terrain-pieces/timber-end-e.webp",
+      "thumbnail": "/assets/terrain-pieces/timber-end-e-thumb.webp"
+    },
+    {
+      "id": "timber-end-s",
+      "name": "Boardwalk / bridge · End ↓",
+      "style": "timber",
+      "shape": "end-s",
+      "kind": "road",
+      "ports": 4,
+      "asset": "/assets/terrain-pieces/timber-end-s.webp",
+      "thumbnail": "/assets/terrain-pieces/timber-end-s-thumb.webp"
+    },
+    {
+      "id": "timber-end-w",
+      "name": "Boardwalk / bridge · End ←",
+      "style": "timber",
+      "shape": "end-w",
+      "kind": "road",
+      "ports": 8,
+      "asset": "/assets/terrain-pieces/timber-end-w.webp",
+      "thumbnail": "/assets/terrain-pieces/timber-end-w-thumb.webp"
+    },
+    {
+      "id": "timber-round",
+      "name": "Boardwalk / bridge · Round plaza / pond",
+      "style": "timber",
+      "shape": "round",
+      "kind": "road",
+      "ports": 0,
+      "asset": "/assets/terrain-pieces/timber-round.webp",
+      "thumbnail": "/assets/terrain-pieces/timber-round-thumb.webp"
+    },
+    {
+      "id": "timber-square",
+      "name": "Boardwalk / bridge · Square plaza / pool",
+      "style": "timber",
+      "shape": "square",
+      "kind": "road",
+      "ports": 0,
+      "asset": "/assets/terrain-pieces/timber-square.webp",
+      "thumbnail": "/assets/terrain-pieces/timber-square-thumb.webp"
+    },
+    {
+      "id": "timber-plaza",
+      "name": "Boardwalk / bridge · Open plaza / basin",
+      "style": "timber",
+      "shape": "plaza",
+      "kind": "road",
+      "ports": 15,
+      "asset": "/assets/terrain-pieces/timber-plaza.webp",
+      "thumbnail": "/assets/terrain-pieces/timber-plaza-thumb.webp"
+    },
+    {
+      "id": "canal-straight-ns",
+      "name": "Stone canal · Straight ↕",
+      "style": "canal",
+      "shape": "straight-ns",
+      "kind": "water",
+      "ports": 5,
+      "asset": "/assets/terrain-pieces/canal-straight-ns.webp",
+      "thumbnail": "/assets/terrain-pieces/canal-straight-ns-thumb.webp"
+    },
+    {
+      "id": "canal-straight-ew",
+      "name": "Stone canal · Straight ↔",
+      "style": "canal",
+      "shape": "straight-ew",
+      "kind": "water",
+      "ports": 10,
+      "asset": "/assets/terrain-pieces/canal-straight-ew.webp",
+      "thumbnail": "/assets/terrain-pieces/canal-straight-ew-thumb.webp"
+    },
+    {
+      "id": "canal-bend-ne",
+      "name": "Stone canal · Bend ↗",
+      "style": "canal",
+      "shape": "bend-ne",
+      "kind": "water",
+      "ports": 3,
+      "asset": "/assets/terrain-pieces/canal-bend-ne.webp",
+      "thumbnail": "/assets/terrain-pieces/canal-bend-ne-thumb.webp"
+    },
+    {
+      "id": "canal-bend-es",
+      "name": "Stone canal · Bend ↘",
+      "style": "canal",
+      "shape": "bend-es",
+      "kind": "water",
+      "ports": 6,
+      "asset": "/assets/terrain-pieces/canal-bend-es.webp",
+      "thumbnail": "/assets/terrain-pieces/canal-bend-es-thumb.webp"
+    },
+    {
+      "id": "canal-bend-sw",
+      "name": "Stone canal · Bend ↙",
+      "style": "canal",
+      "shape": "bend-sw",
+      "kind": "water",
+      "ports": 12,
+      "asset": "/assets/terrain-pieces/canal-bend-sw.webp",
+      "thumbnail": "/assets/terrain-pieces/canal-bend-sw-thumb.webp"
+    },
+    {
+      "id": "canal-bend-wn",
+      "name": "Stone canal · Bend ↖",
+      "style": "canal",
+      "shape": "bend-wn",
+      "kind": "water",
+      "ports": 9,
+      "asset": "/assets/terrain-pieces/canal-bend-wn.webp",
+      "thumbnail": "/assets/terrain-pieces/canal-bend-wn-thumb.webp"
+    },
+    {
+      "id": "canal-tee-nes",
+      "name": "Stone canal · Junction →",
+      "style": "canal",
+      "shape": "tee-nes",
+      "kind": "water",
+      "ports": 7,
+      "asset": "/assets/terrain-pieces/canal-tee-nes.webp",
+      "thumbnail": "/assets/terrain-pieces/canal-tee-nes-thumb.webp"
+    },
+    {
+      "id": "canal-tee-esw",
+      "name": "Stone canal · Junction ↓",
+      "style": "canal",
+      "shape": "tee-esw",
+      "kind": "water",
+      "ports": 14,
+      "asset": "/assets/terrain-pieces/canal-tee-esw.webp",
+      "thumbnail": "/assets/terrain-pieces/canal-tee-esw-thumb.webp"
+    },
+    {
+      "id": "canal-tee-swn",
+      "name": "Stone canal · Junction ←",
+      "style": "canal",
+      "shape": "tee-swn",
+      "kind": "water",
+      "ports": 13,
+      "asset": "/assets/terrain-pieces/canal-tee-swn.webp",
+      "thumbnail": "/assets/terrain-pieces/canal-tee-swn-thumb.webp"
+    },
+    {
+      "id": "canal-tee-wne",
+      "name": "Stone canal · Junction ↑",
+      "style": "canal",
+      "shape": "tee-wne",
+      "kind": "water",
+      "ports": 11,
+      "asset": "/assets/terrain-pieces/canal-tee-wne.webp",
+      "thumbnail": "/assets/terrain-pieces/canal-tee-wne-thumb.webp"
+    },
+    {
+      "id": "canal-cross",
+      "name": "Stone canal · Crossroads",
+      "style": "canal",
+      "shape": "cross",
+      "kind": "water",
+      "ports": 15,
+      "asset": "/assets/terrain-pieces/canal-cross.webp",
+      "thumbnail": "/assets/terrain-pieces/canal-cross-thumb.webp"
+    },
+    {
+      "id": "canal-end-n",
+      "name": "Stone canal · End ↑",
+      "style": "canal",
+      "shape": "end-n",
+      "kind": "water",
+      "ports": 1,
+      "asset": "/assets/terrain-pieces/canal-end-n.webp",
+      "thumbnail": "/assets/terrain-pieces/canal-end-n-thumb.webp"
+    },
+    {
+      "id": "canal-end-e",
+      "name": "Stone canal · End →",
+      "style": "canal",
+      "shape": "end-e",
+      "kind": "water",
+      "ports": 2,
+      "asset": "/assets/terrain-pieces/canal-end-e.webp",
+      "thumbnail": "/assets/terrain-pieces/canal-end-e-thumb.webp"
+    },
+    {
+      "id": "canal-end-s",
+      "name": "Stone canal · End ↓",
+      "style": "canal",
+      "shape": "end-s",
+      "kind": "water",
+      "ports": 4,
+      "asset": "/assets/terrain-pieces/canal-end-s.webp",
+      "thumbnail": "/assets/terrain-pieces/canal-end-s-thumb.webp"
+    },
+    {
+      "id": "canal-end-w",
+      "name": "Stone canal · End ←",
+      "style": "canal",
+      "shape": "end-w",
+      "kind": "water",
+      "ports": 8,
+      "asset": "/assets/terrain-pieces/canal-end-w.webp",
+      "thumbnail": "/assets/terrain-pieces/canal-end-w-thumb.webp"
+    },
+    {
+      "id": "canal-round",
+      "name": "Stone canal · Round plaza / pond",
+      "style": "canal",
+      "shape": "round",
+      "kind": "water",
+      "ports": 0,
+      "asset": "/assets/terrain-pieces/canal-round.webp",
+      "thumbnail": "/assets/terrain-pieces/canal-round-thumb.webp"
+    },
+    {
+      "id": "canal-square",
+      "name": "Stone canal · Square plaza / pool",
+      "style": "canal",
+      "shape": "square",
+      "kind": "water",
+      "ports": 0,
+      "asset": "/assets/terrain-pieces/canal-square.webp",
+      "thumbnail": "/assets/terrain-pieces/canal-square-thumb.webp"
+    },
+    {
+      "id": "canal-plaza",
+      "name": "Stone canal · Open plaza / basin",
+      "style": "canal",
+      "shape": "plaza",
+      "kind": "water",
+      "ports": 15,
+      "asset": "/assets/terrain-pieces/canal-plaza.webp",
+      "thumbnail": "/assets/terrain-pieces/canal-plaza-thumb.webp"
+    },
+    {
+      "id": "pond-straight-ns",
+      "name": "Rock-lined stream · Straight ↕",
+      "style": "pond",
+      "shape": "straight-ns",
+      "kind": "water",
+      "ports": 5,
+      "asset": "/assets/terrain-pieces/pond-straight-ns.webp",
+      "thumbnail": "/assets/terrain-pieces/pond-straight-ns-thumb.webp"
+    },
+    {
+      "id": "pond-straight-ew",
+      "name": "Rock-lined stream · Straight ↔",
+      "style": "pond",
+      "shape": "straight-ew",
+      "kind": "water",
+      "ports": 10,
+      "asset": "/assets/terrain-pieces/pond-straight-ew.webp",
+      "thumbnail": "/assets/terrain-pieces/pond-straight-ew-thumb.webp"
+    },
+    {
+      "id": "pond-bend-ne",
+      "name": "Rock-lined stream · Bend ↗",
+      "style": "pond",
+      "shape": "bend-ne",
+      "kind": "water",
+      "ports": 3,
+      "asset": "/assets/terrain-pieces/pond-bend-ne.webp",
+      "thumbnail": "/assets/terrain-pieces/pond-bend-ne-thumb.webp"
+    },
+    {
+      "id": "pond-bend-es",
+      "name": "Rock-lined stream · Bend ↘",
+      "style": "pond",
+      "shape": "bend-es",
+      "kind": "water",
+      "ports": 6,
+      "asset": "/assets/terrain-pieces/pond-bend-es.webp",
+      "thumbnail": "/assets/terrain-pieces/pond-bend-es-thumb.webp"
+    },
+    {
+      "id": "pond-bend-sw",
+      "name": "Rock-lined stream · Bend ↙",
+      "style": "pond",
+      "shape": "bend-sw",
+      "kind": "water",
+      "ports": 12,
+      "asset": "/assets/terrain-pieces/pond-bend-sw.webp",
+      "thumbnail": "/assets/terrain-pieces/pond-bend-sw-thumb.webp"
+    },
+    {
+      "id": "pond-bend-wn",
+      "name": "Rock-lined stream · Bend ↖",
+      "style": "pond",
+      "shape": "bend-wn",
+      "kind": "water",
+      "ports": 9,
+      "asset": "/assets/terrain-pieces/pond-bend-wn.webp",
+      "thumbnail": "/assets/terrain-pieces/pond-bend-wn-thumb.webp"
+    },
+    {
+      "id": "pond-tee-nes",
+      "name": "Rock-lined stream · Junction →",
+      "style": "pond",
+      "shape": "tee-nes",
+      "kind": "water",
+      "ports": 7,
+      "asset": "/assets/terrain-pieces/pond-tee-nes.webp",
+      "thumbnail": "/assets/terrain-pieces/pond-tee-nes-thumb.webp"
+    },
+    {
+      "id": "pond-tee-esw",
+      "name": "Rock-lined stream · Junction ↓",
+      "style": "pond",
+      "shape": "tee-esw",
+      "kind": "water",
+      "ports": 14,
+      "asset": "/assets/terrain-pieces/pond-tee-esw.webp",
+      "thumbnail": "/assets/terrain-pieces/pond-tee-esw-thumb.webp"
+    },
+    {
+      "id": "pond-tee-swn",
+      "name": "Rock-lined stream · Junction ←",
+      "style": "pond",
+      "shape": "tee-swn",
+      "kind": "water",
+      "ports": 13,
+      "asset": "/assets/terrain-pieces/pond-tee-swn.webp",
+      "thumbnail": "/assets/terrain-pieces/pond-tee-swn-thumb.webp"
+    },
+    {
+      "id": "pond-tee-wne",
+      "name": "Rock-lined stream · Junction ↑",
+      "style": "pond",
+      "shape": "tee-wne",
+      "kind": "water",
+      "ports": 11,
+      "asset": "/assets/terrain-pieces/pond-tee-wne.webp",
+      "thumbnail": "/assets/terrain-pieces/pond-tee-wne-thumb.webp"
+    },
+    {
+      "id": "pond-cross",
+      "name": "Rock-lined stream · Crossroads",
+      "style": "pond",
+      "shape": "cross",
+      "kind": "water",
+      "ports": 15,
+      "asset": "/assets/terrain-pieces/pond-cross.webp",
+      "thumbnail": "/assets/terrain-pieces/pond-cross-thumb.webp"
+    },
+    {
+      "id": "pond-end-n",
+      "name": "Rock-lined stream · End ↑",
+      "style": "pond",
+      "shape": "end-n",
+      "kind": "water",
+      "ports": 1,
+      "asset": "/assets/terrain-pieces/pond-end-n.webp",
+      "thumbnail": "/assets/terrain-pieces/pond-end-n-thumb.webp"
+    },
+    {
+      "id": "pond-end-e",
+      "name": "Rock-lined stream · End →",
+      "style": "pond",
+      "shape": "end-e",
+      "kind": "water",
+      "ports": 2,
+      "asset": "/assets/terrain-pieces/pond-end-e.webp",
+      "thumbnail": "/assets/terrain-pieces/pond-end-e-thumb.webp"
+    },
+    {
+      "id": "pond-end-s",
+      "name": "Rock-lined stream · End ↓",
+      "style": "pond",
+      "shape": "end-s",
+      "kind": "water",
+      "ports": 4,
+      "asset": "/assets/terrain-pieces/pond-end-s.webp",
+      "thumbnail": "/assets/terrain-pieces/pond-end-s-thumb.webp"
+    },
+    {
+      "id": "pond-end-w",
+      "name": "Rock-lined stream · End ←",
+      "style": "pond",
+      "shape": "end-w",
+      "kind": "water",
+      "ports": 8,
+      "asset": "/assets/terrain-pieces/pond-end-w.webp",
+      "thumbnail": "/assets/terrain-pieces/pond-end-w-thumb.webp"
+    },
+    {
+      "id": "pond-round",
+      "name": "Rock-lined stream · Round plaza / pond",
+      "style": "pond",
+      "shape": "round",
+      "kind": "water",
+      "ports": 0,
+      "asset": "/assets/terrain-pieces/pond-round.webp",
+      "thumbnail": "/assets/terrain-pieces/pond-round-thumb.webp"
+    },
+    {
+      "id": "pond-square",
+      "name": "Rock-lined stream · Square plaza / pool",
+      "style": "pond",
+      "shape": "square",
+      "kind": "water",
+      "ports": 0,
+      "asset": "/assets/terrain-pieces/pond-square.webp",
+      "thumbnail": "/assets/terrain-pieces/pond-square-thumb.webp"
+    },
+    {
+      "id": "pond-plaza",
+      "name": "Rock-lined stream · Open plaza / basin",
+      "style": "pond",
+      "shape": "plaza",
+      "kind": "water",
+      "ports": 15,
+      "asset": "/assets/terrain-pieces/pond-plaza.webp",
+      "thumbnail": "/assets/terrain-pieces/pond-plaza-thumb.webp"
+    }
+  ]
+}

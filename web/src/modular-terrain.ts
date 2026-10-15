@@ -5,7 +5,7 @@ import type {MultiPolygon,Polygon} from 'polygon-clipping';
 import earcut,{flatten} from 'earcut';
 import {terrainMaterial} from './terrain-materials.ts';
 import type {ScenePolygon,WorldScene} from './scene-schema';
-export interface TerrainSurface {id:string;material:string;polygon:ScenePolygon;blocked?:boolean;}
+export interface TerrainSurface {id:string;material:string;polygon:ScenePolygon;blocked?:boolean;groupId?:string;}
 export interface ModularTerrain {version:1;base:string;surfaces:TerrainSurface[];}
 export function surfaceBlocks(surface:TerrainSurface):boolean{return surface.blocked??terrainMaterial(surface.material)?.blocked??false;}
 const polygon=(shape:ScenePolygon):Polygon=>[shape.map(([x,y])=>[x,y])];

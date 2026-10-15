@@ -1,0 +1,587 @@
+{
+  "version": 1,
+  "generator": "built-in image_gen",
+  "objects": [
+    {
+      "id": "detail-reeds",
+      "name": "River reeds",
+      "role": "planter",
+      "worldWidth": 70,
+      "motion": "sway",
+      "collidable": false,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.9872408293460925,
+      "asset": "/assets/terrain-objects/detail-reeds.webp",
+      "thumbnail": "/assets/terrain-objects/detail-reeds-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -562,
+          "top": -1222,
+          "right": 580,
+          "bottom": 0
+        },
+        "footprint": []
+      },
+      "source": "detail-reeds.png",
+      "prompt": "docs/prompts/terrain-objects/detail-reeds.txt"
+    },
+    {
+      "id": "detail-fern",
+      "name": "Woodland fern",
+      "role": "planter",
+      "worldWidth": 64,
+      "motion": "sway",
+      "collidable": false,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.9832535885167464,
+      "asset": "/assets/terrain-objects/detail-fern.webp",
+      "thumbnail": "/assets/terrain-objects/detail-fern-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -622,
+          "top": -1214,
+          "right": 614,
+          "bottom": 0
+        },
+        "footprint": []
+      },
+      "source": "detail-fern.png",
+      "prompt": "docs/prompts/terrain-objects/detail-fern.txt"
+    },
+    {
+      "id": "detail-wildflowers",
+      "name": "Meadow flowers",
+      "role": "planter",
+      "worldWidth": 64,
+      "motion": "sway",
+      "collidable": false,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.9792663476874003,
+      "asset": "/assets/terrain-objects/detail-wildflowers.webp",
+      "thumbnail": "/assets/terrain-objects/detail-wildflowers-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -587,
+          "top": -1190,
+          "right": 598,
+          "bottom": 0
+        },
+        "footprint": []
+      },
+      "source": "detail-wildflowers.png",
+      "prompt": "docs/prompts/terrain-objects/detail-wildflowers.txt"
+    },
+    {
+      "id": "detail-mushrooms",
+      "name": "Forest mushrooms",
+      "role": "planter",
+      "worldWidth": 38,
+      "motion": "still",
+      "collidable": false,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.9728867623604466,
+      "asset": "/assets/terrain-objects/detail-mushrooms.webp",
+      "thumbnail": "/assets/terrain-objects/detail-mushrooms-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -589,
+          "top": -1156,
+          "right": 594,
+          "bottom": 0
+        },
+        "footprint": []
+      },
+      "source": "detail-mushrooms.png",
+      "prompt": "docs/prompts/terrain-objects/detail-mushrooms.txt"
+    },
+    {
+      "id": "detail-grass-tuft",
+      "name": "Grass tuft",
+      "role": "planter",
+      "worldWidth": 42,
+      "motion": "sway",
+      "collidable": false,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.9864433811802232,
+      "asset": "/assets/terrain-objects/detail-grass-tuft.webp",
+      "thumbnail": "/assets/terrain-objects/detail-grass-tuft-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -560,
+          "top": -1217,
+          "right": 558,
+          "bottom": 0
+        },
+        "footprint": []
+      },
+      "source": "detail-grass-tuft.png",
+      "prompt": "docs/prompts/terrain-objects/detail-grass-tuft.txt"
+    },
+    {
+      "id": "detail-river-rocks",
+      "name": "River stones",
+      "role": "planter",
+      "worldWidth": 72,
+      "motion": "still",
+      "collidable": true,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.9090909090909091,
+      "asset": "/assets/terrain-objects/detail-river-rocks.webp",
+      "thumbnail": "/assets/terrain-objects/detail-river-rocks-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -554,
+          "top": -1024,
+          "right": 604,
+          "bottom": 0
+        },
+        "footprint": [
+          [
+            275.88,
+            -50.160000000000004
+          ],
+          [
+            195.07661879374476,
+            11.909833252555138
+          ],
+          [
+            1.6892777947438592e-14,
+            37.62000000000001
+          ],
+          [
+            -195.0766187937447,
+            11.909833252555153
+          ],
+          [
+            -275.88,
+            -50.15999999999999
+          ],
+          [
+            -195.07661879374479,
+            -112.22983325255515
+          ],
+          [
+            -5.067833384231577e-14,
+            -137.94000000000003
+          ],
+          [
+            195.07661879374467,
+            -112.22983325255517
+          ]
+        ]
+      },
+      "source": "detail-river-rocks.png",
+      "prompt": "docs/prompts/terrain-objects/detail-river-rocks.txt"
+    },
+    {
+      "id": "detail-driftwood",
+      "name": "Driftwood log",
+      "role": "bench",
+      "worldWidth": 94,
+      "motion": "still",
+      "collidable": false,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.810207336523126,
+      "asset": "/assets/terrain-objects/detail-driftwood.webp",
+      "thumbnail": "/assets/terrain-objects/detail-driftwood-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -594,
+          "top": -784,
+          "right": 595,
+          "bottom": 0
+        },
+        "footprint": []
+      },
+      "source": "detail-driftwood.png",
+      "prompt": "docs/prompts/terrain-objects/detail-driftwood.txt"
+    },
+    {
+      "id": "detail-barrels",
+      "name": "Oak barrels",
+      "role": "planter",
+      "worldWidth": 60,
+      "motion": "still",
+      "collidable": true,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.9696969696969697,
+      "asset": "/assets/terrain-objects/detail-barrels.webp",
+      "thumbnail": "/assets/terrain-objects/detail-barrels-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -531,
+          "top": -1160,
+          "right": 557,
+          "bottom": 0
+        },
+        "footprint": [
+          [
+            275.88,
+            -50.160000000000004
+          ],
+          [
+            195.07661879374476,
+            11.909833252555138
+          ],
+          [
+            1.6892777947438592e-14,
+            37.62000000000001
+          ],
+          [
+            -195.0766187937447,
+            11.909833252555153
+          ],
+          [
+            -275.88,
+            -50.15999999999999
+          ],
+          [
+            -195.07661879374479,
+            -112.22983325255515
+          ],
+          [
+            -5.067833384231577e-14,
+            -137.94000000000003
+          ],
+          [
+            195.07661879374467,
+            -112.22983325255517
+          ]
+        ]
+      },
+      "source": "detail-barrels.png",
+      "prompt": "docs/prompts/terrain-objects/detail-barrels.txt"
+    },
+    {
+      "id": "detail-crates",
+      "name": "Market crates",
+      "role": "planter",
+      "worldWidth": 62,
+      "motion": "still",
+      "collidable": true,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.9481658692185008,
+      "asset": "/assets/terrain-objects/detail-crates.webp",
+      "thumbnail": "/assets/terrain-objects/detail-crates-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -582,
+          "top": -1106,
+          "right": 607,
+          "bottom": 0
+        },
+        "footprint": [
+          [
+            275.88,
+            -50.160000000000004
+          ],
+          [
+            195.07661879374476,
+            11.909833252555138
+          ],
+          [
+            1.6892777947438592e-14,
+            37.62000000000001
+          ],
+          [
+            -195.0766187937447,
+            11.909833252555153
+          ],
+          [
+            -275.88,
+            -50.15999999999999
+          ],
+          [
+            -195.07661879374479,
+            -112.22983325255515
+          ],
+          [
+            -5.067833384231577e-14,
+            -137.94000000000003
+          ],
+          [
+            195.07661879374467,
+            -112.22983325255517
+          ]
+        ]
+      },
+      "source": "detail-crates.png",
+      "prompt": "docs/prompts/terrain-objects/detail-crates.txt"
+    },
+    {
+      "id": "detail-lily-pads",
+      "name": "Flowering lily pads",
+      "role": "boat",
+      "worldWidth": 68,
+      "motion": "bob",
+      "collidable": false,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.8819776714513556,
+      "asset": "/assets/terrain-objects/detail-lily-pads.webp",
+      "thumbnail": "/assets/terrain-objects/detail-lily-pads-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -585,
+          "top": -979,
+          "right": 606,
+          "bottom": 0
+        },
+        "footprint": []
+      },
+      "source": "detail-lily-pads.png",
+      "prompt": "docs/prompts/terrain-objects/detail-lily-pads.txt"
+    },
+    {
+      "id": "detail-duck",
+      "name": "Mallard duck",
+      "role": "boat",
+      "worldWidth": 30,
+      "motion": "bob",
+      "collidable": false,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.8197767145135566,
+      "asset": "/assets/terrain-objects/detail-duck.webp",
+      "thumbnail": "/assets/terrain-objects/detail-duck-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -599,
+          "top": -787,
+          "right": 600,
+          "bottom": 0
+        },
+        "footprint": []
+      },
+      "source": "detail-duck.png",
+      "prompt": "docs/prompts/terrain-objects/detail-duck.txt"
+    },
+    {
+      "id": "detail-lantern",
+      "name": "Garden lantern",
+      "role": "lamp",
+      "worldWidth": 34,
+      "motion": "glow",
+      "collidable": false,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 1,
+      "asset": "/assets/terrain-objects/detail-lantern.webp",
+      "thumbnail": "/assets/terrain-objects/detail-lantern-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -261,
+          "top": -1250,
+          "right": 277,
+          "bottom": 0
+        },
+        "footprint": []
+      },
+      "source": "detail-lantern.png",
+      "prompt": "docs/prompts/terrain-objects/detail-lantern.txt"
+    },
+    {
+      "id": "detail-watering-can",
+      "name": "Watering can",
+      "role": "planter",
+      "worldWidth": 30,
+      "motion": "still",
+      "collidable": false,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.9633173843700159,
+      "asset": "/assets/terrain-objects/detail-watering-can.webp",
+      "thumbnail": "/assets/terrain-objects/detail-watering-can-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -606,
+          "top": -1176,
+          "right": 608,
+          "bottom": 0
+        },
+        "footprint": []
+      },
+      "source": "detail-watering-can.png",
+      "prompt": "docs/prompts/terrain-objects/detail-watering-can.txt"
+    },
+    {
+      "id": "detail-firepit",
+      "name": "Stone fire pit",
+      "role": "planter",
+      "worldWidth": 64,
+      "motion": "flicker",
+      "collidable": true,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.8771929824561403,
+      "asset": "/assets/terrain-objects/detail-firepit.webp",
+      "thumbnail": "/assets/terrain-objects/detail-firepit-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -548,
+          "top": -983,
+          "right": 569,
+          "bottom": 0
+        },
+        "footprint": [
+          [
+            275.88,
+            -50.160000000000004
+          ],
+          [
+            195.07661879374476,
+            11.909833252555138
+          ],
+          [
+            1.6892777947438592e-14,
+            37.62000000000001
+          ],
+          [
+            -195.0766187937447,
+            11.909833252555153
+          ],
+          [
+            -275.88,
+            -50.15999999999999
+          ],
+          [
+            -195.07661879374479,
+            -112.22983325255515
+          ],
+          [
+            -5.067833384231577e-14,
+            -137.94000000000003
+          ],
+          [
+            195.07661879374467,
+            -112.22983325255517
+          ]
+        ]
+      },
+      "source": "detail-firepit.png",
+      "prompt": "docs/prompts/terrain-objects/detail-firepit.txt"
+    },
+    {
+      "id": "detail-bunting",
+      "name": "Garden bunting",
+      "role": "sign",
+      "worldWidth": 110,
+      "motion": "sway",
+      "collidable": false,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.9577352472089314,
+      "asset": "/assets/terrain-objects/detail-bunting.webp",
+      "thumbnail": "/assets/terrain-objects/detail-bunting-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -594,
+          "top": -1129,
+          "right": 595,
+          "bottom": 0
+        },
+        "footprint": []
+      },
+      "source": "detail-bunting.png",
+      "prompt": "docs/prompts/terrain-objects/detail-bunting.txt"
+    },
+    {
+      "id": "detail-birdbath",
+      "name": "Stone birdbath",
+      "role": "fountain",
+      "worldWidth": 54,
+      "motion": "still",
+      "collidable": true,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.9681020733652312,
+      "asset": "/assets/terrain-objects/detail-birdbath.webp",
+      "thumbnail": "/assets/terrain-objects/detail-birdbath-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -532,
+          "top": -1172,
+          "right": 533,
+          "bottom": 0
+        },
+        "footprint": [
+          [
+            275.88,
+            -50.160000000000004
+          ],
+          [
+            195.07661879374476,
+            11.909833252555138
+          ],
+          [
+            1.6892777947438592e-14,
+            37.62000000000001
+          ],
+          [
+            -195.0766187937447,
+            11.909833252555153
+          ],
+          [
+            -275.88,
+            -50.15999999999999
+          ],
+          [
+            -195.07661879374479,
+            -112.22983325255515
+          ],
+          [
+            -5.067833384231577e-14,
+            -137.94000000000003
+          ],
+          [
+            195.07661879374467,
+            -112.22983325255517
+          ]
+        ]
+      },
+      "source": "detail-birdbath.png",
+      "prompt": "docs/prompts/terrain-objects/detail-birdbath.txt"
+    }
+  ]
+}

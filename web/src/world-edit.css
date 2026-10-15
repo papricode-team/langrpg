@@ -84,3 +84,4 @@
 .terrain-materials [aria-pressed=true],.terrain-tools [aria-pressed=true]{outline:2px solid #b18135;outline-offset:-2px}
 [data-panel=terrain] label{display:block;margin:12px 0}
 [data-panel=terrain] select{max-width:100%;width:100%}
+.terrain-piece-preview { display: block; width: 120px; height: 120px; margin: 8px auto; background: #253e31; border-radius: 8px; }

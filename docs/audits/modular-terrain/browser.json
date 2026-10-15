@@ -8,5 +8,10 @@
   "baseMaterialUndo": true,
   "rectanglePublication": true,
   "rectangleUndo": true,
+  "piecePublication": true,
+  "groupDeletion": true,
+  "groupUndo": true,
+  "objectPublication": true,
+  "objectUndo": true,
   "transport": "local browser requests validated by real admin-world-worker"
 }

@@ -7,8 +7,9 @@ import {terrainMaterials,terrainMaterial} from './terrain-materials';
 import {editableTerrainFromScene,surfaceAt,terrainFingerprint,type ModularTerrain,type TerrainSurface} from './modular-terrain';
 import type {ScenePolygon} from './scene-schema';
 import {escapeHtml as escape} from './icons';
+import {terrainPieceStyles,terrainPieceShapes,terrainPieceSurfaces,TERRAIN_CELL} from './terrain-pieces';
 
-type Tool='select'|'polygon'|'rectangle'|'ellipse';
+type Tool='select'|'polygon'|'rectangle'|'ellipse'|'piece';
 export class AdminTerrainEditor {
   private active=false;
   private previewing=false;
@@ -16,6 +17,9 @@ export class AdminTerrainEditor {
   private busy=false;
   private tool:Tool='select';
   private material='cobble';
+  private pieceStyle='cobble';
+  private pieceShape='straight-ew';
+  private stampOrigin?:[number,number];
   private selected?:string;
   private points:[number,number][]=[];
   private drag?:{x:number;y:number;surface?:TerrainSurface;vertex?:number};
@@ -37,7 +41,8 @@ export class AdminTerrainEditor {
       ${!terrain?'<button type="button" data-terrain-action="enable">Preview editable terrain</button><p class="map-note">Starts from existing path and collision outlines. Review the appearance before publishing; the conversion is approximate.</p>':`
       ${this.previewing?'<p class="map-note">Conversion preview · changes stay here until you publish.</p><div class="terrain-tools"><button type="button" data-terrain-action="publish">Publish conversion</button><button type="button" data-terrain-action="discard">Discard preview</button></div>':''}
       <label>Base ground<select data-terrain-base>${options}</select></label>
-      <div class="terrain-tools">${(['select','polygon','rectangle','ellipse'] as Tool[]).map(tool=>`<button type="button" data-terrain-tool="${tool}" aria-pressed="${this.tool===tool}">${tool[0].toUpperCase()+tool.slice(1)}</button>`).join('')}</div>
+      <div class="terrain-tools">${(['select','piece','polygon','rectangle','ellipse'] as Tool[]).map(tool=>`<button type="button" data-terrain-tool="${tool}" aria-pressed="${this.tool===tool}">${tool[0].toUpperCase()+tool.slice(1)}</button>`).join('')}</div>
+      ${this.tool==='piece'?`<label>Construction material<select data-piece-style>${terrainPieceStyles.map(style=>`<option value="${style.id}">${escape(style.name)}</option>`).join('')}</select></label><label>Piece shape<select data-piece-shape>${terrainPieceShapes.map(shape=>`<option value="${shape.id}">${escape(shape.name)}</option>`).join('')}</select></label><img class="terrain-piece-preview" src="/assets/terrain-pieces/${this.pieceStyle}-${this.pieceShape}-thumb.webp" alt="Selected construction piece"><p class="map-note">Click to place on the 256-unit grid. Matching ends join automatically. Roads have borders; waterways have stone banks. Select moves the whole piece.</p>`:''}
       <p class="map-note">Polygon: click corners, then Finish or Enter. Rectangle / ellipse: drag. Select: drag a surface or its corner handles. Esc cancels.</p>
       <div class="terrain-materials">${terrainMaterials.map(m=>`<button type="button" data-terrain-material="${m.id}" aria-pressed="${this.material===m.id}" title="${escape(m.name)}"><img src="${m.thumbnail}" alt=""><span>${escape(m.name)}</span></button>`).join('')}</div>
       <div class="terrain-tools"><button type="button" data-terrain-action="finish">Finish polygon</button><button type="button" data-terrain-action="cancel">Cancel</button><button type="button" data-terrain-action="undo" ${!this.previewing&&this.bridge.session.canUndo?'':'disabled'}>Undo</button></div>
@@ -45,7 +50,7 @@ export class AdminTerrainEditor {
       ${selected?`<label>Material<select data-terrain-replace>${options}</select></label><label><input type="checkbox" data-terrain-blocked ${selected.blocked??terrainMaterial(selected.material)?.blocked?'checked':''}> Blocks walking</label><div class="terrain-tools"><button type="button" data-terrain-action="front">Bring to front</button><button type="button" data-terrain-action="remove">Delete surface</button></div>`:''}
       <p class="map-note">${terrain.surfaces.length} editable surfaces · ${terrainMaterials.length} seamless materials</p>`}`;
     const set=(key:string,value:string)=>{const input=this.host.querySelector<HTMLSelectElement>(key);if(input)input.value=value;};
-    set('[data-terrain-base]',terrain?.base??'meadow');set('[data-terrain-selected]',this.selected??'');if(selected)set('[data-terrain-replace]',selected.material);
+    set('[data-terrain-base]',terrain?.base??'meadow');set('[data-terrain-selected]',this.selected??'');set('[data-piece-style]',this.pieceStyle);set('[data-piece-shape]',this.pieceShape);if(selected)set('[data-terrain-replace]',selected.material);
     this.host.querySelectorAll<HTMLButtonElement|HTMLSelectElement|HTMLInputElement>('button,select,input').forEach(input=>{if(this.busy)input.disabled=true;});
     this.draw();
   }
@@ -60,30 +65,39 @@ export class AdminTerrainEditor {
       case 'finish':this.finish();break;
       case 'cancel':this.cancel();break;
       case 'undo':this.busy=true;this.render();void this.bridge.session.undo().catch(e=>this.bridge.view.toast(e.message,true)).finally(()=>{this.busy=false;this.refresh();});break;
-      case 'remove':if(this.snapshot)void this.commit({...this.snapshot,surfaces:this.snapshot.surfaces.filter(s=>s.id!==this.selected)});break;
-      case 'front':if(this.snapshot){const selected=this.snapshot.surfaces.find(s=>s.id===this.selected);if(selected)void this.commit({...this.snapshot,surfaces:[...this.snapshot.surfaces.filter(s=>s!==selected),selected]});}break;
+      case 'remove':if(this.snapshot)void this.commit({...this.snapshot,surfaces:this.snapshot.surfaces.filter(s=>!this.inSelection(s))});break;
+      case 'front':if(this.snapshot)void this.commit({...this.snapshot,surfaces:[...this.snapshot.surfaces.filter(s=>!this.inSelection(s)),...this.snapshot.surfaces.filter(s=>this.inSelection(s))]});break;
     }
   };
   private change=(event:Event):void=>{
     if(!this.snapshot||this.busy)return;const input=event.target as HTMLSelectElement;
+    if(input.hasAttribute('data-piece-style')){this.pieceStyle=input.value;this.render();return;}
+    if(input.hasAttribute('data-piece-shape')){this.pieceShape=input.value;this.render();return;}
     if(input.hasAttribute('data-terrain-base'))void this.commit({...this.snapshot,base:input.value});
     if(input.hasAttribute('data-terrain-selected')){this.selected=input.value||undefined;this.render();}
     if(input.hasAttribute('data-terrain-replace')||input.hasAttribute('data-terrain-blocked'))void this.commit({...this.snapshot,surfaces:this.snapshot.surfaces.map(s=>s.id!==this.selected?s:
       input.hasAttribute('data-terrain-replace')?{...s,material:input.value,blocked:terrainMaterial(input.value)?.blocked??false}:{...s,blocked:(input as unknown as HTMLInputElement).checked})});
   };
+  private inSelection(surface:TerrainSurface):boolean{const selected=this.snapshot?.surfaces.find(s=>s.id===this.selected);return surface.id===this.selected||!!selected?.groupId&&surface.groupId===selected.groupId;}
+  private snappedPoint(pointer:Phaser.Input.Pointer):[number,number]{const [x,y]=this.point(pointer),world=getWorldScene(this.scene.editMapId);return [Math.max(0,Math.min(Math.floor(x/TERRAIN_CELL),Math.floor(world.width/TERRAIN_CELL)-1))*TERRAIN_CELL,Math.max(0,Math.min(Math.floor(y/TERRAIN_CELL),Math.floor(world.height/TERRAIN_CELL)-1))*TERRAIN_CELL];}
   private point(pointer:Phaser.Input.Pointer):[number,number]{const p=this.scene.cameras.main.getWorldPoint(pointer.x,pointer.y),world=getWorldScene(this.scene.editMapId);return [Math.round(Math.max(0,Math.min(world.width,p.x))),Math.round(Math.max(0,Math.min(world.height,p.y)))];}
   private down(pointer:Phaser.Input.Pointer):void{
     if(!this.active||this.busy||!this.snapshot||this.scene.editPanning()||!pointer.leftButtonDown())return;
     const [x,y]=this.point(pointer);
+    if(this.tool==='piece'){
+      const [a,b]=this.snappedPoint(pointer),groupId=`piece-${crypto.randomUUID()}`,surfaces=terrainPieceSurfaces(`${this.pieceStyle}-${this.pieceShape}`,a,b,groupId);
+      this.selected=surfaces.at(-1)!.id;void this.commit({...this.snapshot,surfaces:[...this.snapshot.surfaces,...surfaces]});return;
+    }
     if(this.tool==='polygon'){this.points.push([x,y]);this.draw();return;}
     if(this.tool==='select'){
       const selected=this.snapshot.surfaces.find(s=>s.id===this.selected),radius=12/this.scene.cameras.main.zoom;
-      const vertex=selected?.polygon.findIndex(([a,b])=>Math.hypot(a-x,b-y)<radius)??-1;
+      const vertex=selected?.groupId?-1:selected?.polygon.findIndex(([a,b])=>Math.hypot(a-x,b-y)<radius)??-1;
       const surface=vertex>=0?selected:surfaceAt(this.snapshot,x,y);this.selected=surface?.id;
       this.drag=surface?{x,y,surface,vertex:vertex>=0?vertex:undefined}:undefined;this.render();
     }else this.drag={x,y};
   }
   private move(pointer:Phaser.Input.Pointer):void{
+    if(this.active&&this.tool==='piece'&&!this.busy){this.stampOrigin=this.snappedPoint(pointer);this.draw();return;}
     if(!this.active||!this.drag||this.busy)return;const [x,y]=this.point(pointer),drag=this.drag;
     if(drag.surface){
       const world=getWorldScene(this.scene.editMapId);
@@ -98,9 +112,15 @@ export class AdminTerrainEditor {
     if(preview&&Math.abs(preview.reduce((sum,p,i)=>{const n=preview[(i+1)%preview.length];return sum+p[0]*n[1]-n[0]*p[1];},0))>2)this.saveSurface(preview,existing);else this.draw();
   }
   private finish=():void=>{if(this.active&&this.points.length>=3){const polygon=this.points;this.points=[];this.saveSurface(polygon);}};
-  private cancel=():void=>{this.points=[];this.drag=undefined;this.preview=undefined;this.draw();};
+  private cancel=():void=>{this.points=[];this.drag=undefined;this.preview=undefined;this.stampOrigin=undefined;this.draw();};
   private saveSurface(polygon:ScenePolygon,existing?:TerrainSurface):void{
     if(!this.snapshot)return;
+    if(existing?.groupId){
+      const dx=polygon[0][0]-existing.polygon[0][0],dy=polygon[0][1]-existing.polygon[0][1];
+      const members=this.snapshot.surfaces.filter(s=>s.groupId===existing.groupId),world=getWorldScene(this.scene.editMapId);
+      const points=members.flatMap(s=>s.polygon),mx=Math.max(-Math.min(...points.map(p=>p[0])),Math.min(world.width-Math.max(...points.map(p=>p[0])),Math.round(dx/TERRAIN_CELL)*TERRAIN_CELL)),my=Math.max(-Math.min(...points.map(p=>p[1])),Math.min(world.height-Math.max(...points.map(p=>p[1])),Math.round(dy/TERRAIN_CELL)*TERRAIN_CELL));
+      void this.commit({...this.snapshot,surfaces:this.snapshot.surfaces.map(s=>s.groupId===existing.groupId?{...s,polygon:s.polygon.map(([x,y])=>[x+mx,y+my] as const)}:s)});return;
+    }
     const id=existing?.id??`terrain-${crypto.randomUUID()}`,surface={...(existing??{id,material:this.material}),polygon};
     this.selected=id;void this.commit({...this.snapshot,surfaces:existing?this.snapshot.surfaces.map(s=>s.id===id?surface:s):[...this.snapshot.surfaces,surface]});
   }
@@ -113,6 +133,12 @@ export class AdminTerrainEditor {
   }
   private draw():void{
     this.graphics.clear();if(!this.active)return;
+    if(this.tool==='piece'&&this.stampOrigin){
+      const [x,y]=this.stampOrigin,g=this.graphics,z=this.scene.cameras.main.zoom;g.lineStyle(1/z,0xffd474,.6).strokeRect(x,y,TERRAIN_CELL,TERRAIN_CELL);
+      for(const surface of terrainPieceSurfaces(`${this.pieceStyle}-${this.pieceShape}`,x,y)){
+        g.fillStyle(surface.blocked?0x5fa9bc:0xffd474,.3);g.beginPath();surface.polygon.forEach(([a,b],i)=>i?g.lineTo(a,b):g.moveTo(a,b));g.closePath();g.fillPath();g.strokePath();
+      }return;
+    }
     const selected=this.snapshot?.surfaces.find(s=>s.id===this.selected),polygon=this.preview??(this.points.length?this.points:selected?.polygon);
     if(!polygon?.length)return;const zoom=this.scene.cameras.main.zoom;
     this.graphics.lineStyle(2/zoom,0xffd474,1);this.graphics.beginPath();polygon.forEach(([x,y],i)=>i?this.graphics.lineTo(x,y):this.graphics.moveTo(x,y));if(!this.points.length)this.graphics.closePath();this.graphics.strokePath();

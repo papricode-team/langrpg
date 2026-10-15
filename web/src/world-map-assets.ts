@@ -5,6 +5,7 @@ import { worldAssetUrl } from './world-asset-url';
 import {getWorldScene} from './scene-data';
 import {residentActionKey} from './resident-action-art';
 import {castActorsForMap,castAssetUrl,castAtlasUrl,castAssets} from './character-cast';
+import {terrainObjects,terrainObject,terrainObjectKey} from './terrain-objects';
 
 const originalMaps = new Set(['lindenhafen', 'waldruh', 'nebelstadt']);
 function validatePeopleVariant(variant: number): void {
@@ -23,7 +24,7 @@ export const hasRegionPeople = (id: string): boolean => !originalMaps.has(id);
 
 interface RegionAsset { key: string; image: string; atlas?: string; cell?: readonly [number,number]; versioned?:boolean; multiAtlas?:boolean; }
 /** A region's complete visual budget; shared player and interior art is separate. */
-export function regionAssets(map: WorldMapSpec): readonly RegionAsset[] {
+export function regionAssets(map: WorldMapSpec,includeDetailLibrary=false): readonly RegionAsset[] {
   const assets: RegionAsset[] = [
     { key: map.id, image: map.asset },
     { key: sceneryTextureKey(map.id), image: map.sceneryAsset, atlas: map.sceneryAtlas },
@@ -35,17 +36,19 @@ export function regionAssets(map: WorldMapSpec): readonly RegionAsset[] {
   for(const look of new Set((getWorldScene(map.id).residents??[]).flatMap(resident=>resident.actionArt?[resident.actionArt]:[])))
     assets.push({key:residentActionKey(map.id,look),image:`/assets/resident-actions/${look}.webp`,atlas:`/assets/resident-actions/${look}.json`});
   for(const actor of castActorsForMap(map.id))for(const asset of castAssets(actor))assets.push({key:asset.key,image:castAssetUrl(asset),atlas:castAtlasUrl(asset),versioned:true,multiAtlas:asset.multiAtlas});
+  const details=includeDetailLibrary?terrainObjects:[...new Set(getWorldScene(map.id).scenery.map(spec=>terrainObject(spec.frame)).filter(detail=>detail!==undefined))];
+  for(const detail of details)assets.push({key:terrainObjectKey(map.id,detail.id),image:detail.asset,versioned:true});
   return assets;
 }
 
 /** Load one destination at a time, coalescing rapid travel and in-flight requests. */
 export class WorldMapAssets {
   private requests = new Map<string, (() => void)[]>();
-  constructor(private scene: Phaser.Scene, private includeTerrain = true) {}
+  constructor(private scene: Phaser.Scene, private includeTerrain = true,private includeDetailLibrary=false) {}
   load(map: WorldMapSpec, onLoaded?: () => void, start = true): void {
     const pending = this.requests.get(map.id);
     if (pending) { if (onLoaded) pending.push(onLoaded); return; }
-    const missing = regionAssets(map).filter(asset => (this.includeTerrain || asset.key !== map.id) && !this.scene.textures.exists(asset.key));
+    const missing = regionAssets(map,this.includeDetailLibrary).filter(asset => (this.includeTerrain || asset.key !== map.id) && !this.scene.textures.exists(asset.key));
     if (!missing.length) { onLoaded?.(); return; }
     this.requests.set(map.id, onLoaded ? [onLoaded] : []);
     for (const asset of missing) {
@@ -64,7 +67,7 @@ export class WorldMapAssets {
   /** Wait until a stale destination finishes loading before reclaiming its pages. */
   release(map: WorldMapSpec): boolean {
     if (this.requests.has(map.id)) return false;
-    for (const asset of regionAssets(map)) if ((this.includeTerrain || asset.key !== map.id) && this.scene.textures.exists(asset.key)) this.scene.textures.remove(asset.key);
+    for (const asset of regionAssets(map,this.includeDetailLibrary)) if ((this.includeTerrain || asset.key !== map.id) && this.scene.textures.exists(asset.key)) this.scene.textures.remove(asset.key);
     return true;
   }
 }
