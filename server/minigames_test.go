@@ -178,3 +178,41 @@ func TestRetrievalMetricsUseCreditedSecondsAndExcludeRetriesAndPreviews(t *testi
 		t.Fatalf("wrong retrieval denominator or count: %s", r.Body.String())
 	}
 }
+
+func TestWordMemoryGamesGradeTheirAnswerKinds(t *testing.T) {
+	app, token := miniGameTestApp(t)
+	restoreVocabulary(t, app, token, "bahnhof", "kaffee")
+	for i, test := range []struct {
+		game, mode, kind, answer string
+		correct                  bool
+	}{
+		{"lantern-pairs", "recognition", "lexeme", "Bahnhof", true},
+		{"honest-mirror", "recognition", "lexeme", "Kaffee", false},
+		{"market-baskets", "recognition", "topic", "station", true},
+		{"market-baskets", "recognition", "topic", "food", false},
+		{"falling-leaves", "recognition", "lexeme", "__timeout__", false},
+		{"fog-window", "recognition", "lexeme", "der Bahnhof", true},
+		{"echo-bells", "listening", "lexeme", "Bahnhof", true},
+		{"scrambled-sign", "production", "", "Bahnhof", true},
+		{"letter-loom", "production", "", "bahnhof", true},
+		{"lantern-fuse", "production", "", "__timeout__", false},
+		{"night-train", "production", "", "Kaffee", false},
+	} {
+		input := miniGameAttempt(fmt.Sprintf("word-game-%d", i), test.mode, test.kind, test.answer)
+		input.MiniGameID, input.Hinted = test.game, test.mode == "production"
+		result := request(app, "POST", "/api/attempt", token, input)
+		if result.Code != 200 {
+			t.Fatalf("%s rejected a %s answer: %d %s", test.game, test.kind, result.Code, result.Body.String())
+		}
+		if graded := decodeAttempt(t, result); graded.Correct != test.correct {
+			t.Fatalf("%s graded %q as %v", test.game, test.answer, graded.Correct)
+		}
+	}
+	if stats := decodeAttempt(t, request(app, "POST", "/api/attempt", token, func() AttemptInput {
+		input := miniGameAttempt("word-game-stats", "recognition", "lexeme", "Bahnhof")
+		input.MiniGameID = "night-train"
+		return input
+	}())).Progress.MiniGameStats["market-baskets"]; stats.Attempts != 2 || stats.Correct != 1 {
+		t.Fatalf("word game statistics were not recorded per game: %+v", stats)
+	}
+}

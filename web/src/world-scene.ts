@@ -269,10 +269,8 @@ export class WorldScene extends ExploreScene implements EditSurface {
     this.previousScenery?.sync(scene.scenery);
     if (this.scenery) this.atmosphere?.setLampLights(this.scenery.lampLights);
     if(relevant.some(op=>op.kind==='terrain')){
-      this.pendingTerrain?.destroy();this.pendingTerrain=undefined;
-      this.previousBackground?.destroy();this.previousBackground=undefined;
-      this.background?.destroy();
-      this.background=new StreamedWorldTerrain(this,scene,this.period).setTint(worldAmbient(this.mapSpec.id,this.period).terrain);
+      // Repaint in place: a new layer would drop the loaded ground art and fetch it all again.
+      for(const layer of [this.background,this.previousBackground,this.pendingTerrain])layer?.setWorld(scene);
     }
     this.navigation = this.navigation.withObstacles(sceneNavigationGeometry(scene).barriers);
     const spawn = this.spawnPoint();

@@ -66,6 +66,14 @@ describe('streamed terrain renderer',()=>{
     second.setVisible(true).update(right,2);await f.finish(second,right,2);expect(second.ready).toBe(true);
     second.destroy();expect(terrainResidency(f.scene).snapshot()).toMatchObject({textures:0,pixels:0,pending:0});
   });
+  it('follows an edited document without dropping or fetching loaded art',async()=>{
+    const f=fixture(),layer=new StreamedWorldTerrain(f.scene,world,'day'),view={x:20,y:20,width:600,height:400};
+    layer.update(view,2);await f.finish(layer,view,2);
+    const loaded=[...f.textures.keys()].sort();
+    layer.setWorld(structuredClone(world));layer.update(view,2);
+    expect([...f.textures.keys()].sort()).toEqual(loaded);expect(f.queue).toHaveLength(0);expect(layer.ready).toBe(true);
+    layer.destroy();
+  });
   it('keeps an overview visible when a detailed piece fails instead of leaving a hole',async()=>{
     const f=fixture(),layer=new StreamedWorldTerrain(f.scene,world,'day'),view={x:20,y:20,width:600,height:400};
     layer.update(view,2);await f.finish(layer,view,2,'tile-0');

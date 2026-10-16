@@ -151,8 +151,7 @@ export class AdminMapScene extends Phaser.Scene {
     const scene = getWorldScene(this.mapId);
     this.scenery.sync(scene.scenery);
     if (this.terrainDocument !== scene.modularTerrain) {
-      this.terrain?.destroy();
-      this.terrain = new StreamedWorldTerrain(this, scene, this.period).setDepth(-1e6);
+      this.terrain?.setWorld(scene);
       this.terrainDocument = scene.modularTerrain;
     }
     // A nudge still waiting to publish stays where the keyboard put it.
@@ -168,8 +167,7 @@ export class AdminMapScene extends Phaser.Scene {
   /** Terrain drawn from a draft instead of the document, for the terrain tools' preview. */
   previewTerrain(terrain?: ModularTerrain): void {
     const world = getWorldScene(this.mapId);
-    this.terrain?.destroy();
-    this.terrain = new StreamedWorldTerrain(this, terrain ? {...world, modularTerrain: terrain} : world, this.period).setDepth(-1e6);
+    this.terrain?.setWorld(terrain ? {...world, modularTerrain: terrain} : world);
     this.terrainDocument = world.modularTerrain;
     this.scenery?.sync(world.scenery, terrain ?? world.modularTerrain);
   }

@@ -1,5 +1,5 @@
 import type * as Phaser from 'phaser';
-import type {ModularTerrain} from './modular-terrain';
+import {terrainFingerprint,type ModularTerrain} from './modular-terrain';
 import type {ScenePolygon,WorldScene} from './scene-schema';
 import {terrainMaterial,terrainMaterialKey} from './terrain-materials';
 import {terrainFeature,terrainFeatureKey,featureBounds} from './terrain-features';
@@ -71,7 +71,15 @@ export class ModularTerrainRenderer {
     const xs=surface.polygon.map(p=>p[0]),ys=surface.polygon.map(p=>p[1]);
     return Math.max(...xs)>=view.x-CHUNK&&Math.min(...xs)<=view.x+view.width+CHUNK&&Math.max(...ys)>=view.y-CHUNK&&Math.min(...ys)<=view.y+view.height+CHUNK;
   }).map(surface=>surface.material)])];}
-  setWorld(world:WorldScene):void{if(world.modularTerrain!==this.world.modularTerrain){this.world=world;this.clear();}}
+  /**
+   * Follow an edited document. Leases on source art are kept, so only the
+   * composed chunks are repainted; nothing is fetched again.
+   */
+  setWorld(world:WorldScene):void{
+    const changed=world.modularTerrain!==this.world.modularTerrain&&terrainFingerprint(world.modularTerrain)!==terrainFingerprint(this.world.modularTerrain);
+    this.world=world;
+    if(changed)this.clear();
+  }
   update(view:TerrainView,zoom=1):void{
     if(!this.alive||!this.enabled)return;
     const viewKey=`${view.x}:${view.y}:${view.width}:${view.height}:${zoom}`;
