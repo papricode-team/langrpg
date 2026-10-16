@@ -17,6 +17,7 @@ The game includes **3,283 lexical targets, 405 learning routes, 39 grammar guide
 - **Vocabulary is paced.** For optional learning, the server restores course words at about ten per hour of visible play (ten at the start, never more than fifteen banked). Intake pauses while twelve restored words are still unrecognised or twenty are due for review. Story conversations always open in clue order, regardless of restored vocabulary or play time. Learning routes, word drills, resident barks, interior sessions and the Word atlas follow the restored-word list; **Today's words** in the journal practises the newest ones. See [docs/pacing.md](docs/pacing.md) for the optional practice budget, story vocabulary measurements and `npm run pacing`.
 - Server-held letters, keys and evidence appear in a case board. Three named story save slots restore narrative state while preserving XP, language evidence and previously earned rewards. Saved progress grants Echo slow playback, Wordlight highlighting, lantern crests and titles acknowledged by residents.
 - Crisp, device-resolution rendering uses Original artwork by default. A camera follows the player and frames conversations. Continuous daylight tint, day/night art transitions, lamp lights, mist, rain and story storm effects bring the painted towns to life. Character facing, resident routines, German barks, a train and short skippable cinematics support the story. Towns still use their existing painted plates; larger multi-plate districts remain production work.
+- Chickens, dogs, cats and sheep roam the three story towns, with three coat and body variants per species. Click an animal or use the nearby action button / E to feed chickens or pet the others. Cats sometimes refuse and move away; animals forage, rest at night, and pause when approached. These ambient interactions are local to your visit and award no currency.
 - The three story towns have regional music, quieter night stems, ambience, surface footsteps, doors and bells, with narration ducking, mute and reduced-motion preferences. Dialogue clips use consistent installed macOS German voice sketches with recorded provenance. They are not neural or human performances; personalized names use browser speech when a German voice is available, with recorded name-free fallbacks.
 - Café, bakery and supermarket interiors offer contextual practice and scripted conversations when no practice is ready; the inn adds a home room, evening review, evidence access and sleep. A shared twelve-minute world clock drives world time. Sleeping advances the player’s own story day without changing everybody else’s clock. A three-answer daily promise can light a lantern streak; resting early carries no penalty.
 - Café tray/preparation games, market budgets/change/trades, evidence investigations and delivery boards use server-checked solutions and rewards. Mission drafts resume on this device. Ten post-game neighborhood planning games and 180 expedition encounters save their authoritative results and completed plans on the server, with A1/A2/B1 language support.
@@ -24,7 +25,7 @@ The game includes **3,283 lexical targets, 405 learning routes, 39 grammar guide
 - An optional short conversational placement sample recommends a practice level without bypassing story routes. The course supplies attributed vocabulary, grammar, connected passages and practical checkpoints; the Word atlas includes articles, plurals, forms and sources.
 - Desktop and mobile controls include keyboard, click-to-walk, touch joystick and standard gamepad movement/interact. Players are separated by region and interior. Server-confirmed travel keeps indoor and outdoor positions separate and reconnects to the current room. Multiplayer currently provides presence; cooperative quests and evidence trading remain future work.
 
-The UI content budget and screenshot checks are documented in [UI guidelines](docs/ui-content-budget.md).
+The UI content budget and screenshot checks are documented in [UI guidelines](docs/ui-content-budget.md). Painted animals can be reviewed in the actual game world at `/qa/animals.html` on the local development server. With the API and Vite running, `node scripts/check-animals.mjs` checks all animation cells and animal placements in Chrome (`ATLAS_CHROMIUM_PATH` can select another Chromium binary); screenshots stay in `output/ui-screenshots`.
 
 ## Run locally
 
@@ -67,7 +68,7 @@ The world fills the browser window. Open the four-section menu: **Map**, **Story
 | --- | --- |
 | WASD / arrow keys | Walk along the town's paths |
 | Click / tap a destination | Follow a route to that point |
-| E | Talk to a nearby resident or inspect an object |
+| E | Talk, inspect, feed a nearby chicken or pet an animal |
 | Click / tap a character | Walk over and start a conversation |
 | Click / tap an interactive object | Approach it and investigate |
 | P | Open or close playable missions |

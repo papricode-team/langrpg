@@ -1,5 +1,13 @@
 /** German interface support for the introductory English course. */
 export const germanUi: Record<string, string> = {
+  "Feed chicken": "Huhn füttern",
+  "Pet dog": "Hund streicheln",
+  "Pet cat": "Katze streicheln",
+  "Pet sheep": "Schaf streicheln",
+  "Peck, peck!": "Pick, pick!",
+  "That feels nice!": "Das tut gut!",
+  "Not now. Give me space!": "Jetzt nicht. Lass mir Platz!",
+  "A little rest…": "Eine kleine Pause…",
   'Continue': 'Weiter', 'Back': 'Zurück', 'Close': 'Schließen', 'Settings': 'Einstellungen',
   'Menu': 'Menü', 'Language': 'Sprache', 'Learning language': 'Lernsprache', 'I speak': 'Ich spreche',
   'English': 'Englisch', 'German': 'Deutsch', 'Turkish': 'Türkisch', 'Choose a course': 'Kurs auswählen',

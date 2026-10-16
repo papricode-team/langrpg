@@ -1,0 +1,13 @@
+Create a production game sprite atlas for glotworld matching the reference images: finely painted naturalistic storybook fantasy RPG creatures, softly textured fur, realistic animal anatomy, subtle warm light from upper left, elevated isometric three-quarter camera. References are style references only; do not include humans, scenery or UI. Not vector cartoons, no heavy outlines, no emoji eyes, no flat ellipse bodies.
+
+Output a genuinely transparent PNG, preferably 2048 x 2304, EXACTLY EIGHT COLUMNS and NINE ROWS of equally sized square cells (72 separate dog sprites). No grid lines, text, labels, background, ground plates or cast shadows. Each dog stays fully inside its cell, including ears and tail, with 12% transparent margin. Consistent body size and foot baseline at 82% cell height within each dog's three rows. Keep full anatomy in each cell; four legs, two ears, one tail. Three different coherent dogs, each takes THREE consecutive rows:
+Rows 1–3: sturdy cream retriever with soft golden ears and medium feathered tail.
+Rows 4–6: slender rusty brown village dog with white chest, long legs, upright ears and narrow face.
+Rows 7–9: compact charcoal and white sheepdog, shaggy coat, short floppy ears, bushy tail.
+
+For each three-row group repeat precisely this animation layout:
+FIRST ROW: columns 1–4 are four distinct sequential WALK poses facing southeast (right and toward viewer), planted diagonal leg pairs alternating and passing underneath body; columns 5–8 are four distinct sequential WALK poses facing northeast (right and away from viewer), clearly showing back/top of dog rather than face. Never rotate within each four-frame stride. Camera stays elevated 35 degrees in every frame, never side-on. All feet share same ground plane and body proportions.
+SECOND ROW: col1 attentive IDLE, col2 idle with gentle ear/head shift; col3 curled lying SLEEP eyes shut, col4 same sleep with soft breath; col5 nose starts to lower to ground, col6 nose at ground sniffing, col7 sniff turned slightly aside, col8 lifts nose partway. All face southeast.
+THIRD ROW: col1 PETTED lifts chin contentedly, col2 leans into affection eyes soft, col3 tail wag left relaxed mouth, col4 tail wag right; col5 ALERT ears perk head lifts, col6 alert glances slightly aside, col7 alert returns, col8 settles. All face southeast. No hands or humans, no hearts, no symbols.
+
+Each sprite is a detailed independent painted pose, not whole-sprite squashing, not copied silhouettes. Maintain identical markings and identity through each set of 24 frames. Clear silhouettes at small gameplay scale. Render the complete 72-sprite atlas, not an illustrated presentation or a mockup.

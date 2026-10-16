@@ -1,0 +1,1450 @@
+{
+  "sourceHash": "aff0c19cbfe0e9b8c0243bf4e5d7cef7de9df23f4f30e116d348cb2b856d125a",
+  "matte": {
+    "removedPixels": 109185,
+    "removedAlphaTotal": 110035,
+    "maxRemovedAlpha": 4
+  },
+  "frames": [
+    {
+      "variant": 0,
+      "pose": "walk-0",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 29,
+        "y0": 28,
+        "x1": 140,
+        "y1": 153,
+        "pixels": 7377
+      },
+      "footX": 113,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 12,
+        "y": 33,
+        "w": 70,
+        "h": 78
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "walk-1",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 183,
+        "y0": 25,
+        "x1": 294,
+        "y1": 154,
+        "pixels": 7362
+      },
+      "footX": 270.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 10,
+        "y": 31,
+        "w": 70,
+        "h": 81
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "walk-2",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 333,
+        "y0": 32,
+        "x1": 438,
+        "y1": 163,
+        "pixels": 7345
+      },
+      "footX": 413,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 15,
+        "y": 30,
+        "w": 66,
+        "h": 82
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "walk-3",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 476,
+        "y0": 28,
+        "x1": 579,
+        "y1": 158,
+        "pixels": 7184
+      },
+      "footX": 556,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 15,
+        "y": 30,
+        "w": 65,
+        "h": 81
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "walk-back-0",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 619,
+        "y0": 27,
+        "x1": 727,
+        "y1": 154,
+        "pixels": 6988
+      },
+      "footX": 650.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 44,
+        "y": 32,
+        "w": 68,
+        "h": 80
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "walk-back-1",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 755,
+        "y0": 24,
+        "x1": 849,
+        "y1": 160,
+        "pixels": 6588
+      },
+      "footX": 801.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 35,
+        "y": 27,
+        "w": 60,
+        "h": 85
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "walk-back-2",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 896,
+        "y0": 23,
+        "x1": 997,
+        "y1": 159,
+        "pixels": 6800
+      },
+      "footX": 945,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 33,
+        "y": 27,
+        "w": 64,
+        "h": 85
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "walk-back-3",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 1043,
+        "y0": 26,
+        "x1": 1147,
+        "y1": 159,
+        "pixels": 6988
+      },
+      "footX": 1085.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 37,
+        "y": 29,
+        "w": 66,
+        "h": 83
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "idle-0",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 28,
+        "y0": 163,
+        "x1": 140,
+        "y1": 288,
+        "pixels": 7615
+      },
+      "footX": 101,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 19,
+        "y": 33,
+        "w": 71,
+        "h": 78
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "idle-1",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 186,
+        "y0": 163,
+        "x1": 296,
+        "y1": 292,
+        "pixels": 8055
+      },
+      "footX": 261.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 17,
+        "y": 31,
+        "w": 69,
+        "h": 81
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "rest-0",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 331,
+        "y0": 199,
+        "x1": 443,
+        "y1": 280,
+        "pixels": 6691
+      },
+      "footX": 389.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 28,
+        "y": 60,
+        "w": 71,
+        "h": 52
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "rest-1",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 475,
+        "y0": 201,
+        "x1": 587,
+        "y1": 280,
+        "pixels": 6813
+      },
+      "footX": 531,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 29,
+        "y": 61,
+        "w": 71,
+        "h": 51
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "forage-0",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 620,
+        "y0": 168,
+        "x1": 739,
+        "y1": 295,
+        "pixels": 7662
+      },
+      "footX": 694,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 18,
+        "y": 32,
+        "w": 75,
+        "h": 80
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "forage-1",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 761,
+        "y0": 171,
+        "x1": 878,
+        "y1": 295,
+        "pixels": 7811
+      },
+      "footX": 832.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 20,
+        "y": 34,
+        "w": 74,
+        "h": 78
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "forage-2",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 903,
+        "y0": 170,
+        "x1": 1024,
+        "y1": 297,
+        "pixels": 7444
+      },
+      "footX": 967.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 24,
+        "y": 32,
+        "w": 76,
+        "h": 80
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "forage-3",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 1047,
+        "y0": 176,
+        "x1": 1146,
+        "y1": 297,
+        "pixels": 7229
+      },
+      "footX": 1117,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 21,
+        "y": 36,
+        "w": 63,
+        "h": 76
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "happy-0",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 30,
+        "y0": 298,
+        "x1": 141,
+        "y1": 435,
+        "pixels": 8387
+      },
+      "footX": 87,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 28,
+        "y": 26,
+        "w": 70,
+        "h": 86
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "happy-1",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 178,
+        "y0": 312,
+        "x1": 304,
+        "y1": 442,
+        "pixels": 9771
+      },
+      "footX": 233.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 29,
+        "y": 30,
+        "w": 79,
+        "h": 81
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "happy-2",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 335,
+        "y0": 304,
+        "x1": 463,
+        "y1": 439,
+        "pixels": 9812
+      },
+      "footX": 395.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 26,
+        "y": 27,
+        "w": 80,
+        "h": 84
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "happy-3",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 478,
+        "y0": 312,
+        "x1": 579,
+        "y1": 435,
+        "pixels": 7790
+      },
+      "footX": 531,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 31,
+        "y": 35,
+        "w": 64,
+        "h": 77
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "annoyed-0",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 618,
+        "y0": 305,
+        "x1": 722,
+        "y1": 442,
+        "pixels": 8502
+      },
+      "footX": 666,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 34,
+        "y": 26,
+        "w": 66,
+        "h": 86
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "annoyed-1",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 758,
+        "y0": 322,
+        "x1": 857,
+        "y1": 442,
+        "pixels": 7442
+      },
+      "footX": 801.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 37,
+        "y": 36,
+        "w": 63,
+        "h": 75
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "annoyed-2",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 903,
+        "y0": 320,
+        "x1": 1000,
+        "y1": 441,
+        "pixels": 7422
+      },
+      "footX": 945,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 37,
+        "y": 36,
+        "w": 62,
+        "h": 76
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "annoyed-3",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 1046,
+        "y0": 312,
+        "x1": 1151,
+        "y1": 436,
+        "pixels": 7661
+      },
+      "footX": 1101,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 30,
+        "y": 34,
+        "w": 66,
+        "h": 78
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "walk-0",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 33,
+        "y0": 461,
+        "x1": 142,
+        "y1": 593,
+        "pixels": 7704
+      },
+      "footX": 104,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 22,
+        "y": 33,
+        "w": 65,
+        "h": 78
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "walk-1",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 182,
+        "y0": 459,
+        "x1": 296,
+        "y1": 591,
+        "pixels": 7869
+      },
+      "footX": 247,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 26,
+        "y": 33,
+        "w": 68,
+        "h": 78
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "walk-2",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 332,
+        "y0": 460,
+        "x1": 435,
+        "y1": 598,
+        "pixels": 7495
+      },
+      "footX": 412.5,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 17,
+        "y": 30,
+        "w": 62,
+        "h": 82
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "walk-3",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 469,
+        "y0": 454,
+        "x1": 576,
+        "y1": 590,
+        "pixels": 7344
+      },
+      "footX": 552,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 15,
+        "y": 31,
+        "w": 64,
+        "h": 81
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "walk-back-0",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 613,
+        "y0": 455,
+        "x1": 719,
+        "y1": 594,
+        "pixels": 7651
+      },
+      "footX": 655,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 39,
+        "y": 29,
+        "w": 63,
+        "h": 82
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "walk-back-1",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 753,
+        "y0": 454,
+        "x1": 850,
+        "y1": 595,
+        "pixels": 6883
+      },
+      "footX": 803.5,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 34,
+        "y": 28,
+        "w": 58,
+        "h": 83
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "walk-back-2",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 897,
+        "y0": 455,
+        "x1": 998,
+        "y1": 594,
+        "pixels": 7102
+      },
+      "footX": 952.5,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 31,
+        "y": 29,
+        "w": 61,
+        "h": 82
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "walk-back-3",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 1042,
+        "y0": 455,
+        "x1": 1144,
+        "y1": 592,
+        "pixels": 7237
+      },
+      "footX": 1091,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 35,
+        "y": 31,
+        "w": 61,
+        "h": 81
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "idle-0",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 28,
+        "y0": 607,
+        "x1": 141,
+        "y1": 732,
+        "pixels": 8197
+      },
+      "footX": 103.5,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 20,
+        "y": 37,
+        "w": 67,
+        "h": 74
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "idle-1",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 180,
+        "y0": 607,
+        "x1": 294,
+        "y1": 737,
+        "pixels": 8296
+      },
+      "footX": 241,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 28,
+        "y": 35,
+        "w": 68,
+        "h": 77
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "rest-0",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 330,
+        "y0": 631,
+        "x1": 447,
+        "y1": 719,
+        "pixels": 6975
+      },
+      "footX": 394.5,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 26,
+        "y": 59,
+        "w": 70,
+        "h": 53
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "rest-1",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 472,
+        "y0": 634,
+        "x1": 591,
+        "y1": 719,
+        "pixels": 7274
+      },
+      "footX": 536.5,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 26,
+        "y": 60,
+        "w": 71,
+        "h": 51
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "forage-0",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 619,
+        "y0": 604,
+        "x1": 741,
+        "y1": 734,
+        "pixels": 7713
+      },
+      "footX": 695.5,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 19,
+        "y": 35,
+        "w": 73,
+        "h": 77
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "forage-1",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 757,
+        "y0": 609,
+        "x1": 880,
+        "y1": 734,
+        "pixels": 7922
+      },
+      "footX": 832,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 20,
+        "y": 37,
+        "w": 73,
+        "h": 74
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "forage-2",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 900,
+        "y0": 607,
+        "x1": 1028,
+        "y1": 738,
+        "pixels": 7983
+      },
+      "footX": 968.5,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 24,
+        "y": 34,
+        "w": 76,
+        "h": 78
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "forage-3",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 1047,
+        "y0": 609,
+        "x1": 1146,
+        "y1": 737,
+        "pixels": 7611
+      },
+      "footX": 1099,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 33,
+        "y": 36,
+        "w": 59,
+        "h": 76
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "happy-0",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 31,
+        "y0": 740,
+        "x1": 141,
+        "y1": 882,
+        "pixels": 8513
+      },
+      "footX": 78.5,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 36,
+        "y": 28,
+        "w": 66,
+        "h": 84
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "happy-1",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 177,
+        "y0": 754,
+        "x1": 304,
+        "y1": 885,
+        "pixels": 10260
+      },
+      "footX": 231.5,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 32,
+        "y": 34,
+        "w": 75,
+        "h": 78
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "happy-2",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 335,
+        "y0": 746,
+        "x1": 465,
+        "y1": 883,
+        "pixels": 9922
+      },
+      "footX": 388,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 33,
+        "y": 31,
+        "w": 77,
+        "h": 81
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "happy-3",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 477,
+        "y0": 755,
+        "x1": 580,
+        "y1": 880,
+        "pixels": 7760
+      },
+      "footX": 520,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 38,
+        "y": 37,
+        "w": 62,
+        "h": 74
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "annoyed-0",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 623,
+        "y0": 746,
+        "x1": 728,
+        "y1": 884,
+        "pixels": 8188
+      },
+      "footX": 670,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 36,
+        "y": 30,
+        "w": 63,
+        "h": 82
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "annoyed-1",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 760,
+        "y0": 756,
+        "x1": 863,
+        "y1": 883,
+        "pixels": 7732
+      },
+      "footX": 809,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 35,
+        "y": 36,
+        "w": 62,
+        "h": 75
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "annoyed-2",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 905,
+        "y0": 759,
+        "x1": 1000,
+        "y1": 883,
+        "pixels": 7599
+      },
+      "footX": 952.5,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 36,
+        "y": 38,
+        "w": 57,
+        "h": 74
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "annoyed-3",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 1048,
+        "y0": 754,
+        "x1": 1151,
+        "y1": 880,
+        "pixels": 7914
+      },
+      "footX": 1101.5,
+      "scale": 0.5714285714285714,
+      "registration": {
+        "x": 32,
+        "y": 37,
+        "w": 62,
+        "h": 75
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "walk-0",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 35,
+        "y0": 899,
+        "x1": 144,
+        "y1": 1029,
+        "pixels": 7989
+      },
+      "footX": 114,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 17,
+        "y": 33,
+        "w": 66,
+        "h": 78
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "walk-1",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 187,
+        "y0": 900,
+        "x1": 298,
+        "y1": 1028,
+        "pixels": 7958
+      },
+      "footX": 266,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 17,
+        "y": 35,
+        "w": 67,
+        "h": 77
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "walk-2",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 335,
+        "y0": 900,
+        "x1": 437,
+        "y1": 1032,
+        "pixels": 7439
+      },
+      "footX": 413.5,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 17,
+        "y": 32,
+        "w": 62,
+        "h": 79
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "walk-3",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 475,
+        "y0": 911,
+        "x1": 584,
+        "y1": 1029,
+        "pixels": 7652
+      },
+      "footX": 560,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 14,
+        "y": 40,
+        "w": 66,
+        "h": 71
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "walk-back-0",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 625,
+        "y0": 898,
+        "x1": 724,
+        "y1": 1028,
+        "pixels": 7187
+      },
+      "footX": 670,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 37,
+        "y": 33,
+        "w": 60,
+        "h": 78
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "walk-back-1",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 764,
+        "y0": 899,
+        "x1": 858,
+        "y1": 1031,
+        "pixels": 6798
+      },
+      "footX": 807.5,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 38,
+        "y": 32,
+        "w": 57,
+        "h": 79
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "walk-back-2",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 902,
+        "y0": 897,
+        "x1": 999,
+        "y1": 1034,
+        "pixels": 7099
+      },
+      "footX": 950.5,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 35,
+        "y": 29,
+        "w": 59,
+        "h": 82
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "walk-back-3",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 1042,
+        "y0": 895,
+        "x1": 1146,
+        "y1": 1031,
+        "pixels": 7799
+      },
+      "footX": 1091,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 34,
+        "y": 30,
+        "w": 63,
+        "h": 82
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "idle-0",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 31,
+        "y0": 1043,
+        "x1": 139,
+        "y1": 1165,
+        "pixels": 7922
+      },
+      "footX": 107,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 19,
+        "y": 38,
+        "w": 66,
+        "h": 74
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "idle-1",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 178,
+        "y0": 1043,
+        "x1": 297,
+        "y1": 1161,
+        "pixels": 8515
+      },
+      "footX": 247.5,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 23,
+        "y": 40,
+        "w": 72,
+        "h": 71
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "rest-0",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 329,
+        "y0": 1068,
+        "x1": 446,
+        "y1": 1152,
+        "pixels": 7043
+      },
+      "footX": 395.5,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 24,
+        "y": 60,
+        "w": 71,
+        "h": 52
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "rest-1",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 474,
+        "y0": 1068,
+        "x1": 588,
+        "y1": 1152,
+        "pixels": 6960
+      },
+      "footX": 537,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 26,
+        "y": 60,
+        "w": 69,
+        "h": 52
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "forage-0",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 619,
+        "y0": 1036,
+        "x1": 741,
+        "y1": 1165,
+        "pixels": 8035
+      },
+      "footX": 696,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 18,
+        "y": 34,
+        "w": 74,
+        "h": 78
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "forage-1",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 760,
+        "y0": 1042,
+        "x1": 878,
+        "y1": 1166,
+        "pixels": 7784
+      },
+      "footX": 832.5,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 21,
+        "y": 37,
+        "w": 71,
+        "h": 75
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "forage-2",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 899,
+        "y0": 1041,
+        "x1": 1021,
+        "y1": 1167,
+        "pixels": 7779
+      },
+      "footX": 969.5,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 22,
+        "y": 36,
+        "w": 74,
+        "h": 76
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "forage-3",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 1043,
+        "y0": 1039,
+        "x1": 1150,
+        "y1": 1163,
+        "pixels": 7748
+      },
+      "footX": 1118,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 19,
+        "y": 37,
+        "w": 65,
+        "h": 75
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "happy-0",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 31,
+        "y0": 1171,
+        "x1": 145,
+        "y1": 1303,
+        "pixels": 8367
+      },
+      "footX": 78.5,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 35,
+        "y": 32,
+        "w": 69,
+        "h": 79
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "happy-1",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 175,
+        "y0": 1182,
+        "x1": 303,
+        "y1": 1306,
+        "pixels": 10021
+      },
+      "footX": 226,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 33,
+        "y": 37,
+        "w": 77,
+        "h": 75
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "happy-2",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 334,
+        "y0": 1173,
+        "x1": 465,
+        "y1": 1304,
+        "pixels": 9502
+      },
+      "footX": 385,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 33,
+        "y": 33,
+        "w": 79,
+        "h": 79
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "happy-3",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 475,
+        "y0": 1183,
+        "x1": 581,
+        "y1": 1301,
+        "pixels": 7783
+      },
+      "footX": 520,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 37,
+        "y": 40,
+        "w": 64,
+        "h": 71
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "annoyed-0",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 620,
+        "y0": 1176,
+        "x1": 725,
+        "y1": 1308,
+        "pixels": 8005
+      },
+      "footX": 668,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 35,
+        "y": 32,
+        "w": 64,
+        "h": 79
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "annoyed-1",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 759,
+        "y0": 1187,
+        "x1": 862,
+        "y1": 1304,
+        "pixels": 7436
+      },
+      "footX": 799.5,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 39,
+        "y": 41,
+        "w": 63,
+        "h": 71
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "annoyed-2",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 903,
+        "y0": 1186,
+        "x1": 1003,
+        "y1": 1303,
+        "pixels": 7319
+      },
+      "footX": 944.5,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 39,
+        "y": 41,
+        "w": 61,
+        "h": 71
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "annoyed-3",
+      "source": "chicken.png",
+      "bounds": {
+        "x0": 1044,
+        "y0": 1182,
+        "x1": 1151,
+        "y1": 1298,
+        "pixels": 7791
+      },
+      "footX": 1102,
+      "scale": 0.5801526717557252,
+      "registration": {
+        "x": 29,
+        "y": 42,
+        "w": 65,
+        "h": 70
+      }
+    }
+  ]
+}
