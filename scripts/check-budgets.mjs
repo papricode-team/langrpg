@@ -20,26 +20,28 @@ const art=assets.filter(path=>path.includes('/assets/')&&/\.(webp|png|jpg)$/.tes
 const allArtSizes=await Promise.all(art.map(async path=>({path,size:(await stat(path)).size})));
 for(const asset of allArtSizes)if(asset.size>2*1024*1024)throw new Error(`Individual art budget exceeded: ${asset.path}`);
 // Graphics quality tiers are alternatives: a player downloads Low first and then at most one other tier.
-// The budgets below measure High (assets/ itself); Low and Medium must stay well below it.
+// The budgets below measure High (assets/ itself) and what a player at Low or Medium downloads.
 const tierRoot=resolve(root,'assets/q')+'/';
 const artSizes=allArtSizes.filter(item=>!item.path.startsWith(tierRoot));
-const tierTotal=tier=>allArtSizes.filter(item=>item.path.startsWith(`${tierRoot}${tier}/`)).reduce((sum,item)=>sum+item.size,0);
+const sizeByPath=new Map(allArtSizes.map(item=>[item.path,item.size]));
+// What a player at a tier downloads for every image: its reduced copy where one exists, otherwise High.
+const tierTotal=tier=>allArtSizes.filter(item=>!item.path.startsWith(tierRoot)).reduce((sum,item)=>sum+(sizeByPath.get(`${tierRoot}${tier}/${item.path.slice(resolve(root,'assets').length+1)}`)??item.size),0);
 const qualityManifest=JSON.parse(await readFile(resolve(root,'assets/q/manifest.json'),'utf8'));
 for(const rel of Object.keys(qualityManifest.files))for(const tier of ['low','medium'])await stat(resolve(root,'assets/q',tier,rel));
 const artTotal=artSizes.reduce((sum,item)=>sum+item.size,0);
 // Character sheets are loaded per recipe or destination: the wardrobe, 192 NPCs and room variants.
-// Cast atlases and portraits ship lossy (scripts/asset-quality.mjs); the avatar kit stays lossless
-// because the baker composites its exact pixels.
+// Cast atlases, the avatar kit and portraits ship lossy (scripts/asset-quality.mjs); only tooling
+// sheets the browser never loads stay lossless.
 const characterPrefixes=['character-kit','character-kit-hd','character-cast','character-portraits','player-portraits'].map(name=>resolve(root,'assets',name)+'/');
 const characterArt=artSizes.filter(item=>characterPrefixes.some(prefix=>item.path.startsWith(prefix)));
 const characterArtTotal=characterArt.reduce((sum,item)=>sum+item.size,0);
-if(characterArtTotal>280*1024*1024)throw new Error(`Character distribution art budget exceeded: ${characterArtTotal}`);
+if(characterArtTotal>180*1024*1024)throw new Error(`Character distribution art budget exceeded: ${characterArtTotal}`);
 const baseArt=artSizes.filter(item=>!characterPrefixes.some(prefix=>item.path.startsWith(prefix)));
 const baseArtTotal=baseArt.reduce((sum,item)=>sum+item.size,0);
 // Towns share the tiled ground materials; keep individual downloads bounded at 2 MiB and stream one destination.
-if(baseArtTotal>80*1024*1024)throw new Error(`Base distribution art budget exceeded: ${baseArtTotal}`);
+if(baseArtTotal>72*1024*1024)throw new Error(`Base distribution art budget exceeded: ${baseArtTotal}`);
 const lowTotal=tierTotal('low'),mediumTotal=tierTotal('medium');
-if(lowTotal>80*1024*1024||mediumTotal>140*1024*1024)throw new Error(`Quality tier budget exceeded: low ${lowTotal}, medium ${mediumTotal}`);
+if(lowTotal>110*1024*1024||mediumTotal>180*1024*1024)throw new Error(`Quality tier budget exceeded: low ${lowTotal}, medium ${mediumTotal}`);
 for(const town of ['lindenhafen','waldruh','nebelstadt']){
   const townBytes=baseArt.filter(item=>item.path.split('/').at(-1).startsWith(town)).reduce((sum,item)=>sum+item.size,0);
   if(townBytes>36*1024*1024)throw new Error(`Region art budget exceeded: ${town}`);

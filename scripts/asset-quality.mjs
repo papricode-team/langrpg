@@ -20,8 +20,11 @@ export const MANIFEST_PATH = 'q/manifest.json';
 // Alpha stays lossless: the world compiler and contact tracing read silhouettes from it.
 const ENCODER = Object.freeze({ quality: WEBP_QUALITY, alphaQuality: 100, effort: 4 });
 const ENCODER_ID = createHash('sha1').update(JSON.stringify([ENCODER, sharp.versions?.vips, 2])).digest('hex').slice(0, 10);
-/** The avatar baker and portrait compositor read exact pixels from these; they ship untouched. */
-const LOSSLESS = [/^character-kit\//, /^character-kit-hd\//, /^player-layers\//, /^player-portraits\//, /^character-features\//, /^ui\//, /^player-walk\.webp$/, /^q\//];
+/**
+ * Tooling-only sheets and layers that compositors read as exact pixels ship untouched. The avatar kit
+ * (character-kit-hd) is tiered: its cells divide by four and the baker composes at the tier's cell.
+ */
+const LOSSLESS = [/^character-kit\//, /^player-layers\//, /^player-portraits\//, /^character-features\//, /^ui\//, /^player-walk\.webp$/, /^q\//];
 /**
  * Images only ever drawn small in the interface. Dialogue portraits appear at 95 CSS px at most and the
  * shared 4x2 roundel sheet at 48 px, so three device pixels per CSS pixel is the ceiling.

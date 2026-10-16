@@ -8,7 +8,8 @@ import sharp from 'sharp';
 import { buildQualityTiers, qualityPlan } from './asset-quality.mjs';
 
 test('pixel-exact sources ship untouched and interface portraits are capped', () => {
-  assert.equal(qualityPlan('character-kit-hd/body.webp', 2048, 2048), null);
+  assert.equal(qualityPlan('character-kit/regular/body.webp', 2048, 2048), null);
+  assert.deepEqual(qualityPlan('character-kit-hd/regular/body.primary.runtime.0.webp', 768, 1152), { high: [768, 1152], reduced: { low: [384, 576], medium: [576, 864] } });
   assert.equal(qualityPlan('player-walk.webp', 1536, 1440), null);
   assert.equal(qualityPlan('lindenhafen.json', 10, 10), null);
   assert.deepEqual(qualityPlan('character-portraits/ada-neutral.webp', 724, 724), { high: [256, 256], reduced: {} });

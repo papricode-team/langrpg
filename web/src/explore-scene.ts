@@ -22,6 +22,7 @@ import type { WorldClock, WorldTimeState } from './world-clock';
 import type { CameraBeat } from './cutscene';
 import { createScreenFilter, type ScreenFilterController } from './screen-filters';
 import { emitWorld, followWorld, readWorld, WorldEvents, type Avatar, type WorldPlayer, type WorldStoryState } from './world-state';
+import { onGraphicsQualityChange } from './quality-state';
 
 export interface Character {
   id: string;
@@ -254,7 +255,12 @@ export abstract class ExploreScene extends Phaser.Scene {
     const snapshot = readWorld(registry, 'players');
     if (snapshot) this.syncPlayers(snapshot.players, snapshot.selfId);
     this.scale.on(Phaser.Scale.Events.RESIZE, this.handleResize, this);
+    // Baked avatars follow the graphics quality; a cached bake for the new tier applies at once.
+    const stopQuality = onGraphicsQualityChange(() => {
+      for (const character of this.actors()) if (character?.avatarLease && !character.avatarDisposed) this.tintCharacter(character);
+    });
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      stopQuality();
       this.ready = false;
       this.scale.off(Phaser.Scale.Events.RESIZE, this.handleResize, this);
       this.input.gamepad?.off('down', this.handlePadDown, this);

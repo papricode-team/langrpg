@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
 import { deviceCeiling, QUALITY_MODES, QUALITY_TIERS, QualityGovernor } from './quality-governor';
 import type { DeviceHints, QualityMode, QualityTier } from './quality-governor';
+import { graphicsQualityMode, graphicsQualityTier, logicalSize, notifyGraphicsQualityChange, onGraphicsQualityChange, qualityGovernor, qualityUrl, setQualityGovernor, tieredAsset, type TieredSource } from './quality-state';
 import { QUALITY_SWAP_EVENT } from './texture-frame';
 
 /**
@@ -12,37 +13,8 @@ import { QUALITY_SWAP_EVENT } from './texture-frame';
  */
 export const QUALITY_MANIFEST_KEY = 'asset-quality-manifest';
 export const QUALITY_MANIFEST_URL = '/assets/q/manifest.json';
-const STORAGE_KEY = 'atlas.graphicsQuality';
 // At most a few uploads per second, so an upgrade never costs more than an occasional frame.
 const SWAP_SPACING_MS = 120;
-
-interface Manifest { files: Record<string, readonly [number, number]>; }
-interface TieredSource { rel: string; query: string; tier: QualityTier; }
-let manifest: Manifest | null = null;
-
-export function setQualityManifest(value: unknown): void {
-  const files = value && typeof value === 'object' ? (value as { files?: unknown }).files : undefined;
-  manifest = files && typeof files === 'object' ? { files: files as Manifest['files'] } : null;
-}
-
-const origin = () => typeof location === 'undefined' ? '' : location.origin;
-/** The tiered master behind `url`, or null when the URL is not a tiered asset. */
-export function tieredAsset(url: string): TieredSource | null {
-  if (!manifest) return null;
-  const cut = url.search(/[?#]/);
-  let path = cut < 0 ? url : url.slice(0, cut);
-  const base = origin();
-  if (base && path.startsWith(base + '/')) path = path.slice(base.length);
-  const match = /^\/assets\/(?:q\/(low|medium)\/)?(.+)$/.exec(path);
-  if (!match || !manifest.files[match[2]]) return null;
-  return { rel: match[2], query: cut < 0 ? '' : url.slice(cut), tier: (match[1] as QualityTier | undefined) ?? 'high' };
-}
-
-export function qualityUrl(url: string, tier: QualityTier): string {
-  const asset = tieredAsset(url);
-  if (!asset) return url;
-  return `/assets/${tier === 'high' ? '' : `q/${tier}/`}${asset.rel}${asset.query}`;
-}
 
 const sources = new WeakMap<Phaser.Textures.TextureSource, TieredSource>();
 const imageAssets = new WeakMap<HTMLImageElement, TieredSource>();
@@ -79,8 +51,6 @@ function patchPhaser(): void {
 }
 
 const webglActive = () => [...controllers].some(controller => controller.webgl);
-// One judgement for the page; only the first game installed (the world) feeds it.
-let governor: QualityGovernor | null = null;
 
 /** Gives a tiered image its master's logical size before any frame is parsed. */
 function adopt(source: Phaser.Textures.TextureSource): void {
@@ -88,30 +58,11 @@ function adopt(source: Phaser.Textures.TextureSource): void {
   if (typeof HTMLImageElement === 'undefined' || !(image instanceof HTMLImageElement)) return;
   const asset = imageAssets.get(image) ?? tieredAsset(image.src);
   if (!asset) return;
-  const [width, height] = manifest!.files[asset.rel];
+  const [width, height] = logicalSize(asset.rel)!;
   source.width = width; source.height = height;
   sources.set(source, asset);
   for (const controller of controllers) if (controller.game.textures === source.texture.manager) controller.track(source);
 }
-
-function readMode(): QualityMode {
-  try { const saved = localStorage.getItem(STORAGE_KEY) as QualityMode | null; return saved && QUALITY_MODES.includes(saved) ? saved : 'auto'; } catch { return 'auto'; }
-}
-let mode: QualityMode = readMode();
-const listeners = new Set<() => void>();
-
-export function graphicsQualityMode(): QualityMode { return mode; }
-/** The tier being shown: the manual choice, or what Auto has reached. */
-export function graphicsQualityTier(): QualityTier {
-  return mode === 'auto' ? governor?.tier ?? 'low' : mode;
-}
-export function setGraphicsQualityMode(next: QualityMode): void {
-  mode = next;
-  try { localStorage.setItem(STORAGE_KEY, next); } catch { /* the choice lasts this session */ }
-  for (const controller of controllers) controller.retarget();
-  for (const listener of listeners) listener();
-}
-export function onGraphicsQualityChange(listener: () => void): () => void { listeners.add(listener); return () => listeners.delete(listener); }
 
 function deviceHints(): DeviceHints {
   if (typeof navigator === 'undefined') return {};
@@ -137,7 +88,7 @@ class TextureQualityController {
 
   target(): QualityTier { return graphicsQualityTier(); }
 
-  retarget(): void { governor?.hold(performance.now(), 2000); }
+  retarget(): void { qualityGovernor()?.hold(performance.now(), 2000); }
 
   private loading(): boolean {
     return this.game.scene.getScenes(true).some(scene => scene.load?.isLoading());
@@ -146,12 +97,13 @@ class TextureQualityController {
   private step(): void {
     if (this.disposed || !this.webgl) return;
     const now = performance.now();
+    const governor = qualityGovernor();
     if (this.judge && governor) {
       // Swaps stay under judgement: if an upgrade itself makes play stutter, Auto must be able to back out.
       if (this.loading() || document.hidden) governor.hold(now, 500);
-      else if (mode === 'auto') {
+      else if (graphicsQualityMode() === 'auto') {
         const loop = this.game.loop as Phaser.Core.TimeStep & { rawDelta?: number };
-        if (governor.sample(loop.rawDelta ?? loop.delta, now)) for (const listener of listeners) listener();
+        if (governor.sample(loop.rawDelta ?? loop.delta, now)) notifyGraphicsQualityChange();
       }
     }
     if (!this.swapping && !this.loading() && now >= this.nextSwap) void this.swapNext();
@@ -203,17 +155,21 @@ class TextureQualityController {
     this.disposed = true;
     this.game.events.off(Phaser.Core.Events.POST_STEP, this.step, this);
     controllers.delete(this);
-    if (this.judge) governor = null;
+    if (this.judge) setQualityGovernor(null);
   }
 }
 
+let retargetBound = false;
 /** Call right after creating a game, before its first scene loads. */
 export function installTextureQuality(game: Phaser.Game): void {
   patchPhaser();
-  const judge = !governor;
-  governor ??= new QualityGovernor(deviceCeiling(deviceHints()));
+  const judge = !qualityGovernor();
+  if (judge) setQualityGovernor(new QualityGovernor(deviceCeiling(deviceHints())));
+  // A new target gives the swaps a moment before Auto judges frames again.
+  if (!retargetBound) { retargetBound = true; onGraphicsQualityChange(() => { for (const controller of controllers) controller.retarget(); }); }
   controllers.add(new TextureQualityController(game, judge));
 }
 
 export { QUALITY_MODES, QUALITY_TIERS };
 export type { QualityMode, QualityTier };
+export { graphicsQualityMode, graphicsQualityTier, onGraphicsQualityChange, qualityUrl, setGraphicsQualityMode, setQualityManifest, tieredAsset } from './quality-state';
