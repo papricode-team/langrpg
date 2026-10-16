@@ -7174,7 +7174,7 @@
     },
     {
       "id": "dialogue-b1-temptation-after-route-closed-again-2",
-      "text": "Jetzt wissen Sie, wie leicht es ist. Ich verurteile Sie nicht. Ich erkenne Sie.",
+      "text": "Jetzt weißt du, wie leicht es ist. Ich verurteile dich nicht. Ich erkenne dich.",
       "speaker": "inspector",
       "voice": "qwen3:inspector"
     },
@@ -7211,32 +7211,32 @@
     {
       "id": "dialogue-b1-temptation-choice-5",
       "text": "Drehst du den Schlüssel heute Nacht? Oder halten wir den Sturm ohne ihn aus?",
-      "speaker": "ada",
-      "voice": "qwen3:ada"
+      "speaker": "inspector",
+      "voice": "qwen3:inspector"
     },
     {
       "id": "dialogue-b1-temptation-complete-0",
       "text": "Hörst du den Wind? Greta ist schon im Garten. Das Wasser steigt.",
-      "speaker": "ada",
-      "voice": "qwen3:ada"
+      "speaker": "inspector",
+      "voice": "qwen3:inspector"
     },
     {
       "id": "dialogue-b1-temptation-gate-0",
-      "text": "Ich sage dir nicht, was du tun sollst. Ich sage dir nur, was dein Schlüssel kann.",
-      "speaker": "ada",
-      "voice": "qwen3:ada"
+      "text": "Ich sage dir nicht, was du tun sollst. Ich habe einmal für andere entschieden. Das war genug.",
+      "speaker": "inspector",
+      "voice": "qwen3:inspector"
     },
     {
       "id": "dialogue-b1-temptation-gate-0-simple",
-      "text": "Ich sage dir nur, was dein Schlüssel kann.",
-      "speaker": "ada",
-      "voice": "qwen3:ada"
+      "text": "Ich sage dir nicht, was du tun sollst.",
+      "speaker": "inspector",
+      "voice": "qwen3:inspector"
     },
     {
       "id": "dialogue-b1-temptation-intro-0",
       "text": "Die Treppe zur Sternwarte ist verschlossen. Mit einem Laternenschloss. Du weißt, welcher Schlüssel passt.",
-      "speaker": "ada",
-      "voice": "qwen3:ada"
+      "speaker": "inspector",
+      "voice": "qwen3:inspector"
     },
     {
       "id": "dialogue-b1-temptation-intro-1",
@@ -7883,8 +7883,8 @@
     {
       "id": "grammar-b1-temptation",
       "text": "Wenn ich den Schlüssel drehe: Im wenn-Satz steht das Verb am Ende, danach beginnt der Hauptsatz.",
-      "speaker": "ada",
-      "voice": "qwen3:ada"
+      "speaker": "inspector",
+      "voice": "qwen3:inspector"
     },
     {
       "id": "grammar-b1-witness",

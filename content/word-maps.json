@@ -3247,5 +3247,1477 @@
   "review": {
    "status": "pending"
   }
+ },
+ "c9541242-bc29-5cdc-a3a3-68949e75102d": {
+  "sourceText": "{name}, Voss wartet an der Sternwarte. Bevor der Sturm kommt, musst du etwas über deinen Schlüssel wissen.",
+  "translations": {
+   "en": {
+    "text": "{name}, Voss is waiting at the observatory. Before the storm comes, you must know something about your key.",
+    "words": [
+     {
+      "source": {
+       "text": "wartet",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "is waiting",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "an",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "at",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "der",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "the",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Bevor",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Before",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "der",
+       "occurrence": 2
+      },
+      "targets": [
+       {
+        "text": "the",
+        "occurrence": 2
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Sturm",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "storm",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "kommt",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "comes",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "musst",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "must",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "du",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "you",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "etwas",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "something",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "über",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "about",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "deinen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "your",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Schlüssel",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "key",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "wissen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "know",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "{name}, Voss gözlemevinde bekliyor. Fırtına gelmeden önce anahtarın hakkında bir şey bilmen gerek.",
+    "words": [
+     {
+      "source": {
+       "text": "wartet",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "bekliyor",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "an",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "gözlemevinde",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "der",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "gözlemevinde",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Bevor",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "önce",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "der",
+       "occurrence": 2
+      },
+      "targets": []
+     },
+     {
+      "source": {
+       "text": "Sturm",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Fırtına",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "kommt",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "gelmeden",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "musst",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "gerek",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "du",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "bilmen",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "etwas",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "bir şey",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "über",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "hakkında",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "deinen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "anahtarın",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Schlüssel",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "anahtarın",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "wissen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "bilmen",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "review": {
+   "status": "pending"
+  }
+ },
+ "1df18302-8113-5bf2-8419-676ac1a649a7": {
+  "sourceText": "Ich sage dir nicht, was du tun sollst. Ich habe einmal für andere entschieden. Das war genug.",
+  "translations": {
+   "en": {
+    "text": "I will not tell you what to do. I decided for others once. That was enough.",
+    "words": [
+     {
+      "source": {
+       "text": "Ich",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "I",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "sage",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "tell",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "dir",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "you",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "nicht",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "not",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "was",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "what",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "du",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "you",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "tun",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "do",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "sollst",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "to",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Ich",
+       "occurrence": 2
+      },
+      "targets": [
+       {
+        "text": "I",
+        "occurrence": 2
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "habe",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "decided",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "einmal",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "once",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "für",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "for",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "andere",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "others",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "entschieden",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "decided",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Das",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "That",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "war",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "was",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "genug",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "enough",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Sana ne yapman gerektiğini söylemeyeceğim. Bir kez başkaları adına karar verdim. O kadarı yetti.",
+    "words": [
+     {
+      "source": {
+       "text": "Ich",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "söylemeyeceğim",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "sage",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "söylemeyeceğim",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "dir",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Sana",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "nicht",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "söylemeyeceğim",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "was",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "ne",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "du",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "yapman",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "tun",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "yapman",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "sollst",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "gerektiğini",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Ich",
+       "occurrence": 2
+      },
+      "targets": [
+       {
+        "text": "verdim",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "habe",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "verdim",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "einmal",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Bir kez",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "für",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "adına",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "andere",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "başkaları",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "entschieden",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "karar verdim",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Das",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "O kadarı",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "war",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "yetti",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "genug",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "yetti",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "review": {
+   "status": "pending"
+  }
+ },
+ "ede3ff43-ef1c-5c07-ae77-c4aa6888dc32": {
+  "sourceText": "Ich sage dir nicht, was du tun sollst.",
+  "translations": {
+   "en": {
+    "text": "I will not tell you what to do.",
+    "words": [
+     {
+      "source": {
+       "text": "Ich",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "I",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "sage",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "tell",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "dir",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "you",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "nicht",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "not",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "was",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "what",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "du",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "you",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "tun",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "do",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "sollst",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "to",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Sana ne yapman gerektiğini söylemeyeceğim.",
+    "words": [
+     {
+      "source": {
+       "text": "Ich",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "söylemeyeceğim",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "sage",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "söylemeyeceğim",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "dir",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Sana",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "nicht",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "söylemeyeceğim",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "was",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "ne",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "du",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "yapman",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "tun",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "yapman",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "sollst",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "gerektiğini",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "review": {
+   "status": "pending"
+  }
+ },
+ "67d36009-5696-5554-ba0d-18fd7a1e9d32": {
+  "sourceText": "Jetzt weißt du, wie leicht es ist. Ich verurteile dich nicht. Ich erkenne dich.",
+  "translations": {
+   "en": {
+    "text": "Now you know how easy it is. I do not judge you. I recognise you.",
+    "words": [
+     {
+      "source": {
+       "text": "Jetzt",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Now",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "weißt",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "know",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "du",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "you",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "wie",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "how",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "leicht",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "easy",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "es",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "it",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "ist",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "is",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Ich",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "I",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "verurteile",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "judge",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "dich",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "you",
+        "occurrence": 2
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "nicht",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "not",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Ich",
+       "occurrence": 2
+      },
+      "targets": [
+       {
+        "text": "I",
+        "occurrence": 2
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "erkenne",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "recognise",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "dich",
+       "occurrence": 2
+      },
+      "targets": [
+       {
+        "text": "you",
+        "occurrence": 3
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Artık ne kadar kolay olduğunu biliyorsun. Seni yargılamıyorum. Seni tanıyorum.",
+    "words": [
+     {
+      "source": {
+       "text": "Jetzt",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Artık",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "weißt",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "biliyorsun",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "du",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "biliyorsun",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "wie",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "ne kadar",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "leicht",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "kolay",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "es",
+       "occurrence": 1
+      },
+      "targets": []
+     },
+     {
+      "source": {
+       "text": "ist",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "olduğunu",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Ich",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "yargılamıyorum",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "verurteile",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "yargılamıyorum",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "dich",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Seni",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "nicht",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "yargılamıyorum",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Ich",
+       "occurrence": 2
+      },
+      "targets": [
+       {
+        "text": "tanıyorum",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "erkenne",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "tanıyorum",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "dich",
+       "occurrence": 2
+      },
+      "targets": [
+       {
+        "text": "Seni",
+        "occurrence": 2
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "review": {
+   "status": "pending"
+  }
+ },
+ "79e9bc27-f636-5d3a-b62e-592e5813df6a": {
+  "sourceText": "Voss wartet an der Treppe zur Sternwarte.",
+  "translations": {
+   "en": {
+    "text": "Voss is waiting at the observatory stairs.",
+    "words": [
+     {
+      "source": {
+       "text": "wartet",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "is waiting",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "an",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "at",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "der",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "the",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Treppe",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "stairs",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "zur",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "observatory",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Voss gözlemevinin merdiveninde bekliyor.",
+    "words": [
+     {
+      "source": {
+       "text": "wartet",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "bekliyor",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "an",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "merdiveninde",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "der",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "merdiveninde",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Treppe",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "merdiveninde",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "zur",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "gözlemevinin",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "review": {
+   "status": "pending"
+  }
  }
 }
