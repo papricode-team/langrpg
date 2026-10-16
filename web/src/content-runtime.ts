@@ -6,6 +6,7 @@ import type { Exercise, Quest } from './content';
 import type { CourseExercise, CourseLexeme, CourseUnit } from './course';
 import { conditionMet, storyState, type DialogueCondition, type DialogueLine, type QuestGraph } from './dialogue';
 import type { PlacementQuestion } from './learning-context';
+import { installStoryItems } from './story-items';
 
 type JsonObject = Record<string, unknown>;
 const values = new Map<string, unknown>();
@@ -121,6 +122,7 @@ function updateBootstrap(body: JsonObject): void {
   collection('miniGameDefinitions', rows(body.minigames).map(row => ({ ...localizeMetadata(row), id: row.worldId ?? row.id, contentId: row.id })));
   Object.assign(runtimeObject('courseData'), { edition: body.edition ?? '', sources: runtimeArray('courseSources'), lexicon: runtimeArray('courseLexicon'), units: runtimeArray('courseUnits'), grammar: runtimeArray('courseGrammar') });
   contentCounts = data(body.counts) as Record<string, number>;
+  installStoryItems(body.storyItems);
   if (Object.keys(data(body.syllabus)).length) object('syllabus', data(body.syllabus));
 }
 async function syncMiniGameCatalogue(generation = revision): Promise<void> {
