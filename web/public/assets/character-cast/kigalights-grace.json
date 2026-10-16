@@ -4,23 +4,18 @@
   "recipe": "art/source/character-kit/cast/kigalights-grace.json",
   "recipeSha256": "a3f29e575098aac9d58c7829e2c273875835c2c0258e20bf9106f876fe37b215",
   "atlas": "web/public/assets/character-cast/kigalights-grace.webp",
-  "atlasSha256": "52e5614e4a5273c274ecf820d79d06c3456fbdda61770c814e5e1c2a512e2202",
+  "atlasSha256": "e61e8f1aa2cc5ee019e6cc4396bca9874b18b046ef2ae5cabefef2bc3741c74e",
   "geometry": "web/public/assets/character-cast/kigalights-grace.atlas.json",
-  "geometrySha256": "337de0fa80a46674cb36bccba363965efdb92f52682dcf55537f22c369c341a6",
-  "textureBytes": 14698464,
+  "geometrySha256": "5cd5e8631199160905ba9ae65b6898331cda4a37616b7b28599f070ba8bdc688",
+  "textureBytes": 14691280,
   "cell": [
     384,
     576
   ],
+  "sourceComponentsSha256": "72621ab9f00bbf27e8c6d2d12734278315265d0b6e6dcee5d8ff9e78ee3a5ce6",
   "proof": "art/proofs/character-cast/kigalights-grace.png",
-  "proofSha256": "8e24293940c519b7d1200a44d13850305a4cbf5032afed9911d87e5ae111c661",
-  "editorSha256": "6cdf8ea275231d1d01f82028825930b78829d902fd2256c9d873aa3830500bf0",
+  "proofSha256": "b644889ddc4ac691578464e4199a22b2733d433f94db81733dad39f668d4bd4b",
+  "editorSha256": "c84f7b175a473bea455930160667dd7c4ffdf8377329f0e1ce5a163ac2d7f61c",
   "assetVersion": "4c9d233bf71007a9",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "773e9f1d9fed4487",
-    "to": "4c9d233bf71007a9",
-    "unchangedResolvedInputsSha256": "c31d60fe1f3a35e94150413ed440e214322ee91e210366ef23f6f8f36e93e394"
-  },
-  "sourceComponentsSha256": "c31d60fe1f3a35e94150413ed440e214322ee91e210366ef23f6f8f36e93e394"
+  "frames": 36
 }

@@ -4,23 +4,18 @@
   "recipe": "art/source/character-kit/cast/rainmarket-resident-3.json",
   "recipeSha256": "5b043c3c91d94e0690bfa815f480608b9b98c294ac7449473f5e83ebdbbd8b3d",
   "atlas": "web/public/assets/character-cast/rainmarket-resident-3.webp",
-  "atlasSha256": "9b9f659fb35192874f2a029719f42bdf7ca3d1e263536c63597775f4f2d59198",
+  "atlasSha256": "a2d70d8b65330f36d71f9d5d4938a4078a2ce5b473c3687909405fc76352ffbf",
   "geometry": "web/public/assets/character-cast/rainmarket-resident-3.atlas.json",
-  "geometrySha256": "e446d1db4ceeaafef4af610f8a9bfe08d6b0c7c12eb0d6590e8f9548ce3eeacf",
-  "textureBytes": 14762964,
+  "geometrySha256": "697f120feada42b9594db0f300bafa2ce23ddba8e693634f91389e04e413101f",
+  "textureBytes": 14236488,
   "cell": [
     384,
     576
   ],
+  "sourceComponentsSha256": "fc9a8c6d7afa9cf55573aa1025fe1604900329b019b6f316589bb26457b89d0e",
   "proof": "art/proofs/character-cast/rainmarket-resident-3.png",
-  "proofSha256": "16e2bcb76236fc62bd02b48559606fc254e75fd3b9bcad0c384150584e977a6d",
-  "editorSha256": "8423f320f61af5e8edb57b8f8b913aae374d22e20f9be86ad8c5d2324cb70fcf",
+  "proofSha256": "e50d7affdf4f3500e814b8c18ae25fa12718ffad789a551522f34a666295a1d9",
+  "editorSha256": "82c146f35466db503807c0ccb92ed609af0135ac60a9813651d30a58754f3d0a",
   "assetVersion": "4c9d233bf71007a9",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "773e9f1d9fed4487",
-    "to": "4c9d233bf71007a9",
-    "unchangedResolvedInputsSha256": "b0e4eda15ca5cb1fe3541b41fdcd2417d7341aba9fdd218685cee655e257d1bb"
-  },
-  "sourceComponentsSha256": "b0e4eda15ca5cb1fe3541b41fdcd2417d7341aba9fdd218685cee655e257d1bb"
+  "frames": 36
 }

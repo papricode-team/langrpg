@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/seoulsteps-resident-7.json",
   "recipeSha256": "760a507d351477fafbf8580d1000541363ce28c642ce8ea448a03369088086f4",
   "atlas": "web/public/assets/character-cast/seoulsteps-resident-7.webp",
-  "atlasSha256": "17b219ba1dbf3cda10ff2af9643754f97408a162312b4512e1444e4f5244246d",
+  "atlasSha256": "126eb34c79ea1dd8c8e8487ba382a253ecca2774dfc86b2d4ceed24e978f1af1",
   "geometry": "web/public/assets/character-cast/seoulsteps-resident-7.atlas.json",
-  "geometrySha256": "710aeb04e14e641fea218980d7a7e937d56a19c92d2324605ed5448eb1f754b4",
-  "textureBytes": 14675260,
+  "geometrySha256": "b34f586c0b77e46022f693abd226aaebdae005f6c6e3d2510e72304b9352b44d",
+  "textureBytes": 14726052,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/seoulsteps-resident-7.webp",
-      "sha256": "17b219ba1dbf3cda10ff2af9643754f97408a162312b4512e1444e4f5244246d",
+      "sha256": "126eb34c79ea1dd8c8e8487ba382a253ecca2774dfc86b2d4ceed24e978f1af1",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/seoulsteps-resident-7.1.webp",
-      "sha256": "88e7ecce9287061f669e084eac5a97c5e156dcf9c894bc7ea96a1ae6ab9321f0",
+      "sha256": "2319d9b4e0b925c5b5f16145d28529e73423ae1c8592c9a62fc764f5ba1bc8fd",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,10 +27,10 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "ea690bda2d858315c773226878fc73ecd6ecf834c14f58fc1d84a0c913d5eaf0",
+  "sourceComponentsSha256": "9a41ef3206fee29f973e8a0530a7fddd16e78464d03ad95d3d8ec73838dcf0e1",
   "proof": "art/proofs/character-cast/seoulsteps-resident-7.png",
-  "proofSha256": "61c3f0929efe499600468b8bbe7d553a85d135deedbdf8cd5910f7f9cd5f69a2",
-  "editorSha256": "00546a45224605d9df822169bc37ba269bce6a32bc46cbbd898f80532f37fc59",
+  "proofSha256": "8b62b6b436ad91fc01c78d6ea53c7828c0ee0d50ee8c1c8e7c979043ce2bc1ea",
+  "editorSha256": "cdb3bd833e0118ec48b7b34fc16f6a2f0eded0599b98d285cbd2b61a3bc68772",
   "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

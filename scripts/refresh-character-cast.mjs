@@ -12,10 +12,8 @@ if(next.format.runtimeCell.join()!==previous.format.runtimeCell.join()||next.for
 const jobs=[];let reused=0;
 for(const entry of source.entries)for(const poseSet of ['walk',...Object.keys(entry.poses??{})]){
   const name=poseSet==='walk'?entry.id:`poses/${poseSet}/${entry.id}`,path=`web/public/assets/character-cast/${name}.json`,report=await json(path),recipe=await json(report.recipe);
-  const sameInputs=castSourceSignature(recipe,previous,poseSet)===castSourceSignature(recipe,next,poseSet);
   const currentInputs=castSourceSignature(recipe,next,poseSet);
-  const boundInputs=report.assetVersion===previous.assetVersion&&sameInputs||report.assetVersion===next.assetVersion&&report.sourceComponentsSha256===currentInputs;
-  const reusable=boundInputs&&await castBakeArtifactsCurrent(report);
+  const reusable=await castBakeArtifactsCurrent(report,{sourceComponentsSha256:currentInputs});
   if(!reusable){jobs.push({entry,poseSet});continue;}
   if(previous.assetVersion!==next.assetVersion)report.componentRevisionRebind={from:previous.assetVersion,to:next.assetVersion,unchangedResolvedInputsSha256:castSourceSignature(recipe,next,poseSet)};
   report.assetVersion=next.assetVersion;report.sourceComponentsSha256=castSourceSignature(recipe,next,poseSet);

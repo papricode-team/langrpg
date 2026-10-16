@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/rainmarket-resident-1.json",
   "recipeSha256": "353a60e18f1ba575caad5ba51a48943759b4910bee1f880819f545b76fbb02c3",
   "atlas": "web/public/assets/character-cast/rainmarket-resident-1.webp",
-  "atlasSha256": "5360d2bfb42bdbf58b637fc27ad4205cc2a16f92c4241c1625bfd566e982c46c",
+  "atlasSha256": "d0336a34250aad6117dcdb3e870be82aff19ddecf4ff8084c22708b0edb1cb91",
   "geometry": "web/public/assets/character-cast/rainmarket-resident-1.atlas.json",
-  "geometrySha256": "ba3d97379e4d0a23d733b60637f78b786759df3ec1958c46baf651c3e5c031be",
-  "textureBytes": 14106984,
+  "geometrySha256": "db0d18f4c90b281d4271b460814167d19e9c36d4bbdfa241a3c9901e681c3c56",
+  "textureBytes": 14103372,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/rainmarket-resident-1.webp",
-      "sha256": "5360d2bfb42bdbf58b637fc27ad4205cc2a16f92c4241c1625bfd566e982c46c",
+      "sha256": "d0336a34250aad6117dcdb3e870be82aff19ddecf4ff8084c22708b0edb1cb91",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/rainmarket-resident-1.1.webp",
-      "sha256": "ef151d371161d39c011b481acef601758421ef6d5e4a578598b71ad7d6f93dc1",
+      "sha256": "332b4dd4412372564a87e7c15c0f5d47a045777af348d044fcd06fc0cc955be0",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,10 +27,10 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "891470b0405fc224d6b1dfbf93d74e1167e4cfa3eb67dad4efe3f580f7beba40",
+  "sourceComponentsSha256": "cd97c5e2aac73a98ff2390f9e16e788e085d2bf6a1177a8317f80367b427e60e",
   "proof": "art/proofs/character-cast/rainmarket-resident-1.png",
-  "proofSha256": "9ede1df9b7abc836c317a6b3c9f83ffb6abea13a928ea3856cc7f315c32c0ca7",
-  "editorSha256": "d22c7f670b08561e1a967d24829c40035840b58d3762d80f0897df1b3b936353",
+  "proofSha256": "d03c952f8365e23432c4f165a65de75bca8c142f17d37d06f7030776f73e09ff",
+  "editorSha256": "987ae343bc4f9ac8ddeaeaefefdc019f017a1e1301b7470691c9316034ab9142",
   "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

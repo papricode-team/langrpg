@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/saffroncourt-nour.json",
   "recipeSha256": "03f45892c63cbe6ab4acd8ef13aaf5896a5405c6465127070e40778c68ca3f4e",
   "atlas": "web/public/assets/character-cast/saffroncourt-nour.webp",
-  "atlasSha256": "beaaca1f868a0ff4af61fa0e0268e9ee714ac7bc086b8a917ed6bc068c22b350",
+  "atlasSha256": "ba93d748d6240d9aeac32cf044b3e9bb61563a2ba9f5f5b2e9fea29ad030859c",
   "geometry": "web/public/assets/character-cast/saffroncourt-nour.atlas.json",
-  "geometrySha256": "86047431960443f1841f6e6fc0814ada9092e068933a195ac91aa7fd5f16d47f",
+  "geometrySha256": "aef497cdbf5e40f7561cae4592c359d61264429ce87b0c3c14e4f865e361b745",
   "textureBytes": 14351292,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/saffroncourt-nour.webp",
-      "sha256": "beaaca1f868a0ff4af61fa0e0268e9ee714ac7bc086b8a917ed6bc068c22b350",
+      "sha256": "ba93d748d6240d9aeac32cf044b3e9bb61563a2ba9f5f5b2e9fea29ad030859c",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/saffroncourt-nour.1.webp",
-      "sha256": "ffc38d4b7b6c7e28b56eadda7aa696551e209e05a98c40ebab3e4356be1118c6",
+      "sha256": "5b637fc7155769243bf924900d23a71e148b248bba3ba4d8c8c7d1792940cdea",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,10 +27,10 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "6b8f91cf8ae1f5fe64110451b0d09bff796104408f9c608db4ae67dac46d8827",
+  "sourceComponentsSha256": "0fb7ef44a3c4470efaf6777fd44b5cae796b49dd452d9f6eded8fc662dd53ade",
   "proof": "art/proofs/character-cast/saffroncourt-nour.png",
-  "proofSha256": "46749c2a09c0695feb3c3bd96b2406ed44f679ec75e984f0593012ee22f52f07",
-  "editorSha256": "cda005c96525e3db7f0a650f0696966b4e7851d378aa0756d916fa705b4b22d6",
+  "proofSha256": "d4c3fb1305141c37deaf814c87afaaffeb8d4cdf0daa08e339ed0d8110ad2532",
+  "editorSha256": "fa313c00e828be4470a4b23e5e02f1dd37615c3a5ffa3092e1fbcf17887065be",
   "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

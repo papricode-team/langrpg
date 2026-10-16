@@ -1,12 +1,12 @@
 {
   "textures": [
     {
-      "image": "riverweave-linh.webp?v=57711beddfe46757",
+      "image": "riverweave-linh.webp?v=f5d2963649dd491a",
       "frames": [
         {
           "filename": "0",
           "frame": {
-            "x": 1516,
+            "x": 1707,
             "y": 461,
             "w": 189,
             "h": 450
@@ -27,10 +27,10 @@
         {
           "filename": "1",
           "frame": {
-            "x": 1815,
-            "y": 1,
+            "x": 480,
+            "y": 461,
             "w": 189,
-            "h": 453
+            "h": 452
           },
           "rotated": false,
           "trimmed": true,
@@ -38,7 +38,7 @@
             "x": 101,
             "y": 73,
             "w": 189,
-            "h": 453
+            "h": 452
           },
           "sourceSize": {
             "w": 384,
@@ -48,7 +48,7 @@
         {
           "filename": "2",
           "frame": {
-            "x": 480,
+            "x": 671,
             "y": 461,
             "w": 189,
             "h": 452
@@ -195,7 +195,7 @@
         {
           "filename": "9",
           "frame": {
-            "x": 1170,
+            "x": 1361,
             "y": 461,
             "w": 172,
             "h": 451
@@ -216,7 +216,7 @@
         {
           "filename": "10",
           "frame": {
-            "x": 671,
+            "x": 862,
             "y": 461,
             "w": 251,
             "h": 452
@@ -342,7 +342,7 @@
         {
           "filename": "16",
           "frame": {
-            "x": 1344,
+            "x": 1535,
             "y": 461,
             "w": 170,
             "h": 451
@@ -363,7 +363,7 @@
         {
           "filename": "17",
           "frame": {
-            "x": 924,
+            "x": 1115,
             "y": 461,
             "w": 244,
             "h": 452
@@ -384,19 +384,19 @@
       ],
       "meta": {
         "size": {
-          "w": 2005,
+          "w": 1897,
           "h": 915
         },
         "scale": "1"
       }
     },
     {
-      "image": "riverweave-linh.1.webp?v=6b9346937b35ed6a",
+      "image": "riverweave-linh.1.webp?v=a40befca580d2f29",
       "frames": [
         {
           "filename": "18",
           "frame": {
-            "x": 1605,
+            "x": 1604,
             "y": 1,
             "w": 187,
             "h": 451
@@ -713,15 +713,15 @@
           "frame": {
             "x": 1371,
             "y": 1,
-            "w": 232,
+            "w": 231,
             "h": 452
           },
           "rotated": false,
           "trimmed": true,
           "spriteSourceSize": {
-            "x": 100,
+            "x": 101,
             "y": 80,
-            "w": 232,
+            "w": 231,
             "h": 452
           },
           "sourceSize": {

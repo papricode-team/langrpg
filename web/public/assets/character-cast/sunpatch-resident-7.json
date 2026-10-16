@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/sunpatch-resident-7.json",
   "recipeSha256": "8d96b4012127608372efcebbbc3aa4025dfb58bfe9d536ea635435f0350ca560",
   "atlas": "web/public/assets/character-cast/sunpatch-resident-7.webp",
-  "atlasSha256": "69481617b20073af8a71fabae40477246de66e36b03ddc17bd48dbde5e58cd62",
+  "atlasSha256": "bf6c00aa3c44fb283c7eca4d6e9bab9a8799b5d52ecea74a7124d9c409007943",
   "geometry": "web/public/assets/character-cast/sunpatch-resident-7.atlas.json",
-  "geometrySha256": "8173852d58aa3cdc3063d638a1eda87cc165b23f773241b49452621ede95619c",
-  "textureBytes": 14338416,
+  "geometrySha256": "e1746aec7171778f2360b3e6b6fa113df30ae646eb0afae12af99956aaa91529",
+  "textureBytes": 14331104,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/sunpatch-resident-7.webp",
-      "sha256": "69481617b20073af8a71fabae40477246de66e36b03ddc17bd48dbde5e58cd62",
+      "sha256": "bf6c00aa3c44fb283c7eca4d6e9bab9a8799b5d52ecea74a7124d9c409007943",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/sunpatch-resident-7.1.webp",
-      "sha256": "ae99e2e47333a15d920e8b97990c1d0bd4a8bee5c6bb7ee2467a6ea9f57268a5",
+      "sha256": "949d569b3cabab8d9cfb946624237eb02af10b4e2409ec0c5ed8c4f2aa4020f6",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,10 +27,10 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "905ede63b551258f35b647c445d3358598c16e9e957584a0b5f4beff1683b2c3",
+  "sourceComponentsSha256": "78511dde8cc08d6b085fe70901ffcfdf7504222681dd641af633557292766e12",
   "proof": "art/proofs/character-cast/sunpatch-resident-7.png",
-  "proofSha256": "e76f45ea6630a9dba4f4ecf8f25ea827198d40ce88ddd2b5a5ae753a8b0454d1",
-  "editorSha256": "31da6fe03944fddc4fa291a24774db36235ef6f2f13b88890f6d8cf532864fdd",
+  "proofSha256": "d906651f8a01d6019c62116dcf35029bd3888b4a41c8077fa4edd0bb419ab2fa",
+  "editorSha256": "bc08af3368381751626133392a317350c53bd9724a508e0dd3f407dd961d9d75",
   "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

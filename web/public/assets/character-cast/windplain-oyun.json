@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/windplain-oyun.json",
   "recipeSha256": "c5c9f4fd562b995c0be83968c1d0c3596704259004e16eb24afb94083d77f88c",
   "atlas": "web/public/assets/character-cast/windplain-oyun.webp",
-  "atlasSha256": "2ab931d609eee3a0218113e4e2c0e3d5e754719f211956075c4933368d925805",
+  "atlasSha256": "a55f2e131aa793c11dc086297fd899bb168875599094164cf0531f6684580111",
   "geometry": "web/public/assets/character-cast/windplain-oyun.atlas.json",
-  "geometrySha256": "53619beb8f663b1a7e7263f7354d8496a6ef43ef1c561de95cf31390da5ee19f",
+  "geometrySha256": "c5e03fa1c500a2b203ee5063e6c61ce868aa6e555ae4c4e83c19c9abf42b4007",
   "textureBytes": 14750896,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/windplain-oyun.webp",
-      "sha256": "2ab931d609eee3a0218113e4e2c0e3d5e754719f211956075c4933368d925805",
+      "sha256": "a55f2e131aa793c11dc086297fd899bb168875599094164cf0531f6684580111",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/windplain-oyun.1.webp",
-      "sha256": "76c477790a243ae0b808c2d3faba323525ece5feb6bba5c4b44a064ed769ed5f",
+      "sha256": "f6a560c82b78932b8be127faad8d138ae0117a269e7a305f413afece03312be6",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,10 +27,10 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "25474ee5d478774ede6717e8238cd7415f65fc4284a519bb4cc56bad0b6f8a7c",
+  "sourceComponentsSha256": "a00f1aaabf94f05f479dfb3df58635185d3c2ab678538c99b26c4615f02312b1",
   "proof": "art/proofs/character-cast/windplain-oyun.png",
-  "proofSha256": "7c93d7d0c457fd4f823e32dc3f8e73489973afe6c46b69d632430ea28632342f",
-  "editorSha256": "185e83a5c62192cb425321bf1633d1c5134183b00d8aa2fec13e2dcc7e64e1f7",
+  "proofSha256": "c590ce5c43f83ebc379f6624efd7086a005f9c6d5a179554b140d621e3882ff8",
+  "editorSha256": "06583644879b5884aaca6225ba1337d5449f319b78b7e762ee50190889105a20",
   "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

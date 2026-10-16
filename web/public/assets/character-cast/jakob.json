@@ -4,38 +4,38 @@
   "recipe": "art/source/character-kit/cast/jakob.json",
   "recipeSha256": "a533db99913ea5201ec69eee9a46861396ce30365b2685845b6f7e7664cef5d5",
   "atlas": "web/public/assets/character-cast/jakob.webp",
-  "atlasSha256": "36ffa96ca6e47c08f2a073f7e576dade4eb14921d6d54bba20dd815324904b58",
+  "atlasSha256": "163faea8a37bc745eccd99701c7fb75577c32062d8cc4a6207ea2e4ebdd0c00a",
   "geometry": "web/public/assets/character-cast/jakob.atlas.json",
-  "geometrySha256": "668cfda0f76215bfcf819acc589674607a90476dbb8bdda8b69042df55c14107",
-  "textureBytes": 14197024,
+  "geometrySha256": "3d3ed1091b8f3d127df9ae8d5b4231c2de64a7f377ab3c54705e9a7434c4ee01",
+  "textureBytes": 14189736,
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "796822038187225dca18751eb6438a5bb1c364e6e8b57b3638a4258849af0bd1",
+  "sourceComponentsSha256": "c2d573aa721781f0b0f4f9c90a8c3eadd9692ef8c692fcc668f8f22e32a4b9fa",
   "proof": "art/proofs/character-cast/jakob.png",
-  "proofSha256": "94e15058731f656b8525ae0c4cca07112d14e5970af695b2e1bbee8e68978177",
-  "editorSha256": "e22a6c18efcd5412de7a8219c9fd8987232ee637c6eec94e2904695d0f006040",
+  "proofSha256": "0c97f45258205056ee1d0a69214b4c939a9400b4c9d9a002c883f89b8bc8314d",
+  "editorSha256": "9517b24f4a273dea93c59ca806fe1b9b50619789c494a278184e926317308317",
   "assetVersion": "4c9d233bf71007a9",
   "frames": 36,
   "native": {
     "key": "character-cast-jakob-native",
     "image": "web/public/assets/character-cast/native/jakob.webp",
     "atlas": "web/public/assets/character-cast/native/jakob.atlas.json",
-    "sha256": "705d0ccb33ebefa9b15b60f5e585f0fec5286392390393a3f327ee4fc61ec484",
-    "atlasSha256": "11a2348ca76907dcbb5fca65ac5a88e5405cec8a60bbc5e22d0108539a011362",
+    "sha256": "72817fcae13dd92c9c7edd337b328193f9cfa62a870ed5c173c9d578f09d223a",
+    "atlasSha256": "c654b5709cc1d62841e095e9a5998d1fad3dd6afa99ea056d847ebe549ccacba",
     "textureBytes": 28776368,
     "multiAtlas": true,
     "images": [
       {
         "path": "web/public/assets/character-cast/native/jakob.webp",
-        "sha256": "705d0ccb33ebefa9b15b60f5e585f0fec5286392390393a3f327ee4fc61ec484",
+        "sha256": "72817fcae13dd92c9c7edd337b328193f9cfa62a870ed5c173c9d578f09d223a",
         "firstFrame": 0,
         "frameCount": 18
       },
       {
         "path": "web/public/assets/character-cast/native/jakob.1.webp",
-        "sha256": "2c179b5e3b33bd95e798a7c48ff7a6942c939c58924282e03139efc1d2cbca35",
+        "sha256": "038c58911a7278407d5f586aa8f4b9c765187351b65fa64b3fdf1bbf79ae1b6a",
         "firstFrame": 18,
         "frameCount": 18
       }
@@ -45,6 +45,6 @@
       768
     ],
     "source": "art/proofs/character-cast/jakob.webp",
-    "sourceSha256": "e22a6c18efcd5412de7a8219c9fd8987232ee637c6eec94e2904695d0f006040"
+    "sourceSha256": "9517b24f4a273dea93c59ca806fe1b9b50619789c494a278184e926317308317"
   }
 }

@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/berg.json",
   "recipeSha256": "70a9819d302c02a56ba15f440f5e8c9760e9d301cd1e8c65230b2a0c93afa67e",
   "atlas": "web/public/assets/character-cast/berg.webp",
-  "atlasSha256": "5addd75c18ff28c0235d57545f5efb5f82482458732c800e6086a03211ff13ec",
+  "atlasSha256": "56ac6d7020ef8de4d11fd925ec2d9648495888c74d268b4a4edfa559a35b2ca5",
   "geometry": "web/public/assets/character-cast/berg.atlas.json",
-  "geometrySha256": "f2705033ed56bb03a0b9d8156cd99796dd4197f33ad2658d60662a8733fd7974",
+  "geometrySha256": "dc46e872b583728bf64e6f5dec2fc7979c9822b22038b808c9190d984aaca0b0",
   "textureBytes": 14739904,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/berg.webp",
-      "sha256": "5addd75c18ff28c0235d57545f5efb5f82482458732c800e6086a03211ff13ec",
+      "sha256": "56ac6d7020ef8de4d11fd925ec2d9648495888c74d268b4a4edfa559a35b2ca5",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/berg.1.webp",
-      "sha256": "b0dabe2f79e5c2103954d293c5e59fc9c3200c4371821d6cf73f815ca95a7279",
+      "sha256": "cf3202781d6bbaf313cb9dfed71b5aacc6a3906215b2a87f1089ffcba5c58047",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,30 +27,30 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "56732af864c5254d9e649a5be6c776168b8d27541b85a1130307725526068052",
+  "sourceComponentsSha256": "681838dbd210eb75bd29d8aa34ece0ee64dfdae5ba96f2bae2f4f8d7d0e0dcef",
   "proof": "art/proofs/character-cast/berg.png",
-  "proofSha256": "379dd412ce4a639d32d211b5fb44b6fb8a5eda16f49217143c00bfbcfbc4fc0c",
-  "editorSha256": "5c6697c843a11ac5ad8f877668f9045e303206d1a4cf8ada3ded0c82ebb1efd2",
+  "proofSha256": "4e092bb31247c3beb4c2597f6a9e2a71ac9bc2fde3307fa3e6c19fc660f8731f",
+  "editorSha256": "3b90c7778028921ee5e672630f9ad525a27faacf6581ca14de5b65bcbc9788ed",
   "assetVersion": "4c9d233bf71007a9",
   "frames": 36,
   "native": {
     "key": "character-cast-berg-native",
     "image": "web/public/assets/character-cast/native/berg.webp",
     "atlas": "web/public/assets/character-cast/native/berg.atlas.json",
-    "sha256": "52609fcaa2a3f28bc12517050c19e8da5615e52b41d98fe4ce16f3f88dc10d9d",
-    "atlasSha256": "6b2e2397957adf90b93de5d8ee6d282257a498e3bc9d2fae4a378dff9234cfd0",
+    "sha256": "352b331d79440080977c338675366d0b79737aaa5f2f01ea8fdbe1126058dde9",
+    "atlasSha256": "267a121bdb271a8b6c12bd639016ddec56880eb3e8ec8a65e2acd49ffa1bfd57",
     "textureBytes": 28578928,
     "multiAtlas": true,
     "images": [
       {
         "path": "web/public/assets/character-cast/native/berg.webp",
-        "sha256": "52609fcaa2a3f28bc12517050c19e8da5615e52b41d98fe4ce16f3f88dc10d9d",
+        "sha256": "352b331d79440080977c338675366d0b79737aaa5f2f01ea8fdbe1126058dde9",
         "firstFrame": 0,
         "frameCount": 18
       },
       {
         "path": "web/public/assets/character-cast/native/berg.1.webp",
-        "sha256": "75854303c71990c3373ed881109fb289678a20a19c25c67cd6f43268d60b633b",
+        "sha256": "9c04176653952365bdc17397e10f386e40e107418e720da2eb51cce5b6228928",
         "firstFrame": 18,
         "frameCount": 18
       }
@@ -60,6 +60,6 @@
       768
     ],
     "source": "art/proofs/character-cast/berg.webp",
-    "sourceSha256": "5c6697c843a11ac5ad8f877668f9045e303206d1a4cf8ada3ded0c82ebb1efd2"
+    "sourceSha256": "3b90c7778028921ee5e672630f9ad525a27faacf6581ca14de5b65bcbc9788ed"
   }
 }

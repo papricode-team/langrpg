@@ -4,23 +4,18 @@
   "recipe": "art/source/character-kit/cast/terracielo-resident-3.json",
   "recipeSha256": "2878f0427e1ef640aec52ae564ea2404fbb4ccf2708b4d92317752a4ac7392ab",
   "atlas": "web/public/assets/character-cast/terracielo-resident-3.webp",
-  "atlasSha256": "16fc540c34ad22472b0d121dc89b642e5a942ee8415d6dd0e0637bd9971b78ea",
+  "atlasSha256": "e29542a170ced71ab3aafaee61d15640332ca8d7d632a0833040d0782ae15d1d",
   "geometry": "web/public/assets/character-cast/terracielo-resident-3.atlas.json",
-  "geometrySha256": "7df7594e09c35d508bdb8ca90b4f94f4c5bd9c6657b59d3841539d26f7cc5566",
+  "geometrySha256": "d66bd8dac27a49efb61b5d5c5edf5a1ec2389d9d877102b505fd51abf1379f2b",
   "textureBytes": 13729080,
   "cell": [
     384,
     576
   ],
+  "sourceComponentsSha256": "42dda54fd1b123b7e5c3202a53c04cb05477674d125164156c5d8a1781ef69e2",
   "proof": "art/proofs/character-cast/terracielo-resident-3.png",
-  "proofSha256": "1865931286ec07bc1145e408cca05e6045465089423e36eb2f2e0638db2f70d6",
-  "editorSha256": "41057afb57b5c92925a3bd82d8af2fc3be136e222760473d3307bbf93dfd82ae",
+  "proofSha256": "a39372d9361c113b0463cadfd94b9ab89e967439267496aa17a2a4355baae6a5",
+  "editorSha256": "c7e6b6aacf6f2cf8ad609660db6146f0c64032b831ade3c8dc56c5a0fbf43626",
   "assetVersion": "4c9d233bf71007a9",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "773e9f1d9fed4487",
-    "to": "4c9d233bf71007a9",
-    "unchangedResolvedInputsSha256": "da60f3434630352636fc09faca8c7e39a4d7bc1707ba78e4cf481dcb00eb3e21"
-  },
-  "sourceComponentsSha256": "da60f3434630352636fc09faca8c7e39a4d7bc1707ba78e4cf481dcb00eb3e21"
+  "frames": 36
 }

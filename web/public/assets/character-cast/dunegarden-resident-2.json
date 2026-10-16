@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/dunegarden-resident-2.json",
   "recipeSha256": "d810ec561edd77fcd6d00c5b90fdcb4b8f9a35a953a7fc7ced10c09f984f195e",
   "atlas": "web/public/assets/character-cast/dunegarden-resident-2.webp",
-  "atlasSha256": "aa87f36b58b19a5d307b9676e8151b41c42a4672c611fd43bff14f3c2679bd58",
+  "atlasSha256": "e713365598e5728d46d746e208a4b2c90a64961bcd6be3614fd6e8595ea29747",
   "geometry": "web/public/assets/character-cast/dunegarden-resident-2.atlas.json",
-  "geometrySha256": "90b2a13b8673c1ba97e27ba16aeb722bed9b523ad11d13793fb61712543472d2",
-  "textureBytes": 13878172,
+  "geometrySha256": "8e600ec628e9931d1e8ad226a5711ea3fe1f14f36bd984697a4f57ceec0afd1a",
+  "textureBytes": 13874556,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/dunegarden-resident-2.webp",
-      "sha256": "aa87f36b58b19a5d307b9676e8151b41c42a4672c611fd43bff14f3c2679bd58",
+      "sha256": "e713365598e5728d46d746e208a4b2c90a64961bcd6be3614fd6e8595ea29747",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/dunegarden-resident-2.1.webp",
-      "sha256": "0f1c2d13fdb84106c10b065bca9fab0ba6fcd70d5b9ebc6f51561cddeedddd3b",
+      "sha256": "7474fc928b27f5ff6bbad5175789d05cb0b00b972b106425533ade19b23d89ab",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,10 +27,10 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "e96e2c69bcb87299ce2c4a65e52eb99a8bfc9aef633924f22950e46f45bf0bd2",
+  "sourceComponentsSha256": "8774ad9c061611adad253bb635d7a8fce76e7bf7cdd7fbc27e37cca6e1d05715",
   "proof": "art/proofs/character-cast/dunegarden-resident-2.png",
-  "proofSha256": "b42599da024ec944d8c784806e5537e45a8a9451f3c26e6d1e01618463533b9b",
-  "editorSha256": "f2983e78e2a54c11fa5cc022aae2ac223fa5bc1b32a73022e79be4a882b5c243",
+  "proofSha256": "d06068d54adb657f2a120ed79113136a448c02088ed07d59877544a316c94d17",
+  "editorSha256": "a1a04cdb9eac0d013377a350ec948d7910cffc18913b7c73eb0feec672732fe7",
   "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

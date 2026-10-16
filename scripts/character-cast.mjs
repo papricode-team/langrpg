@@ -14,6 +14,11 @@ const SOURCE='art/source/character-kit/cast';
 const OUTPUT='web/public/assets/character-cast';
 const json=async path=>JSON.parse(await readFile(path,'utf8'));
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
+// Pixel processing is a bake input too: changed transparency/compositing rules
+// must invalidate existing NPC sheets even when every component is unchanged.
+const rendererSignature=hash(Buffer.concat(await Promise.all([
+  'web/src/character-compositor.mjs','scripts/bake-character-sheet.mjs','scripts/character-atlas.mjs',
+].map(path=>readFile(resolve(ROOT,path))))));
 const safe=id=>typeof id==='string'&&/^[a-z][a-z0-9-]*$/.test(id);
 // Keep the reviewed component revision reproducible independently of later wardrobe edits.
 const characterCatalogue=await json(resolve(ROOT,SOURCE,'component-catalogue.json'));
@@ -63,7 +68,8 @@ function castPaths(id,poseSet) {
 }
 
 /** Every runtime page must remain intact before an unchanged bake is reused. */
-export async function castBakeArtifactsCurrent(report,{root=ROOT}={}) {
+export async function castBakeArtifactsCurrent(report,{root=ROOT,sourceComponentsSha256}={}) {
+  if(sourceComponentsSha256!==undefined&&report.sourceComponentsSha256!==sourceComponentsSha256)return false;
   const paths=castPaths(report.id,report.poseSet??'walk'),recipe=`${SOURCE}/${report.id}.json`;
   if(report.recipe!==recipe||report.atlas!==paths.atlas||report.geometry!==paths.geometry||report.proof!==paths.proof||report.images!==undefined&&!Array.isArray(report.images))return false;
   const pages=[{path:report.atlas,sha256:report.atlasSha256},...(report.images??[])];
@@ -106,9 +112,9 @@ export async function bakeNativeCastVariant(entry,{root=ROOT,componentCatalogue=
   return {key:`character-cast-${entry.id}-native`,image,atlas,...packed,cell:componentCatalogue.format.editorCell,source:`art/proofs/character-cast/${entry.id}.webp`,sourceSha256:hash(await readFile(input))};
 }
 
-export function castSourceSignature(recipe,catalogue,poseSet='walk') {
+export function castSourceSignature(recipe,catalogue,poseSet='walk',renderer=rendererSignature) {
   const posed=catalogueForPose(poseSet,catalogue);
-  return hash(JSON.stringify(['down','right','up','left'].map(facing=>resolveRecipe(recipe,facing,posed).layers)));
+  return hash(JSON.stringify({renderer,layers:['down','right','up','left'].map(facing=>resolveRecipe(recipe,facing,posed).layers)}));
 }
 
 export async function bakeCastEntry(entry,{root=ROOT,poseSet='walk',componentCatalogue=characterCatalogue}={}) {

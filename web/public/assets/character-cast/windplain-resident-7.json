@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/windplain-resident-7.json",
   "recipeSha256": "549807180490282b0b993d0a4f45da3945aec44789fd5a9c7adda130c907a361",
   "atlas": "web/public/assets/character-cast/windplain-resident-7.webp",
-  "atlasSha256": "f4166c0aa6af98862b3f026f764f248a6d1b19e1ada7561837620523d22123b4",
+  "atlasSha256": "c2812cfa944940676ed6050fd9762c74df76e8317c2277253ab3e502bac440b6",
   "geometry": "web/public/assets/character-cast/windplain-resident-7.atlas.json",
-  "geometrySha256": "9a05311acaa5117ba52d4f8bea3e81fd845bac2fb751e18d60f0e018b88fd801",
-  "textureBytes": 14331628,
+  "geometrySha256": "03f612640156305922e088a976995584b0c03763fb1927ed2a4d715e13a8c05b",
+  "textureBytes": 14323984,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/windplain-resident-7.webp",
-      "sha256": "f4166c0aa6af98862b3f026f764f248a6d1b19e1ada7561837620523d22123b4",
+      "sha256": "c2812cfa944940676ed6050fd9762c74df76e8317c2277253ab3e502bac440b6",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/windplain-resident-7.1.webp",
-      "sha256": "e5e9499b502c6a2eb6cc8379e6d70d8c4c8862dcd1244dcf72b6f98c18c50842",
+      "sha256": "a094225194b7b5750c7651500c1acc7b3e31c1ee0994ff4c5304ad446c4db07f",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,10 +27,10 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "cf16799b7452905340327d59f1b095f14b27d0109d303185ade08e5df3701733",
+  "sourceComponentsSha256": "6d87f7104f83ee978fbaf4db17a5ccb58dc5cb6f23a9ce8d9d4134084f7c69a2",
   "proof": "art/proofs/character-cast/windplain-resident-7.png",
-  "proofSha256": "4218d7fb5059258cf9d22c0c10e87369f1beee14f28f085523174f7b734481ca",
-  "editorSha256": "b664471e8d00d78ec1ddf2951b3d06cf6d5a4aff9c6f0810715bc623f43d629d",
+  "proofSha256": "faf923a99831a41f1fceb5de62d10a8f57acb59f8a4695a5217b139b85ee8375",
+  "editorSha256": "a35f7d5755f58054c56fa06c25fff31a7ed52b723abc2e389ec0ff5338ae3317",
   "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

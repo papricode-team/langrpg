@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/cedarbay-resident-7.json",
   "recipeSha256": "c54355fcd3e5657416ddba8054402effed0e3a81fca14c59ce042c78de9aca3b",
   "atlas": "web/public/assets/character-cast/cedarbay-resident-7.webp",
-  "atlasSha256": "3628442ec547f7f010af9356641c3f75ed38503add0902b1bf60069ce434be9e",
+  "atlasSha256": "a15e98c5d02fbb369db7bb5a90c4eab83965b59d6259728322cd0c0b75313c7c",
   "geometry": "web/public/assets/character-cast/cedarbay-resident-7.atlas.json",
-  "geometrySha256": "8db6e4d16a67b4e3c44a8ee1a813f9afc3e4bbbe0c9a743d136621bb8376254c",
+  "geometrySha256": "29e71644b35121c54c8fb03457f2c158f5fb133781ea26efebf88d9ebee553f3",
   "textureBytes": 14445464,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/cedarbay-resident-7.webp",
-      "sha256": "3628442ec547f7f010af9356641c3f75ed38503add0902b1bf60069ce434be9e",
+      "sha256": "a15e98c5d02fbb369db7bb5a90c4eab83965b59d6259728322cd0c0b75313c7c",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/cedarbay-resident-7.1.webp",
-      "sha256": "60315a14ca5bc41e1de98ae9f0c8aeac72142d994fa10038aeedc069ffdc4059",
+      "sha256": "5fdda0de4c3d5d72913414fae93bcf4be1166390df434c625255437574e6f5a8",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,10 +27,10 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "de72ff515eac75876071efcaaabff944b24391296ff82661edf8ed10d3fa00a1",
+  "sourceComponentsSha256": "56477311bd95704cb7d2bd9fbb2f1b5c7d76e96d5e90fb242ddd061509665667",
   "proof": "art/proofs/character-cast/cedarbay-resident-7.png",
-  "proofSha256": "dd3a0f2d339d6cd891f2175f242563a100e2d97355bc3838740f11c5fb7e2260",
-  "editorSha256": "63dab5ac1627fd0f4868dca5a590b3a506b6b9304435dfa6f71998fb12806946",
+  "proofSha256": "75aca8e77f48ea0803b35634d147aa41c9768899999c69205ef5c1e184980b2d",
+  "editorSha256": "fd7f48b575ace9264afe0abc1f5dac738e92f6cbf6c13988581f5cc647344a33",
   "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

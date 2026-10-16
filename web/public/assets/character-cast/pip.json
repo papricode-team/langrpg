@@ -4,38 +4,38 @@
   "recipe": "art/source/character-kit/cast/pip.json",
   "recipeSha256": "35daa018e6fac0de7f2a8a8c2baedf868eb2be76690a8a31451eef6c4be0cd3b",
   "atlas": "web/public/assets/character-cast/pip.webp",
-  "atlasSha256": "0c073620179d66941e0235cf76eaca5e71b95b406914df31102d069d90b2cb9a",
+  "atlasSha256": "33d4931f2a0a565350be505fc22c1760506a0c03d4e5266b47e774f68d7380f5",
   "geometry": "web/public/assets/character-cast/pip.atlas.json",
-  "geometrySha256": "ec67441fd6fdee0d924669d2703026b9b09b0a786d15fa21464a7e7b2688b544",
+  "geometrySha256": "6904bad6df33344417400bb2e04e66b5c5823811f9249fcd2ee135324e8c4641",
   "textureBytes": 14734720,
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "5a17d25e429207916200cc00f914bbfcced3ebf3998dd34d6f31968cef592a20",
+  "sourceComponentsSha256": "14fcbddf4909e066f7dfa1f7c2cf81e88a75a992fdf76a7e2c738ffb7de74f7e",
   "proof": "art/proofs/character-cast/pip.png",
-  "proofSha256": "95f40a3df8fe02da6f87e4f62a537753042814dc12de5b71b594c9079e535322",
-  "editorSha256": "2979b75444054b27eb967a7f7a5edb12d38a85187643f33eb771fb38b4fa90b6",
+  "proofSha256": "b3c8d9f29fb8163800369cf3c3b3d6a70faa6cbeb64f45b406cad3e2037d8400",
+  "editorSha256": "c639f05f6c3e14a42eaa4bc05638a5bd8888fa4fae6bcc0c8ff6b9871ddc65b6",
   "assetVersion": "4c9d233bf71007a9",
   "frames": 36,
   "native": {
     "key": "character-cast-pip-native",
     "image": "web/public/assets/character-cast/native/pip.webp",
     "atlas": "web/public/assets/character-cast/native/pip.atlas.json",
-    "sha256": "71c311d9a6ec455e72b541a223cb18ac6ade249ff5a65d1bfe841e849d81b0d4",
-    "atlasSha256": "3bb3e9c8fc97c3353978d2b9924d457892e203ead94d91d69fefdee80f95f4e5",
+    "sha256": "054088b81fabfac354e6613b8734d69ac47b97dbd3591d9a98a603505c4dd14b",
+    "atlasSha256": "6b3d6b98bfda78fd9759da0fa107194f3d98927d0f30030f865c4d421ea3c099",
     "textureBytes": 28709232,
     "multiAtlas": true,
     "images": [
       {
         "path": "web/public/assets/character-cast/native/pip.webp",
-        "sha256": "71c311d9a6ec455e72b541a223cb18ac6ade249ff5a65d1bfe841e849d81b0d4",
+        "sha256": "054088b81fabfac354e6613b8734d69ac47b97dbd3591d9a98a603505c4dd14b",
         "firstFrame": 0,
         "frameCount": 18
       },
       {
         "path": "web/public/assets/character-cast/native/pip.1.webp",
-        "sha256": "448aad343cfe37a6dd7af22309e1f5ce6eca017438c6c891275ac6da7bbfbdb6",
+        "sha256": "2ff3768df14c8aaa9becf67279ed70783070a7f69846b5d368e9300b8fa01acc",
         "firstFrame": 18,
         "frameCount": 18
       }
@@ -45,6 +45,6 @@
       768
     ],
     "source": "art/proofs/character-cast/pip.webp",
-    "sourceSha256": "2979b75444054b27eb967a7f7a5edb12d38a85187643f33eb771fb38b4fa90b6"
+    "sourceSha256": "c639f05f6c3e14a42eaa4bc05638a5bd8888fa4fae6bcc0c8ff6b9871ddc65b6"
   }
 }

@@ -4,38 +4,38 @@
   "recipe": "art/source/character-kit/cast/ruth.json",
   "recipeSha256": "887c22ac9eb0c54a8fbf9b6cb5fc42f544e31a95557f57aea1041be72c63985c",
   "atlas": "web/public/assets/character-cast/ruth.webp",
-  "atlasSha256": "238f6107e9ebdd3b563b751fb2a6e5a12d7d058b47dca36b8dbea1d2891707f5",
+  "atlasSha256": "912d6a6befe66d37ec345be9f240b7ce5cca0e6aded74ed30d1accff058466ec",
   "geometry": "web/public/assets/character-cast/ruth.atlas.json",
-  "geometrySha256": "5327b89c9d22dfbef80a411045a23cfed51fc9d2a733eb6e74b2685454083ab9",
-  "textureBytes": 14861096,
+  "geometrySha256": "93c147b6cbd0d8c496b32c9d32e1286d015e9dcd55cf47f6dfa0cd30525b2a63",
+  "textureBytes": 14853804,
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "0dafccdceb642baaf0ec5f1a1a75cc10cd658a9272f3932dd8dfa1b3f1546556",
+  "sourceComponentsSha256": "1995dfb537f7b6652330c7b25acf2eec4e71df6d8ce20cffc9d604de58a95dc1",
   "proof": "art/proofs/character-cast/ruth.png",
-  "proofSha256": "da3f8fe2ed3be1a835804c67f1a74c92389c6643fb75585579458f7584afa4a7",
-  "editorSha256": "df2d791ac0418da35b1f89886016d266c059d15fc120b61c3e8fb187388da565",
+  "proofSha256": "32661ac2185962e99e896ae0df87155c931bc7f349625c7821ff0c4f9ac0922f",
+  "editorSha256": "0a5dbf11ad5a05c269847f878f7d7c08cc494bca779abc885fa0fe1c2b808629",
   "assetVersion": "4c9d233bf71007a9",
   "frames": 36,
   "native": {
     "key": "character-cast-ruth-native",
     "image": "web/public/assets/character-cast/native/ruth.webp",
     "atlas": "web/public/assets/character-cast/native/ruth.atlas.json",
-    "sha256": "256a1a1b3b669ac14e3aca9bc7f51970cb9df08772d619c52e060f947e76a01a",
-    "atlasSha256": "b5fc205788dce60f5252f95370d87ccb5d30e5e8872e85ac979984b7df9de4a2",
+    "sha256": "0cfc1250fa2fbf364922df65e32a2ed9511a37b038862bca7915c0c3e0f518e8",
+    "atlasSha256": "a3c5e345bf52e57c73c896ef9a0176014b2356b3f5a07216a1d309e3852a8998",
     "textureBytes": 28060828,
     "multiAtlas": true,
     "images": [
       {
         "path": "web/public/assets/character-cast/native/ruth.webp",
-        "sha256": "256a1a1b3b669ac14e3aca9bc7f51970cb9df08772d619c52e060f947e76a01a",
+        "sha256": "0cfc1250fa2fbf364922df65e32a2ed9511a37b038862bca7915c0c3e0f518e8",
         "firstFrame": 0,
         "frameCount": 18
       },
       {
         "path": "web/public/assets/character-cast/native/ruth.1.webp",
-        "sha256": "66d585406d1b4fa68283ea335650782d9c7381b09968e492d370d15f7517ff3c",
+        "sha256": "7cd97c096e4e2fef0a7197d7e130d2f0fe767affc2ea1a2db48210488937b12c",
         "firstFrame": 18,
         "frameCount": 18
       }
@@ -45,6 +45,6 @@
       768
     ],
     "source": "art/proofs/character-cast/ruth.webp",
-    "sourceSha256": "df2d791ac0418da35b1f89886016d266c059d15fc120b61c3e8fb187388da565"
+    "sourceSha256": "0a5dbf11ad5a05c269847f878f7d7c08cc494bca779abc885fa0fe1c2b808629"
   }
 }

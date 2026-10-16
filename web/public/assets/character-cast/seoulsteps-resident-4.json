@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/seoulsteps-resident-4.json",
   "recipeSha256": "feba03a0e1eec2c646c75f9e8688d886d508a4eb7424a0189c8541b512f87576",
   "atlas": "web/public/assets/character-cast/seoulsteps-resident-4.webp",
-  "atlasSha256": "9b795f16c0090601777f38644bab457f18b8872711ada17bb8deb011bd692354",
+  "atlasSha256": "71279d0ca8543d463f587018b470415dd13a7d624e71611aaf7447b71a93fc71",
   "geometry": "web/public/assets/character-cast/seoulsteps-resident-4.atlas.json",
-  "geometrySha256": "3a4f659c66a17d4b252575f7c5f76271935e2e113b31a40ee8968759aa13cf2b",
-  "textureBytes": 14084384,
+  "geometrySha256": "cf333e9d8d8aa673a7c4543b8ed1ed8f2530643482aae212de7dbf82dbf3160d",
+  "textureBytes": 14080752,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/seoulsteps-resident-4.webp",
-      "sha256": "9b795f16c0090601777f38644bab457f18b8872711ada17bb8deb011bd692354",
+      "sha256": "71279d0ca8543d463f587018b470415dd13a7d624e71611aaf7447b71a93fc71",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/seoulsteps-resident-4.1.webp",
-      "sha256": "2a06260bbe9ebb31386b605a2e2c7a3679f89994e6b8285cbd4d819bac909725",
+      "sha256": "5515dea0d511d5e11a44ab5e036588e2be357457cbaca4a10e5953b7cdc60ffb",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,10 +27,10 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "d1cc6dad0ecddae3e6221fd257b966207359e60aaa395db1c40af4bcbc584c9c",
+  "sourceComponentsSha256": "7cdfdb069944f8a59458a0a2a2a44a1ff64cac98976fb5c8f9d7b27ad3c5424a",
   "proof": "art/proofs/character-cast/seoulsteps-resident-4.png",
-  "proofSha256": "544c198b67f466915f6079ee9cff83d11fb5ef0f41f36d16ef4e70f880949dc3",
-  "editorSha256": "4e221ff2e50b89a707d539b20582581ce0e0e9273c0c764f36b6cd9d625b8eac",
+  "proofSha256": "166540eea0cf5a6f58a89ca28830bcc966671df864e354a22713216f67b2149e",
+  "editorSha256": "c87b47c4a4d846204fed6277cf7d5d7762eb4d4e8ca6e74c87790c14afc60596",
   "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

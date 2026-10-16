@@ -6,12 +6,13 @@ import {resolve,dirname} from 'node:path';
 import {createHash} from 'node:crypto';
 import {castInventory,validateCastEntries,buildCast,bakeCastEntry,bakeNativeCastVariant,castSourceSignature,castBakeArtifactsCurrent} from './character-cast.mjs';
 
-test('cast input signature changes only when its resolved component pixels or contracts change',async()=>{
+test('cast input signature includes rendering rules as well as resolved component pixels and contracts',async()=>{
   const catalogue=JSON.parse(await readFile('art/source/character-kit/cast/component-catalogue.json','utf8'));
   const recipe=JSON.parse(await readFile('art/source/character-kit/cast/marta.json','utf8'));
   const signature=castSourceSignature(recipe,catalogue),next=structuredClone(catalogue);
   next.assetVersion='new-wardrobe';
   assert.equal(castSourceSignature(recipe,next),signature);
+  assert.notEqual(castSourceSignature(recipe,catalogue,'walk','updated-transparency-rules'),signature);
   next.components.find(p=>p.id==='headwear-beanie').sheets.primary.runtimePages[0].sha256='unused-change';
   assert.equal(castSourceSignature(recipe,next),signature);
   next.components.find(p=>p.id==='body-regular').sheets.skin.runtimePages[0].sha256='paint-change';
@@ -131,6 +132,12 @@ test('unchanged cast reuse verifies every page hash and byte limit, retained edi
     report.recipeSha256=hash(data.get(report.recipe));report.atlasSha256=hash(data.get(report.atlas));report.geometrySha256=hash(data.get(report.geometry));report.proofSha256=hash(data.get(report.proof));report.editorSha256=hash(data.get(proof+'.webp'));
     report.images=[{path:report.atlas,sha256:report.atlasSha256,firstFrame:0,frameCount:18},{path:prefix+'.1.webp',sha256:hash(data.get(prefix+'.1.webp')),firstFrame:18,frameCount:18}];
     assert.equal(await castBakeArtifactsCurrent(report,{root}),true);
+    // Intact files and an unchanged assetVersion cannot validate an old renderer.
+    assert.equal(await castBakeArtifactsCurrent(report,{root,sourceComponentsSha256:'current-renderer'}),false);
+    report.sourceComponentsSha256='old-renderer';
+    assert.equal(await castBakeArtifactsCurrent(report,{root,sourceComponentsSha256:'current-renderer'}),false);
+    report.sourceComponentsSha256='current-renderer';
+    assert.equal(await castBakeArtifactsCurrent(report,{root,sourceComponentsSha256:'current-renderer'}),true);
     const extra=report.images[1];await writeFile(resolve(root,extra.path),'damaged-extra-page');
     assert.equal(await castBakeArtifactsCurrent(report,{root}),false);
     await writeFile(resolve(root,extra.path),data.get(extra.path));

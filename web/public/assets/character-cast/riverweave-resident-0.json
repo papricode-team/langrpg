@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/riverweave-resident-0.json",
   "recipeSha256": "a5e6ab6b24577f6772f0d160f69a258d900c5a72c52605ec0e382fbe7783d054",
   "atlas": "web/public/assets/character-cast/riverweave-resident-0.webp",
-  "atlasSha256": "0234a9aceab4d2a80d1c099a14b5f428866bfe567d2ddca36b2ff15a5c64890b",
+  "atlasSha256": "14837c9053123caa1b3d405da4ae52610d8d08b7cf890531454f59141b9a7ccf",
   "geometry": "web/public/assets/character-cast/riverweave-resident-0.atlas.json",
-  "geometrySha256": "cd743137e6ba0a04b18f2799a97ba5db750e82cae868072fb8707301ac246101",
-  "textureBytes": 13853280,
+  "geometrySha256": "041a011cf1512af02f81fe4b409d03f90fd9ea3c29bd1342e0d50f239543f183",
+  "textureBytes": 13860524,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/riverweave-resident-0.webp",
-      "sha256": "0234a9aceab4d2a80d1c099a14b5f428866bfe567d2ddca36b2ff15a5c64890b",
+      "sha256": "14837c9053123caa1b3d405da4ae52610d8d08b7cf890531454f59141b9a7ccf",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/riverweave-resident-0.1.webp",
-      "sha256": "563f9cb7b891f65c836a0abfc78cb2d833bf6b851955932dc72267ca25075fe2",
+      "sha256": "d706a63544ef66c9c5c0a118ae2a9be90422b8b8c0ae4d851f7e09386c23b623",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,10 +27,10 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "f29d82b69aa9a81360ca117498d4673bf3935ef1096473a824ce5bd23a2383ca",
+  "sourceComponentsSha256": "b8cdab60a25993059f9f93f24d6724b7cc5198aa1fc2eb4c681fd67bfbd5cd60",
   "proof": "art/proofs/character-cast/riverweave-resident-0.png",
-  "proofSha256": "6feb16041a805c2468aa2bae452f48be483bea8327e8dc677afac8c542c01667",
-  "editorSha256": "f7c79ba6e31493626079b7c584439ff8b94c4df67e7c200984d8eb33d5b96b4f",
+  "proofSha256": "92a0539af93cf4f6f31d718a7e8e476e5571318b4ab373171dba55c5a70c831c",
+  "editorSha256": "fd0c2147aca38dfb202ab37e1fdba545099fae9a9d12c9df2648bb2a0cec5928",
   "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }
