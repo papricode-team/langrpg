@@ -3,6 +3,7 @@ package store
 import (
 	"context"
 	"encoding/json"
+	"glotworld/server/internal/billing"
 )
 
 // ReferenceMigrator is implemented by stores that can rewrite every saved
@@ -42,32 +43,30 @@ func (base *PGStore) MigrateReferences(ctx context.Context, migrate func(Account
 		return err
 	}
 	defer tx.Rollback(ctx)
-	rows, err := tx.Query(ctx, `SELECT id,data FROM accounts FOR UPDATE`)
+	rows, err := tx.Query(ctx, `SELECT `+pgAccountColumns+` FROM accounts a FOR UPDATE OF a`)
 	if err != nil {
 		return err
 	}
-	accounts := map[string][]byte{}
+	type migrated struct {
+		purchases []billing.Purchase
+		account   Account
+	}
+	accounts := map[string]migrated{}
 	for rows.Next() {
-		var id string
-		var data []byte
-		if err = rows.Scan(&id, &data); err != nil {
+		id, a, err := base.scanAccount(rows)
+		if err != nil {
 			rows.Close()
 			return err
 		}
-		var a Account
-		if err = json.Unmarshal(data, &a); err != nil {
-			rows.Close()
-			return err
-		}
-		accounts[id], _ = json.Marshal(migrate(a))
+		accounts[id] = migrated{clonePurchases(a.Billing.Purchases), migrate(a)}
 	}
 	err = rows.Err()
 	rows.Close()
 	if err != nil {
 		return err
 	}
-	for id, data := range accounts {
-		if _, err = tx.Exec(ctx, `UPDATE accounts SET data=$2 WHERE id=$1`, id, data); err != nil {
+	for id, m := range accounts {
+		if err = base.writeAccount(ctx, tx, id, m.purchases, m.account); err != nil {
 			return err
 		}
 	}

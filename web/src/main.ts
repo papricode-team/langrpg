@@ -1,3 +1,4 @@
+import { animalAction, animalSpeciesFromId } from './animal-behavior';
 import { mountSupportBanner } from './support-session';
 import { startAnalytics, trackAnalytics, browserAnalyticsEnabled, setBrowserAnalyticsEnabled } from './analytics-client';
 import { castPortraitMarkup } from './cast-portrait';
@@ -504,6 +505,7 @@ function watchWorld(watching: boolean): void {
 }
 function interiorIcon(id: InteriorId) { return id === 'cafe' ? 'cup' : id === 'bakery' ? 'leaf' : 'basket'; }
 function updateNearby(id?: string) {
+  const animal = animalSpeciesFromId(id);
   const entrance = id?.startsWith('building:') ? buildingEntrances(mapId).find(item => item.id === id) : undefined;
   const inside = id?.startsWith('interior:') ? getInteriorObject(id) : undefined;
   const exit = id?.startsWith('exit:') && interiorId;
@@ -512,12 +514,12 @@ function updateNearby(id?: string) {
   const talking = !entrance && !exit && !!(inside?.npcId || npc);
   const insideNpcName = inside?.npcId ? npcs.find(item => item.id === inside.npcId)?.name : undefined;
   const insideName = insideNpcName ? localizedName(insideNpcName) : inside?.label;
-  const name = entrance?.label ?? insideName ?? (exit ? getInterior(exit).name : object?.label ?? (npc ? localizedName(npc.name) : undefined));
+  const name = (animal ? animalAction(animal) : undefined) ?? entrance?.label ?? insideName ?? (exit ? getInterior(exit).name : object?.label ?? (npc ? localizedName(npc.name) : undefined));
   const button = document.querySelector<HTMLButtonElement>('#talk-button')!;
   button.disabled = !name;
   button.hidden = !name;
   document.querySelector('#nearby-name')!.textContent = name ?? '';
-  button.setAttribute('aria-label', name ? (entrance ? t('Enter {name}', { name }) : exit ? t('Leave {name}', { name }) : talking ? t('Talk to {name}', { name }) : t('Inspect {name}', { name })) : t('Move closer to interact'));
+  button.setAttribute('aria-label', name ? (animal ? name : entrance ? t('Enter {name}', { name }) : exit ? t('Leave {name}', { name }) : talking ? t('Talk to {name}', { name }) : t('Inspect {name}', { name })) : t('Move closer to interact'));
 }
 function syncLocation() {
   const room = interiorId ? getInterior(interiorId) : undefined, region = getMap(mapId);

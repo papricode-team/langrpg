@@ -307,11 +307,7 @@ func (s *PGStore) Create(ctx context.Context, hash string, a Account) error {
 		return err
 	}
 	defer tx.Rollback(ctx)
-	b, err := json.Marshal(a)
-	if err != nil {
-		return err
-	}
-	if _, err = tx.Exec(ctx, "INSERT INTO accounts(id,data) VALUES($1,$2)", a.Player.ID, b); err != nil {
+	if err = s.insertAccount(ctx, tx, a); err != nil {
 		return err
 	}
 	if _, err = tx.Exec(ctx, "INSERT INTO sessions(token_hash,account_id) VALUES($1,$2)", hash, a.Player.ID); err != nil {
@@ -321,10 +317,9 @@ func (s *PGStore) Create(ctx context.Context, hash string, a Account) error {
 }
 
 func (s *PGStore) Get(ctx context.Context, hash string) (Account, error) {
-	var b []byte
 	var lastUsed time.Time
 	now := s.sessionNow()
-	err := s.pool.QueryRow(ctx, "SELECT a.data,s.last_used_at FROM accounts a JOIN sessions s ON s.account_id=a.id WHERE s.token_hash=$1"+pgLiveSession, hash, s.sessionCutoff(now)).Scan(&b, &lastUsed)
+	_, a, err := s.scanAccount(s.pool.QueryRow(ctx, "SELECT "+pgAccountColumns+",s.last_used_at FROM accounts a JOIN sessions s ON s.account_id=a.id WHERE s.token_hash=$1"+pgLiveSession, hash, s.sessionCutoff(now)), &lastUsed)
 	if errors.Is(err, pgx.ErrNoRows) {
 		return Account{}, ErrUnauthorized
 	}
@@ -335,10 +330,7 @@ func (s *PGStore) Get(ctx context.Context, hash string) (Account, error) {
 	if err := s.touchSession(ctx, s.pool, hash, lastUsed, now); err != nil {
 		slog.Warn("session use was not recorded", "error", err)
 	}
-	var a Account
-	err = json.Unmarshal(b, &a)
-	s.hooks.NormalizeProgress(&a.Progress)
-	return a, err
+	return a, nil
 }
 
 func (s *PGStore) ActivityProofs(ctx context.Context, hash, activityID, runID string, attemptIDs []string) (map[string]SavedAction, int, error) {
@@ -379,7 +371,7 @@ func (s *PGStore) ActivityProofs(ctx context.Context, hash, activityID, runID st
 		return nil, 0, err
 	}
 	var corrected int
-	err = s.pool.QueryRow(ctx, `SELECT COUNT(*) FROM learning_events WHERE account_id=$1 AND event_key LIKE 'attempt:%' AND request->>'activityId'=$2 AND request->>'runId'=$3 AND receipt->>'correct'='false'`, accountID, activityID, runID).Scan(&corrected)
+	err = s.pool.QueryRow(ctx, `SELECT COUNT(*) FROM learning_events WHERE account_id=$1 AND event_key LIKE 'attempt:%' AND activity_id=$2 AND run_id=$3 AND correct=false`, accountID, activityID, runID).Scan(&corrected)
 	return proofs, corrected, err
 }
 
@@ -389,20 +381,14 @@ func (s *PGStore) Mutate(ctx context.Context, hash, key string, request json.Raw
 		return Account{}, Receipt{}, false, err
 	}
 	defer tx.Rollback(ctx)
-	var data []byte
-	var id string
-	id, data, err = s.lockSessionAccount(ctx, tx, hash)
+	id, a, err := s.lockSessionAccount(ctx, tx, hash)
 	if errors.Is(err, pgx.ErrNoRows) {
 		return Account{}, Receipt{}, false, ErrUnauthorized
 	}
 	if err != nil {
 		return Account{}, Receipt{}, false, err
 	}
-	var a Account
-	if err = json.Unmarshal(data, &a); err != nil {
-		return Account{}, Receipt{}, false, err
-	}
-	s.hooks.NormalizeProgress(&a.Progress)
+	purchases := clonePurchases(a.Billing.Purchases)
 	var previousRequest, previousReceipt []byte
 	err = tx.QueryRow(ctx, "SELECT request,receipt FROM learning_events WHERE account_id=$1 AND event_key=$2", id, key).Scan(&previousRequest, &previousReceipt)
 	if err == nil {
@@ -429,15 +415,11 @@ func (s *PGStore) Mutate(ctx context.Context, hash, key string, request json.Raw
 		return Account{}, Receipt{}, false, err
 	}
 	a.Progress.Revision++
-	data, err = json.Marshal(a)
-	if err != nil {
-		return Account{}, Receipt{}, false, err
-	}
 	receiptData, err := json.Marshal(receipt)
 	if err != nil {
 		return Account{}, Receipt{}, false, err
 	}
-	if _, err = tx.Exec(ctx, "UPDATE accounts SET data=$2 WHERE id=$1", id, data); err != nil {
+	if err = s.writeAccount(ctx, tx, id, purchases, a); err != nil {
 		return Account{}, Receipt{}, false, err
 	}
 	if _, err = tx.Exec(ctx, "INSERT INTO learning_events(account_id,event_key,request,receipt) VALUES($1,$2,$3,$4)", id, key, []byte(request), receiptData); err != nil {
@@ -455,27 +437,17 @@ func (s *PGStore) UpdateProfile(ctx context.Context, hash, name string, recipe a
 		return Account{}, err
 	}
 	defer tx.Rollback(ctx)
-	var data []byte
-	var id string
-	id, data, err = s.lockSessionAccount(ctx, tx, hash)
+	id, account, err := s.lockSessionAccount(ctx, tx, hash)
 	if errors.Is(err, pgx.ErrNoRows) {
 		return Account{}, ErrUnauthorized
 	}
 	if err != nil {
 		return Account{}, err
 	}
-	var account Account
-	if err = json.Unmarshal(data, &account); err != nil {
-		return Account{}, err
-	}
-	s.hooks.NormalizeProgress(&account.Progress)
+	purchases := clonePurchases(account.Billing.Purchases)
 	account.Player.Name, account.Player.Avatar = name, avatar.Normalize(recipe)
 	account.Progress.Revision++
-	data, err = json.Marshal(account)
-	if err != nil {
-		return Account{}, err
-	}
-	if _, err = tx.Exec(ctx, "UPDATE accounts SET data=$2 WHERE id=$1", id, data); err != nil {
+	if err = s.writeAccount(ctx, tx, id, purchases, account); err != nil {
 		return Account{}, err
 	}
 	if err = tx.Commit(ctx); err != nil {
@@ -484,7 +456,7 @@ func (s *PGStore) UpdateProfile(ctx context.Context, hash, name string, recipe a
 	return account, nil
 }
 
-// UpdatePreferences stores preferences inside the account JSONB document, so old
+// UpdatePreferences stores preferences inside the account data document, so old
 // rows need no schema migration: a missing field decodes to English support.
 func (s *PGStore) UpdatePreferences(ctx context.Context, hash string, preferences Preferences) (Account, error) {
 	tx, err := s.pool.Begin(ctx)
@@ -492,26 +464,16 @@ func (s *PGStore) UpdatePreferences(ctx context.Context, hash string, preference
 		return Account{}, err
 	}
 	defer tx.Rollback(ctx)
-	var data []byte
-	var id string
-	id, data, err = s.lockSessionAccount(ctx, tx, hash)
+	id, account, err := s.lockSessionAccount(ctx, tx, hash)
 	if errors.Is(err, pgx.ErrNoRows) {
 		return Account{}, ErrUnauthorized
 	}
 	if err != nil {
 		return Account{}, err
 	}
-	var account Account
-	if err = json.Unmarshal(data, &account); err != nil {
-		return Account{}, err
-	}
-	s.hooks.NormalizeProgress(&account.Progress)
+	purchases := clonePurchases(account.Billing.Purchases)
 	account.Preferences = NormalizePreferences(preferences)
-	data, err = json.Marshal(account)
-	if err != nil {
-		return Account{}, err
-	}
-	if _, err = tx.Exec(ctx, "UPDATE accounts SET data=$2 WHERE id=$1", id, data); err != nil {
+	if err = s.writeAccount(ctx, tx, id, purchases, account); err != nil {
 		return Account{}, err
 	}
 	if err = tx.Commit(ctx); err != nil {

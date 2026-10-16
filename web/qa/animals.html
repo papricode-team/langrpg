@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Animals in glotworld</title>
+<style>
+body{margin:0;background:#273c32;color:#fff3d5;font:15px system-ui}#world{position:fixed;inset:0}header{position:fixed;top:12px;left:12px;right:12px;z-index:2;display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:12px;background:#20382de8;border:1px solid #a89e76}button,select{font:inherit;min-height:44px;padding:9px 12px;background:#fbf2d9;color:#263d31;border:0;border-radius:4px}#status{font-size:14px}.hidden header{display:none}
+</style>
+<div id="world"></div><header><strong>Animals in the world</strong><select id="animal" aria-label="Visit animal"></select><button id="visit">Walk beside animal</button><button id="interact">Feed / pet</button><button id="hide">Hide controls</button><span id="status" role="status">Loading the town…</span></header>
+<script type="module">
+import {World} from '/src/world.ts';
+import {loadPublishedWorld} from '/src/scene-data.ts';
+import {animalVariants} from '/src/animal-art.ts';
+import {animalSpecies} from '/src/animal-behavior.ts';
+const picker=document.querySelector('#animal'),status=document.querySelector('#status');
+for(const species of animalSpecies) for(const [variant,name] of animalVariants[species].entries()) picker.add(new Option(name,`animal:${species}:lindenhafen:${variant}`));
+picker.value='animal:dog:lindenhafen:0';
+try{
+ await loadPublishedWorld();
+ let world;
+ const scene=()=>window.atlasGame?.scene.getScene('world');
+ const visit=()=>{const s=scene(),animal=s?.animals?.position(picker.value);if(!s?.ready||!animal)return;const point=s.navigation.closestPoint(animal.x-65,animal.y+25,s.local);s.cancelRoute();s.local.x=s.local.targetX=point.x;s.local.y=s.local.targetY=point.y;s.local.root.setPosition(point.x,point.y);s.cameraLead={x:0,y:0};s.snapCamera();world.setInputEnabled(true);status.textContent='Click an animal or press E. WASD / arrows to walk.';};
+ world=new World(document.querySelector('#world'),{motion:'full',time:{mode:'manual',hour:12},onNpc:()=>{},onMove:()=>{},onReady:()=>{visit();window.animalWorldReady=true;}});
+ document.querySelector('#visit').onclick=visit;picker.onchange=visit;
+ document.querySelector('#interact').onclick=()=>scene()?.approachInteraction(picker.value);
+ document.querySelector('#hide').onclick=()=>document.body.classList.add('hidden');
+ addEventListener('keydown',e=>{if(e.key==='Escape')document.body.classList.remove('hidden');});
+ window.animalReview={visit,scene,world};
+}catch(error){status.textContent=`Unable to load the town: ${error.message}. Start the local API with npm run dev.`;}
+</script></html>

@@ -1,5 +1,5 @@
 import {describe,expect,it} from 'vitest';
-import {decodeWeights,encodeWeights,groundBarriers,groundFromLayers,groundGrid,groundLayers,groundMaterialAt,groundProblem,groundWeightsAt,paintGround,plainGround} from './ground';
+import {decodeWeights,encodeWeights,groundBarriers,groundFingerprint,groundFromLayers,groundGrid,groundLayers,groundMaterialAt,groundProblem,groundWeightsAt,paintGround,plainGround} from './ground';
 
 const W=256,H=128;
 
@@ -21,6 +21,16 @@ describe('painted ground',()=>{
     expect(edge[1]).toBeGreaterThan(0);expect(edge[1]).toBeLessThan(1);
     const {layers,columns,rows}=groundLayers(ground,W,H);
     for(let index=0;index<columns*rows;index++)expect(Math.abs(layers[0][index]+layers[1][index]-255)).toBeLessThanOrEqual(1);
+  });
+
+  it('fingerprints the ground by content, whatever order its keys arrive in',()=>{
+    const ground={...paintGround(plainGround('meadow',W,H),W,H,{material:'cobble',radius:40,strength:1,points:[[64,64]]}),
+      features:[{id:'bridge',asset:'old-canal-arch-bridge',width:120,x:10.5,y:20}]};
+    // PostgreSQL's jsonb stores keys shortest first, then alphabetically.
+    const stored={cell:ground.cell,layers:ground.layers,version:ground.version,weights:ground.weights,features:[{x:10.5,y:20,id:'bridge',asset:'old-canal-arch-bridge',width:120}]};
+    expect(groundFingerprint(stored)).toBe(groundFingerprint(ground));
+    expect(groundFingerprint({...ground,features:[{...ground.features[0],x:11}]})).not.toBe(groundFingerprint(ground));
+    expect(groundFingerprint(undefined)).toBe(groundFingerprint(null));
   });
 
   it('reuses a fully painted-over layer and refuses a seventh material',()=>{

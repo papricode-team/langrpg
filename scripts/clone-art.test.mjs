@@ -8,7 +8,7 @@ import {cloneFiles, objectPath, parseList, plan} from './clone-art.mjs';
 const oidA = 'a'.repeat(64), oidB = 'b'.repeat(64), oidC = 'c'.repeat(64);
 const pointer = oid => `version https://git-lfs.github.com/spec/v1\noid sha256:${oid}\nsize 3\n`;
 
-test('the LFS listing supplies object status and paths for pointer inspection', () => {
+test('the LFS listing parses candidate pointers and unchanged content', () => {
   const entries = parseList(`${oidA} - art/source/a.png\n${oidB} * art/proofs/b.png\nnoise\n`);
   assert.deepEqual(entries, [{oid: oidA, pointer: true, path: 'art/source/a.png'}, {oid: oidB, pointer: false, path: 'art/proofs/b.png'}]);
 });
@@ -31,11 +31,28 @@ test('pointers are cloned from the cache, duplicates share one source and missin
     assert.equal(readFileSync(join(root, 'art/source/a.png'), 'utf8'), 'AAA');
     assert.equal(readFileSync(join(root, 'art/source/kit/a-copy.png'), 'utf8'), 'AAA');
     assert.equal(readFileSync(join(root, 'art/source/kit/c.png'), 'utf8'), pointer(oidC), 'a missing object leaves its pointer alone');
-    writeFileSync(join(root, 'art/source/a.png'), 'newly painted pixels');
-    const edited = parseList(`${oidA} - art/source/a.png\n${oidB} - art/source/deleted.png`);
-    assert.deepEqual(plan(edited, cache, root), {clones: [], missing: []}, 'edited and deleted paintings must not be restored from the cache');
-    assert.equal(readFileSync(join(root, 'art/source/a.png'), 'utf8'), 'newly painted pixels');
     assert.deepEqual(plan(parseList(`${oidA} * art/source/a.png`), cache), {clones: [], missing: []});
+  } finally {
+    rmSync(base, {recursive: true, force: true});
+  }
+});
+
+test('edited art marked with a dash is preserved even when the old object is cached', () => {
+  const base = mkdtempSync(join(tmpdir(), 'glotworld-art-edit-'));
+  try {
+    const cache = join(base, 'cache');
+    mkdirSync(join(base, 'art/source'), {recursive: true});
+    mkdirSync(objectPath(cache, oidA).replace(/[^/]+$/, ''), {recursive: true});
+    writeFileSync(objectPath(cache, oidA), 'OLD');
+    const file = join(base, 'art/source/bridge.png');
+    const edited = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10, 1, 2, 3]);
+    writeFileSync(file, edited);
+    for (const oid of [oidA, oidB]) {
+      const result = plan(parseList(`${oid} - art/source/bridge.png`), cache, base);
+      assert.deepEqual(result, {clones: [], missing: []});
+      assert.equal(cloneFiles(result.clones, {cache, root: base}), 0);
+      assert.deepEqual(readFileSync(file), edited);
+    }
   } finally {
     rmSync(base, {recursive: true, force: true});
   }
