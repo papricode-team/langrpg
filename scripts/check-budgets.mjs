@@ -47,4 +47,4 @@ for (const line of jobs) {
   const clip = await stat(resolve(root, 'audio/dialogue', `${line.clipId}.ogg`));
   if (!clip.size) throw new Error(`Empty dialogue clip: ${line.clipId}`);
 }
-console.log(`Budgets pass: JavaScript ${(largest/1024/1024).toFixed(2)} MiB largest / ${(total/1024/1024).toFixed(2)} MiB total; art ${(artTotal/1024/1024).toFixed(2)} MiB (${(baseArtTotal/1024/1024).toFixed(2)} base + ${(characterArtTotal/1024/1024).toFixed(2)} characters + ${((artTotal-baseArtTotal-characterArtTotal)/1024/1024).toFixed(2)} expansion, ${chunkCount} chunks); audio ${(audioTotal/1024/1024).toFixed(2)} MiB. All ${jobs.length} dialogue audio clips present and current.`);
+console.log(`Budgets pass: JavaScript ${(largest/1024/1024).toFixed(2)} MiB largest / ${(total/1024/1024).toFixed(2)} MiB total; art ${(artTotal/1024/1024).toFixed(2)} MiB (${(baseArtTotal/1024/1024).toFixed(2)} base + ${(characterArtTotal/1024/1024).toFixed(2)} characters); audio ${(audioTotal/1024/1024).toFixed(2)} MiB. All ${jobs.length} dialogue audio clips present and current.`);
