@@ -53,7 +53,8 @@ export interface MiniGame {
   mount(root: HTMLElement, host: MiniGameHost, opts: MiniGameOptions): void;
   pause(): void; resume(): void; destroy(): void;
 }
-export type GameMechanic = 'ink' | 'pictures' | 'tray' | 'catch' | 'board' | 'stamp' | 'sort' | 'chain' | 'workbench' | 'forecast' | 'garden' | 'sequence' | 'connection' | 'tape' | 'council' | 'archive' | 'neighborhood' | 'delivery';
+export type GameMechanic = 'ink' | 'pictures' | 'tray' | 'catch' | 'board' | 'stamp' | 'sort' | 'chain' | 'workbench' | 'forecast' | 'garden' | 'sequence' | 'connection' | 'tape' | 'council' | 'archive' | 'neighborhood' | 'delivery'
+  | 'pairs' | 'mirror' | 'anagram' | 'baskets' | 'leaves' | 'loom' | 'fuse' | 'fog' | 'bells' | 'train';
 export interface MiniGameDefinition {
   id: string; title: string; host: string; tier: 'A'|'B'|'C'; mechanic: GameMechanic;
   modalities: Modality[]; levels: CourseLevel[]; instruction: string;

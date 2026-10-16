@@ -16,6 +16,10 @@ var miniGameIDs = []string{
 	"17-59", "looping-tape", "seven-chairs", "adas-alphabet",
 	"neighborhood-boards", "delivery-run", "expedition-encounters",
 	"lamp-walk", "hold-the-signal",
+	// Word-memory games: lexical choices, topic baskets and spelled production only.
+	"lantern-pairs", "honest-mirror", "scrambled-sign", "market-baskets",
+	"falling-leaves", "letter-loom", "lantern-fuse", "fog-window",
+	"echo-bells", "night-train",
 }
 
 // Mini-game forms are derived from the canonical lexicon, never an answer or
