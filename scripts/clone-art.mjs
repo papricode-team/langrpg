@@ -17,7 +17,7 @@
  * art tests would.
  */
 import {spawnSync} from 'node:child_process';
-import {existsSync, mkdirSync, renameSync, rmSync} from 'node:fs';
+import {existsSync, mkdirSync, readFileSync, renameSync, rmSync, statSync} from 'node:fs';
 import {dirname, join, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
@@ -36,10 +36,15 @@ export function parseList(text) {
 export const objectPath = (cache, oid) => join(cache, oid.slice(0, 2), oid.slice(2, 4), oid);
 
 /** Split pointers into those the cache can supply and those it cannot. */
-export function plan(entries, cache) {
+export function plan(entries, cache, base = root) {
   const clones = [], missing = [];
   for (const entry of entries) {
     if (!entry.pointer) continue;
+    // LFS also marks edited paintings with "-". Only replace actual pointer text,
+    // never a new painting (or an intentionally deleted file).
+    const file = resolve(base, entry.path);
+    if (!existsSync(file) || statSync(file).size > 1024 ||
+      !/^version https:\/\/git-lfs\.github\.com\/spec\/v1\r?\n/.test(readFileSync(file, 'utf8'))) continue;
     (existsSync(objectPath(cache, entry.oid)) ? clones : missing).push(entry);
   }
   return {clones, missing};
