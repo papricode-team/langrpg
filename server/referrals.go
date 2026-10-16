@@ -27,12 +27,35 @@ func referralSignups(account Account) int64 {
 	return total - min(max(0, account.Referrals.ResetSignups), total)
 }
 
+// Signup does not verify email addresses, so invites are capped: otherwise
+// throwaway signups through one's own link would replace the paywall.
+const (
+	referralDailyLimit    = 3
+	referralLifetimeLimit = 10
+)
+
+// recentReferralCredits keeps the credits of the last 24 hours.
+func recentReferralCredits(account Account, now time.Time) []time.Time {
+	var recent []time.Time
+	for _, at := range account.Referrals.RecentCredits {
+		if now.Sub(at) < 24*time.Hour && !at.After(now) {
+			recent = append(recent, at)
+		}
+	}
+	return recent
+}
+
 // Called only inside the store's atomic registration transaction. Existing
 // accounts and duplicate signup requests never reach this operation.
 func creditReferral(account, inviter *Account, email string, now time.Time) bool {
 	if inviter == nil || !inviter.Referrals.Enabled || inviter.Email == "" || inviter.Player.ID == account.Player.ID || strings.EqualFold(inviter.Email, email) || account.Referrals.InvitedBy != "" {
 		return false
 	}
+	recent := recentReferralCredits(*inviter, now)
+	if len(recent) >= referralDailyLimit || inviter.Referrals.SuccessfulSignups >= referralLifetimeLimit {
+		return false
+	}
+	inviter.Referrals.RecentCredits = append(recent, now.UTC())
 	// Settle against the OLD allowance so waiting at the paywall is not charged
 	// retroactively when the reward reopens the trial.
 	settlePlay(inviter, now)
@@ -71,5 +94,5 @@ func (a *App) referralLink(w http.ResponseWriter, r *http.Request) {
 	}
 	u.Path = strings.TrimRight(u.Path, "/") + "/"
 	u.RawQuery = url.Values{"ref": {account.Player.ID}}.Encode()
-	writeJSON(w, 200, map[string]any{"url": u.String(), "bonusMinutes": 90, "successfulSignups": account.Referrals.SuccessfulSignups, "access": a.accessState(account, a.now().UTC())})
+	writeJSON(w, 200, map[string]any{"url": u.String(), "bonusMinutes": 90, "dailyLimit": referralDailyLimit, "lifetimeLimit": referralLifetimeLimit, "successfulSignups": account.Referrals.SuccessfulSignups, "access": a.accessState(account, a.now().UTC())})
 }

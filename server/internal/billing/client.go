@@ -19,6 +19,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -43,6 +44,12 @@ type State struct {
 	PaidUntil          time.Time            `json:"paidUntil,omitempty"`
 	VerifiedAt         time.Time            `json:"verifiedAt,omitempty"`
 	WebhookReceipts    map[string]time.Time `json:"webhookReceipts,omitempty"`
+	// DisputedTransactions come from signed dispute.created webhooks. A
+	// disputed payment grants nothing, whatever status Creem still reports.
+	DisputedTransactions []string `json:"disputedTransactions,omitempty"`
+	// OverlappingPurchases counts paying purchases beyond the first: the
+	// player was charged twice and support should refund one.
+	OverlappingPurchases int `json:"overlappingPurchases,omitempty"`
 }
 
 // Client talks to the Creem API with server-only credentials.
@@ -57,6 +64,10 @@ type Client struct {
 	HTTP            *http.Client
 	// Observe, when set, receives every API call's operation, latency and error.
 	Observe func(operation string, elapsed time.Duration, err error)
+
+	offersMu sync.Mutex
+	offers   []Offer
+	offersAt time.Time
 }
 
 // Operation names a request path without IDs or query strings.
@@ -78,6 +89,7 @@ func env(key, fallback string) string {
 // FromEnv reads the Creem configuration. All of it is server-only: never put
 // a token or webhook secret in a VITE_ variable. FREE_TO_PLAY or empty
 // credentials disable billing (nil client) and allow unlimited free play.
+// The yearly product is optional; without it the yearly plan is not offered.
 func FromEnv() (*Client, error) {
 	freeToPlay, err := strconv.ParseBool(strings.TrimSpace(env("FREE_TO_PLAY", "false")))
 	if err != nil {
@@ -86,7 +98,7 @@ func FromEnv() (*Client, error) {
 	if freeToPlay {
 		return nil, nil
 	}
-	keys := []string{"CREEM_API_KEY", "CREEM_WEBHOOK_SECRET", "CREEM_MONTHLY_PRODUCT_ID", "CREEM_LIFETIME_PRODUCT_ID", "CREEM_YEARLY_PRODUCT_ID"}
+	keys := []string{"CREEM_API_KEY", "CREEM_WEBHOOK_SECRET", "CREEM_MONTHLY_PRODUCT_ID", "CREEM_LIFETIME_PRODUCT_ID"}
 	values := make([]string, len(keys))
 	for i, key := range keys {
 		values[i] = strings.TrimSpace(os.Getenv(key))
@@ -99,7 +111,8 @@ func FromEnv() (*Client, error) {
 			return nil, fmt.Errorf("%s is required when Creem billing is configured", keys[i])
 		}
 	}
-	if values[2] == values[3] || values[2] == values[4] || values[3] == values[4] {
+	yearly := strings.TrimSpace(os.Getenv("CREEM_YEARLY_PRODUCT_ID"))
+	if values[2] == values[3] || yearly != "" && (values[2] == yearly || values[3] == yearly) {
 		return nil, errors.New("Creem monthly, yearly and lifetime product IDs must differ")
 	}
 	server := env("CREEM_SERVER", "production")
@@ -117,12 +130,12 @@ func FromEnv() (*Client, error) {
 	if len(values[1]) < 24 {
 		return nil, errors.New("CREEM_WEBHOOK_SECRET must contain the full endpoint secret")
 	}
-	return &Client{AccessToken: values[0], WebhookSecret: values[1], MonthlyProduct: values[2], LifetimeProduct: values[3], YearlyProduct: values[4], PublicURL: public, BaseURL: base, HTTP: &http.Client{Timeout: 6 * time.Second, CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }}}, nil
+	return &Client{AccessToken: values[0], WebhookSecret: values[1], MonthlyProduct: values[2], LifetimeProduct: values[3], YearlyProduct: yearly, PublicURL: public, BaseURL: base, HTTP: &http.Client{Timeout: 6 * time.Second, CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }}}, nil
 }
 
 // Available reports a fully configured client. A nil client is unavailable.
 func (p *Client) Available() bool {
-	return p != nil && p.AccessToken != "" && p.MonthlyProduct != "" && p.LifetimeProduct != "" && p.YearlyProduct != ""
+	return p != nil && p.AccessToken != "" && p.MonthlyProduct != "" && p.LifetimeProduct != ""
 }
 
 // HasPaidAccess reports whether a recently verified snapshot grants play.
@@ -197,8 +210,8 @@ var ErrLedgerChanged = errors.New("billing purchases changed during reconciliati
 
 // SameLedger compares the inputs a Creem snapshot is computed from.
 func SameLedger(left, right State) bool {
-	l, _ := json.Marshal([]any{left.Reference, left.CustomerID, left.Purchases})
-	r, _ := json.Marshal([]any{right.Reference, right.CustomerID, right.Purchases})
+	l, _ := json.Marshal([]any{left.Reference, left.CustomerID, left.Purchases, left.DisputedTransactions})
+	r, _ := json.Marshal([]any{right.Reference, right.CustomerID, right.Purchases, right.DisputedTransactions})
 	return bytes.Equal(l, r)
 }
 
@@ -229,4 +242,57 @@ func PurchaseMatches(state State, subscriptionID, transactionID string) bool {
 		}
 	}
 	return false
+}
+
+// Offer is a plan the paywall can show. Amount is in minor units and is zero
+// when Creem's price could not be read; the checkout page always shows it.
+type Offer struct {
+	Plan     string `json:"plan"`
+	Amount   int64  `json:"amount,omitempty"`
+	Currency string `json:"currency,omitempty"`
+}
+
+// offersLifetime is how long product prices are reused; a failed read is
+// retried sooner so an outage never pins the paywall to missing prices.
+const (
+	offersLifetime      = time.Hour
+	offersRetryInterval = time.Minute
+)
+
+// Offers lists the configured plans with their Creem prices, so the paywall
+// shows what the checkout will charge instead of a copy kept in the client.
+func (p *Client) Offers(ctx context.Context, now time.Time) []Offer {
+	p.offersMu.Lock()
+	cached, at := p.offers, p.offersAt
+	p.offersMu.Unlock()
+	if cached != nil && now.Sub(at) >= 0 && now.Sub(at) < offersLifetime {
+		return cached
+	}
+	offers, complete := []Offer{}, true
+	for _, plan := range []struct{ name, product string }{{"monthly", p.MonthlyProduct}, {"yearly", p.YearlyProduct}, {"lifetime", p.LifetimeProduct}} {
+		if plan.product == "" {
+			continue
+		}
+		offer := Offer{Plan: plan.name}
+		var product struct {
+			ID       string `json:"id"`
+			Mode     string `json:"mode"`
+			Price    int64  `json:"price"`
+			Currency string `json:"currency"`
+		}
+		if err := p.Get(ctx, "products", "product_id", plan.product, &product); err == nil && product.ID == plan.product && p.ModeMatches(product.Mode) && product.Price > 0 {
+			offer.Amount, offer.Currency = product.Price, strings.ToUpper(product.Currency)
+		} else {
+			complete = false
+		}
+		offers = append(offers, offer)
+	}
+	stamp := now
+	if !complete {
+		stamp = now.Add(offersRetryInterval - offersLifetime)
+	}
+	p.offersMu.Lock()
+	p.offers, p.offersAt = offers, stamp
+	p.offersMu.Unlock()
+	return offers
 }

@@ -11,6 +11,16 @@ export interface GameAccess {
   plan?: BillingPlan | 'complimentary';
 }
 
+/** A plan the server offers; amount is in minor units and absent when Creem's price could not be read. */
+export interface BillingOffer { plan: BillingPlan; amount?: number; currency?: string }
+
+/** Format an offer's price, e.g. 299 EUR as "€2.99"; empty when the price is unknown. */
+export function formatOfferPrice(offer: BillingOffer): string {
+  if (!offer.amount || !offer.currency) return '';
+  try { return new Intl.NumberFormat('en-IE', { style: 'currency', currency: offer.currency }).format(offer.amount / 100); }
+  catch { return ''; }
+}
+
 export function accessBlocked(access: GameAccess | undefined): boolean {
   return !access || access.phase === 'login_required' || access.phase === 'payment_required';
 }

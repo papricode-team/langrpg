@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { AccessClock, accessBlocked, billingURL, clearGameProgress, formatAccessTime, type GameAccess } from './game-access';
+import { AccessClock, accessBlocked, billingURL, clearGameProgress, formatAccessTime, formatOfferPrice, type GameAccess } from './game-access';
 
 const guest = (remainingSeconds = 300): GameAccess => ({ phase: 'guest', remainingSeconds, playedSeconds: 300 - remainingSeconds, registered: false, billingAvailable: true });
 
@@ -122,5 +122,14 @@ describe('game progress reset', () => {
     preservedKeys.forEach(key => expect(values.get(key)).toBe('saved'));
     expect(values.get('atlas.map')).toBe('lindenhafen');
     expect(values.get('atlas.level')).toBe('A1');
+  });
+});
+
+describe('formatOfferPrice', () => {
+  it('formats Creem minor units and hides unknown prices', () => {
+    expect(formatOfferPrice({ plan: 'monthly', amount: 299, currency: 'EUR' })).toBe('€2.99');
+    expect(formatOfferPrice({ plan: 'lifetime', amount: 2999, currency: 'EUR' })).toBe('€29.99');
+    expect(formatOfferPrice({ plan: 'yearly' })).toBe('');
+    expect(formatOfferPrice({ plan: 'yearly', amount: 999, currency: 'not a currency' })).toBe('');
   });
 });

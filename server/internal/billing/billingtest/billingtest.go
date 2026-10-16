@@ -102,6 +102,14 @@ func (f *Fixture) Serve(w http.ResponseWriter, r *http.Request) {
 		writeJSON(w, 200, f.Subscription)
 	case "/v1/transactions":
 		writeJSON(w, 200, f.Transaction)
+	case "/v1/products":
+		prices := map[string]int64{"monthly-product": 299, "yearly-product": 999, "lifetime-product": 2999}
+		id := r.URL.Query().Get("product_id")
+		if prices[id] == 0 {
+			w.WriteHeader(404)
+			return
+		}
+		writeJSON(w, 200, map[string]any{"id": id, "mode": "prod", "price": prices[id], "currency": "EUR"})
 	case "/v1/customers/billing":
 		var input map[string]string
 		_ = json.NewDecoder(r.Body).Decode(&input)
