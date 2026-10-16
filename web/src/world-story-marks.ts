@@ -2,6 +2,8 @@ import * as Phaser from 'phaser';
 import { createAtmosphereTextures } from './world-atmosphere';
 import { setDepthIfChanged, worldDepth } from './world-depth';
 import { dowsing, type InkMark, type StoryMarks, type TrainState } from './story-mechanics';
+import { getWorldScene } from './scene-data';
+import { stationTrainPosition } from './station-train-position';
 
 /** Where the story's spectacle happens, in each town's canonical world units. */
 export interface StorySpectacle {
@@ -11,7 +13,6 @@ export interface StorySpectacle {
   beam?: { x: number; y: number; radius: number };
 }
 export const storySpectacle: Readonly<Record<string, StorySpectacle>> = {
-  lindenhafen: { train: { x: 1869, y: 317 } },
   nebelstadt: { beam: { x: 924, y: 470, radius: 1500 } },
 };
 
@@ -79,7 +80,8 @@ export class WorldStoryMarks {
 
   /** Steam from platform seven: a train arrives, waits with lit windows, then leaves. */
   setTrain(state: TrainState, reducedMotion: boolean): void {
-    const spot = storySpectacle[this.mapId]?.train;
+    const station = this.mapId === 'lindenhafen' ? getWorldScene(this.mapId).scenery.find(item => item.id === 'station') : undefined;
+    const spot = station ? stationTrainPosition(station) : storySpectacle[this.mapId]?.train;
     if (state === this.trainState || !spot) return;
     this.trainState = state;
     if (!state) { this.steam?.destroy(); this.trainGlow?.destroy(); this.steam = undefined; this.trainGlow = undefined; return; }
