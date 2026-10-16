@@ -3,6 +3,7 @@ import { conditionMet, storyState, type DialogueCondition } from './dialogue';
 import { escapeHtml as e, icon } from './icons';
 import { localized, t } from './i18n';
 import { renderNarrative, type TranslatedSentence } from './sentence-translations';
+import { carriesLamp } from './story-items';
 
 /**
  * The Atlas's one rule as play: written names fade with visible play time unless
@@ -81,7 +82,7 @@ export function storyMarks(mapId: string, progress: Progress, mechanics: StoryMe
   const inventory = progress.story?.inventory ?? [];
   const flags = progress.story?.flags ?? {};
   const beam = mapId === 'nebelstadt' && !!flags.storm_active;
-  return { mapId, inks, tickets, lamp: inventory.includes('signal-lamp') || inventory.includes('registered-lamp'), beam, train: trainState(mapId, progress) };
+  return { mapId, inks, tickets, lamp: carriesLamp(inventory), beam, train: trainState(mapId, progress) };
 }
 
 /** Platform seven's train: it brings the player, then waits for the evening departure. */

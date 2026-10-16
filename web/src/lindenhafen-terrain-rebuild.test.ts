@@ -1,5 +1,6 @@
 import {describe,it,expect} from 'vitest';
-import source from './data/world-scenes.json';
+import {seedWorldSource} from './test-support/world-seed';
+const source=seedWorldSource();
 import {parseWorldSceneDocument} from './scene-schema';
 import {lindenhafenTerrainDocument,lindenhafenTerrainRebuild as draft} from './lindenhafen-terrain-rebuild';
 import {modularTerrainBarriers} from './modular-terrain';

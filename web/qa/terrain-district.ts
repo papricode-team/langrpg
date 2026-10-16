@@ -1,5 +1,5 @@
 import {terrainDistrict,districtDocument} from '../src/terrain-district';
-import baseDocument from '../src/data/world-scenes.json';
+import baseDocument from '../../content/world-seed.json';
 import {parseWorldSceneDocument} from '../src/scene-schema';
 import {terrainMaterials} from '../src/terrain-materials';
 import {terrainFeatures} from '../src/terrain-features';

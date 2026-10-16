@@ -8,7 +8,7 @@ import {exportAuthoredWalkableMasks} from './terrain-walkable-mask.mjs';
 const root=resolve(import.meta.dirname,'..');
 const source=resolve(root,'art/source/terrain-detail');
 const traces=JSON.parse(await readFile(resolve(source,'core-ground-traces.json'),'utf8'));
-const scenes=JSON.parse(await readFile(resolve(root,'web/src/data/world-scenes.json'),'utf8'));
+const scenes=JSON.parse(await readFile(resolve(root,'content/world-seed.json'),'utf8'));
 for(const [town,trace]of Object.entries(traces.maps)){
   if(scenes.maps[town]?.navigation?.model==='clear-land'){await exportAuthoredWalkableMasks(root,town);continue;}
   const paths=trace.walkable.map(polygon=>`<polygon points="${polygon.map(p=>p.join(',')).join(' ')}" fill="white" stroke="white" stroke-width="2"/>`).join('');

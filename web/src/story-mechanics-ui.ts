@@ -2,6 +2,7 @@ import type { Progress } from './api';
 import { escapeHtml as e, icon } from './icons';
 import { t } from './i18n';
 import { emptyMechanics, inkActive, inkAtObject, inkLevel, inkSpeakMarkup, lostStoryNames, personalName, storyMarks, ticketMarkup, type InkEntry, type StoryMarks, type StoryMechanics } from './story-mechanics';
+import { carriesLamp } from './story-items';
 
 export interface MechanicsResult { progress: Progress; correct?: boolean; xpAdded?: number }
 export interface StoryMechanicsUiOptions {
@@ -86,8 +87,7 @@ export class StoryMechanicsUi {
   }
 
   private updateLamp(): void {
-    const inventory = this.options.progress().story?.inventory ?? [];
-    const carried = inventory.includes('signal-lamp') || inventory.includes('registered-lamp');
+    const carried = carriesLamp(this.options.progress().story?.inventory);
     const strength = carried ? this.options.lampStrength() : 0;
     if (this.meter) {
       this.meter.hidden = !carried;

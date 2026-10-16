@@ -2,7 +2,7 @@
  * The admin map editor against the checked-in world, with an in-memory server.
  * Nothing is forwarded to the API; reloading the page starts over.
  */
-import baseDocument from '../src/data/world-scenes.json';
+import baseDocument from '../../content/world-seed.json';
 import {parseWorldSceneDocument} from '../src/scene-schema';
 import {applyEditOps} from '../src/world-edit-ops';
 

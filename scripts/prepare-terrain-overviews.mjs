@@ -5,7 +5,7 @@ import {resolve} from 'node:path';
 import sharp from 'sharp';
 import {WEBP_QUALITY} from './webp-quality.mjs';
 const root = resolve(import.meta.dirname,'..');
-const document = JSON.parse(await readFile(resolve(root,'web/src/data/world-scenes.json'),'utf8'));
+const document = JSON.parse(await readFile(resolve(root,'content/world-seed.json'),'utf8'));
 let count=0, bytes=0;
 for (const scene of Object.values(document.maps)) for (const tile of scene.terrain) {
   for (const period of ['day','night']) {

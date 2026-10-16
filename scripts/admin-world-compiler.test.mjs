@@ -5,7 +5,7 @@ import {readFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
-const sourceText = await readFile(new URL('../web/src/data/world-scenes.json', import.meta.url), 'utf8');
+const sourceText = await readFile(new URL('../content/world-seed.json', import.meta.url), 'utf8');
 
 function compile(input, args = ['--root', root]) {
   return new Promise((accept, reject) => {

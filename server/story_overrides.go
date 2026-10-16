@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"net/http"
 	"regexp"
 	"sort"
@@ -14,6 +13,7 @@ import (
 	"unicode/utf8"
 
 	"glotworld/server/internal/contentstore"
+	"glotworld/server/internal/store"
 )
 
 // StoryOverrides holds admin changes layered over authored story content. They
@@ -832,18 +832,21 @@ func (a *App) setStoryLine(w http.ResponseWriter, r *http.Request) {
 			story.EditedLines[key] = EditedLine{GraphID: scene.GraphID, Text: text, Translations: translations, By: by, At: now}
 		}
 	}
-	next := *previous
-	next.Story = story
 	ctx, cancel := context.WithTimeout(r.Context(), 10*time.Second)
 	defer cancel()
-	if err := editing.store.SaveWorldContent(ctx, previous.Revision, &next); err != nil {
-		if errors.Is(err, ErrConflict) {
-			apiFailure(w, worldProblems(409, "stale", "The world changed while saving. Reload and try again."))
-			return
-		}
+	stored := store.StoryLine{Key: key, GraphID: scene.GraphID}
+	if hidden, ok := story.HiddenLines[key]; ok {
+		stored.Hidden, _ = json.Marshal(hidden)
+	}
+	if edited, ok := story.EditedLines[key]; ok {
+		stored.Edited, _ = json.Marshal(edited)
+	}
+	if err := editing.store.SaveStoryLine(ctx, stored); err != nil {
 		apiFailure(w, err)
 		return
 	}
+	next := *previous
+	next.Story = story
 	editing.mu.Lock()
 	editing.current = &next
 	editing.mu.Unlock()

@@ -295,3 +295,8 @@ button.danger{color:#9b4439;border-color:#e6cec6}
 .user-action-error{color:#9b4439}
 @media (--tablet){.users-grid{grid-template-columns:minmax(0,1fr)}.user-placeholder{padding:30px 12px}.users-workspace{padding:26px 24px}}
 @media (--phone){.users-workspace{padding:24px 16px}.users-grid{gap:16px}.users-directory,.users-grid>.user-detail{padding:16px}.users-filters{gap:10px}.users-filters .user-search{flex-basis:100%}.users-table th,.users-table td{padding:14px 6px}.users-table td:last-child,.users-table th:last-child{display:none}.user-action-dialog{padding:22px}}
+.token-panel form{margin-bottom:18px}
+.token-table{width:100%;border-collapse:collapse;font-size:13px}
+.token-table th,.token-table td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--border)}
+#token-secret{margin-bottom:18px;padding:14px;border:1px solid var(--border);border-radius:8px}
+.token-secret{display:block;margin:8px 0;padding:10px;background:#f4f1ea;border-radius:6px;font-size:13px;word-break:break-all;user-select:all}

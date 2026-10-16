@@ -51,14 +51,25 @@ func (s *PGStore) LoadCatalog(ctx context.Context) (*contentstore.Bundle, error)
 	return contentstore.LoadPostgres(ctx, s.pool)
 }
 
+// Base returns the store a canonical content adapter wraps, for capabilities
+// that never carry account data.
+func Base(s Store) Store {
+	if adapter, ok := s.(*Canonical); ok {
+		return adapter.Store
+	}
+	return s
+}
+
 // Pool is the underlying connection pool, for integration tests and tools
 // that need direct SQL.
 func (s *PGStore) Pool() *pgxpool.Pool { return s.pool }
 
 var (
-	_ WorldDocuments        = (*JSONStore)(nil)
-	_ WorldDocuments        = (*PGStore)(nil)
-	_ WorldDocuments        = (*Canonical)(nil)
+	_ WorldStore            = (*JSONStore)(nil)
+	_ WorldStore            = (*PGStore)(nil)
+	_ AdminTokens           = (*JSONStore)(nil)
+	_ AdminTokens           = (*PGStore)(nil)
+	_ AdminTokens           = (*Canonical)(nil)
 	_ LegacyReceiptReader   = (*JSONStore)(nil)
 	_ LegacyReceiptReader   = (*PGStore)(nil)
 	_ ExerciseReceiptReader = (*JSONStore)(nil)

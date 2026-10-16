@@ -195,11 +195,10 @@ func TestLockedEvidenceOpensOnlyWithItsKey(t *testing.T) {
 }
 
 func TestSavedWorldsGainNewStoryAnchorsAndRules(t *testing.T) {
-	canonical, err := os.ReadFile("../web/src/data/world-scenes.json")
-	if err != nil {
-		t.Fatal(err)
+	if testing.Short() {
+		t.Skip("starts the Node edit worker")
 	}
-	authored, err := os.ReadFile("story_rules.json")
+	canonical, err := os.ReadFile(worldSeedPath)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -207,26 +206,25 @@ func TestSavedWorldsGainNewStoryAnchorsAndRules(t *testing.T) {
 	if err = json.Unmarshal(canonical, &doc); err != nil {
 		t.Fatal(err)
 	}
-	// An older publication: one object missing and only one story rule.
-	maps := doc["maps"].(map[string]any)
-	lindenhafen := maps["lindenhafen"].(map[string]any)
+	// An older publication: one object missing.
+	lindenhafen := doc["maps"].(map[string]any)["lindenhafen"].(map[string]any)
 	objects := lindenhafen["objects"].([]any)
 	removed := objects[len(objects)-1].(map[string]any)["id"].(string)
 	lindenhafen["objects"] = objects[:len(objects)-1]
 	old, _ := json.Marshal(doc)
-	saved := &WorldContent{Document: old, Revision: worldRevision(old)}
-	saved.ContentVersion = saved.Revision[:16]
-	saved.WorldMaps.ContentVersion = saved.ContentVersion
-	saved.Investigations.Rules = []StoryRule{{QuestID: "a1-arrival"}}
-	next, changed, err := reconcileWorldContent(saved, canonical, authored)
-	if err != nil || !changed {
-		t.Fatalf("reconciliation skipped: %v", err)
+	worker := newWorldWorker("../scripts/admin-world-worker.mjs", "..")
+	t.Cleanup(worker.stop)
+	next, err := worker.reconcile(context.Background(), old, canonical)
+	if err != nil || len(next.ChangedMaps) != 1 || next.ChangedMaps[0] != "lindenhafen" {
+		t.Fatalf("reconciliation skipped: %v %v", next, err)
 	}
-	if next.Revision == saved.Revision || next.ContentVersion != next.WorldMaps.ContentVersion || next.Revision != worldRevision(next.Document) {
-		t.Fatal("the reconciled publication has an inconsistent revision")
+	if validateWorldContent(next) != nil {
+		t.Fatal("the reconciled publication is inconsistent")
 	}
 	var merged struct {
-		Maps map[string]sceneAnchors `json:"maps"`
+		Maps map[string]struct {
+			Objects []StoryObject `json:"objects"`
+		} `json:"maps"`
 	}
 	_ = json.Unmarshal(next.Document, &merged)
 	found := false
@@ -236,7 +234,8 @@ func TestSavedWorldsGainNewStoryAnchorsAndRules(t *testing.T) {
 	if !found || len(next.Investigations.Rules) != len(storyQuestOrder) || len(next.Investigations.Ink.Entries) == 0 || len(next.Investigations.SideQuests) == 0 {
 		t.Fatal("new anchors or story authority were not added to the saved world")
 	}
-	if _, again, _ := reconcileWorldContent(next, canonical, authored); again {
+	again, err := worker.reconcile(context.Background(), next.Document, canonical)
+	if err != nil || len(again.ChangedMaps) != 0 || again.ContentVersion != next.ContentVersion {
 		t.Fatal("reconciliation is not a fixed point")
 	}
 }

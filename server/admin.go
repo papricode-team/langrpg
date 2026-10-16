@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"strings"
 	"time"
+
+	"glotworld/server/internal/store"
 )
 
 // Admin privileges are deployment configuration, never client-supplied profile
@@ -41,7 +43,17 @@ func (a *App) requireAdmin(w http.ResponseWriter, r *http.Request) (Account, boo
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
 	defer cancel()
-	account, err := a.store.Get(ctx, hash)
+	var account Account
+	if isAdminToken(r) {
+		tokens, ok := a.store.(store.AdminTokens)
+		if !ok {
+			apiFailure(w, ErrUnauthorized)
+			return Account{}, false
+		}
+		account, err = tokens.AdminTokenAccount(ctx, hash)
+	} else {
+		account, err = a.store.Get(ctx, hash)
+	}
 	if err != nil {
 		apiFailure(w, err)
 		return Account{}, false

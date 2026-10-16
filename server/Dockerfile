@@ -43,13 +43,15 @@ COPY --from=frontend /app/scripts/scene-compiler.mjs /app/scripts/admin-world-co
 COPY --from=frontend /app/web/src /app/web/src
 COPY --from=frontend /app/web/package.json /app/web/package.json
 COPY --from=frontend /app/server/story_rules.json /app/server/expeditions.json /app/server/
+# The seed fills an empty database and brings the story anchors a release adds.
+COPY --from=frontend /app/content/world-seed.json /app/content/world-seed.json
 COPY --from=frontend /app/docs/audits /app/docs/audits
 COPY --from=frontend /app/docs/archive /app/docs/archive
-ENV PORT=8080 STATIC_DIR=/app/public SCENE_COMPILER_PATH=/app/scripts/admin-world-compiler.mjs SCENE_SOURCE_PATH=/app/web/src/data/world-scenes.json
+ENV PORT=8080 STATIC_DIR=/app/public SCENE_COMPILER_PATH=/app/scripts/admin-world-compiler.mjs WORLD_SEED_PATH=/app/content/world-seed.json
 RUN ln -s /app/public /app/web/public && mkdir -p /app/.data && chown game:game /app/.data
 USER game
 # Exercise the packaged validator against production assets during image builds.
-RUN node /app/scripts/admin-world-compiler.mjs --root /app < /app/web/src/data/world-scenes.json > /dev/null
+RUN node /app/scripts/admin-world-compiler.mjs --root /app < /app/content/world-seed.json > /dev/null
 # Verify the real entrypoint reaches readiness using only packaged runtime files.
 RUN /bin/sh /app/check-startup.sh
 EXPOSE 8080

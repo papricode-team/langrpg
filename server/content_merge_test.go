@@ -37,7 +37,7 @@ func TestContentPublishedUUIDsPreserveProgressReceiptsAndWorld(t *testing.T) {
 		state.Accounts[player.ID] = a
 		correct := true
 		state.Actions[player.ID] = map[string]SavedAction{"attempt:published-proof": {Request: body, Receipt: Receipt{Correct: &correct, XPAdded: 7}}}
-		state.WorldContent, _ = json.Marshal(WorldContent{Revision: "published-world", Document: json.RawMessage(`{"id":"access","start":"gate"}`)})
+		state.WorldTables = &store.DiskWorld{Revision: 7, Shared: json.RawMessage(`{"id":"access"}`), Maps: map[string]json.RawMessage{"gate": json.RawMessage(`{"start":"gate"}`)}, Publication: json.RawMessage(`{}`)}
 	})
 	legacyAccount, err := app.store.Get(context.Background(), tokenHash(token))
 	if err != nil {
@@ -60,8 +60,8 @@ func TestContentPublishedUUIDsPreserveProgressReceiptsAndWorld(t *testing.T) {
 	if raw.Progress.Words[newWord].Exposures != 9 || raw.Progress.Story.Nodes[newQuest] != testContentID(t, app, "node", "a1-arrival:complete") || raw.RewardedQuestIDs[0] != newQuest || raw.StorySaves["one"].CompletedQuestIDs[0] != newQuest {
 		t.Fatal("published progress or story refs were lost")
 	}
-	world, err := (worldContentStorage{app.canonical}).LoadWorldContent(context.Background())
-	if err != nil || world.Revision != "published-world" || string(world.Document) != `{"id":"access","start":"gate"}` {
+	world, err := base.LoadWorld(context.Background())
+	if err != nil || world.Revision != 7 || string(world.Shared) != `{"id":"access"}` || string(world.Maps["gate"]) != `{"start":"gate"}` {
 		t.Fatal("UUID migration lost the independently published world")
 	}
 	_, receipt, duplicate, err := app.store.Mutate(context.Background(), tokenHash(token), "attempt:published-proof", body, func(*Account) (Receipt, error) { t.Fatal("published receipt reran"); return Receipt{}, nil })
@@ -111,7 +111,7 @@ func TestContentCourseSwitchAndResetKeepTrialAndCourseBoundaries(t *testing.T) {
 
 func TestContentAdminWorldBypassesLearningDocumentAdapter(t *testing.T) {
 	app := contentTestApp(t)
-	if err := app.initWorldEditing(context.Background(), "../web/src/data/world-scenes.json", "../scripts/admin-world-compiler.mjs"); err != nil {
+	if err := app.initWorldEditing(context.Background(), worldSeedPath, "../scripts/admin-world-compiler.mjs"); err != nil {
 		t.Fatal(err)
 	}
 	app.adminEmails = map[string]bool{"admin@example.com": true}
