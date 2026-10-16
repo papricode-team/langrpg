@@ -464,8 +464,8 @@
       "npcId": "greta",
       "npc": {
         "id": "greta",
-        "x": 0.276,
-        "y": 0.4713333333333333
+        "x": 0.2842881944444444,
+        "y": 0.4720052083333333
       },
       "gateExerciseId": "a1-pharmacy-exercise-1",
       "replyExerciseIds": [],
@@ -497,7 +497,7 @@
       "objects": [
         {
           "id": "lindenhafen-garden",
-          "x": 0.2766666666666666,
+          "x": 0.27666666666666667,
           "y": 0.45133333333333336
         }
       ]
@@ -742,8 +742,8 @@
       "npcId": "emil",
       "npc": {
         "id": "emil",
-        "x": 0.15200000000000002,
-        "y": 0.492
+        "x": 0.1480034722222222,
+        "y": 0.4680989583333333
       },
       "gateExerciseId": "a1-workshop-exercise-2",
       "replyExerciseIds": [],
@@ -789,8 +789,8 @@
       "objects": [
         {
           "id": "lindenhafen-workbench",
-          "x": 0.16066666666666665,
-          "y": 0.5086666666666667
+          "x": 0.16710069444444445,
+          "y": 0.4967447916666667
         }
       ]
     },
@@ -800,8 +800,8 @@
       "npcId": "emil",
       "npc": {
         "id": "emil",
-        "x": 0.15200000000000002,
-        "y": 0.492
+        "x": 0.1480034722222222,
+        "y": 0.4680989583333333
       },
       "gateExerciseId": "a1-bike-exercise-1",
       "replyExerciseIds": [],
@@ -833,8 +833,8 @@
       "objects": [
         {
           "id": "lindenhafen-workbench",
-          "x": 0.16066666666666665,
-          "y": 0.5086666666666667
+          "x": 0.16710069444444445,
+          "y": 0.4967447916666667
         }
       ]
     },
@@ -1020,8 +1020,8 @@
       "objects": [
         {
           "id": "lindenhafen-parcel",
-          "x": 0.44333333333333336,
-          "y": 0.49533333333333335
+          "x": 0.4435763888888889,
+          "y": 0.505859375
         }
       ]
     },
@@ -1077,8 +1077,8 @@
       "objects": [
         {
           "id": "lindenhafen-parcel",
-          "x": 0.44333333333333336,
-          "y": 0.49533333333333335
+          "x": 0.4435763888888889,
+          "y": 0.505859375
         },
         {
           "id": "lindenhafen-berg-house",
@@ -2446,8 +2446,8 @@
       "id": "ticket-anna-kuehn",
       "mapId": "lindenhafen",
       "anchor": "scenery:high-street-house",
-      "x": 0.4973958333333333,
-      "y": 0.11458333333333333,
+      "x": 0.4995659722222222,
+      "y": 0.046875,
       "host": "otto",
       "kind": "ticket",
       "german": "Anna Kühn",
@@ -2472,8 +2472,8 @@
       "id": "ticket-paul-winter",
       "mapId": "lindenhafen",
       "anchor": "scenery:high-street-east-house",
-      "x": 0.3797743055555556,
-      "y": 0.10221354166666667,
+      "x": 0.3823784722222222,
+      "y": 0.048828125,
       "host": "otto",
       "kind": "ticket",
       "german": "Paul Winter",
@@ -2547,8 +2547,8 @@
       "id": "ticket-ida-sommer",
       "mapId": "lindenhafen",
       "anchor": "scenery:north-library-house",
-      "x": 0.04079861111111111,
-      "y": 0.056640625,
+      "x": 0.06684027777777778,
+      "y": 0.032552083333333336,
       "host": "otto",
       "kind": "ticket",
       "german": "Ida Sommer",
@@ -2572,8 +2572,8 @@
       "id": "ticket-karl-fink",
       "mapId": "lindenhafen",
       "anchor": "scenery:workshop-west-house",
-      "x": 0.04600694444444445,
-      "y": 0.447265625,
+      "x": 0.12890625,
+      "y": 0.4505208333333333,
       "host": "otto",
       "kind": "ticket",
       "german": "Karl Fink",
@@ -2622,8 +2622,8 @@
       "id": "ticket-hans-moeller",
       "mapId": "lindenhafen",
       "anchor": "scenery:harbor-workshop",
-      "x": 0.20225694444444445,
-      "y": 0.775390625,
+      "x": 0.21180555555555555,
+      "y": 0.7981770833333334,
       "host": "otto",
       "kind": "ticket",
       "german": "Hans Möller",

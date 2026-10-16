@@ -198,7 +198,7 @@ describe('painted scenery foot collisions', () => {
   // from the paintings, rather than values read back from the collision specs.
   // The canopy/pole can cover a character visually without closing the road.
   const fixtures: { mapId: MapId; base: MapPoint; behind: MapPoint }[] = [
-    { mapId: 'lindenhafen', base: { x: 578, y: 602 }, behind: { x: 578, y: 570 } },
+    { mapId: 'lindenhafen', base: { x: 521, y: 606 }, behind: { x: 521, y: 574 } },
     { mapId: 'waldruh', base: { x: 492, y: 582 }, behind: { x: 492, y: 565 } },
     { mapId: 'waldruh', base: { x: 353, y: 400 }, behind: { x: 353, y: 375 } },
     { mapId: 'waldruh', base: { x: 947, y: 570 }, behind: { x: 947, y: 550 } },
@@ -249,10 +249,10 @@ describe('painted scenery foot collisions', () => {
 
   it('keeps the pavement beside a canon-sized lamp free of its former oversized collision', () => {
     const navigation = createMapNavigation('lindenhafen');
-    expect(navigation.isWalkable(578,602)).toBe(false);
-    expect(createMapNavigation('lindenhafen', {agentRadius:0}).isWalkable(595,605)).toBe(true);
-    const approach = navigation.closestPoint(595, 605);
-    expect(Math.hypot(approach.x - 595, approach.y - 605)).toBeLessThan(20);
+    expect(navigation.isWalkable(521,606)).toBe(false);
+    expect(createMapNavigation('lindenhafen', {agentRadius:0}).isWalkable(538,608)).toBe(true);
+    const approach = navigation.closestPoint(538, 608);
+    expect(Math.hypot(approach.x - 538, approach.y - 608)).toBeLessThan(20);
     expect(navigation.isWalkable(approach.x, approach.y)).toBe(true);
   });
 
