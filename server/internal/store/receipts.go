@@ -83,6 +83,6 @@ func (s *JSONStore) ExerciseReceiptExists(_ context.Context, hash, course, slug,
 
 func (s *PGStore) ExerciseReceiptExists(ctx context.Context, hash, course, slug, uuid string, legacy bool) (bool, error) {
 	var exists bool
-	err := s.pool.QueryRow(ctx, `SELECT EXISTS(SELECT 1 FROM learning_events e JOIN sessions s ON s.account_id=e.account_id WHERE s.token_hash=$1 AND (e.event_key LIKE $2 OR ($5 AND e.event_key LIKE 'attempt:%' AND split_part(e.event_key,':',3)='')) AND e.request->>'exerciseId' IN($3,$4) AND COALESCE(e.request->>'answer','')<>'' AND COALESCE(e.request->>'preview','false')<>'true' AND e.receipt->>'correct' IS NOT NULL)`, hash, "attempt:"+course+":%", slug, uuid, legacy).Scan(&exists)
+	err := s.pool.QueryRow(ctx, `SELECT EXISTS(SELECT 1 FROM learning_events e JOIN sessions s ON s.account_id=e.account_id WHERE s.token_hash=$1 AND (e.event_key LIKE $2 OR ($5 AND e.event_key LIKE 'attempt:%' AND split_part(e.event_key,':',3)='')) AND e.exercise_id IN($3,$4) AND e.answered AND e.correct IS NOT NULL)`, hash, "attempt:"+course+":%", slug, uuid, legacy).Scan(&exists)
 	return exists, err
 }

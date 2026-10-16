@@ -234,7 +234,7 @@ func (a *App) createCheckout(ctx context.Context, accountID, plan, product strin
 		if len(kept) >= 32 {
 			return errors.New("too many pending purchases; use billing management")
 		}
-		current.Billing.Purchases = append(kept, billing.Purchase{CheckoutID: response.ID, RequestID: requestID, ProductID: product, Plan: plan, CreatedAt: a.now().UTC()})
+		current.Billing.Purchases = append(kept, billing.Purchase{CheckoutID: response.ID, RequestID: requestID, ProductID: product, Plan: plan, CreatedAt: a.now().UTC().Truncate(time.Microsecond)})
 		return nil
 	})
 	if err != nil {
@@ -376,7 +376,7 @@ func (a *App) billingWebhook(w http.ResponseWriter, r *http.Request) {
 				if len(account.Billing.Purchases) >= 64 {
 					return false, errors.New("purchase reconciliation limit exceeded")
 				}
-				account.Billing.Purchases = append(account.Billing.Purchases, billing.Purchase{CheckoutID: checkout.ID, RequestID: checkout.RequestID, ProductID: checkout.Product.ID, Plan: a.billing.PlanFor(checkout.Product.ID), CreatedAt: now})
+				account.Billing.Purchases = append(account.Billing.Purchases, billing.Purchase{CheckoutID: checkout.ID, RequestID: checkout.RequestID, ProductID: checkout.Product.ID, Plan: a.billing.PlanFor(checkout.Product.ID), CreatedAt: now.Truncate(time.Microsecond)})
 			}
 		}
 		// Record the disputed payment before verifying, so the snapshot
