@@ -1,98 +1,61 @@
-# Canonical scene authoring
+# Scene authoring
 
-`content/world-seed.json` is the version 2 source for all 13 outdoor worlds. Its initial conversion preserved the previous 1536 × 1024 bounds, spawn and interaction anchors, walkable polygons, obstacles and placed scenery. Each scene owns its dimensions; the schema also accepts independently sized interior scenes. Interior content remains in its existing catalog until explicitly migrated.
+The world is a version 4 scene document: `{version: 4, maps: {<town>: WorldScene}, prefabs?}`. The schema
+and its validation live in `web/src/scene-schema.ts`. The server stores one row per town in PostgreSQL
+(`world_maps`) and serves the whole document from `GET /api/world-content`; nothing in the browser bundle
+carries a world. See [world storage](world-storage-redesign.md) and [editing from tools](world-agents.md).
 
-Coordinates are **world units**, not texture pixels or normalized network positions. A terrain plate specifies its logical rectangle and image paths independently. Scenery uses its existing pixel foot anchor, width, frame, animation and collision behavior. Decorative edge overscan is allowed within one object width; gameplay anchors must be inside the scene.
+## Where the world comes from
 
-New terrain follows latest main's **4 texture pixels per world unit** format (`b9170fb`). The three story-town cores use four 768 × 512 world-unit chunks per lighting state. Each has a 3072 × 2048 visible pixel frame with a one-pixel guard at internal edges; `dayCrop` and `nightCrop` select that frame and `pixelDensity: 4` records the scale. The editor and game use the same `StreamedWorldTerrain` renderer, shared reference-counted residency and texture keys. One-pixel-per-world-unit overviews cover zoomed-out views; four-pixel detail loads around the camera with two concurrent requests and a 32-million-visible-pixel detail cap per layer. Tiled exports retain the crop, scale and day/night references. The compiler checks actual image dimensions, crop bounds, declared density and the 4096-pixel texture limit. Chunks under `world-expansions` or extending beyond the original core must use the 768 × 512 / 4px contract, both lighting states, both overviews, and visible crops with guards on every edge. Omitting metadata cannot bypass the expansion requirement.
+- **PostgreSQL** holds the live world. Every edit, from the game, the admin map editor, the CLI or an agent,
+  goes through `POST /api/admin/world/ops` or a whole-world import, is checked by the Node worker
+  (`scripts/admin-world-worker.mjs`) and lands in the edit log.
+- **`content/world-seed.json`** fills an empty database and brings the story characters and evidence a
+  release adds: at boot the worker adds any missing `npcs` and `objects` at the seed's position and
+  recompiles story positions. Tests and Node tooling read the seed through `web/src/test-support/world-seed.ts`
+  and `scene-data.ts`. Refresh it from production with `npm run world:pull -- --seed`.
+- Older documents upgrade when parsed: version 3 vector terrain converts to painted ground exactly; towns that
+  had image plates take the seed's ground at boot.
 
-At 3072 × 2048 world units, keep this density: sixteen 768 × 512 logical chunks represent a 12288 × 8192 painting per period. Preserve old core anchors and create additional close-up painted sections for the new districts. Do not stretch the existing four pieces across the larger map or use a single generated overview as final terrain. Match the native section detail, stitching and guard-band export documented in [terrain-detail/README.md](../art/source/terrain-detail/README.md); retain its 2 MiB per-file cap. Lindenhafen's station-yard, parcel-yard, garden-court and canal-walk day/night chunks are registered playable terrain, with 1px/world overview assets. The intermediate map is 3072 × 1024 and now exceeds the independent 2× connected-area requirement, but still needs doubled height. The remaining expansion artwork and districts are outstanding. Chunk residency is bounded in both runtime and editor.
+## Coordinates
 
-Activity positions have an `ownerId` and `offsetX`/`offsetY` relative to the owner's foot anchor. Optional `approach` and `exit` points are offsets in the same coordinate space. Moving the owner therefore moves these positions. Multi-person positions use `places`, a list of offsets relative to the activity position, with one distinct point per `capacity` entry. Place centers must be at least sixteen world units apart. Scheduled positions with capacity greater than one require explicit places. The compiler requires exact feet, approach and exit points on spawn-connected walkable land; it never silently projects an activity from water or a blocked foundation onto the nearest road. Direct canonical edits that delete an owner fail validation while an activity still references it. The editor removes ordinary furniture and its activities in one undoable transaction, but blocks deletion when a resident task uses a primary or fallback position; reassign or remove those tasks first. Owners of activities and entrances survive scatter regeneration, whether or not they are pinned. Width/flip edits in the editor or Tiled transform the associated offsets and capacity places too.
+Coordinates are **world units** with the origin at the top left; x grows east and y grows south. A town is
+`width × height` units (the three towns are 2304 × 1536 and 2304 × 1024). Scenery, characters and evidence are
+placed by their **foot point**, where they meet the ground. The server stores player positions normalized to the
+town's coordinate frame; changing a town's size or `legacyOffset` needs a higher `coordinateVersion`.
 
-Entrances use `id`, `ownerId`, `interiorId`, `offsetX`, `offsetY` and optional `returnOffset`, all relative to the owning scenery foot anchor. Each of the three story towns must provide exactly one entrance for each existing room: café, bakery, supermarket and inn. The inspector can reassign a room to another storefront and edit approach/return offsets. The compiler checks that both exact destinations lie on spawn-connected walkable ground. It does not move a blocked door to a nearby road to make validation pass. Deleting an entrance owner is blocked until reassignment. Duplicating furniture copies its activity slots but does not steal a unique interior entrance from the original.
+## Ground
 
-Tiled v2 includes an `Entrances` point layer. Moving only a building moves its attached points; moving an entrance marker explicitly edits its local offset. Export metadata records the owner's source position, width and flip so imports can distinguish these operations. Resize and flip edits carry activity/approach/exit/return offsets together. Run `node scripts/map-editor.mjs export-all` after canonical edits to keep the checked-in exchanges aligned.
+`scene.ground` is painted like Unity terrain (`web/src/ground.ts`):
 
-Choose **Go to district** in View to frame a named district directly; choose Entire map or Fit to return to the whole map. In a narrow window the inspector remains available below the canvas.
+- A grid of samples every `cell` world units (8 for painted towns, 4 for towns converted from vector terrain)
+  holds one weight per material **layer**, at most six. Layer weights are run-length encoded per layer.
+- The renderer (`web/src/ground-terrain.ts`) is one shader quad over the town. It samples two small control
+  textures for the weights and up to six tiled materials from `web/src/data/terrain-materials.json`, blending
+  them with a height-aware mix. Painting re-uploads only the control textures.
+- Painting is the edit operation `{kind: 'paint', map, material, radius, strength, points}`: a soft round
+  brush adds `strength` of the material along the path and removes the same share from the other layers. A
+  material joins as a new layer; a town reuses a layer nothing shows any more.
+- **Walking**: blocked materials (the waters and `cliff`) stop walkers where they hold at least 60% of the
+  weight. Shores are traced between samples (marching squares) and cut into 256-unit tiles for navigation.
+- **Features** (`ground.features`) are painted pieces such as bridges and compass inlays, placed by position and
+  width. Their traced surfaces apply in order on top of the ground: masonry blocks, a deck opens a crossing.
 
-Use the map dropdown in the top bar to switch towns, scroll to zoom, and hold Space while dragging to pan. **Layers** lets you inspect **Terrain**, **Buildings**, **Vegetation** and **Other props** independently. **Terrain only** isolates the painted ground; **Show all artwork** re-enables those four artwork layers. Guide switches show story characters and discoveries, doors and activity slots, walkable ground, collision and districts. These switches change the editor view and stay outside the scene document and undo history. Object edits create a recoverable local draft; **Validate** checks that draft, and **Save world** validates and writes the canonical world and server interaction registry. A failed save retains the draft. The development workspace started with `npm run dev` restarts the game server automatically after saved coordinate changes.
+## Scenery and anchors
 
-Switch the library to **Placed** to search existing objects by stable ID, asset, frame or reusable-group name. Filter by district using the object’s logical foot position. Group rows select the complete group; child rows select just that object. Shift-click a row adds it to the selection. Use a row’s **Frame** control, the canvas **Frame** button or **F** to bring the selected artwork into view.
+`scenery[]` items are reusable transparent artwork: `asset` (the physical role), optional `frame` and
+`variant`, `width`, `flipX`, `collidable`, `motion` and an optional `interior` room. Their footprint comes from
+the artwork's geometry in `web/src/data/scenery-geometry.json`, or the shape rules in `placed-scenery.ts` for
+artwork without one; an item stores `collision` only when an admin drew its own. `sortLine` overrides the depth
+contour. `activities[]` are resident spots owned by a scenery item; `residents[]` carry daily schedules over them.
 
-**Hide** and **Lock** in Placed are per-map, device-local editing aids, retained across reloads. Hiding removes artwork from the editor and its hit tests; the canonical scene and navigation remain intact. Locking blocks movement, inspector changes, deletion and indirect edits to attached activity/entrance positions, including regeneration and group updates. These controls do not add undo steps or dirty the scene. **Show all & clear view locks** restores the local view; saved prefab-copy locks remain separate. Undo/redo intentionally still restores scene history.
+`npcs[]` and `objects[]` are story anchors. Their ids belong to the story content (`web/src/maps.ts`); the
+compiler refuses a town missing one or holding one with no content.
 
-Drag over empty canvas space, or use **Box** to begin over an object, to select everything intersecting a rectangle. Groups expand together; hold Alt to select individual children or Shift to add to the selection. Hidden objects are excluded. Hold Space while dragging to pan; Escape cancels the current gesture.
+## Validation
 
-The editor's Group/Ungroup commands and group dragging are undoable. A normal click selects a complete group; Alt-click selects one child; Shift-click adds/removes a group from the selection. Group movement is clamped as a whole at the scene boundary to retain relative layout.
-
-## Copy, paint and erase objects
-
-The **Objects** library includes every registered base and variation frame for the selected map, including artwork that has no placed instance yet. Each card uses the map's own artwork. Search by asset name, choose a card and click the canvas in **Stamp** mode to place one independent object.
-
-Select up to 300 objects and choose **Copy** or Ctrl/Cmd+C. Choose **Paste** or Ctrl/Cmd+V, inspect the placement preview and click the destination. Escape cancels the preview. The editor clipboard survives changing maps within this tab; it does not use the system clipboard and is cleared on reload. Cross-map pasting requires matching registered art and an available group catalog revision. It uses the destination map's artwork for those frames. A paste preserves relative spacing, widths, flips, groups and attached activity positions, while assigning independent IDs. The editor clamps the layout together at map edges and rejects a layout too wide or tall to fit.
-
-Copying a complete reusable group preserves its catalog relationship, local overrides and deleted children; a partial copy becomes ordinary independent objects. A new copy starts unlocked. Generation ownership is removed, while copied protection flags remain. Unique room entrances and resident schedules stay with the originals. Validate activity approaches after choosing the new location. Each paste is one undo step; Ctrl/Cmd+V starts another placement.
-
-Choose an object, switch to **Brush** (B), and drag across buildable land. **Brush & erase settings** controls spacing (8–512 world units), size variation (0–30%), path clearance (0–120) and **Keep paths clear**, enabled by default. Sampling follows the drag distance so fast strokes have the same spacing as slow ones. Each gesture has a 300-sample limit and becomes one undo step on release. Escape or losing window focus cancels the pending gesture. Committed objects remain individually editable. The brush avoids solid obstacles and existing objects; the path option also protects authored walkable polygons, spawn, story approaches, homes, doors and activity positions. Water and buildable surfaces are not yet semantically tagged: the author must choose appropriate ground, and the brush must not be treated as an automatic water detector.
-
-Choose **Erase** (E) and sweep across objects. Erase radius is 4–256 world units and follows the visible object bounds, including between pointer events. A group erases together unless Alt is held for individual children. Hidden, view-locked, prefab-locked and protected objects stay in place. Objects that own a room entrance or a scheduled resident activity are preserved with diagnostics naming the references to reassign. If a protected child prevents a whole-group erase, that group stays intact. One undo restores the complete erase gesture. **Select** or Escape returns to ordinary selection. Keyboard shortcuts leave editable fields and selected text alone.
-
-## Reusable groups
-
-Switch the object library to **Groups**, choose a template, then click the world to place its objects and activity positions together. The starter catalog contains café terrace, market corner, parcel depot, garden patch, forest cluster, harbor work area and sheltered bench. Greenhouse work corner is an additional reusable production group, with a placed copy in the community garden. Search filters by name. Only templates whose artwork is available in the selected map appear. Placement is one undoable transaction; validate the resulting approaches and collision before saving.
-
-Select ordinary objects and choose **Save selection as new group** to add a template. Catalog definitions live in the document's `prefabs` collection and use local child coordinates and stable child keys. Placed `prefabInstances` retain independent object IDs, a catalog revision, placement origin and the last accepted defaults. Full-copy duplication preserves this relationship and local edits; copying only some children creates ordinary independent objects. Unique room entrances remain with the source building.
-
-To revise a template, edit its placed source, select the full group, then choose **Publish selection as vN**. This updates the draft catalog; **Save world** publishes the validated document. Other copies retain their current state. For each copy, **Preview copy update** shows changed objects and activity positions before **Apply group update** accepts one undoable change. The update compares previous defaults, current local values and new defaults, keeping explicit local edits and deleted children. Deleted IDs remain reserved so later placement cannot inadvertently restore a deleted child. Moving a whole group rebases its placement; moving one child remains a local edit.
-
-Removed defaults with local changes, pinned objects, unique doors, independent activity positions or resident task references survive as independent objects. **Detach copy** removes catalog tracking while retaining the placed content and ordinary grouping. **Lock copy** prevents editor movement, property changes, deletion and updates until unlocked. Locking is an editor safeguard, not a permission boundary for direct JSON or Tiled editing. Undo/redo and recoverable drafts retain catalog revisions, copies and overrides. Tiled exchanges retain copy metadata; the catalog remains in the canonical document.
-
-Scatter regeneration preserves prefab members. Editing the scene invalidates an existing generation preview, and applying a stale proposal is rejected. Accepted generation results are stored as editable objects; loading a scene does not regenerate them. Richer population rules, multi-copy update selection and event authoring remain future work.
-
-## Residents and daily visits
-
-Use **Residents & daily activities** in the inspector to add a named resident, set a reachable home and walking speed, and add timed visits to the scene's activity positions. Select an object with an activity and choose **Home at selected object's activity** to use that point as a starting home. Prefer a doorway where disappearance reads as entering a building. Choose **Action appearance** to use a painted body-pose set. Each named look also selects matching walking colors; choosing Current avatar retains the colors and uses basic actions. Existing regional `artVariant` values remain supported, but cannot be combined with these four painted looks. Add a matching native pose set for a new regional identity rather than assigning unrelated action art.
-
-Each block has a stable ID, primary activity, action, start/end hour, action duration in real seconds, optional fallback and held object. Hours are on a 0–24 clock; a full world day lasts 720 real seconds. Blocks cannot overlap or cross midnight. Break an overnight routine into separate blocks. Actions must fit the primary position: `read`/`sit` use a seat, `carry` uses pickup, `serve` uses service, `work` uses work and `shelter` uses shelter. `wait` accepts waiting, seat or shelter positions; `greet` accepts waiting or service positions. A fallback must be a waiting, seat or shelter position.
-
-Saving compiles the routes from home through the authored approach to each place, then through the exit back home. Travel plus action plus return must fit within the block. Each accepted visit returns home, and residents are hidden at home between visits. This first system does not yet chain task locations, make weather decisions or create persistent inventory results.
-
-Daily planning is deterministic for the scene, world seed and day. Requests have stable ordering and a small seeded departure variation. A reservation holds a place from departure through return home; this conservative lifetime also checks other activity IDs within sixteen world units. When occupied, the actor waits at home until a full visit fits, tries its fallback, or skips the block. Position claims release at the planned return time without mutable per-frame locks. Shared clock and content-version agreement make connected ambient actors reconstruct consistently; this is not a substitute for server-authoritative interactive transactions.
-
-Choose **Show schedule guide** to sample the plan at a selected hour. Gold circles are acting, blue circles are traveling, and gray circles mark residents at home. The guide uses real route planning; invalid routes appear as diagnostics. Save a valid draft and use **Open game preview**, its time selector and **Observe resident** to inspect character artwork. The four painted looks provide seated reading with a page turn, resting, work, serving, greeting and parcel-carrying poses. **Face while acting** chooses left or right; Arrival direction reconstructs the route’s final horizontal direction. Read with a book, work with a tool or parcel, and carry with a parcel use painted held objects; other combinations retain basic props. Bench poses sit back from the walkable arrival point to the bench ground anchor. Pose time follows the shared task clock and reduced motion holds a calm frame. Weather reactions, paired social handoffs and persistent results remain unfinished. Time guides do not edit the canonical schedule.
-
-## Validation and saving
-
-The pure browser-safe parser is `parseWorldSceneDocument` in `web/src/scene-schema.ts`. `sceneDocument` and `getWorldScene(id)` in `web/src/scene-data.ts` load the released scene data. The parser checks shape, bounds, polygons, IDs, object fields and local activity references. The compiler adds content and image references, required interaction coverage, and reachability using the runtime navigation grid and the **draft's own** scenery collision.
-
-Buildings need at least 32 world units between their complete painted bounds, including roofs and façades. The shared envelope includes both day and night artwork and follows each placement's scale and mirrored pivot. Scatter generation and brush placement skip buildings that violate this spacing; the compiler rejects conflicting placements even when optional composition checks are relaxed. After changing artwork, run `node scripts/scenery-geometry.mjs` to refresh the shared envelopes.
-
-```sh
-node scripts/scene-compiler.mjs check
-node scripts/scene-compiler.mjs compile
-node scripts/scene-compiler.mjs import /absolute/path/to/edited-scenes.json
-```
-
-`check` performs no writes. `compile` validates the canonical document and refreshes server coordinates. `import` validates a complete edited document before replacing the canonical source. Required map and interaction IDs cannot be deleted without a content migration. All initial outdoor maps use coordinate version 1; changing their bounds or origin requires a larger `coordinateVersion`, preserving compatibility with saved positions and reconnects.
-
-The generated `server/world_maps.json` contains the scene content hash, bounds, normalized spawn, coordinate version and optional legacy offset, plus normalized owner-resolved entrance approaches and returns. The compiler also refreshes NPC and evidence positions in `server/story_rules.json`, retaining its narrative and grading rules. Editing story content still uses the existing content exporter; run scene compilation after that exporter when producing a release.
-
-`compileSceneDocument(value, {root})` returns the validated document and generated outputs without writing. `saveSceneDocument` stages the complete outputs, uses atomic renames for individual files, and rolls back completed renames if a later write fails. This is a local authoring transaction, not an atomic deployment across a running browser and server. Released client and server builds must use matching content versions.
-
-The development save service must keep recoverable drafts separate, serialize saves, check the client's expected source revision and expose compiler diagnostics. Production serving must not expose its authoring endpoints. A failed validation leaves canonical source and generated authority files unchanged.
-
-Focused checks:
-
-```sh
-node --test scripts/scene-compiler.test.mjs
-npm run test --workspace web -- src/scene-schema.test.ts
-```
-
-## Shared time and preview behavior
-
-The server stores one immutable world identity (version, UTC epoch and random seed) outside account and narrative save data. JSON startup adds it once to legacy files; PostgreSQL elects one identity through a unique `world_state` row. Corrupt stored identity fails startup rather than resetting the world. Restarts reconstruct elapsed time, including downtime, without per-tick database writes.
-
-Clock packets provide `epoch`, `seed`, `elapsedSeconds` and `dayLengthSeconds: 720` alongside the existing hour/day/server timestamp. The browser validates their agreement, orders samples using server timestamps, and advances using a monotonic local timer rather than the device wall clock. Normal corrections blend over two seconds without reversing. Long suspension/reconnect gaps reconstruct directly. Network transit delay can still produce a small phase difference; this is deterministic ambient sampling, not server-authoritative object reservations.
-
-Connected resident routes use shared time, seed and stable identity. Departure variation is seeded per day, opening/closing pace follows the schedule, and residents complete their route home before disappearing. Reduced motion calms presentation while connected positions still advance. Manual/local time affects sky presentation; shared resident schedules and client availability checks continue using the shared hour. Authored object visits also sample shared time regardless of camera visibility. Offline art previews use a fixed seed and the selected preview hour; older route-based residents retain their local routines. The development asset-review page offers **Live shared time** for checking the actual server clock. Reload the standalone page to return from shared-time sampling to an independent time preview. Server-authoritative interactive reservations, event outcomes and reward handling remain unfinished.
+`parseWorldSceneDocument` checks structure. The worker checks each edit against what it changed: refusals
+(`invalid`, `missing`, `locked`, `stale`, `occupied`, `in-use`, `room-taken`, `no-door`, `out-of-bounds`) and
+warnings (overlaps, blocked routes, story anchors). `node scripts/scene-compiler.mjs check [document.json]`
+validates a whole document, by default the seed, including artwork, routes from the spawn to every story
+target, door and resident spot, and the composition rules in `scripts/scene-quality.mjs`.

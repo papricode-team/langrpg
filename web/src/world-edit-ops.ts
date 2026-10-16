@@ -5,9 +5,8 @@ import {MAX_BRUSH_RADIUS,MAX_STROKE_POINTS,groundFingerprint,paintGround,type Gr
  * reaches the same document by applying them in order.
  */
 import {paletteChoices,usesVariationAtlas,variantChoices} from './world-edit-catalogue';
-import {withSceneryCollision} from './placed-scenery';
 import {
-  getSceneryGeometryMap,sceneActivityUsers,sceneInteriorIds,sceneSceneryAssets,
+  sceneActivityUsers,sceneInteriorIds,sceneSceneryAssets,
   type SceneActivity,type SceneInterior,type SceneResident,type SceneScenery,type ScenePoint,type WorldScene,type WorldSceneDocument,
 } from './scene-schema';
 import {objectLabel,problem,WorldEditError} from './world-edit-rules';
@@ -169,9 +168,9 @@ function applyOne(document: WorldSceneDocument, op: WorldEditOp): WorldSceneDocu
         if (!variantChoices(paletteChoices(scene.id), changed).some(choice => choice.frame === op.frame)) throw invalid(scene.id, 'Choose a compatible version of this object.');
         if (op.frame === item.asset) delete changed.frame; else changed.frame = op.frame;
         if (usesVariationAtlas(op.frame)) changed.variant = true; else delete changed.variant;
+        // The new artwork brings its own footprint and sort line.
         delete changed.collision;
         delete changed.sortLine;
-        changed.collision = withSceneryCollision({...changed, collidable: true}, getSceneryGeometryMap(scene.id)).collision;
       }
       if (op.restoreArtwork) {
         if ((op.restoreArtwork.frame ?? item.asset) !== op.frame) throw invalid(scene.id, 'The restored artwork must match the chosen version.');
@@ -184,8 +183,8 @@ function applyOne(document: WorldSceneDocument, op: WorldEditOp): WorldSceneDocu
     case 'place': {
       if (scene.scenery.some(value => value.id === op.item.id)) throw invalid(scene.id, 'Another object already uses that name. Try again.');
       const item = {...op.item, x: round(op.item.x), y: round(op.item.y), width: round(op.item.width)};
-      // Each object keeps its footprint with it, as the compiler does.
-      const placed = withSceneryCollision(item, getSceneryGeometryMap(scene.id));
+      // The footprint comes from the artwork's geometry unless the item brings its own.
+      const placed = item;
       const activities = op.activities?.map(slot => ({...slot, ownerId: item.id}));
       next = {...scene, scenery: [...scene.scenery, placed],
         ...(activities?.length ? {activities: [...(scene.activities ?? []), ...activities]} : {})};

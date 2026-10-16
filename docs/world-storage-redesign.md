@@ -1,7 +1,6 @@
 # World storage, terrain and agent editing redesign
 
-Status: phases A and B done, C and D in progress (2026-10-16). Supersedes the storage parts of `scene-authoring.md`,
-`map-editor.md` and `modular-terrain.md`.
+Status: done (2026-10-16). Phases A–C are on main; `world_content` can be dropped after one release. The current model is described in `scene-authoring.md` and `world-agents.md`.
 
 ## Goal
 
@@ -43,13 +42,14 @@ admins) can pull a town, edit it and push it back.
    positions are compiled from the live tables by the TypeScript worker (one
    implementation). The Go copies (`compileStoryAuthority`, `worldRevision` hashing,
    embedded `world_maps.json`) are removed.
-4. **Collision comes from asset geometry.** Objects store only an optional override.
-5. **One terrain: a splatmap.** Per map a grid of cells (8 world units), up to 8 material
-   layers with 8-bit weights, packed as two RGBA control maps. A WebGL shader blends the
-   tiled material textures. Painting is a soft round brush that adds weight to one
-   layer. Materials flagged `blocked` (water) make a cell impassable when they dominate it.
-   Image plates, `terrainCollision`, polygon `modularTerrain`, curbs/features baked into
-   Canvas chunks and `foundation-terrain.json` are removed.
+4. **Collision comes from asset geometry.** Objects store only an override an admin drew; the boot
+   reconcile drops stored colliders that repeat the artwork's footprint.
+5. **One terrain: painted ground.** Per town a grid of samples (8 world units, 4 for converted vector
+   towns) holds a weight per material layer, at most six, run-length encoded. A shader quad blends the tiled
+   materials through two RGB control textures; a paint edit carries its brush path. Samples where blocked
+   materials (water, `cliff`) hold at least 60% stop walkers; shores are traced between samples and bridge decks
+   apply exactly. Image plates, `terrainCollision`, polygon `modularTerrain`, curbs and masonry baked into
+   Canvas chunks, `foundation-terrain.json` and the legacy navigation document are removed.
 6. **Export/import instead of files in git.** `GET /api/admin/world/export` and
    `PUT /api/admin/world/import` move a versioned bundle. `npm run world:pull` writes it to
    the git-ignored `.world/` directory; `world:push` uploads; `world:seed` loads it into a
@@ -66,10 +66,13 @@ admins) can pull a town, edit it and push it back.
   `world_content` document into them in SQL (`jsonb_*` functions), so production upgrades
   in place at boot. It was rehearsed on a copy of production's world
   (`TestPostgresWorldContentMovesIntoWorldTables` with `WORLD_MIGRATION_DOCUMENT`).
-- Terrain is converted once by the worker on first boot when a map has no splatmap:
-  Lindenhafen rasterises its painted surfaces (exact); Waldruh and Nebelstadt are seeded
-  from their image plates by colour classification plus their water/cliff polygons. The
-  painted plate art does not survive; those two towns will look plainer until repainted.
+- Terrain converts on the first boot after phase C: Lindenhafen's vector terrain is sampled exactly; Waldruh
+  and Nebelstadt, unchanged from the seed, take the seed's ground, which was classified offline from their
+  plate art with every water, wall and cliff outline enforced. The plate art does not survive; those towns look
+  plainer until repainted. Navigation was checked against the old geometry with the terrain fixtures and the
+  old routes, including the 21-unit-wide harbour bridge.
+- Production's inn door in Lindenhafen was already unreachable before this work (`door-blocked`); a
+  whole-world push is refused until it is fixed in the editor.
 - `world_content` is kept read-only for one release as a rollback copy, then dropped.
 
 ## Phases
@@ -78,7 +81,8 @@ admins) can pull a town, edit it and push it back.
 |---|---|
 | A. Storage | tables + data migration, store layer, ops write rows, edit log revision, story overrides table, admin tokens, export/import, remove repo world files and Go duplicates |
 | B. Agents | token page, `world:pull/push` CLI, MCP server, preview rendering (see `world-agents.md`) |
-| C. Terrain | splatmap schema, shader renderer, brush editor, navigation from splatmap, conversion, removal of plates/modular/features |
-| D. Cleanup | legacy fields and scripts, docs, verify list |
+| C. Terrain | painted ground, shader renderer, brush editor, navigation from the ground, conversion, removal of plates and vector terrain |
+| D. Cleanup | colliders from asset geometry, ground tools for agents, docs |
 
-Each phase deploys separately and is checked against production through the MCP server.
+Each phase deploys separately. The migration and the terrain conversion were rehearsed on a copy of
+production's world before release.

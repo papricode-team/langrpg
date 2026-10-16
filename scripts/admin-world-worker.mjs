@@ -22,7 +22,8 @@ import {fileURLToPath} from 'node:url';
 import './register-content-loader.mjs';
 import {compileAdminWorld} from './admin-world-compiler.mjs';
 import {compileRegistry, compileStoryRules, missingStoryAnchors, residentProblems, sceneContentVersion} from './scene-compiler.mjs';
-const {parseWorldSceneDocument} = await import('../web/src/scene-schema.ts');
+const {parseWorldSceneDocument, getSceneryGeometryMap} = await import('../web/src/scene-schema.ts');
+const {withoutDefaultCollision} = await import('../web/src/placed-scenery.ts');
 const {applyEditOps, parseEditOps} = await import('../web/src/world-edit-ops.ts');
 const {placementProblems, newWarnings, SceneReach, WorldEditError, problem} = await import('../web/src/world-edit-rules.ts');
 
@@ -117,6 +118,14 @@ function reconcile(request) {
   }
   const upgraded = document.version !== 4;
   const parsed = parseWorldSceneDocument(document);
+  // Colliders that only repeat the artwork's footprint are dropped; footprints follow the art.
+  for (const scene of Object.values(parsed.maps)) {
+    const manifest = getSceneryGeometryMap(scene.id);
+    const scenery = scene.scenery.map(item => withoutDefaultCollision(item, manifest));
+    const objects = scene.objects.map(({collision, ...anchor}) => collision?.polygons.length ? {...anchor, collision} : anchor);
+    if (scenery.some((item, i) => item !== scene.scenery[i]) || objects.some((item, i) => item.collision !== scene.objects[i].collision)) added.push(`${scene.id}/collision`);
+    scene.scenery = scenery; scene.objects = objects;
+  }
   const changedMaps = upgraded ? Object.keys(parsed.maps) : [...new Set(added.map(entry => entry.split('/')[0]))];
   return {ok: true, added, bundle: {document: parsed, changedMaps, worldMaps: compileRegistry(parsed),
     investigations: compileStoryRules(parsed, authoredRules, {strict: false}), contentVersion: sceneContentVersion(parsed), diagnostics: []}};

@@ -12,8 +12,6 @@ import {sceneryFrameSizes,validateSceneryGeometry} from './scenery-geometry.mjs'
 const {compileResidentActivities} = await import('../web/src/resident-activities.ts');
 const {residentActionFrames,RESIDENT_ACTION_ART} = await import('../web/src/resident-action-art.ts');
 const {NavigationGrid,PLAYER_RADIUS} = await import('../web/src/navigation.ts');
-const {withSceneryCollision} = await import('../web/src/placed-scenery.ts');
-const {getSceneryGeometryMap} = await import('../web/src/scene-schema.ts');
 const {terrainObjects,terrainObject}=await import('../web/src/terrain-objects.ts');
 const {sceneNavigationGeometry} = await import('../web/src/scene-navigation.ts');
 const {maps: contentMaps} = await import('../web/src/maps.ts');
@@ -118,10 +116,6 @@ export async function compileSceneDocument(value, {root = projectRoot, strictQua
   let document;
   try { document = parseWorldSceneDocument(structuredClone(value)); }
   catch (error) { throw new SceneCompileError([problem('invalid', '', String(error.message ?? error).replace(/^Invalid world scene: /, ''))]); }
-  for(const scene of Object.values(document.maps)) {
-    scene.scenery=scene.scenery.map(item=>withSceneryCollision(item,getSceneryGeometryMap(scene.id)));
-    scene.objects=scene.objects.map(item=>({...item,collision:item.collision??{referenceWidth:1,polygons:[]}}));
-  }
   const problems = [], quality={};
   const files = new Map();
   const imageSizes = new Map();

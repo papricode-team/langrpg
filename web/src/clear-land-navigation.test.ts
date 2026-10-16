@@ -5,7 +5,8 @@ import waldruhCore from '../../docs/audits/waldruh-core-v1.json';
 import {getWorldScene,sceneDocument} from './scene-data';
 import {sceneNavigationGeometry} from './scene-navigation';
 import {NavigationGrid,PLAYER_RADIUS,createMapNavigation,type MapPoint} from './navigation';
-import {parseWorldSceneDocument,type ScenePolygon,type WorldScene} from './scene-schema';
+import {getSceneryGeometryMap,parseWorldSceneDocument,type ScenePolygon,type WorldScene} from './scene-schema';
+import {sceneryFootprints} from './placed-scenery';
 import {applyEditOps,type WorldEditOp} from './world-edit-ops';
 import {groundFromHazards} from './ground-convert';
 const editScene=(scene:WorldScene,op:{kind:WorldEditOp['kind']}&Record<string,unknown>):WorldScene=>
@@ -40,15 +41,13 @@ function expectRoute(nav:NavigationGrid,start:MapPoint,end:MapPoint,label:string
 }
 
 describe('clear land and owned collision',()=>{
-  it('uses clear land in every town and gives every building and object its own collision',()=>{
+  it('uses clear land in every town and gives every solid building its own footprint',()=>{
     for(const id of towns){
-      const scene=getWorldScene(id),geometry=sceneNavigationGeometry(scene);
+      const scene=getWorldScene(id),geometry=sceneNavigationGeometry(scene),manifest=getSceneryGeometryMap(id);
       expect(geometry.ground,id).toEqual([rectangle(0,0,scene.width,scene.height)]);
-      for(const owner of [...scene.scenery,...scene.objects]){
-        expect(owner.collision,`${id}: ${owner.id}`).toBeDefined();
-        expect(owner.collision!.referenceWidth,owner.id).toBeGreaterThan(0);
-        expect(Array.isArray(owner.collision!.polygons),owner.id).toBe(true);
-      }
+      for(const building of scene.scenery.filter(item=>item.asset==='house'&&item.collidable!==false))
+        expect(sceneryFootprints([building],manifest).length,`${id}: ${building.id}`).toBeGreaterThan(0);
+      for(const owner of [...scene.scenery,...scene.objects])if(owner.collision)expect(owner.collision.referenceWidth,owner.id).toBeGreaterThan(0);
     }
   });
 

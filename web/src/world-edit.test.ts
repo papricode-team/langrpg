@@ -69,8 +69,9 @@ describe('world edit operations', () => {
     const result = applyEditOps(document, [op]).document, changed = result.maps[scene.id].scenery.find(value => value.id === item.id)!;
     expect(changed).toMatchObject({id: item.id, x: item.x, y: item.y, width: item.width, flipX: true, frame: 'tree-2', variant: true});
     expect(changed.sortLine).toBeUndefined();
-    const expected = withSceneryCollision({...item, frame: 'tree-2', collision: undefined}, getSceneryGeometryMap(scene.id));
-    expect(sceneryFootprints([changed])).toEqual(sceneryFootprints([expected]));
+    const manifest = getSceneryGeometryMap(scene.id), expected = withSceneryCollision({...item, frame: 'tree-2', collision: undefined}, manifest);
+    expect(changed.collision).toBeUndefined();
+    expect(sceneryFootprints([changed], manifest)).toEqual(sceneryFootprints([expected], manifest));
     expect(result.maps[scene.id].activities).toEqual(scene.activities);
     expect(applyEditOps(result, undo).document.maps[scene.id].scenery).toStrictEqual(scene.scenery);
     expect(item.frame).toBe('tree-1');
@@ -82,9 +83,9 @@ describe('world edit operations', () => {
     const swapped = apply(scene, [{kind: 'update', map: scene.id, id: item.id, frame: 'tree-3'}]).scene;
     const changed = swapped.scenery.find(value => value.id === item.id)!;
     expect(changed.collidable).toBe(false);
-    expect(changed.collision!.polygons.length).toBeGreaterThan(0);
+    expect(changed.collision).toBeUndefined();
     const solid = apply(swapped, [{kind: 'update', map: scene.id, id: item.id, collidable: true}]).scene;
-    expect(sceneryFootprints([solid.scenery.find(value => value.id === item.id)!]).length).toBeGreaterThan(0);
+    expect(sceneryFootprints([solid.scenery.find(value => value.id === item.id)!], getSceneryGeometryMap(scene.id)).length).toBeGreaterThan(0);
   });
   it('rejects unknown, unrelated and doorless replacements', () => {
     const scene = structuredClone(sceneDocument.maps.lindenhafen);
