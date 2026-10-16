@@ -41643,10 +41643,10 @@
   }
  },
  "1df18302-8113-5bf2-8419-676ac1a649a7": {
-  "sourceText": "Ich sage dir nicht, was du tun sollst. Ich sage dir nur, was dein Schlüssel kann.",
+  "sourceText": "Ich sage dir nicht, was du tun sollst. Ich habe einmal für andere entschieden. Das war genug.",
   "translations": {
    "en": {
-    "text": "I will not tell you what to do. I will only tell you what your key can do.",
+    "text": "I will not tell you what to do. I decided for others once. That was enough.",
     "words": [
      {
       "source": {
@@ -41666,10 +41666,6 @@
        "occurrence": 1
       },
       "targets": [
-       {
-        "text": "will",
-        "occurrence": 1
-       },
        {
         "text": "tell",
         "occurrence": 1
@@ -41731,10 +41727,6 @@
       },
       "targets": [
        {
-        "text": "to",
-        "occurrence": 1
-       },
-       {
         "text": "do",
         "occurrence": 1
        }
@@ -41745,7 +41737,12 @@
        "text": "sollst",
        "occurrence": 1
       },
-      "targets": []
+      "targets": [
+       {
+        "text": "to",
+        "occurrence": 1
+       }
+      ]
      },
      {
       "source": {
@@ -41761,100 +41758,104 @@
      },
      {
       "source": {
-       "text": "sage",
-       "occurrence": 2
-      },
-      "targets": [
-       {
-        "text": "will",
-        "occurrence": 2
-       },
-       {
-        "text": "tell",
-        "occurrence": 2
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "dir",
-       "occurrence": 2
-      },
-      "targets": [
-       {
-        "text": "you",
-        "occurrence": 2
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "nur",
+       "text": "habe",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "only",
+        "text": "decided",
         "occurrence": 1
        }
       ]
      },
      {
       "source": {
-       "text": "was",
-       "occurrence": 2
-      },
-      "targets": [
-       {
-        "text": "what",
-        "occurrence": 2
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "dein",
+       "text": "einmal",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "your",
+        "text": "once",
         "occurrence": 1
        }
       ]
      },
      {
       "source": {
-       "text": "Schlüssel",
+       "text": "für",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "key",
+        "text": "for",
         "occurrence": 1
        }
       ]
      },
      {
       "source": {
-       "text": "kann",
+       "text": "andere",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "can",
+        "text": "others",
         "occurrence": 1
-       },
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "entschieden",
+       "occurrence": 1
+      },
+      "targets": [
        {
-        "text": "do",
-        "occurrence": 2
+        "text": "decided",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Das",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "That",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "war",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "was",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "genug",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "enough",
+        "occurrence": 1
        }
       ]
      }
     ]
    },
    "tr": {
-    "text": "Sana ne yapman gerektiğini söylemeyeceğim. Sadece anahtarının ne yapabileceğini söyleyeceğim.",
+    "text": "Sana ne yapman gerektiğini söylemeyeceğim. Bir kez başkaları adına karar verdim. O kadarı yetti.",
     "words": [
      {
       "source": {
@@ -41863,7 +41864,7 @@
       },
       "targets": [
        {
-        "text": "yapman",
+        "text": "söylemeyeceğim",
         "occurrence": 1
        }
       ]
@@ -41899,7 +41900,7 @@
       },
       "targets": [
        {
-        "text": "yapman",
+        "text": "söylemeyeceğim",
         "occurrence": 1
        }
       ]
@@ -41923,7 +41924,7 @@
       },
       "targets": [
        {
-        "text": "Sana",
+        "text": "yapman",
         "occurrence": 1
        }
       ]
@@ -41957,83 +41958,105 @@
        "text": "Ich",
        "occurrence": 2
       },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "sage",
-       "occurrence": 2
-      },
       "targets": [
        {
-        "text": "söyleyeceğim",
+        "text": "verdim",
         "occurrence": 1
        }
       ]
      },
      {
       "source": {
-       "text": "dir",
-       "occurrence": 2
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "nur",
+       "text": "habe",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "Sadece",
+        "text": "verdim",
         "occurrence": 1
        }
       ]
      },
      {
       "source": {
-       "text": "was",
-       "occurrence": 2
-      },
-      "targets": [
-       {
-        "text": "ne",
-        "occurrence": 2
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "dein",
+       "text": "einmal",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "anahtarının",
+        "text": "Bir kez",
         "occurrence": 1
        }
       ]
      },
      {
       "source": {
-       "text": "Schlüssel",
+       "text": "für",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "anahtarının",
+        "text": "adına",
         "occurrence": 1
        }
       ]
      },
      {
       "source": {
-       "text": "kann",
+       "text": "andere",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "yapabileceğini",
+        "text": "başkaları",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "entschieden",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "karar verdim",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Das",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "O kadarı",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "war",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "yetti",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "genug",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "yetti",
         "occurrence": 1
        }
       ]
@@ -150027,7 +150050,7 @@
   }
  },
  "67d36009-5696-5554-ba0d-18fd7a1e9d32": {
-  "sourceText": "Jetzt wissen Sie, wie leicht es ist. Ich verurteile Sie nicht. Ich erkenne Sie.",
+  "sourceText": "Jetzt weißt du, wie leicht es ist. Ich verurteile dich nicht. Ich erkenne dich.",
   "translations": {
    "en": {
     "text": "Now you know how easy it is. I do not judge you. I recognise you.",
@@ -150046,7 +150069,7 @@
      },
      {
       "source": {
-       "text": "wissen",
+       "text": "weißt",
        "occurrence": 1
       },
       "targets": [
@@ -150058,7 +150081,7 @@
      },
      {
       "source": {
-       "text": "Sie",
+       "text": "du",
        "occurrence": 1
       },
       "targets": [
@@ -150142,8 +150165,8 @@
      },
      {
       "source": {
-       "text": "Sie",
-       "occurrence": 2
+       "text": "dich",
+       "occurrence": 1
       },
       "targets": [
        {
@@ -150190,8 +150213,8 @@
      },
      {
       "source": {
-       "text": "Sie",
-       "occurrence": 3
+       "text": "dich",
+       "occurrence": 2
       },
       "targets": [
        {
@@ -150203,7 +150226,7 @@
     ]
    },
    "tr": {
-    "text": "Artık ne kadar kolay olduğunu biliyorsunuz. Sizi yargılamıyorum. Sizi tanıyorum.",
+    "text": "Artık ne kadar kolay olduğunu biliyorsun. Seni yargılamıyorum. Seni tanıyorum.",
     "words": [
      {
       "source": {
@@ -150219,24 +150242,24 @@
      },
      {
       "source": {
-       "text": "wissen",
+       "text": "weißt",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "biliyorsunuz",
+        "text": "biliyorsun",
         "occurrence": 1
        }
       ]
      },
      {
       "source": {
-       "text": "Sie",
+       "text": "du",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "olduğunu",
+        "text": "biliyorsun",
         "occurrence": 1
        }
       ]
@@ -150248,11 +150271,7 @@
       },
       "targets": [
        {
-        "text": "ne",
-        "occurrence": 1
-       },
-       {
-        "text": "kadar",
+        "text": "ne kadar",
         "occurrence": 1
        }
       ]
@@ -150293,7 +150312,12 @@
        "text": "Ich",
        "occurrence": 1
       },
-      "targets": []
+      "targets": [
+       {
+        "text": "yargılamıyorum",
+        "occurrence": 1
+       }
+      ]
      },
      {
       "source": {
@@ -150309,12 +150333,12 @@
      },
      {
       "source": {
-       "text": "Sie",
-       "occurrence": 2
+       "text": "dich",
+       "occurrence": 1
       },
       "targets": [
        {
-        "text": "Sizi",
+        "text": "Seni",
         "occurrence": 1
        }
       ]
@@ -150357,12 +150381,12 @@
      },
      {
       "source": {
-       "text": "Sie",
-       "occurrence": 3
+       "text": "dich",
+       "occurrence": 2
       },
       "targets": [
        {
-        "text": "Sizi",
+        "text": "Seni",
         "occurrence": 2
        }
       ]
@@ -177435,19 +177459,19 @@
   }
  },
  "79e9bc27-f636-5d3a-b62e-592e5813df6a": {
-  "sourceText": "Ada wartet an der Treppe zur Sternwarte.",
+  "sourceText": "Voss wartet an der Treppe zur Sternwarte.",
   "translations": {
    "en": {
-    "text": "Ada is waiting at the observatory stairs.",
+    "text": "Voss is waiting at the observatory stairs.",
     "words": [
      {
       "source": {
-       "text": "Ada",
+       "text": "Voss",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "Ada",
+        "text": "Voss",
         "occurrence": 1
        }
       ]
@@ -177459,11 +177483,7 @@
       },
       "targets": [
        {
-        "text": "is",
-        "occurrence": 1
-       },
-       {
-        "text": "waiting",
+        "text": "is waiting",
         "occurrence": 1
        }
       ]
@@ -177511,7 +177531,7 @@
       },
       "targets": [
        {
-        "text": "the",
+        "text": "observatory",
         "occurrence": 1
        }
       ]
@@ -177531,16 +177551,16 @@
     ]
    },
    "tr": {
-    "text": "Ada gözlemevinin merdiveninde bekliyor.",
+    "text": "Voss gözlemevinin merdiveninde bekliyor.",
     "words": [
      {
       "source": {
-       "text": "Ada",
+       "text": "Voss",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "Ada",
+        "text": "Voss",
         "occurrence": 1
        }
       ]
@@ -177574,7 +177594,12 @@
        "text": "der",
        "occurrence": 1
       },
-      "targets": []
+      "targets": [
+       {
+        "text": "merdiveninde",
+        "occurrence": 1
+       }
+      ]
      },
      {
       "source": {
@@ -300844,48 +300869,68 @@
   }
  },
  "c9541242-bc29-5cdc-a3a3-68949e75102d": {
-  "sourceText": "{name}, komm mit zur Sternwarte. Bevor der Sturm kommt, musst du etwas über deinen Schlüssel wissen.",
+  "sourceText": "{name}, Voss wartet an der Sternwarte. Bevor der Sturm kommt, musst du etwas über deinen Schlüssel wissen.",
   "translations": {
    "en": {
-    "text": "{name}, come with me to the observatory. Before the storm comes, you must know something about your key.",
+    "text": "{name}, Voss is waiting at the observatory. Before the storm comes, you must know something about your key.",
     "words": [
      {
       "source": {
-       "text": "komm",
+       "text": "Voss",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "come",
+        "text": "Voss",
         "occurrence": 1
        }
       ]
      },
      {
       "source": {
-       "text": "mit",
+       "text": "wartet",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "with",
+        "text": "is waiting",
         "occurrence": 1
        }
       ]
      },
      {
       "source": {
-       "text": "zur",
+       "text": "an",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "to",
+        "text": "at",
         "occurrence": 1
-       },
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "der",
+       "occurrence": 1
+      },
+      "targets": [
        {
         "text": "the",
         "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "der",
+       "occurrence": 2
+      },
+      "targets": [
+       {
+        "text": "the",
+        "occurrence": 2
        }
       ]
      },
@@ -300910,18 +300955,6 @@
        {
         "text": "Before",
         "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "der",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "the",
-        "occurrence": 2
        }
       ]
      },
@@ -301036,43 +301069,62 @@
     ]
    },
    "tr": {
-    "text": "{name}, benimle gözlemevine gel. Fırtına gelmeden önce anahtarın hakkında bir şey bilmen gerek.",
+    "text": "{name}, Voss gözlemevinde bekliyor. Fırtına gelmeden önce anahtarın hakkında bir şey bilmen gerek.",
     "words": [
      {
       "source": {
-       "text": "komm",
+       "text": "Voss",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "gel",
+        "text": "Voss",
         "occurrence": 1
        }
       ]
      },
      {
       "source": {
-       "text": "mit",
+       "text": "wartet",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "benimle",
+        "text": "bekliyor",
         "occurrence": 1
        }
       ]
      },
      {
       "source": {
-       "text": "zur",
+       "text": "an",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "gözlemevine",
+        "text": "gözlemevinde",
         "occurrence": 1
        }
       ]
+     },
+     {
+      "source": {
+       "text": "der",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "gözlemevinde",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "der",
+       "occurrence": 2
+      },
+      "targets": []
      },
      {
       "source": {
@@ -301081,7 +301133,7 @@
       },
       "targets": [
        {
-        "text": "gözlemevine",
+        "text": "gözlemevinde",
         "occurrence": 1
        }
       ]
@@ -301094,18 +301146,6 @@
       "targets": [
        {
         "text": "önce",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "der",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "bir",
         "occurrence": 1
        }
       ]
@@ -301153,7 +301193,7 @@
       },
       "targets": [
        {
-        "text": "anahtarın",
+        "text": "bilmen",
         "occurrence": 1
        }
       ]
@@ -301165,11 +301205,7 @@
       },
       "targets": [
        {
-        "text": "bir",
-        "occurrence": 1
-       },
-       {
-        "text": "şey",
+        "text": "bir şey",
         "occurrence": 1
        }
       ]
@@ -349406,10 +349442,10 @@
   }
  },
  "ede3ff43-ef1c-5c07-ae77-c4aa6888dc32": {
-  "sourceText": "Ich sage dir nur, was dein Schlüssel kann.",
+  "sourceText": "Ich sage dir nicht, was du tun sollst.",
   "translations": {
    "en": {
-    "text": "I will only tell you what your key can do.",
+    "text": "I will not tell you what to do.",
     "words": [
      {
       "source": {
@@ -349449,12 +349485,12 @@
      },
      {
       "source": {
-       "text": "nur",
+       "text": "nicht",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "only",
+        "text": "not",
         "occurrence": 1
        }
       ]
@@ -349473,36 +349509,36 @@
      },
      {
       "source": {
-       "text": "dein",
+       "text": "du",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "your",
+        "text": "you",
         "occurrence": 1
        }
       ]
      },
      {
       "source": {
-       "text": "Schlüssel",
+       "text": "tun",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "key",
+        "text": "do",
         "occurrence": 1
        }
       ]
      },
      {
       "source": {
-       "text": "kann",
+       "text": "sollst",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "can",
+        "text": "to",
         "occurrence": 1
        }
       ]
@@ -349510,14 +349546,19 @@
     ]
    },
    "tr": {
-    "text": "Sana sadece anahtarının ne yapabileceğini söyleyeceğim.",
+    "text": "Sana ne yapman gerektiğini söylemeyeceğim.",
     "words": [
      {
       "source": {
        "text": "Ich",
        "occurrence": 1
       },
-      "targets": []
+      "targets": [
+       {
+        "text": "söylemeyeceğim",
+        "occurrence": 1
+       }
+      ]
      },
      {
       "source": {
@@ -349526,7 +349567,7 @@
       },
       "targets": [
        {
-        "text": "söyleyeceğim",
+        "text": "söylemeyeceğim",
         "occurrence": 1
        }
       ]
@@ -349545,12 +349586,12 @@
      },
      {
       "source": {
-       "text": "nur",
+       "text": "nicht",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "sadece",
+        "text": "söylemeyeceğim",
         "occurrence": 1
        }
       ]
@@ -349569,36 +349610,36 @@
      },
      {
       "source": {
-       "text": "dein",
+       "text": "du",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "anahtarının",
+        "text": "yapman",
         "occurrence": 1
        }
       ]
      },
      {
       "source": {
-       "text": "Schlüssel",
+       "text": "tun",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "anahtarının",
+        "text": "yapman",
         "occurrence": 1
        }
       ]
      },
      {
       "source": {
-       "text": "kann",
+       "text": "sollst",
        "occurrence": 1
       },
       "targets": [
        {
-        "text": "yapabileceğini",
+        "text": "gerektiğini",
         "occurrence": 1
        }
       ]

@@ -13264,8 +13264,8 @@
           {
             "id": "b1-council-complete-1",
             "speaker": "ada",
-            "german": "{name}, komm mit zur Sternwarte. Bevor der Sturm kommt, musst du etwas über deinen Schlüssel wissen.",
-            "english": "{name}, come with me to the observatory. Before the storm comes, you must know something about your key.",
+            "german": "{name}, Voss wartet an der Sternwarte. Bevor der Sturm kommt, musst du etwas über deinen Schlüssel wissen.",
+            "english": "{name}, Voss is waiting at the observatory. Before the storm comes, you must know something about your key.",
             "clipId": "dialogue-b1-council-complete-1"
           }
         ],
@@ -13356,11 +13356,11 @@
     "level": "B1",
     "start": "intro",
     "gateExerciseId": "b1-temptation-exercise-1",
-    "gatePrompt": "Ask Ada what happens if you turn the key.",
+    "gatePrompt": "Ask Voss what happens if you turn the key.",
     "evidenceItem": "b1-temptation-evidence",
     "objectives": [
       {
-        "text": "Meet Ada below the observatory",
+        "text": "Meet Voss below the observatory",
         "location": "Observatory",
         "stage": "intro"
       },
@@ -13370,7 +13370,7 @@
         "stage": "intro"
       },
       {
-        "text": "Ask Ada what happens if you turn the key.",
+        "text": "Ask Voss what happens if you turn the key.",
         "location": "Observatory",
         "stage": "gate"
       },
@@ -13387,7 +13387,7 @@
         "lines": [
           {
             "id": "b1-temptation-intro-0",
-            "speaker": "ada",
+            "speaker": "inspector",
             "german": "Die Treppe zur Sternwarte ist verschlossen. Mit einem Laternenschloss. Du weißt, welcher Schlüssel passt.",
             "english": "The stairs to the observatory are locked. With a lantern lock. You know which key fits.",
             "clipId": "dialogue-b1-temptation-intro-0"
@@ -13439,14 +13439,14 @@
         "lines": [
           {
             "id": "b1-temptation-gate-0",
-            "speaker": "ada",
-            "german": "Ich sage dir nicht, was du tun sollst. Ich sage dir nur, was dein Schlüssel kann.",
-            "english": "I will not tell you what to do. I will only tell you what your key can do.",
+            "speaker": "inspector",
+            "german": "Ich sage dir nicht, was du tun sollst. Ich habe einmal für andere entschieden. Das war genug.",
+            "english": "I will not tell you what to do. I decided for others once. That was enough.",
             "clipId": "dialogue-b1-temptation-gate-0",
             "variants": [
               {
-                "german": "Ich sage dir nur, was dein Schlüssel kann.",
-                "english": "I will only tell you what your key can do.",
+                "german": "Ich sage dir nicht, was du tun sollst.",
+                "english": "I will not tell you what to do.",
                 "clipId": "dialogue-b1-temptation-gate-0-simple"
               }
             ]
@@ -13496,7 +13496,7 @@
           },
           {
             "id": "b1-temptation-choice-5",
-            "speaker": "ada",
+            "speaker": "inspector",
             "german": "Drehst du den Schlüssel heute Nacht? Oder halten wir den Sturm ohne ihn aus?",
             "english": "Will you turn the key tonight? Or do we weather the storm without it?",
             "clipId": "dialogue-b1-temptation-choice-5"
@@ -13553,7 +13553,7 @@
           {
             "id": "b1-temptation-after-route-closed-again-2",
             "speaker": "inspector",
-            "german": "Jetzt wissen Sie, wie leicht es ist. Ich verurteile Sie nicht. Ich erkenne Sie.",
+            "german": "Jetzt weißt du, wie leicht es ist. Ich verurteile dich nicht. Ich erkenne dich.",
             "english": "Now you know how easy it is. I do not judge you. I recognise you.",
             "clipId": "dialogue-b1-temptation-after-route-closed-again-2"
           }
@@ -13587,7 +13587,7 @@
         "lines": [
           {
             "id": "b1-temptation-complete-0",
-            "speaker": "ada",
+            "speaker": "inspector",
             "german": "Hörst du den Wind? Greta ist schon im Garten. Das Wasser steigt.",
             "english": "Do you hear the wind? Greta is already in the garden. The water is rising.",
             "clipId": "dialogue-b1-temptation-complete-0"

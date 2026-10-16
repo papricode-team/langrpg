@@ -30887,24 +30887,20 @@
       "questId": "b1-council",
       "kind": "line",
       "lineId": "b1-council-complete-1",
-      "german": "{name}, komm mit zur Sternwarte. Bevor der Sturm kommt, musst du etwas über deinen Schlüssel wissen.",
-      "english": "{name}, come with me to the observatory. Before the storm comes, you must know something about your key.",
+      "german": "{name}, Voss wartet an der Sternwarte. Bevor der Sturm kommt, musst du etwas über deinen Schlüssel wissen.",
+      "english": "{name}, Voss is waiting at the observatory. Before the storm comes, you must know something about your key.",
       "level": "B1",
       "aboveLevelWords": [],
       "unmappedWords": [
-        "zur",
+        "Voss",
         "Sternwarte"
       ],
       "advancedGrammar": [],
       "longSentences": 0,
       "resolutions": [
         {
-          "word": "zur",
-          "reason": "grammatical-contraction",
-          "parts": [
-            "zu",
-            "der"
-          ]
+          "word": "Voss",
+          "reason": "proper-name"
         }
       ],
       "adjusted": {
@@ -31249,8 +31245,8 @@
       "questId": "b1-temptation",
       "kind": "line",
       "lineId": "b1-temptation-gate-0",
-      "german": "Ich sage dir nicht, was du tun sollst. Ich sage dir nur, was dein Schlüssel kann.",
-      "english": "I will not tell you what to do. I will only tell you what your key can do.",
+      "german": "Ich sage dir nicht, was du tun sollst. Ich habe einmal für andere entschieden. Das war genug.",
+      "english": "I will not tell you what to do. I decided for others once. That was enough.",
       "level": "B1",
       "aboveLevelWords": [],
       "unmappedWords": [],
@@ -31477,7 +31473,7 @@
       "questId": "b1-temptation",
       "kind": "line",
       "lineId": "b1-temptation-after-route-closed-again-2",
-      "german": "Jetzt wissen Sie, wie leicht es ist. Ich verurteile Sie nicht. Ich erkenne Sie.",
+      "german": "Jetzt weißt du, wie leicht es ist. Ich verurteile dich nicht. Ich erkenne dich.",
       "english": "Now you know how easy it is. I do not judge you. I recognise you.",
       "level": "B1",
       "aboveLevelWords": [],
@@ -34935,7 +34931,7 @@
       "kind": "variant",
       "lineId": "b1-temptation-gate-0",
       "variant": 1,
-      "german": "Ich sage dir nur, was dein Schlüssel kann.",
+      "german": "Ich sage dir nicht, was du tun sollst.",
       "level": "B1",
       "aboveLevelWords": [],
       "unmappedWords": [],

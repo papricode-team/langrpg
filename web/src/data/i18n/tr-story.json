@@ -12659,9 +12659,9 @@
   "tr": "Rüzgârı duyuyor musunuz? Fırtına bir sonraki çandan önce geliyor."
  },
  "dialogue:b1-council-complete-1": {
-  "de": "{name}, komm mit zur Sternwarte. Bevor der Sturm kommt, musst du etwas über deinen Schlüssel wissen.",
-  "en": "{name}, come with me to the observatory. Before the storm comes, you must know something about your key.",
-  "tr": "{name}, benimle gözlemevine gel. Fırtına gelmeden önce anahtarın hakkında bir şey bilmen gerek."
+  "de": "{name}, Voss wartet an der Sternwarte. Bevor der Sturm kommt, musst du etwas über deinen Schlüssel wissen.",
+  "en": "{name}, Voss is waiting at the observatory. Before the storm comes, you must know something about your key.",
+  "tr": "{name}, Voss gözlemevinde bekliyor. Fırtına gelmeden önce anahtarın hakkında bir şey bilmen gerek."
  },
  "objective:b1-council:0": {
   "en": "Join the council in the archive",
@@ -12758,9 +12758,9 @@
   "tr": "Voss “sen” demeyi teklif ediyor."
  },
  "clue:b1-council:lead:0": {
-  "de": "Ada wartet an der Treppe zur Sternwarte.",
-  "en": "Ada is waiting at the observatory stairs.",
-  "tr": "Ada gözlemevinin merdiveninde bekliyor."
+  "de": "Voss wartet an der Treppe zur Sternwarte.",
+  "en": "Voss is waiting at the observatory stairs.",
+  "tr": "Voss gözlemevinin merdiveninde bekliyor."
  },
  "clue:b1-council:letter:0": {
   "de": "Der leere Stuhl gehörte dorthin. Jemand, den meine Entscheidung weggenommen hat, hätte darauf sitzen sollen. Du hast ihr Schweigen nicht als Ja gezählt.",
@@ -12837,14 +12837,14 @@
   "tr": "Dinle. Bant yine çalışıyor."
  },
  "dialogue:b1-temptation-gate-0": {
-  "de": "Ich sage dir nicht, was du tun sollst. Ich sage dir nur, was dein Schlüssel kann.",
-  "en": "I will not tell you what to do. I will only tell you what your key can do.",
-  "tr": "Sana ne yapman gerektiğini söylemeyeceğim. Sadece anahtarının ne yapabileceğini söyleyeceğim."
+  "de": "Ich sage dir nicht, was du tun sollst. Ich habe einmal für andere entschieden. Das war genug.",
+  "en": "I will not tell you what to do. I decided for others once. That was enough.",
+  "tr": "Sana ne yapman gerektiğini söylemeyeceğim. Bir kez başkaları adına karar verdim. O kadarı yetti."
  },
  "dialogue:b1-temptation-gate-0:variant:0": {
-  "de": "Ich sage dir nur, was dein Schlüssel kann.",
-  "en": "I will only tell you what your key can do.",
-  "tr": "Sana sadece anahtarının ne yapabileceğini söyleyeceğim."
+  "de": "Ich sage dir nicht, was du tun sollst.",
+  "en": "I will not tell you what to do.",
+  "tr": "Sana ne yapman gerektiğini söylemeyeceğim."
  },
  "choice:b1-temptation:route-closed-again": {
   "de": "Ich drehe ihn. Nur für diese Nacht.",
@@ -12897,9 +12897,9 @@
   "tr": "Waldruh karanlık. Tek bir ışık bile göremiyorum. Masada bile."
  },
  "dialogue:b1-temptation-after-route-closed-again-2": {
-  "de": "Jetzt wissen Sie, wie leicht es ist. Ich verurteile Sie nicht. Ich erkenne Sie.",
+  "de": "Jetzt weißt du, wie leicht es ist. Ich verurteile dich nicht. Ich erkenne dich.",
   "en": "Now you know how easy it is. I do not judge you. I recognise you.",
-  "tr": "Artık ne kadar kolay olduğunu biliyorsunuz. Sizi yargılamıyorum. Sizi tanıyorum."
+  "tr": "Artık ne kadar kolay olduğunu biliyorsun. Seni yargılamıyorum. Seni tanıyorum."
  },
  "dialogue:b1-temptation-after-key-refused-0": {
   "de": "Dann halten wir es aus. Der Schlüssel bleibt in deiner Tasche.",
@@ -12917,20 +12917,20 @@
   "tr": "Rüzgârı duyuyor musun? Greta çoktan bahçede. Su yükseliyor."
  },
  "gate-prompt:b1-temptation": {
-  "en": "Ask Ada what happens if you turn the key.",
-  "tr": "Ada’ya anahtarı çevirirsen ne olacağını sor."
+  "en": "Ask Voss what happens if you turn the key.",
+  "tr": "Voss’a anahtarı çevirirsen ne olacağını sor."
  },
  "objective:b1-temptation:0": {
-  "en": "Meet Ada below the observatory",
-  "tr": "Gözlemevinin altında Ada ile buluş"
+  "en": "Meet Voss below the observatory",
+  "tr": "Gözlemevinin altında Voss ile buluş"
  },
  "objective:b1-temptation:1": {
   "en": "Unlock the observatory stairs",
   "tr": "Gözlemevi merdiveninin kilidini aç"
  },
  "objective:b1-temptation:2": {
-  "en": "Ask Ada what happens if you turn the key.",
-  "tr": "Ada’ya anahtarı çevirirsen ne olacağını sor."
+  "en": "Ask Voss what happens if you turn the key.",
+  "tr": "Voss’a anahtarı çevirirsen ne olacağını sor."
  },
  "objective:b1-temptation:3": {
   "en": "Decide whether to turn the key",
