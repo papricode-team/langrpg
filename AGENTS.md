@@ -26,7 +26,7 @@ Keep it under three minutes. A test that boots the whole world, a Phaser scene o
 ## Worktrees
 
 - Run `npm ci` in a fresh worktree; `node_modules` is per checkout and goes stale.
-- Worktrees hold LFS pointers, not images. Art tests fail with "unsupported image format" until you run `git lfs checkout art/source art/proofs`, which copies from the local LFS cache without network.
+- Worktrees hold LFS pointers, not images. Run `npm run art` to replace them with copy-on-write clones of the shared LFS cache: the checkout then reads real images without using any disk (`du` shows 11 GB, `df` does not move). `npm run verify` does this itself. Never run `git lfs checkout` or `git lfs pull` in a worktree; each writes an 11 GB copy. An older checkout that already holds full copies can run `git lfs dedup` to turn them into clones.
 - The git stash is shared with every other worktree and session. Use a temporary commit instead of `git stash`.
 
 ## Content
