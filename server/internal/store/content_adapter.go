@@ -386,23 +386,46 @@ func (s *Canonical) Create(ctx context.Context, hash string, a Account) error {
 	return s.Store.Create(ctx, hash, s.account(a, true))
 }
 
-func (s *Canonical) LoadWorldDocument(ctx context.Context) (json.RawMessage, error) {
-	if storage, ok := s.Store.(WorldDocuments); ok {
-		return storage.LoadWorldDocument(ctx)
+func (s *Canonical) tokens() (AdminTokens, error) {
+	tokens, ok := s.Store.(AdminTokens)
+	if !ok {
+		return nil, fmt.Errorf("API tokens are unavailable")
 	}
-	return nil, fmt.Errorf("world editing storage is unavailable")
+	return tokens, nil
 }
-func (s *Canonical) SaveWorldDocument(ctx context.Context, expected string, document json.RawMessage) error {
-	if storage, ok := s.Store.(WorldDocuments); ok {
-		return storage.SaveWorldDocument(ctx, expected, document)
+func (s *Canonical) CreateAdminToken(ctx context.Context, token AdminToken) error {
+	tokens, err := s.tokens()
+	if err != nil {
+		return err
 	}
-	return fmt.Errorf("world editing storage is unavailable")
+	return tokens.CreateAdminToken(ctx, token)
 }
-func (s *Canonical) WorldDocumentRevision(ctx context.Context) (string, error) {
-	if storage, ok := s.Store.(WorldDocuments); ok {
-		return storage.WorldDocumentRevision(ctx)
+func (s *Canonical) ListAdminTokens(ctx context.Context) ([]AdminToken, error) {
+	tokens, err := s.tokens()
+	if err != nil {
+		return nil, err
 	}
-	return "", nil
+	return tokens.ListAdminTokens(ctx)
+}
+func (s *Canonical) RevokeAdminToken(ctx context.Context, id string) error {
+	tokens, err := s.tokens()
+	if err != nil {
+		return err
+	}
+	return tokens.RevokeAdminToken(ctx, id)
+}
+
+// AdminTokenAccount resolves an admin API token like a session.
+func (s *Canonical) AdminTokenAccount(ctx context.Context, hash string) (Account, error) {
+	tokens, ok := s.Store.(AdminTokens)
+	if !ok {
+		return Account{}, ErrUnauthorized
+	}
+	a, err := tokens.AdminTokenAccount(ctx, hash)
+	if err == nil {
+		a = s.account(a, false)
+	}
+	return a, err
 }
 func (s *Canonical) callback(fn func(*Account) error) func(*Account) error {
 	return func(raw *Account) error {

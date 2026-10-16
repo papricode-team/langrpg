@@ -3,8 +3,6 @@ package main
 import (
 	"bytes"
 	"context"
-	"crypto/sha256"
-	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -16,6 +14,9 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"reflect"
+	"sort"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -28,14 +29,20 @@ type WorldContent struct {
 	Revision       string           `json:"revision"`
 	ContentVersion string           `json:"contentVersion"`
 	WorldMaps      WorldMapRegistry `json:"worldMaps"`
-	Investigations struct {
-		Rules      []StoryRule `json:"rules"`
-		Ink        InkRegistry `json:"ink"`
-		SideQuests []SideQuest `json:"sideQuests"`
-	} `json:"investigations"`
-	Diagnostics []string `json:"diagnostics"`
-	// Admin story overrides ride along with the world publication.
-	Story StoryOverrides `json:"story"`
+	Investigations storyAuthority   `json:"investigations"`
+	Diagnostics    []string         `json:"diagnostics"`
+	// ChangedMaps names the towns an edit changed; nil means any may have.
+	ChangedMaps []string `json:"changedMaps,omitempty"`
+	// Admin story overrides are stored per line, beside the world.
+	Story StoryOverrides `json:"-"`
+	// The store's publication counter behind Revision.
+	revision int64
+}
+
+type storyAuthority struct {
+	Rules      []StoryRule `json:"rules"`
+	Ink        InkRegistry `json:"ink"`
+	SideQuests []SideQuest `json:"sideQuests"`
 }
 
 type worldEditing struct {
@@ -44,80 +51,173 @@ type worldEditing struct {
 	current *WorldContent
 	compile func(context.Context, json.RawMessage) (*WorldContent, error)
 	worker  *worldWorker
-	store   worldContentStore
-	// The canonical scene file a saved publication is reconciled against.
-	source string
+	store   store.WorldStore
+	// The seed world: it fills an empty database and brings new story anchors.
+	seed   string
 	cancel context.CancelFunc
 	done   chan struct{}
 }
 
-func worldRevision(document json.RawMessage) string {
-	// PostgreSQL JSONB changes key order. Hash the semantic document so a stored
-	// revision survives JSONB round trips.
-	var value any
-	if json.Unmarshal(document, &value) != nil {
-		return ""
-	}
-	var encoded bytes.Buffer
-	encoder := json.NewEncoder(&encoded)
-	encoder.SetEscapeHTML(false)
-	if encoder.Encode(value) != nil {
-		return ""
-	}
-	sum := sha256.Sum256(bytes.TrimSuffix(encoded.Bytes(), []byte("\n")))
-	return hex.EncodeToString(sum[:])
+// A world change and who made it, for the edit log.
+type worldChange struct {
+	actor  string
+	source string
+	ops    json.RawMessage
 }
 
-func worldSourceVersion(document json.RawMessage) (string, error) {
-	revision := worldRevision(document)
-	if revision == "" {
-		return "", errors.New("invalid scene JSON")
+func revisionText(revision int64) string { return strconv.FormatInt(revision, 10) }
+
+// splitWorldDocument separates the towns from the fields they share.
+func splitWorldDocument(document json.RawMessage) (json.RawMessage, map[string]json.RawMessage, error) {
+	var fields map[string]json.RawMessage
+	if err := json.Unmarshal(document, &fields); err != nil {
+		return nil, nil, err
 	}
-	return revision[:16], nil
+	var maps map[string]json.RawMessage
+	if err := json.Unmarshal(fields["maps"], &maps); err != nil || len(maps) == 0 {
+		return nil, nil, errors.New("the world has no towns")
+	}
+	delete(fields, "maps")
+	shared, err := json.Marshal(fields)
+	return shared, maps, err
 }
 
-func (a *App) initWorldEditing(ctx context.Context, source, compiler string) error {
-	documents, ok := a.store.(store.WorldDocuments)
-	if !ok {
-		return errors.New("world editing storage is unavailable")
+func joinWorldDocument(shared json.RawMessage, maps map[string]json.RawMessage) (json.RawMessage, error) {
+	fields := map[string]json.RawMessage{}
+	if err := json.Unmarshal(shared, &fields); err != nil {
+		return nil, err
 	}
-	storage := worldContentStorage{documents}
-	saved, err := storage.LoadWorldContent(ctx)
+	encoded, err := json.Marshal(maps)
+	if err != nil {
+		return nil, err
+	}
+	fields["maps"] = encoded
+	return json.Marshal(fields)
+}
+
+func (c *WorldContent) publication() (json.RawMessage, error) {
+	return json.Marshal(map[string]any{"contentVersion": c.ContentVersion, "worldMaps": c.WorldMaps, "investigations": c.Investigations, "diagnostics": c.Diagnostics})
+}
+
+// worldFromStore assembles the stored rows into a publication.
+func worldFromStore(saved *store.World, lines []store.StoryLine) (*WorldContent, error) {
+	document, err := joinWorldDocument(saved.Shared, saved.Maps)
+	if err != nil {
+		return nil, err
+	}
+	content := &WorldContent{Document: document, Revision: revisionText(saved.Revision), revision: saved.Revision}
+	if err := json.Unmarshal(saved.Publication, content); err != nil {
+		return nil, err
+	}
+	content.Document, content.Revision, content.ChangedMaps = document, revisionText(saved.Revision), nil
+	if content.Diagnostics == nil {
+		content.Diagnostics = []string{}
+	}
+	content.Story = StoryOverrides{HiddenLines: map[string]HiddenLine{}, EditedLines: map[string]EditedLine{}}
+	for _, line := range lines {
+		if line.Hidden != nil {
+			var hidden HiddenLine
+			if err := json.Unmarshal(line.Hidden, &hidden); err != nil {
+				return nil, err
+			}
+			content.Story.HiddenLines[line.Key] = hidden
+		}
+		if line.Edited != nil {
+			var edited EditedLine
+			if err := json.Unmarshal(line.Edited, &edited); err != nil {
+				return nil, err
+			}
+			content.Story.EditedLines[line.Key] = edited
+		}
+	}
+	return content, nil
+}
+
+func (e *worldEditing) load(ctx context.Context) (*WorldContent, error) {
+	saved, err := e.store.LoadWorld(ctx)
+	if err != nil || saved == nil {
+		return nil, err
+	}
+	lines, err := e.store.StoryLines(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return worldFromStore(saved, lines)
+}
+
+// publish stores next on top of previous (nil for the first publication) and
+// sets its revision. Only the towns that changed are written.
+func (e *worldEditing) publish(ctx context.Context, previous, next *WorldContent, change worldChange) error {
+	shared, maps, err := splitWorldDocument(next.Document)
 	if err != nil {
 		return err
 	}
-	if saved == nil {
-		document, err := os.ReadFile(source)
-		if err != nil {
-			return fmt.Errorf("read editable world: %w", err)
-		}
-		version, err := worldSourceVersion(document)
-		if err != nil {
-			return err
-		}
-		if version != compiledWorldMaps.ContentVersion {
-			return errors.New("editable world and compiled authority differ; run node scripts/scene-compiler.mjs compile and rebuild the server")
-		}
-		saved = &WorldContent{Document: document, Revision: worldRevision(document), ContentVersion: compiledWorldMaps.ContentVersion, WorldMaps: compiledWorldMaps, Diagnostics: []string{}}
-		rules, err := curriculumFiles.ReadFile("story_rules.json")
-		if err != nil {
-			return err
-		}
-		if err = json.Unmarshal(rules, &saved.Investigations); err != nil {
-			return err
-		}
-	} else {
-		saved = a.reconcileStoredWorld(ctx, storage, saved, source)
-	}
-	if err := validateWorldContent(saved); err != nil {
+	publication, err := next.publication()
+	if err != nil {
 		return err
+	}
+	stored := store.WorldChange{Shared: shared, Maps: maps, Publication: publication, Actor: change.actor, Source: change.source, Ops: change.ops}
+	expected := int64(0)
+	if previous != nil {
+		expected = previous.revision
+		oldShared, oldMaps, err := splitWorldDocument(previous.Document)
+		if err != nil {
+			return err
+		}
+		if sameJSON(oldShared, shared) {
+			stored.Shared = nil
+		}
+		stored.Maps = map[string]json.RawMessage{}
+		changed := map[string]bool{}
+		for _, id := range next.ChangedMaps {
+			changed[id] = true
+		}
+		for id, scene := range maps {
+			if next.ChangedMaps == nil && !sameJSON(oldMaps[id], scene) || changed[id] {
+				stored.Maps[id] = scene
+			}
+		}
+		for id := range oldMaps {
+			if _, kept := maps[id]; !kept {
+				stored.Removed = append(stored.Removed, id)
+			}
+		}
+		sort.Strings(stored.Removed)
+	}
+	revision, err := e.store.SaveWorld(ctx, expected, stored)
+	if err != nil {
+		return err
+	}
+	next.revision, next.Revision, next.ChangedMaps = revision, revisionText(revision), nil
+	if next.Diagnostics == nil {
+		next.Diagnostics = []string{}
+	}
+	return nil
+}
+
+// sameJSON compares two JSON values regardless of key order and spacing.
+func sameJSON(a, b json.RawMessage) bool {
+	if bytes.Equal(a, b) {
+		return true
+	}
+	var left, right any
+	if json.Unmarshal(a, &left) != nil || json.Unmarshal(b, &right) != nil {
+		return false
+	}
+	return reflect.DeepEqual(left, right)
+}
+
+func (a *App) initWorldEditing(ctx context.Context, seed, compiler string) error {
+	storage, ok := store.Base(a.store).(store.WorldStore)
+	if !ok {
+		return errors.New("world editing storage is unavailable")
 	}
 	absolute, err := filepath.Abs(compiler)
 	if err != nil {
 		return err
 	}
 	root := filepath.Dir(filepath.Dir(absolute))
-	a.editing = &worldEditing{current: saved, store: storage, source: source, compile: func(ctx context.Context, document json.RawMessage) (*WorldContent, error) {
+	editing := &worldEditing{store: storage, seed: seed, compile: func(ctx context.Context, document json.RawMessage) (*WorldContent, error) {
 		command := exec.CommandContext(ctx, "node", absolute, "--root", root)
 		command.Stdin = bytes.NewReader(document)
 		var output, diagnostics bytes.Buffer
@@ -150,24 +250,40 @@ func (a *App) initWorldEditing(ctx context.Context, source, compiler string) err
 		if err := json.Unmarshal(output.Bytes(), &next); err != nil {
 			return nil, fmt.Errorf("decode compiled world: %w", err)
 		}
-		next.Revision = worldRevision(next.Document)
+		next.ChangedMaps = nil
 		if err := validateWorldContent(&next); err != nil {
 			return nil, err
 		}
 		return &next, nil
 	}}
-	a.editing.worker = newWorldWorker(filepath.Join(filepath.Dir(absolute), "admin-world-worker.mjs"), root)
-	if _, err := os.Stat(a.editing.worker.script); err != nil {
-		a.editing.worker = nil
+	editing.worker = newWorldWorker(filepath.Join(filepath.Dir(absolute), "admin-world-worker.mjs"), root)
+	if _, err := os.Stat(editing.worker.script); err != nil {
+		editing.worker = nil
 	}
-	a.world.PublishContent(saved.WorldMaps)
-	// PostgreSQL publication is shared across processes; synchronize revisions
-	// without reloading the full scene document when nothing changed.
+	saved, err := editing.load(ctx)
+	if err != nil {
+		return err
+	}
+	if saved == nil {
+		if saved, err = editing.seedWorld(ctx); err != nil {
+			return err
+		}
+	} else {
+		saved = editing.reconcile(ctx, saved)
+	}
+	if err := validateWorldContent(saved); err != nil {
+		return err
+	}
+	editing.current = saved
+	a.editing = editing
+	a.publishRegistry(saved.WorldMaps, nil, "")
+	// Another process may publish (a seed or a second server); follow its
+	// revision without reloading the full world when nothing changed.
 	pollCtx, cancel := context.WithCancel(context.Background())
-	a.editing.cancel = cancel
-	a.editing.done = make(chan struct{})
+	editing.cancel = cancel
+	editing.done = make(chan struct{})
 	go func() {
-		defer close(a.editing.done)
+		defer close(editing.done)
 		ticker := time.NewTicker(5 * time.Second)
 		defer ticker.Stop()
 		for {
@@ -186,39 +302,74 @@ func (a *App) initWorldEditing(ctx context.Context, source, compiler string) err
 	return nil
 }
 
-// worldContentStore persists the published world: the editable document and
-// every authority manifest compiled from it, as one revision.
-type worldContentStore interface {
-	LoadWorldContent(context.Context) (*WorldContent, error)
-	SaveWorldContent(ctx context.Context, expectedRevision string, next *WorldContent) error
-	WorldContentRevision(context.Context) (string, error)
-}
-
-// worldContentStorage decodes the store's opaque world documents.
-type worldContentStorage struct{ documents store.WorldDocuments }
-
-func (s worldContentStorage) LoadWorldContent(ctx context.Context) (*WorldContent, error) {
-	data, err := s.documents.LoadWorldDocument(ctx)
-	if err != nil || data == nil {
-		return nil, err
-	}
-	var content WorldContent
-	if err = json.Unmarshal(data, &content); err != nil {
-		return nil, err
-	}
-	return &content, nil
-}
-
-func (s worldContentStorage) SaveWorldContent(ctx context.Context, expected string, next *WorldContent) error {
-	data, err := json.Marshal(next)
+// seedWorld fills an empty database from the seed world.
+func (e *worldEditing) seedWorld(ctx context.Context) (*WorldContent, error) {
+	document, err := os.ReadFile(e.seed)
 	if err != nil {
-		return err
+		return nil, fmt.Errorf("the database holds no world and the seed is unreadable: %w", err)
 	}
-	return s.documents.SaveWorldDocument(ctx, expected, data)
+	ctx, cancel := context.WithTimeout(ctx, 2*time.Minute)
+	defer cancel()
+	// The seed is an earlier publication: deriving its authority is enough.
+	var seeded *WorldContent
+	if e.worker != nil {
+		seeded, err = e.worker.reconcile(ctx, document, nil)
+		if err == nil {
+			seeded.ChangedMaps = nil
+			err = validateWorldContent(seeded)
+		}
+	} else {
+		seeded, err = e.compile(ctx, document)
+	}
+	if err != nil {
+		return nil, fmt.Errorf("compile the seed world: %w", err)
+	}
+	if err := e.publish(ctx, nil, seeded, worldChange{actor: "server", source: "seed"}); err != nil {
+		if errors.Is(err, ErrConflict) {
+			// Another process seeded first.
+			return e.load(ctx)
+		}
+		return nil, err
+	}
+	seeded.Story = StoryOverrides{HiddenLines: map[string]HiddenLine{}, EditedLines: map[string]EditedLine{}}
+	return seeded, nil
 }
 
-func (s worldContentStorage) WorldContentRevision(ctx context.Context) (string, error) {
-	return s.documents.WorldDocumentRevision(ctx)
+// reconcile adds story anchors a release introduced and recompiles story
+// authority. The stored world is returned unchanged when nothing is new or the
+// reconciled copy could not be stored.
+func (e *worldEditing) reconcile(ctx context.Context, saved *WorldContent) *WorldContent {
+	if e.worker == nil {
+		return saved
+	}
+	var seed json.RawMessage
+	if data, err := os.ReadFile(e.seed); err == nil && json.Valid(data) {
+		seed = data
+	}
+	ctx, cancel := context.WithTimeout(ctx, maxWorkerWait)
+	defer cancel()
+	next, err := e.worker.reconcile(ctx, saved.Document, seed)
+	if err != nil {
+		slog.Warn("world reconciliation failed", "error", err)
+		return saved
+	}
+	before, _ := json.Marshal(saved.Investigations)
+	after, _ := json.Marshal(next.Investigations)
+	beforeMaps, _ := json.Marshal(saved.WorldMaps)
+	afterMaps, _ := json.Marshal(next.WorldMaps)
+	if len(next.ChangedMaps) == 0 && next.ContentVersion == saved.ContentVersion && sameJSON(before, after) && sameJSON(beforeMaps, afterMaps) {
+		return saved
+	}
+	if validateWorldContent(next) != nil {
+		return saved
+	}
+	if err := e.publish(ctx, saved, next, worldChange{actor: "server", source: "release"}); err != nil {
+		// Another process may have reconciled first; the next refresh reads its revision.
+		slog.Warn("world reconciliation was not stored", "error", err)
+		return saved
+	}
+	next.Story = saved.Story
+	return next
 }
 
 func (a *App) refreshWorldContent(ctx context.Context) error {
@@ -235,40 +386,34 @@ func (a *App) refreshWorldContent(ctx context.Context) error {
 // memory. The caller holds editing.writes.
 func (a *App) refreshWorldContentLocked(ctx context.Context) error {
 	editing := a.editing
-	revision, err := editing.store.WorldContentRevision(ctx)
+	revision, err := editing.store.WorldRevision(ctx)
 	if err != nil {
 		return err
 	}
 	editing.mu.RLock()
-	unchanged := revision == "" || revision == editing.current.Revision
+	unchanged := revision == 0 || revision == editing.current.revision
 	editing.mu.RUnlock()
 	if unchanged {
 		return nil
 	}
-	saved, err := editing.store.LoadWorldContent(ctx)
-	if err != nil {
+	saved, err := editing.load(ctx)
+	if err != nil || saved == nil {
 		return err
-	}
-	if saved == nil {
-		return nil
-	}
-	if editing.source != "" {
-		saved = a.reconcileStoredWorld(ctx, editing.store, saved, editing.source)
 	}
 	if err = validateWorldContent(saved); err != nil {
 		return err
 	}
 	editing.mu.Lock()
 	defer editing.mu.Unlock()
-	if saved.Revision != editing.current.Revision {
+	if saved.revision != editing.current.revision {
 		editing.current = saved
-		a.world.PublishContent(saved.WorldMaps)
+		a.publishRegistry(saved.WorldMaps, nil, "")
 	}
 	return nil
 }
 
 func validateWorldContent(content *WorldContent) error {
-	if content == nil || !json.Valid(content.Document) || content.Revision != worldRevision(content.Document) || content.ContentVersion != content.WorldMaps.ContentVersion {
+	if content == nil || !json.Valid(content.Document) || content.ContentVersion == "" || content.ContentVersion != content.WorldMaps.ContentVersion {
 		return errors.New("invalid saved world content")
 	}
 	data, err := json.Marshal(content.WorldMaps)
@@ -372,10 +517,8 @@ func readWorldDocument(w http.ResponseWriter, r *http.Request) (json.RawMessage,
 }
 
 func (a *App) compileAdminWorld(w http.ResponseWriter, r *http.Request) {
-	if _, ok := a.requireAdmin(w, r); !ok {
-		return
-	}
-	if !a.editorAvailable(w) {
+	account, ok := a.requireAdmin(w, r)
+	if !ok || !a.editorAvailable(w) {
 		return
 	}
 	document, err := readWorldDocument(w, r)
@@ -383,6 +526,55 @@ func (a *App) compileAdminWorld(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
+	a.publishWorldDocument(w, r, account, document, nil)
+}
+
+// worldExportFormat names the bundle that world:pull writes and world:push reads.
+const worldExportFormat = "glotworld-world/1"
+
+// exportWorld returns the whole editable world: towns, shared fields and admin story line changes.
+func (a *App) exportWorld(w http.ResponseWriter, r *http.Request) {
+	if _, ok := a.requireAdmin(w, r); !ok || !a.editorAvailable(w) {
+		return
+	}
+	if err := a.refreshWorldContent(r.Context()); err != nil {
+		apiFailure(w, err)
+		return
+	}
+	a.editing.mu.RLock()
+	current := a.editing.current
+	a.editing.mu.RUnlock()
+	w.Header().Set("ETag", `"`+current.Revision+`"`)
+	writeJSON(w, 200, map[string]any{"format": worldExportFormat, "revision": current.Revision, "contentVersion": current.ContentVersion, "exportedAt": a.now().UTC(), "document": current.Document, "story": current.Story})
+}
+
+// importWorld replaces the world and its story line changes with an exported bundle.
+func (a *App) importWorld(w http.ResponseWriter, r *http.Request) {
+	account, ok := a.requireAdmin(w, r)
+	if !ok || !a.editorAvailable(w) {
+		return
+	}
+	data, err := readWorldDocument(w, r)
+	if err != nil {
+		apiFailure(w, err)
+		return
+	}
+	var bundle struct {
+		Format   string          `json:"format"`
+		Document json.RawMessage `json:"document"`
+		Story    *StoryOverrides `json:"story"`
+	}
+	if json.Unmarshal(data, &bundle) != nil || bundle.Format != worldExportFormat || !json.Valid(bundle.Document) {
+		apiFailure(w, worldProblems(400, "invalid", "Send a world exported by this server ("+worldExportFormat+")."))
+		return
+	}
+	a.publishWorldDocument(w, r, account, bundle.Document, bundle.Story)
+}
+
+// publishWorldDocument validates a whole world and, for PUT, publishes it when
+// If-Match names the current revision. story, when set, replaces every admin
+// story line change.
+func (a *App) publishWorldDocument(w http.ResponseWriter, r *http.Request, account Account, document json.RawMessage, story *StoryOverrides) {
 	editing := a.editing
 	// Bound concurrent compilers and keep the revision check and publication together.
 	if !editing.writes.TryLock() {
@@ -416,8 +608,7 @@ func (a *App) compileAdminWorld(w http.ResponseWriter, r *http.Request) {
 	if _, ok := a.requireAdmin(w, r); !ok {
 		return
 	}
-	next.Story = previous.Story
-	if err = editing.store.SaveWorldContent(ctx, previous.Revision, next); err != nil {
+	if err = editing.publish(ctx, previous, next, worldChange{actor: account.Email, source: adminSource(r), ops: json.RawMessage(`{"kind":"import"}`)}); err != nil {
 		if errors.Is(err, ErrConflict) {
 			apiFailure(w, worldProblems(409, "stale", "The world changed while saving. Reload and try again."))
 			return
@@ -425,12 +616,75 @@ func (a *App) compileAdminWorld(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
+	next.Story = previous.Story
+	if story != nil {
+		if err := editing.replaceStoryLines(ctx, previous.Story, *story); err != nil {
+			apiFailure(w, err)
+			return
+		}
+		next.Story = *story
+	}
 	editing.mu.Lock()
 	defer editing.mu.Unlock()
 	editing.current = next
-	a.world.PublishContent(next.WorldMaps)
+	a.publishRegistry(next.WorldMaps, nil, "")
 	w.Header().Set("ETag", `"`+next.Revision+`"`)
 	writeJSON(w, 200, map[string]any{"document": next.Document, "revision": next.Revision, "contentVersion": next.ContentVersion, "diagnostics": next.Diagnostics})
+}
+
+// replaceStoryLines writes the line changes that differ between before and after.
+func (e *worldEditing) replaceStoryLines(ctx context.Context, before, after StoryOverrides) error {
+	keys := map[string]bool{}
+	for _, lines := range []map[string]HiddenLine{before.HiddenLines, after.HiddenLines} {
+		for key := range lines {
+			keys[key] = true
+		}
+	}
+	for _, lines := range []map[string]EditedLine{before.EditedLines, after.EditedLines} {
+		for key := range lines {
+			keys[key] = true
+		}
+	}
+	for key := range keys {
+		line := store.StoryLine{Key: key}
+		hidden, isHidden := after.HiddenLines[key]
+		edited, isEdited := after.EditedLines[key]
+		if isHidden {
+			line.GraphID = hidden.GraphID
+			line.Hidden, _ = json.Marshal(hidden)
+		}
+		if isEdited {
+			line.GraphID = edited.GraphID
+			line.Edited, _ = json.Marshal(edited)
+		}
+		previous, _ := json.Marshal([]any{before.HiddenLines[key], before.EditedLines[key]})
+		next, _ := json.Marshal([]any{hidden, edited})
+		if bytes.Equal(previous, next) {
+			continue
+		}
+		if err := e.store.SaveStoryLine(ctx, line); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// listWorldEdits pages through the edit log, newest first.
+func (a *App) listWorldEdits(w http.ResponseWriter, r *http.Request) {
+	if _, ok := a.requireAdmin(w, r); !ok || !a.editorAvailable(w) {
+		return
+	}
+	before, _ := strconv.ParseInt(r.URL.Query().Get("before"), 10, 64)
+	limit, _ := strconv.Atoi(r.URL.Query().Get("limit"))
+	if limit <= 0 || limit > 200 {
+		limit = 50
+	}
+	edits, err := a.editing.store.WorldEdits(r.Context(), before, limit)
+	if err != nil {
+		apiFailure(w, err)
+		return
+	}
+	writeJSON(w, 200, map[string]any{"edits": edits})
 }
 
 func validateWorldMigration(before, after json.RawMessage) error {

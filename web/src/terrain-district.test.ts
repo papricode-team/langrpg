@@ -1,5 +1,6 @@
 import {describe,it,expect} from 'vitest';
-import data from './data/world-scenes.json';
+import {seedWorldSource} from './test-support/world-seed';
+const data=seedWorldSource();
 import {terrainDistrict,districtDocument} from './terrain-district';
 import {parseWorldSceneDocument,sceneEntrancePoint} from './scene-schema';
 import {sceneNavigationGeometry} from './scene-navigation';

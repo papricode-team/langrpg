@@ -8,11 +8,11 @@ import { legacyMapPlates, optimizeGameDistribution } from './optimize-game-distr
 
 async function fixture(){
   const root=await mkdtemp(resolve(tmpdir(),'atlas-production-art-')),assets=resolve(root,'web/dist/assets'),source=resolve(root,'web/public/assets');
-  await mkdir(assets,{recursive:true});await mkdir(source,{recursive:true});await mkdir(resolve(root,'web/src/data'),{recursive:true});
+  await mkdir(assets,{recursive:true});await mkdir(source,{recursive:true});await mkdir(resolve(root,'content'),{recursive:true});
   const image=await sharp({create:{width:1536,height:1024,channels:3,background:'#436151'}}).png().toBuffer();
   for(const name of legacyMapPlates){await writeFile(resolve(source,name),image);await copyFile(resolve(source,name),resolve(assets,name));}
   await writeFile(resolve(assets,'lindenhafen-day-terrain-detail-0-0.webp'),image);
-  await writeFile(resolve(root,'web/src/data/world-scenes.json'),JSON.stringify({maps:{lindenhafen:{terrain:[{dayAsset:'/assets/lindenhafen-day-terrain-detail-0-0.webp'}]}}}));
+  await writeFile(resolve(root,'content/world-seed.json'),JSON.stringify({maps:{lindenhafen:{terrain:[{dayAsset:'/assets/lindenhafen-day-terrain-detail-0-0.webp'}]}}}));
   return {root,assets,source};
 }
 test('production packaging keeps public masters and streamed detail bytes unchanged',async()=>{
@@ -34,7 +34,7 @@ test('registered terrain and authoring directories are guarded before any write'
   try{
     const before=await readFile(resolve(assets,legacyMapPlates[0]));
     await assert.rejects(optimizeGameDistribution({root,outputDir:resolve(root,'web/public')}),/never rewrite/);
-    await writeFile(resolve(root,'web/src/data/world-scenes.json'),JSON.stringify({maps:{lindenhafen:{terrain:[{dayAsset:`/assets/${legacyMapPlates[0]}`}]}}}));
+    await writeFile(resolve(root,'content/world-seed.json'),JSON.stringify({maps:{lindenhafen:{terrain:[{dayAsset:`/assets/${legacyMapPlates[0]}`}]}}}));
     await assert.rejects(optimizeGameDistribution({root}),/registered streamed terrain/);
     assert.deepEqual(await readFile(resolve(assets,legacyMapPlates[0])),before);
   }finally{await rm(root,{recursive:true,force:true});}

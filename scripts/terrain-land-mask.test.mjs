@@ -95,7 +95,7 @@ test('moving objects preserves terrain masks while changing hazards regenerates 
 
 test('canonical Waldruh grass and bare soil are land while the painted river and cliff faces stay blocked',async()=>{
   await withDirectory(async root=>{
-    const source=JSON.parse(await readFile(new URL('../web/src/data/world-scenes.json',import.meta.url),'utf8'));
+    const source=JSON.parse(await readFile(new URL('../content/world-seed.json',import.meta.url),'utf8'));
     const scene=structuredClone(source.maps.waldruh);
     await exportClearLandMasks(root,scene);
     // These are terrain-art fixtures, independent of the old street whitelist.

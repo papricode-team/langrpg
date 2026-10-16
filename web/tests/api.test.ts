@@ -3,7 +3,8 @@ import { Api, emptyProgress } from '../src/api';
 import type { MapId } from '../src/maps';
 import {getWorldScene} from '../src/scene-data';
 import {getInterior} from '../src/interiors';
-import sceneVersion from '../src/data/world-scene-version.json';
+import {seedContentVersion} from '../src/test-support/world-seed';
+const sceneVersion={contentVersion:seedContentVersion};
 
 class MockSocket {
   static OPEN = 1;

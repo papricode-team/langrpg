@@ -4,7 +4,7 @@ import {readFile,writeFile} from 'node:fs/promises';
 import './register-content-loader.mjs';
 import {terrainFeatures,featureSurfaces} from '../web/src/terrain-features.ts';
 import {parseWorldSceneDocument} from '../web/src/scene-schema.ts';
-const document=JSON.parse(await readFile('web/src/data/world-scenes.json','utf8')),report=[];
+const document=JSON.parse(await readFile('content/world-seed.json','utf8')),report=[];
 for(const art of terrainFeatures){
  const input=`art/source/terrain-features/${art.id}.png`,native=await sharp(input).metadata();
  const {data,info}=await sharp(`web/public${art.asset}`).ensureAlpha().raw().toBuffer({resolveWithObject:true});

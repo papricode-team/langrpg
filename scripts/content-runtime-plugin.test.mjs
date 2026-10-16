@@ -117,8 +117,9 @@ test('bundle validation rejects accidental learning JSON imports',()=>{
   for(const path of ['content/source.json','content/imported-alignment-drafts.json','content/imported-drafts/9a83d89d/reviewed.json','server/content.json','content_ids.json'])assert.throws(()=>plugin.generateBundle({}, {bad:{type:'chunk',modules:{[resolve(root,path)+'?import']:{} }}}),/Learning content entered/);
   for(const path of ['web/src/content.ts?raw','web/src/story-panels.ts?url','web/src/expeditions.ts?r%61w'])assert.throws(()=>plugin.generateBundle({}, {bad:{type:'chunk',modules:{[resolve(root,path)]:{} }}}),/Learning content entered/);
   // content.ts loads quests from content/source.json through test support under Vitest only.
-  for(const path of ['web/src/test-support/authored-content.ts','web/src/test-support/ui-content-preview.ts'])assert.throws(()=>plugin.generateBundle({}, {bad:{type:'chunk',modules:{[resolve(root,path)]:{} }}}),/Learning content entered/);
-  assert.doesNotThrow(()=>plugin.generateBundle({}, {safe:{type:'chunk',modules:{[resolve(root,'web/src/data/world-scenes.json')]:{} }}}));
+  for(const path of ['web/src/test-support/authored-content.ts','web/src/test-support/ui-content-preview.ts','web/src/test-support/world-seed.ts'])assert.throws(()=>plugin.generateBundle({}, {bad:{type:'chunk',modules:{[resolve(root,path)]:{} }}}),/Learning content entered/);
+  // The world reaches players from the server; the seed never enters the bundle.
+  assert.throws(()=>plugin.generateBundle({}, {bad:{type:'chunk',modules:{[resolve(root,'content/world-seed.json')]:{} }}}),/Learning content entered/);
 });
 test('content.ts keeps no authored data and production replaces its registries',()=>{
   const path=resolve(root,'web/src/content.ts'),code=readFileSync(path,'utf8');

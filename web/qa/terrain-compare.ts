@@ -1,4 +1,4 @@
-import source from '../src/data/world-scenes.json';
+import source from '../../content/world-seed.json';
 import {parseWorldSceneDocument} from '../src/scene-schema';
 import draft from '../src/data/lindenhafen-terrain-rebuild.json';
 import {lindenhafenTerrainDocument} from '../src/lindenhafen-terrain-rebuild';

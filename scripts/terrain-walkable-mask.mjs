@@ -24,7 +24,7 @@ export function walkableMaskPolygons(data,width,height,offsetX=0,offsetY=0){
   return rectangles.map(({left,right,top,bottom})=>[[left+offsetX,top+offsetY],[right+offsetX,top+offsetY],[right+offsetX,bottom+offsetY],[left+offsetX,bottom+offsetY]]);
 }
 export async function exportAuthoredWalkableMasks(root,town){
-  const scene=JSON.parse(await readFile(resolve(root,'web/src/data/world-scenes.json'),'utf8')).maps[town];
+  const scene=JSON.parse(await readFile(resolve(root,'content/world-seed.json'),'utf8')).maps[town];
   if(!scene)throw Error(`Unknown mask town ${town}`);
   if(scene.navigation?.model==='clear-land')return exportClearLandMasks(root,scene);
   const source=resolve(root,'art/source/terrain-detail'),out=resolve(root,'web/public/assets/walkable-masks');

@@ -12,7 +12,7 @@ func TestContentStartupWithoutLegacyManifests(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	source, err := filepath.Abs("../web/src/data/world-scenes.json")
+	source, err := filepath.Abs(worldSeedPath)
 	if err != nil {
 		t.Fatal(err)
 	}

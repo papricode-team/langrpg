@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /** Validate canonical scenes and compile the matching server coordinate contract. */
-import {readFile, writeFile, mkdir, rename, rm, access} from 'node:fs/promises';
+import {readFile, access} from 'node:fs/promises';
 import {dirname, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {createHash, randomUUID} from 'node:crypto';
+import {createHash} from 'node:crypto';
 import sharp from 'sharp';
 import './register-content-loader.mjs';
 const {parseWorldSceneDocument, sceneEntrances, sceneEntrancePoint} = await import('../web/src/scene-schema.ts');
@@ -264,56 +264,13 @@ export async function compileSceneDocument(value, {root = projectRoot, strictQua
     warnings: warnings.map(item => item.map ? `${item.map}: ${item.message}` : item.message), problems: warnings, quality};
 }
 
-/** Stage every output first; each rename is atomic, and a failed batch rolls back. */
-async function writeStaged(outputs) {
-  const staged = [], committed = [];
-  try {
-    for (const [path, data] of outputs) {
-      await mkdir(dirname(path), {recursive: true});
-      const previous = await readFile(path).catch(error => { if (error.code === 'ENOENT') return undefined; throw error; });
-      const temporary = `${path}.${randomUUID()}.stage`;
-      await writeFile(temporary, `${JSON.stringify(data, null, 2)}\n`, {flag: 'wx'});
-      staged.push({path, temporary, previous});
-    }
-    for (const output of staged) { await rename(output.temporary, output.path); committed.push(output); }
-  } catch (error) {
-    for (const output of committed.reverse()) {
-      if (output.previous === undefined) await rm(output.path, {force: true});
-      else { await writeFile(output.temporary, output.previous); await rename(output.temporary, output.path); }
-    }
-    throw error;
-  } finally { await Promise.all(staged.map(output => rm(output.temporary, {force: true}))); }
-}
-
-/** Local authoring callers must serialize writes and check their source revision. */
-export async function saveSceneDocument(value, options = {}) {
-  const root = options.root ?? projectRoot;
-  const compiled = await compileSceneDocument(value, {root});
-  const sourcePath = options.sourcePath ?? resolve(root, 'web/src/data/world-scenes.json');
-  const previous = await readFile(sourcePath, 'utf8').then(JSON.parse).catch(error => { if (error.code === 'ENOENT') return undefined; throw error; });
-  if (previous) for (const scene of Object.values(compiled.document.maps)) {
-    const before = previous.maps?.[scene.id];
-    if (!before) continue;
-    const boundsChanged = before.width !== scene.width || before.height !== scene.height || JSON.stringify(before.legacyOffset) !== JSON.stringify(scene.legacyOffset);
-    if (scene.coordinateVersion < before.coordinateVersion || (boundsChanged && scene.coordinateVersion <= before.coordinateVersion)) throw new Error(`${scene.id}: changed bounds/origin require a higher coordinateVersion`);
-  }
-  await writeStaged([
-    [options.registryPath ?? resolve(root, 'server/world_maps.json'), compiled.registry],
-    [options.storyRulesPath ?? resolve(root, 'server/story_rules.json'), compiled.storyRules],
-    [options.versionPath ?? resolve(root, 'web/src/data/world-scene-version.json'), {contentVersion: compiled.contentVersion}],
-    [sourcePath, compiled.document],
-  ]);
-  return compiled;
-}
-
+/** Validates the seed world: `node scripts/scene-compiler.mjs check [document.json]`. The server owns the live world. */
 async function main() {
   const [command = 'check', input] = process.argv.slice(2);
-  if (!['check', 'compile', 'import'].includes(command)) throw new Error('Usage: node scripts/scene-compiler.mjs check | compile | import <document.json>');
-  if (command === 'import' && !input) throw new Error('Import requires a scene document');
-  const source = resolve(projectRoot, 'web/src/data/world-scenes.json');
-  const value = JSON.parse(await readFile(command === 'import' ? resolve(input) : source, 'utf8'));
-  const result = command === 'check' ? await compileSceneDocument(value) : await saveSceneDocument(value);
+  if (command !== 'check') throw new Error('Usage: node scripts/scene-compiler.mjs check [document.json]');
+  const value = JSON.parse(await readFile(resolve(input ?? resolve(projectRoot, 'content/world-seed.json')), 'utf8'));
+  const result = await compileSceneDocument(value);
   if(result.warnings.length)console.warn(result.warnings.join('\n'));
-  console.log(`${command === 'check' ? 'Validated' : 'Compiled'} ${Object.keys(result.document.maps).length} scenes (${result.contentVersion}).`);
+  console.log(`Validated ${Object.keys(result.document.maps).length} scenes (${result.contentVersion}).`);
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) await main();

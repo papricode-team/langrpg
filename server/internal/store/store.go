@@ -49,12 +49,16 @@ type Store interface {
 
 // DiskState is the JSON development store's saved document.
 type DiskState struct {
-	Analytics    map[string]AnalyticsEvent `json:"analytics,omitempty"`
-	WorldContent json.RawMessage           `json:"worldContent,omitempty"`
-	World        *world.Identity           `json:"world,omitempty"`
-	Version      int                       `json:"version"`
-	Accounts     map[string]Account        `json:"accounts"`
-	Sessions     map[string]string         `json:"sessions"`
+	Analytics map[string]AnalyticsEvent `json:"analytics,omitempty"`
+	// WorldContent is the world document saved before the world tables; it is
+	// converted on load.
+	WorldContent json.RawMessage       `json:"worldContent,omitempty"`
+	WorldTables  *DiskWorld            `json:"worldTables,omitempty"`
+	AdminTokens  map[string]AdminToken `json:"adminTokens,omitempty"`
+	World        *world.Identity       `json:"world,omitempty"`
+	Version      int                   `json:"version"`
+	Accounts     map[string]Account    `json:"accounts"`
+	Sessions     map[string]string     `json:"sessions"`
 	// Last use per session hash, refreshed at most hourly. Missing entries
 	// predate tracking and count as used when next seen.
 	SessionUse map[string]time.Time              `json:"sessionUse,omitempty"`
@@ -93,6 +97,12 @@ func NewJSONStore(path string, hooks Hooks) (*JSONStore, error) {
 	if s.state.Version != 1 || s.state.Accounts == nil || s.state.Sessions == nil || s.state.Actions == nil {
 		return nil, errors.New("unsupported development state file")
 	}
+	if s.state.WorldContent != nil && s.state.WorldTables == nil {
+		if s.state.WorldTables, err = convertWorldContent(s.state.WorldContent); err != nil {
+			return nil, fmt.Errorf("convert development world: %w", err)
+		}
+	}
+	s.state.WorldContent = nil
 	return s, s.initializeWorld()
 }
 

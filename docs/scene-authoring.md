@@ -1,6 +1,6 @@
 # Canonical scene authoring
 
-`web/src/data/world-scenes.json` is the version 2 source for all 13 outdoor worlds. Its initial conversion preserved the previous 1536 × 1024 bounds, spawn and interaction anchors, walkable polygons, obstacles and placed scenery. Each scene owns its dimensions; the schema also accepts independently sized interior scenes. Interior content remains in its existing catalog until explicitly migrated.
+`content/world-seed.json` is the version 2 source for all 13 outdoor worlds. Its initial conversion preserved the previous 1536 × 1024 bounds, spawn and interaction anchors, walkable polygons, obstacles and placed scenery. Each scene owns its dimensions; the schema also accepts independently sized interior scenes. Interior content remains in its existing catalog until explicitly migrated.
 
 Coordinates are **world units**, not texture pixels or normalized network positions. A terrain plate specifies its logical rectangle and image paths independently. Scenery uses its existing pixel foot anchor, width, frame, animation and collision behavior. Decorative edge overscan is allowed within one object width; gameplay anchors must be inside the scene.
 

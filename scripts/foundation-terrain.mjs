@@ -4,7 +4,7 @@ import {readFile,writeFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import sharp from 'sharp';
 const root=resolve(import.meta.dirname,'..');
-const document=JSON.parse(await readFile(resolve(root,'web/src/data/world-scenes.json'),'utf8'));
+const document=JSON.parse(await readFile(resolve(root,'content/world-seed.json'),'utf8'));
 const tiles={};
 for(const world of Object.values(document.maps))for(const tile of world.terrain??[]){
   const source=tile.dayPreviewAsset??tile.dayAsset;

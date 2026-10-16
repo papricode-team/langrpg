@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "3d04d56272cd5801",
+  "maps": {
+    "lindenhafen": {
+      "width": 2304,
+      "height": 1536,
+      "spawn": {
+        "x": 0.3466666666666667,
+        "y": 0.4066666666666667
+      },
+      "coordinateVersion": 5,
+      "entrances": {
+        "cafe": {
+          "id": "cafe-entrance",
+          "ownerId": "cafe",
+          "approach": {
+            "x": 0.26299122693531873,
+            "y": 0.27817085461738783
+          },
+          "return": {
+            "x": 0.26299122693531873,
+            "y": 0.32504585461738783
+          }
+        },
+        "bakery": {
+          "id": "bakery-entrance",
+          "ownerId": "riverside-house",
+          "approach": {
+            "x": 0.49800366191359263,
+            "y": 0.5215184098085405
+          },
+          "return": {
+            "x": 0.49800366191359263,
+            "y": 0.5683934098085405
+          }
+        },
+        "supermarket": {
+          "id": "supermarket-entrance",
+          "ownerId": "market-east-stall",
+          "approach": {
+            "x": 0.5004208357096529,
+            "y": 0.29250798862721417
+          },
+          "return": {
+            "x": 0.5004208357096529,
+            "y": 0.33938298862721417
+          }
+        },
+        "inn": {
+          "id": "inn-entrance",
+          "ownerId": "bridge-quay-storefront-1",
+          "approach": {
+            "x": 0.6310467824908743,
+            "y": 0.7977021046173878
+          },
+          "return": {
+            "x": 0.6310467824908743,
+            "y": 0.8445771046173878
+          }
+        }
+      }
+    },
+    "waldruh": {
+      "width": 2304,
+      "height": 1024,
+      "spawn": {
+        "x": 0.3466666666666667,
+        "y": 0.54
+      },
+      "coordinateVersion": 2,
+      "entrances": {
+        "cafe": {
+          "id": "cafe-entrance",
+          "ownerId": "waldruh-inn",
+          "approach": {
+            "x": 0.1466717824908743,
+            "y": 0.2893265944260817
+          },
+          "return": {
+            "x": 0.1466717824908743,
+            "y": 0.3596390944260817
+          }
+        },
+        "bakery": {
+          "id": "bakery-entrance",
+          "ownerId": "waldruh-west-workshop",
+          "approach": {
+            "x": 0.08263907858025929,
+            "y": 0.6582541772128108
+          },
+          "return": {
+            "x": 0.08263888888888889,
+            "y": 0.755859375
+          }
+        },
+        "supermarket": {
+          "id": "supermarket-entrance",
+          "ownerId": "waldruh-market-east",
+          "approach": {
+            "x": 0.3949520857096529,
+            "y": 0.6868088579408212
+          },
+          "return": {
+            "x": 0.3949520857096529,
+            "y": 0.7571213579408212
+          }
+        },
+        "inn": {
+          "id": "inn-entrance",
+          "ownerId": "waldruh-north-cottage",
+          "approach": {
+            "x": 0.29424122693531873,
+            "y": 0.12721721942608172
+          },
+          "return": {
+            "x": 0.29424122693531873,
+            "y": 0.19752971942608172
+          }
+        }
+      }
+    },
+    "nebelstadt": {
+      "width": 2304,
+      "height": 1024,
+      "spawn": {
+        "x": 0.3333333333333333,
+        "y": 0.55
+      },
+      "coordinateVersion": 2,
+      "entrances": {
+        "cafe": {
+          "id": "cafe-entrance",
+          "ownerId": "nebelstadt-west-cafe-canopy",
+          "approach": {
+            "x": 0.07592525471309651,
+            "y": 0.5852250319260818
+          },
+          "return": {
+            "x": 0.0642361111111111,
+            "y": 0.6669921875
+          }
+        },
+        "bakery": {
+          "id": "bakery-entrance",
+          "ownerId": "harbour-front-storefront-2",
+          "approach": {
+            "x": 0.8986113008024815,
+            "y": 0.19731667721281074
+          },
+          "return": {
+            "x": 0.8986113008024815,
+            "y": 0.26762917721281076
+          }
+        },
+        "supermarket": {
+          "id": "supermarket-entrance",
+          "ownerId": "nebelstadt-market-canopy",
+          "approach": {
+            "x": 0.34069861348743063,
+            "y": 0.8518479204408212
+          },
+          "return": {
+            "x": 0.34069861348743063,
+            "y": 0.9221604204408212
+          }
+        },
+        "inn": {
+          "id": "inn-entrance",
+          "ownerId": "harbour-front-storefront-1",
+          "approach": {
+            "x": 0.7916370602686521,
+            "y": 0.19264690692608172
+          },
+          "return": {
+            "x": 0.7916370602686521,
+            "y": 0.2629594069260817
+          }
+        }
+      }
+    }
+  }
+}

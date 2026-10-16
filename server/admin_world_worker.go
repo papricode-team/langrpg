@@ -240,3 +240,22 @@ func (w *worldWorker) warm(current *WorldContent) {
 	}
 	w.baseKey, w.baseRevision = current.Revision, current.Revision
 }
+
+// reconcile adds story anchors from the seed to document and recompiles its
+// authority. It does not change the document the worker holds for edits.
+func (w *worldWorker) reconcile(ctx context.Context, document, seed json.RawMessage) (*WorldContent, error) {
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	request := map[string]any{"type": "reconcile", "document": document}
+	if seed != nil {
+		request["seed"] = seed
+	}
+	response, err := w.callLocked(ctx, request)
+	if err != nil {
+		return nil, err
+	}
+	if !response.OK || response.Bundle == nil {
+		return nil, &WorldProblemError{422, response.Problems}
+	}
+	return response.Bundle, nil
+}

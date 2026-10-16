@@ -19,7 +19,7 @@ export const legacyMapPlates=[
 export async function optimizeGameDistribution({root=projectRoot,outputDir=resolve(root,'web/dist')}={}){
   const output=resolve(outputDir),authoring=resolve(root,'web/public');
   if(output===authoring || output.startsWith(authoring+sep))throw Error('Distribution optimizer must never rewrite public authoring art');
-  const scenes=JSON.parse(await readFile(resolve(root,'web/src/data/world-scenes.json'),'utf8'));
+  const scenes=JSON.parse(await readFile(resolve(root,'content/world-seed.json'),'utf8'));
   const registered=new Set(Object.values(scenes.maps).flatMap(scene=>scene.terrain.flatMap(tile=>[tile.dayAsset,tile.nightAsset,tile.dayPreviewAsset,tile.nightPreviewAsset])).filter(Boolean));
   for(const name of legacyMapPlates)if(registered.has(`/assets/${name}`))throw Error(`Refusing to downsample registered streamed terrain: ${name}`);
   const results=[];

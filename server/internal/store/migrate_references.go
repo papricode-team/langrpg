@@ -16,7 +16,7 @@ func (base *JSONStore) MigrateReferences(_ context.Context, migrate func(Account
 	base.mu.Lock()
 	defer base.mu.Unlock()
 	old := base.state
-	next := DiskState{Version: old.Version, World: old.World, WorldContent: old.WorldContent, Sessions: old.Sessions, SessionUse: old.SessionUse, Analytics: old.Analytics, Accounts: map[string]Account{}, Actions: map[string]map[string]SavedAction{}}
+	next := DiskState{Version: old.Version, World: old.World, WorldTables: old.WorldTables, AdminTokens: old.AdminTokens, Sessions: old.Sessions, SessionUse: old.SessionUse, Analytics: old.Analytics, Accounts: map[string]Account{}, Actions: map[string]map[string]SavedAction{}}
 	for id, a := range old.Accounts {
 		next.Accounts[id] = migrate(a)
 	}

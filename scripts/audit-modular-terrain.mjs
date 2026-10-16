@@ -8,7 +8,7 @@ const worker=spawn(process.execPath,['scripts/admin-world-worker.mjs'],{stdio:['
 let sequence=0;const pending=new Map();
 createInterface({input:worker.stdout}).on('line',line=>{const value=JSON.parse(line);if(value.id){pending.get(value.id)?.(value);pending.delete(value.id);}});
 const request=body=>new Promise(resolve=>{const id=String(++sequence);pending.set(id,resolve);worker.stdin.write(JSON.stringify({id,...body})+'\n');});
-let document=JSON.parse(await readFile('web/src/data/world-scenes.json','utf8')),version=JSON.parse(await readFile('web/src/data/world-scene-version.json','utf8')).contentVersion,key='initial';
+let document=JSON.parse(await readFile('content/world-seed.json','utf8')),version=JSON.parse(await readFile('web/src/data/world-scene-version.json','utf8')).contentVersion,key='initial';
 const waitForState=async(predicate,label)=>{const started=Date.now();while(!predicate()){if(Date.now()-started>60000)throw Error(`Timed out: ${label}`);await new Promise(resolve=>setTimeout(resolve,50));}};
 const browser=await chromium.launch({headless:true});
 try{

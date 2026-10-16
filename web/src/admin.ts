@@ -6,6 +6,7 @@ import './admin.css';
 import { escapeHtml as escape } from './icons';
 import { analyticsCSV, bindAnalyticsControls, renderAnalytics, type AnalyticsReport } from './admin-analytics';
 import { mountUsers, type UsersHandle } from './admin-users';
+import { mountTokens, type TokensHandle } from './admin-tokens';
 import type { MapEditorHandle } from './admin-map-editor';
 
 const root = document.querySelector<HTMLElement>('#admin-app')!;
@@ -14,6 +15,7 @@ let days = 30, revision = 0;
 let report: AnalyticsReport | undefined;
 let selfId = '';
 let users: UsersHandle | undefined;
+let tokens: TokensHandle | undefined;
 let mapEditor: MapEditorHandle | undefined;
 let mapEditorLoading: Promise<void> | undefined;
 class AdminError extends Error { constructor(message: string, readonly status: number) { super(message); } }
@@ -27,7 +29,7 @@ async function request<T>(path: string, body?: unknown): Promise<T> {
   return value as T;
 }
 function login(message = ''): void {
-  ++revision; report = undefined; users?.destroy(); users = undefined;
+  ++revision; report = undefined; users?.destroy(); users = undefined; tokens?.destroy(); tokens = undefined;
   root.innerHTML = `<main class="login-shell"><a href="/" class="wordmark">glotworld<span>ADMIN</span></a><section class="panel"><h1>Admin sign in</h1><p>Use your Glotworld administrator account.</p><form id="admin-login"><label>Email<input name="email" type="email" autocomplete="username" required></label><label>Password<input name="password" type="password" autocomplete="current-password" required></label><p id="login-error" role="alert">${escape(message)}</p><button class="primary" type="submit">Open Admin</button></form><a href="/">Back to the adventure</a></section></main>`;
   root.querySelector<HTMLFormElement>('form')!.onsubmit = async event => {
     event.preventDefault(); const form = event.currentTarget as HTMLFormElement, button = form.querySelector('button')!;
@@ -43,9 +45,9 @@ function login(message = ''): void {
   };
 }
 function shell(): void {
-  root.innerHTML = `<a class="skip-link" href="#dashboard">Skip to content</a><div class="admin-layout"><aside class="sidebar"><a class="wordmark" href="/admin.html">glotworld<span>ADMIN</span></a><span class="nav-label">WORKSPACE</span><nav aria-label="Admin sections"><a href="#analytics" data-section-link="analytics">Analytics</a><div class="nav-sub" data-analytics-nav><a href="#overview">Overview</a><a href="#conversion">Conversion</a><a href="#retention">Retention</a><a href="#acquisition">Acquisition</a><a href="#customers">Customers</a><a href="#events">Product activity</a></div><a href="#users" data-section-link="users">Users</a><a href="#map" data-section-link="map">Map editor</a></nav><div class="sidebar-bottom"><span class="first-party-dot">First-party analytics</span><p>Your app. Your database.</p><a href="/">Back to game ↗</a><button data-admin-logout>Sign out</button></div></aside>
+  root.innerHTML = `<a class="skip-link" href="#dashboard">Skip to content</a><div class="admin-layout"><aside class="sidebar"><a class="wordmark" href="/admin.html">glotworld<span>ADMIN</span></a><span class="nav-label">WORKSPACE</span><nav aria-label="Admin sections"><a href="#analytics" data-section-link="analytics">Analytics</a><div class="nav-sub" data-analytics-nav><a href="#overview">Overview</a><a href="#conversion">Conversion</a><a href="#retention">Retention</a><a href="#acquisition">Acquisition</a><a href="#customers">Customers</a><a href="#events">Product activity</a></div><a href="#users" data-section-link="users">Users</a><a href="#map" data-section-link="map">Map editor</a><a href="#tokens" data-section-link="tokens">API tokens</a></nav><div class="sidebar-bottom"><span class="first-party-dot">First-party analytics</span><p>Your app. Your database.</p><a href="/">Back to game ↗</a><button data-admin-logout>Sign out</button></div></aside>
     <div class="admin-main" data-section="analytics"><header class="topbar"><div><strong>Analytics</strong><span id="last-updated" role="status">Loading your workspace…</span></div><div class="toolbar"><label class="select-label">Period<select id="period"><option value="7">Last 7 days</option><option value="30" selected>Last 30 days</option><option value="90">Last 90 days</option></select></label><button id="refresh">Refresh</button><button id="export" disabled>Export CSV</button></div></header><p id="dashboard-error" class="error-banner" role="alert" hidden></p><main id="dashboard" tabindex="-1" aria-busy="true"><div class="loading-state">Loading analytics…</div></main><footer><span>Glotworld · Built for the first 1,000 customers</span><a href="#definitions">How these numbers work</a><a class="mobile-admin-link" href="/">Back to game</a><button class="mobile-admin-link" data-admin-logout>Sign out</button></footer></div>
-    <div class="admin-main" data-section="users" id="users-host" hidden></div><div class="admin-main map-main" data-section="map" hidden><div class="map-host" id="map-host"></div></div></div>`;
+    <div class="admin-main" data-section="users" id="users-host" hidden></div><div class="admin-main" data-section="tokens" id="tokens-host" hidden></div><div class="admin-main map-main" data-section="map" hidden><div class="map-host" id="map-host"></div></div></div>`;
   root.querySelector<HTMLSelectElement>('#period')!.value = String(days);
   root.querySelector<HTMLSelectElement>('#period')!.onchange = event => { days = Number((event.target as HTMLSelectElement).value); void load(); };
   root.querySelector<HTMLButtonElement>('#refresh')!.onclick = () => { void load(); };
@@ -63,16 +65,20 @@ async function signOut(): Promise<void> {
 }
 /** Section links keep analytics anchors and user support in the same workspace. */
 function route(): void {
-  const section = ['#map', '#map-host'].includes(location.hash) ? 'map' : ['#users', '#users-dashboard'].includes(location.hash) ? 'users' : 'analytics';
+  const section = ['#map', '#map-host'].includes(location.hash) ? 'map' : ['#users', '#users-dashboard'].includes(location.hash) ? 'users' : ['#tokens', '#tokens-dashboard'].includes(location.hash) ? 'tokens' : 'analytics';
   root.querySelectorAll<HTMLElement>('[data-section]').forEach(element => { element.hidden = element.dataset.section !== section; });
   root.querySelectorAll<HTMLElement>('[data-section-link]').forEach(link => link.classList.toggle('current', link.dataset.sectionLink === section));
   const nav = root.querySelector<HTMLElement>('[data-analytics-nav]'); if (nav) nav.hidden = section !== 'analytics';
-  document.title = `${section === 'map' ? 'Map editor' : section === 'users' ? 'Users' : 'Analytics'} · Glotworld Admin`;
-  const skip = root.querySelector<HTMLAnchorElement>('.skip-link'); if (skip) skip.href = section === 'users' ? '#users-dashboard' : section === 'map' ? '#map-host' : '#dashboard';
+  document.title = `${section === 'map' ? 'Map editor' : section === 'users' ? 'Users' : section === 'tokens' ? 'API tokens' : 'Analytics'} · Glotworld Admin`;
+  const skip = root.querySelector<HTMLAnchorElement>('.skip-link'); if (skip) skip.href = section === 'users' ? '#users-dashboard' : section === 'tokens' ? '#tokens-dashboard' : section === 'map' ? '#map-host' : '#dashboard';
   if (section === 'users' && !users) users = mountUsers(root.querySelector<HTMLElement>('#users-host')!, request, error => {
     if (error instanceof AdminError && (error.status === 401 || error.status === 403)) { login('Sign in with an administrator account to manage users.'); return true; }
     return false;
   }, () => { void signOut(); });
+  if (section === 'tokens' && !tokens) tokens = mountTokens(root.querySelector<HTMLElement>('#tokens-host')!, request, error => {
+    if (error instanceof AdminError && (error.status === 401 || error.status === 403)) { login('Sign in with an administrator account to manage API tokens.'); return true; }
+    return false;
+  });
   if (section === 'analytics' && !report) void load();
   if (section === 'map' && !mapEditor && !mapEditorLoading) {
     const host = root.querySelector<HTMLElement>('#map-host')!;

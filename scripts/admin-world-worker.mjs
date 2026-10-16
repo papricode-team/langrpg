@@ -11,6 +11,8 @@
  *     -> {id, ok: false, needDocument: true}  unknown base key; resend with document
  *   {id, type: 'compile', document}
  *     -> {id, ok: true, bundle} | {id, ok: false, problems}
+ *   {id, type: 'reconcile', document, seed?}
+ *     -> {id, ok: true, added, bundle}     story anchors added from the seed, authority recompiled
  */
 import {readFile} from 'node:fs/promises';
 import {createInterface} from 'node:readline';
@@ -78,7 +80,7 @@ function apply(request) {
   const applied = ops.map(op => op.kind !== 'place' ? op : {...op, item: document.maps[op.map].scenery.find(item => item.id === op.item.id)});
   const worldMaps = compileRegistry(document);
   return {ok: true, key, applied, warnings: problems,
-    bundle: {document, worldMaps, investigations: compileStoryRules(document, authoredRules, {strict: false}), contentVersion: sceneContentVersion(document), diagnostics: []}};
+    bundle: {document, changedMaps: [...changed.keys()], worldMaps, investigations: compileStoryRules(document, authoredRules, {strict: false}), contentVersion: sceneContentVersion(document), diagnostics: []}};
 }
 
 /** Story pins (fading names, Otto's tickets) whose object this edit removed. They stay at their authored spot. */
@@ -87,6 +89,27 @@ function storyPinWarnings(before, after) {
   return missingStoryAnchors(after, authoredRules).filter(pin => !earlier.has(pin.id)).map(pin => problem('story-anchor', after.id,
     `${pin.kind === 'ticket' ? `Otto's ticket for ${pin.name}` : `The fading name “${pin.name}”`} was written on this object. Players now find it at its original spot; put the object back with Undo to keep them together.`,
     [pin.anchor.split(':')[1]], undefined, 'warning'));
+}
+
+/**
+ * A release may add story characters and evidence the saved world lacks. They
+ * join at the seed's position; the admin's own placements are kept. Story
+ * positions and the map registry are recompiled from the result.
+ */
+function reconcile(request) {
+  const document = structuredClone(request.document), added = [];
+  for (const [id, seed] of Object.entries(request.seed?.maps ?? {})) {
+    const scene = document.maps?.[id];
+    if (!scene) continue;
+    for (const key of ['npcs', 'objects']) {
+      const rows = scene[key] ??= [], known = new Set(rows.map(row => row.id));
+      for (const row of seed[key] ?? []) if (!known.has(row.id)) { rows.push(structuredClone(row)); added.push(`${id}/${row.id}`); }
+    }
+  }
+  const parsed = parseWorldSceneDocument(document);
+  const changedMaps = [...new Set(added.map(entry => entry.split('/')[0]))];
+  return {ok: true, added, bundle: {document: parsed, changedMaps, worldMaps: compileRegistry(parsed),
+    investigations: compileStoryRules(parsed, authoredRules, {strict: false}), contentVersion: sceneContentVersion(parsed), diagnostics: []}};
 }
 
 /** Build every town's grids ahead of the first edit. */
@@ -105,6 +128,7 @@ async function handle(request) {
   try {
     if (request.type === 'apply') return apply(request);
     if (request.type === 'warm') return warm(request);
+    if (request.type === 'reconcile') return reconcile(request);
     if (request.type === 'compile') return {ok: true, bundle: await compileAdminWorld(request.document, {root})};
     return {ok: false, problems: [problem('invalid', '', 'Unknown worker request.')]};
   } catch (error) {
