@@ -1,51 +1,51 @@
 import { describe, expect, it } from 'vitest';
 import { AccessClock, accessBlocked, billingURL, clearGameProgress, formatAccessTime, formatOfferPrice, type GameAccess } from './game-access';
 
-const guest = (remainingSeconds = 300): GameAccess => ({ phase: 'guest', remainingSeconds, playedSeconds: 300 - remainingSeconds, registered: false, billingAvailable: true });
+const guest = (remainingSeconds = 600): GameAccess => ({ phase: 'guest', remainingSeconds, playedSeconds: 600 - remainingSeconds, registered: false, billingAvailable: true });
 
 describe('server-backed game access clock', () => {
   it('requires an authoritative allowance before play starts', () => {
     const clock = new AccessClock();
     expect(accessBlocked(clock.snapshot(0))).toBe(true);
   });
-  it('blocks an anonymous player at exactly five active minutes', () => {
+  it('blocks an anonymous player at exactly ten active minutes', () => {
     const clock = new AccessClock();
     clock.update(guest(), 0);
     clock.setActive(true, 0);
-    expect(clock.snapshot(299_000)?.phase).toBe('guest');
-    expect(clock.snapshot(300_000)).toMatchObject({ phase: 'login_required', remainingSeconds: 0, playedSeconds: 300 });
-    expect(accessBlocked(clock.snapshot(300_000))).toBe(true);
+    expect(clock.snapshot(599_000)?.phase).toBe('guest');
+    expect(clock.snapshot(600_000)).toMatchObject({ phase: 'login_required', remainingSeconds: 0, playedSeconds: 600 });
+    expect(accessBlocked(clock.snapshot(600_000))).toBe(true);
   });
   it('does not spend free time while credentials are entered or a tab is hidden', () => {
     const clock = new AccessClock();
     clock.update(guest(), 0);
     clock.setActive(true, 0);
     clock.setActive(false, 120_000);
-    expect(clock.snapshot(720_000)?.remainingSeconds).toBe(180);
+    expect(clock.snapshot(720_000)?.remainingSeconds).toBe(480);
     clock.setActive(true, 720_000);
-    expect(clock.snapshot(899_000)?.remainingSeconds).toBe(1);
-    expect(clock.snapshot(900_000)?.phase).toBe('login_required');
+    expect(clock.snapshot(1_199_000)?.remainingSeconds).toBe(1);
+    expect(clock.snapshot(1_200_000)?.phase).toBe('login_required');
   });
-  it('continues with the registered allowance and blocks at fifteen total minutes', () => {
+  it('continues with the registered allowance and blocks at two total hours', () => {
     const clock = new AccessClock();
     clock.update(guest(0), 0);
     clock.setActive(false, 0);
-    clock.update({ ...guest(), phase: 'trial', registered: true, playedSeconds: 300, remainingSeconds: 600 }, 10_000);
+    clock.update({ ...guest(), phase: 'trial', registered: true, playedSeconds: 600, remainingSeconds: 6600 }, 10_000);
     clock.setActive(true, 10_000);
-    expect(clock.snapshot(609_000)?.phase).toBe('trial');
-    expect(clock.snapshot(610_000)).toMatchObject({ phase: 'payment_required', playedSeconds: 900, remainingSeconds: 0 });
+    expect(clock.snapshot(6_609_000)?.phase).toBe('trial');
+    expect(clock.snapshot(6_610_000)).toMatchObject({ phase: 'payment_required', playedSeconds: 7200, remainingSeconds: 0 });
   });
   it('uses the server allowance after a reload and never grants time from local storage', () => {
     const clock = new AccessClock();
-    clock.update({ ...guest(), phase: 'trial', registered: true, playedSeconds: 880, remainingSeconds: 20 }, 500);
+    clock.update({ ...guest(), phase: 'trial', registered: true, playedSeconds: 7180, remainingSeconds: 20 }, 500);
     clock.setActive(true, 500);
     expect(clock.snapshot(20_500)?.phase).toBe('payment_required');
-    clock.update({ ...guest(), phase: 'payment_required', registered: true, playedSeconds: 900, remainingSeconds: 0 }, 30_000);
+    clock.update({ ...guest(), phase: 'payment_required', registered: true, playedSeconds: 7200, remainingSeconds: 0 }, 30_000);
     expect(clock.snapshot(50_000)?.phase).toBe('payment_required');
   });
   it.each([false, true])('keeps server-confirmed free play unlimited (registered: %s)', registered => {
     const clock = new AccessClock();
-    const free: GameAccess = { phase: 'free', registered, billingAvailable: false, remainingSeconds: 0, playedSeconds: 900 };
+    const free: GameAccess = { phase: 'free', registered, billingAvailable: false, remainingSeconds: 0, playedSeconds: 7200 };
     clock.update(free, 0);
     clock.setActive(true, 0);
     expect(clock.snapshot(86_400_000)).toEqual(free);
@@ -66,37 +66,38 @@ describe('server-backed game access clock', () => {
   });
   it('grants unlimited access when the server confirms a paid plan', () => {
     const clock = new AccessClock();
-    clock.update({ ...guest(), phase: 'paid', registered: true, remainingSeconds: 0, playedSeconds: 900, plan: 'lifetime' }, 0);
+    clock.update({ ...guest(), phase: 'paid', registered: true, remainingSeconds: 0, playedSeconds: 7200, plan: 'lifetime' }, 0);
     clock.setActive(true, 0);
     expect(clock.snapshot(9_000_000)).toMatchObject({ phase: 'paid', plan: 'lifetime' });
     expect(accessBlocked(clock.snapshot(9_000_000))).toBe(false);
   });
   it('reopens an expired trial with a server-awarded referral and blocks after its 90 minutes', () => {
     const clock = new AccessClock();
-    clock.update({ ...guest(), phase: 'payment_required', registered: true, playedSeconds: 900, remainingSeconds: 0 }, 0);
+    clock.update({ ...guest(), phase: 'payment_required', registered: true, playedSeconds: 7200, remainingSeconds: 0 }, 0);
     expect(accessBlocked(clock.snapshot(0))).toBe(true);
-    clock.update({ ...guest(), phase: 'trial', registered: true, playedSeconds: 900, remainingSeconds: 5400, referralBonusSeconds: 5400, referralSignups: 1 }, 10_000);
+    clock.update({ ...guest(), phase: 'trial', registered: true, playedSeconds: 7200, remainingSeconds: 5400, referralBonusSeconds: 5400, referralSignups: 1 }, 10_000);
     clock.setActive(true, 10_000);
     expect(accessBlocked(clock.snapshot(10_000))).toBe(false);
     expect(clock.snapshot(5_409_000)?.remainingSeconds).toBe(1);
-    expect(clock.snapshot(5_410_000)).toMatchObject({ phase: 'payment_required', playedSeconds: 6300, remainingSeconds: 0 });
+    expect(clock.snapshot(5_410_000)).toMatchObject({ phase: 'payment_required', playedSeconds: 12600, remainingSeconds: 0 });
   });
-  it('accepts repeated fifteen-minute allowances from successful server resets', () => {
+  it('accepts repeated two-hour allowances from successful server resets', () => {
 
     const clock = new AccessClock();
     clock.update({ ...guest(0), phase: 'login_required' }, 0);
     expect(accessBlocked(clock.snapshot(1_000))).toBe(true);
     for (const registered of [false, true, true]) {
       const phase = registered ? 'trial' : 'guest';
-      clock.update({ ...guest(), registered, phase, playedSeconds: 0, remainingSeconds: 900 }, 1_000);
+      clock.update({ ...guest(), registered, phase, playedSeconds: 0, remainingSeconds: 7200 }, 1_000);
       clock.setActive(true, 1_000);
-      expect(clock.snapshot(1_000)).toMatchObject({ phase, playedSeconds: 0, remainingSeconds: 900 });
-      expect(clock.snapshot(900_000)?.phase).toBe(phase);
-      expect(accessBlocked(clock.snapshot(901_000))).toBe(true);
+      expect(clock.snapshot(1_000)).toMatchObject({ phase, playedSeconds: 0, remainingSeconds: 7200 });
+      expect(clock.snapshot(7_200_000)?.phase).toBe(phase);
+      expect(accessBlocked(clock.snapshot(7_201_000))).toBe(true);
     }
   });
   it('rounds the visible timer upward and clamps expired allowances', () => {
-    expect(formatAccessTime(300)).toBe('05:00');
+    expect(formatAccessTime(600)).toBe('10:00');
+    expect(formatAccessTime(7200)).toBe('120:00');
     expect(formatAccessTime(59.2)).toBe('01:00');
     expect(formatAccessTime(-2)).toBe('00:00');
   });

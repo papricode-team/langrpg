@@ -61,11 +61,11 @@ func TestReferralSignupExtendsInviterOnlyAndIsIdempotent(t *testing.T) {
 	}
 	credited, _ := app.store.Get(context.Background(), tokenHash(inviterToken))
 	status := app.accessState(credited, app.now())
-	if status.RemainingSeconds != 600+5400 || status.ReferralBonusSeconds != 5400 || status.ReferralSignups != 1 || credited.Progress.XP != 123 || !reflect.DeepEqual(credited.Player.Avatar, inviter.Avatar) {
+	if status.RemainingSeconds != 6600+5400 || status.ReferralBonusSeconds != 5400 || status.ReferralSignups != 1 || credited.Progress.XP != 123 || !reflect.DeepEqual(credited.Player.Avatar, inviter.Avatar) {
 		t.Fatal("incorrect bonus or changed progress", status)
 	}
 	friend, _ := app.store.Get(context.Background(), tokenHash(friendToken))
-	if app.accessState(friend, app.now()).RemainingSeconds != 900 || friend.Referrals.InvitedBy != inviter.ID {
+	if app.accessState(friend, app.now()).RemainingSeconds != 7200 || friend.Referrals.InvitedBy != inviter.ID {
 		t.Fatal("friend received the inviter's bonus or attribution was lost")
 	}
 	// Logging in and retrying signup for an existing account cannot add credit.
@@ -97,7 +97,7 @@ func TestReferralAfterTrialReopensOnlyTheNewAllowance(t *testing.T) {
 	}
 	inviter, _ := app.store.Get(context.Background(), tokenHash(token))
 	status := app.accessState(inviter, app.now())
-	if status.Phase != "trial" || status.RemainingSeconds != 5400 || status.PlayedSeconds != 900 || !inviter.Access.ActiveSince.IsZero() {
+	if status.Phase != "trial" || status.RemainingSeconds != 5400 || status.PlayedSeconds != 7200 || !inviter.Access.ActiveSince.IsZero() {
 		t.Fatal("waiting at the wall charged the bonus", status)
 	}
 	app.store.UpdateAccount(context.Background(), tokenHash(token), func(a *Account) error {
@@ -239,7 +239,7 @@ func TestReferralStoresConcurrentCreditsAndPersistence(t *testing.T) {
 			}
 			defer reopened.Close()
 			restored, err := reopened.Get(ctx, tokenHash(inviterToken))
-			if err != nil || restored.Referrals.SuccessfulSignups != credits || app.accessState(restored, app.now()).RemainingSeconds != 900+credits*5400 {
+			if err != nil || restored.Referrals.SuccessfulSignups != credits || app.accessState(restored, app.now()).RemainingSeconds != 7200+credits*5400 {
 				t.Fatal("restart lost referral time", err, restored.Referrals)
 			}
 		})
@@ -260,13 +260,13 @@ func TestReferralResetDiscardsOldBonusButPreservesInvites(t *testing.T) {
 		}
 		if i == 0 {
 			reset, err := app.store.ResetGame(context.Background(), tokenHash(token))
-			if err != nil || app.accessState(reset, app.now()).RemainingSeconds != 900 || referralSignups(reset) != 0 || !reset.Referrals.Enabled {
+			if err != nil || app.accessState(reset, app.now()).RemainingSeconds != 7200 || referralSignups(reset) != 0 || !reset.Referrals.Enabled {
 				t.Fatal("reset replayed reward or disabled link", err, reset.Referrals)
 			}
 		}
 	}
 	account, err := app.store.Get(context.Background(), tokenHash(token))
-	if err != nil || app.accessState(account, app.now()).RemainingSeconds != 6300 || referralSignups(account) != 1 {
+	if err != nil || app.accessState(account, app.now()).RemainingSeconds != 12600 || referralSignups(account) != 1 {
 		t.Fatal("new invite failed after reset", err, account.Referrals)
 	}
 }
