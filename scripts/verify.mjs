@@ -101,9 +101,13 @@ async function disposablePostgres() {
     spawnSync(tool('pg_ctl'), ['-D', data, '-m', 'fast', 'stop'], {env, stdio: 'ignore'});
     rmSync(directory, {recursive: true, force: true});
   });
-  const create = spawnSync(tool('createdb'), ['-h', '127.0.0.1', '-p', String(port), '-U', 'postgres', 'glotworld_test'], {env, stdio: 'ignore'});
-  if (create.status !== 0) return undefined;
-  return {url: `postgres://postgres@127.0.0.1:${port}/glotworld_test?sslmode=disable`, label: `disposable cluster on port ${port}`};
+  // Some tests use the public schema, so the concurrent race pass gets a database of its own.
+  for (const name of ['glotworld_test', 'glotworld_race']) {
+    const create = spawnSync(tool('createdb'), ['-h', '127.0.0.1', '-p', String(port), '-U', 'postgres', name], {env, stdio: 'ignore'});
+    if (create.status !== 0) return undefined;
+  }
+  const url = name => `postgres://postgres@127.0.0.1:${port}/${name}?sslmode=disable`;
+  return {url: url('glotworld_test'), raceUrl: url('glotworld_race'), label: `disposable cluster on port ${port}`};
 }
 
 async function waitFor(url, attempts, alive = () => true) {
@@ -158,15 +162,19 @@ try {
   const lanes = [];
   if (want.go) {
     const db = await database;
-    const env = db ? {TEST_DATABASE_URL: db.url} : {};
+    const env = db ? {TEST_DATABASE_URL: db.url} : {}, raceEnv = db?.raceUrl ? {TEST_DATABASE_URL: db.raceUrl} : env;
     const dbNote = db ? `PostgreSQL: ${db.label}` : 'PostgreSQL tests skipped: set TEST_DATABASE_URL or install PostgreSQL';
     const server = join(root, 'server');
+    const race = () => run('go test -race', 'go', ['test', '-race', '-count=1', '-timeout', '10m', '-run', raceTests,
+      '-skip', 'TestPostgresContentImportBootMigrationAndCourseRestart', './...'], {cwd: server, env: raceEnv, note: 'concurrency tests only'});
+    // A supplied TEST_DATABASE_URL is a single database, so the two passes take turns on it.
+    const shared = db && !db.raceUrl;
     lanes.push((async () => {
       await run('go vet', 'go', ['vet', './...'], {cwd: server});
       await run('go test', 'go', ['test', '-count=1', '-timeout', '10m', './...'], {cwd: server, env, note: dbNote});
+      if (shared) await race();
     })());
-    lanes.push(run('go test -race', 'go', ['test', '-race', '-count=1', '-timeout', '10m', '-run', raceTests,
-      '-skip', 'TestPostgresContentImportBootMigrationAndCourseRestart', './...'], {cwd: server, env, note: 'concurrency tests only'}));
+    if (!shared) lanes.push(race());
   }
   if (want.web) {
     lanes.push(run('lint', 'npm', ['run', 'lint']));
