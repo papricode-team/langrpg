@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { characterFrame, MODULAR_ART } from './avatar-options';
-import { advanceWalkClock, advanceWalkDistance, advanceWalkPhase, PREVIEW_WALK_CYCLE_MS, WALK_POSE_COLUMNS, walkPoseColumn, type WalkClock } from './walk-animation';
+import { characterFrame, MODULAR_ART, NATIVE_MODULAR_ART } from './avatar-options';
+import { advanceWalkClock, advanceWalkDistance, advanceWalkPhase, PREVIEW_WALK_CYCLE_MS, WALK_POSE_COLUMNS, WALK_SPEED, walkSpeedForHeight, walkPoseColumn, type WalkClock } from './walk-animation';
 
-const WORLD_WALK_SPEED = 225;
+import { CAST_ART } from './character-cast';
 const worldCycleDistance = MODULAR_ART.cycleDistance * MODULAR_ART.worldHeight / MODULAR_ART.bodyHeight;
-const worldCycleMs = worldCycleDistance / WORLD_WALK_SPEED * 1000;
+const worldCycleMs = worldCycleDistance / WALK_SPEED * 1000;
 
 describe('painted walk timing', () => {
   it('keeps phase as the index of each of the eight painted slots', () => {
@@ -47,7 +47,7 @@ describe('painted walk timing', () => {
       let previous = 1;
       const seen = new Set<number>();
       for (let index = 0; index <= fps * 3; index++) {
-        const distance = WORLD_WALK_SPEED * index / fps;
+        const distance = WALK_SPEED * index / fps;
         const phase = distance % worldCycleDistance / worldCycleDistance * WALK_POSE_COLUMNS.length;
         const column = characterFrame(3, phase) % MODULAR_ART.columns;
         expect((column - previous + WALK_POSE_COLUMNS.length) % WALK_POSE_COLUMNS.length).toBeLessThanOrEqual(1);
@@ -57,42 +57,45 @@ describe('painted walk timing', () => {
     }
   });
 
-  it.each([30, 60, 120])('keeps delayed peers at normal cadence without skipping poses at %i Hz', fps => {
+  it('fits a left/right stride to the painted body at every rendering scale', () => {
+    for (const art of [MODULAR_ART, NATIVE_MODULAR_ART, CAST_ART]) {
+      for (const height of [72, 132, 240, 72 * .7]) {
+        const cycle = art.cycleDistance * height / art.bodyHeight;
+        // Two contact poses each span about half a body height. A cadence-only
+        // test used to accept a cycle that slid nearly three heights instead.
+        expect(cycle / height).toBeGreaterThanOrEqual(.9);
+        expect(cycle / height).toBeLessThanOrEqual(1.1);
+        expect(cycle).toBeCloseTo(worldCycleDistance * height / MODULAR_ART.worldHeight);
+        expect(cycle / walkSpeedForHeight(height) * 1000).toBeCloseTo(PREVIEW_WALK_CYCLE_MS);
+      }
+    }
+    expect(PREVIEW_WALK_CYCLE_MS).toBeCloseTo(worldCycleMs);
+  });
+
+  it.each([30, 60, 120])('accounts for every pixel of delayed peer travel at %i Hz', fps => {
     const seconds = 1 / fps;
     const interpolation = 1 - Math.exp(-12 * seconds);
-    const maxGaitDistance = WORLD_WALK_SPEED * seconds;
-    for (const bodyHeight of [MODULAR_ART.worldHeight, 132]) {
-      const cycleDistance = MODULAR_ART.cycleDistance * bodyHeight / MODULAR_ART.bodyHeight;
-      let peerX = 0, targetX = 112.5, walkDistance = 0, totalGaitDistance = 0, previous = 1;
-      const seen = new Set([previous]);
+    for (const height of [MODULAR_ART.worldHeight, 132]) {
+      const cycleDistance = MODULAR_ART.cycleDistance * height / MODULAR_ART.bodyHeight;
+      let peerX = 0, targetX = WALK_SPEED * .5, walkDistance = 0;
       for (let index = 0; index < fps * 2; index++) {
-        // Half a second of delayed movement leaves the peer ahead of its drawn position.
         const actualDistance = (targetX - peerX) * interpolation;
         peerX += actualDistance;
-        const nextDistance = advanceWalkDistance(walkDistance, actualDistance, cycleDistance, maxGaitDistance);
-        const gaitDistance = (nextDistance - walkDistance + cycleDistance) % cycleDistance;
-        expect(gaitDistance).toBeLessThanOrEqual(maxGaitDistance + 1e-9);
-        if (index === 0) {
-          expect(peerX).toBeCloseTo(112.5 * interpolation);
-          expect(actualDistance).toBeGreaterThan(maxGaitDistance);
-          expect(gaitDistance).toBeCloseTo(maxGaitDistance);
-        }
-        totalGaitDistance += gaitDistance;
-        walkDistance = nextDistance;
-        const column = characterFrame(1, walkDistance / cycleDistance * WALK_POSE_COLUMNS.length) % MODULAR_ART.columns;
-        expect((column - previous + WALK_POSE_COLUMNS.length) % WALK_POSE_COLUMNS.length).toBeLessThanOrEqual(1);
-        seen.add(column); previous = column;
-        targetX += WORLD_WALK_SPEED * seconds;
+        walkDistance = advanceWalkDistance(walkDistance, actualDistance, cycleDistance);
+        // Catch-up must not silently discard travel from the feet's clock.
+        expect(walkDistance).toBeCloseTo(peerX % cycleDistance, 8);
+        targetX += WALK_SPEED * seconds;
       }
-      expect(totalGaitDistance).toBeCloseTo(WORLD_WALK_SPEED * 2);
-      expect([...seen].sort()).toEqual(WALK_POSE_COLUMNS);
     }
   });
 
-  it('preserves actual travel for local movement and peers below the gait cap', () => {
+  it('retains partial steps across pauses and counts only actual movement', () => {
+    let distance = advanceWalkDistance(0, 3, worldCycleDistance);
+    distance = advanceWalkDistance(distance, 0, worldCycleDistance);
+    distance = advanceWalkDistance(distance, 4, worldCycleDistance);
+    expect(distance).toBe(7);
     const largeStep = worldCycleDistance * 1.25;
-    expect(advanceWalkDistance(12, largeStep, worldCycleDistance)).toBeCloseTo((12 + largeStep) % worldCycleDistance);
-    expect(advanceWalkDistance(12, 3, worldCycleDistance, 7.5)).toBe(15);
+    expect(advanceWalkDistance(distance, largeStep, worldCycleDistance)).toBeCloseTo((7 + largeStep) % worldCycleDistance);
   });
 
   it('resumes a paused or stalled preview without a catch-up jump', () => {
@@ -102,6 +105,6 @@ describe('painted walk timing', () => {
     const resumed = advanceWalkClock(paused, 10000);
     expect(resumed.phase).toBeCloseTo(before.phase);
     expect(advanceWalkClock(before, 10000).phase).toBeCloseTo(before.phase);
-    expect(advanceWalkClock(resumed, 10000 + 1000 / 60).phase).toBeCloseTo(2.4 + 8 / 60);
+    expect(advanceWalkClock(resumed, 10000 + 1000 / 60).phase).toBeCloseTo(2.4 + 8 * (1000 / 60) / PREVIEW_WALK_CYCLE_MS);
   });
 });

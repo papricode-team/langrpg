@@ -9,8 +9,9 @@ import (
 	"time"
 )
 
-// The Atlas has one rule: names fade unless somebody says them aloud. The ink
-// registry makes that rule playable. Each entry is a name written somewhere in a
+// The Atlas has one rule: what nobody says, it forgets. Act I shows it through
+// names; Acts II and III add words for time and for agreement. The ink registry
+// makes that rule playable. Each entry is a name or word written somewhere in a
 // town. It starts fading when its story beat happens and fades over visible play
 // time (never while the player is away). Saying the name in German beside it
 // darkens the ink again. A story name that fades completely cracks the bell;

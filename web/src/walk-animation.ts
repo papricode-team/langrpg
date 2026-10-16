@@ -1,6 +1,16 @@
 /** Phase is an index into the painted poses, independent of display refresh rate. */
 export const WALK_POSE_COLUMNS = [1, 2, 3, 4, 5, 6, 7, 8] as const;
-export const PREVIEW_WALK_CYCLE_MS = 1000;
+export const WALK_SPEED = 90;
+// The painted side-view contacts span about half a body height per step.
+// One complete left/right cycle covers 72 pixels in the 96px reference cell
+// (71px visible body), rather than almost three body heights.
+export const WALK_REFERENCE_CYCLE_DISTANCE = 72;
+export const PREVIEW_WALK_CYCLE_MS = WALK_REFERENCE_CYCLE_DISTANCE * 72 / 71 / WALK_SPEED * 1000;
+
+/** Rooms draw larger bodies; scale travel with their legs to preserve cadence. */
+export function walkSpeedForHeight(bodyHeight: number): number {
+  return WALK_SPEED * bodyHeight / 72;
+}
 
 function wrapPhase(phase: number, count: number): number {
   if (!Number.isFinite(count) || count < 1) throw new RangeError('Walk pose count must be positive.');
@@ -13,9 +23,9 @@ export function walkPoseColumn(phase: number): number {
   return WALK_POSE_COLUMNS[Math.floor(wrapPhase(phase, WALK_POSE_COLUMNS.length))];
 }
 
-/** Peer catch-up can move faster than walking; only animation travel is capped. */
-export function advanceWalkDistance(walkDistance: number, travelDistance: number, cycleDistance: number, maxGaitDistance = Infinity): number {
-  return (walkDistance + Math.min(travelDistance, maxGaitDistance)) % cycleDistance;
+/** Sample actual rendered travel, including peer interpolation and wall sliding. */
+export function advanceWalkDistance(walkDistance: number, travelDistance: number, cycleDistance: number): number {
+  return (walkDistance + travelDistance) % cycleDistance;
 }
 
 export function advanceWalkPhase(phase: number, elapsedMs: number, cycleMs = PREVIEW_WALK_CYCLE_MS, poseCount: number = WALK_POSE_COLUMNS.length): number {
