@@ -11,7 +11,7 @@ export interface StorySpectacle {
   beam?: { x: number; y: number; radius: number };
 }
 export const storySpectacle: Readonly<Record<string, StorySpectacle>> = {
-  lindenhafen: { train: { x: 1560, y: 139 } },
+  lindenhafen: { train: { x: 1869, y: 317 } },
   nebelstadt: { beam: { x: 924, y: 470, radius: 1500 } },
 };
 

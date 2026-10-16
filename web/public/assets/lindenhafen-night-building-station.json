@@ -4,41 +4,40 @@
       "frame": {
         "x": 0,
         "y": 0,
-        "w": 4596,
-        "h": 4712
+        "w": 1223,
+        "h": 1139
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 4596,
-        "h": 4712
+        "w": 1223,
+        "h": 1139
       },
       "sourceSize": {
-        "w": 4596,
-        "h": 4712
+        "w": 1223,
+        "h": 1139
       },
       "source": {
         "path": "art/source/buildings/lindenhafen-night-station.png",
         "crop": {
-          "left": 63,
-          "top": 39,
-          "width": 1149,
-          "height": 1178
+          "left": 86,
+          "top": 129,
+          "width": 1223,
+          "height": 1139
         },
-        "standalone": true,
-        "exportScale": 4
+        "standalone": true
       }
     }
   },
   "meta": {
     "image": "lindenhafen-night-building-station.webp",
     "size": {
-      "w": 4596,
-      "h": 4712
+      "w": 1223,
+      "h": 1139
     },
     "scale": "1",
-    "provenance": "Original building painting; 4x Lanczos resampling, unchanged design (no generated detail)"
+    "provenance": "Individual built-in ImageGen building painting; native crop"
   }
 }
