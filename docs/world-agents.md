@@ -57,10 +57,10 @@ given one. Without `draft`, `apply_edits` publishes straight to players.
 Paving materials (cobble, limestone, slate, brick, town cobble) are drawn with a row of kerb stones on
 their outline, and built water (deep water, canal water, the stone-edged canal) with a coping and wall.
 Their outline is the half-weight contour, so shapes give crisp, designed edges while brush strokes give
-soft ones. Streams and ponds (shallow water) keep a natural bank. The `canal-arch-bridge` deck runs from
+soft ones. Streams and ponds (shallow water) keep a natural bank; give natural shapes (streams, forest floor, worn earth paths) `soft` and `wobble` so their outline fades and wanders instead of following the drawn line. The `canal-arch-bridge` deck runs from
 the north-west to the south-east, so a bridge crosses water that runs from the south-west to the
 north-east; check that walking around is clearly longer than the deck. Give each house a different style
-where you can; there are five family houses besides the shops, the café, the archive and the station.
+where you can; there are five family houses besides the shops, the café, the archive and the station. Some small-sheet paintings cannot be placed at a valid size: Waldruh's archive, house-3 and house-4 and Nebelstadt's house-2 cannot meet both the height canon and the 2.5 pixels-per-unit floor that `scene-compiler check` enforces, and Waldruh's house would be 200 units wide, where a building needs a standalone high-resolution painting. A room's door also sets a minimum width, so Waldruh's café stands about 334 wide.
 
 Edit operations are the in-game editor's (`web/src/world-edit-ops.ts`): `move`,
 `moveAnchor`, `place`, `update`, `remove` and `residents`. Coordinates are world units

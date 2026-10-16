@@ -2,7 +2,9 @@
  * Designs a town's ground from shapes instead of brush strokes: streets as lines with a width, squares as
  * rounded rectangles, rivers and ponds as lines or polygons. Each shape fills its material with an edge one
  * sample wide, so the renderer can draw its kerb or canal wall exactly on the designed outline. Later
- * shapes cover earlier ones; `patches` add soft natural variation (moss, dry grass) to the base.
+ * shapes cover earlier ones; `patches` add soft natural variation (moss, dry grass) to the base. Natural
+ * shapes (forest floor, a stream, a worn earth path) can take `soft`, an edge that fades over that many
+ * world units, and `wobble`, how far the outline wanders from the drawn shape.
  *
  *   shapeGround({width, height}, {base: 'meadow', shapes: [
  *     {material: 'deep-water', line: [[1640, -40], [700, 1580]], width: 124},
@@ -10,6 +12,7 @@
  *     {material: 'limestone', rect: [600, 570, 1130, 790], radius: 70},
  *     {material: 'gravel', polygon: [[...], ...]},
  *     {material: 'meadow', circle: [900, 935], radius: 40},
+ *     {material: 'shallow-water', line: [[1560, -40], [1130, 1064]], width: 84, wobble: 10},
  *   ], patches: [{material: 'moss', amount: 0.5, scale: 180}]})
  */
 import './register-content-loader.mjs';
@@ -66,7 +69,8 @@ export function shapeGround({width, height}, {base, shapes = [], patches = [], c
   if (materials.length > MAX_GROUND_LAYERS) throw new Error(`A town can use ${MAX_GROUND_LAYERS} ground materials; these shapes use ${materials.join(', ')}.`);
   const {columns, rows} = groundGrid(width, height, cell);
   const values = materials.map(() => new Float32Array(columns * rows));
-  const fill = distance => Math.max(0, Math.min(1, 0.5 - distance / (2 * cell)));
+  const fill = (distance, soft = cell) => Math.max(0, Math.min(1, 0.5 - distance / (2 * Math.max(cell, soft))));
+  const outline = (shape, x, y, order) => shapeDistance(shape, x, y) + (shape.wobble ? (noise(x, y, shape.wobbleScale ?? 90, 40 + order) - 0.5) * 2 * shape.wobble : 0);
   for (let row = 0; row < rows; row++) for (let column = 0; column < columns; column++) {
     const x = column * cell, y = row * cell, index = row * columns + column;
     const weights = materials.map(() => 0);
@@ -77,8 +81,8 @@ export function shapeGround({width, height}, {base, shapes = [], patches = [], c
       for (let layer = 0; layer < weights.length; layer++) weights[layer] *= 1 - amount;
       weights[target] += amount;
     });
-    for (const shape of shapes) {
-      const cover = fill(shapeDistance(shape, x, y));
+    for (const [order, shape] of shapes.entries()) {
+      const cover = fill(outline(shape, x, y, order), shape.soft);
       if (!cover) continue;
       const target = materials.indexOf(shape.material);
       for (let layer = 0; layer < weights.length; layer++) weights[layer] *= 1 - cover;
