@@ -56,7 +56,8 @@ live world; publish the draft with push_world.`;
 const draftSchema = {type: 'string', description: 'A local world file from pull_world (such as .world/draft.json). Reads and edits that file instead of the live world.'};
 const shapesGuide = `Lay out a town's ground from shapes, painted in order (later shapes cover earlier ones), into a draft file.
 Each shape is {material, line:[[x,y],...], width} (streets, rivers), {material, rect:[x0,y0,x1,y1], radius} (squares),
-{material, polygon:[[x,y],...]} or {material, circle:[x,y], radius}. base is the material everywhere else; patches
+{material, polygon:[[x,y],...]} or {material, circle:[x,y], radius}. Natural shapes (forest floor, streams, worn paths)
+can add soft (edge fade in world units) and wobble (how far the outline wanders). base is the material everywhere else; patches
 [{material, amount 0–1, scale}] add soft natural variation to it (moss, dry grass). The edge of a shape is crisp: paving
 materials get a row of kerb stones and built water (deep-water, canal-water, banked-water) a coping and wall, exactly
 on the outline. Bridges and inlays in ground.features are kept unless features is given (canal-arch-bridge decks run
