@@ -10,7 +10,7 @@ import (
 func storyAdminApp(t *testing.T) (*App, string) {
 	t.Helper()
 	app := contentTestApp(t)
-	if err := app.initWorldEditing(context.Background(), "../web/src/data/world-scenes.json", "../scripts/admin-world-compiler.mjs"); err != nil {
+	if err := app.initWorldEditing(context.Background(), worldSeedPath, "../scripts/admin-world-compiler.mjs"); err != nil {
 		t.Fatal(err)
 	}
 	app.adminEmails = map[string]bool{"admin@example.com": true}

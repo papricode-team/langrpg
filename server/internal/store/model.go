@@ -17,6 +17,7 @@ var (
 	ErrCourseChanged = errors.New("the active course changed; reload its saved state")
 	ErrUnauthorized  = errors.New("session is invalid")
 	ErrConflict      = errors.New("idempotency key was already used for another request")
+	ErrNotFound      = errors.New("not found")
 )
 
 type ModeStats struct {

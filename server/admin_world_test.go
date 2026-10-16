@@ -3,8 +3,11 @@ package main
 import (
 	"bytes"
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
+	"glotworld/server/internal/store"
 	"glotworld/server/internal/world"
 	"net/http"
 	"net/http/httptest"
@@ -23,7 +26,7 @@ func adminWorldTestApp(t *testing.T, path string) (*App, string) {
 	}
 	app := NewApp(store, testCurriculum(), []string{"http://localhost:5173"}, 10)
 	t.Cleanup(app.Close)
-	if err := app.initWorldEditing(context.Background(), "../web/src/data/world-scenes.json", "../scripts/admin-world-compiler.mjs"); err != nil {
+	if err := app.initWorldEditing(context.Background(), worldSeedPath, "../scripts/admin-world-compiler.mjs"); err != nil {
 		t.Fatal(err)
 	}
 	app.adminEmails = map[string]bool{"admin@example.com": true}
@@ -51,6 +54,7 @@ func cloneAdminWorld(t *testing.T, content *WorldContent) *WorldContent {
 	// json.Marshal compacts RawMessage values; preserve snapshot bytes when
 	// asserting that a validation or failed save leaves the current draft alone.
 	copy.Document = append(json.RawMessage(nil), content.Document...)
+	copy.revision, copy.Story = content.revision, content.Story
 	return &copy
 }
 
@@ -60,8 +64,8 @@ func adminWorldCompiledDraft(t *testing.T, baseline *WorldContent, document json
 	t.Helper()
 	result := cloneAdminWorld(t, baseline)
 	result.Document = append(json.RawMessage(nil), document...)
-	result.Revision = worldRevision(document)
-	result.ContentVersion = result.Revision[:16]
+	sum := sha256.Sum256(document)
+	result.ContentVersion = hex.EncodeToString(sum[:8])
 	result.WorldMaps.ContentVersion = result.ContentVersion
 	var draft struct {
 		Maps map[string]struct {
@@ -187,31 +191,10 @@ func TestAdminWorldEndpointsAuthenticateBeforeReadingOrCompiling(t *testing.T) {
 	}
 }
 
-func TestAdminWorldRevisionSurvivesJSONBKeyAndNumberNormalization(t *testing.T) {
-	// JSONB returns object keys in its own order and can normalize numeric
-	// spellings. Neither change represents an edit to a published scene.
-	first := json.RawMessage(`{"version":2,"maps":{"lindenhafen":{"width":1536,"height":1024,"spawn":{"x":0.40,"y":0.6}}}}`)
-	reordered := json.RawMessage(`{ "maps": { "lindenhafen": { "spawn": { "y": 0.600, "x": 0.4 }, "height": 1024.0, "width": 1536.0 } }, "version": 2.0 }`)
-	if worldRevision(first) != worldRevision(reordered) {
-		t.Fatal("JSONB reserialization changed the published revision")
-	}
-	changed := json.RawMessage(`{"version":2,"maps":{"lindenhafen":{"width":1536,"height":1024,"spawn":{"x":0.41,"y":0.6}}}}`)
-	if worldRevision(first) == worldRevision(changed) {
-		t.Fatal("a moved scene anchor must change the published revision")
-	}
-	document, err := os.ReadFile("../web/src/data/world-scenes.json")
-	if err != nil {
-		t.Fatal(err)
-	}
-	if actual := worldRevision(document)[:16]; actual != compiledWorldMaps.ContentVersion {
-		t.Fatalf("Go and Node canonical world fingerprints disagree: %s != %s", actual, compiledWorldMaps.ContentVersion)
-	}
-}
-
 func TestAdminWorldValidateThenSavePublishesDocumentAndStoryAuthority(t *testing.T) {
 	app, token := adminWorldTestApp(t, "")
 	before := cloneAdminWorld(t, app.editing.current)
-	sourceBefore, err := os.ReadFile("../web/src/data/world-scenes.json")
+	sourceBefore, err := os.ReadFile(worldSeedPath)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -230,9 +213,8 @@ func TestAdminWorldValidateThenSavePublishesDocumentAndStoryAuthority(t *testing
 		t.Fatalf("validate: %d %s", validated.Code, adminWorldResponseBody(validated))
 	}
 	assertAdminWorldUnchanged(t, app, before)
-	stored, err := app.editing.store.LoadWorldContent(context.Background())
-	if err != nil || stored != nil {
-		t.Fatalf("validation must not persist: %v %v", stored, err)
+	if revision, err := app.editing.store.WorldRevision(context.Background()); err != nil || revision != before.revision {
+		t.Fatalf("validation must not persist: %d %v", revision, err)
 	}
 	saved := adminWorldRequest(app, "PUT", "/api/admin/world", token, before.Revision, "application/json", draft)
 	if saved.Code != 200 {
@@ -249,19 +231,20 @@ func TestAdminWorldValidateThenSavePublishesDocumentAndStoryAuthority(t *testing
 	if !ok || rule.NPC == before.Investigations.Rules[0].NPC {
 		t.Fatal("published story evidence still uses bundled NPC positions")
 	}
-	stored, err = app.editing.store.LoadWorldContent(context.Background())
-	if err != nil || !reflect.DeepEqual(stored, current) {
-		t.Fatalf("persisted bundle differs from published bundle: %v", err)
+	stored, err := app.editing.load(context.Background())
+	if err != nil {
+		t.Fatal(err)
 	}
+	assertSameWorld(t, stored, current)
 	public := request(app, "GET", "/api/world-content", "", nil)
 	var content struct {
 		Document       json.RawMessage
 		ContentVersion string
 	}
-	if public.Code != 200 || json.Unmarshal(public.Body.Bytes(), &content) != nil || content.ContentVersion != current.ContentVersion || worldRevision(content.Document) != current.Revision {
+	if public.Code != 200 || json.Unmarshal(public.Body.Bytes(), &content) != nil || content.ContentVersion != current.ContentVersion || !sameJSON(content.Document, current.Document) {
 		t.Fatalf("public world did not refresh: %d %s", public.Code, adminWorldResponseBody(public))
 	}
-	sourceAfter, err := os.ReadFile("../web/src/data/world-scenes.json")
+	sourceAfter, err := os.ReadFile(worldSeedPath)
 	if err != nil || !bytes.Equal(sourceBefore, sourceAfter) {
 		t.Fatal("production publication wrote to the canonical repository source")
 	}
@@ -358,19 +341,31 @@ func TestAdminWorldRejectsSessionRevokedDuringCompilation(t *testing.T) {
 		t.Fatalf("revoked session published: %d %s", w.Code, adminWorldResponseBody(w))
 	}
 	assertAdminWorldUnchanged(t, app, before)
-	stored, err := app.editing.store.LoadWorldContent(context.Background())
-	if err != nil || stored != nil {
+	if revision, err := app.editing.store.WorldRevision(context.Background()); err != nil || revision != before.revision {
 		t.Fatal("revoked session persisted compiled world")
 	}
 }
 
 type failingAdminWorldStore struct {
-	worldContentStore
+	store.WorldStore
 	err error
 }
 
-func (s failingAdminWorldStore) SaveWorldContent(context.Context, string, *WorldContent) error {
-	return s.err
+func (s failingAdminWorldStore) SaveWorld(context.Context, int64, store.WorldChange) (int64, error) {
+	return 0, s.err
+}
+
+// assertSameWorld compares publications regardless of JSON key order.
+func assertSameWorld(t *testing.T, got, want *WorldContent) {
+	t.Helper()
+	if got.revision != want.revision || got.Revision != want.Revision || !sameJSON(got.Document, want.Document) {
+		t.Fatalf("stored world %s differs from published %s", got.Revision, want.Revision)
+	}
+	gotRest, _ := json.Marshal(map[string]any{"v": got.ContentVersion, "m": got.WorldMaps, "i": got.Investigations, "s": got.Story})
+	wantRest, _ := json.Marshal(map[string]any{"v": want.ContentVersion, "m": want.WorldMaps, "i": want.Investigations, "s": want.Story})
+	if !sameJSON(gotRest, wantRest) {
+		t.Fatalf("stored authority differs from published: %s", got.Revision)
+	}
 }
 
 func TestAdminWorldStorageFailureDoesNotPublish(t *testing.T) {
@@ -384,7 +379,7 @@ func TestAdminWorldStorageFailureDoesNotPublish(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			app, token := adminWorldTestApp(t, "")
 			before := cloneAdminWorld(t, app.editing.current)
-			app.editing.store = failingAdminWorldStore{worldContentStore: app.editing.store, err: test.err}
+			app.editing.store = failingAdminWorldStore{WorldStore: app.editing.store, err: test.err}
 			w := adminWorldRequest(app, "PUT", "/api/admin/world", token, before.Revision, "application/json", before.Document)
 			if w.Code != test.status {
 				t.Fatalf("failed publication: %d %s", w.Code, adminWorldResponseBody(w))
@@ -407,19 +402,20 @@ func TestAdminWorldPersistsAndRestartsWithoutRepositorySource(t *testing.T) {
 		t.Fatalf("save: %d %s", w.Code, adminWorldResponseBody(w))
 	}
 	published := cloneAdminWorld(t, app.editing.current)
-	store, err := NewJSONStore(path)
+	storage, err := NewJSONStore(path)
 	if err != nil {
 		t.Fatal(err)
 	}
-	restarted := NewApp(store, testCurriculum(), nil, 10)
+	restarted := NewApp(storage, testCurriculum(), nil, 10)
 	t.Cleanup(restarted.Close)
 	if err := restarted.initWorldEditing(context.Background(), filepath.Join(t.TempDir(), "missing-source.json"), "../scripts/admin-world-compiler.mjs"); err != nil {
 		t.Fatal(err)
 	}
-	if !reflect.DeepEqual(restarted.editing.current, published) || restarted.world.ContentVersion() != published.ContentVersion {
+	assertSameWorld(t, restarted.editing.current, published)
+	if restarted.world.ContentVersion() != published.ContentVersion {
 		t.Fatal("restart did not recover the saved document and authority")
 	}
-	if err := (worldContentStorage{store}).SaveWorldContent(context.Background(), "stale", before); !errors.Is(err, ErrConflict) {
+	if _, err := storage.SaveWorld(context.Background(), before.revision, store.WorldChange{Publication: json.RawMessage(`{}`)}); !errors.Is(err, ErrConflict) {
 		t.Fatalf("storage accepted stale revision: %v", err)
 	}
 }
@@ -483,7 +479,7 @@ func TestAdminWorldExternalPublicationRefreshesLiveAndPublicAuthority(t *testing
 	})
 	next := adminWorldCompiledDraft(t, before, draft)
 	// Simulate another server publishing into the shared store.
-	if err := app.editing.store.SaveWorldContent(context.Background(), before.Revision, next); err != nil {
+	if err := app.editing.publish(context.Background(), before, next, worldChange{actor: "test", source: "test"}); err != nil {
 		t.Fatal(err)
 	}
 	if app.editing.current.Revision != before.Revision {

@@ -5,11 +5,9 @@ const content = [
   ['build-story-curriculum.mjs'],
   ['build-course.mjs'],
   ['build-syllabus.mjs'],
-  ['map-editor.mjs', 'check'],
   ['export-world-content.mjs'],
   ['expedition-learning.mjs'],
   ['author-minigame-stories.mjs'],
-  ['scene-compiler.mjs', 'compile'],
   ['audit-dialogue-levels.mjs'],
   ['audit-pacing.mjs'],
 ];
@@ -23,7 +21,7 @@ const paint = [
   ['prepare-map-quality-art.mjs'],
   ['prepare-nebelstadt-harbour-terrain.mjs'], ['prepare-nebelstadt-harbour-bridge.mjs'], ['prepare-terrain-overviews.mjs'],
 ];
-const jobs = process.argv.includes('--art') ? [...content,...paint,['scene-compiler.mjs','compile'],['export-world-content.mjs'],['prepare-scenery-previews.mjs']] : [...content];
+const jobs = process.argv.includes('--art') ? [...content,...paint,['export-world-content.mjs'],['prepare-scenery-previews.mjs']] : [...content];
 if (process.argv.includes('--audio')) jobs.push(['generate-world-audio.mjs'],['generate-dialogue-audio.mjs']);
 for (const [name,...args] of jobs) {
   console.log(`Assets: ${name}`);

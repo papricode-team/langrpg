@@ -2,7 +2,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { Api, compatibleScene } from './api';
 import type { MapId } from './maps';
 import { getWorldScene } from './scene-data';
-import sceneVersion from './data/world-scene-version.json';
+import {seedContentVersion} from './test-support/world-seed';
+const sceneVersion={contentVersion:seedContentVersion};
 
 class TestSocket {
   static OPEN = 1;

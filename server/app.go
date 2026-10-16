@@ -74,7 +74,7 @@ func NewApp(store Store, curriculum Curriculum, origins []string, maxPlayers int
 			allowed = append(allowed, origin)
 		}
 	}
-	a.world = world.New(maxPlayers, allowed, store.WorldIdentity(), compiledWorldMaps)
+	a.world = world.New(maxPlayers, allowed, store.WorldIdentity(), initialWorldMaps)
 	a.metrics = newServerMetrics(a, store)
 	return a
 }
@@ -136,6 +136,12 @@ func (a *App) Handler() http.Handler {
 	mux.HandleFunc("POST /api/admin/world/ops", a.applyWorldOps)
 	mux.HandleFunc("POST /api/admin/world/locks", a.editWorldLock)
 	mux.HandleFunc("GET /api/admin/world/status", a.worldEditStatus)
+	mux.HandleFunc("GET /api/admin/world/export", a.exportWorld)
+	mux.HandleFunc("PUT /api/admin/world/import", a.importWorld)
+	mux.HandleFunc("GET /api/admin/world/edits", a.listWorldEdits)
+	mux.HandleFunc("GET /api/admin/tokens", a.listAdminTokens)
+	mux.HandleFunc("POST /api/admin/tokens", a.createAdminToken)
+	mux.HandleFunc("DELETE /api/admin/tokens/{id}", a.revokeAdminToken)
 	mux.HandleFunc("GET /api/admin/story", a.readStory)
 	mux.HandleFunc("POST /api/admin/story/lines", a.setStoryLine)
 	mux.HandleFunc("POST /api/admin/story/check", a.checkStoryText)

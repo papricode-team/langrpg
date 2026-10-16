@@ -94,7 +94,6 @@ type World struct {
 	clockIdentity  Identity
 	maps           map[string]MapDefinition
 	contentVersion string
-	compiled       MapRegistry
 }
 
 // Access is the outcome of an access check for an open socket. Status is
@@ -105,11 +104,11 @@ type Access struct {
 	Status  any
 }
 
-// New starts a world for up to maxPlayers per map. compiled is the map
-// registry built into the binary; editors may later publish replacements.
+// New starts a world for up to maxPlayers per map with an initial map
+// registry; the server publishes the stored world's registry once loaded.
 func New(maxPlayers int, origins []string, identity Identity, compiled MapRegistry) *World {
 	ctx, cancel := context.WithCancel(context.Background())
-	w := &World{clients: map[string]*worldClient{}, memories: map[string]*worldMemory{}, cancel: cancel, done: make(chan struct{}), maxPlayers: maxPlayers, originPatterns: origins, clockIdentity: identity, compiled: compiled, maps: make(map[string]MapDefinition, len(compiled.Maps)), contentVersion: compiled.ContentVersion}
+	w := &World{clients: map[string]*worldClient{}, memories: map[string]*worldMemory{}, cancel: cancel, done: make(chan struct{}), maxPlayers: maxPlayers, originPatterns: origins, clockIdentity: identity, maps: make(map[string]MapDefinition, len(compiled.Maps)), contentVersion: compiled.ContentVersion}
 	for id, definition := range compiled.Maps {
 		w.maps[id] = definition
 	}
@@ -736,7 +735,7 @@ func (w *World) RestoreSavedCourseLocation(player Player, source CoordinateFrame
 		if player.InteriorID != "" {
 			source = LegacyFrame()
 		} else {
-			source = w.compiled.Maps[player.MapID].CoordinateFrame
+			source = w.maps[player.MapID].CoordinateFrame
 		}
 	}
 	position := RestorePosition(MapSpawn{player.X, player.Y}, source, definition)
@@ -753,7 +752,7 @@ func (w *World) RestoreCoursePlayer(player Player, generation int64) {
 	now := time.Now()
 	memory := &worldMemory{accessGeneration: generation, mapID: player.MapID, positions: map[string]MapSpawn{}, lastSeen: now, lastMove: now, movementCredit: worldMoveInitialCredit}
 	memory.rememberPosition(player.MapID, MapSpawn{player.X, player.Y}, w.Definition(player.MapID).CoordinateFrame)
-	if player.InteriorID != "" && w.compiledInterior(player.MapID, player.InteriorID) {
+	if player.InteriorID != "" && w.knownInterior(player.MapID, player.InteriorID) {
 		memory.interiorID = player.InteriorID
 		memory.interiorPosition = MapSpawn{player.X, player.Y}
 		memory.interiorFrame = w.LocationDefinition(player.MapID, player.InteriorID).CoordinateFrame
@@ -949,12 +948,12 @@ func KnownInterior(id string) bool {
 	return id == "cafe" || id == "bakery" || id == "supermarket" || id == "inn"
 }
 
-// compiledInterior checks a room against the registry built into the binary.
-func (w *World) compiledInterior(mapID, interiorID string) bool {
+// knownInterior checks a room against the published registry.
+func (w *World) knownInterior(mapID, interiorID string) bool {
 	if interiorID == "" {
 		return true
 	}
-	_, exists := w.compiled.Maps[mapID].Entrances[interiorID]
+	_, exists := w.maps[mapID].Entrances[interiorID]
 	return exists && KnownInterior(interiorID)
 }
 

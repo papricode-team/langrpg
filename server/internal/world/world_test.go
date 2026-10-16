@@ -9,10 +9,10 @@ import (
 	"time"
 )
 
-// compiledRegistry is the registry the server embeds (server/world_maps.json).
+// compiledRegistry is a registry compiled from the seed world.
 func compiledRegistry(t *testing.T) MapRegistry {
 	t.Helper()
-	data, err := os.ReadFile("../../world_maps.json")
+	data, err := os.ReadFile("testdata/world_maps.json")
 	if err != nil {
 		t.Fatal(err)
 	}

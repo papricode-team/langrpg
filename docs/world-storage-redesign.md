@@ -1,0 +1,78 @@
+# World storage, terrain and agent editing redesign
+
+Status: in progress (2026-10-16). Supersedes the storage parts of `scene-authoring.md`,
+`map-editor.md` and `modular-terrain.md`.
+
+## Goal
+
+A clean, fast scene system: PostgreSQL is the only home of anything the map editor can
+edit, one terrain model that paints like Unity terrain, and an MCP server so agents (and
+admins) can pull a town, edit it and push it back.
+
+## What the audit found
+
+- The live world is one JSONB row (`world_content`, `id='main'`). The repository holds a
+  second, stale copy (`web/src/data/world-scenes.json`) plus generated copies
+  (`server/world_maps.json`, story positions in `server/story_rules.json`,
+  `world-scene-version.json`, `docs/maps/*.tmj`).
+- Admin edits never reach git; git changes never reach an existing DB except new anchors
+  (`reconcileWorldContent`). Production already differs: Lindenhafen has 155 objects
+  (git: 209), a fully painted modular terrain and 9 prefabs.
+- Door/spawn validation reads the binary's embedded `world_maps.json`, not the live world.
+- Hash and story-anchor logic exist twice (JS and Go) and already disagree.
+- Every placed object stores a scaled copy of its asset's collision polygon.
+- Three terrain models: painted image plates, `navigation.terrainCollision` polygons, and
+  polygon `modularTerrain` drawn with Canvas 2D patterns.
+- Dead or legacy: `/__authoring/*` dev service, Tiled exchange, `world-navigation.json`,
+  `walkable`/`obstacles`/`legacyOffset`, `generationZones`, the Lindenhafen terrain draft.
+
+## Decisions
+
+1. **PostgreSQL is the source of truth for editable world data.** The repository keeps
+   code, art assets and asset geometry (`scenery-geometry.json`, material catalogue). It
+   keeps no towns, terrain, residents, prefabs, anchors or story overrides.
+2. **Relational tables, one migration.** Rows per map, object, anchor, activity, resident,
+   district, prefab and story-line override; terrain as a binary splatmap per map; an
+   append-only edit log whose sequence number is the world revision.
+3. **Derived data is computed, never stored in git.** Spawn/entrance registry and story
+   positions are compiled from the live tables by the TypeScript worker (one
+   implementation). The Go copies (`compileStoryAuthority`, `worldRevision` hashing,
+   embedded `world_maps.json`) are removed.
+4. **Collision comes from asset geometry.** Objects store only an optional override.
+5. **One terrain: a splatmap.** Per map a grid of cells (8 world units), up to 8 material
+   layers with 8-bit weights, packed as two RGBA control maps. A WebGL shader blends the
+   tiled material textures. Painting is a soft round brush that adds weight to one
+   layer. Materials flagged `blocked` (water) make a cell impassable when they dominate it.
+   Image plates, `terrainCollision`, polygon `modularTerrain`, curbs/features baked into
+   Canvas chunks and `foundation-terrain.json` are removed.
+6. **Export/import instead of files in git.** `GET /api/admin/world/export` and
+   `PUT /api/admin/world/import` move a versioned bundle. `npm run world:pull` writes it to
+   the git-ignored `.world/` directory; `world:push` uploads; `world:seed` loads it into a
+   local database.
+7. **Admin API tokens.** A revocable token table (hash only, name, creator, last use),
+   created from the admin page, accepted by `requireAdmin` for world endpoints.
+8. **MCP server** (`tools/world-mcp`, stdio, `GLOTWORLD_URL` + `GLOTWORLD_ADMIN_TOKEN`):
+   list/get maps, pull/push, apply edit ops, paint terrain, validate, list assets and
+   materials, and render a map preview image.
+
+## Migration of the live world
+
+- Migration `0007_world_tables.sql` creates the tables and copies the current
+  `world_content` document into them in SQL (`jsonb_*` functions), so production upgrades
+  in place at boot without data in the repository.
+- Terrain is converted once by the worker on first boot when a map has no splatmap:
+  Lindenhafen rasterises its painted surfaces (exact); Waldruh and Nebelstadt are seeded
+  from their image plates by colour classification plus their water/cliff polygons. The
+  painted plate art does not survive; those two towns will look plainer until repainted.
+- `world_content` is kept read-only for one release as a rollback copy, then dropped.
+
+## Phases
+
+| Phase | Content |
+|---|---|
+| A. Storage | tables + data migration, store layer, ops write rows, edit log revision, story overrides table, admin tokens, export/import, remove repo world files and Go duplicates |
+| B. Agents | `world:pull/push/seed` CLI, MCP server, preview rendering |
+| C. Terrain | splatmap schema, shader renderer, brush editor, navigation from splatmap, conversion, removal of plates/modular/features |
+| D. Cleanup | legacy fields and scripts, docs, verify list |
+
+Each phase deploys separately and is checked against production through the MCP server.

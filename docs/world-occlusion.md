@@ -1,6 +1,6 @@
 # Placed scenery and character depth
 
-The three regions combine clean terrain plates with 471 independently placed transparent objects: 209 in Lindenhafen, 129 in Waldruh and 133 in Nebelstadt. Each region has 32 authored silhouettes, each with separate calm day and night sets of six painted frames. `web/src/data/world-scenes.json` defines placed objects, selected silhouettes, foot anchors, widths and local collision footprints.
+The three regions combine clean terrain plates with 471 independently placed transparent objects: 209 in Lindenhafen, 129 in Waldruh and 133 in Nebelstadt. Each region has 32 authored silhouettes, each with separate calm day and night sets of six painted frames. `content/world-seed.json` defines placed objects, selected silhouettes, foot anchors, widths and local collision footprints.
 
 Characters sort by their feet. Props use their fixed ground anchor and default to `y+10.5`, just above the character depth at the same foot line. A character behind a tree, lamp or building draws beneath its transparent artwork; walking in front of the base brings the character forward. Natural sprite alpha preserves gaps between branches, under benches and through arches in every animation frame.
 

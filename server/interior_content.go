@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"glotworld/server/internal/world"
 	"slices"
 )
 
@@ -37,7 +38,8 @@ func (a *App) indexStationExercises() {
 			mapID = DefaultMapID
 		}
 		room := stationRoom{CourseID: record.CourseID, MapID: mapID, InteriorID: stringValue(data["id"])}
-		if !validInterior(room.MapID, room.InteriorID) {
+		// Whether the town still has the room is checked when stations are shown.
+		if !validMapID(room.MapID) || room.InteriorID != "" && !world.KnownInterior(room.InteriorID) {
 			continue
 		}
 		for _, entry := range anyValues(data["objects"]) {
@@ -76,7 +78,7 @@ func (a *App) stationExerciseVisible(exerciseID string, account Account) bool {
 		return false
 	}
 	for _, room := range a.stationRooms[a.canonical.Translate(exerciseID, true)] {
-		if room.CourseID == account.ActiveCourseID && validInterior(room.MapID, room.InteriorID) && routeUnlocked(room.MapID, account.Progress.CompletedQuestIDs) && a.levelVisible(room.Level, account) {
+		if room.CourseID == account.ActiveCourseID && a.validInterior(room.MapID, room.InteriorID) && routeUnlocked(room.MapID, account.Progress.CompletedQuestIDs) && a.levelVisible(room.Level, account) {
 			return true
 		}
 	}

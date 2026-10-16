@@ -231,7 +231,6 @@ func (a *App) applyWorldOps(w http.ResponseWriter, r *http.Request) {
 			apiFailure(w, errors.New("world edit worker returned no publication"))
 			return
 		}
-		next.Revision = worldRevision(next.Document)
 		if next.Diagnostics == nil {
 			next.Diagnostics = []string{}
 		}
@@ -259,8 +258,7 @@ func (a *App) applyWorldOps(w http.ResponseWriter, r *http.Request) {
 		if _, ok := a.requireAdmin(w, r); !ok {
 			return
 		}
-		next.Story = previous.Story
-		if err := editing.store.SaveWorldContent(ctx, previous.Revision, next); err != nil {
+		if err := editing.publish(ctx, previous, next, worldChange{actor: account.Email, source: adminSource(r), ops: body.Ops}); err != nil {
 			if errors.Is(err, ErrConflict) {
 				// Memory fell behind the stored publication. Edits are absolute, so
 				// adopt the stored world and apply them again once.
@@ -275,11 +273,12 @@ func (a *App) applyWorldOps(w http.ResponseWriter, r *http.Request) {
 		}
 		break
 	}
+	next.Story = previous.Story
 	editing.mu.Lock()
 	editing.current = next
 	editing.mu.Unlock()
 	editing.worker.committed(result.Key, next.Revision)
-	a.world.PublishPatch(next.WorldMaps, result.Applied, next.Revision)
+	a.publishRegistry(next.WorldMaps, result.Applied, next.Revision)
 	w.Header().Set("ETag", `"`+next.Revision+`"`)
 	warnings := result.Warnings
 	if warnings == nil {

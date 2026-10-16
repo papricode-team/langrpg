@@ -1,28 +1,43 @@
 package main
 
 import (
-	"fmt"
+	"encoding/json"
+	"sync/atomic"
 
 	"glotworld/server/internal/world"
 )
 
-// compiledWorldMaps is server/world_maps.json, written by
-// scripts/scene-compiler.mjs and embedded in the binary.
-var compiledWorldMaps = mustWorldMapRegistry()
+// initialWorldMaps serves until the stored world is loaded. It is empty in
+// production; tests that never load a world start from a fixture.
+var initialWorldMaps WorldMapRegistry
 
-func mustWorldMapRegistry() WorldMapRegistry {
-	data, err := presentationFiles.ReadFile("world_maps.json")
-	if err != nil {
-		panic(fmt.Errorf("load compiled world maps: %w", err))
+// publishedSpawns holds the published world's spawn points for store hooks,
+// which run without the App.
+var publishedSpawns atomic.Pointer[map[string]MapSpawn]
+
+// publishRegistry makes a published world's registry live: connected players
+// receive the edit ops when given, or reload their scene otherwise.
+func (a *App) publishRegistry(registry WorldMapRegistry, ops json.RawMessage, revision string) {
+	spawns := world.Spawns(registry)
+	publishedSpawns.Store(&spawns)
+	if ops != nil {
+		a.world.PublishPatch(registry, ops, revision)
+	} else {
+		a.world.PublishContent(registry)
 	}
-	registry, err := world.ParseRegistry(data)
-	if err != nil {
-		panic(err)
-	}
-	return registry
 }
 
-var mapSpawns = world.Spawns(compiledWorldMaps)
+func publishedSpawn(mapID string) MapSpawn {
+	if spawns := publishedSpawns.Load(); spawns != nil {
+		return (*spawns)[mapID]
+	}
+	return MapSpawn{}
+}
+
+// worldSeedPath is the seed world relative to the server directory. It fills
+// an empty database and introduces the story anchors a release adds; the
+// database owns the world after that.
+const worldSeedPath = "../content/world-seed.json"
 
 const DefaultMapID = world.DefaultMapID
 
@@ -34,11 +49,11 @@ var (
 	storyEvidenceRange = WorldRange{X: .12 * world.LegacyWidth, Y: .12 * world.LegacyHeight}
 )
 
-// validInterior checks a saved room against the compiled registry.
-func validInterior(mapID, interiorID string) bool {
+// validInterior checks a saved room against the published registry.
+func (a *App) validInterior(mapID, interiorID string) bool {
 	if interiorID == "" {
 		return true
 	}
-	_, exists := compiledWorldMaps.Maps[mapID].Entrances[interiorID]
+	_, exists := a.world.Maps()[mapID].Entrances[interiorID]
 	return exists && world.KnownInterior(interiorID)
 }

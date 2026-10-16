@@ -2,7 +2,7 @@
 import {chromium} from 'playwright';
 import {readFile} from 'node:fs/promises';
 import assert from 'node:assert/strict';
-const source=JSON.parse(await readFile(process.argv[2]??'web/src/data/world-scenes.json','utf8'));
+const source=JSON.parse(await readFile(process.argv[2]??'content/world-seed.json','utf8'));
 const before=source.document??source,storage='glotworld-lindenhafen-terrain-rebuild-v1';
 const draft=JSON.parse(await readFile('web/src/data/lindenhafen-terrain-rebuild.json','utf8'));
 const browser=await chromium.launch({headless:true});

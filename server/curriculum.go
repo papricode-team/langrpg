@@ -20,7 +20,7 @@ import (
 // Learning manifests are populated from the content store before production boot.
 // Tests can still read their deliberately retained legacy fixture files.
 //
-//go:embed character-kit.json world_maps.json
+//go:embed character-kit.json
 var presentationFiles embed.FS
 
 type manifestFiles struct {
@@ -32,7 +32,7 @@ func (f manifestFiles) ReadFile(name string) ([]byte, error) {
 	if data, ok := f.content[name]; ok {
 		return data, nil
 	}
-	if name == "character-kit.json" || name == "world_maps.json" {
+	if name == "character-kit.json" {
 		return presentationFiles.ReadFile(name)
 	}
 	if f.sealed {

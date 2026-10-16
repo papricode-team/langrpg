@@ -17,7 +17,7 @@ func postgresWorldApp(t *testing.T, url, email string) (*App, *PGStore, string) 
 	}
 	app := NewApp(store, testCurriculum(), nil, 10)
 	t.Cleanup(app.Close)
-	if err := app.initWorldEditing(context.Background(), "../web/src/data/world-scenes.json", "../scripts/admin-world-compiler.mjs"); err != nil {
+	if err := app.initWorldEditing(context.Background(), worldSeedPath, "../scripts/admin-world-compiler.mjs"); err != nil {
 		t.Fatal(err)
 	}
 	app.adminEmails = map[string]bool{email: true}
@@ -30,11 +30,34 @@ func postgresWorldApp(t *testing.T, url, email string) (*App, *PGStore, string) 
 
 func storedWorldRevision(t *testing.T, store *PGStore) string {
 	t.Helper()
-	var revision string
-	if err := store.Pool().QueryRow(context.Background(), "SELECT data->>'revision' FROM world_content WHERE id='main'").Scan(&revision); err != nil {
+	var revision int64
+	if err := store.Pool().QueryRow(context.Background(), "SELECT revision FROM world_publication WHERE id='main'").Scan(&revision); err != nil {
 		t.Fatal(err)
 	}
-	return revision
+	return revisionText(revision)
+}
+
+// editStoredScene changes one town's row and counts a new publication, as
+// another process would.
+func editStoredScene(t *testing.T, store *PGStore, mapID string, edit func(map[string]any)) {
+	t.Helper()
+	ctx := context.Background()
+	var data []byte
+	if err := store.Pool().QueryRow(ctx, "SELECT scene FROM world_maps WHERE id=$1", mapID).Scan(&data); err != nil {
+		t.Fatal(err)
+	}
+	var scene map[string]any
+	if err := json.Unmarshal(data, &scene); err != nil {
+		t.Fatal(err)
+	}
+	edit(scene)
+	data, _ = json.Marshal(scene)
+	if _, err := store.Pool().Exec(ctx, "UPDATE world_maps SET scene=$2 WHERE id=$1", mapID, data); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := store.Pool().Exec(ctx, "UPDATE world_publication SET revision=revision+1"); err != nil {
+		t.Fatal(err)
+	}
 }
 
 // A release that adds story anchors reconciles the saved world at startup. The
@@ -49,52 +72,37 @@ func TestPostgresWorldEditsPublishAfterStartupReconciliation(t *testing.T) {
 	if code, body := postOps(app, token, []map[string]any{{"kind": "move", "map": "waldruh", "id": lamp.ID, "x": lamp.X + 4, "y": lamp.Y}}); code != 200 {
 		t.Fatalf("first edit: %d %v", code, body)
 	}
+	var edits int
+	if err := store.Pool().QueryRow(context.Background(), "SELECT count(*) FROM world_edits WHERE source='editor' AND maps=ARRAY['waldruh']").Scan(&edits); err != nil || edits != 1 {
+		t.Fatalf("the edit log missed the edit: %d %v", edits, err)
+	}
 
 	// The stored world predates a story character the current release needs.
-	ctx := context.Background()
-	var data []byte
-	if err := store.Pool().QueryRow(ctx, "SELECT data FROM world_content WHERE id='main'").Scan(&data); err != nil {
-		t.Fatal(err)
-	}
-	var row map[string]any
-	if err := json.Unmarshal(data, &row); err != nil {
-		t.Fatal(err)
-	}
-	scene := row["document"].(map[string]any)["maps"].(map[string]any)["lindenhafen"].(map[string]any)
-	npcs := scene["npcs"].([]any)
-	scene["npcs"] = npcs[:len(npcs)-1]
-	document, _ := json.Marshal(row["document"])
-	row["revision"] = worldRevision(document)
-	data, _ = json.Marshal(row)
-	if _, err := store.Pool().Exec(ctx, "UPDATE world_content SET data=$1 WHERE id='main'", data); err != nil {
-		t.Fatal(err)
-	}
+	var missing string
+	editStoredScene(t, store, "lindenhafen", func(scene map[string]any) {
+		npcs := scene["npcs"].([]any)
+		missing = npcs[len(npcs)-1].(map[string]any)["id"].(string)
+		scene["npcs"] = npcs[:len(npcs)-1]
+	})
 	app.Close()
 
 	restarted, restartedStore, token := postgresWorldApp(t, url, "second@example.com")
 	if stored := storedWorldRevision(t, restartedStore); stored != restarted.editing.current.Revision {
 		t.Fatalf("reconciled world was not stored: memory %s, storage %s", restarted.editing.current.Revision, stored)
 	}
+	var restored bool
+	if err := restartedStore.Pool().QueryRow(context.Background(), "SELECT scene->'npcs' @> jsonb_build_array(jsonb_build_object('id',$1::text)) FROM world_maps WHERE id='lindenhafen'", missing).Scan(&restored); err != nil || !restored {
+		t.Fatalf("the missing story character %s was not stored: %v", missing, err)
+	}
 	if code, body := postOps(restarted, token, []map[string]any{{"kind": "move", "map": "waldruh", "id": lamp.ID, "x": lamp.X + 8, "y": lamp.Y}}); code != 200 {
 		t.Fatalf("edit after restart: %d %v", code, body)
 	}
 
 	// Another process publishes behind this one's back: the edit still lands.
-	behind := restarted.editing.current
-	data, _ = json.Marshal(behind)
-	if err := json.Unmarshal(data, &row); err != nil {
-		t.Fatal(err)
-	}
-	// It moved the spawn point, a real edit with its own revision.
-	world := row["document"].(map[string]any)
-	spawn := world["maps"].(map[string]any)["nebelstadt"].(map[string]any)["spawn"].(map[string]any)
-	spawn["x"] = spawn["x"].(float64) + 2
-	document, _ = json.Marshal(world)
-	row["revision"] = worldRevision(document)
-	data, _ = json.Marshal(row)
-	if _, err := restartedStore.Pool().Exec(ctx, "UPDATE world_content SET data=$1 WHERE id='main'", data); err != nil {
-		t.Fatal(err)
-	}
+	editStoredScene(t, restartedStore, "nebelstadt", func(scene map[string]any) {
+		spawn := scene["spawn"].(map[string]any)
+		spawn["x"] = spawn["x"].(float64) + 2
+	})
 	if code, body := postOps(restarted, token, []map[string]any{{"kind": "move", "map": "waldruh", "id": lamp.ID, "x": lamp.X + 12, "y": lamp.Y}}); code != 200 {
 		t.Fatalf("edit after an outside publication: %d %v", code, body)
 	}

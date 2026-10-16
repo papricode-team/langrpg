@@ -38,7 +38,7 @@ if(baseArtTotal>160*1024*1024)throw new Error(`Base distribution art budget exce
 // Expansion is a separately accounted, camera-streamed package. Each registered
 // chunk earns two 2 MiB details + two 256 KiB overviews; unreferenced files earn
 // no allowance. At twelve additions per original map the ceiling is 702 MiB.
-const scenes=JSON.parse(await readFile('web/src/data/world-scenes.json','utf8'));
+const scenes=JSON.parse(await readFile('content/world-seed.json','utf8'));
 const registered=new Set();let chunkCount=0;
 for(const scene of Object.values(scenes.maps)){
   const tiles=scene.terrain.filter(tile=>tile.dayAsset.startsWith('/assets/world-expansions/'));

@@ -1,6 +1,6 @@
 # Story excitement review
 
-Written 2026-10-15 from the shipped data, not from play: `web/src/data/dialogue-graphs.json` (30 graphs), `web/src/data/story-text.json` (acts, clue cards, letters, 21 case-board objects), `server/story_rules.json` and `server/story_state.go` (choices, items, flags, factions, bell, endings), `web/src/data/world-scenes.json` (towns, districts, residents), `web/src/minigames/story-scripts.json` (three story mini-games) and the documents `docs/story-bible.md`, `docs/screenplay.md` and `docs/story-rework-proposal.md`.
+Written 2026-10-15 from the shipped data, not from play: `web/src/data/dialogue-graphs.json` (30 graphs), `web/src/data/story-text.json` (acts, clue cards, letters, 21 case-board objects), `server/story_rules.json` and `server/story_state.go` (choices, items, flags, factions, bell, endings), `content/world-seed.json` (towns, districts, residents), `web/src/minigames/story-scripts.json` (three story mini-games) and the documents `docs/story-bible.md`, `docs/screenplay.md` and `docs/story-rework-proposal.md`.
 
 The brief for this review: the game needs a really exciting story with many interesting characters, locations, objects and mysteries, and it needs to feel fun to play.
 

@@ -428,7 +428,7 @@ func resetGameProgress(account *Account) error {
 	account.Access = PlayAccess{Generation: generation + 1, ResetTrial: true}
 	account.CourseStates = nil
 	account.StorySaves, account.RewardedQuestIDs, account.RewardedExpeditionIDs = nil, nil, nil
-	spawn := mapSpawns[DefaultMapID]
+	spawn := publishedSpawn(DefaultMapID)
 	account.Player.MapID, account.Player.InteriorID = DefaultMapID, ""
 	account.Player.X, account.Player.Y = spawn.X, spawn.Y
 	return nil

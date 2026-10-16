@@ -142,7 +142,7 @@ func main() {
 			slog.Warn("frontend version metadata is unavailable", "error", err)
 		}
 	}
-	if err = app.initWorldEditing(context.Background(), env("SCENE_SOURCE_PATH", "../web/src/data/world-scenes.json"), env("SCENE_COMPILER_PATH", "../scripts/admin-world-compiler.mjs")); err != nil {
+	if err = app.initWorldEditing(context.Background(), env("WORLD_SEED_PATH", worldSeedPath), env("SCENE_COMPILER_PATH", "../scripts/admin-world-compiler.mjs")); err != nil {
 		slog.Error("world editing initialization failed", "error", err)
 		os.Exit(1)
 	}

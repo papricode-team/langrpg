@@ -1,5 +1,6 @@
 import {afterEach,beforeEach,describe,expect,it,vi} from 'vitest';
-import data from './data/world-scenes.json';
+import {seedWorldSource} from './test-support/world-seed';
+const data=seedWorldSource();
 
 beforeEach(()=>vi.resetModules());
 afterEach(()=>vi.unstubAllGlobals());
@@ -19,10 +20,10 @@ describe('published world loading',()=>{
     expect(compatibleScene({...scene,contentVersion:'older-world'},'lindenhafen')).toBe(false);
   });
 
-  it('retains the bundled world on older servers without a publication endpoint',async()=>{
+  it('refuses to start without the server world',async()=>{
     vi.stubGlobal('fetch',vi.fn().mockResolvedValue(new Response('',{status:404})));
-    const scenes=await import('./scene-data'),before=scenes.sceneDocument;
-    await scenes.loadPublishedWorld();expect(scenes.sceneDocument).toBe(before);
+    const scenes=await import('./scene-data');
+    await expect(scenes.loadPublishedWorld()).rejects.toThrow(/could not be loaded/);
   });
 
   it.each([

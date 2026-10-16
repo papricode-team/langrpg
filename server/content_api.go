@@ -568,7 +568,7 @@ func (a *App) sentenceVisible(body map[string]any, account Account) bool {
 				return true
 			}
 		case "interior":
-			if validInterior(DefaultMapID, id) {
+			if a.validInterior(DefaultMapID, id) {
 				return true
 			}
 		case "specialItem":
@@ -586,7 +586,7 @@ func (a *App) sentenceVisible(body map[string]any, account Account) bool {
 				return true
 			}
 		case "object":
-			for mapID := range mapSpawns {
+			for mapID := range a.world.Maps() {
 				if strings.HasPrefix(id, mapID+"-") && routeUnlocked(mapID, account.Progress.CompletedQuestIDs) {
 					return true
 				}
