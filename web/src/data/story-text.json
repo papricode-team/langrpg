@@ -285,8 +285,8 @@
       ],
       "lead": [
         {
-          "german": "Otto liest mit dir den Plan am Bahnhof.",
-          "english": "Otto will read the timetable with you at the station."
+          "german": "Marta hat Kaffee für dich. Geh ins Café.",
+          "english": "Marta has coffee for you. Go to the café."
         }
       ],
       "letter": [
@@ -302,6 +302,44 @@
       "heading": {
         "german": "Der Name auf der blassen Fahrkarte",
         "english": "The name on the faded ticket"
+      }
+    },
+    {
+      "questId": "a1-cafe",
+      "title": "The woman’s untouched tea",
+      "text": [
+        {
+          "german": "Eine Frau hat gestern deinen Kaffee bezahlt.",
+          "english": "A woman paid for your coffee yesterday."
+        },
+        {
+          "german": "Sie war müde. Ihre Hände waren schwarz.",
+          "english": "She was tired. Her hands were black with ink."
+        },
+        {
+          "german": "Ihren Tee hat sie nicht getrunken. Marta weiß ihren Namen nicht mehr.",
+          "english": "She left her tea untouched. Marta cannot remember her name."
+        },
+        {
+          "german": "Auf der Rechnung ist ein Stempel vom Messingamt.",
+          "english": "The receipt carries the Brass Office stamp."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Otto liest mit dir den Plan am Bahnhof.",
+          "english": "Otto will read the timetable with you at the station."
+        }
+      ],
+      "letter": [
+        {
+          "german": "Trink deinen Kaffee. Er ist für dich.",
+          "english": "Drink your coffee. It is for you."
+        }
+      ],
+      "heading": {
+        "german": "Ihr Tee ist noch voll",
+        "english": "Her tea is still full"
       }
     },
     {
@@ -352,8 +390,8 @@
       ],
       "lead": [
         {
-          "german": "Marta hat Kaffee für dich. Geh ins Café.",
-          "english": "Marta has coffee for you. Go to the café."
+          "german": "Fritz hat Brot. Geh zu ihm auf den Markt.",
+          "english": "Fritz has bread. Go to him at the market."
         }
       ],
       "letter": [
@@ -368,24 +406,20 @@
       }
     },
     {
-      "questId": "a1-cafe",
-      "title": "The woman’s untouched tea",
+      "questId": "a1-shopping",
+      "title": "The place without a name",
       "text": [
         {
-          "german": "Eine Frau hat gestern deinen Kaffee bezahlt.",
-          "english": "A woman paid for your coffee yesterday."
+          "german": "Das Brot kostet drei Euro.",
+          "english": "The bread costs three euros."
         },
         {
-          "german": "Sie war müde. Ihre Hände waren schwarz.",
-          "english": "She was tired. Her hands were black with ink."
+          "german": "Fritz kocht am Freitag Suppe für alle.",
+          "english": "Fritz cooks soup for everyone on Friday."
         },
         {
-          "german": "Ihren Tee hat sie nicht getrunken. Marta weiß ihren Namen nicht mehr.",
-          "english": "She left her tea untouched. Marta cannot remember her name."
-        },
-        {
-          "german": "Auf der Rechnung ist ein Stempel vom Messingamt.",
-          "english": "The receipt carries the Brass Office stamp."
+          "german": "Ein Platz hat keinen Namen.",
+          "english": "One place has no name."
         }
       ],
       "lead": [
@@ -394,15 +428,10 @@
           "english": "Marta has a room for you."
         }
       ],
-      "letter": [
-        {
-          "german": "Trink deinen Kaffee. Er ist für dich.",
-          "english": "Drink your coffee. It is for you."
-        }
-      ],
+      "letter": [],
       "heading": {
-        "german": "Ihr Tee ist noch voll",
-        "english": "Her tea is still full"
+        "german": "Der Platz ohne Namen",
+        "english": "The place without a name"
       }
     },
     {
@@ -428,8 +457,8 @@
       ],
       "lead": [
         {
-          "german": "Fritz hat Brot. Geh zu ihm auf den Markt.",
-          "english": "Fritz has bread. Go to him at the market."
+          "german": "Fritz wartet auf dich. Geh wieder zu ihm.",
+          "english": "Fritz is waiting for you. Go back to him."
         }
       ],
       "letter": [],
@@ -439,35 +468,6 @@
         "glosses": {
           "Gästebuch": "guest book"
         }
-      }
-    },
-    {
-      "questId": "a1-shopping",
-      "title": "The place without a name",
-      "text": [
-        {
-          "german": "Das Brot kostet drei Euro.",
-          "english": "The bread costs three euros."
-        },
-        {
-          "german": "Fritz kocht am Freitag Suppe für alle.",
-          "english": "Fritz cooks soup for everyone on Friday."
-        },
-        {
-          "german": "Ein Platz hat keinen Namen.",
-          "english": "One place has no name."
-        }
-      ],
-      "lead": [
-        {
-          "german": "Fritz muss noch mehr kaufen. Geh bald wieder zu ihm.",
-          "english": "Fritz still has to buy more. Go back to him soon."
-        }
-      ],
-      "letter": [],
-      "heading": {
-        "german": "Der Platz ohne Namen",
-        "english": "The place without a name"
       }
     },
     {
@@ -693,8 +693,8 @@
       ],
       "lead": [
         {
-          "german": "Morgen wartet Otto am Bahnhof.",
-          "english": "Tomorrow Otto will be waiting at the station."
+          "german": "Geh morgen zu Marta ins Café.",
+          "english": "Go to Marta’s café tomorrow."
         }
       ],
       "letter": [
@@ -706,6 +706,35 @@
       "heading": {
         "german": "Die Stimme, die Voss hört",
         "english": "The voice Voss hears"
+      }
+    },
+    {
+      "questId": "a1-phone",
+      "title": "A call to the station",
+      "text": [
+        {
+          "german": "Otto hat angerufen. Du hast zurückgerufen.",
+          "english": "Otto called. You called back."
+        },
+        {
+          "german": "Voss hat das Register vor sich.",
+          "english": "Voss has the register in front of him."
+        },
+        {
+          "german": "Bei Gartenstraße sieben steht kein Name.",
+          "english": "There is no name next to Gartenstraße seven."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Otto wartet am Bahnhof.",
+          "english": "Otto is waiting at the station."
+        }
+      ],
+      "letter": [],
+      "heading": {
+        "german": "Ein Anruf am Bahnhof",
+        "english": "A call at the station"
       }
     },
     {
@@ -760,8 +789,8 @@
       ],
       "lead": [
         {
-          "german": "Emil hat noch Linas Fahrrad.",
-          "english": "Emil still has Lina’s bike."
+          "german": "Emils Lampe geht beim Messingamt aus.",
+          "english": "Emil’s lamp goes out by the Brass Office."
         }
       ],
       "letter": [
@@ -773,64 +802,6 @@
       "heading": {
         "german": "Eine Lampe geht aus",
         "english": "A lamp goes out"
-      }
-    },
-    {
-      "questId": "a1-bike",
-      "title": "The signature in Emil’s book",
-      "text": [
-        {
-          "german": "Linas Fahrrad kostet zwanzig Euro.",
-          "english": "Lina’s bike costs twenty euros."
-        },
-        {
-          "german": "Eine Frau hat Glas für eine Laterne gekauft.",
-          "english": "A woman bought glass for a lantern."
-        },
-        {
-          "german": "Im Buch steht nur: E.",
-          "english": "The book says only: E."
-        }
-      ],
-      "lead": [
-        {
-          "german": "Marta hat einen Anruf für dich.",
-          "english": "Marta has a phone call for you."
-        }
-      ],
-      "letter": [],
-      "heading": {
-        "german": "Die Unterschrift in Emils Buch",
-        "english": "The signature in Emil’s book"
-      }
-    },
-    {
-      "questId": "a1-phone",
-      "title": "A call to the station",
-      "text": [
-        {
-          "german": "Otto hat angerufen. Du hast zurückgerufen.",
-          "english": "Otto called. You called back."
-        },
-        {
-          "german": "Voss hat das Register vor sich.",
-          "english": "Voss has the register in front of him."
-        },
-        {
-          "german": "Bei Gartenstraße sieben steht kein Name.",
-          "english": "There is no name next to Gartenstraße seven."
-        }
-      ],
-      "lead": [
-        {
-          "german": "Das Büro vom Messingamt ist beim Bahnhof.",
-          "english": "The Brass Office is by the station."
-        }
-      ],
-      "letter": [],
-      "heading": {
-        "german": "Ein Anruf am Bahnhof",
-        "english": "A call at the station"
       }
     },
     {
@@ -852,8 +823,8 @@
       ],
       "lead": [
         {
-          "german": "Fritz hat eine Frage für dich.",
-          "english": "Fritz has a question for you."
+          "german": "Linas Fahrrad ist noch bei Emil.",
+          "english": "Lina’s bike is still at Emil’s."
         }
       ],
       "letter": [
@@ -868,32 +839,32 @@
       }
     },
     {
-      "questId": "a1-invitation",
-      "title": "A seat at Friday’s table",
+      "questId": "a1-bike",
+      "title": "The signature in Emil’s book",
       "text": [
         {
-          "german": "Fritz kocht jeden Freitag um sieben.",
-          "english": "Fritz cooks every Friday at seven."
+          "german": "Linas Fahrrad kostet zwanzig Euro.",
+          "english": "Lina’s bike costs twenty euros."
         },
         {
-          "german": "Vor dem Essen sagt jeder alle Namen laut.",
-          "english": "Before the meal everyone says all names aloud."
+          "german": "Eine Frau hat Glas für eine Laterne gekauft.",
+          "english": "A woman bought glass for a lantern."
         },
         {
-          "german": "So bleiben die Namen an seinem Tisch.",
-          "english": "That is how the names stay at his table."
+          "german": "Im Buch steht nur: E.",
+          "english": "The book says only: E."
         }
       ],
       "lead": [
         {
-          "german": "Lina hat deine Tasche auf der Post.",
-          "english": "Lina has your bag at the post office."
+          "german": "Lina wartet auf der Post auf ihr Fahrrad.",
+          "english": "Lina is waiting at the post office for her bike."
         }
       ],
       "letter": [],
       "heading": {
-        "german": "Ein Stuhl für Freitag",
-        "english": "A chair for Friday"
+        "german": "Die Unterschrift in Emils Buch",
+        "english": "The signature in Emil’s book"
       }
     },
     {
@@ -915,14 +886,43 @@
       ],
       "lead": [
         {
-          "german": "Bleib bei Lina. Sie sucht deine Post.",
-          "english": "Stay with Lina. She is looking for your post."
+          "german": "Fritz hat eine Frage für dich.",
+          "english": "Fritz has a question for you."
         }
       ],
       "letter": [],
       "heading": {
         "german": "Die Kiste mit den Fundsachen",
         "english": "The box of lost things"
+      }
+    },
+    {
+      "questId": "a1-invitation",
+      "title": "A seat at Friday’s table",
+      "text": [
+        {
+          "german": "Fritz kocht jeden Freitag um sieben.",
+          "english": "Fritz cooks every Friday at seven."
+        },
+        {
+          "german": "Vor dem Essen sagt jeder alle Namen laut.",
+          "english": "Before the meal everyone says all names aloud."
+        },
+        {
+          "german": "So bleiben die Namen an seinem Tisch.",
+          "english": "That is how the names stay at his table."
+        }
+      ],
+      "lead": [
+        {
+          "german": "Lina hat noch Post für dich.",
+          "english": "Lina still has post for you."
+        }
+      ],
+      "letter": [],
+      "heading": {
+        "german": "Ein Stuhl für Freitag",
+        "english": "A chair for Friday"
       }
     },
     {
