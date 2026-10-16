@@ -70,20 +70,14 @@ func (s *PGStore) updateSessionAccount(ctx context.Context, hash string, clearEv
 		return Account{}, err
 	}
 	defer tx.Rollback(ctx)
-	var id string
-	var previous []byte
-	id, previous, err = s.lockSessionAccount(ctx, tx, hash)
+	id, account, err := s.lockSessionAccount(ctx, tx, hash)
 	if errors.Is(err, pgx.ErrNoRows) {
 		return Account{}, ErrUnauthorized
 	}
 	if err != nil {
 		return Account{}, err
 	}
-	var account Account
-	if err = json.Unmarshal(previous, &account); err != nil {
-		return Account{}, err
-	}
-	s.hooks.NormalizeProgress(&account.Progress)
+	purchases := clonePurchases(account.Billing.Purchases)
 	before, err := json.Marshal(account)
 	if err != nil {
 		return Account{}, err
@@ -98,7 +92,7 @@ func (s *PGStore) updateSessionAccount(ctx context.Context, hash string, clearEv
 	if !clearEvents && bytes.Equal(before, data) {
 		return account, tx.Commit(ctx)
 	}
-	if _, err = tx.Exec(ctx, "UPDATE accounts SET data=$2 WHERE id=$1", id, data); err != nil {
+	if err = s.writeAccount(ctx, tx, id, purchases, account); err != nil {
 		return Account{}, err
 	}
 	if clearEvents {

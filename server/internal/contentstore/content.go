@@ -284,7 +284,7 @@ func tableNames() []string {
 func LoadPostgres(ctx context.Context, pool *pgxpool.Pool) (*Bundle, error) {
 	var b Bundle
 	var ids, published []byte
-	if err := pool.QueryRow(ctx, `SELECT version,ids,COALESCE(to_jsonb(m)->'published_ids','{}'::jsonb) FROM content_metadata m WHERE id='main'`).Scan(&b.Version, &ids, &published); err != nil {
+	if err := pool.QueryRow(ctx, `SELECT version,ids,published_ids FROM content_metadata WHERE id='main'`).Scan(&b.Version, &ids, &published); err != nil {
 		return nil, fmt.Errorf("content is not imported: %w", err)
 	}
 	if err := json.Unmarshal(ids, &b.IDs); err != nil {

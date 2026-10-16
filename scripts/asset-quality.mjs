@@ -35,12 +35,18 @@ const DISPLAY_CAPS = [
 ];
 /** Below this, a reduced copy saves too little to be worth a second request. */
 const MIN_REDUCED_SIDE = 256;
+/**
+ * Town scenery was painted at very different densities (2 to 10 source pixels per world unit), so a
+ * flat fraction left some buildings much sharper than their neighbours. Placed scenery atlases aim
+ * at these densities instead; other art uses the tier's fraction.
+ */
+export const SCENERY_DENSITY = Object.freeze({ low: 1.6, medium: 2.4 });
 
 const posix = path => path.split(sep).join('/');
 const fit = ([width, height], scale) => [Math.max(1, Math.round(width * scale)), Math.max(1, Math.round(height * scale))];
 
 /** What the build ships for one master image, or null when it ships untouched. */
-export function qualityPlan(rel, width, height) {
+export function qualityPlan(rel, width, height, density) {
   if (!rel.endsWith('.webp') || LOSSLESS.some(rule => rule.test(rel))) return null;
   const cap = DISPLAY_CAPS.find(rule => rule.test.test(rel));
   if (cap) {
@@ -50,7 +56,7 @@ export function qualityPlan(rel, width, height) {
   // Animal sheets pack 128px cells with ~76px figures; halving the whole atlas
   // would reduce each animal below its displayed size even on the low tier.
   const reduced = !rel.startsWith('animals/') && Math.min(width, height) >= MIN_REDUCED_SIDE
-    ? Object.fromEntries(REDUCED_TIERS.map(tier => [tier, fit([width, height], QUALITY_TIERS[tier])]))
+    ? Object.fromEntries(REDUCED_TIERS.map(tier => [tier, fit([width, height], density ? Math.min(1, SCENERY_DENSITY[tier] / density) : QUALITY_TIERS[tier])]))
     : {};
   return { high: [width, height], reduced };
 }
@@ -74,6 +80,59 @@ export async function encodeVariant(buffer, hash, [width, height], cacheDir = de
   return output;
 }
 
+const readJSON = async path => JSON.parse(await readFile(path, 'utf8'));
+const frameWidths = atlas => {
+  const frames = atlas.frames ?? atlas.textures?.flatMap(texture => texture.frames) ?? {};
+  const list = Array.isArray(frames) ? frames.map(frame => [frame.filename, frame]) : Object.entries(frames);
+  return new Map(list.map(([name, frame]) => [name, frame.sourceSize?.w ?? frame.frame?.w]));
+};
+
+/**
+ * The lowest source density (pixels per world unit) of each placed scenery atlas, keyed by its
+ * image path. Placements come from the seed world; a frame is matched by name in its town's atlases
+ * and the shared story atlases, directly or through the town's animation manifests.
+ */
+export async function sceneryDensities(assetsDir, seedPath) {
+  const seed = await readJSON(seedPath).catch(() => null);
+  if (!seed?.maps) return new Map();
+  const atlases = new Map();
+  for (const name of await readdir(assetsDir)) {
+    if (!name.endsWith('.json') || name.endsWith('-animations.json')) continue;
+    const atlas = await readJSON(join(assetsDir, name)).catch(() => null);
+    const image = atlas?.meta?.image;
+    if (image) atlases.set(image.split('?')[0], frameWidths(atlas));
+  }
+  const densities = new Map();
+  for (const [town, map] of Object.entries(seed.maps)) {
+    const animations = (await Promise.all(['day', 'night'].map(period => readJSON(join(assetsDir, `${town}-${period}-animations.json`)).catch(() => ({}))))).map(manifest => manifest.assets ?? {});
+    const placements = [];
+    (function collect(value) {
+      if (Array.isArray(value)) value.forEach(collect);
+      else if (value && typeof value === 'object') {
+        if (typeof value.asset === 'string' && typeof value.width === 'number' && value.width > 0) placements.push(value);
+        Object.values(value).forEach(collect);
+      }
+    })(map);
+    const local = [...atlases].filter(([image]) => image.startsWith(`${town}-`) || image.startsWith('story-quality-'));
+    for (const placement of placements) {
+      const name = placement.frame ?? placement.asset;
+      const names = new Set([name]);
+      for (const manifest of animations) {
+        const entry = manifest[name];
+        if (!entry) continue;
+        for (const frame of [...(entry.frames ?? []), entry.base?.frame, ...(entry.overlays ?? []).map(overlay => overlay.frame)]) if (frame) names.add(frame);
+      }
+      for (const [image, frames] of local) for (const frame of names) {
+        const width = frames.get(frame);
+        if (!width) continue;
+        const density = width / placement.width;
+        densities.set(image, Math.min(densities.get(image) ?? Infinity, density));
+      }
+    }
+  }
+  return densities;
+}
+
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
   return (await Promise.all(entries.map(entry => entry.isDirectory() ? walk(join(dir, entry.name)) : [join(dir, entry.name)]))).flat();
@@ -87,13 +146,13 @@ async function pool(items, limit, task) {
 }
 
 /** Manifest entries for every master with reduced tiers: logical [width, height]. */
-export async function qualityManifest(assetsDir) {
+export async function qualityManifest(assetsDir, densities = new Map()) {
   const files = {};
   await pool((await walk(assetsDir)).filter(path => path.endsWith('.webp')), 16, async path => {
     const rel = posix(relative(assetsDir, path));
     if (LOSSLESS.some(rule => rule.test(rel))) return;
     const { width, height } = await sharp(path).metadata();
-    const plan = qualityPlan(rel, width, height);
+    const plan = qualityPlan(rel, width, height, densities.get(rel));
     if (plan && Object.keys(plan.reduced).length) files[rel] = [width, height];
   });
   return manifestFrom(files);
@@ -105,7 +164,7 @@ function manifestFrom(files) {
 }
 
 /** Rewrites a built `assets` directory in place. Returns byte totals per tier. */
-export async function buildQualityTiers(assetsDir, { cacheDir = defaultCacheDir(), log = () => {} } = {}) {
+export async function buildQualityTiers(assetsDir, { cacheDir = defaultCacheDir(), log = () => {}, densities = new Map() } = {}) {
   assetsDir = resolve(assetsDir);
   const masters = (await walk(assetsDir)).filter(path => path.endsWith('.webp') && !posix(relative(assetsDir, path)).startsWith('q/'));
   const files = {};
@@ -116,7 +175,7 @@ export async function buildQualityTiers(assetsDir, { cacheDir = defaultCacheDir(
     const buffer = await readFile(path);
     totals.master += buffer.length;
     const { width, height } = await sharp(buffer).metadata();
-    const plan = qualityPlan(rel, width, height);
+    const plan = qualityPlan(rel, width, height, densities.get(rel));
     if (!plan) { totals.untouched += buffer.length; totals.high += buffer.length; done++; return; }
     const hash = createHash('sha1').update(buffer).digest('hex');
     const high = await encodeVariant(buffer, hash, plan.high, cacheDir);
@@ -147,7 +206,8 @@ const MB = bytes => `${(bytes / 1048576).toFixed(1)} MiB`;
  */
 export function assetQualityPlugin(root) {
   const publicAssets = resolve(root, 'web/public/assets');
-  let outDir, manifest;
+  let outDir, manifest, densities;
+  const seedPath = resolve(root, 'content/world-seed.json');
   return {
     name: 'asset-quality',
     configResolved(config) { outDir = resolve(config.root, config.build.outDir); },
@@ -157,7 +217,8 @@ export function assetQualityPlugin(root) {
         if (!path.startsWith('/assets/q/')) return next();
         try {
           if (path === `/assets/${MANIFEST_PATH}`) {
-            manifest ??= qualityManifest(publicAssets);
+            densities ??= sceneryDensities(publicAssets, seedPath);
+            manifest ??= densities.then(known => qualityManifest(publicAssets, known));
             response.setHeader('Content-Type', 'application/json');
             return response.end(JSON.stringify(await manifest));
           }
@@ -166,7 +227,8 @@ export function assetQualityPlugin(root) {
           if (!match || !source.startsWith(publicAssets + sep)) return next();
           const buffer = await readFile(source);
           const { width, height } = await sharp(buffer).metadata();
-          const size = qualityPlan(match[2], width, height)?.reduced[match[1]];
+          densities ??= sceneryDensities(publicAssets, seedPath);
+          const size = qualityPlan(match[2], width, height, (await densities).get(match[2]))?.reduced[match[1]];
           if (!size) return next();
           const output = await encodeVariant(buffer, createHash('sha1').update(buffer).digest('hex'), size);
           response.setHeader('Content-Type', 'image/webp');
@@ -180,7 +242,7 @@ export function assetQualityPlugin(root) {
       const assets = join(outDir, 'assets');
       try { await stat(assets); } catch { return; }
       const started = Date.now();
-      const totals = await buildQualityTiers(assets, { log: message => this.info?.(message) });
+      const totals = await buildQualityTiers(assets, { log: message => this.info?.(message), densities: await sceneryDensities(publicAssets, seedPath) });
       console.log(`Asset quality: ${totals.files} tiered images in ${((Date.now() - started) / 1000).toFixed(1)} s; masters ${MB(totals.master)} -> high ${MB(totals.high)}, medium ${MB(totals.medium)}, low ${MB(totals.low)} (${MB(totals.untouched)} shipped untouched).`);
     },
   };

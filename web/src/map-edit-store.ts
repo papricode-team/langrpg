@@ -146,7 +146,9 @@ export class MapEditStore {
           if (problemsOf(error)[0]?.code === 'stale' && !pending.retried) {
             pending.retried = true;
             await this.listener.stale();
-            continue;
+            // A whole-ground edit names the ground it replaces. When the reloaded world no longer matches,
+            // sending it again would only fail the same way; report it once instead.
+            if (this.applies(pending.ops)) continue;
           }
           this.queue.shift();
           this.reject(pending);
@@ -157,6 +159,12 @@ export class MapEditStore {
       this.sending = false;
       this.listener.saving(false);
     }
+  }
+
+  /** Whether the next batch still fits the published document it would be applied to. */
+  private applies(ops: readonly WorldEditOp[]): boolean {
+    try { applyEditOps(this.confirmed, ops); return true; }
+    catch { return false; }
   }
 
   /** Take a refused batch out of the history so undo never replays it. */

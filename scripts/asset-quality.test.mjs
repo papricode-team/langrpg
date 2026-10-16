@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
-import { buildQualityTiers, qualityPlan } from './asset-quality.mjs';
+import { buildQualityTiers, qualityPlan, sceneryDensities } from './asset-quality.mjs';
 
 test('pixel-exact sources ship untouched and interface portraits are capped', () => {
   assert.equal(qualityPlan('character-kit/regular/body.webp', 2048, 2048), null);
@@ -20,6 +20,15 @@ test('world art gets reduced tiers that keep its aspect ratio', () => {
   assert.deepEqual(qualityPlan('character-cast/ada.webp', 1904, 906), { high: [1904, 906], reduced: { low: [952, 453], medium: [1428, 680] } });
   assert.deepEqual(qualityPlan('animals/dog.webp', 1024, 1152), { high: [1024, 1152], reduced: {} });
   assert.deepEqual(qualityPlan('minigames/icon.webp', 128, 128), { high: [128, 128], reduced: {} });
+});
+
+test('placed scenery aims at a target density instead of a flat fraction', async () => {
+  // A grocery painted at 5.12 source pixels per world unit, and props painted below the Low target.
+  assert.deepEqual(qualityPlan('story-quality-grocery.webp', 2048, 2048, 5.12).reduced, { low: [640, 640], medium: [960, 960] });
+  assert.deepEqual(qualityPlan('lindenhafen-props.webp', 1024, 1598, 1.06).reduced, { low: [1024, 1598], medium: [1024, 1598] });
+  const densities = await sceneryDensities(fileURLToPath(new URL('../web/public/assets', import.meta.url)), fileURLToPath(new URL('../content/world-seed.json', import.meta.url)));
+  assert.ok(densities.get('story-quality-grocery.webp') > 4);
+  assert.ok(densities.get('lindenhafen-day-building-bases.webp') < 3.5);
 });
 
 test('a build writes lossy High in place, reduced tiers and a manifest of logical sizes', async () => {
