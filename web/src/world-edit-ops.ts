@@ -1,3 +1,5 @@
+import {animalSpawns} from './animal-spawns';
+import {animalSpecies, animalVariants, type AnimalSpawn, type AnimalSpecies} from './animal-types';
 import {MAX_BRUSH_RADIUS,MAX_STROKE_POINTS,groundFingerprint,paintGround,type Ground} from './ground';
 /**
  * World edits as small, absolute operations. The server applies them to the
@@ -25,6 +27,9 @@ export type WorldEditOp =
   | {kind: 'place'; map: string; item: SceneScenery; activities?: SceneActivity[]; restore?: boolean}
   | {kind: 'remove'; map: string; id: string}
   | {kind: 'moveAnchor'; map: string; anchor: 'npc' | 'object'; id: string; x: number; y: number}
+  | {kind: 'placeAnimal'; map: string; item: AnimalSpawn}
+  | {kind: 'updateAnimal'; map: string; id: string; x?: number; y?: number; species?: AnimalSpecies; variant?: number}
+  | {kind: 'removeAnimal'; map: string; id: string}
   | {kind: 'residents'; map: string; residents: SceneResident[]};
 
 export const MAX_EDIT_OPS = 50;
@@ -51,6 +56,31 @@ export function parseEditOps(value: unknown): WorldEditOp[] {
           || !Array.isArray(points) || !points.length || points.length > MAX_STROKE_POINTS || !points.every(p => Array.isArray(p) && p.length === 2 && p.every(finite))) throw invalid(map, 'Choose a material, a brush and where to paint.');
         return {kind:'paint',map,material:op.material,radius:op.radius,strength:op.strength,points:points as [number, number][]};
       }
+      case 'placeAnimal': {
+        const item = op.item;
+        if (!record(item) || typeof item.id !== 'string' || !slug.test(item.id) || !finite(item.x) || !finite(item.y)
+          || !animalSpecies.includes(item.species as AnimalSpecies) || !Number.isInteger(item.variant) || Number(item.variant) < 0
+          || Number(item.variant) >= animalVariants[item.species as AnimalSpecies].length) throw invalid(map, 'Choose a species, variant and home for the animal.');
+        return {kind: 'placeAnimal', map, item: {id: item.id, x: item.x, y: item.y, species: item.species as AnimalSpecies, variant: Number(item.variant)}};
+      }
+      case 'updateAnimal': {
+        needId();
+        const change: Extract<WorldEditOp, {kind: 'updateAnimal'}> = {kind: 'updateAnimal', map, id: id as string};
+        for (const key of ['x', 'y'] as const) if (op[key] !== undefined) {
+          if (!finite(op[key])) throw invalid(map, 'An animal home needs a position.');
+          change[key] = op[key] as number;
+        }
+        if (op.species !== undefined) {
+          if (!animalSpecies.includes(op.species as AnimalSpecies)) throw invalid(map, 'Choose an animal species.');
+          change.species = op.species as AnimalSpecies;
+        }
+        if (op.variant !== undefined) {
+          if (!Number.isInteger(op.variant) || Number(op.variant) < 0 || Number(op.variant) > 2) throw invalid(map, 'Choose an animal variant.');
+          change.variant = Number(op.variant);
+        }
+        return change;
+      }
+      case 'removeAnimal': needId(); return {kind: 'removeAnimal', map, id: id as string};
       case 'move': needId(); needPoint(); return {kind: 'move', map, id: id as string, x: op.x as number, y: op.y as number};
       case 'moveAnchor':
         needId(); needPoint();
@@ -98,7 +128,7 @@ export function parseEditOps(value: unknown): WorldEditOp[] {
 /** Objects an operation edits. Another admin must not hold any of them. */
 export function editOpTargets(op: WorldEditOp): string[] {
   if (op.kind === 'ground' || op.kind === 'paint') return ['terrain'];
-  if (op.kind === 'place') return [op.item.id];
+  if (op.kind === 'place' || op.kind === 'placeAnimal') return [op.item.id];
   if (op.kind === 'residents') return [];
   return [op.id];
 }
@@ -203,6 +233,21 @@ function applyOne(document: WorldSceneDocument, op: WorldEditOp): WorldSceneDocu
         ...(scene.generationZones ? {generationZones: scene.generationZones.map(zone => zone.pinnedIds ? {...zone, pinnedIds: zone.pinnedIds.filter(id => id !== item.id)} : zone)} : {})};
       break;
     }
+    case 'placeAnimal': {
+      const animals = animalSpawns(scene);
+      if ([...animals, ...scene.scenery, ...scene.npcs, ...scene.objects, ...(scene.residents ?? [])].some(item => item.id === op.item.id)) throw invalid(scene.id, 'Another object already uses that name. Try again.');
+      next = {...scene, animals: [...animals, {...op.item, x: round(op.item.x), y: round(op.item.y)}]};
+      break;
+    }
+    case 'updateAnimal':
+    case 'removeAnimal': {
+      const animals = animalSpawns(scene);
+      if (!animals.some(item => item.id === op.id)) throw invalid(scene.id, 'That animal no longer exists.');
+      const {kind: _kind, map: _map, ...change} = op;
+      next = {...scene, animals: op.kind === 'removeAnimal' ? animals.filter(item => item.id !== op.id)
+        : animals.map(item => item.id === op.id ? {...item, ...change} : item)};
+      break;
+    }
     case 'residents':
       next = {...scene, residents: structuredClone(op.residents)};
       break;
@@ -259,6 +304,15 @@ export function inverseEditOps(document: WorldSceneDocument, op: WorldEditOp): W
     case 'remove': {
       const item = itemOf(scene, op.id), activities = (scene.activities ?? []).filter(slot => slot.ownerId === op.id);
       return [{kind: 'place', map: op.map, item: structuredClone(item), ...(activities.length ? {activities: structuredClone(activities)} : {}), restore: true}];
+    }
+    case 'placeAnimal': return [{kind: 'removeAnimal', map: op.map, id: op.item.id}];
+    case 'updateAnimal': {
+      const item = animalSpawns(scene).find(item => item.id === op.id);
+      return item ? [{kind: 'updateAnimal', map: op.map, ...item}] : [];
+    }
+    case 'removeAnimal': {
+      const item = animalSpawns(scene).find(item => item.id === op.id);
+      return item ? [{kind: 'placeAnimal', map: op.map, item: structuredClone(item)}] : [];
     }
     case 'residents': return [{kind: 'residents', map: op.map, residents: structuredClone(scene.residents ?? [])}];
   }

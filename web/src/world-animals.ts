@@ -1,18 +1,14 @@
 import type * as Phaser from 'phaser';
-import type { MapId, StoryMapId } from './maps';
+import type { MapId } from './maps';
+import {animalSpawns} from './animal-spawns';
+import {getWorldScene} from './scene-data';
 import type { MapPoint, NavigationGrid, NavigationView } from './navigation';
-import { advanceAnimal, animalAction, animalSpecies, createAnimal, interactWithAnimal, type AnimalBody } from './animal-behavior';
-import { ANIMAL_FRAME, animalVariants, animalTextureKey, animalWorldScale, animalArtFrame } from './animal-art';
+import { advanceAnimal, animalAction, createAnimal, interactWithAnimal, type AnimalBody } from './animal-behavior';
+import { ANIMAL_FRAME, animalTextureKey, animalWorldScale, animalArtFrame } from './animal-art';
 import { createContactShadow } from './character-art';
 import { worldDepth, setDepthIfChanged } from './world-depth';
 import { t } from './i18n';
 
-// Positions belong to the original town cores, just like the background residents.
-const homes: Record<StoryMapId, readonly MapPoint[]> = {
-  lindenhafen: [{ x: .39, y: .65 }, { x: .57, y: .61 }, { x: .46, y: .60 }, { x: .34, y: .85 }],
-  waldruh: [{ x: .42, y: .80 }, { x: .35, y: .44 }, { x: .24, y: .37 }, { x: .57, y: .75 }],
-  nebelstadt: [{ x: .31, y: .71 }, { x: .57, y: .48 }, { x: .37, y: .39 }, { x: .26, y: .76 }],
-};
 interface AnimalActor {
   id: string;
   body: AnimalBody;
@@ -27,19 +23,16 @@ interface AnimalActor {
 /** Local ambient life: no account, reward or network entity is created by petting. */
 export class WorldAnimals {
   private actors: AnimalActor[] = [];
-  constructor(scene: Phaser.Scene, mapId: MapId, offset: MapPoint, navigation: NavigationGrid, spawn: MapPoint,
+  constructor(scene: Phaser.Scene, mapId: MapId, navigation: NavigationGrid, spawn: MapPoint,
     bind: (hit: Phaser.GameObjects.Zone, target: { hovered: boolean }, activate: () => void) => void,
     approach: (id: string) => void) {
-    const anchors = homes[mapId as StoryMapId];
-    if (!anchors) return;
     createContactShadow(scene);
-    for (const [speciesIndex, species] of animalSpecies.entries()) for (let variant = 0; variant < animalVariants[species].length; variant++) {
+    for (const [index, spec] of animalSpawns(getWorldScene(mapId), navigation).entries()) {
+      const {species, variant} = spec;
       if (!scene.textures.exists(animalTextureKey(species, mapId))) continue;
-      const home = anchors[speciesIndex];
-      const point = navigation.closestPoint(home.x * 1536 + offset.x + (variant - 1) * 44, home.y * 1024 + offset.y + (variant % 2) * 32, spawn);
-      if (!navigation.isWalkable(point.x, point.y)) continue;
-      const id = `animal:${species}:${mapId}:${variant}`;
-      const body = createAnimal(species, point, variant * 1.7 + speciesIndex * .6);
+      const point = navigation.closestPoint(spec.x, spec.y, spawn);
+      const id = `animal:${species}:${spec.id}`;
+      const body = createAnimal(species, point, (index % 12) * .6);
       const figure = scene.add.image(0, 0, animalTextureKey(species, mapId), `${variant}-idle-0`).setOrigin(.5, ANIMAL_FRAME.footY / ANIMAL_FRAME.height).setScale(animalWorldScale[species]);
       const effect = scene.add.graphics();
       const hit = scene.add.zone(0, -23, 70, 56).setInteractive({ useHandCursor: true });
@@ -70,9 +63,9 @@ export class WorldAnimals {
     const focused = interactive ? this.nearest(player, 120)?.id : undefined;
     for (const actor of this.actors) {
       const a = actor.body;
-      advanceAnimal(a, seconds, navigation, interactive || selected === actor.id ? player : undefined, hour < 6 || hour >= 21);
+      advanceAnimal(a, seconds, navigation, interactive || selected === actor.id ? player : undefined, hour < 6 || hour >= 18);
       // Hold click targets still even when the player starts farther away.
-      if (selected === actor.id && a.state === 'walk' && !a.retreat) { a.state = 'idle'; a.remaining = 2; }
+      if (selected === actor.id && a.state === 'walk' && !a.retreat && !a.returning) { a.state = 'idle'; a.remaining = 2; }
       const visible = !hidden && a.x > view.x - 100 && a.x < view.right + 100 && a.y > view.y - 100 && a.y < view.bottom + 100;
       actor.root.setVisible(visible).setPosition(a.x, a.y);
       actor.label.setVisible(false);

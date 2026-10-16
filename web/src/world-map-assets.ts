@@ -30,7 +30,7 @@ export function regionAssets(map: WorldMapSpec,includeDetailLibrary=false): read
   const assets: RegionAsset[] = [
     { key: sceneryTextureKey(map.id), image: map.sceneryAsset, atlas: map.sceneryAtlas },
   ];
-  if (originalMaps.has(map.id)) for (const species of animalSpecies)
+  for (const species of animalSpecies)
     assets.push({ key: animalTextureKey(species, map.id), image: `/assets/animals/${species}.webp`, atlas: `/assets/animals/${species}.json` });
   // Expedition props already include every local house and tree silhouette.
   if (map.variationAsset !== map.sceneryAsset || map.variationAtlas !== map.sceneryAtlas) {
