@@ -62,6 +62,11 @@ test('exact selectors distinguish occurrences and reject substring matches',()=>
   assert.deepEqual(selectorRange('Use C++ (not CCC).',{text:'C++',occurrence:1}),{start:4,end:7});
   assert.throws(()=>selectorRange('ticket',{text:'ticket',occurrence:0}),/positive occurrence/);
 });
+test('unit exponents stay inside their source selector',()=>{
+  const words=sourceTokens('m² und m³');
+  assert.deepEqual(words.map(word=>word.source.text),['m²','und','m³']);
+  for(const word of words)assert.deepEqual(selectorRange('m² und m³',word.source),word.range);
+});
 test('authored repeated sources select independent targets',()=>{
   const translation=compileTranslation('Sie sieht Sie.',{text:'She sees you.',words:[
     {source:{text:'Sie',occurrence:1},targets:[{text:'She',occurrence:1}]},
@@ -102,7 +107,7 @@ test('committed identity is stable and invalid identity cannot be overwritten',(
   assert.throws(()=>stableId('sentence:a',{'sentence:a':'bad'}),/Invalid committed UUID/);
 });
 
-const {bundle}=buildContent();
+const {bundle,source:authoredSource}=buildContent();
 const english=bundle.courses.find(course=>course.target==='en');
 const proof={...bundle,records:bundle.records.filter(record=>record.courseId===english.id)};
 test('English proof has ten fully authored sentences in Turkish and German',()=>{
@@ -123,13 +128,46 @@ test('review sheet round-trips maps and refuses stale text or duplicate rows',()
   assert.throws(()=>importSheet(proof,sheet+rows[1]+'\n'),/Duplicate sentence/);
   assert.equal(Object.values(next)[0].review.status,'pending');
 });
-test('the entire inventory reports pending maps without claiming they have no counterpart',()=>{
-  assert.deepEqual(validateBundle(bundle,{strict:false}),[]);
-  const errors=validateBundle(bundle);
-  assert(errors.length>0);
-  const pending=bundle.records.find(record=>record.kind==='sentence'&&record.body.authoring.status==='pending');
-  assert(pending);
-  assert(Object.values(pending.body.translations).every(translation=>translation.words.length===0));
+test('every source word in the shipped inventory is mapped in every support language',()=>{
+  assert.deepEqual(validateBundle(bundle),[]);
+});
+test('Otto’s two gut occurrences highlight their own English and Turkish counterparts',()=>{
+  const sentence=bundle.records.find(record=>record.slug==='dialogue:a1-station-intro-10').body;
+  for(const [language,target]of [['en','good'],['tr','iyi']]) {
+    const translation=sentence.translations[language];
+    const mappings=translation.words.filter(word=>word.source.text==='gut');
+    assert.deepEqual(mappings.map(word=>word.source.occurrence),[1,2]);
+    assert.deepEqual(mappings.map(word=>word.targets),[[{text:target,occurrence:1}],[{text:target,occurrence:2}]]);
+    assert.deepEqual(mappings.map(word=>word.targetRanges.map(range=>translation.text.slice(range.start,range.end))),[[target],[target]]);
+    assert(mappings[0].targetRanges[0].start<mappings[1].targetRanges[0].start);
+  }
+});
+test('new maps retain Turkish suffix carriers and distinct repeated English predicates',()=>{
+  const targets=(slug,language,source)=>bundle.records.find(record=>record.slug===slug).body.translations[language].words.find(word=>word.source.text===source).targets;
+  assert.deepEqual(targets('dialogue:a2-broken-clock-choice-5','tr','blass'),[{text:'solmuşlar',occurrence:1}]);
+  assert.deepEqual(targets('context:story-ending:routes-reopened:story:1','tr','können'),[{text:'dönebilir',occurrence:1}]);
+  assert.deepEqual(targets('clue:a1-notice:letter:0','en','Sag'),[{text:'say',occurrence:3}]);
+});
+test('sentence support uses its own exercise or grammar context instead of a colliding prompt',()=>{
+  const sentence=slug=>bundle.records.find(record=>record.kind==='sentence'&&record.slug===slug).body;
+  assert.equal(sentence('exercise:lex-gehen-verb-recognition').translations.tr.text,'gitmek; yürümek');
+  assert.equal(sentence('exercise:lex-sein-det-recognition').translations.tr.text,'onun (eril, nötr)');
+  assert.equal(sentence('lexeme:frage-noun:example').translations.tr.text,'Soruyu yanlış anladım.');
+  assert.equal(sentence('exercise:course-a1-reference-forms-6-exercise-4').translations.en.text,'square metre');
+});
+test('activity cues have full sentence translations independently of gameplay hints',()=>{
+  for(const scenario of authoredSource.activityScenarios) {
+    assert.equal(typeof scenario.english,'string',scenario.id);
+    assert(scenario.english.trim(),scenario.id);
+    const context=bundle.records.find(record=>record.kind==='context'&&record.slug===`scenario:${scenario.id}`);
+    const sentence=bundle.records.find(record=>record.id===context.body.data.sentenceId).body;
+    assert.equal(sentence.translations.en.text,scenario.english,scenario.id);
+    assert.equal(context.body.data.hint,scenario.hint,scenario.id);
+  }
+  for(const [slug,sources]of [['cafe-a1-first-light',['Ich','möchte']],['market-b1-costs-of-repair',['Vorschlag','Sorgen']]]) {
+    const sentence=bundle.records.find(record=>record.slug===`context:scenario:${slug}`).body;
+    for(const source of sources)assert(sentence.translations.en.words.find(word=>word.source.text===source).targets.length,`${slug}: ${source}`);
+  }
 });
 test('imported expedition replies retain authored translations and stable published sentence aliases',()=>{
   const encounter=bundle.records.find(record=>record.kind==='expedition'&&record.body.choices?.length);

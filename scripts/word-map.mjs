@@ -4,7 +4,9 @@ import { readFileSync,writeFileSync,existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildContent,root } from './build-content.mjs';
-import { compileTranslation,selectorRange,sourceKey } from './content-model.mjs';
+import { compileTranslation,selectorRange } from './content-model.mjs';
+import { validateBundle } from './validate-word-maps.mjs';
+export { validateBundle } from './validate-word-maps.mjs';
 
 const columns=['course_id','sentence_id','text','en_text','tr_text','de_text','en_words','tr_words','de_words','required_words','reviewed_by'];
 const encode = value => JSON.stringify(value ?? '');
@@ -66,21 +68,6 @@ export function importSheet(bundle,text,existing={}) {
     if(Object.keys(translations).length)next[row.sentence_id]={sourceText:row.text,translations:{...(next[row.sentence_id]?.translations??{}),...translations},review:{status:row.reviewed_by?'reviewed':'pending',...(row.reviewed_by?{reviewedBy:row.reviewed_by}:{})}};
   }
   return next;
-}
-export function validateBundle(bundle,{strict=true}={}) {
-  const courses=new Map(bundle.courses.map(course=>[course.id,course])), errors=[];
-  for(const record of bundle.records.filter(record=>record.kind==='sentence')) {
-    for(const lang of courses.get(record.courseId).supportLanguages) {
-      const translation=record.body.translations[lang];
-      if(!translation || !translation.text.trim()){if(strict)errors.push(`${record.id}/${lang}: missing translation`);continue;}
-      try {
-        const compiled=compileTranslation(record.body.text,translation,record.body.words,`${record.id}/${lang}`,{strict});
-        if(JSON.stringify(compiled)!==JSON.stringify(translation))errors.push(`${record.id}/${lang}: compiled ranges are stale`);
-        for(const word of record.body.words) if(record.body.text.slice(word.range.start,word.range.end)!==word.source.text)errors.push(`${record.id}: stale source range`);
-      } catch(error){errors.push(error.message);}
-    }
-  }
-  return errors;
 }
 export function validateReviews(bundle) {
   return bundle.records.filter(record => record.kind === 'sentence' && (record.body.authoring?.review?.status !== 'reviewed' || typeof record.body.authoring?.review?.reviewedBy !== 'string' || !record.body.authoring.review.reviewedBy.trim())).map(record => `${record.id}: native-speaker review pending`);
