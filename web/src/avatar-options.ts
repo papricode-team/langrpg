@@ -1,4 +1,4 @@
-import { walkPoseColumn } from './walk-animation';
+import { walkPoseColumn, WALK_REFERENCE_CYCLE_DISTANCE } from './walk-animation';
 
 import { characterCatalogue } from './character-recipe.mjs';
 const optionsFor = (slot: string): [string, string][] => characterCatalogue.components.filter(part => part.slot === slot && part.build === 'regular').map(part => [part.optionId, part.label]);
@@ -19,12 +19,12 @@ export function normalizeParts(value: Partial<AvatarParts>): AvatarParts {
  return result;
 }
 export const buildWidth = (_build: string) => 1;
-// One complete eight-pose cycle takes about 0.87s at normal outdoor speed.
+// Keep the painted stride identical across runtime and native resolutions.
 const [runtimeWidth,runtimeHeight] = characterCatalogue.format.runtimeCell;
 const [editorWidth,editorHeight] = characterCatalogue.format.editorCell;
-export const MODULAR_ART = { width: runtimeWidth, height: runtimeHeight, bodyHeight: 71 * runtimeHeight / 96, previewWidth: editorWidth, previewHeight: editorHeight, footY: .9, columns: 9, rows: 4, frameCount: 36, worldHeight: 72, cycleDistance: 192 * runtimeHeight / 96 };
+export const MODULAR_ART = { width: runtimeWidth, height: runtimeHeight, bodyHeight: 71 * runtimeHeight / 96, previewWidth: editorWidth, previewHeight: editorHeight, footY: .9, columns: 9, rows: 4, frameCount: 36, worldHeight: 72, cycleDistance: WALK_REFERENCE_CYCLE_DISTANCE * runtimeHeight / 96 };
 /** Native component paintings cover the higher device-pixel density of indoor views. */
-export const NATIVE_MODULAR_ART = { ...MODULAR_ART, width: editorWidth, height: editorHeight, bodyHeight: 71 * editorHeight / 96, columns: 8, rows: 5, cycleDistance: 192 * editorHeight / 96 };
+export const NATIVE_MODULAR_ART = { ...MODULAR_ART, width: editorWidth, height: editorHeight, bodyHeight: 71 * editorHeight / 96, columns: 8, rows: 5, cycleDistance: WALK_REFERENCE_CYCLE_DISTANCE * editorHeight / 96 };
 export function characterFrame(facing: number, phase?: number): number { return facing * 9 + (phase === undefined ? 0 : walkPoseColumn(phase)); }
 export const avatarColors = {
   skin: [ ['Porcelain', '#f5d9c6'], ['Ivory', '#edc8ad'], ['Peach', '#e4b494'], ['Sand', '#d6a07d'], ['Honey', '#c99167'], ['Golden', '#bb825a'], ['Warm brown', '#aa704c'], ['Copper', '#986240'], ['Umber', '#855338'], ['Deep brown', '#70452f'], ['Espresso', '#593626'], ['Ebony', '#40271e'] ],
