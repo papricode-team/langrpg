@@ -6,13 +6,21 @@ The dramatic spine is a ticket carrying the player's name → a neighbour whose 
 
 ## 1. Core conceit
 
-**Names fade unless somebody says them aloud.** That is the single rule of Act I, stated by Otto in the first scene (*„Sag deinen Namen laut. Dann bleibt er.“*) and never added to. Names, addresses and times only stay real while somebody says, writes or reads them. The Atlas's ink answers only to German — Elise wrote its rules that way — so every German sentence the player says is an act of keeping something. Saying *zwei Äpfel* brings Frau Berg's name back; asking for the address makes the ink on the parcel hold.
+**What nobody says, the Atlas forgets.** The rule is about concepts: a thing stays real only while somebody has a word for it and says, writes or reads it. The player meets it first through its smallest, most concrete case. In Act I it is names: Otto states it in the first scene (*„Sag deinen Namen laut. Dann bleibt er.“*) and Act I never adds to it. The rule does not change later; the player only sees more of what it covers, one widening per act:
+
+| Act | What fades | Where the player sees it |
+|---|---|---|
+| I | Names: people, houses, the town on the board | Frau Berg's plate, Fritz's list, Pip's chalk wall, the player's ticket |
+| II | Words for time, on top of names | The clockmill's hour: the Waldruh clock loses *Stunde* (ink `clock-stunde`) as the stones lose the Lenz names |
+| III | Words people use to agree, on top of names | The council board loses *Versprechen* (ink `council-versprechen`); silence counting as consent is the same rule applied to agreement |
+
+Each act's introduction names its widening once, in one sentence, and no scene states it as a slogan. Names stay the emotional centre in every act; a fading word is always tied to a person who needs it (Oma Hilde's hour, the council's promise). The Atlas's ink answers only to German — Elise wrote its rules that way — so every German sentence the player says is an act of keeping something. Saying *zwei Äpfel* brings Frau Berg's name back; asking for the address makes the ink on the parcel hold.
 
 There is **no other magic in Act I**. Platform seven is a real old platform, closed for twelve years. The receipt is an ordinary receipt. Emil's lamp is an ordinary repaired lantern that happens to burn dimmer where a name is fading (an application of the rule, not a second one). Everything else is people: who paid, who forgot, who kept listening. The door between two towns, the repeating hour, the keeper's key and the eraser machine arrive in Acts II and III.
 
 Elise's notes are short and simple in Act I because the ink cannot hold long sentences yet; they grow as the player's German does.
 
-**The rule is a mechanic.** Written names in the world (Frau Berg's plate, Pip's chalk wall, the memory stone, Jonas's slate, the Lenz boat, the player's own name on the ticket) fade with visible play time and are kept by saying them aloud beside the writing (`server/story_mechanics.go`, authored in `content/story-mechanics.json`). A story name that fades completely cracks the bell (at most two cracks, healed when the name is said again). In Act III the dark beam empties every name on the route that is not yet kept if the player closes the route again.
+**The rule is a mechanic.** Written names and words in the world (Frau Berg's plate, Pip's chalk wall, the memory stone, Jonas's slate, the Lenz boat, the player's own name on the ticket, *Stunde* on the Waldruh clock, *Versprechen* on the Nebelstadt council board) fade with visible play time and are kept by saying them aloud beside the writing (`server/story_mechanics.go`, authored in `content/story-mechanics.json`). A story name or word that fades completely cracks the bell (at most two cracks, healed when the name is said again). In Act III the dark beam empties every name on the route that is not yet kept if the player closes the route again.
 
 ## 2. Dramatic question per act
 

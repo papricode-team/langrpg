@@ -171,7 +171,8 @@ export class StoryMechanicsUi {
       } else {
         let note = form.querySelector<HTMLElement>('.ink-error');
         if (!note) { note = document.createElement('p'); note.className = 'ink-error'; note.setAttribute('role', 'alert'); form.append(note); }
-        note.textContent = t('The ink does not hold. Check the name and say it again.');
+        const word = !!inkId && this.mechanics.ink.entries.find(item => item.id === inkId)?.kind === 'word';
+        note.textContent = word ? t('The ink does not hold. Check the word and say it again.') : t('The ink does not hold. Check the name and say it again.');
         input?.select();
       }
     } catch (error) {
@@ -190,5 +191,6 @@ function inkTitle(entry: InkEntry): string {
   if (entry.kind === 'slate') return t('A name on a slate');
   if (entry.kind === 'hull') return t('A name on a boat');
   if (entry.kind === 'sign') return t('A name on a sign');
+  if (entry.kind === 'word') return t('A word that is fading');
   return t('A name plate');
 }

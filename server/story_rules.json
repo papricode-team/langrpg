@@ -2390,6 +2390,26 @@
         "bell": true
       },
       {
+        "id": "clock-stunde",
+        "mapId": "waldruh",
+        "anchor": "object:waldruh-clock",
+        "x": 0.4861111111111111,
+        "y": 0.6640625,
+        "kind": "word",
+        "german": "Stunde",
+        "english": "hour",
+        "accepted": [
+          "die Stunde",
+          "eine Stunde"
+        ],
+        "from": "a2-apartment",
+        "keep": "a2-broken-clock",
+        "restoredBy": [
+          "a2-rail-trip"
+        ],
+        "bell": true
+      },
+      {
         "id": "pip-wall-names",
         "mapId": "lindenhafen",
         "anchor": "object:lindenhafen-chalk-wall",
@@ -2437,6 +2457,26 @@
           "b1-council"
         ],
         "darkFlag": "route-closed-again",
+        "bell": true
+      },
+      {
+        "id": "council-versprechen",
+        "mapId": "nebelstadt",
+        "anchor": "object:nebelstadt-council-board",
+        "x": 0.1736111111111111,
+        "y": 0.369140625,
+        "kind": "word",
+        "german": "Versprechen",
+        "english": "promise",
+        "accepted": [
+          "das Versprechen",
+          "ein Versprechen"
+        ],
+        "from": "b1-witness",
+        "keep": "b1-council",
+        "restoredBy": [
+          "b1-new-route"
+        ],
         "bell": true
       }
     ]
