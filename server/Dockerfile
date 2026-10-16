@@ -14,7 +14,8 @@ RUN node scripts/build-content.mjs
 # The frontend typecheck includes regression tests that import these fixtures.
 COPY docs/audits/living-world-area-baseline.json docs/audits/lindenhafen-core-v1.json docs/audits/waldruh-core-v1.json docs/audits/
 COPY docs/archive/expedition-scenes.json docs/archive/
-RUN npm run build --workspace web && node scripts/precompress-web.mjs web/dist
+# The build re-encodes art into quality tiers; keep those encodes between image builds.
+RUN --mount=type=cache,target=/root/.cache/glotworld-asset-quality npm run build --workspace web && node scripts/precompress-web.mjs web/dist
 # Keep the validator's dependency closure without bundling the build toolchain.
 # @img contains sharp's platform-specific native libraries selected by npm ci.
 RUN mkdir -p /runtime/node_modules && cp -a node_modules/sharp node_modules/typescript node_modules/@img node_modules/detect-libc node_modules/semver node_modules/polygon-clipping node_modules/earcut node_modules/robust-predicates node_modules/splaytree /runtime/node_modules/

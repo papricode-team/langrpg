@@ -17,21 +17,29 @@ if (!mainChunks.length || mainChunks.length !== startupPaths.size) throw new Err
 for (const chunk of mainChunks) if (chunk.size > 3 * 1024 * 1024) throw new Error(`Main JavaScript budget exceeded: ${chunk.size}`);
 if (largest > 3 * 1024 * 1024 || total > 5 * 1024 * 1024) throw new Error(`JavaScript budget exceeded: largest ${largest}, total ${total}`);
 const art=assets.filter(path=>path.includes('/assets/')&&/\.(webp|png|jpg)$/.test(path));
-const artSizes=await Promise.all(art.map(async path=>({path,size:(await stat(path)).size})));
-for(const asset of artSizes)if(asset.size>2*1024*1024)throw new Error(`Individual art budget exceeded: ${asset.path}`);
+const allArtSizes=await Promise.all(art.map(async path=>({path,size:(await stat(path)).size})));
+for(const asset of allArtSizes)if(asset.size>2*1024*1024)throw new Error(`Individual art budget exceeded: ${asset.path}`);
+// Graphics quality tiers are alternatives: a player downloads Low first and then at most one other tier.
+// The budgets below measure High (assets/ itself); Low and Medium must stay well below it.
+const tierRoot=resolve(root,'assets/q')+'/';
+const artSizes=allArtSizes.filter(item=>!item.path.startsWith(tierRoot));
+const tierTotal=tier=>allArtSizes.filter(item=>item.path.startsWith(`${tierRoot}${tier}/`)).reduce((sum,item)=>sum+item.size,0);
+const qualityManifest=JSON.parse(await readFile(resolve(root,'assets/q/manifest.json'),'utf8'));
+for(const rel of Object.keys(qualityManifest.files))for(const tier of ['low','medium'])await stat(resolve(root,'assets/q',tier,rel));
 const artTotal=artSizes.reduce((sum,item)=>sum+item.size,0);
-// Character sheets are loaded per recipe or destination. Reserve a separate
-// 640 MiB package for the complete native wardrobe, 192 NPCs and room variants.
-// Preserve native pixels; destination loading, trimmed atlases and the 2 MiB
-// per-file limit bound individual transfers instead of reducing resolution.
+// Character sheets are loaded per recipe or destination: the wardrobe, 192 NPCs and room variants.
+// Cast atlases and portraits ship lossy (scripts/asset-quality.mjs); the avatar kit stays lossless
+// because the baker composites its exact pixels.
 const characterPrefixes=['character-kit','character-kit-hd','character-cast','character-portraits','player-portraits'].map(name=>resolve(root,'assets',name)+'/');
 const characterArt=artSizes.filter(item=>characterPrefixes.some(prefix=>item.path.startsWith(prefix)));
 const characterArtTotal=characterArt.reduce((sum,item)=>sum+item.size,0);
-if(characterArtTotal>640*1024*1024)throw new Error(`Character distribution art budget exceeded: ${characterArtTotal}`);
+if(characterArtTotal>280*1024*1024)throw new Error(`Character distribution art budget exceeded: ${characterArtTotal}`);
 const baseArt=artSizes.filter(item=>!characterPrefixes.some(prefix=>item.path.startsWith(prefix)));
 const baseArtTotal=baseArt.reduce((sum,item)=>sum+item.size,0);
 // Towns share the tiled ground materials; keep individual downloads bounded at 2 MiB and stream one destination.
-if(baseArtTotal>160*1024*1024)throw new Error(`Base distribution art budget exceeded: ${baseArtTotal}`);
+if(baseArtTotal>80*1024*1024)throw new Error(`Base distribution art budget exceeded: ${baseArtTotal}`);
+const lowTotal=tierTotal('low'),mediumTotal=tierTotal('medium');
+if(lowTotal>80*1024*1024||mediumTotal>140*1024*1024)throw new Error(`Quality tier budget exceeded: low ${lowTotal}, medium ${mediumTotal}`);
 for(const town of ['lindenhafen','waldruh','nebelstadt']){
   const townBytes=baseArt.filter(item=>item.path.split('/').at(-1).startsWith(town)).reduce((sum,item)=>sum+item.size,0);
   if(townBytes>36*1024*1024)throw new Error(`Region art budget exceeded: ${town}`);
@@ -47,4 +55,4 @@ for (const line of jobs) {
   const clip = await stat(resolve(root, 'audio/dialogue', `${line.clipId}.ogg`));
   if (!clip.size) throw new Error(`Empty dialogue clip: ${line.clipId}`);
 }
-console.log(`Budgets pass: JavaScript ${(largest/1024/1024).toFixed(2)} MiB largest / ${(total/1024/1024).toFixed(2)} MiB total; art ${(artTotal/1024/1024).toFixed(2)} MiB (${(baseArtTotal/1024/1024).toFixed(2)} base + ${(characterArtTotal/1024/1024).toFixed(2)} characters); audio ${(audioTotal/1024/1024).toFixed(2)} MiB. All ${jobs.length} dialogue audio clips present and current.`);
+console.log(`Budgets pass: JavaScript ${(largest/1024/1024).toFixed(2)} MiB largest / ${(total/1024/1024).toFixed(2)} MiB total; art ${(artTotal/1024/1024).toFixed(2)} MiB at High (${(baseArtTotal/1024/1024).toFixed(2)} base + ${(characterArtTotal/1024/1024).toFixed(2)} characters), Medium ${(mediumTotal/1024/1024).toFixed(2)} MiB, Low ${(lowTotal/1024/1024).toFixed(2)} MiB; audio ${(audioTotal/1024/1024).toFixed(2)} MiB. All ${jobs.length} dialogue audio clips present and current.`);

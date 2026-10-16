@@ -1,4 +1,5 @@
 import * as Phaser from 'phaser';
+import { installTextureQuality } from '../texture-quality';
 import type { GameMechanic } from './types';
 import type { SpriteLibrary } from './sprite-library';
 
@@ -87,6 +88,7 @@ class MiniGameStage {
     if (!this.game) {
       this.game = new Phaser.Game({ type: Phaser.AUTO, parent: this.element, width: 960, height: 540, transparent: true, audio: { noAudio: true },
         scene: [], scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }, render: { antialias: true }, banner: false });
+      installTextureQuality(this.game);
       this.game.scene.add(SCENE_KEY, MiniGameScene, false);
     }
     this.game.loop.wake();

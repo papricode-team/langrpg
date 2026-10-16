@@ -5,6 +5,7 @@ import type {ScenePolygon} from './scene-schema';
 import {foundationGround} from './foundation-dressing';
 import {FOUNDATION_DEPTH,type FoundationArtwork} from './world-foundations';
 import {contactMaterial,paintSceneryContact} from './scenery-contact-paint';
+import {frameImageRect} from './texture-frame';
 import {fallbackSceneryContact,sceneryContactBounds,traceSceneryContact,type SceneryContactKind} from './scenery-contact-shape';
 
 const contours=new WeakMap<Phaser.Textures.Frame,Map<string,readonly ScenePolygon[]>>();
@@ -17,7 +18,7 @@ function paintedFeet(art:FoundationArtwork|undefined,kind:SceneryContactKind,fli
   const density=Math.min(1,384/frame.width,384/frame.height),canvas=document.createElement('canvas');
   canvas.width=Math.max(1,Math.ceil(frame.width*density));canvas.height=Math.max(1,Math.ceil(frame.height*density));
   const ctx=canvas.getContext('2d',{willReadFrequently:true});if(!ctx)return;
-  ctx.drawImage(frame.source.image as CanvasImageSource,frame.cutX,frame.cutY,frame.cutWidth,frame.cutHeight,0,0,canvas.width,canvas.height);
+  ctx.drawImage(frame.source.image as CanvasImageSource,...frameImageRect(frame),0,0,canvas.width,canvas.height);
   const lines=traceSceneryContact(ctx.getImageData(0,0,canvas.width,canvas.height).data,canvas.width,canvas.height,
     {...art,width:frame.width,height:frame.height},kind,flip);
   if(!lines.length)return;

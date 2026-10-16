@@ -58,6 +58,7 @@ import './quest-cta.css';
 import './story-mechanics.css';
 import './hud.css';
 import { World } from './world';
+import { graphicsQualityMode, graphicsQualityTier, onGraphicsQualityChange, setGraphicsQualityMode, type QualityMode, type QualityTier } from './texture-quality';
 import type { Avatar, WorldPlayer, WorldMotion, WorldPresentation } from './world';
 import { quests, npcs, vocabulary } from './content';
 import type { Quest, Exercise, Level } from './content';
@@ -1494,7 +1495,9 @@ function optionRows(): OptionRow[] {
   ];
   if (optionsTab === 'display') {
     const clock = world.getWorldTime();
+    const tierLabel: Record<QualityTier, string> = { low: t('Low'), medium: t('Medium'), high: t('High') };
     return [
+      { kind: 'choice', id: 'graphics-quality', label: t('Graphics quality'), help: t('Sharper art downloads more and needs more graphics memory. Automatic starts at Low, raises the quality while the game runs smoothly and lowers it if play stutters. A level you choose stays fixed.'), value: graphicsQualityMode(), choices: [{ value: 'auto', label: t('Automatic ({tier})', { tier: tierLabel[graphicsQualityTier()] }) }, { value: 'low', label: tierLabel.low }, { value: 'medium', label: tierLabel.medium }, { value: 'high', label: tierLabel.high }] },
       { kind: 'choice', id: 'world-motion', label: t('World motion'), help: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? t('Choose lively town scenery or a calmer world. Your device currently requests reduced motion.') : t('Choose lively town scenery or a calmer world. Your device currently requests full motion.'), value: worldMotion, choices: [{ value: 'auto', label: t('Follow device preference') }, { value: 'full', label: t('Full world animation') }, { value: 'reduced', label: t('Calm, still scenery') }] },
       { kind: 'choice', id: 'time-mode', label: t('Time of day'), help: t('Watch warm daylight turn into moonlit streets. Let the day pass, follow your local clock, or choose a moment.'), value: worldTimeMode, choices: [{ value: 'cycle', label: t('Slow day and night cycle') }, { value: 'local', label: t('Real local time') }, { value: 'manual', label: t('Choose a time') }] },
       { kind: 'scale', id: 'world-hour', label: t('Time to watch'), help: t('Changing the hour switches the world clock to the time you choose.'), value: Math.floor(clock.hour), min: 0, max: 23, step: 1, display: `${clock.label} · ${upper(clock.period === 'day' ? t('Day') : t('Night'))}`, valueId: 'world-hour-label' },
@@ -1515,6 +1518,11 @@ function optionRows(): OptionRow[] {
     { kind: 'custom', id: 'account', label: account.registered ? t('Your adventure is linked') : t('Take your adventure with you'), help: account.registered ? t('Playing as {name}. Log in on another device with {email} and your password.', { name: profile.name, email: account.email }) : t('Playing as {name}. Add an email and password to continue on another device.', { name: profile.name }), html: `<div class="option-buttons">${account.registered ? '' : `<button class="option-action" data-action="save-account">${e(t('Add email & password'))}</button>`}<button class="option-action" data-action="login-account">${t('Log in to a saved adventure')}</button><button class="option-action" data-action="reset-game">${accessClock.snapshot(performance.now())?.phase === 'free' ? 'Reset game' : 'Reset game &amp; play 15 minutes'}</button><button class="option-action" data-action="logout-account">${t('Log out')}</button></div>` },
   ];
 }
+// Automatic quality can change while the Display tab is open; keep its label current.
+onGraphicsQualityChange(() => {
+  const host = document.querySelector<HTMLElement>('[data-options-panel="display"]')?.parentElement;
+  if (host && view === 'settings' && optionsTab === 'display') renderOptions(host);
+});
 function renderOptions(el: HTMLElement) {
   unbindOptions?.();
   const focused = el.contains(document.activeElement) ? (document.activeElement as HTMLElement).dataset.option : undefined, scroll = el.scrollTop;
@@ -1551,6 +1559,7 @@ function changeOption(id: string, value: string) {
     case 'silent': if (attemptBusy) { toast(t('Your answer is saving. Try again in a moment.')); return; } setSilentMode(value === 'on'); return;
     case 'usage-analytics': setBrowserAnalyticsEnabled(value === 'on'); break;
     case 'speech-rate': speechRate = Number(value); localStorage.setItem('atlas.speechRate', String(speechRate)); break;
+    case 'graphics-quality': setGraphicsQualityMode(value as QualityMode); break;
     case 'world-motion': worldMotion = value as WorldMotion; localStorage.setItem('atlas.worldMotion', worldMotion); world.setMotionPreference(worldMotion); break;
     case 'time-mode': worldTimeMode = value as WorldTimeMode; localStorage.setItem('atlas.worldTimeMode', worldTimeMode); world.setTimePreference({ mode: worldTimeMode, hour: manualWorldHour }); break;
     case 'world-hour':

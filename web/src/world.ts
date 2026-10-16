@@ -14,6 +14,7 @@ import type { WorldWeatherMode } from './world-weather';
 import type { RoutineLexeme, WorldBark } from './world-routines';
 import type { Progress } from './api';
 import { BootScene } from './boot-scene';
+import { installTextureQuality } from './texture-quality';
 import { WorldScene } from './world-scene';
 import { InteriorScene } from './interior-scene';
 import { TravelScene, raiseTravelCurtain } from './travel-scene';
@@ -114,6 +115,7 @@ export class World {
       callbacks: { preBoot: seed },
     });
     this.game = game;
+    installTextureQuality(game);
     if (!game.registry.has('mapId')) seed(game);
     // Development builds expose the game for inspection from the browser console.
     if (import.meta.env.DEV && typeof window !== 'undefined') Object.assign(window, { atlasGame: game, atlasWorld: this });

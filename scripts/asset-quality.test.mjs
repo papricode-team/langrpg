@@ -1,0 +1,41 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { mkdtemp, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import sharp from 'sharp';
+import { buildQualityTiers, qualityPlan } from './asset-quality.mjs';
+
+test('pixel-exact sources ship untouched and interface portraits are capped', () => {
+  assert.equal(qualityPlan('character-kit-hd/body.webp', 2048, 2048), null);
+  assert.equal(qualityPlan('player-walk.webp', 1536, 1440), null);
+  assert.equal(qualityPlan('lindenhafen.json', 10, 10), null);
+  assert.deepEqual(qualityPlan('character-portraits/ada-neutral.webp', 724, 724), { high: [256, 256], reduced: {} });
+  assert.deepEqual(qualityPlan('portraits.webp', 1774, 887), { high: [768, 384], reduced: {} });
+});
+
+test('world art gets reduced tiers that keep its aspect ratio', () => {
+  assert.deepEqual(qualityPlan('character-cast/ada.webp', 1904, 906), { high: [1904, 906], reduced: { low: [952, 453], medium: [1428, 680] } });
+  assert.deepEqual(qualityPlan('minigames/icon.webp', 128, 128), { high: [128, 128], reduced: {} });
+});
+
+test('a build writes lossy High in place, reduced tiers and a manifest of logical sizes', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'asset-quality-'));
+  try {
+    const assets = join(dir, 'assets'), cacheDir = join(dir, 'cache');
+    await mkdir(join(assets, 'character-kit'), { recursive: true });
+    // A real lossless ground master, shrunk to keep the test quick.
+    const master = await sharp(fileURLToPath(new URL('../web/public/assets/terrain-materials/brick.webp', import.meta.url))).resize(512, 384).webp({ lossless: true }).toBuffer();
+    await writeFile(join(assets, 'town.webp'), master);
+    await writeFile(join(assets, 'character-kit', 'sheet.webp'), master);
+    const totals = await buildQualityTiers(assets, { cacheDir });
+    assert.equal(totals.files, 1);
+    const manifest = JSON.parse(await readFile(join(assets, 'q/manifest.json'), 'utf8'));
+    assert.deepEqual(manifest.files, { 'town.webp': [512, 384] });
+    assert.deepEqual(await sharp(join(assets, 'q/low/town.webp')).metadata().then(m => [m.width, m.height]), [256, 192]);
+    assert.deepEqual(await sharp(join(assets, 'q/medium/town.webp')).metadata().then(m => [m.width, m.height]), [384, 288]);
+    assert.ok((await stat(join(assets, 'town.webp'))).size < master.length);
+    assert.equal((await stat(join(assets, 'character-kit/sheet.webp'))).size, master.length);
+  } finally { await rm(dir, { recursive: true, force: true }); }
+});

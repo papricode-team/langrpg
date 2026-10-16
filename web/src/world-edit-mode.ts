@@ -19,6 +19,7 @@ import {sceneryTextureKey,sceneryVariationKey} from './placed-scenery';
 import {terrainObject,terrainObjectKey} from './terrain-objects';
 import {sceneryAnimationManifestKey,type SceneryAnimationManifest} from './scenery-animation';
 import {worldDepth} from './world-depth';
+import {frameImageRect} from './texture-frame';
 
 export interface EditTarget { kind: 'scenery' | 'npc' | 'object'; id: string; }
 export interface EditSelection {
@@ -502,6 +503,6 @@ export function sceneryThumbnail(scene: Phaser.Scene, mapId: MapId, period: 'day
   const source = scene.textures.getFrame(key, name), image = source.source.image as CanvasImageSource;
   const canvas = document.createElement('canvas'), scale = Math.min(1, 256 / source.cutWidth, 256 / source.cutHeight);
   canvas.width = Math.max(1, Math.round(source.cutWidth * scale)); canvas.height = Math.max(1, Math.round(source.cutHeight * scale));
-  canvas.getContext('2d')?.drawImage(image, source.cutX, source.cutY, source.cutWidth, source.cutHeight, 0, 0, canvas.width, canvas.height);
+  canvas.getContext('2d')?.drawImage(image, ...frameImageRect(source), 0, 0, canvas.width, canvas.height);
   try { return canvas.toDataURL('image/png'); } catch { return undefined; }
 }

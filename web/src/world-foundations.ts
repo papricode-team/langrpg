@@ -3,6 +3,7 @@ import { sceneryFootprints, type PlacedScenerySpec } from './placed-scenery';
 import type { SceneryGeometry, ScenePolygon } from './scene-schema';
 import { worldDepth } from './world-depth';
 import { foundationGround, foundationPatches, paintFoundationDressing,type FoundationGround } from './foundation-dressing';
+import { frameImageRect } from './texture-frame';
 
 // Feathered ground marks do not need the native resolution of the building art.
 const REFERENCE_WIDTH = 256, MARGIN = 24;
@@ -87,7 +88,7 @@ function paintedContact(artwork: FoundationArtwork | undefined, polygons: readon
   canvas.width = Math.max(1, Math.ceil(frame.width * density)); canvas.height = Math.max(1, Math.ceil(frame.height * density));
   const context = canvas.getContext('2d', {willReadFrequently: true});
   if (!context) return;
-  context.drawImage(frame.source.image as CanvasImageSource, frame.cutX, frame.cutY, frame.cutWidth, frame.cutHeight, 0, 0, canvas.width, canvas.height);
+  context.drawImage(frame.source.image as CanvasImageSource, ...frameImageRect(frame), 0, 0, canvas.width, canvas.height);
   const lines = traceFoundationContact(context.getImageData(0, 0, canvas.width, canvas.height).data, canvas.width, canvas.height,
     {...artwork, width: frame.width, height: frame.height}, polygons, flipX);
   return lines.length ? lines : undefined;
@@ -171,7 +172,7 @@ export class BuildingFoundation {
         context.beginPath();context.rect(bounds.x,bounds.y,bounds.width,bounds.height);context.clip();
         context.globalCompositeOperation='destination-in';
         context.scale(spec.flipX?-1:1,1);
-        context.drawImage(frame.source.image as CanvasImageSource,frame.cutX,frame.cutY,frame.cutWidth,frame.cutHeight,
+        context.drawImage(frame.source.image as CanvasImageSource,...frameImageRect(frame),
           -frame.width*artwork.originX*scale,-frame.height*artwork.originY*scale,frame.width*scale,frame.height*scale);
         context.restore();
         texture.add('surface',0,0,height*2,width,height);
