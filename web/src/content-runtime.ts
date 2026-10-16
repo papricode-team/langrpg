@@ -68,6 +68,10 @@ export async function hydrateNarratives<T>(value: T): Promise<T> {
   if (generation !== revision) throw new DOMException('Course changed', 'AbortError');
   return narrativeReference(value) as T;
 }
+/** Special items and endings keep their English title for menus; the German heading and story are sentences. */
+async function storyPanelNarrative(entry: JsonObject): Promise<JsonObject> {
+  return { ...entry, ...(entry.heading ? { heading: await hydrateNarratives(entry.heading) } : {}), ...(entry.story ? { story: await hydrateNarratives(entry.story) } : {}) };
+}
 function localizeMetadata(value: JsonObject): JsonObject {
   const translated = { ...data(data(value.support)[baseLanguage()]) };
   const pairs: [string, string][] = [];
@@ -376,10 +380,10 @@ export async function loadContexts(category: string, ownerId?: string, level?: s
     else if (category === 'activityScenario') { upsert('activityScenarios', entry); if (entry.exerciseId) await loadExercise(String(entry.exerciseId)); }
     else if (category === 'activityDefinitions') collection('activityDefinitions', rows(value));
     else if (category === 'specialItem') {
-      const panels = runtimeObject('specialItems');
-      for (const key of [entry.id, entry.worldId, meta.worldId, meta.ownerId]) if (typeof key === 'string') panels[key] = entry;
+      const panels = runtimeObject('specialItems'), story = await storyPanelNarrative(entry);
+      for (const key of [entry.id, entry.worldId, meta.worldId, meta.ownerId]) if (typeof key === 'string') panels[key] = story;
     }
-    else if (category === 'storyEnding') runtimeObject('storyEndings')[String(meta.worldId ?? meta.ownerId ?? entry.id)] = entry;
+    else if (category === 'storyEnding') runtimeObject('storyEndings')[String(meta.worldId ?? meta.ownerId ?? entry.id)] = await storyPanelNarrative(entry);
     else if (category === 'expeditionGame') {
       const presenter = await import('./expedition-games');
       if (generation !== revision) throw new DOMException('Course changed', 'AbortError');

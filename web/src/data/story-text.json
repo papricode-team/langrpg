@@ -298,7 +298,11 @@
           "german": "Sag deinen Namen jeden Tag laut.",
           "english": "Say your name out loud every day."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Der Name auf der blassen Fahrkarte",
+        "english": "The name on the faded ticket"
+      }
     },
     {
       "questId": "a1-timetable",
@@ -323,7 +327,11 @@
           "english": "A woman from the Brass Office is standing at Otto’s board."
         }
       ],
-      "letter": []
+      "letter": [],
+      "heading": {
+        "german": "Das blasse Wort auf der Tafel",
+        "english": "The faded word on the board"
+      }
     },
     {
       "questId": "a1-notice",
@@ -353,7 +361,11 @@
           "german": "Sie sagen: Sei ruhig. Ich sage: Sag die Namen.",
           "english": "They say: be quiet. I say: say the names."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Regel vier",
+        "english": "Rule four"
+      }
     },
     {
       "questId": "a1-cafe",
@@ -387,7 +399,11 @@
           "german": "Trink deinen Kaffee. Er ist für dich.",
           "english": "Drink your coffee. It is for you."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Ihr Tee ist noch voll",
+        "english": "Her tea is still full"
+      }
     },
     {
       "questId": "a1-room",
@@ -416,7 +432,14 @@
           "english": "Fritz has bread. Go to him at the market."
         }
       ],
-      "letter": []
+      "letter": [],
+      "heading": {
+        "german": "Zimmer drei und das Gästebuch",
+        "english": "Room three and the guest book",
+        "glosses": {
+          "Gästebuch": "guest book"
+        }
+      }
     },
     {
       "questId": "a1-shopping",
@@ -441,7 +464,11 @@
           "english": "Fritz still has to buy more. Go back to him soon."
         }
       ],
-      "letter": []
+      "letter": [],
+      "heading": {
+        "german": "Der Platz ohne Namen",
+        "english": "The place without a name"
+      }
     },
     {
       "questId": "a1-market",
@@ -475,7 +502,11 @@
           "german": "Sag ihren Namen. Dann bleibt sie.",
           "english": "Say her name. Then she stays."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Ein Platz am Tisch von Fritz",
+        "english": "A place at Fritz’s table"
+      }
     },
     {
       "questId": "a1-chalk",
@@ -505,7 +536,11 @@
           "german": "Spiel laut mit ihm. Er braucht das.",
           "english": "Play out loud with him. He needs it."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Pips Wand mit Namen",
+        "english": "Pip’s wall of names"
+      }
     },
     {
       "questId": "a1-neighbour",
@@ -534,7 +569,11 @@
           "english": "Greta has tea for Frau Berg."
         }
       ],
-      "letter": []
+      "letter": [],
+      "heading": {
+        "german": "Frau Berg auf der Bank am Brunnen",
+        "english": "Frau Berg on the bench by the fountain"
+      }
     },
     {
       "questId": "a1-pharmacy",
@@ -559,7 +598,14 @@
           "english": "Lina at the post office knows the way."
         }
       ],
-      "letter": []
+      "letter": [],
+      "heading": {
+        "german": "Der blasse Name auf dem Beutel",
+        "english": "The pale name on the bag",
+        "glosses": {
+          "Beutel": "bag"
+        }
+      }
     },
     {
       "questId": "a1-directions",
@@ -584,7 +630,11 @@
           "english": "An old woman is sitting by the fountain."
         }
       ],
-      "letter": []
+      "letter": [],
+      "heading": {
+        "german": "Die Tür ohne Namen",
+        "english": "The door without a name"
+      }
     },
     {
       "questId": "a1-bench",
@@ -614,7 +664,11 @@
           "german": "Sie war auch meine Lehrerin. Danke.",
           "english": "She was my teacher too. Thank you."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Die Frau auf der Bank",
+        "english": "The woman on the bench"
+      }
     },
     {
       "questId": "a1-station",
@@ -648,7 +702,11 @@
           "german": "Ich warte. Ich bin nicht weit.",
           "english": "I am waiting. I am not far."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Die Stimme, die Voss hört",
+        "english": "The voice Voss hears"
+      }
     },
     {
       "questId": "a1-weather",
@@ -673,7 +731,11 @@
           "english": "Emil has the lantern in his workshop."
         }
       ],
-      "letter": []
+      "letter": [],
+      "heading": {
+        "german": "Die Bank im Regen",
+        "english": "The bench in the rain"
+      }
     },
     {
       "questId": "a1-workshop",
@@ -707,7 +769,11 @@
           "german": "Geh mit dem Licht.",
           "english": "Go with the light."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Eine Lampe geht aus",
+        "english": "A lamp goes out"
+      }
     },
     {
       "questId": "a1-bike",
@@ -732,7 +798,11 @@
           "english": "Marta has a phone call for you."
         }
       ],
-      "letter": []
+      "letter": [],
+      "heading": {
+        "german": "Die Unterschrift in Emils Buch",
+        "english": "The signature in Emil’s book"
+      }
     },
     {
       "questId": "a1-phone",
@@ -757,7 +827,11 @@
           "english": "The Brass Office is by the station."
         }
       ],
-      "letter": []
+      "letter": [],
+      "heading": {
+        "german": "Ein Anruf am Bahnhof",
+        "english": "A call at the station"
+      }
     },
     {
       "questId": "a1-office-window",
@@ -787,7 +861,11 @@
           "german": "Ruhig ist nicht leer. Aber leer ist nicht ruhig.",
           "english": "Quiet is not empty. But empty is not quiet."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Dieselbe Hand",
+        "english": "The same hand"
+      }
     },
     {
       "questId": "a1-invitation",
@@ -812,7 +890,11 @@
           "english": "Lina has your bag at the post office."
         }
       ],
-      "letter": []
+      "letter": [],
+      "heading": {
+        "german": "Ein Stuhl für Freitag",
+        "english": "A chair for Friday"
+      }
     },
     {
       "questId": "a1-lost-found",
@@ -837,7 +919,11 @@
           "english": "Stay with Lina. She is looking for your post."
         }
       ],
-      "letter": []
+      "letter": [],
+      "heading": {
+        "german": "Die Kiste mit den Fundsachen",
+        "english": "The box of lost things"
+      }
     },
     {
       "questId": "a1-lost-parcel",
@@ -875,7 +961,11 @@
           "german": "Bevor du uns wieder auslöschst, komm.",
           "english": "Before you erase us again, come."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Der Brief, der zu viel will",
+        "english": "The letter that asks too much"
+      }
     },
     {
       "questId": "a1-departure",
@@ -905,7 +995,11 @@
           "german": "Der Zug wartet. Ich auch.",
           "english": "The train is waiting. So am I."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Gleis sieben, achtzehn Uhr",
+        "english": "Platform seven, six in the evening"
+      }
     },
     {
       "questId": "a2-apartment",
@@ -935,7 +1029,11 @@
           "german": "Das Fenster zeigt zum Wald. Ich habe es oft offen gelassen. Das Zimmer wartet auf dich, seit ich die Miete bezahlt habe.",
           "english": "The window faces the forest. I often left it open. The room has waited for you since I paid the rent."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Das Zimmer wartet schon",
+        "english": "The room is already waiting"
+      }
     },
     {
       "questId": "a2-upstairs",
@@ -965,7 +1063,11 @@
           "german": "Hilde hat mir einmal Tee gemacht, als ich nicht schlafen konnte. Grüß sie von mir. Sie weiß, wer ich bin.",
           "english": "Hilde once made me tea when I could not sleep. Give her my regards. She knows who I am."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Niemand hat Oma Hilde gefragt",
+        "english": "Nobody asked Oma Hilde"
+      }
     },
     {
       "questId": "a2-evening-plans",
@@ -995,7 +1097,11 @@
           "german": "Ich habe die beiden jeden Abend gesehen. Ich hätte sie fragen können. Ich habe es nicht getan.",
           "english": "I saw the two of them every evening. I could have asked them. I did not."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Zwei Teller am Ende des Tisches",
+        "english": "Two plates at the end of the table"
+      }
     },
     {
       "questId": "a2-ink-seller",
@@ -1025,7 +1131,15 @@
           "german": "Tinte hält keinen Namen. Nur eine Stimme hält ihn. Das hat er vergessen.",
           "english": "Ink keeps no name. Only a voice keeps it. He has forgotten that."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Tinte, die nie verblasst",
+        "english": "Ink that never fades",
+        "glosses": {
+          "Tinte": "ink",
+          "verblasst": "fades"
+        }
+      }
     },
     {
       "questId": "a2-rail-trip",
@@ -1055,7 +1169,11 @@
           "german": "Du warst pünktlich da. Lass dir nichts anderes erzählen. Ich weiß, wie lang eine Minute sein kann.",
           "english": "You were there on time. Do not let anyone tell you otherwise. I know how long one minute can be."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Die Minute, die niemand gesehen hat",
+        "english": "The minute nobody saw"
+      }
     },
     {
       "questId": "a2-forest-rails",
@@ -1085,7 +1203,11 @@
           "german": "Ich habe die Steine gezählt, bevor ich sie weggelegt habe. Elf. Ich habe Lina gesagt, sie soll zählen. Sie hat nie damit aufgehört.",
           "english": "I counted the stones before I moved them. Eleven. I told Lina to count. She never stopped."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Elf Steine",
+        "english": "Eleven stones"
+      }
     },
     {
       "questId": "a2-broken-clock",
@@ -1115,7 +1237,14 @@
           "german": "Ja, das ist meine Handschrift. Ich habe die Zange geputzt. Den Namen auf dem Stein kann ich nicht einfach zurückschreiben. Ich schulde Emil mehr als Dank.",
           "english": "Yes, that is my handwriting. I cleaned the pliers. I cannot simply write the name back onto the stone. I owe Emil more than thanks."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Die geliehene Stunde",
+        "english": "The borrowed hour",
+        "glosses": {
+          "geliehene": "borrowed"
+        }
+      }
     },
     {
       "questId": "a2-clinic",
@@ -1145,7 +1274,14 @@
           "german": "Ich erinnere mich an das blaue Tor. Dort bekam jeder ein Stück Kuchen für den Heimweg. Bitte pass auf Voss auf.",
           "english": "I remember the blue gate. Everyone got a piece of cake there for the journey home. Please look after Voss."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Was die Akten vergessen haben",
+        "english": "What the records forgot",
+        "glosses": {
+          "Akten": "records"
+        }
+      }
     },
     {
       "questId": "a2-cellar",
@@ -1175,7 +1311,11 @@
           "german": "Ich kenne die Maschine. Ich hätte sie anhalten können. Ich habe stattdessen eine Tür geschlossen.",
           "english": "I know the machine. I could have stopped it. Instead I closed a door."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Regel vier, unterschrieben: F.",
+        "english": "Rule four, signed: F."
+      }
     },
     {
       "questId": "a2-archive",
@@ -1205,7 +1345,11 @@
           "german": "Ich habe dir den Schlüssel vor der Wahrheit gegeben. Das war falsch. Du darfst anders wählen als ich.",
           "english": "I gave you the key before I gave you the truth. That was wrong. You are allowed to choose differently from me."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Die zweite Unterschrift",
+        "english": "The second signature"
+      }
     },
     {
       "questId": "b1-witness",
@@ -1235,7 +1379,11 @@
           "german": "Du hast Marta zugehört, bevor du entschieden hast. Damals habe ich zuerst entschieden. Die Stimme auf dem Band ist meine. Ich bin nicht an zwei Orten. Ich bin hier, hinter einer geschlossenen Tür.",
           "english": "You listened to Marta before deciding. Back then I decided first. The voice on the tape is mine. I am not in two places. I am here, behind a closed door."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Eine Stimme ohne Zeugen",
+        "english": "A voice without witnesses"
+      }
     },
     {
       "questId": "b1-record-room",
@@ -1265,7 +1413,14 @@
           "german": "Sie hat nur abgeschrieben, sagt sie. Ich auch. Ich habe nur eine Tür geschlossen. So beginnt es immer.",
           "english": "She only copied, she says. So did I. I only closed a door. That is how it always begins."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Drei Spulen, eine Hand",
+        "english": "Three coils, one hand",
+        "glosses": {
+          "Spulen": "coils"
+        }
+      }
     },
     {
       "questId": "b1-new-route",
@@ -1295,7 +1450,14 @@
           "german": "Du hast gesehen, was jede Strecke kostet. Damals wollte ich meinen eigenen Preis nicht sehen. Bald sage ich dir, warum ich die Tür geschlossen habe.",
           "english": "You saw what each route costs. Back then I did not want to see my own price. Soon I will tell you why I closed the door."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Der Preis einer Abkürzung",
+        "english": "The price of a shortcut",
+        "glosses": {
+          "Abkürzung": "shortcut"
+        }
+      }
     },
     {
       "questId": "b1-signalman",
@@ -1325,7 +1487,11 @@
           "german": "Ich kenne Jonas. Er hat einmal Lieder gesungen, am Hafen, für die Fischer. Ich hoffe, du hast seine Stimme gehört.",
           "english": "I know Jonas. He used to sing songs at the harbour, for the fishermen. I hope you heard his voice."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Der Mann, der schreibt",
+        "english": "The man who writes"
+      }
     },
     {
       "questId": "b1-work",
@@ -1355,7 +1521,11 @@
           "german": "Voss hat gesagt, was seine Unterschrift erlaubt hat. Meine Antwort fehlt noch. Mein Schlüssel hat die Strecke von innen geschlossen. Ohne ihn hätte sein Stempel diese Tür nie erreicht.",
           "english": "Voss said what his signature authorised. My answer is still missing. My key closed the route from inside. Without it, his stamp would never have reached that door."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Die Hand, die alles am Laufen hielt",
+        "english": "The hand that kept it all running"
+      }
     },
     {
       "questId": "b1-council",
@@ -1385,7 +1555,11 @@
           "german": "Der leere Stuhl gehörte dorthin. Jemand, den meine Entscheidung weggenommen hat, hätte darauf sitzen sollen. Du hast ihr Schweigen nicht als Ja gezählt.",
           "english": "The empty chair belonged there. Someone my decision took away should have been sitting in it. You did not count their silence as a yes."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Wessen Schweigen zählt?",
+        "english": "Whose silence counts?"
+      }
     },
     {
       "questId": "b1-temptation",
@@ -1415,7 +1589,11 @@
           "german": "Ich stand an derselben Stelle. Ich hatte Angst und eine Minute Zeit. Was du auch gewählt hast: Du hast es nicht allein gewählt.",
           "english": "I stood in the same place. I was afraid and had one minute. Whatever you chose: you did not choose it alone."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Eine Minute, ein Schlüssel",
+        "english": "One minute, one key"
+      }
     },
     {
       "questId": "b1-storm",
@@ -1445,7 +1623,11 @@
           "german": "Ich sehe eure Lampen. Eine steigt die Leiter hinauf, die anderen gehen zum Garten. Ihr bleibt zusammen, nachdem ihr gestritten habt. Die Tür ist offen. Der Tee ist fertig.",
           "english": "I can see your lamps. One climbs the ladder; the others head for the garden. You stay together after arguing. The door is open. The tea is ready."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Drei Laternen im Regen",
+        "english": "Three lanterns in the rain"
+      }
     },
     {
       "questId": "b1-atlas",
@@ -1475,7 +1657,11 @@
           "german": "Ich schreibe diesen Brief unten, bei den anderen. Der Schlüssel liegt nicht auf meinem Tisch. Ada hat meine Entwürfe. Frau Berg hat meine Adresse. Wenn du zur Küste fährst, schreib mir.",
           "english": "I am writing this letter downstairs, among the others. The key is not on my desk. Ada has my drafts. Frau Berg has my address. If you travel to the coast, write to me."
         }
-      ]
+      ],
+      "heading": {
+        "german": "Ein Versprechen mit Zeugen",
+        "english": "A promise with witnesses"
+      }
     }
   ],
   "objects": {

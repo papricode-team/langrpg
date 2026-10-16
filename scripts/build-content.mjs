@@ -200,7 +200,8 @@ export function buildContent({ directory = root } = {}) {
   for(const line of source.greetings)context(`greeting:${line.id}:${line.german}`,line.title?'npcTitleGreeting':'npcGreeting',line,[{kind:'npc',id:line.speaker,level:/-(A1|A2|B1)-/.exec(line.id)?.[1]??'A1',...(line.when?{condition:line.when}:{})}],{...(line.when?{condition:publicCondition(line.when)}:{}),...(line.title?{title:line.title}:{})});
   for(const [index,line]of source.ambientCallbacks.entries())context(`ambient:${index}`,'ambientCallback',line,[{kind:'npc',id:line.npc,level:line.level,condition:line.when}]);
   const acts = source.storyText.acts.map(act=>refs(act,`act:${act.mapId}`,[{kind:'act',id:act.mapId,level:act.level}]));
-  const clues = source.storyText.clues.map(clue=>({...refs(clue,`clue:${clue.questId}`,[owner('quest',clue.questId,{completedOnly:true})]),questId:id('quest',clue.questId)}));
+  const evidenceItems = new Map(source.graphs.filter(graph=>graph.evidenceItem).map(graph=>[graph.questId,id('item',graph.evidenceItem)]));
+  const clues = source.storyText.clues.map(clue=>({...refs(clue,`clue:${clue.questId}`,[owner('quest',clue.questId,{completedOnly:true})]),questId:id('quest',clue.questId),...(evidenceItems.has(clue.questId)?{evidenceItem:evidenceItems.get(clue.questId)}:{})}));
   const objects=Object.fromEntries(Object.entries(source.storyText.objects).map(([key,value])=>[key,refs(value,`object:${key}`,[{kind:'object',id:key}])]));
   const journalNarratives=refs(source.journalNarratives,'journal',[{kind:'journal',id:'journal'}]);
   const expeditionSkeleton=source.expeditionRegions.flatMap(region=>region.encounters.map(encounter=>({id:id('expedition',encounter.id),worldId:encounter.id,routeId:region.id,level:encounter.difficulty})));

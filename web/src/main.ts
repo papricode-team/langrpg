@@ -19,7 +19,7 @@ import { mountCoursePlayer, mountCoursePicker } from './course-player';
 import { questGraph, questGraphs } from './quest-graph';
 import { storyState } from './dialogue';
 import type { QuestGraph } from './dialogue';
-import { evidenceBoard, optionalStoryPractice, saveSlotsMarkup } from './story-panels';
+import { clueHeading, evidenceBoard, optionalStoryPractice, saveSlotsMarkup } from './story-panels';
 import { lanternRewards, lanternRewardsMarkup, titleLabel } from './lantern-rewards';
 import type { CutsceneKind, CutsceneOutcome } from './cutscene';
 import { grammarForQuest } from './contextual-grammar';
@@ -1458,7 +1458,7 @@ function renderOther() {
     el.innerHTML = `<header class="learning-page-header"><h2>${t('Discoveries')}</h2></header>${evidenceBoard(progress)}${mechanicsUi ? ticketsPage(progress, mechanicsUi.mechanics, id => getMap(id as MapId).name) : ''}${coastPage(progress, maps.filter(item => getExpedition(item.id) && routeUnlocked(item.id, progress.completedQuestIds)))}<div class="story-acts">${storyActs.map(act=>{
       const qs=quests.filter(q=>q.level===act.level),clues=found.filter(clue=>qs.some(q=>q.id===clue.questId));
       if(!clues.length)return '';
-      return `<section class="story-act"><header><h3>${e(localized(act.title))}</h3><span class="clue-count">${clues.length}/6</span></header><div class="clue-pages">${clues.map(clue=>`<details class="clue-page"><summary>${e(localized(clue.title))}${icon('chevron')}</summary><p>${renderNarrative(clue.text)}</p>${eliseLetter(clue.letter,clue.questId)}<p>${renderNarrative(clue.lead)}</p></details>`).join('')}</div>${clues.length===6?`<details class="lore-detail"><summary>${t('Next chapter')}</summary><blockquote>${renderNarrative(act.cliffhanger)}</blockquote></details>`:''}</section>`;
+      return `<section class="story-act"><header><h3>${e(localized(act.title))}</h3><span class="clue-count">${clues.length}/6</span></header><div class="clue-pages">${clues.map(clue=>`<details class="clue-page"><summary>${clueHeading(clue)}${icon('chevron')}</summary><p>${renderNarrative(clue.text)}</p>${eliseLetter(clue.letter,clue.questId)}<p>${renderNarrative(clue.lead)}</p></details>`).join('')}</div>${clues.length===6?`<details class="lore-detail"><summary>${t('Next chapter')}</summary><blockquote>${renderNarrative(act.cliffhanger)}</blockquote></details>`:''}</section>`;
     }).join('')}</div>${inspected.length?`<section class="field-notes"><h3>${t('Notes from the road')}</h3>${maps.flatMap(map=>map.objects.filter(object=>inspected.includes(object.id)).map(object=>`<button data-inspect-object="${object.id}" data-object-map="${map.id}"><strong>${e(object.label)}</strong>${icon('chevron')}</button>`)).join('')}</section>`:''}${earnedActivityJournal()}${routeUnlocked('windplain',progress.completedQuestIds)?expeditionNotebook(progress.story?.expeditionPlans??{}):''}<button class="primary-button" data-action="next-objective">${t('Follow the next lead')}</button>`;
   } else if (view === 'atlas') {
     const current = getMap(mapId);
