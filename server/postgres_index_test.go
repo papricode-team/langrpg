@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"glotworld/server/internal/billing"
 	"os"
@@ -57,10 +56,12 @@ func TestPostgresBillingLookupAndSessionIndexes(t *testing.T) {
 	if _, err = tx.Exec(ctx, "SET LOCAL enable_seqscan=off"); err != nil {
 		t.Fatal(err)
 	}
-	purchase, _ := json.Marshal([]map[string]string{{"subscriptionId": "sub-" + player.ID}})
 	for query, index := range map[string]string{
-		`EXPLAIN SELECT id FROM accounts WHERE data->'billing'->'purchases' @> '` + string(purchase) + `'::jsonb LIMIT 1`: "accounts_billing_purchases",
-		`EXPLAIN SELECT token_hash FROM sessions WHERE account_id='` + player.ID + `'`:                                    "sessions_account_id",
+		`EXPLAIN SELECT account_id FROM billing_purchases WHERE subscription_id='sub-` + player.ID + `' AND subscription_id<>'' ORDER BY account_id LIMIT 1`: "billing_purchases_subscription",
+		`EXPLAIN SELECT account_id FROM billing_purchases WHERE transaction_id='tx-` + player.ID + `' AND transaction_id<>'' ORDER BY account_id LIMIT 1`:    "billing_purchases_transaction",
+		`EXPLAIN SELECT id FROM accounts WHERE email='indexed@example.com'`:                                                                                  "accounts_email_key",
+		`EXPLAIN SELECT COUNT(*) FROM learning_events WHERE account_id='` + player.ID + `' AND activity_id='a' AND run_id='r' AND correct=false`:             "learning_events_corrections",
+		`EXPLAIN SELECT token_hash FROM sessions WHERE account_id='` + player.ID + `'`:                                                                       "sessions_account_id",
 	} {
 		rows, err := tx.Query(ctx, query)
 		if err != nil {

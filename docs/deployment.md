@@ -118,10 +118,10 @@ Users start with a browser-held guest session token. When `CREEM_API_KEY` and
 `CREEM_WEBHOOK_SECRET` are both unset or empty, play is free and unlimited; signup
 is optional for saving progress across devices. Set `FREE_TO_PLAY=true` to force
 free play and disable checkout even with Creem configured. With the default
-`FREE_TO_PLAY=false` and Creem configured, after five minutes of play,
+`FREE_TO_PLAY=false` and Creem configured, after ten minutes of play,
 the mandatory account wall requires signup/login or a guest restart that clears
 all progress while keeping the character. Registration preserves guest progress
-and unlocks the remainder of fifteen total free minutes. Then Creem paid access
+and unlocks the remainder of two total free hours. Then Creem paid access
 is required. Trial usage and verified billing state persist in the account JSONB.
 Configure billing using [the Creem setup guide](billing.md) and the server-only
 variables in `.env.example`; Compose passes them to the Go application.

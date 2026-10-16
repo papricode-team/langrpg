@@ -309,9 +309,20 @@ export function groundProblem(value:unknown,width:number,height:number):string|u
   return undefined;
 }
 
-/** Optimistic concurrency for the whole ground, including undo. */
+/** JSON with object keys in sorted order, so storage that reorders keys (PostgreSQL jsonb) hashes the same. */
+function canonicalJSON(value:unknown):string{
+  if(Array.isArray(value))return `[${value.map(canonicalJSON).join(',')}]`;
+  if(value&&typeof value==='object')return `{${Object.keys(value as object).sort().map(key=>`${JSON.stringify(key)}:${canonicalJSON((value as Record<string,unknown>)[key])}`).join(',')}}`;
+  return JSON.stringify(value)??'null';
+}
+
+/**
+ * Optimistic concurrency for the whole ground, including undo. The fingerprint depends on the ground's
+ * content only, not on key order: the editor hashes the document it loaded, while the server hashes its
+ * own copy, which may have been through the database since.
+ */
 export function groundFingerprint(ground:Ground|undefined|null):string{
-  const text=JSON.stringify(ground??null);let a=2166136261,b=5381;
+  const text=canonicalJSON(ground??null);let a=2166136261,b=5381;
   for(let i=0;i<text.length;i++){a=Math.imul(a^text.charCodeAt(i),16777619);b=Math.imul(b,33)^text.charCodeAt(i);}
   return `${(a>>>0).toString(16)}-${(b>>>0).toString(16)}`;
 }

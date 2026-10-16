@@ -30,6 +30,7 @@ func catalog(t *testing.T, ctx context.Context, pool *pgxpool.Pool) []string {
 	queries := []string{
 		`SELECT 'column '||table_name||'.'||column_name||' '||data_type||' null='||is_nullable||' default='||COALESCE(column_default,'') FROM information_schema.columns WHERE table_schema=current_schema() AND table_name<>'schema_migrations'`,
 		`SELECT 'index '||tablename||' '||regexp_replace(indexdef, ' ON \S+\.', ' ON ') FROM pg_indexes WHERE schemaname=current_schema() AND tablename<>'schema_migrations'`,
+		`SELECT 'trigger '||event_object_table||' '||trigger_name||' '||action_timing||' '||event_manipulation||' '||action_statement FROM information_schema.triggers WHERE trigger_schema=current_schema()`,
 		`SELECT 'constraint '||conrelid::regclass::text||' '||conname||' '||pg_get_constraintdef(oid) FROM pg_constraint WHERE connamespace=current_schema()::regnamespace AND conrelid::regclass::text<>'schema_migrations'`,
 	}
 	var out []string
@@ -80,7 +81,11 @@ func TestFreshDatabaseAppliesEveryMigrationOnce(t *testing.T) {
 		t.Fatalf("second run: %+v", second)
 	}
 	schema := strings.Join(catalog(t, ctx, pool), "\n")
-	for _, want := range []string{"column sessions.last_used_at", "INDEX sessions_account_id ON", "INDEX accounts_billing_purchases ON", "column content_imports.fingerprint", "UNIQUE INDEX content_sentences_course_id_slug_key ON"} {
+	for _, want := range []string{"column sessions.last_used_at", "INDEX sessions_account_id ON", "INDEX accounts_billing_purchases ON", "column content_imports.fingerprint", "UNIQUE INDEX content_sentences_course_id_slug_key ON",
+		"column accounts.email text", "UNIQUE INDEX accounts_email_key ON", "INDEX accounts_created_at ON", "trigger accounts accounts_sync_columns BEFORE UPDATE",
+		"INDEX billing_purchases_subscription ON", "trigger accounts accounts_sync_purchases AFTER INSERT",
+		"column learning_events.activity_id text", "INDEX learning_events_corrections ON",
+		"column world_maps.scene json", "column content_lexemes.body json", "column world_publication.diagnostics json null=NO default='[]'::json"} {
 		if !strings.Contains(schema, want) {
 			t.Fatalf("fresh schema lacks %s", want)
 		}

@@ -4,41 +4,40 @@
       "frame": {
         "x": 0,
         "y": 0,
-        "w": 4576,
-        "h": 4696
+        "w": 1222,
+        "h": 1135
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 4576,
-        "h": 4696
+        "w": 1222,
+        "h": 1135
       },
       "sourceSize": {
-        "w": 4576,
-        "h": 4696
+        "w": 1222,
+        "h": 1135
       },
       "source": {
         "path": "art/source/buildings/lindenhafen-day-station.png",
         "crop": {
-          "left": 65,
-          "top": 40,
-          "width": 1144,
-          "height": 1174
+          "left": 86,
+          "top": 130,
+          "width": 1222,
+          "height": 1135
         },
-        "standalone": true,
-        "exportScale": 4
+        "standalone": true
       }
     }
   },
   "meta": {
     "image": "lindenhafen-day-building-station.webp",
     "size": {
-      "w": 4576,
-      "h": 4696
+      "w": 1222,
+      "h": 1135
     },
     "scale": "1",
-    "provenance": "Original building painting; 4x Lanczos resampling, unchanged design (no generated detail)"
+    "provenance": "Individual built-in ImageGen building painting; native crop"
   }
 }

@@ -1,3 +1,5 @@
+import { animalReach } from './animal-behavior';
+import { WorldAnimals } from './world-animals';
 import * as Phaser from 'phaser';
 import { worldDaySeconds, worldStartHour, type WorldSimulationTime } from './shared-world-time';
 import { ResidentActivityWorld, type ActivityResidentSample } from './resident-activities';
@@ -96,6 +98,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
   private lastAmbient = '';
   private atmosphere?: WorldAtmosphere;
   private residents: LegacyResident[] = [];
+  private animals?: WorldAnimals;
   private activityWorld?: ResidentActivityWorld;
   private activityResidents: ActivityResident[] = [];
   private weatherPreview: WorldWeatherMode = 'regional';
@@ -138,6 +141,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
     this.scenery = this.previousScenery = undefined;
     this.periodFade = undefined; this.previousPeriod = undefined; this.pendingPeriod = undefined;
     this.mapAnimationsReady = false; this.animationRetryAt = 0; this.lastAmbient = '';
+    this.animals = undefined;
     this.atmosphere = undefined; this.residents = []; this.activityWorld = undefined; this.activityResidents = [];
     this.storyMarks = undefined; this.mechanicsObjects = [];
     this.observedResidentId = readWorld(this.registry, 'observedResident');
@@ -206,6 +210,8 @@ export class WorldScene extends ExploreScene implements EditSurface {
       this.createPortal(entrance.id, entrance.x * this.worldWidth, entrance.y * this.worldHeight, entrance.label, sign);
     }
     this.createResidents();
+    this.animals = new WorldAnimals(this, map.id, getWorldScene(map.id).legacyOffset ?? { x: 0, y: 0 }, this.navigation, this.spawnPoint(),
+      (hit, target, activate) => this.bindHover(hit, target, activate), id => this.approachInteraction(id));
     this.atmosphere = new WorldAtmosphere(this, map.id, this.scenery.lampLights);
     const marks = readWorld(this.registry, 'storyMarks') ?? emptyStoryMarks(map.id);
     this.storyMarks = new WorldStoryMarks(this, map.id, this.worldWidth, this.worldHeight, marks);
@@ -344,6 +350,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
 
   private shutdownMap(): void {
     this.finishPeriodTransition();
+    this.animals?.destroy(); this.animals = undefined;
     this.atmosphere?.destroy();
     this.storyMarks?.destroy(); this.storyMarks = undefined;
     this.residents = []; this.activityResidents = []; this.activityWorld = undefined;
@@ -360,6 +367,35 @@ export class WorldScene extends ExploreScene implements EditSurface {
   }
 
   // Interiors ---------------------------------------------------------------
+
+  protected findNearestInteraction(): { id: string; x: number; y: number } | undefined {
+    const existing = super.findNearestInteraction();
+    const distance = existing ? Math.hypot(existing.x - this.local.x, existing.y - this.local.y) : 140;
+    return this.animals?.nearest(this.local, distance) ?? existing;
+  }
+
+  protected interactionPosition(id: string): MapPoint | undefined {
+    return id.startsWith('animal:') ? this.animals?.position(id) : super.interactionPosition(id);
+  }
+
+  protected approachInteraction(id: string): void {
+    if (!id.startsWith('animal:')) { super.approachInteraction(id); return; }
+    if (!this.controlsEnabled || this.watching) return;
+    const animal = this.animals?.position(id);
+    if (!animal) return;
+    const dx = this.local.x - animal.x, dy = this.local.y - animal.y, distance = Math.hypot(dx, dy);
+    const reach = animalReach(animal.species);
+    if (distance <= reach) { this.triggerInteraction(id); return; }
+    const point = this.navigation.closestPoint(animal.x + dx / distance * (reach - 12), animal.y + dy / distance * (reach - 12), this.local);
+    if (Math.hypot(point.x - animal.x, point.y - animal.y) > reach) { this.cancelRoute(); return; }
+    if (this.walkTo(point.x, point.y)) this.pendingInteraction = id;
+  }
+
+  protected triggerInteraction(id: string): void {
+    if (!id.startsWith('animal:')) { super.triggerInteraction(id); return; }
+    this.cancelRoute();
+    this.animals?.interact(id, this.local);
+  }
 
   protected controlsHeld(): boolean { return this.enteringInterior; }
 
@@ -514,6 +550,9 @@ export class WorldScene extends ExploreScene implements EditSurface {
     const time = this.frameClock ?? this.clock.advance(0);
     this.updateWorldTime(time);
     this.updateResidents(seconds);
+    this.animals?.update(seconds, this.navigation, this.local, view, time.hour, this.labelScale, this.density,
+      timeAmbient(this.mapSpec.id, time.hour, this.period).people, this.reducedMotion, this.terrainOnly,
+      this.controlsEnabled && !this.watching && !this.editing, this.pendingInteraction);
     this.scenery?.update(this.decorativeElapsed, view, this.occlusionCharacters(), seconds);
     this.updateSilhouette();
     this.updateNavigationOverlay();
@@ -819,6 +858,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
     super.setTerrainOnly(terrainOnly);
     this.scenery?.setVisible(!terrainOnly);
     this.atmosphere?.setVisible(!terrainOnly);
+    this.animals?.setVisible(!terrainOnly);
   }
 
   protected applyLabelDensity(density: number): void {
