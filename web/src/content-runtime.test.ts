@@ -9,6 +9,7 @@ import { getSentence } from './translated-sentence';
 import { activeCourse, loadServerContent, loadStoryContent, storyContentRemaining, refreshBootstrap, loadQuestGraph, loadDialogueSentence, loadExercise, loadWords, loadContexts, loadInterior, loadInteriorConversation, loadNpcConversation, loadCinematic, loadMiniGame, loadPlacement, runtimeArray, runtimeObject, runtimeReference } from './content-runtime';
 import { mountOptionalPlacement } from './placement-ui';
 import { canVoiceDialogue } from './dialogue';
+import { emptyMechanics, storyMarks } from './story-mechanics';
 
 const indexes = vi.hoisted(() => ({ lexemeById: new Map(), courseExerciseById: new Map(), courseContextWordIds: {} as Record<string, string[]>, install: vi.fn() }));
 const publicSyllabus = vi.hoisted(() => ({ version: '', wordsPerHour: 10, openingWords: 10, bankCap: 15, storyShare: .5, brake: { maxUnsettled: 12, maxDue: 20 }, wordIds: [] as string[], quests: [] }));
@@ -91,6 +92,16 @@ describe('server record adapters', () => {
     expect(runtimeArray<Json>('quests')[0].exercises).toEqual([]);
     expect(runtimeArray<Json>('npcs')[0].id).toBe(list(body.npcs)[0].worldId);
     expect(fetcher).not.toHaveBeenCalled();
+  });
+  it('recognises the lamp by the public item IDs the bootstrap publishes', async () => {
+    const lampId = '0880094a-ead5-5816-b362-c4a58ac7c12b', updated = structuredClone(bootstrap);
+    updated.body.storyItems = { lamp: [lampId] };
+    fetcher.mockResolvedValueOnce(new Response(JSON.stringify(updated), { status: 200 }));
+    await loadServerContent(session());
+    const carrying = (inventory: string[]) => storyMarks('lindenhafen', { ...emptyProgress(), story: { ...emptyProgress().story!, inventory } }, emptyMechanics(), 'Ada').lamp;
+    expect(carrying([lampId])).toBe(true);
+    expect(carrying(['registered-lamp'])).toBe(true);
+    expect(carrying(['4d1e2ce2-0000-5000-8000-000000000000'])).toBe(false);
   });
   it('counts the public syllabus total and registers only fetched word positions until the course changes', async () => {
     const updated = structuredClone(bootstrap);
