@@ -71,7 +71,7 @@ const manifest = JSON.parse(await readFile('web/public/audio/dialogue/manifest.j
 const clips = new Map(manifest.clips.map(clip => [clip.id,clip]));
 for (const line of jobs) {
   if (clips.get(line.clipId)?.text !== line.german) throw new Error(`Missing or stale dialogue clip: ${line.clipId}`);
-  const clip = await stat(resolve(root, 'audio/dialogue', `${line.clipId}.mp3`));
+  const clip = await stat(resolve(root, 'audio/dialogue', `${line.clipId}.ogg`));
   if (!clip.size) throw new Error(`Empty dialogue clip: ${line.clipId}`);
 }
 console.log(`Budgets pass: JavaScript ${(largest/1024/1024).toFixed(2)} MiB largest / ${(total/1024/1024).toFixed(2)} MiB total; art ${(artTotal/1024/1024).toFixed(2)} MiB (${(baseArtTotal/1024/1024).toFixed(2)} base + ${(characterArtTotal/1024/1024).toFixed(2)} characters + ${((artTotal-baseArtTotal-characterArtTotal)/1024/1024).toFixed(2)} expansion, ${chunkCount} chunks); audio ${(audioTotal/1024/1024).toFixed(2)} MiB. All ${jobs.length} dialogue audio clips present and current.`);

@@ -291,7 +291,7 @@ describe('server record adapters', () => {
     catalogue.miniGameById.clear();
     fetcher.mockImplementation(async (url: string) => {
       const path = new URL(url, 'https://atlas.example').pathname;
-      if (path.endsWith(`/minigames/${metadata.id}`)) return new Response(JSON.stringify({ ...gameRecord, body: { ...gameRecord.body, scripts: { intro: { sentenceId } }, exerciseIds: [exerciseId], audio: { clips: [{ id: 'authorized-clip', sentenceId, path: '/audio/authorized.mp3' }] } } }), { status: 200 });
+      if (path.endsWith(`/minigames/${metadata.id}`)) return new Response(JSON.stringify({ ...gameRecord, body: { ...gameRecord.body, scripts: { intro: { sentenceId } }, exerciseIds: [exerciseId], audio: { clips: [{ id: 'authorized-clip', sentenceId, path: '/audio/authorized.ogg' }] } } }), { status: 200 });
       if (path.endsWith('/sentences')) return new Response(JSON.stringify({ records: [records.get(sentenceId)] }), { status: 200 });
       const record = records.get(path.split('/').at(-1)!);
       return new Response(JSON.stringify(record ?? { error: 'content not found' }), { status: record ? 200 : 404 });
@@ -302,6 +302,6 @@ describe('server record adapters', () => {
     expect((retained as Json).intro).toHaveProperty('german');
     expect(runtimeArray<Json>('canonicalStoryExercises').find(exercise => exercise.id === exerciseId)).toHaveProperty('mode', 'production');
     expect(runtimeArray<Json>('scriptedStoryExercises').find(exercise => exercise.id === exerciseId)).toHaveProperty('answer', '');
-    expect(list(runtimeObject<Json>('miniGameAudio').clips)[0]).toMatchObject({ id: 'authorized-clip', text: getSentence(sentenceId)?.text, path: '/audio/authorized.mp3' });
+    expect(list(runtimeObject<Json>('miniGameAudio').clips)[0]).toMatchObject({ id: 'authorized-clip', text: getSentence(sentenceId)?.text, path: '/audio/authorized.ogg' });
   });
 });

@@ -245,7 +245,7 @@ export function contentRuntimePlugin(root) {
             const head=node.head.text,spans=node.templateSpans;
             if(head==='word-'&&spans.length===1&&spans[0].literal.text==='') {changed=true;return call('runtimeReference','item',ts.visitNode(spans[0].expression,visit));}
             if(head==='lex-'&&spans.length===2&&spans[0].literal.text==='-'&&spans[1].literal.text===''){changed=true;return call('runtimeReference','exercise',ts.visitNode(spans[0].expression,visit),ts.visitNode(spans[1].expression,visit));}
-            if(head==='/audio/word-'&&spans.length===1&&spans[0].literal.text==='.mp3'&&relative==='minigames/pool.ts'){changed=true;return ts.factory.createPropertyAccessExpression(ts.factory.createIdentifier('word'),'audio');}
+            if(head==='/audio/word-'&&spans.length===1&&spans[0].literal.text==='.ogg'&&relative==='minigames/pool.ts'){changed=true;return ts.factory.createPropertyAccessExpression(ts.factory.createIdentifier('word'),'audio');}
           }
           if(ts.isStringLiteral(node)&&!ts.isImportDeclaration(node.parent)&&!(ts.isPropertyAssignment(node.parent)&&node.parent.name===node)&&!ts.isLiteralTypeNode(node.parent)) {
             if(relative==='minigames/host.ts'&&node.text==='de-DE'){changed=true;needsTargetLanguage=true;return ts.factory.createCallExpression(ts.factory.createIdentifier('targetLanguage'),undefined,[]);}

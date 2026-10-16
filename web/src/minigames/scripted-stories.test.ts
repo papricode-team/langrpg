@@ -112,7 +112,7 @@ describe('authored story boards and authoritative actual placements',()=>{
     expect(context.host.submit).toHaveBeenCalledTimes(12);expect(vi.mocked(context.host.submit).mock.calls.every(([result])=>result.hinted&&result.modality==='recognition')).toBe(true);
     expect(context.root.querySelectorAll('[data-packet]')).toHaveLength(0);
     for(const address of scriptedStoryData.games['seed-packets'].addresses)expect(context.root.textContent).not.toContain(address.text);
-    expect(context.host.speakText).toHaveBeenLastCalledWith('Am Bahnhof sieben.','/audio/story-seed-address-01.mp3');
+    expect(context.host.speakText).toHaveBeenLastCalledWith('Am Bahnhof sieben.','/audio/story-seed-address-01.ogg');
     for(const address of scriptedStoryData.games['seed-packets'].addresses){
       const input=context.root.querySelector<HTMLInputElement>('[data-address-input]')!;input.value=address.text;input.dispatchEvent(new Event('input',{bubbles:true}));context.root.querySelector('form')!.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));await flush();
     }

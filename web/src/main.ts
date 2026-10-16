@@ -1219,7 +1219,7 @@ async function startActivity(id: ActivityId, source?: {roomId:InteriorId; statio
     activitiesPromise ??= import('./activities').then(module => { activities = module; return module; }).catch(error => { activitiesPromise = undefined; throw error; });
     return activities ?? await activitiesPromise;
   }, (module, dialog) => {
-    for (const job of module.activityAudioJobs ?? []) if (!audioPaths.has(job.text)) audioPaths.set(job.text, `/audio/${job.id}.mp3`);
+    for (const job of module.activityAudioJobs ?? []) if (!audioPaths.has(job.text)) audioPaths.set(job.text, `/audio/${job.id}.ogg`);
     dialog.innerHTML = `<button class="dialog-close" data-action="close-dialog" aria-label="${e(t('Leave activity'))}">${icon('close')}</button><div id="activity-root"></div>`;
     const regionLevel: Level = venue ? 'A1' : level;
     activityController = module.mountActivity(document.querySelector<HTMLElement>('#activity-root')!, {

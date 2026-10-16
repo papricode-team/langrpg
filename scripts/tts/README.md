@@ -1,10 +1,10 @@
 # Local course character TTS (Qwen3-TTS, design-then-clone)
 
-`qwen_tts.py` renders dialogue lines to `<clipId>.mp3` fully offline on Apple Silicon.
+`qwen_tts.py` renders dialogue lines to `<clipId>.ogg` (Opus) fully offline on Apple Silicon.
 
 1. **VoiceDesign** (`mlx-community/Qwen3-TTS-12Hz-1.7B-VoiceDesign-8bit`) turns the English `description` in `voices.json` into one reference clip per character: `art/source/voices/<speaker>.wav` + `<speaker>.txt` (exact transcript). Done once; commit these files so voices stay stable.
 2. **Base** (`mlx-community/Qwen3-TTS-12Hz-1.7B-Base-8bit`) clones that reference (ICL mode: `ref_audio` + `ref_text`) for every line, so a character sounds identical across hundreds of lines.
-3. ffmpeg trims silence, loudness-normalises (loudnorm I=-18, TP=-1.5), mono 24 kHz, libmp3lame 32 kbps (`--bitrate`; 32k keeps the distribution within its 80 MB audio budget).
+3. ffmpeg trims silence, loudness-normalises (loudnorm I=-18, TP=-1.5), mono 24 kHz, Ogg Opus 24 kbps (`--bitrate`; Opus keeps speech clear at a bitrate that fits the 80 MB audio budget, where MP3 would sound muffled).
 
 `stimme` reuses Elise's reference and adds a band-pass/bit-crush/pink-noise "old recording" filter. Story speaker `Evidence` maps to `narrator` (`aliases` in `voices.json`).
 
@@ -18,7 +18,7 @@ The English proof currently plays browser speech synthesis using its `en-GB` cou
 uv venv --python 3.12 ~/.cache/lantern-tts/venv
 source ~/.cache/lantern-tts/venv/bin/activate
 uv pip install mlx-audio soundfile numpy      # mlx-audio 0.5.8 tested
-brew install ffmpeg                           # needs libmp3lame
+brew install ffmpeg                           # needs libopus
 ```
 Weights download on first run to the default Hugging Face cache (~5.1 GB total; the two repos share a 0.7 GB speech tokenizer). If downloads stall, set `HF_HUB_DISABLE_XET=1` and keep the machine awake.
 
@@ -33,10 +33,10 @@ python3 scripts/tts/qwen_tts.py --course english --jobs english-jobs.json --dry-
 # english-jobs.json: [{"clipId":"<sentence UUID>","speaker":"sam","text":"Hello!","courseId":"4b081b02-2807-54c6-ab7e-669cebe73405"}]
 ```
 
-Canonical `text` takes precedence over legacy `german`. An explicitly supplied job course must match the selected course. Non-German defaults are `web/public/audio/courses/<course UUID>/<clipId>.mp3` and `art/source/voices/<course>/<voice>.wav` plus its transcript. `--out` and `--voices-dir` override these paths. A course's `language` is passed to both VoiceDesign and Base; `locale` documents the intended pronunciation. Source sentences containing runtime placeholders remain silent in the application and are excluded from dialogue generation. Do not synthesize automatic name-free substitutes for these records.
+Canonical `text` takes precedence over legacy `german`. An explicitly supplied job course must match the selected course. Non-German defaults are `web/public/audio/courses/<course UUID>/<clipId>.ogg` and `art/source/voices/<course>/<voice>.wav` plus its transcript. `--out` and `--voices-dir` override these paths. A course's `language` is passed to both VoiceDesign and Base; `locale` documents the intended pronunciation. Source sentences containing runtime placeholders remain silent in the application and are excluded from dialogue generation. Do not synthesize automatic name-free substitutes for these records.
 Options: `--out DIR` (German default `web/public/audio/dialogue`), `--only REGEX` (on clipId), `--limit N`, `--dry-run`, `--redesign SPEAKER` (re-create the reference and regenerate that voice's lines; repeatable), `--temperature` (default 0.7), `--seed`.
 
-Skipping: a hidden `.qwen-tts-cache.json` in `--out` stores sha256(text, reference wav+txt, effect, clone repo, temperature) per clip; a clip is re-rendered only if the mp3 is missing or the hash changed. Editing a reference wav/txt or a line therefore regenerates exactly the affected clips. Changing `description` alone does nothing until you `--redesign` that speaker.
+Skipping: a hidden `.qwen-tts-cache.json` in `--out` stores sha256(text, reference wav+txt, effect, clone repo, temperature, bitrate) per clip; a clip is re-rendered only if the clip is missing or the hash changed. Editing a reference wav/txt or a line therefore regenerates exactly the affected clips. Changing `description` alone does nothing until you `--redesign` that speaker.
 
 ## Add a character
 

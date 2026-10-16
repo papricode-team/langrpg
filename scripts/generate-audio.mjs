@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Audio provenance: locally synthesized macOS Anna (de_DE), 145 words/minute.
-// Requires Node 24+, macOS with the Anna voice installed, and ffmpeg/libmp3lame.
+// Requires Node 24+, macOS with the Anna voice installed, and ffmpeg with libopus.
 // Run from any directory: node scripts/generate-audio.mjs
 import './register-content-loader.mjs';
 import { quests, npcs } from './content-source.mjs';
@@ -55,7 +55,7 @@ function interrupt() {
 
 async function main() {
   if (Number(process.versions.node.split('.')[0]) < 24) throw new Error('Use Node 24 or newer; this script imports TypeScript curriculum files using native type stripping.');
-  if (process.platform !== 'darwin') throw new Error('Audio regeneration requires macOS /usr/bin/say with the German Anna voice. The generated MP3 files themselves work on all deployment platforms.');
+  if (process.platform !== 'darwin') throw new Error('Audio regeneration requires macOS /usr/bin/say with the German Anna voice. The generated Opus files themselves work on all deployment platforms.');
   const say = await executable([process.env.SAY_PATH, '/usr/bin/say']);
   if (!say) throw new Error('macOS say was not found. Set SAY_PATH to its executable.');
   const ffmpeg = await executable([process.env.FFMPEG_PATH, '/opt/homebrew/bin/ffmpeg', '/usr/local/bin/ffmpeg', 'ffmpeg']);
@@ -118,8 +118,8 @@ async function main() {
       while (!failure && !cancelled && cursor < jobs.length) {
         const job = jobs[cursor++];
         const aiff = path.join(temporaryDirectory, `${job.id}.aiff`);
-        const mp3 = path.join(temporaryDirectory, `${job.id}.mp3`);
-        const destination = path.join(outputDirectory, `${job.id}.mp3`);
+        const encoded = path.join(temporaryDirectory, `${job.id}.ogg`);
+        const destination = path.join(outputDirectory, `${job.id}.ogg`);
         const staged = `${destination}.tmp`;
         try {
           if (previousTexts.get(job.id) === job.text && ((previous?.voices ?? []).includes(voice) || characterVoiced.has(job.id))) {
@@ -130,15 +130,15 @@ async function main() {
           if (cancelled) throw new Error('Audio generation interrupted.');
           await run(ffmpeg, [
             '-hide_banner', '-loglevel', 'error', '-y', '-i', aiff,
-            '-vn', '-ac', '1', '-ar', '24000', '-codec:a', 'libmp3lame', '-b:a', '64k',
-            '-id3v2_version', '3', '-metadata', `title=${job.id}`,
+            '-vn', '-ac', '1', '-ar', '24000', '-codec:a', 'libopus', '-b:a', '24k', '-application', 'voip',
+            '-metadata', `title=${job.id}`,
             '-metadata', 'comment=German synthetic pronunciation: macOS Anna (de_DE), 145 words/minute.',
-            mp3,
+            encoded,
           ]);
-          const info = await stat(mp3);
+          const info = await stat(encoded);
           if (info.size < 500) throw new Error(`Generated clip is unexpectedly empty: ${job.id}`);
           // Replace each asset atomically; interrupted runs preserve previous clips.
-          await copyFile(mp3, staged);
+          await copyFile(encoded, staged);
           await rename(staged, destination);
           totalBytes += info.size;
           completed++;
@@ -146,7 +146,7 @@ async function main() {
         } catch (error) {
           failure ||= new Error(`${job.id}: ${error.message}`);
         } finally {
-          await Promise.all([rm(aiff, { force: true }), rm(mp3, { force: true }), rm(staged, { force: true })]);
+          await Promise.all([rm(aiff, { force: true }), rm(encoded, { force: true }), rm(staged, { force: true })]);
         }
       }
     }
@@ -157,10 +157,10 @@ async function main() {
     await writeFile(path.join(outputDirectory, 'manifest.json'), JSON.stringify({
       languagePair: 'de-en', sourceLanguage: 'en', targetLanguage: 'de', voices: [voice],
       rate, generatedAt: new Date().toISOString(),
-      clips: [...new Map([...(previous?.clips ?? []), ...jobs.map(job => ({ ...job, path: `/audio/${job.id}.mp3`, ...(characterVoiced.get(job.id)?.text === job.text ? { voice: characterVoiced.get(job.id).voice } : {}) }))].map(job => [job.id, job])).values()],
+      clips: [...new Map([...(previous?.clips ?? []), ...jobs.map(job => ({ ...job, path: `/audio/${job.id}.ogg`, ...(characterVoiced.get(job.id)?.text === job.text ? { voice: characterVoiced.get(job.id).voice } : {}) }))].map(job => [job.id, job])).values()],
     }, null, 2) + '\n');
     if (process.argv.includes('--minigames') || process.argv.includes('--minigames-only')) {
-      const miniManifest = JSON.stringify({version:1, clips:jobs.filter(job=>job.id.startsWith('minigame-')||job.id.startsWith('expedition-')||job.id.startsWith('story-')).map(job=>({...job,path:`/audio/${job.id}.mp3`}))},null,2)+'\n';
+      const miniManifest = JSON.stringify({version:1, clips:jobs.filter(job=>job.id.startsWith('minigame-')||job.id.startsWith('expedition-')||job.id.startsWith('story-')).map(job=>({...job,path:`/audio/${job.id}.ogg`}))},null,2)+'\n';
       await writeFile(path.join(outputDirectory, 'minigames-manifest.json'), miniManifest);
       await mkdir(path.join(root, 'web/src/minigames'), {recursive:true});
       await writeFile(path.join(root, 'web/src/minigames/audio-data.json'), miniManifest);

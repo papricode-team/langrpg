@@ -22,7 +22,8 @@
     "jonas": "jonas",
     "Evidence": "narrator"
   },
-  "bitRate": 32000,
+  "codec": "opus",
+  "bitRate": 24000,
   "dynamicNames": "Lines containing runtime variables remain visible and silent, including personalized names.",
   "clips": [
     {

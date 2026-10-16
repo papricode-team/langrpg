@@ -9,7 +9,7 @@ const lexicon=JSON.parse(await readFile(resolve(projectRoot,'web/src/data/course
 const syllabus=JSON.parse(await readFile(resolve(projectRoot,'web/src/data/syllabus.json'),'utf8'));
 const lexicalMap=createLexemeMapper(lexicon),map=text=>lexicalMap(text.replace(/\b(?:[A-L]|VII|FERN|HAFEN|UHR)\b/g,'')),known=new Set(lexicon.map(word=>word.id));
 const exercises=[],audio=[];
-const sound=(id,text)=>{const name=`story-${id}`;audio.push({id:name,text,path:`/audio/${name}.mp3`});return `/audio/${name}.mp3`;};
+const sound=(id,text)=>{const name=`story-${id}`;audio.push({id:name,text,path:`/audio/${name}.ogg`});return `/audio/${name}.ogg`;};
 function exercise(game,quest,context,id,mode,answer,target,german,explanation,extraWords=[]){
   if(!known.has(target)||!syllabus.quests.find(row=>row.questId===quest).wordIds.includes(target))throw Error(`Target outside associated syllabus: ${target}`);
   const wordIds=[...new Set([...map(german),...map(explanation),...extraWords,target])].sort();

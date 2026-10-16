@@ -91,7 +91,7 @@ test('existing helper imports are reused without duplicate bindings',()=>{
 test('artwork keeps presentation paths while audio is supplied by the live server registry',()=>{
   const art=transformed('minigames/item-manifest.ts'),audio=transformed('minigames/host.ts');
   assert(!art.includes('"lemma": "Apfel"'));assert(!art.includes('"plural": "Äpfel"'));assert(art.includes('/assets/minigames/items.webp'));
-  assert(!audio.includes('Einen Kaffee, bitte.'));assert(!audio.includes('/audio/minigame-tray-coffee.mp3'));assert(audio.includes('runtimeObject("miniGameAudio"'));assert(audio.includes('targetLanguage()'));syntax(art);syntax(audio);
+  assert(!audio.includes('Einen Kaffee, bitte.'));assert(!audio.includes('/audio/minigame-tray-coffee.ogg'));assert(audio.includes('runtimeObject("miniGameAudio"'));assert(audio.includes('targetLanguage()'));syntax(art);syntax(audio);
 });
 test('audio lookup observes clips installed after the host module is initialized',async()=>{
   const source="import audioData from './audio-data.json';const clips=new Map(audioData.clips.map(clip=>[clip.text,clip.path]));export const path=text=>clips.get(text);export const install=clip=>audioData.clips.push(clip);";
@@ -100,8 +100,8 @@ test('audio lookup observes clips installed after the host module is initialized
   const prelude="const audio={clips:[]};const runtimeObject=()=>audio;const runtimeArray=()=>[];const runtimeReference=()=>'';";
   const result=await import(`data:text/javascript;base64,${Buffer.from(prelude+code).toString('base64')}`);
   assert.equal(result.path('A current sentence.'),undefined);
-  result.install({text:'A current sentence.',path:'/audio/current.mp3'});
-  assert.equal(result.path('A current sentence.'),'/audio/current.mp3');
+  result.install({text:'A current sentence.',path:'/audio/current.ogg'});
+  assert.equal(result.path('A current sentence.'),'/audio/current.ogg');
 });
 test('greeting selection uses the supplied story condition state',()=>{
   const source='function baseConversation(npc,level,state){return [];}';
@@ -128,9 +128,9 @@ test('content.ts keeps no authored data and production replaces its registries',
   for(const name of ['npcs','chapters','quests','vocabulary'])assert.match(output,new RegExp(`\\b${name}(?::[^=]+)? = runtimeArray\\("${name}"`),name);
 });
 test('public media metadata excludes transcripts, model answers and lexical facts',()=>{
-  const input={clips:[{id:'clip-1',text:'A full target sentence.',path:'/audio/clip-1.mp3',speaker:'Sam',answer:'a model answer',nested:{acceptedAnswers:['another'],explanation:'private feedback'}}],frames:{sprite:{lexemeId:'opaque-id',lemma:'word',article:'the',plural:'words',subject:'one picture',url:'/sprite.webp',atlasFrame:{x:12,y:24,w:64,h:64}}}};
+  const input={clips:[{id:'clip-1',text:'A full target sentence.',path:'/audio/clip-1.ogg',speaker:'Sam',answer:'a model answer',nested:{acceptedAnswers:['another'],explanation:'private feedback'}}],frames:{sprite:{lexemeId:'opaque-id',lemma:'word',article:'the',plural:'words',subject:'one picture',url:'/sprite.webp',atlasFrame:{x:12,y:24,w:64,h:64}}}};
   const output=redactPublicManifest(input,{artwork:true});
-  assert.equal(output.clips[0].id,'clip-1');assert.equal(output.clips[0].path,'/audio/clip-1.mp3');assert.equal(output.clips[0].speaker,'Sam');
+  assert.equal(output.clips[0].id,'clip-1');assert.equal(output.clips[0].path,'/audio/clip-1.ogg');assert.equal(output.clips[0].speaker,'Sam');
   assert.equal(output.frames.sprite.lexemeId,'opaque-id');assert.equal(output.frames.sprite.url,'/sprite.webp');assert.deepEqual(output.frames.sprite.atlasFrame,{x:12,y:24,w:64,h:64});
   assert(!JSON.stringify(output).includes('A full target sentence.'));assert(!JSON.stringify(output).includes('model answer'));assert.equal(output.frames.sprite.lemma,undefined);assert.equal(output.frames.sprite.subject,undefined);
   assert.equal(input.clips[0].text,'A full target sentence.');
@@ -162,7 +162,7 @@ test('development manifest requests, including encoded paths, use redacted respo
 test('development blocks direct authoring banks while transformed modules and presentation stay available',()=>{
   for(const path of ['content/source.json','content/imported-alignment-drafts.json','content/imported-drafts/9a83d89d/reviewed.json','server/content.json','server/grading-fixtures.json','content_ids.json'])assert(privateDevelopmentRequest(`/@fs/${resolve(root,path)}`,root),path);
   for(const path of ['/src/data/course.json','/src/data/course-exercises-a1.json?import','/src/data/i18n/tr-story.json?raw','/src/minigames/story-scripts.json','/src/content.ts?raw','/src/npc-dialogue.ts?url',`/@fs/${resolve(root,'web/src/expeditions.ts')}?raw`,'/src/%64ata/course-meta.json','/src/content.ts?r%61w','/src/interior-conversations.ts?raw','/src/word-detail.ts?raw','/src/story-panels.ts?raw','/src/story-panels.ts?url','/src/test-fixtures/content-public.json','/src/test-fixtures/content-public.json?raw','/src/test-fixtures/content-public.json?url&import'])assert(privateDevelopmentRequest(path,root),path);
-  for(const path of ['/src/content.ts','/src/npc-dialogue.ts?import','/src/data/world-scenes.json','/src/data/i18n/tr-ui.json','/src/maps.ts?raw','/assets/interior-bakery-objects.json','/audio/a1-arrival-exercise-1.mp3','/src/test-fixtures/content-public.json?import'])assert.equal(privateDevelopmentRequest(path,root),false,path);
+  for(const path of ['/src/content.ts','/src/npc-dialogue.ts?import','/src/data/world-scenes.json','/src/data/i18n/tr-ui.json','/src/maps.ts?raw','/assets/interior-bakery-objects.json','/audio/a1-arrival-exercise-1.ogg','/src/test-fixtures/content-public.json?import'])assert.equal(privateDevelopmentRequest(path,root),false,path);
 });
 test('development denies private JSON and raw lesson requests before Vite file serving',()=>{
   let middleware;

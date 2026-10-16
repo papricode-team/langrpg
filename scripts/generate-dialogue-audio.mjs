@@ -54,14 +54,14 @@ const clips = jobs.map(job => ({ id: job.clipId, text: job.german, speaker: job.
 await writeFile(resolve(dialogueDir, 'manifest.json'), JSON.stringify({
   provider: 'Qwen3-TTS 1.7B (VoiceDesign + Base clone, 8-bit MLX) via mlx-audio, run locally',
   productionStatus: 'Synthetic character voices designed from text descriptions in scripts/tts/voices.json; human voice-over remains a production milestone.',
-  cast, bitRate: 32000,
+  cast, codec: 'opus', bitRate: 24000,
   dynamicNames: 'Lines containing runtime variables remain visible and silent, including personalized names.',
   clips,
 }, null, 2) + '\n');
 // Mark character-voiced exercise clips so the pronunciation generator (generate-audio.mjs) keeps them.
 const manifestPath = resolve(exerciseDir, 'manifest.json'), manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
 const byId = new Map(manifest.clips.map(clip => [clip.id, clip]));
-for (const job of exerciseJobs) byId.set(job.clipId, { id: job.clipId, text: job.german, path: `/audio/${job.clipId}.mp3`, voice: voice(job.speaker) });
+for (const job of exerciseJobs) byId.set(job.clipId, { id: job.clipId, text: job.german, path: `/audio/${job.clipId}.ogg`, voice: voice(job.speaker) });
 manifest.clips = [...byId.values()];
 await writeFile(manifestPath, JSON.stringify(manifest, null, 2) + '\n');
 console.log(`Voiced ${clips.length} dialogue clips and ${exerciseJobs.length} story exercise and greeting clips.`);

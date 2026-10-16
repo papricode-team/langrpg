@@ -13,7 +13,7 @@ const encounter = { id: 'authored-encounter', sentenceId: 'ticket-sentence', tit
 beforeEach(async () => {
   await setBaseLanguage('tr');
   registerSentence({ id: 'ticket-sentence', text: encounter.german, target: 'de', translations: { tr: { text: 'Biletiniz, lütfen.', words: [{ source: { text: 'Fahrkarte', occurrence: 1 }, targets: [{ text: 'Biletiniz', occurrence: 1 }], sourceRange: { start: 5, end: 14 }, targetRanges: [{ start: 0, end: 9 }] }] } }, words: [{ source: { text: 'Fahrkarte', occurrence: 1 }, range: { start: 5, end: 14 }, glosses: { tr: 'bilet' } }] });
-  encounterLearning.set(encounter.id, { encounterId: encounter.id, exerciseIds: { recognition: 'read-exercise', listening: 'listen-exercise' }, audio: '/audio/ticket.mp3', supported: false } as never);
+  encounterLearning.set(encounter.id, { encounterId: encounter.id, exerciseIds: { recognition: 'read-exercise', listening: 'listen-exercise' }, audio: '/audio/ticket.ogg', supported: false } as never);
   root = document.createElement('section'); document.body.append(root); stop = installSentenceTranslations(root);
 });
 afterEach(async () => { mounted?.destroy(); stop(); pendingEncounterCommands.clear(); encounterLearning.delete(encounter.id); clearSentences(); document.body.replaceChildren(); vi.restoreAllMocks(); await setBaseLanguage('en'); });

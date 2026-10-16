@@ -25,7 +25,7 @@ export function gameItemPool(lexicon: readonly CourseLexeme[], progress: Progres
       lexemeId: word.id, lemma: word.lemma, article: word.article, articleForm:word.articleForm, plural: word.plural,
       english: word.english, topic: word.topic, level: word.level, pos: word.pos,
       surfaceForms:word.surfaceForms,
-      sprite: itemSpriteFor(word.id), audio: `/audio/word-${word.id}.mp3`,
+      sprite: itemSpriteFor(word.id), audio: `/audio/word-${word.id}.ogg`,
       exerciseIds: Object.fromEntries(modalities.map(mode => [mode, `lex-${word.id}-${mode}`])) as GameItem['exerciseIds'],
       stability: evidence(query.modality)?.stabilityDays ?? 0,
       stabilityByMode: Object.fromEntries(modalities.map(mode => [mode, evidence(mode)?.stabilityDays ?? 0])) as GameItem['stabilityByMode'],

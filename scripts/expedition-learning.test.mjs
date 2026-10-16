@@ -18,7 +18,7 @@ test('every encounter uses its reviewed primary target, two modalities and exact
   assert.equal(row.targetWordId,targets[encounter.id].targetWordId);
   assert.equal(row.rationale,targets[encounter.id].rationale);
   assert.equal(row.level,encounter.difficulty);
-  assert.equal(row.audio,`/audio/expedition-${encounter.id}.mp3`);
+  assert.equal(row.audio,`/audio/expedition-${encounter.id}.ogg`);
   assert(row.wordIds.includes(row.targetWordId));
   assert(row.rationale.length>20);
   for(const mode of ['recognition','listening']){

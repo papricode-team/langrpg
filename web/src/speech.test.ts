@@ -11,7 +11,7 @@ function speech(extra: Partial<SpeechOptions> = {}) {
   const narration = vi.fn();
   const synthesis = { getVoices: () => [{ lang: 'en-GB' }, { lang: 'de-DE', name: 'Anna' }, { lang: 'de-AT', name: 'Lukas' }], speak: vi.fn(), cancel: vi.fn() };
   const value = new Speech({
-    silent: () => false, muted: () => false, narration, clipFor: text => text === 'Guten Tag' ? '/audio/guten-tag.mp3' : undefined, voiceIndex: speaker => speaker === 'otto' ? 1 : 0,
+    silent: () => false, muted: () => false, narration, clipFor: text => text === 'Guten Tag' ? '/audio/guten-tag.ogg' : undefined, voiceIndex: speaker => speaker === 'otto' ? 1 : 0,
     audio: path => { const audio = new FakeAudio(path); audios.push(audio); return audio as unknown as HTMLAudioElement; },
     synthesis: () => synthesis as unknown as SpeechSynthesis,
     utterance: text => { const utterance = { text } as unknown as SpeechSynthesisUtterance; spoken.push(utterance as never); return utterance; },
@@ -57,6 +57,6 @@ describe('speech', () => {
   it('uses a dialogue clip ahead of sentence audio', () => {
     const { speech: voice, audios } = speech();
     voice.speak('Guten Tag', { rate: .82, clipId: 'marta-1' });
-    expect(audios[0].src).toBe('/audio/dialogue/marta-1.mp3');
+    expect(audios[0].src).toBe('/audio/dialogue/marta-1.ogg');
   });
 });
