@@ -1,19 +1,18 @@
 import type * as Phaser from 'phaser';
 import type { MapId } from './maps';
 import type { WorldPeriod } from './world-clock';
-import { sceneryAnimationManifestKey, sceneryAnimationTextureKeys, sceneryTerrainKey, sceneryTerrainTextureKeys, type SceneryAnimationManifest } from './scenery-animation';
+import { sceneryAnimationManifestKey, sceneryAnimationTextureKeys, type SceneryAnimationManifest } from './scenery-animation';
 import { worldAssetUrl } from './world-asset-url';
 
 /** A loader completion is only a batch boundary; failed files are not ready art. */
 export class WorldAnimationAssets {
   private requests = new Map<string, ((ready: boolean) => void)[]>();
-  constructor(private scene: Phaser.Scene, private includeTerrain = true) {}
+  constructor(private scene: Phaser.Scene) {}
 
   ready(id: MapId, period: WorldPeriod): boolean {
     const manifest = this.scene.cache.json.get(sceneryAnimationManifestKey(id, period)) as SceneryAnimationManifest | undefined;
     if (!manifest) return false;
-    return sceneryAnimationTextureKeys(manifest).every(key => this.scene.textures.exists(key))
-      && (!this.includeTerrain || sceneryTerrainTextureKeys(id, manifest).every(key => this.scene.textures.exists(key)));
+    return sceneryAnimationTextureKeys(manifest).every(key => this.scene.textures.exists(key));
   }
 
   pending(id: MapId, period: WorldPeriod): boolean {
@@ -25,11 +24,7 @@ export class WorldAnimationAssets {
     const keys = new Set<string>();
     for (const request of this.requests.keys()) {
       const manifest = this.scene.cache.json.get(request) as SceneryAnimationManifest | undefined;
-      if (manifest) {
-        for (const key of sceneryAnimationTextureKeys(manifest)) keys.add(key);
-        if (this.includeTerrain && manifest.terrain) keys.add(manifest.terrain);
-        if (this.includeTerrain) for (const tile of manifest.terrainTiles ?? []) keys.add(tile.key);
-      }
+      if (manifest) for (const key of sceneryAnimationTextureKeys(manifest)) keys.add(key);
     }
     return keys;
   }
@@ -42,7 +37,6 @@ export class WorldAnimationAssets {
       const manifest = this.scene.cache.json.get(sceneryAnimationManifestKey(id, retainedPeriod)) as SceneryAnimationManifest | undefined;
       if (!manifest) continue;
       for (const key of sceneryAnimationTextureKeys(manifest)) keys.add(key);
-      if (this.includeTerrain) for (const terrain of sceneryTerrainTextureKeys(id, manifest)) keys.add(terrain);
     }
     return keys;
   }
@@ -56,11 +50,6 @@ export class WorldAnimationAssets {
     const enqueue = (manifest: SceneryAnimationManifest) => {
       for (const page of sceneryAnimationTextureKeys(manifest)) {
         if (!this.scene.textures.exists(page)) this.scene.load.atlas(page, worldAssetUrl(`/assets/${page}.webp`), worldAssetUrl(`/assets/${page}.json`));
-      }
-      const terrain = sceneryTerrainKey(id, manifest);
-      if (this.includeTerrain && terrain && !this.scene.textures.exists(terrain)) this.scene.load.image(terrain, worldAssetUrl(`/assets/${manifest.terrain}.webp`));
-      if (this.includeTerrain) for (const tile of manifest.terrainTiles ?? []) {
-        if (!this.scene.textures.exists(tile.key)) this.scene.load.image(tile.key, worldAssetUrl(`/assets/${tile.key}.webp`));
       }
     };
     const manifestEvent = `filecomplete-json-${key}`;

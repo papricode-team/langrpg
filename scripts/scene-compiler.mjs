@@ -118,7 +118,7 @@ export async function compileSceneDocument(value, {root = projectRoot, strictQua
   let document;
   try { document = parseWorldSceneDocument(structuredClone(value)); }
   catch (error) { throw new SceneCompileError([problem('invalid', '', String(error.message ?? error).replace(/^Invalid world scene: /, ''))]); }
-  for(const scene of Object.values(document.maps))if(scene.navigation) {
+  for(const scene of Object.values(document.maps)) {
     scene.scenery=scene.scenery.map(item=>withSceneryCollision(item,getSceneryGeometryMap(scene.id)));
     scene.objects=scene.objects.map(item=>({...item,collision:item.collision??{referenceWidth:1,polygons:[]}}));
   }
@@ -155,48 +155,23 @@ export async function compileSceneDocument(value, {root = projectRoot, strictQua
       for (const id of actual) if (!expected.has(id)) report(map, `${kind} ${id} has no authored content`, {ids: [id]});
       for (const id of expected) if (!actual.has(id)) report(map, `missing required ${kind} ${id}; deletion needs a content migration`, {code: 'missing', ids: [id]});
     }
-    if(scene.modularTerrain){
+    {
       const {terrainMaterial}=await import('../web/src/terrain-materials.ts');
       const {terrainFeature}=await import('../web/src/terrain-features.ts');
-      for(const id of new Set((scene.modularTerrain.features??[]).map(feature=>feature.asset))){
+      for(const id of new Set((scene.ground.features??[]).map(feature=>feature.asset))){
         const art=terrainFeature(id);
         try{
           const size=await sharp(resolve(root,'web/public',art.asset.slice(1))).metadata();
-          if(size.width!==art.width||size.height!==art.height||Math.min(size.width,size.height)<1024||!size.hasAlpha)report(map,`terrain piece ${id} needs native HD art with transparency`);
-        }catch{report(map,`missing painted terrain piece ${id}`);}
+          if(size.width!==art.width||size.height!==art.height||Math.min(size.width,size.height)<1024||!size.hasAlpha)report(map,`ground feature ${id} needs native HD art with transparency`);
+        }catch{report(map,`missing ground feature art ${id}`);}
       }
-      for(const id of new Set([scene.modularTerrain.base,...scene.modularTerrain.surfaces.map(surface=>surface.material)])){
+      for(const id of scene.ground.layers){
         const material=terrainMaterial(id);
         try{
-          const size=await sharp(resolve(root,'web/public',material.asset.slice(1))).metadata();
-          if(size.width!==material.width||size.height!==material.height||Math.min(size.width,size.height)<1024||size.width/material.worldSize<2)report(map,`terrain material ${id} must retain its registered high resolution`);
-        }catch{report(map,`missing terrain material ${id}`);}
-      }
-    }
-    for (const tile of scene.terrain) {
-      if(content&&!tile.walkableMaskAsset)quality_(map,`${tile.id} needs an authored ground mask`);
-      const coreX=scene.legacyOffset?.x??0,coreY=scene.legacyOffset?.y??0;
-      const expansion=tile.dayAsset.startsWith('/assets/world-expansions/')||tile.nightAsset?.startsWith('/assets/world-expansions/')
-        ||scene.kind!=='interior'&&(tile.x<coreX||tile.y<coreY||tile.x+tile.width>coreX+1536||tile.y+tile.height>coreY+1024);
-      if(expansion&&(tile.width!==768||tile.height!==512||tile.pixelDensity!==4
-        ||!tile.nightAsset||!tile.dayPreviewAsset||!tile.nightPreviewAsset||!tile.dayCrop||!tile.nightCrop)){
-        report(map,`${tile.id} expansion terrain requires 768 × 512 world-unit chunks, 4 pixels per unit, day/night crops and overview assets`);
-      }
-      for (const asset of [tile.dayPreviewAsset, tile.nightPreviewAsset].filter(Boolean)) {
-        try {
-          const size = await sharp(resolve(root, 'web/public', asset.slice(1))).metadata();
-          if (size.width !== tile.width || size.height !== tile.height) report(map,`${tile.id} overview must be one pixel per world unit`);
-        } catch { report(map,`missing or unreadable terrain overview ${asset}`); }
-      }
-      for (const [asset, crop] of [[tile.dayAsset, tile.dayCrop], [tile.nightAsset, tile.nightCrop]].filter(([asset]) => asset)) {
-        try {
-          if (!imageSizes.has(asset)) imageSizes.set(asset, sharp(resolve(root, 'web/public', asset.slice(1))).metadata());
-          const size = await imageSizes.get(asset);
-          if(expansion&&crop&&(crop.x<1||crop.y<1||crop.width!==3072||crop.height!==2048||crop.x+crop.width>=size.width||crop.y+crop.height>=size.height))report(map,`${tile.id} expansion crop needs a 3072 × 2048 visible frame with sampling guards on every edge`);
-          if (crop && (crop.x + crop.width > size.width || crop.y + crop.height > size.height)) report(map,`${tile.id} crop exceeds ${asset}`);
-          if (tile.pixelDensity !== undefined && ((crop?.width ?? size.width) !== tile.width * tile.pixelDensity || (crop?.height ?? size.height) !== tile.height * tile.pixelDensity)) report(map,`${tile.id} artwork does not match its declared pixel density`);
-          if (size.width > 4096 || size.height > 4096) report(map,`${tile.id} terrain exceeds the 4096-pixel GPU texture limit`);
-        } catch { report(map,`missing or unreadable terrain asset ${asset}`); }
+          if(!imageSizes.has(material.asset))imageSizes.set(material.asset,sharp(resolve(root,'web/public',material.asset.slice(1))).metadata());
+          const size=await imageSizes.get(material.asset);
+          if(size.width!==material.width||size.height!==material.height||Math.min(size.width,size.height)<1024||size.width/material.worldSize<2)report(map,`ground material ${id} must retain its registered high resolution`);
+        }catch{report(map,`missing ground material ${id}`);}
       }
     }
     if (content) {
@@ -227,29 +202,11 @@ export async function compileSceneDocument(value, {root = projectRoot, strictQua
     }
     const geometry=sceneNavigationGeometry(scene,sceneryManifest);
     const grid = new NavigationGrid(geometry.ground,geometry.barriers,scene);
-    const groundGrid = new NavigationGrid(geometry.ground,geometry.terrain,scene);
     // Spawn, story targets, doors and activity spots, measured with a full player footprint.
     for (const issue of auditScene(scene, SceneReach.from(scene, new NavigationGrid(geometry.ground,geometry.barriers,scene,{agentRadius:PLAYER_RADIUS}), grid)))
       problems.push(issue.code === 'missing-room' && strictQuality ? {...issue, severity: 'error'} : issue);
-    for(const tile of (scene.modularTerrain ? [] : scene.terrain.filter(tile=>tile.walkableMaskAsset))){
-      try{
-        const {data,info}=await sharp(resolve(root,'web/public',tile.walkableMaskAsset.slice(1))).removeAlpha().greyscale().raw().toBuffer({resolveWithObject:true});
-        if(info.width!==tile.width||info.height!==tile.height)report(map,`${tile.id} walkable mask must be one pixel per world unit`);
-        else {
-          let offGround=0;
-          const groundPixel=(x,y)=>x>=0&&y>=0&&x<info.width&&y<info.height&&data[y*info.width+x]>=128;
-          // Mask pixels describe unit squares. Sample their centres so a closed
-          // white-cell boundary is not mistaken for its black neighbour. Float
-          // contours rasterize with up to one pixel of edge quantization.
-          for(let y=3;y<tile.height;y+=6)for(let x=3;x<tile.width;x+=6)
-            if(!groundPixel(x,y)&&!groundPixel(x-1,y)&&!groundPixel(x+1,y)&&!groundPixel(x,y-1)&&!groundPixel(x,y+1)
-              &&(scene.navigation?groundGrid:grid).isWalkable(tile.x+x+.5,tile.y+y+.5))offGround++;
-          if(offGround)report(map,`${tile.id} navigation crosses ${offGround} samples outside its painted walkable mask`);
-        }
-      }catch{report(map,`missing or unreadable walkable mask ${tile.walkableMaskAsset}`);}
-    }
     const reachability=grid.auditReachability(scene.spawn);
-    if(reachability.reachableRatio<.995)report(map,`spawn reaches ${(100*reachability.reachableRatio).toFixed(2)}% of walkable samples; ${scene.navigation?'isolated clear land is allowed, interaction targets must be reachable':'at least 99.5% is required'}`,{warning:!!scene.navigation});
+    if(reachability.reachableRatio<.995)report(map,`spawn reaches ${(100*reachability.reachableRatio).toFixed(2)}% of walkable samples; isolated land is allowed, interaction targets must be reachable`,{warning:true});
     problems.push(...residentProblems(scene, grid));
   }
   for(const prefab of document.prefabs??[])for(const item of prefab.scenery){

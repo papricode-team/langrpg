@@ -37,16 +37,6 @@ export function sceneryAnimationTextureKeys(manifest:SceneryAnimationManifest):r
 export const isBuildingScenery=(name:string):boolean=>
   ['archive','cafe','station','workshop','house','greenhouse','arch'].includes(name)||name.startsWith('house-');
 export const sceneryAnimationManifestKey=(id:MapId,period:WorldPeriod='day'):string=>`${id}-${period}-animations`;
-/** Reuse the streamed base when it is the same painting as the period terrain. */
-export function sceneryTerrainKey(id: MapId, manifest?: SceneryAnimationManifest): string | undefined {
-  const base = manifest?.terrain === `${id}-terrain`
-    || id === 'nebelstadt' && (manifest?.terrain === 'nebelstadt-day-terrain'||manifest?.terrain === 'nebelstadt-harbour-bridge-day-terrain');
-  return base ? id : manifest?.terrain;
-}
-export function sceneryTerrainTextureKeys(id: MapId, manifest?: SceneryAnimationManifest): readonly string[] {
-  const base = sceneryTerrainKey(id, manifest);
-  return [...new Set([...(base ? [base] : []), ...(manifest?.terrainTiles ?? []).map(tile => tile.key)])];
-}
 /** Each placement has its own point in an authored cycle; all transforms stay fixed. */
 export function sampleSceneryFrame(animation:SceneryAnimation,id:string,seconds:number):string {
   const time=Number.isFinite(seconds)?Math.max(0,seconds):0;

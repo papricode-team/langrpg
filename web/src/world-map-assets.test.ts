@@ -26,20 +26,19 @@ function fixture() {
 }
 
 describe('destination asset streaming', () => {
-  it('bypasses terrain and atlas copies cached by an earlier deployment', () => {
+  it('bypasses atlas copies cached by an earlier deployment', () => {
     const mock = fixture();
     mock.assets.load(getMap('waldruh'));
-    expect(mock.loader.image).toHaveBeenCalledWith('waldruh', `/assets/waldruh-terrain.webp?v=${__APP_VERSION__}`);
     expect(mock.loader.atlas).toHaveBeenCalledWith('waldruh-props', `/assets/waldruh-props.webp?v=${__APP_VERSION__}`, `/assets/waldruh-props.json?v=${__APP_VERSION__}`);
   });
-  it('loads the town terrain, props and authored resident activities', () => {
-    expect(regionAssets(getMap('lindenhafen')).map(asset => asset.key)).toEqual(['lindenhafen', 'lindenhafen-props', 'lindenhafen-variations',...['ella','karl','anne','mila'].map(look=>`lindenhafen-resident-actions-${look}`),...castActorsForMap('lindenhafen').flatMap(actor=>castAssets(actor).map(asset=>asset.key))]);
+  it('loads the town props and authored resident activities', () => {
+    expect(regionAssets(getMap('lindenhafen')).map(asset => asset.key)).toEqual(['lindenhafen-props', 'lindenhafen-variations',...['ella','karl','anne','mila'].map(look=>`lindenhafen-resident-actions-${look}`),...castActorsForMap('lindenhafen').flatMap(actor=>castAssets(actor).map(asset=>asset.key))]);
   });
   it('coalesces requests while delivering every arrival callback', () => {
     const mock = fixture(), map = getMap('lindenhafen');
     const first = vi.fn(), second = vi.fn();
     mock.assets.load(map, first); mock.assets.load(map, second);
-    expect(mock.loader.image).toHaveBeenCalledTimes(1);
+    expect(mock.loader.image).toHaveBeenCalledTimes(regionAssets(map).filter(asset => !asset.atlas&&!asset.cell&&!asset.multiAtlas).length);
     expect(mock.loader.atlas).toHaveBeenCalledTimes(regionAssets(map).filter(asset => asset.atlas&&!asset.multiAtlas).length);
     expect(mock.loader.multiatlas).toHaveBeenCalledTimes(regionAssets(map).filter(asset => asset.multiAtlas).length);
     expect(mock.loader.start).toHaveBeenCalledTimes(1);

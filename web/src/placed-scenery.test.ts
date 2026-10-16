@@ -27,7 +27,6 @@ describe('painted asset footprints', () => {
 
 describe('authored sprite worlds',()=>{
   for(const map of maps)for(const period of ['day','night'] as const)it(`${map.name} has high resolution static buildings and complete calm ${period} scenery`,()=>{
-    expect(map.asset).toMatch(/-terrain\.webp$/);
     const specs=getPlacedScenery(map.id);
     const manifest=readAsset(`${map.id}-${period}-animations.json`) as SceneryAnimationManifest;
     expect(specs.length).toBeGreaterThanOrEqual(70);

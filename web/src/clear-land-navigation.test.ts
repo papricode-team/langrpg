@@ -7,8 +7,9 @@ import {sceneNavigationGeometry} from './scene-navigation';
 import {NavigationGrid,PLAYER_RADIUS,createMapNavigation,type MapPoint} from './navigation';
 import {parseWorldSceneDocument,type ScenePolygon,type WorldScene} from './scene-schema';
 import {applyEditOps,type WorldEditOp} from './world-edit-ops';
+import {groundFromHazards} from './ground-convert';
 const editScene=(scene:WorldScene,op:{kind:WorldEditOp['kind']}&Record<string,unknown>):WorldScene=>
-  applyEditOps({version:3,maps:{[scene.id]:scene}},[{...op,map:scene.id} as unknown as WorldEditOp]).document.maps[scene.id];
+  applyEditOps({version:4,maps:{[scene.id]:scene}},[{...op,map:scene.id} as unknown as WorldEditOp]).document.maps[scene.id];
 
 const towns=['lindenhafen','waldruh','nebelstadt'] as const;
 const point=([x,y]:readonly number[]):MapPoint=>({x,y});
@@ -17,9 +18,8 @@ const rectangle=(left:number,top:number,right:number,bottom:number):ScenePolygon
 
 function fixture():WorldScene {
   return {id:'test',kind:'outdoor',width:400,height:320,coordinateVersion:1,
-    spawn:{x:40,y:40},npcs:[],objects:[],walkable:[],obstacles:[],
-    terrain:[{id:'floor',x:0,y:0,width:400,height:320,dayAsset:'/assets/floor.webp'}],districts:[],
-    navigation:{model:'clear-land',terrainCollision:[{id:'water',kind:'water',polygon:rectangle(320,0,350,100)}]},
+    spawn:{x:40,y:40},npcs:[],objects:[],districts:[],
+    ground:groundFromHazards('meadow',[{kind:'water',polygon:rectangle(320,0,350,100)}],400,320),
     scenery:[{id:'tree',asset:'tree',x:100,y:100,width:40,
       collision:{referenceWidth:40,polygons:[rectangle(8,-8,28,8)]}}]};
 }
@@ -43,10 +43,7 @@ describe('clear land and owned collision',()=>{
   it('uses clear land in every town and gives every building and object its own collision',()=>{
     for(const id of towns){
       const scene=getWorldScene(id),geometry=sceneNavigationGeometry(scene);
-      expect(scene.navigation?.model,id).toBe('clear-land');
-      expect(scene.walkable,id).toEqual([]);
-      expect(scene.obstacles,id).toEqual([]);
-      expect(geometry.ground,id).toEqual(scene.terrain.map(tile=>rectangle(tile.x,tile.y,tile.x+tile.width,tile.y+tile.height)));
+      expect(geometry.ground,id).toEqual([rectangle(0,0,scene.width,scene.height)]);
       for(const owner of [...scene.scenery,...scene.objects]){
         expect(owner.collision,`${id}: ${owner.id}`).toBeDefined();
         expect(owner.collision!.referenceWidth,owner.id).toBeGreaterThan(0);
@@ -130,11 +127,9 @@ describe('clear land and owned collision',()=>{
     expect(nav.findPath(start,end).length).toBeGreaterThan(1);
   });
 
-  it('rejects legacy street whitelists and loose obstacles in clear-land scenes',()=>{
-    for(const legacy of ['walkable','obstacles'] as const){
-      const scene=fixture();scene[legacy]=[rectangle(20,20,40,40)];
-      expect(()=>parseWorldSceneDocument({version:2,maps:{test:scene}})).toThrow(/legacy walkable and obstacles must be empty/);
-    }
-    expect(parseWorldSceneDocument(structuredClone(sceneDocument)).maps.nebelstadt.navigation?.model).toBe('clear-land');
+  it('reads painted water as blocked ground',()=>{
+    expect(navigation(fixture(),0,true).isWalkable(335,50)).toBe(false);
+    expect(navigation(fixture(),0,true).isWalkable(335,160)).toBe(true);
+    expect(parseWorldSceneDocument(structuredClone(sceneDocument)).maps.nebelstadt.ground.layers).toContain('deep-water');
   });
 });

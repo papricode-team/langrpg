@@ -5,13 +5,14 @@ import {parseWorldSceneDocument,type SceneResident,type WorldScene} from './scen
 import {compileResidentActivities,planResidentDay,ResidentActivityWorld,sampleActivityResident} from './resident-activities';
 import {applyEditOps,type WorldEditOp} from './world-edit-ops';
 const editScene=(scene:WorldScene,op:{kind:WorldEditOp['kind']}&Record<string,unknown>):WorldScene=>
-  applyEditOps({version:3,maps:{[scene.id]:scene}},[{...op,map:scene.id} as unknown as WorldEditOp]).document.maps[scene.id];
+  applyEditOps({version:4,maps:{[scene.id]:scene}},[{...op,map:scene.id} as unknown as WorldEditOp]).document.maps[scene.id];
 import {sceneNavigationGeometry} from './scene-navigation';
+import {plainGround} from './ground';
 
 const time={seed:'0123456789abcdef0123456789abcdef',dayLengthSeconds:720,elapsedSeconds:0};
 const actor=(id:string):SceneResident=>({id,name:id,home:{x:40,y:100},speed:50,avatar:{hair:'#333333',skin:'#ccaa99',outfit:'#445566'},schedule:[{id:'reading',activityId:'seat',action:'read',startHour:8,endHour:9,durationSeconds:20,heldObject:'book',fallbackActivityId:'waiting'}]});
 function fixture(){
-  const scene:WorldScene={id:'test',width:600,height:400,coordinateVersion:1,spawn:{x:40,y:100},npcs:[],objects:[],terrain:[{id:'floor',x:0,y:0,width:600,height:400,dayAsset:'/assets/floor.webp'}],districts:[],walkable:[],obstacles:[],navigation:{model:'clear-land',terrainCollision:[]},
+  const scene:WorldScene={id:'test',width:600,height:400,coordinateVersion:1,spawn:{x:40,y:100},npcs:[],objects:[],districts:[],ground:plainGround('meadow',600,400),
     scenery:[{id:'bench',asset:'bench',x:100,y:100,width:60,collision:{referenceWidth:60,polygons:[]}},{id:'sign',asset:'sign',x:180,y:100,width:30,collision:{referenceWidth:30,polygons:[]}}],
     activities:[{id:'seat',ownerId:'bench',kind:'seat',offsetX:0,offsetY:20,approach:{x:0,y:35},exit:{x:15,y:35}},{id:'waiting',ownerId:'sign',kind:'wait',offsetX:0,offsetY:20}],residents:[actor('anne'),actor('ben')]};
   const geometry=sceneNavigationGeometry(scene),nav=new NavigationGrid(geometry.ground,geometry.barriers,scene);return {scene,nav};

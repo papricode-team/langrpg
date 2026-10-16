@@ -8,14 +8,14 @@
  * edit store, which redraws the canvas straight away.
  */
 import * as Phaser from 'phaser';
-import type {ModularTerrain} from './modular-terrain';
+import type {Ground} from './ground';
+import {GroundTerrain} from './ground-terrain';
 import {getMap,type MapId} from './maps';
 import {sceneryFootprints} from './placed-scenery';
 import {getWorldScene,sceneDocument} from './scene-data';
 import {sceneNavigationGeometry} from './scene-navigation';
 import {getSceneryGeometryMap,sceneEntrancePoint,type ScenePoint,type SceneScenery} from './scene-schema';
 import {sceneryAnimationManifestKey,type SceneryAnimationManifest} from './scenery-animation';
-import {StreamedWorldTerrain} from './streamed-world-terrain';
 import {WorldAnimationAssets} from './world-animation-assets';
 import {applyEditOps,type WorldEditOp} from './world-edit-ops';
 import {newPlacement,type PaletteChoice} from './world-edit-palette';
@@ -63,8 +63,8 @@ export class AdminMapScene extends Phaser.Scene {
   private mapId: MapId = 'lindenhafen';
   private readonly period = 'day' as const;
   private scenery?: WorldScenery;
-  private terrain?: StreamedWorldTerrain;
-  private terrainDocument?: ModularTerrain;
+  private terrain?: GroundTerrain;
+  private terrainDocument?: Ground;
   private regionAssets!: WorldMapAssets;
   private animationAssets!: WorldAnimationAssets;
   private overlay!: Phaser.GameObjects.Graphics;
@@ -97,8 +97,8 @@ export class AdminMapScene extends Phaser.Scene {
 
   create(): void {
     this.cameras.main.setBackgroundColor('#c8d0bc');
-    this.regionAssets = new WorldMapAssets(this, false, true);
-    this.animationAssets = new WorldAnimationAssets(this, false);
+    this.regionAssets = new WorldMapAssets(this, true);
+    this.animationAssets = new WorldAnimationAssets(this);
     this.staticOverlay = this.add.graphics().setDepth(9e6);
     this.overlay = this.add.graphics().setDepth(1e7);
     this.input.mouse?.disableContextMenu();
@@ -138,8 +138,8 @@ export class AdminMapScene extends Phaser.Scene {
     await new Promise<void>(resolve => this.animationAssets.load(mapId, this.period, () => resolve()));
     if (generation !== this.loading) return;
     const scene = getWorldScene(mapId);
-    this.terrain = new StreamedWorldTerrain(this, scene, this.period).setDepth(-1e6);
-    this.terrainDocument = scene.modularTerrain;
+    this.terrain = new GroundTerrain(this, scene, this.period).setDepth(-1e6);
+    this.terrainDocument = scene.ground;
     this.scenery = new WorldScenery(this, mapId, this.period);
     this.drawStatic();
     this.fit();
@@ -150,9 +150,9 @@ export class AdminMapScene extends Phaser.Scene {
     if (!this.scenery) return;
     const scene = getWorldScene(this.mapId);
     this.scenery.sync(scene.scenery);
-    if (this.terrainDocument !== scene.modularTerrain) {
+    if (this.terrainDocument !== scene.ground) {
       this.terrain?.setWorld(scene);
-      this.terrainDocument = scene.modularTerrain;
+      this.terrainDocument = scene.ground;
     }
     // A nudge still waiting to publish stays where the keyboard put it.
     if (this.nudge) for (const entry of this.selection) if (entry.kind === 'scenery') this.scenery.previewMove(entry.id, this.nudge.dx, this.nudge.dy);
@@ -164,12 +164,12 @@ export class AdminMapScene extends Phaser.Scene {
   /** Rebuild from scratch after a whole-world import. */
   rebuild(): Promise<void> { this.loaded = undefined; return this.show(this.mapId); }
 
-  /** Terrain drawn from a draft instead of the document, for the terrain tools' preview. */
-  previewTerrain(terrain?: ModularTerrain): void {
+  /** Ground drawn from a draft instead of the document, while a brush stroke or feature drag is in progress. */
+  previewTerrain(ground?: Ground): void {
     const world = getWorldScene(this.mapId);
-    this.terrain?.setWorld(terrain ? {...world, modularTerrain: terrain} : world);
-    this.terrainDocument = world.modularTerrain;
-    this.scenery?.sync(world.scenery, terrain ?? world.modularTerrain);
+    this.terrain?.setWorld(ground ? {...world, ground} : world);
+    this.terrainDocument = world.ground;
+    this.scenery?.sync(world.scenery, ground ?? world.ground);
   }
 
   /** Object tools stop while another mode, such as terrain, owns the pointer. */

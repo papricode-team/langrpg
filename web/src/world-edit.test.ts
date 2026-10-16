@@ -1,6 +1,7 @@
 import {describe, expect, it} from 'vitest';
 import {buildingBounds} from './building-bounds';
 import {sceneDocument} from './scene-data';
+import {plainGround} from './ground';
 import {sceneEntrancePoint, sceneEntrances, type WorldScene} from './scene-schema';
 import {sceneNavigationGeometry} from './scene-navigation';
 import {NavigationGrid, PLAYER_RADIUS} from './navigation';
@@ -13,14 +14,14 @@ import {auditScene, objectLabel, placementProblems, roomOptions, SceneReach, siz
 
 const town = (): WorldScene => structuredClone(sceneDocument.maps.waldruh);
 const apply = (scene: WorldScene, ops: WorldEditOp[]) => {
-  const result = applyEditOps({version: 3, maps: {[scene.id]: scene}}, ops);
+  const result = applyEditOps({version: 4, maps: {[scene.id]: scene}}, ops);
   return {scene: result.document.maps[scene.id], changed: result.changed.get(scene.id) ?? new Set<string>(), restored: result.restored};
 };
 
 describe('world edit operations', () => {
   it('applies absolute edits without touching the input and undoes them exactly', () => {
     const scene = town(), lamp = scene.scenery.find(item => item.asset === 'lamp')!;
-    const document = {version: 3 as const, maps: {[scene.id]: scene}};
+    const document = {version: 4 as const, maps: {[scene.id]: scene}};
     const ops: WorldEditOp[] = [{kind: 'move', map: scene.id, id: lamp.id, x: lamp.x + 10, y: lamp.y}, {kind: 'update', map: scene.id, id: lamp.id, flipX: true}];
     let current = document;
     const steps: WorldEditOp[][] = [];
@@ -35,7 +36,7 @@ describe('world edit operations', () => {
   it('restores a removed object with its activity spots', () => {
     const scene = town(), owner = scene.scenery.find(item => scene.activities?.some(slot => slot.ownerId === item.id) && !scene.residents?.some(resident => resident.schedule.some(task => scene.activities!.find(slot => slot.id === task.activityId)?.ownerId === item.id)));
     if (!owner) return;
-    const document = {version: 3 as const, maps: {[scene.id]: scene}}, op: WorldEditOp = {kind: 'remove', map: scene.id, id: owner.id};
+    const document = {version: 4 as const, maps: {[scene.id]: scene}}, op: WorldEditOp = {kind: 'remove', map: scene.id, id: owner.id};
     const undo = inverseEditOps(document, op);
     const removed = applyEditOps(document, [op]).document;
     expect(removed.maps[scene.id].activities?.some(slot => slot.ownerId === owner.id)).toBe(false);
@@ -62,7 +63,7 @@ describe('world edit operations', () => {
     item.collision = {referenceWidth: 100, polygons: [[[0, 0], [10, 0], [0, -10]]]};
     item.sortLine = [[-10, -2], [10, -2]];
     scene.activities = [{id: 'tree-wait', ownerId: item.id, kind: 'wait', offsetX: 0, offsetY: 20}];
-    const document = {version: 3 as const, maps: {[scene.id]: scene}};
+    const document = {version: 4 as const, maps: {[scene.id]: scene}};
     const op = parseEditOps([{kind: 'update', map: scene.id, id: item.id, frame: 'tree-2'}])[0];
     const undo = parseEditOps(JSON.parse(JSON.stringify(inverseEditOps(document, op))));
     const result = applyEditOps(document, [op]).document, changed = result.maps[scene.id].scenery.find(value => value.id === item.id)!;
@@ -107,12 +108,9 @@ describe('world edit operations', () => {
 describe('placement rules', () => {
   it('allows overlapping building artwork while rejecting overlapping solid bases', () => {
     const scene = town();
-    delete scene.modularTerrain;
-    delete scene.navigation;
     scene.width = 800; scene.height = 600;
-    scene.terrain = [{...scene.terrain[0], x: 0, y: 0, width: 800, height: 600}];
-    scene.walkable = [[[0, 0], [800, 0], [800, 600], [0, 600]]];
-    scene.obstacles = []; scene.npcs = []; scene.objects = [];
+    scene.ground = plainGround('meadow', 800, 600);
+    scene.npcs = []; scene.objects = [];
     scene.activities = []; scene.residents = []; scene.spawn = {x: 50, y: 50};
     const building = {
       id: 'first-house', asset: 'house' as const, frame: 'house-4', x: 200, y: 300, width: 170,
@@ -134,12 +132,9 @@ describe('placement rules', () => {
   });
   it('lets an object that already stands inside another move without blaming it', () => {
     const scene = town();
-    delete scene.modularTerrain;
-    delete scene.navigation;
     scene.width = 800; scene.height = 600;
-    scene.terrain = [{...scene.terrain[0], x: 0, y: 0, width: 800, height: 600}];
-    scene.walkable = [[[0, 0], [800, 0], [800, 600], [0, 600]]];
-    scene.obstacles = []; scene.npcs = []; scene.objects = [];
+    scene.ground = plainGround('meadow', 800, 600);
+    scene.npcs = []; scene.objects = [];
     scene.activities = []; scene.residents = []; scene.spawn = {x: 50, y: 50};
     const square = {referenceWidth: 170, polygons: [[[-20, -20], [20, -20], [20, 20], [-20, 20]]] as [number, number][][]};
     // Authored this close: the tree stands inside the house's base.

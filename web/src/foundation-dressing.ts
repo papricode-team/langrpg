@@ -1,9 +1,7 @@
-import terrain from './data/foundation-terrain.json';
 import {sceneDocument} from './scene-data';
 import type {PlacedScenerySpec} from './placed-scenery';
 import type {ScenePolygon,SceneryGeometry} from './scene-schema';
-import {terrainSurfaces,terrainContains,type ModularTerrain} from './modular-terrain';
-import {terrainMaterial} from './terrain-materials';
+import {groundColorAt,groundWeightsAt,type Ground} from './ground';
 
 type Colour=readonly [number,number,number];
 export interface FoundationGround {colour:Colour;vegetation:number;water:number;}
@@ -11,7 +9,6 @@ export interface FoundationPatch {
   x:number;y:number;seed:number;soil:Colour;moss:Colour;grass:Colour;
   vegetation:number;growth:boolean;tuft:boolean;
 }
-const decoded=new Map<string,Uint8Array>();
 const clamp=(n:number,min=0,max=1)=>Math.max(min,Math.min(max,n));
 const random=(seed:number,index:number)=>{
   let value=(seed+Math.imul(index+1,0x9e3779b9))|0;
@@ -19,24 +16,14 @@ const random=(seed:number,index:number)=>{
   return ((value^(value>>>15))>>>0)/4294967296;
 };
 
-/** Sample the actual authored daylight ground, even when its GPU tile is unloaded.
- * Keys follow the current scene document, so moved tiles retain their own material. */
-export function foundationGround(mapId:string,x:number,y:number,modular:ModularTerrain|undefined=sceneDocument.maps[mapId]?.modularTerrain):FoundationGround {
-  if(modular){
-    const material=terrainMaterial(terrainSurfaces(modular).reverse().find(surface=>terrainContains(surface.polygon,x,y))?.material??modular.base)!;
-    const hex=material.color.replace('#',''),colour=[0,2,4].map(offset=>parseInt(hex.slice(offset,offset+2),16)) as [number,number,number];
-    return {colour,vegetation:['meadow','forest-floor','moss','marsh','canal-grass'].includes(material.id)?1:material.id==='dry-grass'?.5:0,water:material.id.endsWith('water')?1:0};
-  }
-  const tile=sceneDocument.maps[mapId]?.terrain?.slice().reverse().find(tile=>x>=tile.x&&y>=tile.y&&x<tile.x+tile.width&&y<tile.y+tile.height);
-  const source=tile&&(tile.dayPreviewAsset??tile.dayAsset);
-  const grid=source&&(terrain.tiles as Record<string,{width:number;height:number;pixels:string}>)[source];
-  if(!grid||!source||!tile)return {colour:[143,132,104],vegetation:.18,water:0};
-  let pixels=decoded.get(source);
-  if(!pixels){pixels=Uint8Array.from(atob(grid.pixels),c=>c.charCodeAt(0));decoded.set(source,pixels);}
-  const col=Math.min(grid.width-1,Math.floor((x-tile.x)/tile.width*grid.width));
-  const row=Math.min(grid.height-1,Math.floor((y-tile.y)/tile.height*grid.height));
-  const i=(row*grid.width+col)*5;
-  return {colour:[pixels[i],pixels[i+1],pixels[i+2]],vegetation:pixels[i+3]/255,water:pixels[i+4]/255};
+const vegetation:Record<string,number>={'meadow':1,'forest-floor':1,'moss':1,'marsh':1,'canal-grass':1,'farmland':.6,'dry-grass':.5};
+/** The painted ground under a point: its blended colour, how green it is and how wet. */
+export function foundationGround(mapId:string,x:number,y:number,ground:Ground|undefined=sceneDocument.maps[mapId]?.ground):FoundationGround {
+  const scene=sceneDocument.maps[mapId];
+  if(!ground||!scene)return {colour:[143,132,104],vegetation:.18,water:0};
+  const weights=groundWeightsAt(ground,scene.width,scene.height,x,y);
+  const share=(test:(id:string)=>number)=>ground.layers.reduce((sum,id,index)=>sum+weights[index]*test(id),0);
+  return {colour:groundColorAt(ground,scene.width,scene.height,x,y),vegetation:share(id=>vegetation[id]??0),water:share(id=>id.endsWith('water')?1:0)};
 }
 
 /** Uniform spacing avoids piling paint onto every pixel of an alpha contour. */

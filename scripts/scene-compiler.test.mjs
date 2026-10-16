@@ -29,18 +29,16 @@ test('lets only buildings with a painted door host a room',async()=>{
   await assert.rejects(compileSceneDocument(tent),/cannot host a room because its artwork has no door/);
 });
 
-test('rejects legacy street whitelists and loose obstacles in clear-land scenes',async()=>{
-  for(const field of ['walkable','obstacles']) {
-    const value=structuredClone(source),scene=value.maps.lindenhafen;
-    scene[field].push([[20,20],[40,20],[40,40],[20,40]]);
-    await assert.rejects(compileSceneDocument(value),/clear-land scenes must use terrain collision and object-owned footprints/);
-  }
+test('rejects ground without a weight grid per material',async()=>{
+  const value=structuredClone(source);
+  value.maps.lindenhafen.ground.weights.pop();
+  await assert.rejects(compileSceneDocument(value),/one weight grid per layer/);
 });
 
-test('rejects malformed terrain hazards and object-owned collision before compiling',async()=>{
+test('rejects malformed ground materials and object-owned collision before compiling',async()=>{
   const terrain=structuredClone(source);
-  terrain.maps.waldruh.navigation.terrainCollision[0].kind='grass';
-  await assert.rejects(compileSceneDocument(terrain),/invalid collision kind/);
+  terrain.maps.waldruh.ground.layers[1]='grass';
+  await assert.rejects(compileSceneDocument(terrain),/known materials/);
   const collision=structuredClone(source);
   collision.maps.waldruh.scenery[0].collision.referenceWidth=0;
   await assert.rejects(compileSceneDocument(collision),/collision reference width must be positive/);

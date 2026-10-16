@@ -236,8 +236,8 @@ export class World {
     const stats = interior?.worldStats ?? this.townReady?.worldStats;
     return stats ?? { objects: 0, animated: 0, residents: 0, seconds: 0, period: this.clock.advance(0).period, fps: 0, frameMs: 0, p95FrameMs: 0 };
   }
-  getTerrainStats(): { width: number; height: number; pixelZoom: number; textures: number; pixels: number; pending: number; failed: number } {
-    return this.townReady?.terrainStats ?? { width: 0, height: 0, pixelZoom: 0, textures: 0, pixels: 0, pending: 0, failed: 0 };
+  getTerrainStats(): { width: number; height: number; pixelZoom: number } {
+    return this.townReady?.terrainStats ?? { width: 0, height: 0, pixelZoom: 0 };
   }
   getActivityResidents(): { id: string; name: string; state: ActivityResidentSample }[] { return this.townReady?.activityResidentStates ?? []; }
   getWeather(): number { return this.townReady?.rainIntensity() ?? 0; }

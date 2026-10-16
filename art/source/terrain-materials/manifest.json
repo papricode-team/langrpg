@@ -143,6 +143,15 @@
       "generatedFile": "exec-49fe5581-12d2-45a2-b3d0-f9dfa43c3d54.png"
     },
     {
+      "id": "cliff",
+      "name": "Cliff",
+      "group": "Structures",
+      "color": "#6f6e64",
+      "blocked": true,
+      "source": "rock.png",
+      "outputName": "rock"
+    },
+    {
       "id": "shallow-water",
       "name": "Shallow water",
       "group": "Water",

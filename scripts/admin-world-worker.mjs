@@ -98,6 +98,15 @@ function storyPinWarnings(before, after) {
  */
 function reconcile(request) {
   const document = structuredClone(request.document), added = [];
+  // Towns saved before painted ground that kept their image plates take the seed's ground, which was
+  // classified from those plates; vector terrain converts exactly when the document is parsed.
+  if (document.version === 3) for (const [id, scene] of Object.entries(document.maps ?? {})) {
+    const seeded = request.seed?.maps?.[id]?.ground;
+    if (!scene.ground && !scene.modularTerrain && seeded && scene.width === request.seed.maps[id].width && scene.height === request.seed.maps[id].height) {
+      scene.ground = structuredClone(seeded);
+      added.push(`${id}/ground`);
+    }
+  }
   for (const [id, seed] of Object.entries(request.seed?.maps ?? {})) {
     const scene = document.maps?.[id];
     if (!scene) continue;
@@ -106,8 +115,9 @@ function reconcile(request) {
       for (const row of seed[key] ?? []) if (!known.has(row.id)) { rows.push(structuredClone(row)); added.push(`${id}/${row.id}`); }
     }
   }
+  const upgraded = document.version !== 4;
   const parsed = parseWorldSceneDocument(document);
-  const changedMaps = [...new Set(added.map(entry => entry.split('/')[0]))];
+  const changedMaps = upgraded ? Object.keys(parsed.maps) : [...new Set(added.map(entry => entry.split('/')[0]))];
   return {ok: true, added, bundle: {document: parsed, changedMaps, worldMaps: compileRegistry(parsed),
     investigations: compileStoryRules(parsed, authoredRules, {strict: false}), contentVersion: sceneContentVersion(parsed), diagnostics: []}};
 }

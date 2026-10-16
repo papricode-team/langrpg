@@ -1,7 +1,7 @@
 import {parseWorldSceneDocument, type WorldScene, type WorldSceneDocument} from './scene-schema';
 
 /** Empty until loadPublishedWorld runs: the server owns the world. */
-export let sceneDocument: WorldSceneDocument = {version: 3, maps: {}};
+export let sceneDocument: WorldSceneDocument = {version: 4, maps: {}};
 export let sceneContentVersion = '';
 
 /** Load the published world before creating scenes or resolving map placements. */
