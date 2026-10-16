@@ -3922,6 +3922,11 @@
   "en": "Voss from the Brass Office says the ticket is not valid.",
   "tr": "Messingamt'tan Voss, biletin geçerli olmadığını söylüyor."
  },
+ "clue:a1-arrival:lead:0": {
+  "de": "Marta hat Kaffee für dich. Geh ins Café.",
+  "en": "Marta has coffee for you. Go to the café.",
+  "tr": "Marta’nın senin için kahvesi var. Kafeye git."
+ },
  "clue:a1-arrival:letter:0": {
   "de": "Du bist da. Gut.",
   "en": "You are here. Good.",
@@ -3980,6 +3985,11 @@
   "en": "The receipt carries the Brass Office stamp.",
   "tr": "Fişin üzerinde Messingamt'ın damgası var."
  },
+ "clue:a1-cafe:lead:0": {
+  "de": "Otto liest mit dir den Plan am Bahnhof.",
+  "en": "Otto will read the timetable with you at the station.",
+  "tr": "Otto seninle istasyonda tarifeyi okuyor."
+ },
  "clue:a1-cafe:letter:0": {
   "de": "Trink deinen Kaffee. Er ist für dich.",
   "en": "Drink your coffee. It is for you.",
@@ -4009,6 +4019,11 @@
   "en": "The tea is still on the table.",
   "tr": "Çay hâlâ masanın üstünde."
  },
+ "clue:a1-room:lead:0": {
+  "de": "Fritz wartet auf dich. Geh wieder zu ihm.",
+  "en": "Fritz is waiting for you. Go back to him.",
+  "tr": "Fritz seni bekliyor. Yine ona git."
+ },
  "clue:a1-shopping:title": {
   "en": "The place without a name",
   "tr": "Adı olmayan yer"
@@ -4027,6 +4042,11 @@
   "de": "Ein Platz hat keinen Namen.",
   "en": "One place has no name.",
   "tr": "Bir yerin adı yok."
+ },
+ "clue:a1-shopping:lead:0": {
+  "de": "Marta hat ein Zimmer für dich.",
+  "en": "Marta has a room for you.",
+  "tr": "Marta'nın senin için bir odası var."
  },
  "clue:a1-market:title": {
   "en": "A place at Fritz’s table",
@@ -4163,6 +4183,11 @@
   "en": "Otto’s old office has been shut for twelve years. Tickets for platform seven are kept there.",
   "tr": "Otto'nun eski ofisi on iki yıldır kapalı. Yedinci peronun biletleri orada duruyor."
  },
+ "clue:a1-station:lead:0": {
+  "de": "Geh morgen zu Marta ins Café.",
+  "en": "Go to Marta’s café tomorrow.",
+  "tr": "Yarın kafeye, Marta’ya git."
+ },
  "clue:a1-station:letter:0": {
   "de": "Ich warte. Ich bin nicht weit.",
   "en": "I am waiting. I am not far.",
@@ -4216,6 +4241,11 @@
   "en": "Near the post office it flickers. A name is fading there.",
   "tr": "Postanenin yanında göz kırpıyor. Orada bir isim siliniyor."
  },
+ "clue:a1-workshop:lead:0": {
+  "de": "Emils Lampe geht beim Messingamt aus.",
+  "en": "Emil’s lamp goes out by the Brass Office.",
+  "tr": "Emil’in lambası Pirinç Daire’nin yanında sönüyor."
+ },
  "clue:a1-workshop:letter:0": {
   "de": "Geh mit dem Licht.",
   "en": "Go with the light.",
@@ -4240,6 +4270,11 @@
   "en": "The book says only: E.",
   "tr": "Defterde yalnızca şu yazıyor: E."
  },
+ "clue:a1-bike:lead:0": {
+  "de": "Lina wartet auf der Post auf ihr Fahrrad.",
+  "en": "Lina is waiting at the post office for her bike.",
+  "tr": "Lina postanede bisikletini bekliyor."
+ },
  "clue:a1-phone:title": {
   "en": "A call to the station",
   "tr": "İstasyona bir telefon"
@@ -4258,6 +4293,11 @@
   "de": "Bei Gartenstraße sieben steht kein Name.",
   "en": "There is no name next to Gartenstraße seven.",
   "tr": "Gartenstraße yedinin yanında isim yok."
+ },
+ "clue:a1-phone:lead:0": {
+  "de": "Otto wartet am Bahnhof.",
+  "en": "Otto is waiting at the station.",
+  "tr": "Otto istasyonda bekliyor."
  },
  "clue:a1-invitation:title": {
   "en": "A seat at Friday’s table",
@@ -4278,9 +4318,19 @@
   "en": "That is how the names stay at his table.",
   "tr": "İsimler böyle onun masasında kalıyor."
  },
+ "clue:a1-invitation:lead:0": {
+  "de": "Lina hat noch Post für dich.",
+  "en": "Lina still has post for you.",
+  "tr": "Lina’da senin için hâlâ posta var."
+ },
  "clue:a1-lost-found:title": {
   "en": "The lost-and-found table",
   "tr": "Kayıp eşya masası"
+ },
+ "clue:a1-lost-found:lead:0": {
+  "de": "Fritz hat eine Frage für dich.",
+  "en": "Fritz has a question for you.",
+  "tr": "Fritz’in sana bir sorusu var."
  },
  "clue:a1-lost-parcel:title": {
   "en": "The letter that asks too much",
@@ -8027,6 +8077,11 @@
   "en": "But here names only stay when they are said aloud.",
   "tr": "Ama burada isimler ancak yüksek sesle söylenince kalır."
  },
+ "clue:a1-notice:lead:0": {
+  "de": "Fritz hat Brot. Geh zu ihm auf den Markt.",
+  "en": "Fritz has bread. Go to him at the market.",
+  "tr": "Fritz'de ekmek var. Pazarda ona git."
+ },
  "clue:a1-notice:letter:0": {
   "de": "Sie sagen: Sei ruhig. Ich sage: Sag die Namen.",
   "en": "They say: be quiet. I say: say the names.",
@@ -8807,7 +8862,7 @@
  "evidence:a1-office-window:lindenhafen-office-window": {
   "de": "Gartenstraße 7: kein Name. Daneben: Regel vier. Wie auf dem Zettel.",
   "en": "7 Gartenstraße: no name. Beside it: Rule four. Written as on the notice.",
-  "tr": "Kayıt defteri: Gartenstraße 7. İsim silinmiş. Yanında: Dördüncü kural. Notla aynı el yazısı."
+  "tr": "Gartenstraße 7: isim yok. Yanında: dördüncü kural. Nottaki gibi."
  },
  "gloss:liste:list": {
   "en": "list",
@@ -8831,6 +8886,11 @@
   "de": "Sie sagt: Herr Voss weiß das.",
   "en": "She says: Mr Voss knows about it.",
   "tr": "Diyor ki: Bay Voss bunu biliyor."
+ },
+ "clue:a1-office-window:lead:0": {
+  "de": "Linas Fahrrad ist noch bei Emil.",
+  "en": "Lina’s bike is still at Emil’s.",
+  "tr": "Lina’nın bisikleti hâlâ Emil’de."
  },
  "clue:a1-office-window:letter:0": {
   "de": "Ruhig ist nicht leer. Aber leer ist nicht ruhig.",
@@ -14789,25 +14849,10 @@
   "en": "daily",
   "tr": "günlük"
  },
- "clue:a1-arrival:lead:0": {
-  "de": "Marta hat Kaffee für dich. Geh ins Café.",
-  "en": "Marta has coffee for you. Go to the café.",
-  "tr": "Marta’nın senin için kahvesi var. Kafeye git."
- },
  "dialogue:a1-cafe-complete-1": {
   "de": "Aber jetzt wartet Otto am Plan.",
   "en": "But right now Otto is waiting at the timetable.",
   "tr": "Ama şimdi Otto tarifenin başında bekliyor."
- },
- "clue:a1-cafe:lead:0": {
-  "de": "Otto liest mit dir den Plan am Bahnhof.",
-  "en": "Otto will read the timetable with you at the station.",
-  "tr": "Marta’nın senin için kahvesi var. Kafeye git."
- },
- "clue:a1-notice:lead:0": {
-  "de": "Fritz hat Brot. Geh zu ihm auf den Markt.",
-  "en": "Fritz has bread. Go to him at the market.",
-  "tr": "Fritz'de ekmek var. Pazarda ona git."
  },
  "dialogue:a1-market-intro-room-three": {
   "de": "Marta sagt, du hast Zimmer drei. Gut so!",
@@ -14824,60 +14869,15 @@
   "en": "Marta has a room for you.",
   "tr": "Marta'nın senin için bir odası var."
  },
- "clue:a1-shopping:lead:0": {
-  "de": "Marta hat ein Zimmer für dich.",
-  "en": "Marta has a room for you.",
-  "tr": "Marta'nın senin için bir odası var."
- },
- "clue:a1-room:lead:0": {
-  "de": "Fritz wartet auf dich. Geh wieder zu ihm.",
-  "en": "Fritz is waiting for you. Go back to him.",
-  "tr": "Fritz seni bekliyor. Yine ona git."
- },
  "dialogue:a1-station-complete-1": {
   "de": "Geh morgen zu Marta. Sie hat ein Telefon.",
   "en": "Go to Marta tomorrow. She has a telephone.",
   "tr": "Yarın Marta’ya git. Onun telefonu var."
  },
- "clue:a1-station:lead:0": {
-  "de": "Geh morgen zu Marta ins Café.",
-  "en": "Go to Marta’s café tomorrow.",
-  "tr": "Yarın kafeye, Marta’ya git."
- },
- "clue:a1-phone:lead:0": {
-  "de": "Otto wartet am Bahnhof.",
-  "en": "Otto is waiting at the station.",
-  "tr": "Otto istasyonda bekliyor."
- },
  "dialogue:a1-workshop-complete-1": {
   "de": "Sieh, die Lampe! Beim Messingamt geht sie aus.",
   "en": "Look, the lamp! By the Brass Office it goes out.",
   "tr": "Bak, lamba! Pirinç Daire’nin yanında sönüyor."
- },
- "clue:a1-workshop:lead:0": {
-  "de": "Emils Lampe geht beim Messingamt aus.",
-  "en": "Emil’s lamp goes out by the Brass Office.",
-  "tr": "Emil’in lambası Pirinç Daire’nin yanında sönüyor."
- },
- "clue:a1-office-window:lead:0": {
-  "de": "Linas Fahrrad ist noch bei Emil.",
-  "en": "Lina’s bike is still at Emil’s.",
-  "tr": "Lina’nın bisikleti hâlâ Emil’de."
- },
- "clue:a1-bike:lead:0": {
-  "de": "Lina wartet auf der Post auf ihr Fahrrad.",
-  "en": "Lina is waiting at the post office for her bike.",
-  "tr": "Lina postanede bisikletini bekliyor."
- },
- "clue:a1-lost-found:lead:0": {
-  "de": "Fritz hat eine Frage für dich.",
-  "en": "Fritz has a question for you.",
-  "tr": "Fritz’in sana bir sorusu var."
- },
- "clue:a1-invitation:lead:0": {
-  "de": "Lina hat noch Post für dich.",
-  "en": "Lina still has post for you.",
-  "tr": "Lina’da senin için hâlâ posta var."
  },
  "dialogue:a1-shopping-intro-receipt-kept": {
   "de": "Marta sagt, du hast die Rechnung noch. Gut so!",
