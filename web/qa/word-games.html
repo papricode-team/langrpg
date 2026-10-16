@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Word game QA · glotworld</title>
+    <style>body{margin:0;background:#183b31;color:#f4e8ca}#qa-controls{padding:12px 20px;display:flex;flex-wrap:wrap;gap:6px 14px}#qa-controls a{color:inherit}#qa-status{font-size:12px;width:100%;margin:4px 0 0}</style>
+  </head>
+  <body>
+    <div id="qa-controls"><p id="qa-status">Isolated development fixture with picture nouns. Answers are graded locally; no player record is changed. Add &amp;silent=1 for silent mode.</p></div>
+    <dialog class="dialog minigame-dialog activity-dialog" id="qa-dialog" aria-label="Word game preview"><button type="button" class="dialog-close" id="qa-close" aria-label="Close">×</button><div id="minigame-root"></div></dialog>
+    <script type="module">
+      import '../src/style.css';
+      import '../src/activities.css';
+      import '../src/minigames/minigames.css';
+      import { miniGameDefinitions, miniGameById } from '../src/minigames/catalogue.ts';
+      import { WordMemoryGame } from '../src/minigames/word-games.ts';
+      import { createMiniGameHost } from '../src/minigames/host.ts';
+      import { itemSpriteManifest } from '../src/minigames/item-manifest.ts';
+      import { emptyProgress } from '../src/api.ts';
+      if (import.meta.env.DEV) {
+        // The development catalogue is filled from the content API; this fixture registers the word games itself.
+        const fixtureGames=[{"id": "lantern-pairs", "title": "Lantern Pairs", "host": "Elise · inn noticeboard", "tier": "A", "mechanic": "pairs", "modalities": ["recognition"], "levels": ["A1", "A2", "B1"], "instruction": "Tie each German word to its meaning. Clear the whole board.", "seconds": 90, "rounds": 30}, {"id": "honest-mirror", "title": "The Honest Mirror", "host": "Ada · archive mirror", "tier": "A", "mechanic": "mirror", "modalities": ["recognition"], "levels": ["A1", "A2", "B1"], "instruction": "Does the mirror tell the truth about the word? If not, name the true meaning.", "seconds": 75, "rounds": 30}, {"id": "scrambled-sign", "title": "The Scrambled Sign", "host": "Emil · sign workshop", "tier": "A", "mechanic": "anagram", "modalities": ["production"], "levels": ["A1", "A2", "B1"], "instruction": "The sign painter mixed up the letters. Put the German word back together.", "seconds": 90, "rounds": 20}, {"id": "market-baskets", "title": "Marta’s Market Baskets", "host": "Marta · market cart", "tier": "A", "mechanic": "baskets", "modalities": ["recognition"], "levels": ["A1", "A2", "B1"], "instruction": "Pack each word into the basket for its topic.", "seconds": 75, "rounds": 30}, {"id": "falling-leaves", "title": "Falling Leaves", "host": "Greta · linden tree", "tier": "A", "mechanic": "leaves", "modalities": ["recognition"], "levels": ["A1", "A2", "B1"], "instruction": "Catch the leaf with the word’s meaning before it reaches the ground.", "seconds": 75, "rounds": 30}, {"id": "letter-loom", "title": "The Letter Loom", "host": "Lina · weaving room", "tier": "A", "mechanic": "loom", "modalities": ["production"], "levels": ["A1", "A2", "B1"], "instruction": "Find the German word for each meaning woven into the letters. Tap its first and last letter.", "seconds": 120, "rounds": 24}, {"id": "lantern-fuse", "title": "The Lantern Fuse", "host": "Jonas · signal tower", "tier": "A", "mechanic": "fuse", "modalities": ["production"], "levels": ["A1", "A2", "B1"], "instruction": "Guess the word’s letters before the fuse burns down.", "seconds": 120, "rounds": 15}, {"id": "fog-window", "title": "The Fog Window", "host": "Pip · harbour window", "tier": "A", "mechanic": "fog", "modalities": ["recognition"], "levels": ["A1", "A2", "B1"], "instruction": "Name the object behind the glass before the fog clears.", "sprites": true, "nouns": true, "seconds": 75, "rounds": 24}, {"id": "echo-bells", "title": "Echo Bells", "host": "The bell tower", "tier": "A", "mechanic": "bells", "modalities": ["listening", "recognition"], "levels": ["A1", "A2", "B1"], "instruction": "Hear the word, then ring the bell with its meaning. In silent mode the word appears for a moment.", "seconds": 75, "rounds": 30}, {"id": "night-train", "title": "The Night Train", "host": "Otto · night platform", "tier": "A", "mechanic": "train", "modalities": ["production"], "levels": ["A1", "A2", "B1"], "instruction": "Write the German word before the night train leaves the platform.", "seconds": 120, "rounds": 20}];
+        if(!miniGameDefinitions.length)for(const game of fixtureGames){miniGameDefinitions.push(game);miniGameById.set(game.id,game);}
+        const params=new URLSearchParams(location.search),gameId=params.get('game')??'lantern-pairs',silent=params.get('silent')==='1';
+        const controls=document.querySelector('#qa-controls');
+        controls.insertAdjacentHTML('afterbegin',fixtureGames.map(game=>`<a href="?game=${game.id}${silent?'&silent=1':''}">${game.title}</a>`).join(''));
+        // The painted nouns double as a fixture lexicon; their English is the art subject's first noun.
+        // Browser manifests omit lemmas, so the fixture spells each noun from its frame name.
+        const spell=name=>{const word=name.replace(/^item-/,'').replace(/-noun$/,'').replace(/ae/g,'ä').replace(/oe/g,'ö').replace(/ue/g,'ü');return word[0].toLocaleUpperCase('de')+word.slice(1);};
+        const lexicon=Object.values(itemSpriteManifest).filter(entry=>entry.lexemeId&&entry.kind==='noun'&&!/-\w+-noun$/.test(entry.name.replace(/^item-/,''))).slice(0,40).map(entry=>({id:entry.lexemeId,lemma:spell(entry.name),english:entry.subject.replace(/^(one|a|an|two|three|small|large)\s+/,'').split(/\s+with\s+|,|\s+on\s+|\s+in\s+/)[0],topic:entry.domain,level:'A1',pos:'noun'}));
+        let progress={...emptyProgress(),intake:{version:1,activeSeconds:0,creditSeconds:0,lastBeatAt:'',wordIds:lexicon.map(word=>word.id)}};
+        const api={selfId:'word-qa',token:'isolated-fixture',async expose(){return {progress};},async request(){throw new Error('Fixture answers are graded locally');}};
+        const status=document.querySelector('#qa-status'),dialog=document.querySelector('#qa-dialog'),definition=miniGameById.get(gameId);
+        const host=createMiniGameHost({api,gameId,lexicon,exercises:[],progress:()=>progress,onProgress:value=>{progress=value;},onEnd:summary=>{status.textContent=JSON.stringify(summary);},playerName:'QA',silent,muted:true,reducedMotion:false,narration:()=>{}});
+        // Exercise IDs resolve through the live course registry, so the fixture grades each RoundResult itself.
+        host.submit=async result=>{
+          const word=lexicon.find(word=>word.id===result.lexemeId),answer=String(result.answer).toLocaleLowerCase('de');
+          const correct=!!word&&(result.answerKind==='topic'?result.answer===word.topic:word.lemma.toLocaleLowerCase('de')===answer);
+          progress={...progress,revision:progress.revision+1};
+          return {attemptId:crypto.randomUUID(),correct,xpAdded:0,duplicate:false,correctedAnswer:word?.lemma??'',reason:'',progress};
+        };
+        const game=new WordMemoryGame(definition);
+        dialog.showModal();game.mount(document.querySelector('#minigame-root'),host,{level:params.get('level')??'A1',seed:Number(params.get('seed')??7126)});
+        const close=()=>{game.destroy();host.destroy();dialog.close();};
+        document.querySelector('#qa-close').addEventListener('click',close);
+        dialog.addEventListener('cancel',event=>{event.preventDefault();close();});
+        document.addEventListener('click',event=>{const next=event.target.closest?.('[data-minigame]');if(next){event.preventDefault();location.search=`?game=${next.dataset.minigame}${silent?'&silent=1':''}`;}});
+        window.addEventListener('pagehide',close,{once:true});
+      }
+    </script>
+  </body>
+</html>

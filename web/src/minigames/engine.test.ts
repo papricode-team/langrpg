@@ -49,6 +49,11 @@ beforeEach(()=>{
 afterEach(()=>{for(const game of games)game.destroy();document.body.replaceChildren();vi.useRealTimers();vi.unstubAllGlobals();});
 
 describe('shared mini-game lifecycle and authoritative evidence',()=>{
+  it('blames a small pool, not silent mode, when a reading game has too few words',()=>{
+    const {root}=setup('brass-stamp',{silent:true,pool:vi.fn(()=>[])});
+    expect(root.textContent).toContain('These words are still returning.');
+    expect(root.textContent).not.toContain('silent mode');
+  });
   it('keeps a fetched UUID workshop sentence eligible for the workbench after its lexical rounds', async () => {
     const exercise = publicStoryExercise('a1-workshop-', 'sentence');
     const restored = { ...emptyProgress(), intake: { version: 1, activeSeconds: 0, creditSeconds: 0, lastBeatAt: '', wordIds: [...exercise.wordIds] } };
@@ -176,7 +181,7 @@ describe('shared mini-game lifecycle and authoritative evidence',()=>{
     expect(vi.mocked(host.submit).mock.calls[0][0]).toMatchObject({hinted:false,answer:'Kaffee'});
   });
   it('registers all eighteen catalogue games as independent lifecycle controllers',async()=>{
-    expect(miniGameDefinitions).toHaveLength(20);expect(new Set(miniGameDefinitions.map(game=>game.id)).size).toBe(20);
+    expect(miniGameDefinitions).toHaveLength(30);expect(new Set(miniGameDefinitions.map(game=>game.id)).size).toBe(30);
     for(const definition of miniGameDefinitions){const game=await loadMiniGame(definition.id);expect(game.id).toBe(definition.id);expect(game.title).toBe(definition.title);expect(game.modalities).toEqual(definition.modalities);expect(game.levels).toEqual(definition.levels);}
     await expect(loadMiniGame('unknown')).rejects.toThrow('Unknown lantern game');
   });

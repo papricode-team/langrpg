@@ -110,6 +110,7 @@ import { miniGameDefinitions, miniGameById } from './minigames/catalogue';
 import type { MiniGame } from './minigames/types';
 import './minigames/minigames.css';
 import { MiniGameInput } from './minigames/input';
+import { isWordGame } from './minigames/word-game-mechanics';
 import { DialogSession, openAsyncDialog, trackDialogClose, type AsyncDialogHost } from './dialog-session';
 
 const uiCheckRequest = import.meta.env.DEV ? new URLSearchParams(location.search).get('ui-check') : null;
@@ -1128,9 +1129,13 @@ function miniGameHostLinks(id?:string):string {
   return `<div class="minigame-host-links"><button data-minigame="${e(game.id)}">${icon('lantern')} ${t('Play')} ${e(game.title)} ${icon('arrow')}</button></div>`;
 }
 function miniGameBoard(storyOnly=false):string {
+  return lanternGameBoard(storyOnly?'Story games':'Mini-games',game=>!isWordGame(game)&&(!storyOnly||game.tier==='B'))+(storyOnly?'':lanternGameBoard('Word games',isWordGame));
+}
+function lanternGameBoard(title:'Story games'|'Mini-games'|'Word games',include:(game:typeof miniGameDefinitions[number])=>boolean):string {
   const levels:Level[]=['A1','A2','B1'];
-  const choices=miniGameDefinitions.filter(game=>game.levels.some(value=>levels.indexOf(value)<=levels.indexOf(level))&&(!storyOnly||game.tier==='B'));
-  return `<section class="lantern-games"><h3>${e(t(storyOnly?'Story games':'Mini-games'))}</h3><div class="minigame-grid">${choices.map(game=>{
+  const choices=miniGameDefinitions.filter(game=>game.levels.some(value=>levels.indexOf(value)<=levels.indexOf(level))&&include(game));
+  if(!choices.length)return '';
+  return `<section class="lantern-games"><h3>${e(t(title))}</h3><div class="minigame-grid">${choices.map(game=>{
     const gameLevel=game.levels.filter(value=>levels.indexOf(value)<=levels.indexOf(level)).at(-1)!;
     const quest=game.questIds?.find(id=>quests.find(quest=>quest.id===id)?.level===gameLevel)??game.questIds?.[0];
     const unlocked=!quest||questUnlocked(quest,progress.completedQuestIds);
@@ -1158,7 +1163,9 @@ async function startMiniGame(id:string):Promise<void>{
   if(id==='delivery-run'){try{await startWorldDelivery();}catch(error){toast((error as Error).message,true);}return;}
   const levels:Level[]=['A1','A2','B1'],gameLevel=definition.levels.filter(value=>levels.indexOf(value)<=levels.indexOf(level)).at(-1);
   if(!gameLevel){toast(`This lantern round belongs to ${definition.levels.join(' / ')}.`);return;}
-  if(definition.modalities.every(mode=>mode==='production')&&!writingReady()){showOpeningPracticeNotice(true);return;}
+  // Letter tiles, grids and guessed letters need no typing, so they stay open before writing practice.
+  if(definition.modalities.every(mode=>mode==='production')&&!['anagram','loom','fuse'].includes(definition.mechanic)&&!writingReady()){showOpeningPracticeNotice(true);return;}
+  if(isWordGame(definition))try{localStorage.setItem('atlas.wordGame.last',id);}catch{/* Rotation is only a convenience. */}
   if(['lantern-lighting','word-chain','hold-the-signal'].includes(id)){const hour=world.getWorldTime().hour;if(hour>=6&&hour<18){toast('The lantern games open at dusk, after 18:00.');return;}}
   const questId=definition.questIds?.find(id=>quests.find(quest=>quest.id===id)?.level===gameLevel)??definition.questIds?.[0];
   if(questId&&!questUnlocked(questId,progress.completedQuestIds)){toast('Follow the story to this scene first.');return;}
@@ -1278,7 +1285,15 @@ function todaysWordsCard(): string {
   if (!course) return '';
   const words = todaysWords(progress).map(id => course!.lexemeById.get(id)).filter((word): word is CourseLexeme => !!word);
   if (!words.length) return '';
-  return `<section class="todays-words"><h3>${e(t('Today’s words'))}</h3><button class="primary-button" data-action="todays-words">${t('Practise today’s words')}</button></section>`;
+  const game = upcomingWordGame();
+  return `<section class="todays-words"><h3>${e(t('Today’s words'))}</h3><button class="primary-button" data-action="todays-words">${t('Practise today’s words')}</button>${game ? `<button class="outline-button" data-minigame="${e(game.id)}">${icon('lantern')} ${t('Play')} ${e(game.title)}</button><button class="text-button" data-view="activities">${t('More word games')}</button>` : ''}</section>`;
+}
+/** Word games take turns, so the journal offers a different one after each round. */
+function upcomingWordGame() {
+  const games = miniGameDefinitions.filter(isWordGame);
+  let last = '';
+  try { last = localStorage.getItem('atlas.wordGame.last') ?? ''; } catch { /* Rotation is only a convenience. */ }
+  return games[(games.findIndex(game => game.id === last) + 1) % games.length];
 }
 async function startTodaysWords() {
   const current = dialogSession.begin();
