@@ -155,6 +155,8 @@ try {
     note('gofmt', unformatted.status === 0 && !unformatted.stdout.trim(), unformatted.stdout.trim() || undefined);
   }
   if (want.web) {
+    // Worktrees hold LFS pointers; the art tests need pixels. Clones from the shared cache cost no disk.
+    await run('art from LFS cache', process.execPath, ['scripts/clone-art.mjs']);
     await run('assets', 'npm', ['run', 'assets']);
     await run('generated content committed', 'git', ['diff', '--exit-code', '--stat', '--', ...generated]);
   }
