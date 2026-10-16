@@ -210,7 +210,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
       this.createPortal(entrance.id, entrance.x * this.worldWidth, entrance.y * this.worldHeight, entrance.label, sign);
     }
     this.createResidents();
-    this.animals = new WorldAnimals(this, map.id, getWorldScene(map.id).legacyOffset ?? { x: 0, y: 0 }, this.navigation, this.spawnPoint(),
+    this.animals = new WorldAnimals(this, map.id, this.navigation, this.spawnPoint(),
       (hit, target, activate) => this.bindHover(hit, target, activate), id => this.approachInteraction(id));
     this.atmosphere = new WorldAtmosphere(this, map.id, this.scenery.lampLights);
     const marks = readWorld(this.registry, 'storyMarks') ?? emptyStoryMarks(map.id);
@@ -288,10 +288,15 @@ export class WorldScene extends ExploreScene implements EditSurface {
       const character = this.characters.get(op.id);
       if (character) { const point = this.navigation.closestPoint(op.x, op.y); character.x = point.x; character.y = point.y; }
     }
+    if (relevant.some(op => op.kind === 'placeAnimal' || op.kind === 'updateAnimal' || op.kind === 'removeAnimal')) {
+      this.animals?.destroy();
+      this.animals = new WorldAnimals(this, id, this.navigation, spawn,
+        (hit, target, activate) => this.bindHover(hit, target, activate), animalId => this.approachInteraction(animalId));
+    }
     this.syncMapObjects();
     this.syncPortals();
     const owners = new Set((scene.activities ?? []).map(slot => slot.ownerId));
-    if (relevant.some(op => op.kind === 'residents' || op.kind === 'ground' || op.kind === 'paint' || (op.kind !== 'moveAnchor' && op.kind !== 'place' && owners.has(op.id)) || (op.kind === 'place' && op.activities?.length))) this.rebuildActivityResidents();
+    if (relevant.some(op => op.kind === 'residents' || op.kind === 'ground' || op.kind === 'paint' || (op.kind !== 'moveAnchor' && op.kind !== 'place' && 'id' in op && owners.has(op.id)) || (op.kind === 'place' && op.activities?.length))) this.rebuildActivityResidents();
     this.editController?.documentChanged();
     this.refreshNearby();
   }
@@ -693,7 +698,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
         : this.decorativeElapsed);
       const position = sampleResidentMotion(motion, routineElapsed);
       const character = this.createCharacter(motion.id, motion.name, position.x, position.y, motion.avatar, undefined, motion.artVariant ?? -1, motion.artVariant);
-      this.animateCharacter(character, 0, 0, this.elapsed, Infinity, {
+      this.animateCharacter(character, 0, 0, this.elapsed, {
         moving: position.moving, distance: residentWalkDistance(motion, routineElapsed),
         velocityX: position.velocityX, velocityY: position.velocityY, facingLeft: residentFacingLeft(motion, routineElapsed),
       });
@@ -757,7 +762,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
       character.root.setVisible(visible && !resident.homeReached && !this.terrainOnly);
       // Sampling the exact route gait also advances culled residents, so they
       // return with the same pose and facing as continuously visible people.
-      this.animateCharacter(character, this.reducedMotion ? 0 : dx, this.reducedMotion ? 0 : dy, this.elapsed, Infinity, {
+      this.animateCharacter(character, this.reducedMotion ? 0 : dx, this.reducedMotion ? 0 : dy, this.elapsed, {
         moving: position.moving && !resident.homeReached, distance: residentWalkDistance(motion, sampleTime),
         velocityX: position.velocityX, velocityY: position.velocityY, facingLeft: residentFacingLeft(motion, sampleTime),
       });
@@ -803,7 +808,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
           character.figure!.setTexture(actor!.key,characterFrame(character.facing)).setPosition(0,0).setFlipX(false);
           character.componentPoseSet=undefined;character.frame=-1;
         }
-        this.animateCharacter(character,this.reducedMotion?0:dx,this.reducedMotion?0:dy,this.elapsed,Infinity,
+        this.animateCharacter(character,this.reducedMotion?0:dx,this.reducedMotion?0:dy,this.elapsed,
           {moving:sample.moving,distance:sample.walkDistance,velocityX:sample.velocityX,velocityY:sample.velocityY,facingLeft:sample.facingLeft});
       }
       const pose=!componentPose&&resident.actionFigure?residentActionPose(sample,this.reducedMotion):undefined;

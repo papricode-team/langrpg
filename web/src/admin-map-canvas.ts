@@ -1,3 +1,7 @@
+import {animalSpawns, nextAnimalId} from './animal-spawns';
+import {animalName, type AnimalSpecies} from './animal-types';
+import {ANIMAL_FRAME, animalTextureKey, animalWorldScale} from './animal-art';
+import {worldDepth} from './world-depth';
 /**
  * The admin map editor's canvas. It draws a town with the play renderers and
  * owns the pointer: selecting (click, Shift-click, box), dragging a whole
@@ -25,7 +29,7 @@ import {WorldMapAssets} from './world-map-assets';
 import {WorldScenery} from './world-scenery';
 import {GRID_SIZE,snap,wheelIntent} from './map-canvas-input';
 
-export type MapItemKind = 'scenery' | 'npc' | 'object';
+export type MapItemKind = 'scenery' | 'npc' | 'object' | 'animal';
 export interface MapItem { kind: MapItemKind; id: string; }
 export interface MapLayers { labels: boolean; footprints: boolean; walkable: boolean; grid: boolean; }
 export type MapTool = 'select' | 'hand';
@@ -92,6 +96,8 @@ export class AdminMapScene extends Phaser.Scene {
   private snapping = false;
   private thumbnails = new Map<string, string | undefined>();
   private ghostSequence = 0;
+  private animalSprites = new Map<string, Phaser.GameObjects.Image>();
+  private placingAnimal?: {species: AnimalSpecies; variant: number; ghost: Phaser.GameObjects.Image};
 
   constructor() { super('admin-map'); }
 
@@ -122,6 +128,8 @@ export class AdminMapScene extends Phaser.Scene {
   async show(mapId: MapId): Promise<void> {
     const generation = ++this.loading;
     this.cancelGesture(); this.setSelection([]);
+    for (const image of this.animalSprites.values()) image.destroy();
+    this.animalSprites.clear();
     this.scenery?.destroy(); this.scenery = undefined;
     this.terrain?.destroy(); this.terrain = undefined;
     const previous = this.loaded;
@@ -245,7 +253,7 @@ export class AdminMapScene extends Phaser.Scene {
   }
   selectAll(): void {
     const scene = getWorldScene(this.mapId);
-    this.setSelection(scene.scenery.map(item => ({kind: 'scenery' as const, id: item.id})));
+    this.setSelection([...scene.scenery.map(item => ({kind: 'scenery' as const, id: item.id})), ...animalSpawns(scene).map(item => ({kind: 'animal' as const, id: item.id}))]);
   }
   /** Find what a town ID refers to. */
   itemFor(id: string): MapItem | undefined {
@@ -253,20 +261,21 @@ export class AdminMapScene extends Phaser.Scene {
     if (scene.scenery.some(item => item.id === id)) return {kind: 'scenery', id};
     if (scene.npcs.some(item => item.id === id)) return {kind: 'npc', id};
     if (scene.objects.some(item => item.id === id)) return {kind: 'object', id};
+    if (animalSpawns(scene).some(item => item.id === id)) return {kind: 'animal', id};
     return undefined;
   }
 
   position(item: MapItem): ScenePoint | undefined {
     const scene = getWorldScene(this.mapId);
     const value = item.kind === 'scenery' ? scene.scenery.find(entry => entry.id === item.id)
-      : (item.kind === 'npc' ? scene.npcs : scene.objects).find(entry => entry.id === item.id);
+      : (item.kind === 'animal' ? animalSpawns(scene) : item.kind === 'npc' ? scene.npcs : scene.objects).find(entry => entry.id === item.id);
     return value ? {x: value.x, y: value.y} : undefined;
   }
   private sceneryItem(id: string): SceneScenery | undefined { return getWorldScene(this.mapId).scenery.find(item => item.id === id); }
 
   private anchors(): (MapItem & ScenePoint)[] {
     const scene = getWorldScene(this.mapId);
-    return [...scene.npcs.map(anchor => ({kind: 'npc' as const, id: anchor.id, x: anchor.x, y: anchor.y})),
+    return [...animalSpawns(scene).map(anchor => ({kind: 'animal' as const, id: anchor.id, x: anchor.x, y: anchor.y})), ...scene.npcs.map(anchor => ({kind: 'npc' as const, id: anchor.id, x: anchor.x, y: anchor.y})),
       ...scene.objects.map(anchor => ({kind: 'object' as const, id: anchor.id, x: anchor.x, y: anchor.y}))];
   }
 
@@ -297,6 +306,15 @@ export class AdminMapScene extends Phaser.Scene {
     }
     if (!this.active || !this.scenery) return;
     const point = this.worldPoint(pointer);
+    if (this.placingAnimal) {
+      const {species, variant} = this.placingAnimal, town = getWorldScene(this.mapId);
+      const at = this.snapping !== event.altKey ? {x: snap(point.x), y: snap(point.y)} : point;
+      const item = {id: nextAnimalId(town, species), species, variant, ...at};
+      if (this.host!.commit([{kind: 'placeAnimal', map: this.mapId, item}], `Add ${animalName(item)}`) && !event.shiftKey) {
+        this.cancelGesture(); this.setSelection([{kind: 'animal', id: item.id}]);
+      }
+      return;
+    }
     if (this.placing) { this.placing.x = point.x; this.placing.y = point.y; this.drop(event.shiftKey); return; }
     const target = this.pick(point.x, point.y), additive = event.shiftKey || event.metaKey || event.ctrlKey;
     if (!target) {
@@ -325,6 +343,11 @@ export class AdminMapScene extends Phaser.Scene {
     this.host?.pointer(point.x >= 0 && point.y >= 0 && point.x <= scene.width && point.y <= scene.height ? point : undefined);
     if (!this.active) return;
     const event = pointer.event as MouseEvent;
+    if (this.placingAnimal) {
+      const at = this.snapping !== event.altKey ? {x: snap(point.x), y: snap(point.y)} : point;
+      this.placingAnimal.ghost.setPosition(at.x, at.y);
+      return;
+    }
     if (this.placing) {
       const at = this.snapping !== event.altKey ? {x: snap(point.x), y: snap(point.y)} : point;
       this.placing.x = at.x; this.placing.y = at.y;
@@ -372,6 +395,7 @@ export class AdminMapScene extends Phaser.Scene {
   private moveOps(dx: number, dy: number, items: readonly {item: MapItem; x: number; y: number}[]): WorldEditOp[] {
     if (!dx && !dy) return [];
     return items.map(({item, x, y}) => item.kind === 'scenery' ? {kind: 'move' as const, map: this.mapId, id: item.id, x: x + dx, y: y + dy}
+      : item.kind === 'animal' ? {kind: 'updateAnimal' as const, map: this.mapId, id: item.id, x: x + dx, y: y + dy}
       : {kind: 'moveAnchor' as const, map: this.mapId, anchor: item.kind, id: item.id, x: x + dx, y: y + dy});
   }
 
@@ -416,6 +440,15 @@ export class AdminMapScene extends Phaser.Scene {
   // Placing ----------------------------------------------------------------------------------------
 
   get placingChoice(): PaletteChoice | undefined { return this.placing?.choice; }
+
+  startPlacingAnimal(species: AnimalSpecies, variant: number): void {
+    this.cancelGesture(); this.setSelection([]);
+    const point = this.worldPoint(this.input.activePointer);
+    const ghost = this.add.image(point.x, point.y, animalTextureKey(species, this.mapId), `${variant}-idle-0`)
+      .setOrigin(.5, ANIMAL_FRAME.footY / ANIMAL_FRAME.height).setScale(animalWorldScale[species]).setAlpha(.7).setDepth(1e7);
+    this.placingAnimal = {species, variant, ghost};
+    this.host?.toast(`Click to place ${animalName({species, variant})}. Shift-click places more; Escape cancels.`);
+  }
 
   startPlacing(choice: PaletteChoice): void {
     this.cancelGesture();
@@ -465,6 +498,7 @@ export class AdminMapScene extends Phaser.Scene {
   /** Cancel whatever the pointer is doing. Returns false when nothing was going on. */
   cancelGesture(): boolean {
     let cancelled = false;
+    if (this.placingAnimal) { this.placingAnimal.ghost.destroy(); this.placingAnimal = undefined; cancelled = true; }
     if (this.placing) { this.cancelPlacing(); cancelled = true; }
     if (this.drag) { if (this.drag.moved) this.scenery?.clearPreview(); this.drag = undefined; cancelled = true; }
     if (this.marquee) { this.marquee = undefined; cancelled = true; }
@@ -475,6 +509,16 @@ export class AdminMapScene extends Phaser.Scene {
   // Artwork ---------------------------------------------------------------------------------------
 
   /** A small picture of an object's artwork from the loaded town, cached per town. */
+  animalThumbnail(species: AnimalSpecies, variant: number): string | undefined {
+    const key = `animal-${species}-${variant}`;
+    if (this.thumbnails.has(key)) return this.thumbnails.get(key);
+    const frame = this.textures.getFrame(animalTextureKey(species, this.mapId), `${variant}-idle-0`);
+    if (!frame) return undefined;
+    const canvas = document.createElement('canvas'); canvas.width = canvas.height = 128;
+    canvas.getContext('2d')!.drawImage(frame.source.image as HTMLImageElement, frame.cutX, frame.cutY, frame.cutWidth, frame.cutHeight, 0, 0, 128, 128);
+    const data = canvas.toDataURL(); this.thumbnails.set(key, data); return data;
+  }
+
   thumbnail(frame: string): string | undefined {
     if (!this.thumbnails.has(frame) || !this.thumbnails.get(frame)) this.thumbnails.set(frame, sceneryThumbnail(this, this.mapId, this.period, frame));
     return this.thumbnails.get(frame);
@@ -559,13 +603,24 @@ export class AdminMapScene extends Phaser.Scene {
     }
     // Story characters and evidence, which play draws as people and markers.
     const selected = new Set(this.selection.map(item => item.id)), offset = this.drag?.moved ? {x: this.drag.dx, y: this.drag.dy} : this.nudge ? {x: this.nudge.dx, y: this.nudge.dy} : {x: 0, y: 0};
+    const animals = animalSpawns(scene), present = new Set(animals.map(animal => animal.id));
+    for (const [id, image] of this.animalSprites) if (!present.has(id)) { image.destroy(); this.animalSprites.delete(id); }
+    for (const animal of animals) {
+      let image = this.animalSprites.get(animal.id);
+      if (!image) { image = this.add.image(0, 0, animalTextureKey(animal.species, this.mapId)); this.animalSprites.set(animal.id, image); }
+      const moving = selected.has(animal.id), x = animal.x + (moving ? offset.x : 0), y = animal.y + (moving ? offset.y : 0);
+      image.setTexture(animalTextureKey(animal.species, this.mapId), `${animal.variant}-idle-0`)
+        .setOrigin(.5, ANIMAL_FRAME.footY / ANIMAL_FRAME.height).setScale(animalWorldScale[animal.species]).setPosition(x, y).setDepth(worldDepth(y, 'character'));
+    }
     const names: {text: string; x: number; y: number; rank: number}[] = [];
     for (const anchor of this.anchors()) {
       const moving = selected.has(anchor.id), x = anchor.x + (moving ? offset.x : 0), y = anchor.y + (moving ? offset.y : 0);
-      const color = anchor.kind === 'npc' ? 0xf3c76a : 0x9fd3e0;
-      g.fillStyle(0x132a22, .88).fillCircle(x, y - 20, 13 / zoom);
-      g.lineStyle(2.5 / zoom, color, 1).strokeCircle(x, y - 20, 13 / zoom);
-      g.fillStyle(color, 1).fillCircle(x, y - 20, 4 / zoom);
+      const color = anchor.kind === 'animal' ? 0xb6e39d : anchor.kind === 'npc' ? 0xf3c76a : 0x9fd3e0;
+      if (anchor.kind !== 'animal') {
+        g.fillStyle(0x132a22, .88).fillCircle(x, y - 20, 13 / zoom);
+        g.lineStyle(2.5 / zoom, color, 1).strokeCircle(x, y - 20, 13 / zoom);
+        g.fillStyle(color, 1).fillCircle(x, y - 20, 4 / zoom);
+      }
       const focused = moving || this.hovered?.id === anchor.id;
       if (this.layers.labels && (zoom >= LABEL_ZOOM || focused))
         names.push({text: capitalName(objectLabel(scene, anchor.id)), x, y: y - 2, rank: focused ? 0 : anchor.kind === 'npc' ? 1 : 2});
@@ -612,6 +667,6 @@ export class AdminMapScene extends Phaser.Scene {
       this.placing.ghost?.setPosition(this.placing.x, this.placing.y).setTint(this.placing.verdict === 'error' ? 0xff9a8a : 0xffffff).setFlipX(false);
     }
     for (let index = labels; index < this.labels.length; index++) if (this.labels[index].visible) this.labels[index].setVisible(false);
-    this.game.canvas.style.cursor = this.pan ? 'grabbing' : this.panning ? 'grab' : this.placing ? 'crosshair' : this.drag?.moved ? 'move' : this.hovered && this.active ? 'pointer' : 'default';
+    this.game.canvas.style.cursor = this.pan ? 'grabbing' : this.panning ? 'grab' : this.placing || this.placingAnimal ? 'crosshair' : this.drag?.moved ? 'move' : this.hovered && this.active ? 'pointer' : 'default';
   }
 }

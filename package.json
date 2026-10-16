@@ -39,7 +39,7 @@
     "content:apply": "node scripts/word-map.mjs --apply",
     "content:check": "node scripts/word-map.mjs --check --require-reviewed",
     "release:check": "npm run content:check",
-    "content:check-schema": "node scripts/word-map.mjs --check --allow-pending",
+    "content:check-schema": "node scripts/word-map.mjs --check",
     "ui:check": "npm run ui:check --workspace web"
   }
 }

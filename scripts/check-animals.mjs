@@ -19,7 +19,7 @@ try{
  await page.waitForFunction(()=>{const s=window.atlasGame.scene.getScene('world');return s?.ready&&s.mapSpec.id==='lindenhafen'&&s.animals?.actors.length===12;},undefined,{timeout:60000});
  await mkdir('output/ui-screenshots',{recursive:true});
  for(const species of ['dog','chicken','cat','sheep']){
-  await page.selectOption('#animal',`animal:${species}:lindenhafen:0`);
+  await page.selectOption('#animal',`animal:${species}:lindenhafen-animal-${species}-1`);
   await page.click('#visit');
   await page.waitForTimeout(1500);
   await page.screenshot({path:`output/ui-screenshots/animals-world-${species}.png`});

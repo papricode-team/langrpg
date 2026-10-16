@@ -5,9 +5,9 @@ import manifest from '../../server/curriculum.json';
 
 // Act I is one path of 22 scenes; Act II has ten and Act III nine.
 const questIds = [
-  'a1-arrival', 'a1-timetable', 'a1-notice', 'a1-cafe', 'a1-room', 'a1-shopping', 'a1-market', 'a1-chalk',
-  'a1-neighbour', 'a1-pharmacy', 'a1-directions', 'a1-bench', 'a1-station', 'a1-weather', 'a1-workshop',
-  'a1-bike', 'a1-phone', 'a1-office-window', 'a1-invitation', 'a1-lost-found', 'a1-lost-parcel', 'a1-departure',
+  'a1-arrival', 'a1-cafe', 'a1-timetable', 'a1-notice', 'a1-shopping', 'a1-room', 'a1-market', 'a1-chalk',
+  'a1-neighbour', 'a1-pharmacy', 'a1-directions', 'a1-bench', 'a1-station', 'a1-phone', 'a1-weather', 'a1-workshop',
+  'a1-office-window', 'a1-bike', 'a1-lost-found', 'a1-invitation', 'a1-lost-parcel', 'a1-departure',
   'a2-apartment', 'a2-upstairs', 'a2-evening-plans', 'a2-ink-seller', 'a2-rail-trip', 'a2-forest-rails',
   'a2-broken-clock', 'a2-clinic', 'a2-cellar', 'a2-archive',
   'b1-witness', 'b1-record-room', 'b1-new-route', 'b1-signalman', 'b1-work', 'b1-council',

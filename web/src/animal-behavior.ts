@@ -1,8 +1,8 @@
 import { t } from './i18n';
 import type { MapPoint } from './navigation';
 
-export const animalSpecies = ['chicken', 'dog', 'cat', 'sheep'] as const;
-export type AnimalSpecies = typeof animalSpecies[number];
+import {animalSpecies, type AnimalSpecies} from './animal-types';
+export {animalSpecies, type AnimalSpecies} from './animal-types';
 export const animalStates = ['idle', 'walk', 'rest', 'forage', 'feed', 'happy', 'annoyed'] as const;
 export type AnimalState = typeof animalStates[number];
 export interface AnimalBody extends MapPoint {
@@ -17,6 +17,7 @@ export interface AnimalBody extends MapPoint {
   home: MapPoint;
   destination?: MapPoint;
   retreat?: MapPoint;
+  returning?: boolean;
 }
 /** The small surface used by the simulation also makes collision behavior testable without Phaser. */
 export interface AnimalGround {
@@ -54,11 +55,22 @@ export function interactWithAnimal(animal: AnimalBody, player: MapPoint, random 
 }
 export function advanceAnimal(animal: AnimalBody, seconds: number, ground: AnimalGround, player: MapPoint | undefined, night: boolean, random = Math.random): void {
   const dt = Math.min(.1, Math.max(0, seconds));
+  const reacting = animal.state === 'feed' || animal.state === 'happy' || animal.state === 'annoyed' || !!animal.retreat;
+  // Replan each short leg around scenery; nearby players must not stop the evening walk home.
+  if (night && !reacting && (!animal.returning || (!animal.destination && (animal.state !== 'rest' || animal.remaining <= 0)))) {
+    animal.returning = true;
+    if (Math.hypot(animal.x - animal.home.x, animal.y - animal.home.y) > 2) {
+      const waypoint = ground.findPath(animal, animal.home).find(point => Math.hypot(point.x - animal.x, point.y - animal.y) > 1);
+      if (waypoint) { enter(animal, 'walk', 30); animal.destination = waypoint; }
+      else { enter(animal, 'rest', 2); } // Retry a temporarily blocked home, never teleport through obstacles.
+    } else if (animal.state !== 'rest') enter(animal, 'rest', 5);
+  }
+  if (!night) animal.returning = false;
   animal.cooldown = Math.max(0, animal.cooldown - dt);
   animal.stateTime += dt; animal.remaining -= dt;
   if (animal.state === 'walk') {
     // A selected animal waits as the player approaches; an unhappy cat keeps its space.
-    if (!animal.retreat && player && Math.hypot(animal.x - player.x, animal.y - player.y) < 170) {
+    if (!animal.returning && !animal.retreat && player && Math.hypot(animal.x - player.x, animal.y - player.y) < 170) {
       enter(animal, 'idle', 2);
       return;
     }
@@ -79,7 +91,7 @@ export function advanceAnimal(animal: AnimalBody, seconds: number, ground: Anima
   if (animal.remaining > 0) return;
   if (animal.state === 'annoyed' && animal.retreat) { enter(animal, 'walk', 1.4); return; }
   animal.retreat = undefined;
-  if (night) { enter(animal, 'rest', 5 + random() * 4); return; }
+  if (night) { animal.destination = undefined; animal.returning = false; enter(animal, 'rest', 2); return; }
   if (player && Math.hypot(animal.x - player.x, animal.y - player.y) < 170) { enter(animal, 'idle', 2); return; }
   const choice = random();
   if (choice < .45) {
