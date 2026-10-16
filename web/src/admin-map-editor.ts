@@ -309,7 +309,7 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
     const hint = query('.me-hint');
     const where = pointer ? `<span class="me-coords">${Math.round(pointer.x)}, ${Math.round(pointer.y)}</span>` : '';
     let text: string;
-    if (mode === 'terrain') text = 'Terrain tools are in the panel on the right.';
+    if (mode === 'terrain') text = 'Pick a piece or a ground material on the right · Delete removes the selected piece · Space-drag to pan';
     else if (placing) text = `Click to place ${variantLabel(placing)}. Shift-click places another. Esc stops.`;
     else if (selection.length) text = 'Drag to move · Arrows nudge · Delete removes · ' + `${mod}+D duplicates`;
     else text = 'Click to select · Drag empty ground to select a group · Space-drag or two fingers to pan · Pinch or ' + `${mod}+scroll to zoom`;
@@ -715,7 +715,10 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
     else if (command && key.toLowerCase() === 'a' && objects) scene.selectAll();
     else if (command) handled = false;
     else if (key === ' ') { if (!event.repeat) scene.setSpaceHeld(true); }
+    else if (key === 'Escape' && mode === 'terrain') terrainEditor.escape();
     else if (key === 'Escape') { if (!scene.cancelGesture()) scene.setSelection([]); }
+    else if ((key === 'Delete' || key === 'Backspace') && mode === 'terrain') handled = terrainEditor.removeSelection();
+    else if ((key === '[' || key === ']') && mode === 'terrain') handled = terrainEditor.resizeBrush(key === ']' ? 1.2 : 1 / 1.2);
     else if ((key === 'Delete' || key === 'Backspace') && objects) remove();
     else if (key.startsWith('Arrow') && objects && selection.length) {
       const step = event.shiftKey ? 10 : 1;

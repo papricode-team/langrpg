@@ -179,6 +179,10 @@ function point(value: unknown, label: string, width?: number, height?: number): 
   if (!record(value) || !finite(value.x) || !finite(value.y)) fail(`${label} needs finite coordinates`);
   if (width !== undefined && height !== undefined && (value.x < 0 || value.x > width || value.y < 0 || value.y > height)) fail(`${label} is outside scene bounds`);
 }
+/** The editor checks generated shapes against the same rules before publishing them. */
+export function scenePolygonProblem(value: unknown, width: number, height: number): string|undefined {
+  try { polygon(value, 'polygon', width, height); return undefined; } catch (error) { return (error as Error).message; }
+}
 function positive(value: unknown, label: string, max = 65536): asserts value is number {
   if (!finite(value) || value <= 0 || value > max) fail(`${label} must be positive and at most ${max}`);
 }
