@@ -7,7 +7,8 @@ import { RoundQueue, optionCount, responseLimit } from './rounds';
 import { mountMiniGameScene } from './scene';
 import { itemSpriteFor } from './item-manifest';
 import { transcriptionResults } from './transcription';
-import { departureRound, isDepartureVocabulary, type DepartureRound } from './departure-round';
+import { departureRound, type DepartureRound } from './departure-round';
+import { mechanicPool, minimumPool, needsSound as soundRequired } from './game-pools';
 import { mountDepartureBoard, type DepartureBoardController } from './departure-board';
 import { mountCatching, catchingNumberLabel, type CatchingController } from './catching';
 import loopData from './loop-data.json';
@@ -54,25 +55,11 @@ export class RetrievalGame implements MiniGame {
   mount(root:HTMLElement,host:MiniGameHost,opts:MiniGameOptions){
     this.root=root;this.services=host;this.opts=opts;
     this.summary={gameId:this.id,attempts:0,correct:0,hinted:0,activeMs:0,longestChain:0};
-    const poolModality=host.silent&&this.modalities.includes('recognition')?'recognition':this.modalities[0];
-    this.pool=host.pool({modality:poolModality,level:opts.level,topics:this.definition.topics,nouns:this.definition.nouns,sprites:this.definition.sprites,fixedPool:opts.fixedPool,seed:opts.seed});
-    if(this.definition.mechanic==='catch'){
-      const numbers=host.pool({modality:poolModality,level:opts.level,seed:opts.seed}).filter(item=>item.pos==='num');
-      const distinct=new Map<string,GameItem>();
-      for(const item of numbers){const label=catchingNumberLabel({label:item.lemma,answer:item.lemma});if(label!==undefined&&!distinct.has(label))distinct.set(label,item);}
-      this.pool=[...distinct.values()];
-    }
-    if(this.definition.mechanic==='board'){const eligible=this.pool.filter(isDepartureVocabulary);if(eligible.length>=2)this.pool=eligible;}
-    if(this.definition.mechanic==='workbench')this.pool=this.pool.filter(item=>['hebel','verbindung','lampe','schraube','zahnrad','feder','glas','draht','schlüssel','knopf','uhr','werkzeug','tisch'].includes(item.lemma.toLocaleLowerCase('de')));
-    if(this.definition.mechanic==='garden')this.pool=this.pool.filter(item=>item.pos==='noun'&&['health','nature','home'].includes(item.topic));
-    if(this.definition.mechanic==='forecast'){
-      const weather=this.pool.filter(item=>['regen','wetter','sonne','schnee','wind','morgen','dienstag','montag','freitag'].includes(item.lemma.toLocaleLowerCase('de')));
-      if(weather.length>=2)this.pool=weather;
-    }
+    this.pool=mechanicPool(this.definition,query=>host.pool(query),{level:opts.level,silent:host.silent,seed:opts.seed,fixedPool:opts.fixedPool});
     this.queue=new RoundQueue(this.pool,this.definition.rounds);
     root.innerHTML=`<section class="minigame" data-game-mechanic="${e(this.definition.mechanic)}" style="--minigame-art:url('${e(opts.backdrop??'/assets/lindenhafen-preview.webp')}')"><div class="minigame-canvas" aria-hidden="true"></div><header class="minigame-heading"><div><h2>${e(this.title)}</h2></div><div class="minigame-score"><span data-game-score>0 / 0</span><time data-game-time>${this.definition.seconds}s</time></div></header><div class="minigame-lanterns" aria-hidden="true">${Array.from({length:12},()=>'<i></i>').join('')}</div><div class="minigame-play"></div><p class="minigame-feedback" role="status" aria-live="polite"></p><footer class="minigame-footer"><span>1–6 · ← → · Enter</span><button type="button" data-game-action="pause">Pause</button><button type="button" data-game-action="finish">Finish round</button></footer></section>`;
-    const needsSound=host.silent&&(this.modalities.every(mode=>mode==='listening')||this.definition.mechanic==='tape');
-    if(!this.pool.length || !this.modalities.includes('production')&&this.pool.length<2 || needsSound){
+    const needsSound=soundRequired(this.definition,host.silent);
+    if(this.pool.length<minimumPool(this.definition,host.silent) || needsSound){
       // Silent mode only explains a game that cannot be played without sound; a small pool is a different reason.
       this.play.innerHTML=`<div class="minigame-intro"><h3>${needsSound?'The lantern is listening.':'These words are still returning.'}</h3><p>${needsSound?'Turn off silent mode to hear this game.':'Restore more words in the town, then return for this game. Only familiar words enter the pool.'}</p><button type="button" class="primary-button" data-action="todays-words">Practise today’s words</button></div>`;this.root.querySelector<HTMLElement>('.minigame-footer')!.hidden=true;return;
     }

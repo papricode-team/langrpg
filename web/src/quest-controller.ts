@@ -34,6 +34,9 @@ export interface QuestControllerOptions {
   onComplete(graph: QuestGraph, xpAdded: number, effects?: readonly DialogueEffect[]): void;
   expose(exerciseId: string): void;
   onPractice?(npcId: string): void;
+  /** Rounds this character can start now, best first. */
+  games?(npcId: string): readonly { id: string; title: string }[];
+  onGame?(gameId: string): void;
   onGrammarGuide?(guideId:string): void;
 }
 
@@ -131,6 +134,11 @@ export class QuestController {
     if (greeting) this.ambient.lines.unshift(greeting);
     this.index = 0; this.translated = false; this.error = ''; this.busy = false; this.render(true);
   }
+  /** A character who hosts a round offers it as the conversation closes. */
+  private gameChoices(npcId: string): DialogueChoice[] {
+    const lines = ['Spielen wir eine Runde!', 'Noch ein Spiel, bitte!'];
+    return (this.options.games?.(npcId) ?? []).slice(0, 2).map((game, index) => ({ id: `game:${game.id}`, german: lines[index], english: t('Play {game}', { game: game.title }), next: '', effects: [] }));
+  }
   private allInspected() {
     return this.graph!.investigations.every(item => (this.options.progress().story?.inspections?.[this.graph!.questId] ?? []).includes(item.objectId));
   }
@@ -207,7 +215,7 @@ export class QuestController {
       const { npc, lines } = this.ambient, source = this.line(lines[this.index], voice, rate), atEnd = this.index === lines.length - 1;
       if (!source) return;
       const line = { ...(this.options.prepareLine?.(source) ?? source), audioRequires: source.audioRequires || !canVoiceDialogue(source.german) };
-      this.view.render({ audioEnabled, title: t('A CONVERSATION IN THE TOWN'), line, name: this.options.playerName(), npc, portrait: this.options.portrait(npc.id,line.expression ?? 'neutral'), index:this.index,total:lines.length,help:this.translationVisible(line),busy:false,glosses:this.options.glosses?.(line.german)??{},powers,wordlight:this.wordlight,choices:atEnd?[{id:'practice',german:'Ich möchte üben.',english:'I would like to practise.',next:'',effects:[]},{id:'leave',german:'Bis später!',english:'See you later!',next:'',effects:[]}]:[] });
+      this.view.render({ audioEnabled, title: t('A CONVERSATION IN THE TOWN'), line, name: this.options.playerName(), npc, portrait: this.options.portrait(npc.id,line.expression ?? 'neutral'), index:this.index,total:lines.length,help:this.translationVisible(line),busy:false,glosses:this.options.glosses?.(line.german)??{},powers,wordlight:this.wordlight,choices:atEnd?[...this.gameChoices(npc.id),{id:'practice',german:'Ich möchte üben.',english:'I would like to practise.',next:'',effects:[]},{id:'leave',german:'Bis später!',english:'See you later!',next:'',effects:[]}]:[] });
       if (voice) { this.options.onOpen(npc.id); this.speakLine({ ...line, speaker: npc.id }, rate); }
       return;
     }
@@ -364,7 +372,7 @@ export class QuestController {
     finally { if (generation === this.generation) { this.busy = false; this.render(); } }
   }
   private async choose(id: string) {
-    if (this.ambient) { const npcId = this.ambient.npc.id; this.close(); if (id === 'practice') this.options.onPractice?.(npcId); return; }
+    if (this.ambient) { const npcId = this.ambient.npc.id; this.close(); if (id === 'practice') this.options.onPractice?.(npcId); else if (id.startsWith('game:')) this.options.onGame?.(id.slice(5)); return; }
     if (!this.graph || this.busy || !this.node) return;
     if (id === 'topic-continue') { await this.action('next'); return; }
     if (id.startsWith('topic:') && this.node.stage === 'intro') {

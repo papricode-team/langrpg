@@ -2,6 +2,8 @@ import { escapeHtml as e, icon } from './icons';
 import { t } from './i18n';
 
 type NotificationEntry = { id: number; message: string; bad: boolean; };
+/** One follow-up a notification can offer; the page's click handler starts the round. */
+export interface NotificationAction { label: string; minigame: string; }
 
 /** Independent, temporary notifications that remain available over modal dialogs. */
 export class Notifications {
@@ -39,18 +41,19 @@ export class Notifications {
     }
   }
 
-  notify(message: string, bad = false) {
+  notify(message: string, bad = false, action?: NotificationAction) {
     const entry = { id: ++this.nextId, message, bad };
     this.announcement.textContent = message;
     const card = document.createElement('article');
     card.className = `notification-card${bad ? ' bad' : ''}`;
     card.dataset.notificationId = String(entry.id);
-    card.innerHTML = `${icon(bad ? 'clue' : 'check')}<div><p>${e(message)}</p></div><button type="button" aria-label="${e(t('Dismiss notification'))}">${icon('close')}</button>`;
-    card.querySelector('button')!.addEventListener('click', () => this.dismiss(entry.id));
+    card.innerHTML = `${icon(bad ? 'clue' : action ? 'lantern' : 'check')}<div><p>${e(message)}</p>${action ? `<button type="button" class="notification-action" data-minigame="${e(action.minigame)}">${e(action.label)} ${icon('arrow')}</button>` : ''}</div><button type="button" class="notification-dismiss" aria-label="${e(t('Dismiss notification'))}">${icon('close')}</button>`;
+    card.querySelector('.notification-dismiss')!.addEventListener('click', () => this.dismiss(entry.id));
+    card.querySelector('.notification-action')?.addEventListener('click', () => this.dismiss(entry.id));
     const pause = () => window.clearTimeout(this.timers.get(entry.id));
     const resume = () => {
       pause();
-      this.timers.set(entry.id, window.setTimeout(() => this.dismiss(entry.id), bad ? 8000 : 5500));
+      this.timers.set(entry.id, window.setTimeout(() => this.dismiss(entry.id), bad || action ? 9000 : 5500));
     };
     card.addEventListener('mouseenter', pause);
     card.addEventListener('mouseleave', resume);

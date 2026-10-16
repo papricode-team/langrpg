@@ -220,6 +220,18 @@ describe('conversation scene lifecycle', () => {
     expect(document.querySelector('.dialogue-translation')).toBeNull();
   });
 
+  it('ends a resident conversation with the rounds that character can start', () => {
+    const f = fixture('intro', 'a1-arrival');
+    const onGame = vi.fn();
+    Object.assign(f.options, { games: () => [{ id: 'lantern-pairs', title: 'Lantern Pairs' }, { id: 're-ink', title: 'Re-ink' }, { id: 'tray-rush', title: 'Tray Rush' }], onGame });
+    f.controller.greet(npcs.find(npc => npc.id === 'elise')!, 'A1');
+    until('[data-dialogue-choice="game:lantern-pairs"]');
+    expect(document.querySelector('[data-dialogue-choice="game:re-ink"]')).not.toBeNull();
+    expect(document.querySelector('[data-dialogue-choice="game:tray-rush"]')).toBeNull();
+    f.click('[data-dialogue-choice="game:re-ink"]');
+    expect(onGame).toHaveBeenCalledWith('re-ink');
+  });
+
   it('starts beginner evidence hidden and resets its translation toggle on each inspection', () => {
     const f = fixture('intro', 'a1-arrival', true);
     f.controller.inspect('a1-arrival', 'lindenhafen-platform-ticket');
