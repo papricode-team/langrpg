@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "glotworld-world": {
+      "command": "node",
+      "args": ["tools/world-mcp/server.mjs"],
+      "env": {
+        "GLOTWORLD_URL": "${GLOTWORLD_URL:-https://glotworld.com}",
+        "GLOTWORLD_ADMIN_TOKEN": "${GLOTWORLD_ADMIN_TOKEN:-}"
+      }
+    }
+  }
+}

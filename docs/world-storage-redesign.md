@@ -1,6 +1,6 @@
 # World storage, terrain and agent editing redesign
 
-Status: in progress (2026-10-16). Supersedes the storage parts of `scene-authoring.md`,
+Status: phases A and B done, C and D in progress (2026-10-16). Supersedes the storage parts of `scene-authoring.md`,
 `map-editor.md` and `modular-terrain.md`.
 
 ## Goal
@@ -29,11 +29,16 @@ admins) can pull a town, edit it and push it back.
 ## Decisions
 
 1. **PostgreSQL is the source of truth for editable world data.** The repository keeps
-   code, art assets and asset geometry (`scenery-geometry.json`, material catalogue). It
-   keeps no towns, terrain, residents, prefabs, anchors or story overrides.
-2. **Relational tables, one migration.** Rows per map, object, anchor, activity, resident,
-   district, prefab and story-line override; terrain as a binary splatmap per map; an
-   append-only edit log whose sequence number is the world revision.
+   code, art assets, asset geometry (`scenery-geometry.json`, material catalogue) and one
+   seed world, `content/world-seed.json`. The seed only fills an empty database (local
+   development, tests) and brings the story anchors a release adds; the server never reads
+   it once the database holds a world, and the browser never bundles it.
+2. **Tables, one migration.** One row per town (`world_maps`, the scene as JSONB), one for
+   the shared fields and compiled publication (`world_publication`), one per admin story
+   line change (`world_story_lines`), an append-only `world_edits` log and `admin_tokens`.
+   The publication revision is a counter. Towns stay JSONB rather than a row per object:
+   the scene schema in `web/src/scene-schema.ts` stays the only schema, every edit is
+   validated against the whole town anyway, and a save writes only the towns it changed.
 3. **Derived data is computed, never stored in git.** Spawn/entrance registry and story
    positions are compiled from the live tables by the TypeScript worker (one
    implementation). The Go copies (`compileStoryAuthority`, `worldRevision` hashing,
@@ -59,7 +64,8 @@ admins) can pull a town, edit it and push it back.
 
 - Migration `0007_world_tables.sql` creates the tables and copies the current
   `world_content` document into them in SQL (`jsonb_*` functions), so production upgrades
-  in place at boot without data in the repository.
+  in place at boot. It was rehearsed on a copy of production's world
+  (`TestPostgresWorldContentMovesIntoWorldTables` with `WORLD_MIGRATION_DOCUMENT`).
 - Terrain is converted once by the worker on first boot when a map has no splatmap:
   Lindenhafen rasterises its painted surfaces (exact); Waldruh and Nebelstadt are seeded
   from their image plates by colour classification plus their water/cliff polygons. The
@@ -71,7 +77,7 @@ admins) can pull a town, edit it and push it back.
 | Phase | Content |
 |---|---|
 | A. Storage | tables + data migration, store layer, ops write rows, edit log revision, story overrides table, admin tokens, export/import, remove repo world files and Go duplicates |
-| B. Agents | `world:pull/push/seed` CLI, MCP server, preview rendering |
+| B. Agents | token page, `world:pull/push` CLI, MCP server, preview rendering (see `world-agents.md`) |
 | C. Terrain | splatmap schema, shader renderer, brush editor, navigation from splatmap, conversion, removal of plates/modular/features |
 | D. Cleanup | legacy fields and scripts, docs, verify list |
 

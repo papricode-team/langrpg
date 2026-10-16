@@ -141,7 +141,7 @@ func (a *App) Handler() http.Handler {
 	mux.HandleFunc("GET /api/admin/world/edits", a.listWorldEdits)
 	mux.HandleFunc("GET /api/admin/tokens", a.listAdminTokens)
 	mux.HandleFunc("POST /api/admin/tokens", a.createAdminToken)
-	mux.HandleFunc("DELETE /api/admin/tokens/{id}", a.revokeAdminToken)
+	mux.HandleFunc("POST /api/admin/tokens/{id}/revoke", a.revokeAdminToken)
 	mux.HandleFunc("GET /api/admin/story", a.readStory)
 	mux.HandleFunc("POST /api/admin/story/lines", a.setStoryLine)
 	mux.HandleFunc("POST /api/admin/story/check", a.checkStoryText)
