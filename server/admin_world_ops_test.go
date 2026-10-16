@@ -225,7 +225,7 @@ func TestWorldOpsPaintGroundAndRefuseUnknownMaterials(t *testing.T) {
 		return document.Maps["nebelstadt"].Ground
 	}
 	before := ground()
-	code, body := postOps(app, token, []map[string]any{{"kind": "paint", "map": "nebelstadt", "material": "sand", "radius": 48, "strength": 1, "points": [][]float64{{1800, 300}, {2000, 300}}}})
+	code, body := postOps(app, token, []map[string]any{{"kind": "paint", "map": "nebelstadt", "material": "gravel", "radius": 48, "strength": 1, "points": [][]float64{{1800, 300}, {2000, 300}}}})
 	if code != 200 {
 		t.Fatalf("paint: %d %v", code, body)
 	}
@@ -233,8 +233,8 @@ func TestWorldOpsPaintGroundAndRefuseUnknownMaterials(t *testing.T) {
 	if fmt.Sprint(after.Layers) == fmt.Sprint(before.Layers) && fmt.Sprint(after.Weights) == fmt.Sprint(before.Weights) {
 		t.Fatal("the stroke did not change the ground")
 	}
-	if !strings.Contains(fmt.Sprint(after.Layers), "sand") && len(before.Layers) < 6 {
-		t.Fatalf("sand did not join the ground layers: %v", after.Layers)
+	if !strings.Contains(fmt.Sprint(after.Layers), "gravel") {
+		t.Fatalf("gravel is not among the ground layers: %v", after.Layers)
 	}
 	code, body = postOps(app, token, []map[string]any{{"kind": "paint", "map": "nebelstadt", "material": "lava", "radius": 48, "strength": 1, "points": [][]float64{{1800, 300}}}})
 	if code != 422 {

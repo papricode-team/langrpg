@@ -33,7 +33,7 @@ test('the world tools read towns once per revision and report edit problems', as
   assert.ok(catalogue.objects.length && catalogue.objects.every(choice => choice.asset === 'bench' && choice.typicalWidth > 0));
   assert.ok(catalogue.materials.some(material => material.id === 'deep-water' && material.blocksWalkers));
   const ground = JSON.parse((await world.call('get_town', {town: 'waldruh', sections: ['terrain']})).content[0].text);
-  assert.ok(ground.terrain.materials.includes('cliff') && ground.terrain.fingerprint);
+  assert.ok(ground.terrain.materials.includes('shallow-water') && ground.terrain.fingerprint);
   const applied = JSON.parse((await world.call('apply_edits', {ops: [{kind: 'move', map: 'lindenhafen', id: 'archive', x: 300, y: 430}]})).content[0].text);
   assert.deepEqual(applied, {revision: '8', applied: 1, warnings: ['lindenhafen: It overlaps the fountain.']});
   const refused = await world.call('apply_edits', {ops: [{kind: 'remove', map: 'lindenhafen', id: 'promenade-depot'}]});

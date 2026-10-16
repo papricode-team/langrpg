@@ -199,16 +199,16 @@ describe('painted scenery foot collisions', () => {
   // The canopy/pole can cover a character visually without closing the road.
   const fixtures: { mapId: MapId; base: MapPoint; behind: MapPoint }[] = [
     { mapId: 'lindenhafen', base: { x: 280, y: 316 }, behind: { x: 280, y: 290 } },
-    { mapId: 'waldruh', base: { x: 492, y: 582 }, behind: { x: 492, y: 565 } },
-    { mapId: 'waldruh', base: { x: 353, y: 400 }, behind: { x: 353, y: 375 } },
-    { mapId: 'waldruh', base: { x: 947, y: 570 }, behind: { x: 947, y: 550 } },
-    { mapId: 'waldruh', base: { x: 542, y: 790 }, behind: { x: 542, y: 765 } },
-    { mapId: 'nebelstadt', base: { x: 637, y: 318 }, behind: { x: 637, y: 298 } },
-    { mapId: 'nebelstadt', base: { x: 448, y: 415 }, behind: { x: 448, y: 395 } },
-    { mapId: 'nebelstadt', base: { x: 566, y: 604 }, behind: { x: 566, y: 580 } },
-    { mapId: 'nebelstadt', base: { x: 914, y: 387 }, behind: { x: 914, y: 365 } },
-    { mapId: 'nebelstadt', base: { x: 1119, y: 563 }, behind: { x: 1119, y: 543 } },
-    { mapId: 'nebelstadt', base: { x: 432, y: 758 }, behind: { x: 432, y: 738 } },
+    { mapId: 'waldruh', base: { x: 452, y: 596 }, behind: { x: 452, y: 576 } },
+    { mapId: 'waldruh', base: { x: 560, y: 312 }, behind: { x: 560, y: 292 } },
+    { mapId: 'waldruh', base: { x: 1010, y: 596 }, behind: { x: 1010, y: 576 } },
+    { mapId: 'waldruh', base: { x: 340, y: 840 }, behind: { x: 340, y: 820 } },
+    { mapId: 'nebelstadt', base: { x: 470, y: 370 }, behind: { x: 470, y: 350 } },
+    { mapId: 'nebelstadt', base: { x: 120, y: 438 }, behind: { x: 120, y: 418 } },
+    { mapId: 'nebelstadt', base: { x: 1080, y: 432 }, behind: { x: 1080, y: 412 } },
+    { mapId: 'nebelstadt', base: { x: 300, y: 802 }, behind: { x: 300, y: 782 } },
+    { mapId: 'nebelstadt', base: { x: 1700, y: 802 }, behind: { x: 1700, y: 782 } },
+    { mapId: 'nebelstadt', base: { x: 978, y: 598 }, behind: { x: 978, y: 578 } },
   ];
 
   it('blocks feet at the painted lamp bases', () => {
@@ -239,8 +239,8 @@ describe('painted scenery foot collisions', () => {
 
   it('routes around a narrow lamp base rather than stepping through it', () => {
     const navigation = createMapNavigation('waldruh');
-    const start = { x: 542, y: 765 };
-    const destination = { x: 542, y: 810 };
+    const start = { x: 340, y: 815 };
+    const destination = { x: 340, y: 865 };
     const route = navigation.findPath(start, destination);
     expect(route.length).toBeGreaterThan(1);
     expect(route.at(-1)).toEqual(destination);

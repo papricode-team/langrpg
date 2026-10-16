@@ -40,7 +40,7 @@ test('rejects malformed ground materials and object-owned collision before compi
   terrain.maps.waldruh.ground.layers[1]='grass';
   await assert.rejects(compileSceneDocument(terrain),/known materials/);
   const collision=structuredClone(source);
-  collision.maps.waldruh.scenery[0].collision.referenceWidth=0;
+  collision.maps.waldruh.scenery[0].collision={referenceWidth:0,polygons:[[[0,0],[1,0],[1,1]]]};
   await assert.rejects(compileSceneDocument(collision),/collision reference width must be positive/);
   const polygon=structuredClone(source);
   polygon.maps.waldruh.objects[0].collision={referenceWidth:1,polygons:[[[0,0],[1,0]]]};
