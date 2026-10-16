@@ -71,11 +71,11 @@ describe('occlusion fades', () => {
   });
 });
 
-function fixture(period:'day'|'night'='day',inheritSortLine=false,asset:PlacedScenerySpec['asset']='house') {
-  const canonical=getSceneryGeometry('lindenhafen',{asset})!;
+function fixture(period:'day'|'night'='day',inheritSortLine=false,asset:PlacedScenerySpec['asset']='house',detailFrame?:string) {
+  const canonical=getSceneryGeometry('lindenhafen',{asset,frame:detailFrame})!;
   const reference=canonical.referenceWidth*(period==='night'?.8:1);
   const initial={name:String(asset),width:reference,height:reference,cutX:0,cutY:0,cutHeight:reference,sourceIndex:0,trimmed:false,rotated:false};
-  const frames=new Map<string,typeof initial>([[asset,initial]]);
+  const frames=new Map<string,typeof initial>([[detailFrame?'__BASE':asset,initial]]);
   const texture={key:`test-${asset}`,has:(name:string)=>frames.has(name),get:(name:string)=>frames.get(name)!,
     add:(name:string,sourceIndex:number,cutX:number,cutY:number,width:number,height:number)=>{const frame={...initial,name,sourceIndex,cutX,cutY,width,height,cutHeight:height};frames.set(name,frame);return frame;}};
   class Sprite {
@@ -96,11 +96,26 @@ function fixture(period:'day'|'night'='day',inheritSortLine=false,asset:PlacedSc
     sortLine:period==='night'?[[-reference/2,-reference*.8],[reference/2,-reference*.6]]:canonical.sortLine}}})}},
     textures:{exists:()=>true,get:()=>texture,createCanvas:ground.createCanvas,remove:ground.remove},add:{image:ground.image,sprite:(x:number,y:number,key:string,name:string)=>{const sprite=new Sprite(x,y,key,name);sprites.push(sprite);return sprite;}}} as unknown as Phaser.Scene;
   const factory=((_scene:Phaser.Scene,_sprite:Phaser.GameObjects.Sprite)=>({configure:()=>undefined})) as unknown as SceneryOcclusionFactory;
-  const placement={id:'test-wall',asset,x:100,y:200,width:100,sortLine:inheritSortLine?undefined:[[-reference/2,-reference*.4],[reference/2,0]] as const};
+  const placement={id:'test-wall',asset,frame:detailFrame,x:100,y:200,width:100,sortLine:inheritSortLine?undefined:[[-reference/2,-reference*.4],[reference/2,0]] as const};
   return{scenery:new WorldScenery(scene,'lindenhafen',period,[placement],factory),sprites,frames,ground,placement};
 }
 
 describe('segmented scenery rendering', () => {
+  it('renders an open platform canopy without inventing a solid building foundation',()=>{
+    const {scenery,sprites,ground}=fixture('day',true,'station','station-platform-canopy');
+    expect(sprites.length).toBeGreaterThan(0);
+    expect(ground.images).toHaveLength(0);
+    scenery.destroy();
+  });
+  it('keeps repeated railway tracks below trains and people even when moved in the editor',()=>{
+    const {scenery,sprites,placement}=fixture('day',true,'rails','railway-rails');
+    expect(sprites).toHaveLength(1);
+    expect(sprites[0].depth).toBe(worldDepth(0));
+    expect(sprites[0].depth).toBeLessThan(worldDepth(placement.y-100,'character'));
+    scenery.previewMove(placement.id,250,400);
+    expect(sprites[0].depth).toBe(worldDepth(0));
+    scenery.destroy();
+  });
   it.each(['house','tree','bench','boat'] as const)('moves %s ground contact with editor previews and cleans it up when rebuilt or removed',(asset)=>{
     const {scenery,ground,placement}=fixture('day',false,asset);
     const originals=ground.images.map(image=>({x:image.x,y:image.y}));

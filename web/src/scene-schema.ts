@@ -36,7 +36,7 @@ export const scaleCanon:Readonly<Record<string,readonly [number,number]>>={
   stall:[1.6,2],fountain:[1.2,2.2],arch:[2,3.5],planter:[.5,1.1],sign:[.8,1.5],boat:[.7,1.8],
 };
 export interface SceneAnchor extends ScenePoint { id: string; minigame?: string; collision?: SceneCollision; }
-export const sceneSceneryAssets = ['archive', 'cafe', 'station', 'workshop', 'house', 'tree', 'cypress', 'lamp', 'stall', 'fountain', 'arch', 'greenhouse', 'boat', 'bench', 'planter', 'sign'] as const;
+export const sceneSceneryAssets = ['archive', 'cafe', 'station', 'train', 'rails', 'workshop', 'house', 'tree', 'cypress', 'lamp', 'stall', 'fountain', 'arch', 'greenhouse', 'boat', 'bench', 'planter', 'sign'] as const;
 export interface SceneScenery extends SceneAnchor {
   asset: typeof sceneSceneryAssets[number];
   frame?: string; variant?: boolean; width: number; depth?: number;

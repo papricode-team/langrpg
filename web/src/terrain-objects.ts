@@ -5,6 +5,7 @@ export type DetailMotion='still'|'sway'|'bob'|'glow'|'flicker';
 export interface TerrainObject {
  id:string;name:string;role:SceneScenery['asset'];worldWidth:number;motion:DetailMotion;collidable:boolean;
  width:number;height:number;originX:number;originY:number;asset:string;thumbnail:string;geometry:SceneryGeometry;
+ layer?:'ground';
 }
 export const terrainObjects=catalogue.objects as unknown as readonly TerrainObject[];
 const lookup=new Map(terrainObjects.map(object=>[object.id,object]));

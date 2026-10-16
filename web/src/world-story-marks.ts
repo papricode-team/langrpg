@@ -80,7 +80,9 @@ export class WorldStoryMarks {
 
   /** Steam from platform seven: a train arrives, waits with lit windows, then leaves. */
   setTrain(state: TrainState, reducedMotion: boolean): void {
-    const station = this.mapId === 'lindenhafen' ? getWorldScene(this.mapId).scenery.find(item => item.id === 'station') : undefined;
+    const scenery = this.mapId === 'lindenhafen' ? getWorldScene(this.mapId).scenery : [];
+    const station = scenery.find(item => item.frame === 'railway-locomotive')
+      ?? scenery.find(item => item.id === 'station' && (!item.frame || item.frame === 'station'));
     const spot = station ? stationTrainPosition(station) : storySpectacle[this.mapId]?.train;
     if (state === this.trainState || !spot) return;
     this.trainState = state;

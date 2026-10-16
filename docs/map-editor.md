@@ -17,6 +17,20 @@ Undo and Redo are per admin and cover the last 100 edits, including terrain and 
 
 To try the editor without a server or an admin account, run `npx vite web` and open `/qa/map-editor.html`. It edits the seed world in memory; add `?latency=300` to simulate a slow connection.
 
+## Modular railway station
+
+The **Add** catalogue offers separate pieces in every town:
+
+- **Station**: ticket hall, office and waiting room, and open platform canopy.
+- **Train**: steam locomotive and passenger carriage.
+- **Rails**: straight railway track, with transparent gaps between sleepers.
+
+Duplicate canopy and track pieces to extend a station; duplicate carriages to lengthen a train. All pieces support the usual position, width, flip and duplicate controls. Flip an entire selection together for the opposite diagonal. Track pieces draw on the ground below trains and walkers, and are walkable. The open canopy is walkable; the two buildings and the rolling stock have authored solid bases. The ticket hall and office can host rooms.
+
+At the default track width of 310, place the next track approximately 266 units right and 188 units up, then nudge the join if needed. For another width, multiply both offsets by width / 310. Canopies at width 310 extend approximately 192 units right and 143 units up. These are manual painted-piece joins, not automatic rail snapping. Both diagonals are available by flipping.
+
+The existing combined station remains available. Adding this kit does not resize, replace or move any published scenery. Art sources and exact built-in ImageGen prompts are in `art/source/terrain-objects/requests.json` and `docs/prompts/terrain-objects/`; export them with `node scripts/prepare-terrain-objects.mjs`.
+
 ## In-game edit mode
 
 The in-game admin edit mode has an **Add objects** catalogue. Choose an object group (for example, house or tree), choose a pictured version, then click in the town to place it. **Cancel placement** or Escape cancels. Admin → Map editor has its own layout, described below.

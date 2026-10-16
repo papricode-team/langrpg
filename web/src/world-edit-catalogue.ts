@@ -11,18 +11,18 @@ export interface PaletteChoice {
   rooms: readonly string[];
 }
 
-const groupOrder = ['house', 'cafe', 'archive', 'station', 'workshop', 'greenhouse', 'stall', 'fountain', 'arch', 'tree', 'cypress', 'planter', 'bench', 'lamp', 'sign', 'boat'];
+const groupOrder = ['house', 'cafe', 'archive', 'station', 'train', 'rails', 'workshop', 'greenhouse', 'stall', 'fountain', 'arch', 'tree', 'cypress', 'planter', 'bench', 'lamp', 'sign', 'boat'];
 
 /** Every painted object registered for this town, buildings first. */
 export function paletteChoices(mapId: string): PaletteChoice[] {
   const assets = getSceneryGeometryMap(mapId).assets;
   return Object.entries(assets).flatMap(([frame, geometry]) => {
-    if (!geometry.visualBounds) return [];
+    if (!geometry.visualBounds || terrainObjects.some(object=>object.id===frame)) return [];
     const name = frame.startsWith('garden-') ? 'planter' : frame.split('-')[0];
     if (!sceneryAssets.includes(name as SceneScenery['asset'])) return [];
     const asset = name as SceneScenery['asset'];
     return [{asset, frame, label: assetLabel({asset, frame}), rooms: roomOptions(mapId, {asset, frame})}];
-  }).concat(terrainObjects.map(object=>({asset:object.role,frame:object.id,label:object.name,rooms:[]})))
+  }).concat(terrainObjects.map(object=>({asset:object.role,frame:object.id,label:object.name,rooms:roomOptions(mapId,{asset:object.role,frame:object.id})})))
     .sort((a, b) => groupOrder.indexOf(a.asset) - groupOrder.indexOf(b.asset) || a.frame.localeCompare(b.frame, undefined, {numeric: true}));
 }
 

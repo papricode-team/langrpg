@@ -51,7 +51,7 @@ export const roomNames: Readonly<Record<SceneInteriorKind, string>> = {cafe: 'ca
 const assetNames: Readonly<Record<string, string>> = {
   archive: 'archive', cafe: 'café building', station: 'station', workshop: 'workshop', house: 'house', tree: 'tree', cypress: 'cypress',
   lamp: 'lamp', stall: 'market stall', fountain: 'fountain', arch: 'arch', greenhouse: 'greenhouse', boat: 'boat', bench: 'bench',
-  planter: 'planter', sign: 'sign',
+  planter: 'planter', sign: 'sign', train: 'train', rails: 'rails',
 };
 const frameNames: Readonly<Record<string, string>> = {'house-inn': 'inn house', 'house-bakery': 'bakery house', 'house-grocery': 'grocery house', 'garden-1': 'garden bed', 'garden-2': 'garden bed'};
 const words = (id: string): string => id.replace(/-/g, ' ');
