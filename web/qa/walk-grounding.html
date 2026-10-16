@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Walking on the ground · glotworld QA</title>
+<style>
+body{margin:24px auto;max-width:1060px;padding:0 20px;background:#e9e5d7;color:#263b35;font:15px system-ui;line-height:1.5}h1{font:32px Georgia;margin-bottom:8px}header{display:flex;flex-wrap:wrap;gap:16px;margin:24px 0}label{display:grid;gap:4px}select,button{font:inherit;padding:8px}canvas{display:block;width:100%;border:1px solid #879883;border-radius:8px;background:#cbd3bd}p{max-width:80ch}#status{font-variant-numeric:tabular-nums}
+</style>
+<h1>Walking on the ground</h1>
+<p>The same painted character crosses a fixed ground grid in both lanes. Each mark is one body height apart. Compare the planted feet against the marks, especially through passing poses. The lower lane uses the game's current speed, scale and distance sampler.</p>
+<header>
+<label>Character<select id="actor"></select></label>
+<label>Direction<select id="direction"><option value="1">Right</option><option value="3">Left</option><option value="0">Front</option><option value="2">Back</option></select></label>
+<label>Body height<select id="height"><option value="72">Outdoor · 72</option><option value="50.4">Child · 50</option><option value="132">Indoor · 132</option><option value="240">Inn · 240</option></select></label>
+<label>Travel<select id="travel"><option value="player">Player</option><option value="resident">Resident · 50 px/s</option><option value="pauses">Player with pauses</option></select></label>
+<button id="pause">Pause</button><button id="restart">Restart</button>
+</header>
+<canvas id="ground" width="1000" height="570" aria-label="Previous and current walking compared against fixed ground marks"></canvas>
+<p id="status" role="status">Loading painted frames…</p>
+<script type="module">
+import { castActors, CAST_ART, castAssetUrl, castAtlasUrl } from '/src/character-cast.ts';
+import { characterFrame } from '/src/avatar-options.ts';
+import { advanceWalkDistance, walkSpeedForHeight, WALK_POSE_COLUMNS } from '/src/walk-animation.ts';
+const actor=document.querySelector('#actor'),direction=document.querySelector('#direction'),height=document.querySelector('#height'),travel=document.querySelector('#travel'),pause=document.querySelector('#pause'),status=document.querySelector('#status');
+const canvas=document.querySelector('canvas'),ctx=canvas.getContext('2d');
+for(const person of castActors)actor.add(new Option(`${person.name} · ${person.id}`,person.id));
+actor.value='otto';
+let frames,image,version=0,elapsed=0,lastTime=null,paused=false;
+let lanes=[];
+function reset(){elapsed=0;lastTime=null;lanes=[{label:'Previous',speed:225,cycle:192/71*Number(height.value),distance:0,phase:0},{label:'Grounded walk',speed:walkSpeedForHeight(Number(height.value)),cycle:CAST_ART.cycleDistance*Number(height.value)/CAST_ART.bodyHeight,distance:0,phase:0}];paint();}
+async function load(){const request=++version;frames=null;status.textContent='Loading painted frames…';try{const person=castActors.find(p=>p.id===actor.value);const response=await fetch(castAtlasUrl(person));if(!response.ok)throw Error('Unable to load character atlas');const atlas=await response.json();const picture=await new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=reject;img.src=castAssetUrl(person);});if(request!==version)return;frames=atlas.frames;image=picture;reset();}catch(error){status.textContent=String(error);}}
+function moving(){return travel.value!=='pauses'||elapsed%4<2.5;}
+function paint(){
+ ctx.clearRect(0,0,canvas.width,canvas.height);if(!frames)return;
+ const body=Number(height.value),zoom=150/body,scale=body/CAST_ART.bodyHeight*zoom,facing=Number(direction.value),vertical=facing%2===0;
+ for(const [index,lane] of lanes.entries()){
+  const top=index*280,baseline=top+235;
+  ctx.fillStyle=index?'#d5ddc7':'#c6ccb9';ctx.fillRect(0,top,1000,275);
+  ctx.strokeStyle='#8b9c83';ctx.lineWidth=1;ctx.beginPath();
+  for(let x=50;x<1000;x+=150){ctx.moveTo(x,top+65);ctx.lineTo(x,top+260);}
+  for(let y=top+65;y<=top+260;y+=65){ctx.moveTo(0,y);ctx.lineTo(1000,y);}ctx.stroke();
+  const position=lane.distance*zoom%800,x=vertical?500:facing===3?900-position:100+position,y=vertical?top+95+(facing===2?150-lane.distance*zoom%150:lane.distance*zoom%150):baseline;
+  ctx.fillStyle='#344d3944';ctx.beginPath();ctx.ellipse(x,y+2,25,7,0,0,Math.PI*2);ctx.fill();
+  const frame=frames[characterFrame(facing,moving()?lane.phase/lane.cycle*WALK_POSE_COLUMNS.length:undefined)],r=frame.frame,s=frame.spriteSourceSize;
+  ctx.drawImage(image,r.x,r.y,r.w,r.h,x+(s.x-CAST_ART.width/2)*scale,y+(s.y-CAST_ART.height*CAST_ART.footY)*scale,r.w*scale,r.h*scale);
+  ctx.fillStyle='#263b35';ctx.font='bold 17px system-ui';ctx.fillText(lane.label,20,top+28);ctx.font='14px system-ui';
+  const speed=travel.value==='resident'?50:lane.speed;ctx.fillText(`${speed} px/s · ${lane.cycle.toFixed(1)} px per cycle · ${(lane.cycle/speed).toFixed(2)} s per cycle`,20,top+50);
+ }
+ status.textContent=`${actor.selectedOptions[0].textContent} · ${paused?'paused':moving()?'walking':'standing'} · body ${body} world pixels · fixed ground marks ${body} pixels apart`;
+}
+function tick(timestamp){const dt=lastTime===null||document.hidden?0:Math.min(100,timestamp-lastTime)/1000;lastTime=document.hidden?null:timestamp;if(!paused){
+ // Spend only the walking portion of a pause interval, even across frame boundaries.
+ const before=elapsed;elapsed+=dt;
+ const walked=t=>Math.floor(t/4)*2.5+Math.min(t%4,2.5);
+ const seconds=travel.value==='pauses'?walked(elapsed)-walked(before):dt;
+ for(const lane of lanes){const distance=(travel.value==='resident'?50:lane.speed)*seconds;lane.distance+=distance;lane.phase=advanceWalkDistance(lane.phase,distance,lane.cycle);}
+ }paint();requestAnimationFrame(tick);}
+actor.onchange=load;for(const control of [direction,height,travel])control.onchange=reset;
+pause.onclick=()=>{paused=!paused;pause.textContent=paused?'Resume':'Pause';};document.querySelector('#restart').onclick=reset;
+if(import.meta.env.DEV){reset();load();requestAnimationFrame(tick);}else status.textContent='Available on the development server.';
+</script>
+</html>
