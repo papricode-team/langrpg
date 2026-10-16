@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser';
-import {MAX_GROUND_LAYERS,groundLayers,type Ground} from './ground';
+import {MAX_GROUND_LAYERS,groundColorPixels,groundLayers,type Ground} from './ground';
 import {terrainMaterial,terrainMaterialKey} from './terrain-materials';
 import {featureBounds,terrainFeature,terrainFeatureKey,type TerrainFeature} from './terrain-features';
 import type {WorldScene} from './scene-schema';
@@ -84,6 +84,8 @@ function materialTexture(scene:Phaser.Scene,id:string,ready:()=>void):boolean{
  */
 export class GroundTerrain {
   private shader?:Phaser.GameObjects.Shader;
+  /** Without WebGL the ground shows as its blended material colours. */
+  private flat?:Phaser.GameObjects.Image;
   private controlA:Phaser.Textures.CanvasTexture;
   private controlB:Phaser.Textures.CanvasTexture;
   private features=new Map<string,{image:Phaser.GameObjects.Image;feature:TerrainFeature}>();
@@ -102,6 +104,7 @@ export class GroundTerrain {
   get alpha():number{return this.alphaValue;}
   get visible():boolean{return this.shown;}
   get ready():boolean{
+    if(this.flat)return true;
     return !!this.shader&&this.layerIds.every(id=>this.scene.textures.exists(potKey(id)))
       &&[...this.features.values()].every(({feature})=>this.scene.textures.exists(terrainFeatureKey(feature.asset)));
   }
@@ -119,6 +122,7 @@ export class GroundTerrain {
     this.syncFeatures(ground.features??[]);
   }
   private upload(ground:Ground):void{
+    if(this.scene.game.renderer.type!==Phaser.WEBGL){this.drawFlat(ground);return;}
     const {columns,rows,layers}=groundLayers(ground,this.world.width,this.world.height);
     for(const [texture,offset] of [[this.controlA,0],[this.controlB,3]] as const){
       if(texture.width!==columns||texture.height!==rows)texture.setSize(columns,rows);
@@ -131,6 +135,16 @@ export class GroundTerrain {
     }
     const missing=ground.layers.filter(id=>!materialTexture(this.scene,id,()=>{if(!this.destroyed)this.bind();}));
     if(!missing.length||!this.shader)this.bind();
+  }
+  private drawFlat(ground:Ground):void{
+    const {columns,rows,pixels}=groundColorPixels(ground,this.world.width,this.world.height);
+    if(this.controlA.width!==columns||this.controlA.height!==rows)this.controlA.setSize(columns,rows);
+    const image=this.controlA.context.createImageData(columns,rows);image.data.set(pixels);
+    this.controlA.context.putImageData(image,0,0);this.controlA.refresh();
+    const cell=ground.cell;
+    this.flat??=this.scene.add.image(0,0,this.controlA.key).setOrigin(0).setDepth(this.depth).setVisible(this.shown);
+    this.flat.setTexture(this.controlA.key).setPosition(-cell/2,-cell/2).setDisplaySize(this.world.width+cell,this.world.height+cell)
+      .setAlpha(this.alphaValue).setTint(Phaser.Display.Color.GetColor(this.tint[0]*255,this.tint[1]*255,this.tint[2]*255));
   }
   /** Points the shader at the current materials; layers still loading draw as the first material. */
   private bind():void{
@@ -175,17 +189,18 @@ export class GroundTerrain {
       else{this.scene.load.once(`filecomplete-image-${key}`,place);this.scene.load.image(key,worldAssetUrl(art.asset));if(!this.scene.load.isLoading())this.scene.load.start();}
     });
   }
-  setDepth(depth:number):this{this.depth=depth;this.shader?.setDepth(depth);let order=1;for(const {image}of this.features.values())image.setDepth(depth+.001*order++);return this;}
-  setAlpha(alpha:number):this{this.alphaValue=alpha;for(const {image}of this.features.values())image.setAlpha(alpha);return this;}
+  setDepth(depth:number):this{this.depth=depth;this.shader?.setDepth(depth);this.flat?.setDepth(depth);let order=1;for(const {image}of this.features.values())image.setDepth(depth+.001*order++);return this;}
+  setAlpha(alpha:number):this{this.alphaValue=alpha;this.flat?.setAlpha(alpha);for(const {image}of this.features.values())image.setAlpha(alpha);return this;}
   setTint(tint:number):this{
     this.tint=[(tint>>16&255)/255,(tint>>8&255)/255,(tint&255)/255];
+    this.flat?.setTint(tint);
     for(const {image}of this.features.values())image.setTint(tint);
     return this;
   }
-  setVisible(visible:boolean):this{this.shown=visible;this.shader?.setVisible(visible);for(const {image}of this.features.values())image.setVisible(visible);return this;}
+  setVisible(visible:boolean):this{this.shown=visible;this.shader?.setVisible(visible);this.flat?.setVisible(visible);for(const {image}of this.features.values())image.setVisible(visible);return this;}
   destroy():void{
     if(this.destroyed)return;this.destroyed=true;
-    this.shader?.destroy();for(const {image}of this.features.values())image.destroy();this.features.clear();
+    this.shader?.destroy();this.flat?.destroy();for(const {image}of this.features.values())image.destroy();this.features.clear();
     this.scene.textures.remove(this.controlA);this.scene.textures.remove(this.controlB);
   }
 }
