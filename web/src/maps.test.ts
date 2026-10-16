@@ -21,7 +21,7 @@ function verifyRoute(navigation: NavigationGrid, start: MapPoint, route: MapPoin
 describe('painted region definitions', () => {
   it('keeps only the three authored story towns playable', () => {
     expect(maps.map(map => map.id)).toEqual(['lindenhafen', 'waldruh', 'nebelstadt']);
-    expect(new Set(maps.map(map => map.asset)).size).toBe(3);
+    expect(new Set(maps.map(map => map.sceneryAsset)).size).toBe(3);
     expect(storyMaps.map(map => map.spawn)).toEqual([{ x: .52, y: .61 }, { x: .52, y: .54 }, { x: .50, y: .55 }]);
     for (const map of maps) expect(getMap(map.id).id).toBe(map.id);
     expect(expeditionMaps).toHaveLength(10);

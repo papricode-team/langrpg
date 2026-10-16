@@ -5,7 +5,7 @@ import type {WorldSceneDocument} from './scene-schema';
 import {applyEditOps, type WorldEditOp} from './world-edit-ops';
 import {WorldEditRequestError, type EditResult} from './world-edit-session';
 
-const document = (): WorldSceneDocument => ({version: 3, maps: {waldruh: structuredClone(sceneDocument.maps.waldruh)}});
+const document = (): WorldSceneDocument => ({version: 4, maps: {waldruh: structuredClone(sceneDocument.maps.waldruh)}});
 
 /** A server that answers when told to, so tests can look at the view in between. */
 function harness(initial = document()) {

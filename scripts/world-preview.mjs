@@ -15,22 +15,33 @@ import './register-content-loader.mjs';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const {sceneNavigationGeometry} = await import('../web/src/scene-navigation.ts');
 const {parseWorldSceneDocument} = await import('../web/src/scene-schema.ts');
-const materials = new Map(JSON.parse(await readFile(resolve(root, 'web/src/data/terrain-materials.json'), 'utf8')).materials.map(material => [material.id, material]));
+const {groundColorPixels} = await import('../web/src/ground.ts');
+const {featureBounds, terrainFeature} = await import('../web/src/terrain-features.ts');
 
 const xml = value => String(value).replace(/[&<>"]/g, char => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'})[char]);
 const path = polygon => `M${polygon.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join('L')}Z`;
 
+/** The painted ground as a PNG data URL, one pixel per ground sample. */
+async function groundImage(scene) {
+  const {columns, rows, pixels} = groundColorPixels(scene.ground, scene.width, scene.height);
+  const png = await sharp(Buffer.from(pixels), {raw: {width: columns, height: rows, channels: 4}}).png().toBuffer();
+  return `data:image/png;base64,${png.toString('base64')}`;
+}
+
 /** SVG of one town. `region` crops to {x, y, width, height} in world units. */
-export function scenePreviewSVG(scene, {region, labels = true, maxSize = 1600} = {}) {
+export async function scenePreviewSVG(scene, {region, labels = true, maxSize = 1600} = {}) {
   const view = region ?? {x: 0, y: 0, width: scene.width, height: scene.height};
   const scale = Math.min(maxSize / view.width, maxSize / view.height, 4);
   const unit = 1 / scale, font = 11 * unit, parts = [];
-  const terrain = scene.modularTerrain;
-  parts.push(`<rect x="0" y="0" width="${scene.width}" height="${scene.height}" fill="${terrain ? materials.get(terrain.base)?.color ?? '#7d8660' : '#7d8660'}"/>`);
-  if (terrain) for (const surface of terrain.surfaces) parts.push(`<path d="${path(surface.polygon)}" fill="${materials.get(surface.material)?.color ?? '#999'}"/>`);
-  else for (const tile of scene.terrain) parts.push(`<rect x="${tile.x}" y="${tile.y}" width="${tile.width}" height="${tile.height}" fill="none" stroke="#5c6447" stroke-width="${unit}"/>`);
+  const cell = scene.ground.cell;
+  parts.push(`<image href="${await groundImage(scene)}" x="${-cell / 2}" y="${-cell / 2}" width="${scene.width + cell}" height="${scene.height + cell}" preserveAspectRatio="none"/>`);
+  for (const feature of scene.ground.features ?? []) {
+    const bounds = featureBounds(feature);
+    parts.push(`<rect x="${bounds.x}" y="${bounds.y}" width="${bounds.width}" height="${bounds.height}" fill="#d9c9a3" fill-opacity=".35" stroke="#7a6845" stroke-width="${unit}"/>`);
+    if (labels) parts.push(`<text x="${bounds.x + 4 * unit}" y="${bounds.y + 12 * unit}" font-size="${font}" fill="#3a2d16">${xml(terrainFeature(feature.asset)?.name ?? feature.asset)}</text>`);
+  }
   const geometry = sceneNavigationGeometry(scene);
-  for (const polygon of geometry.terrain) parts.push(`<path d="${path(polygon)}" fill="#2d5b8a" fill-opacity=".55" stroke="#1d3e60" stroke-width="${unit}"/>`);
+  for (const polygon of geometry.terrain) parts.push(`<path d="${path(polygon)}" fill="none" stroke="#9fd2ff" stroke-opacity=".7" stroke-width="${unit}"/>`);
   for (const district of scene.districts ?? []) {
     parts.push(`<path d="${path(district.polygon)}" fill="none" stroke="#ffffff" stroke-opacity=".7" stroke-dasharray="${8 * unit}" stroke-width="${1.5 * unit}"/>`);
     if (labels) parts.push(`<text x="${district.polygon[0][0] + 6 * unit}" y="${district.polygon[0][1] + 16 * unit}" font-size="${font * 1.3}" fill="#fff" font-weight="700">${xml(district.label)}</text>`);
@@ -57,7 +68,7 @@ export function scenePreviewSVG(scene, {region, labels = true, maxSize = 1600} =
 }
 
 export async function scenePreviewPNG(scene, options) {
-  return sharp(Buffer.from(scenePreviewSVG(scene, options))).png().toBuffer();
+  return sharp(Buffer.from(await scenePreviewSVG(scene, options))).png().toBuffer();
 }
 
 export function parseRegion(value) {

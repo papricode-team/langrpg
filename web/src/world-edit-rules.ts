@@ -141,7 +141,7 @@ export function polygonsOverlap(a: ScenePolygon, b: ScenePolygon): boolean {
 const footprintsOf = (scene: WorldScene, item: SceneScenery): readonly ScenePolygon[] =>
   sceneryFootprints([item], getSceneryGeometryMap(scene.id));
 const onGround = (scene: WorldScene, point: ScenePoint): boolean =>
-  scene.terrain.some(tile => point.x >= tile.x && point.x <= tile.x + tile.width && point.y >= tile.y && point.y <= tile.y + tile.height);
+  point.x >= 0 && point.y >= 0 && point.x <= scene.width && point.y <= scene.height;
 
 // Reachability ---------------------------------------------------------------
 
@@ -262,7 +262,7 @@ export function placementProblems(before: WorldScene, after: WorldScene, changed
   reach?: {before: SceneReach; after: SceneReach}, restored: ReadonlySet<string> = new Set()): WorldProblem[] {
   const problems: WorldProblem[] = [], map = after.id;
   const previous = new Map(before.scenery.map(item => [item.id, item]));
-  const hazards = after.modularTerrain ? sceneNavigationGeometry(after).terrain.map((polygon,index)=>({id:`surface-${index}`,kind:'water',polygon})) : after.navigation?.terrainCollision ?? [];
+  const hazards = sceneNavigationGeometry(after).terrain.map((polygon,index)=>({id:`ground-${index}`,kind:'water',polygon}));
   for (const id of changed) {
     const item = after.scenery.find(value => value.id === id);
     const anchor = after.npcs.find(value => value.id === id) ?? after.objects.find(value => value.id === id);

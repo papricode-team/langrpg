@@ -1,7 +1,8 @@
 import catalogue from './data/terrain-features.json' with {type:'json'};
-import type {TerrainSurface} from './modular-terrain';
 import type {ScenePolygon} from './scene-schema';
 
+/** Part of a feature's art that walkers stand on, or that stops them. */
+export interface FeatureSurface {id:string;material:string;polygon:ScenePolygon;blocked?:boolean;}
 /** Authored art retains its camera and aspect ratio. Placement is in world space. */
 export interface TerrainFeature {id:string;asset:string;x:number;y:number;width:number;}
 export interface TerrainFeatureArt {
@@ -22,7 +23,7 @@ export function featurePolygon(feature:TerrainFeature,polygon:ScenePolygon):Scen
   return polygon.map(([x,y])=>[bounds.x+x*bounds.width,bounds.y+y*bounds.height] as const);
 }
 /** Only the deck opens a crossing; wall faces and parapets remain obstacles. */
-export function featureSurfaces(feature:TerrainFeature):TerrainSurface[]{
+export function featureSurfaces(feature:TerrainFeature):FeatureSurface[]{
   return (terrainFeature(feature.asset)?.surfaces??[]).map((surface,index)=>({
     ...surface,id:`${feature.id}-${index}`,polygon:featurePolygon(feature,surface.polygon),
   }));

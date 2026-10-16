@@ -199,3 +199,45 @@ func TestWorldEditStatusRequiresAdmin(t *testing.T) {
 		t.Fatalf("status: %d %s", w.Code, w.Body.String())
 	}
 }
+
+// A brush stroke travels as its path; the server paints the weights and keeps
+// the town walkable where the stroke left no water.
+func TestWorldOpsPaintGroundAndRefuseUnknownMaterials(t *testing.T) {
+	if testing.Short() {
+		t.Skip("starts the Node edit worker")
+	}
+	app, token := adminWorldTestApp(t, "")
+	ground := func() struct {
+		Layers  []string `json:"layers"`
+		Weights []string `json:"weights"`
+	} {
+		var document struct {
+			Maps map[string]struct {
+				Ground struct {
+					Layers  []string `json:"layers"`
+					Weights []string `json:"weights"`
+				} `json:"ground"`
+			} `json:"maps"`
+		}
+		if err := json.Unmarshal(app.editing.current.Document, &document); err != nil {
+			t.Fatal(err)
+		}
+		return document.Maps["nebelstadt"].Ground
+	}
+	before := ground()
+	code, body := postOps(app, token, []map[string]any{{"kind": "paint", "map": "nebelstadt", "material": "sand", "radius": 48, "strength": 1, "points": [][]float64{{1800, 300}, {2000, 300}}}})
+	if code != 200 {
+		t.Fatalf("paint: %d %v", code, body)
+	}
+	after := ground()
+	if fmt.Sprint(after.Layers) == fmt.Sprint(before.Layers) && fmt.Sprint(after.Weights) == fmt.Sprint(before.Weights) {
+		t.Fatal("the stroke did not change the ground")
+	}
+	if !strings.Contains(fmt.Sprint(after.Layers), "sand") && len(before.Layers) < 6 {
+		t.Fatalf("sand did not join the ground layers: %v", after.Layers)
+	}
+	code, body = postOps(app, token, []map[string]any{{"kind": "paint", "map": "nebelstadt", "material": "lava", "radius": 48, "strength": 1, "points": [][]float64{{1800, 300}}}})
+	if code != 422 {
+		t.Fatalf("unknown material: %d %v", code, body)
+	}
+}

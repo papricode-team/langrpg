@@ -13,13 +13,11 @@ const content = [
 ];
 const paint = [
   ['prepare-resident-action-art.mjs'],
-  ['prepare-core-ground-masks.mjs'], ['prepare-terrain-detail.mjs'],
   ['prepare-world-art.mjs'], ['prepare-world-variations.mjs'],
   ['prepare-world-animations.mjs', '--set', 'day'], ['prepare-world-animations.mjs', '--set', 'night'],
   ['prepare-interior-art.mjs'], ['prepare-interior-stills.mjs'], ['prepare-interior-effects.mjs'],
   ['prepare-story-cast.mjs'], ['prepare-static-buildings.mjs'],
   ['prepare-map-quality-art.mjs'],
-  ['prepare-nebelstadt-harbour-terrain.mjs'], ['prepare-nebelstadt-harbour-bridge.mjs'], ['prepare-terrain-overviews.mjs'],
 ];
 const jobs = process.argv.includes('--art') ? [...content,...paint,['export-world-content.mjs'],['prepare-scenery-previews.mjs']] : [...content];
 if (process.argv.includes('--audio')) jobs.push(['generate-world-audio.mjs'],['generate-dialogue-audio.mjs']);

@@ -15,7 +15,7 @@ Press **?** in the editor for every keyboard shortcut. The most used: arrows nud
 
 Undo and Redo are per admin and cover the last 100 edits, including terrain and resident schedules. An object stays locked to the admin who has it selected (up to 12 objects at a time); other admins see it outlined in red with that admin's name.
 
-To try the editor without a server or an admin account, run `npx vite web` and open `/qa/map-editor.html`. It edits the checked-in world in memory; add `?latency=300` to simulate a slow connection.
+To try the editor without a server or an admin account, run `npx vite web` and open `/qa/map-editor.html`. It edits the seed world in memory; add `?latency=300` to simulate a slow connection.
 
 ## In-game edit mode
 
@@ -23,12 +23,17 @@ The in-game admin edit mode has an **Add objects** catalogue. Choose an object g
 
 Select a placed scenery object to change its **Version** in the inspector. Compatible versions are grouped together; buildings with rooms only offer versions that can keep the room. A swap preserves the object ID, position, flip, room and resident activity links, updates the artwork and footprint, and adjusts width only when needed to fit the new artwork's size limits. Existing placement and route checks still apply. **Undo** restores the prior artwork and collision data. Changes publish immediately, like other map edits.
 
-The three story towns use `web/src/data/world-navigation.json` for their foot-level walkable polygons, solid obstacles, spawn and existing NPC/object positions. The browser navigation grid reads this file directly. Painted object footprints remain additional collision; roofs and canopies are visual scenery.
+## Ground
 
-Run `node scripts/map-editor.mjs export lindenhafen docs/maps/lindenhafen.tmj` and open the result in Tiled. The painting is a reference image. Edit polygons in **Walkable**, solid polygons/rectangles/ellipses in **Obstacles**, and foot positions in **Spawn**, **NPCs** and **Objects**. Keep the existing point's `key` property: it links to authored dialogue or object content. New characters and object text still need authored content before they can be placed.
+The **Terrain** mode paints the ground. Choose a material and drag: the soft brush blends it into what is
+there, and going over a spot again covers it fully. **Erase** paints the town's first material back. The size
+and strength sliders and the [ and ] keys set the brush. Water and cliff stop walkers where they cover most of
+the ground. A town uses at most six materials; the panel lists them, and painting one over completely frees its
+place. Each stroke publishes as one edit, which Undo takes back.
 
-Run `node scripts/map-editor.mjs import docs/maps/lindenhafen.tmj` to apply the edited data. Import checks the schema, bounds, polygon area, crossings, registered content IDs and an actual path from the spawn to every interaction approach. An invalid or unreachable edit leaves the source untouched. `node scripts/map-editor.mjs check` validates all three towns without changing them.
+Bridges and compass inlays are **pieces**: pick one and click to place it, select a placed piece to move, resize,
+reorder or delete it. A bridge's deck opens a crossing over water; its masonry stays solid.
 
-The current painting size is 1536 × 1024 pixels. Expanding a town into multiple plates requires extending the runtime grid and camera bounds first. Door, story and timetable conditions remain in the dialogue/world systems; the current editor authors physical routes and placements.
-
-`npm run assets` validates the canonical maps before exporting server interaction positions. `npm run maps:check` runs that geometry check on its own; `npm run test:tooling` checks Tiled roundtrips and verifies that invalid imports leave the source file unchanged.
+**Preview ground file** loads a town's ground from a file (a ground object, a scene or a pulled world) for review
+before **Publish ground**. Buildings, objects and residents keep their positions. See
+[scene authoring](scene-authoring.md#ground) for the model.

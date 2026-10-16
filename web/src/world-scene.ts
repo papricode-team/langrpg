@@ -15,12 +15,11 @@ import { WorldScenery } from './world-scenery';
 import { sceneryTextureKey } from './placed-scenery';
 import { createSceneryOcclusion } from './scenery-occlusion';
 import { setDepthIfChanged, worldDepth, type OcclusionCharacter } from './world-depth';
-import { StreamedWorldTerrain, terrainResidency } from './streamed-world-terrain';
+import { GroundTerrain } from './ground-terrain';
 import { getWorldScene } from './scene-data';
 import { sceneNavigationGeometry } from './scene-navigation';
 import { sceneryThumbnail, WorldEditController, type EditSurface } from './world-edit-mode';
 import type { WorldEditOp } from './world-edit-ops';
-import { sceneTerrainImage } from './scene-terrain';
 import { WorldMapAssets, regionAssets } from './world-map-assets';
 import { WorldAnimationAssets } from './world-animation-assets';
 import { worldAmbient, timeAmbient } from './world-lighting';
@@ -58,9 +57,7 @@ function mapKeys(id: MapId, cache: Phaser.Cache.BaseCache): Set<string> {
  */
 function foreignToMap(key: string, current: MapId, cache: Phaser.Cache.BaseCache): boolean {
   if (mapKeys(current, cache).has(key)) return false;
-  return maps.some(map => map.id !== current && (mapKeys(map.id, cache).has(key)
-    || getWorldScene(map.id).terrain.some(tile => (['day', 'night'] as const).some(period => sceneTerrainImage(tile, period).key === key)
-      || [tile.dayPreviewAsset, tile.nightPreviewAsset].some(preview => preview && assetKey(preview) === key))));
+  return maps.some(map => map.id !== current && mapKeys(map.id, cache).has(key));
 }
 
 interface LegacyResident {
@@ -85,9 +82,9 @@ export interface WorldWakeData { returnFrom?: InteriorId; instant?: boolean }
 export class WorldScene extends ExploreScene implements EditSurface {
   protected readonly objectPrefix = 'object' as const;
   mapSpec: WorldMapSpec = getMap('lindenhafen');
-  private background?: StreamedWorldTerrain;
-  private pendingTerrain?: StreamedWorldTerrain;
-  private previousBackground?: StreamedWorldTerrain;
+  private background?: GroundTerrain;
+  private pendingTerrain?: GroundTerrain;
+  private previousBackground?: GroundTerrain;
   private scenery?: WorldScenery;
   private previousScenery?: WorldScenery;
   private periodFade?: Phaser.Tweens.Tween;
@@ -118,8 +115,8 @@ export class WorldScene extends ExploreScene implements EditSurface {
   private entranceTransition?: Phaser.Tweens.Tween;
   private enteringInterior = false;
   private mapAnnounced = false;
-  private regionAssets = new WorldMapAssets(this, false);
-  private animationAssets = new WorldAnimationAssets(this, false);
+  private regionAssets = new WorldMapAssets(this);
+  private animationAssets = new WorldAnimationAssets(this);
   private editController?: WorldEditController;
   private readonly occlusionList: OcclusionCharacter[] = [];
   private readonly occlusionPool: OcclusionCharacter[] = [];
@@ -151,8 +148,8 @@ export class WorldScene extends ExploreScene implements EditSurface {
     // Bark timing is measured against this run's elapsed time, which init() just reset.
     this.barkDirector.reset(); this.learning = { lexicon: [], progress: { words: {} } };
     // Loader requests belong to one scene run; a restart abandons the previous batch.
-    this.regionAssets = new WorldMapAssets(this, false);
-    this.animationAssets = new WorldAnimationAssets(this, false);
+    this.regionAssets = new WorldMapAssets(this);
+    this.animationAssets = new WorldAnimationAssets(this);
     // Registered before preload so a run abandoned mid-load still releases what it fetched.
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.shutdownMap());
     const current = this.mapSpec.id;
@@ -196,7 +193,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
   protected buildScene(): void {
     const map = this.mapSpec;
     this.learning = readWorld(this.registry, 'learning') ?? this.learning;
-    this.background = new StreamedWorldTerrain(this, getWorldScene(map.id), this.period).setTint(worldAmbient(map.id, this.period).terrain);
+    this.background = new GroundTerrain(this, getWorldScene(map.id), this.period).setTint(worldAmbient(map.id, this.period).terrain);
     this.background.update(this.cameras.main.worldView, this.cameras.main.zoom);
     this.mapAnimationsReady = this.animationAssets.ready(map.id, this.period);
     this.scenery = new WorldScenery(this, map.id, this.period, undefined, createSceneryOcclusion);
@@ -268,7 +265,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
     this.scenery?.sync(scene.scenery);
     this.previousScenery?.sync(scene.scenery);
     if (this.scenery) this.atmosphere?.setLampLights(this.scenery.lampLights);
-    if(relevant.some(op=>op.kind==='terrain')){
+    if(relevant.some(op=>op.kind==='ground'||op.kind==='paint')){
       // Repaint in place: a new layer would drop the loaded ground art and fetch it all again.
       for(const layer of [this.background,this.previousBackground,this.pendingTerrain])layer?.setWorld(scene);
     }
@@ -288,7 +285,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
     this.syncMapObjects();
     this.syncPortals();
     const owners = new Set((scene.activities ?? []).map(slot => slot.ownerId));
-    if (relevant.some(op => op.kind === 'residents' || op.kind === 'terrain' || (op.kind !== 'moveAnchor' && op.kind !== 'place' && owners.has(op.id)) || (op.kind === 'place' && op.activities?.length))) this.rebuildActivityResidents();
+    if (relevant.some(op => op.kind === 'residents' || op.kind === 'ground' || op.kind === 'paint' || (op.kind !== 'moveAnchor' && op.kind !== 'place' && owners.has(op.id)) || (op.kind === 'place' && op.activities?.length))) this.rebuildActivityResidents();
     this.editController?.documentChanged();
     this.refreshNearby();
   }
@@ -591,7 +588,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
     if (!terrain) {
       if (this.pendingTerrain?.period !== period) {
         this.pendingTerrain?.destroy();
-        this.pendingTerrain = new StreamedWorldTerrain(this, getWorldScene(this.mapSpec.id), period).setAlpha(0);
+        this.pendingTerrain = new GroundTerrain(this, getWorldScene(this.mapSpec.id), period).setAlpha(0);
       }
       this.pendingTerrain.update(this.cameras.main.worldView, this.cameras.main.zoom);
       if (!this.pendingTerrain.ready) return;
@@ -936,6 +933,6 @@ export class WorldScene extends ExploreScene implements EditSurface {
   }
   get terrainStats() {
     const size = this.background ? this.background.nativeSize : { width: 0, height: 0 };
-    return { ...size, ...terrainResidency(this).snapshot(), pixelZoom: size.width ? this.cameras.main.zoom / (size.width / this.mapSpec.width) : 0 };
+    return { ...size, pixelZoom: size.width ? this.cameras.main.zoom / (size.width / this.mapSpec.width) : 0 };
   }
 }

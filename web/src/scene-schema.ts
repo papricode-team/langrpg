@@ -1,7 +1,8 @@
 import {terrainMaterial} from './terrain-materials.ts';
 import {terrainFeature,featureBounds,type TerrainFeature} from './terrain-features.ts';
 import {terrainObjectGeometry} from './terrain-objects.ts';
-import type {ModularTerrain} from './modular-terrain';
+import {groundProblem,type Ground} from './ground.ts';
+import {groundFromHazards,groundFromModularTerrain,legacyGroundStyle,type LegacyModularTerrain} from './ground-convert.ts';
 import {residentActionLooks,type ResidentActionLook} from './resident-action-art.ts';
 import sceneryGeometry from './data/scenery-geometry.json' with {type:'json'};
 /** Canonical scene coordinates are world units, independent of image resolution. */
@@ -45,18 +46,6 @@ export interface SceneScenery extends SceneAnchor {
   groupId?: string; generatorId?: string; pinned?: boolean;
   /** A building with a painted door can host one room. Its doorway follows the artwork. */
   interior?: SceneInterior;
-}
-export interface SceneTerrain extends ScenePoint {
-  id: string; width: number; height: number; dayAsset: string; nightAsset?: string;
-  /** Visible texture pixels, excluding the guard band used at adjoining edges. */
-  dayCrop?: ScenePoint & {width: number; height: number};
-  nightCrop?: ScenePoint & {width: number; height: number};
-  /** Source pixels per world unit. New terrain follows the detailed 4 px/unit format. */
-  pixelDensity?: number;
-  /** Lightweight overview layers used while nearby close-up artwork loads. */
-  dayPreviewAsset?: string; nightPreviewAsset?: string;
-  /** Authoring/navigation mask: one pixel per world unit, white is walkable ground. */
-  walkableMaskAsset?: string;
 }
 export interface SceneDistrict { id: string; label?: string; polygon: ScenePolygon; }
 export interface SceneActivity {
@@ -111,16 +100,15 @@ export interface WorldScene {
   id: string; kind?: 'outdoor' | 'interior'; width: number; height: number;
   coordinateVersion: number; legacyOffset?: ScenePoint;
   spawn: ScenePoint; npcs: SceneAnchor[]; objects: SceneAnchor[];
-  walkable: ScenePolygon[]; obstacles: ScenePolygon[]; scenery: SceneScenery[];
-  /** Clear land is the default; only explicit terrain and owned objects block. */
-  navigation?: {model:'clear-land'; terrainCollision:SceneTerrainCollision[]};
-  modularTerrain?: ModularTerrain;
-  terrain: SceneTerrain[]; districts: SceneDistrict[];
+  scenery: SceneScenery[];
+  /** Painted ground. Blocked materials and owned object footprints are all that stop walkers. */
+  ground: Ground;
+  districts: SceneDistrict[];
   activities?: SceneActivity[]; generationZones?: SceneGenerationZone[];
   prefabInstances?: ScenePrefabInstance[];
   residents?: SceneResident[];
 }
-export interface WorldSceneDocument { version: 3; maps: Record<string, WorldScene>; prefabs?: ScenePrefab[]; }
+export interface WorldSceneDocument { version: 4; maps: Record<string, WorldScene>; prefabs?: ScenePrefab[]; }
 
 export function sceneActivityPoint(scene: WorldScene, activity: SceneActivity): ScenePoint {
   const owner = scene.scenery.find(item => item.id === activity.ownerId);
@@ -153,6 +141,28 @@ export function sceneEntrancePoint(scene: WorldScene, entrance: Pick<SceneEntran
   return {x:owner.x+offset.x,y:owner.y+offset.y};
 }
 /** Earlier documents kept doors in a separate list. Attach each to its building. */
+/**
+ * Version 3 worlds painted their ground as image plates or vector surfaces, with separate collision
+ * polygons. Version 4 paints it as weighted materials: vector surfaces convert exactly, plate towns keep
+ * their water and cliffs over a plain ground until repainted.
+ */
+function upgradeGround(value: Record<string, unknown>): void {
+  if (value.version !== 3 || !record(value.maps)) return;
+  for (const [id, scene] of Object.entries(value.maps)) {
+    if (!record(scene) || !finite(scene.width) || !finite(scene.height)) continue;
+    if (scene.ground === undefined) {
+      if (record(scene.modularTerrain)) scene.ground = groundFromModularTerrain(scene.modularTerrain as unknown as LegacyModularTerrain, scene.width, scene.height, 4);
+      else {
+        const style = legacyGroundStyle[id] ?? {base: 'meadow', water: 'deep-water'};
+        const hazards = record(scene.navigation) && Array.isArray(scene.navigation.terrainCollision) ? scene.navigation.terrainCollision : [];
+        scene.ground = groundFromHazards(style.base, hazards, scene.width, scene.height, {water: style.water});
+      }
+    }
+    for (const key of ['terrain', 'navigation', 'modularTerrain', 'walkable', 'obstacles']) delete scene[key];
+  }
+  value.version = 4;
+}
+
 function upgradeEntrances(value: Record<string, unknown>): void {
   if (value.version !== 2 || !record(value.maps)) return;
   for (const scene of Object.values(value.maps)) {
@@ -283,8 +293,8 @@ function prefabCatalog(value:unknown):asserts value is ScenePrefab[] {
 
 /** Pure structural validation. Content, file and path checks belong to the compiler. */
 export function parseWorldSceneDocument(value: unknown): WorldSceneDocument {
-  if (record(value)) upgradeEntrances(value);
-  if (!record(value) || value.version !== 3 || !record(value.maps) || !Object.keys(value.maps).length) fail('expected version 3 and a nonempty map registry');
+  if (record(value)) { upgradeEntrances(value); upgradeGround(value); }
+  if (!record(value) || value.version !== 4 || !record(value.maps) || !Object.keys(value.maps).length) fail('expected version 4 and a nonempty map registry');
   if(value.prefabs!==undefined)prefabCatalog(value.prefabs);
   const catalog=(value.prefabs??[]) as ScenePrefab[];
   for (const [id, input] of Object.entries(value.maps)) {
@@ -296,22 +306,6 @@ export function parseWorldSceneDocument(value: unknown): WorldSceneDocument {
     if (!Number.isInteger(input.coordinateVersion) || Number(input.coordinateVersion) < 1) fail(`${id} has an invalid coordinate version`);
     if (input.legacyOffset !== undefined) point(input.legacyOffset, `${id} legacy offset`);
     point(input.spawn, `${id} spawn`, input.width, input.height);
-    const clearLand=input.navigation!==undefined;
-    if(clearLand) {
-      if(!record(input.navigation)||input.navigation.model!=='clear-land')fail(`${id} has an invalid navigation model`);
-      list(input.navigation.terrainCollision,`${id} terrain collision`);
-      for(const hazard of input.navigation.terrainCollision) {
-        if(!['water','cliff','rock','wall'].includes(String(hazard.kind)))fail(`${id} terrain ${hazard.id} has an invalid collision kind`);
-        polygon(hazard.polygon,`${id} terrain ${hazard.id}`,input.width,input.height);
-      }
-      if(!Array.isArray(input.walkable)||!Array.isArray(input.obstacles)||input.walkable.length||input.obstacles.length)
-        fail(`${id}: clear-land scenes must use terrain collision and object-owned footprints; legacy walkable and obstacles must be empty`);
-    }
-    for (const kind of ['walkable', 'obstacles'] as const) {
-      const shapes = input[kind];
-      if (!Array.isArray(shapes) || (kind === 'walkable' && !shapes.length&&!clearLand)) fail(`${id} needs ${kind} polygons`);
-      shapes.forEach((shape, index) => polygon(shape, `${id} ${kind} ${index}`, input.width as number, input.height as number));
-    }
     for (const kind of ['npcs', 'objects'] as const) {
       list(input[kind], `${id} ${kind}`);
       for (const anchor of input[kind]) {point(anchor, `${id} ${kind} ${anchor.id}`, input.width, input.height);collision(anchor.collision,`${id} ${kind} ${anchor.id}`,true);}
@@ -343,48 +337,19 @@ export function parseWorldSceneDocument(value: unknown): WorldSceneDocument {
         }
       }
     }
-    if (input.modularTerrain !== undefined) {
-      const modular = input.modularTerrain;
-      if (!record(modular) || modular.version !== 1 || typeof modular.base !== 'string' || !terrainMaterial(modular.base)) fail(`${id} has invalid modular terrain`);
-      list(modular.surfaces, `${id} terrain surfaces`);
-      if (modular.surfaces.length > 512) fail(`${id} supports at most 512 terrain surfaces`);
-      for (const surface of modular.surfaces) {
-        if (typeof surface.material !== 'string' || !terrainMaterial(surface.material)) fail(`${id} has unknown terrain material`);
-        polygon(surface.polygon, `${id} terrain surface ${surface.id}`, input.width, input.height);
-        if (surface.blocked !== undefined && typeof surface.blocked !== 'boolean') fail(`${id} terrain surface needs a boolean blocked value`);
-        if (surface.groupId !== undefined && !validId(surface.groupId)) fail(`${id} terrain surface has an invalid group`);
-      }
-      if(modular.features!==undefined){
-        list(modular.features,`${id} authored terrain pieces`);
-        if(modular.features.length>256)fail(`${id} supports at most 256 authored terrain pieces`);
-        for(const feature of modular.features){
-          if(typeof feature.asset!=='string'||!terrainFeature(feature.asset))fail(`${id} has unknown authored terrain art`);
-          point(feature,`${id} terrain piece ${feature.id}`,input.width,input.height);
-          positive(feature.width,`${id} terrain piece ${feature.id} width`,2048);
-          const bounds=featureBounds(feature as unknown as TerrainFeature);
-          if(bounds.x+bounds.width>input.width||bounds.y+bounds.height>input.height)fail(`${id} terrain piece ${feature.id} exceeds scene bounds`);
-        }
-      }
-    }
-    list(input.terrain, `${id} terrain`);
-    if (!input.terrain.length) fail(`${id} needs terrain`);
-    for (const tile of input.terrain) {
-      point(tile, `${id} terrain ${tile.id}`, input.width, input.height);
-      positive(tile.width, `${id} terrain width`); positive(tile.height, `${id} terrain height`);
-      if (tile.x + tile.width > input.width || tile.y + tile.height > input.height) fail(`${id} terrain ${tile.id} exceeds scene bounds`);
-      assetPath(tile.dayAsset, `${id} terrain ${tile.id}`);
-      if (tile.nightAsset !== undefined) assetPath(tile.nightAsset, `${id} terrain ${tile.id}`);
-      for (const key of ['dayPreviewAsset', 'nightPreviewAsset']) if (tile[key] !== undefined) assetPath(tile[key], `${id} terrain ${tile.id} overview`);
-      if(tile.walkableMaskAsset!==undefined)assetPath(tile.walkableMaskAsset,`${id} terrain ${tile.id} walkable mask`);
-      if (tile.pixelDensity !== undefined) positive(tile.pixelDensity, `${id} terrain ${tile.id} pixel density`, 16);
-      for (const key of ['dayCrop', 'nightCrop']) if (tile[key] !== undefined) {
-        const crop = tile[key];
-        point(crop, `${id} terrain ${tile.id} ${key}`);
-        if (crop.x < 0 || crop.y < 0 || !Number.isInteger(crop.x) || !Number.isInteger(crop.y)) fail(`${id} terrain ${tile.id} crop origin must be nonnegative pixels`);
-        const rectangle = crop as ScenePoint & {width: number; height: number};
-        positive(rectangle.width, `${id} terrain crop width`); positive(rectangle.height, `${id} terrain crop height`);
-        if (!Number.isInteger(rectangle.width) || !Number.isInteger(rectangle.height)) fail(`${id} terrain crop must use whole pixels`);
-        if (tile.pixelDensity !== undefined && (rectangle.width !== Number(tile.width) * Number(tile.pixelDensity) || rectangle.height !== Number(tile.height) * Number(tile.pixelDensity))) fail(`${id} terrain ${tile.id} crop does not match its pixel density`);
+    const ground = input.ground;
+    const groundError = groundProblem(ground, input.width, input.height);
+    if (groundError) fail(`${id}: ${groundError}`);
+    if (record(ground) && ground.features !== undefined) {
+      list(ground.features,`${id} ground features`);
+      if(ground.features.length>256)fail(`${id} supports at most 256 ground features`);
+      for(const feature of ground.features){
+        if(!validId(feature.id))fail(`${id} has a ground feature with an invalid id`);
+        if(typeof feature.asset!=='string'||!terrainFeature(feature.asset))fail(`${id} has unknown ground feature art`);
+        point(feature,`${id} ground feature ${feature.id}`,input.width,input.height);
+        positive(feature.width,`${id} ground feature ${feature.id} width`,2048);
+        const bounds=featureBounds(feature as unknown as TerrainFeature);
+        if(bounds.x+bounds.width>input.width||bounds.y+bounds.height>input.height)fail(`${id} ground feature ${feature.id} exceeds scene bounds`);
       }
     }
     list(input.districts, `${id} districts`);

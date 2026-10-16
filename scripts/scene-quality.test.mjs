@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {auditSceneQuality} from './scene-quality.mjs';
 
 test('texture upscaling preserves building scale and native density checks',()=>{
-  const scene={id:'lindenhafen',scenery:[{id:'station',asset:'station',x:0,y:0,width:100}],terrain:[],walkable:[]};
+  const scene={id:'lindenhafen',scenery:[{id:'station',asset:'station',x:0,y:0,width:100}]};
   const original={referenceWidth:400,height:1152,footprint:[[0,0],[400,0],[200,100]]};
   const baseline=auditSceneQuality(scene,{assets:{station:original}});
   assert.deepEqual(baseline.issues,[]);

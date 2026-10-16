@@ -1,5 +1,4 @@
 import type { MapId } from './maps';
-import type { MapNavigationDocument } from './map-authoring';
 import { placedSceneryFootprints } from './placed-scenery';
 import {getWorldScene} from './scene-data';
 import {sceneNavigationGeometry} from './scene-navigation';
@@ -682,17 +681,3 @@ export function createFallbackNavigation(): NavigationGrid {
   ], {width:MAP_WIDTH,height:MAP_HEIGHT}, {agentRadius:PLAYER_RADIUS});
 }
 
-/** Validate legacy point-foot documents. Canonical scenes additionally audit
- * player clearance in scene-compiler.mjs before an editor save. */
-export function validateAuthoredReachability(document: MapNavigationDocument): string[] {
-  const errors: string[] = [];
-  for (const [id, map] of Object.entries(document.maps)) {
-    const grid = new NavigationGrid(map.walkable, [...map.obstacles, ...placedSceneryFootprints(id as MapId)], document);
-    if (!grid.isWalkable(map.spawn.x, map.spawn.y)) { errors.push(`${id}: spawn is outside walkable ground`); continue; }
-    for (const target of [...map.npcs, ...map.objects]) {
-      const approach = grid.closestPoint(target.x, target.y);
-      if (Math.hypot(approach.x - target.x, approach.y - target.y) > 120 || !grid.findPath(map.spawn, approach).length) errors.push(`${id}: ${target.id} has no reachable interaction approach`);
-    }
-  }
-  return errors;
-}

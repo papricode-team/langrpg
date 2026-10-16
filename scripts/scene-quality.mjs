@@ -1,6 +1,9 @@
 /** Content rules shared by the compiler and the handover audit. */
 import './register-content-loader.mjs';
 const {scaleCanon,PERSON_HEIGHT}=await import('../web/src/scene-schema.ts');
+const {groundBlockedSamples,groundGrid}=await import('../web/src/ground.ts');
+/** Composition is judged per 768 × 512 world-unit chunk, the size of a screenful at play zoom. */
+const CHUNK={width:768,height:512};
 
 const inside=(polygon,x,y)=>{
   let result=false;
@@ -23,13 +26,18 @@ export function auditSceneQuality(scene,manifest){
   }
   const resolution=Object.fromEntries(Object.entries(classes).map(([name,values])=>[name,{median:median(values),min:Math.min(...values)}]));
   for(const [name,value]of Object.entries(resolution))if(value.median<3.5||value.min<2.5)issues.push(`${scene.id}: ${name} source density ${value.median.toFixed(2)} median / ${value.min.toFixed(2)} minimum px/unit is below 3.5 / 2.5`);
-  const chunks=scene.terrain.map(tile=>{
+  const tiles=[];
+  for(let y=0;y<scene.height;y+=CHUNK.height)for(let x=0;x<scene.width;x+=CHUNK.width)
+    tiles.push({id:`chunk-${x/CHUNK.width}-${y/CHUNK.height}`,x,y,width:Math.min(CHUNK.width,scene.width-x),height:Math.min(CHUNK.height,scene.height-y)});
+  const blocked=tiles.length?groundBlockedSamples(scene.ground,scene.width,scene.height):undefined,columns=tiles.length?groundGrid(scene.width,scene.height,scene.ground.cell).columns:0;
+  const open=(x,y)=>!blocked[Math.round(y/scene.ground.cell)*columns+Math.round(x/scene.ground.cell)];
+  const chunks=tiles.map(tile=>{
     const objects=scene.scenery.filter(item=>item.x>=tile.x&&item.x<tile.x+tile.width&&item.y>=tile.y&&item.y<tile.y+tile.height);
     const buildings=objects.filter(item=>['house','archive','cafe','station','workshop','greenhouse'].includes(item.asset));
     const landmark=buildings.some(item=>['archive','cafe','station','workshop'].includes(item.asset));
     const owners=new Set(objects.map(item=>item.id));
     let paved=0,total=0;
-    for(let y=tile.y+8;y<tile.y+tile.height;y+=16)for(let x=tile.x+8;x<tile.x+tile.width;x+=16){total++;if(scene.navigation?!scene.navigation.terrainCollision.some(hazard=>inside(hazard.polygon,x,y)):scene.walkable.some(polygon=>inside(polygon,x,y)))paved++;}
+    for(let y=tile.y+8;y<tile.y+tile.height;y+=16)for(let x=tile.x+8;x<tile.x+tile.width;x+=16){total++;if(open(x,y))paved++;}
     const activities=(scene.activities??[]).filter(item=>owners.has(item.ownerId)).length;
     const coverage=paved/total;
     if(objects.length<18)issues.push(`${scene.id}: ${tile.id} needs at least 18 composed objects (has ${objects.length})`);
@@ -38,9 +46,5 @@ export function auditSceneQuality(scene,manifest){
     if(!activities)issues.push(`${scene.id}: ${tile.id} needs an activity owner`);
     return {id:tile.id,objects:objects.length,buildings:buildings.length,activities,walkableRatio:coverage};
   });
-  for(const polygon of scene.walkable){
-    const xs=polygon.map(p=>p[0]),ys=polygon.map(p=>p[1]);
-    if(Math.max(...xs)-Math.min(...xs)>300&&Math.max(...ys)-Math.min(...ys)>300&&!scene.scenery.some(item=>inside(polygon,item.x,item.y)))issues.push(`${scene.id}: empty plaza larger than 300 × 300 units`);
-  }
   return {issues,resolution,chunks};
 }

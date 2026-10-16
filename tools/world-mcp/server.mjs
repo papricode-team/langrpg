@@ -21,6 +21,9 @@ import '../../scripts/register-content-loader.mjs';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const {parseWorldSceneDocument} = await import('../../web/src/scene-schema.ts');
 const {paletteChoices} = await import('../../web/src/world-edit-catalogue.ts');
+const {terrainMaterials} = await import('../../web/src/terrain-materials.ts');
+const {terrainFeatures} = await import('../../web/src/terrain-features.ts');
+const {groundFingerprint} = await import('../../web/src/ground.ts');
 
 const editGuide = `Each operation names its town in "map". Coordinates are world units: x grows east, y grows south; a
 scenery or anchor position is the foot point where it meets the ground. Kinds:
@@ -32,6 +35,12 @@ scenery or anchor position is the foot point where it meets the ground. Kinds:
 - {kind:"update", map, id, frame?, width?, flipX?, collidable?, interior?: {kind: cafe|bakery|supermarket|inn} | null}.
 - {kind:"remove", map, id}: refused while a resident's schedule uses the object's activity spots.
 - {kind:"residents", map, residents:[...]}: replace a town's residents and their daily schedules (see get_town).
+- {kind:"paint", map, material, radius, strength, points:[[x,y],...]}: one brush stroke of ground. The soft round
+  brush adds strength (0–1) of the material along the points (up to 400); radius is in world units (up to 512). Repeat
+  a stroke to cover fully. A town uses at most six materials; blocked materials (water, cliff) stop walkers where they
+  dominate. Materials come from list_catalogue.
+- {kind:"ground", map, ground, expected}: replace a town's whole ground, for example to move bridges and inlays in
+  ground.features. expected is the fingerprint of the ground being replaced, from get_town's terrain section.
 Up to 50 operations apply together or not at all. Edits that break play are refused with problems that name the
 objects; softer issues (overlaps, blocked routes) publish with warnings. Render the town afterwards to check.`;
 
@@ -41,11 +50,11 @@ const tools = [
   {name: 'get_town', description: 'Read one town as JSON. Choose sections to keep the answer small; region limits scenery, characters and evidence to an area.',
     inputSchema: {type: 'object', required: ['town'], properties: {
       town: {type: 'string'},
-      sections: {type: 'array', items: {type: 'string', enum: ['scenery', 'npcs', 'objects', 'activities', 'residents', 'districts', 'terrain', 'spawn', 'prefabs']}, description: 'Default: scenery, npcs, objects, districts, spawn.'},
+      sections: {type: 'array', items: {type: 'string', enum: ['scenery', 'npcs', 'objects', 'activities', 'residents', 'districts', 'terrain', 'spawn', 'prefabs']}, description: 'Default: scenery, npcs, objects, districts, spawn. terrain gives the ground materials, features and fingerprint.'},
       region: regionSchema()}}},
   {name: 'render_town', description: 'Draw a town as a labelled plan: ground, water and other blocked terrain, object footprints (brown), scenery ids, story characters (red), evidence (orange squares), residents\' homes (purple) and the spawn (green), over a grid in world units.',
     inputSchema: {type: 'object', required: ['town'], properties: {town: {type: 'string'}, region: regionSchema(), labels: {type: 'boolean', default: true}}}},
-  {name: 'list_catalogue', description: 'Objects that can be placed in a town: asset, frame, label, rooms a building can host, and the typical drawn width in world units.',
+  {name: 'list_catalogue', description: 'Objects that can be placed in a town (asset, frame, label, rooms a building can host, typical drawn width in world units), the ground materials it can be painted with, and the bridge and inlay pieces for its ground.',
     inputSchema: {type: 'object', required: ['town'], properties: {town: {type: 'string'}, asset: {type: 'string', description: 'Only this kind, such as house, tree or bench.'}}}},
   {name: 'apply_edits', description: `Validate and publish edit operations to the live world.\n${editGuide}`,
     inputSchema: {type: 'object', required: ['ops'], properties: {ops: {type: 'array', minItems: 1, maxItems: 50, items: {type: 'object'}}}}},
@@ -87,14 +96,15 @@ export function createWorldTools(client = worldClient()) {
       return json({revision: current.revision, contentVersion: current.contentVersion, server: client.origin, locks: status.locks,
         towns: Object.values(current.document.maps).map(scene => ({id: scene.id, width: scene.width, height: scene.height, scenery: scene.scenery.length,
           npcs: scene.npcs.map(npc => npc.id), evidence: scene.objects.length, residents: (scene.residents ?? []).length,
-          districts: (scene.districts ?? []).map(district => district.label), terrain: scene.modularTerrain ? 'painted' : 'image plates'}))});
+          districts: (scene.districts ?? []).map(district => district.label), ground: scene.ground.layers}))});
     },
     async get_town({town: name, sections = ['scenery', 'npcs', 'objects', 'districts', 'spawn'], region}) {
       const {scene, current} = await town(name), keep = inside(region), result = {id: scene.id, width: scene.width, height: scene.height, revision: current.revision};
       for (const section of sections) {
         if (section === 'scenery') result.scenery = scene.scenery.filter(keep).map(({collision, sortLine, ...item}) => item);
         else if (section === 'npcs' || section === 'objects') result[section] = scene[section].filter(keep).map(({collision, ...item}) => item);
-        else if (section === 'terrain') result.terrain = scene.modularTerrain ?? {plates: scene.terrain.map(({id, x, y, width, height}) => ({id, x, y, width, height}))};
+        else if (section === 'terrain') result.terrain = {cell: scene.ground.cell, materials: scene.ground.layers, features: scene.ground.features ?? [], fingerprint: groundFingerprint(scene.ground),
+          note: 'Weights are encoded; render_town shows the painted ground. Change it with paint operations.'};
         else if (section === 'prefabs') result.prefabs = current.document.prefabs ?? [];
         else result[section] = scene[section] ?? [];
       }
@@ -112,8 +122,10 @@ export function createWorldTools(client = worldClient()) {
         widths.set(key, [...(widths.get(key) ?? []), placed.width]);
       }
       const typical = key => { const list = (widths.get(key) ?? []).sort((a, b) => a - b); return list.length ? list[Math.floor(list.length / 2)] : undefined; };
-      return json(paletteChoices(scene.id).filter(choice => !asset || choice.asset === asset)
-        .map(choice => ({...choice, typicalWidth: typical(choice.frame) ?? typical(choice.asset)})));
+      return json({objects: paletteChoices(scene.id).filter(choice => !asset || choice.asset === asset)
+        .map(choice => ({...choice, typicalWidth: typical(choice.frame) ?? typical(choice.asset)})),
+        materials: terrainMaterials.map(({id, name, group, blocked}) => ({id, name, group, blocksWalkers: blocked, usedHere: scene.ground.layers.includes(id)})),
+        groundPieces: terrainFeatures.map(({id, name, category, worldWidth}) => ({asset: id, name, category, typicalWidth: worldWidth}))});
     },
     async apply_edits({ops}) {
       const result = await client.applyOps(ops);

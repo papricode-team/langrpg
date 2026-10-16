@@ -1,14 +1,15 @@
 import {describe, expect, it} from 'vitest';
 import {parseWorldSceneDocument, sceneActivityPoint, sceneEntrancePoint, sceneEntrances, type SceneScenery, type WorldScene, type WorldSceneDocument} from './scene-schema';
 import {getWorldScene, sceneDocument} from './scene-data';
+import {plainGround} from './ground';
 
 function room(): WorldSceneDocument {
   const scene: WorldScene = {id: 'room', kind: 'interior', coordinateVersion: 1, width: 640, height: 480,
-    spawn: {x: 60, y: 60}, npcs: [], objects: [], walkable: [[[14, 14], [626, 14], [626, 466], [14, 466]]], obstacles: [],
+    spawn: {x: 60, y: 60}, npcs: [], objects: [],
     scenery: [{id: 'bench', asset: 'bench', x: 250, y: 200, width: 80}],
-    terrain: [{id: 'floor', x: 0, y: 0, width: 640, height: 480, dayAsset: '/assets/floor.webp'}], districts: [],
+    ground: plainGround('timber', 640, 480), districts: [],
     activities: [{id: 'seat', ownerId: 'bench', kind: 'seat', offsetX: 20, offsetY: -5, approach: {x: 20, y: 30}}]};
-  return {version: 3, maps: {room: scene}};
+  return {version: 4, maps: {room: scene}};
 }
 
 describe('canonical scene contract', () => {
@@ -22,10 +23,10 @@ describe('canonical scene contract', () => {
     expect(() => parseWorldSceneDocument(value)).toThrow('16384');
     value.maps.room.width = 640; value.maps.room.scenery.push({...value.maps.room.scenery[0]});
     expect(() => parseWorldSceneDocument(value)).toThrow('duplicate');
-    value.maps.room.scenery.pop(); value.maps.room.walkable = [[[14, 14], [600, 450], [600, 14], [14, 450]]];
+    value.maps.room.scenery.pop(); value.maps.room.districts = [{id: 'bow', polygon: [[14, 14], [600, 450], [600, 14], [14, 450]]}];
     expect(() => parseWorldSceneDocument(value)).toThrow(/area|cross/);
-    const path = room(); path.maps.room.terrain[0].dayAsset = '/assets/../../secret.png';
-    expect(() => parseWorldSceneDocument(path)).toThrow('local /assets');
+    const ground = room(); ground.maps.room.ground = {...ground.maps.room.ground, weights: ['AAA=']};
+    expect(() => parseWorldSceneDocument(ground)).toThrow(/ground weights/);
   });
   it('moves activity positions with their owner and rejects deleted or out-of-bounds owners', () => {
     const value = room(), scene = value.maps.room, activity = scene.activities![0];
@@ -56,7 +57,7 @@ describe('canonical scene contract', () => {
       for(const item of scene.scenery)delete item.interior;
     }
     const upgraded=parseWorldSceneDocument(legacy);
-    expect(upgraded.version).toBe(3);
+    expect(upgraded.version).toBe(4);
     expect(sceneEntrances(upgraded.maps.lindenhafen).map(item=>item.interiorId).sort()).toEqual(['bakery','cafe','inn','supermarket']);
     expect('entrances' in upgraded.maps.lindenhafen).toBe(false);
   });

@@ -26,7 +26,6 @@ interface RegionAsset { key: string; image: string; atlas?: string; cell?: reado
 /** A region's complete visual budget; shared player and interior art is separate. */
 export function regionAssets(map: WorldMapSpec,includeDetailLibrary=false): readonly RegionAsset[] {
   const assets: RegionAsset[] = [
-    { key: map.id, image: map.asset },
     { key: sceneryTextureKey(map.id), image: map.sceneryAsset, atlas: map.sceneryAtlas },
   ];
   // Expedition props already include every local house and tree silhouette.
@@ -44,11 +43,11 @@ export function regionAssets(map: WorldMapSpec,includeDetailLibrary=false): read
 /** Load one destination at a time, coalescing rapid travel and in-flight requests. */
 export class WorldMapAssets {
   private requests = new Map<string, (() => void)[]>();
-  constructor(private scene: Phaser.Scene, private includeTerrain = true,private includeDetailLibrary=false) {}
+  constructor(private scene: Phaser.Scene,private includeDetailLibrary=false) {}
   load(map: WorldMapSpec, onLoaded?: () => void, start = true): void {
     const pending = this.requests.get(map.id);
     if (pending) { if (onLoaded) pending.push(onLoaded); return; }
-    const missing = regionAssets(map,this.includeDetailLibrary).filter(asset => (this.includeTerrain || asset.key !== map.id) && !this.scene.textures.exists(asset.key));
+    const missing = regionAssets(map,this.includeDetailLibrary).filter(asset => !this.scene.textures.exists(asset.key));
     if (!missing.length) { onLoaded?.(); return; }
     this.requests.set(map.id, onLoaded ? [onLoaded] : []);
     for (const asset of missing) {
@@ -67,7 +66,7 @@ export class WorldMapAssets {
   /** Wait until a stale destination finishes loading before reclaiming its pages. */
   release(map: WorldMapSpec): boolean {
     if (this.requests.has(map.id)) return false;
-    for (const asset of regionAssets(map,this.includeDetailLibrary)) if ((this.includeTerrain || asset.key !== map.id) && this.scene.textures.exists(asset.key)) this.scene.textures.remove(asset.key);
+    for (const asset of regionAssets(map,this.includeDetailLibrary)) if (this.scene.textures.exists(asset.key)) this.scene.textures.remove(asset.key);
     return true;
   }
 }

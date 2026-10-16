@@ -91,6 +91,18 @@ export function sceneryFootprints(placements: readonly PlacedScenerySpec[], mani
   });
 }
 
+/**
+ * Drop a stored collider that only repeats what the artwork's geometry, or the shape rules for art without one,
+ * give. Footprints then follow the art when it is re-exported; a collider an admin drew stays.
+ */
+export function withoutDefaultCollision<T extends PlacedScenerySpec>(spec:T,manifest:SceneryFootprintManifest):T {
+  if(!spec.collision)return spec;
+  const {collision,...rest}=spec,derived=sceneryFootprints([{...rest,collidable:true}],manifest),stored=sceneryFootprints([{...spec,collidable:true}],manifest);
+  const same=derived.length===stored.length&&derived.every((polygon,i)=>polygon.length===stored[i].length&&polygon.every(([x,y],j)=>Math.abs(x-stored[i][j][0])<.05&&Math.abs(y-stored[i][j][1])<.05));
+  void collision;
+  return same?rest as T:spec;
+}
+
 /** Resolve the asset base once, then keep the collider with the placed object. */
 export function withSceneryCollision<T extends PlacedScenerySpec>(spec:T,manifest?:SceneryFootprintManifest):T {
   if(spec.collision)return spec;

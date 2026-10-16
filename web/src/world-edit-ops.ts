@@ -1,13 +1,12 @@
-import {terrainFingerprint,type ModularTerrain} from './modular-terrain';
+import {MAX_BRUSH_RADIUS,MAX_STROKE_POINTS,groundFingerprint,paintGround,type Ground} from './ground';
 /**
  * World edits as small, absolute operations. The server applies them to the
  * published document and broadcasts the same operations, so every client
  * reaches the same document by applying them in order.
  */
 import {paletteChoices,usesVariationAtlas,variantChoices} from './world-edit-catalogue';
-import {withSceneryCollision} from './placed-scenery';
 import {
-  getSceneryGeometryMap,sceneActivityUsers,sceneInteriorIds,sceneSceneryAssets,
+  sceneActivityUsers,sceneInteriorIds,sceneSceneryAssets,
   type SceneActivity,type SceneInterior,type SceneResident,type SceneScenery,type ScenePoint,type WorldScene,type WorldSceneDocument,
 } from './scene-schema';
 import {objectLabel,problem,WorldEditError} from './world-edit-rules';
@@ -16,7 +15,10 @@ import {objectLabel,problem,WorldEditError} from './world-edit-rules';
 type ArtworkState = Pick<SceneScenery, 'frame' | 'variant' | 'collision' | 'sortLine'>;
 
 export type WorldEditOp =
-  | {kind: 'terrain'; map: string; terrain: ModularTerrain | null; expected: string}
+  /** Replace a town's whole ground, including its features. `expected` fingerprints the ground it replaces. */
+  | {kind: 'ground'; map: string; ground: Ground; expected: string}
+  /** One brush stroke: `strength` (0–1) of `material` under a soft round brush along `points`. */
+  | {kind: 'paint'; map: string; material: string; radius: number; strength: number; points: [number, number][]}
   | {kind: 'move'; map: string; id: string; x: number; y: number}
   | {kind: 'update'; map: string; id: string; frame?: string; restoreArtwork?: ArtworkState; width?: number; flipX?: boolean; collidable?: boolean; interior?: SceneInterior | null}
   /** `restore` reinstates an object exactly as it was, for undo; routes are still checked. */
@@ -40,9 +42,15 @@ export function parseEditOps(value: unknown): WorldEditOp[] {
     const needId = () => { if (typeof id !== 'string' || !slug.test(id)) throw invalid(map, 'An edit needs an object.'); };
     const needPoint = () => { if (!finite(op.x) || !finite(op.y)) throw invalid(map, 'A move needs a position.'); };
     switch (op.kind) {
-      case 'terrain':
-        if ((op.terrain !== null && !record(op.terrain)) || typeof op.expected !== 'string') throw invalid(map, 'Choose valid terrain.');
-        return {kind:'terrain',map,terrain:op.terrain as unknown as ModularTerrain|null,expected:op.expected};
+      case 'ground':
+        if (!record(op.ground) || typeof op.expected !== 'string') throw invalid(map, 'Choose valid ground.');
+        return {kind:'ground',map,ground:op.ground as unknown as Ground,expected:op.expected};
+      case 'paint': {
+        const points = op.points;
+        if (typeof op.material !== 'string' || !finite(op.radius) || op.radius <= 0 || op.radius > MAX_BRUSH_RADIUS || !finite(op.strength) || op.strength <= 0 || op.strength > 1
+          || !Array.isArray(points) || !points.length || points.length > MAX_STROKE_POINTS || !points.every(p => Array.isArray(p) && p.length === 2 && p.every(finite))) throw invalid(map, 'Choose a material, a brush and where to paint.');
+        return {kind:'paint',map,material:op.material,radius:op.radius,strength:op.strength,points:points as [number, number][]};
+      }
       case 'move': needId(); needPoint(); return {kind: 'move', map, id: id as string, x: op.x as number, y: op.y as number};
       case 'moveAnchor':
         needId(); needPoint();
@@ -89,7 +97,7 @@ export function parseEditOps(value: unknown): WorldEditOp[] {
 
 /** Objects an operation edits. Another admin must not hold any of them. */
 export function editOpTargets(op: WorldEditOp): string[] {
-  if (op.kind === 'terrain') return ['terrain'];
+  if (op.kind === 'ground' || op.kind === 'paint') return ['terrain'];
   if (op.kind === 'place') return [op.item.id];
   if (op.kind === 'residents') return [];
   return [op.id];
@@ -126,10 +134,14 @@ function applyOne(document: WorldSceneDocument, op: WorldEditOp): WorldSceneDocu
   const scene = sceneOf(document, op);
   let next: WorldScene;
   switch (op.kind) {
-    case 'terrain': {
-      // Terrain is replaced whole; the newest edit wins, like any other absolute edit.
-      next={...scene};
-      if(op.terrain)next.modularTerrain=structuredClone(op.terrain);else delete next.modularTerrain;
+    case 'ground': {
+      if (groundFingerprint(scene.ground) !== op.expected) throw new WorldEditError([problem('stale', scene.id, 'The ground changed since you started. Your view has been refreshed; try again.')]);
+      next = {...scene, ground: structuredClone(op.ground)};
+      break;
+    }
+    case 'paint': {
+      try { next = {...scene, ground: paintGround(scene.ground, scene.width, scene.height, op)}; }
+      catch (error) { throw invalid(scene.id, String((error as Error).message)); }
       break;
     }
     case 'move': {
@@ -156,9 +168,9 @@ function applyOne(document: WorldSceneDocument, op: WorldEditOp): WorldSceneDocu
         if (!variantChoices(paletteChoices(scene.id), changed).some(choice => choice.frame === op.frame)) throw invalid(scene.id, 'Choose a compatible version of this object.');
         if (op.frame === item.asset) delete changed.frame; else changed.frame = op.frame;
         if (usesVariationAtlas(op.frame)) changed.variant = true; else delete changed.variant;
+        // The new artwork brings its own footprint and sort line.
         delete changed.collision;
         delete changed.sortLine;
-        if (scene.navigation || item.collision) changed.collision = withSceneryCollision({...changed, collidable: true}, getSceneryGeometryMap(scene.id)).collision;
       }
       if (op.restoreArtwork) {
         if ((op.restoreArtwork.frame ?? item.asset) !== op.frame) throw invalid(scene.id, 'The restored artwork must match the chosen version.');
@@ -171,8 +183,8 @@ function applyOne(document: WorldSceneDocument, op: WorldEditOp): WorldSceneDocu
     case 'place': {
       if (scene.scenery.some(value => value.id === op.item.id)) throw invalid(scene.id, 'Another object already uses that name. Try again.');
       const item = {...op.item, x: round(op.item.x), y: round(op.item.y), width: round(op.item.width)};
-      // Clear-land scenes keep each object's footprint with the object, as the compiler does.
-      const placed = scene.navigation ? withSceneryCollision(item, getSceneryGeometryMap(scene.id)) : item;
+      // The footprint comes from the artwork's geometry unless the item brings its own.
+      const placed = item;
       const activities = op.activities?.map(slot => ({...slot, ownerId: item.id}));
       next = {...scene, scenery: [...scene.scenery, placed],
         ...(activities?.length ? {activities: [...(scene.activities ?? []), ...activities]} : {})};
@@ -223,7 +235,8 @@ export function applyEditOps(document: WorldSceneDocument, ops: readonly WorldEd
 export function inverseEditOps(document: WorldSceneDocument, op: WorldEditOp): WorldEditOp[] {
   const scene = sceneOf(document, op);
   switch (op.kind) {
-    case 'terrain': return [{kind:'terrain',map:op.map,terrain:structuredClone(scene.modularTerrain??null),expected:terrainFingerprint(op.terrain)}];
+    case 'ground': return [{kind:'ground',map:op.map,ground:structuredClone(scene.ground),expected:groundFingerprint(op.ground)}];
+    case 'paint': return [{kind:'ground',map:op.map,ground:structuredClone(scene.ground),expected:groundFingerprint(paintGround(scene.ground,scene.width,scene.height,op))}];
     case 'move': { const item = itemOf(scene, op.id); return [{kind: 'move', map: op.map, id: op.id, x: item.x, y: item.y}]; }
     case 'moveAnchor': {
       const anchor = (op.anchor === 'npc' ? scene.npcs : scene.objects).find(value => value.id === op.id);

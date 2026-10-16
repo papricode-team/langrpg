@@ -1,17 +1,18 @@
-/** Painted terrain pieces are placed like objects; seamless ground is painted underneath with a brush. */
+/** Ground is painted with a soft brush, as in Unity's terrain; bridges and inlays are placed on it like objects. */
 import type * as Phaser from 'phaser';
 import type {AdminMapScene} from './admin-map-canvas';
 import type {WorldEditOp} from './world-edit-ops';
 import {getWorldScene,sceneDocument} from './scene-data';
 import {terrainMaterials,terrainMaterial} from './terrain-materials';
-import {editableTerrainFromScene,terrainContains,terrainFingerprint,type ModularTerrain} from './modular-terrain';
-import {brushStroke,eraseGround,paintGround,MAX_TERRAIN_SURFACES} from './terrain-paint';
+import {MAX_BRUSH_RADIUS,MAX_GROUND_LAYERS,groundFingerprint,paintGround,type Ground} from './ground';
 import {terrainFeatures,terrainFeature,featureBounds,featurePolygon,featureSurfaces,type TerrainFeature} from './terrain-features';
 import {parseWorldSceneDocument,type ScenePolygon} from './scene-schema';
 import {escapeHtml as escape} from './icons';
 
 type Tool='select'|'piece'|'paint'|'erase';
-const MIN_BRUSH=10,MAX_BRUSH=400;
+const MIN_BRUSH=8,MAX_BRUSH=MAX_BRUSH_RADIUS;
+/** Whether a point is inside a polygon. */
+function contains(polygon:ScenePolygon,x:number,y:number):boolean{let inside=false;for(let i=0,j=polygon.length-1;i<polygon.length;j=i++){const [a,b]=polygon[i],[c,d]=polygon[j];if((b>y)!==(d>y)&&x<(c-a)*(y-b)/(d-b)+a)inside=!inside;}return inside;}
 /** How terrain edits reach the map editor's history and the server. */
 export interface TerrainHost {
   commit(ops:WorldEditOp[],label:string):boolean;
@@ -27,6 +28,7 @@ export class AdminTerrainEditor {
   private tool:Tool='select';
   private material='cobble';
   private brush=60;
+  private strength=.6;
   private category='';
   private art=terrainFeatures[0]?.id??'';
   private artWidth=terrainFeatures[0]?.worldWidth??600;
@@ -40,14 +42,16 @@ export class AdminTerrainEditor {
   private ghostArt='';
   private ghostKey=`terrain-editor-${crypto.randomUUID()}`;
   private ghostRequest=0;
-  private snapshot?:ModularTerrain;
+  private snapshot?:Ground;
+  /** The ground as it looks during a stroke, before it is published. */
+  private painted?:Ground;
   constructor(private host:HTMLElement,private scene:AdminMapScene,private editor:TerrainHost){
     this.graphics=scene.add.graphics().setDepth(2e7);
     scene.input.on('pointerdown',this.down,this);scene.input.on('pointermove',this.move,this);scene.input.on('pointerup',this.up,this);
     host.addEventListener('click',this.click);host.addEventListener('change',this.change);host.addEventListener('input',this.input);
   }
   setActive(active:boolean):void{this.active=active;this.scene.setActive(!active);this.cancel();if(!active&&this.previewing){this.previewing=false;this.scene.previewTerrain();}if(active)this.refresh();}
-  refresh():void{this.cancel();if(this.previewing)this.scene.previewTerrain();this.previewing=false;this.snapshot=getWorldScene(this.scene.editMapId).modularTerrain;this.expected=terrainFingerprint(this.snapshot);if(!this.snapshot?.features?.some(f=>f.id===this.selected))this.selected=undefined;this.render();}
+  refresh():void{this.cancel();if(this.previewing)this.scene.previewTerrain();this.previewing=false;this.snapshot=getWorldScene(this.scene.editMapId).ground;this.expected=groundFingerprint(this.snapshot);if(!this.snapshot?.features?.some(f=>f.id===this.selected))this.selected=undefined;this.render();}
   /** Delete or Backspace in terrain mode. */
   removeSelection():boolean{
     const terrain=this.snapshot;if(this.busy||!terrain||!terrain.features?.some(f=>f.id===this.selected))return false;
@@ -69,11 +73,16 @@ export class AdminTerrainEditor {
     const categories=[...new Set(terrainFeatures.map(f=>f.category))];
     const pieces=terrainFeatures.filter(f=>!this.category||f.category===this.category);
     const painting=this.tool==='paint'||this.tool==='erase';
-    this.host.innerHTML=`<h3>Terrain</h3><p class="map-note">Place painted pieces such as streets, bridges and quays like objects. Paint ground and water underneath with a brush.</p>
-      <button type="button" data-terrain-action="import">Preview terrain file</button><input type="file" data-terrain-file accept=".json,application/json" hidden><p class="map-note">Imports only terrain for this town. Buildings, objects and residents keep their saved positions.</p>
-      ${!terrain?'<button type="button" data-terrain-action="enable">Preview editable terrain</button><p class="map-note">Starts from path and collision outlines. Existing towns need their roads and banks reauthored with the painted pieces. Review before publishing.</p>':`
-      ${this.previewing?'<p class="map-note">Terrain preview · changes stay here until you publish.</p><div class="terrain-tools"><button type="button" data-terrain-action="publish">Publish terrain</button><button type="button" data-terrain-action="discard">Discard preview</button></div>':''}
+    this.host.innerHTML=`<h3>Ground</h3><p class="map-note">Paint ground, paths and water with a soft brush. Strokes blend into what is already there; water and rock stop walkers where they cover most of the ground. Place bridges and inlays on top like objects.</p>
+      <button type="button" data-terrain-action="import">Preview ground file</button><input type="file" data-terrain-file accept=".json,application/json" hidden><p class="map-note">Imports only the ground of this town. Buildings, objects and residents keep their saved positions.</p>
+      ${!terrain?'':`
+      ${this.previewing?'<p class="map-note">Ground preview · changes stay here until you publish.</p><div class="terrain-tools"><button type="button" data-terrain-action="publish">Publish ground</button><button type="button" data-terrain-action="discard">Discard preview</button></div>':''}
       <div class="terrain-tools">${([['select','Select'],['paint','Paint'],['erase','Erase']] as [Tool,string][]).map(([tool,label])=>`<button type="button" data-terrain-tool="${tool}" aria-pressed="${this.tool===tool}">${label}</button>`).join('')}<button type="button" data-terrain-action="undo" ${!this.previewing&&this.editor.canUndo?'':'disabled'}>Undo</button></div>
+      ${painting?`<label>Brush size · ${this.brush}<input type="range" min="${MIN_BRUSH}" max="${MAX_BRUSH}" step="4" data-terrain-brush value="${this.brush}"></label>
+        <label>Strength · ${Math.round(this.strength*100)}%<input type="range" min="5" max="100" step="5" data-terrain-strength value="${Math.round(this.strength*100)}"></label>
+        <p class="map-note">${this.tool==='erase'?`Drag to paint ${escape(terrainMaterial(terrain.layers[0])?.name??'the base ground')} back.`:'Drag to paint. Go over a spot again to cover it fully.'} [ and ] change the size. Esc stops.</p>`:'<p class="map-note">Choose a material, then drag on the map to paint it.</p>'}
+      <div class="terrain-materials">${terrainMaterials.map(m=>`<button type="button" data-terrain-material="${m.id}" aria-pressed="${this.tool==='paint'&&this.material===m.id}" title="${escape(m.name)}${m.blocked?' · blocks walking':''}${terrain.layers.includes(m.id)?' · used here':''}"><img src="${m.thumbnail}" alt=""><span>${escape(m.name)}</span></button>`).join('')}</div>
+      <p class="map-note">This town uses ${terrain.layers.length} of ${MAX_GROUND_LAYERS} materials: ${terrain.layers.map(id=>escape(terrainMaterial(id)?.name??id)).join(', ')}. Paint over a material completely to free its place.</p>
       ${feature&&art?`<section class="terrain-selected"><header class="me-inspect-head"><img src="${escape(art.thumbnail)}" alt=""><div><h2>${escape(art.name)}</h2><p>${escape(art.category)} · drag to move</p></div></header>
         <label>Piece width<input type="number" min="120" max="1600" step="10" data-selected-width value="${Math.round(feature.width)}"></label>
         <div class="terrain-tools"><button type="button" data-terrain-action="front">Bring to front</button><button type="button" data-terrain-action="back">Send to back</button></div>
@@ -82,14 +91,9 @@ export class AdminTerrainEditor {
       <div class="me-chips">${[['','All'],...categories.map(c=>[c,c])].map(([value,label])=>`<button type="button" data-terrain-category="${escape(value)}" aria-pressed="${this.category===value}">${escape(label)}</button>`).join('')}</div>
       <div class="me-library terrain-pieces">${pieces.map(piece=>`<button type="button" data-terrain-piece="${escape(piece.id)}" aria-pressed="${this.tool==='piece'&&this.art===piece.id}" title="${escape(piece.category)} · ${escape(piece.name)}"><img src="${escape(piece.thumbnail)}" alt="" draggable="false"><span>${escape(piece.name)}</span></button>`).join('')}</div>
       ${this.tool==='piece'?`<label>Width in world units<input type="number" min="120" max="1600" step="10" data-feature-width value="${this.artWidth}"></label><p class="map-note">Click the map to place. Esc stops placing. Red outlines mark walls; gold outlines mark walkable decks.</p>`:'<p class="map-note">Choose a piece, then click the map to place it. Select a placed piece to move, resize or delete it.</p>'}
-      <h4>Ground</h4>
-      ${painting?`<label>Brush size · ${this.brush}<input type="range" min="${MIN_BRUSH}" max="${MAX_BRUSH}" step="5" data-terrain-brush value="${this.brush}"></label><p class="map-note">${this.tool==='erase'?'Drag to erase painted ground back to the base ground.':'Drag to paint. Strokes of one material merge.'} [ and ] change the size. Esc stops.</p>`:'<p class="map-note">Choose a material, then drag on the map to paint it.</p>'}
-      <div class="terrain-materials">${terrainMaterials.map(m=>`<button type="button" data-terrain-material="${m.id}" aria-pressed="${this.tool==='paint'&&this.material===m.id}" title="${escape(m.name)}${m.blocked?' · blocks walking':''}"><img src="${m.thumbnail}" alt=""><span>${escape(m.name)}</span></button>`).join('')}</div>
-      <label>Base ground<select data-terrain-base>${terrainMaterials.map(m=>`<option value="${m.id}">${escape(m.name)}</option>`).join('')}</select></label>
-      <label>Placed pieces<select data-terrain-selected><option value="">Choose a piece</option>${(terrain.features??[]).map((f,i)=>`<option value="${f.id}">${i+1}. ${escape(terrainFeature(f.asset)?.name??f.asset)}</option>`).join('')}</select></label>
-      <p class="map-note">${terrain.features?.length??0} painted pieces · ${terrain.surfaces.length} painted ground areas</p>`}`;
+      <label>Placed pieces<select data-terrain-selected><option value="">Choose a piece</option>${(terrain.features??[]).map((f,i)=>`<option value="${f.id}">${i+1}. ${escape(terrainFeature(f.asset)?.name??f.asset)}</option>`).join('')}</select></label>`}`;
     const set=(key:string,value:string)=>{const input=this.host.querySelector<HTMLSelectElement>(key);if(input)input.value=value;};
-    set('[data-terrain-base]',terrain?.base??'meadow');set('[data-terrain-selected]',this.selected??'');
+    set('[data-terrain-selected]',this.selected??'');
     this.host.querySelectorAll<HTMLButtonElement|HTMLSelectElement|HTMLInputElement>('button,select,input').forEach(input=>{if(this.busy)input.disabled=true;});this.draw();
   }
   private click=(event:Event):void=>{
@@ -106,7 +110,6 @@ export class AdminTerrainEditor {
     const terrain=this.snapshot,features=terrain?.features??[];
     switch(button.dataset.terrainAction){
       case 'import':this.host.querySelector<HTMLInputElement>('[data-terrain-file]')!.click();break;
-      case 'enable':this.snapshot=editableTerrainFromScene(getWorldScene(this.scene.editMapId));this.previewing=true;this.scene.previewTerrain(this.snapshot);this.render();break;
       case 'publish':if(terrain)this.commit(terrain,true);break;
       case 'discard':this.refresh();break;
       case 'undo':this.editor.undo();this.refresh();break;
@@ -118,6 +121,7 @@ export class AdminTerrainEditor {
   private input=(event:Event):void=>{
     const input=event.target as HTMLInputElement;
     if(input.hasAttribute('data-terrain-brush')){this.brush=Number(input.value);const label=input.closest('label')?.firstChild;if(label)label.textContent=`Brush size · ${this.brush}`;this.draw();}
+    if(input.hasAttribute('data-terrain-strength')){this.strength=Number(input.value)/100;const label=input.closest('label')?.firstChild;if(label)label.textContent=`Strength · ${input.value}%`;}
   };
   private change=(event:Event):void=>{
     if(this.busy)return;const input=event.target as HTMLInputElement;
@@ -125,19 +129,18 @@ export class AdminTerrainEditor {
     if(!this.snapshot)return;
     if(input.hasAttribute('data-feature-width')){this.artWidth=this.width(Number(input.value));this.render();return;}
     if(input.hasAttribute('data-selected-width')){this.commit({...this.snapshot,features:this.snapshot.features?.map(f=>f.id===this.selected?this.fit({...f,width:this.width(Number(input.value))}):f)});return;}
-    if(input.hasAttribute('data-terrain-base'))this.commit({...this.snapshot,base:input.value});
     if(input.hasAttribute('data-terrain-selected')){this.selected=input.value||undefined;if(this.selected)this.tool='select';this.render();}
   };
   private async importTerrain(file:File):Promise<void>{
     this.busy=true;
     try{
-      if(file.size>2*1024*1024)throw new Error('Choose a terrain file up to 2 MB.');
+      if(file.size>2*1024*1024)throw new Error('Choose a ground file up to 2 MB.');
       const value=JSON.parse(await file.text()),map=this.scene.editMapId,world=getWorldScene(map);
-      const terrain=value.modularTerrain??value.maps?.[map]?.modularTerrain??value;
-      const checked=parseWorldSceneDocument({...sceneDocument,maps:{...sceneDocument.maps,[map]:{...world,modularTerrain:terrain}}});
-      this.expected=terrainFingerprint(world.modularTerrain);this.snapshot=checked.maps[map].modularTerrain;
+      const ground=value.ground??value.document?.maps?.[map]?.ground??value.maps?.[map]?.ground??value;
+      const checked=parseWorldSceneDocument({...sceneDocument,maps:{...sceneDocument.maps,[map]:{...world,ground}}});
+      this.expected=groundFingerprint(world.ground);this.snapshot=checked.maps[map].ground;
       this.selected=undefined;this.cancel();this.previewing=true;this.scene.previewTerrain(this.snapshot);
-    }catch(error){this.editor.toast(error instanceof Error?error.message:'Terrain could not be read.',true);}
+    }catch(error){this.editor.toast(error instanceof Error?error.message:'The ground could not be read.',true);}
     finally{this.busy=false;this.render();}
   }
   private width(value:number):number{return Number.isFinite(value)?Math.max(120,Math.min(1600,value)):600;}
@@ -147,8 +150,8 @@ export class AdminTerrainEditor {
   private down(pointer:Phaser.Input.Pointer):void{
     if(!this.active||this.busy||!this.snapshot||this.scene.panning||!pointer.leftButtonDown())return;const [x,y]=this.point(pointer);
     if(this.tool==='piece'){const feature={...this.candidate(x,y),id:`feature-${crypto.randomUUID()}`};this.selected=feature.id;this.commit({...this.snapshot,features:[...(this.snapshot.features??[]),feature]});return;}
-    if(this.tool==='paint'||this.tool==='erase'){this.stroke=[[x,y]];this.draw();return;}
-    const feature=[...(this.snapshot.features??[])].reverse().find(f=>terrainContains(featurePolygon(f,terrainFeature(f.asset)!.outline),x,y));
+    if(this.tool==='paint'||this.tool==='erase'){this.stroke=[[x,y]];this.preview();return;}
+    const feature=[...(this.snapshot.features??[])].reverse().find(f=>contains(featurePolygon(f,terrainFeature(f.asset)!.outline),x,y));
     this.selected=feature?.id;this.drag=feature&&{x,y,feature};this.render();
   }
   private move(pointer:Phaser.Input.Pointer):void{
@@ -156,7 +159,7 @@ export class AdminTerrainEditor {
     if(this.tool==='piece'){this.placement=this.candidate(x,y);this.draw();return;}
     if(this.stroke.length){
       const [lx,ly]=this.stroke.at(-1)!;
-      if(Math.hypot(x-lx,y-ly)>=Math.max(2,this.brush*.25))this.stroke.push([x,y]);
+      if(Math.hypot(x-lx,y-ly)>=Math.max(2,this.brush*.25)&&this.stroke.length<400){this.stroke.push([x,y]);this.preview();}
       this.draw();return;
     }
     if(this.drag){const drag=this.drag;this.placement=this.fit({...drag.feature,x:drag.feature.x+x-drag.x,y:drag.feature.y+y-drag.y});}
@@ -172,20 +175,34 @@ export class AdminTerrainEditor {
     if(!this.drag)return;const feature=this.drag.feature,placement=this.placement;this.drag=undefined;this.placement=undefined;
     if(placement&&this.snapshot&&(placement.x!==feature.x||placement.y!==feature.y))this.commit({...this.snapshot,features:this.snapshot.features!.map(f=>f.id===feature.id?placement:f)});else this.draw();
   }
+  /** The stroke so far, painted on the snapshot and shown at once. */
+  private strokeGround():Ground|undefined{
+    if(!this.snapshot||!this.stroke.length)return undefined;
+    const world=getWorldScene(this.scene.editMapId),material=this.tool==='erase'?this.snapshot.layers[0]:this.material;
+    try{return paintGround(this.snapshot,world.width,world.height,{material,radius:this.brush,strength:this.strength,points:this.stroke});}
+    catch(error){this.editor.toast(error instanceof Error?error.message:'This material cannot be painted here.',true);this.stroke=[];return undefined;}
+  }
+  private preview():void{this.painted=this.strokeGround();if(this.painted)this.scene.previewTerrain(this.painted);this.draw();}
   private paint(points:[number,number][]):void{
     if(!this.snapshot)return;
-    const world=getWorldScene(this.scene.editMapId),stroke=brushStroke(points,this.brush,world.width,world.height);
-    const terrain=this.tool==='erase'?eraseGround(this.snapshot,stroke,world.width,world.height):paintGround(this.snapshot,stroke,this.material,world.width,world.height);
-    if(terrain.surfaces.length>MAX_TERRAIN_SURFACES){this.editor.toast(`This town already has ${MAX_TERRAIN_SURFACES} painted ground areas. Paint over or erase some first.`,true);this.draw();return;}
-    if(terrain===this.snapshot){this.draw();return;}
-    this.commit(terrain);
+    const material=this.tool==='erase'?this.snapshot.layers[0]:this.material;
+    this.painted=undefined;
+    if(this.previewing){
+      const world=getWorldScene(this.scene.editMapId);
+      try{this.commit(paintGround(this.snapshot,world.width,world.height,{material,radius:this.brush,strength:this.strength,points}));}
+      catch(error){this.editor.toast(error instanceof Error?error.message:'This material cannot be painted here.',true);this.draw();}
+      return;
+    }
+    // A stroke travels as its brush path; the server and every player paint the same weights from it.
+    if(this.editor.commit([{kind:'paint',map:this.scene.editMapId,material,radius:this.brush,strength:this.strength,points}],'Paint ground'))this.refresh();
+    else this.scene.previewTerrain();
   }
-  private cancel=():void=>{this.stroke=[];this.drag=undefined;this.placement=undefined;this.draw();};
-  private commit(terrain:ModularTerrain,publish=false):void{
-    if(this.previewing&&!publish){this.snapshot=terrain;this.scene.previewTerrain(terrain);this.render();return;}
+  private cancel=():void=>{if(this.painted){this.painted=undefined;this.scene.previewTerrain(this.previewing?this.snapshot:undefined);}this.stroke=[];this.drag=undefined;this.placement=undefined;this.draw();};
+  private commit(ground:Ground,publish=false):void{
+    if(this.previewing&&!publish){this.snapshot=ground;this.scene.previewTerrain(ground);this.render();return;}
     const map=this.scene.editMapId;
-    // The store publishes in the background; the fingerprint stops a stale draft overwriting newer terrain.
-    if(this.editor.commit([{kind:'terrain',map,terrain,expected:this.expected}],publish?'Publish terrain':'Edit terrain'))this.refresh();
+    // The store publishes in the background; the fingerprint stops a stale draft overwriting newer ground.
+    if(this.editor.commit([{kind:'ground',map,ground,expected:this.expected}],publish?'Publish ground':'Edit ground pieces'))this.refresh();
   }
   private showGhost(feature:TerrainFeature):void{
     const art=terrainFeature(feature.asset)!;
@@ -207,15 +224,6 @@ export class AdminTerrainEditor {
     this.graphics.clear();this.ghost?.setVisible(false);if(!this.active)return;
     const g=this.graphics,zoom=this.scene.cameras.main.zoom;
     if(this.tool==='paint'||this.tool==='erase'){
-      const color=this.tool==='erase'?0xf28475:Number.parseInt((terrainMaterial(this.material)?.color??'#ffd474').slice(1),16);
-      if(this.stroke.length){
-        g.fillStyle(color,.45);
-        this.stroke.forEach(([x,y],i)=>{
-          g.fillCircle(x,y,this.brush);
-          if(!i)return;const [px,py]=this.stroke[i-1],angle=Math.atan2(y-py,x-px),dx=Math.sin(angle)*this.brush,dy=-Math.cos(angle)*this.brush;
-          g.fillTriangle(px+dx,py+dy,x+dx,y+dy,x-dx,y-dy).fillTriangle(px+dx,py+dy,x-dx,y-dy,px-dx,py-dy);
-        });
-      }
       if(this.pointer){g.lineStyle(2/zoom,this.tool==='erase'?0xf28475:0xffd474,1);g.strokeCircle(this.pointer[0],this.pointer[1],this.brush);}
       return;
     }

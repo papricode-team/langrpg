@@ -212,6 +212,21 @@
       "repeat": "periodic-overlap"
     },
     {
+      "id": "cliff",
+      "name": "Cliff",
+      "group": "Structures",
+      "color": "#6f6e64",
+      "blocked": true,
+      "asset": "/assets/terrain-materials/rock.webp",
+      "thumbnail": "/assets/terrain-materials/rock-thumb.webp",
+      "width": 1152,
+      "height": 1152,
+      "sourceWidth": 1254,
+      "sourceHeight": 1254,
+      "worldSize": 256,
+      "repeat": "periodic-overlap"
+    },
+    {
       "id": "shallow-water",
       "name": "Shallow water",
       "group": "Water",

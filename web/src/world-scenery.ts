@@ -13,7 +13,7 @@ import { sceneryContactKind } from './scenery-contact-shape';
 import {terrainObject,sampleDetailMotion,ensureTerrainObject,type DetailMotion} from './terrain-objects';
 import {foundationGround} from './foundation-dressing';
 import {sceneDocument} from './scene-data';
-import {terrainFingerprint,type ModularTerrain} from './modular-terrain';
+import {groundFingerprint,type Ground} from './ground';
 interface AnimatedSprite {
   sprite:Phaser.GameObjects.Sprite;
   scale:number;
@@ -64,8 +64,8 @@ export class WorldScenery {
   private destroyed=false;
   private loadingDetails=new Set<string>();
   private terrainStamp='';
-  constructor(private scene:Phaser.Scene,private mapId:MapId,private period:WorldPeriod='day',private placements:readonly PlacedScenerySpec[]=getPlacedScenery(mapId),private createCutout?:SceneryOcclusionFactory,private terrain:ModularTerrain|undefined=sceneDocument.maps[mapId]?.modularTerrain){
-    this.terrainStamp=terrainFingerprint(terrain);
+  constructor(private scene:Phaser.Scene,private mapId:MapId,private period:WorldPeriod='day',private placements:readonly PlacedScenerySpec[]=getPlacedScenery(mapId),private createCutout?:SceneryOcclusionFactory,private terrain:Ground|undefined=sceneDocument.maps[mapId]?.ground){
+    this.terrainStamp=groundFingerprint(terrain);
     this.manifest=scene.cache.json.get(sceneryAnimationManifestKey(mapId,period)) as SceneryAnimationManifest|undefined;
     for(const spec of placements)this.addLayer(spec);
     const ambient=worldAmbient(mapId,period);
@@ -154,8 +154,8 @@ export class WorldScenery {
    * changed, add new ones and drop removed ones. Unchanged objects keep
    * their sprites and animation phase.
    */
-  sync(placements:readonly PlacedScenerySpec[],terrain:ModularTerrain|undefined=sceneDocument.maps[this.mapId]?.modularTerrain):void{
-    const stamp=terrain===this.terrain?this.terrainStamp:terrainFingerprint(terrain),groundChanged=stamp!==this.terrainStamp;
+  sync(placements:readonly PlacedScenerySpec[],terrain:Ground|undefined=sceneDocument.maps[this.mapId]?.ground):void{
+    const stamp=terrain===this.terrain?this.terrainStamp:groundFingerprint(terrain),groundChanged=stamp!==this.terrainStamp;
     this.terrain=terrain;this.terrainStamp=stamp;
     this.placements=placements;
     this.clearPreview();
