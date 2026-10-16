@@ -10,7 +10,7 @@ import type {WorldEditOp} from './world-edit-ops';
 import type {WorldLock} from './world-edit-session';
 import type { StoryState } from './dialogue';
 import { isBaseLanguage, type BaseLanguage } from './i18n';
-import type { BillingPlan, GameAccess } from './game-access';
+import type { BillingOffer, BillingPlan, GameAccess } from './game-access';
 import { captureReferral, clearReferral, pendingReferral, type ReferralLink } from './referrals';
 
 export type LearningMode = 'recognition' | 'production' | 'listening';
@@ -214,6 +214,7 @@ export class Api {
     const result = await this.request<SessionResult>('/access/reset', {});
     return this.rememberSession(result);
   }
+  billingOffers() { return this.request<{ offers: BillingOffer[] }>('/billing/offers'); }
   checkout(plan: BillingPlan) { return this.request<{ url: string }>('/billing/checkout', { plan }); }
   billingPortal() { return this.request<{ url: string }>('/billing/portal', {}); }
   syncBilling() { return this.request<{ access: GameAccess }>('/billing/sync', {}); }

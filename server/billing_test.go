@@ -120,7 +120,7 @@ func TestCreemCheckoutBindsAccountAndSyncPortal(t *testing.T) {
 						SuccessURL string            `json:"success_url"`
 					}
 					json.NewDecoder(r.Body).Decode(&input)
-					if input.ProductID != plan+"-product" || input.Customer["email"] != "ada@example.com" || input.Metadata["account_id"] != player.ID || len(input.Metadata["billing_reference"]) < 24 || input.SuccessURL != "https://game.example/?billing=success" {
+					if input.ProductID != plan+"-product" || input.Customer != nil || input.Metadata["account_id"] != player.ID || len(input.Metadata["billing_reference"]) < 24 || input.SuccessURL != "https://game.example/?billing=success" {
 						t.Error("checkout identity/config not server bound")
 					}
 					f.Checkout.RequestID = input.RequestID
@@ -296,5 +296,67 @@ func TestFreeToPlayOverrideBypassesExpiredTrial(t *testing.T) {
 	app.billing = cfg
 	if status := app.accessState(Account{Email: "free@example.com", Access: PlayAccess{PlayedNanoseconds: int64(trialPlayLimit)}}, app.now()); status.Phase != "free" || status.BillingAvailable {
 		t.Fatalf("free-to-play override did not bypass the expired trial: %+v", status)
+	}
+}
+
+func TestCreemDisputeWebhookWithdrawsAccessWhileCreemStillShowsPaid(t *testing.T) {
+	app := testApp(t)
+	token, player, _ := setupCreemAccount(t, app, "lifetime")
+	if _, err := app.refreshBilling(context.Background(), mustBillingAccount(t, app, player.ID), true); err != nil {
+		t.Fatal(err)
+	}
+	if w := request(app, "GET", "/api/progress", token, nil); w.Code != 200 {
+		t.Fatal(w.Code)
+	}
+	body := creemEvent("dispute", "dispute.created", app.now(), map[string]any{"id": "dispute", "transaction": "transaction"})
+	w := httptest.NewRecorder()
+	app.billingWebhook(w, signedCreemEvent(app.billing.WebhookSecret, body))
+	if w.Code != 200 {
+		t.Fatal(w.Code, w.Body.String())
+	}
+	if w := request(app, "GET", "/api/progress", token, nil); w.Code != 402 {
+		t.Fatal("a disputed payment kept access", w.Code)
+	}
+	if a := mustBillingAccount(t, app, player.ID); len(a.Billing.DisputedTransactions) != 1 || a.Billing.Plan != "" {
+		t.Fatal("dispute not stored", a.Billing)
+	}
+}
+
+func TestCreemOutageBacksOffAndTrialAccountsSkipReconciliation(t *testing.T) {
+	app := testApp(t)
+	_, player, f := setupCreemAccount(t, app, "monthly")
+	f.Fail = true
+	account := mustBillingAccount(t, app, player.ID)
+	if _, err := app.refreshBilling(context.Background(), account, false); err == nil {
+		t.Fatal("outage not reported")
+	}
+	calls := f.Calls
+	if _, err := app.refreshBilling(context.Background(), account, false); err != nil || f.Calls != calls {
+		t.Fatal("refresh retried Creem during the backoff", err, f.Calls-calls)
+	}
+	if _, err := app.refreshBilling(context.Background(), account, true); err == nil || f.Calls == calls {
+		t.Fatal("a forced refresh must still ask Creem")
+	}
+	token, trial := createSession(t, app, "Trial Ada")
+	app.store.SetCredentials(context.Background(), tokenHash(token), "trial@example.com", "encoded")
+	before := mustBillingAccount(t, app, trial.ID)
+	if after, err := app.refreshBilling(context.Background(), before, true); err != nil || !after.Billing.VerifiedAt.IsZero() {
+		t.Fatal("an account without purchases was reconciled", err)
+	}
+}
+
+func TestCreemOffersListConfiguredPlans(t *testing.T) {
+	app := testApp(t)
+	f := billingtest.NewFixture("player", "lifetime", app.now())
+	app.billing = billingtest.NewClient(http.HandlerFunc(f.Serve))
+	app.billing.YearlyProduct = ""
+	w := request(app, "GET", "/api/billing/offers", "", nil)
+	if w.Code != 200 || !strings.Contains(w.Body.String(), `"plan":"monthly","amount":299,"currency":"EUR"`) || strings.Contains(w.Body.String(), "yearly") {
+		t.Fatal(w.Code, w.Body.String())
+	}
+	token, _ := createSession(t, app, "Yearly Ada")
+	app.store.SetCredentials(context.Background(), tokenHash(token), "yearly@example.com", "encoded")
+	if w := request(app, "POST", "/api/billing/checkout", token, map[string]string{"plan": "yearly"}); w.Code != 400 {
+		t.Fatal("unoffered plan accepted", w.Code, w.Body.String())
 	}
 }

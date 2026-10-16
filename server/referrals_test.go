@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"strconv"
 	"sync"
 	"testing"
 	"time"
@@ -211,7 +212,9 @@ func TestReferralStoresConcurrentCreditsAndPersistence(t *testing.T) {
 				}
 			}
 			credited, _ := store.Get(ctx, tokenHash(inviterToken))
-			if success != count || credited.Referrals.SuccessfulSignups != count || playLimit(credited) != trialPlayLimit+count*referralPlayBonus {
+			// Every signup succeeds; the daily cap admits exactly its credits.
+			const credits = referralDailyLimit
+			if success != count || credited.Referrals.SuccessfulSignups != credits || playLimit(credited) != trialPlayLimit+credits*referralPlayBonus {
 				t.Fatal("lost or duplicated concurrent credit", success, credited.Referrals)
 			}
 			// A duplicate email must roll back both the new signup and inviter credit.
@@ -222,7 +225,7 @@ func TestReferralStoresConcurrentCreditsAndPersistence(t *testing.T) {
 			}
 			extraAccount, _ := store.Get(ctx, tokenHash(extra))
 			credited, _ = store.Get(ctx, tokenHash(inviterToken))
-			if extraAccount.Email != "" || credited.Referrals.SuccessfulSignups != count {
+			if extraAccount.Email != "" || credited.Referrals.SuccessfulSignups != credits {
 				t.Fatal("duplicate email credited")
 			}
 			var reopened Store
@@ -236,7 +239,7 @@ func TestReferralStoresConcurrentCreditsAndPersistence(t *testing.T) {
 			}
 			defer reopened.Close()
 			restored, err := reopened.Get(ctx, tokenHash(inviterToken))
-			if err != nil || restored.Referrals.SuccessfulSignups != count || app.accessState(restored, app.now()).RemainingSeconds != 900+count*5400 {
+			if err != nil || restored.Referrals.SuccessfulSignups != credits || app.accessState(restored, app.now()).RemainingSeconds != 900+credits*5400 {
 				t.Fatal("restart lost referral time", err, restored.Referrals)
 			}
 		})
@@ -298,5 +301,39 @@ func TestReferralBonusReopensGatedLearningContent(t *testing.T) {
 	}
 	if w := request(app, "GET", "/api/content/bootstrap", token, nil); w.Code != 402 {
 		t.Fatal("learning content stayed open after bonus was spent", w.Code, w.Body.String())
+	}
+}
+
+func TestReferralCreditsAreCappedPerDayAndInTotal(t *testing.T) {
+	app := trialTestApp(t)
+	ctx := context.Background()
+	inviterToken, _ := createSession(t, app, "Busy inviter")
+	app.store.SetCredentials(ctx, tokenHash(inviterToken), "busy@example.com", "encoded")
+	code := issueInvite(t, app, inviterToken)
+	start := app.now()
+	signup := func(i int, at time.Time) {
+		t.Helper()
+		token, _ := createSession(t, app, "Friend")
+		if err := app.store.RegisterWithReferral(ctx, tokenHash(token), "friend-"+strconv.Itoa(i)+"@example.com", "encoded", code, at); err != nil {
+			t.Fatal(err)
+		}
+	}
+	credits := func() int64 {
+		account, _ := app.store.Get(ctx, tokenHash(inviterToken))
+		return account.Referrals.SuccessfulSignups
+	}
+	for i := 0; i < 5; i++ {
+		signup(i, start.Add(time.Duration(i)*time.Minute))
+	}
+	if credits() != referralDailyLimit {
+		t.Fatal("daily cap not applied", credits())
+	}
+	for day := 1; day <= 5; day++ {
+		for i := 0; i < referralDailyLimit; i++ {
+			signup(day*10+i, start.Add(time.Duration(day)*25*time.Hour+time.Duration(i)*time.Minute))
+		}
+	}
+	if credits() != referralLifetimeLimit {
+		t.Fatal("lifetime cap not applied", credits())
 	}
 }

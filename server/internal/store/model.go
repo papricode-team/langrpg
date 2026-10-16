@@ -307,6 +307,8 @@ type ReferralState struct {
 	InvitedBy         string `json:"invitedBy,omitempty"`
 	SuccessfulSignups int64  `json:"successfulSignups,omitempty"`
 	ResetSignups      int64  `json:"resetSignups,omitempty"`
+	// RecentCredits are the inviter's credit times within the last day.
+	RecentCredits []time.Time `json:"recentCredits,omitempty"`
 }
 
 type DailyPromise struct {

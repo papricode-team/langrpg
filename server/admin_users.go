@@ -26,7 +26,7 @@ func appendAdminAudit(account *Account, actor Account, action, reason string, no
 // Explicit projections keep credentials, token hashes and internal receipts off the wire.
 func (a *App) adminUser(account Account, detail bool) map[string]any {
 	user := map[string]any{"id": account.Player.ID, "name": account.Player.Name, "email": account.Email, "registered": account.Email != "", "admin": a.isAdmin(account), "createdAt": account.CreatedAt, "courseId": account.ActiveCourseID, "access": a.accessState(account, a.now().UTC()), "grant": account.Support.Grant,
-		"billing": map[string]any{"plan": account.Billing.Plan, "customerId": account.Billing.CustomerID, "subscriptionId": account.Billing.SubscriptionID, "status": account.Billing.SubscriptionStatus, "paidUntil": account.Billing.PaidUntil, "verifiedAt": account.Billing.VerifiedAt}}
+		"billing": map[string]any{"plan": account.Billing.Plan, "customerId": account.Billing.CustomerID, "subscriptionId": account.Billing.SubscriptionID, "status": account.Billing.SubscriptionStatus, "paidUntil": account.Billing.PaidUntil, "verifiedAt": account.Billing.VerifiedAt, "overlappingPurchases": account.Billing.OverlappingPurchases, "disputedPayments": len(account.Billing.DisputedTransactions)}}
 	if a.content != nil {
 		if course, ok := a.content.ByCourse[account.ActiveCourseID]; ok {
 			var title string

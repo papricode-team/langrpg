@@ -2,10 +2,17 @@ import type { Api, AccountStatus, ConnectionStatus } from './api';
 import { trackAnalytics } from './analytics-client';
 import { brandMarkup } from './branding';
 import type { ContentCourse } from './content-api';
-import { accessBlocked, billingURL, clearGameProgress, formatAccessTime, type AccessClock, type BillingPlan, type GameAccess } from './game-access';
+import { accessBlocked, billingURL, clearGameProgress, formatAccessTime, formatOfferPrice, type AccessClock, type BillingOffer, type BillingPlan, type GameAccess } from './game-access';
 import { t } from './i18n';
 import { escapeHtml as e, icon } from './icons';
 import { referralAvailable } from './referrals';
+
+/** Paywall wording for each plan; the price comes from the server. */
+const planCopy: Record<BillingPlan, { name: string; per: string; detail: string; action: string }> = {
+  monthly: { name: 'Monthly', per: '/ month', detail: 'Billed monthly. Cancel anytime.', action: 'Subscribe monthly' },
+  yearly: { name: 'Yearly', per: '/ year', detail: 'Billed yearly. Cancel anytime.', action: 'Subscribe yearly' },
+  lifetime: { name: 'Lifetime', per: 'once', detail: 'One payment. Unlimited play.', action: 'Get lifetime access' },
+};
 
 /** What the access, billing and account dialogs need from the page; main.ts provides it. */
 export interface AccessHost {
@@ -43,6 +50,7 @@ export class AccessSession {
   private billingTimer: number | undefined;
   private billingRevision = 0;
   private referralRevision = 0;
+  private offersRevision = 0;
 
   constructor(private readonly host: AccessHost) {}
 
@@ -159,7 +167,7 @@ export class AccessSession {
     const owner = this.host.api.selfId;
     const revision = ++this.referralRevision;
     const back = '<button type="button" class="billing-secondary-button" id="referral-back">Back to my adventure</button>';
-    this.showDialog(`<div id="referral-panel"><h2 id="account-title">Invite a friend. Get 90 minutes.</h2><p>When a new friend signs up through your link, you get 90 extra minutes of free play. Each new signup counts once, and the bonus adds to your remaining time.</p><p role="status">Getting your invite link…</p><p id="account-error" class="account-error" role="alert"></p>${back}</div>`);
+    this.showDialog(`<div id="referral-panel"><h2 id="account-title">Invite a friend. Get 90 minutes.</h2><p>When a new friend signs up through your link, you get 90 extra minutes of free play. Up to 3 friends a day and 10 in total count, and the bonus adds to your remaining time.</p><p role="status">Getting your invite link…</p><p id="account-error" class="account-error" role="alert"></p>${back}</div>`);
     const bindBack = () => { document.querySelector<HTMLButtonElement>('#referral-back')!.onclick = () => { this.referralRevision++; document.querySelector<HTMLDialogElement>('#account-dialog')!.close(); }; };
     bindBack();
     try {
@@ -168,7 +176,7 @@ export class AccessSession {
       if (revision !== this.referralRevision || owner !== this.host.api.selfId || !dialog.open || !dialog.querySelector('#referral-panel')) return;
       const url = new URL(result.url);
       if (url.username || url.password || (url.protocol !== 'https:' && !(url.protocol === 'http:' && ['localhost', '127.0.0.1'].includes(url.hostname)))) throw new Error('Your invite link could not load. Please try again.');
-      this.showDialog(`<div id="referral-panel"><h2 id="account-title">Invite a friend. Get 90 minutes.</h2><p>Send your link to a friend. When they create a new account, you get 90 extra minutes of free play—even if your trial has ended by then.</p><label class="form-label" for="referral-url">Your invite link</label><input class="name-input referral-url" id="referral-url" readonly value="${e(url.href)}"/><button type="button" class="primary-button" id="referral-copy">Copy invite link ${icon('check')}</button><p class="referral-status" id="referral-count" role="status"></p><p class="referral-status" id="referral-copy-status" role="status"></p><p id="account-error" class="account-error" role="alert"></p>${back}</div>`);
+      this.showDialog(`<div id="referral-panel"><h2 id="account-title">Invite a friend. Get 90 minutes.</h2><p>Send your link to a friend. When they create a new account, you get 90 extra minutes of free play—even if your trial has ended by then. Up to 3 friends a day and 10 in total count.</p><label class="form-label" for="referral-url">Your invite link</label><input class="name-input referral-url" id="referral-url" readonly value="${e(url.href)}"/><button type="button" class="primary-button" id="referral-copy">Copy invite link ${icon('check')}</button><p class="referral-status" id="referral-count" role="status"></p><p class="referral-status" id="referral-copy-status" role="status"></p><p id="account-error" class="account-error" role="alert"></p>${back}</div>`);
       bindBack(); this.updateHud();
       document.querySelector<HTMLButtonElement>('#referral-copy')!.onclick = async () => {
         const status = document.querySelector<HTMLElement>('#referral-copy-status')!;
@@ -196,18 +204,38 @@ export class AccessSession {
     if (!access?.registered) { this.host.showSaveAccount(access?.phase === 'login_required', true); return; }
     if (access.phase === 'paid') { this.showBillingAccount(); return; }
     trackAnalytics('paywall_viewed', required ? 'required' : 'optional');
-    this.showDialog(`<h2 id="account-title">${required ? 'Your free trial is complete.' : 'Keep your adventure going.'}</h2><p>${required ? 'Your free play time is used up. Choose a plan to continue from exactly where you left off, or reset your game for another 15 free minutes.' : 'Subscribe now for unlimited play and keep every step of your adventure.'}</p><div class="billing-plans"><button type="button" class="billing-plan" data-billing-plan="monthly" ${access.billingAvailable ? '' : 'disabled'}><span>Monthly</span><strong>€2.99<span class="caption">/ month</span></strong><p>Billed monthly. Cancel anytime.</p><b>Subscribe monthly ${icon('arrow')}</b></button><button type="button" class="billing-plan" data-billing-plan="yearly" ${access.billingAvailable ? '' : 'disabled'}><span>Yearly</span><strong>€9.99<span class="caption">/ year</span></strong><p>Billed yearly. Cancel anytime.</p><b>Subscribe yearly ${icon('arrow')}</b></button><button type="button" class="billing-plan billing-plan-lifetime" data-billing-plan="lifetime" ${access.billingAvailable ? '' : 'disabled'}><span>Lifetime</span><strong>€29.99<span class="caption">once</span></strong><p>One payment. Unlimited play.</p><b>Get lifetime access ${icon('arrow')}</b></button></div><span class="billing-note">Prices in EUR. Secure checkout with Creem. Tax included.</span>${!access.billingAvailable ? '<p class="billing-unavailable">Payments are being set up. Your progress is saved; check again shortly.</p>' : ''}<p class="game-reset-note">Start fresh as often as you like. Resetting clears your game progress.</p><button type="button" class="billing-secondary-button" id="billing-reset">Reset game &amp; play 15 minutes free</button><p id="account-error" class="account-error" role="alert">${e(notice)}</p><button type="button" class="billing-secondary-button" id="billing-check">Already paid? Check payment status</button>${required ? '' : '<button type="button" class="billing-secondary-button" id="billing-back">Back to my free trial</button>'}`, required);
+    const revision = ++this.offersRevision;
+    this.showDialog(`<h2 id="account-title">${required ? 'Your free trial is complete.' : 'Keep your adventure going.'}</h2><p>${required ? 'Your free play time is used up. Choose a plan to continue from exactly where you left off, or reset your game for another 15 free minutes.' : 'Subscribe now for unlimited play and keep every step of your adventure.'}</p><div class="billing-plans" id="billing-plans" aria-busy="true"><p role="status">Loading plans…</p></div><span class="billing-note">Prices include tax. Secure checkout with Creem.</span>${!access.billingAvailable ? '<p class="billing-unavailable">Payments are being set up. Your progress is saved; check again shortly.</p>' : ''}<p class="game-reset-note">Start fresh as often as you like. Resetting clears your game progress.</p><button type="button" class="billing-secondary-button" id="billing-reset">Reset game &amp; play 15 minutes free</button><p id="account-error" class="account-error" role="alert">${e(notice)}</p><button type="button" class="billing-secondary-button" id="billing-check">Already paid? Check payment status</button>${required ? '' : '<button type="button" class="billing-secondary-button" id="billing-back">Back to my free trial</button>'}`, required);
 
     document.querySelector('#account-dialog')!.classList.add('billing-dialog');
-    document.querySelectorAll<HTMLButtonElement>('[data-billing-plan]').forEach(button => { button.onclick = async () => {
-      const buttons = [...document.querySelectorAll<HTMLButtonElement>('[data-billing-plan]')];
-      buttons.forEach(item => { item.disabled = true; });
-      try { const result = await this.host.api.checkout(button.dataset.billingPlan as BillingPlan); location.assign(billingURL(result.url)); }
-      catch (error) { this.showError(error); buttons.forEach(item => { item.disabled = !access.billingAvailable; }); }
-    }; });
     document.querySelector<HTMLButtonElement>('#billing-reset')!.addEventListener('click', this.showResetGame);
     document.querySelector<HTMLButtonElement>('#billing-back')?.addEventListener('click', () => document.querySelector<HTMLDialogElement>('#account-dialog')!.close());
     document.querySelector<HTMLButtonElement>('#billing-check')!.onclick = () => void this.verifyBilling();
+    void this.loadOffers(revision, access.billingAvailable);
+  };
+  /** Fill the paywall with the plans and prices the server reads from Creem. */
+  private readonly loadOffers = async (revision: number, available: boolean): Promise<void> => {
+    let offers: BillingOffer[] | undefined;
+    try { offers = available ? (await this.host.api.billingOffers()).offers : []; } catch { offers = undefined; }
+    const container = document.querySelector<HTMLElement>('#billing-plans');
+    if (revision !== this.offersRevision || !container) return;
+    container.removeAttribute('aria-busy');
+    if (!offers) {
+      container.innerHTML = '<p role="status">Plans could not load.</p><button type="button" class="billing-secondary-button" id="billing-offers-retry">Try again</button>';
+      document.querySelector<HTMLButtonElement>('#billing-offers-retry')!.onclick = () => { container.innerHTML = '<p role="status">Loading plans…</p>'; void this.loadOffers(revision, available); };
+      return;
+    }
+    if (!offers.length) { container.innerHTML = ''; return; }
+    container.innerHTML = offers.filter(offer => planCopy[offer.plan]).map(offer => {
+      const copy = planCopy[offer.plan], price = formatOfferPrice(offer);
+      return `<button type="button" class="billing-plan${offer.plan === 'lifetime' ? ' billing-plan-lifetime' : ''}" data-billing-plan="${e(offer.plan)}"><span>${copy.name}</span><strong>${price ? `${e(price)}<span class="caption">${copy.per}</span>` : '<span class="caption">Price shown at checkout</span>'}</strong><p>${copy.detail}</p><b>${copy.action} ${icon('arrow')}</b></button>`;
+    }).join('');
+    container.querySelectorAll<HTMLButtonElement>('[data-billing-plan]').forEach(button => { button.onclick = async () => {
+      const buttons = [...container.querySelectorAll<HTMLButtonElement>('[data-billing-plan]')];
+      buttons.forEach(item => { item.disabled = true; });
+      try { const result = await this.host.api.checkout(button.dataset.billingPlan as BillingPlan); location.assign(billingURL(result.url)); }
+      catch (error) { this.showError(error); buttons.forEach(item => { item.disabled = false; }); }
+    }; });
   };
   readonly verifyBilling = async (attempt = 0, revision = ++this.billingRevision): Promise<void> => {
     if (this.billingTimer !== undefined) clearTimeout(this.billingTimer);

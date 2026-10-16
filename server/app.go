@@ -18,6 +18,7 @@ import (
 	"sort"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"time"
 	"unicode"
 	"unicode/utf8"
@@ -53,6 +54,9 @@ type App struct {
 	trustedProxies  []netip.Prefix
 	metrics         *serverMetrics
 	metricsToken    string
+	// creemBackoffUntil (Unix nanoseconds) pauses unforced Creem refreshes
+	// after a failure; shared by every course-scoped copy of the App.
+	creemBackoffUntil *atomic.Int64
 }
 type rateWindow struct {
 	At    time.Time
@@ -60,7 +64,7 @@ type rateWindow struct {
 }
 
 func NewApp(store Store, curriculum Curriculum, origins []string, maxPlayers int) *App {
-	a := &App{store: store, curriculum: curriculum, origins: map[string]bool{}, now: time.Now, limits: map[string]rateWindow{}, rateMu: &sync.Mutex{}}
+	a := &App{store: store, curriculum: curriculum, origins: map[string]bool{}, now: time.Now, limits: map[string]rateWindow{}, rateMu: &sync.Mutex{}, creemBackoffUntil: &atomic.Int64{}}
 	a.editLeases = newWorldLeases(func() time.Time { return a.now() })
 	a.leaseOwner, _ = randomID(16)
 	if a.leaseOwner == "" {
@@ -104,6 +108,7 @@ func (a *App) Handler() http.Handler {
 	mux.HandleFunc("POST /api/billing/checkout", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.billingCheckout(w, r) }))
 	mux.HandleFunc("POST /api/billing/portal", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.billingPortal(w, r) }))
 	mux.HandleFunc("POST /api/billing/sync", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.billingSync(w, r) }))
+	mux.HandleFunc("GET /api/billing/offers", a.billingOffers)
 	mux.HandleFunc("POST /api/billing/webhook", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.billingWebhook(w, r) }))
 	mux.HandleFunc("POST /api/preferences", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.updatePreferences(w, r) }))
 	mux.HandleFunc("GET /api/progress", a.withCourse(func(scoped *App, w http.ResponseWriter, r *http.Request) { scoped.progress(w, r) }))

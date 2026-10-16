@@ -6,7 +6,9 @@ import (
 	"errors"
 	"glotworld/server/internal/billing"
 	"io"
+	"log/slog"
 	"net/http"
+	"slices"
 	"strings"
 	"time"
 )
@@ -17,23 +19,45 @@ func (a *App) hasPaidAccess(account Account, now time.Time) bool {
 	return a.billing.HasPaidAccess(account.Email, account.Billing, now)
 }
 
+// creemBackoff is how long unforced refreshes skip Creem after a failed
+// call, so an outage does not add a slow Creem request to every heartbeat.
+const creemBackoff = 30 * time.Second
+
+// hasBillingLedger reports anything Creem could verify. Accounts that never
+// started a checkout skip reconciliation and its write entirely.
+func hasBillingLedger(state billing.State) bool {
+	return len(state.Purchases) > 0 || state.CustomerID != "" || state.Plan != ""
+}
+
 func (a *App) refreshBilling(ctx context.Context, account Account, force bool) (Account, error) {
-	if !a.billingAvailable() || account.Email == "" {
+	if !a.billingAvailable() || account.Email == "" || !hasBillingLedger(account.Billing) {
 		return account, nil
 	}
 	now := a.now().UTC()
-	if !force && billing.SnapshotFresh(account.Billing, now) {
+	if !force && (billing.SnapshotFresh(account.Billing, now) || now.UnixNano() < a.creemBackoffUntil.Load()) {
 		return account, nil
 	}
-	return a.reconcileBilling(ctx, account.Player.ID, now, func(current *Account) (bool, error) {
+	updated, err := a.reconcileBilling(ctx, account.Player.ID, now, func(current *Account) (bool, error) {
 		return current.Email != "" && (force || !billing.SnapshotFresh(current.Billing, now)), nil
 	}, func(current *Account, snapshot billing.State) {
 		snapshot.WebhookReceipts = current.Billing.WebhookReceipts
-		current.Billing = snapshot
-		if a.hasPaidAccess(*current, now) && current.Analytics.PaidAt.IsZero() {
-			current.Analytics.PaidAt = now
-		}
+		a.applyBilling(current, snapshot, now)
 	})
+	if err != nil && !errors.Is(err, billing.ErrLedgerChanged) && !errors.Is(err, ErrUnauthorized) {
+		a.creemBackoffUntil.Store(now.Add(creemBackoff).UnixNano())
+	}
+	return updated, err
+}
+
+// applyBilling stores a verified snapshot and reports a new double charge.
+func (a *App) applyBilling(account *Account, snapshot billing.State, now time.Time) {
+	if snapshot.OverlappingPurchases > account.Billing.OverlappingPurchases {
+		slog.Warn("account holds more than one paying Creem purchase; refund the extra one", "accountId", account.Player.ID, "overlapping", snapshot.OverlappingPurchases)
+	}
+	account.Billing = snapshot
+	if a.hasPaidAccess(*account, now) && account.Analytics.PaidAt.IsZero() {
+		account.Analytics.PaidAt = now
+	}
 }
 
 // reconcileBilling queries Creem without holding the account row lock, then
@@ -112,13 +136,9 @@ func (a *App) billingCheckout(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	product := a.billing.MonthlyProduct
-	if input.Plan == "lifetime" {
-		product = a.billing.LifetimeProduct
-	} else if input.Plan == "yearly" {
-		product = a.billing.YearlyProduct
-	} else if input.Plan != "monthly" {
-		writeError(w, 400, "choose monthly, yearly or lifetime")
+	product := map[string]string{"monthly": a.billing.MonthlyProduct, "yearly": a.billing.YearlyProduct, "lifetime": a.billing.LifetimeProduct}[input.Plan]
+	if product == "" {
+		writeError(w, 400, "choose one of the offered plans")
 		return
 	}
 	ctx, cancel := context.WithTimeout(r.Context(), 8*time.Second)
@@ -132,7 +152,7 @@ func (a *App) billingCheckout(w http.ResponseWriter, r *http.Request) {
 		writeError(w, 409, "your account already has paid access")
 		return
 	}
-	checkoutURL, err := a.createCheckout(ctx, account.Player.ID, product)
+	checkoutURL, err := a.createCheckout(ctx, account.Player.ID, input.Plan, product)
 	if err != nil {
 		a.recordAnalytics(r.Context(), account, AnalyticsEvent{Name: "checkout_failed", Detail: input.Plan})
 		writeError(w, 503, "unable to start checkout; please try again")
@@ -158,7 +178,7 @@ func (a *App) pendingPurchases(state billing.State) []billing.Purchase {
 // it to this account; the purchase is recorded afterwards under the lock.
 // If that final write fails, the orphaned checkout is harmless: it grants
 // nothing unless paid, and a paid checkout.completed webhook records it.
-func (a *App) createCheckout(ctx context.Context, accountID, product string) (string, error) {
+func (a *App) createCheckout(ctx context.Context, accountID, plan, product string) (string, error) {
 	reserved, err := a.store.UpdateAccountByID(ctx, accountID, func(current *Account) error {
 		if a.hasPaidAccess(*current, a.now()) {
 			return errors.New("already subscribed")
@@ -182,17 +202,18 @@ func (a *App) createCheckout(ctx context.Context, accountID, product string) (st
 	if err != nil {
 		return "", err
 	}
-	customer := map[string]string{"email": reserved.Email}
-	if reserved.Billing.CustomerID != "" {
-		customer = map[string]string{"id": reserved.Billing.CustomerID}
-	}
-	var response billing.Checkout
-	if err = a.billing.Request(ctx, "POST", "/v1/checkouts", map[string]any{
+	input := map[string]any{
 		"product_id": product, "request_id": requestID, "units": 1,
-		"customer":    customer,
 		"success_url": a.billing.PublicURL + "/?billing=success",
 		"metadata":    map[string]string{"account_id": accountID, "billing_reference": reserved.Billing.Reference},
-	}, &response); err != nil {
+	}
+	// Game signup does not verify the email, so a first checkout lets the payer
+	// enter their own billing email; receipts never go to an unproven address.
+	if reserved.Billing.CustomerID != "" {
+		input["customer"] = map[string]string{"id": reserved.Billing.CustomerID}
+	}
+	var response billing.Checkout
+	if err = a.billing.Request(ctx, "POST", "/v1/checkouts", input, &response); err != nil {
 		return "", err
 	}
 	// Creem may omit request_id from creation responses. Retrieval returns it,
@@ -213,7 +234,7 @@ func (a *App) createCheckout(ctx context.Context, accountID, product string) (st
 		if len(kept) >= 32 {
 			return errors.New("too many pending purchases; use billing management")
 		}
-		current.Billing.Purchases = append(kept, billing.Purchase{CheckoutID: response.ID, RequestID: requestID, ProductID: product, CreatedAt: a.now().UTC()})
+		current.Billing.Purchases = append(kept, billing.Purchase{CheckoutID: response.ID, RequestID: requestID, ProductID: product, Plan: plan, CreatedAt: a.now().UTC()})
 		return nil
 	})
 	if err != nil {
@@ -355,8 +376,16 @@ func (a *App) billingWebhook(w http.ResponseWriter, r *http.Request) {
 				if len(account.Billing.Purchases) >= 64 {
 					return false, errors.New("purchase reconciliation limit exceeded")
 				}
-				account.Billing.Purchases = append(account.Billing.Purchases, billing.Purchase{CheckoutID: checkout.ID, RequestID: checkout.RequestID, ProductID: checkout.Product.ID, CreatedAt: now})
+				account.Billing.Purchases = append(account.Billing.Purchases, billing.Purchase{CheckoutID: checkout.ID, RequestID: checkout.RequestID, ProductID: checkout.Product.ID, Plan: a.billing.PlanFor(checkout.Product.ID), CreatedAt: now})
 			}
+		}
+		// Record the disputed payment before verifying, so the snapshot
+		// withdraws it even while Creem still reports it as paid.
+		if disputed := event.Object.Transaction.ID; event.Type == "dispute.created" && disputed != "" && !slices.Contains(account.Billing.DisputedTransactions, disputed) {
+			if len(account.Billing.DisputedTransactions) >= 64 {
+				return false, errors.New("dispute limit exceeded")
+			}
+			account.Billing.DisputedTransactions = append(account.Billing.DisputedTransactions, disputed)
 		}
 		return true, nil
 	}, func(account *Account, snapshot billing.State) {
@@ -377,10 +406,7 @@ func (a *App) billingWebhook(w http.ResponseWriter, r *http.Request) {
 			delete(snapshot.WebhookReceipts, oldestKey)
 		}
 		snapshot.WebhookReceipts[event.ID] = now
-		account.Billing = snapshot
-		if a.hasPaidAccess(*account, now) && account.Analytics.PaidAt.IsZero() {
-			account.Analytics.PaidAt = now
-		}
+		a.applyBilling(account, snapshot, now)
 	})
 	if errors.Is(err, ErrUnauthorized) {
 		w.WriteHeader(200)
@@ -391,4 +417,19 @@ func (a *App) billingWebhook(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(200)
+}
+
+// billingOffers lists the plans the paywall may show, with Creem's prices.
+func (a *App) billingOffers(w http.ResponseWriter, r *http.Request) {
+	if !a.billingAvailable() {
+		writeJSON(w, 200, map[string]any{"offers": []billing.Offer{}})
+		return
+	}
+	if !a.allow("billing-offers:"+a.clientIP(r), 60) {
+		writeError(w, 429, "too many requests; try again in a minute")
+		return
+	}
+	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
+	defer cancel()
+	writeJSON(w, 200, map[string]any{"offers": a.billing.Offers(ctx, a.now().UTC())})
 }
