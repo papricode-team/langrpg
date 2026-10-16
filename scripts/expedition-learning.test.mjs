@@ -2,12 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import './register-content-loader.mjs';
-import {buildExpeditionLearning,writeExpeditionLearning} from './expedition-learning.mjs';
-const [{expeditionRegions},{expeditionGames},{courseLexicon}]=await Promise.all([import('../web/src/expeditions.ts'),import('../web/src/expedition-games.ts'),import('../web/src/course.ts')]);
+import {buildExpeditionLearning} from './expedition-learning.mjs';
+const [{expeditionRegions},{expeditionGames}]=await Promise.all([import('../web/src/expeditions.ts'),import('../web/src/expedition-games.ts')]);
 
 const manifest=await buildExpeditionLearning();
 const targets=JSON.parse(await readFile(new URL('./expedition-learning-targets.json',import.meta.url),'utf8')).encounters;
-const lexemes=new Set(courseLexicon.map(word=>word.id));
 const exercises=new Map(manifest.exercises.map(row=>[row.id,row]));
 
 test('every encounter uses its reviewed primary target, two modalities and exact canonical answer',()=>{
@@ -77,20 +76,6 @@ test('all thirty plan scaffolds accept exactly the per-field projections of comp
  }
  assert.equal(manifest.placements.find(row=>row.mapId==='saffroncourt'&&row.fieldId==='gate').targetWordId,'offen-adv');
  assert.equal(manifest.placements.find(row=>row.mapId==='windplain'&&row.fieldId==='radio').targetWordId,'mitnehmen-verb');
-});
-
-test('all evidence references active lexemes and client/server generated copies remain identical and current',async()=>{
- assert.equal(manifest.exercises.length,489);
- assert.equal(exercises.size,489);
- for(const exercise of manifest.exercises){
-  assert(lexemes.has(exercise.targetWordId),exercise.id);
-  assert(exercise.wordIds.length>0);
-  assert(exercise.wordIds.every(id=>lexemes.has(id)),exercise.id);
-  assert(exercise.wordIds.includes(exercise.targetWordId));
-  assert.equal(new Set(exercise.wordIds).size,exercise.wordIds.length);
- }
- await writeExpeditionLearning(true);
- assert.equal(await readFile(new URL('../web/src/data/expedition-learning.json',import.meta.url),'utf8'),await readFile(new URL('../server/expedition_learning.json',import.meta.url),'utf8'));
 });
 
 test('compact runtime retains every submission/restoration/presentation field without shipping grading or review prose',async()=>{

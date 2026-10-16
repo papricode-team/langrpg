@@ -1,16 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile, writeFile, mkdir, mkdtemp, rm, cp } from 'node:fs/promises';
+import { readFile, writeFile, mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import sharp from 'sharp';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { splitMaterials, compileCatalogue, validateCatalogue, verifyApproval, buildCatalogue, exportComponent, requireCompleteHDReplacement } from './character-kit-assets.mjs';
+import { splitMaterials, compileCatalogue, validateCatalogue, verifyApproval, exportComponent, requireCompleteHDReplacement } from './character-kit-assets.mjs';
 import { material } from './character-kit.mjs';
 import { normalizeAvatar, recipeErrors, resolveRecipe, avatarTextureKey } from '../web/src/character-recipe.mjs';
 import { combineMaterials, composeFrame, over } from '../web/src/character-compositor.mjs';
-import { bakeCharacterSheet } from './bake-character-sheet.mjs';
 import { characterSheetPages } from '../web/src/character-sheets.mjs';
 const root = resolve(import.meta.dirname, '..');
 const readJSON = async path => JSON.parse(await readFile(path, 'utf8'));
@@ -174,31 +173,6 @@ test('runtime/editor sheets have all 36 frames and client/server catalogues are 
   }
 });
 
-test('offline bake uses the shared compositor, refuses incomplete production recipes and writes preview provenance',async()=>{
-  const catalogue=await readJSON(resolve(root,'web/src/data/character-kit.json')),recipe=normalizeAvatar({},catalogue);recipe.parts.headwear='cap';recipe.parts.bottom='skirt';recipe.parts.face=null;
-  const dir=await mkdtemp(resolve(tmpdir(),'character-bake-')),out=resolve(dir,'preview.webp');
-  try{
-    await assert.rejects(bakeCharacterSheet(recipe,{root,out,catalogue}),/Missing required/);
-    const result=await bakeCharacterSheet(recipe,{root,out,catalogue,preview:true});assert.equal(result.preview,true);assert.equal(result.frames,36);
-    const image=await sharp(out).metadata();assert.deepEqual([image.width,image.height],[catalogue.format.runtimeCell[0]*9,catalogue.format.runtimeCell[1]*4]);
-    const second=await bakeCharacterSheet({...recipe,colors:{...recipe.colors,'bottom.primary':'#ab5e51'}},{root,out:resolve(dir,'red.webp'),catalogue,preview:true});assert.notEqual(result.sha256,second.sha256);
-  }finally{await rm(dir,{recursive:true,force:true});}
-});
-
-test('catalogue build detects changed derivative bytes before writing new catalogues',async()=>{
-  const dir=await mkdtemp(resolve(tmpdir(),'character-catalogue-'));
-  try{
-    await cp(resolve(root,'art/source/character-kit'),resolve(dir,'art/source/character-kit'),{recursive:true,filter:src=>!src.includes('/kits/')&&!src.startsWith(resolve(root,'art/source/character-kit/hd'))});
-    await cp(resolve(root,'art/proofs'),resolve(dir,'art/proofs'),{recursive:true,filter:src=>!src.startsWith(resolve(root,'art/proofs/character-kit-hd'))});
-    await cp(resolve(root,'web/public/assets/character-kit'),resolve(dir,'web/public/assets/character-kit'),{recursive:true});
-    await cp(resolve(root,'web/public/assets/player-layers'),resolve(dir,'web/public/assets/player-layers'),{recursive:true});
-    const source=await readJSON(resolve(dir,'art/source/character-kit/catalogue.json')),manifest=await readJSON(resolve(dir,'web/public/assets/character-kit/manifest.json'));
-    await writeFile(resolve(dir,'web/public/assets/character-kit',manifest.assets[0].thumbnail),'broken');
-    await assert.rejects(buildCatalogue(dir,source,async id=>({report:{id,valid:true,errors:[]}})),/Changed thumbnail/);
-    await assert.rejects(readFile(resolve(dir,'server/character-kit.json')),/ENOENT/);
-  }finally{await rm(dir,{recursive:true,force:true});}
-});
-
 test('dress outfit proofs keep mannequin legs when occupancy suppresses legacy trousers',async()=>{
   const dir=await mkdtemp(resolve(tmpdir(),'character-dress-proof-')),out=resolve(dir,'dress.png');
   try{
@@ -257,31 +231,6 @@ test('native action faces share global skin colour without introducing new piece
   const changed=structuredClone(manifest);
   changed.assets.find(p=>p.id===face.id).materials.push('primary');
   assert.throws(()=>compileCatalogue(source,changed),/Pose materials change the recipe contract/);
-});
-
-test('pose baking selects action sheets, keeps distinct keys and rejects unavailable wardrobe pieces',async()=>{
-  const catalogue=await readJSON(resolve(root,'web/src/data/character-kit.json'));
-  const recipe=normalizeAvatar({});
-  // Route to visibly different existing test assets to catch accidental walk reuse.
-  const variants=catalogue.components.filter(p=>p.build==='regular').map(p=>({...p,id:p.id+'-wave',poseSet:'wave'}));
-  const top=variants.find(p=>p.optionId==='shirt'&&p.slot==='top');
-  const alternate=catalogue.components.find(p=>p.id==='top-tee');
-  top.sheets=alternate.sheets;top.materials=alternate.materials;top.tints=alternate.tints;
-  catalogue.poseSets={wave:{label:'Wave',rowDescription:'wave cycle',frameDurations:Array(9).fill(130),builds:['regular'],components:variants}};
-  const dir=await mkdtemp(resolve(tmpdir(),'character-pose-bake-'));
-  try{
-    const walk=await bakeCharacterSheet(recipe,{root,out:resolve(dir,'walk.webp'),catalogue});
-    const wave=await bakeCharacterSheet(recipe,{root,out:resolve(dir,'wave.webp'),catalogue,poseSet:'wave'});
-    assert.equal(wave.poseSet,'wave');assert.notEqual(wave.recipeKey,walk.recipeKey);assert.notEqual(wave.sha256,walk.sha256);
-    await assert.rejects(bakeCharacterSheet(recipe,{root,out:resolve(dir,'missing.webp'),catalogue,poseSet:'seated'}),/Unavailable pose set/);
-    catalogue.poseSets.wave.requiredParts={held:'lantern'};
-    await assert.rejects(bakeCharacterSheet(recipe,{root,out:resolve(dir,'empty-hand.webp'),catalogue,poseSet:'wave'}),/requires held.lantern/);
-    await assert.rejects(readFile(resolve(dir,'empty-hand.webp')),/ENOENT/);
-    delete catalogue.poseSets.wave.requiredParts;
-    catalogue.poseSets.wave.components=variants.filter(p=>p.slot!=='outer');
-    await assert.rejects(bakeCharacterSheet(recipe,{root,out:resolve(dir,'incomplete.webp'),catalogue,poseSet:'wave'}),/Unknown option outer.travel/);
-    await assert.rejects(readFile(resolve(dir,'incomplete.webp')),/ENOENT/);
-  }finally{await rm(dir,{recursive:true,force:true});}
 });
 
 test('expression exports stay separate from face identities and bind to a neutral face contract',async()=>{

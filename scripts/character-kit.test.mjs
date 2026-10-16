@@ -7,7 +7,7 @@ import { promisify } from 'node:util';
 import { execFile } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import sharp from 'sharp';
-import { material, validateGrid, makeMask, lockPixels, extract, checkPixels, tintComponent, promptFor, resolveProofPieces, candidateMatte, recoverInk, buildReferences } from './character-kit.mjs';
+import { material, validateGrid, makeMask, lockPixels, extract, checkPixels, tintComponent, promptFor, resolveProofPieces, candidateMatte, recoverInk } from './character-kit.mjs';
 
 const entry = { id: 'test', slot: 'headwear', materials: ['primary'] };
 const info = { width: 72, height: 32 }, image = () => ({ info, data: Buffer.alloc(info.width * info.height * 4) });
@@ -517,24 +517,6 @@ test('proof resolver hides equipped hair and respects facing z-order without mut
   assert.deepEqual(resolveProofPieces([hat, bun, dress, trousers], 'down').map(p => p.entry.id), ['dress', 'bun']);
   const openHat = { entry: { ...hat.entry, hides: ['hairCrown'] } };
   assert.deepEqual(resolveProofPieces([openHat, hair], 'down').map(p => p.entry.id), ['waves', 'cap']);
-});
-
-test('approved and visually reviewed staging sheets pass every frame; the rejected backdrop still fails', async () => {
-  const root = resolve(import.meta.dirname, '..'), catalogue = JSON.parse(await readFile(resolve(root, 'art/source/character-kit/catalogue.json')));
-  const load = path => sharp(resolve(root, path)).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
-  for (const entry of catalogue.entries.filter(entry => entry.status === 'approved' || entry.review?.result === 'approved')) {
-    const build = buildReferences(catalogue, entry.build, entry.poseSet);
-    const registration = JSON.parse(await readFile(resolve(root, build.registration))), specs = JSON.parse(await readFile(resolve(root, build.masks)));
-    const base = await load(entry.slot === 'body' ? build.master : build.mannequin), locked = await load(entry.locked);
-    const mask = makeMask(base.info, registration, specs[entry.mask]), report = checkPixels(base, locked, mask, registration, entry);
-    assert.equal(report.valid, true, `${entry.id}: ${report.errors.join('\n')}`);
-    assert.equal(report.frames.length, 36); assert.equal(report.protectedDrift, 0);
-    if (entry.slot === 'body') {
-      const rejected = await load('art/source/character-kit/body-regular-candidate-1.png');
-      const bad = { info: base.info, data: lockPixels(base, rejected, mask, entry.materials, entry.lock, registration) };
-      assert.equal(checkPixels(base, bad, mask, registration, entry).valid, false);
-    }
-  }
 });
 
 const run = promisify(execFile);

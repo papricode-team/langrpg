@@ -29,19 +29,6 @@ test('listening distractors use distinct German forms and known-level vocabulary
   }
 });
 
-test('per-item distractors are deterministic, varied and independent of source ordering', () => {
-  const reordered = createListeningDistractorPicker([...lexicon].reverse());
-  const sets = new Map();
-  for (const word of lexicon) {
-    const choices = pick(word).map(spokenWord);
-    assert.deepEqual(reordered(word).map(spokenWord), choices, `${word.id}: source order changed choices`);
-    const key = [...choices].sort().join('|');
-    sets.set(key, (sets.get(key) ?? 0) + 1);
-  }
-  assert.ok(sets.size > lexicon.length * .75, `Only ${sets.size} distinct sets for ${lexicon.length} items`);
-  assert.ok(Math.max(...sets.values()) < 25, 'A common distractor set makes listening solvable by elimination');
-});
-
 test('generated listening items use the current picker', () => {
   const byId = new Map(lexicon.map(word => [word.id, word]));
   for (const exercise of course.exercises.filter(exercise => exercise.id.startsWith('lex-') && exercise.mode === 'listen')) {

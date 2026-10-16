@@ -5,10 +5,18 @@ import (
 	"crypto/pbkdf2"
 	"crypto/sha256"
 	"encoding/base64"
+	"os"
 	"strconv"
 	"strings"
 	"testing"
 )
+
+// TestMain lowers the work factor so the many register and login calls in this package stay fast.
+// The legacy hashes below use the minimum, which is still weaker than this.
+func TestMain(m *testing.M) {
+	passwordIterations = 2 * minPasswordIterations
+	os.Exit(m.Run())
+}
 
 func legacyPasswordHash(t *testing.T, password string, iterations int) string {
 	t.Helper()
@@ -20,7 +28,7 @@ func legacyPasswordHash(t *testing.T, password string, iterations int) string {
 }
 
 func TestVerifyPasswordReadsStoredIterations(t *testing.T) {
-	legacy := legacyPasswordHash(t, "an older lantern password", 100000)
+	legacy := legacyPasswordHash(t, "an older lantern password", minPasswordIterations)
 	if !verifyPassword("an older lantern password", legacy) || verifyPassword("wrong password", legacy) {
 		t.Fatal("a valid lower-iteration hash must verify by its own count")
 	}
@@ -32,9 +40,9 @@ func TestVerifyPasswordReadsStoredIterations(t *testing.T) {
 		t.Fatalf("current hash: %v", err)
 	}
 	for _, bad := range []string{
-		strings.Replace(legacy, "$100000$", "$0100000$", 1),
-		strings.Replace(legacy, "$100000$", "$9$", 1),
-		strings.Replace(legacy, "$100000$", "$99999999999$", 1),
+		strings.Replace(legacy, "$10000$", "$010000$", 1),
+		strings.Replace(legacy, "$10000$", "$9$", 1),
+		strings.Replace(legacy, "$10000$", "$99999999999$", 1),
 		strings.Replace(legacy, "pbkdf2-sha256", "pbkdf2-sha1", 1),
 	} {
 		if verifyPassword("an older lantern password", bad) || passwordNeedsRehash(bad) {
@@ -50,7 +58,7 @@ func TestLoginUpgradesWeakerPasswordHash(t *testing.T) {
 	if w := request(app, "POST", "/api/account/register", token, credentials); w.Code != 200 {
 		t.Fatalf("register: %d %s", w.Code, w.Body.String())
 	}
-	legacy := legacyPasswordHash(t, credentials.Password, 100000)
+	legacy := legacyPasswordHash(t, credentials.Password, minPasswordIterations)
 	if _, err := app.store.UpdateAccount(context.Background(), tokenHash(token), func(account *Account) error {
 		account.PasswordHash = legacy
 		return nil

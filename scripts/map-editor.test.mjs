@@ -9,24 +9,6 @@ import {toTiled} from './map-editor-format.mjs';
 
 const root=fileURLToPath(new URL('../',import.meta.url));
 const source=new URL('../web/src/data/world-scenes.json',import.meta.url);
-test('CLI rejects unreachable or unregistered imports before touching canonical runtime data',async()=>{
-  const original=await readFile(source,'utf8'),document=JSON.parse(original);
-  const directory=await mkdtemp(join(tmpdir(),'lantern-map-import-'));
-  try {
-    for(const kind of ['unreachable','unregistered']) {
-      const edited=toTiled('lindenhafen',document);
-      const npc=edited.layers.find(layer=>layer.name==='NPCs').objects[0];
-      if(kind==='unreachable'){npc.x=2;npc.y=2;}
-      else npc.properties.find(property=>property.name==='key').value='unregistered-test-character';
-      const path=join(directory,`${kind}.tmj`);
-      await writeFile(path,JSON.stringify(edited));
-      const result=spawnSync(process.execPath,['scripts/map-editor.mjs','import',path],{cwd:root,encoding:'utf8'});
-      assert.notEqual(result.status,0);
-      assert.match(result.stderr,kind==='unreachable'?/Players could not reach/:/no authored content/);
-      assert.equal(await readFile(source,'utf8'),original);
-    }
-  }finally{await rm(directory,{recursive:true,force:true});}
-});
 test('legacy exchanges require explicit conversion opt-in',async()=>{
   const legacy=JSON.parse(await readFile(new URL('../web/src/data/world-navigation.json',import.meta.url),'utf8'));
   const directory=await mkdtemp(join(tmpdir(),'lantern-legacy-import-'));

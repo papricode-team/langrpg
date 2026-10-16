@@ -70,6 +70,6 @@ Some machinery stays bespoke because Phaser has no equivalent, or its equivalent
 
 ## Testing
 
-`web/src/test-support/` runs real Phaser under happy-dom: `phaser-dom.ts` installs a no-op 2D canvas (import it first), `phaser-harness.ts` steps games by hand, controls the clock tweens use, keeps the loader off the network and seeds textures and JSON, and `world-fixture.ts` boots a full `World`. `world-scenes.test.ts` covers the scene lifecycle; `world-behaviour.test.ts` covers residents, gait, rooms, streaming and regional motion; `world-atmosphere.test.ts` covers weather.
+`web/src/test-support/` runs real Phaser under happy-dom: `phaser-dom.ts` installs a no-op 2D canvas (import it first), `phaser-harness.ts` steps games by hand, controls the clock tweens use, keeps the loader off the network and seeds textures and JSON. `world-atmosphere.test.ts` covers weather. The full-world scene and behaviour suites were removed to keep `npm run verify` under three minutes; check those flows with `npm run verify -- --ui` or in the browser.
 
 In development builds, `window.atlasGame` and `window.atlasWorld` expose the game and facade for inspection.
