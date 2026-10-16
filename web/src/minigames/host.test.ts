@@ -121,7 +121,7 @@ describe('mini-game speech lifecycle', () => {
     const clips:{onended:(()=>void)|null;onerror:(()=>void)|null;playbackRate:number;play:ReturnType<typeof vi.fn>;pause:ReturnType<typeof vi.fn>}[]=[];
     vi.stubGlobal('Audio',vi.fn(function(){const clip={onended:null,onerror:null,playbackRate:1,play:vi.fn().mockResolvedValue(undefined),pause:vi.fn()};clips.push(clip);return clip;}));
     const settings=options(vi.fn()),host=createMiniGameHost(settings);
-    host.audio.narration?.(true);const spoken=host.speakText('Der Anschluss fährt.','/audio/announcement.mp3');
+    host.audio.narration?.(true);const spoken=host.speakText('Der Anschluss fährt.','/audio/announcement.ogg');
     clips[0].onended?.();await spoken;expect(settings.narration).toHaveBeenLastCalledWith(true);
     host.audio.narration?.(false);expect(settings.narration).toHaveBeenLastCalledWith(false);
     host.audio.narration?.(true);host.destroy();expect(settings.narration).toHaveBeenLastCalledWith(false);
@@ -133,7 +133,7 @@ describe('mini-game speech lifecycle', () => {
       const clip = { onended: null, onerror: null, playbackRate: 1, play: vi.fn().mockResolvedValue(undefined), pause: vi.fn() };
       clips.push(clip); return clip;
     }));
-    const settings = options(vi.fn()), host = createMiniGameHost(settings), item = { article: 'der', lemma: 'Kaffee', audio: '/audio/word-kaffee.mp3' } as GameItem;
+    const settings = options(vi.fn()), host = createMiniGameHost(settings), item = { article: 'der', lemma: 'Kaffee', audio: '/audio/word-kaffee.ogg' } as GameItem;
     const first = host.speak(item).catch(error => error), oldEnd = clips[0].onended;
     const second = host.speak(item, .8);
     expect((await first).message).toContain('interrupted');

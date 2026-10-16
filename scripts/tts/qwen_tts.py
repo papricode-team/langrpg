@@ -32,8 +32,8 @@ def sha(*parts):
     return h.hexdigest()[:16]
 
 
-def ffmpeg_to_mp3(src_wav, dst_mp3, effect=None, bitrate="32k"):
-    """Trim silence, optional effect, loudnorm, mono 24 kHz MP3 (32 kbps keeps speech clear within the audio budget)."""
+def ffmpeg_to_opus(src_wav, dst_ogg, effect=None, bitrate="24k"):
+    """Trim silence, optional effect, loudnorm, mono 24 kHz Ogg Opus (24 kbps keeps speech clear within the audio budget)."""
     trim = ("silenceremove=start_periods=1:start_threshold=-50dB:start_silence=0.08,"
             "areverse,silenceremove=start_periods=1:start_threshold=-50dB:start_silence=0.15,areverse")
     norm = "loudnorm=I=-18:TP=-1.5:LRA=11"
@@ -49,7 +49,7 @@ def ffmpeg_to_mp3(src_wav, dst_mp3, effect=None, bitrate="32k"):
         raise SystemExit(f"unknown effect {effect}")
     else:
         cmd += ["-af", f"{trim},{norm}"]
-    cmd += ["-ac", "1", "-ar", str(SR), "-c:a", "libmp3lame", "-b:a", bitrate, str(dst_mp3)]
+    cmd += ["-ac", "1", "-ar", str(SR), "-c:a", "libopus", "-b:a", bitrate, "-application", "voip", str(dst_ogg)]
     subprocess.run(cmd, check=True)
 
 
@@ -159,7 +159,7 @@ def main(argv=None):
                     help="re-create this speaker's reference clip (repeatable); regenerates its lines")
     ap.add_argument("--temperature", type=float, default=0.7, help="clone sampling temperature")
     ap.add_argument("--seed", type=int, default=1234)
-    ap.add_argument("--bitrate", default="32k", help="MP3 bitrate for the output clips")
+    ap.add_argument("--bitrate", default="24k", help="Opus bitrate for the output clips")
     a = ap.parse_args(argv)
 
     cast = select_course_cast(json.loads(Path(a.cast).read_text()), a.course)
@@ -196,10 +196,10 @@ def main(argv=None):
 
     todo = []
     for j, v, effect in plan:
-        mp3 = out / f"{j['clipId']}.mp3"
+        clip = out / f"{j['clipId']}.ogg"
         h = sha(j["text"], voice_hash(v, effect), a.temperature, a.bitrate)
         redo = v in redesign or j["speaker"] in redesign
-        if mp3.exists() and cache.get(j["clipId"]) == h and not redo:
+        if clip.exists() and cache.get(j["clipId"]) == h and not redo:
             continue
         todo.append((j, v, effect, h))
     to_design = [v for v in needed if v in redesign or not all(p.exists() for p in ref_paths(v))]
@@ -249,12 +249,12 @@ def main(argv=None):
         audio, _ = generate_audio(cm, text=j["text"], ref_audio=ra, ref_text=rt, lang_code=lang,
                                   temperature=a.temperature, max_tokens=2000)
         dur = len(audio) / cm.sample_rate
-        mp3 = out / f"{j['clipId']}.mp3"
-        mp3.parent.mkdir(parents=True, exist_ok=True)
+        clip = out / f"{j['clipId']}.ogg"
+        clip.parent.mkdir(parents=True, exist_ok=True)
         with tempfile.TemporaryDirectory() as td:
             wav = Path(td) / "raw.wav"
             write_wav(wav, audio, cm.sample_rate)
-            ffmpeg_to_mp3(wav, mp3, effect, a.bitrate)
+            ffmpeg_to_opus(wav, clip, effect, a.bitrate)
         el = time.time() - t0
         tot_audio += dur; tot_time += el
         cache[j["clipId"]] = sha(j["text"], voice_hash(v, effect), a.temperature, a.bitrate)  # recomputed: reference may have just been designed

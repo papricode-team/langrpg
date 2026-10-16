@@ -11,7 +11,7 @@ beforeEach(() => { frames = []; });
 afterEach(() => { controller?.destroy(); controller = undefined; document.body.replaceChildren(); vi.unstubAllGlobals(); vi.restoreAllMocks(); });
 const settle = async () => { for (let i = 0; i < 5; i++) await Promise.resolve(); };
 async function frame(ms = 100) { for (const callback of [...frames]) callback(ms); await settle(); }
-const directionItem = (lemma: string): GameItem => ({ lexemeId: `${lemma}-adv`, lemma, english: lemma, topic: 'travel', level: 'A1', pos: 'adv', audio: `/audio/${lemma}.mp3`, exerciseIds: { recognition: '', listening: '', production: '' }, stability: 0, due: { recognition: false, listening: false, production: false }, seen: { recognition: false, listening: false, production: false }, recalls: { recognition: 0, listening: 0, production: 0 } });
+const directionItem = (lemma: string): GameItem => ({ lexemeId: `${lemma}-adv`, lemma, english: lemma, topic: 'travel', level: 'A1', pos: 'adv', audio: `/audio/${lemma}.ogg`, exerciseIds: { recognition: '', listening: '', production: '' }, stability: 0, due: { recognition: false, listening: false, production: false }, seen: { recognition: false, listening: false, production: false }, recalls: { recognition: 0, listening: 0, production: 0 } });
 function receipt(correct: boolean): AttemptResult { return { attemptId: 'receipt', correct, correctedAnswer: 'rechts', reason: '', xpAdded: correct ? 6 : 0, duplicate: false, progress: emptyProgress() }; }
 
 function harness(points: MapPoint[] = [{ x: 0, y: 0 }, { x: 100, y: 0 }, { x: 100, y: 100 }]) {

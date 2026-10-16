@@ -378,7 +378,7 @@ describe('shared mini-game lifecycle and authoritative evidence',()=>{
     const restored={...emptyProgress(),intake:{version:1,activeSeconds:0,creditSeconds:0,lastBeatAt:'',wordIds:exercise.wordIds}};
     let finishSpeech!:()=>void;const speakText=vi.fn(()=>new Promise<void>(resolve=>{finishSpeech=resolve;}));
     const {root,host,start,click}=setup('looping-tape',{pool:()=>[item('sicher',{lexemeId:'sicher-adj',pos:'adj',level:'B1'})],progress:()=>restored,exercises:new Map([[exercise.id,exercise]]),speakText,audio:{sfx:vi.fn(),stop:vi.fn(),positionMs:()=>3500}},{level:'B1'});await start();
-    expect(speakText).toHaveBeenCalledWith(exercise.german,`/audio/minigames/loop-${exercise.id}.mp3`);
+    expect(speakText).toHaveBeenCalledWith(exercise.german,`/audio/minigames/loop-${exercise.id}.ogg`);
     click('mark-loop');expect(root.textContent).toContain('The cough repeats here');
     root.querySelector<HTMLInputElement>('input')!.value=exercise.answer;root.querySelector('form')!.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));await flush();
     expect(host.submit).not.toHaveBeenCalled();

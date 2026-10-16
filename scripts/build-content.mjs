@@ -102,7 +102,7 @@ export function buildContent({ directory = root } = {}) {
     }
     const status = course.target==='en' || fixture || authored[key] || Object.keys(maps).length ? 'authored' : 'pending';
     const audioRequires=/\{[^{}]+\}/.test(text);
-    const audio=audioRequires?undefined:typeof pair.audio==='string'?pair.audio:pair.audio?.path??(pair.clipId?`/audio/dialogue/${pair.clipId}.mp3`:course.target==='de'?audioByText.get(text):undefined);
+    const audio=audioRequires?undefined:typeof pair.audio==='string'?pair.audio:pair.audio?.path??(pair.clipId?`/audio/dialogue/${pair.clipId}.ogg`:course.target==='de'?audioByText.get(text):undefined);
     add('sentence',slug,{text,target:course.target,translations,words,owners,...(audioRequires?{audioRequires:true}: {}),...(audio?{audio:{path:audio}}:{}),authoring:{status,review:authored[key]?.review??{status:'pending-native-speaker-review'},...(draft?{importedFrom:draft.provenance}: {})}},course.id);
     return key;
   }
@@ -162,7 +162,7 @@ export function buildContent({ directory = root } = {}) {
   for(const word of source.course.lexicon) {
     const {english,article,articleForm,plural,forms,surfaceForms,...rest}=word;
     const example=source.course.grammar.flatMap(guide=>guide.examples).find(example=>sourceTokens(example.german).some(token=>token.source.text===word.lemma));
-    add('lexeme',word.id,{...rest,id:id('lexeme',word.id),itemId:id('item',`word-${word.id}`),syllabusIndex:source.legacyServer.syllabus.wordIds.indexOf(word.id),exerciseIds:Object.fromEntries(['recognition','listening','production'].map(mode=>[mode,id('exercise',`lex-${word.id}-${mode}`)])),audio:`/audio/word-${word.id}.mp3`,lemma:word.lemma,meanings:lexicalMeaning(word),forms:[...new Set([word.lemma,...(surfaceForms??[]),...(forms??[])])],morphology:{...(article?{article}:{}),...(articleForm?{articleForm}:{}),...(plural?{plural}:{})},...(example?{exampleSentenceId:sentence(`lexeme:${word.id}:example`,example,[owner('lexeme',word.id,{level:word.level})])}:{})});
+    add('lexeme',word.id,{...rest,id:id('lexeme',word.id),itemId:id('item',`word-${word.id}`),syllabusIndex:source.legacyServer.syllabus.wordIds.indexOf(word.id),exerciseIds:Object.fromEntries(['recognition','listening','production'].map(mode=>[mode,id('exercise',`lex-${word.id}-${mode}`)])),audio:`/audio/word-${word.id}.ogg`,lemma:word.lemma,meanings:lexicalMeaning(word),forms:[...new Set([word.lemma,...(surfaceForms??[]),...(forms??[])])],morphology:{...(article?{article}:{}),...(articleForm?{articleForm}:{}),...(plural?{plural}:{})},...(example?{exampleSentenceId:sentence(`lexeme:${word.id}:example`,example,[owner('lexeme',word.id,{level:word.level})])}:{})});
   }
   for(const unit of source.course.units)add('unit',unit.id,{...unit,id:id('unit',unit.id),titleTranslations:support(unit.title),summaryTranslations:support(unit.summary),support:{tr:{title:trByText.get(unit.title),summary:trByText.get(unit.summary)}},exerciseIds:unit.exerciseIds.map(value=>id('exercise',value)),wordIds:wordIds(unit.wordIds),requiredWordIds:wordIds(unit.requiredWordIds),requiredExerciseIds:unit.requiredExerciseIds.map(value=>id('exercise',value)),requiredItemIds:unit.requiredItemIds.map(value=>id('item',value)),grammarIds:unit.grammarIds.map(value=>id('context',`grammar:${value}`))});
   const graphLine = (line, slug, graph, node) => {
@@ -200,7 +200,11 @@ export function buildContent({ directory = root } = {}) {
   for(const line of source.greetings)context(`greeting:${line.id}:${line.german}`,line.title?'npcTitleGreeting':'npcGreeting',line,[{kind:'npc',id:line.speaker,level:/-(A1|A2|B1)-/.exec(line.id)?.[1]??'A1',...(line.when?{condition:line.when}:{})}],{...(line.when?{condition:publicCondition(line.when)}:{}),...(line.title?{title:line.title}:{})});
   for(const [index,line]of source.ambientCallbacks.entries())context(`ambient:${index}`,'ambientCallback',line,[{kind:'npc',id:line.npc,level:line.level,condition:line.when}]);
   const acts = source.storyText.acts.map(act=>refs(act,`act:${act.mapId}`,[{kind:'act',id:act.mapId,level:act.level}]));
-  const clues = source.storyText.clues.map(clue=>({...refs(clue,`clue:${clue.questId}`,[owner('quest',clue.questId,{completedOnly:true})]),questId:id('quest',clue.questId)}));
+  // The client checks these items by role, and story inventory arrives as public IDs.
+  const granted=new Set(source.graphs.flatMap(graph=>graph.nodes.flatMap(node=>(node.choices??[]).flatMap(choice=>(choice.effects??[]).map(effect=>effect.item)))));
+  const storyItems={lamp:['signal-lamp','registered-lamp'].map(item=>{if(!granted.has(item))throw new Error(`Story item ${item} is no longer granted by any choice.`);return id('item',item);})};
+  const evidenceItems = new Map(source.graphs.filter(graph=>graph.evidenceItem).map(graph=>[graph.questId,id('item',graph.evidenceItem)]));
+  const clues = source.storyText.clues.map(clue=>({...refs(clue,`clue:${clue.questId}`,[owner('quest',clue.questId,{completedOnly:true})]),questId:id('quest',clue.questId),...(evidenceItems.has(clue.questId)?{evidenceItem:evidenceItems.get(clue.questId)}:{})}));
   const objects=Object.fromEntries(Object.entries(source.storyText.objects).map(([key,value])=>[key,refs(value,`object:${key}`,[{kind:'object',id:key}])]));
   const journalNarratives=refs(source.journalNarratives,'journal',[{kind:'journal',id:'journal'}]);
   const expeditionSkeleton=source.expeditionRegions.flatMap(region=>region.encounters.map(encounter=>({id:id('expedition',encounter.id),worldId:encounter.id,routeId:region.id,level:encounter.difficulty})));
@@ -255,7 +259,7 @@ export function buildContent({ directory = root } = {}) {
   // These records are private inputs for server grading and migration, never read-API payloads.
   for(const [kind,value]of Object.entries(source.legacyServer))add(kind,'legacy',value);
   const publicSyllabus=syllabus=>{const {wordIds:_,quests:__,...config}=syllabus;return {...config,totalWords:syllabus.wordIds.length,wordIds:[],quests:[]};};
-  add('bootstrap','legacy',{expeditions:expeditionSkeleton,minigames:minigameSkeleton,npcs:npcSkeleton,chapters:source.chapters,quests:questSkeleton,units:unitSkeleton,acts,clues,objects,journalNarratives,contexts,syllabus:publicSyllabus(source.legacyServer.syllabus),sources:source.course.sources,edition:source.course.edition,counts:{lexemes:source.course.lexicon.length,exercises:source.course.exercises.length,units:source.course.units.length}});
+  add('bootstrap','legacy',{expeditions:expeditionSkeleton,minigames:minigameSkeleton,npcs:npcSkeleton,chapters:source.chapters,quests:questSkeleton,units:unitSkeleton,acts,clues,objects,journalNarratives,contexts,storyItems,syllabus:publicSyllabus(source.legacyServer.syllabus),sources:source.course.sources,edition:source.course.edition,counts:{lexemes:source.course.lexicon.length,exercises:source.course.exercises.length,units:source.course.units.length}});
   // The proof course uses exactly the same record types and reference model.
   for(const row of proof.sentences)sentence(row.slug,row,[owner('graph',proof.quest.slug,{questId:id('quest',proof.quest.slug),nodeId:id('node',`${proof.quest.slug}:${row.slug==='en-goodbye'?'complete':'intro'}`),level:'A1'})],english);
   for(const word of proof.lexemes)add('lexeme',word.slug,{id:id('lexeme',word.slug),itemId:id('item',`word-${word.slug}`),syllabusIndex:proof.lexemes.findIndex(candidate=>candidate.slug===word.slug),exerciseIds:{production:id('exercise',`lex-${word.slug}-production`)},lemma:word.lemma,pos:word.pos,level:'A1',topic:'greetings',meanings:word.meanings,forms:word.forms,morphology:{},exampleSentenceId:id('sentence',word.exampleSlug)},englishId);

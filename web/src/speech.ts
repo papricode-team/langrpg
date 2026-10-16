@@ -80,7 +80,7 @@ export class Speech {
       utterance.lang = 'de-DE'; utterance.voice = voice; utterance.rate = request.rate;
       synthesis.speak(utterance);
     };
-    const path = request.clipId ? `/audio/dialogue/${request.clipId}.mp3` : this.options.clipFor(text);
+    const path = request.clipId ? `/audio/dialogue/${request.clipId}.ogg` : this.options.clipFor(text);
     if (!path) { fallback(); return; }
     const audio = this.audio(path);
     this.active = audio;

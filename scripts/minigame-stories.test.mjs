@@ -53,7 +53,7 @@ test('the live timetable preserves the17:59 trap and gives exactly one viable la
 test('speech jobs follow the exact authored cue text and generated client/server copies are current',async()=>{
   assert.equal(data.audio.length,31);assert.equal(new Set(data.audio.map(row=>row.id)).size,31);
   const cues=[...data.games['lost-hour'].events,...data.games['seed-packets'].packets,...data.games['seed-packets'].addresses,...data.games['17-59'].announcements];
-  for(const cue of cues){const job=data.audio.find(row=>row.path===cue.audio);assert(job);assert.equal(job.text,cue.spoken??cue.german);assert.equal(job.path,`/audio/${job.id}.mp3`);}
+  for(const cue of cues){const job=data.audio.find(row=>row.path===cue.audio);assert(job);assert.equal(job.text,cue.spoken??cue.german);assert.equal(job.path,`/audio/${job.id}.ogg`);}
   await writeAuthoredStoryScripts({check:true});
   assert.equal(await readFile(new URL('../web/src/minigames/story-scripts.json',import.meta.url),'utf8'),await readFile(new URL('../server/minigame_stories.json',import.meta.url),'utf8'));
 });

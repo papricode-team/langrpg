@@ -2,7 +2,7 @@
 
 German for English speakers. Course edition: `de-en-a1-b1-2026-10-09`. Implementation reviewed 2026-10-10.
 
-The playable content contains **30 quests, 210 contextual learning targets (quests × 7) and nine authored characters**, including the seven original town residents, the inspector and Elise. A1, A2 and B1 identify the intended practice band. They do not certify proficiency. This release has reading, listening with bundled German MP3 audio, sentence construction and constrained written production. It has no microphone or speaking assessment, and it is not a complete A1–B1 course.
+The playable content contains **30 quests, 210 contextual learning targets (quests × 7) and nine authored characters**, including the seven original town residents, the inspector and Elise. A1, A2 and B1 identify the intended practice band. They do not certify proficiency. This release has reading, listening with bundled German Opus audio, sentence construction and constrained written production. It has no microphone or speaking assessment, and it is not a complete A1–B1 course.
 
 ## A world worth understanding
 
