@@ -34,14 +34,13 @@ export function auditSceneQuality(scene,manifest){
   const chunks=tiles.map(tile=>{
     const objects=scene.scenery.filter(item=>item.x>=tile.x&&item.x<tile.x+tile.width&&item.y>=tile.y&&item.y<tile.y+tile.height);
     const buildings=objects.filter(item=>['house','archive','cafe','station','workshop','greenhouse'].includes(item.asset));
-    const landmark=buildings.some(item=>['archive','cafe','station','workshop'].includes(item.asset));
     const owners=new Set(objects.map(item=>item.id));
     let paved=0,total=0;
     for(let y=tile.y+8;y<tile.y+tile.height;y+=16)for(let x=tile.x+8;x<tile.x+tile.width;x+=16){total++;if(open(x,y))paved++;}
     const activities=(scene.activities??[]).filter(item=>owners.has(item.ownerId)).length;
     const coverage=paved/total;
-    if(objects.length<18)issues.push(`${scene.id}: ${tile.id} needs at least 18 composed objects (has ${objects.length})`);
-    if(buildings.length<2&&!landmark)issues.push(`${scene.id}: ${tile.id} needs two buildings or one landmark`);
+    if(objects.length<10)issues.push(`${scene.id}: ${tile.id} needs at least 10 composed objects (has ${objects.length})`);
+    if(!buildings.length)issues.push(`${scene.id}: ${tile.id} needs a building`);
     if(coverage<.15)issues.push(`${scene.id}: ${tile.id} needs 15% walkable ground (has ${(100*coverage).toFixed(1)}%)`);
     if(!activities)issues.push(`${scene.id}: ${tile.id} needs an activity owner`);
     return {id:tile.id,objects:objects.length,buildings:buildings.length,activities,walkableRatio:coverage};

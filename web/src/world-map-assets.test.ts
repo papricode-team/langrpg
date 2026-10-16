@@ -3,6 +3,8 @@ import type * as Phaser from 'phaser';
 import { getMap, type MapId } from './maps';
 import { regionAssets, regionPeopleFrames, regionPeopleKey, WorldMapAssets } from './world-map-assets';
 import {castActorsForMap,castAssetUrl,castAtlasUrl,castAssets} from './character-cast';
+import {getWorldScene} from './scene-data';
+import {terrainObject,terrainObjectKey} from './terrain-objects';
 
 function fixture() {
   const textures = new Set<string>();
@@ -32,7 +34,9 @@ describe('destination asset streaming', () => {
     expect(mock.loader.atlas).toHaveBeenCalledWith('waldruh-props', `/assets/waldruh-props.webp?v=${__APP_VERSION__}`, `/assets/waldruh-props.json?v=${__APP_VERSION__}`);
   });
   it('loads the town props and authored resident activities', () => {
-    expect(regionAssets(getMap('lindenhafen')).map(asset => asset.key)).toEqual(['lindenhafen-props', 'lindenhafen-variations',...['ella','karl','anne','mila'].map(look=>`lindenhafen-resident-actions-${look}`),...castActorsForMap('lindenhafen').flatMap(actor=>castAssets(actor).map(asset=>asset.key))]);
+    expect(regionAssets(getMap('lindenhafen')).map(asset => asset.key)).toEqual(['lindenhafen-props', 'lindenhafen-variations',...['ella','karl','anne','mila'].map(look=>`lindenhafen-resident-actions-${look}`),...castActorsForMap('lindenhafen').flatMap(actor=>castAssets(actor).map(asset=>asset.key)),
+      // Detail-library props the town places (crates, reeds, ducks) stream with it.
+      ...[...new Set(getWorldScene('lindenhafen').scenery.map(item=>terrainObject(item.frame)).filter(detail=>detail!==undefined))].map(detail=>terrainObjectKey('lindenhafen',detail.id))]);
   });
   it('coalesces requests while delivering every arrival callback', () => {
     const mock = fixture(), map = getMap('lindenhafen');

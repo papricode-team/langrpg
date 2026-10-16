@@ -89,7 +89,7 @@ for (const map of maps.map(map => getMap(map.id))) describe(`${map.name} paths`,
 
 describe('region-specific scenery barriers', () => {
   const blocked: Record<StoryMapId, number[][]> = {
-    lindenhafen: [[1390,750],[600,415],[1153,433],[818,535]],
+    lindenhafen: [[1346,520],[700,540],[700,772],[860,684]],
     waldruh: [[1400,820],[332,284],[527,859],[207,658],[910,687],[720,452]],
     nebelstadt: [[1450,830],[264,280],[743,215],[1091,260],[1840,950],[754,849],[742,448]],
   };
@@ -102,7 +102,7 @@ describe('region-specific scenery barriers', () => {
 
   it('connects the woodland stream bridge and both harbor bridges', () => {
     const crossings: Record<StoryMapId, number[][]> = {
-      lindenhafen: [[1430,310],[1330,948]], waldruh: [[1280,590]], nebelstadt: [[1330,400],[1340,652]],
+      lindenhafen: [[1471,330],[1163,760],[904,1130]], waldruh: [[1280,590]], nebelstadt: [[1330,400],[1340,652]],
     };
     for (const map of storyMaps) {
       const navigation = createMapNavigation(map.id), activeMap = getMap(map.id), spawn = position(activeMap.spawn, activeMap);

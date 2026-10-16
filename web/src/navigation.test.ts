@@ -33,14 +33,14 @@ describe('Lindenhafen navigation', () => {
   });
 
   it('blocks water, building foundations, market counters, and fountain rims', () => {
-    const obstacles = [[1390,750], [600,415], [1461,228], [1153,433], [818,535]];
+    const obstacles = [[1346,520], [700,540], [1840,380], [700,772], [860,684]];
     for (const [x, y] of obstacles) expect(navigation.isWalkable(x, y)).toBe(false);
   });
 
   it('allows the canal bridges and routes a water click back onto the bank', () => {
-    expect(navigation.isWalkable(1330, 948)).toBe(true);
-    expect(navigation.isWalkable(1430, 310)).toBe(true);
-    const shore = navigation.closestPoint(1390, 750, spawn);
+    expect(navigation.isWalkable(1163, 760)).toBe(true);
+    expect(navigation.isWalkable(1471, 330)).toBe(true);
+    const shore = navigation.closestPoint(1346, 520, spawn);
     expect(navigation.isWalkable(shore.x, shore.y)).toBe(true);
     expect(navigation.findPath(spawn, shore).length).toBeGreaterThan(0);
   });
@@ -198,7 +198,7 @@ describe('painted scenery foot collisions', () => {
   // from the paintings, rather than values read back from the collision specs.
   // The canopy/pole can cover a character visually without closing the road.
   const fixtures: { mapId: MapId; base: MapPoint; behind: MapPoint }[] = [
-    { mapId: 'lindenhafen', base: { x: 521, y: 606 }, behind: { x: 521, y: 574 } },
+    { mapId: 'lindenhafen', base: { x: 280, y: 316 }, behind: { x: 280, y: 290 } },
     { mapId: 'waldruh', base: { x: 492, y: 582 }, behind: { x: 492, y: 565 } },
     { mapId: 'waldruh', base: { x: 353, y: 400 }, behind: { x: 353, y: 375 } },
     { mapId: 'waldruh', base: { x: 947, y: 570 }, behind: { x: 947, y: 550 } },
@@ -249,10 +249,10 @@ describe('painted scenery foot collisions', () => {
 
   it('keeps the pavement beside a canon-sized lamp free of its former oversized collision', () => {
     const navigation = createMapNavigation('lindenhafen');
-    expect(navigation.isWalkable(521,606)).toBe(false);
-    expect(createMapNavigation('lindenhafen', {agentRadius:0}).isWalkable(538,608)).toBe(true);
-    const approach = navigation.closestPoint(538, 608);
-    expect(Math.hypot(approach.x - 538, approach.y - 608)).toBeLessThan(20);
+    expect(navigation.isWalkable(280,316)).toBe(false);
+    expect(createMapNavigation('lindenhafen', {agentRadius:0}).isWalkable(297,318)).toBe(true);
+    const approach = navigation.closestPoint(297, 318);
+    expect(Math.hypot(approach.x - 297, approach.y - 318)).toBeLessThan(20);
     expect(navigation.isWalkable(approach.x, approach.y)).toBe(true);
   });
 

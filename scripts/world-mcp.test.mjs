@@ -57,3 +57,31 @@ test('the server answers MCP initialize, tools/list and tools/call over stdio', 
   assert.match(replies[2].result.content[0].text, /lindenhafen/);
   input.end();
 });
+
+test('drafts take edits, ground shapes and audits without touching the live world', async () => {
+  const {mkdtemp, writeFile: write, readFile: read, rm} = await import('node:fs/promises');
+  const {tmpdir} = await import('node:os');
+  const {join} = await import('node:path');
+  const folder = await mkdtemp(join(tmpdir(), 'world-draft-')), draft = join(folder, 'draft.json');
+  await write(draft, JSON.stringify({format: 'glotworld-world/1', revision: '7', document: seed, story: {}}));
+  const client = fakeClient(), world = createWorldTools(client);
+  try {
+    const moved = JSON.parse((await world.call('apply_edits', {draft, ops: [{kind: 'move', map: 'lindenhafen', id: 'archive', x: 310, y: 560}]})).content[0].text);
+    assert.equal(moved.applied, 1);
+    assert.equal(client.calls.some(call => Array.isArray(call) && call[0] === 'ops'), false, 'a draft edit never reaches the server');
+    const saved = JSON.parse(await read(draft, 'utf8'));
+    assert.equal(saved.revision, '7');
+    assert.deepEqual([saved.document.maps.lindenhafen.scenery.find(item => item.id === 'archive').x, saved.format], [310, 'glotworld-world/1']);
+    const refused = await world.call('apply_edits', {draft, ops: [{kind: 'remove', map: 'lindenhafen', id: 'promenade-depot'}]});
+    assert.equal(refused.isError, true, 'the server\'s refusals apply to drafts too');
+    const shaped = JSON.parse((await world.call('shape_ground', {town: 'waldruh', draft, base: 'meadow', patches: [{material: 'moss', amount: 0.4}],
+      shapes: [{material: 'cobble', line: [[0, 500], [2304, 500]], width: 80}, {material: 'deep-water', rect: [100, 100, 300, 260], radius: 30}]})).content[0].text);
+    assert.deepEqual(shaped.materials, ['meadow', 'moss', 'cobble', 'deep-water']);
+    const town = JSON.parse((await world.call('get_town', {town: 'waldruh', draft, sections: ['terrain']})).content[0].text);
+    assert.equal(town.terrain.fingerprint, shaped.fingerprint);
+    const audit = JSON.parse((await world.call('audit_town', {town: 'waldruh', draft})).content[0].text);
+    assert.ok(Array.isArray(audit.problems));
+    const plan = await world.call('render_town', {town: 'waldruh', draft});
+    assert.match(plan.content[1].text, /deep-water \(blocks walkers\)/);
+  } finally { await rm(folder, {recursive: true, force: true}); }
+});

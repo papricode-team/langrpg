@@ -5,6 +5,7 @@ import { getPlacedScenery,sceneryAssets,placedSceneryFootprints,sceneryFootprint
 import { isBuildingScenery,sceneryAnimationTextureKeys,sceneryBlend,sampleSceneryFrame,sampleTreeSway,type SceneryAnimation,type SceneryAnimationManifest } from './scenery-animation';
 import { WorldScenery } from './world-scenery';
 import { foundationScene } from './test-support/foundation-scene';
+import { terrainObject } from './terrain-objects';
 const artifacts=import.meta.glob(['../public/assets/*animation*.json','../public/assets/*building*.json','../public/assets/*props*.json','../public/assets/story-quality*.json'],{eager:true,import:'default'});
 const readAsset=(name:string): any=>artifacts[`../public/assets/${name}`];
 
@@ -34,6 +35,8 @@ describe('authored sprite worlds',()=>{
     expect(Object.keys(manifest.assets).length).toBeGreaterThanOrEqual(32);
     for(const spec of specs){
       expect(sceneryAssets).toContain(spec.asset);
+      // Detail-library props (crates, reeds, ducks) load their own art and motion, not the town's manifest.
+      if(terrainObject(spec.frame))continue;
       const animation=manifest.assets[spec.frame??spec.asset];
       expect(animation,`missing authored animation for ${spec.id}`).toBeDefined();
       const building=isBuildingScenery(spec.frame??spec.asset);
@@ -85,6 +88,7 @@ describe('authored sprite worlds',()=>{
     expect(day.terrain??map.id).not.toBe(night.terrain);
     for(const spec of getPlacedScenery(map.id)){
       const name=spec.frame??spec.asset;
+      if(terrainObject(spec.frame))continue;
       if(day.assets[name].key===night.assets[name].key){
         expect(night.assets[name].key).toBe(day.assets[name].key);
         expect(night.assets[name].frames).toHaveLength(1);
@@ -121,8 +125,8 @@ function mockScene(layered=true,options:{highResolution?:boolean;staticBuildings
   const frame={width:200,height:250};
   const scene={cache:{json:{get:()=>({assets})}},textures:{exists:()=>true,get:(key:string)=>({has:()=>true,get:()=>key==='bases'&&options.highResolution?{width:800,height:1000}:frame}),createCanvas:ground.createCanvas,remove:ground.remove},
     add:{image:ground.image,sprite:vi.fn((x:number,y:number,key:string,name:string)=>{
-      const sprite={blend:sprites.some(s=>s.key===key&&s.x===x&&s.y===y&&s.frame===name),originX:0,originY:0,depth:0,x,y,key,frame:name,visible:true,rotation:0,setAlpha:vi.fn(),setTint:vi.fn(),setOrigin:vi.fn(),setScale:vi.fn(),setDepth:vi.fn(),setFlipX:vi.fn(),setVisible:vi.fn(),setFrame:vi.fn(),setRotation:vi.fn(),destroy:vi.fn()};
-      for(const method of ['setOrigin','setScale','setDepth','setFlipX','setAlpha'] as const)sprite[method].mockReturnValue(sprite);
+      const sprite={blend:sprites.some(s=>s.key===key&&s.x===x&&s.y===y&&s.frame===name),originX:0,originY:0,depth:0,x,y,key,frame:name,visible:true,rotation:0,setAlpha:vi.fn(),setTint:vi.fn(),setOrigin:vi.fn(),setScale:vi.fn(),setDepth:vi.fn(),setFlipX:vi.fn(),setVisible:vi.fn(),setFrame:vi.fn(),setRotation:vi.fn(),setY:vi.fn(),destroy:vi.fn()};
+      for(const method of ['setOrigin','setScale','setDepth','setFlipX','setAlpha','setY'] as const)sprite[method].mockReturnValue(sprite);
       sprite.setOrigin.mockImplementation((x:number,y:number)=>{sprite.originX=x;sprite.originY=y;return sprite});
       sprite.setDepth.mockImplementation((depth:number)=>{sprite.depth=depth;return sprite});
       sprite.setVisible.mockImplementation((visible:boolean)=>{sprite.visible=visible;return sprite});
@@ -229,7 +233,11 @@ it('changes painted sprite frames, keeps foundations upright, freezes, culls and
   expect(mock.sprites.map(sprite=>sprite.frame)).toEqual(frozen);
   scenery.setReducedMotion(false);scenery.update(43,view);
   expect(mock.sprites.map(sprite=>sprite.frame)).not.toEqual(frozen);
-  for(const sprite of mock.sprites){expect(sprite.setScale).toHaveBeenCalledTimes(1);expect(sprite.setScale.mock.calls[0][0]).toBeGreaterThan(0);expect(sprite.setOrigin.mock.calls[0]).toEqual(sprite.key==='details'?[.5,.5]:[.4,.95])}
+  for(const sprite of mock.sprites){
+    expect(sprite.setScale).toHaveBeenCalledTimes(1);expect(sprite.setScale.mock.calls[0][0]).toBeGreaterThan(0);
+    // Detail-library props keep their own registered origin.
+    if(!sprite.frame.startsWith('detail-')&&sprite.frame!=='__BASE')expect(sprite.setOrigin.mock.calls[0]).toEqual(sprite.key==='details'?[.5,.5]:[.4,.95]);
+  }
   const bases=mock.sprites.filter(sprite=>sprite.key!=='details'&&!sprite.blend);
   expect(bases.every((sprite,i)=>sprite.x===mock.placements[i].x&&sprite.y===mock.placements[i].y)).toBe(true);
   expect(mock.raw.textures.createCanvas.mock.calls.every(([key])=>/^(foundation|scenery-contact)-/.test(String(key)))).toBe(true);

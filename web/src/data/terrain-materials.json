@@ -133,7 +133,7 @@
       "height": 1152,
       "sourceWidth": 1254,
       "sourceHeight": 1254,
-      "worldSize": 256,
+      "worldSize": 144,
       "repeat": "periodic-overlap"
     },
     {
@@ -254,7 +254,8 @@
       "sourceWidth": 1254,
       "sourceHeight": 1254,
       "worldSize": 256,
-      "repeat": "periodic-overlap"
+      "repeat": "periodic-overlap",
+      "walled": true
     },
     {
       "id": "marsh",
@@ -329,7 +330,8 @@
       "sourceWidth": 1254,
       "sourceHeight": 1254,
       "worldSize": 512,
-      "repeat": "periodic-overlap"
+      "repeat": "periodic-overlap",
+      "walled": true
     },
     {
       "id": "canal-grass",
@@ -397,7 +399,8 @@
         "kind": "quay",
         "material": "canal-masonry",
         "height": 34
-      }
+      },
+      "walled": true
     }
   ]
 }

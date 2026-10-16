@@ -229,7 +229,7 @@ describe('palette', () => {
   it('offers registered artwork with sizes inside the canon and copies activity spots', () => {
     const scene = structuredClone(sceneDocument.maps.lindenhafen), choices = paletteChoices(scene.id);
     expect(choices.length).toBeGreaterThan(10);
-    expect(choices.filter(choice => choice.rooms.length).map(choice => choice.frame).sort()).toEqual(['house-bakery', 'house-grocery', 'house-inn']);
+    expect(choices.filter(choice => choice.rooms.length).map(choice => choice.frame).sort()).toEqual(['cafe', 'house-bakery', 'house-grocery', 'house-inn']);
     const bench = choices.find(choice => choice.asset === 'bench')!, item = newPlacement(scene, bench, {x: 100.4, y: 200.6});
     const range = sizeRange(scene.id, item);
     expect(item).toMatchObject({x: 100, y: 201});
