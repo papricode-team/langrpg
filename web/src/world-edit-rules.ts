@@ -1,3 +1,5 @@
+import {animalSpawns} from './animal-spawns';
+import {animalName} from './animal-types';
 /**
  * Placement rules shared by in-game edit mode, the admin map editor, the
  * server edit worker and the scene compiler. Objects carry their own limits
@@ -67,6 +69,8 @@ export function objectLabel(scene: WorldScene, id: string): string {
   if (scene.npcs.some(value => value.id === id)) return capital(words(id));
   // Evidence IDs carry their town, as in `lindenhafen-parcel`; the town goes without saying.
   if (scene.objects.some(value => value.id === id)) return `the ${words(id.startsWith(`${scene.id}-`) ? id.slice(scene.id.length + 1) : id)}`;
+  const animal = animalSpawns(scene).find(value => value.id === id);
+  if (animal) return animalName(animal);
   const resident = scene.residents?.find(value => value.id === id);
   if (resident) return resident.name;
   return words(id);
@@ -262,6 +266,13 @@ export function placementProblems(before: WorldScene, after: WorldScene, changed
   reach?: {before: SceneReach; after: SceneReach}, restored: ReadonlySet<string> = new Set()): WorldProblem[] {
   const problems: WorldProblem[] = [], map = after.id;
   const previous = new Map(before.scenery.map(item => [item.id, item]));
+  for (const animal of after.animals ?? []) {
+    const earlier = before.animals?.find(item => item.id === animal.id);
+    if (changed.has(animal.id) && (animal.x < 0 || animal.y < 0 || animal.x > after.width || animal.y > after.height))
+      problems.push(problem('out-of-bounds', map, 'Keep the animal home inside the town.', [animal.id], animal));
+    if (reach && !reach.after.reaches(animal, 1) && (changed.has(animal.id) || earlier && reach.before.reaches(earlier, 1)))
+      problems.push(problem('invalid', map, 'Place the animal home on reachable walking ground.', [animal.id], animal));
+  }
   const hazards = sceneNavigationGeometry(after).terrain.map((polygon,index)=>({id:`ground-${index}`,kind:'water',polygon}));
   for (const id of changed) {
     const item = after.scenery.find(value => value.id === id);

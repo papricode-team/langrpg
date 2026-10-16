@@ -241,3 +241,13 @@ func TestWorldOpsPaintGroundAndRefuseUnknownMaterials(t *testing.T) {
 		t.Fatalf("unknown material: %d %v", code, body)
 	}
 }
+
+func TestAnimalPlacementLeaseTarget(t *testing.T) {
+	var target worldOpTarget
+	if err := json.Unmarshal([]byte(`{"kind":"placeAnimal","map":"waldruh","item":{"id":"waldruh-animal-cat-1"}}`), &target); err != nil {
+		t.Fatal(err)
+	}
+	if target.objectID() != "waldruh-animal-cat-1" {
+		t.Fatal("placing animals must respect a lease on the animal ID")
+	}
+}

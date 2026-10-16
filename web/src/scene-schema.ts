@@ -1,3 +1,4 @@
+import {animalSpecies, animalVariants, type AnimalSpawn, type AnimalSpecies} from './animal-types.ts';
 import {terrainMaterial} from './terrain-materials.ts';
 import {terrainFeature,featureBounds,type TerrainFeature} from './terrain-features.ts';
 import {terrainObjectGeometry} from './terrain-objects.ts';
@@ -107,6 +108,8 @@ export interface WorldScene {
   activities?: SceneActivity[]; generationZones?: SceneGenerationZone[];
   prefabInstances?: ScenePrefabInstance[];
   residents?: SceneResident[];
+  /** Authored homes; omitted on worlds published before animal placement existed. */
+  animals?: AnimalSpawn[];
 }
 export interface WorldSceneDocument { version: 4; maps: Record<string, WorldScene>; prefabs?: ScenePrefab[]; }
 
@@ -311,6 +314,18 @@ export function parseWorldSceneDocument(value: unknown): WorldSceneDocument {
       for (const anchor of input[kind]) {point(anchor, `${id} ${kind} ${anchor.id}`, input.width, input.height);collision(anchor.collision,`${id} ${kind} ${anchor.id}`,true);}
     }
     list(input.scenery, `${id} scenery`);
+    if (input.animals !== undefined) {
+      list(input.animals, `${id} animals`);
+      if (input.animals.length > 100) fail(`${id} has more than 100 animals`);
+      const occupied = new Set([...input.scenery, ...(input.npcs as SceneAnchor[]), ...(input.objects as SceneAnchor[]), ...((input.residents ?? []) as SceneResident[])].map(item => item.id));
+      for (const animal of input.animals) {
+        if (!animalSpecies.includes(animal.species as AnimalSpecies)) fail(`${id} animal has unknown species`);
+        if (!Number.isInteger(animal.variant) || Number(animal.variant) < 0 || Number(animal.variant) >= animalVariants[animal.species as AnimalSpecies].length) fail(`${id} animal has invalid variant`);
+        point(animal, `${id} animal ${animal.id}`, input.width, input.height);
+        if (occupied.has(String(animal.id))) fail(`${id} animal ID is already in use`);
+        occupied.add(String(animal.id));
+      }
+    }
     const rooms = new Set<string>();
     for (const item of input.scenery) {
       point(item, `${id} scenery ${item.id}`);

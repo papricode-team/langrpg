@@ -154,7 +154,7 @@ func (t worldOpTarget) objectID() string {
 	if t.Kind == "terrain" {
 		return "terrain"
 	}
-	if t.Kind == "place" {
+	if t.Kind == "place" || t.Kind == "placeAnimal" {
 		return t.Item.ID
 	}
 	return t.ID
