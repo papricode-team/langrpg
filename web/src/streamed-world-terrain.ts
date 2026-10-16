@@ -124,6 +124,23 @@ export class StreamedWorldTerrain {
     this.settled = assets.every(asset=>this.scene.textures.exists(asset.key));
     this.pool.retain(this,assets);
   }
+  /**
+   * Follow an edited document without letting go of loaded art. Destroying and
+   * recreating the layer would release every lease and download it all again.
+   */
+  setWorld(world:WorldScene):this {
+    if (this.destroyed || world === this.world) return this;
+    this.world = world;this.settled = false;
+    if (world.modularTerrain) {
+      if (this.modular) this.modular.setWorld(world);
+      else {
+        this.modular = new ModularTerrainRenderer(this.scene,world,this.pool).setDepth(this.root.depth).setAlpha(this.root.alpha).setTint(this.tint).setVisible(this.enabled);
+        for (const value of this.images.values()) value.image.destroy();
+        this.images.clear();this.pool.release(this);
+      }
+    } else if (this.modular) {this.modular.destroy();this.modular = undefined;}
+    return this;
+  }
   setDepth(depth:number):this {this.root.setDepth(depth);this.modular?.setDepth(depth);return this;}
   setAlpha(alpha:number):this {this.root.setAlpha(alpha);this.modular?.setAlpha(alpha);return this;}
   setTint(tint:number):this {this.tint=tint;this.modular?.setTint(tint);for(const value of this.images.values())value.image.setTint(tint);return this;}

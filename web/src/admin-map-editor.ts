@@ -267,9 +267,11 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
   // Other admins' edits and locks.
   const poll = window.setInterval(() => {
     if (destroyed || document.hidden) return;
+    // A reply asked for before our own save finished still names the old version; that is not someone else's edit.
+    const asked = store.version, busy = store.busy;
     void session.status(mapId).then(value => {
       applyLocks(value.locks);
-      if (value.contentVersion !== store.version && !store.busy) void reloadWorld();
+      if (value.contentVersion !== store.version && !busy && !store.busy && store.version === asked) void reloadWorld();
     }).catch(() => undefined);
   }, 3000);
 
