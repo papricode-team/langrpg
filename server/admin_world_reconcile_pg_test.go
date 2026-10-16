@@ -91,7 +91,7 @@ func TestPostgresWorldEditsPublishAfterStartupReconciliation(t *testing.T) {
 		t.Fatalf("reconciled world was not stored: memory %s, storage %s", restarted.editing.current.Revision, stored)
 	}
 	var restored bool
-	if err := restartedStore.Pool().QueryRow(context.Background(), "SELECT scene->'npcs' @> jsonb_build_array(jsonb_build_object('id',$1::text)) FROM world_maps WHERE id='lindenhafen'", missing).Scan(&restored); err != nil || !restored {
+	if err := restartedStore.Pool().QueryRow(context.Background(), "SELECT scene::jsonb->'npcs' @> jsonb_build_array(jsonb_build_object('id',$1::text)) FROM world_maps WHERE id='lindenhafen'", missing).Scan(&restored); err != nil || !restored {
 		t.Fatalf("the missing story character %s was not stored: %v", missing, err)
 	}
 	if code, body := postOps(restarted, token, []map[string]any{{"kind": "move", "map": "waldruh", "id": lamp.ID, "x": lamp.X + 8, "y": lamp.Y}}); code != 200 {

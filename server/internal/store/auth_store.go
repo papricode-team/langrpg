@@ -2,7 +2,6 @@ package store
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"time"
 
@@ -88,25 +87,18 @@ func (s *PGStore) changeCredentials(ctx context.Context, hash string, change Cre
 		return err
 	}
 	defer tx.Rollback(ctx)
-	id, data, err := s.lockSessionAccount(ctx, tx, hash)
+	id, account, err := s.lockSessionAccount(ctx, tx, hash)
 	if errors.Is(err, pgx.ErrNoRows) {
 		return ErrUnauthorized
 	}
 	if err != nil {
 		return err
 	}
-	var account Account
-	if err = json.Unmarshal(data, &account); err != nil {
-		return err
-	}
-	s.hooks.NormalizeProgress(&account.Progress)
+	purchases := clonePurchases(account.Billing.Purchases)
 	if err = change.apply(&account); err != nil {
 		return err
 	}
-	if data, err = json.Marshal(account); err != nil {
-		return err
-	}
-	if _, err = tx.Exec(ctx, "UPDATE accounts SET data=$2 WHERE id=$1", id, data); err != nil {
+	if err = s.writeAccount(ctx, tx, id, purchases, account); err != nil {
 		return err
 	}
 	if _, err = tx.Exec(ctx, "DELETE FROM sessions WHERE account_id=$1 AND token_hash<>$2", id, hash); err != nil {
@@ -210,18 +202,13 @@ func (s *PGStore) RegisterWithReferral(ctx context.Context, hash, email, encoded
 	}
 	// Every registration locks both accounts in the same order. Concurrent
 	// signups for an inviter cannot lose a credit or deadlock with another pair.
-	rows, err := tx.Query(ctx, "SELECT id,data FROM accounts WHERE id=ANY($1::text[]) ORDER BY id FOR UPDATE", ids)
+	rows, err := tx.Query(ctx, "SELECT "+pgAccountColumns+" FROM accounts a WHERE a.id=ANY($1::text[]) ORDER BY a.id FOR UPDATE OF a", ids)
 	if err != nil {
 		return err
 	}
 	accounts := map[string]Account{}
 	for rows.Next() {
-		var rowID string
-		var data []byte
-		var account Account
-		if err = rows.Scan(&rowID, &data); err == nil {
-			err = json.Unmarshal(data, &account)
-		}
+		rowID, account, err := s.scanAccount(rows)
 		if err != nil {
 			rows.Close()
 			return err
@@ -241,14 +228,12 @@ func (s *PGStore) RegisterWithReferral(ctx context.Context, hash, email, encoded
 		return ErrCredentialsConflict
 	}
 	inviter, exists := accounts[referralID]
+	inviterPurchases := clonePurchases(inviter.Billing.Purchases)
+	purchases := clonePurchases(account.Billing.Purchases)
 	credited := exists && s.hooks.CreditReferral(&account, &inviter, email, now)
 	account.Email, account.PasswordHash = email, encoded
 	account.Analytics.RegisteredAt = now
-	data, err := json.Marshal(account)
-	if err != nil {
-		return err
-	}
-	_, err = tx.Exec(ctx, "UPDATE accounts SET data=$2 WHERE id=$1", id, data)
+	err = s.writeAccount(ctx, tx, id, purchases, account)
 	var pgErr *pgconn.PgError
 	if errors.As(err, &pgErr) && pgErr.Code == "23505" {
 		return ErrCredentialsConflict
@@ -262,11 +247,7 @@ func (s *PGStore) RegisterWithReferral(ctx context.Context, hash, email, encoded
 		return err
 	}
 	if credited {
-		data, err = json.Marshal(inviter)
-		if err != nil {
-			return err
-		}
-		if _, err = tx.Exec(ctx, "UPDATE accounts SET data=$2 WHERE id=$1", referralID, data); err != nil {
+		if err = s.writeAccount(ctx, tx, referralID, inviterPurchases, inviter); err != nil {
 			return err
 		}
 	}
@@ -274,17 +255,10 @@ func (s *PGStore) RegisterWithReferral(ctx context.Context, hash, email, encoded
 }
 
 func (s *PGStore) GetByEmail(ctx context.Context, email string) (Account, error) {
-	var data []byte
-	err := s.pool.QueryRow(ctx, "SELECT data FROM accounts WHERE data->>'email'=$1", email).Scan(&data)
+	_, account, err := s.scanAccount(s.pool.QueryRow(ctx, "SELECT "+pgAccountColumns+" FROM accounts a WHERE a.email=$1", email))
 	if errors.Is(err, pgx.ErrNoRows) {
 		return Account{}, ErrUnauthorized
 	}
-	if err != nil {
-		return Account{}, err
-	}
-	var account Account
-	err = json.Unmarshal(data, &account)
-	s.hooks.NormalizeProgress(&account.Progress)
 	return account, err
 }
 

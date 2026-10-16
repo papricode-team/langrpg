@@ -1,10 +1,10 @@
 # JSONB storage plan
 
-Status: plan only, no code changed. Written 2026-10-16 after the ground-fingerprint bug (17a2f736), where PostgreSQL `jsonb` reordering a town's keys made the map editor refuse every bridge move after a restart.
+Status: steps 1–4 (migrations 0008–0011) implemented on 2026-10-16. Step 4's optional 0012 (dropping `world_content`) and step 5 (0013, the accounts contract) are not done; 0013 waits at least one release, and 0012 waits for a decision. Written 2026-10-16 after the ground-fingerprint bug (17a2f736), where PostgreSQL `jsonb` reordering a town's keys made the map editor refuse every bridge move after a restart.
 
 The plan has two parts. Account fields and learning-event fields that the server queries move out of JSONB into real columns and one table. World and content blobs that the server never looks inside switch from `jsonb` to `json`, so the stored bytes stay exactly as written.
 
-## 1. What is stored as JSONB today
+## 1. What was stored as JSONB before this work
 
 | Table.column | Queried inside at runtime? | Where |
 | --- | --- | --- |
@@ -358,3 +358,14 @@ Steps A and B do not depend on each other. B is the smallest and most self-conta
 - `accounts.data.passwordHash` and the support/reset token hashes sit in the same blob. Moving credentials into their own table would let `GetByEmail` stop loading the whole progress document for a login. That is a separate plan.
 - `ListAdminAccounts` searches with `strpos(lower(…))`, which scans every row whatever the column type. A `pg_trgm` index on `lower(email)` and `lower(player_name)` would serve it once the columns exist.
 - `learning_events.request` could become `json` after step 3, which would let `Mutate` compare requests byte for byte again. The generated columns would have to be dropped and recreated around the type change, and the semantic comparison already works, so this is not worth doing now.
+
+## 10. Implementation notes (2026-10-16)
+
+Where the code differs from the plan above:
+
+- In 0008 the backfill is `UPDATE accounts SET data = data`, which fires the new trigger. The trigger is then the only place the derivation rules are written down.
+- `FindBillingAccount` repeats `subscription_id<>''` (and the same for `transaction_id`) in its query. A generic prepared plan cannot otherwise prove that the partial index applies.
+- `scanAccount` returns the row ID with the account. `lockSessionAccount` returns `(id, Account, error)`.
+- `ListAdminAccounts` orders by `created_at DESC NULLS LAST, id`.
+- The migration catalog test also compares triggers, so upgraded databases must end with the same triggers as a fresh one.
+- Tests added: `server/migrations/storage_columns_test.go` (backfill, document-only writes, duplicate checkout, byte-exact `json`) and `server/internal/store/pg_accounts_test.go` (account and purchase round-trip, `SameLedger` after a restart, checkout uniqueness, admin directory, byte-exact world parts). `postgres_index_test.go` now checks the new indexes.
