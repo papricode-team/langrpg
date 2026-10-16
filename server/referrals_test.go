@@ -359,8 +359,39 @@ func TestReferralCapCountsCreditsStampedAfterALateSignup(t *testing.T) {
 	if inviter.Referrals.SuccessfulSignups != referralDailyLimit || len(inviter.Referrals.RecentCredits) != referralDailyLimit {
 		t.Fatal("out-of-order signups exceeded the daily cap", inviter.Referrals)
 	}
+	// Stamps from clocks minutes apart still count, whichever side is ahead.
+	for _, skew := range []time.Duration{5 * time.Minute, -5 * time.Minute} {
+		skewed := Account{Referrals: ReferralState{RecentCredits: []time.Time{start, start.Add(skew)}}}
+		if recent := recentReferralCredits(skewed, start.Add(time.Millisecond)); len(recent) != 2 {
+			t.Fatal("credit from a skewed clock dropped", skew, recent)
+		}
+	}
 	// A corrupt far-future stamp does not block credits forever.
 	if recent := recentReferralCredits(Account{Referrals: ReferralState{RecentCredits: []time.Time{start.Add(48 * time.Hour)}}}, start); len(recent) != 0 {
 		t.Fatal("far-future credit counted", recent)
+	}
+}
+
+// One registration whose clock reads minutes ahead of or behind the others must
+// not make a stamp look stale and reopen the daily cap.
+func TestReferralCapHoldsWhenOneSignupClockIsOff(t *testing.T) {
+	for _, skew := range []time.Duration{5 * time.Minute, -5 * time.Minute} {
+		app := trialTestApp(t)
+		ctx := context.Background()
+		inviterToken, _ := createSession(t, app, "Skewed inviter")
+		app.store.SetCredentials(ctx, tokenHash(inviterToken), "skewed@example.com", "encoded")
+		code := issueInvite(t, app, inviterToken)
+		start := app.now()
+		clocks := []time.Time{start, start.Add(skew), start.Add(time.Millisecond), start.Add(2 * time.Millisecond), start.Add(3 * time.Millisecond)}
+		for i, at := range clocks {
+			token, _ := createSession(t, app, "Friend")
+			if err := app.store.RegisterWithReferral(ctx, tokenHash(token), "skewed-"+strconv.Itoa(i)+"@example.com", "encoded", code, at); err != nil {
+				t.Fatal(err)
+			}
+		}
+		inviter, _ := app.store.Get(ctx, tokenHash(inviterToken))
+		if inviter.Referrals.SuccessfulSignups != referralDailyLimit || len(inviter.Referrals.RecentCredits) != referralDailyLimit {
+			t.Fatal("a skewed clock reopened the daily cap", skew, inviter.Referrals)
+		}
 	}
 }
