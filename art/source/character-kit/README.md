@@ -595,7 +595,7 @@ decoder match every visible pixel exactly. This older pixel comparison verifies 
 builder/world check is recorded above.
 
 ```sh
-npm run test --workspace web -- src/avatar-baker.test.ts src/avatar-texture-cache.test.ts
+npm run test --workspace web -- src/avatar-texture-cache.test.ts
 node --test scripts/character-kit.test.mjs scripts/character-kit-assets.test.mjs scripts/character-kit-reference.test.mjs
 ```
 

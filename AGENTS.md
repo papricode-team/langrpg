@@ -11,7 +11,9 @@ npm ci
 npm run verify
 ```
 
-`npm run verify` runs, in sequence: the content bundle build, `gofmt`, `go vet`, `go test -race` against PostgreSQL, lint, `npm run check`, Vitest, the tooling tests, asset regeneration with a drift check on generated files, the dialogue and i18n audits, the production build and the distribution budgets. It prints a summary and writes `output/verify-summary.json`.
+`npm run verify` first builds the content bundle and regenerates assets with a drift check on generated files (this run also enforces the dialogue-level gate). Then it runs these concurrently: `gofmt`, `go vet`, `go test` against PostgreSQL, a `-race` pass over the concurrency tests, lint, `npm run check`, Vitest, the tooling tests, the i18n audit, and the production build followed by the distribution budgets. It takes under three minutes. Each step's output goes to `output/verify-logs/` and is printed only when the step fails. It prints a summary and writes `output/verify-summary.json`.
+
+Keep it under three minutes. A test that boots the whole world, a Phaser scene or the full content pipeline belongs in a check script or the UI check, not in the unit suites.
 
 - Add `-- --ui` for the UI font floor and screenshot check. Screenshots go to `output/ui-screenshots`, never to the tracked gallery.
 - Add `-- --docker` to build the runtime image. It needs a running Docker daemon; start OrbStack with `orb start` and stop it again afterwards.

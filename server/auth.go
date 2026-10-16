@@ -16,7 +16,8 @@ import (
 	"unicode/utf8"
 )
 
-const passwordIterations = 600000
+// passwordIterations is a variable only so tests can hash quickly; production never changes it.
+var passwordIterations = 600000
 
 // Stored hashes carry their own iteration count so the work factor can rise
 // without locking anyone out. The bounds reject corrupt or hostile values.

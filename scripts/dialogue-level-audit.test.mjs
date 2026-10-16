@@ -2,33 +2,16 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { auditDialogueCorpus } from './dialogue-level-audit.mjs';
-import { quests, npcs } from './content-source.mjs';
+import { npcs } from './content-source.mjs';
 
 const course = JSON.parse(await readFile(new URL('../web/src/data/course.json', import.meta.url), 'utf8'));
 const graphs = JSON.parse(await readFile(new URL('../web/src/data/dialogue-graphs.json', import.meta.url), 'utf8'));
-const savedReport = JSON.parse(await readFile(new URL('../docs/audits/dialogue-levels.json', import.meta.url), 'utf8'));
 const { storyMaps } = await import('../web/src/maps.ts');
 const properNames = [...npcs.map(npc => npc.name), ...storyMaps.map(map => map.name)];
 const options = { lexicon: course.lexicon, properNames };
 const fixture = (questId, german, introducedWords = {}) => ({
   questId, level: 'A1', introducedWords, investigations: [],
   nodes: [{ id: 'intro', lines: [{ id: `${questId}-line`, speaker: 'otto', german }] }],
-});
-
-test('Act I is comprehensible on every authored surface while retaining raw evidence', () => {
-  const result = auditDialogueCorpus({ ...options, graphs, quests, questOrder: quests.map(quest => quest.id) });
-  assert.deepEqual(result.actOneGate.violations, []);
-  assert.equal(result.actOneGate.passed, true);
-  assert.ok(result.actOneGate.checkedEntries > result.entries.filter(entry => entry.level === 'A1' && entry.kind === 'line').length, 'the gate must inspect more than NPC lines');
-  assert.ok(result.rawSummary.A1.linesWithAboveLevelWords > 0, 'raw demands must remain visible');
-  assert.equal(result.adjustedSummary.A1.linesWithAboveLevelWords, 0);
-  assert.equal(result.adjustedSummary.A1.linesWithUnmappedWords, 0);
-  for (const key of ['rawSummary', 'adjustedSummary', 'introductions', 'actOneGate']) assert.deepEqual(savedReport[key], result[key], `checked-in audit drift: ${key}`);
-  for (const introduction of result.introductions.filter(item => item.level === 'A1')) {
-    assert.ok(introduction.newWords.length <= 2, introduction.questId);
-    for (const word of introduction.newWords) assert.ok(word.english.trim());
-  }
-  assert.deepEqual(new Set(result.entries.filter(entry => entry.level === 'A1').map(entry => entry.kind)), new Set(['line', 'variant', 'correction', 'choice', 'investigation', 'quest-intro']));
 });
 
 test('the optional practice introduction cannot bypass the Act I lexical gate', () => {

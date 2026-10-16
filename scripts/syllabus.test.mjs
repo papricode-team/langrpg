@@ -1,60 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
-import './register-content-loader.mjs';
-import { quests, npcs } from './content-source.mjs';
-import { buildSyllabus, pacingReport, questVocabularyDemand, secondsUntilPosition, syllabusDefaults } from './syllabus.mjs';
-
-const read = async path => JSON.parse(await readFile(new URL(path, import.meta.url), 'utf8'));
-const course = await read('../web/src/data/course.json');
-const graphs = await read('../web/src/data/dialogue-graphs.json');
-const shipped = await read('../web/src/data/syllabus.json');
-const serverCopy = await read('../server/syllabus.json');
-const savedReport = await read('../docs/audits/pacing.json');
-const { storyMaps } = await import('../web/src/maps.ts');
-const questOrder = quests.map(quest => quest.id);
-const properNames = [...npcs.map(npc => npc.name), ...storyMaps.map(map => map.name)];
-const input = { graphs, lexicon: course.lexicon, questOrder, properNames, edition: course.edition };
-
-test('the checked-in syllabus is the deterministic build of the current lexicon and story', () => {
-  const built = buildSyllabus(input);
-  assert.deepEqual(buildSyllabus(input), built, 'two builds must agree');
-  assert.deepEqual(shipped, built, 'web/src/data/syllabus.json drift: run node scripts/build-syllabus.mjs');
-  assert.deepEqual(serverCopy, built, 'server/syllabus.json drift: run node scripts/build-syllabus.mjs');
-  assert.equal(built.wordsPerHour, syllabusDefaults.wordsPerHour);
-  assert.equal(built.wordIds.length, course.lexicon.length);
-  assert.equal(new Set(built.wordIds).size, built.wordIds.length);
-});
-
-test('story vocabulary comes first and every vocabulary coverage milestone is monotone in clue order', () => {
-  const demand = questVocabularyDemand({ graphs, lexicon: course.lexicon, questOrder, properNames });
-  const arrival = new Set(demand.get('a1-arrival').wordIds);
-  assert.ok(shipped.wordIds.slice(0, shipped.wordsPerHour).filter(id => arrival.has(id)).length >= shipped.storyShare, 'most opening words belong to the first conversation');
-  let previous = 0;
-  for (const quest of shipped.quests) {
-    const position = new Map(shipped.wordIds.map((id, index) => [id, index]));
-    assert.deepEqual(new Set(quest.wordIds), new Set(demand.get(quest.questId).wordIds), quest.questId);
-    assert.equal(quest.milestone, Math.max(...quest.wordIds.map(id => position.get(id) + 1)));
-    assert.ok(quest.milestone >= previous, `${quest.questId} has vocabulary coverage before an earlier scene`);
-    previous = quest.milestone;
-  }
-  // Names, Frau/Herr surnames and glossed story words never borrow a lexeme.
-  const taub = course.lexicon.find(word => word.lemma === 'taub');
-  if (taub) assert.ok(!demand.get('a1-arrival').wordIds.includes(taub.id), 'pigeons are a glossed story word, not the adjective taub');
-});
-
-test('the pacing audit matches the checked-in report and measures hours at the budget', () => {
-  const demand = questVocabularyDemand({ graphs, lexicon: course.lexicon, questOrder, properNames });
-  const report = pacingReport({ syllabus: shipped, lexicon: course.lexicon, demand, questOrder });
-  for (const key of ['budget', 'totals', 'quests']) assert.deepEqual(savedReport[key], report[key], `docs/audits/pacing.json drift: run node scripts/audit-pacing.mjs (${key})`);
-  assert.equal(secondsUntilPosition(shipped, 0), 0);
-  assert.equal(secondsUntilPosition(shipped, shipped.openingWords), 360);
-  assert.equal(report.totals.wordsAtTarget, Math.min(shipped.wordIds.length, shipped.openingWords + 200 * shipped.wordsPerHour));
-  for (const quest of report.quests) {
-    assert.equal(quest.vocabularyReadyHour, Number((secondsUntilPosition(shipped, quest.milestone - 1) / 3600).toFixed(2)));
-    assert.ok(quest.newLexemes <= quest.lexemes);
-  }
-});
+import { buildSyllabus } from './syllabus.mjs';
 
 test('each block of ten mixes story words with high-frequency core words and excludes names', () => {
   const lexicon = [
