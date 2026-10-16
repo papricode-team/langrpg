@@ -337,3 +337,30 @@ func TestReferralCreditsAreCappedPerDayAndInTotal(t *testing.T) {
 		t.Fatal("lifetime cap not applied", credits())
 	}
 }
+
+// A signup that took its time before waiting for the inviter's lock can commit
+// after one stamped later; the later credit still counts toward the daily cap.
+func TestReferralCapCountsCreditsStampedAfterALateSignup(t *testing.T) {
+	app := trialTestApp(t)
+	ctx := context.Background()
+	inviterToken, _ := createSession(t, app, "Queued inviter")
+	app.store.SetCredentials(ctx, tokenHash(inviterToken), "queued@example.com", "encoded")
+	code := issueInvite(t, app, inviterToken)
+	start := app.now()
+	for i := 0; i < referralDailyLimit+1; i++ {
+		token, _ := createSession(t, app, "Friend")
+		// Each request committed in turn carries an earlier clock than the one before.
+		at := start.Add(-time.Duration(i) * 10 * time.Millisecond)
+		if err := app.store.RegisterWithReferral(ctx, tokenHash(token), "queued-"+strconv.Itoa(i)+"@example.com", "encoded", code, at); err != nil {
+			t.Fatal(err)
+		}
+	}
+	inviter, _ := app.store.Get(ctx, tokenHash(inviterToken))
+	if inviter.Referrals.SuccessfulSignups != referralDailyLimit || len(inviter.Referrals.RecentCredits) != referralDailyLimit {
+		t.Fatal("out-of-order signups exceeded the daily cap", inviter.Referrals)
+	}
+	// A corrupt far-future stamp does not block credits forever.
+	if recent := recentReferralCredits(Account{Referrals: ReferralState{RecentCredits: []time.Time{start.Add(48 * time.Hour)}}}, start); len(recent) != 0 {
+		t.Fatal("far-future credit counted", recent)
+	}
+}
