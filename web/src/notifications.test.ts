@@ -41,6 +41,18 @@ describe('event notifications', () => {
     expect(log.host.querySelectorAll('.notification-card')).toHaveLength(0);
   });
 
+  it('offers one round to play and dismisses itself when it is chosen', () => {
+    vi.useFakeTimers();
+    log = new Notifications();
+    log.notify('Try a round of Lantern Pairs.', false, { label: 'Play', minigame: 'lantern-pairs' });
+    const action = log.host.querySelector<HTMLButtonElement>('.notification-action')!;
+    expect(action.dataset.minigame).toBe('lantern-pairs');
+    vi.advanceTimersByTime(6000);
+    expect(log.host.querySelectorAll('.notification-card')).toHaveLength(1);
+    action.click();
+    expect(log.host.querySelectorAll('.notification-card')).toHaveLength(0);
+  });
+
   it('escapes messages and cleans up active notifications on destroy', () => {
     vi.useFakeTimers();
     log = new Notifications();

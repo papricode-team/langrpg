@@ -113,6 +113,8 @@ import type { MiniGame } from './minigames/types';
 import './minigames/minigames.css';
 import { MiniGameInput } from './minigames/input';
 import { isWordGame } from './minigames/word-game-mechanics';
+import { hostedGames, miniGameBlock, miniGameBlockLabel, miniGameBlockMessage, miniGameLevel, suggestedGame, type ReadinessContext } from './minigames/availability';
+import { gameItemPool } from './minigames/pool';
 import { DialogSession, openAsyncDialog, trackDialogClose, type AsyncDialogHost } from './dialog-session';
 
 const uiCheckRequest = import.meta.env.DEV ? new URLSearchParams(location.search).get('ui-check') : null;
@@ -446,9 +448,11 @@ function renderShell() {
     onClose: () => { dialogueOpen = false; document.querySelector('#game-shell')!.classList.remove('dialogue-open'); world.setConversationTarget(undefined); syncWorldMode(); document.querySelector<HTMLElement>('#world-container')!.focus(); if (pendingStoryBeat) queueMicrotask(() => void playPendingCinematic().catch(error => console.warn('The story scene could not load; it will be offered again.', error))); },
     onProgress: value => { acceptProgress(value); updateProgress(); },
     onInvestigate: graph => { investigationQuest = graph.questId; updateProgress(); const next = nextInvestigation(graph); if (next) { world.focusObject(investigationWorldId(next)); toast(t('Read the evidence, then return to the witness.')); } else { const q = quests.find(q => q.id === graph.questId)!; world.focusNpc(q.npcId); toast(t('The evidence is saved. Return to {name}.', { name: localizedName(npcs.find(npc => npc.id === q.npcId)!.name) })); } },
-    onComplete: (graph, xp, effects) => { investigationQuest = undefined; pendingStoryBeat = questCinematics[graph.questId]; updateProgress(); playCue(true); const clue = clueFor(graph.questId); toast(`${clue ? localized(clue.title) : t('Discovery saved')}${xp ? ` · +${xp} XP` : ''}${consequenceNote(effects)}`); },
+    onComplete: (graph, xp, effects) => { investigationQuest = undefined; pendingStoryBeat = questCinematics[graph.questId]; updateProgress(); playCue(true); const clue = clueFor(graph.questId); toast(`${clue ? localized(clue.title) : t('Discovery saved')}${xp ? ` · +${xp} XP` : ''}${consequenceNote(effects)}`); suggestRoundAfter(quests.find(quest => quest.id === graph.questId)?.npcId); },
     expose: exerciseId => { const graph=questGraphs.find(graph=>graph.gateExerciseId===exerciseId); if(graph)localStorage.setItem(`atlas.sceneHinted.${api.selfId}.${graph.questId}`,'true'); recordExposure({ exerciseId }); },
-    onPractice: npcId => { const drill = ({marta:'tray-rush',fritz:'numbered-apples',otto:'departure-board',lina:'sorting-office',emil:'workbench',ada:'adas-alphabet',inspector:'brass-stamp',elise:'re-ink'} as Record<string,string>)[npcId]; if (drill) { void startMiniGame(drill); return; } const activity = activityInfo.find(item => item.npcId === npcId); if (activity) void startActivity(activity.id); else setView('journal'); },
+    games: npcId => hostedGames(npcId, miniGameById, miniGameReadiness(), gameDay()),
+    onGame: id => void startMiniGame(id),
+    onPractice: npcId => { const activity = activityInfo.find(item => item.npcId === npcId); if (activity) void startActivity(activity.id); else setView('journal'); },
     onGrammarGuide: guideId => { courseLevel=guideId.split('-')[0].toUpperCase() as Level; courseTab='grammar'; setView('course'); void loadCourse().then(()=>{if(view!=='course')return;renderOther();document.querySelector<HTMLElement>(`[data-grammar-guide="${guideId}"]`)?.scrollIntoView({block:'start'});}).catch(error=>toast((error as Error).message,true)); },
   });
   world.setAudioPreferences({ silent: silentMode, muted });
@@ -1135,15 +1139,30 @@ function miniGameBoard(storyOnly=false):string {
   return lanternGameBoard(storyOnly?'Story games':'Mini-games',game=>!isWordGame(game)&&(!storyOnly||game.tier==='B'))+(storyOnly?'':lanternGameBoard('Word games',isWordGame));
 }
 function lanternGameBoard(title:'Story games'|'Mini-games'|'Word games',include:(game:typeof miniGameDefinitions[number])=>boolean):string {
-  const levels:Level[]=['A1','A2','B1'];
-  const choices=miniGameDefinitions.filter(game=>game.levels.some(value=>levels.indexOf(value)<=levels.indexOf(level))&&include(game));
+  const context=miniGameReadiness();
+  const choices=miniGameDefinitions.filter(game=>miniGameLevel(game,level)&&include(game)).map(game=>({game,block:miniGameBlock(game,context)}));
   if(!choices.length)return '';
-  return `<section class="lantern-games"><h3>${e(t(title))}</h3><div class="minigame-grid">${choices.map(game=>{
-    const gameLevel=game.levels.filter(value=>levels.indexOf(value)<=levels.indexOf(level)).at(-1)!;
-    const quest=game.questIds?.find(id=>quests.find(quest=>quest.id===id)?.level===gameLevel)??game.questIds?.[0];
-    const unlocked=!quest||questUnlocked(quest,progress.completedQuestIds);
-    return `<article class="minigame-entry"><h3>${e(game.title)}</h3><p>${e(game.instruction)}</p><button class="outline-button" data-minigame="${e(game.id)}" ${unlocked?'':'disabled'}>${unlocked?'Play a lantern round':'Follow the story to this scene'} ${icon('arrow')}</button></article>`;
-  }).join('')}</div></section>`;
+  // Rounds that can start now come first; the rest say what opens them.
+  choices.sort((a,b)=>Number(!!a.block)-Number(!!b.block));
+  return `<section class="lantern-games"><h3>${e(t(title))}</h3><div class="minigame-grid">${choices.map(({game,block})=>
+    `<article class="minigame-entry"><h3>${e(game.title)}</h3><p>${e(game.instruction)}</p><button class="outline-button" data-minigame="${e(game.id)}" ${block?'disabled':''}>${block?e(miniGameBlockLabel(block)):'Play a lantern round'} ${icon('arrow')}</button></article>`
+  ).join('')}</div></section>`;
+}
+/** What decides whether a round can open now: level, story, sound, writing, dusk and restored words. */
+function miniGameReadiness():ReadinessContext {
+  return {
+    level,silent:silentMode,writingReady:writingReady(),hour:world.getWorldTime().hour,
+    sceneFor:(game,gameLevel)=>game.questIds?.find(id=>quests.find(quest=>quest.id===id)?.level===gameLevel)??game.questIds?.[0],
+    sceneAvailable:id=>questAvailable(id,progress),
+    pool:course?query=>gameItemPool(course!.courseLexicon,progress,query):undefined,
+    fixedPool:id=>syllabus.quests.find(quest=>quest.questId===id)?.wordIds,
+  };
+}
+const gameDay=()=>Math.floor(Date.now()/86_400_000);
+/** A story beat ends with a round the learner can play straight away. */
+function suggestRoundAfter(npcId?:string){
+  const game=suggestedGame(miniGameDefinitions,miniGameReadiness(),npcId,gameDay());
+  if(game)notifications?.notify(t('Try a round of {game}.',{game:game.title}),false,{label:t('Play'),minigame:game.id});
 }
 function recordExpeditionExposure(text:string):void {
   void loadCourse().then(module=>{
@@ -1153,10 +1172,14 @@ function recordExpeditionExposure(text:string):void {
   }).catch(()=>{});
 }
 async function startMiniGame(id:string):Promise<void>{
+  const definition=miniGameById.get(id);if(!definition)return;
+  // A story round's content stays private until its scene, so check the gates before asking for it.
+  const early=miniGameBlock(definition,{...miniGameReadiness(),pool:undefined});
+  if(early==='writing'){showOpeningPracticeNotice(true);return;}
+  if(early){toast(miniGameBlockMessage(early,definition));return;}
   const current=dialogSession.begin();
   try { await loadMiniGame(id); } catch (error) { if(current())toast((error as Error).message, true); return; }
   if(!current())return;
-  const definition=miniGameById.get(id);if(!definition)return;
   if(connection!=='online'){toast(t('The town is reconnecting. Try again in a moment.'),true);return;}
   if(id==='neighborhood-boards'){
     if(getExpedition(mapId))startExpeditionGame(mapId);
@@ -1164,14 +1187,10 @@ async function startMiniGame(id:string):Promise<void>{
     return;
   }
   if(id==='delivery-run'){try{await startWorldDelivery();}catch(error){toast((error as Error).message,true);}return;}
-  const levels:Level[]=['A1','A2','B1'],gameLevel=definition.levels.filter(value=>levels.indexOf(value)<=levels.indexOf(level)).at(-1);
-  if(!gameLevel){toast(`This lantern round belongs to ${definition.levels.join(' / ')}.`);return;}
-  // Letter tiles, grids and guessed letters need no typing, so they stay open before writing practice.
-  if(definition.modalities.every(mode=>mode==='production')&&!['anagram','loom','fuse'].includes(definition.mechanic)&&!writingReady()){showOpeningPracticeNotice(true);return;}
+  // Too few restored words is explained inside the round, beside its "Practise today's words" button.
+  const context=miniGameReadiness(),gameLevel=miniGameLevel(definition,level);if(!gameLevel)return;
   if(isWordGame(definition))try{localStorage.setItem('atlas.wordGame.last',id);}catch{/* Rotation is only a convenience. */}
-  if(['lantern-lighting','word-chain','hold-the-signal'].includes(id)){const hour=world.getWorldTime().hour;if(hour>=6&&hour<18){toast('The lantern games open at dusk, after 18:00.');return;}}
-  const questId=definition.questIds?.find(id=>quests.find(quest=>quest.id===id)?.level===gameLevel)??definition.questIds?.[0];
-  if(questId&&!questUnlocked(questId,progress.completedQuestIds)){toast('Follow the story to this scene first.');return;}
+  const questId=context.sceneFor(definition,gameLevel);
   deliveryController?.destroy();deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;
   setView('world');cancelRun();activityController?.destroy();activityController=undefined;
   const owner=api.selfId;

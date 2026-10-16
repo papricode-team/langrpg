@@ -6,7 +6,10 @@ import { RoundQueue, responseLimit } from './rounds';
 import { miniGameDefinitions } from './catalogue';
 import { isWordGame } from './word-game-mechanics';
 import type { GameItem, MiniGame, MiniGameDefinition, MiniGameHost, MiniGameOptions, Modality, RoundResult, RoundSummary } from './types';
+import { basketTopics, isLetterWord, mechanicPool, minimumPool, poolModality } from './game-pools';
 import './word-games.css';
+
+export { basketTopics, isLetterWord };
 
 /**
  * Ten short word-memory games. Each one asks for a different kind of retrieval (matching, judging, spelling,
@@ -15,17 +18,10 @@ import './word-games.css';
  * supported production. Nothing here decides correctness on the client.
  */
 
-/** Topic baskets name the course's concrete topics; catch-all topics would make a sorting answer arbitrary. */
-export const basketTopics: Readonly<Record<string,string>> = {food:'Food & drink',travel:'Travel',time:'Time',home:'Home',health:'Health',work:'Work',learning:'Learning',people:'People',feelings:'Feelings',culture:'Culture',nature:'Nature',society:'Town & society',actions:'Doing words',describing:'Describing words'};
 const basketOrder = Object.keys(basketTopics);
-const meaningfulCapitals = new Set(['Sie','Ihnen','Ihr','Ihre']);
 const alphabet = [...'abcdefghijklmnopqrstuvwxyzäöüß'];
 const fillLetters = [...'ABCDEFGHIKLMNOPRSTUWZÄÖÜEEINNRSST'];
 
-/** Letter games spell one plain German word from tiles, a grid or guessed letters. */
-export function isLetterWord(item: Pick<GameItem,'lemma'>, max = 10): boolean {
-  return /^\p{L}+$/u.test(item.lemma) && [...item.lemma].length >= 3 && [...item.lemma].length <= max && !meaningfulCapitals.has(item.lemma);
-}
 /** Small deterministic generator for layouts; a new run seed gives a new board. */
 export function seededRandom(seed: number): () => number {
   let value = seed >>> 0 || 1;
@@ -94,20 +90,15 @@ export class WordMemoryGame implements MiniGame {
   private get silent() { return this.services.silent; }
   private get play() { return this.root.querySelector<HTMLElement>('.minigame-play')!; }
   private get feedback() { return this.root.querySelector<HTMLElement>('.minigame-feedback')!; }
-  private get modality(): Modality { return this.mechanic === 'bells' && !this.silent ? 'listening' : ['anagram','loom','fuse','train'].includes(this.mechanic) ? 'production' : 'recognition'; }
+  private get modality(): Modality { return poolModality(this.definition, this.silent); }
 
   mount(root: HTMLElement, host: MiniGameHost, opts: MiniGameOptions) {
     this.root = root; this.services = host; this.opts = opts;
     this.summary = { gameId: this.id, attempts: 0, correct: 0, hinted: 0, activeMs: 0, longestChain: 0 };
-    let pool = host.pool({ modality: this.modality, level: opts.level, topics: this.definition.topics, nouns: this.definition.nouns, sprites: this.definition.sprites, fixedPool: opts.fixedPool, seed: opts.seed });
-    if (['anagram','fuse'].includes(this.mechanic)) pool = pool.filter(item => isLetterWord(item));
-    if (this.mechanic === 'loom') pool = pool.filter(item => isLetterWord(item, opts.level === 'A1' ? 7 : 8));
-    if (this.mechanic === 'baskets') pool = pool.filter(item => item.topic in basketTopics);
-    // A meaning shared by two words would make a meaning choice ambiguous.
-    if (['pairs','mirror','leaves','bells'].includes(this.mechanic)) { const meanings = new Set<string>(); pool = pool.filter(item => { const key = item.english.toLocaleLowerCase('en'); if (meanings.has(key)) return false; meanings.add(key); return true; }); }
+    const pool = mechanicPool(this.definition, query => host.pool(query), { level: opts.level, silent: host.silent, seed: opts.seed, fixedPool: opts.fixedPool });
     this.pool = pool; this.queue = new RoundQueue(pool, this.definition.rounds);
     root.innerHTML = `<section class="minigame word-game" data-game-mechanic="${e(this.mechanic)}" style="--minigame-art:url('${e(opts.backdrop ?? '/assets/lindenhafen-preview.webp')}')"><header class="minigame-heading"><div><h2>${e(this.title)}</h2><p class="word-game-host">${e(this.host)}</p></div><div class="minigame-score"><span data-game-score>0 / 0</span><time data-game-time>${this.definition.seconds}s</time></div></header><div class="minigame-lanterns" aria-hidden="true">${Array.from({ length: 12 }, () => '<i></i>').join('')}</div><div class="minigame-play"></div><p class="minigame-feedback" role="status" aria-live="polite"></p><footer class="minigame-footer"><span>${['anagram','fuse'].includes(this.mechanic) ? 'Type letters · Backspace' : this.mechanic === 'train' ? 'Type · Enter' : '1–6 · ← → · Enter'}</span><button type="button" data-game-action="pause">Pause</button><button type="button" data-game-action="finish">Finish round</button></footer></section>`;
-    const minimum = this.modality === 'production' ? 1 : this.mechanic === 'pairs' || this.mechanic === 'baskets' ? 3 : 2;
+    const minimum = minimumPool(this.definition, this.silent);
     if (this.pool.length < minimum) {
       const pictures = this.definition.sprites ? ' This game uses painted objects, so it needs restored nouns with pictures.' : '';
       this.play.innerHTML = `<div class="minigame-intro"><h3>These words are still returning.</h3><p>Restore more words in the town, then return for this game. Only familiar words enter the pool.${pictures}</p><button type="button" class="primary-button" data-action="todays-words">Practise today’s words</button>${nextWordGame(this.id) ? `<button type="button" class="outline-button" data-minigame="${e(nextWordGame(this.id))}">Try another word game</button>` : ''}</div>`;
