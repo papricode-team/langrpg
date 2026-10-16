@@ -4,6 +4,7 @@ import { readFileSync, writeFileSync, renameSync, mkdirSync, existsSync } from '
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { stableId, sourceTokens, sourceKey, compileTranslation } from './content-model.mjs';
+import { validateBundle } from './validate-word-maps.mjs';
 
 export const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const json = (path, fallback) => existsSync(path) ? JSON.parse(readFileSync(path,'utf8')) : fallback;
@@ -36,7 +37,7 @@ export function buildContent({ directory = root } = {}) {
     records.push(record); byId.set(key,record); return record;
   }
   const overlay = source.overlays;
-  const trBySentence = new Map(), trByText = new Map(Object.entries(overlay.course.texts ?? {}));
+  const trBySentence = new Map(), trGrammarSentence = new Map(), trByText = new Map(Object.entries(overlay.course.texts ?? {}));
   for (const value of Object.values(overlay.story)) {
     if (value.de && !trBySentence.has(value.de)) trBySentence.set(value.de,value.tr);
     if (!value.de && value.en && !trByText.has(value.en)) trByText.set(value.en,value.tr);
@@ -46,7 +47,7 @@ export function buildContent({ directory = root } = {}) {
     if (value.german && value.tr.english && !trBySentence.has(value.german)) trBySentence.set(value.german,value.tr.english);
     for (const field of ['prompt','hint','explanation','english']) if (value.source[field] && value.tr[field]) trByText.set(value.source[field],value.tr[field]);
   }
-  for (const value of Object.values(overlay.course.grammar)) for (const [text,translation] of Object.entries(value.examples)) if (!trBySentence.has(text)) trBySentence.set(text,translation);
+  for (const value of Object.values(overlay.course.grammar)) for (const [text,translation] of Object.entries(value.examples)) { trGrammarSentence.set(text,translation); if (!trBySentence.has(text)) trBySentence.set(text,translation); }
   const lexicalForms = new Map();
   for (const word of source.course.lexicon) {
     id('lexeme',word.id); id('item',`word-${word.id}`);
@@ -70,19 +71,21 @@ export function buildContent({ directory = root } = {}) {
     const exact=candidates.filter(entry=>Object.entries(translations).some(([language,value])=>value.text&&entry.translations[language]?.text===value.text));
     const draft=explicit.length===1?explicit[0]:exact.length===1?exact[0]:candidates.length===1?candidates[0]:undefined;
     const priorFixture=fixtures.find(item=>item.text===text&&Object.entries(item.translations).every(([lang,value])=>translations[lang]?.text===value.text));
-    if(draft&&!priorFixture&&!authored[key])for(const [lang,value]of Object.entries(draft.translations))if(!translations[lang]?.text||(draft.replaceSupport&&draft.sourceSlugs.includes(slug)))translations[lang]={text:value.text,words:[]};
+    // A partial map import must retain historical support overrides for the
+    // other languages; authored selectors are checked against this same text.
+    if(draft&&!priorFixture)for(const [lang,value]of Object.entries(draft.translations))if(!translations[lang]?.text||(draft.replaceSupport&&draft.sourceSlugs.includes(slug)))translations[lang]={text:value.text,words:[]};
     const rawWords = sourceTokens(text), words = [];
     const fixture = fixtures.find(item=>item.text === text && Object.entries(item.translations).every(([lang,value])=>translations[lang]?.text===value.text));
     if(authored[key] && authored[key].sourceText!==text)throw new Error(`${slug}: source text changed after alignment authoring`);
-    const maps = authored[key]?.translations ?? fixture?.translations ?? (draft?Object.fromEntries(Object.entries(draft.translations).filter(([lang,value])=>translations[lang]?.text===value.text)):{});
-    for(const [lang,map]of Object.entries(maps))if(!translations[lang])translations[lang]={text:map.text,words:[]};
+    const maps = { ...(draft?Object.fromEntries(Object.entries(draft.translations).filter(([lang,value])=>translations[lang]?.text===value.text)):{}), ...fixture?.translations, ...authored[key]?.translations };
+    for(const [lang,map]of Object.entries(maps))if(!translations[lang]?.text)translations[lang]={text:map.text,words:[]};
     for (const token of rawWords) {
       const glossOmitted=draft?.omitGlossSources.some(word=>sourceKey(word)===sourceKey(token.source));
       const matches = glossOmitted?[]:lexicalForms.get(token.source.text) ?? lexicalForms.get(token.source.text.toLowerCase()) ?? [];
       const glossary = glossOmitted?undefined:pair.glosses?.[token.source.text] ?? pair.glosses?.[token.source.text.toLowerCase()];
-      const mapped = Object.values(maps).some(value=>(value.words ?? []).some(word=>sourceKey(word.source)===sourceKey(token.source)));
       const proofPairs = course.target==='en' ? Object.values(translations).some(value=>(value.pairs ?? []).some(([source])=>source===token.source.text)) : false;
-      if (!matches.length && !glossary && !mapped && !proofPairs) continue;
+      // Coverage includes every source occurrence, even names and inflections
+      // absent from the dictionary. A missing lexeme must not hide a missing map.
       const lexeme = matches.length === 1 && course.target==='de' ? matches[0] : undefined;
       const englishWord=course.target==='en'?proof.lexemes.find(word=>word.forms.includes(token.source.text)||word.lemma===token.source.text.toLowerCase()):undefined;
       const glosses = lexeme ? lexicalMeaning(lexeme) : course.target==='de'&&matches.length?Object.fromEntries(['en','tr'].map(lang=>[lang,[...new Set(matches.map(word=>lexicalMeaning(word)[lang]).filter(Boolean))].join(' / ')]).filter(([,meaning])=>meaning)):{};
@@ -151,7 +154,8 @@ export function buildContent({ directory = root } = {}) {
     const tr = overlay.course.exercises[exercise.id]?.tr;
     const contextWords=exercise.wordIds??source.legacyServer.course.contextWordIds?.[exercise.id];
     const body={...rest,id:id('exercise',exercise.id),itemId:id('item',exercise.itemId),...binding,wordIds:wordIds(contextWords),...(exercise.targetWordId?{targetWordId:id('lexeme',exercise.targetWordId)}:{}),...(exercise.unitId?{unitId:id('unit',exercise.unitId)}:{}),prompt:exercise.prompt,hint:exercise.hint,support:{en:{prompt:exercise.prompt,hint:exercise.hint,explanation},...(tr?{tr}: {})},...(overlay.course.exercises[exercise.id]?.options?{optionTranslations:{tr:overlay.course.exercises[exercise.id].options}}:{}),grading:{answer,acceptedAnswers:acceptedAnswers??[],explanation,caseSensitive:exercise.caseSensitive??false}};
-    if(text && english){body.sentenceId=sentence(`exercise:${exercise.id}`,{text,english},[owner('exercise',exercise.id,{...binding,level:exercise.level})]);body.exampleSentenceId=body.sentenceId;const cue=byId.get(body.sentenceId).body;if(cue.audio)body.audio=cue.audio;if(cue.audioRequires)body.audioRequires=true;}
+    const cueEnglish=english===exercise.prompt&&exercise.unitId?.includes('-reference-forms-')?answer:english;
+    if(text && english){body.sentenceId=sentence(`exercise:${exercise.id}`,{text,english:cueEnglish,...(tr?.english?{turkish:tr.english}:{})},[owner('exercise',exercise.id,{...binding,level:exercise.level})]);body.exampleSentenceId=body.sentenceId;const cue=byId.get(body.sentenceId).body;if(cue.audio)body.audio=cue.audio;if(cue.audioRequires)body.audioRequires=true;}
     const gatePairs=source.beginnerGateTranslations[exercise.id];
     if(gatePairs?.length)body.optionSentenceIds=Object.fromEntries(gatePairs.map(([german,english],index)=>[german,sentence(`context:beginner:${exercise.id}:${index}`,{german,english},[owner('exercise',exercise.id)])]));
     add('exercise',exercise.id,body);
@@ -162,7 +166,7 @@ export function buildContent({ directory = root } = {}) {
   for(const word of source.course.lexicon) {
     const {english,article,articleForm,plural,forms,surfaceForms,...rest}=word;
     const example=source.course.grammar.flatMap(guide=>guide.examples).find(example=>sourceTokens(example.german).some(token=>token.source.text===word.lemma));
-    add('lexeme',word.id,{...rest,id:id('lexeme',word.id),itemId:id('item',`word-${word.id}`),syllabusIndex:source.legacyServer.syllabus.wordIds.indexOf(word.id),exerciseIds:Object.fromEntries(['recognition','listening','production'].map(mode=>[mode,id('exercise',`lex-${word.id}-${mode}`)])),audio:`/audio/word-${word.id}.ogg`,lemma:word.lemma,meanings:lexicalMeaning(word),forms:[...new Set([word.lemma,...(surfaceForms??[]),...(forms??[])])],morphology:{...(article?{article}:{}),...(articleForm?{articleForm}:{}),...(plural?{plural}:{})},...(example?{exampleSentenceId:sentence(`lexeme:${word.id}:example`,example,[owner('lexeme',word.id,{level:word.level})])}:{})});
+    add('lexeme',word.id,{...rest,id:id('lexeme',word.id),itemId:id('item',`word-${word.id}`),syllabusIndex:source.legacyServer.syllabus.wordIds.indexOf(word.id),exerciseIds:Object.fromEntries(['recognition','listening','production'].map(mode=>[mode,id('exercise',`lex-${word.id}-${mode}`)])),audio:`/audio/word-${word.id}.ogg`,lemma:word.lemma,meanings:lexicalMeaning(word),forms:[...new Set([word.lemma,...(surfaceForms??[]),...(forms??[])])],morphology:{...(article?{article}:{}),...(articleForm?{articleForm}:{}),...(plural?{plural}:{})},...(example?{exampleSentenceId:sentence(`lexeme:${word.id}:example`,{...example,...(trGrammarSentence.has(example.german)?{turkish:trGrammarSentence.get(example.german)}:{})},[owner('lexeme',word.id,{level:word.level})])}:{})});
   }
   for(const unit of source.course.units)add('unit',unit.id,{...unit,id:id('unit',unit.id),titleTranslations:support(unit.title),summaryTranslations:support(unit.summary),support:{tr:{title:trByText.get(unit.title),summary:trByText.get(unit.summary)}},exerciseIds:unit.exerciseIds.map(value=>id('exercise',value)),wordIds:wordIds(unit.wordIds),requiredWordIds:wordIds(unit.requiredWordIds),requiredExerciseIds:unit.requiredExerciseIds.map(value=>id('exercise',value)),requiredItemIds:unit.requiredItemIds.map(value=>id('item',value)),grammarIds:unit.grammarIds.map(value=>id('context',`grammar:${value}`))});
   const graphLine = (line, slug, graph, node) => {
@@ -191,7 +195,7 @@ export function buildContent({ directory = root } = {}) {
   for(const [key,data]of Object.entries(source.storyEndings??{}))context(`story-ending:${key}`,'storyEnding',{id:key,...data,support:{tr:Object.fromEntries(Object.entries(data).filter(([,text])=>trByText.has(text)).map(([field,text])=>[field,trByText.get(text)]))}},[{kind:'storyEnding',id:key}],{worldId:key});
   for(const guide of source.course.grammar) {
     const {explanation,...rest}=guide,tr=overlay.course.grammar[guide.id];
-    context(`grammar:${guide.id}`,'grammar',{...rest,id:id('context',`grammar:${guide.id}`),teachingNotes:explanation,...(tr?{support:{tr:{title:tr.title[1],teachingNotes:tr.explanation[1],...(tr.note?{note:tr.note}:{})}}}:{})},[{kind:'unit',level:guide.level}]);
+    context(`grammar:${guide.id}`,'grammar',{...rest,examples:rest.examples.map(example=>({...example,...(tr?.examples[example.german]?{turkish:tr.examples[example.german]}:{})})),id:id('context',`grammar:${guide.id}`),teachingNotes:explanation,...(tr?{support:{tr:{title:tr.title[1],teachingNotes:tr.explanation[1],...(tr.note?{note:tr.note}:{})}}}:{})},[{kind:'unit',level:guide.level}]);
   }
   for(const [questId,note]of Object.entries(source.contextualGrammar)){const {explanation,...rest}=note;context(`quest-grammar:${questId}`,'questGrammar',{...rest,...(explanation?{teachingNotes:explanation}:{}),guideId:id('context',`grammar:${note.guideId}`)},[owner('quest',questId)]);}
   for(const [key,pairs]of Object.entries(source.beginnerGateTranslations))context(`beginner:${key}`,'beginnerChoices',pairs.map(([german,english])=>({german,english})),[owner('exercise',key)]);
@@ -306,6 +310,8 @@ export function buildContent({ directory = root } = {}) {
 
 export function writeContent({ directory = root } = {}) {
   const {bundle,source}=buildContent({directory});
+  const errors=validateBundle(bundle);
+  if(errors.length)throw new Error(`Incomplete translation mappings (${errors.length} errors):\n${errors.slice(0,20).join('\n')}\nRun npm run content:check-schema for details. No content bundle was written.`);
   mkdirSync(resolve(directory,'content'),{recursive:true});mkdirSync(resolve(directory,'server'),{recursive:true});
   const write=(path,value)=>{writeFileSync(path+'.tmp',value);renameSync(path+'.tmp',path);};
   write(resolve(directory,'content_ids.json'),JSON.stringify(Object.fromEntries(Object.entries(bundle.ids).sort(([a],[b])=>a.localeCompare(b))),null,1)+'\n');

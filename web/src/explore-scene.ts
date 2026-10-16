@@ -5,7 +5,7 @@ import { castPresent } from './cast-presence';
 import type { WorldObjectSpec, WorldMapSpec } from './maps';
 import { NPC_ART, INTERIOR_CHARACTER_HEIGHT, characterArtScale, createContactShadow } from './character-art';
 import { characterFrame, MODULAR_ART, NATIVE_MODULAR_ART } from './avatar-options';
-import { advanceWalkDistance, WALK_POSE_COLUMNS } from './walk-animation';
+import { advanceWalkDistance, WALK_POSE_COLUMNS, walkSpeedForHeight } from './walk-animation';
 import { normalizeAvatar, avatarTextureKey } from './character-recipe.mjs';
 import { acquireAvatarTexture, bakeAvatarTexture } from './avatar-baker';
 import type { TextureLease } from './avatar-texture-cache';
@@ -97,7 +97,6 @@ export interface WorldPortal {
 
 export interface ResidentGait { moving: boolean; distance: number; velocityX: number; velocityY: number; facingLeft?: boolean }
 
-export const WALK_SPEED = 225;
 /** Pip is twelve: the shared adult mannequin is drawn smaller for him. */
 export const childScale = (id: string): number => id === 'pip' ? .8 : 1;
 export const INTERACTION_DISTANCE = 140;
@@ -609,6 +608,7 @@ export abstract class ExploreScene extends Phaser.Scene {
   /** Keyboard, pad, stick and click-to-walk resolve into one step against the navigation grid. */
   private movePlayer(seconds: number): { dx: number; dy: number; vx: number; vy: number; moving: boolean; arrived?: string } {
     let vx = 0, vy = 0, arrived: string | undefined;
+    const speed = walkSpeedForHeight(this.indoor ? this.indoorCharacterHeight : MODULAR_ART.worldHeight);
     const previousX = this.local.x, previousY = this.local.y;
     const keys = this.keys;
     const pad1 = this.input.gamepad?.pad1;
@@ -639,12 +639,12 @@ export abstract class ExploreScene extends Phaser.Scene {
     }
     if (!this.controlsEnabled || this.watching) { vx = 0; vy = 0; }
     if (vx || vy) {
-      const next = this.navigation.move(this.local, { x: vx * WALK_SPEED * seconds, y: vy * WALK_SPEED * seconds });
+      const next = this.navigation.move(this.local, { x: vx * speed * seconds, y: vy * speed * seconds });
       this.local.x = next.x; this.local.y = next.y;
     } else if (this.controlsEnabled && !this.watching && this.target) {
       // Spend the same movement budget across waypoints, including the final
       // short step. Every route step uses the same swept body as held input.
-      let remaining = WALK_SPEED * seconds;
+      let remaining = speed * seconds;
       while (this.target && remaining > 0) {
         const dx = this.target.x - this.local.x, dy = this.target.y - this.local.y;
         const distance = Math.hypot(dx, dy);
@@ -670,8 +670,8 @@ export abstract class ExploreScene extends Phaser.Scene {
     const dx = this.local.x - previousX, dy = this.local.y - previousY;
     // Camera anticipation follows actual wall sliding rather than the part of
     // the input vector stopped by a wall.
-    vx = seconds ? dx / (WALK_SPEED * seconds) : 0;
-    vy = seconds ? dy / (WALK_SPEED * seconds) : 0;
+    vx = seconds ? dx / (speed * seconds) : 0;
+    vy = seconds ? dy / (speed * seconds) : 0;
     const moving = Math.hypot(dx, dy) > 0.05;
     this.animateCharacter(this.local, dx, dy, this.elapsed);
     return { dx, dy, vx, vy, moving, arrived };
@@ -715,7 +715,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     for (const peer of this.peers.values()) {
       const dx = (peer.targetX - peer.x) * interpolation, dy = (peer.targetY - peer.y) * interpolation;
       peer.x += dx; peer.y += dy;
-      this.animateCharacter(peer, dx, dy, this.elapsed + peer.phase, WALK_SPEED * seconds);
+      this.animateCharacter(peer, dx, dy, this.elapsed + peer.phase);
       peer.name.setScale(labelScale).setVisible(this.controlsEnabled && (Math.hypot(peer.x - this.local.x, peer.y - this.local.y) < 180 || !!peer.hovered));
     }
   }
@@ -965,7 +965,7 @@ export abstract class ExploreScene extends Phaser.Scene {
 
   // Characters --------------------------------------------------------------
 
-  protected animateCharacter(character: Character, dx: number, dy: number, time: number, maxGaitDistance = Infinity, residentGait?: ResidentGait): void {
+  protected animateCharacter(character: Character, dx: number, dy: number, time: number, residentGait?: ResidentGait): void {
     this.fitCharacterToRoom(character);
     character.root.setPosition(character.x, character.y);
     setDepthIfChanged(character.root, worldDepth(character.y, 'character'));
@@ -994,7 +994,7 @@ export abstract class ExploreScene extends Phaser.Scene {
         const horizontal = Math.abs(dx) > Math.abs(dy) * (character.facing % 2 ? 0.88 : 1.12);
         character.facing = horizontal ? (dx >= 0 ? 1 : 3) : (dy >= 0 ? 0 : 2);
         const cycleDistance = (character.nativePixels ? NATIVE_MODULAR_ART : MODULAR_ART).cycleDistance * character.artScale;
-        character.walkDistance = advanceWalkDistance(character.walkDistance, distance, cycleDistance, maxGaitDistance);
+        character.walkDistance = advanceWalkDistance(character.walkDistance, distance, cycleDistance);
         character.lastWalkTime = time;
         this.setCharacterFrame(character, characterFrame(character.facing, character.walkDistance / cycleDistance * WALK_POSE_COLUMNS.length));
       } else if (!this.controlsEnabled || this.watching || time - (character.lastWalkTime ?? -Infinity) >= .1) {

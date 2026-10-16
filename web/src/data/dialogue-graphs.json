@@ -360,8 +360,8 @@
           {
             "id": "a1-arrival-complete-0",
             "speaker": "otto",
-            "german": "Komm mit. Wir lesen jetzt den Plan.",
-            "english": "Come with me. Let us read the timetable.",
+            "german": "Du hast Hunger. Geh zu Marta ins Café.",
+            "english": "You are hungry. Go to Marta at the café.",
             "clipId": "dialogue-a1-arrival-complete-0"
           }
         ],
@@ -458,6 +458,389 @@
     "introducedWords": {
       "Laterne": "lantern",
       "Messingamt": "Brass Office"
+    }
+  },
+  {
+    "questId": "a1-cafe",
+    "level": "A1",
+    "start": "intro",
+    "gateExerciseId": "a1-cafe-exercise-1",
+    "gatePrompt": "Order a coffee from Marta.",
+    "evidenceItem": "a1-cafe-evidence",
+    "objectives": [
+      {
+        "text": "Meet Marta in her café",
+        "location": "Café",
+        "stage": "intro"
+      },
+      {
+        "text": "Read the note on the counter",
+        "location": "lindenhafen-cafe-receipt",
+        "stage": "intro"
+      },
+      {
+        "text": "Order a coffee from Marta.",
+        "location": "Café",
+        "stage": "gate"
+      },
+      {
+        "text": "Decide who keeps the receipt",
+        "location": "Café",
+        "stage": "choice"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a1-cafe-intro-0",
+            "speaker": "marta",
+            "german": "Hallo! Ich bin Marta. Willkommen im Café!",
+            "english": "Hello! I am Marta. Welcome to the café!",
+            "clipId": "dialogue-a1-cafe-intro-0",
+            "expression": "smile"
+          },
+          {
+            "id": "a1-cafe-intro-1",
+            "speaker": "marta",
+            "german": "Du hast Ottos Schlüssel? Den bekomme ich nie!",
+            "english": "You have Otto’s key? He never lends it to me!",
+            "clipId": "dialogue-a1-cafe-intro-1",
+            "condition": {
+              "flag": "platform-protected"
+            }
+          },
+          {
+            "id": "a1-cafe-intro-2",
+            "speaker": "marta",
+            "german": "Voss hat deine Fahrkarte? Er hat alles.",
+            "english": "Voss has your ticket? He has everything.",
+            "clipId": "dialogue-a1-cafe-intro-2",
+            "condition": {
+              "flag": "platform-reported"
+            }
+          },
+          {
+            "id": "a1-cafe-intro-3",
+            "speaker": "marta",
+            "german": "Hier liegt ein Papier. Für einen Gast.",
+            "english": "There is a note here. For a guest.",
+            "clipId": "dialogue-a1-cafe-intro-3"
+          },
+          {
+            "id": "a1-cafe-intro-4",
+            "speaker": "marta",
+            "german": "Ein Kaffee für {name}. Bezahlt. E.",
+            "english": "One coffee for {name}. Paid. E.",
+            "clipId": "dialogue-a1-cafe-intro-4"
+          },
+          {
+            "id": "a1-cafe-intro-5",
+            "speaker": "marta",
+            "german": "Du bist {name}? Dann ist das für dich.",
+            "english": "You are {name}? Then this is for you.",
+            "clipId": "dialogue-a1-cafe-intro-5"
+          },
+          {
+            "id": "a1-cafe-intro-6",
+            "speaker": "marta",
+            "german": "Eine Frau hat gestern für dich bezahlt.",
+            "english": "A woman paid for you yesterday.",
+            "clipId": "dialogue-a1-cafe-intro-6"
+          },
+          {
+            "id": "a1-cafe-intro-7",
+            "speaker": "marta",
+            "german": "Ihren Namen? Ich weiß ihn nicht mehr.",
+            "english": "Her name? I cannot remember it.",
+            "clipId": "dialogue-a1-cafe-intro-7",
+            "expression": "worried"
+          },
+          {
+            "id": "a1-cafe-intro-8",
+            "speaker": "marta",
+            "german": "Und ich frage jeden Gast nach dem Namen!",
+            "english": "And I ask every guest their name!",
+            "clipId": "dialogue-a1-cafe-intro-8"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a1-cafe-gate-0",
+            "speaker": "marta",
+            "german": "So. Dein Kaffee ist schon bezahlt.",
+            "english": "So. Your coffee is already paid for.",
+            "clipId": "dialogue-a1-cafe-gate-0"
+          },
+          {
+            "id": "a1-cafe-gate-1",
+            "speaker": "marta",
+            "german": "Was möchtest du?",
+            "english": "What would you like?",
+            "clipId": "dialogue-a1-cafe-gate-1",
+            "variants": [
+              {
+                "german": "Was möchtest du trinken?",
+                "english": "What would you like to drink?",
+                "clipId": "dialogue-a1-cafe-gate-1-simple"
+              }
+            ]
+          }
+        ],
+        "gateExerciseId": "a1-cafe-exercise-1",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a1-cafe-choice-0",
+            "speaker": "marta",
+            "german": "Ein Kaffee. Kommt sofort!",
+            "english": "One coffee. Coming right up!",
+            "clipId": "dialogue-a1-cafe-choice-0"
+          },
+          {
+            "id": "a1-cafe-choice-1",
+            "speaker": "marta",
+            "german": "Die Frau saß dort, allein.",
+            "english": "The woman sat over there, alone.",
+            "clipId": "dialogue-a1-cafe-choice-1"
+          },
+          {
+            "id": "a1-cafe-choice-2",
+            "speaker": "marta",
+            "german": "Sie war sehr müde. Ihre Hände waren schwarz.",
+            "english": "She was very tired. Her hands were black with ink.",
+            "clipId": "dialogue-a1-cafe-choice-2"
+          },
+          {
+            "id": "a1-cafe-choice-3",
+            "speaker": "marta",
+            "german": "Ihren Tee hat sie nicht getrunken.",
+            "english": "She did not drink her tea.",
+            "clipId": "dialogue-a1-cafe-choice-3"
+          },
+          {
+            "id": "a1-cafe-choice-4",
+            "speaker": "marta",
+            "german": "Hier ist deine Rechnung. Moment… ein Stempel?",
+            "english": "Here is your receipt. Wait… a stamp?",
+            "clipId": "dialogue-a1-cafe-choice-4",
+            "glosses": {
+              "stempel": "stamp"
+            }
+          },
+          {
+            "id": "a1-cafe-choice-5",
+            "speaker": "marta",
+            "german": "Das ist der Stempel vom Messingamt.",
+            "english": "That is the Brass Office stamp.",
+            "clipId": "dialogue-a1-cafe-choice-5",
+            "glosses": {
+              "stempel": "stamp"
+            }
+          },
+          {
+            "id": "a1-cafe-choice-6",
+            "speaker": "marta",
+            "german": "Sie hat mit einem alten Gutschein bezahlt.",
+            "english": "She paid with an old voucher.",
+            "clipId": "dialogue-a1-cafe-choice-6",
+            "glosses": {
+              "gutschein": "voucher"
+            }
+          },
+          {
+            "id": "a1-cafe-choice-7",
+            "speaker": "marta",
+            "german": "So einen gibt es seit Jahren nicht mehr.",
+            "english": "They have not made those for years.",
+            "clipId": "dialogue-a1-cafe-choice-7"
+          },
+          {
+            "id": "a1-cafe-choice-8",
+            "speaker": "marta",
+            "german": "Voss hat schon deine Fahrkarte. Und jetzt das?",
+            "english": "Voss already has your ticket. And now this?",
+            "clipId": "dialogue-a1-cafe-choice-8",
+            "condition": {
+              "flag": "platform-reported"
+            }
+          },
+          {
+            "id": "a1-cafe-choice-9",
+            "speaker": "marta",
+            "german": "Bekommt Voss die Rechnung, oder nimmst du sie?",
+            "english": "Does Voss get the receipt, or do you take it?",
+            "clipId": "dialogue-a1-cafe-choice-9"
+          }
+        ],
+        "choices": [
+          {
+            "id": "report",
+            "german": "Voss soll die Rechnung sehen.",
+            "english": "Voss should see the receipt.",
+            "next": "after-report",
+            "effects": [
+              {
+                "faction": "brassOffice",
+                "amount": 1
+              },
+              {
+                "flag": "receipt-filed"
+              },
+              {
+                "item": "receipt-copy"
+              }
+            ]
+          },
+          {
+            "id": "protect",
+            "german": "Ich nehme die Rechnung mit.",
+            "english": "I will take the receipt with me.",
+            "next": "after-protect",
+            "effects": [
+              {
+                "faction": "lamplighters",
+                "amount": 1
+              },
+              {
+                "flag": "receipt-kept"
+              },
+              {
+                "item": "original-receipt"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "after-report",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-cafe-after-report-0",
+            "speaker": "marta",
+            "german": "Gut. Ich schreibe dir eine zweite Rechnung.",
+            "english": "All right. I will write you a second receipt.",
+            "clipId": "dialogue-a1-cafe-after-report-0"
+          },
+          {
+            "id": "a1-cafe-after-report-1",
+            "speaker": "marta",
+            "german": "Voss liest gern. Rechnungen, Formulare, alles.",
+            "english": "Voss loves reading. Receipts, forms, everything.",
+            "clipId": "dialogue-a1-cafe-after-report-1"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-protect",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-cafe-after-protect-0",
+            "speaker": "marta",
+            "german": "Gut. Voss muss nicht alles wissen.",
+            "english": "Good. Voss does not need to know everything.",
+            "clipId": "dialogue-a1-cafe-after-protect-0"
+          },
+          {
+            "id": "a1-cafe-after-protect-1",
+            "speaker": "marta",
+            "german": "Ich schon. Ich will immer alles wissen!",
+            "english": "I do. I always want to know everything!",
+            "clipId": "dialogue-a1-cafe-after-protect-1"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-cafe-complete-0",
+            "speaker": "marta",
+            "german": "Du bleibst hier, oder? Du brauchst ein Zimmer.",
+            "english": "You are staying, right? You need a room.",
+            "clipId": "dialogue-a1-cafe-complete-0"
+          },
+          {
+            "id": "a1-cafe-complete-1",
+            "speaker": "marta",
+            "german": "Aber jetzt wartet Otto am Plan.",
+            "english": "But right now Otto is waiting at the timetable.",
+            "clipId": "dialogue-a1-cafe-complete-1"
+          }
+        ],
+        "terminal": true
+      }
+    ],
+    "topics": [
+      {
+        "id": "woman",
+        "german": "Wie war die Frau?",
+        "english": "What was the woman like?",
+        "lines": [
+          {
+            "id": "a1-cafe-topic-woman-0",
+            "speaker": "marta",
+            "german": "Müde. Und sehr leise.",
+            "english": "Tired. And very quiet.",
+            "clipId": "dialogue-a1-cafe-topic-woman-0"
+          },
+          {
+            "id": "a1-cafe-topic-woman-1",
+            "speaker": "marta",
+            "german": "Ihr Gesicht? Ich sehe es nicht mehr.",
+            "english": "Her face? I cannot picture it any more.",
+            "clipId": "dialogue-a1-cafe-topic-woman-1"
+          },
+          {
+            "id": "a1-cafe-topic-woman-2",
+            "speaker": "marta",
+            "german": "Sie hat gesagt: Dann sagt man ihn laut.",
+            "english": "She said: then someone will say it out loud.",
+            "clipId": "dialogue-a1-cafe-topic-woman-2"
+          }
+        ]
+      },
+      {
+        "id": "price",
+        "german": "Was kostet ein Kaffee?",
+        "english": "How much is a coffee?",
+        "lines": [
+          {
+            "id": "a1-cafe-topic-price-0",
+            "speaker": "marta",
+            "german": "Drei Euro. Für dich heute: nichts!",
+            "english": "Three euros. For you today: nothing!",
+            "clipId": "dialogue-a1-cafe-topic-price-0"
+          }
+        ]
+      }
+    ],
+    "investigations": [
+      {
+        "objectId": "lindenhafen-cafe-receipt",
+        "german": "Ein Kaffee für {name}. Bezahlt. — E.",
+        "english": "One coffee for {name}. Paid. — E."
+      }
+    ],
+    "introducedWords": {
+      "Stempel": "stamp",
+      "Gutschein": "voucher"
     }
   },
   {
@@ -1053,8 +1436,8 @@
           {
             "id": "a1-notice-complete-1",
             "speaker": "otto",
-            "german": "Du hast Hunger. Geh zu Marta ins Café.",
-            "english": "You are hungry. Go to Marta at the café.",
+            "german": "Fritz hat Brot. Geh zu ihm.",
+            "english": "Fritz has bread. Go to him.",
             "clipId": "dialogue-a1-notice-complete-1"
           }
         ],
@@ -1118,31 +1501,31 @@
     }
   },
   {
-    "questId": "a1-cafe",
+    "questId": "a1-shopping",
     "level": "A1",
     "start": "intro",
-    "gateExerciseId": "a1-cafe-exercise-1",
-    "gatePrompt": "Order a coffee from Marta.",
-    "evidenceItem": "a1-cafe-evidence",
+    "gateExerciseId": "a1-shopping-exercise-1",
+    "gatePrompt": "Ask Fritz what the bread costs.",
+    "evidenceItem": "a1-shopping-evidence",
     "objectives": [
       {
-        "text": "Meet Marta in her café",
-        "location": "Café",
+        "text": "Visit Fritz’s market stall",
+        "location": "Market",
         "stage": "intro"
       },
       {
-        "text": "Read the note on the counter",
-        "location": "lindenhafen-cafe-receipt",
+        "text": "Look at the Friday guest names",
+        "location": "lindenhafen-market-crate",
         "stage": "intro"
       },
       {
-        "text": "Order a coffee from Marta.",
-        "location": "Café",
+        "text": "Ask Fritz what the bread costs.",
+        "location": "Market",
         "stage": "gate"
       },
       {
-        "text": "Decide who keeps the receipt",
-        "location": "Café",
+        "text": "Decide how much bread to buy",
+        "location": "Market",
         "stage": "choice"
       }
     ],
@@ -1152,75 +1535,66 @@
         "stage": "intro",
         "lines": [
           {
-            "id": "a1-cafe-intro-0",
-            "speaker": "marta",
-            "german": "Hallo! Ich bin Marta. Willkommen im Café!",
-            "english": "Hello! I am Marta. Welcome to the café!",
-            "clipId": "dialogue-a1-cafe-intro-0",
-            "expression": "smile"
+            "id": "a1-shopping-intro-0",
+            "speaker": "fritz",
+            "german": "Hallo! Das Wasser hier kostet nichts.",
+            "english": "Hello! The water here costs nothing.",
+            "clipId": "dialogue-a1-shopping-intro-0"
           },
           {
-            "id": "a1-cafe-intro-1",
-            "speaker": "marta",
-            "german": "Du hast Ottos Schlüssel? Den bekomme ich nie!",
-            "english": "You have Otto’s key? He never lends it to me!",
-            "clipId": "dialogue-a1-cafe-intro-1",
+            "id": "a1-shopping-intro-1",
+            "speaker": "fritz",
+            "german": "Das Brot aber kostet Geld.",
+            "english": "The bread, though, costs money.",
+            "clipId": "dialogue-a1-shopping-intro-1"
+          },
+          {
+            "id": "a1-shopping-intro-receipt-kept",
+            "speaker": "fritz",
             "condition": {
-              "flag": "platform-protected"
-            }
+              "flag": "receipt-kept"
+            },
+            "german": "Marta sagt, du hast die Rechnung noch. Gut so!",
+            "english": "Marta says you still have the receipt. Good!",
+            "clipId": "dialogue-a1-shopping-intro-receipt-kept"
           },
           {
-            "id": "a1-cafe-intro-2",
-            "speaker": "marta",
-            "german": "Voss hat deine Fahrkarte? Er hat alles.",
-            "english": "Voss has your ticket? He has everything.",
-            "clipId": "dialogue-a1-cafe-intro-2",
+            "id": "a1-shopping-intro-receipt-filed",
+            "speaker": "fritz",
             "condition": {
-              "flag": "platform-reported"
-            }
+              "flag": "receipt-filed"
+            },
+            "german": "Marta sagt, Voss hat deine Rechnung. Er hat alles.",
+            "english": "Marta says Voss has your receipt. He has everything.",
+            "clipId": "dialogue-a1-shopping-intro-receipt-filed"
           },
           {
-            "id": "a1-cafe-intro-3",
-            "speaker": "marta",
-            "german": "Hier liegt ein Papier. Für einen Gast.",
-            "english": "There is a note here. For a guest.",
-            "clipId": "dialogue-a1-cafe-intro-3"
+            "id": "a1-shopping-intro-4",
+            "speaker": "fritz",
+            "german": "Am Freitag koche ich Suppe für alle.",
+            "english": "On Friday I cook soup for everyone.",
+            "clipId": "dialogue-a1-shopping-intro-4"
           },
           {
-            "id": "a1-cafe-intro-4",
-            "speaker": "marta",
-            "german": "Ein Kaffee für {name}. Bezahlt. E.",
-            "english": "One coffee for {name}. Paid. E.",
-            "clipId": "dialogue-a1-cafe-intro-4"
+            "id": "a1-shopping-intro-5",
+            "speaker": "fritz",
+            "german": "Hier sind die Namen: Otto, Marta, Lina, Emil, Greta.",
+            "english": "Here are the names: Otto, Marta, Lina, Emil, Greta.",
+            "clipId": "dialogue-a1-shopping-intro-5"
           },
           {
-            "id": "a1-cafe-intro-5",
-            "speaker": "marta",
-            "german": "Du bist {name}? Dann ist das für dich.",
-            "english": "You are {name}? Then this is for you.",
-            "clipId": "dialogue-a1-cafe-intro-5"
+            "id": "a1-shopping-intro-6",
+            "speaker": "fritz",
+            "german": "Dann kommt ein Platz. Dort steht kein Name.",
+            "english": "Then comes a place. There is no name there.",
+            "clipId": "dialogue-a1-shopping-intro-6"
           },
           {
-            "id": "a1-cafe-intro-6",
-            "speaker": "marta",
-            "german": "Eine Frau hat gestern für dich bezahlt.",
-            "english": "A woman paid for you yesterday.",
-            "clipId": "dialogue-a1-cafe-intro-6"
-          },
-          {
-            "id": "a1-cafe-intro-7",
-            "speaker": "marta",
-            "german": "Ihren Namen? Ich weiß ihn nicht mehr.",
-            "english": "Her name? I cannot remember it.",
-            "clipId": "dialogue-a1-cafe-intro-7",
-            "expression": "worried"
-          },
-          {
-            "id": "a1-cafe-intro-8",
-            "speaker": "marta",
-            "german": "Und ich frage jeden Gast nach dem Namen!",
-            "english": "And I ask every guest their name!",
-            "clipId": "dialogue-a1-cafe-intro-8"
+            "id": "a1-shopping-intro-7",
+            "speaker": "fritz",
+            "german": "Hier saß immer ein Gast. Aber wer?",
+            "english": "A guest always sat here. But who?",
+            "clipId": "dialogue-a1-shopping-intro-7"
           }
         ],
         "next": "gate"
@@ -1230,28 +1604,21 @@
         "stage": "gate",
         "lines": [
           {
-            "id": "a1-cafe-gate-0",
-            "speaker": "marta",
-            "german": "So. Dein Kaffee ist schon bezahlt.",
-            "english": "So. Your coffee is already paid for.",
-            "clipId": "dialogue-a1-cafe-gate-0"
-          },
-          {
-            "id": "a1-cafe-gate-1",
-            "speaker": "marta",
-            "german": "Was möchtest du?",
-            "english": "What would you like?",
-            "clipId": "dialogue-a1-cafe-gate-1",
+            "id": "a1-shopping-gate-0",
+            "speaker": "fritz",
+            "german": "Ich habe Brot, Milch, Eier und Fisch.",
+            "english": "I have bread, milk, eggs and fish.",
+            "clipId": "dialogue-a1-shopping-gate-0",
             "variants": [
               {
-                "german": "Was möchtest du trinken?",
-                "english": "What would you like to drink?",
-                "clipId": "dialogue-a1-cafe-gate-1-simple"
+                "german": "Ich habe Brot, Milch und Eier.",
+                "english": "I have bread, milk and eggs.",
+                "clipId": "dialogue-a1-shopping-gate-0-simple"
               }
             ]
           }
         ],
-        "gateExerciseId": "a1-cafe-exercise-1",
+        "gateExerciseId": "a1-shopping-exercise-1",
         "next": "choice"
       },
       {
@@ -1259,165 +1626,111 @@
         "stage": "choice",
         "lines": [
           {
-            "id": "a1-cafe-choice-0",
-            "speaker": "marta",
-            "german": "Ein Kaffee. Kommt sofort!",
-            "english": "One coffee. Coming right up!",
-            "clipId": "dialogue-a1-cafe-choice-0"
+            "id": "a1-shopping-choice-0",
+            "speaker": "fritz",
+            "german": "Drei Euro. Für dich zwei fünfzig.",
+            "english": "Three euros. For you two fifty.",
+            "clipId": "dialogue-a1-shopping-choice-0"
           },
           {
-            "id": "a1-cafe-choice-1",
-            "speaker": "marta",
-            "german": "Die Frau saß dort, allein.",
-            "english": "The woman sat over there, alone.",
-            "clipId": "dialogue-a1-cafe-choice-1"
+            "id": "a1-shopping-choice-1",
+            "speaker": "fritz",
+            "german": "Die Milch kostet einen Euro, der Fisch sechs.",
+            "english": "The milk costs one euro, the fish six.",
+            "clipId": "dialogue-a1-shopping-choice-1"
           },
           {
-            "id": "a1-cafe-choice-2",
-            "speaker": "marta",
-            "german": "Sie war sehr müde. Ihre Hände waren schwarz.",
-            "english": "She was very tired. Her hands were black with ink.",
-            "clipId": "dialogue-a1-cafe-choice-2"
+            "id": "a1-shopping-choice-2",
+            "speaker": "fritz",
+            "german": "Ich schreibe jeden Namen auf. Jeden!",
+            "english": "I write down every name. Every one!",
+            "clipId": "dialogue-a1-shopping-choice-2"
           },
           {
-            "id": "a1-cafe-choice-3",
-            "speaker": "marta",
-            "german": "Ihren Tee hat sie nicht getrunken.",
-            "english": "She did not drink her tea.",
-            "clipId": "dialogue-a1-cafe-choice-3"
+            "id": "a1-shopping-choice-3",
+            "speaker": "fritz",
+            "german": "Hier steht kein Name. Das gefällt mir nicht.",
+            "english": "There is no name here. I do not like that.",
+            "clipId": "dialogue-a1-shopping-choice-3"
           },
           {
-            "id": "a1-cafe-choice-4",
-            "speaker": "marta",
-            "german": "Hier ist deine Rechnung. Moment… ein Stempel?",
-            "english": "Here is your receipt. Wait… a stamp?",
-            "clipId": "dialogue-a1-cafe-choice-4",
-            "glosses": {
-              "stempel": "stamp"
-            }
+            "id": "a1-shopping-choice-4",
+            "speaker": "fritz",
+            "german": "Ich kaufe Brot für sechs. Oder sieben?",
+            "english": "I am buying bread for six. Or seven?",
+            "clipId": "dialogue-a1-shopping-choice-4"
           },
           {
-            "id": "a1-cafe-choice-5",
-            "speaker": "marta",
-            "german": "Das ist der Stempel vom Messingamt.",
-            "english": "That is the Brass Office stamp.",
-            "clipId": "dialogue-a1-cafe-choice-5",
-            "glosses": {
-              "stempel": "stamp"
-            }
-          },
-          {
-            "id": "a1-cafe-choice-6",
-            "speaker": "marta",
-            "german": "Sie hat mit einem alten Gutschein bezahlt.",
-            "english": "She paid with an old voucher.",
-            "clipId": "dialogue-a1-cafe-choice-6",
-            "glosses": {
-              "gutschein": "voucher"
-            }
-          },
-          {
-            "id": "a1-cafe-choice-7",
-            "speaker": "marta",
-            "german": "So einen gibt es seit Jahren nicht mehr.",
-            "english": "They have not made those for years.",
-            "clipId": "dialogue-a1-cafe-choice-7"
-          },
-          {
-            "id": "a1-cafe-choice-8",
-            "speaker": "marta",
-            "german": "Voss hat schon deine Fahrkarte. Und jetzt das?",
-            "english": "Voss already has your ticket. And now this?",
-            "clipId": "dialogue-a1-cafe-choice-8",
-            "condition": {
-              "flag": "platform-reported"
-            }
-          },
-          {
-            "id": "a1-cafe-choice-9",
-            "speaker": "marta",
-            "german": "Bekommt Voss die Rechnung, oder nimmst du sie?",
-            "english": "Does Voss get the receipt, or do you take it?",
-            "clipId": "dialogue-a1-cafe-choice-9"
+            "id": "a1-shopping-choice-5",
+            "speaker": "fritz",
+            "german": "Kaufst du ein Brot oder zwei?",
+            "english": "Will you buy one loaf or two?",
+            "clipId": "dialogue-a1-shopping-choice-5"
           }
         ],
         "choices": [
           {
-            "id": "report",
-            "german": "Voss soll die Rechnung sehen.",
-            "english": "Voss should see the receipt.",
-            "next": "after-report",
+            "id": "extra-bread",
+            "german": "Zwei, bitte. Eins ist für den freien Platz.",
+            "english": "Two, please. One is for the free place.",
+            "next": "after-extra-bread",
             "effects": [
               {
-                "faction": "brassOffice",
-                "amount": 1
-              },
-              {
-                "flag": "receipt-filed"
-              },
-              {
-                "item": "receipt-copy"
+                "flag": "bread-for-empty-seat"
               }
             ]
           },
           {
-            "id": "protect",
-            "german": "Ich nehme die Rechnung mit.",
-            "english": "I will take the receipt with me.",
-            "next": "after-protect",
+            "id": "own-bread",
+            "german": "Nur eins, bitte. Für mich.",
+            "english": "Just one, please. For me.",
+            "next": "after-own-bread",
             "effects": [
               {
-                "faction": "lamplighters",
-                "amount": 1
-              },
-              {
-                "flag": "receipt-kept"
-              },
-              {
-                "item": "original-receipt"
+                "flag": "bread-own"
               }
             ]
           }
         ]
       },
       {
-        "id": "after-report",
+        "id": "after-extra-bread",
         "stage": "complete",
         "lines": [
           {
-            "id": "a1-cafe-after-report-0",
-            "speaker": "marta",
-            "german": "Gut. Ich schreibe dir eine zweite Rechnung.",
-            "english": "All right. I will write you a second receipt.",
-            "clipId": "dialogue-a1-cafe-after-report-0"
+            "id": "a1-shopping-after-extra-bread-0",
+            "speaker": "fritz",
+            "german": "Gut. Zwei Brote. Das macht fünf Euro.",
+            "english": "Good. Two loaves. That makes five euros.",
+            "clipId": "dialogue-a1-shopping-after-extra-bread-0"
           },
           {
-            "id": "a1-cafe-after-report-1",
-            "speaker": "marta",
-            "german": "Voss liest gern. Rechnungen, Formulare, alles.",
-            "english": "Voss loves reading. Receipts, forms, everything.",
-            "clipId": "dialogue-a1-cafe-after-report-1"
+            "id": "a1-shopping-after-extra-bread-1",
+            "speaker": "fritz",
+            "german": "Ein Brot für den Gast. Er hat Hunger.",
+            "english": "A loaf for the guest. He is hungry.",
+            "clipId": "dialogue-a1-shopping-after-extra-bread-1"
           }
         ],
         "next": "complete"
       },
       {
-        "id": "after-protect",
+        "id": "after-own-bread",
         "stage": "complete",
         "lines": [
           {
-            "id": "a1-cafe-after-protect-0",
-            "speaker": "marta",
-            "german": "Gut. Voss muss nicht alles wissen.",
-            "english": "Good. Voss does not need to know everything.",
-            "clipId": "dialogue-a1-cafe-after-protect-0"
+            "id": "a1-shopping-after-own-bread-0",
+            "speaker": "fritz",
+            "german": "Gut. Ein Brot. Das macht zwei fünfzig.",
+            "english": "Good. One loaf. That makes two fifty.",
+            "clipId": "dialogue-a1-shopping-after-own-bread-0"
           },
           {
-            "id": "a1-cafe-after-protect-1",
-            "speaker": "marta",
-            "german": "Ich schon. Ich will immer alles wissen!",
-            "english": "I do. I always want to know everything!",
-            "clipId": "dialogue-a1-cafe-after-protect-1"
+            "id": "a1-shopping-after-own-bread-1",
+            "speaker": "fritz",
+            "german": "Der Platz bleibt frei. Ich warte.",
+            "english": "The place stays free. I will wait.",
+            "clipId": "dialogue-a1-shopping-after-own-bread-1"
           }
         ],
         "next": "complete"
@@ -1427,11 +1740,25 @@
         "stage": "complete",
         "lines": [
           {
-            "id": "a1-cafe-complete-0",
-            "speaker": "marta",
-            "german": "Du bleibst hier, oder? Du brauchst ein Zimmer.",
-            "english": "You are staying, right? You need a room.",
-            "clipId": "dialogue-a1-cafe-complete-0"
+            "id": "a1-shopping-complete-0",
+            "speaker": "fritz",
+            "german": "Danke! Bis Freitag brauche ich viel.",
+            "english": "Thanks! I need a lot before Friday.",
+            "clipId": "dialogue-a1-shopping-complete-0"
+          },
+          {
+            "id": "a1-shopping-complete-1",
+            "speaker": "fritz",
+            "german": "Ich muss noch mehr kaufen. Komm bald wieder zu mir.",
+            "english": "I still have to buy more. Come back to me soon.",
+            "clipId": "dialogue-a1-shopping-complete-1"
+          },
+          {
+            "id": "a1-shopping-complete-2",
+            "speaker": "fritz",
+            "german": "Marta hat ein Zimmer für dich.",
+            "english": "Marta has a room for you.",
+            "clipId": "dialogue-a1-shopping-complete-2"
           }
         ],
         "terminal": true
@@ -1439,58 +1766,57 @@
     ],
     "topics": [
       {
-        "id": "woman",
-        "german": "Wie war die Frau?",
-        "english": "What was the woman like?",
+        "id": "soup",
+        "german": "Was kochst du am Freitag?",
+        "english": "What are you cooking on Friday?",
         "lines": [
           {
-            "id": "a1-cafe-topic-woman-0",
-            "speaker": "marta",
-            "german": "Müde. Und sehr leise.",
-            "english": "Tired. And very quiet.",
-            "clipId": "dialogue-a1-cafe-topic-woman-0"
+            "id": "a1-shopping-topic-soup-0",
+            "speaker": "fritz",
+            "german": "Eine Suppe mit Brot. Und viel Platz.",
+            "english": "A soup with bread. And lots of room.",
+            "clipId": "dialogue-a1-shopping-topic-soup-0"
           },
           {
-            "id": "a1-cafe-topic-woman-1",
-            "speaker": "marta",
-            "german": "Ihr Gesicht? Ich sehe es nicht mehr.",
-            "english": "Her face? I cannot picture it any more.",
-            "clipId": "dialogue-a1-cafe-topic-woman-1"
-          },
-          {
-            "id": "a1-cafe-topic-woman-2",
-            "speaker": "marta",
-            "german": "Sie hat gesagt: Dann sagt man ihn laut.",
-            "english": "She said: then someone will say it out loud.",
-            "clipId": "dialogue-a1-cafe-topic-woman-2"
+            "id": "a1-shopping-topic-soup-1",
+            "speaker": "fritz",
+            "german": "Alle essen zusammen. Keiner ist allein.",
+            "english": "Everyone eats together. Nobody is alone.",
+            "clipId": "dialogue-a1-shopping-topic-soup-1"
           }
         ]
       },
       {
-        "id": "price",
-        "german": "Was kostet ein Kaffee?",
-        "english": "How much is a coffee?",
+        "id": "who",
+        "german": "Wer saß dort?",
+        "english": "Who sat there?",
         "lines": [
           {
-            "id": "a1-cafe-topic-price-0",
-            "speaker": "marta",
-            "german": "Drei Euro. Für dich heute: nichts!",
-            "english": "Three euros. For you today: nothing!",
-            "clipId": "dialogue-a1-cafe-topic-price-0"
+            "id": "a1-shopping-topic-who-0",
+            "speaker": "fritz",
+            "german": "Das weiß ich nicht. Der Name ist weg.",
+            "english": "I do not know. The name is gone.",
+            "clipId": "dialogue-a1-shopping-topic-who-0"
+          },
+          {
+            "id": "a1-shopping-topic-who-1",
+            "speaker": "fritz",
+            "german": "Ich sehe nur den Platz. Er ist frei.",
+            "english": "I only see the place. It is free.",
+            "clipId": "dialogue-a1-shopping-topic-who-1"
           }
         ]
       }
     ],
     "investigations": [
       {
-        "objectId": "lindenhafen-cafe-receipt",
-        "german": "Ein Kaffee für {name}. Bezahlt. — E.",
-        "english": "One coffee for {name}. Paid. — E."
+        "objectId": "lindenhafen-market-crate",
+        "german": "Namen für Freitag: Otto, Marta, Lina, Emil, Greta, …",
+        "english": "Names for Friday: Otto, Marta, Lina, Emil, Greta, …"
       }
     ],
     "introducedWords": {
-      "Stempel": "stamp",
-      "Gutschein": "voucher"
+      "Suppe": "soup"
     }
   },
   {
@@ -1752,8 +2078,8 @@
           {
             "id": "a1-room-complete-1",
             "speaker": "marta",
-            "german": "Fritz hat Brot für uns. Geh zu ihm.",
-            "english": "Fritz has bread for us. Go to him.",
+            "german": "Fritz wartet auf dich. Geh wieder zu ihm.",
+            "english": "Fritz is waiting for you. Go back to him.",
             "clipId": "dialogue-a1-room-complete-1"
           }
         ],
@@ -1809,318 +2135,6 @@
     }
   },
   {
-    "questId": "a1-shopping",
-    "level": "A1",
-    "start": "intro",
-    "gateExerciseId": "a1-shopping-exercise-1",
-    "gatePrompt": "Ask Fritz what the bread costs.",
-    "evidenceItem": "a1-shopping-evidence",
-    "objectives": [
-      {
-        "text": "Visit Fritz’s market stall",
-        "location": "Market",
-        "stage": "intro"
-      },
-      {
-        "text": "Look at the Friday guest names",
-        "location": "lindenhafen-market-crate",
-        "stage": "intro"
-      },
-      {
-        "text": "Ask Fritz what the bread costs.",
-        "location": "Market",
-        "stage": "gate"
-      },
-      {
-        "text": "Decide how much bread to buy",
-        "location": "Market",
-        "stage": "choice"
-      }
-    ],
-    "nodes": [
-      {
-        "id": "intro",
-        "stage": "intro",
-        "lines": [
-          {
-            "id": "a1-shopping-intro-0",
-            "speaker": "fritz",
-            "german": "Hallo! Das Wasser hier kostet nichts.",
-            "english": "Hello! The water here costs nothing.",
-            "clipId": "dialogue-a1-shopping-intro-0"
-          },
-          {
-            "id": "a1-shopping-intro-1",
-            "speaker": "fritz",
-            "german": "Das Brot aber kostet Geld.",
-            "english": "The bread, though, costs money.",
-            "clipId": "dialogue-a1-shopping-intro-1"
-          },
-          {
-            "id": "a1-shopping-intro-2",
-            "speaker": "fritz",
-            "german": "Marta sagt, du hast Zimmer drei. Gut so!",
-            "english": "Marta says you have room three. Good!",
-            "clipId": "dialogue-a1-shopping-intro-2",
-            "condition": {
-              "flag": "room-three"
-            }
-          },
-          {
-            "id": "a1-shopping-intro-3",
-            "speaker": "fritz",
-            "german": "Marta sagt, du hast Zimmer fünf. Ruhig, oder?",
-            "english": "Marta says you have room five. Quiet, right?",
-            "clipId": "dialogue-a1-shopping-intro-3",
-            "condition": {
-              "flag": "room-five"
-            }
-          },
-          {
-            "id": "a1-shopping-intro-4",
-            "speaker": "fritz",
-            "german": "Am Freitag koche ich Suppe für alle.",
-            "english": "On Friday I cook soup for everyone.",
-            "clipId": "dialogue-a1-shopping-intro-4"
-          },
-          {
-            "id": "a1-shopping-intro-5",
-            "speaker": "fritz",
-            "german": "Hier sind die Namen: Otto, Marta, Lina, Emil, Greta.",
-            "english": "Here are the names: Otto, Marta, Lina, Emil, Greta.",
-            "clipId": "dialogue-a1-shopping-intro-5"
-          },
-          {
-            "id": "a1-shopping-intro-6",
-            "speaker": "fritz",
-            "german": "Dann kommt ein Platz. Dort steht kein Name.",
-            "english": "Then comes a place. There is no name there.",
-            "clipId": "dialogue-a1-shopping-intro-6"
-          },
-          {
-            "id": "a1-shopping-intro-7",
-            "speaker": "fritz",
-            "german": "Hier saß immer ein Gast. Aber wer?",
-            "english": "A guest always sat here. But who?",
-            "clipId": "dialogue-a1-shopping-intro-7"
-          }
-        ],
-        "next": "gate"
-      },
-      {
-        "id": "gate",
-        "stage": "gate",
-        "lines": [
-          {
-            "id": "a1-shopping-gate-0",
-            "speaker": "fritz",
-            "german": "Ich habe Brot, Milch, Eier und Fisch.",
-            "english": "I have bread, milk, eggs and fish.",
-            "clipId": "dialogue-a1-shopping-gate-0",
-            "variants": [
-              {
-                "german": "Ich habe Brot, Milch und Eier.",
-                "english": "I have bread, milk and eggs.",
-                "clipId": "dialogue-a1-shopping-gate-0-simple"
-              }
-            ]
-          }
-        ],
-        "gateExerciseId": "a1-shopping-exercise-1",
-        "next": "choice"
-      },
-      {
-        "id": "choice",
-        "stage": "choice",
-        "lines": [
-          {
-            "id": "a1-shopping-choice-0",
-            "speaker": "fritz",
-            "german": "Drei Euro. Für dich zwei fünfzig.",
-            "english": "Three euros. For you two fifty.",
-            "clipId": "dialogue-a1-shopping-choice-0"
-          },
-          {
-            "id": "a1-shopping-choice-1",
-            "speaker": "fritz",
-            "german": "Die Milch kostet einen Euro, der Fisch sechs.",
-            "english": "The milk costs one euro, the fish six.",
-            "clipId": "dialogue-a1-shopping-choice-1"
-          },
-          {
-            "id": "a1-shopping-choice-2",
-            "speaker": "fritz",
-            "german": "Ich schreibe jeden Namen auf. Jeden!",
-            "english": "I write down every name. Every one!",
-            "clipId": "dialogue-a1-shopping-choice-2"
-          },
-          {
-            "id": "a1-shopping-choice-3",
-            "speaker": "fritz",
-            "german": "Hier steht kein Name. Das gefällt mir nicht.",
-            "english": "There is no name here. I do not like that.",
-            "clipId": "dialogue-a1-shopping-choice-3"
-          },
-          {
-            "id": "a1-shopping-choice-4",
-            "speaker": "fritz",
-            "german": "Ich kaufe Brot für sechs. Oder sieben?",
-            "english": "I am buying bread for six. Or seven?",
-            "clipId": "dialogue-a1-shopping-choice-4"
-          },
-          {
-            "id": "a1-shopping-choice-5",
-            "speaker": "fritz",
-            "german": "Kaufst du ein Brot oder zwei?",
-            "english": "Will you buy one loaf or two?",
-            "clipId": "dialogue-a1-shopping-choice-5"
-          }
-        ],
-        "choices": [
-          {
-            "id": "extra-bread",
-            "german": "Zwei, bitte. Eins ist für den freien Platz.",
-            "english": "Two, please. One is for the free place.",
-            "next": "after-extra-bread",
-            "effects": [
-              {
-                "flag": "bread-for-empty-seat"
-              }
-            ]
-          },
-          {
-            "id": "own-bread",
-            "german": "Nur eins, bitte. Für mich.",
-            "english": "Just one, please. For me.",
-            "next": "after-own-bread",
-            "effects": [
-              {
-                "flag": "bread-own"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "after-extra-bread",
-        "stage": "complete",
-        "lines": [
-          {
-            "id": "a1-shopping-after-extra-bread-0",
-            "speaker": "fritz",
-            "german": "Gut. Zwei Brote. Das macht fünf Euro.",
-            "english": "Good. Two loaves. That makes five euros.",
-            "clipId": "dialogue-a1-shopping-after-extra-bread-0"
-          },
-          {
-            "id": "a1-shopping-after-extra-bread-1",
-            "speaker": "fritz",
-            "german": "Ein Brot für den Gast. Er hat Hunger.",
-            "english": "A loaf for the guest. He is hungry.",
-            "clipId": "dialogue-a1-shopping-after-extra-bread-1"
-          }
-        ],
-        "next": "complete"
-      },
-      {
-        "id": "after-own-bread",
-        "stage": "complete",
-        "lines": [
-          {
-            "id": "a1-shopping-after-own-bread-0",
-            "speaker": "fritz",
-            "german": "Gut. Ein Brot. Das macht zwei fünfzig.",
-            "english": "Good. One loaf. That makes two fifty.",
-            "clipId": "dialogue-a1-shopping-after-own-bread-0"
-          },
-          {
-            "id": "a1-shopping-after-own-bread-1",
-            "speaker": "fritz",
-            "german": "Der Platz bleibt frei. Ich warte.",
-            "english": "The place stays free. I will wait.",
-            "clipId": "dialogue-a1-shopping-after-own-bread-1"
-          }
-        ],
-        "next": "complete"
-      },
-      {
-        "id": "complete",
-        "stage": "complete",
-        "lines": [
-          {
-            "id": "a1-shopping-complete-0",
-            "speaker": "fritz",
-            "german": "Danke! Bis Freitag brauche ich viel.",
-            "english": "Thanks! I need a lot before Friday.",
-            "clipId": "dialogue-a1-shopping-complete-0"
-          },
-          {
-            "id": "a1-shopping-complete-1",
-            "speaker": "fritz",
-            "german": "Ich muss noch mehr kaufen. Komm bald wieder zu mir.",
-            "english": "I still have to buy more. Come back to me soon.",
-            "clipId": "dialogue-a1-shopping-complete-1"
-          }
-        ],
-        "terminal": true
-      }
-    ],
-    "topics": [
-      {
-        "id": "soup",
-        "german": "Was kochst du am Freitag?",
-        "english": "What are you cooking on Friday?",
-        "lines": [
-          {
-            "id": "a1-shopping-topic-soup-0",
-            "speaker": "fritz",
-            "german": "Eine Suppe mit Brot. Und viel Platz.",
-            "english": "A soup with bread. And lots of room.",
-            "clipId": "dialogue-a1-shopping-topic-soup-0"
-          },
-          {
-            "id": "a1-shopping-topic-soup-1",
-            "speaker": "fritz",
-            "german": "Alle essen zusammen. Keiner ist allein.",
-            "english": "Everyone eats together. Nobody is alone.",
-            "clipId": "dialogue-a1-shopping-topic-soup-1"
-          }
-        ]
-      },
-      {
-        "id": "who",
-        "german": "Wer saß dort?",
-        "english": "Who sat there?",
-        "lines": [
-          {
-            "id": "a1-shopping-topic-who-0",
-            "speaker": "fritz",
-            "german": "Das weiß ich nicht. Der Name ist weg.",
-            "english": "I do not know. The name is gone.",
-            "clipId": "dialogue-a1-shopping-topic-who-0"
-          },
-          {
-            "id": "a1-shopping-topic-who-1",
-            "speaker": "fritz",
-            "german": "Ich sehe nur den Platz. Er ist frei.",
-            "english": "I only see the place. It is free.",
-            "clipId": "dialogue-a1-shopping-topic-who-1"
-          }
-        ]
-      }
-    ],
-    "investigations": [
-      {
-        "objectId": "lindenhafen-market-crate",
-        "german": "Namen für Freitag: Otto, Marta, Lina, Emil, Greta, …",
-        "english": "Names for Friday: Otto, Marta, Lina, Emil, Greta, …"
-      }
-    ],
-    "introducedWords": {
-      "Suppe": "soup"
-    }
-  },
-  {
     "questId": "a1-market",
     "level": "A1",
     "start": "intro",
@@ -2170,6 +2184,26 @@
             "german": "Am Freitag essen hier alle zusammen.",
             "english": "On Fridays everyone eats here together.",
             "clipId": "dialogue-a1-market-intro-1"
+          },
+          {
+            "id": "a1-market-intro-room-three",
+            "speaker": "fritz",
+            "german": "Marta sagt, du hast Zimmer drei. Gut so!",
+            "english": "Marta says you have room three. Good!",
+            "condition": {
+              "flag": "room-three"
+            },
+            "clipId": "dialogue-a1-market-intro-room-three"
+          },
+          {
+            "id": "a1-market-intro-room-five",
+            "speaker": "fritz",
+            "german": "Marta sagt, du hast Zimmer fünf. Ruhig, oder?",
+            "english": "Marta says you have room five. Quiet, right?",
+            "condition": {
+              "flag": "room-five"
+            },
+            "clipId": "dialogue-a1-market-intro-room-five"
           },
           {
             "id": "a1-market-intro-2",
@@ -4559,6 +4593,13 @@
             "german": "Es ist spät. Morgen bin ich wieder hier.",
             "english": "It is late. I will be here again in the morning.",
             "clipId": "dialogue-a1-station-complete-0"
+          },
+          {
+            "id": "a1-station-complete-1",
+            "speaker": "otto",
+            "german": "Geh morgen zu Marta. Sie hat ein Telefon.",
+            "english": "Go to Marta tomorrow. She has a telephone.",
+            "clipId": "dialogue-a1-station-complete-1"
           }
         ],
         "terminal": true
@@ -4623,6 +4664,333 @@
     "introducedWords": {
       "jemand": "anyone",
       "Büro": "office"
+    }
+  },
+  {
+    "questId": "a1-phone",
+    "level": "A1",
+    "start": "intro",
+    "gateExerciseId": "a1-phone-exercise-1",
+    "gatePrompt": "Ask on the phone to speak to Otto.",
+    "evidenceItem": "a1-phone-evidence",
+    "objectives": [
+      {
+        "text": "Meet Marta at the café counter",
+        "location": "Café",
+        "stage": "intro"
+      },
+      {
+        "text": "Look at the telephone and the notes by it",
+        "location": "lindenhafen-cafe-receipt",
+        "stage": "intro"
+      },
+      {
+        "text": "Ask on the phone to speak to Otto.",
+        "location": "Café",
+        "stage": "gate"
+      },
+      {
+        "text": "Decide whether to spell your name for Voss",
+        "location": "Café",
+        "stage": "choice"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a1-phone-intro-0",
+            "speaker": "marta",
+            "german": "Das Telefon! Otto hat angerufen.",
+            "english": "The telephone! Otto has called.",
+            "clipId": "dialogue-a1-phone-intro-0"
+          },
+          {
+            "id": "a1-phone-intro-1",
+            "speaker": "marta",
+            "german": "Du musst ihn anrufen. Es ist wichtig.",
+            "english": "You have to call him. It is important.",
+            "clipId": "dialogue-a1-phone-intro-1"
+          },
+          {
+            "id": "a1-phone-intro-2",
+            "speaker": "marta",
+            "german": "Die Nummer vom Bahnhof: drei, vier, sieben.",
+            "english": "The station number: three, four, seven.",
+            "clipId": "dialogue-a1-phone-intro-2"
+          },
+          {
+            "id": "a1-phone-intro-3",
+            "speaker": "marta",
+            "german": "Ich höre nicht zu. Nur ein bisschen.",
+            "english": "I am not listening. Only a little.",
+            "clipId": "dialogue-a1-phone-intro-3"
+          },
+          {
+            "id": "a1-phone-intro-4",
+            "speaker": "marta",
+            "german": "Hier, nimm das Telefon. Es ist für dich.",
+            "english": "Here, take the telephone. It is for you.",
+            "clipId": "dialogue-a1-phone-intro-4"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a1-phone-gate-0",
+            "speaker": "marta",
+            "german": "Es dauert kurz. Dann antwortet ein Mann.",
+            "english": "It takes a moment. Then a man answers.",
+            "clipId": "dialogue-a1-phone-gate-0"
+          },
+          {
+            "id": "a1-phone-gate-1",
+            "speaker": "inspector",
+            "german": "Bahnhof Lindenhafen, Voss. Wen möchten Sie sprechen?",
+            "english": "Lindenhafen station, Voss. Whom would you like to speak to?",
+            "clipId": "dialogue-a1-phone-gate-1"
+          }
+        ],
+        "gateExerciseId": "a1-phone-exercise-1",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a1-phone-choice-0",
+            "speaker": "inspector",
+            "german": "Herr Otto ist auf Gleis sieben. Er kommt gleich.",
+            "english": "Mr Otto is at platform seven. He is coming soon.",
+            "clipId": "dialogue-a1-phone-choice-0"
+          },
+          {
+            "id": "a1-phone-choice-1",
+            "speaker": "inspector",
+            "german": "Die Rechnung vom Café habe ich. Danke.",
+            "english": "I have the receipt from the café. Thank you.",
+            "clipId": "dialogue-a1-phone-choice-1",
+            "condition": {
+              "flag": "receipt-filed"
+            }
+          },
+          {
+            "id": "a1-phone-choice-2",
+            "speaker": "inspector",
+            "german": "Die Rechnung haben Sie mitgenommen. Gut.",
+            "english": "You took the receipt with you. Fine.",
+            "clipId": "dialogue-a1-phone-choice-2",
+            "condition": {
+              "flag": "receipt-kept"
+            }
+          },
+          {
+            "id": "a1-phone-choice-3",
+            "speaker": "inspector",
+            "german": "Ich buchstabiere: V, O, S, S. Verstanden?",
+            "english": "I spell: V, O, S, S. Understood?",
+            "clipId": "dialogue-a1-phone-choice-3"
+          },
+          {
+            "id": "a1-phone-choice-4",
+            "speaker": "marta",
+            "german": "Das weiß hier jeder, Herr Voss!",
+            "english": "Everyone here knows that, Mr Voss!",
+            "clipId": "dialogue-a1-phone-choice-4"
+          },
+          {
+            "id": "a1-phone-choice-5",
+            "speaker": "inspector",
+            "german": "Ich habe das Register vor mir. Gartenstraße sieben.",
+            "english": "I have the register in front of me. Gartenstraße seven.",
+            "clipId": "dialogue-a1-phone-choice-5"
+          },
+          {
+            "id": "a1-phone-choice-6",
+            "speaker": "inspector",
+            "german": "Dort steht kein Name. Das ist nicht normal.",
+            "english": "There is no name there. That is not normal.",
+            "clipId": "dialogue-a1-phone-choice-6"
+          },
+          {
+            "id": "a1-phone-choice-9",
+            "speaker": "inspector",
+            "german": "Moment. Hier stand ein Name. Jetzt ist er weg.",
+            "english": "One moment. A name was written here. Now it is gone.",
+            "clipId": "dialogue-a1-phone-choice-9"
+          },
+          {
+            "id": "a1-phone-choice-10",
+            "speaker": "inspector",
+            "german": "Das ist nicht meine Hand. Wer war das?",
+            "english": "That is not my hand. Who did that?",
+            "clipId": "dialogue-a1-phone-choice-10"
+          },
+          {
+            "id": "a1-phone-choice-7",
+            "speaker": "inspector",
+            "german": "Ihr Name ist auch nicht im Register.",
+            "english": "Your name is not in the register either.",
+            "clipId": "dialogue-a1-phone-choice-7"
+          },
+          {
+            "id": "a1-phone-choice-8",
+            "speaker": "inspector",
+            "german": "Wollen Sie Ihren Namen jetzt buchstabieren?",
+            "english": "Do you want to spell your name now?",
+            "clipId": "dialogue-a1-phone-choice-8"
+          }
+        ],
+        "choices": [
+          {
+            "id": "spell",
+            "german": "Ja, Herr Voss. Ich buchstabiere meinen Namen.",
+            "english": "Yes, Mr Voss. I will spell my name.",
+            "next": "after-spell",
+            "effects": [
+              {
+                "flag": "name-in-register"
+              }
+            ]
+          },
+          {
+            "id": "refuse",
+            "german": "Nein, danke, Herr Voss. Der Name bleibt bei mir.",
+            "english": "No, thank you, Mr Voss. The name stays with me.",
+            "next": "after-refuse",
+            "effects": [
+              {
+                "flag": "name-withheld"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-phone-complete-0",
+            "speaker": "marta",
+            "german": "Das Telefon ist wieder ruhig.",
+            "english": "The telephone is quiet again.",
+            "clipId": "dialogue-a1-phone-complete-0"
+          },
+          {
+            "id": "a1-phone-complete-1",
+            "speaker": "marta",
+            "german": "Otto wartet am Bahnhof. Geh zu ihm.",
+            "english": "Otto is waiting at the station. Go to him.",
+            "clipId": "dialogue-a1-phone-complete-1"
+          }
+        ],
+        "terminal": true
+      },
+      {
+        "id": "after-spell",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-phone-after-spell-0",
+            "speaker": "inspector",
+            "german": "Danke. Langsam, bitte. Ich schreibe mit.",
+            "english": "Thank you. Slowly, please. I am writing it down.",
+            "clipId": "dialogue-a1-phone-after-spell-0"
+          },
+          {
+            "id": "a1-phone-after-spell-1",
+            "speaker": "marta",
+            "german": "Jetzt steht dein Name im Register.",
+            "english": "Now your name is in the register.",
+            "clipId": "dialogue-a1-phone-after-spell-1"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-refuse",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-phone-after-refuse-0",
+            "speaker": "inspector",
+            "german": "Wie Sie möchten. Das Register wartet.",
+            "english": "As you wish. The register will wait.",
+            "clipId": "dialogue-a1-phone-after-refuse-0"
+          },
+          {
+            "id": "a1-phone-after-refuse-1",
+            "speaker": "marta",
+            "german": "Dein Name bleibt bei dir. Das ist gut.",
+            "english": "Your name stays with you. That is good.",
+            "clipId": "dialogue-a1-phone-after-refuse-1"
+          }
+        ],
+        "next": "complete"
+      }
+    ],
+    "topics": [
+      {
+        "id": "otto",
+        "german": "Wo ist Otto jetzt?",
+        "english": "Where is Otto now?",
+        "lines": [
+          {
+            "id": "a1-phone-topic-otto-0",
+            "speaker": "inspector",
+            "german": "Er ist bei der alten Laterne.",
+            "english": "He is at the old lantern.",
+            "clipId": "dialogue-a1-phone-topic-otto-0"
+          },
+          {
+            "id": "a1-phone-topic-otto-1",
+            "speaker": "inspector",
+            "german": "Auf Gleis sieben. Wie jeden Tag.",
+            "english": "On platform seven. Like every day.",
+            "clipId": "dialogue-a1-phone-topic-otto-1"
+          }
+        ]
+      },
+      {
+        "id": "register",
+        "german": "Was steht in Ihrem Register?",
+        "english": "What is in your register?",
+        "lines": [
+          {
+            "id": "a1-phone-topic-register-0",
+            "speaker": "inspector",
+            "german": "Namen, Straßen und Nummern.",
+            "english": "Names, streets and numbers.",
+            "clipId": "dialogue-a1-phone-topic-register-0"
+          },
+          {
+            "id": "a1-phone-topic-register-1",
+            "speaker": "inspector",
+            "german": "Alles ist in Ordnung. Nur ein Name fehlt.",
+            "english": "Everything is in order. Only one name is missing.",
+            "clipId": "dialogue-a1-phone-topic-register-1"
+          }
+        ]
+      }
+    ],
+    "investigations": [
+      {
+        "objectId": "lindenhafen-cafe-receipt",
+        "german": "Das Telefon. Daneben liegen Rechnungen und Briefe.",
+        "english": "The telephone. Beside it lie receipts and letters."
+      }
+    ],
+    "introducedWords": {
+      "Register": "register (the book of names)",
+      "Gartenstraße": "Garden Street (a street name)"
     }
   },
   {
@@ -5284,6 +5652,13 @@
             "german": "Moment! Linas Fahrrad ist auch hier.",
             "english": "Wait! Lina’s bike is here too.",
             "clipId": "dialogue-a1-workshop-complete-0"
+          },
+          {
+            "id": "a1-workshop-complete-1",
+            "speaker": "emil",
+            "german": "Sieh, die Lampe! Beim Messingamt geht sie aus.",
+            "english": "Look, the lamp! By the Brass Office it goes out.",
+            "clipId": "dialogue-a1-workshop-complete-1"
           }
         ],
         "terminal": true
@@ -5343,632 +5718,6 @@
     "introducedWords": {
       "Lampe": "lamp",
       "funktioniert": "works"
-    }
-  },
-  {
-    "questId": "a1-bike",
-    "level": "A1",
-    "start": "intro",
-    "gateExerciseId": "a1-bike-exercise-1",
-    "gatePrompt": "Ask Emil when Lina’s bike will be ready.",
-    "evidenceItem": "a1-bike-evidence",
-    "objectives": [
-      {
-        "text": "Meet Emil in his workshop",
-        "location": "Emils Werkstatt",
-        "stage": "intro"
-      },
-      {
-        "text": "Look at Emil’s order book",
-        "location": "lindenhafen-workbench",
-        "stage": "intro"
-      },
-      {
-        "text": "Ask Emil when Lina’s bike will be ready.",
-        "location": "Emils Werkstatt",
-        "stage": "gate"
-      },
-      {
-        "text": "Decide how to pay for Lina’s bike",
-        "location": "Emils Werkstatt",
-        "stage": "choice"
-      }
-    ],
-    "nodes": [
-      {
-        "id": "intro",
-        "stage": "intro",
-        "lines": [
-          {
-            "id": "a1-bike-intro-0",
-            "speaker": "emil",
-            "german": "Hallo! Ich finde alles. Nur nicht gleich.",
-            "english": "Hello! I find everything. Just not right away.",
-            "clipId": "dialogue-a1-bike-intro-0"
-          },
-          {
-            "id": "a1-bike-intro-1",
-            "speaker": "emil",
-            "german": "Das Fahrrad ist von Lina. Es war kaputt.",
-            "english": "The bike is Lina’s. It was broken.",
-            "clipId": "dialogue-a1-bike-intro-1"
-          },
-          {
-            "id": "a1-bike-intro-carried",
-            "speaker": "emil",
-            "german": "Du hast mein Licht? Gut.",
-            "english": "You have my light? Good.",
-            "clipId": "dialogue-a1-bike-intro-carried",
-            "condition": {
-              "flag": "lamp-carried"
-            }
-          },
-          {
-            "id": "a1-bike-intro-registered",
-            "speaker": "emil",
-            "german": "Voss hat mein Licht in sein Buch geschrieben.",
-            "english": "Voss wrote my light in his book.",
-            "clipId": "dialogue-a1-bike-intro-registered",
-            "condition": {
-              "flag": "lamp-registered"
-            }
-          },
-          {
-            "id": "a1-bike-intro-4",
-            "speaker": "emil",
-            "german": "Ich bin gleich fertig. Gleich!",
-            "english": "I am almost done. Soon!",
-            "clipId": "dialogue-a1-bike-intro-4"
-          }
-        ],
-        "next": "gate"
-      },
-      {
-        "id": "gate",
-        "stage": "gate",
-        "lines": [
-          {
-            "id": "a1-bike-gate-request",
-            "speaker": "emil",
-            "german": "Du holst Linas Fahrrad? Es ist noch nicht fertig.",
-            "english": "You are collecting Lina’s bike? It is not ready yet.",
-            "clipId": "dialogue-a1-bike-gate-request",
-            "variants": [
-              {
-                "german": "Du holst das Fahrrad? Es ist nicht fertig.",
-                "english": "You are collecting the bike? It is not ready.",
-                "clipId": "dialogue-a1-bike-gate-request-simple"
-              }
-            ]
-          }
-        ],
-        "gateExerciseId": "a1-bike-exercise-1",
-        "next": "choice"
-      },
-      {
-        "id": "choice",
-        "stage": "choice",
-        "lines": [
-          {
-            "id": "a1-bike-gate-0",
-            "speaker": "emil",
-            "german": "Heute Nachmittag. Das Fahrrad geht meistens.",
-            "english": "This afternoon. The bike mostly works.",
-            "clipId": "dialogue-a1-bike-gate-0"
-          },
-          {
-            "id": "a1-bike-gate-1",
-            "speaker": "emil",
-            "german": "Die Reparatur kostet zwanzig Euro.",
-            "english": "The repair costs twenty euros.",
-            "clipId": "dialogue-a1-bike-gate-1"
-          },
-          {
-            "id": "a1-bike-gate-2",
-            "speaker": "emil",
-            "german": "Hier ist mein Buch. Alles steht hier.",
-            "english": "Here is my book. Everything is written here.",
-            "clipId": "dialogue-a1-bike-gate-2"
-          },
-          {
-            "id": "a1-bike-gate-3",
-            "speaker": "emil",
-            "german": "Vor einer Woche hat eine Frau Glas gekauft.",
-            "english": "A week ago a woman bought glass.",
-            "clipId": "dialogue-a1-bike-gate-3"
-          },
-          {
-            "id": "a1-bike-gate-4",
-            "speaker": "emil",
-            "german": "Es war für eine alte Laterne. Sie hat bar bezahlt.",
-            "english": "It was for an old lantern. She paid cash.",
-            "clipId": "dialogue-a1-bike-gate-4"
-          },
-          {
-            "id": "a1-bike-gate-5",
-            "speaker": "emil",
-            "german": "Unterschrift: E. Ihre Hände waren schwarz.",
-            "english": "Signature: E. Her hands were black.",
-            "clipId": "dialogue-a1-bike-gate-5"
-          },
-          {
-            "id": "a1-bike-gate-6",
-            "speaker": "emil",
-            "german": "Ich kenne sie. Aber ihr Name ist weg.",
-            "english": "I know her. But her name is gone.",
-            "clipId": "dialogue-a1-bike-gate-6"
-          },
-          {
-            "id": "a1-bike-choice-0",
-            "speaker": "emil",
-            "german": "Bezahlst du das Fahrrad jetzt, oder schreibe ich es auf?",
-            "english": "Will you pay for the bike now, or shall I write it down?",
-            "clipId": "dialogue-a1-bike-choice-0"
-          }
-        ],
-        "choices": [
-          {
-            "id": "pay-now",
-            "german": "Ich bezahle jetzt.",
-            "english": "I will pay now.",
-            "next": "after-pay-now",
-            "effects": [
-              {
-                "flag": "bike-paid"
-              }
-            ]
-          },
-          {
-            "id": "pay-later",
-            "german": "Bitte schreib es ins Buch.",
-            "english": "Please write it in the book.",
-            "next": "after-pay-later",
-            "effects": [
-              {
-                "flag": "bike-on-account"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "complete",
-        "stage": "complete",
-        "lines": [
-          {
-            "id": "a1-bike-complete-0",
-            "speaker": "emil",
-            "german": "Marta hat einen Anruf für dich. Geh ins Café.",
-            "english": "Marta has a phone call for you. Go to the café.",
-            "clipId": "dialogue-a1-bike-complete-0"
-          }
-        ],
-        "terminal": true
-      },
-      {
-        "id": "after-pay-now",
-        "stage": "complete",
-        "lines": [
-          {
-            "id": "a1-bike-after-pay-now-0",
-            "speaker": "emil",
-            "german": "Danke! Zwanzig Euro. Das ist schnell.",
-            "english": "Thanks! Twenty euros. That is quick.",
-            "clipId": "dialogue-a1-bike-after-pay-now-0"
-          },
-          {
-            "id": "a1-bike-after-pay-now-1",
-            "speaker": "emil",
-            "german": "Lina bekommt heute ein fertiges Fahrrad.",
-            "english": "Lina gets a finished bike today.",
-            "clipId": "dialogue-a1-bike-after-pay-now-1"
-          }
-        ],
-        "next": "complete"
-      },
-      {
-        "id": "after-pay-later",
-        "stage": "complete",
-        "lines": [
-          {
-            "id": "a1-bike-after-pay-later-0",
-            "speaker": "emil",
-            "german": "Kein Problem. Ich schreibe es ins Buch.",
-            "english": "No problem. I will write it in the book.",
-            "clipId": "dialogue-a1-bike-after-pay-later-0"
-          },
-          {
-            "id": "a1-bike-after-pay-later-1",
-            "speaker": "emil",
-            "german": "Lina zahlt am Freitag. Dann steht es da.",
-            "english": "Lina pays on Friday. Then it is there.",
-            "clipId": "dialogue-a1-bike-after-pay-later-1"
-          }
-        ],
-        "next": "complete"
-      }
-    ],
-    "topics": [
-      {
-        "id": "bike",
-        "german": "Wo ist Linas Fahrrad?",
-        "english": "Where is Lina’s bike?",
-        "lines": [
-          {
-            "id": "a1-bike-topic-bike-0",
-            "speaker": "emil",
-            "german": "Hinten, bei der Laterne.",
-            "english": "At the back, by the lantern.",
-            "clipId": "dialogue-a1-bike-topic-bike-0"
-          }
-        ]
-      },
-      {
-        "id": "cost",
-        "german": "Wie viel kostet es?",
-        "english": "How much does it cost?",
-        "lines": [
-          {
-            "id": "a1-bike-topic-cost-0",
-            "speaker": "emil",
-            "german": "Zwanzig Euro. Das ist nicht viel.",
-            "english": "Twenty euros. That is not much.",
-            "clipId": "dialogue-a1-bike-topic-cost-0"
-          }
-        ]
-      },
-      {
-        "id": "woman",
-        "german": "Wer war die Frau?",
-        "english": "Who was the woman?",
-        "lines": [
-          {
-            "id": "a1-bike-topic-woman-0",
-            "speaker": "emil",
-            "german": "Das weiß ich nicht mehr. Sie hatte keine Zeit.",
-            "english": "I do not remember. She had no time.",
-            "clipId": "dialogue-a1-bike-topic-woman-0"
-          }
-        ]
-      }
-    ],
-    "investigations": [
-      {
-        "objectId": "lindenhafen-workbench",
-        "german": "Emils Buch: Glas für eine Laterne. Unterschrift: E.",
-        "english": "Emil’s book: glass for a lantern. Signed: E."
-      }
-    ],
-    "introducedWords": {
-      "meistens": "mostly",
-      "Laterne": "lantern"
-    }
-  },
-  {
-    "questId": "a1-phone",
-    "level": "A1",
-    "start": "intro",
-    "gateExerciseId": "a1-phone-exercise-1",
-    "gatePrompt": "Ask on the phone to speak to Otto.",
-    "evidenceItem": "a1-phone-evidence",
-    "objectives": [
-      {
-        "text": "Meet Marta at the café counter",
-        "location": "Café",
-        "stage": "intro"
-      },
-      {
-        "text": "Look at the telephone and the notes by it",
-        "location": "lindenhafen-cafe-receipt",
-        "stage": "intro"
-      },
-      {
-        "text": "Ask on the phone to speak to Otto.",
-        "location": "Café",
-        "stage": "gate"
-      },
-      {
-        "text": "Decide whether to spell your name for Voss",
-        "location": "Café",
-        "stage": "choice"
-      }
-    ],
-    "nodes": [
-      {
-        "id": "intro",
-        "stage": "intro",
-        "lines": [
-          {
-            "id": "a1-phone-intro-0",
-            "speaker": "marta",
-            "german": "Das Telefon! Otto hat angerufen.",
-            "english": "The telephone! Otto has called.",
-            "clipId": "dialogue-a1-phone-intro-0"
-          },
-          {
-            "id": "a1-phone-intro-1",
-            "speaker": "marta",
-            "german": "Du musst ihn anrufen. Es ist wichtig.",
-            "english": "You have to call him. It is important.",
-            "clipId": "dialogue-a1-phone-intro-1"
-          },
-          {
-            "id": "a1-phone-intro-2",
-            "speaker": "marta",
-            "german": "Die Nummer vom Bahnhof: drei, vier, sieben.",
-            "english": "The station number: three, four, seven.",
-            "clipId": "dialogue-a1-phone-intro-2"
-          },
-          {
-            "id": "a1-phone-intro-3",
-            "speaker": "marta",
-            "german": "Ich höre nicht zu. Nur ein bisschen.",
-            "english": "I am not listening. Only a little.",
-            "clipId": "dialogue-a1-phone-intro-3"
-          },
-          {
-            "id": "a1-phone-intro-4",
-            "speaker": "marta",
-            "german": "Hier, nimm das Telefon. Es ist für dich.",
-            "english": "Here, take the telephone. It is for you.",
-            "clipId": "dialogue-a1-phone-intro-4"
-          }
-        ],
-        "next": "gate"
-      },
-      {
-        "id": "gate",
-        "stage": "gate",
-        "lines": [
-          {
-            "id": "a1-phone-gate-0",
-            "speaker": "marta",
-            "german": "Es dauert kurz. Dann antwortet ein Mann.",
-            "english": "It takes a moment. Then a man answers.",
-            "clipId": "dialogue-a1-phone-gate-0"
-          },
-          {
-            "id": "a1-phone-gate-1",
-            "speaker": "inspector",
-            "german": "Bahnhof Lindenhafen, Voss. Wen möchten Sie sprechen?",
-            "english": "Lindenhafen station, Voss. Whom would you like to speak to?",
-            "clipId": "dialogue-a1-phone-gate-1"
-          }
-        ],
-        "gateExerciseId": "a1-phone-exercise-1",
-        "next": "choice"
-      },
-      {
-        "id": "choice",
-        "stage": "choice",
-        "lines": [
-          {
-            "id": "a1-phone-choice-0",
-            "speaker": "inspector",
-            "german": "Herr Otto ist auf Gleis sieben. Er kommt gleich.",
-            "english": "Mr Otto is at platform seven. He is coming soon.",
-            "clipId": "dialogue-a1-phone-choice-0"
-          },
-          {
-            "id": "a1-phone-choice-1",
-            "speaker": "inspector",
-            "german": "Die Rechnung vom Café habe ich. Danke.",
-            "english": "I have the receipt from the café. Thank you.",
-            "clipId": "dialogue-a1-phone-choice-1",
-            "condition": {
-              "flag": "receipt-filed"
-            }
-          },
-          {
-            "id": "a1-phone-choice-2",
-            "speaker": "inspector",
-            "german": "Die Rechnung haben Sie mitgenommen. Gut.",
-            "english": "You took the receipt with you. Fine.",
-            "clipId": "dialogue-a1-phone-choice-2",
-            "condition": {
-              "flag": "receipt-kept"
-            }
-          },
-          {
-            "id": "a1-phone-choice-3",
-            "speaker": "inspector",
-            "german": "Ich buchstabiere: V, O, S, S. Verstanden?",
-            "english": "I spell: V, O, S, S. Understood?",
-            "clipId": "dialogue-a1-phone-choice-3"
-          },
-          {
-            "id": "a1-phone-choice-4",
-            "speaker": "marta",
-            "german": "Das weiß hier jeder, Herr Voss!",
-            "english": "Everyone here knows that, Mr Voss!",
-            "clipId": "dialogue-a1-phone-choice-4"
-          },
-          {
-            "id": "a1-phone-choice-5",
-            "speaker": "inspector",
-            "german": "Ich habe das Register vor mir. Gartenstraße sieben.",
-            "english": "I have the register in front of me. Gartenstraße seven.",
-            "clipId": "dialogue-a1-phone-choice-5"
-          },
-          {
-            "id": "a1-phone-choice-6",
-            "speaker": "inspector",
-            "german": "Dort steht kein Name. Das ist nicht normal.",
-            "english": "There is no name there. That is not normal.",
-            "clipId": "dialogue-a1-phone-choice-6"
-          },
-          {
-            "id": "a1-phone-choice-9",
-            "speaker": "inspector",
-            "german": "Moment. Hier stand ein Name. Jetzt ist er weg.",
-            "english": "One moment. A name was written here. Now it is gone.",
-            "clipId": "dialogue-a1-phone-choice-9"
-          },
-          {
-            "id": "a1-phone-choice-10",
-            "speaker": "inspector",
-            "german": "Das ist nicht meine Hand. Wer war das?",
-            "english": "That is not my hand. Who did that?",
-            "clipId": "dialogue-a1-phone-choice-10"
-          },
-          {
-            "id": "a1-phone-choice-7",
-            "speaker": "inspector",
-            "german": "Ihr Name ist auch nicht im Register.",
-            "english": "Your name is not in the register either.",
-            "clipId": "dialogue-a1-phone-choice-7"
-          },
-          {
-            "id": "a1-phone-choice-8",
-            "speaker": "inspector",
-            "german": "Wollen Sie Ihren Namen jetzt buchstabieren?",
-            "english": "Do you want to spell your name now?",
-            "clipId": "dialogue-a1-phone-choice-8"
-          }
-        ],
-        "choices": [
-          {
-            "id": "spell",
-            "german": "Ja, Herr Voss. Ich buchstabiere meinen Namen.",
-            "english": "Yes, Mr Voss. I will spell my name.",
-            "next": "after-spell",
-            "effects": [
-              {
-                "flag": "name-in-register"
-              }
-            ]
-          },
-          {
-            "id": "refuse",
-            "german": "Nein, danke, Herr Voss. Der Name bleibt bei mir.",
-            "english": "No, thank you, Mr Voss. The name stays with me.",
-            "next": "after-refuse",
-            "effects": [
-              {
-                "flag": "name-withheld"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "complete",
-        "stage": "complete",
-        "lines": [
-          {
-            "id": "a1-phone-complete-0",
-            "speaker": "marta",
-            "german": "Das Telefon ist wieder ruhig.",
-            "english": "The telephone is quiet again.",
-            "clipId": "dialogue-a1-phone-complete-0"
-          },
-          {
-            "id": "a1-phone-complete-1",
-            "speaker": "marta",
-            "german": "Geh zum Büro vom Messingamt. Es ist beim Bahnhof.",
-            "english": "Go to the Brass Office. It is by the station.",
-            "clipId": "dialogue-a1-phone-complete-1"
-          }
-        ],
-        "terminal": true
-      },
-      {
-        "id": "after-spell",
-        "stage": "complete",
-        "lines": [
-          {
-            "id": "a1-phone-after-spell-0",
-            "speaker": "inspector",
-            "german": "Danke. Langsam, bitte. Ich schreibe mit.",
-            "english": "Thank you. Slowly, please. I am writing it down.",
-            "clipId": "dialogue-a1-phone-after-spell-0"
-          },
-          {
-            "id": "a1-phone-after-spell-1",
-            "speaker": "marta",
-            "german": "Jetzt steht dein Name im Register.",
-            "english": "Now your name is in the register.",
-            "clipId": "dialogue-a1-phone-after-spell-1"
-          }
-        ],
-        "next": "complete"
-      },
-      {
-        "id": "after-refuse",
-        "stage": "complete",
-        "lines": [
-          {
-            "id": "a1-phone-after-refuse-0",
-            "speaker": "inspector",
-            "german": "Wie Sie möchten. Das Register wartet.",
-            "english": "As you wish. The register will wait.",
-            "clipId": "dialogue-a1-phone-after-refuse-0"
-          },
-          {
-            "id": "a1-phone-after-refuse-1",
-            "speaker": "marta",
-            "german": "Dein Name bleibt bei dir. Das ist gut.",
-            "english": "Your name stays with you. That is good.",
-            "clipId": "dialogue-a1-phone-after-refuse-1"
-          }
-        ],
-        "next": "complete"
-      }
-    ],
-    "topics": [
-      {
-        "id": "otto",
-        "german": "Wo ist Otto jetzt?",
-        "english": "Where is Otto now?",
-        "lines": [
-          {
-            "id": "a1-phone-topic-otto-0",
-            "speaker": "inspector",
-            "german": "Er ist bei der alten Laterne.",
-            "english": "He is at the old lantern.",
-            "clipId": "dialogue-a1-phone-topic-otto-0"
-          },
-          {
-            "id": "a1-phone-topic-otto-1",
-            "speaker": "inspector",
-            "german": "Auf Gleis sieben. Wie jeden Tag.",
-            "english": "On platform seven. Like every day.",
-            "clipId": "dialogue-a1-phone-topic-otto-1"
-          }
-        ]
-      },
-      {
-        "id": "register",
-        "german": "Was steht in Ihrem Register?",
-        "english": "What is in your register?",
-        "lines": [
-          {
-            "id": "a1-phone-topic-register-0",
-            "speaker": "inspector",
-            "german": "Namen, Straßen und Nummern.",
-            "english": "Names, streets and numbers.",
-            "clipId": "dialogue-a1-phone-topic-register-0"
-          },
-          {
-            "id": "a1-phone-topic-register-1",
-            "speaker": "inspector",
-            "german": "Alles ist in Ordnung. Nur ein Name fehlt.",
-            "english": "Everything is in order. Only one name is missing.",
-            "clipId": "dialogue-a1-phone-topic-register-1"
-          }
-        ]
-      }
-    ],
-    "investigations": [
-      {
-        "objectId": "lindenhafen-cafe-receipt",
-        "german": "Das Telefon. Daneben liegen Rechnungen und Briefe.",
-        "english": "The telephone. Beside it lie receipts and letters."
-      }
-    ],
-    "introducedWords": {
-      "Register": "register (the book of names)",
-      "Gartenstraße": "Garden Street (a street name)"
     }
   },
   {
@@ -6243,8 +5992,8 @@
           {
             "id": "a1-office-window-complete-1",
             "speaker": "otto",
-            "german": "Fritz hat eine Frage für dich. Geh zu ihm.",
-            "english": "Fritz has a question for you. Go to him.",
+            "german": "Hol Linas Fahrrad bei Emil.",
+            "english": "Fetch Lina’s bike from Emil.",
             "clipId": "dialogue-a1-office-window-complete-1"
           }
         ],
@@ -6297,6 +6046,641 @@
     ],
     "introducedWords": {
       "Liste": "list"
+    }
+  },
+  {
+    "questId": "a1-bike",
+    "level": "A1",
+    "start": "intro",
+    "gateExerciseId": "a1-bike-exercise-1",
+    "gatePrompt": "Ask Emil when Lina’s bike will be ready.",
+    "evidenceItem": "a1-bike-evidence",
+    "objectives": [
+      {
+        "text": "Meet Emil in his workshop",
+        "location": "Emils Werkstatt",
+        "stage": "intro"
+      },
+      {
+        "text": "Look at Emil’s order book",
+        "location": "lindenhafen-workbench",
+        "stage": "intro"
+      },
+      {
+        "text": "Ask Emil when Lina’s bike will be ready.",
+        "location": "Emils Werkstatt",
+        "stage": "gate"
+      },
+      {
+        "text": "Decide how to pay for Lina’s bike",
+        "location": "Emils Werkstatt",
+        "stage": "choice"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a1-bike-intro-0",
+            "speaker": "emil",
+            "german": "Hallo! Ich finde alles. Nur nicht gleich.",
+            "english": "Hello! I find everything. Just not right away.",
+            "clipId": "dialogue-a1-bike-intro-0"
+          },
+          {
+            "id": "a1-bike-intro-1",
+            "speaker": "emil",
+            "german": "Das Fahrrad ist von Lina. Es war kaputt.",
+            "english": "The bike is Lina’s. It was broken.",
+            "clipId": "dialogue-a1-bike-intro-1"
+          },
+          {
+            "id": "a1-bike-intro-carried",
+            "speaker": "emil",
+            "german": "Du hast mein Licht? Gut.",
+            "english": "You have my light? Good.",
+            "clipId": "dialogue-a1-bike-intro-carried",
+            "condition": {
+              "flag": "lamp-carried"
+            }
+          },
+          {
+            "id": "a1-bike-intro-registered",
+            "speaker": "emil",
+            "german": "Voss hat mein Licht in sein Buch geschrieben.",
+            "english": "Voss wrote my light in his book.",
+            "clipId": "dialogue-a1-bike-intro-registered",
+            "condition": {
+              "flag": "lamp-registered"
+            }
+          },
+          {
+            "id": "a1-bike-intro-4",
+            "speaker": "emil",
+            "german": "Ich bin gleich fertig. Gleich!",
+            "english": "I am almost done. Soon!",
+            "clipId": "dialogue-a1-bike-intro-4"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a1-bike-gate-request",
+            "speaker": "emil",
+            "german": "Du holst Linas Fahrrad? Es ist noch nicht fertig.",
+            "english": "You are collecting Lina’s bike? It is not ready yet.",
+            "clipId": "dialogue-a1-bike-gate-request",
+            "variants": [
+              {
+                "german": "Du holst das Fahrrad? Es ist nicht fertig.",
+                "english": "You are collecting the bike? It is not ready.",
+                "clipId": "dialogue-a1-bike-gate-request-simple"
+              }
+            ]
+          }
+        ],
+        "gateExerciseId": "a1-bike-exercise-1",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a1-bike-gate-0",
+            "speaker": "emil",
+            "german": "Heute Nachmittag. Das Fahrrad geht meistens.",
+            "english": "This afternoon. The bike mostly works.",
+            "clipId": "dialogue-a1-bike-gate-0"
+          },
+          {
+            "id": "a1-bike-gate-1",
+            "speaker": "emil",
+            "german": "Die Reparatur kostet zwanzig Euro.",
+            "english": "The repair costs twenty euros.",
+            "clipId": "dialogue-a1-bike-gate-1"
+          },
+          {
+            "id": "a1-bike-gate-2",
+            "speaker": "emil",
+            "german": "Hier ist mein Buch. Alles steht hier.",
+            "english": "Here is my book. Everything is written here.",
+            "clipId": "dialogue-a1-bike-gate-2"
+          },
+          {
+            "id": "a1-bike-gate-3",
+            "speaker": "emil",
+            "german": "Vor einer Woche hat eine Frau Glas gekauft.",
+            "english": "A week ago a woman bought glass.",
+            "clipId": "dialogue-a1-bike-gate-3"
+          },
+          {
+            "id": "a1-bike-gate-4",
+            "speaker": "emil",
+            "german": "Es war für eine alte Laterne. Sie hat bar bezahlt.",
+            "english": "It was for an old lantern. She paid cash.",
+            "clipId": "dialogue-a1-bike-gate-4"
+          },
+          {
+            "id": "a1-bike-gate-5",
+            "speaker": "emil",
+            "german": "Unterschrift: E. Ihre Hände waren schwarz.",
+            "english": "Signature: E. Her hands were black.",
+            "clipId": "dialogue-a1-bike-gate-5"
+          },
+          {
+            "id": "a1-bike-gate-6",
+            "speaker": "emil",
+            "german": "Ich kenne sie. Aber ihr Name ist weg.",
+            "english": "I know her. But her name is gone.",
+            "clipId": "dialogue-a1-bike-gate-6"
+          },
+          {
+            "id": "a1-bike-choice-0",
+            "speaker": "emil",
+            "german": "Bezahlst du das Fahrrad jetzt, oder schreibe ich es auf?",
+            "english": "Will you pay for the bike now, or shall I write it down?",
+            "clipId": "dialogue-a1-bike-choice-0"
+          }
+        ],
+        "choices": [
+          {
+            "id": "pay-now",
+            "german": "Ich bezahle jetzt.",
+            "english": "I will pay now.",
+            "next": "after-pay-now",
+            "effects": [
+              {
+                "flag": "bike-paid"
+              }
+            ]
+          },
+          {
+            "id": "pay-later",
+            "german": "Bitte schreib es ins Buch.",
+            "english": "Please write it in the book.",
+            "next": "after-pay-later",
+            "effects": [
+              {
+                "flag": "bike-on-account"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-bike-complete-0",
+            "speaker": "emil",
+            "german": "Lina wartet auf ihr Fahrrad. Geh zur Post.",
+            "english": "Lina is waiting for her bike. Go to the post office.",
+            "clipId": "dialogue-a1-bike-complete-0"
+          }
+        ],
+        "terminal": true
+      },
+      {
+        "id": "after-pay-now",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-bike-after-pay-now-0",
+            "speaker": "emil",
+            "german": "Danke! Zwanzig Euro. Das ist schnell.",
+            "english": "Thanks! Twenty euros. That is quick.",
+            "clipId": "dialogue-a1-bike-after-pay-now-0"
+          },
+          {
+            "id": "a1-bike-after-pay-now-1",
+            "speaker": "emil",
+            "german": "Lina bekommt heute ein fertiges Fahrrad.",
+            "english": "Lina gets a finished bike today.",
+            "clipId": "dialogue-a1-bike-after-pay-now-1"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-pay-later",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-bike-after-pay-later-0",
+            "speaker": "emil",
+            "german": "Kein Problem. Ich schreibe es ins Buch.",
+            "english": "No problem. I will write it in the book.",
+            "clipId": "dialogue-a1-bike-after-pay-later-0"
+          },
+          {
+            "id": "a1-bike-after-pay-later-1",
+            "speaker": "emil",
+            "german": "Lina zahlt am Freitag. Dann steht es da.",
+            "english": "Lina pays on Friday. Then it is there.",
+            "clipId": "dialogue-a1-bike-after-pay-later-1"
+          }
+        ],
+        "next": "complete"
+      }
+    ],
+    "topics": [
+      {
+        "id": "bike",
+        "german": "Wo ist Linas Fahrrad?",
+        "english": "Where is Lina’s bike?",
+        "lines": [
+          {
+            "id": "a1-bike-topic-bike-0",
+            "speaker": "emil",
+            "german": "Hinten, bei der Laterne.",
+            "english": "At the back, by the lantern.",
+            "clipId": "dialogue-a1-bike-topic-bike-0"
+          }
+        ]
+      },
+      {
+        "id": "cost",
+        "german": "Wie viel kostet es?",
+        "english": "How much does it cost?",
+        "lines": [
+          {
+            "id": "a1-bike-topic-cost-0",
+            "speaker": "emil",
+            "german": "Zwanzig Euro. Das ist nicht viel.",
+            "english": "Twenty euros. That is not much.",
+            "clipId": "dialogue-a1-bike-topic-cost-0"
+          }
+        ]
+      },
+      {
+        "id": "woman",
+        "german": "Wer war die Frau?",
+        "english": "Who was the woman?",
+        "lines": [
+          {
+            "id": "a1-bike-topic-woman-0",
+            "speaker": "emil",
+            "german": "Das weiß ich nicht mehr. Sie hatte keine Zeit.",
+            "english": "I do not remember. She had no time.",
+            "clipId": "dialogue-a1-bike-topic-woman-0"
+          }
+        ]
+      }
+    ],
+    "investigations": [
+      {
+        "objectId": "lindenhafen-workbench",
+        "german": "Emils Buch: Glas für eine Laterne. Unterschrift: E.",
+        "english": "Emil’s book: glass for a lantern. Signed: E."
+      }
+    ],
+    "introducedWords": {
+      "meistens": "mostly",
+      "Laterne": "lantern"
+    }
+  },
+  {
+    "questId": "a1-lost-found",
+    "level": "A1",
+    "start": "intro",
+    "gateExerciseId": "a1-lost-found-exercise-1",
+    "gatePrompt": "Tell Lina your bag is blue.",
+    "evidenceItem": "a1-lost-found-evidence",
+    "objectives": [
+      {
+        "text": "Meet Lina at the post counter",
+        "location": "Post",
+        "stage": "intro"
+      },
+      {
+        "text": "Look at the lost-and-found table",
+        "location": "lindenhafen-parcel",
+        "stage": "intro"
+      },
+      {
+        "text": "Tell Lina your bag is blue.",
+        "location": "Post",
+        "stage": "gate"
+      },
+      {
+        "text": "Decide what happens to the black glove",
+        "location": "Post",
+        "stage": "choice"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a1-lost-found-intro-0",
+            "speaker": "lina",
+            "german": "Da bist du! Ich schreibe alles auf.",
+            "english": "There you are! I write everything down.",
+            "clipId": "dialogue-a1-lost-found-intro-0"
+          },
+          {
+            "id": "a1-lost-found-intro-1",
+            "speaker": "lina",
+            "german": "Nummer eins: Tasche. Nummer zwei: Handschuh.",
+            "english": "Number one: bag. Number two: glove.",
+            "clipId": "dialogue-a1-lost-found-intro-1"
+          },
+          {
+            "id": "a1-lost-found-intro-2",
+            "speaker": "lina",
+            "german": "Mein Fahrrad fährt wieder. Danke!",
+            "english": "My bike is running again. Thanks!",
+            "clipId": "dialogue-a1-lost-found-intro-2",
+            "condition": {
+              "flag": "bike-paid"
+            }
+          },
+          {
+            "id": "a1-lost-found-intro-3",
+            "speaker": "lina",
+            "german": "Mein Fahrrad fährt wieder. Emil schreibt es auf.",
+            "english": "My bike is running again. Emil is writing it down.",
+            "clipId": "dialogue-a1-lost-found-intro-3",
+            "condition": {
+              "flag": "bike-on-account"
+            }
+          },
+          {
+            "id": "a1-lost-found-intro-4",
+            "speaker": "lina",
+            "german": "Aus dem Zug kam eine Tasche. Sie liegt hier.",
+            "english": "A bag came off the train. It is lying here.",
+            "clipId": "dialogue-a1-lost-found-intro-4"
+          },
+          {
+            "id": "a1-lost-found-intro-5",
+            "speaker": "lina",
+            "german": "Auf dem Tisch liegen elf Taschen.",
+            "english": "Eleven bags are lying on the table.",
+            "clipId": "dialogue-a1-lost-found-intro-5"
+          },
+          {
+            "id": "a1-lost-found-intro-6",
+            "speaker": "lina",
+            "german": "Fünf sind grün. Zwei sind alt. Eine ist groß.",
+            "english": "Five are green. Two are old. One is big.",
+            "clipId": "dialogue-a1-lost-found-intro-6"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a1-lost-found-gate-0",
+            "speaker": "lina",
+            "german": "Bei mir bekommt jeder nur seine Tasche.",
+            "english": "With me everyone only gets their own bag.",
+            "clipId": "dialogue-a1-lost-found-gate-0"
+          },
+          {
+            "id": "a1-lost-found-gate-1",
+            "speaker": "lina",
+            "german": "Welche Farbe hat deine Tasche?",
+            "english": "What colour is your bag?",
+            "clipId": "dialogue-a1-lost-found-gate-1"
+          }
+        ],
+        "gateExerciseId": "a1-lost-found-exercise-1",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a1-lost-found-choice-0",
+            "speaker": "lina",
+            "german": "Blau und klein? Hier ist sie!",
+            "english": "Blue and small? Here it is!",
+            "clipId": "dialogue-a1-lost-found-choice-0"
+          },
+          {
+            "id": "a1-lost-found-choice-1",
+            "speaker": "lina",
+            "german": "Tasche gefunden. Eins von zwei. Ich schreibe es auf.",
+            "english": "Bag found. One of two. I am writing it down.",
+            "clipId": "dialogue-a1-lost-found-choice-1"
+          },
+          {
+            "id": "a1-lost-found-choice-2",
+            "speaker": "lina",
+            "german": "Und das hier: ein schwarzer Handschuh.",
+            "english": "And this here: a black glove.",
+            "clipId": "dialogue-a1-lost-found-choice-2"
+          },
+          {
+            "id": "a1-lost-found-choice-3",
+            "speaker": "lina",
+            "german": "Er lag auf der Bank bei Gleis sieben.",
+            "english": "It was lying on the bench at platform seven.",
+            "clipId": "dialogue-a1-lost-found-choice-3"
+          },
+          {
+            "id": "a1-lost-found-choice-4",
+            "speaker": "lina",
+            "german": "Der Handschuh ist alt, aber die Tinte ist neu.",
+            "english": "The glove is old, but the ink is new.",
+            "clipId": "dialogue-a1-lost-found-choice-4"
+          },
+          {
+            "id": "a1-lost-found-choice-5",
+            "speaker": "lina",
+            "german": "Am Handschuh ist ein Schild. Der Name ist weg.",
+            "english": "There is a tag on the glove. The name is gone.",
+            "clipId": "dialogue-a1-lost-found-choice-5"
+          },
+          {
+            "id": "a1-lost-found-choice-7",
+            "speaker": "lina",
+            "german": "Und hier: eine alte Fahrkarte. Gleis sieben.",
+            "english": "And here: an old ticket. Platform seven.",
+            "clipId": "dialogue-a1-lost-found-choice-7"
+          },
+          {
+            "id": "a1-lost-found-choice-8",
+            "speaker": "lina",
+            "german": "Der Name ist noch da: Lenz.",
+            "english": "The name is still there: Lenz.",
+            "clipId": "dialogue-a1-lost-found-choice-8",
+            "expression": "worried"
+          },
+          {
+            "id": "a1-lost-found-choice-9",
+            "speaker": "lina",
+            "german": "Lenz. So heißen wir. Pip und ich.",
+            "english": "Lenz. That is our name. Pip and I.",
+            "clipId": "dialogue-a1-lost-found-choice-9",
+            "expression": "worried"
+          },
+          {
+            "id": "a1-lost-found-choice-6",
+            "speaker": "lina",
+            "german": "Nimmst du den Handschuh mit, oder bleibt er hier?",
+            "english": "Will you take the glove, or does it stay here?",
+            "clipId": "dialogue-a1-lost-found-choice-6"
+          }
+        ],
+        "choices": [
+          {
+            "id": "take-glove",
+            "german": "Ich nehme den Handschuh mit.",
+            "english": "I will take the glove with me.",
+            "next": "after-take-glove",
+            "effects": [
+              {
+                "flag": "glove-taken"
+              }
+            ]
+          },
+          {
+            "id": "leave-glove",
+            "german": "Er bleibt hier. Er gehört nicht mir.",
+            "english": "It stays here. It does not belong to me.",
+            "next": "after-leave-glove",
+            "effects": [
+              {
+                "flag": "glove-left"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-lost-found-complete-0",
+            "speaker": "lina",
+            "german": "Deine blaue Tasche ist wieder bei dir.",
+            "english": "Your blue bag is with you again.",
+            "clipId": "dialogue-a1-lost-found-complete-0"
+          },
+          {
+            "id": "a1-lost-found-complete-1",
+            "speaker": "lina",
+            "german": "Ich suche noch deine Post. Geh zu Fritz.",
+            "english": "I am still looking for your post. Go to Fritz.",
+            "clipId": "dialogue-a1-lost-found-complete-1"
+          }
+        ],
+        "terminal": true
+      },
+      {
+        "id": "after-take-glove",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-lost-found-after-take-glove-0",
+            "speaker": "lina",
+            "german": "Gut. Ich schreibe: Handschuh, mitgenommen.",
+            "english": "Good. I will write: glove, taken.",
+            "clipId": "dialogue-a1-lost-found-after-take-glove-0"
+          },
+          {
+            "id": "a1-lost-found-after-take-glove-1",
+            "speaker": "lina",
+            "german": "Wem er gehört? Ich weiß es nicht.",
+            "english": "Whose it is? I do not know.",
+            "clipId": "dialogue-a1-lost-found-after-take-glove-1"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-leave-glove",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a1-lost-found-after-leave-glove-0",
+            "speaker": "lina",
+            "german": "Gut. Ich lege ihn oben auf den Tisch.",
+            "english": "Good. I will put it on top of the table.",
+            "clipId": "dialogue-a1-lost-found-after-leave-glove-0"
+          },
+          {
+            "id": "a1-lost-found-after-leave-glove-1",
+            "speaker": "lina",
+            "german": "Dann sieht ihn jeder sofort.",
+            "english": "Then everyone sees it at once.",
+            "clipId": "dialogue-a1-lost-found-after-leave-glove-1"
+          }
+        ],
+        "next": "complete"
+      }
+    ],
+    "topics": [
+      {
+        "id": "bag",
+        "german": "Wo war meine Tasche?",
+        "english": "Where was my bag?",
+        "lines": [
+          {
+            "id": "a1-lost-found-topic-bag-0",
+            "speaker": "lina",
+            "german": "Im Zug. Auf der Bank.",
+            "english": "In the train. On the bench.",
+            "clipId": "dialogue-a1-lost-found-topic-bag-0"
+          },
+          {
+            "id": "a1-lost-found-topic-bag-1",
+            "speaker": "lina",
+            "german": "Allein. Sie war ruhig.",
+            "english": "Alone. She was quiet.",
+            "clipId": "dialogue-a1-lost-found-topic-bag-1"
+          }
+        ]
+      },
+      {
+        "id": "glove",
+        "german": "Wie sieht der Handschuh aus?",
+        "english": "What does the glove look like?",
+        "lines": [
+          {
+            "id": "a1-lost-found-topic-glove-0",
+            "speaker": "lina",
+            "german": "Schwarz, alt und klein.",
+            "english": "Black, old and small.",
+            "clipId": "dialogue-a1-lost-found-topic-glove-0"
+          },
+          {
+            "id": "a1-lost-found-topic-glove-1",
+            "speaker": "lina",
+            "german": "An der Hand ist Tinte.",
+            "english": "There is ink on the hand.",
+            "clipId": "dialogue-a1-lost-found-topic-glove-1"
+          }
+        ]
+      }
+    ],
+    "investigations": [
+      {
+        "objectId": "lindenhafen-parcel",
+        "german": "Elf Taschen, ein schwarzer Handschuh und eine alte Fahrkarte.",
+        "english": "The table: eleven bags, a black glove and an old ticket."
+      }
+    ],
+    "introducedWords": {
+      "Handschuh": "glove",
+      "Tinte": "ink"
     }
   },
   {
@@ -6539,15 +6923,15 @@
           {
             "id": "a1-invitation-complete-0",
             "speaker": "fritz",
-            "german": "Bis Freitag! Deine Tasche ist auch da.",
-            "english": "See you Friday! Your bag is there too.",
+            "german": "Bis Freitag! Lina hat noch Post für dich.",
+            "english": "See you Friday! Lina still has post for you.",
             "clipId": "dialogue-a1-invitation-complete-0"
           },
           {
             "id": "a1-invitation-complete-1",
             "speaker": "fritz",
-            "german": "Lina hat sie. Geh zu ihr auf die Post.",
-            "english": "Lina has it. Go to her at the post office.",
+            "german": "Geh zu ihr auf die Post.",
+            "english": "Go to her at the post office.",
             "clipId": "dialogue-a1-invitation-complete-1"
           }
         ],
@@ -6648,342 +7032,6 @@
       }
     ],
     "introducedWords": {}
-  },
-  {
-    "questId": "a1-lost-found",
-    "level": "A1",
-    "start": "intro",
-    "gateExerciseId": "a1-lost-found-exercise-1",
-    "gatePrompt": "Tell Lina your bag is blue.",
-    "evidenceItem": "a1-lost-found-evidence",
-    "objectives": [
-      {
-        "text": "Meet Lina at the post counter",
-        "location": "Post",
-        "stage": "intro"
-      },
-      {
-        "text": "Look at the lost-and-found table",
-        "location": "lindenhafen-parcel",
-        "stage": "intro"
-      },
-      {
-        "text": "Tell Lina your bag is blue.",
-        "location": "Post",
-        "stage": "gate"
-      },
-      {
-        "text": "Decide what happens to the black glove",
-        "location": "Post",
-        "stage": "choice"
-      }
-    ],
-    "nodes": [
-      {
-        "id": "intro",
-        "stage": "intro",
-        "lines": [
-          {
-            "id": "a1-lost-found-intro-0",
-            "speaker": "lina",
-            "german": "Da bist du! Ich schreibe alles auf.",
-            "english": "There you are! I write everything down.",
-            "clipId": "dialogue-a1-lost-found-intro-0"
-          },
-          {
-            "id": "a1-lost-found-intro-1",
-            "speaker": "lina",
-            "german": "Nummer eins: Tasche. Nummer zwei: Handschuh.",
-            "english": "Number one: bag. Number two: glove.",
-            "clipId": "dialogue-a1-lost-found-intro-1"
-          },
-          {
-            "id": "a1-lost-found-intro-2",
-            "speaker": "lina",
-            "german": "Mein Fahrrad fährt wieder. Danke!",
-            "english": "My bike is running again. Thanks!",
-            "clipId": "dialogue-a1-lost-found-intro-2",
-            "condition": {
-              "flag": "bike-paid"
-            }
-          },
-          {
-            "id": "a1-lost-found-intro-3",
-            "speaker": "lina",
-            "german": "Mein Fahrrad fährt wieder. Emil schreibt es auf.",
-            "english": "My bike is running again. Emil is writing it down.",
-            "clipId": "dialogue-a1-lost-found-intro-3",
-            "condition": {
-              "flag": "bike-on-account"
-            }
-          },
-          {
-            "id": "a1-lost-found-intro-4",
-            "speaker": "lina",
-            "german": "Aus dem Zug kam eine Tasche. Sie liegt hier.",
-            "english": "A bag came off the train. It is lying here.",
-            "clipId": "dialogue-a1-lost-found-intro-4"
-          },
-          {
-            "id": "a1-lost-found-intro-5",
-            "speaker": "lina",
-            "german": "Auf dem Tisch liegen elf Taschen.",
-            "english": "Eleven bags are lying on the table.",
-            "clipId": "dialogue-a1-lost-found-intro-5"
-          },
-          {
-            "id": "a1-lost-found-intro-6",
-            "speaker": "lina",
-            "german": "Fünf sind grün. Zwei sind alt. Eine ist groß.",
-            "english": "Five are green. Two are old. One is big.",
-            "clipId": "dialogue-a1-lost-found-intro-6"
-          }
-        ],
-        "next": "gate"
-      },
-      {
-        "id": "gate",
-        "stage": "gate",
-        "lines": [
-          {
-            "id": "a1-lost-found-gate-0",
-            "speaker": "lina",
-            "german": "Bei mir bekommt jeder nur seine Tasche.",
-            "english": "With me everyone only gets their own bag.",
-            "clipId": "dialogue-a1-lost-found-gate-0"
-          },
-          {
-            "id": "a1-lost-found-gate-1",
-            "speaker": "lina",
-            "german": "Welche Farbe hat deine Tasche?",
-            "english": "What colour is your bag?",
-            "clipId": "dialogue-a1-lost-found-gate-1"
-          }
-        ],
-        "gateExerciseId": "a1-lost-found-exercise-1",
-        "next": "choice"
-      },
-      {
-        "id": "choice",
-        "stage": "choice",
-        "lines": [
-          {
-            "id": "a1-lost-found-choice-0",
-            "speaker": "lina",
-            "german": "Blau und klein? Hier ist sie!",
-            "english": "Blue and small? Here it is!",
-            "clipId": "dialogue-a1-lost-found-choice-0"
-          },
-          {
-            "id": "a1-lost-found-choice-1",
-            "speaker": "lina",
-            "german": "Tasche gefunden. Eins von zwei. Ich schreibe es auf.",
-            "english": "Bag found. One of two. I am writing it down.",
-            "clipId": "dialogue-a1-lost-found-choice-1"
-          },
-          {
-            "id": "a1-lost-found-choice-2",
-            "speaker": "lina",
-            "german": "Und das hier: ein schwarzer Handschuh.",
-            "english": "And this here: a black glove.",
-            "clipId": "dialogue-a1-lost-found-choice-2"
-          },
-          {
-            "id": "a1-lost-found-choice-3",
-            "speaker": "lina",
-            "german": "Er lag auf der Bank bei Gleis sieben.",
-            "english": "It was lying on the bench at platform seven.",
-            "clipId": "dialogue-a1-lost-found-choice-3"
-          },
-          {
-            "id": "a1-lost-found-choice-4",
-            "speaker": "lina",
-            "german": "Der Handschuh ist alt, aber die Tinte ist neu.",
-            "english": "The glove is old, but the ink is new.",
-            "clipId": "dialogue-a1-lost-found-choice-4"
-          },
-          {
-            "id": "a1-lost-found-choice-5",
-            "speaker": "lina",
-            "german": "Am Handschuh ist ein Schild. Der Name ist weg.",
-            "english": "There is a tag on the glove. The name is gone.",
-            "clipId": "dialogue-a1-lost-found-choice-5"
-          },
-          {
-            "id": "a1-lost-found-choice-7",
-            "speaker": "lina",
-            "german": "Und hier: eine alte Fahrkarte. Gleis sieben.",
-            "english": "And here: an old ticket. Platform seven.",
-            "clipId": "dialogue-a1-lost-found-choice-7"
-          },
-          {
-            "id": "a1-lost-found-choice-8",
-            "speaker": "lina",
-            "german": "Der Name ist noch da: Lenz.",
-            "english": "The name is still there: Lenz.",
-            "clipId": "dialogue-a1-lost-found-choice-8",
-            "expression": "worried"
-          },
-          {
-            "id": "a1-lost-found-choice-9",
-            "speaker": "lina",
-            "german": "Lenz. So heißen wir. Pip und ich.",
-            "english": "Lenz. That is our name. Pip and I.",
-            "clipId": "dialogue-a1-lost-found-choice-9",
-            "expression": "worried"
-          },
-          {
-            "id": "a1-lost-found-choice-6",
-            "speaker": "lina",
-            "german": "Nimmst du den Handschuh mit, oder bleibt er hier?",
-            "english": "Will you take the glove, or does it stay here?",
-            "clipId": "dialogue-a1-lost-found-choice-6"
-          }
-        ],
-        "choices": [
-          {
-            "id": "take-glove",
-            "german": "Ich nehme den Handschuh mit.",
-            "english": "I will take the glove with me.",
-            "next": "after-take-glove",
-            "effects": [
-              {
-                "flag": "glove-taken"
-              }
-            ]
-          },
-          {
-            "id": "leave-glove",
-            "german": "Er bleibt hier. Er gehört nicht mir.",
-            "english": "It stays here. It does not belong to me.",
-            "next": "after-leave-glove",
-            "effects": [
-              {
-                "flag": "glove-left"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "complete",
-        "stage": "complete",
-        "lines": [
-          {
-            "id": "a1-lost-found-complete-0",
-            "speaker": "lina",
-            "german": "Deine blaue Tasche ist wieder bei dir.",
-            "english": "Your blue bag is with you again.",
-            "clipId": "dialogue-a1-lost-found-complete-0"
-          },
-          {
-            "id": "a1-lost-found-complete-1",
-            "speaker": "lina",
-            "german": "Warte kurz. Ich suche noch deine Post.",
-            "english": "Wait a moment. I am still looking for your post.",
-            "clipId": "dialogue-a1-lost-found-complete-1"
-          }
-        ],
-        "terminal": true
-      },
-      {
-        "id": "after-take-glove",
-        "stage": "complete",
-        "lines": [
-          {
-            "id": "a1-lost-found-after-take-glove-0",
-            "speaker": "lina",
-            "german": "Gut. Ich schreibe: Handschuh, mitgenommen.",
-            "english": "Good. I will write: glove, taken.",
-            "clipId": "dialogue-a1-lost-found-after-take-glove-0"
-          },
-          {
-            "id": "a1-lost-found-after-take-glove-1",
-            "speaker": "lina",
-            "german": "Wem er gehört? Ich weiß es nicht.",
-            "english": "Whose it is? I do not know.",
-            "clipId": "dialogue-a1-lost-found-after-take-glove-1"
-          }
-        ],
-        "next": "complete"
-      },
-      {
-        "id": "after-leave-glove",
-        "stage": "complete",
-        "lines": [
-          {
-            "id": "a1-lost-found-after-leave-glove-0",
-            "speaker": "lina",
-            "german": "Gut. Ich lege ihn oben auf den Tisch.",
-            "english": "Good. I will put it on top of the table.",
-            "clipId": "dialogue-a1-lost-found-after-leave-glove-0"
-          },
-          {
-            "id": "a1-lost-found-after-leave-glove-1",
-            "speaker": "lina",
-            "german": "Dann sieht ihn jeder sofort.",
-            "english": "Then everyone sees it at once.",
-            "clipId": "dialogue-a1-lost-found-after-leave-glove-1"
-          }
-        ],
-        "next": "complete"
-      }
-    ],
-    "topics": [
-      {
-        "id": "bag",
-        "german": "Wo war meine Tasche?",
-        "english": "Where was my bag?",
-        "lines": [
-          {
-            "id": "a1-lost-found-topic-bag-0",
-            "speaker": "lina",
-            "german": "Im Zug. Auf der Bank.",
-            "english": "In the train. On the bench.",
-            "clipId": "dialogue-a1-lost-found-topic-bag-0"
-          },
-          {
-            "id": "a1-lost-found-topic-bag-1",
-            "speaker": "lina",
-            "german": "Allein. Sie war ruhig.",
-            "english": "Alone. She was quiet.",
-            "clipId": "dialogue-a1-lost-found-topic-bag-1"
-          }
-        ]
-      },
-      {
-        "id": "glove",
-        "german": "Wie sieht der Handschuh aus?",
-        "english": "What does the glove look like?",
-        "lines": [
-          {
-            "id": "a1-lost-found-topic-glove-0",
-            "speaker": "lina",
-            "german": "Schwarz, alt und klein.",
-            "english": "Black, old and small.",
-            "clipId": "dialogue-a1-lost-found-topic-glove-0"
-          },
-          {
-            "id": "a1-lost-found-topic-glove-1",
-            "speaker": "lina",
-            "german": "An der Hand ist Tinte.",
-            "english": "There is ink on the hand.",
-            "clipId": "dialogue-a1-lost-found-topic-glove-1"
-          }
-        ]
-      }
-    ],
-    "investigations": [
-      {
-        "objectId": "lindenhafen-parcel",
-        "german": "Elf Taschen, ein schwarzer Handschuh und eine alte Fahrkarte.",
-        "english": "The table: eleven bags, a black glove and an old ticket."
-      }
-    ],
-    "introducedWords": {
-      "Handschuh": "glove",
-      "Tinte": "ink"
-    }
   },
   {
     "questId": "a1-lost-parcel",

@@ -55,25 +55,29 @@ func trialStatus(t *testing.T, app *App, token string, active *bool) AccessStatu
 func playTrial(t *testing.T, app *App, token string, clock *atomic.Int64, duration time.Duration) AccessStatus {
 	t.Helper()
 	active := true
-	status := trialStatus(t, app, token, &active)
+	trialStatus(t, app, token, &active)
 	for duration > 0 {
 		step := min(duration, 15*time.Second)
 		clock.Add(int64(step))
 		duration -= step
-		status = trialStatus(t, app, token, &active)
+		// Simulated hours elapse within a real rate-limit window. Renew the
+		// server lease directly between the initial heartbeat and final HTTP read.
+		if _, err := app.touchAccess(context.Background(), tokenHash(token), &active); err != nil {
+			t.Fatal(err)
+		}
 	}
-	return status
+	return trialStatus(t, app, token, nil)
 }
 
 func TestTrialJourneyPreservesGuestTimeThroughSignupAndRequiresPayment(t *testing.T) {
 	app := trialTestApp(t)
 	clock := trialTestClock(app)
 	token, _ := createSession(t, app, "Ada")
-	if status := trialStatus(t, app, token, nil); status.Phase != "guest" || status.RemainingSeconds != 300 || status.Registered {
+	if status := trialStatus(t, app, token, nil); status.Phase != "guest" || status.RemainingSeconds != 600 || status.Registered {
 		t.Fatalf("initial free access: %+v", status)
 	}
-	status := playTrial(t, app, token, clock, 5*time.Minute)
-	if status.Phase != "login_required" || status.PlayedSeconds != 300 || status.RemainingSeconds != 0 {
+	status := playTrial(t, app, token, clock, 10*time.Minute)
+	if status.Phase != "login_required" || status.PlayedSeconds != 600 || status.RemainingSeconds != 0 {
 		t.Fatalf("anonymous wall: %+v", status)
 	}
 	for _, route := range []struct{ method, path string }{{"GET", "/api/progress"}, {"POST", "/api/attempt"}, {"POST", "/api/intake/heartbeat"}} {
@@ -87,11 +91,11 @@ func TestTrialJourneyPreservesGuestTimeThroughSignupAndRequiresPayment(t *testin
 		t.Fatalf("signup at wall: %d %s", registered.Code, registered.Body.String())
 	}
 	status = trialStatus(t, app, token, nil)
-	if status.Phase != "trial" || status.RemainingSeconds != 600 || status.PlayedSeconds != 300 || !status.Registered {
+	if status.Phase != "trial" || status.RemainingSeconds != 6600 || status.PlayedSeconds != 600 || !status.Registered {
 		t.Fatalf("signup reset or shortened trial time: %+v", status)
 	}
-	status = playTrial(t, app, token, clock, 10*time.Minute)
-	if status.Phase != "payment_required" || status.PlayedSeconds != 900 {
+	status = playTrial(t, app, token, clock, 110*time.Minute)
+	if status.Phase != "payment_required" || status.PlayedSeconds != 7200 {
 		t.Fatalf("subscription wall: %+v", status)
 	}
 	if w := request(app, "POST", "/api/attempt", token, attemptFor("blocked")); w.Code != 402 || !strings.Contains(w.Body.String(), "payment_required") {
@@ -102,7 +106,7 @@ func TestTrialJourneyPreservesGuestTimeThroughSignupAndRequiresPayment(t *testin
 	}
 }
 
-func TestRegisteredGameCanRestartRepeatedlyWithFifteenMinutes(t *testing.T) {
+func TestRegisteredGameCanRestartRepeatedlyWithTwoHours(t *testing.T) {
 	app := trialTestApp(t)
 	clock := trialTestClock(app)
 	token, player := createSession(t, app, "Restart Ada")
@@ -115,7 +119,7 @@ func TestRegisteredGameCanRestartRepeatedlyWithFifteenMinutes(t *testing.T) {
 		t.Fatal(err)
 	}
 	for generation := int64(1); generation <= 3; generation++ {
-		// These simulated fifteen-minute sessions run within one real rate window.
+		// These simulated two-hour sessions run within one real rate window.
 		app.rateMu.Lock()
 		delete(app.limits, "access:"+tokenHash(token))
 		app.rateMu.Unlock()
@@ -133,10 +137,10 @@ func TestRegisteredGameCanRestartRepeatedlyWithFifteenMinutes(t *testing.T) {
 		if w.Code != 200 || json.Unmarshal(w.Body.Bytes(), &response) != nil {
 			t.Fatalf("round %d reset: %d %s", generation, w.Code, w.Body.String())
 		}
-		if response.Token != token || response.Player.ID != player.ID || response.Access.Phase != "trial" || !response.Access.Registered || response.Access.RemainingSeconds != 900 || response.Access.PlayedSeconds != 0 || response.Progress.XP != 0 {
+		if response.Token != token || response.Player.ID != player.ID || response.Access.Phase != "trial" || !response.Access.Registered || response.Access.RemainingSeconds != 7200 || response.Access.PlayedSeconds != 0 || response.Progress.XP != 0 {
 			t.Fatalf("round %d reset retained progress or changed identity: %+v", generation, response)
 		}
-		if status := trialStatus(t, app, secondToken, nil); status.Phase != "trial" || status.RemainingSeconds != 900 {
+		if status := trialStatus(t, app, secondToken, nil); status.Phase != "trial" || status.RemainingSeconds != 7200 {
 			t.Fatalf("second device did not receive restart: %+v", status)
 		}
 	}
@@ -145,12 +149,12 @@ func TestRegisteredGameCanRestartRepeatedlyWithFifteenMinutes(t *testing.T) {
 		Player Player
 		Access AccessStatus
 	}
-	if w.Code != 200 || json.Unmarshal(w.Body.Bytes(), &login) != nil || login.Player.ID != player.ID || login.Access.RemainingSeconds != 900 {
+	if w.Code != 200 || json.Unmarshal(w.Body.Bytes(), &login) != nil || login.Player.ID != player.ID || login.Access.RemainingSeconds != 7200 {
 		t.Fatalf("restart lost account credentials or allowance: %d %s", w.Code, w.Body.String())
 	}
 }
 
-func TestGuestGameRestartsGrantFifteenMinutesRepeatedly(t *testing.T) {
+func TestGuestGameRestartsGrantTwoHoursRepeatedly(t *testing.T) {
 	app := trialTestApp(t)
 	clock := trialTestClock(app)
 	token, _ := createSession(t, app, "Guest Restart Ada")
@@ -164,8 +168,8 @@ func TestGuestGameRestartsGrantFifteenMinutesRepeatedly(t *testing.T) {
 		if w := request(app, "POST", "/api/access/reset", token, nil); w.Code != 200 {
 			t.Fatalf("guest restart: %d %s", w.Code, w.Body.String())
 		}
-		if status := trialStatus(t, app, token, nil); status.Phase != "guest" || status.RemainingSeconds != 900 || status.PlayedSeconds != 0 {
-			t.Fatalf("guest restart did not grant fifteen minutes: %+v", status)
+		if status := trialStatus(t, app, token, nil); status.Phase != "guest" || status.RemainingSeconds != 7200 || status.PlayedSeconds != 0 {
+			t.Fatalf("guest restart did not grant two hours: %+v", status)
 		}
 	}
 }
@@ -197,7 +201,7 @@ func TestGameResetPreservesPaidAccess(t *testing.T) {
 	}
 }
 
-func TestEarlySignupGetsFifteenTotalMinutes(t *testing.T) {
+func TestEarlySignupGetsTwoTotalHours(t *testing.T) {
 	app := trialTestApp(t)
 	clock := trialTestClock(app)
 	token, _ := createSession(t, app, "Early Ada")
@@ -205,7 +209,7 @@ func TestEarlySignupGetsFifteenTotalMinutes(t *testing.T) {
 	if err := app.store.SetCredentials(context.Background(), tokenHash(token), "early@example.com", "encoded"); err != nil {
 		t.Fatal(err)
 	}
-	if status := trialStatus(t, app, token, nil); status.PlayedSeconds != 120 || status.RemainingSeconds != 780 || status.Phase != "trial" {
+	if status := trialStatus(t, app, token, nil); status.PlayedSeconds != 120 || status.RemainingSeconds != 7080 || status.Phase != "trial" {
 		t.Fatalf("early signup received extra/missing minutes: %+v", status)
 	}
 }
@@ -214,13 +218,13 @@ func TestSignupSettlesGuestLimitBeforeExpandingTrial(t *testing.T) {
 	app := trialTestApp(t)
 	clock := trialTestClock(app)
 	token, _ := createSession(t, app, "Delayed Signup Ada")
-	playTrial(t, app, token, clock, 295*time.Second)
+	playTrial(t, app, token, clock, 595*time.Second)
 	clock.Add(int64(10 * time.Second))
 	w := request(app, "POST", "/api/account/register", token, credentialInput{Email: "delayed@example.com", Password: "a long trial password"})
 	if w.Code != 200 {
 		t.Fatalf("delayed signup: %d %s", w.Code, w.Body.String())
 	}
-	if status := trialStatus(t, app, token, nil); status.PlayedSeconds != 300 || status.RemainingSeconds != 600 {
+	if status := trialStatus(t, app, token, nil); status.PlayedSeconds != 600 || status.RemainingSeconds != 6600 {
 		t.Fatalf("waiting at login wall consumed the registered allowance: %+v", status)
 	}
 }
@@ -237,11 +241,11 @@ func TestTrialUsesServerTimePausesAndCannotBeExtendedByOtherSessions(t *testing.
 	trialStatus(t, app, token, &active)
 	clock.Add(int64(12*time.Second + 500*time.Millisecond))
 	status := trialStatus(t, app, token, &inactive)
-	if status.PlayedSeconds != 12 || status.RemainingSeconds != 288 {
+	if status.PlayedSeconds != 12 || status.RemainingSeconds != 588 {
 		t.Fatalf("clock ignored server elapsed time: %+v", status)
 	}
 	clock.Add(int64(time.Hour))
-	if status := trialStatus(t, app, token, nil); status.PlayedSeconds != 12 || status.RemainingSeconds != 288 {
+	if status := trialStatus(t, app, token, nil); status.PlayedSeconds != 12 || status.RemainingSeconds != 588 {
 		t.Fatalf("paused play consumed trial time: %+v", status)
 	}
 	second, _ := randomID(32)
@@ -261,7 +265,7 @@ func TestTrialUsesServerTimePausesAndCannotBeExtendedByOtherSessions(t *testing.
 		})
 	}
 	workers.Wait()
-	if status := trialStatus(t, app, second, nil); status.PlayedSeconds != 27 || status.RemainingSeconds != 273 {
+	if status := trialStatus(t, app, second, nil); status.PlayedSeconds != 27 || status.RemainingSeconds != 573 {
 		t.Fatalf("multiple tabs duplicated/reset trial time: %+v", status)
 	}
 	// A forged client 'seconds' property has no effect on the server clock.
@@ -320,7 +324,7 @@ func TestGuestResetClearsAllProgressAndReceiptsButPreservesCharacter(t *testing.
 		t.Fatalf("reset retained learning or narrative progress: %+v", after)
 	}
 	_, _, remembered := app.world.RememberedLocation(player.ID)
-	if after.Player.MapID != DefaultMapID || after.Player.InteriorID != "" || response.Access.RemainingSeconds != 900 || response.Access.Phase != "guest" || remembered {
+	if after.Player.MapID != DefaultMapID || after.Player.InteriorID != "" || response.Access.RemainingSeconds != 7200 || response.Access.Phase != "guest" || remembered {
 		t.Fatalf("reset retained location or clock: %+v", response)
 	}
 	again := decodeAttempt(t, request(app, "POST", "/api/attempt", token, attemptFor("repeat-after-reset")))
@@ -348,7 +352,7 @@ func TestPausingOneDeviceCannotPauseAnotherDevicesLease(t *testing.T) {
 	clock.Add(int64(10 * time.Second))
 	trialStatus(t, app, token, &inactive)
 	clock.Add(int64(10 * time.Second))
-	if status := trialStatus(t, secondApp, secondToken, nil); status.PlayedSeconds != 20 || status.RemainingSeconds != 280 {
+	if status := trialStatus(t, secondApp, secondToken, nil); status.PlayedSeconds != 20 || status.RemainingSeconds != 580 {
 		t.Fatalf("one device paused another device's play: %+v", status)
 	}
 	trialStatus(t, secondApp, secondToken, &inactive)
@@ -563,7 +567,7 @@ func TestIntakeHeartbeatStartsTrialWithoutTrustingClaimedSeconds(t *testing.T) {
 		t.Fatalf("intake heartbeat: %d %s", w.Code, w.Body.String())
 	}
 	clock.Add(int64(15 * time.Second))
-	if status := trialStatus(t, app, token, nil); status.PlayedSeconds != 15 || status.RemainingSeconds != 285 {
+	if status := trialStatus(t, app, token, nil); status.PlayedSeconds != 15 || status.RemainingSeconds != 585 {
 		t.Fatalf("intake bypassed/manipulated trial clock: %+v", status)
 	}
 }
@@ -590,10 +594,10 @@ func TestTrialClockSurvivesJSONRestartAndSessionResume(t *testing.T) {
 	app.now = func() time.Time { return time.Unix(0, clock.Load()).UTC() }
 	resume := request(app, "POST", "/api/session", token, map[string]any{})
 	var response struct{ Access AccessStatus }
-	if resume.Code != 200 || json.Unmarshal(resume.Body.Bytes(), &response) != nil || response.Access.PlayedSeconds != 95 || response.Access.RemainingSeconds != 205 {
+	if resume.Code != 200 || json.Unmarshal(resume.Body.Bytes(), &response) != nil || response.Access.PlayedSeconds != 95 || response.Access.RemainingSeconds != 505 {
 		t.Fatalf("session resume reset trial: %d %s", resume.Code, resume.Body.String())
 	}
-	if status := playTrial(t, app, token, clock, 205*time.Second); status.Phase != "login_required" {
+	if status := playTrial(t, app, token, clock, 505*time.Second); status.Phase != "login_required" {
 		t.Fatalf("restart extended trial: %+v", status)
 	}
 }
@@ -673,7 +677,7 @@ func TestPostgresTrialTimeAndGuestResetAreAtomic(t *testing.T) {
 		})
 	}
 	workers.Wait()
-	if status := trialStatus(t, app, token, nil); status.PlayedSeconds != 20 || status.RemainingSeconds != 280 {
+	if status := trialStatus(t, app, token, nil); status.PlayedSeconds != 20 || status.RemainingSeconds != 580 {
 		t.Fatalf("concurrent Postgres leases duplicated time: %+v", status)
 	}
 	if w := request(app, "POST", "/api/access/reset", token, nil); w.Code != 200 {
@@ -683,7 +687,7 @@ func TestPostgresTrialTimeAndGuestResetAreAtomic(t *testing.T) {
 	if err := store.Pool().QueryRow(ctx, "SELECT COUNT(*) FROM learning_events WHERE account_id=$1", player.ID).Scan(&receipts); err != nil || receipts != 0 {
 		t.Fatalf("Postgres reset retained receipts: %d %v", receipts, err)
 	}
-	if status := trialStatus(t, app, token, nil); status.PlayedSeconds != 0 || status.RemainingSeconds != 900 {
+	if status := trialStatus(t, app, token, nil); status.PlayedSeconds != 0 || status.RemainingSeconds != 7200 {
 		t.Fatalf("Postgres reset retained clock: %+v", status)
 	}
 	result := decodeAttempt(t, request(app, "POST", "/api/attempt", token, attemptFor("pg-reset-receipt")))
@@ -696,7 +700,7 @@ func TestPostgresTrialTimeAndGuestResetAreAtomic(t *testing.T) {
 	if w := request(app, "POST", "/api/access/reset", token, nil); w.Code != 200 {
 		t.Fatalf("registered Postgres reset: %d %s", w.Code, w.Body.String())
 	}
-	if status := trialStatus(t, app, token, nil); status.Phase != "trial" || status.RemainingSeconds != 900 || status.PlayedSeconds != 0 {
+	if status := trialStatus(t, app, token, nil); status.Phase != "trial" || status.RemainingSeconds != 7200 || status.PlayedSeconds != 0 {
 		t.Fatalf("registered Postgres reset did not renew trial: %+v", status)
 	}
 	if err := store.Pool().QueryRow(ctx, "SELECT COUNT(*) FROM learning_events WHERE account_id=$1", player.ID).Scan(&receipts); err != nil || receipts != 0 {
