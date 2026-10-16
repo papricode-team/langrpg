@@ -28,6 +28,11 @@ export function storyUnits(): TranslationUnit[] {
   const sentence = (id: string, german: string, english: string) => units.push({ id, kind: 'sentence', source: german, english });
   const text = (id: string, english: string) => { if (english.trim()) units.push({ id, kind: 'text', source: english, english }); };
   const narrative = (id: string, sentences: readonly { german: string; english: string }[]) => sentences.forEach((item, index) => sentence(`${id}:${index}`, item.german, item.english));
+  /** Discovery headings and item stories carry their own glosses for words outside the lexicon. */
+  const glossed = (id: string, sentences: readonly { german: string; english: string; glosses?: Record<string, string> }[] = []) => {
+    narrative(id, sentences);
+    for (const item of sentences) for (const [word, gloss] of Object.entries(item.glosses ?? {})) text(`gloss:${word}:${gloss}`, gloss);
+  };
   const line = (value: DialogueLine) => {
     sentence(`dialogue:${value.id}`, value.german, value.english);
     value.variants?.forEach((variant, index) => sentence(`dialogue:${value.id}:variant:${index}`, variant.german, variant.english));
@@ -57,6 +62,7 @@ export function storyUnits(): TranslationUnit[] {
   }
   for (const clue of storyClues) {
     text(`clue:${clue.questId}:title`, clue.title);
+    if (clue.heading) glossed(`clue:${clue.questId}:heading`, [clue.heading]);
     narrative(`clue:${clue.questId}:text`, clue.text);
     narrative(`clue:${clue.questId}:lead`, clue.lead);
     narrative(`clue:${clue.questId}:letter`, clue.letter);
@@ -113,8 +119,11 @@ export function storyUnits(): TranslationUnit[] {
   for (const [exerciseId, replies] of Object.entries(beginnerGateTranslations)) replies.forEach(([german, english], index) => sentence(`beginner:${exerciseId}:${index}`, german, english));
   for (const [german, english] of Object.entries(greetingMeanings)) sentence(`beginner-greeting:${german}`, german, english);
 
-  for (const [id, item] of Object.entries(specialItems)) { text(`item:${id}:title`, item.title); text(`item:${id}:text`, item.text); }
-  for (const [id, item] of Object.entries(endings)) { text(`ending:${id}:title`, item.title); text(`ending:${id}:text`, item.text); }
+  for (const [kind, panels] of [['item', specialItems], ['ending', endings]] as const) for (const [id, item] of Object.entries(panels)) {
+    text(`${kind}:${id}:title`, item.title); text(`${kind}:${id}:text`, item.text);
+    if (item.heading) glossed(`${kind}:${id}:heading`, [item.heading]);
+    glossed(`${kind}:${id}:story`, item.story);
+  }
 
   // One unit per id; the same German sentence appearing twice keeps its first id.
   const seen = new Set<string>();

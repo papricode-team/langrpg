@@ -203,7 +203,8 @@ export function buildContent({ directory = root } = {}) {
   // The client checks these items by role, and story inventory arrives as public IDs.
   const granted=new Set(source.graphs.flatMap(graph=>graph.nodes.flatMap(node=>(node.choices??[]).flatMap(choice=>(choice.effects??[]).map(effect=>effect.item)))));
   const storyItems={lamp:['signal-lamp','registered-lamp'].map(item=>{if(!granted.has(item))throw new Error(`Story item ${item} is no longer granted by any choice.`);return id('item',item);})};
-  const clues = source.storyText.clues.map(clue=>({...refs(clue,`clue:${clue.questId}`,[owner('quest',clue.questId,{completedOnly:true})]),questId:id('quest',clue.questId)}));
+  const evidenceItems = new Map(source.graphs.filter(graph=>graph.evidenceItem).map(graph=>[graph.questId,id('item',graph.evidenceItem)]));
+  const clues = source.storyText.clues.map(clue=>({...refs(clue,`clue:${clue.questId}`,[owner('quest',clue.questId,{completedOnly:true})]),questId:id('quest',clue.questId),...(evidenceItems.has(clue.questId)?{evidenceItem:evidenceItems.get(clue.questId)}:{})}));
   const objects=Object.fromEntries(Object.entries(source.storyText.objects).map(([key,value])=>[key,refs(value,`object:${key}`,[{kind:'object',id:key}])]));
   const journalNarratives=refs(source.journalNarratives,'journal',[{kind:'journal',id:'journal'}]);
   const expeditionSkeleton=source.expeditionRegions.flatMap(region=>region.encounters.map(encounter=>({id:id('expedition',encounter.id),worldId:encounter.id,routeId:region.id,level:encounter.difficulty})));

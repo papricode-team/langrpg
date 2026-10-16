@@ -1,6 +1,6 @@
 import type { Level } from './content';
 import type { MapId } from './maps';
-import type { Narrative } from './sentence-translations';
+import type { Narrative, TranslatedSentence } from './sentence-translations';
 import storyText from './data/story-text.json';
 
 export interface StoryAct {
@@ -13,8 +13,9 @@ export interface StoryAct {
   goal: Narrative;
   cliffhanger: Narrative;
 }
-/** `letter` is Elise's short note, unlocked by finishing the quest; it grows with the player's German. */
-export interface StoryClue { questId: string; title: string; text: Narrative; lead: Narrative; letter: Narrative; }
+/** `letter` is Elise's short note, unlocked by finishing the quest; it grows with the player's German.
+ * `heading` is the German title, and `evidenceItem` the public id of the inventory item the quest grants. */
+export interface StoryClue { questId: string; title: string; heading?: TranslatedSentence & { glosses?: Record<string, string> }; evidenceItem?: string; text: Narrative; lead: Narrative; letter: Narrative; }
 
 export const storyActs = storyText.acts as StoryAct[];
 export const storyClues = storyText.clues as StoryClue[];

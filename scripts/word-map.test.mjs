@@ -151,14 +151,32 @@ test('wrong-sense omissions suppress dictionary glosses across canonical context
 });
 test('special item and ending prose is server-owned with exact existing Turkish metadata',()=>{
   const records=bundle.records.filter(record=>record.kind==='context'&&['specialItem','storyEnding'].includes(record.body.category));
-  assert.equal(records.length,7);
+  assert.equal(records.length,16);
   for(const record of records) {
     assert(record.body.data.title);assert(record.body.data.text);
     assert(record.body.data.support.tr.title);assert(record.body.data.support.tr.text);
     assert.equal(record.body.owners[0].kind,record.body.category);
+    // The panel shows German sentences; the English and Turkish summaries are support text.
+    for(const reference of [record.body.data.heading,...record.body.data.story]) {
+      const sentence=bundle.records.find(value=>value.id===reference.sentenceId);
+      assert.equal(sentence?.kind,'sentence',record.slug);assert(sentence.body.translations.tr.text,record.slug);
+      assert.deepEqual(sentence.body.owners,record.body.owners,record.slug);
+    }
   }
   const letter=records.find(record=>record.slug==='special-item:successor-letter');
   assert.equal(letter.body.owners[0].id,bundle.ids['item:successor-letter']);
+});
+test('every inventory item has a German discovery entry under its public id',()=>{
+  const {source}=buildContent(),boot=bundle.records.find(record=>record.kind==='bootstrap'&&record.slug==='legacy');
+  const special=new Set(bundle.records.filter(record=>record.body.category==='specialItem').map(record=>record.body.owners[0].id));
+  const evidence=new Set(boot.body.clues.map(clue=>clue.evidenceItem).filter(Boolean));
+  const items=new Set(),walk=value=>{if(Array.isArray(value))return value.forEach(walk);if(!value||typeof value!=='object')return;for(const [key,entry]of Object.entries(value)){if(['item','evidenceItem'].includes(key)&&typeof entry==='string')items.add(entry);else walk(entry);}};
+  walk(source.graphs);walk(source.legacyServer.storyRules);
+  for(const item of items)assert(special.has(bundle.ids[`item:${item}`])||evidence.has(bundle.ids[`item:${item}`]),item);
+  for(const clue of boot.body.clues) {
+    const heading=bundle.records.find(record=>record.id===clue.heading?.sentenceId);
+    assert.equal(heading?.kind,'sentence',clue.questId);assert(heading.body.translations.en.text&&heading.body.translations.tr.text,clue.questId);
+  }
 });
 test('placement remains one bounded course-owned context with eight exact authored cues',()=>{
   const {source}=buildContent(),placement=bundle.records.find(record=>record.kind==='context'&&record.body.category==='placement');

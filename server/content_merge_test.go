@@ -220,8 +220,8 @@ func TestContentStoryPanelsRequireOwnInventoryOrExactEnding(t *testing.T) {
 			panelIDs = append(panelIDs, record.ID)
 		}
 	}
-	if len(panelIDs) != 7 {
-		t.Fatalf("expected all seven server-owned story panels, got %d", len(panelIDs))
+	if len(panelIDs) != 16 {
+		t.Fatalf("expected all sixteen server-owned story panels, got %d", len(panelIDs))
 	}
 	seed := func(session string, inventory []string, ending string) Account {
 		t.Helper()
@@ -237,6 +237,10 @@ func TestContentStoryPanelsRequireOwnInventoryOrExactEnding(t *testing.T) {
 	}
 	assertPanels := func(session, visible string) {
 		t.Helper()
+		// Each round reads every panel; the per-minute content budget is not under test here.
+		app.rateMu.Lock()
+		clear(app.limits)
+		app.rateMu.Unlock()
 		for _, id := range panelIDs {
 			response := request(app, "GET", "/api/content/contexts/"+id, session, nil)
 			want := 404
