@@ -12,7 +12,7 @@ import { carriesLamp } from './story-items';
  */
 export interface InkEntry {
   id: string; mapId: string; anchor?: string; x: number; y: number;
-  kind: 'plate' | 'chalk' | 'sign' | 'stone' | 'slate' | 'hull' | 'hud';
+  kind: 'plate' | 'chalk' | 'sign' | 'stone' | 'slate' | 'hull' | 'hud' | 'word';
   german: string; english: string; display?: string; accepted?: string[];
   from?: string; fromFlag?: string; until?: string; untilFlag?: string; keep?: string; darkFlag?: string; restoredBy?: string[];
   bell?: boolean; silent?: boolean; side?: string;
@@ -131,10 +131,10 @@ export function lostStoryNames(progress: Progress, mechanics: StoryMechanics, ex
 export function inkSpeakMarkup(entries: readonly InkEntry[], progress: Progress, mechanics: StoryMechanics, playerName: string): string {
   if (!entries.length) return '';
   return `<section class="ink-speak">${entries.map(entry => {
-    const level = inkLevel(entry, progress, mechanics.ink), percent = Math.round(level * 100);
-    const status = level <= 0 ? t('The name is gone. Say it, and it comes back.') : level < mechanics.ink.paleBelow ? t('The ink is pale. Say the name aloud.') : t('The ink is dark. Saying it keeps it.');
+    const level = inkLevel(entry, progress, mechanics.ink), percent = Math.round(level * 100), word = entry.kind === 'word';
+    const status = level <= 0 ? (word ? t('The word is gone. Say it, and it comes back.') : t('The name is gone. Say it, and it comes back.')) : level < mechanics.ink.paleBelow ? (word ? t('The ink is pale. Say the word aloud.') : t('The ink is pale. Say the name aloud.')) : t('The ink is dark. Saying it keeps it.');
     const shown = entry.silent ? entry.display ?? '…' : personalName(entry.german, playerName);
-    return `<form class="ink-entry" data-ink-form="${e(entry.id)}"><div class="ink-name" style="--ink:${level.toFixed(2)}" lang="de">${e(level <= 0 && !entry.silent ? '· · ·' : shown)}</div><div class="ink-meter" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${percent}" aria-label="${e(t('Ink'))}"><span style="width:${percent}%"></span></div><p>${e(entry.silent ? t('Nobody can say this name yet. The story will bring it back.') : status)}</p>${entry.silent ? '' : `<label class="visually-hidden" for="ink-${e(entry.id)}">${e(t('Say the name aloud in German'))}</label><div class="ink-input-row"><input id="ink-${e(entry.id)}" name="answer" autocomplete="off" spellcheck="false" lang="de" placeholder="${e(t('Say the name aloud'))}"/><button class="primary-button" type="submit">${icon('lantern')} ${e(t('Say it'))}</button></div><p class="ink-hint">${e(t('Hint: {meaning}', { meaning: localized({ german: entry.german, english: entry.english }) }))}</p>`}</form>`;
+    return `<form class="ink-entry" data-ink-form="${e(entry.id)}"><div class="ink-name" style="--ink:${level.toFixed(2)}" lang="de">${e(level <= 0 && !entry.silent ? '· · ·' : shown)}</div><div class="ink-meter" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${percent}" aria-label="${e(t('Ink'))}"><span style="width:${percent}%"></span></div><p>${e(entry.silent ? t('Nobody can say this name yet. The story will bring it back.') : status)}</p>${entry.silent ? '' : `<label class="visually-hidden" for="ink-${e(entry.id)}">${e(word ? t('Say the word aloud in German') : t('Say the name aloud in German'))}</label><div class="ink-input-row"><input id="ink-${e(entry.id)}" name="answer" autocomplete="off" spellcheck="false" lang="de" placeholder="${e(word ? t('Say the word aloud') : t('Say the name aloud'))}"/><button class="primary-button" type="submit">${icon('lantern')} ${e(t('Say it'))}</button></div><p class="ink-hint">${e(t('Hint: {meaning}', { meaning: localized({ german: entry.german, english: entry.english }) }))}</p>`}</form>`;
   }).join('')}</section>`;
 }
 

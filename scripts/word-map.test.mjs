@@ -151,6 +151,7 @@ test('new maps retain Turkish suffix carriers and distinct repeated English pred
 test('sentence support uses its own exercise or grammar context instead of a colliding prompt',()=>{
   const sentence=slug=>bundle.records.find(record=>record.kind==='sentence'&&record.slug===slug).body;
   assert.equal(sentence('exercise:lex-gehen-verb-recognition').translations.tr.text,'gitmek; yürümek');
+  assert.equal(sentence('clue:a1-cafe:lead:0').translations.tr.text,'Otto seninle istasyonda tarifeyi okuyor.');
   assert.equal(sentence('exercise:lex-sein-det-recognition').translations.tr.text,'onun (eril, nötr)');
   assert.equal(sentence('lexeme:frage-noun:example').translations.tr.text,'Soruyu yanlış anladım.');
   assert.equal(sentence('exercise:course-a1-reference-forms-6-exercise-4').translations.en.text,'square metre');

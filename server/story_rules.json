@@ -70,102 +70,6 @@
       ]
     },
     {
-      "questId": "a1-timetable",
-      "mapId": "lindenhafen",
-      "npcId": "otto",
-      "npc": {
-        "id": "otto",
-        "x": 0.7573784722222222,
-        "y": 0.3059895833333333
-      },
-      "gateExerciseId": "a1-timetable-exercise-1",
-      "replyExerciseIds": [],
-      "choiceIds": [
-        "light",
-        "dark"
-      ],
-      "choices": [
-        {
-          "id": "light",
-          "effects": [
-            {
-              "flag": "lantern-lit"
-            }
-          ]
-        },
-        {
-          "id": "dark",
-          "effects": [
-            {
-              "flag": "lantern-dark"
-            }
-          ]
-        }
-      ],
-      "investigationObjectIds": [
-        "lindenhafen-noticeboard"
-      ],
-      "objects": [
-        {
-          "id": "lindenhafen-noticeboard",
-          "x": 0.8463541666666666,
-          "y": 0.3059895833333333
-        }
-      ]
-    },
-    {
-      "questId": "a1-notice",
-      "mapId": "lindenhafen",
-      "npcId": "otto",
-      "npc": {
-        "id": "otto",
-        "x": 0.7573784722222222,
-        "y": 0.3059895833333333
-      },
-      "gateExerciseId": "a1-notice-exercise-1",
-      "replyExerciseIds": [],
-      "choiceIds": [
-        "notice-torn",
-        "notice-read"
-      ],
-      "choices": [
-        {
-          "id": "notice-torn",
-          "effects": [
-            {
-              "faction": "lamplighters",
-              "amount": 1
-            },
-            {
-              "flag": "notice-torn"
-            }
-          ]
-        },
-        {
-          "id": "notice-read",
-          "effects": [
-            {
-              "faction": "unwritten",
-              "amount": 1
-            },
-            {
-              "flag": "notice-read"
-            }
-          ]
-        }
-      ],
-      "investigationObjectIds": [
-        "lindenhafen-noticeboard"
-      ],
-      "objects": [
-        {
-          "id": "lindenhafen-noticeboard",
-          "x": 0.8463541666666666,
-          "y": 0.3059895833333333
-        }
-      ]
-    },
-    {
       "questId": "a1-cafe",
       "mapId": "lindenhafen",
       "npcId": "marta",
@@ -224,46 +128,98 @@
       ]
     },
     {
-      "questId": "a1-room",
+      "questId": "a1-timetable",
       "mapId": "lindenhafen",
-      "npcId": "marta",
+      "npcId": "otto",
       "npc": {
-        "id": "marta",
-        "x": 0.3298611111111111,
-        "y": 0.3984375
+        "id": "otto",
+        "x": 0.7573784722222222,
+        "y": 0.3059895833333333
       },
-      "gateExerciseId": "a1-room-exercise-1",
+      "gateExerciseId": "a1-timetable-exercise-1",
       "replyExerciseIds": [],
       "choiceIds": [
-        "room-three",
-        "room-five"
+        "light",
+        "dark"
       ],
       "choices": [
         {
-          "id": "room-three",
+          "id": "light",
           "effects": [
             {
-              "flag": "room-three"
+              "flag": "lantern-lit"
             }
           ]
         },
         {
-          "id": "room-five",
+          "id": "dark",
           "effects": [
             {
-              "flag": "room-five"
+              "flag": "lantern-dark"
             }
           ]
         }
       ],
       "investigationObjectIds": [
-        "lindenhafen-cafe-receipt"
+        "lindenhafen-noticeboard"
       ],
       "objects": [
         {
-          "id": "lindenhafen-cafe-receipt",
-          "x": 0.3472222222222222,
-          "y": 0.400390625
+          "id": "lindenhafen-noticeboard",
+          "x": 0.8463541666666666,
+          "y": 0.3059895833333333
+        }
+      ]
+    },
+    {
+      "questId": "a1-notice",
+      "mapId": "lindenhafen",
+      "npcId": "kessler",
+      "npc": {
+        "id": "kessler",
+        "x": 0.9027777777777778,
+        "y": 0.3385416666666667
+      },
+      "gateExerciseId": "a1-notice-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "notice-torn",
+        "notice-read"
+      ],
+      "choices": [
+        {
+          "id": "notice-torn",
+          "effects": [
+            {
+              "faction": "lamplighters",
+              "amount": 1
+            },
+            {
+              "flag": "notice-torn"
+            }
+          ]
+        },
+        {
+          "id": "notice-read",
+          "effects": [
+            {
+              "faction": "unwritten",
+              "amount": 1
+            },
+            {
+              "flag": "notice-read"
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "lindenhafen-noticeboard"
+      ],
+      "objects": [
+        {
+          "id": "lindenhafen-noticeboard",
+          "x": 0.8463541666666666,
+          "y": 0.3059895833333333
         }
       ]
     },
@@ -308,6 +264,50 @@
           "id": "lindenhafen-market-crate",
           "x": 0.4557291666666667,
           "y": 0.5013020833333334
+        }
+      ]
+    },
+    {
+      "questId": "a1-room",
+      "mapId": "lindenhafen",
+      "npcId": "marta",
+      "npc": {
+        "id": "marta",
+        "x": 0.3298611111111111,
+        "y": 0.3984375
+      },
+      "gateExerciseId": "a1-room-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "room-three",
+        "room-five"
+      ],
+      "choices": [
+        {
+          "id": "room-three",
+          "effects": [
+            {
+              "flag": "room-three"
+            }
+          ]
+        },
+        {
+          "id": "room-five",
+          "effects": [
+            {
+              "flag": "room-five"
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "lindenhafen-cafe-receipt"
+      ],
+      "objects": [
+        {
+          "id": "lindenhafen-cafe-receipt",
+          "x": 0.3472222222222222,
+          "y": 0.400390625
         }
       ]
     },
@@ -693,6 +693,50 @@
       ]
     },
     {
+      "questId": "a1-phone",
+      "mapId": "lindenhafen",
+      "npcId": "marta",
+      "npc": {
+        "id": "marta",
+        "x": 0.3298611111111111,
+        "y": 0.3984375
+      },
+      "gateExerciseId": "a1-phone-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "spell",
+        "refuse"
+      ],
+      "choices": [
+        {
+          "id": "spell",
+          "effects": [
+            {
+              "flag": "name-in-register"
+            }
+          ]
+        },
+        {
+          "id": "refuse",
+          "effects": [
+            {
+              "flag": "name-withheld"
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "lindenhafen-cafe-receipt"
+      ],
+      "objects": [
+        {
+          "id": "lindenhafen-cafe-receipt",
+          "x": 0.3472222222222222,
+          "y": 0.400390625
+        }
+      ]
+    },
+    {
       "questId": "a1-weather",
       "mapId": "lindenhafen",
       "npcId": "otto",
@@ -795,94 +839,6 @@
       ]
     },
     {
-      "questId": "a1-bike",
-      "mapId": "lindenhafen",
-      "npcId": "emil",
-      "npc": {
-        "id": "emil",
-        "x": 0.10850694444444445,
-        "y": 0.6608072916666666
-      },
-      "gateExerciseId": "a1-bike-exercise-1",
-      "replyExerciseIds": [],
-      "choiceIds": [
-        "pay-now",
-        "pay-later"
-      ],
-      "choices": [
-        {
-          "id": "pay-now",
-          "effects": [
-            {
-              "flag": "bike-paid"
-            }
-          ]
-        },
-        {
-          "id": "pay-later",
-          "effects": [
-            {
-              "flag": "bike-on-account"
-            }
-          ]
-        }
-      ],
-      "investigationObjectIds": [
-        "lindenhafen-workbench"
-      ],
-      "objects": [
-        {
-          "id": "lindenhafen-workbench",
-          "x": 0.14322916666666666,
-          "y": 0.6575520833333334
-        }
-      ]
-    },
-    {
-      "questId": "a1-phone",
-      "mapId": "lindenhafen",
-      "npcId": "marta",
-      "npc": {
-        "id": "marta",
-        "x": 0.3298611111111111,
-        "y": 0.3984375
-      },
-      "gateExerciseId": "a1-phone-exercise-1",
-      "replyExerciseIds": [],
-      "choiceIds": [
-        "spell",
-        "refuse"
-      ],
-      "choices": [
-        {
-          "id": "spell",
-          "effects": [
-            {
-              "flag": "name-in-register"
-            }
-          ]
-        },
-        {
-          "id": "refuse",
-          "effects": [
-            {
-              "flag": "name-withheld"
-            }
-          ]
-        }
-      ],
-      "investigationObjectIds": [
-        "lindenhafen-cafe-receipt"
-      ],
-      "objects": [
-        {
-          "id": "lindenhafen-cafe-receipt",
-          "x": 0.3472222222222222,
-          "y": 0.400390625
-        }
-      ]
-    },
-    {
       "questId": "a1-office-window",
       "mapId": "lindenhafen",
       "npcId": "kessler",
@@ -938,46 +894,46 @@
       ]
     },
     {
-      "questId": "a1-invitation",
+      "questId": "a1-bike",
       "mapId": "lindenhafen",
-      "npcId": "fritz",
+      "npcId": "emil",
       "npc": {
-        "id": "fritz",
-        "x": 0.390625,
-        "y": 0.4947916666666667
+        "id": "emil",
+        "x": 0.10850694444444445,
+        "y": 0.6608072916666666
       },
-      "gateExerciseId": "a1-invitation-exercise-1",
+      "gateExerciseId": "a1-bike-exercise-1",
       "replyExerciseIds": [],
       "choiceIds": [
-        "keep-chair",
-        "share-chair"
+        "pay-now",
+        "pay-later"
       ],
       "choices": [
         {
-          "id": "keep-chair",
+          "id": "pay-now",
           "effects": [
             {
-              "flag": "berg-chair-kept"
+              "flag": "bike-paid"
             }
           ]
         },
         {
-          "id": "share-chair",
+          "id": "pay-later",
           "effects": [
             {
-              "flag": "berg-chair-shared"
+              "flag": "bike-on-account"
             }
           ]
         }
       ],
       "investigationObjectIds": [
-        "lindenhafen-market-crate"
+        "lindenhafen-workbench"
       ],
       "objects": [
         {
-          "id": "lindenhafen-market-crate",
-          "x": 0.4557291666666667,
-          "y": 0.5013020833333334
+          "id": "lindenhafen-workbench",
+          "x": 0.14322916666666666,
+          "y": 0.6575520833333334
         }
       ]
     },
@@ -1022,6 +978,50 @@
           "id": "lindenhafen-parcel",
           "x": 0.4817708333333333,
           "y": 0.4231770833333333
+        }
+      ]
+    },
+    {
+      "questId": "a1-invitation",
+      "mapId": "lindenhafen",
+      "npcId": "fritz",
+      "npc": {
+        "id": "fritz",
+        "x": 0.390625,
+        "y": 0.4947916666666667
+      },
+      "gateExerciseId": "a1-invitation-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "keep-chair",
+        "share-chair"
+      ],
+      "choices": [
+        {
+          "id": "keep-chair",
+          "effects": [
+            {
+              "flag": "berg-chair-kept"
+            }
+          ]
+        },
+        {
+          "id": "share-chair",
+          "effects": [
+            {
+              "flag": "berg-chair-shared"
+            }
+          ]
+        }
+      ],
+      "investigationObjectIds": [
+        "lindenhafen-market-crate"
+      ],
+      "objects": [
+        {
+          "id": "lindenhafen-market-crate",
+          "x": 0.4557291666666667,
+          "y": 0.5013020833333334
         }
       ]
     },
@@ -2390,6 +2390,26 @@
         "bell": true
       },
       {
+        "id": "clock-stunde",
+        "mapId": "waldruh",
+        "anchor": "object:waldruh-clock",
+        "x": 0.4861111111111111,
+        "y": 0.6640625,
+        "kind": "word",
+        "german": "Stunde",
+        "english": "hour",
+        "accepted": [
+          "die Stunde",
+          "eine Stunde"
+        ],
+        "from": "a2-apartment",
+        "keep": "a2-broken-clock",
+        "restoredBy": [
+          "a2-rail-trip"
+        ],
+        "bell": true
+      },
+      {
         "id": "pip-wall-names",
         "mapId": "lindenhafen",
         "anchor": "object:lindenhafen-chalk-wall",
@@ -2437,6 +2457,26 @@
           "b1-council"
         ],
         "darkFlag": "route-closed-again",
+        "bell": true
+      },
+      {
+        "id": "council-versprechen",
+        "mapId": "nebelstadt",
+        "anchor": "object:nebelstadt-council-board",
+        "x": 0.1736111111111111,
+        "y": 0.369140625,
+        "kind": "word",
+        "german": "Versprechen",
+        "english": "promise",
+        "accepted": [
+          "das Versprechen",
+          "ein Versprechen"
+        ],
+        "from": "b1-witness",
+        "keep": "b1-council",
+        "restoredBy": [
+          "b1-new-route"
+        ],
         "bell": true
       }
     ]
