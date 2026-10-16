@@ -210,7 +210,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
       this.createPortal(entrance.id, entrance.x * this.worldWidth, entrance.y * this.worldHeight, entrance.label, sign);
     }
     this.createResidents();
-    this.animals = new WorldAnimals(this, map.id, getWorldScene(map.id).legacyOffset ?? { x: 0, y: 0 }, this.navigation, this.spawnPoint(),
+    this.animals = new WorldAnimals(this, map.id, this.navigation, this.spawnPoint(),
       (hit, target, activate) => this.bindHover(hit, target, activate), id => this.approachInteraction(id));
     this.atmosphere = new WorldAtmosphere(this, map.id, this.scenery.lampLights);
     const marks = readWorld(this.registry, 'storyMarks') ?? emptyStoryMarks(map.id);
@@ -288,10 +288,15 @@ export class WorldScene extends ExploreScene implements EditSurface {
       const character = this.characters.get(op.id);
       if (character) { const point = this.navigation.closestPoint(op.x, op.y); character.x = point.x; character.y = point.y; }
     }
+    if (relevant.some(op => op.kind === 'placeAnimal' || op.kind === 'updateAnimal' || op.kind === 'removeAnimal')) {
+      this.animals?.destroy();
+      this.animals = new WorldAnimals(this, id, this.navigation, spawn,
+        (hit, target, activate) => this.bindHover(hit, target, activate), animalId => this.approachInteraction(animalId));
+    }
     this.syncMapObjects();
     this.syncPortals();
     const owners = new Set((scene.activities ?? []).map(slot => slot.ownerId));
-    if (relevant.some(op => op.kind === 'residents' || op.kind === 'ground' || op.kind === 'paint' || (op.kind !== 'moveAnchor' && op.kind !== 'place' && owners.has(op.id)) || (op.kind === 'place' && op.activities?.length))) this.rebuildActivityResidents();
+    if (relevant.some(op => op.kind === 'residents' || op.kind === 'ground' || op.kind === 'paint' || (op.kind !== 'moveAnchor' && op.kind !== 'place' && 'id' in op && owners.has(op.id)) || (op.kind === 'place' && op.activities?.length))) this.rebuildActivityResidents();
     this.editController?.documentChanged();
     this.refreshNearby();
   }

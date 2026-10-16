@@ -10,8 +10,8 @@ import {loadPublishedWorld} from '/src/scene-data.ts';
 import {animalVariants} from '/src/animal-art.ts';
 import {animalSpecies} from '/src/animal-behavior.ts';
 const picker=document.querySelector('#animal'),status=document.querySelector('#status');
-for(const species of animalSpecies) for(const [variant,name] of animalVariants[species].entries()) picker.add(new Option(name,`animal:${species}:lindenhafen:${variant}`));
-picker.value='animal:dog:lindenhafen:0';
+for(const species of animalSpecies) for(const [variant,name] of animalVariants[species].entries()) picker.add(new Option(name,`animal:${species}:lindenhafen-animal-${species}-${variant+1}`));
+picker.value='animal:dog:lindenhafen-animal-dog-1';
 try{
  await loadPublishedWorld();
  let world;

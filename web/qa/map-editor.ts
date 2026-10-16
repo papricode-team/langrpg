@@ -1,8 +1,8 @@
 /**
- * The admin map editor against the checked-in world, with an in-memory server.
+ * The admin map editor against a copy of the public world, with an in-memory server.
  * Nothing is forwarded to the API; reloading the page starts over.
  */
-import baseDocument from '../../content/world-seed.json';
+const baseDocument = (await fetch('/api/world-content').then(response => response.json())).document;
 import {parseWorldSceneDocument} from '../src/scene-schema';
 import {applyEditOps} from '../src/world-edit-ops';
 
