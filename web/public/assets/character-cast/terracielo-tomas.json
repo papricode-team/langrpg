@@ -4,23 +4,18 @@
   "recipe": "art/source/character-kit/cast/terracielo-tomas.json",
   "recipeSha256": "c7f34fd22bb8bc6d0f0f6643ac0f030ac42cd779acef542588a3e8ededba69ef",
   "atlas": "web/public/assets/character-cast/terracielo-tomas.webp",
-  "atlasSha256": "75b13c841f903a6fa91bd9e88e4feb1a0afb8a670d1a8d506037fdf0e2ce59bc",
+  "atlasSha256": "3b3e3b4c653ee69484a77fb43757a2c47b312793c33068f87d068357ce5cb998",
   "geometry": "web/public/assets/character-cast/terracielo-tomas.atlas.json",
-  "geometrySha256": "d70bc2c4ac9cb944358e076cccdd0dc77bad4aaa9ea28e1d410ee5467cfc6a1c",
+  "geometrySha256": "0ec14b73a324df6677cafc55b0bda09abda4c2976934b155e5f984db887f5685",
   "textureBytes": 14490960,
   "cell": [
     384,
     576
   ],
+  "sourceComponentsSha256": "5c57da60241ef65b2ac4216c140e1fe9254d06c8c6498c3aaca407b9a56938a0",
   "proof": "art/proofs/character-cast/terracielo-tomas.png",
-  "proofSha256": "f023ca9d6ccf0c0a405c3d0aa82fe99456ecb49d9e72e575fb6168b5dbf62467",
-  "editorSha256": "849234f02eb9510ca98c29f33b6a4dae8db60ed9fc55282254c33cdbaac630c5",
+  "proofSha256": "980b9fd307991f8ac7f1c962a61d12a3b6a32dcff120cfbaa0c1b99ea2fb8bc3",
+  "editorSha256": "ec950b44c018cd019050fc3f51c814554d6b8e753a37ff44897a7eb701d1143b",
   "assetVersion": "4c9d233bf71007a9",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "773e9f1d9fed4487",
-    "to": "4c9d233bf71007a9",
-    "unchangedResolvedInputsSha256": "5a31959f317a046552fd121f5b778848888258a507ad56874ab922fe3ca68bfa"
-  },
-  "sourceComponentsSha256": "5a31959f317a046552fd121f5b778848888258a507ad56874ab922fe3ca68bfa"
+  "frames": 36
 }

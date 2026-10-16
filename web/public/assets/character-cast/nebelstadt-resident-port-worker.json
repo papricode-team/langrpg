@@ -4,23 +4,18 @@
   "recipe": "art/source/character-kit/cast/nebelstadt-resident-port-worker.json",
   "recipeSha256": "21b397e3eeca5d0ae574c1497aacca64eb4d3e40558a88dfd200f1d52ecc4627",
   "atlas": "web/public/assets/character-cast/nebelstadt-resident-port-worker.webp",
-  "atlasSha256": "a79a3ace6696b28b271c252cf27fe9c92903cac08c22ac32f8bbce5b3de43163",
+  "atlasSha256": "01f0d01e4a43d5e6c63222f0c18014890617d9b387a87f8f97ebb42365339d4d",
   "geometry": "web/public/assets/character-cast/nebelstadt-resident-port-worker.atlas.json",
-  "geometrySha256": "c908ff1aaeceedfb99a8e777d70dc499be0e82765c95952f657f77f5281c40b9",
-  "textureBytes": 14726904,
+  "geometrySha256": "09831fcac6da9bba797682e5dca11809aa78896907a712734c336b0917023e41",
+  "textureBytes": 14200428,
   "cell": [
     384,
     576
   ],
+  "sourceComponentsSha256": "84443b0b257b0ccecafe128b06005253d1c9176a0454992261ec7c9e21644d38",
   "proof": "art/proofs/character-cast/nebelstadt-resident-port-worker.png",
-  "proofSha256": "876670353204ab5969d5eb706287f2e668db80e0367c845aedffe139cc25b2d2",
-  "editorSha256": "0c9f64ad19ac2770773045f5467d5c707e01cc0eb7fb9ebc4723b80b1aff80b0",
+  "proofSha256": "4572ebe3981033f67a7b6fbc657a43c3162ac400237f286cc67e62f17876f80e",
+  "editorSha256": "f3a95d42accdaad7f23e27e5ebec3eaf820c36b407144f43d322cae1381a522c",
   "assetVersion": "4c9d233bf71007a9",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "773e9f1d9fed4487",
-    "to": "4c9d233bf71007a9",
-    "unchangedResolvedInputsSha256": "d0c226be6e3e9fb296222b838838dd426e6737e3179069b778f9287ba3f2493f"
-  },
-  "sourceComponentsSha256": "d0c226be6e3e9fb296222b838838dd426e6737e3179069b778f9287ba3f2493f"
+  "frames": 36
 }

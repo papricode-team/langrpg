@@ -4,23 +4,18 @@
   "recipe": "art/source/character-kit/cast/saffroncourt-karim.json",
   "recipeSha256": "818b69323c52300ea5273fbfc38e6314ff904969075dfb381416521f4275d93c",
   "atlas": "web/public/assets/character-cast/saffroncourt-karim.webp",
-  "atlasSha256": "fa95333bc099cb0a8bab19d8b1707ac138e4a9b9780f436b0b80041764472034",
+  "atlasSha256": "956c4a34074fbbe43bc067c027eec86372558fc3ba0f788ca5550bbe17d0d196",
   "geometry": "web/public/assets/character-cast/saffroncourt-karim.atlas.json",
-  "geometrySha256": "117932b3efdbd97e522bf650e98b57a37b5f70e104fb354648a2642ee1e91284",
-  "textureBytes": 14600232,
+  "geometrySha256": "8238bdc5f9d49166601e1c9cdba2e8e067c5ee2eeb2b352802ea6b59769b456d",
+  "textureBytes": 14098752,
   "cell": [
     384,
     576
   ],
+  "sourceComponentsSha256": "42967c714bca253aa77c82ddd5d7e1af9b7b5404de38a1155146643c3be54d1e",
   "proof": "art/proofs/character-cast/saffroncourt-karim.png",
-  "proofSha256": "f1a535be99463195ef640bf354157e578369481c9b84d2f45e906552d949b031",
-  "editorSha256": "7b38d6e9207806f083ddfe2bdbecea08797ebafa9f65b44cb1c5dc9769adf13b",
+  "proofSha256": "7f3ec1282774c8a384f72c7b6f31a6c7f7b1441559b5b7b46fb3259059dcd597",
+  "editorSha256": "a1052a7aeb3c4747c443c856d5df7f22ead8774cdadcb8b554dbf65d1d1c842f",
   "assetVersion": "4c9d233bf71007a9",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "773e9f1d9fed4487",
-    "to": "4c9d233bf71007a9",
-    "unchangedResolvedInputsSha256": "2ed596e882cb9738c15a02cac23139d4865740d8bea0425eb0b3815700679079"
-  },
-  "sourceComponentsSha256": "2ed596e882cb9738c15a02cac23139d4865740d8bea0425eb0b3815700679079"
+  "frames": 36
 }

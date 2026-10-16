@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/elise.json",
   "recipeSha256": "8808caa49ed38c568bbffba5ec5038d76bd863d5fd3bac02f553e80762d24bb9",
   "atlas": "web/public/assets/character-cast/elise.webp",
-  "atlasSha256": "b5c52d7ba5a8f413bc4e00bd6642f449fe497bf9bc0c963df93e4d071b36e7e4",
+  "atlasSha256": "3458fa60441d0c412e5a4d0ce0620e527d2416f5180a575765e8ea52f8d0dfda",
   "geometry": "web/public/assets/character-cast/elise.atlas.json",
-  "geometrySha256": "cd986fee3d5160c21c81a43f7104b8f983827afea0f631fe11474a21747933ef",
-  "textureBytes": 14688164,
+  "geometrySha256": "68ac6b9d53cf7fb4c1095c188e9f1ad61f6fa5c80a1b25ee8d4a9b57ef583590",
+  "textureBytes": 14680688,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/elise.webp",
-      "sha256": "b5c52d7ba5a8f413bc4e00bd6642f449fe497bf9bc0c963df93e4d071b36e7e4",
+      "sha256": "3458fa60441d0c412e5a4d0ce0620e527d2416f5180a575765e8ea52f8d0dfda",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/elise.1.webp",
-      "sha256": "29a06c51abe0397e4c3593817b4ac8c99b23eb1c05b3cceeec237c19f5a59fd3",
+      "sha256": "81f0eaafd187cdabe637af708ec2e85a1302c5631bc8231fc80f1e3794673bf7",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,30 +27,30 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "8271a52118c71f8fb7f6a6d755a2d9c2dfc7ba7f7211bb6c7aa13ddb3412e119",
+  "sourceComponentsSha256": "06ab923ed65599e20d0164011b7fa84ea2315268395c5332dc948e45c49b5b54",
   "proof": "art/proofs/character-cast/elise.png",
-  "proofSha256": "46a4ef18433f9e10e0379e3a2d1dfc4e845e92c0384dccd2614ef2371a0fb08f",
-  "editorSha256": "5b7357ea706f487acdd1e3f0a8a463c70feef34485298cfef988785a6473ed51",
+  "proofSha256": "8e22acb161cee7e962153ea2ed645e4a376afdc4658e0505fbc158549008f6f0",
+  "editorSha256": "b791b10dfc14fdd05b623587151074b431284fbfba26b8d0b3d3dd9bccdbc5da",
   "assetVersion": "4c9d233bf71007a9",
   "frames": 36,
   "native": {
     "key": "character-cast-elise-native",
     "image": "web/public/assets/character-cast/native/elise.webp",
     "atlas": "web/public/assets/character-cast/native/elise.atlas.json",
-    "sha256": "521293427c17f5f0e0fdd01ed8f9fef550691d2db66d742dd05995a73ce470ec",
-    "atlasSha256": "9ce7b0a42581eada9a321e7e0168508a8f14b974bb7ca065ccf1649f2a90bb23",
+    "sha256": "e4fa5e216bd4a79f325f60874fc204d405715cd376d256206ceedd713352968a",
+    "atlasSha256": "d2cb5194eacb771de541a4c4fd178d83b0df6234f1a8280cc83425e10134d30c",
     "textureBytes": 29892736,
     "multiAtlas": true,
     "images": [
       {
         "path": "web/public/assets/character-cast/native/elise.webp",
-        "sha256": "521293427c17f5f0e0fdd01ed8f9fef550691d2db66d742dd05995a73ce470ec",
+        "sha256": "e4fa5e216bd4a79f325f60874fc204d405715cd376d256206ceedd713352968a",
         "firstFrame": 0,
         "frameCount": 18
       },
       {
         "path": "web/public/assets/character-cast/native/elise.1.webp",
-        "sha256": "98d75692cb41646bf93e007f1429f7c6c60414e4a56a52563c0343a93d95d50b",
+        "sha256": "43688ab90c441e1f42aec9f7f8b922f96963a4e6da29bf281ab95cac9ac1e6c7",
         "firstFrame": 18,
         "frameCount": 18
       }
@@ -60,6 +60,6 @@
       768
     ],
     "source": "art/proofs/character-cast/elise.webp",
-    "sourceSha256": "5b7357ea706f487acdd1e3f0a8a463c70feef34485298cfef988785a6473ed51"
+    "sourceSha256": "b791b10dfc14fdd05b623587151074b431284fbfba26b8d0b3d3dd9bccdbc5da"
   }
 }

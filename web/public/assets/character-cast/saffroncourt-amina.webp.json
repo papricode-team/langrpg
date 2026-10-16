@@ -41,23 +41,8 @@
     384,
     576
   ],
-  "sha256": "f951820da0165a3c95a1d87b2a435883a6b9ef1134391ff3e500c2938a214b9a",
-  "atlasSha256": "14af2b5c0a73c668950fd965be7f7feb3d5fe5a41b45c450ed46691a3dc79480",
-  "textureBytes": 14054456,
-  "multiAtlas": true,
-  "images": [
-    {
-      "path": "web/public/assets/character-cast/saffroncourt-amina.webp",
-      "sha256": "f951820da0165a3c95a1d87b2a435883a6b9ef1134391ff3e500c2938a214b9a",
-      "firstFrame": 0,
-      "frameCount": 18
-    },
-    {
-      "path": "web/public/assets/character-cast/saffroncourt-amina.1.webp",
-      "sha256": "39590bab42849e6203c0364e92c57ad4bf939ca7cff5301b2a5f88642e637980",
-      "firstFrame": 18,
-      "frameCount": 18
-    }
-  ],
+  "sha256": "ecca73b003ad02fee681893d631329172e39c21cba08ddc0b7247f162f25c1e9",
+  "atlasSha256": "a6b2f323bdc36a51c3537879acb304a6aea198de45e1010ce8e17bb3d0977411",
+  "textureBytes": 14717120,
   "atlas": "web/public/assets/character-cast/saffroncourt-amina.atlas.json"
 }

@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/terracielo-elena.json",
   "recipeSha256": "de442bead59e65b7db85ab5f9837e49ad3460605314a6dc698bded15ebfe2486",
   "atlas": "web/public/assets/character-cast/terracielo-elena.webp",
-  "atlasSha256": "3aa5ad62879c4df3c0d24631ca23a277067aeca15d739fd7b87942aa3a1b8df2",
+  "atlasSha256": "dec54c2ddfb915dc5861516e7a239d4d16d5981851ca7e789431435f4ee14dac",
   "geometry": "web/public/assets/character-cast/terracielo-elena.atlas.json",
-  "geometrySha256": "1716b909d0c571b283c7097a97cfdc29f4b74959686708e350a8567bda3cdd85",
-  "textureBytes": 14165060,
+  "geometrySha256": "e4ae583583ab7f821ba42dcafb8f8fcff1fe6cfe6bd6912eb7a35f7dab2e6592",
+  "textureBytes": 14233840,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/terracielo-elena.webp",
-      "sha256": "3aa5ad62879c4df3c0d24631ca23a277067aeca15d739fd7b87942aa3a1b8df2",
+      "sha256": "dec54c2ddfb915dc5861516e7a239d4d16d5981851ca7e789431435f4ee14dac",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/terracielo-elena.1.webp",
-      "sha256": "978160f0229eb4804fd1a8a7aeee56521a8a63770be230b640dbc3fc0a606a1e",
+      "sha256": "5e765f2b504d79e6712a8627b7e051a90c59ad14f2fbf35c47b732dbda4e065c",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,10 +27,10 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "c1f19d27aaac8b25286e0dc96d645b8bbc92fccbb3a37e61aa6a29d128b3e946",
+  "sourceComponentsSha256": "d673c74809ddd2aa5250de3d60d53e0a41fabdd2a1a0fa67ccbc341f49bb3e54",
   "proof": "art/proofs/character-cast/terracielo-elena.png",
-  "proofSha256": "8e6e0879226ae2a4af76a77ee10077c32d561c6648808acb26ff50e0e4b34c19",
-  "editorSha256": "e872f3eb7c175085f934106c77ca5dfc4ee7f9d5c088b56d9fa4fd890d2b7d46",
+  "proofSha256": "55b7cc7bbebf23446dd8cb9c240cd4017cf90c1e3e66bcc99077920e34c84e77",
+  "editorSha256": "c967c0355cb52d6a90a1afcd2d80a4ae60581708e4422af12e5384c038dae81a",
   "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

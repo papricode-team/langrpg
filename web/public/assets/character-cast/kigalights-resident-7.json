@@ -4,23 +4,18 @@
   "recipe": "art/source/character-kit/cast/kigalights-resident-7.json",
   "recipeSha256": "8ed485dc8366baff2c95691ec124417d7054f942caf9d4e408ce14ead429205c",
   "atlas": "web/public/assets/character-cast/kigalights-resident-7.webp",
-  "atlasSha256": "f41e02c557e772b97d5a363071d47e465061f9269a4b49eb3fdc15eec4b6fde9",
+  "atlasSha256": "d283aadb5d35b2c29da71c0c6dbcba7cc196695edff230cd30cbe5240bff5ab7",
   "geometry": "web/public/assets/character-cast/kigalights-resident-7.atlas.json",
-  "geometrySha256": "4319f18a8a62937c11344fb7ba47f2e6aa3d0a4d38cba21489fb656e43263905",
-  "textureBytes": 14578740,
+  "geometrySha256": "3f4f778a16bf2129099552a7d838399e482c7044153344ec1199039fed736e02",
+  "textureBytes": 14113080,
   "cell": [
     384,
     576
   ],
+  "sourceComponentsSha256": "f1c89adef915553bc90fc9946982d1e4790a0ee6602070839a222683d72d446c",
   "proof": "art/proofs/character-cast/kigalights-resident-7.png",
-  "proofSha256": "02cbe6e5fea4dc038341807d1d9fa0d758a7a6c740d4a14467ffb14cf2cacc8f",
-  "editorSha256": "c8ec4af9c5bca0856a07ca850165f0bbaf6076179d778e1e7375763800b2ae73",
+  "proofSha256": "56b2886ba74a5dc56916b7755a1ba2a4dc1a16ed3d31156f47a042cbc5d42f23",
+  "editorSha256": "1aaba1a82c6841b2f99ff1998ab97ed3a00392653ee776c3b6205bb4919652eb",
   "assetVersion": "4c9d233bf71007a9",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "773e9f1d9fed4487",
-    "to": "4c9d233bf71007a9",
-    "unchangedResolvedInputsSha256": "e653bf895bc495dd894862cc56453a8ceb1f19cda5bb9f6a785470055c88cdab"
-  },
-  "sourceComponentsSha256": "e653bf895bc495dd894862cc56453a8ceb1f19cda5bb9f6a785470055c88cdab"
+  "frames": 36
 }

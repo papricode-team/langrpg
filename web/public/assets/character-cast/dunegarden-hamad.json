@@ -4,23 +4,18 @@
   "recipe": "art/source/character-kit/cast/dunegarden-hamad.json",
   "recipeSha256": "5deeff2eec7cbc30ac3b78d2a34bf434dad8969e2d85f60f1a718948ba44446d",
   "atlas": "web/public/assets/character-cast/dunegarden-hamad.webp",
-  "atlasSha256": "1627b119e514c6850304fff6f107349eb84d2f5115242d690ca90309c2fc5e45",
+  "atlasSha256": "625fb407d1a84477c9cc98f9aacb118af57344265b81d1f13d122fd684f28fbd",
   "geometry": "web/public/assets/character-cast/dunegarden-hamad.atlas.json",
-  "geometrySha256": "d07fc2b7c376c1a523e78a925c63814f83b42f7cccd274a5f2f3219649fc8679",
+  "geometrySha256": "7122479871a986c38070ecd6555e7fe4fce5af17e515d82b38bad2bcccfe9a33",
   "textureBytes": 14490960,
   "cell": [
     384,
     576
   ],
+  "sourceComponentsSha256": "b76d1cfed96b4f0a5a26d12e6ba7db5db036b85ca94f663d609b0218d7f565c1",
   "proof": "art/proofs/character-cast/dunegarden-hamad.png",
-  "proofSha256": "2399d2fd5e0d0932b3780195dacc0f9b7b2bd340010fa6b22d879c955b0e9349",
-  "editorSha256": "55f2052c9d035c621733dde85b4320a4781f5ae107eb8ee5a0fcff052d0133eb",
+  "proofSha256": "834a3657e0297fdb26650835e783dd360a0d6e233d2048924d09bf8c1ed9e96f",
+  "editorSha256": "72cb3d968fecef809a38ac5b4d5266accb212a8da369c36cb41897fcb447a83a",
   "assetVersion": "4c9d233bf71007a9",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "773e9f1d9fed4487",
-    "to": "4c9d233bf71007a9",
-    "unchangedResolvedInputsSha256": "d8bac8e2971c317a57ba774300b0abb89a2b53c2e0700d17a0405e448f1e80bf"
-  },
-  "sourceComponentsSha256": "d8bac8e2971c317a57ba774300b0abb89a2b53c2e0700d17a0405e448f1e80bf"
+  "frames": 36
 }

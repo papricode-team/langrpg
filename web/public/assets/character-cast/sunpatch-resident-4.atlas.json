@@ -1,12 +1,12 @@
 {
   "textures": [
     {
-      "image": "sunpatch-resident-4.webp?v=aa148b8bf191fd9a",
+      "image": "sunpatch-resident-4.webp?v=08b0162cc797fad2",
       "frames": [
         {
           "filename": "0",
           "frame": {
-            "x": 1414,
+            "x": 1222,
             "y": 474,
             "w": 172,
             "h": 461
@@ -27,10 +27,10 @@
         {
           "filename": "1",
           "frame": {
-            "x": 1047,
+            "x": 1396,
             "y": 474,
             "w": 190,
-            "h": 462
+            "h": 461
           },
           "rotated": false,
           "trimmed": true,
@@ -38,7 +38,7 @@
             "x": 103,
             "y": 64,
             "w": 190,
-            "h": 462
+            "h": 461
           },
           "sourceSize": {
             "w": 384,
@@ -69,7 +69,7 @@
         {
           "filename": "3",
           "frame": {
-            "x": 1239,
+            "x": 1047,
             "y": 474,
             "w": 173,
             "h": 462
@@ -391,12 +391,12 @@
       }
     },
     {
-      "image": "sunpatch-resident-4.1.webp?v=79e02da1e4d34fc1",
+      "image": "sunpatch-resident-4.1.webp?v=1ef0f3c187a572b9",
       "frames": [
         {
           "filename": "18",
           "frame": {
-            "x": 1645,
+            "x": 1644,
             "y": 469,
             "w": 176,
             "h": 447
@@ -417,7 +417,7 @@
         {
           "filename": "19",
           "frame": {
-            "x": 1264,
+            "x": 1263,
             "y": 469,
             "w": 189,
             "h": 455
@@ -459,7 +459,7 @@
         {
           "filename": "21",
           "frame": {
-            "x": 1455,
+            "x": 1454,
             "y": 469,
             "w": 188,
             "h": 454
@@ -713,15 +713,15 @@
           "frame": {
             "x": 768,
             "y": 469,
-            "w": 235,
+            "w": 234,
             "h": 456
           },
           "rotated": false,
           "trimmed": true,
           "spriteSourceSize": {
-            "x": 100,
+            "x": 101,
             "y": 76,
-            "w": 235,
+            "w": 234,
             "h": 456
           },
           "sourceSize": {
@@ -753,7 +753,7 @@
         {
           "filename": "35",
           "frame": {
-            "x": 1005,
+            "x": 1004,
             "y": 469,
             "w": 257,
             "h": 456

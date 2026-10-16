@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/cedarbay-farah.json",
   "recipeSha256": "8dc5dc27c023af52e107cbf52e233af3a91426b1aed2a7c9cdbd14f005f2f3ad",
   "atlas": "web/public/assets/character-cast/cedarbay-farah.webp",
-  "atlasSha256": "43c0771a9c17f2b6afd09d26613392830b9a74b0b359bd72d56dae47905e4b89",
+  "atlasSha256": "7f728f50df5048a69a3f0515d132e077da38bd178a819dd1ee2ade86651a884b",
   "geometry": "web/public/assets/character-cast/cedarbay-farah.atlas.json",
-  "geometrySha256": "42a87f3b45fc63f03f8d082a6bc787377afd5b7b79f21a016ff2b8701dab8604",
+  "geometrySha256": "73d22606a95e4b1364793458d9a2399a8c57aa9a79878e17973bf28a9392ef59",
   "textureBytes": 14532188,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/cedarbay-farah.webp",
-      "sha256": "43c0771a9c17f2b6afd09d26613392830b9a74b0b359bd72d56dae47905e4b89",
+      "sha256": "7f728f50df5048a69a3f0515d132e077da38bd178a819dd1ee2ade86651a884b",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/cedarbay-farah.1.webp",
-      "sha256": "31491044c460f2edad670d418d11a35dee0823cde25e5d7ebf67482bf1c21cd1",
+      "sha256": "d77539b7144c80527f486cbae8b01ae65d79018cc4eed2ec69239014a7cf4d42",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,10 +27,10 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "e392677669df280cba90ac9ca52c51b8e25d47ba2a88938ded8b90094ca65a51",
+  "sourceComponentsSha256": "2955a90a7be4ae4420b22536f747a118eae619209dea68e98523d45c2e714642",
   "proof": "art/proofs/character-cast/cedarbay-farah.png",
-  "proofSha256": "8ebf550b583482f3d4e1cbbe0b94ece2dd9cf9935888eb82d1a93306e91aafd7",
-  "editorSha256": "b0d2c6b2f985cb269a05244a289a65949840de00aafb4a0c70952159d7346cf7",
+  "proofSha256": "158916d569eec820d959ccd398d426f9c94e9cf650cdeeae5044940e47c92b6f",
+  "editorSha256": "3be7c8a2262a56ddf161ded16eef39b3af73d56653202b161d44cf47d397cc54",
   "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

@@ -4,23 +4,18 @@
   "recipe": "art/source/character-kit/cast/rainmarket-aiko.json",
   "recipeSha256": "bcbe300d6990ba0fa41bc50f35c5bd11292948ddddc69f572c76d64d5c81bf5c",
   "atlas": "web/public/assets/character-cast/rainmarket-aiko.webp",
-  "atlasSha256": "401b5463cc0f6516e0b3d97c70fbf92eba953ea55ecd36a6a7396b2cfda4a837",
+  "atlasSha256": "a6cf9afd08dc43e873a910e50e767341f56b7a805168157ab07482360b2d26da",
   "geometry": "web/public/assets/character-cast/rainmarket-aiko.atlas.json",
-  "geometrySha256": "c25584e9b8b95175668b63d49f5d1f771a926399afc24492f872ab1442b07d16",
-  "textureBytes": 14397248,
+  "geometrySha256": "95d5c47bcf8a493cdd1e89c6be83f1909c571d626d4c72429c42bab1f4c0d6a2",
+  "textureBytes": 14389320,
   "cell": [
     384,
     576
   ],
+  "sourceComponentsSha256": "cb726c18ee5cb5863613c0644808a5fc32947ac9249edede7289a2dfd90dbdf1",
   "proof": "art/proofs/character-cast/rainmarket-aiko.png",
-  "proofSha256": "d8ddf65d04d49dd981f254af4e9b43656adf4f5bb757d70d97b0dc17863e5cf3",
-  "editorSha256": "0437894705a0c8f810be055db2e64adcb3b9ddb153ba2f0ea1aa3f6db2c8b80d",
+  "proofSha256": "21615d0014ef551da43c18a48568734e70759ec19014a3fe71ce7c6d1f3f96f7",
+  "editorSha256": "773d197811235f83ddaae7788a7381edffd3b276745e48d8099724f7b5631f64",
   "assetVersion": "4c9d233bf71007a9",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "773e9f1d9fed4487",
-    "to": "4c9d233bf71007a9",
-    "unchangedResolvedInputsSha256": "4ccdb30620704a5c7c8974f296031f471bf4749dc02f6dcc05b6ccfa0ac2b359"
-  },
-  "sourceComponentsSha256": "4ccdb30620704a5c7c8974f296031f471bf4749dc02f6dcc05b6ccfa0ac2b359"
+  "frames": 36
 }

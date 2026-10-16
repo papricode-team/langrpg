@@ -1,7 +1,7 @@
 {
   "textures": [
     {
-      "image": "sunpatch-resident-7.webp?v=69481617b20073af",
+      "image": "sunpatch-resident-7.webp?v=bf6c00aa3c44fb28",
       "frames": [
         {
           "filename": "0",
@@ -30,7 +30,7 @@
             "x": 199,
             "y": 461,
             "w": 180,
-            "h": 449
+            "h": 448
           },
           "rotated": false,
           "trimmed": true,
@@ -38,7 +38,7 @@
             "x": 110,
             "y": 77,
             "w": 180,
-            "h": 449
+            "h": 448
           },
           "sourceSize": {
             "w": 384,
@@ -391,7 +391,7 @@
       }
     },
     {
-      "image": "sunpatch-resident-7.1.webp?v=ae99e2e47333a15d",
+      "image": "sunpatch-resident-7.1.webp?v=949d569b3cabab8d",
       "frames": [
         {
           "filename": "18",
@@ -522,7 +522,7 @@
         {
           "filename": "24",
           "frame": {
-            "x": 1099,
+            "x": 1098,
             "y": 1,
             "w": 175,
             "h": 453
@@ -545,7 +545,7 @@
           "frame": {
             "x": 923,
             "y": 1,
-            "w": 174,
+            "w": 173,
             "h": 454
           },
           "rotated": false,
@@ -553,7 +553,7 @@
           "spriteSourceSize": {
             "x": 103,
             "y": 71,
-            "w": 174,
+            "w": 173,
             "h": 454
           },
           "sourceSize": {
@@ -606,7 +606,7 @@
         {
           "filename": "28",
           "frame": {
-            "x": 1276,
+            "x": 1275,
             "y": 1,
             "w": 284,
             "h": 452
@@ -669,7 +669,7 @@
         {
           "filename": "31",
           "frame": {
-            "x": 1562,
+            "x": 1561,
             "y": 1,
             "w": 246,
             "h": 452
@@ -711,17 +711,17 @@
         {
           "filename": "33",
           "frame": {
-            "x": 1810,
+            "x": 1809,
             "y": 1,
-            "w": 235,
+            "w": 234,
             "h": 452
           },
           "rotated": false,
           "trimmed": true,
           "spriteSourceSize": {
-            "x": 100,
+            "x": 101,
             "y": 80,
-            "w": 235,
+            "w": 234,
             "h": 452
           },
           "sourceSize": {
@@ -774,7 +774,7 @@
       ],
       "meta": {
         "size": {
-          "w": 2046,
+          "w": 2044,
           "h": 914
         },
         "scale": "1"

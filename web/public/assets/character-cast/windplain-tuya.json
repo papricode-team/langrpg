@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/windplain-tuya.json",
   "recipeSha256": "4e4cb4ab1284167677c873908f28a5f7652ee99700cbf0fbbb9d29cf40448eeb",
   "atlas": "web/public/assets/character-cast/windplain-tuya.webp",
-  "atlasSha256": "589085c44a98408b72f71aeb2a647903ff2ef4c0c305f9c3d66832515af40d08",
+  "atlasSha256": "46fd70dd0424a24337d86abbb925b769199ef3c72980cbc5369c7195dd4e27cc",
   "geometry": "web/public/assets/character-cast/windplain-tuya.atlas.json",
-  "geometrySha256": "b8d2af4e155f1a86691d2d8f72a455062ce0fadcbc498ca8577d894a4a0ace84",
-  "textureBytes": 14112624,
+  "geometrySha256": "929969d104dbbdeea2e7e65ce13cfa48b7c932bdaf699a3219d12634a397abeb",
+  "textureBytes": 14061656,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/windplain-tuya.webp",
-      "sha256": "589085c44a98408b72f71aeb2a647903ff2ef4c0c305f9c3d66832515af40d08",
+      "sha256": "46fd70dd0424a24337d86abbb925b769199ef3c72980cbc5369c7195dd4e27cc",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/windplain-tuya.1.webp",
-      "sha256": "0a9f0679e7754936bd73078b86b324233bf7aa9786cad6442b64ceef83c1c338",
+      "sha256": "7003e6b4a1e3934f4689414a6e907dbd8dcdb7584070c4f37e01c1ddb8863d9f",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,10 +27,10 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "6ea81febfdd5ff8aed8df3da79f06e6e419fd85da95580dda8a5d369c2240713",
+  "sourceComponentsSha256": "a294d6a9ec3722381d40f47ba828291ec0f19832304f91d261b343900fecde31",
   "proof": "art/proofs/character-cast/windplain-tuya.png",
-  "proofSha256": "ef533aee143e0f5e907289bdddb158be42fc8623cad382a7776868df055c299a",
-  "editorSha256": "1167f3eee365265584eb46df84952bc6abb7cf98b0a5429ce2bfbc4850ec6f89",
+  "proofSha256": "fb3de5b5a7a1ee7824521d5cc2d3b7f1c3016a0cc64c435c096fe1a960b47e91",
+  "editorSha256": "ad652a7bc9efa9024116c7d0fb0d4f3f1e2bb8e9699227acadebfffb3abfebe0",
   "assetVersion": "4c9d233bf71007a9",
   "frames": 36
 }

@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/lina.json",
   "recipeSha256": "710ae1a494b536fa6e9f961b0e34a5f90f96950bb659461bab659537987d7505",
   "atlas": "web/public/assets/character-cast/lina.webp",
-  "atlasSha256": "d7b8f2e1bf3d0c1c3e7431eecec6e27887ebca7462b6f4605869f06175975df7",
+  "atlasSha256": "5d7620521559ebb8e7bcde4b206078434ad2415bb5319548090701d84d71e9ed",
   "geometry": "web/public/assets/character-cast/lina.atlas.json",
-  "geometrySha256": "602243cd42ad368c6a2a92cfcfb71d3b13522eca13ed232f425aae700a906dbf",
+  "geometrySha256": "bab48d94e21a9424846eeee3a7b35bdc94d65f48015c99c9ed5ebef3d2075645",
   "textureBytes": 14038736,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/lina.webp",
-      "sha256": "d7b8f2e1bf3d0c1c3e7431eecec6e27887ebca7462b6f4605869f06175975df7",
+      "sha256": "5d7620521559ebb8e7bcde4b206078434ad2415bb5319548090701d84d71e9ed",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/lina.1.webp",
-      "sha256": "3b8194bed06e37b458507b2ec84ea8429347e1b0e959a5f6703ed36edca25404",
+      "sha256": "110e38b911fcc333250c3c0124f12469cb5fead987c4079f73e24849694915cd",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,30 +27,30 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "cbe27d8d86799967f980af2f76e8ba2b92e72ba4b7261b7302a23c87323f8233",
+  "sourceComponentsSha256": "652478fbfff87e579fd74f7da6bfabfc9ed8ed8b2068afdd720f2ad528894bbd",
   "proof": "art/proofs/character-cast/lina.png",
-  "proofSha256": "9f9110efa010b5aa644e996111b924b0a8bfb7af2c8296bba5bfddf2590c43d9",
-  "editorSha256": "894c3c382aabdeecfb18c0b75bd33b876b62276c4a0a57841f38e5beb04e8365",
+  "proofSha256": "b7d3e090ce7cf5f03a7d92e5b90307a2a5286cdb7102573c06b64711783cde46",
+  "editorSha256": "0f638aa023fd3610d4a0b7e2f306cb4dbca881d698a38458bcfc241eeb9a528e",
   "assetVersion": "4c9d233bf71007a9",
   "frames": 36,
   "native": {
     "key": "character-cast-lina-native",
     "image": "web/public/assets/character-cast/native/lina.webp",
     "atlas": "web/public/assets/character-cast/native/lina.atlas.json",
-    "sha256": "3c9976de4fc025ac7d024d78859dfd8a02063ee9c73d7213b5214aa05a4c4d4e",
-    "atlasSha256": "e0d52e141452a277a7956a912875a886eca57c77269dc4a90143de65c798fa30",
+    "sha256": "4f6c35657d97ba63ac0de4bcecd17ca06ba645ef4b28f3d80d4d7af47dd8d7d7",
+    "atlasSha256": "d6baee4553950aabe4b90c9dadadfe2fbd6095ed9e64f854335ae59ef2b0bfe0",
     "textureBytes": 27521604,
     "multiAtlas": true,
     "images": [
       {
         "path": "web/public/assets/character-cast/native/lina.webp",
-        "sha256": "3c9976de4fc025ac7d024d78859dfd8a02063ee9c73d7213b5214aa05a4c4d4e",
+        "sha256": "4f6c35657d97ba63ac0de4bcecd17ca06ba645ef4b28f3d80d4d7af47dd8d7d7",
         "firstFrame": 0,
         "frameCount": 18
       },
       {
         "path": "web/public/assets/character-cast/native/lina.1.webp",
-        "sha256": "c78e369c8c731cef936bc32fcf2b4b322309e256c1aac08e5c0c2abd8c24ff29",
+        "sha256": "a079e6f85723b2187b7c7ecd4aa4335050232991b59f9bafae9c75e01006411d",
         "firstFrame": 18,
         "frameCount": 18
       }
@@ -60,6 +60,6 @@
       768
     ],
     "source": "art/proofs/character-cast/lina.webp",
-    "sourceSha256": "894c3c382aabdeecfb18c0b75bd33b876b62276c4a0a57841f38e5beb04e8365"
+    "sourceSha256": "0f638aa023fd3610d4a0b7e2f306cb4dbca881d698a38458bcfc241eeb9a528e"
   }
 }

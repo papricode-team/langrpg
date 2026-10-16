@@ -4,43 +4,38 @@
   "recipe": "art/source/character-kit/cast/emil.json",
   "recipeSha256": "4ae2614e87603fdde78a3cdb596f04373bd426d89b8738a76111c02501880c9d",
   "atlas": "web/public/assets/character-cast/emil.webp",
-  "atlasSha256": "6c004e2ef758933cf07efe6c27f076cd9a89ee776fd6ab5b20bd8c09ddcce187",
+  "atlasSha256": "801bee9cc8d247ce7b2f9736fea7c504f798f02076ab50a9c843322edd94722a",
   "geometry": "web/public/assets/character-cast/emil.atlas.json",
-  "geometrySha256": "8e34a13fc30a8b15c282b6f6121fc2ffa096eaa9b859e570ed7135149c63c0e9",
+  "geometrySha256": "e8300993fbe797280cc8fae256cd9acd09381b34aba86f579de48e196050a097",
   "textureBytes": 14447400,
   "cell": [
     384,
     576
   ],
+  "sourceComponentsSha256": "f0eba764df26ab74ba70142e59677b3641c1dd5036d9c7fbb2d87eabcb1ebc7c",
   "proof": "art/proofs/character-cast/emil.png",
-  "proofSha256": "691c43ec5251574ace586f50866a74deba0aa2cfff6289863eb3e6db2942b143",
-  "editorSha256": "96fee6da213c4dbd25bb274aa125768b0b654cd8739be85a3f7639454ae54cd9",
+  "proofSha256": "9e23a2314f5bbd98fd3381b3fb14b2dc62c7ddbdc2088c5f6df21278fa4908a6",
+  "editorSha256": "3598f43a124ccc7e77184cf77fe417736e64a4e0a85f90ae3b9d470838e99331",
   "assetVersion": "4c9d233bf71007a9",
   "frames": 36,
-  "componentRevisionRebind": {
-    "from": "773e9f1d9fed4487",
-    "to": "4c9d233bf71007a9",
-    "unchangedResolvedInputsSha256": "d4ee3e73837d6d7758593f614f61407b64e55678a8ab1bbd8c9947a2b90f10e1"
-  },
-  "sourceComponentsSha256": "d4ee3e73837d6d7758593f614f61407b64e55678a8ab1bbd8c9947a2b90f10e1",
   "native": {
     "key": "character-cast-emil-native",
     "image": "web/public/assets/character-cast/native/emil.webp",
     "atlas": "web/public/assets/character-cast/native/emil.atlas.json",
-    "sha256": "36de874e698584a7f293caa5ae51996024d2bd995b11138815183992ca75fa88",
-    "atlasSha256": "5ba024121dc491f4fd85b4809f66a254bcfeceae7d89a1a80b2f4b65a7663ebd",
+    "sha256": "edc0f27b0e76232b251cc494751e4fac4b9fa30ca5e60f3804566b6c8fe435b0",
+    "atlasSha256": "61a4189daffb7667b3651ccc1ff358d95047330d32fcc34e6a05a1ab39a16542",
     "textureBytes": 27219420,
     "multiAtlas": true,
     "images": [
       {
         "path": "web/public/assets/character-cast/native/emil.webp",
-        "sha256": "36de874e698584a7f293caa5ae51996024d2bd995b11138815183992ca75fa88",
+        "sha256": "edc0f27b0e76232b251cc494751e4fac4b9fa30ca5e60f3804566b6c8fe435b0",
         "firstFrame": 0,
         "frameCount": 18
       },
       {
         "path": "web/public/assets/character-cast/native/emil.1.webp",
-        "sha256": "6f9b4eb097777654c40b93eb9d12a30ae431102f7c7a7ababade3d66194139a8",
+        "sha256": "3982b62e03e390bd311faaf4d544595a253f60fec5584780d1ef01a841bcd75e",
         "firstFrame": 18,
         "frameCount": 18
       }
@@ -50,6 +45,6 @@
       768
     ],
     "source": "art/proofs/character-cast/emil.webp",
-    "sourceSha256": "96fee6da213c4dbd25bb274aa125768b0b654cd8739be85a3f7639454ae54cd9"
+    "sourceSha256": "3598f43a124ccc7e77184cf77fe417736e64a4e0a85f90ae3b9d470838e99331"
   }
 }

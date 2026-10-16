@@ -4,43 +4,38 @@
   "recipe": "art/source/character-kit/cast/fritz.json",
   "recipeSha256": "e04a638a346e979fcd8b864c3108f86a73d0ce20260ee122ace4b48bf5c76b52",
   "atlas": "web/public/assets/character-cast/fritz.webp",
-  "atlasSha256": "045078036f1ae84a4ef306f671d9beec3e79c3bf11abd170692d83d3e67320a2",
+  "atlasSha256": "e140a49f92121229e8dbf4bd6e1f9c9de8e2eb873961a146fe33934c0bfe486c",
   "geometry": "web/public/assets/character-cast/fritz.atlas.json",
-  "geometrySha256": "3d1ecd5dc4e34e613abdd425466f127f598d08f52994137fc8410a39271501ad",
+  "geometrySha256": "0cf98a173e0bbbc2dbcc8bfe120c6ad82d93732cd2c5aade124f7236b7311b51",
   "textureBytes": 13920648,
   "cell": [
     384,
     576
   ],
+  "sourceComponentsSha256": "1eab6b5040e6f404e6e9440d9c4e28d4da2b1a42c1ee8b311788d6924a7fb962",
   "proof": "art/proofs/character-cast/fritz.png",
-  "proofSha256": "8b4b455ad4ec95337778fbb941e44bc0bf36fcc2614f694aade0c1573460a56a",
-  "editorSha256": "dd3cc1a561d8413b580ee1b14e88dd461ff7b9878e7f87afc95cd1768666641f",
+  "proofSha256": "bfd1aebcc52ceaa70ec88b3a819e371c0f3ab9bb265b913f6b53a868247a5817",
+  "editorSha256": "88e6190f8fc0f52f94920c327d9a6e3591371f681e8940932c574b57f134a456",
   "assetVersion": "4c9d233bf71007a9",
   "frames": 36,
-  "componentRevisionRebind": {
-    "from": "773e9f1d9fed4487",
-    "to": "4c9d233bf71007a9",
-    "unchangedResolvedInputsSha256": "9f77e0bf9c5b77a5cb313b1b37e423ea47545d29e65023e1635eef16436a4fb4"
-  },
-  "sourceComponentsSha256": "9f77e0bf9c5b77a5cb313b1b37e423ea47545d29e65023e1635eef16436a4fb4",
   "native": {
     "key": "character-cast-fritz-native",
     "image": "web/public/assets/character-cast/native/fritz.webp",
     "atlas": "web/public/assets/character-cast/native/fritz.atlas.json",
-    "sha256": "659b9ae28412612c450e6586cd07c718216b53c854d195cbc72d940c902289fa",
-    "atlasSha256": "d2fcd45422ee0d51c9e56febd3a220dc908633bdcea9eb0f93fbf3b709e4b167",
+    "sha256": "935bc13d8150b05d1c5bee923838bbb359cf648b7dd8c07cead0d2503e06fdc0",
+    "atlasSha256": "9955a547e4cbf449bfc40b8ada6d3080a4b46345cba9649aacb64c4df0ca0f8c",
     "textureBytes": 27070536,
     "multiAtlas": true,
     "images": [
       {
         "path": "web/public/assets/character-cast/native/fritz.webp",
-        "sha256": "659b9ae28412612c450e6586cd07c718216b53c854d195cbc72d940c902289fa",
+        "sha256": "935bc13d8150b05d1c5bee923838bbb359cf648b7dd8c07cead0d2503e06fdc0",
         "firstFrame": 0,
         "frameCount": 18
       },
       {
         "path": "web/public/assets/character-cast/native/fritz.1.webp",
-        "sha256": "200951b9ef489749d2dbc3e2491439f5e7bad81509061eda9d754de3819baa3e",
+        "sha256": "993518905ffb93f5aee8971cea4bf49c0d6498733b63c3d66667a639398d116a",
         "firstFrame": 18,
         "frameCount": 18
       }
@@ -50,6 +45,6 @@
       768
     ],
     "source": "art/proofs/character-cast/fritz.webp",
-    "sourceSha256": "dd3cc1a561d8413b580ee1b14e88dd461ff7b9878e7f87afc95cd1768666641f"
+    "sourceSha256": "88e6190f8fc0f52f94920c327d9a6e3591371f681e8940932c574b57f134a456"
   }
 }

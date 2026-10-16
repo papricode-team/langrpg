@@ -4,23 +4,18 @@
   "recipe": "art/source/character-kit/cast/kigalights-samuel.json",
   "recipeSha256": "9a3d2b68c90af44cfb8e70eb612f6acf62c32a74677aa99d40755e85b27ec382",
   "atlas": "web/public/assets/character-cast/kigalights-samuel.webp",
-  "atlasSha256": "9902d7a98c00ae2f4f40d8c2c20adda313ff695247daa0102ad5f7f3332f8462",
+  "atlasSha256": "9b3a2bc23492c576bde7150b2d282fcfbbfa8fc21b3ec095b8a5b240bee26ea3",
   "geometry": "web/public/assets/character-cast/kigalights-samuel.atlas.json",
-  "geometrySha256": "97a3bdf2bab085dd88c911db55455226679df1795656ee378a0c22e47c3cd8de",
-  "textureBytes": 14550084,
+  "geometrySha256": "0586674349ab41868dc56c65e78a8e15ff381ab1b1a3965768225d2790f4ce89",
+  "textureBytes": 14062932,
   "cell": [
     384,
     576
   ],
+  "sourceComponentsSha256": "4c1a6a8ad5a7d25ce8300188b6308bb9d665a743fb14a126130298948915c34f",
   "proof": "art/proofs/character-cast/kigalights-samuel.png",
-  "proofSha256": "1f481210dbbee362f3b4f173123faee77b4d4f8c0348a1cfe6b687569792e8cc",
-  "editorSha256": "a386037f61aca0f00bbd8756c2355e0c2ed5a195dcc21656fd0a378edc71ac7b",
+  "proofSha256": "372cd28bc610259eddadd7fc417d1410dc13b52a59ab4b991721b70dbf19e232",
+  "editorSha256": "4c42123c698bd6cc27c3ae33500c55a0f92354d131c70228c133bf91658ecdbd",
   "assetVersion": "4c9d233bf71007a9",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "773e9f1d9fed4487",
-    "to": "4c9d233bf71007a9",
-    "unchangedResolvedInputsSha256": "2d9389bb61db3f65fa1d54518bc889741aa40c6b294697a22aa5adda9f03622f"
-  },
-  "sourceComponentsSha256": "2d9389bb61db3f65fa1d54518bc889741aa40c6b294697a22aa5adda9f03622f"
+  "frames": 36
 }
