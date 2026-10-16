@@ -622,7 +622,7 @@
     },
     {
       "id": "dialogue-a1-arrival-complete-0",
-      "text": "Komm mit. Wir lesen jetzt den Plan.",
+      "text": "Du hast Hunger. Geh zu Marta ins Café.",
       "speaker": "otto",
       "voice": "qwen3:otto"
     },
@@ -988,7 +988,7 @@
     },
     {
       "id": "dialogue-a1-bike-complete-0",
-      "text": "Marta hat einen Anruf für dich. Geh ins Café.",
+      "text": "Lina wartet auf ihr Fahrrad. Geh zur Post.",
       "speaker": "emil",
       "voice": "qwen3:emil"
     },
@@ -1181,6 +1181,12 @@
     {
       "id": "dialogue-a1-cafe-complete-0",
       "text": "Du bleibst hier, oder? Du brauchst ein Zimmer.",
+      "speaker": "marta",
+      "voice": "qwen3:marta"
+    },
+    {
+      "id": "dialogue-a1-cafe-complete-1",
+      "text": "Aber jetzt wartet Otto am Plan.",
       "speaker": "marta",
       "voice": "qwen3:marta"
     },
@@ -1828,13 +1834,13 @@
     },
     {
       "id": "dialogue-a1-invitation-complete-0",
-      "text": "Bis Freitag! Deine Tasche ist auch da.",
+      "text": "Bis Freitag! Lina hat noch Post für dich.",
       "speaker": "fritz",
       "voice": "qwen3:fritz"
     },
     {
       "id": "dialogue-a1-invitation-complete-1",
-      "text": "Lina hat sie. Geh zu ihr auf die Post.",
+      "text": "Geh zu ihr auf die Post.",
       "speaker": "fritz",
       "voice": "qwen3:fritz"
     },
@@ -2002,7 +2008,7 @@
     },
     {
       "id": "dialogue-a1-lost-found-complete-1",
-      "text": "Warte kurz. Ich suche noch deine Post.",
+      "text": "Ich suche noch deine Post. Geh zu Fritz.",
       "speaker": "lina",
       "voice": "qwen3:lina"
     },
@@ -2475,6 +2481,18 @@
       "voice": "qwen3:fritz"
     },
     {
+      "id": "dialogue-a1-market-intro-room-five",
+      "text": "Marta sagt, du hast Zimmer fünf. Ruhig, oder?",
+      "speaker": "fritz",
+      "voice": "qwen3:fritz"
+    },
+    {
+      "id": "dialogue-a1-market-intro-room-three",
+      "text": "Marta sagt, du hast Zimmer drei. Gut so!",
+      "speaker": "fritz",
+      "voice": "qwen3:fritz"
+    },
+    {
       "id": "dialogue-a1-market-topic-guests-0",
       "text": "Otto, Marta, Lina, Emil, Greta. Und ich.",
       "speaker": "fritz",
@@ -2740,7 +2758,7 @@
     },
     {
       "id": "dialogue-a1-notice-complete-1",
-      "text": "Du hast Hunger. Geh zu Marta ins Café.",
+      "text": "Fritz hat Brot. Geh zu ihm.",
       "speaker": "otto",
       "voice": "qwen3:otto"
     },
@@ -2914,7 +2932,7 @@
     },
     {
       "id": "dialogue-a1-office-window-complete-1",
-      "text": "Fritz hat eine Frage für dich. Geh zu ihm.",
+      "text": "Hol Linas Fahrrad bei Emil.",
       "speaker": "otto",
       "voice": "qwen3:otto"
     },
@@ -3244,7 +3262,7 @@
     },
     {
       "id": "dialogue-a1-phone-complete-1",
-      "text": "Geh zum Büro vom Messingamt. Es ist beim Bahnhof.",
+      "text": "Otto wartet am Bahnhof. Geh zu ihm.",
       "speaker": "marta",
       "voice": "qwen3:marta"
     },
@@ -3388,7 +3406,7 @@
     },
     {
       "id": "dialogue-a1-room-complete-1",
-      "text": "Fritz hat Brot für uns. Geh zu ihm.",
+      "text": "Fritz wartet auf dich. Geh wieder zu ihm.",
       "speaker": "marta",
       "voice": "qwen3:marta"
     },
@@ -3543,6 +3561,12 @@
       "voice": "qwen3:fritz"
     },
     {
+      "id": "dialogue-a1-shopping-complete-2",
+      "text": "Marta hat ein Zimmer für dich.",
+      "speaker": "fritz",
+      "voice": "qwen3:fritz"
+    },
+    {
       "id": "dialogue-a1-shopping-gate-0",
       "text": "Ich habe Brot, Milch, Eier und Fisch.",
       "speaker": "fritz",
@@ -3567,18 +3591,6 @@
       "voice": "qwen3:fritz"
     },
     {
-      "id": "dialogue-a1-shopping-intro-2",
-      "text": "Marta sagt, du hast Zimmer drei. Gut so!",
-      "speaker": "fritz",
-      "voice": "qwen3:fritz"
-    },
-    {
-      "id": "dialogue-a1-shopping-intro-3",
-      "text": "Marta sagt, du hast Zimmer fünf. Ruhig, oder?",
-      "speaker": "fritz",
-      "voice": "qwen3:fritz"
-    },
-    {
       "id": "dialogue-a1-shopping-intro-4",
       "text": "Am Freitag koche ich Suppe für alle.",
       "speaker": "fritz",
@@ -3599,6 +3611,18 @@
     {
       "id": "dialogue-a1-shopping-intro-7",
       "text": "Hier saß immer ein Gast. Aber wer?",
+      "speaker": "fritz",
+      "voice": "qwen3:fritz"
+    },
+    {
+      "id": "dialogue-a1-shopping-intro-receipt-filed",
+      "text": "Marta sagt, Voss hat deine Rechnung. Er hat alles.",
+      "speaker": "fritz",
+      "voice": "qwen3:fritz"
+    },
+    {
+      "id": "dialogue-a1-shopping-intro-receipt-kept",
+      "text": "Marta sagt, du hast die Rechnung noch. Gut so!",
       "speaker": "fritz",
       "voice": "qwen3:fritz"
     },
@@ -3737,6 +3761,12 @@
     {
       "id": "dialogue-a1-station-complete-0",
       "text": "Es ist spät. Morgen bin ich wieder hier.",
+      "speaker": "otto",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "dialogue-a1-station-complete-1",
+      "text": "Geh morgen zu Marta. Sie hat ein Telefon.",
       "speaker": "otto",
       "voice": "qwen3:otto"
     },
@@ -4247,6 +4277,12 @@
     {
       "id": "dialogue-a1-workshop-complete-0",
       "text": "Moment! Linas Fahrrad ist auch hier.",
+      "speaker": "emil",
+      "voice": "qwen3:emil"
+    },
+    {
+      "id": "dialogue-a1-workshop-complete-1",
+      "text": "Sieh, die Lampe! Beim Messingamt geht sie aus.",
       "speaker": "emil",
       "voice": "qwen3:emil"
     },
@@ -7691,8 +7727,8 @@
     {
       "id": "grammar-a1-notice",
       "text": "Mit dürfen fragst du nach einer Regel: Warum darf ich das nicht?",
-      "speaker": "otto",
-      "voice": "qwen3:otto"
+      "speaker": "kessler",
+      "voice": "qwen3:kessler"
     },
     {
       "id": "grammar-a1-office-window",

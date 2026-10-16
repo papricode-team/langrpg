@@ -71,7 +71,7 @@ func TestAdminStoryListingFollowsThePlayOrder(t *testing.T) {
 		t.Fatalf("players must not read the admin story: %d", res.Code)
 	}
 	listing := readStoryListing(t, app, token)
-	if len(listing.Scenes) < 41 || listing.Scenes[0].QuestID != "a1-arrival" || listing.Scenes[1].QuestID != "a1-timetable" {
+	if len(listing.Scenes) < 41 || listing.Scenes[0].QuestID != "a1-arrival" || listing.Scenes[1].QuestID != "a1-cafe" {
 		t.Fatalf("scenes should follow the story order: %d scenes", len(listing.Scenes))
 	}
 	first := listing.Scenes[0]
