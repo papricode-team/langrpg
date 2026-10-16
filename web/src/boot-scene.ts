@@ -3,12 +3,15 @@ import { castActorsForMap, castAssets, castAssetUrl, castAtlasUrl } from './char
 import { loadWorldAudio } from './world-audio';
 import { getMap } from './maps';
 import { emitWorld, readWorld, SceneKeys, WorldEvents } from './world-state';
+import { QUALITY_MANIFEST_KEY, QUALITY_MANIFEST_URL, setQualityManifest } from './texture-quality';
 
 /** Art and sound every map shares, loaded once with progress before the first map starts. */
 export class BootScene extends Phaser.Scene {
-  constructor() { super({ key: SceneKeys.Boot }); }
+  // The tier manifest arrives before preload so every image request below can start at Low.
+  constructor() { super({ key: SceneKeys.Boot, pack: { files: [{ type: 'json', key: QUALITY_MANIFEST_KEY, url: QUALITY_MANIFEST_URL } as Phaser.Types.Loader.FileConfig] } }); }
 
   init(): void {
+    setQualityManifest(this.cache.json.get(QUALITY_MANIFEST_KEY));
     this.scene.launch(SceneKeys.Travel, { label: getMap(readWorld(this.registry, 'mapId')).name });
   }
 

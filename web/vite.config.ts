@@ -4,12 +4,13 @@ import { fileURLToPath } from 'node:url';
 import { compactTranslationsPlugin } from '../scripts/compact-translations.mjs';
 import { uiLayoutPlugin } from '../scripts/ui-layout.mjs';
 import { contentRuntimePlugin } from '../scripts/content-runtime-plugin.mjs';
+import { assetQualityPlugin } from '../scripts/asset-quality.mjs';
 
 export default defineConfig(({ command, mode }) => {
   const version = command === 'build' ? crypto.randomUUID() : 'development';
   return {
     define: { __APP_VERSION__: JSON.stringify(version) },
-    plugins: [...(mode === 'test' ? [] : [contentRuntimePlugin(fileURLToPath(new URL('..', import.meta.url)))]), uiLayoutPlugin(), compactTranslationsPlugin(fileURLToPath(new URL('..', import.meta.url)), ['character-kit', 'character-cast', 'player-portraits'].map(name => `web/src/data/${name}.json`)), {
+    plugins: [...(mode === 'test' ? [] : [contentRuntimePlugin(fileURLToPath(new URL('..', import.meta.url))), assetQualityPlugin(fileURLToPath(new URL('..', import.meta.url)))]), uiLayoutPlugin(), compactTranslationsPlugin(fileURLToPath(new URL('..', import.meta.url)), ['character-kit', 'character-cast', 'player-portraits'].map(name => `web/src/data/${name}.json`)), {
       name: 'app-version',
       generateBundle() {
         this.emitFile({ type: 'asset', fileName: 'version.json', source: JSON.stringify({ version }) });

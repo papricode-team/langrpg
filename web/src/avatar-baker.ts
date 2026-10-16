@@ -6,14 +6,25 @@ import { characterSheetPages } from './character-sheets.mjs';
 import type { PixelSheet } from './character-compositor.mjs';
 import { AvatarTextureCache } from './avatar-texture-cache';
 import type { TextureLease } from './avatar-texture-cache';
+import { graphicsQualityTier, QUALITY_SCALE, qualityTiersAvailable, qualityUrl } from './quality-state';
+import type { QualityTier } from './quality-governor';
 
 const facings: Facing[] = ['down', 'right', 'up', 'left'];
 type Resolution = 'runtime' | 'editor';
 type SheetLoader = (url: string, width: number, height: number) => Promise<PixelSheet>;
 interface PoseOptions { catalogue?: CharacterCatalogue; poseSet?: string; }
 // Preserve is for comparing historical source proofs; all live renders remove matte.
-interface BakeOptions extends PoseOptions { expression?: string; resolution?: Resolution; atlasColumns?: number; preview?: boolean; loadSheet?: SheetLoader; sourceMatte?: 'remove' | 'preserve'; }
-interface TextureBakeOptions extends PoseOptions { resolution?: Resolution; }
+// `quality` bakes from the reduced kit sheets (scripts/asset-quality.mjs); High is the native cell.
+interface BakeOptions extends PoseOptions { expression?: string; resolution?: Resolution; atlasColumns?: number; preview?: boolean; loadSheet?: SheetLoader; sourceMatte?: 'remove' | 'preserve'; quality?: QualityTier; }
+interface TextureBakeOptions extends PoseOptions { resolution?: Resolution; quality?: QualityTier; }
+
+/** The cell a bake composes at. Kit cells divide by four, so every tier keeps whole pixels. */
+function bakeCell(catalogue: CharacterCatalogue, resolution: Resolution, quality: QualityTier = 'high'): [number, number] {
+  const [width, height] = resolution === 'editor' ? catalogue.format.editorCell : catalogue.format.runtimeCell;
+  return [Math.round(width * QUALITY_SCALE[quality]), Math.round(height * QUALITY_SCALE[quality])];
+}
+/** World avatars follow the graphics quality; without a tier manifest (tests, tools) they stay native. */
+function worldQuality(): QualityTier { return qualityTiersAvailable() ? graphicsQualityTier() : 'high'; }
 
 /** CPU copies are bounded separately from the GPU atlas cache. Failures are retryable. */
 export class AvatarSheetCache {
@@ -61,13 +72,13 @@ function validate(recipe: AvatarRecipe, catalogue: CharacterCatalogue, preview: 
   if (errors.length) throw new Error(`Invalid avatar: ${errors.join('; ')}`);
 }
 
-async function loadLayers(layers: ResolvedComponent[], catalogue: CharacterCatalogue, resolution: Resolution, load: SheetLoader, frames: number[]): Promise<Map<string, PixelSheet>> {
-  const [width, height] = resolution === 'editor' ? catalogue.format.editorCell : catalogue.format.runtimeCell;
+async function loadLayers(layers: ResolvedComponent[], catalogue: CharacterCatalogue, resolution: Resolution, load: SheetLoader, frames: number[], quality: QualityTier = 'high'): Promise<Map<string, PixelSheet>> {
+  const [width, height] = bakeCell(catalogue, resolution, quality);
   const unique = new Map(layers.map(layer => [layer.id, layer]));
   const images = new Map<string, PixelSheet>();
   await Promise.all([...unique.values()].flatMap(layer => layer.materials.map(async material => {
     for (const page of characterSheetPages(layer.sheets[material], resolution, [width,height], frames)) {
-      const url = `${catalogue.assetBase}${page.path}?v=${catalogue.assetVersion}`;
+      const url = qualityUrl(`${catalogue.assetBase}${page.path}?v=${catalogue.assetVersion}`, quality);
       const image = {...await load(url, page.width, page.height), firstFrame:page.firstFrame, frameCount:page.frameCount, columns:page.columns};
       for (const frame of frames) if (frame>=page.firstFrame&&frame<page.firstFrame+page.frameCount) images.set(`${layer.id}.${material}.${frame}`,image);
     }
@@ -76,20 +87,20 @@ async function loadLayers(layers: ResolvedComponent[], catalogue: CharacterCatal
 }
 
 /** No Phaser dependency: editor, portrait and world baking share these pixels. */
-export async function bakeAvatarPixels(recipe: AvatarRecipe, { catalogue = characterCatalogue, poseSet = catalogue.poseSet ?? 'walk', expression = catalogue.expression ?? 'neutral', resolution = 'runtime', atlasColumns = 9, preview = false, loadSheet = sheets.load, sourceMatte = 'remove' }: BakeOptions = {}) {
+export async function bakeAvatarPixels(recipe: AvatarRecipe, { catalogue = characterCatalogue, poseSet = catalogue.poseSet ?? 'walk', expression = catalogue.expression ?? 'neutral', resolution = 'runtime', atlasColumns = 9, preview = false, loadSheet = sheets.load, sourceMatte = 'remove', quality = 'high' }: BakeOptions = {}) {
   if(!Number.isInteger(atlasColumns)||atlasColumns<1||atlasColumns>36)throw new Error('Atlas columns must be in 1..36');
   catalogue = catalogueForExpression(recipe, expression, catalogueForPose(poseSet, catalogue));
   // Snapshot before awaiting IO; rapid editor changes must not mutate a pending bake.
   const snapshot = structuredClone(recipe);
   validate(snapshot, catalogue, preview);
   const resolved = facings.map(facing => resolveRecipe(snapshot, facing, catalogue).layers);
-  const [width, height] = resolution === 'editor' ? catalogue.format.editorCell : catalogue.format.runtimeCell;
+  const [width, height] = bakeCell(catalogue, resolution, quality);
   const atlasWidth=width*atlasColumns, atlasHeight=height*Math.ceil(36/atlasColumns), data=new Uint8ClampedArray(atlasWidth*atlasHeight*4);
   const sourceCache=new AvatarSheetCache(loadSheet);
   // Release each source page before decoding the next; only the final atlas persists.
   for(let start=0;start<36;start+=4){
     const frames=Array.from({length:4},(_,i)=>start+i);
-    const images=await loadLayers(frames.flatMap(frame=>resolved[Math.floor(frame/9)]),catalogue,resolution,sourceCache.load,frames);
+    const images=await loadLayers(frames.flatMap(frame=>resolved[Math.floor(frame/9)]),catalogue,resolution,sourceCache.load,frames,quality);
     for(const frame of frames){
       const pixels=composeFrame(resolved[Math.floor(frame/9)],images,frame,width,height,9,sourceMatte);
       // Logical direction still changes every nine frames; only physical packing changes.
@@ -157,20 +168,20 @@ export async function paintAvatar(canvas: HTMLCanvasElement, recipe: AvatarRecip
 }
 
 const gameCaches = new WeakMap<Phaser.Game, AvatarTextureCache<string>>();
-function textureLayout(recipe: AvatarRecipe, catalogue: CharacterCatalogue, resolution: Resolution) {
+function textureLayout(recipe: AvatarRecipe, catalogue: CharacterCatalogue, resolution: Resolution, quality: QualityTier) {
   // Eight native columns keep 512px cells within a 4096px GPU texture limit.
   const atlasColumns = resolution === 'editor' ? 8 : 9, atlasRows = Math.ceil(36 / atlasColumns);
-  return { atlasColumns, key: `avatar:${avatarTextureKey(recipe, catalogue)}:${resolution}:${atlasColumns}x${atlasRows}` };
+  return { atlasColumns, atlasRows, key: `avatar:${avatarTextureKey(recipe, catalogue)}:${resolution}:${quality}:${atlasColumns}x${atlasRows}` };
 }
 
 /** Reuse an existing game texture without leaving a hidden sprite for a frame. */
-export function acquireAvatarTexture(scene: Phaser.Scene, recipe: AvatarRecipe, { catalogue = characterCatalogue, poseSet = catalogue.poseSet ?? 'walk', resolution = 'runtime' }: TextureBakeOptions = {}): TextureLease<string> | undefined {
+export function acquireAvatarTexture(scene: Phaser.Scene, recipe: AvatarRecipe, { catalogue = characterCatalogue, poseSet = catalogue.poseSet ?? 'walk', resolution = 'runtime', quality = worldQuality() }: TextureBakeOptions = {}): TextureLease<string> | undefined {
   catalogue = catalogueForPose(poseSet, catalogue);
-  return gameCaches.get(scene.game)?.acquireReady(textureLayout(recipe, catalogue, resolution).key);
+  return gameCaches.get(scene.game)?.acquireReady(textureLayout(recipe, catalogue, resolution, quality).key);
 }
 
 /** Textures belong to the game; scene changes release leases without clearing the bounded cache. */
-export async function bakeAvatarTexture(scene: Phaser.Scene, recipe: AvatarRecipe, { catalogue = characterCatalogue, poseSet = catalogue.poseSet ?? 'walk', resolution = 'runtime' }: TextureBakeOptions = {}): Promise<TextureLease<string>> {
+export async function bakeAvatarTexture(scene: Phaser.Scene, recipe: AvatarRecipe, { catalogue = characterCatalogue, poseSet = catalogue.poseSet ?? 'walk', resolution = 'runtime', quality = worldQuality() }: TextureBakeOptions = {}): Promise<TextureLease<string>> {
   catalogue = catalogueForPose(poseSet, catalogue);
   const snapshot = structuredClone(recipe);
   validate(snapshot, catalogue, false);
@@ -186,14 +197,18 @@ export async function bakeAvatarTexture(scene: Phaser.Scene, recipe: AvatarRecip
     const ownedCache = cache;
     game.events.once('destroy', () => { ownedCache.dispose(); gameCaches.delete(game); });
   }
-  const { key, atlasColumns } = textureLayout(snapshot, catalogue, resolution);
+  const { key, atlasColumns, atlasRows } = textureLayout(snapshot, catalogue, resolution, quality);
   return cache.acquire(key, async () => {
-    const canvas = pixelCanvas(await bakeAvatarPixels(snapshot, { catalogue, resolution, atlasColumns }));
+    const canvas = pixelCanvas(await bakeAvatarPixels(snapshot, { catalogue, resolution, atlasColumns, quality }));
     if (gameCaches.get(game) !== cache) throw new Error('Avatar game destroyed while baking');
     const texture = textures.addCanvas(key, canvas);
     if (!texture) throw new Error(`Could not register avatar texture ${key}`);
     try {
-      const [frameWidth, frameHeight] = resolution==='editor'?catalogue.format.editorCell:catalogue.format.runtimeCell;
+      // Frames keep the native cell size at every quality, so sprites keep their size and origin.
+      const [frameWidth, frameHeight] = bakeCell(catalogue, resolution);
+      const source = texture.source[0];
+      source.width = frameWidth * atlasColumns; source.height = frameHeight * atlasRows;
+      texture.get('__BASE')?.setSize(source.width, source.height);
       if (!textures.addSpriteSheet(key, texture, { frameWidth, frameHeight, endFrame: 35 })) throw new Error('Could not register avatar frames');
     } catch (error) { textures.remove(key); throw error; }
     return key;

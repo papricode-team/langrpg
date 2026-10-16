@@ -4,6 +4,7 @@ import {terrainMaterial,terrainMaterialKey} from './terrain-materials';
 import {featureBounds,terrainFeature,terrainFeatureKey,type TerrainFeature} from './terrain-features';
 import type {WorldScene} from './scene-schema';
 import {worldAssetUrl} from './world-asset-url';
+import {QUALITY_SWAP_EVENT} from './texture-frame';
 
 /** Materials are redrawn at this power-of-two size so WebGL1 can repeat and mipmap them. */
 const MATERIAL_SIZE=1024;
@@ -141,9 +142,20 @@ function materialTexture(scene:Phaser.Scene,id:string,ready:()=>void):boolean{
     if(scene.textures.exists(potKey(id))||!scene.textures.exists(source))return;
     const canvas=scene.textures.createCanvas(potKey(id),MATERIAL_SIZE,MATERIAL_SIZE);
     if(!canvas)return;
-    canvas.context.drawImage(scene.textures.get(source).getSourceImage() as CanvasImageSource,0,0,MATERIAL_SIZE,MATERIAL_SIZE);
-    canvas.refresh();
+    const paint=():void=>{
+      canvas.context.clearRect(0,0,MATERIAL_SIZE,MATERIAL_SIZE);
+      canvas.context.drawImage(scene.textures.get(source).getSourceImage() as CanvasImageSource,0,0,MATERIAL_SIZE,MATERIAL_SIZE);
+      canvas.refresh();
+    };
+    paint();
     canvas.setWrap(Phaser.Textures.WrapMode.REPEAT,Phaser.Textures.WrapMode.REPEAT);
+    // The material first arrives at Low quality; repaint the shared copy when a sharper one replaces it.
+    const textures=scene.textures;
+    const repaint=(key:string):void=>{
+      if(!textures.exists(potKey(id)))textures.off(QUALITY_SWAP_EVENT,repaint);
+      else if(key===source&&textures.exists(source))paint();
+    };
+    textures.on(QUALITY_SWAP_EVENT,repaint);
     ready();
   };
   if(scene.textures.exists(source)){finish();return scene.textures.exists(potKey(id));}

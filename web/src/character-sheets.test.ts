@@ -33,3 +33,16 @@ it('decodes one four-frame page for a preview and preserves all 36 frames across
     for(let p=0;p<pixels.length;p+=4)expect([...pixels.subarray(p,p+4)]).toEqual([n+1,0,0,255]);
   }
 });
+it('bakes a reduced quality from the tier sheets at the scaled cell',async()=>{
+  const {setQualityManifest}=await import('./quality-state');
+  const body=characterCatalogue.components.find(piece=>piece.id==='body-regular')!;
+  const catalogue:CharacterCatalogue={...characterCatalogue,assetBase:'/assets/kit/',poseSets:undefined,expressions:undefined,components:[{...body,materials:['detail'],tints:{detail:null},sheets:{detail:sheet}}],format:{...characterCatalogue.format,runtimeCell:[8,12],editorCell:[8,12]}};
+  const recipe=normalizeAvatar({},catalogue);for(const slot of Object.keys(recipe.parts))recipe.parts[slot]=null;
+  setQualityManifest({files:Object.fromEntries(pages.map(page=>[`kit/${page.path}`,[16,24]]))});
+  try {
+    const loadSheet=vi.fn(async(_url:string,width:number,height:number)=>({data:new Uint8Array(width*height*4).fill(255),width,height}));
+    const atlas=await bakeAvatarPixels(recipe,{catalogue,preview:true,loadSheet,quality:'low'});
+    expect(loadSheet.mock.calls[0]).toEqual([expect.stringMatching(/^\/assets\/q\/low\/kit\/page-0\.webp\?v=/),8,12]);
+    expect([atlas.width,atlas.height]).toEqual([4*9,6*4]);
+  } finally { setQualityManifest(null); }
+});
