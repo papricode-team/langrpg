@@ -1,10 +1,12 @@
 import type { GameItem, Modality } from './types';
+/** A word is asked at most this many times per run before misses; a small pool ends the run early instead of drilling it. */
+export const maxCuesPerWord = 2;
 /** Misses return after two other items, and remain supported recalls on every retry. */
 export class RoundQueue {
   private queue: { item: GameItem; retry: boolean }[];
   private presented = new Set<string>();
   constructor(pool: readonly GameItem[], count: number) {
-    this.queue = pool.length ? Array.from({length:count},(_,index) => ({item:pool[index%pool.length],retry:false})) : [];
+    this.queue = pool.length ? Array.from({length:Math.min(count,pool.length*maxCuesPerWord)},(_,index) => ({item:pool[index%pool.length],retry:false})) : [];
   }
   next() {
     const next = this.queue.shift();

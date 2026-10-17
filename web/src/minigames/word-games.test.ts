@@ -127,6 +127,22 @@ describe('the ten word games submit real answers', () => {
     [...root.querySelectorAll<HTMLButtonElement>('[data-wg^="basket:"]')].find(button => button.textContent?.includes({ food: 'Food', travel: 'Travel', time: 'Time', home: 'Home' }[word.topic]!))!.click(); await flush();
     expect(submitted()[0]).toMatchObject({ lexemeId: word.lexemeId, answerKind: 'topic', answer: word.topic, modality: 'recognition' });
   });
+  it('Market Baskets speeds up after quick correct answers and slows after a miss', async () => {
+    const { root, start, cue } = setup('market-baskets'); await start();
+    const label = { food: 'Food', travel: 'Travel', time: 'Time', home: 'Home' } as Record<string, string>;
+    const pack = async (right: boolean) => {
+      const word = cue(), baskets = [...root.querySelectorAll<HTMLButtonElement>('[data-wg^="basket:"]')];
+      baskets.find(button => button.textContent?.includes(label[word.topic]) === right)!.click(); await flush(); await advance(1600);
+    };
+    expect(root.querySelector('[data-game-pace]')!.textContent).toBe('Steady pace');
+    expect(root.querySelectorAll('[data-wg^="basket:"]')).toHaveLength(4);
+    await pack(true); await pack(true);
+    expect(root.querySelector('[data-game-pace]')!.textContent).toBe('Brisk pace');
+    expect(root.querySelectorAll('[data-wg^="basket:"]')).toHaveLength(5);
+    await pack(false);
+    expect(root.querySelector('[data-game-pace]')!.textContent).toBe('Steady pace');
+    expect(root.querySelectorAll('[data-wg^="basket:"]')).toHaveLength(4);
+  });
   it('Falling Leaves records a miss when the true leaf lands', async () => {
     const { start, cue, submitted } = setup('falling-leaves', { reducedMotion: false }); await start();
     const word = cue();

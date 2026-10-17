@@ -5,6 +5,25 @@
   font-size: var(--type-caption)
 }
 
+.word-game-pace {
+  justify-self:end;
+  padding:2px 10px;
+  border:1px solid #c6a05e80;
+  border-radius:999px;
+  background:#102b28d9;
+  color:#efcd80;
+  font-size: var(--type-caption);
+  letter-spacing:.04em
+}
+
+.word-game-pace[data-tier="0"] { color:#b9d4c4 }
+.word-game-pace[data-tier="3"] { border-color:#f1cc7b; color:#ffe2a0 }
+.word-game-pace.is-up { animation:word-pace-up .9s ease-out }
+.word-game-pace.is-down { animation:word-pace-down .9s ease-out }
+
+@keyframes word-pace-up { 0% { transform:scale(1.25); box-shadow:0 0 14px #f1cc7b } 100% { transform:none; box-shadow:none } }
+@keyframes word-pace-down { 0% { transform:translateY(3px); opacity:.5 } 100% { transform:none; opacity:1 } }
+
 .word-game-seal::before {
   content:none
 }
@@ -226,38 +245,44 @@
   position:absolute;
   top:0;
   left:calc(var(--lane) * 100%);
-  min-width:120px;
-  max-width:200px;
-  min-height:52px;
-  padding:10px 16px;
-  border:2px solid #c48b3d;
-  border-radius:4px 40px 4px 40px;
-  background:linear-gradient(135deg,#d39a45,#9c5a26);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:min(200px,calc(100% / var(--count, 4) - 6px));
+  min-height:124px;
+  padding:24px 30px 24px 62px;
+  border:0;
+  border-radius:0;
+  background:url('/assets/minigames/sprites/prop-leaf-gold.webp') center/100% 100% no-repeat;
   color:#fff7e2 !important;
   font: var(--type-body) 'DM Sans';
-  text-shadow:0 1px 2px #0008;
-  transform:translate(calc(-50% + var(--sway) * 18px),calc(var(--fall) * 236px)) rotate(calc(var(--sway) * 12deg));
+  font-weight:600;
+  line-height:1.15;
+  text-shadow:0 1px 2px #000c,0 0 6px #0009;
+  filter:drop-shadow(0 6px 6px #0006);
+  transform:translate(calc(-50% + var(--sway) * 18px),calc(var(--fall) * 176px)) rotate(calc(var(--sway) * 12deg));
   touch-action:manipulation
 }
+
+.word-leaf:nth-of-type(3n+2) { background-image:url('/assets/minigames/sprites/prop-leaf-amber.webp') }
+.word-leaf:nth-of-type(3n) { background-image:url('/assets/minigames/sprites/prop-leaf-russet.webp') }
 
 .word-leaf kbd {
   margin-left:8px;
   font-size: var(--type-caption);
-  opacity:.75
+  opacity:.8
 }
 
 .word-leaf:hover {
-  outline:3px solid #f1cc7b;
-  outline-offset:2px
+  filter:drop-shadow(0 0 10px #f1cc7b) drop-shadow(0 6px 6px #0006)
 }
 
 .word-leaf.is-landed {
-  filter:saturate(.4) brightness(.8)
+  filter:saturate(.4) brightness(.75)
 }
 
 .word-leaf.is-caught {
-  border-color:#f7d27a;
-  box-shadow:0 0 18px #efc467
+  filter:drop-shadow(0 0 16px #efc467) brightness(1.1)
 }
 
 .word-leaves-sky.is-still {
@@ -552,7 +577,7 @@
 
 @media(prefers-reduced-motion:reduce) {
   .word-tile,.word-basket-card.is-dropping,.word-fuse-cord,.word-fuse-spark,.word-bells-glimpse { transition:none }
-  .is-shaking,.word-bell.is-ringing .word-bell-shape { animation:none }
+  .is-shaking,.word-bell.is-ringing .word-bell-shape,.word-game-pace { animation:none }
 }
 
 @media(--phone) {
@@ -562,7 +587,7 @@
   .word-loom-cell { width:100%; min-width:34px; height:40px }
   .word-fuse-keys { grid-template-columns:repeat(6,minmax(44px,1fr)) }
   .word-letter { width:46px; height:52px }
-  .word-leaf { min-width:96px; max-width:140px }
+  .word-leaf { width:150px; min-height:96px; padding:18px 22px 18px 46px }
 }
 
 /* The light breathes over the painted stage; quiet dust uses the painted lantern flare. */
