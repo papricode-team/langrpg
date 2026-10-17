@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-turban-broad-page-0-candidate-1.png",
+      "sha256": "bca41e6f62a427d5ccf185a05089eb4a9cbb7c4ecad9328a4cd9284013929d65"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-turban-broad-page-0-candidate-1.txt",
+      "sha256": "b98a54e89e7be8bce5bb5962f8eb7f9d8a2a63db82d241d984478438654d31dd"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-turban-broad-page-1-candidate-1.png",
+      "sha256": "e824d12340a695666f3623cb40446e948203965781892f03c8253452d5e517f8"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-turban-broad-page-1-candidate-1.txt",
+      "sha256": "1bacb4f723b7f208ccff68c31a78e5d49f328799d7110c6ad3ba60fb8f60be26"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-turban-broad-page-2-candidate-2.png",
+      "sha256": "700267dedc52345c41e0a3dca76fabc28dd096909b761e148a75d05b9501dafd"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-turban-broad-page-2-candidate-2.txt",
+      "sha256": "a3a57d56df819db9eab8ddeb4a2093dfebc226e0a28a2963b2a6a432cc2ca653"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-turban-broad-page-3-candidate-1.png",
+      "sha256": "6ac4869721e7cfa78a008619736edfd0ef70066dd3bd3d4d68c808c55d80fdbc"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-turban-broad-page-3-candidate-1.txt",
+      "sha256": "65de3a9f7e83da83bf0bea910c8397f583a2e7fb613caca010f29512fc689149"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "501c4bb15bf0dcf1c0e80bc41338ffbd3c2df0981323073a184b599606aa638e"
+}

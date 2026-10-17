@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-buzz-slim-page-0-candidate-1.png",
+      "sha256": "15fef38b0cdab84de1d51f68ce8f2558a48af2e9bbaf822c076cef6dcbd35b34"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-buzz-slim-page-0-candidate-1.txt",
+      "sha256": "93ef1f242a30b9d441cf5a9c6995e789ab9016033e8344ccc33a25126096c2d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-0.json",
+      "sha256": "9207c077e0be3b69b427bf2fef3c5c6ec2cba6cd90360ea2f21dee3997475f8b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-buzz-slim-page-1-candidate-1.png",
+      "sha256": "1db720450981f01f2119f52c9c65f77d221ffaac4d7ffa9840e7f071084284a8"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-buzz-slim-page-1-candidate-1.txt",
+      "sha256": "93ef1f242a30b9d441cf5a9c6995e789ab9016033e8344ccc33a25126096c2d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-1.json",
+      "sha256": "f25ab7ae6f2211a6dcf84a772de156dca1aea4c9a1667b243da9303f7f1651ae"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-buzz-slim-page-2-candidate-1.png",
+      "sha256": "76845b353cc17e8b295d93f8606ab09cb59061c419750ff94bbcb6ea277b1c0b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-buzz-slim-page-2-candidate-1.txt",
+      "sha256": "93ef1f242a30b9d441cf5a9c6995e789ab9016033e8344ccc33a25126096c2d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-2.json",
+      "sha256": "114454392f0cfb9ed7f499b8732bbd8ea3acae965a2db03ac0e20f8ab4e31746"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-buzz-slim-page-3-candidate-1.png",
+      "sha256": "2f67f31e45f50adafddfadb28d24c9c96429d5ca7cec69b7300e036fe9629469"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-buzz-slim-page-3-candidate-1.txt",
+      "sha256": "93ef1f242a30b9d441cf5a9c6995e789ab9016033e8344ccc33a25126096c2d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-3.json",
+      "sha256": "9aef7f92c4a053f1ceb57baa15a3a3771a2c646922f5b26f7f9c0ac68ec0b4bd"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "523fc9ee196b56e34703a99e31fba4129a53b353fba0929f05ffee4c32c36f77"
+}

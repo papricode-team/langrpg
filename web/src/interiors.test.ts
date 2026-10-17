@@ -1,3 +1,5 @@
+import {buildingInteriors} from './building-interiors';
+import {getWorldScene} from './scene-data';
 import { describe, expect, it } from 'vitest';
 import sharp from 'sharp';
 import { npcs, quests } from './content';
@@ -57,16 +59,18 @@ describe('enterable learning spaces', () => {
       const pointNavigation = createMapNavigation(map.id, {agentRadius:0});
       const start = pixels(getMap(map.id).spawn, navigation);
       const entrances = buildingEntrances(map.id);
-      expect(entrances.map(entrance => entrance.interiorId)).toEqual(['cafe', 'bakery', 'supermarket', 'inn']);
-      expect(new Set(entrances.map(entrance => entrance.id)).size).toBe(4);
+      expect(entrances.slice(0, 4).map(entrance => entrance.interiorId)).toEqual(['cafe', 'bakery', 'supermarket', 'inn']);
+      expect(entrances).toHaveLength(getWorldScene(map.id).scenery.filter(item => ['house', 'archive', 'cafe', 'station', 'workshop', 'greenhouse'].includes(item.asset)).length);
+      expect(new Set(entrances.map(entrance => entrance.id)).size).toBe(entrances.length);
       for (const entrance of entrances) {
         expect(entrance.id).toBe(`building:${entrance.interiorId}`);
         expectReachableApproach(navigation, pointNavigation, start, pixels(entrance, navigation), `${map.name} ${entrance.label}`);
+        expectReachableApproach(navigation, pointNavigation, start, pixels(entrance.returnPoint, navigation), `${map.name} ${entrance.label} return`);
       }
   });
 
   it('keeps room arrival, every conversation, every station, and the exit connected', () => {
-    for (const interior of interiors) {
+    for (const interior of [...interiors, ...buildingInteriors]) {
       const navigation = createInteriorNavigation(interior.id);
       const pointNavigation = createInteriorNavigation(interior.id, {agentRadius:0});
       const start = pixels(interior.spawn, interior);
@@ -82,14 +86,14 @@ describe('enterable learning spaces', () => {
   });
 
   it('routes around solid furniture while leaving the central aisle open', () => {
-    const aisle: Record<InteriorId, MapPoint> = {
+    const aisle: Partial<Record<InteriorId, MapPoint>> = {
       cafe: { x: 500, y: 785 }, bakery: { x: 950, y: 785 }, supermarket: { x: 1250, y: 785 },
       inn: { x: 780, y: 785 },
     };
     for (const interior of interiors) {
       const navigation = createInteriorNavigation(interior.id);
       const start = pixels(interior.spawn);
-      expectReachable(navigation, start, aisle[interior.id], `${interior.name} central aisle`);
+      expectReachable(navigation, start, aisle[interior.id]!, `${interior.name} central aisle`);
       const architecture = new NavigationGrid(interior.floorAreas, interior.barriers);
       for (const prop of interior.props) {
         if (!prop.collision) continue;

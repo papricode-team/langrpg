@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "candidateSha256": "903faa23c8f77d5a634b18e514e86381661c38f88ce7a5b47fe46fa00cb54d9a",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "ec922dac5a4f4be7ce799870e40be63ce8295bf128f67354328cb34d4ec97927",
+  "promptSha256": "d692827dcfa1d7ad7be9f85b0f8d68da19171ee5c4c0d5aae330421b05a01c90",
+  "generationPromptSha256": "8c28bc7ab2a251560cdc540f949f9ecf719b643614df8838ab3fcd67e36c158a",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 360,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailMaxChroma": 0.15
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "down": 4,
+      "right": 2,
+      "left": 2
+    },
+    "regionReason": "The centre part divides the crown into two halves in some front frames, while ears hide the connections to the two braids. All 36 native head crops reviewed."
+  },
+  "preparationSha256": "283eefbb6f44c84ab6d63352eba49cb56fd809df12dc623c283e01086d438fa3",
+  "candidate": "art/source/character-kit/hd/hair-braids-slim-candidate.png",
+  "lockedSha256": "f7f60b8d7a9aaa42b5a5875502f078b4a60c958a37a1325aa0949888aecdff5d"
+}

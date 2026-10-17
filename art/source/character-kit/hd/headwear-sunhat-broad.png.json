@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "cf757b306abeb34ac27010191c64d9085abcd83d6b0b631386a7c8320d53b37a",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "85b294c3a8b9a6527807718ea7ae631bc0d894174b6d34b37a03a3ce87a42b13",
+  "promptSha256": "bed40ddbcf9838785b74cf53b0b8e50e0d28cd6f3d5ef5cf1037578a5767fd91",
+  "generationPromptSha256": "9bbf22220c313152bd70a0552f910629104b312d119e7085abf904f139186b88",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "36b3277dcc8dc7d5d28d209cce6f364277b4f2f5eee2a9af51b29f0ff9563936",
+  "candidate": "art/source/character-kit/hd/headwear-sunhat-broad-candidate.png",
+  "lockedSha256": "8c7e5fbd45ac50701ffd99a871b30f575211fcff322435ae71e05832b0498e98"
+}

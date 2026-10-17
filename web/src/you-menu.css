@@ -235,6 +235,7 @@
    Border-image widths do not change layout or replace a control's background.
    Native radios and checkboxes keep the shared ring because they do not paint border images. */
 #menu-layer :is(button,input:where(:not([type=radio],[type=checkbox])),select,textarea,summary,a[href]):focus-visible,
+#menu-layer[data-input='keys'] :is(button,input:where(:not([type=radio],[type=checkbox])),select,textarea,summary,a[href]):focus-visible,
 #menu-layer[data-input='pad'] :is(button,input:where(:not([type=radio],[type=checkbox])),select,textarea,summary,a[href]):focus {
   outline:none;
   box-shadow:none;

@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/rainmarket-haru.png",
   "proofSha256": "6007a1bcd152959ae292eeb989a1a40f45494a6a75e78a0b568058634cda6617",
   "editorSha256": "4431642d8edd3c99999be3cc9db11453a907bfdc9f2a559e5bf6ce8e5046a67d",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "5f4380db11b6b0e60e022cadf220a811b83147b1cb3ed93cc0d46285dd26e7ac"
+  }
 }

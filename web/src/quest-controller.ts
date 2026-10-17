@@ -396,8 +396,11 @@ export class QuestController {
       const saved = this.error ? await this.savedChoice(graph.questId) : id;
       if (generation !== this.generation || this.graph !== graph || saved === undefined) return;
       const recorded = dialogueChoices(this.node!, storyState(this.options.progress().story)).find(item => item.id === saved) ?? choice;
-      this.options.onComplete(graph, this.options.progress().xp - before, recorded.effects);
+      // The server has saved the choice, so the scene moves on before the town reacts; a failing
+      // reaction must not leave the player on a choice the server will now reject as complete.
       this.node = graph.nodes.find(node => node.id === recorded.next)!; this.index = 0; this.translated = false; this.error = ''; this.render(true);
+      try { this.options.onComplete(graph, this.options.progress().xp - before, recorded.effects); }
+      catch (error) { console.error('The scene was saved, but the town could not react to it.', error); }
       return;
     }
     this.node = this.graph.nodes.find(node => node.id === choice.next)!; this.index = 0; this.translated = false; this.error = ''; this.render(true);

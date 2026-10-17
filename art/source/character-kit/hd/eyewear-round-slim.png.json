@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "candidateSha256": "035c0bb6e869a425374aacdef967dd162d93769c288cc28abed6a1f662186eb6",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "344d37f6b5e11edc6eba0422752bec1ec602d032c6b1594a9abd21d0d701bcf9",
+  "promptSha256": "3e880b076386eceaf90669cf2ecb2d86a7f96b01f24d2f37003b4d6f52f3a20a",
+  "generationPromptSha256": "85f81f0518332123852d63c3e79a0ff4dcbb28c7a650176878c6ec949e7fd0a7",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "anchorMaterial": "primary",
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "maxSpeckPixels": 32
+  },
+  "validation": {
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Glasses frames and lenses are visible from the front and profiles; their arms are occluded by the head from behind."
+  },
+  "preparationSha256": "7bf68b2316e65866d797c6c831c86827057e25200279e05ae4366c4f76f4906e",
+  "candidate": "art/source/character-kit/hd/eyewear-round-slim-candidate.png",
+  "lockedSha256": "f41eef5a659374dca8cbc66e7b8c654a80fc8caa6e2db36461b780eaf58713a6"
+}

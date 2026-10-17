@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "candidateSha256": "d6c45ef58341e6d2b2c3514192c6e7adcf3a910963829e8e49a08b11b5501023",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "4ef45c8a348f1d891f8ae9abff1a0e8fd3c2d795e67295bea841975bceb0c2da",
+  "promptSha256": "0eb4e324318fb95f3080760001eddfaf2e3d7f0ca94a7cbbee0a58188bece92c",
+  "generationPromptSha256": "d08358d966db084e13c1128b5bb17bafa4540a464f13b163bd1bf4e0d47cb25e",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailReach": 2,
+    "detailMaterial": "primary"
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "down": 2,
+      "right": 3,
+      "left": 3
+    },
+    "regionReason": "The open torso separates the far cardigan front band and foreground hand separates a visible hem corner in right profiles.",
+    "materialCountByFacing": [
+      "secondary"
+    ],
+    "materialReason": "Rear views show the small collar or cuffs only; front views include the long open-edge trim or lapels."
+  },
+  "preparationSha256": "5b8884391a8e9827fc8c955d94495772fb2c72143fbfa885353d11814dd745a0",
+  "candidate": "art/source/character-kit/hd/outer-cardigan-broad-candidate.png",
+  "lockedSha256": "8f58cba203faf64b25031011b5cbf06f43384f1570153fc5ecbe5653172b1b96"
+}

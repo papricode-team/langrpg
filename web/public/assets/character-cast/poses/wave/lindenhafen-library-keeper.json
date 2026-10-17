@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/poses/wave/lindenhafen-library-keeper.png",
   "proofSha256": "bb7638c8fd0613fd9f24d7e0dc5e8825cb3545ebf2458334399f86ac998c8fb9",
   "editorSha256": "81b7245963a2745ee5287b30d3ed035bdffce66538ffbd0bc65179e12a8d616b",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "ac1e61c8fe1cbf183875c4e743d17ae7fd7aac83ee08c5192314be4ef334a2dc"
+  }
 }

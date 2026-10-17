@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "f920fd57f5b35fac7ac4144663f76769067bae977814c9343e843d10918b8cb3",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "85b294c3a8b9a6527807718ea7ae631bc0d894174b6d34b37a03a3ce87a42b13",
+  "promptSha256": "b08c8043481faaa163d79b7a7cff5ee0a39ccfac1197e577d1217a59fcda894f",
+  "generationPromptSha256": "4eff9e5e78b5f4900cc789a07030ce4e0821acf32d3d40146a3252095e951623",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "e746a078f991555db212bbe0508c3a5a7bb55cbc97ed61a31db2dbbed154fc1e",
+  "candidate": "art/source/character-kit/hd/headwear-brimmed-broad-candidate.png",
+  "lockedSha256": "cae2fe5968f804ce01f106b93e80313e8a7d40216ddf07a65a6ca2481819daa7"
+}

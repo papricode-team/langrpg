@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/lindenhafen-resident-gardener.png",
   "proofSha256": "9f491f1246868e57d148d5f5b275259cefc995aa463dc41783fda315197f964f",
   "editorSha256": "8b7bb1c0c06a993e20f6d6f65b47e9f16f7adbc3b6470089715cf685cfb0ab26",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "a5fb41a7cf796ef2b40b444f7927b04f60166399a742baf61b01409ced88c922"
+  }
 }

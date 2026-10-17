@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/sunpatch-nico.png",
   "proofSha256": "a8c67f5e2909a20e51065e24c48fe612257270b4192a0faa25a743738e3f5acb",
   "editorSha256": "a5403c94dcd0184eeeceb6153969f4ebc091b5d70f0ed9d60ee787ee05cc766d",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "c1b1fe4ea3ca12dcf6cfd59af84de3eb6c28cc2ca29b6b18cdfb9d5892ffeedf"
+  }
 }

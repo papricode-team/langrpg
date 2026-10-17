@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "candidateSha256": "9fd5583c4b5e5ae1842b271ae403c3f8b5997418f139439b7f582aa979f4109b",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "2aa2b30428afc35ec2a1d87971a5ee6e8ac4376100ce3b789bba5947dc283eb4",
+  "promptSha256": "04bc41698c07bde9f22e3ad686ce9d527fc0df41b9881e7e3531ac5d201b4b7b",
+  "generationPromptSha256": "3c9d32e33332d82bddf98e44e451395111dccc01fe285e9d995b7e1421a803e0",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailReach": 2,
+    "detailMaterial": "primary"
+  },
+  "preparationSha256": "3a658b39fb6f3047e5bef8c72bcbcb52dd6a388fa1224d6c97d169747ccb1c06",
+  "candidate": "art/source/character-kit/hd/neck-scarf-broad-candidate.png",
+  "lockedSha256": "e9711586a27a15568c48263261363750c6ee463fe0eb3b8a9c4552ef18aaf181"
+}

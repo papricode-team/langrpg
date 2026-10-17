@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-kerchief-slim-page-0-candidate-2.png",
+      "sha256": "a119d0fbcdb03c89ca6af884a0160cbe0403f466284b364bc541e0f6d2649a43"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-kerchief-slim-page-0-candidate-2.txt",
+      "sha256": "02489baee1cb83c8ec30fd5bb22826b039f714545d9ebf7f9616853f22191702"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-0.json",
+      "sha256": "a6c84addbfd340ec426f28ea82ae85b2cc2b70137b1516da583c89ea1fd9c3c8"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-kerchief-slim-page-1-candidate-2.png",
+      "sha256": "54fafeb34d68f73b3b5b8fc5bf8b20d524ff57b9ecfebc0f7f01bfd7e882247c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-kerchief-slim-page-1-candidate-2.txt",
+      "sha256": "02489baee1cb83c8ec30fd5bb22826b039f714545d9ebf7f9616853f22191702"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-1.json",
+      "sha256": "200f02d5272755448caa8ff37144a13da72062cdd95a20c1a7ff61ef7ff62814"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-kerchief-slim-page-2-candidate-2.png",
+      "sha256": "5291fa64809b040aed1a412c5b888df82ef54e8ea122b813cbf00c6841ff9219"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-kerchief-slim-page-2-candidate-2.txt",
+      "sha256": "e0c80f7635e47675b745b63b753735ae8ea33e369392f24b3cfe87faff3ebfb0"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-2.json",
+      "sha256": "30efcafbe9d7830013cf5b7b68ce9c0f1f7e02a3753d8c70007005f678193dd2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-kerchief-slim-page-3-candidate-2.png",
+      "sha256": "5402ff5fb56d2f1aab3e013c8d760589a82e021b91c1dec3caf457fbed66c91d"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-kerchief-slim-page-3-candidate-2.txt",
+      "sha256": "8aabe7e15e409bbf0dc6bd7ceeefb72a3bcdcde2063a5ca625e5b1a39bbb37b7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-3.json",
+      "sha256": "c3b47bcc3acbc328ad2378c245359a6a3c2b8edd6d4ac6fd90495f1b180f8485"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-kerchief-slim-page-4-candidate-2.png",
+      "sha256": "0a7e9c352c3336ee4d8f2673bf7cbb255a2836bbe2796e36522f7f058fa7f681"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-kerchief-slim-page-4-candidate-2.txt",
+      "sha256": "3bb00efb9e52c3a2b5f1d7b95249be06d7e3d730d0a53db9162e365da73b0d82"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-4.json",
+      "sha256": "3e12d382498d7598725fce3e44099a593cbd15caa44e9c7bc572e3931559e2ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-kerchief-slim-page-5-candidate-3.png",
+      "sha256": "6ba14e5ff6cd235ad2a5fb71922db96bcd4917ca4987409b303bc89e8ff63cc0"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-kerchief-slim-page-5-candidate-3.txt",
+      "sha256": "a463d9ea7fa2a76c3e80a90ef0e5dcd2360bf103ad5b8ded22fe2f25cf3ab0ec"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-5.json",
+      "sha256": "9801f02cbaa07933d6c115805b6442f6e7adf1db9ca8bd68a1185df134371b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-kerchief-slim-page-6-candidate-2.png",
+      "sha256": "90189ecf76008299a5911a67cfe790d9c1f28ff58d36ed3841fffb641cf3c7d4"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-kerchief-slim-page-6-candidate-2.txt",
+      "sha256": "d1b9e1c7a6584793f4f922628ae00c847d9a5a67a184ea6bb5b4b2ddfd1c8fa0"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-6.json",
+      "sha256": "b376d6ff991750e64f8e4e02d1eee9baecab7f17b23cfca6d0d24ea933096ab6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-kerchief-slim-page-7-candidate-2.png",
+      "sha256": "36192b525816b09d94bfd1aa574edb91a1817ea0be1a95488064040323647909"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-kerchief-slim-page-7-candidate-2.txt",
+      "sha256": "3721940bfb0aff91c361ec503cabd02fb81a59e5c35ed341638aff50fd600950"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-7.json",
+      "sha256": "54b515875467084c2615401a4aa41788ff7ea91081d871208308ecdfda0f48d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-kerchief-slim-page-8-candidate-2.png",
+      "sha256": "2ee6b32676eda352b1e5c87a8f9f676f39044fd7268c1fb6b0b6ec1700b1aee6"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-kerchief-slim-page-8-candidate-2.txt",
+      "sha256": "3721940bfb0aff91c361ec503cabd02fb81a59e5c35ed341638aff50fd600950"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-8.json",
+      "sha256": "a907bceabc2de3865bb70e4f875dcc255387929f55bac0e8f698706c5c1bcdb1"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "574edf9b5a7cf8f1a7f404da9a889d28b494f27855aff9b47d38971822da7613"
+}

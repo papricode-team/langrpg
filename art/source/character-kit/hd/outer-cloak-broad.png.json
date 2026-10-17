@@ -1,0 +1,42 @@
+{
+  "version": 2,
+  "candidateSha256": "f7bf538e8662c43d9b5fa60d8bdbf46e13bfcff45fe973d85bef6e5d47b6df52",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "84a775130c78e0db3e444a3e83dc6c7818cfafdd83f15060585a09d8c26b8432",
+  "promptSha256": "18258c9f9b513155219c53926799a71254e1fade2c12f56a68c6444c32ef86bd",
+  "generationPromptSha256": "f118dd984cd69926e268851ca22e87e353502b694eb9fc073c06e784267f3ce1",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 180,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32,
+      "includeEnclosed": true
+    },
+    "detailMaxChroma": 0.15,
+    "detailMaterial": "primary"
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "down": 3,
+      "right": 3,
+      "left": 3
+    },
+    "regionReason": "The open cloak has separate front edges; the swinging hand and forearm can split a panel into an additional visible region.",
+    "materialCountByFacing": [
+      "secondary"
+    ],
+    "materialReason": "The rear neck binding is much smaller than the long front edge lining; compare each walk against its own facing."
+  },
+  "preparationSha256": "462bdcc02be8eebe61dcc6252172bd0656d88760058a0ce0139eb020175103c7",
+  "candidate": "art/source/character-kit/hd/outer-cloak-broad-candidate.png",
+  "lockedSha256": "6caace31963801228983f7c0052750ae378c0bd7cc2b367c01ba7fe8e6c8b95e"
+}

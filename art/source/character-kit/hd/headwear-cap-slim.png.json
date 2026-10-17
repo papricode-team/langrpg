@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "candidateSha256": "41b493913937019599d763dd827f89790806bf2374f94ba59bfd3512df118b19",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "85b294c3a8b9a6527807718ea7ae631bc0d894174b6d34b37a03a3ce87a42b13",
+  "promptSha256": "9d2bea7f26c530c39be85c67593f3b150549a16b2713179797d36026d8cc6698",
+  "generationPromptSha256": "b8a2ca77919b4280fcc559c0e73d7f4eaef716916db8fc9e5ff6c9c847929779",
+  "materials": [
+    "primary",
+    "secondary",
+    "skin",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "maxSpeckPixels": 24,
+    "anchorMaterial": "primary",
+    "fringeMaterials": [
+      "skin",
+      "detail"
+    ],
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "6fd97f0b45c905f92a473e388cf470e4c5849fa6bd7e85ab33aa6253f88ab2f5",
+  "candidate": "art/source/character-kit/hd/headwear-cap-slim-candidate.png",
+  "lockedSha256": "a48412e149e3d99aa708ace172db1a968e340507698444541e7a40e6a22df3dd"
+}

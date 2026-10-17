@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "candidateSha256": "086b551654d218aa29f8fd254e1fe7b72f246621b65184ae19beed645c77a066",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "9a0fca38c51f5dadffc15a604398714f317a988a4c4b16476c6ac92ae2468cec",
+  "promptSha256": "e8e876d2e447213e7fbdc50ee433ef704b9f4d28993cff9d993c8dbbfec51397",
+  "generationPromptSha256": "7ff8c92432c9c95d4a853460efa2e4d250535f530dce07b77ca2b12c3c6d9eef",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 2,
+      "left": 3,
+      "down": 2
+    },
+    "regionReason": "Native proof inspection confirms the hand occludes a small strip of fabric; the pinafore sleeve and tunic hem can also separate from the main cloth silhouette where skin or an arm crosses it. All regions remain attached to the body."
+  },
+  "preparationSha256": "9051c3ed480337c52778dc9e95f65a39cdf62456f26f5d892b70d427b059e1b6",
+  "candidate": "art/source/character-kit/hd/top-tunic-broad-candidate.png",
+  "lockedSha256": "35cb65280cb33313463f96543497b7e0fd47d97bb301acc61ae08cd4de2ece49"
+}

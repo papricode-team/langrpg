@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/top-blouse-slim-page-0-candidate-1.png",
+      "sha256": "5de0c10ce4e0f68f1f000fd66364e1428a2bb969e4e797c82b0ea93d314a771f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-blouse-slim-page-0-candidate-1.txt",
+      "sha256": "d10d3bee9f4eeab66ab769b836f4550ac50ed1b3bfe8d908ef648e732710ad9f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-0.json",
+      "sha256": "a6c84addbfd340ec426f28ea82ae85b2cc2b70137b1516da583c89ea1fd9c3c8"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-blouse-slim-page-1-candidate-1.png",
+      "sha256": "195afeb5ba7e851a190a688f9ea8afda54d1dc74d7f0e38236ed605ebb65d960"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-blouse-slim-page-1-candidate-1.txt",
+      "sha256": "d10d3bee9f4eeab66ab769b836f4550ac50ed1b3bfe8d908ef648e732710ad9f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-1.json",
+      "sha256": "200f02d5272755448caa8ff37144a13da72062cdd95a20c1a7ff61ef7ff62814"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-blouse-slim-page-2-candidate-1.png",
+      "sha256": "999b4c9c3ed7d28ff72d8c4cf0deae53be137cdef577b0a2543f1fc7a4209595"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-blouse-slim-page-2-candidate-1.txt",
+      "sha256": "d10d3bee9f4eeab66ab769b836f4550ac50ed1b3bfe8d908ef648e732710ad9f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-2.json",
+      "sha256": "30efcafbe9d7830013cf5b7b68ce9c0f1f7e02a3753d8c70007005f678193dd2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-blouse-slim-page-3-candidate-1.png",
+      "sha256": "a09cca922ff9511c811687a958461348df7043a3f055ff608558a177a42d8358"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-blouse-slim-page-3-candidate-1.txt",
+      "sha256": "d10d3bee9f4eeab66ab769b836f4550ac50ed1b3bfe8d908ef648e732710ad9f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-3.json",
+      "sha256": "c3b47bcc3acbc328ad2378c245359a6a3c2b8edd6d4ac6fd90495f1b180f8485"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-blouse-slim-page-4-candidate-1.png",
+      "sha256": "69de01a4ac3ca18b3a360b9a9b7e48bd04c0c11c77acc646c31ddbb72dc2eeb0"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-blouse-slim-page-4-candidate-1.txt",
+      "sha256": "d10d3bee9f4eeab66ab769b836f4550ac50ed1b3bfe8d908ef648e732710ad9f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-4.json",
+      "sha256": "3e12d382498d7598725fce3e44099a593cbd15caa44e9c7bc572e3931559e2ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-blouse-slim-page-5-candidate-1.png",
+      "sha256": "f7317a4887a88062f4c922934246d0ed7ec72b43d6fe3e4cdd05c2842471e976"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-blouse-slim-page-5-candidate-1.txt",
+      "sha256": "d10d3bee9f4eeab66ab769b836f4550ac50ed1b3bfe8d908ef648e732710ad9f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-5.json",
+      "sha256": "9801f02cbaa07933d6c115805b6442f6e7adf1db9ca8bd68a1185df134371b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-blouse-slim-page-6-candidate-1.png",
+      "sha256": "b741ddd03c1719c1725a2a5f77ab4e30d90c42cf46c2e03b11892e35b2d788ba"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-blouse-slim-page-6-candidate-1.txt",
+      "sha256": "d10d3bee9f4eeab66ab769b836f4550ac50ed1b3bfe8d908ef648e732710ad9f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-6.json",
+      "sha256": "b376d6ff991750e64f8e4e02d1eee9baecab7f17b23cfca6d0d24ea933096ab6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-blouse-slim-page-7-candidate-1.png",
+      "sha256": "eabf7d0126ac507a04d74d37cdc6d196fec771df7d3fbac6da9e0d4e52c047ff"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-blouse-slim-page-7-candidate-1.txt",
+      "sha256": "d10d3bee9f4eeab66ab769b836f4550ac50ed1b3bfe8d908ef648e732710ad9f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-7.json",
+      "sha256": "54b515875467084c2615401a4aa41788ff7ea91081d871208308ecdfda0f48d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-blouse-slim-page-8-candidate-1.png",
+      "sha256": "c85dbc7f222a4f1ef114a3b4f770d2c09af763a8393ca769ff2c780d2fee055b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-blouse-slim-page-8-candidate-1.txt",
+      "sha256": "d10d3bee9f4eeab66ab769b836f4550ac50ed1b3bfe8d908ef648e732710ad9f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-8.json",
+      "sha256": "a907bceabc2de3865bb70e4f875dcc255387929f55bac0e8f698706c5c1bcdb1"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "5594102f843c282a8941e62eb30f2e8fbcb96be94c6d229b2a1f74c3bdd49580"
+}

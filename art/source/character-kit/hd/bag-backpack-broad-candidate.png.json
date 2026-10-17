@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-backpack-broad-page-0-candidate-1.png",
+      "sha256": "4dba2f4624b3f55b6abf5c053c7fd8ec324f2dfb64df3801d83fbafceae9f7cd"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-backpack-broad-page-0-candidate-1.txt",
+      "sha256": "09bb9d30b97dd780dde3cfab0d4564afa6c813ffcb4d81ef365dda21886b953e"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-0.json",
+      "sha256": "d4c597d609eaced853a49300a3c916edad44486d2083661e2e1f72015c5fb832"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-backpack-broad-page-1-candidate-2.png",
+      "sha256": "b74f87f6b424b6a392a52eef67ec6a3ee50bc57979e756fc65c60a1f87b047b8"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-backpack-broad-page-1-candidate-2.txt",
+      "sha256": "2d9566b031ea6086b9dc90cf67b55c229caf6c9ca1eb2abb667263a4acc60f04"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-1.json",
+      "sha256": "597ae57a47283b3583f871d7ecfb79f8eb0d069ec363f819db5347b622c0eec5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-backpack-broad-page-2-candidate-1.png",
+      "sha256": "7491974a79732b01bd8920e5f1d40d7e4eb7e77cdb184c72009f8c37fa25bdf4"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-backpack-broad-page-2-candidate-1.txt",
+      "sha256": "2ed757982e75436be4347fc16f511fab6b10a9f294dbd77825d306ef81d927b3"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-2.json",
+      "sha256": "3822b1501237a22f8d5952fa86901bb95b3a7ca3e1637d7063b13b8b5a890e21"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-backpack-broad-page-3-candidate-1.png",
+      "sha256": "3f49bcc7d5d2ee2479c8106a91a8a4ed8da4483c414f6c325cfff49f3343087e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-backpack-broad-page-3-candidate-1.txt",
+      "sha256": "443d1c0011be4af36ad37f9280e90953e885ca4e62e1209f3dd1bb5cf7411a8a"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-3.json",
+      "sha256": "09412f0261449be2e3d6bacbb0fb474dfa77e215dc568cef97a5387d7eceba7e"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-backpack-broad-page-4-candidate-1.png",
+      "sha256": "5dd06a09ad1263e224eb0ffd87ffb529a7cbf40b39db46d466f92ba3d97ae154"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-backpack-broad-page-4-candidate-1.txt",
+      "sha256": "1993c605fca084e996c540772a8ebb799b430ab2da1b3295423bb6cf784d62a9"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-4.json",
+      "sha256": "5252f9b6b506aeba7aa6b065493407dc63e3afa72771694c1fc3d3f025c359a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-backpack-broad-page-5-candidate-1.png",
+      "sha256": "d5c0cf81c048b2bfe6a28b2697791e8be0a64ef6979c0938bbb2b53fb7d52f0f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-backpack-broad-page-5-candidate-1.txt",
+      "sha256": "dc28d60f14a296ae36f019bfdd97084c7d461b8c8310fd69156dd96cf9149d40"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-5.json",
+      "sha256": "72beb8597382255bf7cfde12b003f50107cce66fee1e4d12ba961c28edfdb6dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-backpack-broad-page-6-candidate-1.png",
+      "sha256": "d1a5b101f63f8a006a376857265cebe8cf57cf3ce5cc8e013e3806bc5640b734"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-backpack-broad-page-6-candidate-1.txt",
+      "sha256": "c9d920a08fa57df344075bed8cec57c3f02d6a0de5c811a2448c22a93d43ba46"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-6.json",
+      "sha256": "369c87b8e1c6db5e23506f6c9c049b8866e3b95c4a57ebb3e5fdb50cff738546"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-backpack-broad-page-7-candidate-1.png",
+      "sha256": "805e6ca2fd0483433b481ee629f195c14191fd476061c0176d42903da0e991ef"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-backpack-broad-page-7-candidate-1.txt",
+      "sha256": "4a12b2b137535406ee6fb3ed9b2f320043907a302c2d95299d11b992a6784f0b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-7.json",
+      "sha256": "594be292ae2bb672b79bc0f64091efc6184647dc4159416c469120e9794ae6a2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-backpack-broad-page-8-candidate-1.png",
+      "sha256": "02a5e9c6be8b3439245685ee5d842f521742d01d0822432b492d75a903db0831"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-backpack-broad-page-8-candidate-1.txt",
+      "sha256": "4a12b2b137535406ee6fb3ed9b2f320043907a302c2d95299d11b992a6784f0b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-8.json",
+      "sha256": "59b98d4a2e80d5eda70982582ea13bff1711eca74a22fd82e4b3ed6ef6f68734"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "eaabdbd2f365acc56cf1449e0543d3a5e84a740fc8cfd34c2740708d7b749e87"
+}

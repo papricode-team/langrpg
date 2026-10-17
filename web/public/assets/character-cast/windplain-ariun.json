@@ -31,6 +31,11 @@
   "proof": "art/proofs/character-cast/windplain-ariun.png",
   "proofSha256": "98b30521fcf28ed6256cab265d7dda4d3a4918fcc08367aac62bc76fc35b221d",
   "editorSha256": "9c6f9dd7b95c2ed8874f96cdf54bc1e29d1fcc03f72570f2ac4342f49b104034",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "ae1a910c2b0a8fa2bf7cd2efb821dc678b6e54fa25cdbb5dcea6e0255ea999f2"
+  }
 }

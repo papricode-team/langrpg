@@ -31,6 +31,11 @@
   "proof": "art/proofs/character-cast/windplain-oyun.png",
   "proofSha256": "c590ce5c43f83ebc379f6624efd7086a005f9c6d5a179554b140d621e3882ff8",
   "editorSha256": "06583644879b5884aaca6225ba1337d5449f319b78b7e762ee50190889105a20",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "a00f1aaabf94f05f479dfb3df58635185d3c2ab678538c99b26c4615f02312b1"
+  }
 }

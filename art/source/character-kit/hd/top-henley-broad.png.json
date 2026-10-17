@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "dc8228a1cef3a5aec74308fa59d1313504afa1c7dd8ca040349c17013bcd5e14",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "464b8ef39fd416b7d6d49acbd3d4db79ea700ad00be3e543e6e5ec4a97be2c99",
+  "promptSha256": "724e4cba61996c181171124fefeea6e83d2a7e86341f305370d6ac2b55989824",
+  "generationPromptSha256": "69cc63a3119a72a51f1ea19d46beb9bfb247afea0d78c92ff8ca7147ba68b951",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "1a1348b1c472fd6a6c14c810939359199e67f9fca4c1fcda3331df2e8a576f6c",
+  "candidate": "art/source/character-kit/hd/top-henley-broad-candidate.png",
+  "lockedSha256": "313e0b943565e6d7957bea67e05457f9185206e6a9975c1ee02a1d78b0b3a526"
+}

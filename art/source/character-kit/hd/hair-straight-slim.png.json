@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "candidateSha256": "fad4427ab3690c27c6878efc510b111578ff9e12cf4d65c9603c58df14f0fce4",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "58e849238e8230a54a86b15959cc6dc65ccf2535146587380d0c021a89a77ff1",
+  "promptSha256": "b31391dfbbc93492c5e1047f2d7116b4fae13ae8d2bb19692e116b3860622541",
+  "generationPromptSha256": "1ab89f4dd5e04d2775b270317bcd41c79ee93bd1485584b396f07522daa262d4",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 360,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailMaxChroma": 0.15
+  },
+  "preparationSha256": "759f1e333ab98e02a2b1d8ab2cfdea383629bd391c3d5e489a12c2c3801441fa",
+  "candidate": "art/source/character-kit/hd/hair-straight-slim-candidate.png",
+  "lockedSha256": "8430643f4dbd514d803fdb5e7f83c806b8afd2af44c5129849550f0157f0d0bf"
+}

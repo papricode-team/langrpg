@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "67ebdeaf8b30e8598dfe020e2dc0ac7f951a9c8c959ce3df4b2dfc6be43fc2b1",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "968c40b89d96b2edc132cf850cb9ff745e492a0dcb56baae774f3ade329c41d0",
+  "promptSha256": "18a0cf49f03343f589268780948433dea3e7c7b862c7430c00b8181c7378ee60",
+  "generationPromptSha256": "3e16ab09d75e139fcb3f45975efce93c1359c5e41fd9f2371eea7d599efe4d8f",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "429e9b104fdb23c03e7e72cbd6b87556db0074a6cd0f9f9fdcb534b9689844bf",
+  "candidate": "art/source/character-kit/hd/top-dress-pinafore-broad-candidate.png",
+  "lockedSha256": "c0156ffdaf73fab879d24c73be5b018afab04f144c5367941e9719feaebd4f3c"
+}

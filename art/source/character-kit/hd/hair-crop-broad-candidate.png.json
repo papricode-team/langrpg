@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-crop-broad-page-0-candidate-1.png",
+      "sha256": "a1b83e1371d62a6e3f3d1c6646df8ca64788a74a9d379aa3bac8bd2dbae39516"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-crop-broad-page-0-candidate-1.txt",
+      "sha256": "57ad98ccdbd4e05e5435af2ac56016b2ce4fa079f4db0078e79631c6aa036029"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-crop-broad-page-1-candidate-1.png",
+      "sha256": "c0fcb3571ba8eb66dcb2a8b41536a59220ae3943f96c028f1431cb42a8dd2b42"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-crop-broad-page-1-candidate-1.txt",
+      "sha256": "57ad98ccdbd4e05e5435af2ac56016b2ce4fa079f4db0078e79631c6aa036029"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-crop-broad-page-2-candidate-1.png",
+      "sha256": "4ad5ebae4b67fc1cafbf9275af917830e59487c53ccd43ddea9ba093b29cf4db"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-crop-broad-page-2-candidate-1.txt",
+      "sha256": "57ad98ccdbd4e05e5435af2ac56016b2ce4fa079f4db0078e79631c6aa036029"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-crop-broad-page-3-candidate-1.png",
+      "sha256": "ac7975c13bacd91f3233f13f8a77de22980a69175befd723ca23463e05d2337a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-crop-broad-page-3-candidate-1.txt",
+      "sha256": "57ad98ccdbd4e05e5435af2ac56016b2ce4fa079f4db0078e79631c6aa036029"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "fb062a939c7b0c839190779ec18cf627124fa190d383765d770cddcb31d011bc"
+}

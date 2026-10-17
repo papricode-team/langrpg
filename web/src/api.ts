@@ -1,3 +1,4 @@
+import {buildingRoomRoot, buildingRoomKey} from './room-layout';
 import { supportSession, clearSupportSession } from './support-session';
 import type { StoryMechanics } from './story-mechanics';
 import { analyticsHeaders, analyticsAdmin, rotateAnalytics, trackAnalytics } from './analytics-client';
@@ -81,7 +82,7 @@ export const emptyProgress = (): Progress => ({ revision: 0, xp: 0, completedQue
 
 const isMapId = isStoryMap;
 const validInterior = (mapId: MapId, value: unknown): value is InteriorId | '' | undefined =>
-  value === undefined || value === '' || buildingEntrances(mapId).some(entrance => entrance.interiorId === value);
+  value === undefined || value === '' || typeof value === 'string' && buildingEntrances(mapId).some(entrance => entrance.interiorId === buildingRoomRoot(value) && (buildingRoomKey(value)==='main' || getInterior(entrance.interiorId,mapId).layout?.rooms?.some(r=>r.id===buildingRoomKey(value))));
 const validSpawn = (value: unknown): value is { x: number; y: number } => {
   if (!value || typeof value !== 'object') return false;
   const point = value as { x?: unknown; y?: unknown };
@@ -90,7 +91,7 @@ const validSpawn = (value: unknown): value is { x: number; y: number } => {
 };
 /** Geometry edits can change authority without changing the coordinate frame. */
 export function compatibleScene(value: unknown, mapId: MapId, interiorId?: InteriorId): boolean {
-  const expected=interiorId?{...getInterior(interiorId),coordinateVersion:1}:getWorldScene(mapId);
+  const expected=interiorId?{...getInterior(interiorId,mapId),coordinateVersion:1}:getWorldScene(mapId);
   if(value===undefined)return expected.coordinateVersion===1&&expected.width===1536&&expected.height===1024;
   if(!value||typeof value!=='object')return false;
   const scene=value as {width?:unknown;height?:unknown;coordinateVersion?:unknown;contentVersion?:unknown};
@@ -348,10 +349,10 @@ export class Api {
     this.pendingMap = mapId;
     return true;
   }
-  joinInterior(id?: InteriorId): boolean {
+  joinInterior(id?: InteriorId, doorId?:string): boolean {
     if (this.pendingMap || !validInterior(this.mapId, id)) return false;
     if (this.pendingInterior ? this.pendingInterior.id === id : this.interiorId === id) return true;
-    if (!this.send({ type: 'joinInterior', mapId: this.mapId, interiorId: id ?? '' })) return false;
+    if (!this.send({ type: 'joinInterior', mapId: this.mapId, interiorId: id ?? '', ...(doorId ? {doorId} : {}) })) return false;
     this.pendingInterior = { id };
     return true;
   }

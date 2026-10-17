@@ -5,7 +5,22 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
-import { buildQualityTiers, qualityPlan, sceneryDensities } from './asset-quality.mjs';
+import { assetQualityPlugin, buildQualityTiers, qualityPlan, sceneryDensities, pruneLegacyCharacterKit } from './asset-quality.mjs';
+
+test('HD distribution excludes the archived kit while retaining active editor and runtime art', async () => {
+  const dir=await mkdtemp(join(tmpdir(),'character-distribution-'));
+  try {
+    for(const name of ['character-kit','character-kit-hd']) {
+      await mkdir(join(dir,name));
+      for(const kind of ['editor','runtime'])await writeFile(join(dir,name,kind+'.webp'),kind);
+    }
+    await pruneLegacyCharacterKit(dir,{assetBase:'/assets/character-kit/'});
+    assert.equal(await readFile(join(dir,'character-kit','runtime.webp'),'utf8'),'runtime');
+    await pruneLegacyCharacterKit(dir,{assetBase:'/assets/character-kit-hd/'});
+    await assert.rejects(stat(join(dir,'character-kit')), {code:'ENOENT'});
+    for(const kind of ['editor','runtime'])assert.equal(await readFile(join(dir,'character-kit-hd',kind+'.webp'),'utf8'),kind);
+  } finally { await rm(dir,{recursive:true,force:true}); }
+});
 
 test('pixel-exact sources ship untouched and interface portraits are capped', () => {
   assert.equal(qualityPlan('character-kit/regular/body.webp', 2048, 2048), null);
@@ -17,6 +32,7 @@ test('pixel-exact sources ship untouched and interface portraits are capped', ()
 });
 
 test('world art gets reduced tiers that keep its aspect ratio', () => {
+  assert.deepEqual(qualityPlan('room-kit-furniture.webp', 1536, 1024), { high: [1536, 1024], reduced: { low: [672, 448], medium: [1152, 768] } });
   assert.deepEqual(qualityPlan('character-cast/ada.webp', 1904, 906), { high: [1904, 906], reduced: { low: [952, 453], medium: [1428, 680] } });
   assert.deepEqual(qualityPlan('animals/dog.webp', 1024, 1152), { high: [1024, 1152], reduced: {} });
   assert.deepEqual(qualityPlan('minigames/icon.webp', 128, 128), { high: [128, 128], reduced: {} });
@@ -49,4 +65,18 @@ test('a build writes lossy High in place, reduced tiers and a manifest of logica
     assert.ok((await stat(join(assets, 'town.webp'))).size < master.length);
     assert.equal((await stat(join(assets, 'character-kit/sheet.webp'))).size, master.length);
   } finally { await rm(dir, { recursive: true, force: true }); }
+});
+
+
+test('closing a development preview does not run production asset conversion', async () => {
+  const dir=await mkdtemp(join(tmpdir(),'asset-preview-'));
+  try {
+    const assets=join(dir,'dist','assets');await mkdir(assets,{recursive:true});
+    // Invalid image bytes make any attempt to process production files fail.
+    const sentinel=join(assets,'portrait.webp');await writeFile(sentinel,'production output remains untouched');
+    const plugin=assetQualityPlugin(dir);
+    plugin.configResolved({command:'serve',root:dir,build:{outDir:'dist'}});
+    await plugin.closeBundle();
+    assert.equal(await readFile(sentinel,'utf8'),'production output remains untouched');
+  }finally{await rm(dir,{recursive:true,force:true});}
 });

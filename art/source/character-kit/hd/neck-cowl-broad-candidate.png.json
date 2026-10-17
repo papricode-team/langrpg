@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-cowl-broad-page-0-candidate-1.png",
+      "sha256": "4a009bf058bd07a87e5b34bd476bd4f1b4fa339c5fba402eacfad51f024f4028"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-cowl-broad-page-0-candidate-1.txt",
+      "sha256": "d90678fb5a5a30cd89713330fb78ec1601e685f2951d468113b9c8299b0c7899"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-0.json",
+      "sha256": "d4c597d609eaced853a49300a3c916edad44486d2083661e2e1f72015c5fb832"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-cowl-broad-page-1-candidate-1.png",
+      "sha256": "9064cc31fffbd2508f5da989150585f9242522c9c738e3ce2ba5412885c369bd"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-cowl-broad-page-1-candidate-1.txt",
+      "sha256": "d90678fb5a5a30cd89713330fb78ec1601e685f2951d468113b9c8299b0c7899"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-1.json",
+      "sha256": "597ae57a47283b3583f871d7ecfb79f8eb0d069ec363f819db5347b622c0eec5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-cowl-broad-page-2-candidate-1.png",
+      "sha256": "c0277577ff1ff765dc38c56a0d900ce3abf401b29614036b682ff02a085d4e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-cowl-broad-page-2-candidate-1.txt",
+      "sha256": "be662e8d7ed38a5ec83476d9843ca3fcf67fe0aded3b4d3bf44a4147dff08304"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-2.json",
+      "sha256": "3822b1501237a22f8d5952fa86901bb95b3a7ca3e1637d7063b13b8b5a890e21"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-cowl-broad-page-3-candidate-1.png",
+      "sha256": "7c113f142dce488d131546db4cb4ff4a3e865562c598b8a952034f5ff0cd8f5d"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-cowl-broad-page-3-candidate-1.txt",
+      "sha256": "d395970a6150edaa1fd356990e4970efa0637a013a0e5c0a1eac23096a6e2d5c"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-3.json",
+      "sha256": "09412f0261449be2e3d6bacbb0fb474dfa77e215dc568cef97a5387d7eceba7e"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-cowl-broad-page-4-candidate-1.png",
+      "sha256": "46b5f1a06337cbd951b720598976ddba6e2f327e2812cf0b7fa948ce9a2fc223"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-cowl-broad-page-4-candidate-1.txt",
+      "sha256": "6d28b7677af462734e1f527caf1e7e6f4b1beea7207729d66b0990fe73ccb3d7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-4.json",
+      "sha256": "5252f9b6b506aeba7aa6b065493407dc63e3afa72771694c1fc3d3f025c359a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-cowl-broad-page-5-candidate-1.png",
+      "sha256": "2266bd71510a638e86595c86fba6833bc12856e657290afa7f41d4acee2ddce5"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-cowl-broad-page-5-candidate-1.txt",
+      "sha256": "7213f7d8f50361a27568a55228fefb05ce8f512f95bf14ee7cabd9d9076cb571"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-5.json",
+      "sha256": "72beb8597382255bf7cfde12b003f50107cce66fee1e4d12ba961c28edfdb6dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-cowl-broad-page-6-candidate-1.png",
+      "sha256": "1293bb016f05d32218d5607f119dc1273b8136c08f8c427740f9936f139b9787"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-cowl-broad-page-6-candidate-1.txt",
+      "sha256": "943b8515752f3cfeee777500bb6d6da38a2c5f0d821824a45c55824614e66417"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-6.json",
+      "sha256": "369c87b8e1c6db5e23506f6c9c049b8866e3b95c4a57ebb3e5fdb50cff738546"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-cowl-broad-page-7-candidate-1.png",
+      "sha256": "bba8a3b3a7ce613bb56d19e3b3353564222ad5b8ff3d8713f087e1c50cc84fb0"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-cowl-broad-page-7-candidate-1.txt",
+      "sha256": "1f63f37f4f39ffca477141cb6eaf964fbb89c2a7acfd511bae4ccc13925165a9"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-7.json",
+      "sha256": "594be292ae2bb672b79bc0f64091efc6184647dc4159416c469120e9794ae6a2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-cowl-broad-page-8-candidate-1.png",
+      "sha256": "3a5174577ad46a9230de129f6e817c862df67f1323ded6309433e204b6211cd0"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-cowl-broad-page-8-candidate-1.txt",
+      "sha256": "1f63f37f4f39ffca477141cb6eaf964fbb89c2a7acfd511bae4ccc13925165a9"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-8.json",
+      "sha256": "59b98d4a2e80d5eda70982582ea13bff1711eca74a22fd82e4b3ed6ef6f68734"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "a46c222c0caf462d9d1e2c4fde56d1db9ea948d9dbec9a89b4e611ca36e8aaa2"
+}

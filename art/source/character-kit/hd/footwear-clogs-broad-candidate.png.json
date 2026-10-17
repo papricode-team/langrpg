@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-clogs-broad-page-0-candidate-1.png",
+      "sha256": "6e7d0ebdefbbc3c4631b62b3a4cd1913b8e3af13175f917f82f7dd2f4da17b39"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-clogs-broad-page-0-candidate-1.txt",
+      "sha256": "68b00b0251bd27acfeab229a110fea3e06e5e9508ea882594fd745841bdb7339"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-0.json",
+      "sha256": "081ac1e8ce12a0772254093462119cc244ba2297ae4b20e4c697960ab371c3a4"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-clogs-broad-page-1-candidate-1.png",
+      "sha256": "de78553f05441e2f981daf70ce335f10fc272fefad6422f96045f73eb8a040dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-clogs-broad-page-1-candidate-1.txt",
+      "sha256": "68b00b0251bd27acfeab229a110fea3e06e5e9508ea882594fd745841bdb7339"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-1.json",
+      "sha256": "6c709f3a0d3218c7782deceb16dcdf546cfa0621785fbf74d41c2597fc796da4"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-clogs-broad-page-2-candidate-1.png",
+      "sha256": "66e0e6731ff40d1681cefd5e0311fc69c4fcd6280de8890349980e37ae04dda6"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-clogs-broad-page-2-candidate-1.txt",
+      "sha256": "68b00b0251bd27acfeab229a110fea3e06e5e9508ea882594fd745841bdb7339"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-2.json",
+      "sha256": "f63b3d1d376a06d233ff5ad4687d96752e1153682f60672398ba0d4b92be0b89"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-clogs-broad-page-3-candidate-1.png",
+      "sha256": "efd862f97f7b8bbb14a2b14d591406f8ecf49a47124c9a91fcecab827d3c7cc1"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-clogs-broad-page-3-candidate-1.txt",
+      "sha256": "68b00b0251bd27acfeab229a110fea3e06e5e9508ea882594fd745841bdb7339"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-3.json",
+      "sha256": "3b46fffa1465a306aa00e010971ca6315af366f178587e983bf8b2e31897e97b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-clogs-broad-page-4-candidate-1.png",
+      "sha256": "3f86a8b2ca66124a154b19efc3eb97bc449000a6fe12933e1531fd596ca71e6c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-clogs-broad-page-4-candidate-1.txt",
+      "sha256": "68b00b0251bd27acfeab229a110fea3e06e5e9508ea882594fd745841bdb7339"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-4.json",
+      "sha256": "684241bf10acc2a2d152cdc5d1ea4fc486a14f3c3ea02592e2a6b3a5c685c5be"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-clogs-broad-page-5-candidate-1.png",
+      "sha256": "4f35eb2933fbf33ebd200adf91ce4a84fddf5fdeeebac4f8e5fcdb6ace97aa19"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-clogs-broad-page-5-candidate-1.txt",
+      "sha256": "68b00b0251bd27acfeab229a110fea3e06e5e9508ea882594fd745841bdb7339"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-5.json",
+      "sha256": "4aceb63188de2b8ab6ff2f340339316e17998395c2eb23742bec567d1d778330"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "6386ac25312152e85ab060a0a7e711e3aaa55646d2d469a3461936e28b936603"
+}

@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-waistcoat-slim-page-0-candidate-1.png",
+      "sha256": "51053041804e3f4d309461a93122136c503d4554fd50e2b6574693d40fba8137"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-waistcoat-slim-page-0-candidate-1.txt",
+      "sha256": "020f26186cf9227d0dfd337b293897c74eb31f1ae5b05d48a18d684627b74284"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-0.json",
+      "sha256": "a6c84addbfd340ec426f28ea82ae85b2cc2b70137b1516da583c89ea1fd9c3c8"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-waistcoat-slim-page-1-candidate-1.png",
+      "sha256": "9035648133610d71ad4f01d485b5740ddbb07722853400378ff33e7a23ada60d"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-waistcoat-slim-page-1-candidate-1.txt",
+      "sha256": "020f26186cf9227d0dfd337b293897c74eb31f1ae5b05d48a18d684627b74284"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-1.json",
+      "sha256": "200f02d5272755448caa8ff37144a13da72062cdd95a20c1a7ff61ef7ff62814"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-waistcoat-slim-page-2-candidate-1.png",
+      "sha256": "eccefbfb62756ca5fe4c05ba9d6216fbc10bf66d248c07fa268f93e4e1c5f9d7"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-waistcoat-slim-page-2-candidate-1.txt",
+      "sha256": "020f26186cf9227d0dfd337b293897c74eb31f1ae5b05d48a18d684627b74284"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-2.json",
+      "sha256": "30efcafbe9d7830013cf5b7b68ce9c0f1f7e02a3753d8c70007005f678193dd2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-waistcoat-slim-page-3-candidate-1.png",
+      "sha256": "584cd0210479ffd55d0e24e1deffac6211242999c50a3db206af08a9156686c1"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-waistcoat-slim-page-3-candidate-1.txt",
+      "sha256": "020f26186cf9227d0dfd337b293897c74eb31f1ae5b05d48a18d684627b74284"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-3.json",
+      "sha256": "c3b47bcc3acbc328ad2378c245359a6a3c2b8edd6d4ac6fd90495f1b180f8485"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-waistcoat-slim-page-4-candidate-1.png",
+      "sha256": "41008758ea7d96f031d5784a2c30d9299c8bf7005949780af1a4565a0e3b7dfd"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-waistcoat-slim-page-4-candidate-1.txt",
+      "sha256": "020f26186cf9227d0dfd337b293897c74eb31f1ae5b05d48a18d684627b74284"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-4.json",
+      "sha256": "3e12d382498d7598725fce3e44099a593cbd15caa44e9c7bc572e3931559e2ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-waistcoat-slim-page-5-candidate-2.png",
+      "sha256": "982d845a4a62e321e0ea7c98da1ddc924c5cc686f653613fb6a4ad0860c4cf5e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-waistcoat-slim-page-5-candidate-2.txt",
+      "sha256": "802e39faf931a4e485162a7ee18fa46fe83a22e56082e7978fa3937cdcf76cfe"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-5.json",
+      "sha256": "9801f02cbaa07933d6c115805b6442f6e7adf1db9ca8bd68a1185df134371b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-waistcoat-slim-page-6-candidate-1.png",
+      "sha256": "6cd7ff9f2270e8d91081d27abd037625727302b16814d757663fc4cae1730f13"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-waistcoat-slim-page-6-candidate-1.txt",
+      "sha256": "020f26186cf9227d0dfd337b293897c74eb31f1ae5b05d48a18d684627b74284"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-6.json",
+      "sha256": "b376d6ff991750e64f8e4e02d1eee9baecab7f17b23cfca6d0d24ea933096ab6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-waistcoat-slim-page-7-candidate-1.png",
+      "sha256": "d14c78ab0930b61ab6a930724fe4d91ad7a0d4ccad00e1b5700cd5174a8f4752"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-waistcoat-slim-page-7-candidate-1.txt",
+      "sha256": "020f26186cf9227d0dfd337b293897c74eb31f1ae5b05d48a18d684627b74284"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-7.json",
+      "sha256": "54b515875467084c2615401a4aa41788ff7ea91081d871208308ecdfda0f48d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-waistcoat-slim-page-8-candidate-1.png",
+      "sha256": "ada9b3ee22cac27ae47b6449ca34fae7692a21439f180fae8510744c70272556"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-waistcoat-slim-page-8-candidate-1.txt",
+      "sha256": "020f26186cf9227d0dfd337b293897c74eb31f1ae5b05d48a18d684627b74284"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-8.json",
+      "sha256": "a907bceabc2de3865bb70e4f875dcc255387929f55bac0e8f698706c5c1bcdb1"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "38fe5f5fd6f628af4ed28c7c8b9687df26de1266f876b7f8d1ece44cbb7dbe6a"
+}

@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-wrap-slim-page-0-candidate-1.png",
+      "sha256": "e7d717ade15747b6b24cce4259ed9e1a2b912c0a023624f87dcd564b56235b77"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-wrap-slim-page-0-candidate-1.txt",
+      "sha256": "0bfdda34ddddf2e9c791bffa5460b6a44439302b7f130bdcab22e24f269ae392"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-0.json",
+      "sha256": "a6c84addbfd340ec426f28ea82ae85b2cc2b70137b1516da583c89ea1fd9c3c8"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-wrap-slim-page-1-candidate-2.png",
+      "sha256": "4779bde74e3b22f2ae149b7c5f5f4f0700ad587ce532c740998bf747746b2b8a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-wrap-slim-page-1-candidate-2.txt",
+      "sha256": "f412813bd68628aacd40d17cb156c3c6ad45e1209d23f7153d253ef14829665d"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-1.json",
+      "sha256": "200f02d5272755448caa8ff37144a13da72062cdd95a20c1a7ff61ef7ff62814"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-wrap-slim-page-2-candidate-1.png",
+      "sha256": "bf28e89938e549db12425fd04b96cb174500e0ed9c7e048d3055d8c2c8a4fbbe"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-wrap-slim-page-2-candidate-1.txt",
+      "sha256": "0bfdda34ddddf2e9c791bffa5460b6a44439302b7f130bdcab22e24f269ae392"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-2.json",
+      "sha256": "30efcafbe9d7830013cf5b7b68ce9c0f1f7e02a3753d8c70007005f678193dd2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-wrap-slim-page-3-candidate-1.png",
+      "sha256": "44788e5cec5d4d58d2b1ecbb4ddb889c4ed5110aba8171b196ef2e2a66d124ba"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-wrap-slim-page-3-candidate-1.txt",
+      "sha256": "0bfdda34ddddf2e9c791bffa5460b6a44439302b7f130bdcab22e24f269ae392"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-3.json",
+      "sha256": "c3b47bcc3acbc328ad2378c245359a6a3c2b8edd6d4ac6fd90495f1b180f8485"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-wrap-slim-page-4-candidate-1.png",
+      "sha256": "d61f4613ef6ecf544717ceb67a42af4c7bb58afe49f17a306a82ea7be2a0c3ec"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-wrap-slim-page-4-candidate-1.txt",
+      "sha256": "0bfdda34ddddf2e9c791bffa5460b6a44439302b7f130bdcab22e24f269ae392"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-4.json",
+      "sha256": "3e12d382498d7598725fce3e44099a593cbd15caa44e9c7bc572e3931559e2ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-wrap-slim-page-5-candidate-1.png",
+      "sha256": "3010e74825385df183510ad5be04600e83651f9c64d36a2a82cda1c74f037832"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-wrap-slim-page-5-candidate-1.txt",
+      "sha256": "0bfdda34ddddf2e9c791bffa5460b6a44439302b7f130bdcab22e24f269ae392"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-5.json",
+      "sha256": "9801f02cbaa07933d6c115805b6442f6e7adf1db9ca8bd68a1185df134371b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-wrap-slim-page-6-candidate-1.png",
+      "sha256": "96e6751c5c762e99e2184e6f4cfabc9a1d7afef9041a3f86c724b05bd38ec5c0"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-wrap-slim-page-6-candidate-1.txt",
+      "sha256": "0bfdda34ddddf2e9c791bffa5460b6a44439302b7f130bdcab22e24f269ae392"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-6.json",
+      "sha256": "b376d6ff991750e64f8e4e02d1eee9baecab7f17b23cfca6d0d24ea933096ab6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-wrap-slim-page-7-candidate-1.png",
+      "sha256": "cba0060622e6a5aa20cd1bfd3d072a7ef638a5afaa51b733f5ca0263bb10f0a6"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-wrap-slim-page-7-candidate-1.txt",
+      "sha256": "0bfdda34ddddf2e9c791bffa5460b6a44439302b7f130bdcab22e24f269ae392"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-7.json",
+      "sha256": "54b515875467084c2615401a4aa41788ff7ea91081d871208308ecdfda0f48d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-wrap-slim-page-8-candidate-1.png",
+      "sha256": "ca74b0a76f57379d85002dd9ccb7fd36c1ac1396e833e1f770fad7aed38b41c7"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-wrap-slim-page-8-candidate-1.txt",
+      "sha256": "0bfdda34ddddf2e9c791bffa5460b6a44439302b7f130bdcab22e24f269ae392"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-8.json",
+      "sha256": "a907bceabc2de3865bb70e4f875dcc255387929f55bac0e8f698706c5c1bcdb1"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "ee6f1cc77096057bf2b5e5b9e0853f84e9ada264f326258ee25380c02f41b9f3"
+}

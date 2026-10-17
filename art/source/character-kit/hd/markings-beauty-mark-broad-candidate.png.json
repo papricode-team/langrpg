@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/markings-beauty-mark-broad-page-0-candidate-3.png",
+      "sha256": "ce81ae2f485d5b43d11b25c27ef5921de4a7b6c8eabb9c1aa3aeadf625625285"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/markings-beauty-mark-broad-page-0-candidate-3.txt",
+      "sha256": "e19909db9d8afc9afa8ef83b385cd294df33b2901655e711a01a9512c7c41307"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/markings-beauty-mark-broad-page-1-candidate-3.png",
+      "sha256": "bf355efe3fd3914bfad5b7babb0aa5cc3c1d414e9bbfcfdccdbcda95d403a466"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/markings-beauty-mark-broad-page-1-candidate-3.txt",
+      "sha256": "2f2bc296fd67adf854130a9d12e0c4708d2c3c8443d6d2e8025be035752accdd"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/markings-beauty-mark-broad-page-2-candidate-1.png",
+      "sha256": "722102a3e6cd89585b304bbf3b1dec9c2959adcf2b5894f48e2addf202a53b9c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/markings-beauty-mark-broad-page-2-candidate-1.txt",
+      "sha256": "24830237dc0139bdfe752a3c4def49ff909e32bfe99dbc70a0fdfbeb789d6980"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/markings-beauty-mark-broad-page-3-candidate-3.png",
+      "sha256": "ed6a6ef60a25ed8437ef3a52cfc4f65cf52721161f586b9db979bffc204200fa"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/markings-beauty-mark-broad-page-3-candidate-3.txt",
+      "sha256": "b80253f1bca5daa20793425b39ffea8a99a3739dc94b6c6dbbd671078bb462b8"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "f97539ce7213e3e4caab34ee1e808aa159b665c4da7847c395d997816e8c5d8b"
+}

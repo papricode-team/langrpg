@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-braids-broad-page-0-candidate-1.png",
+      "sha256": "57209060b18c6917f599a9c9be2b29b79d5d983b39aab8963f355c31e6ac1832"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-braids-broad-page-0-candidate-1.txt",
+      "sha256": "864fee05a7f7486fdb169282eff770551048a80eca492bd4e50caf67f7b2ff64"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-braids-broad-page-1-candidate-1.png",
+      "sha256": "9ce0b78ab9c769e50611207a2c392403f721426e6da3404916fb2b81a568096d"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-braids-broad-page-1-candidate-1.txt",
+      "sha256": "864fee05a7f7486fdb169282eff770551048a80eca492bd4e50caf67f7b2ff64"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-braids-broad-page-2-candidate-1.png",
+      "sha256": "b2415b16ea43bcce2b53ada1e1f80a35b84aca97497dd70b375e46965e8604b5"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-braids-broad-page-2-candidate-1.txt",
+      "sha256": "864fee05a7f7486fdb169282eff770551048a80eca492bd4e50caf67f7b2ff64"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-braids-broad-page-3-candidate-1.png",
+      "sha256": "82e4355000a4f11fe7633ee63d8b08dd846c6951cb35771c9087597a1f316543"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-braids-broad-page-3-candidate-1.txt",
+      "sha256": "864fee05a7f7486fdb169282eff770551048a80eca492bd4e50caf67f7b2ff64"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "534135e7da695e0275db8631495f51ea99530de689652df77436fd68988f90bb"
+}

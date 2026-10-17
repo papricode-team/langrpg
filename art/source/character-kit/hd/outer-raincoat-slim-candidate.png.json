@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-raincoat-slim-page-0-candidate-1.png",
+      "sha256": "a92cd2cf01721ec5f5aad5564efb02f072cf58fd92ee042531051740bf2b38c7"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-raincoat-slim-page-0-candidate-1.txt",
+      "sha256": "14ea5ee18f0f53e55a8e4a1194951810f1ca411799685389159d5e057a2c7467"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-0.json",
+      "sha256": "a6c84addbfd340ec426f28ea82ae85b2cc2b70137b1516da583c89ea1fd9c3c8"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-raincoat-slim-page-1-candidate-1.png",
+      "sha256": "5cd54099d58b162b5bdfde952be675b3776f3ece7fb2d68addce44a36cd00086"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-raincoat-slim-page-1-candidate-1.txt",
+      "sha256": "14ea5ee18f0f53e55a8e4a1194951810f1ca411799685389159d5e057a2c7467"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-1.json",
+      "sha256": "200f02d5272755448caa8ff37144a13da72062cdd95a20c1a7ff61ef7ff62814"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-raincoat-slim-page-2-candidate-1.png",
+      "sha256": "1320850f01bcce550b7e04a9523e7bb5a23a7370bbfd2be408cf173bb8de0b48"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-raincoat-slim-page-2-candidate-1.txt",
+      "sha256": "14ea5ee18f0f53e55a8e4a1194951810f1ca411799685389159d5e057a2c7467"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-2.json",
+      "sha256": "30efcafbe9d7830013cf5b7b68ce9c0f1f7e02a3753d8c70007005f678193dd2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-raincoat-slim-page-3-candidate-1.png",
+      "sha256": "c8f796442c8e629d5a5ea28f130f0a40ce9cc4d586f7f2ac36391e0d46734a3b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-raincoat-slim-page-3-candidate-1.txt",
+      "sha256": "14ea5ee18f0f53e55a8e4a1194951810f1ca411799685389159d5e057a2c7467"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-3.json",
+      "sha256": "c3b47bcc3acbc328ad2378c245359a6a3c2b8edd6d4ac6fd90495f1b180f8485"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-raincoat-slim-page-4-candidate-1.png",
+      "sha256": "f08d9978b98d274a99ae3474f91dfe18f7e6fe607f351f6b9c222d759a411495"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-raincoat-slim-page-4-candidate-1.txt",
+      "sha256": "14ea5ee18f0f53e55a8e4a1194951810f1ca411799685389159d5e057a2c7467"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-4.json",
+      "sha256": "3e12d382498d7598725fce3e44099a593cbd15caa44e9c7bc572e3931559e2ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-raincoat-slim-page-5-candidate-2.png",
+      "sha256": "be07d3bd659f376a2ae1aee06b5ff8d25ddad4f89ee5981abdf0f45ae1f02245"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-raincoat-slim-page-5-candidate-2.txt",
+      "sha256": "b2f03f54c055a49e9e004f1c04c92d2684c9396d7c8537b8f0691539e0d7f32a"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-5.json",
+      "sha256": "9801f02cbaa07933d6c115805b6442f6e7adf1db9ca8bd68a1185df134371b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-raincoat-slim-page-6-candidate-1.png",
+      "sha256": "d0979e3ebedd78296b44325f29038a24737827df21e4a01f173dc3c657933b4a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-raincoat-slim-page-6-candidate-1.txt",
+      "sha256": "14ea5ee18f0f53e55a8e4a1194951810f1ca411799685389159d5e057a2c7467"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-6.json",
+      "sha256": "b376d6ff991750e64f8e4e02d1eee9baecab7f17b23cfca6d0d24ea933096ab6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-raincoat-slim-page-7-candidate-1.png",
+      "sha256": "9b6091571f7555158cd1a1b94e24c6e7417ffe536915451efb9a39a661d72439"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-raincoat-slim-page-7-candidate-1.txt",
+      "sha256": "14ea5ee18f0f53e55a8e4a1194951810f1ca411799685389159d5e057a2c7467"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-7.json",
+      "sha256": "54b515875467084c2615401a4aa41788ff7ea91081d871208308ecdfda0f48d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-raincoat-slim-page-8-candidate-1.png",
+      "sha256": "edc4394abb59e4c36bd7751e435b72dea8e4fb52604f5ede84a23a641fa461b3"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-raincoat-slim-page-8-candidate-1.txt",
+      "sha256": "14ea5ee18f0f53e55a8e4a1194951810f1ca411799685389159d5e057a2c7467"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-8.json",
+      "sha256": "a907bceabc2de3865bb70e4f875dcc255387929f55bac0e8f698706c5c1bcdb1"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "59c30cd14d8fa7f742c35dbcda87a5d47a28db2eef4cfb54c6fefeb044e7a353"
+}

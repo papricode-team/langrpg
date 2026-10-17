@@ -1,8 +1,13 @@
+import {roomKind} from './room-kind';
 import type * as Phaser from 'phaser';
 import type { InteriorSpec } from './interiors';
 import { sceneryPhase } from './placed-scenery';
 import type { SceneryAnimation, SceneryAnimationManifest } from './scenery-animation';
 import type { SceneryView } from './world-scenery';
+import furnitureFrames from './data/room-kit-furniture.json';
+import {paintRoomKit, roomKit} from './room-kit';
+import {terrainMaterialKey} from './terrain-materials';
+import {roomLayoutFingerprint} from './room-layout';
 import { worldDepth } from './world-depth';
 
 interface InteriorLayer {
@@ -36,10 +41,28 @@ export class WorldInterior {
   private motionTime = 0;
 
   constructor(scene: Phaser.Scene, spec: InteriorSpec) {
-    const backgroundKey = `interior-${spec.id}-room`;
-    this.background = scene.textures.exists(backgroundKey)
-      ? scene.add.image(0, 0, backgroundKey).setOrigin(0).setDisplaySize(spec.width, spec.height).setDepth(-1000)
-      : scene.add.graphics().fillStyle(0x584e38).fillRect(0, 0, spec.width, spec.height).setDepth(-1000);
+    const backgroundKey = `room-kit-${spec.layout ? spec.id : roomKind(spec.id)}`;
+    const signature = roomLayoutFingerprint(spec.layout)+(Object.keys(spec.stairDirections ?? {}).length?JSON.stringify(spec.stairDirections):'');
+    if (scene.textures.exists(backgroundKey) && (scene.textures.get(backgroundKey).customData as {layout?:string}).layout !== signature) scene.textures.remove(backgroundKey);
+    if (!scene.textures.exists(backgroundKey)) {
+      const texture = scene.textures.createCanvas(backgroundKey, spec.width, spec.height)!;
+      paintRoomKit(texture.context, spec, id => {
+        const key = id === 'room-kit-furniture' ? id : terrainMaterialKey(id);
+        return scene.textures.exists(key) ? scene.textures.get(key).getSourceImage() as HTMLImageElement : undefined;
+      });
+      texture.customData = {layout:signature};
+      texture.refresh();
+    }
+    this.background = scene.add.image(0, 0, backgroundKey).setOrigin(0).setDisplaySize(spec.width, spec.height).setDepth(-1000);
+    // Tall fixtures sort against people by their feet, just like the existing furniture atlas.
+    if (scene.textures.exists('room-kit-furniture')) for (const fixture of roomKit(spec).fixtures) {
+      const frame = furnitureFrames[fixture.kind], texture = scene.textures.get('room-kit-furniture');
+      if (!texture.has(fixture.kind)) texture.add(fixture.kind, 0, frame.x, frame.y, frame.width, frame.height);
+      const bottom = fixture.y + fixture.height;
+      const sprite = scene.add.sprite(fixture.x + fixture.width / 2, bottom, 'room-kit-furniture', fixture.kind)
+        .setOrigin(.5, 1).setScale(fixture.width / frame.width).setDepth(worldDepth(bottom));
+      this.layers.push({sprite, width: fixture.width, height: fixture.width * frame.height / frame.width});
+    }
     const manifest = scene.cache.json.get('interior-animations') as SceneryAnimationManifest | undefined;
     const stills = scene.cache.json.get('interior-stills') as SceneryAnimationManifest | undefined;
     const effectManifest = scene.cache.json.get('interior-effect-animations') as SceneryAnimationManifest | undefined;

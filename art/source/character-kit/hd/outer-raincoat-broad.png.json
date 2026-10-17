@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "candidateSha256": "4110f8344e6c722da8442be2e49236082bce255ae1f34850a43dd4489157d7a7",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "84a775130c78e0db3e444a3e83dc6c7818cfafdd83f15060585a09d8c26b8432",
+  "promptSha256": "92fc195ee5af347b330f31b133a0cec90fb6b8b65038cb6c65023e1c3fdc57c4",
+  "generationPromptSha256": "f4ed904dffab164a0991ef9d2913f08393aa54aaa9f0809abeb04fe3bd64070e",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailReach": 2,
+    "detailMaterial": "primary"
+  },
+  "validation": {
+    "materialCountByFacing": [
+      "secondary"
+    ],
+    "materialReason": "The green front placket and pocket flaps are hidden from behind, where only the smaller collar is visible."
+  },
+  "preparationSha256": "40c8438e8577ac7896714fb58a650d0438077e00fba2df7d05d8ba7e9f0bcc3d",
+  "candidate": "art/source/character-kit/hd/outer-raincoat-broad-candidate.png",
+  "lockedSha256": "5092e47ae372bf19249ff888a3f671610e46acd1c1e8a404e79873e1bfb34f0c"
+}

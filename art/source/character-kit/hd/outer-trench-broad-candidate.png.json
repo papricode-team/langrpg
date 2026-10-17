@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-trench-broad-page-0-candidate-1.png",
+      "sha256": "469f719895ec384b64491c56305e6c1647abe029d86857ebc6aeca3380dc6023"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-trench-broad-page-0-candidate-1.txt",
+      "sha256": "82dc24ccc3d7bb2fafec67956f620417a85ca61affa44b57d98ed0e5b29a7bdf"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-0.json",
+      "sha256": "d4c597d609eaced853a49300a3c916edad44486d2083661e2e1f72015c5fb832"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-trench-broad-page-1-candidate-1.png",
+      "sha256": "f0c7ccb36790e9973a9f354a24726855c3b2c5c0dbd64e84cc4fa8805911ba36"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-trench-broad-page-1-candidate-1.txt",
+      "sha256": "82dc24ccc3d7bb2fafec67956f620417a85ca61affa44b57d98ed0e5b29a7bdf"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-1.json",
+      "sha256": "597ae57a47283b3583f871d7ecfb79f8eb0d069ec363f819db5347b622c0eec5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-trench-broad-page-2-candidate-1.png",
+      "sha256": "ee991a34471e52552a2e76a6d8e7b9b68d5cdab9b66c043e39a2af68e976a78d"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-trench-broad-page-2-candidate-1.txt",
+      "sha256": "771d199f035fedd138b9e99a6fd3544193a104c3087cea4fc8caded0c0d95e3e"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-2.json",
+      "sha256": "3822b1501237a22f8d5952fa86901bb95b3a7ca3e1637d7063b13b8b5a890e21"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-trench-broad-page-3-candidate-1.png",
+      "sha256": "90129ba9a75b0cef87fb3d7a635c5317c5faa99353d344724238f1cc9f5ec138"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-trench-broad-page-3-candidate-1.txt",
+      "sha256": "039545cb8421fd1bdcb7f1362aaf1b55bccc045f987cf93239c295ddfcbfd6b7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-3.json",
+      "sha256": "09412f0261449be2e3d6bacbb0fb474dfa77e215dc568cef97a5387d7eceba7e"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-trench-broad-page-4-candidate-1.png",
+      "sha256": "64f4a369e877e6ea07c38278f977cffaba0f0c27f46f2eb3f303559f621b254a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-trench-broad-page-4-candidate-1.txt",
+      "sha256": "1c6209163b06b267fd34e092e55ef880cd0812fe68871c67e8e1919f378fc5e3"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-4.json",
+      "sha256": "5252f9b6b506aeba7aa6b065493407dc63e3afa72771694c1fc3d3f025c359a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-trench-broad-page-5-candidate-1.png",
+      "sha256": "d3298420531a06cc6ba99525daee30b53bc66cbe0cf7f76d602f15f8fee299da"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-trench-broad-page-5-candidate-1.txt",
+      "sha256": "e4b6ef5ad7801170f79e97df4fe43bddd5b8d086d20d8116b1c3f1136e54bb9c"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-5.json",
+      "sha256": "72beb8597382255bf7cfde12b003f50107cce66fee1e4d12ba961c28edfdb6dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-trench-broad-page-6-candidate-1.png",
+      "sha256": "4d232baf328ddd56c897d41e61e8df57a5159174e595ff594236c89286e9f755"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-trench-broad-page-6-candidate-1.txt",
+      "sha256": "380c6404c056dd57d530387e64f53e5f14085905c80cb958e0541ec574cf250a"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-6.json",
+      "sha256": "369c87b8e1c6db5e23506f6c9c049b8866e3b95c4a57ebb3e5fdb50cff738546"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-trench-broad-page-7-candidate-1.png",
+      "sha256": "2863ababea7dcc88524566a04dcc0e89f2c7a085f931f24960c60fc9d44c065f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-trench-broad-page-7-candidate-1.txt",
+      "sha256": "3b64b1c4a7a594bfa10468f4975428ae58c9c849f55691c8ab4d0da8f253a46d"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-7.json",
+      "sha256": "594be292ae2bb672b79bc0f64091efc6184647dc4159416c469120e9794ae6a2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-trench-broad-page-8-candidate-1.png",
+      "sha256": "5a5be1dbcb9d9689bbec4eeba70ac06e84843d42ffac21013e4293e12c230798"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-trench-broad-page-8-candidate-1.txt",
+      "sha256": "3b64b1c4a7a594bfa10468f4975428ae58c9c849f55691c8ab4d0da8f253a46d"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-8.json",
+      "sha256": "59b98d4a2e80d5eda70982582ea13bff1711eca74a22fd82e4b3ed6ef6f68734"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "ca048a79bb5e5446f734ee839cfe72ca06f68b492897eab571e53312c82e33cd"
+}

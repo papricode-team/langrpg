@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-clogs-slim-page-0-candidate-1.png",
+      "sha256": "ed13184ae2d912398c23e3aa8bc2522415a81914edbcefaf12f1bcc21c8b915c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-clogs-slim-page-0-candidate-1.txt",
+      "sha256": "1fb0aa122a938a1ba9cd2607bd8dacd20590145e9b265a333cc90c7343e8c635"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-0.json",
+      "sha256": "20014db774338283b835bae4a718ed4bc1a4f0d2d20f8f318ce7c52ca501f232"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-clogs-slim-page-1-candidate-1.png",
+      "sha256": "ca2b0f103109feb40f0d85897bad68421c69e85c8ea1bb8bbf6d4b1c256d7392"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-clogs-slim-page-1-candidate-1.txt",
+      "sha256": "1fb0aa122a938a1ba9cd2607bd8dacd20590145e9b265a333cc90c7343e8c635"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-1.json",
+      "sha256": "6fe4f1dc4b750a67e1335eb0702e00c0b6543a66ed5a764c0a8b69a10710c3d7"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-clogs-slim-page-2-candidate-1.png",
+      "sha256": "0ac58524dca89cfafb01ff4985639b308c12b11c43dc1f6ff7b67d08a844ebe3"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-clogs-slim-page-2-candidate-1.txt",
+      "sha256": "1fb0aa122a938a1ba9cd2607bd8dacd20590145e9b265a333cc90c7343e8c635"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-2.json",
+      "sha256": "9aa1849174bbb1a10d345c50c1b53b2fb63737f6cc9074252e27b772921da15d"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-clogs-slim-page-3-candidate-1.png",
+      "sha256": "dd70996bd586cee29db08bd6d69ac2bad71f3a10d485bd8d7d493e0f92348484"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-clogs-slim-page-3-candidate-1.txt",
+      "sha256": "1fb0aa122a938a1ba9cd2607bd8dacd20590145e9b265a333cc90c7343e8c635"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-3.json",
+      "sha256": "181335a5e008fbe12d8c36da80a45ea6712b8b560e5f87858d1186a6b60e2f39"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-clogs-slim-page-4-candidate-1.png",
+      "sha256": "b25c512bb8f05b072cb34eb8cdf9c1c3f9daf3de86a09ca09bd1660c28e94868"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-clogs-slim-page-4-candidate-1.txt",
+      "sha256": "1fb0aa122a938a1ba9cd2607bd8dacd20590145e9b265a333cc90c7343e8c635"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-4.json",
+      "sha256": "747e7e354d5a379b8e1a41670dddb775d1a7d7379105b6abf73fa7f2d59ff3c0"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-clogs-slim-page-5-candidate-1.png",
+      "sha256": "29a56905e57b1a2b283acdca4e0586c0a6ef579d41a2ba9ab92917417a1ca8f2"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-clogs-slim-page-5-candidate-1.txt",
+      "sha256": "1fb0aa122a938a1ba9cd2607bd8dacd20590145e9b265a333cc90c7343e8c635"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-5.json",
+      "sha256": "b326219e6c771fcade0ddd91b7f690ea11c878cd82e65370054da0269488316f"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "cdf2e5921e937fdeb31d07f63198c23876e4a97071586545b957e455b3289345"
+}

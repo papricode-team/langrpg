@@ -7,7 +7,7 @@
  * and repeated builds share them.
  */
 import { createHash } from 'node:crypto';
-import { mkdir, readFile, readdir, rename, stat, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, readdir, rename, rm, stat, writeFile } from 'node:fs/promises';
 import { availableParallelism, homedir } from 'node:os';
 import { dirname, join, relative, resolve, sep } from 'node:path';
 import sharp from 'sharp';
@@ -53,6 +53,11 @@ export function qualityPlan(rel, width, height, density) {
     const scale = Math.min(1, cap.max[0] / width, cap.max[1] / height);
     return { high: fit([width, height], scale), reduced: {} };
   }
+  // The four room fixtures share a large sheet. Keep Low cells at 336 × 224
+  // while retaining the normal Medium and full-resolution High variants.
+  if (rel === 'room-kit-furniture.webp') return {
+    high: [width, height], reduced: {low: fit([width, height], 7 / 16), medium: fit([width, height], QUALITY_TIERS.medium)},
+  };
   // Animal sheets pack 128px cells with ~76px figures; halving the whole atlas
   // would reduce each animal below its displayed size even on the low tier.
   const reduced = !rel.startsWith('animals/') && Math.min(width, height) >= MIN_REDUCED_SIDE
@@ -63,6 +68,12 @@ export function qualityPlan(rel, width, height, density) {
 
 export function defaultCacheDir() {
   return process.env.ASSET_QUALITY_CACHE || join(homedir(), '.cache', 'glotworld-asset-quality');
+}
+
+/** Keep archived low-resolution authoring exports out of the active HD release. */
+export async function pruneLegacyCharacterKit(assetsDir, catalogue) {
+  if (catalogue.assetBase !== '/assets/character-kit-hd/') return;
+  await rm(join(assetsDir, 'character-kit'), {recursive:true, force:true});
 }
 
 /** One cached lossy encode of `buffer` at `size`. */
@@ -210,7 +221,7 @@ export function assetQualityPlugin(root) {
   const seedPath = resolve(root, 'content/world-seed.json');
   return {
     name: 'asset-quality',
-    configResolved(config) { outDir = resolve(config.root, config.build.outDir); },
+    configResolved(config) { outDir = config.command === 'build' ? resolve(config.root, config.build.outDir) : undefined; },
     configureServer(server) {
       server.middlewares.use(async (request, response, next) => {
         const path = decodeURIComponent((request.url || '').split('?')[0]);
@@ -241,6 +252,7 @@ export function assetQualityPlugin(root) {
       if (!outDir) return;
       const assets = join(outDir, 'assets');
       try { await stat(assets); } catch { return; }
+      await pruneLegacyCharacterKit(assets, await readJSON(resolve(root, 'web/src/data/character-kit.json')));
       const started = Date.now();
       const totals = await buildQualityTiers(assets, { log: message => this.info?.(message), densities: await sceneryDensities(publicAssets, seedPath) });
       console.log(`Asset quality: ${totals.files} tiered images in ${((Date.now() - started) / 1000).toFixed(1)} s; masters ${MB(totals.master)} -> high ${MB(totals.high)}, medium ${MB(totals.medium)}, low ${MB(totals.low)} (${MB(totals.untouched)} shipped untouched).`);

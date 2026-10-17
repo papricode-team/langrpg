@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cargo-slim-page-0-candidate-1.png",
+      "sha256": "9ea847a44a9464c0cb4065d79a86ffbfd623ecca624314a30fca86cecf5d8cd8"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cargo-slim-page-0-candidate-1.txt",
+      "sha256": "eaef5c62b3912b0db5b2395106ab705ec1834aa0c2c6f00a092770fde0e0ff09"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-0.json",
+      "sha256": "20014db774338283b835bae4a718ed4bc1a4f0d2d20f8f318ce7c52ca501f232"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cargo-slim-page-1-candidate-1.png",
+      "sha256": "41e928281e0f4abfb9344fdb51820495f73d17fb4d0f4fb3fc3535940ea997e1"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cargo-slim-page-1-candidate-1.txt",
+      "sha256": "eaef5c62b3912b0db5b2395106ab705ec1834aa0c2c6f00a092770fde0e0ff09"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-1.json",
+      "sha256": "6fe4f1dc4b750a67e1335eb0702e00c0b6543a66ed5a764c0a8b69a10710c3d7"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cargo-slim-page-2-candidate-1.png",
+      "sha256": "9971c57708b28a38056b603a8bb9a139c69fddfcb9190652da57cf47ccf3787e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cargo-slim-page-2-candidate-1.txt",
+      "sha256": "eaef5c62b3912b0db5b2395106ab705ec1834aa0c2c6f00a092770fde0e0ff09"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-2.json",
+      "sha256": "9aa1849174bbb1a10d345c50c1b53b2fb63737f6cc9074252e27b772921da15d"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cargo-slim-page-3-candidate-1.png",
+      "sha256": "43466aba1792b7eeaf9ba0f9c4a778616b97504abad6906c8e0619a6ee4f856f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cargo-slim-page-3-candidate-1.txt",
+      "sha256": "eaef5c62b3912b0db5b2395106ab705ec1834aa0c2c6f00a092770fde0e0ff09"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-3.json",
+      "sha256": "181335a5e008fbe12d8c36da80a45ea6712b8b560e5f87858d1186a6b60e2f39"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cargo-slim-page-4-candidate-1.png",
+      "sha256": "05b3b660498dc4244059f00d4970b5cad1c543a34df1a75f3451aa1c46e546a5"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cargo-slim-page-4-candidate-1.txt",
+      "sha256": "eaef5c62b3912b0db5b2395106ab705ec1834aa0c2c6f00a092770fde0e0ff09"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-4.json",
+      "sha256": "747e7e354d5a379b8e1a41670dddb775d1a7d7379105b6abf73fa7f2d59ff3c0"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cargo-slim-page-5-candidate-1.png",
+      "sha256": "9766ef587a587923bc727aa447f9269c9586b5fb1afbe1288e5ea0e9240af64a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cargo-slim-page-5-candidate-1.txt",
+      "sha256": "eaef5c62b3912b0db5b2395106ab705ec1834aa0c2c6f00a092770fde0e0ff09"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-5.json",
+      "sha256": "b326219e6c771fcade0ddd91b7f690ea11c878cd82e65370054da0269488316f"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "d0ad6b149b4f4fe8641d1913d2a5788a2af692fc001b11b4bdf21a2c28644889"
+}

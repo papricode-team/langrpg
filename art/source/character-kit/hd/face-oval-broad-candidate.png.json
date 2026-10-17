@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/face-oval-broad-page-0-candidate-1.png",
+      "sha256": "4bcddad29b0a97a22a114f06390670f9c4af81791e3598475a25c6af05c0988f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-oval-broad-page-0-candidate-1.txt",
+      "sha256": "cb4638189e01acf4bdd6b74fb3aa3557136cd1b1674aa60f03e3552ef4ea800a"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/face-oval-broad-page-1-candidate-2.png",
+      "sha256": "b2ef9e145d9e078ca5bece81f030722460778f5bc8d0b39432acac3b49fe93b5"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-oval-broad-page-1-candidate-2.txt",
+      "sha256": "a86488ad79343a19e888c5b88578e919af99e10ac3d7d08624f5d68914ac8cb6"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/face-oval-broad-page-2-candidate-1.png",
+      "sha256": "269f31e06cc44dd411d2f347a011a3be55f95dd63adfba196e562952fe514ea2"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-oval-broad-page-2-candidate-1.txt",
+      "sha256": "cb4638189e01acf4bdd6b74fb3aa3557136cd1b1674aa60f03e3552ef4ea800a"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/face-oval-broad-page-3-candidate-1.png",
+      "sha256": "6e3d98c4514a4f74cb7faf5a587df7fe15da1580167ff49a5e43e9e35e65f8dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-oval-broad-page-3-candidate-1.txt",
+      "sha256": "cb4638189e01acf4bdd6b74fb3aa3557136cd1b1674aa60f03e3552ef4ea800a"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "af2b1c68f3ff9f310d27d5c83b75f2f7bafd4f2eee75afe6a7f9ead1b3ee4f0a"
+}

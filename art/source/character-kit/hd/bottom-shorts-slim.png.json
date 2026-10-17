@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "candidateSha256": "39fbde0a7a49f1163a7d513d2b9a9d746f9c61f69a26043d824341f657f3c704",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "e56500d17476dff80706c680a721d61936318b490ea01701ac08f9c2fa0bc222",
+  "promptSha256": "4dcc8d67132fb6bd116b48470efced34792cb4546eb5131623e2effdd0cab7aa",
+  "generationPromptSha256": "70e502d56a32398ef34ec75b4f8156faa7ce58c45fce00f192ba4cc8b0d801f7",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "left": 2,
+      "down": 2
+    },
+    "regionReason": "Native proof inspection confirms the hand occludes a small strip of fabric; the pinafore sleeve and tunic hem can also separate from the main cloth silhouette where skin or an arm crosses it. All regions remain attached to the body."
+  },
+  "preparationSha256": "abca501d5b869693a3927b9374dd024832a41b023d43e9d552f840fc710bb93c",
+  "candidate": "art/source/character-kit/hd/bottom-shorts-slim-candidate.png",
+  "lockedSha256": "dc08e3d005d3d4dbceea509fe47f6ab7d6c3d2544c9eb05ec9d9807cf97e0446"
+}

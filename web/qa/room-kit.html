@@ -1,0 +1,22 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Room components</title><style>html,body{margin:0;background:#282d2a;color:#eee;font:16px system-ui}header{height:44px;display:flex;align-items:center;gap:20px;padding:0 20px}select{font:inherit}#room{width:100vw;height:calc(100vh - 44px)}</style></head><body><header><label>Room <select id="room-kind"></select></label><span>Reusable floors, walls, windows and furniture</span></header><main id="room"></main><script type="module">
+import * as Phaser from 'phaser';
+import {interiors,getInterior} from '../src/interiors';
+import {buildingInteriors} from '../src/building-interiors';
+import {WorldInterior} from '../src/world-interior';
+import {loadInteriorAssets} from '../src/interior-scene';
+const picker=document.querySelector('select');
+for(const room of [...interiors,...buildingInteriors])picker.add(new Option(room.name,room.id));
+const requested=new URLSearchParams(location.search).get('room');if([...picker.options].some(option=>option.value===requested))picker.value=requested;
+class Preview extends Phaser.Scene {
+ init(){this.room=undefined;this.spec=getInterior(picker.value);}
+ preload(){loadInteriorAssets(this.load,this.spec);}
+ create(){
+  this.room=new WorldInterior(this,this.spec);this.room.setReducedMotion(true);
+  const camera=this.cameras.main;camera.setZoom(Math.min(this.scale.width/1536,this.scale.height/1024));camera.centerOn(768,512);
+  this.room.update(0,{x:0,y:0,right:1536,bottom:1024});
+  document.body.dataset.ready=this.spec.id;
+  this.events.once('shutdown',()=>{this.room.destroy();delete document.body.dataset.ready;});
+ }
+}
+if(import.meta.env.DEV){const game=new Phaser.Game({type:Phaser.AUTO,parent:'room',width:innerWidth,height:innerHeight-44,scene:Preview,banner:false,audio:{noAudio:true}});picker.addEventListener('change',()=>game.scene.scenes[0].scene.restart());}
+</script></body></html>

@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "candidateSha256": "ad24131ecfe17d2cf6601d1299506ed2addd9aca79a86d6126a34443dd193db6",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "03867268a10d009076079052cae4e5e087a4fb994fa7852967d9a61b9bc6c187",
+  "promptSha256": "f1b810b78dc1dfb8d6d017473776e2f1b4b09068aa70539c8863194502b5c6e2",
+  "generationPromptSha256": "891554b19e90f887f696d54dac43134e8cbfeb770590b98af438e3ff9f10a6fa",
+  "materials": [
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "primary",
+      "secondary",
+      "skin"
+    ],
+    "maxSpeckPixels": 96,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32,
+      "includeEnclosed": true
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "left": 2,
+      "up": 2
+    },
+    "regionReason": "The holding hand separates the top of the handle from the lantern casing in rear and profile poses."
+  },
+  "preparationSha256": "48dfcb7e6918e85d98dd61c50a43b32ceb198c327d0a6b3cbbccc02fb18068ab",
+  "candidate": "art/source/character-kit/hd/held-lantern-broad-candidate.png",
+  "lockedSha256": "e26a631bec26600fbbf785f29bca519317c49f951af60fc94e5f9f5388cc2e26"
+}

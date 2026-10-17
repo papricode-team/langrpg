@@ -31,6 +31,11 @@
   "proof": "art/proofs/character-cast/riverweave-linh.png",
   "proofSha256": "a89f24f1bb60e1f5b803723cdb218dccc1d7aa64cdd0a31202129ca6cb70818a",
   "editorSha256": "f0745ea07644eab7810c2b0f039cba0c178c63c8b56e4c77e8d07c54af2ce468",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "661249480998033036e9515744fa5e865f4b5752b3434fd221062031cd4af19d"
+  }
 }

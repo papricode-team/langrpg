@@ -1,7 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { Api, emptyProgress } from '../src/api';
 import type { MapId } from '../src/maps';
-import {getWorldScene} from '../src/scene-data';
+import {getWorldScene,sceneDocument,sceneContentVersion,replacePublishedWorld} from '../src/scene-data';
+import {createRoomLayout,additionalRoomTemplate} from '../src/room-layout-runtime';
 import {getInterior} from '../src/interiors';
 import {seedContentVersion} from '../src/test-support/world-seed';
 const sceneVersion={contentVersion:seedContentVersion};
@@ -166,11 +167,33 @@ describe('map-aware multiplayer API', () => {
 
 describe('shared building presence', () => {
   function indoorPacket(id = 'cafe', type = 'interior') {
-    const room=id?getInterior(id as 'cafe'):getWorldScene('lindenhafen');
+    const room=id?getInterior('cafe'):getWorldScene('lindenhafen');
     const coordinateVersion=id?1:getWorldScene('lindenhafen').coordinateVersion;
     return { ...packet('lindenhafen', type), interiorId: id, scene:{width:room.width,height:room.height,coordinateVersion,contentVersion:sceneVersion.contentVersion},
       players: [{ id: 'self', mapId: 'lindenhafen', interiorId: id, x: .4, y: .75 }] };
   }
+
+  it('joins a saved secondary room through its door and restores it on reconnect',async()=>{
+    const before=sceneDocument,version=sceneContentVersion,doc=structuredClone(before);
+    const main=createRoomLayout(getInterior('home')),child=createRoomLayout(additionalRoomTemplate(getInterior('home')));
+    main.links=[{id:'study-door',x:500,y:750,targetRoom:'study',targetDoor:'hall-door'}];
+    child.links=[{id:'hall-door',x:600,y:750,targetRoom:'main',targetDoor:'study-door'}];
+    main.rooms=[{id:'study',name:'Study',layout:child}];
+    doc.maps.lindenhafen.scenery.find(s=>s.id==='high-street-house')!.roomLayout=main;
+    replacePublishedWorld(doc,version);
+    try {
+      const {api,socket}=onlineApi(),root='home--high-street-house',room='home--high-street-house::study';
+      expect(api.joinInterior(root)).toBe(true);socket.receive(indoorPacket(root));
+      expect(api.joinInterior(room,'study-door')).toBe(true);
+      expect(socket.sent.at(-1)).toEqual({type:'joinInterior',mapId:'lindenhafen',interiorId:room,doorId:'study-door'});
+      socket.receive(indoorPacket(room));expect(api.interiorId).toBe(room);
+      expect(api.joinInterior('home--missing::study','study-door')).toBe(false);
+      socket.close();await Promise.resolve();vi.advanceTimersByTime(800);
+      const replacement=latestSocket();replacement.open();replacement.receive(indoorPacket(room,'welcome'));
+      expect(api.interiorId).toBe(room);
+      api.move(.6,.75);expect(replacement.sent.at(-1)).toMatchObject({type:'move',interiorId:room});
+    } finally {replacePublishedWorld(before,version);}
+  });
 
   it('confirms the room before applying presence and tags indoor movement', () => {
     const { api, socket } = onlineApi(); const order: string[] = [];

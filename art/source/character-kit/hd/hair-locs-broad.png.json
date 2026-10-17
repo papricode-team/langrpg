@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "candidateSha256": "5a3284a969e576f72a2b0b5ebbbed82d9a669c070df649b421f620aa7589bcff",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "58e849238e8230a54a86b15959cc6dc65ccf2535146587380d0c021a89a77ff1",
+  "promptSha256": "5460dfcb7d2f63297d123c7e4a2ddc0e485bac18ad763a4e2e64583038750d43",
+  "generationPromptSha256": "97212cd7f07e4269b56ebcdcb11e9fbcaabea963abd1eb097d3fc6fa625517d8",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 360,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailMaxChroma": 0.15
+  },
+  "preparationSha256": "0f4bf06512b732ca6dc9c7e0754d32070fc644d7e69bba2a1ff9117c63421d26",
+  "candidate": "art/source/character-kit/hd/hair-locs-broad-candidate.png",
+  "lockedSha256": "1479a0fa553b7f88b9cd6a1dae17badfb4096a76738d3dc25192b60281c3e385"
+}

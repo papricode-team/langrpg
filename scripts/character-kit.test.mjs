@@ -34,6 +34,20 @@ test('frame noise cleanup removes only subminimum residual paint and preserves v
   for(const value of [0,7,1.5]) assert.throws(()=>lockPixels(base,edit,mask,['primary'],{minFramePaintPixels:value},manifest),/Frame noise/);
 });
 
+test('frame noise cleanup runs after detached specks are removed', () => {
+  const {base, edit, mask}=fixture();
+  for(let y=2;y<6;y++) for(let x=2;x<6;x++) paint(edit,x,y,[90,90,90,255]);
+  // Two separate three-pixel regions meet the total threshold only together.
+  for(const x of [2,5]) for(let y=2;y<5;y++) paint(edit,x,y,[122,90,154,255]);
+  const clean=lockPixels(base,edit,mask,['primary'],{maxSpeckPixels:3,minFramePaintPixels:6},manifest);
+  for(let y=2;y<6;y++) for(let x=2;x<6;x++) {
+    const p=(y*info.width+x)*4;
+    assert.deepEqual(clean.subarray(p,p+4),base.data.subarray(p,p+4));
+  }
+  const next=(3*info.width+11)*4;
+  assert.deepEqual(clean.subarray(next,next+4),edit.data.subarray(next,next+4));
+});
+
 test('neutral detail extraction excludes coloured mannequin fringe without changing keyed hair', () => {
   const {base,edit,mask}=fixture();
   paint(edit,2,2,[50,80,130,255]);

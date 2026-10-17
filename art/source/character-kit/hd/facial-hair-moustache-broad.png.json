@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "candidateSha256": "b024b479f14378bc63f81a828c82e552ce403a3220c44bfb08bb129386fdb56f",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "45421bbdb988635efaee1248786985cb50d050673922c94f40ea1450b8b3ec3f",
+  "promptSha256": "23873cafecd49412f57550f56b4ef41ecab59fa36da39f1da7ad352eecbba776",
+  "generationPromptSha256": "083761c4798d5d1889da1de83fd9cc5919224118d03e327b6892394afa796763",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "detailMaterial": "primary"
+  },
+  "validation": {
+    "maxRegions": 1,
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Facial hair is visible from the front and profiles, never on the back of the head."
+  },
+  "preparationSha256": "000c06571d5122ff2e8e53f453273e751b712a6d74ada08062eec26919198d21",
+  "candidate": "art/source/character-kit/hd/facial-hair-moustache-broad-candidate.png",
+  "lockedSha256": "1afebd6fa57ce6d16be8a91134e7da30cb96dc43cd0ed142f77b1558b5564392"
+}

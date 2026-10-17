@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-pinafore-broad-page-0-candidate-1.png",
+      "sha256": "b6ea83d0aef7062d7f50fb3854c4ee0032b20bc351acdbf7ca813562df192b13"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-pinafore-broad-page-0-candidate-1.txt",
+      "sha256": "3e16ab09d75e139fcb3f45975efce93c1359c5e41fd9f2371eea7d599efe4d8f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-0.json",
+      "sha256": "d4c597d609eaced853a49300a3c916edad44486d2083661e2e1f72015c5fb832"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-pinafore-broad-page-1-candidate-1.png",
+      "sha256": "25467af0e21a8ae099d3e54713e5b1752f843c6af33d2499ff53afc1b5adf3d6"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-pinafore-broad-page-1-candidate-1.txt",
+      "sha256": "3e16ab09d75e139fcb3f45975efce93c1359c5e41fd9f2371eea7d599efe4d8f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-1.json",
+      "sha256": "597ae57a47283b3583f871d7ecfb79f8eb0d069ec363f819db5347b622c0eec5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-pinafore-broad-page-2-candidate-1.png",
+      "sha256": "7450225d6b639faad1dc2f6ea34e8e6e99855fc57f48fb0540ac6aa7eb9dfa3a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-pinafore-broad-page-2-candidate-1.txt",
+      "sha256": "3e16ab09d75e139fcb3f45975efce93c1359c5e41fd9f2371eea7d599efe4d8f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-2.json",
+      "sha256": "3822b1501237a22f8d5952fa86901bb95b3a7ca3e1637d7063b13b8b5a890e21"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-pinafore-broad-page-3-candidate-1.png",
+      "sha256": "ff9d1241e65c3e346356c95b581ece3f63a1c27293224d0f48da639669ff4369"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-pinafore-broad-page-3-candidate-1.txt",
+      "sha256": "3e16ab09d75e139fcb3f45975efce93c1359c5e41fd9f2371eea7d599efe4d8f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-3.json",
+      "sha256": "09412f0261449be2e3d6bacbb0fb474dfa77e215dc568cef97a5387d7eceba7e"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-pinafore-broad-page-4-candidate-1.png",
+      "sha256": "88e489b69aeb25d1aa86e5b94f5fcf13f3681ba234f2ff78a18856ebb407e1da"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-pinafore-broad-page-4-candidate-1.txt",
+      "sha256": "3e16ab09d75e139fcb3f45975efce93c1359c5e41fd9f2371eea7d599efe4d8f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-4.json",
+      "sha256": "5252f9b6b506aeba7aa6b065493407dc63e3afa72771694c1fc3d3f025c359a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-pinafore-broad-page-5-candidate-1.png",
+      "sha256": "f8019a0d002866ccc6865b2982fb331d7970a9ddfc12e29990bfec44d7cc3f68"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-pinafore-broad-page-5-candidate-1.txt",
+      "sha256": "3e16ab09d75e139fcb3f45975efce93c1359c5e41fd9f2371eea7d599efe4d8f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-5.json",
+      "sha256": "72beb8597382255bf7cfde12b003f50107cce66fee1e4d12ba961c28edfdb6dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-pinafore-broad-page-6-candidate-1.png",
+      "sha256": "814a9434100c831319873815ee4ed69112291e7baf08821fee66762c6ec2e0da"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-pinafore-broad-page-6-candidate-1.txt",
+      "sha256": "3e16ab09d75e139fcb3f45975efce93c1359c5e41fd9f2371eea7d599efe4d8f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-6.json",
+      "sha256": "369c87b8e1c6db5e23506f6c9c049b8866e3b95c4a57ebb3e5fdb50cff738546"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-pinafore-broad-page-7-candidate-1.png",
+      "sha256": "53bf190c46d5d4649748cd19d60e0d6491f7dd7f21e3ce8808658f8432199d8d"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-pinafore-broad-page-7-candidate-1.txt",
+      "sha256": "3e16ab09d75e139fcb3f45975efce93c1359c5e41fd9f2371eea7d599efe4d8f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-7.json",
+      "sha256": "594be292ae2bb672b79bc0f64091efc6184647dc4159416c469120e9794ae6a2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-pinafore-broad-page-8-candidate-1.png",
+      "sha256": "944c4d0a98116b18ff72e9ffe18825c1358eefae7edb75269568432eb1bbf9a2"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-pinafore-broad-page-8-candidate-1.txt",
+      "sha256": "3e16ab09d75e139fcb3f45975efce93c1359c5e41fd9f2371eea7d599efe4d8f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-8.json",
+      "sha256": "59b98d4a2e80d5eda70982582ea13bff1711eca74a22fd82e4b3ed6ef6f68734"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "67ebdeaf8b30e8598dfe020e2dc0ac7f951a9c8c959ce3df4b2dfc6be43fc2b1"
+}

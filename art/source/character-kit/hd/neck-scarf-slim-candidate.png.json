@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-scarf-slim-page-0-candidate-2.png",
+      "sha256": "fc589c9d0fa03e192c5b02bcf67c32794a4b271a60343da266c14ebfdc8de3a1"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-scarf-slim-page-0-candidate-2.txt",
+      "sha256": "5a91bdf0616051037e9ba4f2162151a939ea509c7d6ab85f4f6ae8b302cb99ed"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-0.json",
+      "sha256": "a6c84addbfd340ec426f28ea82ae85b2cc2b70137b1516da583c89ea1fd9c3c8"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-scarf-slim-page-1-candidate-2.png",
+      "sha256": "20009c22bd89086e997159094aefc45e14e96c8608d9b4a52e8a63e542b350dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-scarf-slim-page-1-candidate-2.txt",
+      "sha256": "5a91bdf0616051037e9ba4f2162151a939ea509c7d6ab85f4f6ae8b302cb99ed"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-1.json",
+      "sha256": "200f02d5272755448caa8ff37144a13da72062cdd95a20c1a7ff61ef7ff62814"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-scarf-slim-page-2-candidate-2.png",
+      "sha256": "3b1b8421e0c10eb4a17e1d2dba375e91d8a8719c93b46bd2ef00ae848903b76e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-scarf-slim-page-2-candidate-2.txt",
+      "sha256": "675eebc34cfacf2022569105fcdec9e2f6685226ebd4152f5c16fb3f65eab8bd"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-2.json",
+      "sha256": "30efcafbe9d7830013cf5b7b68ce9c0f1f7e02a3753d8c70007005f678193dd2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-scarf-slim-page-3-candidate-2.png",
+      "sha256": "0e6eefdf80cf789f9bf3f28bc57a84629f4b527a6133f3cababad051c55fa5f6"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-scarf-slim-page-3-candidate-2.txt",
+      "sha256": "4674ec8e9de6bcf988f28ba9d9c1948de3e5a7ef6c9104ec423945dd8268b910"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-3.json",
+      "sha256": "c3b47bcc3acbc328ad2378c245359a6a3c2b8edd6d4ac6fd90495f1b180f8485"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-scarf-slim-page-4-candidate-2.png",
+      "sha256": "053189840c915450d9a2e3752e96833159988f3134210f308d869ce2879c8696"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-scarf-slim-page-4-candidate-2.txt",
+      "sha256": "794dbf3bda29ba72245dc3b994cb314d3fa67aad32af30c700953ab5cfd661f7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-4.json",
+      "sha256": "3e12d382498d7598725fce3e44099a593cbd15caa44e9c7bc572e3931559e2ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-scarf-slim-page-5-candidate-2.png",
+      "sha256": "79e363e40250d4580341a2154ae5316ea91ba2742622f86ce1fa22d96a665f0b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-scarf-slim-page-5-candidate-2.txt",
+      "sha256": "4c0e33e5f0ffc9150856fffa2fb504d9e3c03eb299d74c6222ec8247b33481ea"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-5.json",
+      "sha256": "9801f02cbaa07933d6c115805b6442f6e7adf1db9ca8bd68a1185df134371b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-scarf-slim-page-6-candidate-2.png",
+      "sha256": "88bbea3fde9521240e4b8d99edadcc9d9e3f2474a377b1b8e2ed61700b012415"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-scarf-slim-page-6-candidate-2.txt",
+      "sha256": "d429c4bf78c1532f3b1ac5b80905c126df92424aa5340f85795140dd1e7e47e3"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-6.json",
+      "sha256": "b376d6ff991750e64f8e4e02d1eee9baecab7f17b23cfca6d0d24ea933096ab6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-scarf-slim-page-7-candidate-2.png",
+      "sha256": "0aebad6912555d6ff446c7818d3146e6fb4e874cdc7e289127b7d322c3d6ff91"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-scarf-slim-page-7-candidate-2.txt",
+      "sha256": "a8a16f14f78068ad38f439e45a0740616ea21299f0f0da096d102e093d71427b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-7.json",
+      "sha256": "54b515875467084c2615401a4aa41788ff7ea91081d871208308ecdfda0f48d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-scarf-slim-page-8-candidate-2.png",
+      "sha256": "c2945fddbc5e657325566362317a3c76dd268f8d4a2ebcc42c4fc33f5579dd8d"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-scarf-slim-page-8-candidate-2.txt",
+      "sha256": "a8a16f14f78068ad38f439e45a0740616ea21299f0f0da096d102e093d71427b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-8.json",
+      "sha256": "a907bceabc2de3865bb70e4f875dcc255387929f55bac0e8f698706c5c1bcdb1"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "65f52705a40b14e0b7abf76c93f5d817ce2df5432440eeadc31a2403c7d1261a"
+}

@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "candidateSha256": "9a95d86c737706547ef0f328b279c04ee3e3518adc30590c49b7a89573c17d6a",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "58e849238e8230a54a86b15959cc6dc65ccf2535146587380d0c021a89a77ff1",
+  "promptSha256": "41a50672a46c2d53b0dfab71b8ad5072c6f2de60b4aa39c2f6920673336dad16",
+  "generationPromptSha256": "0a9c6a62d2ad9a3071031712c51a4c23e0252bd032dcf6d547e89f064284d3c6",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "down": 3
+    },
+    "regionReason": "The front-facing head hides the crown-to-tail connection; the two tail edges appear separately on either side of the neck. All 36 native head crops reviewed."
+  },
+  "preparationSha256": "1c1c27388f0333af4c29636bf803ba41ce84410eaf2a3e7c39f8a5867acf89f1",
+  "candidate": "art/source/character-kit/hd/hair-ponytail-slim-candidate.png",
+  "lockedSha256": "1983b553d5b4d28f8c3c8cd3d3b92a967cc944bfa30e4493be2d7e3cbc220224"
+}

@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/lindenhafen-parcel-courier.png",
   "proofSha256": "21e3c7cccda0ddfcb0f592cea80a7c60332ceab3c164301297d2fa579270580d",
   "editorSha256": "d17309df45e8b3d438fc9dea0a4e7263ba75f6ca844371106a048906d682fd1e",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "e2237ae308641b38b5a3a150ac752e113f97fe097eb9aa3d09f66aa3da9f9faa"
+  }
 }

@@ -5,7 +5,7 @@ import {createHash} from 'node:crypto';
 import sharp from 'sharp';
 import {characterCatalogue as cat,normalizeAvatar,availableFaceExpressions} from '../web/src/character-recipe.mjs';
 import {playerPortraitPixels,playerPortraitPlan} from '../web/src/player-portrait-compositor.mjs';
-import {validateCoverage,cleanCell} from './build-player-portraits.mjs';
+import {validateCoverage,cleanCell,portraitSourceCell,portraitGuideBounds} from './build-player-portraits.mjs';
 const art=JSON.parse(await readFile('web/src/data/player-portraits.json'));
 const hash=data=>createHash('sha256').update(data).digest('hex');
 const cache=new Map();
@@ -16,7 +16,9 @@ async function load(url,width,height){
 const recipe=parts=>normalizeAvatar({v:2,build:'regular',parts:{face:'oval',hair:'waves',outer:'travel',...parts}});
 const render=(value,expression='neutral')=>playerPortraitPixels(value,expression,load);
 test('every customizable component and expression has explicit portrait coverage',()=>{
- validateCoverage(cat,art);assert.equal(Object.keys(art.components).length,102);
+ validateCoverage(cat,art);
+ const expected=[...cat.components,...Object.values(cat.expressions??{}).flatMap(e=>e.components)].map(p=>p.id).sort();
+ assert.deepEqual(Object.keys(art.components).sort(),expected);
  const missing=structuredClone(art);delete missing.components['hair-bob'];assert.throws(()=>validateCoverage(cat,missing),/Missing.*hair-bob/);
  const undersized=structuredClone(art);undersized.components['face-oval'].nativeCell=51;assert.throws(()=>validateCoverage(cat,undersized),/Invalid native/);
  assert.throws(()=>validateCoverage(cat,{...art,sourceCatalogue:'old'}),/stale/);
@@ -48,4 +50,16 @@ test('cell cleanup removes adjacent boundary strips while preserving interior ma
  const data=Buffer.alloc(40*40*4);for(let x=0;x<40;x++)data[(x)*4+3]=255;
  for(let y=18;y<21;y++)for(let x=18;x<21;x++)data[(y*40+x)*4+3]=255;
  const result=cleanCell(data,40,40);assert.equal(result[3],0);assert.equal(result[(19*40+19)*4+3],255);
+});
+test('authored portrait crops retain shifted paintings without changing guide cells',()=>{
+ const meta={width:1254,height:1254};
+ assert.deepEqual(portraitSourceCell(meta,3,{}),{left:0,top:418,width:418,height:418});
+ assert.deepEqual(portraitSourceCell(meta,3,{sourceCrop:{left:0,top:2/3,width:1/3,height:1/3}}),{left:0,top:836,width:418,height:418});
+ for(const sourceCrop of [{left:-.1,top:0,width:.3,height:.3},{left:.8,top:0,width:.3,height:.3},{left:0,top:0,width:0,height:.3}])assert.throws(()=>portraitSourceCell(meta,0,{id:'bad',sourceCrop}),/Invalid portrait source crop/);
+});
+test('translucent makeup guides retain their placement',()=>{
+ const data=Buffer.alloc(8*8*4);
+ for(let y=2;y<4;y++)for(let x=1;x<6;x++)data[(y*8+x)*4+3]=62;
+ assert.deepEqual(portraitGuideBounds(data,8,8),{left:1,top:2,width:5,height:2});
+ assert.equal(portraitGuideBounds(Buffer.alloc(8*8*4),8,8),null);
 });

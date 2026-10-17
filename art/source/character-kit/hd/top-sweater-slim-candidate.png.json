@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sweater-slim-page-0-candidate-1.png",
+      "sha256": "b6296e9386aeb3e674a72c3c100d916c27a29a830244df5b5a6a1ed25d202613"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sweater-slim-page-0-candidate-1.txt",
+      "sha256": "b6f1b025fcd744cfe1f7d2660a78f42cfa439f488a255aa5e9d3bc5b1dc3e29b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-0.json",
+      "sha256": "a6c84addbfd340ec426f28ea82ae85b2cc2b70137b1516da583c89ea1fd9c3c8"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sweater-slim-page-1-candidate-1.png",
+      "sha256": "624d9143105b96540f85c52312d4bd2b2022db8f59524b2ba5e99314c9912f9f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sweater-slim-page-1-candidate-1.txt",
+      "sha256": "0f818170d25d4e72e73e53386e145271f6c476bb2cb4c82d80354e1c961e9c59"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-1.json",
+      "sha256": "200f02d5272755448caa8ff37144a13da72062cdd95a20c1a7ff61ef7ff62814"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sweater-slim-page-2-candidate-1.png",
+      "sha256": "f90f3b82d9903ebfecdab143ecf58b9b8151783995cc11a15a0f7d3a3d382b52"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sweater-slim-page-2-candidate-1.txt",
+      "sha256": "9a1fa637f4103dde93240ca2d389911a6f548d2a745f02c865d620ee891c4187"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-2.json",
+      "sha256": "30efcafbe9d7830013cf5b7b68ce9c0f1f7e02a3753d8c70007005f678193dd2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sweater-slim-page-3-candidate-1.png",
+      "sha256": "fe654e581af5ad79a9529ab1ba8ad912c8ce949ad4b4218180126f5d8acc342e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sweater-slim-page-3-candidate-1.txt",
+      "sha256": "3b9de45e706e6a7731777767043348fdfff00faf26773a8c093e62f3847bce1a"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-3.json",
+      "sha256": "c3b47bcc3acbc328ad2378c245359a6a3c2b8edd6d4ac6fd90495f1b180f8485"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sweater-slim-page-4-candidate-1.png",
+      "sha256": "e569bd481dde0a48f44206a92b5fd68cba55ccd243d7fb163e06683f4b2a77f9"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sweater-slim-page-4-candidate-1.txt",
+      "sha256": "6949851a202ecbc71afc9f6a2147a911401da324a78069292978681f07d0d4ac"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-4.json",
+      "sha256": "3e12d382498d7598725fce3e44099a593cbd15caa44e9c7bc572e3931559e2ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sweater-slim-page-5-candidate-1.png",
+      "sha256": "c329ddcdfbf06e81723aaa14914ac30a04eed44cd5c351c6e328a0451d2c9503"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sweater-slim-page-5-candidate-1.txt",
+      "sha256": "5c7af662c7743dede10e16f0b996e20f52eb1d2b7f7888595206f14201ee3e38"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-5.json",
+      "sha256": "9801f02cbaa07933d6c115805b6442f6e7adf1db9ca8bd68a1185df134371b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sweater-slim-page-6-candidate-1.png",
+      "sha256": "32475de3ff4485f57c72b4bf7aa7242f235edff24d47353bb00763e58a8cbb7f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sweater-slim-page-6-candidate-1.txt",
+      "sha256": "d7833815b47f05f80abbd8657d8233e043b546048e594384e62174a28ad06d48"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-6.json",
+      "sha256": "b376d6ff991750e64f8e4e02d1eee9baecab7f17b23cfca6d0d24ea933096ab6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sweater-slim-page-7-candidate-1.png",
+      "sha256": "56bfe87124ffe98d88de4d45d4957e265144ae71c7fabc0343cba483e1d2eaf0"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sweater-slim-page-7-candidate-1.txt",
+      "sha256": "aa484383a5f42588f75cadddcc6a820849c001f269ebc66cfa65f3b374fda87c"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-7.json",
+      "sha256": "54b515875467084c2615401a4aa41788ff7ea91081d871208308ecdfda0f48d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sweater-slim-page-8-candidate-1.png",
+      "sha256": "0b9dce96c25f6e07fc09fc93289d78c5f5a720c4ac056ab1466e8c26b951cf48"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sweater-slim-page-8-candidate-1.txt",
+      "sha256": "c13d079d2ceb3cf584b8a8ede67ee85f80a5ad7bfa95d6af6dac022e509b4d14"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-8.json",
+      "sha256": "a907bceabc2de3865bb70e4f875dcc255387929f55bac0e8f698706c5c1bcdb1"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "2fa76c4d3d8cf5414cfa14cbcf73a34b3fcf4d5a110cb5de01a091e27da78b0f"
+}

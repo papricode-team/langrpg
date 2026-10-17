@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-sunglasses-broad-page-0-candidate-1.png",
+      "sha256": "e5fc33f85a5b41c05da98d4b271c7dee08cb290c7a95acca87b08232806ca20e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-sunglasses-broad-page-0-candidate-1.txt",
+      "sha256": "a3984e4085dad45f702d4555595b872239d3106b99132e5ff1b20ca0314f0aae"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-sunglasses-broad-page-1-candidate-1.png",
+      "sha256": "4d7d5a4347ba7e52211dd119dc485df6c90165780a6e30c738d01492404155fa"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-sunglasses-broad-page-1-candidate-1.txt",
+      "sha256": "708beef4bdcda7b2fff413e2e99a81520e8d1cc68568ac9a477e9fbd30625aa1"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-sunglasses-broad-page-2-candidate-1.png",
+      "sha256": "9ca5de252b6dc95be25238945784f7c7cc1153e44a7c68fc2f77b2c700ca508e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-sunglasses-broad-page-2-candidate-1.txt",
+      "sha256": "62bc0981d7d52ac484b0ed41d1fd4904fe23c7084d44f8477e84fe7cebf297c2"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-sunglasses-broad-page-3-candidate-1.png",
+      "sha256": "2f1fd1180eab73344d9b1f4a944fcd059dd2b1f8e8843f59bafec09d5c377e16"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-sunglasses-broad-page-3-candidate-1.txt",
+      "sha256": "77a076cf7148fd07a2fa25590afd19d8e18a678708ebd69c4fd434079a294eed"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "092f051cdca3b66388415cfac4fc1d886db4c791d2af1c8a4492c702776b4100"
+}

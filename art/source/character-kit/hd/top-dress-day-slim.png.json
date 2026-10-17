@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "candidateSha256": "9b63a8be13d0d7e6225b61f677fa13acd2eeea2595084655158afa8295557547",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "968c40b89d96b2edc132cf850cb9ff745e492a0dcb56baae774f3ade329c41d0",
+  "promptSha256": "498dc6b503f51b6ff1e85b422215782f806962915d9e379cd05d6f25c88e29f8",
+  "generationPromptSha256": "250ce69c142741b228617c8ee9a765eb54351946208aed9b5ae9f48543ebb597",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailMaxChroma": 0.15,
+    "detailReach": 2,
+    "detailMaterial": "primary"
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "down": 2
+    },
+    "regionReason": "In front frame 2, the foreground hand occludes a small section of the dress edge; both visible cloth sections belong to the same garment."
+  },
+  "preparationSha256": "8bfa0a1df556f669252037b2e7d67b1806f9649de2ab3c6ddb59451600e0c990",
+  "candidate": "art/source/character-kit/hd/top-dress-day-slim-candidate.png",
+  "lockedSha256": "e4ade6ba9ae06092a559e5955191647e03fef410b3d957eef469a6319b40c96b"
+}

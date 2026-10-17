@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "candidateSha256": "cdf2e5921e937fdeb31d07f63198c23876e4a97071586545b957e455b3289345",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "2c3b86d1afa9758cc10f086f6bb7e4b6767e933f34c07a584ad726a9f6353b5f",
+  "promptSha256": "2ff25b672c8c594e0dd1251e47e75faa4066d46bb16d22efda618ce2e26ee3e0",
+  "generationPromptSha256": "1fb0aa122a938a1ba9cd2607bd8dacd20590145e9b265a333cc90c7343e8c635",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 96,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegions": 2,
+    "regionReason": "A pair of shoes has two separate visible regions when the feet are apart. Every region must touch its mannequin foot."
+  },
+  "preparationSha256": "9c98c3ab14cf1a890e8e3149018d2c3722724fd5b7772bf3b7092911f9514d53",
+  "candidate": "art/source/character-kit/hd/footwear-clogs-slim-candidate.png",
+  "lockedSha256": "77262eea43b152966b077797a48dfd593c7fb5bc95bd72cc6cc5afe95eade351"
+}

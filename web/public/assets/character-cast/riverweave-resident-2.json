@@ -31,6 +31,11 @@
   "proof": "art/proofs/character-cast/riverweave-resident-2.png",
   "proofSha256": "020e71483ccff826550f0d9c2d0d0614c5c2ac28d671c2b18af3e3a9c20029a8",
   "editorSha256": "1dcf44658ac36fcc5999869f1434103c558401c7a985f792a10929f46b89c16d",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "eab122e63374012d5a99e06b1a4d50dee66c0dcbf2f39f1ffd2ebdf9ec6e5268"
+  }
 }

@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-blazer-slim-page-0-candidate-1.png",
+      "sha256": "106a3dbbf5f17f7301cd4c8d0aeccf6e02a878fd994f5156bd6b0b002b09c951"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-blazer-slim-page-0-candidate-1.txt",
+      "sha256": "8c6453b9f7dd050284ee8d5cc3d196d4e46308b658ee76608e73d9a1f6b46022"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-0.json",
+      "sha256": "a6c84addbfd340ec426f28ea82ae85b2cc2b70137b1516da583c89ea1fd9c3c8"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-blazer-slim-page-1-candidate-1.png",
+      "sha256": "2b98b0add5fdb930da4bd4e665b27e73168fcc6a28343e38784de3c66b9c245a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-blazer-slim-page-1-candidate-1.txt",
+      "sha256": "8c6453b9f7dd050284ee8d5cc3d196d4e46308b658ee76608e73d9a1f6b46022"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-1.json",
+      "sha256": "200f02d5272755448caa8ff37144a13da72062cdd95a20c1a7ff61ef7ff62814"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-blazer-slim-page-2-candidate-1.png",
+      "sha256": "dea1247b885f0cb6dd1411e42e245767c2c08802a2efae756acee56b52dc6591"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-blazer-slim-page-2-candidate-1.txt",
+      "sha256": "8c6453b9f7dd050284ee8d5cc3d196d4e46308b658ee76608e73d9a1f6b46022"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-2.json",
+      "sha256": "30efcafbe9d7830013cf5b7b68ce9c0f1f7e02a3753d8c70007005f678193dd2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-blazer-slim-page-3-candidate-1.png",
+      "sha256": "adc0102a7a9554c9ea68c30db8597b0a8679db143b8d58c837e86281e072165a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-blazer-slim-page-3-candidate-1.txt",
+      "sha256": "8c6453b9f7dd050284ee8d5cc3d196d4e46308b658ee76608e73d9a1f6b46022"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-3.json",
+      "sha256": "c3b47bcc3acbc328ad2378c245359a6a3c2b8edd6d4ac6fd90495f1b180f8485"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-blazer-slim-page-4-candidate-1.png",
+      "sha256": "10d33bc32a9cf3d0ec94d81cd4de7edb5a49d2b5f155db9acbf0e3c976536295"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-blazer-slim-page-4-candidate-1.txt",
+      "sha256": "8c6453b9f7dd050284ee8d5cc3d196d4e46308b658ee76608e73d9a1f6b46022"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-4.json",
+      "sha256": "3e12d382498d7598725fce3e44099a593cbd15caa44e9c7bc572e3931559e2ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-blazer-slim-page-5-candidate-2.png",
+      "sha256": "3f59ce2dc8f895a07b14159c140ba3b72557cd2b602389e35d1eff80482d00fe"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-blazer-slim-page-5-candidate-2.txt",
+      "sha256": "c382a4bfa678e1c882a175c85a2d5248c25f2658aac974346235b6edbc8d5298"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-5.json",
+      "sha256": "9801f02cbaa07933d6c115805b6442f6e7adf1db9ca8bd68a1185df134371b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-blazer-slim-page-6-candidate-1.png",
+      "sha256": "fe578ffb60825dec01edd5c7f2e3b624a97964b2d5b1df00c443ce93637f40ee"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-blazer-slim-page-6-candidate-1.txt",
+      "sha256": "8c6453b9f7dd050284ee8d5cc3d196d4e46308b658ee76608e73d9a1f6b46022"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-6.json",
+      "sha256": "b376d6ff991750e64f8e4e02d1eee9baecab7f17b23cfca6d0d24ea933096ab6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-blazer-slim-page-7-candidate-1.png",
+      "sha256": "e93e4e271953d68c66feefb34a7ab8e42d9b3ddc2ca74badd3615f6b1b6a8f67"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-blazer-slim-page-7-candidate-1.txt",
+      "sha256": "8c6453b9f7dd050284ee8d5cc3d196d4e46308b658ee76608e73d9a1f6b46022"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-7.json",
+      "sha256": "54b515875467084c2615401a4aa41788ff7ea91081d871208308ecdfda0f48d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-blazer-slim-page-8-candidate-1.png",
+      "sha256": "412a152fdd78fe35e6bc16b32ff0a0dedc448fc1b63e7804f029a23b7bebdb73"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-blazer-slim-page-8-candidate-1.txt",
+      "sha256": "8c6453b9f7dd050284ee8d5cc3d196d4e46308b658ee76608e73d9a1f6b46022"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-8.json",
+      "sha256": "a907bceabc2de3865bb70e4f875dcc255387929f55bac0e8f698706c5c1bcdb1"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "c709f6080ca77e23ba16a58f10234bd46bf8dd2c1aa71d543e6543ff42286c0e"
+}

@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "candidateSha256": "ec785a8b366fe68fd8b83dd25844c00553489bc6df1b32046175d42fcca3bceb",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "c0382c1435b89296a17e0e1afc62f27045f8f5b87700599789e681ce0ff9aa1c",
+  "promptSha256": "dda7c6c57e8e99fa1c3754542a714b602d5511434dd9f3d980c845345f06a074",
+  "generationPromptSha256": "89086d9f6d868c1fe91135f9c9f449dc751ecb5c16d11247889ea79f086a9aa5",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailReach": 2,
+    "detailMaterial": "primary"
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 2,
+      "left": 2
+    },
+    "regionReason": "In profile, the arm can divide the waist belt from its visible far edge. Front and rear belt and pouch remain connected."
+  },
+  "preparationSha256": "3a4efbda61ae81a6a0d34da54b3912fe7788b3fb15c32149bfaf5262d8beb941",
+  "candidate": "art/source/character-kit/hd/bag-belt-pouch-broad-candidate.png",
+  "lockedSha256": "39b858e1ef0087b3480fbb2619c1bc292815d55081c1fa0963691e6ed72f4d9d"
+}

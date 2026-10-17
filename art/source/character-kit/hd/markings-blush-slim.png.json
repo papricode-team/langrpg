@@ -1,0 +1,42 @@
+{
+  "version": 2,
+  "candidateSha256": "7741f5f292356b10b234a2c7c1e2d90b6abbe6a643ad44cb05f7c94e8abb8dde",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "8595802074193aac6016f30c69ecb089c04b849a66dfc84375a325ec6485151f",
+  "promptSha256": "9a9b3ab4de199557a9f78c91411f271de5102c70dd6eb963e71bd16d01e55797",
+  "generationPromptSha256": "d2b89b07634ee4924b9529a97d4826f0327569bff8796a20c64ad926bfdd7cb5",
+  "materials": [
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "primary",
+      "secondary",
+      "skin"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "minBaseAlpha": 240,
+    "detailInk": {
+      "color": "#a06955",
+      "tolerance": 12,
+      "opacity": 0.35
+    }
+  },
+  "validation": {
+    "maxRegions": 2,
+    "regionReason": "The two cheek patches are separate regions, each attached to the head.",
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Cheek markings are visible on the front and both profiles, never on the back of the head."
+  },
+  "preparationSha256": "db272cf7b44573e2bf0c2ca893b5117b99d8c0ac9dcb65a05468510091142528",
+  "candidate": "art/source/character-kit/hd/markings-blush-slim-candidate.png",
+  "lockedSha256": "fd3edf1ec7638138d367c7ba5e5a2b5352140ca10131b2670bbcd5f15e8c8737"
+}

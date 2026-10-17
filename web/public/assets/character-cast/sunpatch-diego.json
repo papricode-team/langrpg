@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/sunpatch-diego.png",
   "proofSha256": "7b606cf90462f9d60b8c87b3faaf8d042901972d8fa9553bb2a808188f077935",
   "editorSha256": "da8c924555a34293d076b0874b18123d66bdc84ad67938627ac86206c64ba282",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "fd03c4b3f0b6eaca99fa73b0726e52de11a204590f8ea02e2feccc3edaf83461"
+  }
 }

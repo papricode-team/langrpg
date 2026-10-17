@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/rainmarket-ken.png",
   "proofSha256": "c5f34497dda0f68b6ba049c354804f68ed301d815c972282d90f76db43286d01",
   "editorSha256": "10604219f6c5a1623d401e9ca17d9c3680a1ebde26378b694daf817ee3bedfe1",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "83ddfb35949ed5a6a3e80471378b0deb9fcbcd4efacae088eb89f7105c8f0aa4"
+  }
 }

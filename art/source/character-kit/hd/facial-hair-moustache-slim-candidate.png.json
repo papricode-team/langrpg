@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/facial-hair-moustache-slim-page-0-candidate-1.png",
+      "sha256": "f2a38383a0db75c9900901ba78a08881584c9a6a7e92a689fdbbae52d45b4c4d"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/facial-hair-moustache-slim-page-0-candidate-1.txt",
+      "sha256": "856bf4c0be65b2b45047f870d70430a6d5ecd3efb56208af98de9567bf2eb234"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-0.json",
+      "sha256": "9207c077e0be3b69b427bf2fef3c5c6ec2cba6cd90360ea2f21dee3997475f8b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/facial-hair-moustache-slim-page-1-candidate-1.png",
+      "sha256": "313f8087bfe4eb6c1c52eee1ebc6b6733a02dc19bf9953d1074a7ccc4eadb9d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/facial-hair-moustache-slim-page-1-candidate-1.txt",
+      "sha256": "856bf4c0be65b2b45047f870d70430a6d5ecd3efb56208af98de9567bf2eb234"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-1.json",
+      "sha256": "f25ab7ae6f2211a6dcf84a772de156dca1aea4c9a1667b243da9303f7f1651ae"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/facial-hair-moustache-slim-page-2-candidate-1.png",
+      "sha256": "0241c42c393591373b2d8d8b1e7e0780ad4814fa10aea342115a33711759ede3"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/facial-hair-moustache-slim-page-2-candidate-1.txt",
+      "sha256": "856bf4c0be65b2b45047f870d70430a6d5ecd3efb56208af98de9567bf2eb234"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-2.json",
+      "sha256": "114454392f0cfb9ed7f499b8732bbd8ea3acae965a2db03ac0e20f8ab4e31746"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/facial-hair-moustache-slim-page-3-candidate-1.png",
+      "sha256": "9764cae764907d2e6b126697dafdc51a82e22faf5db07d9fcbc2dbcfe04328c1"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/facial-hair-moustache-slim-page-3-candidate-1.txt",
+      "sha256": "856bf4c0be65b2b45047f870d70430a6d5ecd3efb56208af98de9567bf2eb234"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-3.json",
+      "sha256": "9aef7f92c4a053f1ceb57baa15a3a3771a2c646922f5b26f7f9c0ac68ec0b4bd"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "6907af5db918e98771f1004623a75090c2ec86c5c68480c591f8ed739e0dda33"
+}

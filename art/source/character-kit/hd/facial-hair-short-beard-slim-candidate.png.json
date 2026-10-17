@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/facial-hair-short-beard-slim-page-0-candidate-1.png",
+      "sha256": "aa1c8eb6c762d04fa3d2f292d73951b15ec159ad97f3c974f743d00f7eba5090"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/facial-hair-short-beard-slim-page-0-candidate-1.txt",
+      "sha256": "92a55cfef6da7dc12f3c4b9fb9fa4f32c6ab62f56b3f4ebd1f3b492fd46e40b7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-0.json",
+      "sha256": "9207c077e0be3b69b427bf2fef3c5c6ec2cba6cd90360ea2f21dee3997475f8b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/facial-hair-short-beard-slim-page-1-candidate-1.png",
+      "sha256": "32a728061be992ac4d229227195d1b28fe70e1f38aeec49c39d2ae32b9653bf3"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/facial-hair-short-beard-slim-page-1-candidate-1.txt",
+      "sha256": "92a55cfef6da7dc12f3c4b9fb9fa4f32c6ab62f56b3f4ebd1f3b492fd46e40b7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-1.json",
+      "sha256": "f25ab7ae6f2211a6dcf84a772de156dca1aea4c9a1667b243da9303f7f1651ae"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/facial-hair-short-beard-slim-page-2-candidate-1.png",
+      "sha256": "14fa51fc6e5cc84a3a1e2abcd9e74555f7a19d2c189c33ed76d040f24f8d6ebb"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/facial-hair-short-beard-slim-page-2-candidate-1.txt",
+      "sha256": "92a55cfef6da7dc12f3c4b9fb9fa4f32c6ab62f56b3f4ebd1f3b492fd46e40b7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-2.json",
+      "sha256": "114454392f0cfb9ed7f499b8732bbd8ea3acae965a2db03ac0e20f8ab4e31746"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/facial-hair-short-beard-slim-page-3-candidate-1.png",
+      "sha256": "63aae09fe3da00b7b112699e1cbd0a91b4bd9c473e095d0248312eb3db9f5ce6"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/facial-hair-short-beard-slim-page-3-candidate-1.txt",
+      "sha256": "92a55cfef6da7dc12f3c4b9fb9fa4f32c6ab62f56b3f4ebd1f3b492fd46e40b7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-3.json",
+      "sha256": "9aef7f92c4a053f1ceb57baa15a3a3771a2c646922f5b26f7f9c0ac68ec0b4bd"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "8fa0dd54628268477a9ba5012f774d2bfe6c4c5bbf3c8e0f3eea181dbf422c6e"
+}

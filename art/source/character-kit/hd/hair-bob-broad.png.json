@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "949e3e0fb971d80b4cd88af793f2fcb703b83295c55dc65c6581bca75c5bffb5",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "7aaf52b0d7bc99f52ffd5599149cd0d28c54f5da0719bb4927c7e7b4c5788433",
+  "promptSha256": "b05a5c020e1793cacc64fd8a3c89c6714fd529851cff5c70aec43e0e98d9e20f",
+  "generationPromptSha256": "73374dd73c95bbf765da5df59ec52e9c273a3d914b3a4bc785fa08de0f426be0",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "detailEnclosedBy": "primary"
+  },
+  "preparationSha256": "a3d1e2c1249363d8d08ea18461f9bd9c75468bc016aec19bacf40a26a4746191",
+  "candidate": "art/source/character-kit/hd/hair-bob-broad-candidate.png",
+  "lockedSha256": "4a6b2b3aebbd9af759d79069ad457a8863e3b1cefb716f65158f280ca60a1839"
+}

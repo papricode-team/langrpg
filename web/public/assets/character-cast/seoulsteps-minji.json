@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/seoulsteps-minji.png",
   "proofSha256": "9b83ba4f2c7cf81a6e3828fff15b50a88b8116647841ef9bb1fededb9d1807ac",
   "editorSha256": "8aa063a747612fbd29ebf0577bd6033b731c37c3927e1dabe61b115a8ab6b568",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "9823f563e7fcbd91e3f45d80d317868501492c576ae02d405a82c01a8a30eb91"
+  }
 }

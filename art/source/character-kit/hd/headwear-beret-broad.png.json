@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "34091607e6fab62eae64c586687bd34a5d8deefd79f90e513ee2fefdfeb7994a",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "85b294c3a8b9a6527807718ea7ae631bc0d894174b6d34b37a03a3ce87a42b13",
+  "promptSha256": "b4e42358f17eeede716d8329511816d4b9363b7eaf26f7586162f383ab0bfe5f",
+  "generationPromptSha256": "cabdfb6e3653b8c20b1be663cd7face631d4576e6d9a75a47393e14a2c28ef1c",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "5f9dc64d35b8e3df9cdb480fff90d4a2901b873337b0e1df8548677f10840b4b",
+  "candidate": "art/source/character-kit/hd/headwear-beret-broad-candidate.png",
+  "lockedSha256": "a1ecb02408589bb82ab15440f8f6f07286c52afa12402e1c93446ef98c365ebe"
+}
