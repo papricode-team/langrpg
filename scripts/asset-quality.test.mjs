@@ -7,19 +7,19 @@ import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 import { assetQualityPlugin, buildQualityTiers, qualityPlan, sceneryDensities, pruneLegacyCharacterKit } from './asset-quality.mjs';
 
-test('HD distribution excludes the archived kit while retaining active editor and runtime art', async () => {
+test('HD distribution excludes the archived kit and prototype layers while retaining active editor and runtime art', async () => {
   const dir=await mkdtemp(join(tmpdir(),'character-distribution-'));
   try {
-    for(const name of ['character-kit','character-kit-hd','player-layers','character-features']) {
+    for(const name of ['character-kit','player-layers','character-kit-hd']) {
       await mkdir(join(dir,name));
       for(const kind of ['editor','runtime'])await writeFile(join(dir,name,kind+'.webp'),kind);
     }
     await pruneLegacyCharacterKit(dir,{assetBase:'/assets/character-kit/'});
     assert.equal(await readFile(join(dir,'character-kit','runtime.webp'),'utf8'),'runtime');
+    assert.equal(await readFile(join(dir,'player-layers','runtime.webp'),'utf8'),'runtime');
     await pruneLegacyCharacterKit(dir,{assetBase:'/assets/character-kit-hd/'});
     await assert.rejects(stat(join(dir,'character-kit')), {code:'ENOENT'});
     await assert.rejects(stat(join(dir,'player-layers')), {code:'ENOENT'});
-    assert.equal(await readFile(join(dir,'character-features','runtime.webp'),'utf8'),'runtime');
     for(const kind of ['editor','runtime'])assert.equal(await readFile(join(dir,'character-kit-hd',kind+'.webp'),'utf8'),kind);
   } finally { await rm(dir,{recursive:true,force:true}); }
 });

@@ -1,0 +1,28 @@
+---
+interface Props { mobile?: boolean; }
+const { mobile = false } = Astro.props;
+const links = [
+  { href: '/#world', label: 'The world', icon: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm4 5-2.5 5.5L8 16l2.5-5.5L16 8Z' },
+  { href: '/#how-to-play', label: 'How you learn', icon: 'M12 6v14M12 6C9 4 6 3 3 4v14c3-1 6 0 9 2 3-2 6-3 9-2V4c-3-1-6 0-9 2Z' },
+  { href: '/learn-german/', label: 'Field notes', icon: 'M6 3h13v18H6a3 3 0 0 1 0-6h13M6 3a3 3 0 0 0-3 3v12M8 7h7M8 10h5' },
+  { href: '/#pricing', label: 'Pricing', icon: 'm12 3 8 6-8 12L4 9l8-6ZM4 9h16M9 9l3 12 3-12M9 9l3-6 3 6' },
+  { href: '/#questions', label: 'FAQ', icon: 'M21 11a9 9 0 0 1-9 9H5l-3 2V11a9 9 0 0 1 19 0ZM9.5 8a2.5 2.5 0 1 1 4 2c-1 .6-1.5 1-1.5 2M12 15h.01' },
+];
+---
+<nav class={mobile ? 'mobile-nav' : 'desktop-nav'} aria-label={mobile ? 'Mobile navigation' : 'Main navigation'}>
+  {links.map(link => <a class="site-nav-link" href={link.href} aria-current={link.href === '/learn-german/' && Astro.url.pathname.startsWith('/learn-german/') ? 'location' : undefined}><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d={link.icon} /></svg><span>{link.label}</span></a>)}
+</nav>
+<script>
+  const updateNavigation = () => {
+    for (const link of document.querySelectorAll<HTMLAnchorElement>('.site-nav-link')) {
+      const destination = new URL(link.href);
+      const selected = destination.hash
+        ? location.pathname === '/' && destination.hash === location.hash
+        : location.pathname.startsWith(destination.pathname);
+      if (selected) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    }
+  };
+  updateNavigation();
+  window.addEventListener('hashchange', updateNavigation);
+</script>
