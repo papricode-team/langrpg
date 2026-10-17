@@ -478,6 +478,14 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 
 func ValidCoordinate(v float64) bool { return !math.IsNaN(v) && !math.IsInf(v, 0) && v >= 0 && v <= 1 }
 
+// InInterior checks authoritative connected presence, never a stale saved position.
+func (w *World) InInterior(playerID, mapID, interiorID string) bool {
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	client := w.clients[playerID]
+	return client != nil && client.player.MapID == mapID && client.player.InteriorID == interiorID
+}
+
 func (w *World) NearTarget(playerID, mapID string, target MapSpawn, radius Range) bool {
 	w.mu.Lock()
 	defer w.mu.Unlock()
@@ -1073,15 +1081,17 @@ func (w *World) coordinateVersionError(mapID, interiorID string, version *int) s
 // Room coordinates match the authored 1536 × 1024 interiors. Each region
 // has its own copy of these buildings; outdoor return positions stay separate.
 var interiorSpawns = map[string]MapSpawn{
-	"cafe":        {X: 548.0 / 1536, Y: 800.0 / 1024},
-	"bakery":      {X: 1000.0 / 1536, Y: 800.0 / 1024},
-	"supermarket": {X: 1230.0 / 1536, Y: 790.0 / 1024},
-	"inn":         {X: .50, Y: .75},
-	"library":     {X: .5, Y: 790.0 / 1024},
-	"workshop":    {X: .5, Y: 790.0 / 1024},
-	"station":     {X: .5, Y: 790.0 / 1024},
-	"greenhouse":  {X: .5, Y: 790.0 / 1024},
-	"home":        {X: .5, Y: 790.0 / 1024},
+	"train-compartment": {X: .55, Y: .78},
+	"train-dining":      {X: .55, Y: .78},
+	"cafe":              {X: 548.0 / 1536, Y: 800.0 / 1024},
+	"bakery":            {X: 1000.0 / 1536, Y: 800.0 / 1024},
+	"supermarket":       {X: 1230.0 / 1536, Y: 790.0 / 1024},
+	"inn":               {X: .50, Y: .75},
+	"library":           {X: .5, Y: 790.0 / 1024},
+	"workshop":          {X: .5, Y: 790.0 / 1024},
+	"station":           {X: .5, Y: 790.0 / 1024},
+	"greenhouse":        {X: .5, Y: 790.0 / 1024},
+	"home":              {X: .5, Y: 790.0 / 1024},
 }
 
 func KnownInterior(id string) bool {

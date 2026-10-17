@@ -73,7 +73,9 @@ export function defaultCacheDir() {
 /** Keep archived low-resolution authoring exports out of the active HD release. */
 export async function pruneLegacyCharacterKit(assetsDir, catalogue) {
   if (catalogue.assetBase !== '/assets/character-kit-hd/') return;
-  await rm(join(assetsDir, 'character-kit'), {recursive:true, force:true});
+  // The retired player-layer registration sheets are used only by authoring tests.
+  // Keep their public masters, but do not copy them into the playable HD release.
+  await Promise.all(['character-kit', 'player-layers'].map(name => rm(join(assetsDir, name), {recursive:true, force:true})));
 }
 
 /** One cached lossy encode of `buffer` at `size`. */

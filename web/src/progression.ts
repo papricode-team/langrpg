@@ -35,8 +35,9 @@ export function questUnlocked(questId: string, completedQuestIds: readonly strin
   if (completedQuestIds.includes(questId)) return true;
   const index = quests.findIndex(q => q.id === questId);
   if (index < 0) return false;
+  if (quests[index].level === 'A0') return quests.slice(0, index).filter(q => q.level === 'A0').every(q => completedQuestIds.includes(q.id));
   const furthest = quests.reduce((max, q, i) => completedQuestIds.includes(q.id) ? i : max, -1);
-  return quests.slice(0, index).every((q, i) => completedQuestIds.includes(q.id) || (everydayQuestIds.has(q.id) && i < furthest));
+  return quests.slice(0, index).every((q, i) => q.level === 'A0' || completedQuestIds.includes(q.id) || (everydayQuestIds.has(q.id) && i < furthest));
 }
 
 /** Story access follows the clue chain independently of optional vocabulary pacing. */

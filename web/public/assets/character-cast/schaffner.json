@@ -1,0 +1,50 @@
+{
+  "id": "schaffner",
+  "poseSet": "walk",
+  "recipe": "art/source/character-kit/cast/schaffner.json",
+  "recipeSha256": "e43faca37792ae2bcd830bbf3a731f8b8168691d913da0363bcd5f14433bb93f",
+  "atlas": "web/public/assets/character-cast/schaffner.webp",
+  "atlasSha256": "d8f2c645ebfacbc458809b4fddd8350a434c059fa0f23a285a1081bad61fbdae",
+  "geometry": "web/public/assets/character-cast/schaffner.atlas.json",
+  "geometrySha256": "41c1461b18f069f40716788cc3bef254e3a7d8b2062f28a887db9af978ada153",
+  "textureBytes": 14294940,
+  "cell": [
+    384,
+    576
+  ],
+  "sourceComponentsSha256": "d4fc180fcf4cda95bea7d63fae5683aeafd81ba73610442480d02620760223bb",
+  "proof": "art/proofs/character-cast/schaffner.png",
+  "proofSha256": "c7ec393b55895d56f8e662fd0c8fefaf1644464e74b6fc718607f4db4f19843f",
+  "editorSha256": "31c065704b078ff11715a2393130e15a676cca9b6aa89270b1e0f8dbcf4edb7f",
+  "assetVersion": "4c9d233bf71007a9",
+  "frames": 36,
+  "native": {
+    "key": "character-cast-schaffner-native",
+    "image": "web/public/assets/character-cast/native/schaffner.webp",
+    "atlas": "web/public/assets/character-cast/native/schaffner.atlas.json",
+    "sha256": "9fdcf9d7298be55c982505790fa1f7d1d8650d98bc73171955aabce7f1373632",
+    "atlasSha256": "b939cb0263b3eef8076f00728636e8d42eb2bb1315d800e3d30d544e63b17e10",
+    "textureBytes": 27370544,
+    "multiAtlas": true,
+    "images": [
+      {
+        "path": "web/public/assets/character-cast/native/schaffner.webp",
+        "sha256": "9fdcf9d7298be55c982505790fa1f7d1d8650d98bc73171955aabce7f1373632",
+        "firstFrame": 0,
+        "frameCount": 18
+      },
+      {
+        "path": "web/public/assets/character-cast/native/schaffner.1.webp",
+        "sha256": "aeaee0c4814cd5dd88d71dccb62ed2a5ea17416c8a91a269f06f3195ea7423a2",
+        "firstFrame": 18,
+        "frameCount": 18
+      }
+    ],
+    "cell": [
+      512,
+      768
+    ],
+    "source": "art/proofs/character-cast/schaffner.webp",
+    "sourceSha256": "31c065704b078ff11715a2393130e15a676cca9b6aa89270b1e0f8dbcf4edb7f"
+  }
+}

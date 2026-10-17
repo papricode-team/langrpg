@@ -14,8 +14,8 @@ describe('story bible', () => {
   });
   it('flags a tutorial instruction spoken by an NPC and a generic choice prompt', () => {
     const broken = structuredClone(questGraphs) as typeof questGraphs;
-    broken[1].nodes.find(node => node.id === 'intro')!.lines.at(-1)!.german = 'Bitte mich um einen Kaffee.';
-    broken[1].nodes.find(node => node.id === 'choice')!.lines.at(-1)!.german = 'Was möchtest du tun?';
+    broken.find(graph => graph.questId === 'a1-timetable')!.nodes.find(node => node.id === 'intro')!.lines.at(-1)!.german = 'Bitte mich um einen Kaffee.';
+    broken.find(graph => graph.questId === 'a1-timetable')!.nodes.find(node => node.id === 'choice')!.lines.at(-1)!.german = 'Was möchtest du tun?';
     const errors = lintStory(broken as never, serverRules.rules as StoryRule[]);
     expect(errors.some(error => error.includes('tutorial instruction'))).toBe(true);
     expect(errors.some(error => error.includes('generic choice prompt'))).toBe(true);
@@ -32,7 +32,7 @@ describe('story bible', () => {
   });
   it('distinguishes sentence-initial her from formal speech to the player or an official', () => {
     const graph = structuredClone(questGraphs) as typeof questGraphs;
-    const line = graph[1].nodes[0].lines[0];
+    const line = graph.find(graph => graph.questId === 'a1-cafe')!.nodes[0].lines[0];
     line.german = 'Ihr Name fehlt.';
     expect(lintStory(graph as never, serverRules.rules as StoryRule[])).toEqual([]);
     line.german = 'Ich helfe Ihnen.';
@@ -46,7 +46,8 @@ describe('story continuity across paths and surfaces', () => {
   const scene = (questId: string) => questGraphs.find(graph => graph.questId === questId)!;
   const spoken = (questId: string) => scene(questId).nodes.flatMap(node => node.lines);
   it('sends the player to someone new after every scene', () => {
-    const repeats = quests.slice(1).filter((quest, index) => quest.npcId === quests[index].npcId).map(quest => `${quests[quests.indexOf(quest) - 1].id} → ${quest.id} (${quest.npcId})`);
+    const mainQuests = quests.filter(quest => quest.level !== 'A0');
+    const repeats = mainQuests.slice(1).filter((quest, index) => quest.npcId === mainQuests[index].npcId).map(quest => `${quests[quests.indexOf(quest) - 1].id} → ${quest.id} (${quest.npcId})`);
     expect(repeats).toEqual([]);
   });
   it('delivers the letter warning before the archive and finale pay it off', () => {
@@ -91,14 +92,14 @@ describe('story continuity across paths and surfaces', () => {
 
 describe('Elise letters, topics and callbacks', () => {
   it('unlocks one translated letter from Elise with every main story scene', () => {
-    expect(storyClues).toHaveLength(quests.length);
+    expect(storyClues).toHaveLength(quests.filter(quest => quest.level !== 'A0').length);
     for (const clue of storyClues) {
       if (!everydayQuestIds.has(clue.questId)) expect(clue.letter.length, clue.questId).toBeGreaterThanOrEqual(1);
       for (const sentence of clue.letter) { expect(sentence.german.trim(), clue.questId).not.toBe(''); expect(sentence.english.trim(), clue.questId).not.toBe(''); }
     }
   });
   it('gives each scene optional questions with answers', () => {
-    for (const graph of questGraphs) {
+    for (const graph of questGraphs.filter(graph => graph.level !== 'A0')) {
       expect(graph.topics?.length, graph.questId).toBeGreaterThanOrEqual(1);
       for (const topic of graph.topics!) expect(topic.lines.every(line => npcs.some(npc => npc.id === line.speaker)), topic.id).toBe(true);
     }

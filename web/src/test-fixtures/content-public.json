@@ -1109,6 +1109,21 @@
                 "sentenceId": "597aa93f-3f9e-5b1e-aadb-417b2dac0d11"
               }
             ]
+          },
+          {
+            "id": "42700db2-798d-5a75-a36e-828f21e67475",
+            "name": "Brandt",
+            "role": "Train conductor",
+            "x": 0.5,
+            "y": 0.65,
+            "color": "#d5b47b",
+            "worldId": "schaffner",
+            "support": {},
+            "greetingSentences": [
+              {
+                "sentenceId": "62121126-e6d1-54e1-80a8-e1445caf9f87"
+              }
+            ]
           }
         ],
         "chapters": [
@@ -1202,6 +1217,244 @@
               {
                 "sentenceId": "fa595cbe-0070-5c25-bcc7-4963048c0e6b"
               }
+            ]
+          },
+          {
+            "id": "86a13303-79f5-5f50-a677-3feb67e3c405",
+            "worldId": "a0-ticket",
+            "graphId": "66adea7b-9076-5895-83a8-db4dff64ed7a",
+            "level": "A0",
+            "title": "A ticket in your hand",
+            "subtitle": "A ticket in your hand",
+            "titleTranslations": {
+              "en": "A ticket in your hand"
+            },
+            "subtitleTranslations": {
+              "en": "A ticket in your hand"
+            },
+            "support": {},
+            "npcId": "schaffner",
+            "location": "The night train",
+            "reward": 20,
+            "story": [
+              {
+                "sentenceId": "87a7d057-089a-5820-a972-dae500b79abf"
+              },
+              {
+                "sentenceId": "2aa93b08-a0f1-557d-abbe-850f461dac3a"
+              }
+            ],
+            "practiceExerciseIds": [
+              "5d58f318-87b3-55d1-bda6-720feef6d88f",
+              "8202e8b6-d7bc-5d3a-9806-b0a1d97f1464",
+              "c62a1387-724a-506c-8d71-55ba0788f1d4",
+              "8e51b25e-57d0-52b1-9ee7-2daac8e33d3d",
+              "c532195f-65a4-57f7-9b9e-4da15343f7df",
+              "28878957-7bbc-520b-b9c1-7c08e05a2527"
+            ]
+          },
+          {
+            "id": "f8ba1c2d-10d2-56cb-a907-a24de22c5cb3",
+            "worldId": "a0-name",
+            "graphId": "a946c6fe-c590-50b3-8469-eccc8e7eaa72",
+            "level": "A0",
+            "title": "Your name on the ticket",
+            "subtitle": "Your name on the ticket",
+            "titleTranslations": {
+              "en": "Your name on the ticket"
+            },
+            "subtitleTranslations": {
+              "en": "Your name on the ticket"
+            },
+            "support": {},
+            "npcId": "schaffner",
+            "location": "The night train",
+            "reward": 20,
+            "story": [
+              {
+                "sentenceId": "2e93cce3-c382-5c60-9667-0052884d80a7"
+              },
+              {
+                "sentenceId": "79b71f95-9d2b-54d2-b3b7-62bec19da1fb"
+              }
+            ],
+            "practiceExerciseIds": [
+              "227bb152-0773-5f98-affc-039300a0354e",
+              "b165a5d2-cfd4-5875-aa8f-9a5e62899824",
+              "c1428dcb-8926-5b1f-9169-5a55121b6c5c",
+              "763030f3-acce-531e-88e6-6caafabb14cb",
+              "c756dabd-5f08-5ab1-baa8-9e6d77bfcf4d",
+              "91f55d50-1fb6-5036-a706-5aa3653cdace"
+            ]
+          },
+          {
+            "id": "842624ce-f724-531c-8923-f70804a0ea85",
+            "worldId": "a0-wagen",
+            "graphId": "28cdb8db-8793-5600-a207-31973d6b3303",
+            "level": "A0",
+            "title": "Carriage seven",
+            "subtitle": "Carriage seven",
+            "titleTranslations": {
+              "en": "Carriage seven"
+            },
+            "subtitleTranslations": {
+              "en": "Carriage seven"
+            },
+            "support": {},
+            "npcId": "schaffner",
+            "location": "The night train",
+            "reward": 20,
+            "story": [
+              {
+                "sentenceId": "9106e606-811a-540c-a3ed-b0493d335978"
+              },
+              {
+                "sentenceId": "2c5ff569-040a-5de6-97e0-2307121422e8"
+              }
+            ],
+            "practiceExerciseIds": [
+              "c8152fe2-ea0b-5d6b-9b90-a26094f62bd4",
+              "5f882a68-2ed4-5255-830e-21de78b8ef7c",
+              "d14014e4-1268-5098-b90f-0f1b7c69f9cb",
+              "dde0b51d-f910-5ed6-a1df-5c30a9042542",
+              "a04e15a3-c2be-5b41-99fb-9106c385f3e2",
+              "13abb355-77d9-5b45-b934-970489e4bf01"
+            ]
+          },
+          {
+            "id": "6724bf74-9068-5e67-9264-4abc2cc999b2",
+            "worldId": "a0-tee",
+            "graphId": "54fb50b8-d29d-5a82-8f5b-491141da9e28",
+            "level": "A0",
+            "title": "Tea in the dining car",
+            "subtitle": "Tea in the dining car",
+            "titleTranslations": {
+              "en": "Tea in the dining car"
+            },
+            "subtitleTranslations": {
+              "en": "Tea in the dining car"
+            },
+            "support": {},
+            "npcId": "schaffner",
+            "location": "The night train",
+            "reward": 20,
+            "story": [
+              {
+                "sentenceId": "526d3481-c0a4-536d-a2b1-6c925bb08ece"
+              },
+              {
+                "sentenceId": "d6bdb978-b203-530d-be9f-13ea21c25b64"
+              }
+            ],
+            "practiceExerciseIds": [
+              "c5195a3e-e54a-5bf6-944d-a0bcc781601f",
+              "1184174e-0a54-598d-af3f-7ecae92b7056",
+              "b327fbe6-a1e2-5195-a1ef-3e7aebc93b8a",
+              "522191db-c016-5c56-abde-c59bc36c18bb",
+              "2a04500f-7061-563c-b13f-d43d78dd6805",
+              "3ec51b59-9441-52a2-ab4f-032e6542a154"
+            ]
+          },
+          {
+            "id": "dc4b3b3d-aa7d-5bac-be21-5f49a5fb0fa0",
+            "worldId": "a0-wo",
+            "graphId": "45434ae6-8562-5231-aa52-f0122dbe2109",
+            "level": "A0",
+            "title": "Where is …?",
+            "subtitle": "Where is …?",
+            "titleTranslations": {
+              "en": "Where is …?"
+            },
+            "subtitleTranslations": {
+              "en": "Where is …?"
+            },
+            "support": {},
+            "npcId": "schaffner",
+            "location": "The night train",
+            "reward": 20,
+            "story": [
+              {
+                "sentenceId": "ffc11475-e282-559c-864e-1abb18befa8b"
+              },
+              {
+                "sentenceId": "c5ebbfe5-5304-590c-8466-0485c9e205a6"
+              }
+            ],
+            "practiceExerciseIds": [
+              "cb6d6101-a196-5552-a1fb-9fd78250364e",
+              "46af0b25-2343-5a28-9c3e-ea5b8e1ca618",
+              "96e9d520-689a-5d40-8aaf-420be0d2ff58",
+              "fcf4ae0f-aeb6-51bf-b628-631d8e32e9fd",
+              "533e87f0-feb1-5f11-9457-eb72b2f1f553",
+              "c5649e94-babb-5558-9e21-a269bab515c6"
+            ]
+          },
+          {
+            "id": "93f28542-61f0-5cb2-ac52-9d6c2838f8a9",
+            "worldId": "a0-langsam",
+            "graphId": "7346072e-92f7-567b-bdd3-307ed2825fdb",
+            "level": "A0",
+            "title": "Slower, please",
+            "subtitle": "Slower, please",
+            "titleTranslations": {
+              "en": "Slower, please"
+            },
+            "subtitleTranslations": {
+              "en": "Slower, please"
+            },
+            "support": {},
+            "npcId": "schaffner",
+            "location": "The night train",
+            "reward": 20,
+            "story": [
+              {
+                "sentenceId": "d2693ecb-a213-5221-9bcd-437876ab7dfe"
+              },
+              {
+                "sentenceId": "0b11749c-435a-53c8-901b-07e7fa1e721c"
+              }
+            ],
+            "practiceExerciseIds": [
+              "09899a0b-cd0b-54f1-bd3b-34be4c9e084e",
+              "b0a9b265-1598-52d7-8c89-8c30d5b6b7a7",
+              "e2c39975-53c6-5806-93f3-65c463757fa8",
+              "9a58837b-892e-5eff-aac8-2d923197f195",
+              "412017b3-397d-586c-9395-32f65d2fac58",
+              "d6f21dab-14e4-55fa-ab81-8a2f231236bb"
+            ]
+          },
+          {
+            "id": "4f422fcb-bc41-5059-b95d-ca35fa492be8",
+            "worldId": "a0-morgen",
+            "graphId": "4483f396-52af-5811-b57e-906a452f30c3",
+            "level": "A0",
+            "title": "Morning",
+            "subtitle": "Morning",
+            "titleTranslations": {
+              "en": "Morning"
+            },
+            "subtitleTranslations": {
+              "en": "Morning"
+            },
+            "support": {},
+            "npcId": "schaffner",
+            "location": "The night train",
+            "reward": 20,
+            "story": [
+              {
+                "sentenceId": "39c002b6-d8c2-5711-8b7a-f3080ca0247d"
+              },
+              {
+                "sentenceId": "8cabb074-91b2-5eca-aad7-061f35458446"
+              }
+            ],
+            "practiceExerciseIds": [
+              "7681880e-d380-55cc-9a01-27ab4755d85f",
+              "a6a6d21d-e2e7-59ce-8249-b51c82027ca3",
+              "bb68cc6b-9a59-5b68-a0c8-1cdf9042f78a",
+              "78d62ef5-06e5-5ec4-a730-2ed24f88e2a4",
+              "80cae89c-b032-5375-800b-61357e9ead8f",
+              "60250215-c57b-5dc2-8430-4433fac08796"
             ]
           }
         ],
@@ -1565,6 +1818,38 @@
             "ownerId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
             "ownerKind": "placement",
             "worldId": "placement"
+          },
+          {
+            "id": "91a8b250-edc8-545c-8837-e7df0734c10b",
+            "kind": "interior",
+            "worldId": "train-compartment",
+            "ownerId": "train-compartment",
+            "ownerKind": "interior",
+            "level": "A1"
+          },
+          {
+            "id": "d8634d7b-dfdd-5f3c-8782-48b89289f3dd",
+            "kind": "interior",
+            "worldId": "train-dining",
+            "ownerId": "train-dining",
+            "ownerKind": "interior",
+            "level": "A1"
+          },
+          {
+            "id": "89a68155-13b1-5838-aa34-c169b3317913",
+            "kind": "interiorWordFacts",
+            "worldId": "train-compartment",
+            "ownerId": "train-compartment",
+            "ownerKind": "interior",
+            "level": "A1"
+          },
+          {
+            "id": "6d4a0a37-04b1-53ce-b230-2366dc48fcd7",
+            "kind": "interiorWordFacts",
+            "worldId": "train-dining",
+            "ownerId": "train-dining",
+            "ownerKind": "interior",
+            "level": "A1"
           }
         ],
         "syllabus": {
@@ -18847,6 +19132,1938 @@
             }
           }
         ]
+      }
+    },
+    {
+      "id": "91a8b250-edc8-545c-8837-e7df0734c10b",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "context",
+      "version": 1,
+      "body": {
+        "category": "interior",
+        "data": {
+          "id": "train-compartment",
+          "name": "The night train",
+          "germanName": "Wagen sieben.",
+          "subtitle": "Prologue",
+          "description": "Listen, look and choose.",
+          "icon": "cup",
+          "asset": "/assets/interior-train-compartment.webp",
+          "width": 1536,
+          "height": 1024,
+          "characterHeight": 390,
+          "spawn": {
+            "x": 0.56,
+            "y": 0.73
+          },
+          "exit": {
+            "x": 0.77,
+            "y": 0.54
+          },
+          "floorAreas": [
+            [
+              [
+                600,
+                650
+              ],
+              [
+                980,
+                520
+              ],
+              [
+                1340,
+                570
+              ],
+              [
+                1360,
+                930
+              ],
+              [
+                350,
+                930
+              ]
+            ]
+          ],
+          "npcs": [
+            {
+              "id": "schaffner",
+              "x": 0.58,
+              "y": 0.76,
+              "interactionId": "interior:prologue-conversation-train-compartment",
+              "role": "Train conductor",
+              "support": {}
+            }
+          ],
+          "props": [
+            {
+              "id": "ticket-on-table",
+              "sheet": "interior-train-furniture",
+              "asset": "train-ticket-pale",
+              "x": 550,
+              "y": 550,
+              "width": 70,
+              "interactive": "interior:prologue-name"
+            }
+          ],
+          "objects": [
+            {
+              "id": "interior:prologue-ticket",
+              "label": "A ticket in your hand",
+              "germanName": "Fahrkarte. Lindenhafen.",
+              "sessionTitle": "Prologue",
+              "prompt": "Listen, look and choose.",
+              "description": "Ticket. Lindenhafen.",
+              "dialogue": "Fahrkarte. Lindenhafen.",
+              "x": 0.36,
+              "y": 0.53,
+              "exerciseIds": [
+                "ce59e242-abb6-51ca-9ebe-c5783f84a33b"
+              ],
+              "vocabulary": [],
+              "support": {}
+            },
+            {
+              "id": "interior:prologue-name",
+              "label": "Your name on the ticket",
+              "germanName": "Fahrkarte. Lindenhafen.",
+              "sessionTitle": "Prologue",
+              "prompt": "Listen, look and choose.",
+              "description": "Ticket. Lindenhafen.",
+              "dialogue": "Fahrkarte. Lindenhafen.",
+              "x": 0.36,
+              "y": 0.53,
+              "exerciseIds": [
+                "1c37406d-8a5d-5b5e-bc58-2482cbe47044"
+              ],
+              "vocabulary": [],
+              "support": {}
+            },
+            {
+              "id": "interior:prologue-wagen",
+              "label": "Carriage seven",
+              "germanName": "Wagen sieben.",
+              "sessionTitle": "Prologue",
+              "prompt": "Listen, look and choose.",
+              "description": "Carriage seven.",
+              "dialogue": "Wagen sieben.",
+              "x": 0.72,
+              "y": 0.4,
+              "exerciseIds": [
+                "88ea62a2-4e86-5586-a700-167e5b1964ad"
+              ],
+              "vocabulary": [],
+              "support": {}
+            },
+            {
+              "id": "interior:prologue-langsam",
+              "label": "Slower, please",
+              "germanName": "Lindenhafen.",
+              "sessionTitle": "Prologue",
+              "prompt": "Listen, look and choose.",
+              "description": "Lindenhafen.",
+              "dialogue": "Lindenhafen.",
+              "x": 0.64,
+              "y": 0.3,
+              "exerciseIds": [
+                "49d5e506-1482-5553-a2a3-89dc19cfc068"
+              ],
+              "vocabulary": [],
+              "support": {}
+            },
+            {
+              "id": "interior:prologue-morgen",
+              "label": "Morning",
+              "germanName": "Lindenhafen. Bahnsteig sieben.",
+              "sessionTitle": "Prologue",
+              "prompt": "Listen, look and choose.",
+              "description": "Lindenhafen. Platform seven.",
+              "dialogue": "Lindenhafen. Bahnsteig sieben.",
+              "x": 0.43,
+              "y": 0.34,
+              "exerciseIds": [
+                "6c23769b-faee-5782-a1db-d8d8adc4da82"
+              ],
+              "vocabulary": [],
+              "support": {}
+            },
+            {
+              "id": "interior:prologue-conversation-train-compartment",
+              "label": "Brandt",
+              "germanName": "Guten Abend.",
+              "sessionTitle": "Prologue",
+              "prompt": "Listen, look and choose.",
+              "description": "Speak with the conductor.",
+              "dialogue": "Guten Abend.",
+              "npcId": "schaffner",
+              "x": 0.58,
+              "y": 0.76,
+              "exerciseIds": [],
+              "vocabulary": [],
+              "support": {}
+            }
+          ],
+          "windowEffects": [
+            {
+              "x": 200,
+              "y": 340,
+              "width": 280,
+              "alpha": 0.18
+            },
+            {
+              "x": 660,
+              "y": 365,
+              "width": 140,
+              "alpha": 0.15
+            }
+          ],
+          "presentation": "backdrop",
+          "support": {}
+        }
+      }
+    },
+    {
+      "id": "d8634d7b-dfdd-5f3c-8782-48b89289f3dd",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "context",
+      "version": 1,
+      "body": {
+        "category": "interior",
+        "data": {
+          "id": "train-dining",
+          "name": "The dining car",
+          "germanName": "Tee?",
+          "subtitle": "Prologue",
+          "description": "Listen, look and choose.",
+          "icon": "cup",
+          "asset": "/assets/interior-train-dining.webp",
+          "width": 1536,
+          "height": 1024,
+          "characterHeight": 390,
+          "spawn": {
+            "x": 0.46,
+            "y": 0.73
+          },
+          "exit": {
+            "x": 0.33,
+            "y": 0.42
+          },
+          "floorAreas": [
+            [
+              [
+                430,
+                430
+              ],
+              [
+                640,
+                430
+              ],
+              [
+                1100,
+                700
+              ],
+              [
+                1180,
+                930
+              ],
+              [
+                420,
+                930
+              ],
+              [
+                300,
+                700
+              ]
+            ]
+          ],
+          "npcs": [
+            {
+              "id": "schaffner",
+              "x": 0.43,
+              "y": 0.74,
+              "interactionId": "interior:prologue-conversation-train-dining",
+              "role": "Train conductor",
+              "support": {}
+            }
+          ],
+          "props": [
+            {
+              "id": "tea-on-table",
+              "sheet": "interior-train-furniture",
+              "asset": "train-tea",
+              "x": 790,
+              "y": 407,
+              "width": 32
+            },
+            {
+              "id": "train-exit-sign",
+              "sheet": "interior-train-furniture",
+              "asset": "train-exit",
+              "x": 485,
+              "y": 180,
+              "width": 95,
+              "interactive": "interior:prologue-exit"
+            }
+          ],
+          "objects": [
+            {
+              "id": "interior:prologue-tee",
+              "label": "Tea in the dining car",
+              "germanName": "Tee. Kaffee.",
+              "sessionTitle": "Prologue",
+              "prompt": "Listen, look and choose.",
+              "description": "Tea. Coffee.",
+              "dialogue": "Tee. Kaffee.",
+              "x": 0.23,
+              "y": 0.31,
+              "exerciseIds": [
+                "1b9f605e-4629-5129-b26c-a3fd09f8cc0e"
+              ],
+              "vocabulary": [],
+              "support": {}
+            },
+            {
+              "id": "interior:prologue-wo",
+              "label": "Where is …?",
+              "germanName": "Die Toilette.",
+              "sessionTitle": "Prologue",
+              "prompt": "Listen, look and choose.",
+              "description": "The toilet.",
+              "dialogue": "Die Toilette.",
+              "x": 0.33,
+              "y": 0.42,
+              "exerciseIds": [
+                "08e8cd66-0ce9-54a6-bc4d-94357c65ed3e"
+              ],
+              "vocabulary": [],
+              "support": {}
+            },
+            {
+              "id": "interior:prologue-conversation-train-dining",
+              "label": "Brandt",
+              "germanName": "Guten Abend.",
+              "sessionTitle": "Prologue",
+              "prompt": "Listen, look and choose.",
+              "description": "Speak with the conductor.",
+              "dialogue": "Guten Abend.",
+              "npcId": "schaffner",
+              "x": 0.43,
+              "y": 0.74,
+              "exerciseIds": [],
+              "vocabulary": [],
+              "support": {}
+            },
+            {
+              "id": "interior:prologue-exit",
+              "label": "The exit sign",
+              "germanName": "Der Ausgang.",
+              "sessionTitle": "Prologue",
+              "prompt": "Listen, look and choose.",
+              "description": "The exit.",
+              "dialogue": "Der Ausgang.",
+              "x": 0.315,
+              "y": 0.18,
+              "exerciseIds": [],
+              "vocabulary": [],
+              "support": {}
+            }
+          ],
+          "windowEffects": [
+            {
+              "x": 190,
+              "y": 290,
+              "width": 230,
+              "alpha": 0.15
+            }
+          ],
+          "presentation": "backdrop",
+          "support": {}
+        }
+      }
+    },
+    {
+      "id": "89a68155-13b1-5838-aa34-c169b3317913",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "context",
+      "version": 1,
+      "body": {
+        "category": "interiorWordFacts",
+        "data": {
+          "meanings": {},
+          "examples": {}
+        }
+      }
+    },
+    {
+      "id": "6d4a0a37-04b1-53ce-b230-2366dc48fcd7",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "context",
+      "version": 1,
+      "body": {
+        "category": "interiorWordFacts",
+        "data": {
+          "meanings": {},
+          "examples": {}
+        }
+      }
+    },
+    {
+      "id": "87a7d057-089a-5820-a972-dae500b79abf",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Guten Abend.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "Good evening.",
+            "words": [
+              {
+                "source": {
+                  "text": "Guten",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "Good",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 5
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 4
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Abend",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "evening",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 6,
+                  "end": 11
+                },
+                "targetRanges": [
+                  {
+                    "start": 5,
+                    "end": 12
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Guten",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 5
+            },
+            "lexemeId": "d1cdb1bb-2f7f-5f5a-9114-33bf64aa7cdd",
+            "glosses": {
+              "en": "good; well"
+            }
+          },
+          {
+            "source": {
+              "text": "Abend",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 6,
+              "end": 11
+            },
+            "lexemeId": "627a349a-4bc8-549e-98b4-547d28b66994",
+            "glosses": {
+              "en": "evening"
+            }
+          }
+        ],
+        "audio": {
+          "path": "/audio/dialogue/dialogue-a0-ticket-0.ogg"
+        }
+      }
+    },
+    {
+      "id": "2aa93b08-a0f1-557d-abbe-850f461dac3a",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Fahrkarte, bitte.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "Ticket, please.",
+            "words": [
+              {
+                "source": {
+                  "text": "Fahrkarte",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "Ticket",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 9
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 6
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "bitte",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "please",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 11,
+                  "end": 16
+                },
+                "targetRanges": [
+                  {
+                    "start": 8,
+                    "end": 14
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Fahrkarte",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 9
+            },
+            "lexemeId": "88a6e957-5fd2-5de5-8d5c-c1baff2ee2b6",
+            "glosses": {
+              "en": "fare ticket"
+            }
+          },
+          {
+            "source": {
+              "text": "bitte",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 11,
+              "end": 16
+            },
+            "glosses": {
+              "en": "please; you are welcome / to ask, to beg, to plead, to bid, to request"
+            }
+          }
+        ],
+        "audio": {
+          "path": "/audio/dialogue/dialogue-a0-ticket-1.ogg"
+        }
+      }
+    },
+    {
+      "id": "2e93cce3-c382-5c60-9667-0052884d80a7",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Wie heißen Sie?",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "What is your name?",
+            "words": [
+              {
+                "source": {
+                  "text": "Wie",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "What",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 3
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 4
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "heißen",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "is",
+                    "occurrence": 1
+                  },
+                  {
+                    "text": "name",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 4,
+                  "end": 10
+                },
+                "targetRanges": [
+                  {
+                    "start": 5,
+                    "end": 7
+                  },
+                  {
+                    "start": 13,
+                    "end": 17
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Sie",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "your",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 11,
+                  "end": 14
+                },
+                "targetRanges": [
+                  {
+                    "start": 8,
+                    "end": 12
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Wie",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 3
+            },
+            "lexemeId": "38aee3fe-a3f9-5370-8a10-9323401fa04b",
+            "glosses": {
+              "en": "how"
+            }
+          },
+          {
+            "source": {
+              "text": "heißen",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 4,
+              "end": 10
+            },
+            "glosses": {
+              "en": "to be called; to mean / hot"
+            }
+          },
+          {
+            "source": {
+              "text": "Sie",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 11,
+              "end": 14
+            },
+            "glosses": {
+              "en": "I / she; they / it / we / he / you (informal plural); her / you (informal singular) / you (formal singular or plural)"
+            }
+          }
+        ],
+        "audio": {
+          "path": "/audio/a1-arrival-exercise-4.ogg"
+        }
+      }
+    },
+    {
+      "id": "79b71f95-9d2b-54d2-b3b7-62bec19da1fb",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Ich heiße {name}.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "My name is {name}.",
+            "words": [
+              {
+                "source": {
+                  "text": "Ich",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "My",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 3
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 2
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "heiße",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "name is",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 4,
+                  "end": 9
+                },
+                "targetRanges": [
+                  {
+                    "start": 3,
+                    "end": 10
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Ich",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 3
+            },
+            "lexemeId": "ba998195-6c6e-5f01-87e5-d4c8333491a8",
+            "glosses": {
+              "en": "I"
+            }
+          },
+          {
+            "source": {
+              "text": "heiße",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 4,
+              "end": 9
+            },
+            "glosses": {
+              "en": "to be called; to mean / hot"
+            }
+          }
+        ],
+        "audioRequires": true
+      }
+    },
+    {
+      "id": "9106e606-811a-540c-a3ed-b0493d335978",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "eins, zwei, drei.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "one, two, three.",
+            "words": [
+              {
+                "source": {
+                  "text": "eins",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "one",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 4
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 3
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "zwei",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "two",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 6,
+                  "end": 10
+                },
+                "targetRanges": [
+                  {
+                    "start": 5,
+                    "end": 8
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "drei",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "three",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 12,
+                  "end": 16
+                },
+                "targetRanges": [
+                  {
+                    "start": 10,
+                    "end": 15
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "eins",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 4
+            },
+            "lexemeId": "0f466ba5-2089-57c9-a081-145ef71bda1e",
+            "glosses": {
+              "en": "one"
+            }
+          },
+          {
+            "source": {
+              "text": "zwei",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 6,
+              "end": 10
+            },
+            "lexemeId": "eda38cde-2afd-52b4-a576-7047e1b81fe5",
+            "glosses": {
+              "en": "two"
+            }
+          },
+          {
+            "source": {
+              "text": "drei",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 12,
+              "end": 16
+            },
+            "lexemeId": "9b3fa4e3-2824-5e3f-9758-6859261ce9aa",
+            "glosses": {
+              "en": "three"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "2c5ff569-040a-5de6-97e0-2307121422e8",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "vier, fünf, sechs.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "four, five, six.",
+            "words": [
+              {
+                "source": {
+                  "text": "vier",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "four",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 4
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 4
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "fünf",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "five",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 6,
+                  "end": 10
+                },
+                "targetRanges": [
+                  {
+                    "start": 6,
+                    "end": 10
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "sechs",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "six",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 12,
+                  "end": 17
+                },
+                "targetRanges": [
+                  {
+                    "start": 12,
+                    "end": 15
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "vier",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 4
+            },
+            "lexemeId": "05d83c2b-045c-535f-b2a7-97da45aff9ce",
+            "glosses": {
+              "en": "four"
+            }
+          },
+          {
+            "source": {
+              "text": "fünf",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 6,
+              "end": 10
+            },
+            "lexemeId": "22593c23-0fbd-5d35-877d-4091b7a5afe3",
+            "glosses": {
+              "en": "five"
+            }
+          },
+          {
+            "source": {
+              "text": "sechs",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 12,
+              "end": 17
+            },
+            "lexemeId": "88c4e6e6-182e-58db-801e-13230d0c9102",
+            "glosses": {
+              "en": "six"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "526d3481-c0a4-536d-a2b1-6c925bb08ece",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Tee oder Kaffee?",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "Tea or coffee?",
+            "words": [
+              {
+                "source": {
+                  "text": "Tee",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "Tea",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 3
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 3
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "oder",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "or",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 4,
+                  "end": 8
+                },
+                "targetRanges": [
+                  {
+                    "start": 4,
+                    "end": 6
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Kaffee",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "coffee",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 9,
+                  "end": 15
+                },
+                "targetRanges": [
+                  {
+                    "start": 7,
+                    "end": 13
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Tee",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 3
+            },
+            "lexemeId": "16674c35-78df-59b1-abd5-cd32261d9aca",
+            "glosses": {
+              "en": "tea"
+            }
+          },
+          {
+            "source": {
+              "text": "oder",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 4,
+              "end": 8
+            },
+            "lexemeId": "2c9d6063-2505-5d39-857d-5e1784963dbe",
+            "glosses": {
+              "en": "or"
+            }
+          },
+          {
+            "source": {
+              "text": "Kaffee",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 9,
+              "end": 15
+            },
+            "lexemeId": "9fb480aa-bf38-56e3-b669-db844a5c9e93",
+            "glosses": {
+              "en": "coffee"
+            }
+          }
+        ],
+        "audio": {
+          "path": "/audio/dialogue/dialogue-a0-tee-0.ogg"
+        }
+      }
+    },
+    {
+      "id": "d6bdb978-b203-530d-be9f-13ea21c25b64",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Einen Tee, bitte.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "A tea, please.",
+            "words": [
+              {
+                "source": {
+                  "text": "Einen",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "A",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 5
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 1
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Tee",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "tea",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 6,
+                  "end": 9
+                },
+                "targetRanges": [
+                  {
+                    "start": 2,
+                    "end": 5
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "bitte",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "please",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 11,
+                  "end": 16
+                },
+                "targetRanges": [
+                  {
+                    "start": 7,
+                    "end": 13
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Einen",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 5
+            },
+            "lexemeId": "83d9d4e4-de7b-5aa3-afa9-17a44aef572d",
+            "glosses": {
+              "en": "a; an (masculine or neuter)"
+            }
+          },
+          {
+            "source": {
+              "text": "Tee",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 6,
+              "end": 9
+            },
+            "lexemeId": "16674c35-78df-59b1-abd5-cd32261d9aca",
+            "glosses": {
+              "en": "tea"
+            }
+          },
+          {
+            "source": {
+              "text": "bitte",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 11,
+              "end": 16
+            },
+            "glosses": {
+              "en": "please; you are welcome / to ask, to beg, to plead, to bid, to request"
+            }
+          }
+        ],
+        "audio": {
+          "path": "/audio/dialogue/dialogue-a0-tee-1.ogg"
+        }
+      }
+    },
+    {
+      "id": "ffc11475-e282-559c-864e-1abb18befa8b",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Wo ist …?",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "Where is …?",
+            "words": [
+              {
+                "source": {
+                  "text": "Wo",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "Where",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 2
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 5
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "ist",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "is",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 3,
+                  "end": 6
+                },
+                "targetRanges": [
+                  {
+                    "start": 6,
+                    "end": 8
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Wo",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 2
+            },
+            "lexemeId": "4e4527af-b7d1-598d-af1e-cabbb34d98d9",
+            "glosses": {
+              "en": "where"
+            }
+          },
+          {
+            "source": {
+              "text": "ist",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 3,
+              "end": 6
+            },
+            "lexemeId": "7bd95d3e-460d-55a6-bfde-68df22ae1587",
+            "glosses": {
+              "en": "to be"
+            }
+          }
+        ],
+        "audio": {
+          "path": "/audio/dialogue/dialogue-a0-wo-0.ogg"
+        }
+      }
+    },
+    {
+      "id": "c5ebbfe5-5304-590c-8466-0485c9e205a6",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Die Toilette.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "The toilet.",
+            "words": [
+              {
+                "source": {
+                  "text": "Die",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "The",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 3
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 3
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Toilette",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "toilet",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 4,
+                  "end": 12
+                },
+                "targetRanges": [
+                  {
+                    "start": 4,
+                    "end": 10
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Die",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 3
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)"
+            }
+          },
+          {
+            "source": {
+              "text": "Toilette",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 4,
+              "end": 12
+            },
+            "lexemeId": "ce9b93f9-049e-547d-9206-b52414986bd2",
+            "glosses": {
+              "en": "toilet"
+            }
+          }
+        ],
+        "audio": {
+          "path": "/audio/dialogue/dialogue-a0-wo-1.ogg"
+        }
+      }
+    },
+    {
+      "id": "d2693ecb-a213-5221-9bcd-437876ab7dfe",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Ich verstehe nicht.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "I do not understand.",
+            "words": [
+              {
+                "source": {
+                  "text": "Ich",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "I",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 3
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 1
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "verstehe",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "understand",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 4,
+                  "end": 12
+                },
+                "targetRanges": [
+                  {
+                    "start": 9,
+                    "end": 19
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "nicht",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "not",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 13,
+                  "end": 18
+                },
+                "targetRanges": [
+                  {
+                    "start": 5,
+                    "end": 8
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Ich",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 3
+            },
+            "lexemeId": "ba998195-6c6e-5f01-87e5-d4c8333491a8",
+            "glosses": {
+              "en": "I"
+            }
+          },
+          {
+            "source": {
+              "text": "verstehe",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 4,
+              "end": 12
+            },
+            "lexemeId": "5eb12501-1088-5a05-a74a-8cf392f6557a",
+            "glosses": {
+              "en": "to understand"
+            }
+          },
+          {
+            "source": {
+              "text": "nicht",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 13,
+              "end": 18
+            },
+            "lexemeId": "4bcfe885-010c-55ad-a5a7-fdad64259660",
+            "glosses": {
+              "en": "not"
+            }
+          }
+        ],
+        "audio": {
+          "path": "/audio/dialogue/dialogue-a0-langsam-0.ogg"
+        }
+      }
+    },
+    {
+      "id": "0b11749c-435a-53c8-901b-07e7fa1e721c",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Langsam, bitte.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "Slowly, please.",
+            "words": [
+              {
+                "source": {
+                  "text": "Langsam",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "Slowly",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 7
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 6
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "bitte",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "please",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 9,
+                  "end": 14
+                },
+                "targetRanges": [
+                  {
+                    "start": 8,
+                    "end": 14
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Langsam",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 7
+            },
+            "lexemeId": "ddd6ecc7-dd45-54bf-a748-3d2dc999308e",
+            "glosses": {
+              "en": "slow"
+            }
+          },
+          {
+            "source": {
+              "text": "bitte",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 9,
+              "end": 14
+            },
+            "glosses": {
+              "en": "please; you are welcome / to ask, to beg, to plead, to bid, to request"
+            }
+          }
+        ],
+        "audio": {
+          "path": "/audio/dialogue/dialogue-a0-langsam-1.ogg"
+        }
+      }
+    },
+    {
+      "id": "39c002b6-d8c2-5711-8b7a-f3080ca0247d",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Guten Morgen.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "Good morning.",
+            "words": [
+              {
+                "source": {
+                  "text": "Guten",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "Good",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 5
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 4
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Morgen",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "morning",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 6,
+                  "end": 12
+                },
+                "targetRanges": [
+                  {
+                    "start": 5,
+                    "end": 12
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Guten",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 5
+            },
+            "lexemeId": "d1cdb1bb-2f7f-5f5a-9114-33bf64aa7cdd",
+            "glosses": {
+              "en": "good; well"
+            }
+          },
+          {
+            "source": {
+              "text": "Morgen",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 6,
+              "end": 12
+            },
+            "lexemeId": "84a68681-8c21-5721-8d02-df56e6b2f0fe",
+            "glosses": {
+              "en": "morning"
+            }
+          }
+        ],
+        "audio": {
+          "path": "/audio/dialogue/dialogue-a0-morgen-0.ogg"
+        }
+      }
+    },
+    {
+      "id": "8cabb074-91b2-5eca-aad7-061f35458446",
+      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
+      "kind": "sentence",
+      "version": 1,
+      "body": {
+        "text": "Der Zug kommt.",
+        "target": "de",
+        "translations": {
+          "en": {
+            "text": "The train is coming.",
+            "words": [
+              {
+                "source": {
+                  "text": "Der",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "The",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 0,
+                  "end": 3
+                },
+                "targetRanges": [
+                  {
+                    "start": 0,
+                    "end": 3
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "Zug",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "train",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 4,
+                  "end": 7
+                },
+                "targetRanges": [
+                  {
+                    "start": 4,
+                    "end": 9
+                  }
+                ]
+              },
+              {
+                "source": {
+                  "text": "kommt",
+                  "occurrence": 1
+                },
+                "targets": [
+                  {
+                    "text": "is coming",
+                    "occurrence": 1
+                  }
+                ],
+                "sourceRange": {
+                  "start": 8,
+                  "end": 13
+                },
+                "targetRanges": [
+                  {
+                    "start": 10,
+                    "end": 19
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "words": [
+          {
+            "source": {
+              "text": "Der",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 0,
+              "end": 3
+            },
+            "glosses": {
+              "en": "the (masculine definite article) / the (neuter definite article)"
+            }
+          },
+          {
+            "source": {
+              "text": "Zug",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 4,
+              "end": 7
+            },
+            "lexemeId": "07178d20-c9e7-5fe2-bbaa-1285c07aeddf",
+            "glosses": {
+              "en": "train; move; pull"
+            }
+          },
+          {
+            "source": {
+              "text": "kommt",
+              "occurrence": 1
+            },
+            "range": {
+              "start": 8,
+              "end": 13
+            },
+            "lexemeId": "37989c5c-ba35-5ba2-8ac3-a5c1ca4dc259",
+            "glosses": {
+              "en": "to come; to arrive"
+            }
+          }
+        ],
+        "audio": {
+          "path": "/audio/dialogue/dialogue-a0-morgen-1.ogg"
+        }
       }
     }
   ],

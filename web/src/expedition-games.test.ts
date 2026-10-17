@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { checkExpeditionPlan, expeditionGames, expeditionGameStatus, expeditionNotebook, freshExpeditionPlan, loadExpeditionPlan, saveExpeditionPlan, shuffledExpeditionSteps, expeditionGameAudioJobs, expeditionAgreement } from './expedition-games';
-import type { Level } from './content';
+import type { CourseLevel as Level } from './content';
 
 function memoryStorage() { const values = new Map<string,string>(); return { getItem:(key:string)=>values.get(key)??null,setItem:(key:string,value:string)=>{values.set(key,value);} }; }
 describe('ten neighborhood planning games',()=>{

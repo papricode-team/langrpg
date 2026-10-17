@@ -12,6 +12,11 @@ test('compiles all regions and aligns server spawns and story evidence with draf
   assert.equal(Object.keys(compiled.registry.maps).length, 3);
   assert.deepEqual(compiled.registry.maps.lindenhafen.spawn, {x: scene.spawn.x / scene.width, y: scene.spawn.y / scene.height});
   for (const rule of compiled.storyRules.rules) {
+    if (rule.interiorId) {
+      const authored = JSON.parse(await readFile(new URL('../server/story_rules.json', import.meta.url), 'utf8'));
+      assert.deepEqual(rule, authored.rules.find(item => item.questId === rule.questId));
+      continue;
+    }
     const map = value.maps[rule.mapId];
     for (const target of [rule.npc, ...rule.objects]) {
       const anchor = [...map.npcs, ...map.objects].find(item => item.id === target.id);
@@ -99,4 +104,19 @@ test('compiles upstairs and basement stairs with exact return landings and floor
   assert.deepEqual(entries[`${root}::down`].doors.landing,{kind:'stairs',target:root,arrival:{x:700/1536,y:750/1024}});
   delete main.links[0].kind;delete main.rooms[0].layout.links[0].kind;
   assert.throws(()=>compileRegistry(value),/use stairs between different floors/);
+});
+
+// Both train destinations share the station but never inherit its editable floors.
+test('keeps train backdrops independent of the station building layout',async()=>{
+  const {getInterior}=await import('../web/src/interiors.ts');
+  const {createRoomLayout}=await import('../web/src/room-layout-runtime.ts');
+  const value=structuredClone(source),station=value.maps.lindenhafen.scenery.find(item=>item.id==='station');
+  station.roomLayout=createRoomLayout(getInterior('station'));
+  const entries=compileRegistry(value).maps.lindenhafen.entrances;
+  for(const id of ['train-compartment','train-dining']) {
+    assert.equal(entries[id].ownerId,'station');
+    assert.equal(entries[id].spawn,undefined);
+    assert.equal(entries[id].doors,undefined);
+  }
+  assert.ok(entries['station--station'].spawn);
 });

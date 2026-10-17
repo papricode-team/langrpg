@@ -14,6 +14,7 @@ interface InteriorLayer {
   sprite: Phaser.GameObjects.Sprite;
   width: number;
   height: number;
+  tea?: boolean;
 }
 
 interface InteriorEffect {
@@ -34,40 +35,69 @@ function inView(sprite: Phaser.GameObjects.Sprite, width: number, height: number
 /** Fixed furniture keeps its pixels and foot anchor; only separate details animate. */
 export class WorldInterior {
   private background: Phaser.GameObjects.Image | Phaser.GameObjects.Graphics;
+  private ticket?: Phaser.GameObjects.Sprite;
+  private teaServed = false;
   private layers: InteriorLayer[] = [];
   private effects: InteriorEffect[] = [];
   private visible = true;
   private reducedMotion = false;
   private motionTime = 0;
+  private dawn: Phaser.GameObjects.Image[] = [];
+  private dawnActive = false;
 
-  constructor(scene: Phaser.Scene, spec: InteriorSpec) {
-    const backgroundKey = `room-kit-${spec.layout ? spec.id : roomKind(spec.id)}`;
-    const signature = roomLayoutFingerprint(spec.layout)+(Object.keys(spec.stairDirections ?? {}).length?JSON.stringify(spec.stairDirections):'');
-    if (scene.textures.exists(backgroundKey) && (scene.textures.get(backgroundKey).customData as {layout?:string}).layout !== signature) scene.textures.remove(backgroundKey);
-    if (!scene.textures.exists(backgroundKey)) {
-      const texture = scene.textures.createCanvas(backgroundKey, spec.width, spec.height)!;
-      paintRoomKit(texture.context, spec, id => {
-        const key = id === 'room-kit-furniture' ? id : terrainMaterialKey(id);
-        return scene.textures.exists(key) ? scene.textures.get(key).getSourceImage() as HTMLImageElement : undefined;
-      });
-      texture.customData = {layout:signature};
-      texture.refresh();
+  constructor(private scene: Phaser.Scene, private spec: InteriorSpec) {
+    if (spec.presentation === 'backdrop') {
+      const backgroundKey = `interior-${spec.id}-room`;
+      this.background = scene.textures.exists(backgroundKey)
+        ? scene.add.image(0, 0, backgroundKey).setOrigin(0).setDisplaySize(spec.width, spec.height).setDepth(-1000)
+        : scene.add.graphics().fillStyle(0x584e38).fillRect(0, 0, spec.width, spec.height).setDepth(-1000);
+    } else {
+      const backgroundKey = `room-kit-${spec.layout ? spec.id : roomKind(spec.id)}`;
+      const signature = roomLayoutFingerprint(spec.layout)+(Object.keys(spec.stairDirections ?? {}).length?JSON.stringify(spec.stairDirections):'');
+      if (scene.textures.exists(backgroundKey) && (scene.textures.get(backgroundKey).customData as {layout?:string}).layout !== signature) scene.textures.remove(backgroundKey);
+      if (!scene.textures.exists(backgroundKey)) {
+        const texture = scene.textures.createCanvas(backgroundKey, spec.width, spec.height)!;
+        paintRoomKit(texture.context, spec, id => {
+          const key = id === 'room-kit-furniture' ? id : terrainMaterialKey(id);
+          return scene.textures.exists(key) ? scene.textures.get(key).getSourceImage() as HTMLImageElement : undefined;
+        });
+        texture.customData = {layout:signature};
+        texture.refresh();
+      }
+      this.background = scene.add.image(0, 0, backgroundKey).setOrigin(0).setDisplaySize(spec.width, spec.height).setDepth(-1000);
+      // Tall fixtures sort against people by their feet, just like the existing furniture atlas.
+      if (scene.textures.exists('room-kit-furniture')) for (const fixture of roomKit(spec).fixtures) {
+        const frame = furnitureFrames[fixture.kind], texture = scene.textures.get('room-kit-furniture');
+        if (!texture.has(fixture.kind)) texture.add(fixture.kind, 0, frame.x, frame.y, frame.width, frame.height);
+        const bottom = fixture.y + fixture.height;
+        const sprite = scene.add.sprite(fixture.x + fixture.width / 2, bottom, 'room-kit-furniture', fixture.kind)
+          .setOrigin(.5, 1).setScale(fixture.width / frame.width).setDepth(worldDepth(bottom));
+        this.layers.push({sprite, width: fixture.width, height: fixture.width * frame.height / frame.width});
+      }
     }
-    this.background = scene.add.image(0, 0, backgroundKey).setOrigin(0).setDisplaySize(spec.width, spec.height).setDepth(-1000);
-    // Tall fixtures sort against people by their feet, just like the existing furniture atlas.
-    if (scene.textures.exists('room-kit-furniture')) for (const fixture of roomKit(spec).fixtures) {
-      const frame = furnitureFrames[fixture.kind], texture = scene.textures.get('room-kit-furniture');
-      if (!texture.has(fixture.kind)) texture.add(fixture.kind, 0, frame.x, frame.y, frame.width, frame.height);
-      const bottom = fixture.y + fixture.height;
-      const sprite = scene.add.sprite(fixture.x + fixture.width / 2, bottom, 'room-kit-furniture', fixture.kind)
-        .setOrigin(.5, 1).setScale(fixture.width / frame.width).setDepth(worldDepth(bottom));
-      this.layers.push({sprite, width: fixture.width, height: fixture.width * frame.height / frame.width});
+    if (spec.presentation === 'backdrop') for (const [index, window] of (spec.windowEffects ?? []).entries()) {
+      const key = `dawn-${spec.id}-${index}`;
+      if (!scene.textures.exists(key)) {
+        const texture = scene.textures.createCanvas(key, 128, 128)!;
+        const context = texture.getContext(), glow = context.createRadialGradient(64, 64, 0, 64, 64, 64);
+        glow.addColorStop(0, 'rgba(255,226,163,.48)'); glow.addColorStop(1, 'rgba(255,226,163,0)');
+        context.fillStyle = glow; context.fillRect(0, 0, 128, 128); texture.refresh();
+      }
+      this.dawn.push(scene.add.image(window.x, window.y, key).setDisplaySize(window.width, window.width * 1.3).setDepth(-999).setVisible(false));
     }
+    const trainStills = scene.cache.json.get('interior-train-stills') as SceneryAnimationManifest | undefined;
     const manifest = scene.cache.json.get('interior-animations') as SceneryAnimationManifest | undefined;
     const stills = scene.cache.json.get('interior-stills') as SceneryAnimationManifest | undefined;
     const effectManifest = scene.cache.json.get('interior-effect-animations') as SceneryAnimationManifest | undefined;
+    const fog = (scene.cache.json.get('interior-train-effects') as SceneryAnimationManifest | undefined)?.assets.fog;
+    if (fog && scene.textures.exists(fog.key)) for (const [index, detail] of (spec.windowEffects ?? []).entries()) {
+      const scale = detail.width / fog.referenceWidth;
+      const create = () => scene.add.sprite(detail.x, detail.y, fog.key, fog.frames[0])
+        .setOrigin(fog.originX, fog.originY).setScale(scale).setDepth(-998).setAlpha(0);
+      this.effects.push({propId:`window-${index}`,sprites:[create(),create()],animation:fog,width:fog.width*scale,height:fog.height*scale,alpha:detail.alpha,phase:index});
+    }
     for (const prop of spec.props) {
-      const animation = stills?.assets[prop.asset] ?? manifest?.assets[prop.asset];
+      const animation = trainStills?.assets[prop.asset] ?? stills?.assets[prop.asset] ?? manifest?.assets[prop.asset];
       if (!animation || !scene.textures.exists(animation.key)) continue;
       // The authored poses differ in rigid geometry, even with a shared pivot.
       // One canonical pose also keeps independently placed tabletop goods aligned.
@@ -76,7 +106,8 @@ export class WorldInterior {
       const scale = prop.width / animation.referenceWidth;
       const sprite = scene.add.sprite(prop.x, prop.y, animation.key, frame)
         .setOrigin(animation.originX, animation.originY).setScale(scale).setDepth(worldDepth(prop.depth ?? prop.y));
-      this.layers.push({ sprite, width: animation.width * scale, height: animation.height * scale });
+      if (prop.asset === 'train-ticket-pale') this.ticket = sprite;
+      this.layers.push({ sprite, width: animation.width * scale, height: animation.height * scale, tea: prop.asset === 'train-tea' });
       for (const [index, detail] of (prop.effects ?? []).entries()) {
         const effect = effectManifest?.assets[detail.asset];
         if (!effect || !effect.frames.length || !scene.textures.exists(effect.key)
@@ -91,12 +122,23 @@ export class WorldInterior {
     }
   }
 
+  serveTea(served: boolean): void { this.teaServed = served; }
+  punchTicket(): void {
+    const ticket=this.ticket; if (!ticket) return;
+    const {x,y}=ticket, conductor=this.spec.npcs[0];
+    this.scene.tweens.add({targets:ticket,x:conductor.x*this.spec.width-45,y:conductor.y*this.spec.height-160,duration:this.reducedMotion?0:280,yoyo:true,hold:220,onComplete:()=>{
+      ticket.setPosition(x,y); this.scene.add.circle(x+8,y-10,2,0x201f19).setDepth(ticket.depth+1);
+    }});
+  }
+  restoreTicket(restored: boolean): void { this.ticket?.setFrame(restored ? 'train-ticket-dark' : 'train-ticket-pale'); }
+  setDawn(active: boolean): void { this.dawnActive = active; for (const light of this.dawn) light.setVisible(active && this.visible); }
   get objectCount(): number { return this.layers.length; }
   get animatedObjectCount(): number { return new Set(this.effects.map(effect => effect.propId)).size; }
   setReducedMotion(reduced: boolean): void { this.reducedMotion = reduced; }
   setVisible(visible: boolean): void {
     this.visible = visible;
     this.background.setVisible(visible);
+    for (const light of this.dawn) light.setVisible(visible && this.dawnActive);
     if (!visible) for (const layer of this.layers) layer.sprite.setVisible(false);
     if (!visible) for (const effect of this.effects) for (const sprite of effect.sprites) sprite.setVisible(false);
   }
@@ -104,7 +146,7 @@ export class WorldInterior {
   update(seconds: number, view: SceneryView): void {
     if (!this.reducedMotion) this.motionTime = seconds;
     for (const layer of this.layers) {
-      layer.sprite.setVisible(this.visible && inView(layer.sprite, layer.width, layer.height, view));
+      layer.sprite.setVisible(this.visible && (!layer.tea || this.teaServed) && inView(layer.sprite, layer.width, layer.height, view));
     }
     for (const effect of this.effects) {
       const [current, next] = effect.sprites;
@@ -122,6 +164,7 @@ export class WorldInterior {
 
   destroy(): void {
     this.background.destroy();
+    for (const light of this.dawn) light.destroy();
     for (const layer of this.layers) layer.sprite.destroy();
     for (const effect of this.effects) for (const sprite of effect.sprites) sprite.destroy();
     this.layers = [];

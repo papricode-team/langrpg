@@ -39,63 +39,293 @@ Scene-only notes for review are in `> REVIEW:` blocks.
 
 ---
 
+# PROLOGUE — THE NIGHT TRAIN
+
+Brandt, the train conductor, asks; the player answers. The train rooms are illustrated backdrops. Object inspections and replies advance the story independently of vocabulary intake.
+
+### A ticket in your hand `a0-ticket`
+
+**intro**
+
+> **BRANDT:** *Guten Abend.* — Good evening.
+> **BRANDT:** *Die Fahrkarte, bitte.* — The ticket, please.
+
+**gate**
+
+> **BRANDT:** *Die Fahrkarte, bitte.* — The ticket, please.
+
+Task: He is asking for your ticket. Hand it over.
+> **PLAYER (reply):** *Bitte.* — Here you are.
+> **PLAYER (distractor):** *Guten Abend.* — Good evening.
+
+**choice**
+
+> **BRANDT:** *Danke.* — Thank you.
+> **BRANDT:** *Lindenhafen! Gut.* — Lindenhafen! Good.
+> [CHOICE **PLAYER** → `complete`] *Danke.* — Thank you.
+
+**complete**
+
+> **BRANDT:** *Danke.* — Thank you.
+
+**Objects in the room**
+
+- `prologue-ticket`: *Fahrkarte. Lindenhafen.* — Ticket. Lindenhafen.
+
+### Your name on the ticket `a0-name`
+
+**intro**
+
+> **BRANDT:** *Der Name!* — The name!
+> **BRANDT:** *Wie heißen Sie?* — What is your name?
+
+**gate**
+
+> **BRANDT:** *Wie heißen Sie?* — What is your name?
+
+Task: Say your name.
+> **PLAYER (reply):** *Ich heiße {name}.* — My name is {name}.
+
+**choice**
+
+> **BRANDT:** *{name}. Gut.* — {name}. Good.
+> **BRANDT:** *Der Name bleibt.* — The name stays.
+> [CHOICE **PLAYER** → `complete`] *Danke.* — Thank you.
+
+**complete**
+
+> **BRANDT:** *Danke, {name}.* — Thank you, {name}.
+
+**Objects in the room**
+
+- `prologue-name`: *Fahrkarte. Lindenhafen.* — Ticket. Lindenhafen. The name has faded.
+
+### Carriage seven `a0-wagen`
+
+**intro**
+
+> **BRANDT:** *Eins. Zwei. Drei.* — One. Two. Three.
+> **BRANDT:** *Vier. Fünf. Sechs.* — Four. Five. Six.
+> **BRANDT:** *Sieben.* — Seven.
+> **BRANDT:** *Wagen sieben, bitte.* — Carriage seven, please.
+
+**gate**
+
+> **BRANDT:** *Wagen sieben?* — Carriage seven?
+
+Task: Which carriage are you in? Look at the door.
+> **PLAYER (reply):** *Sieben.* — Seven.
+> **PLAYER (distractor):** *Drei.* — Three.
+
+**choice**
+
+> **BRANDT:** *Ja. Wagen sieben.* — Yes. Carriage seven.
+> [CHOICE **PLAYER** → `complete`] *Danke.* — Thank you.
+
+**complete**
+
+> **BRANDT:** *Gut.* — Good.
+
+**Objects in the room**
+
+- `prologue-wagen`: *Wagen sieben.* — Carriage seven.
+
+### Tea in the dining car `a0-tee`
+
+**intro**
+
+> **BRANDT:** *Guten Abend.* — Good evening.
+> **BRANDT:** *Tee oder Kaffee?* — Tea or coffee?
+
+**gate**
+
+> **BRANDT:** *Tee oder Kaffee?* — Tea or coffee?
+
+Task: You would like tea. Order it.
+> **PLAYER (reply):** *Einen Tee, bitte.* — A tea, please.
+> **PLAYER (distractor):** *Einen Kaffee, bitte.* — A coffee, please.
+
+**choice**
+
+> **BRANDT:** *Milch?* — Milk?
+> [CHOICE **PLAYER** → `complete`] *Ja, bitte.* — Yes, please.
+> [CHOICE **PLAYER** → `complete`] *Nein, danke.* — No, thank you.
+
+**complete**
+
+> **BRANDT:** *Bitte. Der Tee.* — Here you are. The tea.
+
+**Objects in the room**
+
+- `prologue-tee`: *Tee. Kaffee.* — Tea. Coffee.
+
+### Where is …? `a0-wo`
+
+**intro**
+
+> **BRANDT:** *Ja?* — Yes?
+
+**gate**
+
+> **BRANDT:** *Ja?* — Yes?
+
+Task: Ask where the toilet is.
+> **PLAYER (reply):** *Wo ist die Toilette?* — Where is the toilet?
+> **PLAYER (distractor):** *Wo ist der Tee?* — Where is the tea?
+
+**choice**
+
+> **BRANDT:** *Die Toilette? Da.* — The toilet? There.
+> [CHOICE **PLAYER** → `complete`] *Danke.* — Thank you.
+
+**complete**
+
+> **BRANDT:** *Da: der Ausgang.* — There: the exit.
+
+**Objects in the room**
+
+- `prologue-wo`: *Die Toilette.* — The toilet.
+- `prologue-exit`: *Der Ausgang.* — The exit.
+
+### Slower, please `a0-langsam`
+
+**intro**
+
+> **BRANDT:** *Lindenhafen kommt!* — Lindenhafen is coming up!
+> **BRANDT:** *Verstehen Sie?* — Do you understand?
+
+**gate**
+
+> **BRANDT:** *Verstehen Sie?* — Do you understand?
+
+Task: You did not catch that. Say so.
+> **PLAYER (reply):** *Ich verstehe nicht.* — I do not understand.
+> **PLAYER (distractor):** *Ja.* — Yes.
+
+**choice**
+
+> **BRANDT:** *Lindenhafen kommt.* — Lindenhafen is coming up.
+> [CHOICE **PLAYER** → `after-repeat`] *Noch einmal, bitte.* — Once again, please.
+> [CHOICE **PLAYER** → `complete`] *Danke.* — Thank you.
+
+**complete**
+
+> **BRANDT:** *Gut.* — Good.
+
+**after-repeat**
+
+> **BRANDT:** *Lindenhafen kommt. Gut?* — Lindenhafen is coming up. All right?
+
+**Objects in the room**
+
+- `prologue-langsam`: *Lindenhafen.* — Lindenhafen.
+
+### Morning `a0-morgen`
+
+**intro**
+
+> **BRANDT:** *Guten Morgen.* — Good morning.
+> **BRANDT:** *Der Zug ist da.* — The train is here.
+> **BRANDT:** *Lindenhafen! Bahnsteig sieben.* — Lindenhafen! Platform seven.
+
+**gate**
+
+> **BRANDT:** *Auf Wiedersehen, {name}.* — Goodbye, {name}.
+
+Task: Say goodbye.
+> **PLAYER (reply):** *Auf Wiedersehen.* — Goodbye.
+> **PLAYER (distractor):** *Guten Morgen.* — Good morning.
+
+**choice**
+
+> **BRANDT:** *Gut.* — Good.
+> [CHOICE **PLAYER** → `complete`] *Danke.* — Thank you.
+
+**complete**
+
+> **BRANDT:** *Bahnsteig sieben. Da.* — Platform seven. There.
+
+**Objects in the room**
+
+- `prologue-morgen`: *Lindenhafen. Bahnsteig sieben.* — Lindenhafen. Platform seven.
+
 # ACT ONE — LINDENHAFEN
 ### "The names that fade" (A1)
 
-### 1. LINDENHAFEN · RAILWAY STATION — A ticket from nowhere `a1-arrival`
+### A ticket from nowhere `a1-arrival`
 
-*Your train is here. It is standing at platform seven. No train has come there for years.*
+**intro**
 
-> **OTTO:** Good morning! Welcome to Lindenhafen.
-> **OTTO:** Hang on. You came in on platform seven?
-> **OTTO:** Platform seven has been closed for twelve years.
-> **OTTO:** No train has stopped here in twelve years.
-> **OTTO:** But I still light the lantern every morning.
-> **OTTO:** Rules are rules. Train or no train.
-> **OTTO:** And today your train comes in. On time!
-> **OTTO:** I do not like that.
-> **OTTO:** Your ticket, please.
-> **OTTO:** It says {name}. Platform seven. At the bottom: E.
-> **OTTO:** Look! Your name is fading.
-> **OTTO:** Here in Lindenhafen, names fade.
-> **OTTO:** Say your name out loud. Then it stays.
-> **OTTO:** Good. See? The ink is dark again.
-> **VOSS:** Good morning. Voss, from the Brass Office.
+> **OTTO:** *Guten Morgen! Willkommen in Lindenhafen.* — Good morning! Welcome to Lindenhafen.
+> **OTTO:** *Moment. Du kommst von Bahnsteig sieben?* — Hang on. You came in on platform seven?
+> **OTTO:** *Deine Fahrkarte, bitte.* — Your ticket, please.
+> **OTTO:** *Hier steht {name}. Bahnsteig sieben. Unten: E.* — It says {name}. Platform seven. At the bottom: E.
+> **OTTO:** *Sieh! Dein Name geht weg.* — Look! Your name is fading.
+> **OTTO:** *Sag deinen Namen laut. Dann bleibt er.* — Say your name out loud. Then it stays.
+> **OTTO:** *Gut. Siehst du? Er ist wieder schwarz.* — Good. See? The ink is dark again.
+> **VOSS:** *Guten Morgen. Voss, vom Messingamt.* — Good morning. Voss, from the Brass Office.
 
-*The player can examine:* **lindenhafen-platform-ticket** — Ticket: {name}. Platform seven. At the bottom: E. · **lindenhafen-noticeboard** — Platforms one to six. No platform seven.
+**gate**
 
-*Optional questions:* “Who is Voss?” · “Why do you light the lantern?” · “Who is E.?”
+> **VOSS:** *Fahrkarte-nicht-gültig-Bahnsteig-sieben-nicht-im-Plan!* — Ticket-not-valid-platform-seven-not-on-the-timetable!
+> **VOSS:** *Abgeben-bitte-danke!* — Hand-it-over-please-thank-you!
 
-> **VOSS:** Ticket-not-valid-platform-seven-not-on-the-timetable!
-> **VOSS:** Hand-it-over-please-thank-you!
+Task: Voss talks too fast. Ask him to say it again.
+> **PLAYER (reply):** *Noch einmal, bitte.* — Once again, please.
+> **PLAYER (distractor):** *Guten Morgen!* — Good morning!
 
-**GATE — PLAYER:** *„Noch einmal, bitte.“* (Voss talks too fast. Ask him to say it again.)
+**choice**
 
-> **VOSS:** Certainly. Slowly: your ticket is not valid.
-> **VOSS:** Platform seven is not on the timetable.
-> **OTTO:** But the train was here. I was there.
-> **VOSS:** The timetable is right, Otto. Always.
-> **OTTO:** Your timetable, Mr Voss. My platform.
-> **VOSS:** The ticket goes into my ledger. Please.
-> **OTTO:** Or it stays here. With us.
-> **VOSS:** Who gets your ticket: Otto or me?
+> **VOSS:** *Gern. Langsam: Ihre Fahrkarte ist nicht gültig.* — Certainly. Slowly: your ticket is not valid.
+> **VOSS:** *Bahnsteig sieben steht nicht im Plan.* — Platform seven is not on the timetable.
+> **OTTO:** *Der Zug war aber hier. Ich war da.* — But the train was here. I was there.
+> **VOSS:** *Der Plan ist richtig, Herr Otto. Immer.* — The timetable is right, Otto. Always.
+> **OTTO:** *Ihr Plan, Herr Voss. Mein Bahnsteig.* — Your timetable, Mr Voss. My platform.
+> **VOSS:** *Die Fahrkarte kommt in mein Buch. Bitte.* — The ticket goes into my ledger. Please.
+> **OTTO:** *Oder sie bleibt hier. Bei uns.* — Or it stays here. With us.
+> **VOSS:** *Wer bekommt Ihre Fahrkarte: Otto oder ich?* — Who gets your ticket: Otto or me?
+> [CHOICE **PLAYER** → `after-report`] *Bitte, Herr Voss. Hier ist die Fahrkarte.* — Here you are, Mr Voss. Here is the ticket.
+> [CHOICE **PLAYER** → `after-protect`] *Die Fahrkarte bleibt bei mir.* — The ticket stays with me.
 
-**[CHOICE `report`]** *„Bitte, Herr Voss. Hier ist die Fahrkarte.“* — Here you are, Mr Voss. Here is the ticket.
-> **VOSS:** Thank you. Now everything is in order.
-> **VOSS:** A copy of my ledger, for you. Everything is in it.
-> **OTTO:** Now Voss has your name. Say it often.
+**after-report**
 
-**[CHOICE `protect`]** *„Die Fahrkarte bleibt bei mir.“* — The ticket stays with me.
-> **VOSS:** Fine. I will be back. With a form.
-> **OTTO:** Here. My old key. For platform seven.
-> **OTTO:** Say your name every day. Then it stays.
+> **VOSS:** *Danke. Jetzt ist alles in Ordnung.* — Thank you. Now everything is in order.
+> **VOSS:** *Mein Buch für Sie. Dort steht alles.* — A copy of my ledger, for you. Everything is in it.
+> **OTTO:** *Jetzt hat Voss deinen Namen. Sag ihn oft.* — Now Voss has your name. Say it often.
 
-> **OTTO:** Come with me. Let us read the timetable.
+**after-protect**
 
-**CINEMATIC — PLATFORM**
-> OTTO: Bahnsteig sieben. Die Laterne brennt wieder.
+> **VOSS:** *Gut. Ich komme wieder. Mit Formular.* — Fine. I will be back. With a form.
+> **OTTO:** *Hier. Mein alter Schlüssel. Für Bahnsteig sieben.* — Here. My old key. For platform seven.
+> **OTTO:** *Sag deinen Namen jeden Tag. Dann bleibt er.* — Say your name every day. Then it stays.
 
----
+**complete**
+
+> **OTTO:** *Du hast Hunger. Geh zu Marta ins Café.* — You are hungry. Go to Marta at the café.
+
+**Objects in the room**
+
+- `lindenhafen-platform-ticket`: *Fahrkarte: {name}. Bahnsteig sieben. Unten: E.* — Ticket: {name}. Platform seven. At the bottom: E.
+- `lindenhafen-noticeboard`: *Bahnsteig eins bis sechs. Kein Bahnsteig sieben.* — Platforms one to six. No platform seven.
+
+**Optional question: Wer ist Voss?**
+
+> **OTTO:** *Voss ist vom Messingamt. Er hat ein Buch.* — Voss is from the Brass Office. He keeps a ledger.
+> **OTTO:** *Dort stehen alle Namen. Sagt er.* — Every name is in it. So he says.
+> **OTTO:** *Er schreibt auch das Wetter auf. Jeden Tag.* — He writes down the weather too. Every day.
+
+**Optional question: Warum machst du die Laterne an?**
+
+> **OTTO:** *Bahnsteig sieben ist seit zwölf Jahren zu.* — Platform seven has been closed for twelve years.
+> **OTTO:** *Seit zwölf Jahren kommt hier kein Zug.* — No train has stopped here in twelve years.
+> **OTTO:** *Aber ich mache jeden Morgen die Laterne an.* — But I still light the lantern every morning.
+> **OTTO:** *Ordnung ist Ordnung. Auch ohne Zug.* — Rules are rules. Train or no train.
+
+**Optional question: Wer ist E.?**
+
+> **OTTO:** *Ich weiß es nicht. Nur E.* — I do not know. Just E.
+> **OTTO:** *E. kennt deinen Namen. Kennst du E.?* — E. knows your name. Do you know E.?
+
 
 ### 2. LINDENHAFEN · STATION BOARD — Six platforms and a faded word `a1-timetable`
 

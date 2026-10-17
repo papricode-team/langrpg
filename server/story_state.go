@@ -11,16 +11,20 @@ import (
 )
 
 type StoryRule struct {
-	QuestID                string            `json:"questId"`
-	GateExerciseID         string            `json:"gateExerciseId"`
-	ReplyExerciseIDs       []string          `json:"replyExerciseIds"`
-	ChoiceIDs              []string          `json:"choiceIds"`
-	MapID                  string            `json:"mapId"`
-	NPCID                  string            `json:"npcId"`
-	NPC                    MapSpawn          `json:"npc"`
-	InvestigationObjectIDs []string          `json:"investigationObjectIds"`
-	Objects                []StoryObject     `json:"objects"`
-	Choices                []StoryChoiceRule `json:"choices"`
+	InteriorID                       string            `json:"interiorId,omitempty"`
+	GateKind                         string            `json:"gateKind,omitempty"`
+	QuestID                          string            `json:"questId"`
+	GateExerciseID                   string            `json:"gateExerciseId"`
+	ReplyExerciseIDs                 []string          `json:"replyExerciseIds"`
+	ChoiceIDs                        []string          `json:"choiceIds"`
+	MapID                            string            `json:"mapId"`
+	NPCID                            string            `json:"npcId"`
+	NPC                              MapSpawn          `json:"npc"`
+	CompletionInvestigationObjectIDs []string          `json:"completionInvestigationObjectIds,omitempty"`
+	OptionalInvestigationObjectIDs   []string          `json:"optionalInvestigationObjectIds,omitempty"`
+	InvestigationObjectIDs           []string          `json:"investigationObjectIds"`
+	Objects                          []StoryObject     `json:"objects"`
+	Choices                          []StoryChoiceRule `json:"choices"`
 	// Locked evidence opens only with the named key, ledger or trust.
 	Locks []StoryLock `json:"locks,omitempty"`
 }
@@ -248,7 +252,7 @@ func (a *App) requireStoryGate(account *Account, questID string) error {
 		return &APIError{409, "open this conversation's current request first"}
 	}
 	rule, _ := a.storyRule(questID)
-	if !a.nearCourseStoryTarget(account, rule.MapID, rule.NPC, storyNPCRange) {
+	if !a.nearStoryRule(account, rule, rule.NPC, storyNPCRange) {
 		return &APIError{409, "walk back to this conversation's character first"}
 	}
 	return nil
@@ -262,7 +266,7 @@ func (a *App) requireStoryReply(account *Account, questID string) error {
 		return &APIError{409, "open this character's greeting first"}
 	}
 	rule, _ := a.storyRule(questID)
-	if !a.nearCourseStoryTarget(account, rule.MapID, rule.NPC, storyNPCRange) {
+	if !a.nearStoryRule(account, rule, rule.NPC, storyNPCRange) {
 		return &APIError{409, "walk to this conversation's character first"}
 	}
 	return nil
@@ -305,11 +309,12 @@ func (a *App) story(w http.ResponseWriter, r *http.Request) {
 }
 
 type StoryTransitionInput struct {
-	ID        string `json:"id"`
-	QuestID   string `json:"questId"`
-	NodeID    string `json:"nodeId"`
-	ChoiceID  string `json:"choiceId,omitempty"`
-	AttemptID string `json:"attemptId,omitempty"`
+	ID           string `json:"id"`
+	QuestID      string `json:"questId"`
+	NodeID       string `json:"nodeId"`
+	ChoiceID     string `json:"choiceId,omitempty"`
+	AttemptID    string `json:"attemptId,omitempty"`
+	NamePractice bool   `json:"namePractice,omitempty"`
 }
 
 func (a *App) transitionStory(w http.ResponseWriter, r *http.Request) {
@@ -343,7 +348,7 @@ func (a *App) transitionStory(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
 	defer cancel()
 	var proof SavedAction
-	if input.NodeID == "gate" {
+	if input.NodeID == "gate" && rule.GateKind != "name" {
 		if !safeID.MatchString(input.AttemptID) {
 			writeError(w, 409, "answer this conversation's request first")
 			return
@@ -374,7 +379,7 @@ func (a *App) transitionStory(w http.ResponseWriter, r *http.Request) {
 		if storyNode(&account.Progress, input.QuestID) != input.NodeID {
 			return Receipt{}, &APIError{409, "the conversation has moved on; reopen the current line"}
 		}
-		if !a.nearCourseStoryTarget(account, rule.MapID, rule.NPC, storyNPCRange) {
+		if !a.nearStoryRule(account, rule, rule.NPC, storyNPCRange) {
 			return Receipt{}, &APIError{409, "walk back to this conversation's character first"}
 		}
 		s := &account.Progress.Story
@@ -386,6 +391,9 @@ func (a *App) transitionStory(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 			for _, id := range rule.InvestigationObjectIDs {
+				if contains(rule.CompletionInvestigationObjectIDs, id) || contains(rule.OptionalInvestigationObjectIDs, id) {
+					continue
+				}
 				if !contains(s.Inspections[input.QuestID], id) {
 					return Receipt{}, &APIError{409, "read every piece of evidence in this investigation first"}
 				}
@@ -398,11 +406,21 @@ func (a *App) transitionStory(w http.ResponseWriter, r *http.Request) {
 				s.Bell = max(s.Bell, 1)
 			}
 		case "gate":
-			if !contains(s.GateAttempts[input.QuestID], input.AttemptID) {
+			if rule.GateKind == "name" {
+				if !input.NamePractice {
+					return Receipt{}, &APIError{409, "say your player name first"}
+				}
+				s.Flags["prologue-name-practice"] = true
+			} else if !contains(s.GateAttempts[input.QuestID], input.AttemptID) {
 				return Receipt{}, &APIError{409, "answer the current conversation's request first"}
 			}
 			s.Nodes[input.QuestID] = "choice"
 		case "choice":
+			for _, id := range rule.CompletionInvestigationObjectIDs {
+				if !contains(s.Inspections[input.QuestID], id) {
+					return Receipt{}, &APIError{409, "find the requested object before finishing this scene"}
+				}
+			}
 			for _, choice := range rule.Choices {
 				if choice.ID == input.ChoiceID && !choice.Condition.met(s) {
 					return Receipt{}, &APIError{409, "this choice needs the item or trust shown in the conversation"}
@@ -622,10 +640,13 @@ func (a *App) inspectStory(w http.ResponseWriter, r *http.Request) {
 		if err := a.requireQuestAccess(input.QuestID, &account.Progress); err != nil {
 			return Receipt{}, err
 		}
-		if contains(account.Progress.CompletedQuestIDs, input.QuestID) || storyNode(&account.Progress, input.QuestID) != "intro" {
+		if contains(account.Progress.CompletedQuestIDs, input.QuestID) || (storyNode(&account.Progress, input.QuestID) != "intro" && !(storyNode(&account.Progress, input.QuestID) == "choice" && (contains(rule.CompletionInvestigationObjectIDs, input.ObjectID) || contains(rule.OptionalInvestigationObjectIDs, input.ObjectID)))) {
 			return Receipt{}, &APIError{409, "this investigation has already moved on"}
 		}
-		if !a.nearCourseStoryTarget(account, rule.MapID, target, storyEvidenceRange) {
+		if contains(rule.CompletionInvestigationObjectIDs, input.ObjectID) && storyNode(&account.Progress, input.QuestID) != "choice" {
+			return Receipt{}, &APIError{409, "ask for directions before finding this object"}
+		}
+		if !a.nearStoryRule(account, rule, target, storyEvidenceRange) {
 			return Receipt{}, &APIError{409, "walk to this piece of evidence first"}
 		}
 		if lock, locked := rule.lockFor(input.ObjectID); locked && !lock.Condition.met(&account.Progress.Story) {
@@ -683,4 +704,13 @@ func (a *App) storyCinematic(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	writeJSON(w, 200, map[string]any{"story": account.Progress.Story, "progress": account.Progress, "duplicate": duplicate})
+}
+
+// The introductory train is one small teaching space. Its story is available
+// only while the player is in the authored room; town proximity stays unchanged.
+func (a *App) nearStoryRule(account *Account, rule StoryRule, target MapSpawn, radius WorldRange) bool {
+	if rule.InteriorID != "" {
+		return a.world.InInterior(account.Player.ID, rule.MapID, rule.InteriorID)
+	}
+	return a.nearCourseStoryTarget(account, rule.MapID, target, radius)
 }

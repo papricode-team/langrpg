@@ -1,6 +1,253 @@
 {
   "rules": [
     {
+      "questId": "a0-ticket",
+      "mapId": "lindenhafen",
+      "npcId": "schaffner",
+      "npc": {
+        "id": "schaffner",
+        "x": 0.58,
+        "y": 0.76
+      },
+      "interiorId": "train-compartment",
+      "gateExerciseId": "a0-ticket-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "continue"
+      ],
+      "choices": [
+        {
+          "id": "continue",
+          "effects": []
+        }
+      ],
+      "investigationObjectIds": [
+        "prologue-ticket"
+      ],
+      "objects": [
+        {
+          "id": "prologue-ticket",
+          "x": 0.36,
+          "y": 0.53
+        }
+      ]
+    },
+    {
+      "questId": "a0-name",
+      "mapId": "lindenhafen",
+      "npcId": "schaffner",
+      "npc": {
+        "id": "schaffner",
+        "x": 0.58,
+        "y": 0.76
+      },
+      "interiorId": "train-compartment",
+      "gateKind": "name",
+      "gateExerciseId": "a0-name-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "continue"
+      ],
+      "choices": [
+        {
+          "id": "continue",
+          "effects": []
+        }
+      ],
+      "investigationObjectIds": [
+        "prologue-name"
+      ],
+      "objects": [
+        {
+          "id": "prologue-name",
+          "x": 0.36,
+          "y": 0.53
+        }
+      ]
+    },
+    {
+      "questId": "a0-wagen",
+      "mapId": "lindenhafen",
+      "npcId": "schaffner",
+      "npc": {
+        "id": "schaffner",
+        "x": 0.58,
+        "y": 0.76
+      },
+      "interiorId": "train-compartment",
+      "gateExerciseId": "a0-wagen-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "continue"
+      ],
+      "choices": [
+        {
+          "id": "continue",
+          "effects": []
+        }
+      ],
+      "investigationObjectIds": [
+        "prologue-wagen"
+      ],
+      "objects": [
+        {
+          "id": "prologue-wagen",
+          "x": 0.72,
+          "y": 0.4
+        }
+      ]
+    },
+    {
+      "questId": "a0-tee",
+      "mapId": "lindenhafen",
+      "npcId": "schaffner",
+      "npc": {
+        "id": "schaffner",
+        "x": 0.43,
+        "y": 0.74
+      },
+      "interiorId": "train-dining",
+      "gateExerciseId": "a0-tee-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "continue",
+        "no-milk"
+      ],
+      "choices": [
+        {
+          "id": "continue",
+          "effects": []
+        },
+        {
+          "id": "no-milk",
+          "effects": []
+        }
+      ],
+      "investigationObjectIds": [
+        "prologue-tee"
+      ],
+      "objects": [
+        {
+          "id": "prologue-tee",
+          "x": 0.23,
+          "y": 0.31
+        }
+      ]
+    },
+    {
+      "questId": "a0-wo",
+      "mapId": "lindenhafen",
+      "npcId": "schaffner",
+      "npc": {
+        "id": "schaffner",
+        "x": 0.43,
+        "y": 0.74
+      },
+      "interiorId": "train-dining",
+      "gateExerciseId": "a0-wo-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "continue"
+      ],
+      "choices": [
+        {
+          "id": "continue",
+          "effects": []
+        }
+      ],
+      "investigationObjectIds": [
+        "prologue-wo",
+        "prologue-exit"
+      ],
+      "completionInvestigationObjectIds": [
+        "prologue-wo"
+      ],
+      "optionalInvestigationObjectIds": [
+        "prologue-exit"
+      ],
+      "objects": [
+        {
+          "id": "prologue-wo",
+          "x": 0.33,
+          "y": 0.42
+        },
+        {
+          "id": "prologue-exit",
+          "x": 0.315,
+          "y": 0.18
+        }
+      ]
+    },
+    {
+      "questId": "a0-langsam",
+      "mapId": "lindenhafen",
+      "npcId": "schaffner",
+      "npc": {
+        "id": "schaffner",
+        "x": 0.58,
+        "y": 0.76
+      },
+      "interiorId": "train-compartment",
+      "gateExerciseId": "a0-langsam-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "continue",
+        "thank-you"
+      ],
+      "choices": [
+        {
+          "id": "continue",
+          "effects": []
+        },
+        {
+          "id": "thank-you",
+          "effects": []
+        }
+      ],
+      "investigationObjectIds": [
+        "prologue-langsam"
+      ],
+      "objects": [
+        {
+          "id": "prologue-langsam",
+          "x": 0.64,
+          "y": 0.3
+        }
+      ]
+    },
+    {
+      "questId": "a0-morgen",
+      "mapId": "lindenhafen",
+      "npcId": "schaffner",
+      "npc": {
+        "id": "schaffner",
+        "x": 0.58,
+        "y": 0.76
+      },
+      "interiorId": "train-compartment",
+      "gateExerciseId": "a0-morgen-exercise-1",
+      "replyExerciseIds": [],
+      "choiceIds": [
+        "continue"
+      ],
+      "choices": [
+        {
+          "id": "continue",
+          "effects": []
+        }
+      ],
+      "investigationObjectIds": [
+        "prologue-morgen"
+      ],
+      "objects": [
+        {
+          "id": "prologue-morgen",
+          "x": 0.43,
+          "y": 0.34
+        }
+      ]
+    },
+    {
       "questId": "a1-arrival",
       "mapId": "lindenhafen",
       "npcId": "otto",
@@ -2165,6 +2412,21 @@
     "decaySeconds": 1500,
     "paleBelow": 0.5,
     "entries": [
+      {
+        "id": "prologue-ticket-name",
+        "mapId": "lindenhafen",
+        "x": 0.5,
+        "y": 0.5,
+        "kind": "hud",
+        "german": "{name}",
+        "english": "your name",
+        "from": "a0-ticket",
+        "keep": "a0-morgen",
+        "restoredBy": [
+          "a0-name"
+        ],
+        "bell": false
+      },
       {
         "id": "ticket-name",
         "mapId": "lindenhafen",

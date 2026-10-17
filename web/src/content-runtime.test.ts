@@ -6,7 +6,7 @@ import { setBaseLanguage, setTargetLanguage } from './i18n';
 import { contentApi } from './content-api';
 import { intakeStatus, missingWordCount, syllabus, syllabusPosition, wordScheduled } from './intake';
 import { getSentence } from './translated-sentence';
-import { activeCourse, loadServerContent, loadStoryContent, storyContentRemaining, refreshBootstrap, loadQuestGraph, loadDialogueSentence, loadExercise, loadWords, loadContexts, loadInterior, loadInteriorConversation, loadNpcConversation, loadCinematic, loadMiniGame, loadPlacement, runtimeArray, runtimeObject, runtimeReference } from './content-runtime';
+import { activeCourse, loadServerContent, loadStoryContent, storyContentRemaining, refreshBootstrap, loadQuestGraph, loadDialogueSentence, loadDialogueExercise, loadExercise, loadWords, loadContexts, loadInterior, loadInteriorConversation, loadNpcConversation, loadCinematic, loadMiniGame, loadPlacement, runtimeArray, runtimeObject, runtimeReference } from './content-runtime';
 import { mountOptionalPlacement } from './placement-ui';
 import { canVoiceDialogue } from './dialogue';
 import { emptyMechanics, storyMarks } from './story-mechanics';
@@ -166,6 +166,13 @@ describe('server record adapters', () => {
     fetcher.mockResolvedValueOnce(new Response(JSON.stringify(updated), { status: 200 }));
     await refreshBootstrap();
     expect(runtimeArray<Json>('courseUnits')[0].summary).toBe('Deutsche Zusammenfassung');
+  });
+  it('loads translated supported choices before returning a dialogue gate', async () => {
+    const manifest = list(body.contexts).find(row => row.kind === 'beginnerChoices')!;
+    const exercise = await loadDialogueExercise(String(manifest.ownerId));
+    const replies = runtimeObject<Record<string, unknown[]>>('beginnerGateTranslations')[exercise.id];
+    expect(replies).toHaveLength(2);
+    expect(replies.every(row => Array.isArray(row) && typeof row[0] === 'string' && row[0] && typeof row[1] === 'string' && row[1])).toBe(true);
   });
   it('keeps graph reads separate from lazy current-sentence reads and preserves compiled metadata', async () => {
     const questId = String(list(body.quests)[0].id), graph = (await loadQuestGraph(questId))!;

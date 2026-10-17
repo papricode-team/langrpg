@@ -25960,6 +25960,741 @@
     "explanation": "wenn + koşul, sonra ana cümle.",
     "english": "Hat kapalıyken ışın Waldruh’a ulaşamaz."
    }
+  },
+  "a0-ticket-exercise-1": {
+   "german": "Bitte.",
+   "source": {
+    "prompt": "He is asking for your ticket. Hand it over.",
+    "hint": "Here you are.",
+    "english": "Here you are.",
+    "explanation": "Here you are."
+   },
+   "tr": {
+    "prompt": "Biletinizi istiyor. Ona verin.",
+    "hint": "Buyurun.",
+    "english": "Buyurun.",
+    "explanation": "Buyurun."
+   }
+  },
+  "a0-ticket-exercise-2": {
+   "german": "Die Fahrkarte, bitte.",
+   "source": {
+    "prompt": "Which German phrase means “The ticket, please.”?",
+    "hint": "The ticket, please.",
+    "english": "The ticket, please.",
+    "explanation": "The ticket, please."
+   },
+   "tr": {
+    "prompt": "“Biletiniz, lütfen.” anlamına gelen Almanca ifade hangisi?",
+    "hint": "Biletiniz, lütfen.",
+    "english": "Biletiniz, lütfen.",
+    "explanation": "Biletiniz, lütfen."
+   }
+  },
+  "a0-ticket-exercise-3": {
+   "german": "Bitte.",
+   "source": {
+    "prompt": "Listen, then choose the German phrase.",
+    "hint": "Here you are.",
+    "english": "Here you are.",
+    "explanation": "Here you are."
+   },
+   "tr": {
+    "prompt": "Dinleyin, ardından Almanca ifadeyi seçin.",
+    "hint": "Buyurun.",
+    "english": "Buyurun.",
+    "explanation": "Buyurun."
+   }
+  },
+  "a0-ticket-exercise-4": {
+   "german": "Danke.",
+   "source": {
+    "prompt": "Which German phrase means “Thank you.”?",
+    "hint": "Thank you.",
+    "english": "Thank you.",
+    "explanation": "Thank you."
+   },
+   "tr": {
+    "prompt": "“Teşekkürler.” anlamına gelen Almanca ifade hangisi?",
+    "hint": "Teşekkürler.",
+    "english": "Teşekkürler.",
+    "explanation": "Teşekkürler."
+   }
+  },
+  "a0-ticket-exercise-5": {
+   "german": "Guten Abend.",
+   "source": {
+    "prompt": "Listen, then choose the German phrase.",
+    "hint": "Good evening.",
+    "english": "Good evening.",
+    "explanation": "Good evening."
+   },
+   "tr": {
+    "prompt": "Dinleyin, ardından Almanca ifadeyi seçin.",
+    "hint": "İyi akşamlar.",
+    "english": "İyi akşamlar.",
+    "explanation": "İyi akşamlar."
+   }
+  },
+  "a0-ticket-exercise-6": {
+   "german": "Guten Abend.",
+   "source": {
+    "prompt": "Which German phrase means “Good evening.”?",
+    "hint": "Good evening.",
+    "english": "Good evening.",
+    "explanation": "Good evening."
+   },
+   "tr": {
+    "prompt": "“İyi akşamlar.” anlamına gelen Almanca ifade hangisi?",
+    "hint": "İyi akşamlar.",
+    "english": "İyi akşamlar.",
+    "explanation": "İyi akşamlar."
+   }
+  },
+  "a0-ticket-exercise-7": {
+   "german": "Guten Abend.",
+   "source": {
+    "prompt": "Copy “Guten Abend.”.",
+    "hint": "Good evening.",
+    "english": "Good evening.",
+    "explanation": "Good evening."
+   },
+   "tr": {
+    "prompt": "“Guten Abend.” ifadesini kopyalayın.",
+    "hint": "İyi akşamlar.",
+    "english": "İyi akşamlar.",
+    "explanation": "İyi akşamlar."
+   }
+  },
+  "a0-name-exercise-1": {
+   "german": "Ich heiße {name}.",
+   "source": {
+    "prompt": "Say your name.",
+    "hint": "My name is {name}.",
+    "english": "My name is {name}.",
+    "explanation": "My name is {name}."
+   },
+   "tr": {
+    "prompt": "Adınızı söyleyin.",
+    "hint": "Benim adım {name}.",
+    "english": "Benim adım {name}.",
+    "explanation": "Benim adım {name}."
+   }
+  },
+  "a0-name-exercise-2": {
+   "german": "Wie heißen Sie?",
+   "source": {
+    "prompt": "Which German phrase means “What is your name?”?",
+    "hint": "What is your name?",
+    "english": "What is your name?",
+    "explanation": "What is your name?"
+   },
+   "tr": {
+    "prompt": "“Adınız nedir?” anlamına gelen Almanca ifade hangisi?",
+    "hint": "Adınız nedir?",
+    "english": "Adınız nedir?",
+    "explanation": "Adınız nedir?"
+   }
+  },
+  "a0-name-exercise-3": {
+   "german": "Der Name bleibt.",
+   "source": {
+    "prompt": "Listen, then choose the German phrase.",
+    "hint": "The name stays.",
+    "english": "The name stays.",
+    "explanation": "The name stays."
+   },
+   "tr": {
+    "prompt": "Dinleyin, ardından Almanca ifadeyi seçin.",
+    "hint": "Adınız kalıyor.",
+    "english": "Adınız kalıyor.",
+    "explanation": "Adınız kalıyor."
+   }
+  },
+  "a0-name-exercise-4": {
+   "german": "Der Name!",
+   "source": {
+    "prompt": "Which German phrase means “The name!”?",
+    "hint": "The name!",
+    "english": "The name!",
+    "explanation": "The name!"
+   },
+   "tr": {
+    "prompt": "“Adınız!” anlamına gelen Almanca ifade hangisi?",
+    "hint": "Adınız!",
+    "english": "Adınız!",
+    "explanation": "Adınız!"
+   }
+  },
+  "a0-name-exercise-5": {
+   "german": "Wie heißen Sie?",
+   "source": {
+    "prompt": "Listen, then choose the German phrase.",
+    "hint": "What is your name?",
+    "english": "What is your name?",
+    "explanation": "What is your name?"
+   },
+   "tr": {
+    "prompt": "Dinleyin, ardından Almanca ifadeyi seçin.",
+    "hint": "Adınız nedir?",
+    "english": "Adınız nedir?",
+    "explanation": "Adınız nedir?"
+   }
+  },
+  "a0-name-exercise-6": {
+   "german": "Der Name bleibt.",
+   "source": {
+    "prompt": "Which German phrase means “The name stays.”?",
+    "hint": "The name stays.",
+    "english": "The name stays.",
+    "explanation": "The name stays."
+   },
+   "tr": {
+    "prompt": "“Adınız kalıyor.” anlamına gelen Almanca ifade hangisi?",
+    "hint": "Adınız kalıyor.",
+    "english": "Adınız kalıyor.",
+    "explanation": "Adınız kalıyor."
+   }
+  },
+  "a0-name-exercise-7": {
+   "german": "Der Name!",
+   "source": {
+    "prompt": "Copy “Der Name!”.",
+    "hint": "The name!",
+    "english": "The name!",
+    "explanation": "The name!"
+   },
+   "tr": {
+    "prompt": "“Der Name!” ifadesini kopyalayın.",
+    "hint": "Adınız!",
+    "english": "Adınız!",
+    "explanation": "Adınız!"
+   }
+  },
+  "a0-wagen-exercise-1": {
+   "german": "Sieben.",
+   "source": {
+    "prompt": "Which carriage are you in? Look at the door.",
+    "hint": "Seven.",
+    "english": "Seven.",
+    "explanation": "Seven."
+   },
+   "tr": {
+    "prompt": "Hangi vagondasınız? Kapıya bakın.",
+    "hint": "Yedi.",
+    "english": "Yedi.",
+    "explanation": "Yedi."
+   }
+  },
+  "a0-wagen-exercise-2": {
+   "german": "Wagen sieben.",
+   "source": {
+    "prompt": "Which German phrase means “Carriage seven.”?",
+    "hint": "Carriage seven.",
+    "english": "Carriage seven.",
+    "explanation": "Carriage seven."
+   },
+   "tr": {
+    "prompt": "“Yedinci vagon.” anlamına gelen Almanca ifade hangisi?",
+    "hint": "Yedinci vagon.",
+    "english": "Yedinci vagon.",
+    "explanation": "Yedinci vagon."
+   }
+  },
+  "a0-wagen-exercise-3": {
+   "german": "Sieben.",
+   "source": {
+    "prompt": "Listen, then choose the German phrase.",
+    "hint": "Seven.",
+    "english": "Seven.",
+    "explanation": "Seven."
+   },
+   "tr": {
+    "prompt": "Dinleyin, ardından Almanca ifadeyi seçin.",
+    "hint": "Yedi.",
+    "english": "Yedi.",
+    "explanation": "Yedi."
+   }
+  },
+  "a0-wagen-exercise-4": {
+   "german": "Drei.",
+   "source": {
+    "prompt": "Which German phrase means “Three.”?",
+    "hint": "Three.",
+    "english": "Three.",
+    "explanation": "Three."
+   },
+   "tr": {
+    "prompt": "“Üç.” anlamına gelen Almanca ifade hangisi?",
+    "hint": "Üç.",
+    "english": "Üç.",
+    "explanation": "Üç."
+   }
+  },
+  "a0-wagen-exercise-5": {
+   "german": "Wagen sieben, bitte.",
+   "source": {
+    "prompt": "Listen, then choose the German phrase.",
+    "hint": "Carriage seven, please.",
+    "english": "Carriage seven, please.",
+    "explanation": "Carriage seven, please."
+   },
+   "tr": {
+    "prompt": "Dinleyin, ardından Almanca ifadeyi seçin.",
+    "hint": "Yedinci vagon, lütfen.",
+    "english": "Yedinci vagon, lütfen.",
+    "explanation": "Yedinci vagon, lütfen."
+   }
+  },
+  "a0-wagen-exercise-6": {
+   "german": "Ja. Wagen sieben.",
+   "source": {
+    "prompt": "Which German phrase means “Yes. Carriage seven.”?",
+    "hint": "Yes. Carriage seven.",
+    "english": "Yes. Carriage seven.",
+    "explanation": "Yes. Carriage seven."
+   },
+   "tr": {
+    "prompt": "“Evet. Yedinci vagon.” anlamına gelen Almanca ifade hangisi?",
+    "hint": "Evet. Yedinci vagon.",
+    "english": "Evet. Yedinci vagon.",
+    "explanation": "Evet. Yedinci vagon."
+   }
+  },
+  "a0-wagen-exercise-7": {
+   "german": "Wagen sieben.",
+   "source": {
+    "prompt": "Copy “Wagen sieben.”.",
+    "hint": "Carriage seven.",
+    "english": "Carriage seven.",
+    "explanation": "Carriage seven."
+   },
+   "tr": {
+    "prompt": "“Wagen sieben.” ifadesini kopyalayın.",
+    "hint": "Yedinci vagon.",
+    "english": "Yedinci vagon.",
+    "explanation": "Yedinci vagon."
+   }
+  },
+  "a0-tee-exercise-1": {
+   "german": "Einen Tee, bitte.",
+   "source": {
+    "prompt": "You would like tea. Order it.",
+    "hint": "A tea, please.",
+    "english": "A tea, please.",
+    "explanation": "A tea, please."
+   },
+   "tr": {
+    "prompt": "Çay istiyorsunuz. Sipariş verin.",
+    "hint": "Bir çay, lütfen.",
+    "english": "Bir çay, lütfen.",
+    "explanation": "Bir çay, lütfen."
+   }
+  },
+  "a0-tee-exercise-2": {
+   "german": "Einen Tee, bitte.",
+   "source": {
+    "prompt": "Which German phrase means “A tea, please.”?",
+    "hint": "A tea, please.",
+    "english": "A tea, please.",
+    "explanation": "A tea, please."
+   },
+   "tr": {
+    "prompt": "“Bir çay, lütfen.” anlamına gelen Almanca ifade hangisi?",
+    "hint": "Bir çay, lütfen.",
+    "english": "Bir çay, lütfen.",
+    "explanation": "Bir çay, lütfen."
+   }
+  },
+  "a0-tee-exercise-3": {
+   "german": "Tee oder Kaffee?",
+   "source": {
+    "prompt": "Listen, then choose the German phrase.",
+    "hint": "Tea or coffee?",
+    "english": "Tea or coffee?",
+    "explanation": "Tea or coffee?"
+   },
+   "tr": {
+    "prompt": "Dinleyin, ardından Almanca ifadeyi seçin.",
+    "hint": "Çay mı kahve mi?",
+    "english": "Çay mı kahve mi?",
+    "explanation": "Çay mı kahve mi?"
+   }
+  },
+  "a0-tee-exercise-4": {
+   "german": "Nein, danke.",
+   "source": {
+    "prompt": "Which German phrase means “No, thank you.”?",
+    "hint": "No, thank you.",
+    "english": "No, thank you.",
+    "explanation": "No, thank you."
+   },
+   "tr": {
+    "prompt": "“Hayır, teşekkürler.” anlamına gelen Almanca ifade hangisi?",
+    "hint": "Hayır, teşekkürler.",
+    "english": "Hayır, teşekkürler.",
+    "explanation": "Hayır, teşekkürler."
+   }
+  },
+  "a0-tee-exercise-5": {
+   "german": "Ja, bitte.",
+   "source": {
+    "prompt": "Listen, then choose the German phrase.",
+    "hint": "Yes, please.",
+    "english": "Yes, please.",
+    "explanation": "Yes, please."
+   },
+   "tr": {
+    "prompt": "Dinleyin, ardından Almanca ifadeyi seçin.",
+    "hint": "Evet, lütfen.",
+    "english": "Evet, lütfen.",
+    "explanation": "Evet, lütfen."
+   }
+  },
+  "a0-tee-exercise-6": {
+   "german": "Einen Kaffee, bitte.",
+   "source": {
+    "prompt": "Which German phrase means “A coffee, please.”?",
+    "hint": "A coffee, please.",
+    "english": "A coffee, please.",
+    "explanation": "A coffee, please."
+   },
+   "tr": {
+    "prompt": "“Bir kahve, lütfen.” anlamına gelen Almanca ifade hangisi?",
+    "hint": "Bir kahve, lütfen.",
+    "english": "Bir kahve, lütfen.",
+    "explanation": "Bir kahve, lütfen."
+   }
+  },
+  "a0-tee-exercise-7": {
+   "german": "Ja, bitte.",
+   "source": {
+    "prompt": "Copy “Ja, bitte.”.",
+    "hint": "Yes, please.",
+    "english": "Yes, please.",
+    "explanation": "Yes, please."
+   },
+   "tr": {
+    "prompt": "“Ja, bitte.” ifadesini kopyalayın.",
+    "hint": "Evet, lütfen.",
+    "english": "Evet, lütfen.",
+    "explanation": "Evet, lütfen."
+   }
+  },
+  "a0-wo-exercise-1": {
+   "german": "Wo ist die Toilette?",
+   "source": {
+    "prompt": "Ask where the toilet is.",
+    "hint": "Where is the toilet?",
+    "english": "Where is the toilet?",
+    "explanation": "Where is the toilet?"
+   },
+   "tr": {
+    "prompt": "Tuvaletin nerede olduğunu sorun.",
+    "hint": "Tuvalet nerede?",
+    "english": "Tuvalet nerede?",
+    "explanation": "Tuvalet nerede?"
+   }
+  },
+  "a0-wo-exercise-2": {
+   "german": "Wo ist die Toilette?",
+   "source": {
+    "prompt": "Which German phrase means “Where is the toilet?”?",
+    "hint": "Where is the toilet?",
+    "english": "Where is the toilet?",
+    "explanation": "Where is the toilet?"
+   },
+   "tr": {
+    "prompt": "“Tuvalet nerede?” anlamına gelen Almanca ifade hangisi?",
+    "hint": "Tuvalet nerede?",
+    "english": "Tuvalet nerede?",
+    "explanation": "Tuvalet nerede?"
+   }
+  },
+  "a0-wo-exercise-3": {
+   "german": "Die Toilette.",
+   "source": {
+    "prompt": "Listen, then choose the German phrase.",
+    "hint": "The toilet.",
+    "english": "The toilet.",
+    "explanation": "The toilet."
+   },
+   "tr": {
+    "prompt": "Dinleyin, ardından Almanca ifadeyi seçin.",
+    "hint": "Tuvalet.",
+    "english": "Tuvalet.",
+    "explanation": "Tuvalet."
+   }
+  },
+  "a0-wo-exercise-4": {
+   "german": "Der Ausgang.",
+   "source": {
+    "prompt": "Which German phrase means “The exit.”?",
+    "hint": "The exit.",
+    "english": "The exit.",
+    "explanation": "The exit."
+   },
+   "tr": {
+    "prompt": "“Çıkış.” anlamına gelen Almanca ifade hangisi?",
+    "hint": "Çıkış.",
+    "english": "Çıkış.",
+    "explanation": "Çıkış."
+   }
+  },
+  "a0-wo-exercise-5": {
+   "german": "Die Toilette? Da.",
+   "source": {
+    "prompt": "Listen, then choose the German phrase.",
+    "hint": "The toilet? There.",
+    "english": "The toilet? There.",
+    "explanation": "The toilet? There."
+   },
+   "tr": {
+    "prompt": "Dinleyin, ardından Almanca ifadeyi seçin.",
+    "hint": "Tuvalet mi? Orada.",
+    "english": "Tuvalet mi? Orada.",
+    "explanation": "Tuvalet mi? Orada."
+   }
+  },
+  "a0-wo-exercise-6": {
+   "german": "Wo ist der Tee?",
+   "source": {
+    "prompt": "Which German phrase means “Where is the tea?”?",
+    "hint": "Where is the tea?",
+    "english": "Where is the tea?",
+    "explanation": "Where is the tea?"
+   },
+   "tr": {
+    "prompt": "“Çay nerede?” anlamına gelen Almanca ifade hangisi?",
+    "hint": "Çay nerede?",
+    "english": "Çay nerede?",
+    "explanation": "Çay nerede?"
+   }
+  },
+  "a0-wo-exercise-7": {
+   "german": "Die Toilette.",
+   "source": {
+    "prompt": "Copy “Die Toilette.”.",
+    "hint": "The toilet.",
+    "english": "The toilet.",
+    "explanation": "The toilet."
+   },
+   "tr": {
+    "prompt": "“Die Toilette.” ifadesini kopyalayın.",
+    "hint": "Tuvalet.",
+    "english": "Tuvalet.",
+    "explanation": "Tuvalet."
+   }
+  },
+  "a0-langsam-exercise-1": {
+   "german": "Ich verstehe nicht.",
+   "source": {
+    "prompt": "You did not catch that. Say so.",
+    "hint": "I do not understand.",
+    "english": "I do not understand.",
+    "explanation": "I do not understand."
+   },
+   "tr": {
+    "prompt": "Ne dediğini anlamadınız. Bunu söyleyin.",
+    "hint": "Anlamıyorum.",
+    "english": "Anlamıyorum.",
+    "explanation": "Anlamıyorum."
+   }
+  },
+  "a0-langsam-exercise-2": {
+   "german": "Ich verstehe nicht.",
+   "source": {
+    "prompt": "Which German phrase means “I do not understand.”?",
+    "hint": "I do not understand.",
+    "english": "I do not understand.",
+    "explanation": "I do not understand."
+   },
+   "tr": {
+    "prompt": "“Anlamıyorum.” anlamına gelen Almanca ifade hangisi?",
+    "hint": "Anlamıyorum.",
+    "english": "Anlamıyorum.",
+    "explanation": "Anlamıyorum."
+   }
+  },
+  "a0-langsam-exercise-3": {
+   "german": "Verstehen Sie?",
+   "source": {
+    "prompt": "Listen, then choose the German phrase.",
+    "hint": "Do you understand?",
+    "english": "Do you understand?",
+    "explanation": "Do you understand?"
+   },
+   "tr": {
+    "prompt": "Dinleyin, ardından Almanca ifadeyi seçin.",
+    "hint": "Anlıyor musunuz?",
+    "english": "Anlıyor musunuz?",
+    "explanation": "Anlıyor musunuz?"
+   }
+  },
+  "a0-langsam-exercise-4": {
+   "german": "Noch einmal, bitte.",
+   "source": {
+    "prompt": "Which German phrase means “Once again, please.”?",
+    "hint": "Once again, please.",
+    "english": "Once again, please.",
+    "explanation": "Once again, please."
+   },
+   "tr": {
+    "prompt": "“Bir kez daha, lütfen.” anlamına gelen Almanca ifade hangisi?",
+    "hint": "Bir kez daha, lütfen.",
+    "english": "Bir kez daha, lütfen.",
+    "explanation": "Bir kez daha, lütfen."
+   }
+  },
+  "a0-langsam-exercise-5": {
+   "german": "Lindenhafen kommt!",
+   "source": {
+    "prompt": "Listen, then choose the German phrase.",
+    "hint": "Lindenhafen is coming up!",
+    "english": "Lindenhafen is coming up!",
+    "explanation": "Lindenhafen is coming up!"
+   },
+   "tr": {
+    "prompt": "Dinleyin, ardından Almanca ifadeyi seçin.",
+    "hint": "Lindenhafen yaklaşıyor!",
+    "english": "Lindenhafen yaklaşıyor!",
+    "explanation": "Lindenhafen yaklaşıyor!"
+   }
+  },
+  "a0-langsam-exercise-6": {
+   "german": "Lindenhafen kommt.",
+   "source": {
+    "prompt": "Which German phrase means “Lindenhafen is coming up.”?",
+    "hint": "Lindenhafen is coming up.",
+    "english": "Lindenhafen is coming up.",
+    "explanation": "Lindenhafen is coming up."
+   },
+   "tr": {
+    "prompt": "“Lindenhafen yaklaşıyor.” anlamına gelen Almanca ifade hangisi?",
+    "hint": "Lindenhafen yaklaşıyor.",
+    "english": "Lindenhafen yaklaşıyor.",
+    "explanation": "Lindenhafen yaklaşıyor."
+   }
+  },
+  "a0-langsam-exercise-7": {
+   "german": "Verstehen Sie?",
+   "source": {
+    "prompt": "Copy “Verstehen Sie?”.",
+    "hint": "Do you understand?",
+    "english": "Do you understand?",
+    "explanation": "Do you understand?"
+   },
+   "tr": {
+    "prompt": "“Verstehen Sie?” ifadesini kopyalayın.",
+    "hint": "Anlıyor musunuz?",
+    "english": "Anlıyor musunuz?",
+    "explanation": "Anlıyor musunuz?"
+   }
+  },
+  "a0-morgen-exercise-1": {
+   "german": "Auf Wiedersehen.",
+   "source": {
+    "prompt": "Say goodbye.",
+    "hint": "Goodbye.",
+    "english": "Goodbye.",
+    "explanation": "Goodbye."
+   },
+   "tr": {
+    "prompt": "Vedalaşın.",
+    "hint": "Hoşça kalın.",
+    "english": "Hoşça kalın.",
+    "explanation": "Hoşça kalın."
+   }
+  },
+  "a0-morgen-exercise-2": {
+   "german": "Guten Morgen.",
+   "source": {
+    "prompt": "Which German phrase means “Good morning.”?",
+    "hint": "Good morning.",
+    "english": "Good morning.",
+    "explanation": "Good morning."
+   },
+   "tr": {
+    "prompt": "“Günaydın.” anlamına gelen Almanca ifade hangisi?",
+    "hint": "Günaydın.",
+    "english": "Günaydın.",
+    "explanation": "Günaydın."
+   }
+  },
+  "a0-morgen-exercise-3": {
+   "german": "Der Zug ist da.",
+   "source": {
+    "prompt": "Listen, then choose the German phrase.",
+    "hint": "The train is here.",
+    "english": "The train is here.",
+    "explanation": "The train is here."
+   },
+   "tr": {
+    "prompt": "Dinleyin, ardından Almanca ifadeyi seçin.",
+    "hint": "Tren burada.",
+    "english": "Tren burada.",
+    "explanation": "Tren burada."
+   }
+  },
+  "a0-morgen-exercise-4": {
+   "german": "Auf Wiedersehen.",
+   "source": {
+    "prompt": "Which German phrase means “Goodbye.”?",
+    "hint": "Goodbye.",
+    "english": "Goodbye.",
+    "explanation": "Goodbye."
+   },
+   "tr": {
+    "prompt": "“Hoşça kalın.” anlamına gelen Almanca ifade hangisi?",
+    "hint": "Hoşça kalın.",
+    "english": "Hoşça kalın.",
+    "explanation": "Hoşça kalın."
+   }
+  },
+  "a0-morgen-exercise-5": {
+   "german": "Bahnsteig sieben. Da.",
+   "source": {
+    "prompt": "Listen, then choose the German phrase.",
+    "hint": "Platform seven. There.",
+    "english": "Platform seven. There.",
+    "explanation": "Platform seven. There."
+   },
+   "tr": {
+    "prompt": "Dinleyin, ardından Almanca ifadeyi seçin.",
+    "hint": "Yedinci peron. Orada.",
+    "english": "Yedinci peron. Orada.",
+    "explanation": "Yedinci peron. Orada."
+   }
+  },
+  "a0-morgen-exercise-6": {
+   "german": "Gut.",
+   "source": {
+    "prompt": "Which German phrase means “Good.”?",
+    "hint": "Good.",
+    "english": "Good.",
+    "explanation": "Good."
+   },
+   "tr": {
+    "prompt": "“Güzel.” anlamına gelen Almanca ifade hangisi?",
+    "hint": "Güzel.",
+    "english": "Güzel.",
+    "explanation": "Güzel."
+   }
+  },
+  "a0-morgen-exercise-7": {
+   "german": "Guten Morgen.",
+   "source": {
+    "prompt": "Copy “Guten Morgen.”.",
+    "hint": "Good morning.",
+    "english": "Good morning.",
+    "explanation": "Good morning."
+   },
+   "tr": {
+    "prompt": "“Guten Morgen.” ifadesini kopyalayın.",
+    "hint": "Günaydın.",
+    "english": "Günaydın.",
+    "explanation": "Günaydın."
+   }
   }
  },
  "texts": {

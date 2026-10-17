@@ -1,0 +1,38 @@
+{
+  "item-wagen-noun": {
+    "name": "item-wagen-noun",
+    "lexemeId": "wagen-noun",
+    "lemma": "Wagen",
+    "article": "der",
+    "subject": "railway carriage",
+    "kind": "noun",
+    "sheet": "train-furniture",
+    "source": "art/source/interiors/train-furniture.png",
+    "url": "/assets/train/train-carriage.webp",
+    "atlasKey": "interior-train-furniture",
+    "atlasFrame": {
+      "x": 0,
+      "y": 814,
+      "w": 362,
+      "h": 272
+    }
+  },
+  "item-ausgang-noun": {
+    "name": "item-ausgang-noun",
+    "lexemeId": "ausgang-noun",
+    "lemma": "Ausgang",
+    "article": "der",
+    "subject": "exit",
+    "kind": "noun",
+    "sheet": "train-furniture",
+    "source": "art/source/interiors/train-furniture.png",
+    "url": "/assets/train/train-exit.webp",
+    "atlasKey": "interior-train-furniture",
+    "atlasFrame": {
+      "x": 1086,
+      "y": 271,
+      "w": 362,
+      "h": 272
+    }
+  }
+}

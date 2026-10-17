@@ -26,7 +26,9 @@ describe('component rooms', () => {
     const scene = getWorldScene('lindenhafen');
     const before = sceneEntrances(scene);
     const after = sceneEntrances({...scene, scenery: [...scene.scenery].reverse().filter(item => item.id !== 'high-street-house')});
-    for (const entrance of after) expect(entrance.interiorId).toBe(before.find(item => item.ownerId === entrance.ownerId)!.interiorId);
+    for (const entrance of after) expect(entrance.interiorId).toBe(before.find(item => item.id === entrance.id)!.interiorId);
+    expect(new Set(before.map(entrance => entrance.interiorId)).size).toBe(before.length);
+    expect(before.filter(entrance => entrance.interiorId.startsWith('train-')).map(entrance => entrance.ownerId)).toEqual(['station', 'station']);
     const houses = before.filter(entrance => entrance.interiorId.startsWith('home--'));
     expect(houses.length).toBeGreaterThan(1);
     expect(new Set(houses.map(entrance => getInterior(entrance.interiorId).id)).size).toBe(houses.length);

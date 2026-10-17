@@ -6,7 +6,7 @@ import {terrainObjectGeometry} from './terrain-objects.ts';
 import {groundProblem,type Ground} from './ground.ts';
 import {groundFromHazards,groundFromModularTerrain,legacyGroundStyle,type LegacyModularTerrain} from './ground-convert.ts';
 import {residentActionLooks,type ResidentActionLook} from './resident-action-art.ts';
-import {roomKinds, type RoomId, type RoomKind} from './room-kind.ts';
+import {allRoomKinds, type RoomId, type RoomKind} from './room-kind.ts';
 import sceneryGeometry from './data/scenery-geometry.json' with {type:'json'};
 /** Canonical scene coordinates are world units, independent of image resolution. */
 export interface ScenePoint { x: number; y: number; }
@@ -74,7 +74,7 @@ export interface SceneResident {
   actionArt?:ResidentActionLook;
   schedule:SceneResidentTask[];
 }
-export const sceneInteriorIds = roomKinds;
+export const sceneInteriorIds = allRoomKinds;
 export type SceneInteriorKind = typeof sceneInteriorIds[number];
 export interface SceneInterior {
   kind: SceneInteriorKind;
@@ -147,13 +147,16 @@ export function buildingRoomKind(owner: SceneScenery): RoomKind | undefined {
 }
 /** Legacy named rooms retain their IDs. Every other building owns a stable, separate instance. */
 export function sceneEntrances(scene: WorldScene): SceneEntrance[] {
-  return scene.scenery.flatMap(owner => {
+  const station = scene.id === 'lindenhafen' ? scene.scenery.find(item => item.id === 'station') : undefined;
+  // Boarding the train uses the station platform; rooms share the same outdoor return.
+  const train: SceneEntrance[] = station ? (['train-compartment', 'train-dining'] as const).map(interiorId => ({id:`${interiorId}-entrance`,ownerId:station.id,interiorId,owner:station})) : [];
+  return [...train, ...scene.scenery.flatMap(owner => {
     const kind = buildingRoomKind(owner);
     if (!kind) return [];
     const interiorId: RoomId = owner.interior ? kind : `${kind}--${owner.id}`;
     return [{id: owner.interior ? `${kind}-entrance` : owner.id, ownerId: owner.id, interiorId, owner}];
   }).sort((a, b) => Number(!a.owner.interior) - Number(!b.owner.interior)
-    || roomKinds.indexOf(buildingRoomKind(a.owner)!) - roomKinds.indexOf(buildingRoomKind(b.owner)!));
+    || allRoomKinds.indexOf(buildingRoomKind(a.owner)!) - allRoomKinds.indexOf(buildingRoomKind(b.owner)!) )];
 }
 /** The doorway step, or the outdoor return point, of a building that hosts a room. */
 export function sceneEntrancePoint(scene: WorldScene, entrance: Pick<SceneEntrance,'owner'>|SceneScenery, returning = false): ScenePoint {

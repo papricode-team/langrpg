@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "framesPerAsset": 4,
+  "assets": {
+    "fog": {
+      "key": "interior-train-fog",
+      "frames": [
+        "fog-0",
+        "fog-1",
+        "fog-2",
+        "fog-3"
+      ],
+      "fps": 0.3,
+      "width": 768,
+      "height": 512,
+      "referenceWidth": 768,
+      "originX": 0.5,
+      "originY": 0.5
+    }
+  }
+}

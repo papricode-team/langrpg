@@ -56,6 +56,7 @@ export interface Character {
   walkingAnimation?: SceneryAnimation;
   idleFrame?: string;
   localArtVariant?: number;
+  staticArt?: boolean;
   castRow?: number;
   componentCast?: boolean;
   /** Native avatar bake for an NPC whose offline atlas is unavailable. */
@@ -199,8 +200,11 @@ export abstract class ExploreScene extends Phaser.Scene {
   /** Subclasses add their own per-frame systems after shared movement. */
   protected abstract updateScene(seconds: number): void;
   /** Bodies inside rooms use the room painting's adult height. */
+  protected get backdrop(): boolean { return false; }
   protected get indoor(): boolean { return false; }
   protected get indoorCharacterHeight(): number { return INTERIOR_CHARACTER_HEIGHT; }
+  protected characterHeightAt(_y: number): number { return this.indoorCharacterHeight; }
+  get charactersReady(): boolean { return this.backdrop ? [...this.characters.values()].every(npc => !npc.avatarPending) : !!this.local?.figure.visible && !this.local.avatarPending; }
 
   /** Scenes restart on travel; reset everything the constructor would otherwise keep. */
   init(_data?: unknown): void {
@@ -219,6 +223,7 @@ export abstract class ExploreScene extends Phaser.Scene {
   }
 
   create(): void {
+    if (this.backdrop) { this.local = undefined!; this.navigation = undefined!; }
     const registry = this.registry;
     this.clock = readWorld(registry, 'clock');
     this.audio = readWorld(registry, 'audio');
@@ -233,7 +238,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     this.inputAllowed = readWorld(registry, 'inputEnabled');
     this.windowFocused = readWorld(registry, 'windowFocused');
     this.cinematicTarget = readWorld(registry, 'cinematicBeat');
-    this.navigation = this.createNavigation();
+    if (!this.backdrop) this.navigation = this.createNavigation();
     createContactShadow(this);
     createDiscoveryTexture(this);
     this.playerArtReady = true;
@@ -243,6 +248,7 @@ export abstract class ExploreScene extends Phaser.Scene {
       this.add.ellipse(0, 0, 37, 18).setStrokeStyle(1.5, 0xf5e4ac, 0.8),
       this.add.ellipse(0, 0, 6, 3, 0xf5e4ac, 0.8),
     ]).setDepth(1).setVisible(false);
+    if (!this.backdrop) {
     const spawn = this.spawnPoint();
     this.navigation.prepareReachability(spawn);
     this.local = this.createCharacter('self', 'You', spawn.x, spawn.y, readWorld(registry, 'avatar') ?? DEFAULT_AVATAR);
@@ -250,6 +256,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     this.local.name.setColor('#fff2ca');
     this.local.root.addAt(this.add.ellipse(0, 1, 31, 15).setStrokeStyle(1, 0xf6dd9a, 0.55), 1);
     this.bindInput();
+    }
     this.cameras.main.setBounds(0, 0, this.worldWidth, this.worldHeight);
     this.buildScene();
     this.followRegistry();
@@ -380,6 +387,10 @@ export abstract class ExploreScene extends Phaser.Scene {
   protected objectAvailable(_object: WorldObject): boolean { return true; }
 
   protected findNearestInteraction(): { id: string; x: number; y: number } | undefined {
+    if (this.backdrop) {
+      const object = [...this.objects.values()].find(item => this.objectAvailable(item) && item.spec.id === this.objective);
+      return object ? {id: object.interactionId, x: object.x, y: object.y} : undefined;
+    }
     let nearest: { id: string; x: number; y: number } | undefined;
     let distance = INTERACTION_DISTANCE;
     for (const npc of this.characters.values()) {
@@ -406,7 +417,7 @@ export abstract class ExploreScene extends Phaser.Scene {
   }
 
   protected refreshNearby(): void {
-    if (!this.local) return;
+    if (!this.backdrop && !this.local) return;
     this.setNearby(this.controlsEnabled && !this.watching ? this.findNearestInteraction()?.id : undefined);
   }
 
@@ -418,6 +429,7 @@ export abstract class ExploreScene extends Phaser.Scene {
 
   setStoryState(state: WorldStoryState): void {
     this.storyState = state;
+    if (this.backdrop && this.ready) this.fitCamera(this.scale.width,this.scale.height,this.density);
     for (const npc of this.characters.values()) if (!this.characterRevealed(npc)) npc.root.setVisible(false);
     this.refreshNearby();
   }
@@ -458,6 +470,7 @@ export abstract class ExploreScene extends Phaser.Scene {
 
   /** A snapshot is authoritative for peers; the local player only snaps on first sight or large drift. */
   syncPlayers(players: readonly WorldPlayer[], selfId: string): void {
+    if (this.backdrop) return;
     const present = new Set<string>();
     for (const player of players) {
       if (!this.ownsPlayer(player)) continue;
@@ -543,6 +556,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     if (!this.controlsEnabled || this.watching) return;
     const target = this.interactionPosition(id);
     if (!target) return;
+    if (this.backdrop) { this.triggerInteraction(id); return; }
     if (Math.hypot(target.x - this.local.x, target.y - this.local.y) <= INTERACTION_DISTANCE) {
       this.triggerInteraction(id);
       return;
@@ -556,6 +570,7 @@ export abstract class ExploreScene extends Phaser.Scene {
   }
 
   protected walkTo(x: number, y: number): boolean {
+    if (this.backdrop) return false;
     this.pendingInteraction = undefined;
     const requested = this.navigation.closestPoint(x, y, this.local);
     const path = this.navigation.findPath(this.local, requested);
@@ -578,6 +593,11 @@ export abstract class ExploreScene extends Phaser.Scene {
     const seconds = Math.min(delta, 50) / 1000;
     this.elapsed += seconds;
     if (!this.reducedMotion) this.decorativeElapsed += seconds;
+    if (this.backdrop) {
+      this.audio?.update(seconds); this.tickClock(seconds);
+      this.updateCharacters(seconds); this.updateScene(seconds); this.updateObjects(this.elapsed);
+      this.refreshNearby(); return;
+    }
     const step = this.movePlayer(seconds);
     this.audio?.footsteps(Math.hypot(step.dx, step.dy), this.indoor);
     this.audio?.update(seconds);
@@ -611,7 +631,7 @@ export abstract class ExploreScene extends Phaser.Scene {
   /** Keyboard, pad, stick and click-to-walk resolve into one step against the navigation grid. */
   private movePlayer(seconds: number): { dx: number; dy: number; vx: number; vy: number; moving: boolean; arrived?: string } {
     let vx = 0, vy = 0, arrived: string | undefined;
-    const speed = walkSpeedForHeight(this.indoor ? this.indoorCharacterHeight : MODULAR_ART.worldHeight);
+    const speed = walkSpeedForHeight(this.indoor ? this.characterHeightAt(this.local.y) : MODULAR_ART.worldHeight);
     const previousX = this.local.x, previousY = this.local.y;
     const keys = this.keys;
     const pad1 = this.input.gamepad?.pad1;
@@ -701,8 +721,8 @@ export abstract class ExploreScene extends Phaser.Scene {
       const revealed = this.characterRevealed(npc);
       npc.root.setVisible(visible && revealed && !this.terrainOnly);
       if (!visible || !revealed) continue;
-      this.animateCharacter(npc, step.x, step.y, this.elapsed + npc.phase);
-      const near = this.controlsEnabled && Math.hypot(npc.x - this.local.x, npc.y - this.local.y) < INTERACTION_DISTANCE;
+      if (!this.backdrop) this.animateCharacter(npc, step.x, step.y, this.elapsed + npc.phase);
+      const near = !this.backdrop && this.controlsEnabled && Math.hypot(npc.x - this.local.x, npc.y - this.local.y) < INTERACTION_DISTANCE;
       const show = this.controlsEnabled && (near || !!npc.hovered);
       npc.halo?.setVisible(show).setAlpha(near ? 1 : .65);
       npc.name.setScale(labelScale).setVisible(show);
@@ -770,12 +790,13 @@ export abstract class ExploreScene extends Phaser.Scene {
       const available = this.objectAvailable(object);
       object.root.setVisible(visible && available && !this.terrainOnly && !this.watching);
       if (!visible || !available) continue;
-      const near = this.controlsEnabled && Math.hypot(object.x - this.local.x, object.y - this.local.y) < INTERACTION_DISTANCE;
+      const near = this.controlsEnabled && (this.backdrop || Math.hypot(object.x - this.local.x, object.y - this.local.y) < INTERACTION_DISTANCE);
       const highlighted = this.controlsEnabled && (near || object.hovered);
       const objective = this.objective === object.spec.id || this.objective === `object:${object.spec.id}`;
       const active = Math.max(objective ? .6 : 0, Math.max(0, object.activatedUntil - time) / 4);
-      object.label.setVisible(highlighted && (!this.indoor || object.hovered || nearestId === object.interactionId));
+      object.label.setVisible(highlighted && (this.backdrop || !this.indoor || object.hovered || nearestId === object.interactionId));
       object.label.setScale(scale);
+      if (this.backdrop) object.label.setOrigin(clamp((object.x-view.x)/view.width,.1,.9),.5);
       object.halo.setAlpha(highlighted ? .9 : .32 + active * .5).setScale(this.reducedMotion ? 1 : 1 + active * Math.sin(time * 8) * .15);
       // The idle bob and glow run as tweens on the marker's container; state adds emphasis.
       object.marker.setAlpha(highlighted ? .95 : .58 + active * .3);
@@ -807,6 +828,12 @@ export abstract class ExploreScene extends Phaser.Scene {
     this.density = density;
     const camera = this.cameras.main;
     camera.setBounds(0, 0, this.worldWidth, this.worldHeight);
+    if (this.backdrop) {
+      this.fitZoom = Math.max(width / this.worldWidth, height / this.worldHeight);
+      const focus = this.backdropFocus();
+      camera.setBounds(0,0,this.worldWidth,this.worldHeight).setZoom(this.fitZoom).centerOn(focus.x,focus.y);
+      this.applyLabelDensity(density); this.resizeHitTargets(); return;
+    }
     this.coverZoom = Math.max(width / this.worldWidth, height / this.worldHeight);
     this.fitZoom = explorationZoom(width, height, density, this.indoor, this.indoorCharacterHeight, { width: this.worldWidth, height: this.worldHeight }).zoom;
     const previousMobile = this.mobileCamera;
@@ -831,8 +858,9 @@ export abstract class ExploreScene extends Phaser.Scene {
     for (const object of this.objects.values()) object.label.setResolution(density);
     for (const portal of this.portals.values()) { portal.label.setResolution(density); portal.glyph?.setResolution(density); }
   }
+  protected backdropFocus(): MapPoint { return {x:this.worldWidth/2,y:this.worldHeight/2}; }
   protected mobileCameraChanged(): void {}
-  protected actors(): Character[] { return [this.local, ...this.characters.values(), ...this.peers.values()]; }
+  protected actors(): Character[] { return [...(this.backdrop ? [] : [this.local]), ...this.characters.values(), ...this.peers.values()]; }
 
   /** Zoom and focus for the current mode: cinematic beat, quiet tour, conversation or play. */
   protected cameraTarget(): { x: number; y: number; zoom: number; deadzone: boolean; ratio: number; settle: number } {
@@ -869,12 +897,13 @@ export abstract class ExploreScene extends Phaser.Scene {
   }
 
   snapCamera(): void {
-    if (!this.local || !this.cameras?.main) return;
+    if (this.backdrop || !this.local || !this.cameras?.main) return;
     this.frameCamera(0, true);
   }
 
   protected resizeHitTargets(): void {
     for (const npc of this.characters.values()) {
+      if (npc.staticArt) { (npc.figure.input?.hitArea as Phaser.Geom.Rectangle | undefined)?.setTo(0,0,1024,1536); continue; }
       const hit = npc.figure.input?.hitArea as Phaser.Geom.Rectangle | undefined;
       const animation = npc.walkingAnimation ?? npc.idleAnimation;
       const art = npc.nativePixels ? NATIVE_MODULAR_ART : npc.componentCast ? CAST_ART : npc.modularNpc ? MODULAR_ART : NPC_ART;
@@ -901,7 +930,7 @@ export abstract class ExploreScene extends Phaser.Scene {
       const localNpc = getExpeditionNpc(position.id);
       const npc = localNpc ?? npcs[index];
       if (!npc) continue;
-      const { x, y } = this.navigation.closestPoint(position.x * this.worldWidth, position.y * this.worldHeight);
+      const { x, y } = this.backdrop ? {x:position.x * this.worldWidth,y:position.y * this.worldHeight} : this.navigation.closestPoint(position.x * this.worldWidth, position.y * this.worldHeight);
       const special = npc.id === 'inspector' || npc.id === 'elise';
       const avatar = npc.id === 'inspector' ? { hair: '#68656a', skin: '#d6a07d', outfit: '#80612e', hairstyle: 'bald', pants: '#383438' } : npc.id === 'elise' ? { hair: '#c8c5bf', skin: '#bb825a', outfit: '#596d86' } : DEFAULT_AVATAR;
       const character = this.createCharacter(npc.id, npc.name, x, y, localNpc?.avatar ?? avatar, npc.role.split('·')[0].trim(), special ? -1 : localNpc ? localNpc.artVariant : index, localNpc?.artVariant);
@@ -939,7 +968,7 @@ export abstract class ExploreScene extends Phaser.Scene {
       const marker = this.add.image(0, -8, 'discovery').setScale(.8).setAlpha(.7);
       const label = this.add.text(0, -35, spec.label, { resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '13px', color: '#fff0d0', stroke: '#283b36', strokeThickness: 4 }).setOrigin(.5).setVisible(false);
       const hit = this.add.zone(0, -7, Math.max(52, 44 / this.fitZoom), Math.max(52, 44 / this.fitZoom)).setInteractive({ useHandCursor: true });
-      const root = this.add.container(x, y, [halo, marker, label, hit]).setDepth(worldDepth(y, 'shadow'));
+      const root = this.add.container(x, y, [halo, marker, label, hit]).setDepth(worldDepth(this.backdrop ? this.worldHeight : y, this.backdrop ? 'label' : 'shadow'));
       const object: WorldObject = { spec, x, y, root, halo, marker, label, hit, hovered: false, activatedUntil: 0,
         interactionId: spec.id.startsWith(`${prefix}:`) ? spec.id : `${prefix}:${spec.id}` };
       this.bindHover(hit, object, () => this.approachInteraction(object.interactionId));
@@ -1074,7 +1103,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     const canvasHeight = animation?.height ?? art.height;
     const bodyHeight = animation ? canvasHeight - 6 : art.bodyHeight;
     const indoors = this.indoor;
-    const indoorHeight = this.indoorCharacterHeight;
+    const indoorHeight = this.characterHeightAt(character.y);
     const scale = ((character.componentCast || character.modularNpc || !character.npc && this.playerArtReady) && !indoors ? MODULAR_ART.worldHeight / bodyHeight : characterArtScale(bodyHeight, canvasHeight, indoors, indoorHeight)) * childScale(character.id);
     if (character.artScale === scale) return;
     character.artScale = scale;
@@ -1130,6 +1159,7 @@ export abstract class ExploreScene extends Phaser.Scene {
   }
 
   protected createCharacter(id: string, name: string, x: number, y: number, avatar: Avatar, role?: string, npcFrame = -1, localArtVariant?: number): Character {
+    const staticArt = this.backdrop && id === 'schaffner';
     const candidate=castActor(id);
     const castAsset=this.indoor?candidate?.native:candidate;
     const baked=castAsset&&this.textures.exists(castAsset.key)?castAsset:undefined;
@@ -1159,6 +1189,12 @@ export abstract class ExploreScene extends Phaser.Scene {
         // Keep our own appearance in the bounded cache for the next scene.
         character.avatarLease?.release(character.id !== 'self'); character.avatarLease = undefined;
       });
+    }
+    if (staticArt) {
+      character.staticArt = true; character.avatarDisposed = true;
+      character.artScale = this.indoorCharacterHeight / 1500;
+      figure.setTexture('brandt-backdrop').setOrigin(.5, .98).setScale(character.artScale).setVisible(true);
+      shadow.setVisible(false); return character;
     }
     this.fitCharacterToRoom(character);
     this.tintCharacter(character);

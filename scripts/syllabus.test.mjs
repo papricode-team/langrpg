@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildSyllabus } from './syllabus.mjs';
+import { buildSyllabus, openingPacingViolations, syllabusDefaults } from './syllabus.mjs';
 
 test('each block of ten mixes story words with high-frequency core words and excludes names', () => {
   const lexicon = [
@@ -24,4 +24,16 @@ test('each block of ten mixes story words with high-frequency core words and exc
   assert.equal(syllabus.quests[0].milestone, 5);
   assert.ok(syllabus.quests[1].milestone > syllabus.quests[0].milestone);
   assert.throws(() => buildSyllabus({ graphs, lexicon, questOrder: ['first', 'second'], options: { storyShare: 9, wordsPerHour: 4 } }));
+});
+
+
+test('opening limits preserve intake and only enforce per-scene A0 measurements', () => {
+  assert.deepEqual(syllabusDefaults,{wordsPerHour:10,openingWords:10,bankCap:15,storyShare:8,brake:{maxUnsettled:12,maxDue:20}});
+  const report={quests:[{questId:'a0-morgen',level:'A0',newWordsAboveBudget:0,vocabularyReadyHour:3.9},{questId:'a1-arrival',level:'A1',lexemes:93,newWordsAboveBudget:71,requiredPathLexemes:60}]};
+  assert.deepEqual(openingPacingViolations(report),[]);
+  report.quests[0].vocabularyReadyHour=4;
+  report.quests[0].newWordsAboveBudget=1;
+  assert.equal(openingPacingViolations(report).length,2);
+  report.quests[0].questId='a0-tee';
+  assert.equal(openingPacingViolations(report).length,2, 'the hour limit applies to every A0 scene');
 });

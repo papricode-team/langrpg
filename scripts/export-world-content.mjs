@@ -39,9 +39,22 @@ const { maps: rawMaps } = await import('../web/src/maps.ts');
 // including after a designer moves an investigation object or its speaker.
 const maps = rawMaps.map(map => applyAuthoredMapPlacements(map));
 const graphs = JSON.parse(await readFile(resolve(root, 'web/src/data/dialogue-graphs.json'), 'utf8'));
+const { getInterior } = await import('../web/src/interiors.ts');
 const rules = graphs.map(graph => {
   const quest = quests.find(quest => quest.id === graph.questId);
-  const map = maps.find(map => map.level === quest.level);
+  const map = maps.find(map => map.level === (quest.level === 'A0' ? 'A1' : quest.level));
+  if (quest.level === 'A0') {
+    const interior = getInterior(graph.interiorId);
+    const npc = interior.npcs.find(npc => npc.id === quest.npcId);
+    if (!npc) throw new Error(`Missing ${quest.npcId} in ${interior.id}`);
+    const objects = graph.investigations.map(item => {
+      const object = interior.objects.find(object => object.id === item.worldId);
+      if (!object) throw new Error(`Missing ${item.worldId} in ${interior.id}`);
+      return { id: item.objectId, x: object.x, y: object.y };
+    });
+    const choices = graph.nodes.find(node => node.stage === 'choice').choices;
+    return {questId:graph.questId,mapId:map.id,npcId:quest.npcId,npc:{id:npc.id,x:npc.x,y:npc.y},interiorId:graph.interiorId,gateKind:graph.gateKind,gateExerciseId:graph.gateExerciseId,replyExerciseIds:[],choiceIds:choices.map(c=>c.id),choices:choices.map(c=>({id:c.id,effects:c.effects})),investigationObjectIds:objects.map(i=>i.id),...(graph.completionInvestigations?.length?{completionInvestigationObjectIds:graph.completionInvestigations}:{}),...(graph.optionalInvestigations?.length?{optionalInvestigationObjectIds:graph.optionalInvestigations}:{}),objects};
+  }
   const npc = map.npcs.find(npc => npc.id === quest.npcId);
   if (!npc) throw new Error(`Missing ${quest.npcId} in ${map.id}`);
   const choiceNode = graph.nodes.find(node => node.id === 'choice');

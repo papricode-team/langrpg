@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { conditionMet, dialogueChoices, dialogueLines, emptyStory, personalized, validateDialogue } from './dialogue';
 import { questGraphs } from './quest-graph';
 import { quests, npcs } from './content';
+import { getInterior, type InteriorId } from './interiors';
 import { getMap } from './maps';
 import serverRules from '../../server/story_rules.json';
 import { createStateStore } from './game-state';
@@ -13,12 +14,12 @@ describe('authored in-world investigations', () => {
       expect(validateDialogue(graph), graph.questId).toEqual([]);
       expect(graph.investigations.length).toBeGreaterThanOrEqual(1);
       expect(graph.investigations.length).toBeLessThanOrEqual(2);
-      expect(graph.objectives.length).toBeGreaterThanOrEqual(4);
+      expect(graph.objectives.length).toBeGreaterThanOrEqual(graph.level === 'A0' ? 1 : 4);
       for (const line of graph.nodes.flatMap(node => node.lines)) expect(npcs.some(npc => npc.id === line.speaker), line.id).toBe(true);
       const quest = quests.find(quest => quest.id === graph.questId)!;
       const gate = quest.exercises.find(ex => ex.id === graph.gateExerciseId)!;
       expect(['type','sentence']).toContain(gate.mode);
-      expect(dialogueChoices(graph.nodes.find(node => node.id === 'choice')!,emptyStory()).length).toBeGreaterThanOrEqual(2);
+      expect(dialogueChoices(graph.nodes.find(node => node.id === 'choice')!,emptyStory()).length).toBeGreaterThanOrEqual(graph.level === 'A0' ? 1 : 2);
     }
   });
   it('matches the server gate, choice and physical target contract', () => {
@@ -27,8 +28,8 @@ describe('authored in-world investigations', () => {
       expect(rule.gateExerciseId).toBe(graph.gateExerciseId);
       expect(rule.choiceIds).toEqual(graph.nodes.find(node => node.id === 'choice')!.choices!.map(choice => choice.id));
       expect(rule.investigationObjectIds).toEqual(graph.investigations.map(item => item.objectId));
-      const map = getMap(rule.mapId as Parameters<typeof getMap>[0]);
-      for (const item of graph.investigations) expect(map.objects.some(object => object.id === item.objectId), item.objectId).toBe(true);
+      const map = graph.interiorId ? getInterior(graph.interiorId as InteriorId) : getMap(rule.mapId as Parameters<typeof getMap>[0]);
+      for (const item of graph.investigations) expect(map.objects.some(object => object.id === (item.worldId ?? item.objectId)), item.objectId).toBe(true);
       expect(map.npcs.some(npc => npc.id === quests.find(q => q.id === graph.questId)!.npcId)).toBe(true);
     }
   });
@@ -41,7 +42,7 @@ describe('authored in-world investigations', () => {
     expect(questGraphs.find(graph => graph.questId === 'a1-lost-parcel')!.nodes.flatMap(node => node.lines).some(line => line.german.includes('Waldruh'))).toBe(true);
   });
   it('detects dead links and unreachable editorial nodes', () => {
-    const graph = structuredClone(questGraphs[0]);
+    const graph = structuredClone(questGraphs.find(graph => graph.questId === 'a1-arrival')!);
     graph.nodes.push({id:'forgotten',stage:'intro',lines:[],terminal:true});
     graph.nodes[0].next = 'missing';
     expect(validateDialogue(graph)).toContain('a1-arrival: broken link intro → missing');

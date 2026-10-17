@@ -4,6 +4,21 @@
     "paleBelow": 0.5,
     "entries": [
       {
+        "id": "prologue-ticket-name",
+        "mapId": "lindenhafen",
+        "x": 0.5,
+        "y": 0.5,
+        "kind": "hud",
+        "german": "{name}",
+        "english": "your name",
+        "from": "a0-ticket",
+        "keep": "a0-morgen",
+        "restoredBy": [
+          "a0-name"
+        ],
+        "bell": false
+      },
+      {
         "id": "ticket-name",
         "mapId": "lindenhafen",
         "x": 0.5,

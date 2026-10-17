@@ -1,7 +1,9 @@
 import type { Narrative } from './sentence-translations';
 
 /** Original glotworld learning content. Curriculum tags describe practice, not certification. */
-export type Level = 'A1' | 'A2' | 'B1';
+export type CourseLevel = 'A1' | 'A2' | 'B1';
+/** A0 is a story scaffold, never a lexicon or certification band. */
+export type Level = 'A0' | CourseLevel;
 export type ExerciseMode = 'choice' | 'listen' | 'sentence' | 'type';
 export interface Exercise {
   id: string;
@@ -30,6 +32,7 @@ export interface Exercise {
 }
 export interface Quest {
   id: string;
+  worldId?: string;
   level: Level;
   title: string;
   subtitle: string;
@@ -39,8 +42,11 @@ export interface Quest {
   objectives: string[];
   reward: number;
   exercises: Exercise[];
+  /** Authenticated recognition exercises for completed prologue phrase practice. */
+  practiceExerciseIds?: string[];
 }
 export interface NPC {
+  prologueOnly?: boolean;
   id: string;
   name: string;
   role: string;

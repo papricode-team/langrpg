@@ -231,7 +231,7 @@ func TestSavedWorldsGainNewStoryAnchorsAndRules(t *testing.T) {
 	for _, object := range merged.Maps["lindenhafen"].Objects {
 		found = found || object.ID == removed
 	}
-	if !found || len(next.Investigations.Rules) != len(storyQuestOrder) || len(next.Investigations.Ink.Entries) == 0 || len(next.Investigations.SideQuests) == 0 {
+	if !found || len(next.Investigations.Rules) != len(storyQuestOrder)+len(prologueQuestOrder) || len(next.Investigations.Ink.Entries) == 0 || len(next.Investigations.SideQuests) == 0 {
 		t.Fatal("new anchors or story authority were not added to the saved world")
 	}
 	again, err := worker.reconcile(context.Background(), next.Document, canonical)

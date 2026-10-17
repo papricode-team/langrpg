@@ -2,7 +2,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { QuestController } from './quest-controller';
 import { emptyProgress, type Progress } from './api';
-import { emptyStory, type DialogueLine } from './dialogue';
+import { emptyStory, type DialogueLine, type QuestGraph } from './dialogue';
 import { questGraphs } from './quest-graph';
 import { npcs, quests } from './content';
 import { answerMatches } from './learning';
@@ -41,6 +41,29 @@ const press = () => (document.querySelector<HTMLButtonElement>('[data-dialogue-a
 const until = (selector: string, limit = 80) => { for (let step = 0; step < limit && !document.querySelector(selector); step++) press(); expect(document.querySelector(selector), selector).not.toBeNull(); };
 
 describe('conversation scene lifecycle', () => {
+  it('keeps the A0 ticket inspection between the request and the player reply', async () => {
+    const f = fixture('intro', 'a0-ticket', true);
+    f.options.onInvestigate.mockImplementation((graph: QuestGraph) => {
+      const evidence = graph.investigations.find(item => !(f.progress.story?.inspections[graph.questId] ?? []).includes(item.objectId));
+      if (evidence) void f.controller.inspect(graph.questId, evidence.objectId);
+      else void f.controller.open(graph.questId);
+    });
+    await f.controller.open('a0-ticket');
+    press();
+    expect(document.querySelector('.dialogue-line')?.textContent).toContain('Die Fahrkarte, bitte.');
+    expect(document.querySelector('[data-dialogue-action="next"]')?.textContent).toContain('Look closer');
+    press();
+    await vi.waitFor(() => expect(document.querySelector('.investigation-artifact .dialogue-line')?.textContent).toContain('Fahrkarte. Lindenhafen.'));
+    expect(f.api.inspectStory).not.toHaveBeenCalled();
+    expect(f.api.storyTransition).not.toHaveBeenCalled();
+    expect(document.querySelector('[data-dialogue-action="next"]')?.textContent).toContain('Continue');
+    press();
+    await vi.waitFor(() => expect(document.querySelector('[data-dialogue-choice="Bitte."]')).not.toBeNull());
+    expect(f.api.inspectStory).toHaveBeenCalledTimes(1);
+    expect(f.api.storyTransition).toHaveBeenCalledWith(expect.objectContaining({questId:'a0-ticket', nodeId:'intro'}));
+    expect(document.querySelector('.dialogue-choice-prompt')?.textContent).toContain('He is asking for your ticket. Hand it over.');
+    expect(f.api.request).not.toHaveBeenCalled();
+  });
   it('starts A1 with supported greeting choices and reveals meanings only on request', async () => {
     const f = fixture('intro', 'a1-arrival', true);
     await f.controller.open('a1-arrival');
@@ -352,7 +375,7 @@ describe('conversation scene lifecycle', () => {
     f.click('[data-dialogue-choice="Guten Morgen!"]');
     await vi.waitFor(()=>expect(document.querySelector('.dialogue-line')!.textContent).toContain('Moment. Du kommst von Bahnsteig sieben?'));
     for(let step=0;step<40 && !f.options.onInvestigate.mock.calls.length;step++) press();
-    expect(f.options.onInvestigate).toHaveBeenCalledWith(questGraphs[0]);
+    expect(f.options.onInvestigate).toHaveBeenCalledWith(questGraphs.find(graph => graph.questId === 'a1-arrival')!);
     expect(f.api.storyTransition).not.toHaveBeenCalled();
     expect(f.api.request.mock.calls[0]).toMatchObject(['/attempt',{mode:'recognition',sceneAttempt:true,exerciseId:'a1-arrival-exercise-1'}]);
     expect(f.controller.isOpen).toBe(false);
@@ -447,7 +470,7 @@ describe('conversation scene lifecycle', () => {
     expect(logged.mock.lastCall?.[1]).toBe(failure);
   });
   it('keeps the investigation stage when its transition is temporarily rejected', async () => {
-    const f=fixture();f.progress.story!.inspections['a1-arrival']=questGraphs[0].investigations.map(item=>item.objectId);
+    const f=fixture();f.progress.story!.inspections['a1-arrival']=questGraphs.find(graph => graph.questId === 'a1-arrival')!.investigations.map(item=>item.objectId);
     f.progress.story!.flags['reply:a1-arrival-exercise-1']=true;
     f.api.storyTransition.mockRejectedValueOnce(new Error('Move closer to Otto.'));
     await f.controller.open('a1-arrival');
@@ -466,7 +489,7 @@ describe('conversation scene lifecycle', () => {
     f.click('[data-dialogue-action="translate"]');
     expect(document.querySelector('.dialogue-translation')).not.toBeNull();
     f.click('[data-dialogue-choice="Gute Nacht!"]');
-    await vi.waitFor(()=>expect(document.querySelector('.dialogue-line')?.textContent).toContain('Es ist Morgen'));
+    await vi.waitFor(()=>expect(document.querySelector('.dialogue-line')?.textContent).toContain('Guten Morgen!'));
     expect(document.querySelector('.dialogue-translation')).toBeNull();
     expect(document.querySelector('[data-dialogue-action="translate"]')?.getAttribute('aria-pressed')).toBe('false');
     expect(f.options.speak.mock.lastCall?.[1]).toBe('otto');
@@ -479,10 +502,10 @@ describe('conversation scene lifecycle', () => {
   it('clears a greeting correction before showing physical evidence', async () => {
     const f=fixture();f.api.request.mockResolvedValueOnce({attemptId:'wrong-greeting',correct:false,progress:f.progress});
     await f.controller.open('a1-arrival');f.click('[data-dialogue-choice="Gute Nacht!"]');
-    await vi.waitFor(()=>expect(document.querySelector('.dialogue-line')?.textContent).toContain('Es ist Morgen'));
+    await vi.waitFor(()=>expect(document.querySelector('.dialogue-line')?.textContent).toContain('Guten Morgen!'));
     f.controller.close();f.controller.inspect('a1-arrival','lindenhafen-platform-ticket');
     expect(document.querySelector('.dialogue-line')?.textContent).toContain('Fahrkarte');
-    expect(document.querySelector('.dialogue-line')?.textContent).not.toContain('Es ist Morgen');
+    expect(document.querySelector('.dialogue-line')?.textContent).not.toContain('Guten Morgen!');
   });
   it('does not let a pending old choice finish a newly opened conversation', async () => {
     const f=fixture('choice');let finish!:()=>void;
@@ -514,7 +537,7 @@ describe('conversation scene lifecycle', () => {
     const f=fixture('gate');await f.controller.open('a1-arrival');until('#dialogue-answer');
     document.querySelector<HTMLInputElement>('#dialogue-answer')!.value='Noch einmal, bitte.';
     f.click('.dialogue-word');
-    expect(document.querySelector('.dialogue-translation-body')?.textContent).toBe(questGraphs[0].nodes.find(node=>node.id==='gate')!.lines.at(-1)!.english);
+    expect(document.querySelector('.dialogue-translation-body')?.textContent).toBe(questGraphs.find(graph => graph.questId === 'a1-arrival')!.nodes.find(node=>node.id==='gate')!.lines.at(-1)!.english);
     expect(document.querySelector<HTMLInputElement>('#dialogue-answer')!.value).toBe('Noch einmal, bitte.');
     expect(f.options.expose).toHaveBeenCalledTimes(1);
     expect(f.options.expose).toHaveBeenCalledWith('a1-arrival-exercise-7');
@@ -715,7 +738,7 @@ describe('server content loading', () => {
     await vi.waitFor(() => expect(document.querySelector('.dialogue-feedback')?.textContent).toBe('Reveal receipt unavailable'));
     expect(document.querySelector('.dialogue-answer-help')).toBeNull();
     expect(document.body.textContent).not.toContain('SERVER MODEL ANSWER');
-    expect(f.api.request.mock.calls[1]).toEqual(['/attempt', { recover: true, exerciseId: questGraphs[0].gateExerciseId }]);
+    expect(f.api.request.mock.calls[1]).toEqual(['/attempt', { recover: true, exerciseId: questGraphs.find(graph => graph.questId === 'a1-arrival')!.gateExerciseId }]);
   });
 });
 
@@ -731,4 +754,27 @@ it('passes authored expressions to portraits and resets uncued lines to neutral'
   expect(f.options.portrait).toHaveBeenLastCalledWith('marta','worried');
   f.click('[data-dialogue-action="next"]');
   expect(f.options.portrait).toHaveBeenLastCalledWith('marta','neutral');
+});
+
+describe('pre-A1 train support', () => {
+  it('shows meanings, offers slow replay and never opens a keyboard for the ticket gate', async () => {
+    const f = fixture('gate', 'a0-ticket');
+    await f.controller.open('a0-ticket');
+    expect(document.querySelector('.dialogue-translation')?.textContent).toContain('The ticket, please.');
+    expect(f.options.speak).toHaveBeenCalled();
+    expect(document.querySelector('input, textarea')).toBeNull();
+    expect(document.querySelectorAll('[data-dialogue-choice]')).toHaveLength(2);
+    f.click('[data-dialogue-action="translate"]');
+    expect(document.querySelector('.dialogue-translation')).toBeNull();
+  });
+  it('records only supported name practice, without a lexical attempt', async () => {
+    const f = fixture('gate', 'a0-name');
+    await f.controller.open('a0-name');
+    const input = document.querySelector<HTMLInputElement>('#dialogue-answer')!;
+    expect(input).not.toBeNull();
+    input.value = '<Willow>';
+    input.closest('form')!.dispatchEvent(new Event('submit', {bubbles:true,cancelable:true}));
+    await vi.waitFor(()=>expect(f.api.storyTransition).toHaveBeenCalledWith(expect.objectContaining({nodeId:'gate',namePractice:true})));
+    expect(f.api.request).not.toHaveBeenCalled();
+  });
 });

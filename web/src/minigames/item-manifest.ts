@@ -1,4 +1,5 @@
 import manifest from './item-data.json';
+import trainItems from './train-item-data.json';
 import sceneArt from './scene-art-data.json';
 
 export const ITEM_ATLAS_KEY = 'minigame-items';
@@ -8,7 +9,7 @@ export interface ItemSpriteEntry {
   sheet: string; source: string; url: string;
   atlasFrame: { x: number; y: number; w: number; h: number }; atlasKey?: string;
 }
-export const itemSpriteManifest = manifest.frames as Record<string, ItemSpriteEntry>;
+export const itemSpriteManifest = {...manifest.frames, ...trainItems} as Record<string, ItemSpriteEntry>;
 export const itemAtlas = { key: ITEM_ATLAS_KEY, image: manifest.atlas, data: manifest.atlasData };
 export const itemAtlases = manifest.atlases;
 export const missingItemArt = manifest.missing;

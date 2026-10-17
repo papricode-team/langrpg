@@ -789,3 +789,6 @@ kbd {
   width:17px;
   height:17px
 }
+
+/* Backdrop scenes use direct object interaction. */
+.prologue-active .joystick { display: none; }

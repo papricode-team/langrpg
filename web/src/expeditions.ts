@@ -1,4 +1,4 @@
-import type { Level } from './content';
+import type { CourseLevel as Level } from './content';
 import type { MapId, MapPosition, WorldMapSpec, WorldObjectSpec } from './maps';
 import type { PlacedScenerySpec, SceneryAsset } from './placed-scenery';
 import type { ResidentSpec } from './world-life';

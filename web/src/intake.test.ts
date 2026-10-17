@@ -36,8 +36,8 @@ describe('the vocabulary syllabus', () => {
       previous = milestone;
     }
     // Story-first ordering: most of every block serves the earliest scene's vocabulary; the rest are core words.
-    const arrival = questVocabulary('a1-arrival')!;
-    expect(syllabus.wordIds.slice(0, syllabus.wordsPerHour).filter(id => arrival.wordIds.includes(id)).length).toBeGreaterThanOrEqual(syllabus.storyShare);
+    const openingWords = syllabus.quests.filter(quest => quest.level === 'A0').flatMap(quest => quest.wordIds);
+    expect(syllabus.wordIds.slice(0, syllabus.wordsPerHour).filter(id => openingWords.includes(id)).length).toBeGreaterThanOrEqual(syllabus.storyShare);
   });
 
   it('keeps the story graphs inside their declared vocabulary (names and glossed story words aside)', () => {
