@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/seoulsteps-jisoo.json",
   "recipeSha256": "aa2a57926b3d61bbfceeef03dee86b9fd6c0dea696ea246b8dfa02b39a358dbb",
   "atlas": "web/public/assets/character-cast/seoulsteps-jisoo.webp",
-  "atlasSha256": "b2f38493920440cff9f95ea6555a8b55721f92f79025abd3e694d80ff5faa4de",
+  "atlasSha256": "4c3c6304c48384547935c3137c41311de3d13d11841b706634d49f5b6afe08fe",
   "geometry": "web/public/assets/character-cast/seoulsteps-jisoo.atlas.json",
-  "geometrySha256": "9ad0990b13433c278d3ffc14d121c59f1950df15791fbec90f4e052143ccbfed",
+  "geometrySha256": "0f10d2934eeafa2b740686e3d4175eefd695d4ed15a5c49ea890cad547423fd7",
   "textureBytes": 14183232,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/seoulsteps-jisoo.webp",
-      "sha256": "b2f38493920440cff9f95ea6555a8b55721f92f79025abd3e694d80ff5faa4de",
+      "sha256": "4c3c6304c48384547935c3137c41311de3d13d11841b706634d49f5b6afe08fe",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/seoulsteps-jisoo.1.webp",
-      "sha256": "c2619a1d7b93b77c5ae732339dd7348acafa4b5823c3515d790066a02d66636b",
+      "sha256": "af4682d4c5988436e78c350577ae2b90b8dbc7eb641d0e5aa792f5fae9838687",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "36d32fda4db9409d8198fc26209a3c896f00087e5b8df22fc71500eab8582735",
   "editorSha256": "24a31fddab54cd5294330a79bacdebb9dd3f4e76c683f6f4f83e0727a1cdf4c8",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

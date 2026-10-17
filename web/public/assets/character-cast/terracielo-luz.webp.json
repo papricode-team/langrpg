@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "f346091254c685b398b769ef4444fc5da266091013f1005588eb20c85621eb10",
-  "atlasSha256": "1c9f0305672014722d2a088c4b1439f85cb9d5b0e867083a8272edebcf652211",
+  "sha256": "296c2669e746e43aad355fe859bba74d9e97c760db9a8f4f119360b1eeccc391",
+  "atlasSha256": "9bfd833c992dc8936e960789b015ba3ca4a61c29879040040278819190c2cb3a",
   "textureBytes": 13952400,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/terracielo-luz.webp",
-      "sha256": "f346091254c685b398b769ef4444fc5da266091013f1005588eb20c85621eb10",
+      "sha256": "296c2669e746e43aad355fe859bba74d9e97c760db9a8f4f119360b1eeccc391",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/terracielo-luz.1.webp",
-      "sha256": "dfd389a85d64d71a2de22bf171b0e6a126de52899c7722b2fef3e4e87c5da94d",
+      "sha256": "f9b4596d684a8a5b678cb7028b12a9b86848a63a22deace0872fe618a8fa028d",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/terracielo-luz.atlas.json"
+  "atlas": "web/public/assets/character-cast/terracielo-luz.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

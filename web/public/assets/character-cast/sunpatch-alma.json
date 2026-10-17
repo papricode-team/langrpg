@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/sunpatch-alma.json",
   "recipeSha256": "214fb6caf5ce1f06f05f00a112f0a254afe7b0d007c8c9aee681a8d09d4501a1",
   "atlas": "web/public/assets/character-cast/sunpatch-alma.webp",
-  "atlasSha256": "e09fc3dfa4664aa3972d0990cf9918653cc66d36741d46df62ed12bb33719156",
+  "atlasSha256": "70cd79510d9f9dc80b57f2c496fef29bd17cc560a4513c8ad5a6b5053aa06bcd",
   "geometry": "web/public/assets/character-cast/sunpatch-alma.atlas.json",
-  "geometrySha256": "f3efce27cd673244146640be37c20ddb3f6fba8a1a724128416a9d63a79eaad7",
+  "geometrySha256": "a7643b935361f73b7821a7787abfa38dc2c99224cea1d9e191e7dc666911ceb5",
   "textureBytes": 14468484,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/sunpatch-alma.webp",
-      "sha256": "e09fc3dfa4664aa3972d0990cf9918653cc66d36741d46df62ed12bb33719156",
+      "sha256": "70cd79510d9f9dc80b57f2c496fef29bd17cc560a4513c8ad5a6b5053aa06bcd",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/sunpatch-alma.1.webp",
-      "sha256": "7d0da5d3634063c78c308c83ef0c748fb0486cb313f94377320d8f664df00a62",
+      "sha256": "d16716b4a98b1157763301721094b6a84a290db7a3b2c7bed182edfbc583e724",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "f4e77c6560ed042267ec760839e70eb68cd1ac27ee86d583e26eab3731e7fede",
   "editorSha256": "97eae27407eb9772c96a5751f197c70aeea027d4c1f766e69e704ef4cebda84c",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

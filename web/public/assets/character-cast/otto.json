@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/otto.json",
   "recipeSha256": "5da77cab362b5ef1ba12fb6def38ad4c0e5f8a1ea87047cb9542d2fe3a6a7505",
   "atlas": "web/public/assets/character-cast/otto.webp",
-  "atlasSha256": "ad31ab6d9d59c7c67c2c907a1f1955ead6add94b8e0b52a35d2af20845cd9aac",
+  "atlasSha256": "04e6f65cd3734556506235ff3c244d2b591644cf571107c47ad59e971a63a55b",
   "geometry": "web/public/assets/character-cast/otto.atlas.json",
-  "geometrySha256": "9078aa571fe4858bec5785334447d0ca8e8ba961ff3c961a6173c1598fa52ca6",
+  "geometrySha256": "d8e3f5748bd7f622f8d598e013330c456e7bab48e1dc7509953ed9b8aad1dbf7",
   "textureBytes": 14434924,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/otto.webp",
-      "sha256": "ad31ab6d9d59c7c67c2c907a1f1955ead6add94b8e0b52a35d2af20845cd9aac",
+      "sha256": "04e6f65cd3734556506235ff3c244d2b591644cf571107c47ad59e971a63a55b",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/otto.1.webp",
-      "sha256": "fc40a7863f0bd24e4f1b4930e45daf40b09ebbb76dbe2875cb3272a1e3274eef",
+      "sha256": "0f26e43624e557e6dacc0fdb5283ad840abff947fa83091207afca08a8d3c184",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -33,33 +33,5 @@
   "editorSha256": "85530ebca8fc8acc268211f96be5515fe2ded6aee51dcf8e404b609a7ec506d8",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "native": {
-    "key": "character-cast-otto-native",
-    "image": "web/public/assets/character-cast/native/otto.webp",
-    "atlas": "web/public/assets/character-cast/native/otto.atlas.json",
-    "sha256": "02003ccd46d006eac69a1058dd8856e1f65d9eaf6602dd32363f33b652554d4b",
-    "atlasSha256": "7b78243b6aec48646d6a4816db704a99fe18b3dbab2b8d10db7bdc29cf9d15a2",
-    "textureBytes": 27370544,
-    "multiAtlas": true,
-    "images": [
-      {
-        "path": "web/public/assets/character-cast/native/otto.webp",
-        "sha256": "02003ccd46d006eac69a1058dd8856e1f65d9eaf6602dd32363f33b652554d4b",
-        "firstFrame": 0,
-        "frameCount": 18
-      },
-      {
-        "path": "web/public/assets/character-cast/native/otto.1.webp",
-        "sha256": "3724ca397d2f87f9b1c5b10166e9c1458578adbc83dc2c1a0f4d6c524004e466",
-        "firstFrame": 18,
-        "frameCount": 18
-      }
-    ],
-    "cell": [
-      512,
-      768
-    ],
-    "source": "art/proofs/character-cast-painted/otto.webp",
-    "sourceSha256": "85530ebca8fc8acc268211f96be5515fe2ded6aee51dcf8e404b609a7ec506d8"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

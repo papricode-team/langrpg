@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/saffroncourt-resident-2.json",
   "recipeSha256": "bfed1100fb89edda2fc7e3567f203d94f2f48795c863367ad6617001b7485e63",
   "atlas": "web/public/assets/character-cast/saffroncourt-resident-2.webp",
-  "atlasSha256": "1c67f9cd227aa5a5a4619048867515b05c0a0a97516b6e52f7b6731394d056a0",
+  "atlasSha256": "7205ea22de4d173cbfdaa8f0810d6238b867f8ffcc6d96bb43e5695b40ea31fd",
   "geometry": "web/public/assets/character-cast/saffroncourt-resident-2.atlas.json",
-  "geometrySha256": "9f783258a10fe9b66dc827f733d724fd091e48d07ad611342d64c5dd744ecae8",
+  "geometrySha256": "9ac061a4f69df51bdff451a2460d4e30a22a32d58a21bcfc42239d2e5cc26c79",
   "textureBytes": 14493812,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/saffroncourt-resident-2.webp",
-      "sha256": "1c67f9cd227aa5a5a4619048867515b05c0a0a97516b6e52f7b6731394d056a0",
+      "sha256": "7205ea22de4d173cbfdaa8f0810d6238b867f8ffcc6d96bb43e5695b40ea31fd",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/saffroncourt-resident-2.1.webp",
-      "sha256": "d887188b3757a3372a881344448dd12f05829e55e44cd392d034089938c65055",
+      "sha256": "43f1942537785554a7ccbe3af4eef6162ce64c1e3ee635f7c0dd5fef3e8dc81b",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "429c9eb2065dd0e63c85d932ff60c568932d5883f69eb3639f690ff2f6d74f49",
   "editorSha256": "4cf8c33b52791e5d7f36b56c88dbb93bcd78f7e35b824b8336039db4dc2a8a20",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

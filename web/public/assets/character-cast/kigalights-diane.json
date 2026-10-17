@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/kigalights-diane.json",
   "recipeSha256": "7d156ef0b354d50aa19749aac807e4c970079c5a4b7eca97c4e8936bf620d564",
   "atlas": "web/public/assets/character-cast/kigalights-diane.webp",
-  "atlasSha256": "d46535ff3317646957bf6b8875d8bcff694efeda3cd7689a456089b4dd4e6093",
+  "atlasSha256": "9eb24c92ed3b0e6480fdad0041f088718a1d6fe0707877cbdc3c22bca5bd6052",
   "geometry": "web/public/assets/character-cast/kigalights-diane.atlas.json",
-  "geometrySha256": "6389822fb84f187d8ef203ae7d66dea6a5cd36a493b408678033eb5dfe8e1c71",
+  "geometrySha256": "78bd5e507979b6429e6af54bccacc141857b2106f0458394bd07747ce8ea057c",
   "textureBytes": 14490220,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/kigalights-diane.webp",
-      "sha256": "d46535ff3317646957bf6b8875d8bcff694efeda3cd7689a456089b4dd4e6093",
+      "sha256": "9eb24c92ed3b0e6480fdad0041f088718a1d6fe0707877cbdc3c22bca5bd6052",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/kigalights-diane.1.webp",
-      "sha256": "ac496b92849e15a15b212a6d354e863c340feaa935c4b8953edcf17d5ec486ef",
+      "sha256": "679fce37b1f2372df03fa7e56ea8a2c4c2cae3661ea7151b2ece5f36183de098",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "109617418720d9e4b076333a02ad553e00e8bce2ac9282057a69c4ac823082a6",
   "editorSha256": "837c560cda515ae136356236ef13743e6620369b87cafa540dd9501290ec2337",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

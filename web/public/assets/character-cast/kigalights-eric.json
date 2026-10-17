@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/kigalights-eric.json",
   "recipeSha256": "f7622c42f950d7cbd0a65375b3bf2943d4af9d4579a787ec56d36097292c504f",
   "atlas": "web/public/assets/character-cast/kigalights-eric.webp",
-  "atlasSha256": "35fc1b5b9ddef442d1caae9e562b759d82bed6c0970e982925045e6d24413e03",
+  "atlasSha256": "af2f0998887e8879e3708e6476001f5de600b1d280a0c77b20ae432a7685f6f8",
   "geometry": "web/public/assets/character-cast/kigalights-eric.atlas.json",
-  "geometrySha256": "0d77d5398fbeac9f70240ac46d91cf9dd2d926812a606b2268510c262361c524",
+  "geometrySha256": "c2935fddd9ead5da11c0a95e43c3cdc7148d815fddd8531caedc1267c8ff8c35",
   "textureBytes": 14198728,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/kigalights-eric.webp",
-      "sha256": "35fc1b5b9ddef442d1caae9e562b759d82bed6c0970e982925045e6d24413e03",
+      "sha256": "af2f0998887e8879e3708e6476001f5de600b1d280a0c77b20ae432a7685f6f8",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/kigalights-eric.1.webp",
-      "sha256": "502720d77c461f97c44aa54f942f97720e3011dd5495c025ba7958453a638671",
+      "sha256": "23daddc4c94bd94d968ce2ac73882b7dea7b9e43589542cf5cf3a610f374ee7f",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "14c000ee38a5e67f07591371bb15d2364d1c708aca1344221861bf5d2ec96b28",
   "editorSha256": "5c7749b9d5306850bd7055576d4bf520f8cec9c884fbc295f4f540820049bce1",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "04436667851b7c2d90b09c11f1489fc517ed26a5e8c4aae4f7fb508b12d6481a",
-  "atlasSha256": "03c6ade8cb4242d9c70450fb995096424e150d26fb5d2462ed4c3faa4f02fe71",
+  "sha256": "67d1e8d9fb62880c253933f28929e239cfd0a72104456965946cffd2620b5bf8",
+  "atlasSha256": "56c09b2873fb0ad8b987e0aa528da443104ff87e5a7fc60019b18c6af72d0843",
   "textureBytes": 14227608,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/lindenhafen-workyard-keeper.webp",
-      "sha256": "04436667851b7c2d90b09c11f1489fc517ed26a5e8c4aae4f7fb508b12d6481a",
+      "sha256": "67d1e8d9fb62880c253933f28929e239cfd0a72104456965946cffd2620b5bf8",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/lindenhafen-workyard-keeper.1.webp",
-      "sha256": "ee25a95284b3da7383d0b61129036c80dafd6a9e2a76b868a1f9e4bf613fc593",
+      "sha256": "d54a68b5ca9f030c327611244cc8b434e97e38e5fbbb66673c8553ddec726d86",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/lindenhafen-workyard-keeper.atlas.json"
+  "atlas": "web/public/assets/character-cast/lindenhafen-workyard-keeper.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/rainmarket-sora.json",
   "recipeSha256": "97fa729cebc9e73e9d5a3acb21dda8443506978602c79dd8a9bd8169b232077e",
   "atlas": "web/public/assets/character-cast/rainmarket-sora.webp",
-  "atlasSha256": "8dcf6b448ddb06469f5ba027bfee37ae969dbb4043b49cc167a98ce5cb15ef71",
+  "atlasSha256": "e03297e43bc63316624215c5f3a26055c1295b4be3957f03430ad5e6f8a09041",
   "geometry": "web/public/assets/character-cast/rainmarket-sora.atlas.json",
-  "geometrySha256": "3cb834f653764716a039c81d2f611f2298825142050d45c8202488c0cdc2843d",
+  "geometrySha256": "d034a3192de139f0a3bf30d5e6387fd3c4cda78789983f4d4ad290f2953a2b6a",
   "textureBytes": 13757636,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/rainmarket-sora.webp",
-      "sha256": "8dcf6b448ddb06469f5ba027bfee37ae969dbb4043b49cc167a98ce5cb15ef71",
+      "sha256": "e03297e43bc63316624215c5f3a26055c1295b4be3957f03430ad5e6f8a09041",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/rainmarket-sora.1.webp",
-      "sha256": "d9e0f3021cc7d6146b691c913ed12bb1ada09c61043813217c1780668294da62",
+      "sha256": "66170059effbf2cffcf03154f939d91ef2938a3f7579de9b437883c1a9722bf2",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "99a00c1c9074167113153ce517217431f59e88d4ea0afc1730f4877d4e7e8a94",
   "editorSha256": "0b231ce610f7e2bc7d75a8e28e228db073b909761d41589056979662c778206e",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

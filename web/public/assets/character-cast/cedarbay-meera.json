@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/cedarbay-meera.json",
   "recipeSha256": "9d7cbea9143acfb13de07862ef6ece2d8487665097570e1608caa3cfe80475cb",
   "atlas": "web/public/assets/character-cast/cedarbay-meera.webp",
-  "atlasSha256": "94d32e5e339029f0a9f72edd09f4b3313613430c2d6c46990487d57202eb73a8",
+  "atlasSha256": "01efab8927ec52c526feced12416cee67d95374f13762b4bc7aa845ec29be99b",
   "geometry": "web/public/assets/character-cast/cedarbay-meera.atlas.json",
-  "geometrySha256": "6b79d974d4df59b3b2b7c6d5be30d2ab05f9034eb5545b6f8ff947ed8f00dc3c",
+  "geometrySha256": "bc08d217b8374bc9541dc86e29e9fdd0131d2c2487901ee1ce377e1391f53cef",
   "textureBytes": 14093416,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/cedarbay-meera.webp",
-      "sha256": "94d32e5e339029f0a9f72edd09f4b3313613430c2d6c46990487d57202eb73a8",
+      "sha256": "01efab8927ec52c526feced12416cee67d95374f13762b4bc7aa845ec29be99b",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/cedarbay-meera.1.webp",
-      "sha256": "17f93e359bf325a4f8364d891dcbc00efc3dbeda3f4b2f082815ae02c92ce224",
+      "sha256": "ecfa04d8be362853bb82aa7b3d0ec8069a30a5c17f3037ff48d46cc49b59b2e4",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "270fa71219290c3bfd1fcfa09f77b585850e45ed9fe7312c59888313dd6fd057",
   "editorSha256": "f5ede6b14ea3fb2c0ce981e953839876bb760919d6f169854abf3f4a016b8276",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

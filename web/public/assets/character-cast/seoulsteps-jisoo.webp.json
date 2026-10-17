@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "b2f38493920440cff9f95ea6555a8b55721f92f79025abd3e694d80ff5faa4de",
-  "atlasSha256": "9ad0990b13433c278d3ffc14d121c59f1950df15791fbec90f4e052143ccbfed",
+  "sha256": "4c3c6304c48384547935c3137c41311de3d13d11841b706634d49f5b6afe08fe",
+  "atlasSha256": "0f10d2934eeafa2b740686e3d4175eefd695d4ed15a5c49ea890cad547423fd7",
   "textureBytes": 14183232,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/seoulsteps-jisoo.webp",
-      "sha256": "b2f38493920440cff9f95ea6555a8b55721f92f79025abd3e694d80ff5faa4de",
+      "sha256": "4c3c6304c48384547935c3137c41311de3d13d11841b706634d49f5b6afe08fe",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/seoulsteps-jisoo.1.webp",
-      "sha256": "c2619a1d7b93b77c5ae732339dd7348acafa4b5823c3515d790066a02d66636b",
+      "sha256": "af4682d4c5988436e78c350577ae2b90b8dbc7eb641d0e5aa792f5fae9838687",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/seoulsteps-jisoo.atlas.json"
+  "atlas": "web/public/assets/character-cast/seoulsteps-jisoo.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

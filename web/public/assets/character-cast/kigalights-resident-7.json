@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/kigalights-resident-7.json",
   "recipeSha256": "8ed485dc8366baff2c95691ec124417d7054f942caf9d4e408ce14ead429205c",
   "atlas": "web/public/assets/character-cast/kigalights-resident-7.webp",
-  "atlasSha256": "bd1baab0d3d11de619e8f316345307c2c111bf104a9cddeb0f428508baf553b4",
+  "atlasSha256": "860ce2db398197dbef12da8d6f99517f82c8debacb17fb4fabfcfc7f434476fe",
   "geometry": "web/public/assets/character-cast/kigalights-resident-7.atlas.json",
-  "geometrySha256": "053146ca76b5d7460273380904b17430251b89e05935fd084afa52a630e2e0dd",
+  "geometrySha256": "6b7fb698202084bf4ec6100d7a22d1691edfda8b633b7936c775a23b85f71faa",
   "textureBytes": 13369400,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/kigalights-resident-7.webp",
-      "sha256": "bd1baab0d3d11de619e8f316345307c2c111bf104a9cddeb0f428508baf553b4",
+      "sha256": "860ce2db398197dbef12da8d6f99517f82c8debacb17fb4fabfcfc7f434476fe",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/kigalights-resident-7.1.webp",
-      "sha256": "73fb05507507508f8d4becfe39c7504573b2358b121ad82fefdbc14c16915ed8",
+      "sha256": "a3c397935717c1965398f84ccda83ec9edd5ed0a0b0c4a792393dab9559cb840",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "cb30f1459a3b5b24ce78f559afc0550af4b9e58bb2ffc85352b9eccf07a8ea57",
   "editorSha256": "6752e81312b0f99ccbd035efab205280118f0387c4b8521b522eba5b9447e4ed",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

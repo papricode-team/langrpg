@@ -5301,6 +5301,15 @@
       "reference": "art/source/character-portraits/schaffner/expressions.png",
       "review": {
         "recipeSha256": "e43faca37792ae2bcd830bbf3a731f8b8168691d913da0363bcd5f14433bb93f",
+        "proofSha256": "90472eb59779ddcfdaa3a7e35ec6d87a6eead8c36813111e906bf29c8a9b7592",
+        "assetVersion": "e80b2c9758205a2f",
+        "date": "2026-10-17",
+        "board": "art/proofs/character-style-review/schaffner-walk-review.png",
+        "boardSha256": "9496d8d7154c29d1065ddab422c69ab4ce61cc5d7ad8ef3cbc5e8af8121572cc",
+        "notes": "Reviewed every frame on the before/after board and enlarged front, side and rear views. The approved prologue recipe from main is unchanged; dark teal cap and blazer, brass trim, moustache and trousers stay consistent through all four facings. Painted materials preserve all frame alpha and registration (zero alpha differences)."
+      },
+      "paintBaseline": {
+        "recipeSha256": "e43faca37792ae2bcd830bbf3a731f8b8168691d913da0363bcd5f14433bb93f",
         "proofSha256": "c7ec393b55895d56f8e662fd0c8fefaf1644464e74b6fc718607f4db4f19843f",
         "notes": "Inspected the complete 36-frame walk proof: dark cap and uniform remain legible across directions, consistent scale and no missing frames."
       }

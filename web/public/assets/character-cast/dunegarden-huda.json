@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/dunegarden-huda.json",
   "recipeSha256": "910abcacfa26232834814eff07c7688afc3ee4560961b15d81253491461edca4",
   "atlas": "web/public/assets/character-cast/dunegarden-huda.webp",
-  "atlasSha256": "44066c5a976989e708a8a6bfb8a67fe5e4d4ba27ae986e93f47539c58ab4139e",
+  "atlasSha256": "24d3e4e4b611b4e8de1443dc5dbbce6357deb097e119f5dccb35696ca952c2f5",
   "geometry": "web/public/assets/character-cast/dunegarden-huda.atlas.json",
-  "geometrySha256": "38dcd33a5ed5524336a9a5e72e91a44350a948bc209da72ce602d42f8c026d63",
+  "geometrySha256": "69621fc7d3295e4680beb5139e5a2430455bb9c4bcae75a62585a4ec27694922",
   "textureBytes": 14499240,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/dunegarden-huda.webp",
-      "sha256": "44066c5a976989e708a8a6bfb8a67fe5e4d4ba27ae986e93f47539c58ab4139e",
+      "sha256": "24d3e4e4b611b4e8de1443dc5dbbce6357deb097e119f5dccb35696ca952c2f5",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/dunegarden-huda.1.webp",
-      "sha256": "51be00debf2a0b4284fc30d1ed261490d3b2737d2ffe679bba9efc863fe44feb",
+      "sha256": "9ce936d670fd6064f8cc6e562e496ddef0dcaab6ac4ba7f3b7526a8039455f0d",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "e18689bfddf4e20480a76cf46489fd1192219a1df43dce4e04e7399a9d46095a",
   "editorSha256": "82f1ad0896f48bb65182f06194a7ccfbf495aaabc25e9a203a90b135f1ec7824",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

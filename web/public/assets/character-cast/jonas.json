@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/jonas.json",
   "recipeSha256": "89bd91641c12dd292d11c861b7f061d225ed63d08ba92f084b72091189500cb7",
   "atlas": "web/public/assets/character-cast/jonas.webp",
-  "atlasSha256": "4a96c12f88b6fa02b3038b0371a96faa837f932e85e6f73329f7cc6a819f5035",
+  "atlasSha256": "90af0407bbc1dd98316d7e2faa4638e8315334ffffcc7726f369836b11da32d2",
   "geometry": "web/public/assets/character-cast/jonas.atlas.json",
-  "geometrySha256": "4ae4f5d95b455f2e8d911aeff1b03915ca1aac69c5da94157170394c26e5ffa9",
+  "geometrySha256": "2a4aeb95e7ca883c3a0135a4a060f5ee7d9cda97ea504737461921e4147683aa",
   "textureBytes": 14209776,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/jonas.webp",
-      "sha256": "4a96c12f88b6fa02b3038b0371a96faa837f932e85e6f73329f7cc6a819f5035",
+      "sha256": "90af0407bbc1dd98316d7e2faa4638e8315334ffffcc7726f369836b11da32d2",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/jonas.1.webp",
-      "sha256": "eaf5983a08b28fc57420f6620f2f6bb8e454248ed8b084f4dd1b65e9d139750e",
+      "sha256": "c84055c8471a2831c6d2e3a55bd2913646ae02b980c998af97134303dc1c42f9",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -33,33 +33,5 @@
   "editorSha256": "36c507d6e7234b2d2e0b31389b7bef7f69a8f151fe135ffd37f0f5598db3c321",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "native": {
-    "key": "character-cast-jonas-native",
-    "image": "web/public/assets/character-cast/native/jonas.webp",
-    "atlas": "web/public/assets/character-cast/native/jonas.atlas.json",
-    "sha256": "a184f5bf0a188a74adfb7e20fd8394bd16b4c093e0b99eec77a21c288e4f86e7",
-    "atlasSha256": "dd63a519fea5bc4e409da8491ee79aea624dae6caaf1b51497d8fa89bb2692e9",
-    "textureBytes": 27869096,
-    "multiAtlas": true,
-    "images": [
-      {
-        "path": "web/public/assets/character-cast/native/jonas.webp",
-        "sha256": "a184f5bf0a188a74adfb7e20fd8394bd16b4c093e0b99eec77a21c288e4f86e7",
-        "firstFrame": 0,
-        "frameCount": 18
-      },
-      {
-        "path": "web/public/assets/character-cast/native/jonas.1.webp",
-        "sha256": "a339343a59ce9b478dcdc1f7f4026040ba31b3665ebb41670485df0370ed3edf",
-        "firstFrame": 18,
-        "frameCount": 18
-      }
-    ],
-    "cell": [
-      512,
-      768
-    ],
-    "source": "art/proofs/character-cast-painted/jonas.webp",
-    "sourceSha256": "36c507d6e7234b2d2e0b31389b7bef7f69a8f151fe135ffd37f0f5598db3c321"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

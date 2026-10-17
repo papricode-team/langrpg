@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "5443ca4c80ed85be42231b690c5e4d771a55042c236b4aa997a42811ce67007c",
-  "atlasSha256": "bf95421efea9753ac1c0cd20f4ebe8636c25cacb0b06c1139c2568cf97981609",
+  "sha256": "90463f548890db213b63633623c82827118f15e59eb757df18e0747fdbb79c33",
+  "atlasSha256": "43d7721bce93818c079ab34727c4ff10deb7c55dc22e109ecb576500a65bb6d9",
   "textureBytes": 14553808,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/seoulsteps-minji.webp",
-      "sha256": "5443ca4c80ed85be42231b690c5e4d771a55042c236b4aa997a42811ce67007c",
+      "sha256": "90463f548890db213b63633623c82827118f15e59eb757df18e0747fdbb79c33",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/seoulsteps-minji.1.webp",
-      "sha256": "f66681a5651892f24c4fdeb4f8dc2988ddc0b4943d3e6d84c8d13ae4d1cd3e16",
+      "sha256": "7de436045c95aef5d93963860b6680f03e8e7ae393a4b6e5501a655d7cfcf6da",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/seoulsteps-minji.atlas.json"
+  "atlas": "web/public/assets/character-cast/seoulsteps-minji.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

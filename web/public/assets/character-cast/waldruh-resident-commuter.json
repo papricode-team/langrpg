@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/waldruh-resident-commuter.json",
   "recipeSha256": "6a838c2ac96d0855d80f41af676f8722ca359e8446097956a40a887382d11582",
   "atlas": "web/public/assets/character-cast/waldruh-resident-commuter.webp",
-  "atlasSha256": "97cf87b6e85acfd205374119543c1f6c90983cb894db909b9d75afac2a004f5d",
+  "atlasSha256": "3a7955840c4d0823c1c57d8b0beeef15fb6a2eb92ebd99426a6997eba5cabbb2",
   "geometry": "web/public/assets/character-cast/waldruh-resident-commuter.atlas.json",
-  "geometrySha256": "4cb7368fe18e5c08e99bf8ff845979700272ea2d5dd10ad70d0781ee7232306d",
+  "geometrySha256": "bb3d053f9937120840fb7e69c82fb7b56ee83fa1bdedce31fc232b6262167d67",
   "textureBytes": 14132316,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/waldruh-resident-commuter.webp",
-      "sha256": "97cf87b6e85acfd205374119543c1f6c90983cb894db909b9d75afac2a004f5d",
+      "sha256": "3a7955840c4d0823c1c57d8b0beeef15fb6a2eb92ebd99426a6997eba5cabbb2",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/waldruh-resident-commuter.1.webp",
-      "sha256": "64e576303f7be1c82e942e26e3169db2fa7b54b31453315954351868a0e29238",
+      "sha256": "f5acb5c2d78b605fa80813c212ed0f09a4423c9ea299f411871a1732e44fa905",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "81d00dc6b854ef14fc88115dbf045373e33dc74e83bb1d024e210b21cc0bbdc2",
   "editorSha256": "45328d75b0e3854e016ab5b94c291bbc51bceb2edfb3213d4642f253c760eaf5",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

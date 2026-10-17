@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "567e3316ee96bd70153e0aa1f02646a9ceab01721f9e6b1a25ce63fcc0ca8dec",
-  "atlasSha256": "bb8267270029af657167d11e5de253b3536ef2e780c408f94c83d4d0420a64d0",
+  "sha256": "f139e3862bf115dd9ada7b92224e32a04dfefd1048c0feeecd6dccc12be300c1",
+  "atlasSha256": "c71ac355bbf7a08c02380b5cf650fca303e0307b3c2ec2b62e1bf1ef59e4af52",
   "textureBytes": 14186884,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/terracielo-tomas.webp",
-      "sha256": "567e3316ee96bd70153e0aa1f02646a9ceab01721f9e6b1a25ce63fcc0ca8dec",
+      "sha256": "f139e3862bf115dd9ada7b92224e32a04dfefd1048c0feeecd6dccc12be300c1",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/terracielo-tomas.1.webp",
-      "sha256": "f339d94d400e6b3282f89c41e48c62038609e5e4fa45a3b5568ceac0933f2a17",
+      "sha256": "92e1f9b02ef8bfb5c8cbfbe9b2b8f31a6108b7e200a1813cb5ec364b2d19fb54",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/terracielo-tomas.atlas.json"
+  "atlas": "web/public/assets/character-cast/terracielo-tomas.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

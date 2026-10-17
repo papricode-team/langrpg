@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/dunegarden-salim.json",
   "recipeSha256": "5a61497992942a679cb436904c33b02b4f766efd4f979146b16c1c63ee84f7f2",
   "atlas": "web/public/assets/character-cast/dunegarden-salim.webp",
-  "atlasSha256": "619a73c9bcf1739298e3bcbb32141544fc7f4b30ac5ca584ea8a22b14ddec250",
+  "atlasSha256": "42d2446c3c007f2d005a6248866a9b539c21d2852eab28a5f75d7aafdf1eb166",
   "geometry": "web/public/assets/character-cast/dunegarden-salim.atlas.json",
-  "geometrySha256": "0f6d66c3d9d7495e31d331c2e869537df5c4c5cfc1b018d702c5aed5aec3f2e4",
+  "geometrySha256": "728f7980733dd31ec7f5fd5d12056158de95544446ad7821a7ef341f7178c9ed",
   "textureBytes": 14187808,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/dunegarden-salim.webp",
-      "sha256": "619a73c9bcf1739298e3bcbb32141544fc7f4b30ac5ca584ea8a22b14ddec250",
+      "sha256": "42d2446c3c007f2d005a6248866a9b539c21d2852eab28a5f75d7aafdf1eb166",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/dunegarden-salim.1.webp",
-      "sha256": "f93908a32fb910c80bc9f86fd5613cdeb67f87f505e55056f8d78d1fa420cad1",
+      "sha256": "b921cf9400e4e1cd7c5ad3ec3e1f551e70e0fceed629d031ceed6f56e8cee39e",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "1f3496898cbb38a43497f6173f5e1f60d397d259c1183c2e53db920d3b70379f",
   "editorSha256": "f1454ac7f694cad85fe3a5942310e9272812cd2409f3c533423a6dccc8971e5f",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

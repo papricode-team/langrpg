@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "33463f17d9145c876bdebf3a7853f3f42c921fd817aebc73282cd507adac834c",
-  "atlasSha256": "7db481cd1a156270bafa4d30d6df9ed8cb4a3aed7c671ae573892dc221175c8c",
+  "sha256": "610272f54eabdebf9d7492b5c671f80039ccaa28f2ed7b7e55012f4762376296",
+  "atlasSha256": "735feefd2c0089ee9f952d0a4f58b5d51ac3681fa2edaa8243a3dc951ea0f7ac",
   "textureBytes": 14726052,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/terracielo-diego.webp",
-      "sha256": "33463f17d9145c876bdebf3a7853f3f42c921fd817aebc73282cd507adac834c",
+      "sha256": "610272f54eabdebf9d7492b5c671f80039ccaa28f2ed7b7e55012f4762376296",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/terracielo-diego.1.webp",
-      "sha256": "365a363a6be1f5d66da4490b97f2df557a2f2308bb9c3e11de05c3ebeeedd40f",
+      "sha256": "18af964bd17b2be94bd01efc93d9e87a28066eada2736dcb5323f8322ffb98e8",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/terracielo-diego.atlas.json"
+  "atlas": "web/public/assets/character-cast/terracielo-diego.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

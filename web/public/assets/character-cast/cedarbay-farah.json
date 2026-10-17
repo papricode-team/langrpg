@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/cedarbay-farah.json",
   "recipeSha256": "8dc5dc27c023af52e107cbf52e233af3a91426b1aed2a7c9cdbd14f005f2f3ad",
   "atlas": "web/public/assets/character-cast/cedarbay-farah.webp",
-  "atlasSha256": "75a1d81d8e0d1bfbab237158b6fa17309343663d7c21d2d16d6065252acb64ed",
+  "atlasSha256": "753a64f705ff1d100c7bb6af03b5a7cb1c0171029ff78551436f12f0b66d3b83",
   "geometry": "web/public/assets/character-cast/cedarbay-farah.atlas.json",
-  "geometrySha256": "79fdcc2d2685357ac8e5c2625fc1b3be98ba23386dc137b3cb5efdee77212843",
+  "geometrySha256": "7087c0c537a6e0a47cfd65f99f4b34823655d8f18aa36a83f3542b2c6c1bb729",
   "textureBytes": 14532188,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/cedarbay-farah.webp",
-      "sha256": "75a1d81d8e0d1bfbab237158b6fa17309343663d7c21d2d16d6065252acb64ed",
+      "sha256": "753a64f705ff1d100c7bb6af03b5a7cb1c0171029ff78551436f12f0b66d3b83",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/cedarbay-farah.1.webp",
-      "sha256": "004b8349da9efa0ad17e661bbdb396372ebb60b25be3b14ee2fb490fe95ac4e5",
+      "sha256": "0c467eff27b674a125a96ac89e103d62f41fe85a06eaa1d5ecda8a61ff5c90b4",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "64037d72b79f87472115a2ab65843be24d28eff7133b75a928d010a7e2e8c625",
   "editorSha256": "a63cee29eefc03319c26054e1e145182bf1e96b6b82a2453377b35fc944f5ba7",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

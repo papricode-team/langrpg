@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "4e2246c4ab8872945371f7c1b69677b3aac0a14a245c71f73d40af919121482a",
-  "atlasSha256": "5113a3718ad34c6ac369401701e79f71f787af1026cede308b7ca350348ce9d5",
+  "sha256": "55589943ecc65739a2322b47875076a236fadfb5d19fd5717650f74bf5f14487",
+  "atlasSha256": "4be8d1b866d931ba105578f2e6722f91bb9800281d163ce7641232013f961d00",
   "textureBytes": 14183232,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/emil.webp",
-      "sha256": "4e2246c4ab8872945371f7c1b69677b3aac0a14a245c71f73d40af919121482a",
+      "sha256": "55589943ecc65739a2322b47875076a236fadfb5d19fd5717650f74bf5f14487",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/emil.1.webp",
-      "sha256": "21fb7f30bf016e16edcea4fd9e933f58a943b917c00297df8634c6b112f7c51f",
+      "sha256": "732469fcc6c4f00aaf5de3529dfd1b45c5057e03c81b9dee7d90a8e10aec377a",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/emil.atlas.json"
+  "atlas": "web/public/assets/character-cast/emil.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

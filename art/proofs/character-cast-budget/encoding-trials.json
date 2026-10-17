@@ -1,0 +1,499 @@
+{
+  "encoder": {
+    "nearLossless": true,
+    "quality": 40,
+    "effort": 6
+  },
+  "distributionEncoder": {
+    "quality": 75,
+    "alphaQuality": 100,
+    "effort": 4
+  },
+  "layout": "Each group of three is original lossless source, previous distribution, candidate distribution; columns frame0,4,9; top cell96px(1x),bottom cell192px(2x); neutral #ece8df background.",
+  "rows": [
+    {
+      "name": "marta",
+      "source": 1383774,
+      "baseline": 282234,
+      "candidate": 224274,
+      "saved": 57960
+    },
+    {
+      "name": "fritz",
+      "source": 1226678,
+      "baseline": 276826,
+      "candidate": 218612,
+      "saved": 58214
+    },
+    {
+      "name": "lindenhafen-resident-courier",
+      "source": 1287442,
+      "baseline": 282056,
+      "candidate": 223750,
+      "saved": 58306
+    }
+  ],
+  "stats": [
+    {
+      "name": "marta",
+      "frame": 0,
+      "cellHeight": 96,
+      "MAE": 0.3218315972222222,
+      "RMSE": 0.8382019239287022,
+      "max": 9
+    },
+    {
+      "name": "marta",
+      "frame": 0,
+      "cellHeight": 192,
+      "MAE": 0.4478352864583333,
+      "RMSE": 1.2025273587786314,
+      "max": 16
+    },
+    {
+      "name": "marta",
+      "frame": 4,
+      "cellHeight": 96,
+      "MAE": 0.3210177951388889,
+      "RMSE": 0.8429458616628024,
+      "max": 10
+    },
+    {
+      "name": "marta",
+      "frame": 4,
+      "cellHeight": 192,
+      "MAE": 0.458251953125,
+      "RMSE": 1.2396161585289662,
+      "max": 25
+    },
+    {
+      "name": "marta",
+      "frame": 9,
+      "cellHeight": 96,
+      "MAE": 0.23942057291666666,
+      "RMSE": 0.7179569900650967,
+      "max": 8
+    },
+    {
+      "name": "marta",
+      "frame": 9,
+      "cellHeight": 192,
+      "MAE": 0.3347981770833333,
+      "RMSE": 1.035869284036896,
+      "max": 18
+    },
+    {
+      "name": "fritz",
+      "frame": 0,
+      "cellHeight": 96,
+      "MAE": 0.2861870659722222,
+      "RMSE": 0.8150667257109145,
+      "max": 14
+    },
+    {
+      "name": "fritz",
+      "frame": 0,
+      "cellHeight": 192,
+      "MAE": 0.4084743923611111,
+      "RMSE": 1.2203070538006227,
+      "max": 23
+    },
+    {
+      "name": "fritz",
+      "frame": 4,
+      "cellHeight": 96,
+      "MAE": 0.27978515625,
+      "RMSE": 0.7996106365843871,
+      "max": 8
+    },
+    {
+      "name": "fritz",
+      "frame": 4,
+      "cellHeight": 192,
+      "MAE": 0.3975965711805556,
+      "RMSE": 1.1905912797791318,
+      "max": 21
+    },
+    {
+      "name": "fritz",
+      "frame": 9,
+      "cellHeight": 96,
+      "MAE": 0.20155164930555555,
+      "RMSE": 0.6836619509629335,
+      "max": 10
+    },
+    {
+      "name": "fritz",
+      "frame": 9,
+      "cellHeight": 192,
+      "MAE": 0.2900390625,
+      "RMSE": 1.020487824182903,
+      "max": 15
+    },
+    {
+      "name": "lindenhafen-resident-courier",
+      "frame": 0,
+      "cellHeight": 96,
+      "MAE": 0.2980143229166667,
+      "RMSE": 0.8338214716159436,
+      "max": 9
+    },
+    {
+      "name": "lindenhafen-resident-courier",
+      "frame": 0,
+      "cellHeight": 192,
+      "MAE": 0.4166802300347222,
+      "RMSE": 1.2231324784731348,
+      "max": 23
+    },
+    {
+      "name": "lindenhafen-resident-courier",
+      "frame": 4,
+      "cellHeight": 96,
+      "MAE": 0.2862413194444444,
+      "RMSE": 0.8151665644380771,
+      "max": 9
+    },
+    {
+      "name": "lindenhafen-resident-courier",
+      "frame": 4,
+      "cellHeight": 192,
+      "MAE": 0.4043240017361111,
+      "RMSE": 1.2050174510320033,
+      "max": 22
+    },
+    {
+      "name": "lindenhafen-resident-courier",
+      "frame": 9,
+      "cellHeight": 96,
+      "MAE": 0.2284613715277778,
+      "RMSE": 0.7276397703648878,
+      "max": 9
+    },
+    {
+      "name": "lindenhafen-resident-courier",
+      "frame": 9,
+      "cellHeight": 192,
+      "MAE": 0.3177490234375,
+      "RMSE": 1.0560658431670664,
+      "max": 17
+    }
+  ],
+  "sourceAlpha": [
+    {
+      "name": "marta",
+      "pixels": 1730736,
+      "changedAlpha": 82472,
+      "maxAlphaError": 4,
+      "fullyTransparentChanged": 0,
+      "opaqueChanged": 0,
+      "positiveToZero": 21876,
+      "softToOpaque": 16592,
+      "sourceSha256": "f7b7284019f658934948006f1bf11ed6042e5876290ebe16133129437e58bcc6",
+      "previousDistributionSha256": "c3c2079ea64bd870372bdcf0cef27fbe146fda0c9cf5e9fbce320dd13c0053d4",
+      "candidateDistributionSha256": "91fed086af64ff9bad2c8df77f16df5f4fc9bf9de383b93220d783d20e20461e",
+      "proofSha256": "860fca084952a3606778d7ee0b0179b7841673c35dde7305d0ebeb03323158e5"
+    },
+    {
+      "name": "fritz",
+      "pixels": 1790256,
+      "changedAlpha": 82414,
+      "maxAlphaError": 4,
+      "fullyTransparentChanged": 0,
+      "opaqueChanged": 0,
+      "positiveToZero": 25117,
+      "softToOpaque": 11575,
+      "sourceSha256": "bba9d63d37b62b1042e030171507762a57576bcccdb3981a10cbc8ca7714c1f3",
+      "previousDistributionSha256": "3bcf954abed204e16282b1dc4c1388e7bbb907e0235ee0090694d32ec481e147",
+      "candidateDistributionSha256": "acc7a0a719531e482a40ab8530142787038797e9852086924ae786f1b7b4c5a6",
+      "proofSha256": "4f90a8f68dfd89c85fafa578f222e5a7c38f028213bcc4fa2818e1c088da2c43"
+    },
+    {
+      "name": "lindenhafen-resident-courier",
+      "pixels": 1799125,
+      "changedAlpha": 82750,
+      "maxAlphaError": 4,
+      "fullyTransparentChanged": 0,
+      "opaqueChanged": 0,
+      "positiveToZero": 23418,
+      "softToOpaque": 13585,
+      "sourceSha256": "e15bd28aa6b50d7c2bfd1706a62f6abaf46ca11db72d2da6fd445c6ddaee78f5",
+      "previousDistributionSha256": "86689d721854a3700b78018c1edeb87591a4827b4500eb07557f2bc40ff9c121",
+      "candidateDistributionSha256": "a532be71d267e83cda52fa106b0667df3a0cc2b9085b05fde1de2a61ee8c5db2",
+      "proofSha256": "cfeac5499b6a08e2fab07eac5d3f681fd9915fa91177374eaefb7d142b39c9be"
+    }
+  ],
+  "review": {
+    "result": "approved for runtime export",
+    "reviewer": "Codex visual inspection using local image viewer",
+    "scope": "Three identities, front neutral/stride and side view, native display at 1x and2x, original lossless source/previous distribution/candidate comparison.",
+    "finding": "No visible degradation at play size: face/hair, fabric folds, outlines and frame registration remain visually consistent with previous distribution.",
+    "alpha": "Near-lossless export intentionally quantizes soft alpha by at most4/255 on these samples. Fully transparent and fully opaque source alpha stay exact. Very faint positive alpha can become zero. Lossless editor proofs and compositor stay unchanged.",
+    "excludedAlternative": "Restoring original alpha after near-lossless preprocessing saves only1.4–1.9% after distribution encoding and cannot meet the budget."
+  },
+  "trainSizeReview": {
+    "layout": "Each row is frame0,4,9 respectively; three columns are original lossless source / previous distribution / candidate distribution. Separate boards show actual painted-figure height150px(1x) and300px(2x). Neutral#ece8df background.",
+    "boards": [
+      {
+        "name": "marta",
+        "paintedHeight": 150,
+        "path": "art/proofs/character-cast-budget/marta-train-150px-compare.png",
+        "sha256": "40efcdaafa0d7fce4266cb52ce0797a613ec4575e3d393a6d388e5292b31205c"
+      },
+      {
+        "name": "marta",
+        "paintedHeight": 300,
+        "path": "art/proofs/character-cast-budget/marta-train-300px-compare.png",
+        "sha256": "a0501bb9ba2db786355500722793fc4f1f7a9bb5fc5f24bb013bf023144c510a"
+      },
+      {
+        "name": "fritz",
+        "paintedHeight": 150,
+        "path": "art/proofs/character-cast-budget/fritz-train-150px-compare.png",
+        "sha256": "6057858ac002802e770cb31e6247507bbc3a1c093a1b9dd20ec7964935e33e9a"
+      },
+      {
+        "name": "fritz",
+        "paintedHeight": 300,
+        "path": "art/proofs/character-cast-budget/fritz-train-300px-compare.png",
+        "sha256": "658ccbe32c7b3ea0e5b5b8d82842c7ab732843c77c9493ff02a17eeaaf3fd074"
+      },
+      {
+        "name": "lindenhafen-resident-courier",
+        "paintedHeight": 150,
+        "path": "art/proofs/character-cast-budget/lindenhafen-resident-courier-train-150px-compare.png",
+        "sha256": "3de2dfc602cb02fc83e1b5a3a4928e981542a67a1253f9a809ba25496eb13672"
+      },
+      {
+        "name": "lindenhafen-resident-courier",
+        "paintedHeight": 300,
+        "path": "art/proofs/character-cast-budget/lindenhafen-resident-courier-train-300px-compare.png",
+        "sha256": "f56081ad06b1fbd3a22ace4ce6f05c5c627112ffcd362f2115d7d64551e72cb8"
+      }
+    ],
+    "stats": [
+      {
+        "name": "marta",
+        "frame": 0,
+        "paintedHeight": 150,
+        "cell": [
+          129,
+          194
+        ],
+        "MAE": 0.44788087056128295,
+        "RMSE": 1.205314249312665,
+        "max": 16
+      },
+      {
+        "name": "marta",
+        "frame": 4,
+        "paintedHeight": 150,
+        "cell": [
+          129,
+          193
+        ],
+        "MAE": 0.45910484529595263,
+        "RMSE": 1.245871198631523,
+        "max": 32
+      },
+      {
+        "name": "marta",
+        "frame": 9,
+        "paintedHeight": 150,
+        "cell": [
+          130,
+          195
+        ],
+        "MAE": 0.33725180802103877,
+        "RMSE": 1.0410761639881083,
+        "max": 16
+      },
+      {
+        "name": "marta",
+        "frame": 0,
+        "paintedHeight": 300,
+        "cell": [
+          259,
+          388
+        ],
+        "MAE": 0.587691889238281,
+        "RMSE": 1.6435227182469152,
+        "max": 32
+      },
+      {
+        "name": "marta",
+        "frame": 4,
+        "paintedHeight": 300,
+        "cell": [
+          257,
+          386
+        ],
+        "MAE": 0.5980927803874921,
+        "RMSE": 1.685214960586475,
+        "max": 35
+      },
+      {
+        "name": "marta",
+        "frame": 9,
+        "paintedHeight": 300,
+        "cell": [
+          260,
+          390
+        ],
+        "MAE": 0.4359237343852728,
+        "RMSE": 1.393251793052091,
+        "max": 26
+      },
+      {
+        "name": "fritz",
+        "frame": 0,
+        "paintedHeight": 150,
+        "cell": [
+          129,
+          194
+        ],
+        "MAE": 0.41131889501585017,
+        "RMSE": 1.229358189834055,
+        "max": 21
+      },
+      {
+        "name": "fritz",
+        "frame": 4,
+        "paintedHeight": 150,
+        "cell": [
+          129,
+          193
+        ],
+        "MAE": 0.4014004364649021,
+        "RMSE": 1.1985931603301876,
+        "max": 20
+      },
+      {
+        "name": "fritz",
+        "frame": 9,
+        "paintedHeight": 150,
+        "cell": [
+          131,
+          196
+        ],
+        "MAE": 0.29176403385781796,
+        "RMSE": 1.0284926663167773,
+        "max": 17
+      },
+      {
+        "name": "fritz",
+        "frame": 0,
+        "paintedHeight": 300,
+        "cell": [
+          258,
+          387
+        ],
+        "MAE": 0.5447322209536019,
+        "RMSE": 1.685529141368488,
+        "max": 39
+      },
+      {
+        "name": "fritz",
+        "frame": 4,
+        "paintedHeight": 300,
+        "cell": [
+          257,
+          386
+        ],
+        "MAE": 0.5319986828222549,
+        "RMSE": 1.6551682280870683,
+        "max": 33
+      },
+      {
+        "name": "fritz",
+        "frame": 9,
+        "paintedHeight": 300,
+        "cell": [
+          261,
+          392
+        ],
+        "MAE": 0.39396160763155835,
+        "RMSE": 1.4293910711960502,
+        "max": 25
+      },
+      {
+        "name": "lindenhafen-resident-courier",
+        "frame": 0,
+        "paintedHeight": 150,
+        "cell": [
+          126,
+          189
+        ],
+        "MAE": 0.41661767587693516,
+        "RMSE": 1.218988369371424,
+        "max": 22
+      },
+      {
+        "name": "lindenhafen-resident-courier",
+        "frame": 4,
+        "paintedHeight": 150,
+        "cell": [
+          125,
+          188
+        ],
+        "MAE": 0.40086524822695035,
+        "RMSE": 1.1973670879318554,
+        "max": 21
+      },
+      {
+        "name": "lindenhafen-resident-courier",
+        "frame": 9,
+        "paintedHeight": 150,
+        "cell": [
+          128,
+          192
+        ],
+        "MAE": 0.3177490234375,
+        "RMSE": 1.0560658431670664,
+        "max": 17
+      },
+      {
+        "name": "lindenhafen-resident-courier",
+        "frame": 0,
+        "paintedHeight": 300,
+        "cell": [
+          252,
+          378
+        ],
+        "MAE": 0.5348464488676129,
+        "RMSE": 1.606876651805006,
+        "max": 33
+      },
+      {
+        "name": "lindenhafen-resident-courier",
+        "frame": 4,
+        "paintedHeight": 300,
+        "cell": [
+          250,
+          376
+        ],
+        "MAE": 0.5197695035460993,
+        "RMSE": 1.5891665597444244,
+        "max": 29
+      },
+      {
+        "name": "lindenhafen-resident-courier",
+        "frame": 9,
+        "paintedHeight": 300,
+        "cell": [
+          257,
+          385
+        ],
+        "MAE": 0.40261424697222364,
+        "RMSE": 1.3856683623252657,
+        "max": 28
+      }
+    ],
+    "review": {
+      "result": "approved for runtime export",
+      "reviewer": "Codex local image viewer, original resolution",
+      "finding": "Viewed all six boards: three identities and frames0,4,9 at actual painted-figure heights150px and300px. No visible quality degradation against previous distribution in faces, hair, cloth folds, shoe details or alpha edges. The source column retains the existing minor sharpness differences from the production q75 encoding, which are already present in previous distribution.",
+      "maximumRenderedMAE": 0.5980927803874921
+    }
+  }
+}

@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/terracielo-resident-7.json",
   "recipeSha256": "5970d9fb499bd97d78f5ce44ecb57b918ce91d90be05e0e57266dd82708661b0",
   "atlas": "web/public/assets/character-cast/terracielo-resident-7.webp",
-  "atlasSha256": "a0675ecb8918908804d72504b340b21608b448f53b98c0edec5ce332477c17dc",
+  "atlasSha256": "7d23cb869b3b8b5e7ffeb10c5802c8076451cc3958568d9a353b9b0d17dc15e7",
   "geometry": "web/public/assets/character-cast/terracielo-resident-7.atlas.json",
-  "geometrySha256": "6b456df6481d5975b02efe6ec169ca70aa5c66bdaf89b515d3bb80a29630d26c",
+  "geometrySha256": "fddb8fd945365a5d684baea381e27e33c34d09803b23eda2a7f427ac38ea6603",
   "textureBytes": 13910312,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/terracielo-resident-7.webp",
-      "sha256": "a0675ecb8918908804d72504b340b21608b448f53b98c0edec5ce332477c17dc",
+      "sha256": "7d23cb869b3b8b5e7ffeb10c5802c8076451cc3958568d9a353b9b0d17dc15e7",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/terracielo-resident-7.1.webp",
-      "sha256": "a367cba2a3d1d009cd803e24ee35d0f57373b48656b547064867f553f38f3000",
+      "sha256": "6312c4742593a57e91f0eefb8e3322a6bd823511b382e01cdcd538c02e244273",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "cb7560b1627d7841815196a11b5f67ff709abf72dcac541552fe47b4f5ed81bb",
   "editorSha256": "9ac792fbf3052711206fa4b73000445696553900060c210e178c046e882669cd",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "43d6ecc8d5181427bfd18cd23938a5ff807964a4cd589fdb80c3a78ab2cafb41",
-  "atlasSha256": "3b83c90ee037007d39cc1ef1f6e284fa5a95a9c4ff220422accb1c8add854cc1",
+  "sha256": "9856fb63784c7d01497fc95f5b72da7cc36e70659f4a49c6f20f0fe882ef03d8",
+  "atlasSha256": "589d426671327ec6e1403323e42d8960cdfc35bf396af800696d8e22152c1204",
   "textureBytes": 14189680,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/kigalights-chantal.webp",
-      "sha256": "43d6ecc8d5181427bfd18cd23938a5ff807964a4cd589fdb80c3a78ab2cafb41",
+      "sha256": "9856fb63784c7d01497fc95f5b72da7cc36e70659f4a49c6f20f0fe882ef03d8",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/kigalights-chantal.1.webp",
-      "sha256": "b89fb8012087e20eacf042568c7ca83451f34315f2f62cf35e587a7e2ccbadb7",
+      "sha256": "8270fe0ace4811f51aae022edcf5c800427b3d597789cf1ca4ca52550c528ae3",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/kigalights-chantal.atlas.json"
+  "atlas": "web/public/assets/character-cast/kigalights-chantal.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

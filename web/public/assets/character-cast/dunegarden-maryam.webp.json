@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "fa9d08f9abe7421b5963d268edf0660adf0280feb0aebd8656d4f3029d500f1e",
-  "atlasSha256": "ce10b046ade339c8e9c68a0d42cd83e8a67cf110fa3233d3a6be3451ba4e11d2",
+  "sha256": "6a7459d4a51e2d2acbd3c0e05c27958039c3d7ace01f6910e04f0d257a3856c7",
+  "atlasSha256": "9af6262048b32e71dc8329f0c3185f0553cc6bc77a9981e431bfde7fe53d996d",
   "textureBytes": 13805212,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/dunegarden-maryam.webp",
-      "sha256": "fa9d08f9abe7421b5963d268edf0660adf0280feb0aebd8656d4f3029d500f1e",
+      "sha256": "6a7459d4a51e2d2acbd3c0e05c27958039c3d7ace01f6910e04f0d257a3856c7",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/dunegarden-maryam.1.webp",
-      "sha256": "c4180380c525e0e4312ce9eb8247eb49e3439c9acad9b03476843352f62a9657",
+      "sha256": "5d736a4a36f86dbe7b6f07a0e2f5fb9b33bf9fb7a6584d21d41a5640dc800769",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/dunegarden-maryam.atlas.json"
+  "atlas": "web/public/assets/character-cast/dunegarden-maryam.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

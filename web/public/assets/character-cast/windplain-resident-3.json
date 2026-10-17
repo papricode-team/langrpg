@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/windplain-resident-3.json",
   "recipeSha256": "f6d0a6a5a1de82508a87cbcc5cbcae9fba6b9700da0fb01b5c90ff9f07ac1478",
   "atlas": "web/public/assets/character-cast/windplain-resident-3.webp",
-  "atlasSha256": "4f921c0dd40d4ee96a1b85041b650b6804f9d311cc48a5313330a31e6e8dece5",
+  "atlasSha256": "d062987678bc2742c3e9583c596aa7a0796f3c9eafc9b7f01e029d73f361fc04",
   "geometry": "web/public/assets/character-cast/windplain-resident-3.atlas.json",
-  "geometrySha256": "8ccccdc03ba3161122454f91640953c9ca52575176c8cdab1b592fbe4281a1ec",
+  "geometrySha256": "042f3360f32cb8fd8dc4f7f6cabec3c797678190440389b5d4a366b342b01ab3",
   "textureBytes": 13917496,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/windplain-resident-3.webp",
-      "sha256": "4f921c0dd40d4ee96a1b85041b650b6804f9d311cc48a5313330a31e6e8dece5",
+      "sha256": "d062987678bc2742c3e9583c596aa7a0796f3c9eafc9b7f01e029d73f361fc04",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/windplain-resident-3.1.webp",
-      "sha256": "fefc7d7a205c9a1199128dcce4d4f9b5ec8ab4ba6414d4238bf821b118c2e975",
+      "sha256": "bfbfcfa3d232f4f0f2913621fca536411bd4b1f7c6bff59510f4e301068807d4",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "1bca07cb302434bbd9186f9f939161f5f57e60e494984b6d6e1454440ca90d72",
   "editorSha256": "6f11be66958f9ac9a33d2442623dca93fcf24630f8c802b69d68b31f748e316d",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

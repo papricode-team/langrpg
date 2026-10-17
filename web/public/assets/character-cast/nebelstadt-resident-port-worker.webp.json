@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "f904faabd4cb123c0bcbfc604d246c41f6e6dad1ead0b0f99b063a2952292574",
-  "atlasSha256": "71c9fc6b65b46dd3fecb82c00b4ac58270cf549e0945b3d08d54e11f4c72583f",
+  "sha256": "55f71bbaadf8f902c2c1af89e4833961049bf8d6c28cd2e5fdfccd0b0307b6e8",
+  "atlasSha256": "a6be00c62dd95ad50e5007e7858792fd09fd83de0edda62f0e790a203ce8b7de",
   "textureBytes": 13810076,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/nebelstadt-resident-port-worker.webp",
-      "sha256": "f904faabd4cb123c0bcbfc604d246c41f6e6dad1ead0b0f99b063a2952292574",
+      "sha256": "55f71bbaadf8f902c2c1af89e4833961049bf8d6c28cd2e5fdfccd0b0307b6e8",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/nebelstadt-resident-port-worker.1.webp",
-      "sha256": "a0498f1568a7cbc0d9c586cb6bf702731ab1c70b8591342646a2f9198cefd52b",
+      "sha256": "cfd2c6e4392be445e40e52c3a379b2331c70a99a8ebe2f3768703115d41b2e20",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/nebelstadt-resident-port-worker.atlas.json"
+  "atlas": "web/public/assets/character-cast/nebelstadt-resident-port-worker.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/jakob.json",
   "recipeSha256": "a533db99913ea5201ec69eee9a46861396ce30365b2685845b6f7e7664cef5d5",
   "atlas": "web/public/assets/character-cast/jakob.webp",
-  "atlasSha256": "d484303294b56c10eb45cef63b9cd8892da84730e9c3a76ebc72052e93f147bf",
+  "atlasSha256": "d537681f5c4828ca427e14a30fc04e5ecedd208817dd959f4fd8358643205f62",
   "geometry": "web/public/assets/character-cast/jakob.atlas.json",
-  "geometrySha256": "3221b909d4eec0271be5ee3d9ddb5e3faf81da7817ee187ad5e14a55266dc63f",
+  "geometrySha256": "0bf208cd63381b84ad5d9ae815d04442860a4fe7f914e6e6bf88d6b0ee78d7a0",
   "textureBytes": 14430336,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/jakob.webp",
-      "sha256": "d484303294b56c10eb45cef63b9cd8892da84730e9c3a76ebc72052e93f147bf",
+      "sha256": "d537681f5c4828ca427e14a30fc04e5ecedd208817dd959f4fd8358643205f62",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/jakob.1.webp",
-      "sha256": "e64d8a65f92fd93ce74eea80fa8abe9e107b776841fe33694ea0adad0c14271c",
+      "sha256": "d308500e6c2ed0bacccf3cdf2f76a97075005bad55b3f6d4875c7f1b1919c51b",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -33,33 +33,5 @@
   "editorSha256": "8a3172acc19c9b43f480b0b8d3d9042a400628f24537f1c8883ccacb86c928cf",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "native": {
-    "key": "character-cast-jakob-native",
-    "image": "web/public/assets/character-cast/native/jakob.webp",
-    "atlas": "web/public/assets/character-cast/native/jakob.atlas.json",
-    "sha256": "c28b9b7ad8e48e1caf780d49290896f6d97a721a2cf1e64cca29283a3e0d3e6e",
-    "atlasSha256": "5c445f2238cda7d6696d5cdf19e1c836c8ef9ff4edd1ca1b2a0b8200e7fedda6",
-    "textureBytes": 28776368,
-    "multiAtlas": true,
-    "images": [
-      {
-        "path": "web/public/assets/character-cast/native/jakob.webp",
-        "sha256": "c28b9b7ad8e48e1caf780d49290896f6d97a721a2cf1e64cca29283a3e0d3e6e",
-        "firstFrame": 0,
-        "frameCount": 18
-      },
-      {
-        "path": "web/public/assets/character-cast/native/jakob.1.webp",
-        "sha256": "12f308bf7a0e6559ca3ad7411cd651404981c1acbef366ea8303adaaf57d5d59",
-        "firstFrame": 18,
-        "frameCount": 18
-      }
-    ],
-    "cell": [
-      512,
-      768
-    ],
-    "source": "art/proofs/character-cast-painted/jakob.webp",
-    "sourceSha256": "8a3172acc19c9b43f480b0b8d3d9042a400628f24537f1c8883ccacb86c928cf"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

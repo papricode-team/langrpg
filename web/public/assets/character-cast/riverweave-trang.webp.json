@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "613c955dbbbd0ff0f0595df4cbf04457969ae086168ac53079858175b766b929",
-  "atlasSha256": "dfe6d45c098e8334cc47d0d7104fa40e062df3f8da97d29e554c677ae50154a0",
+  "sha256": "b8324062a5f39c75f0cec4009b4723210c25df08f5f3b1eb37eaefd21059df70",
+  "atlasSha256": "2264148e0a19a2b797972b97f77c8f61294a33b47416c2abad95f365f5239def",
   "textureBytes": 14445704,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/riverweave-trang.webp",
-      "sha256": "613c955dbbbd0ff0f0595df4cbf04457969ae086168ac53079858175b766b929",
+      "sha256": "b8324062a5f39c75f0cec4009b4723210c25df08f5f3b1eb37eaefd21059df70",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/riverweave-trang.1.webp",
-      "sha256": "f7efbc9d08490c6853934ce7b0a535cf2dfde22fb1129d787c7f8443172dafe5",
+      "sha256": "4eab59da59a504560a6036cac167fdd52a26b927f28c50c3b977cf2dd33f4550",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/riverweave-trang.atlas.json"
+  "atlas": "web/public/assets/character-cast/riverweave-trang.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

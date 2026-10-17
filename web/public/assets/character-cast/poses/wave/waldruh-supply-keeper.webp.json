@@ -42,23 +42,24 @@
     384,
     576
   ],
-  "sha256": "8cbd3e8cfe7c7b9d21163d5b0e4d3dbc9bae48cbfe0f1426dfa2a638bf763d2d",
-  "atlasSha256": "82537110cc61498c0a63e1a59ef924cf6c79f258f75e6f88f8a30492d728d7f5",
+  "sha256": "cc8b80a51c739a70ea041bc44435aeace1a01a7cd3c860f6405a74d73c777d39",
+  "atlasSha256": "a05dbf49337e2fb73494bfba802584a8f5a80a28d25693e13403b630afd15719",
   "textureBytes": 14044076,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/poses/wave/waldruh-supply-keeper.webp",
-      "sha256": "8cbd3e8cfe7c7b9d21163d5b0e4d3dbc9bae48cbfe0f1426dfa2a638bf763d2d",
+      "sha256": "cc8b80a51c739a70ea041bc44435aeace1a01a7cd3c860f6405a74d73c777d39",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/poses/wave/waldruh-supply-keeper.1.webp",
-      "sha256": "bb1bf8059afcc4741ec7f442a9ef08daa90a4cf5ea17f386669aed9152144bdb",
+      "sha256": "fb03571d3126f92dfa05e60efcaf62fe70576977fbd3c485fc76889614689704",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/poses/wave/waldruh-supply-keeper.atlas.json"
+  "atlas": "web/public/assets/character-cast/poses/wave/waldruh-supply-keeper.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "e0a8e6195bbf1520e970d3aeb1a66dd7de62601cb6b87547540afed8b53b414c",
-  "atlasSha256": "0cf0e265d34ef3862f187454e1f71de99690195593b078f1f32d4339c1872325",
+  "sha256": "680e6f0cc32702a4fc11d483f0bbde0e6052b4af0d9aab2065d2aa7eca7e28ca",
+  "atlasSha256": "fd1d62fa22e82f6c1618848eda3bce707a2c3cc915ef1c5eae6e2f87baf9f43d",
   "textureBytes": 13738860,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/kigalights-josiane.webp",
-      "sha256": "e0a8e6195bbf1520e970d3aeb1a66dd7de62601cb6b87547540afed8b53b414c",
+      "sha256": "680e6f0cc32702a4fc11d483f0bbde0e6052b4af0d9aab2065d2aa7eca7e28ca",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/kigalights-josiane.1.webp",
-      "sha256": "db634a32686c45e0742fba6f520c058416332a9e9f3ccdb0cdf1d6c3e0bd7db7",
+      "sha256": "a5f88006cc6056b5fee0c7e0a84193fa0759c06dbce54a59248851104726268f",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/kigalights-josiane.atlas.json"
+  "atlas": "web/public/assets/character-cast/kigalights-josiane.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

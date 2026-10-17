@@ -1,41 +1,58 @@
 {
   "id": "schaffner",
   "poseSet": "walk",
+  "encodingId": "near-lossless-20-v1",
   "recipe": "art/source/character-kit/cast/schaffner.json",
   "recipeSha256": "e43faca37792ae2bcd830bbf3a731f8b8168691d913da0363bcd5f14433bb93f",
   "atlas": "web/public/assets/character-cast/schaffner.webp",
-  "atlasSha256": "d8f2c645ebfacbc458809b4fddd8350a434c059fa0f23a285a1081bad61fbdae",
+  "atlasSha256": "864c58c1a864bae779e636fbfc80fb2b29ba5c56143618e39bae39b146321b00",
   "geometry": "web/public/assets/character-cast/schaffner.atlas.json",
-  "geometrySha256": "41c1461b18f069f40716788cc3bef254e3a7d8b2062f28a887db9af978ada153",
-  "textureBytes": 14294940,
+  "geometrySha256": "6cbc0ba6bf92e74aea42bf982c13de08995b6b6278abff6dc7de62e4979794ea",
+  "textureBytes": 14434924,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/schaffner.webp",
+      "sha256": "864c58c1a864bae779e636fbfc80fb2b29ba5c56143618e39bae39b146321b00",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/schaffner.1.webp",
+      "sha256": "2c27fa6c39e8355be26c3cd7525826f07bcfd709be206add42b573363025e0d1",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "d4fc180fcf4cda95bea7d63fae5683aeafd81ba73610442480d02620760223bb",
-  "proof": "art/proofs/character-cast/schaffner.png",
-  "proofSha256": "c7ec393b55895d56f8e662fd0c8fefaf1644464e74b6fc718607f4db4f19843f",
-  "editorSha256": "31c065704b078ff11715a2393130e15a676cca9b6aa89270b1e0f8dbcf4edb7f",
-  "assetVersion": "4c9d233bf71007a9",
+  "sourceComponentsSha256": "b66e5328825bd3145aad55704de7b05f927bf5c064f66e3196a7491e8357721f",
+  "proof": "art/proofs/character-cast-painted/schaffner.png",
+  "proofSha256": "90472eb59779ddcfdaa3a7e35ec6d87a6eead8c36813111e906bf29c8a9b7592",
+  "editorSha256": "079e7f45857fafcb338f8b761d898bfa4c408acc6a0266c608d2dabf435ef609",
+  "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-schaffner-native",
     "image": "web/public/assets/character-cast/native/schaffner.webp",
     "atlas": "web/public/assets/character-cast/native/schaffner.atlas.json",
-    "sha256": "9fdcf9d7298be55c982505790fa1f7d1d8650d98bc73171955aabce7f1373632",
-    "atlasSha256": "b939cb0263b3eef8076f00728636e8d42eb2bb1315d800e3d30d544e63b17e10",
+    "sha256": "2a21b7aa7dfd3ecf312796c14af00d1ca918f6d60ed5d69fa76745fa71cdbf27",
+    "atlasSha256": "22458ca48ac66a40cb3451823a030cd9fdd89b2cc6b95ee0092b70312bc57f2d",
+    "encodingId": "near-lossless-20-v1",
     "textureBytes": 27370544,
     "multiAtlas": true,
     "images": [
       {
         "path": "web/public/assets/character-cast/native/schaffner.webp",
-        "sha256": "9fdcf9d7298be55c982505790fa1f7d1d8650d98bc73171955aabce7f1373632",
+        "sha256": "2a21b7aa7dfd3ecf312796c14af00d1ca918f6d60ed5d69fa76745fa71cdbf27",
         "firstFrame": 0,
         "frameCount": 18
       },
       {
         "path": "web/public/assets/character-cast/native/schaffner.1.webp",
-        "sha256": "aeaee0c4814cd5dd88d71dccb62ed2a5ea17416c8a91a269f06f3195ea7423a2",
+        "sha256": "a2b1ae800d3169c575c2d67053d6a4808b151a9066b6e1ec6a14006054828faa",
         "firstFrame": 18,
         "frameCount": 18
       }
@@ -44,7 +61,7 @@
       512,
       768
     ],
-    "source": "art/proofs/character-cast/schaffner.webp",
-    "sourceSha256": "31c065704b078ff11715a2393130e15a676cca9b6aa89270b1e0f8dbcf4edb7f"
+    "source": "art/proofs/character-cast-painted/schaffner.webp",
+    "sourceSha256": "079e7f45857fafcb338f8b761d898bfa4c408acc6a0266c608d2dabf435ef609"
   }
 }

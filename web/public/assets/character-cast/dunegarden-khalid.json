@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/dunegarden-khalid.json",
   "recipeSha256": "5515a93db886e78cc6a93baa8be0328744acfd1d92a8bb7b105a81b866ec3900",
   "atlas": "web/public/assets/character-cast/dunegarden-khalid.webp",
-  "atlasSha256": "9c589c7edaf1df330bf00a42478a64edbd09a5349b8146fd7f5f1e21c770bc4b",
+  "atlasSha256": "ca57244008821b91f52f3801d666d903d05a36c88041d6c4ad1f06a596ff677f",
   "geometry": "web/public/assets/character-cast/dunegarden-khalid.atlas.json",
-  "geometrySha256": "11cbad9c43fe09d78562cdd0712e4c75d2dd44143cf763069907780a5bfd4137",
+  "geometrySha256": "18d97300e89dc3cbd0fe76d84d602c773b557c6f662a7b9a49c50467abb014ab",
   "textureBytes": 14524936,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/dunegarden-khalid.webp",
-      "sha256": "9c589c7edaf1df330bf00a42478a64edbd09a5349b8146fd7f5f1e21c770bc4b",
+      "sha256": "ca57244008821b91f52f3801d666d903d05a36c88041d6c4ad1f06a596ff677f",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/dunegarden-khalid.1.webp",
-      "sha256": "6f53b99afc29d6bc9e33acdc494b0fb3271782dae0312c711616c1af45a5b8ce",
+      "sha256": "e34325992885e4befb6cf87ce8f668d0ea9de25a567e7f0484b157e308145afa",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "bf3ffd38c24d5a757a42b7f84a6253b0653f5b988f71d095599e10d5cb2c15d9",
   "editorSha256": "4b923d4c8cb803b5bc63a074f484e71bef54dc4cfc6a5609b48ffa2f10d51ec6",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

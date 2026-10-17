@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/kigalights-resident-0.json",
   "recipeSha256": "58872faecf47ecdb16388ace6e7c5f01af4fb91edef0af4f182ab67aeb1f515e",
   "atlas": "web/public/assets/character-cast/kigalights-resident-0.webp",
-  "atlasSha256": "18db303e22dd4f45f9923796109f37c011512c914452e0e14e7ca5aef42aad7b",
+  "atlasSha256": "441b8165ddacd242f620a159734b67627249bdc7408392e887665b6a8674c65e",
   "geometry": "web/public/assets/character-cast/kigalights-resident-0.atlas.json",
-  "geometrySha256": "93fd6cecf83c93b17c868a5087d1341c3d7a9ae766bb8a558f9c94aae30e81dc",
+  "geometrySha256": "2288544f5aac75427d80010cd3e7ae2b04fa32cfa5770725392fc4b1909cb489",
   "textureBytes": 14529964,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/kigalights-resident-0.webp",
-      "sha256": "18db303e22dd4f45f9923796109f37c011512c914452e0e14e7ca5aef42aad7b",
+      "sha256": "441b8165ddacd242f620a159734b67627249bdc7408392e887665b6a8674c65e",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/kigalights-resident-0.1.webp",
-      "sha256": "3a5d7de756217bb34e3567dc412ca9ab9b4a893769afb209948ddc2eaa8db352",
+      "sha256": "c479852d27b2b0d8481c42d624a69d381af9045628b09099a1cf3e7088aaff03",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "1f57702c60978fbca4c10943dc657a175470bd233449c1cc32657c6e958a2e0e",
   "editorSha256": "cf522b52372e963eb98f2f73227b3e11fe57ee4e1a71231e2cf36a4b74cfe2f8",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/kigalights-aline.json",
   "recipeSha256": "0713336127cfe6c0f748272be642744879579945e9e7d7f0e9b28fc9bc57f4d7",
   "atlas": "web/public/assets/character-cast/kigalights-aline.webp",
-  "atlasSha256": "693589c9756a76d024f6266aca462330feb743152598e25410896708d46db272",
+  "atlasSha256": "f297174038b0e339c3d8dda70e0e72f997add6942ab582dcdfe59cc299a16187",
   "geometry": "web/public/assets/character-cast/kigalights-aline.atlas.json",
-  "geometrySha256": "f8138630138ca8b00eaa0f3184be6ceef4d27d4e2d8e32f118b30b4020a65e76",
+  "geometrySha256": "af3090072caf666399a866469cab4a670e5906688add20ea830a19a8d969a88b",
   "textureBytes": 14579936,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/kigalights-aline.webp",
-      "sha256": "693589c9756a76d024f6266aca462330feb743152598e25410896708d46db272",
+      "sha256": "f297174038b0e339c3d8dda70e0e72f997add6942ab582dcdfe59cc299a16187",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/kigalights-aline.1.webp",
-      "sha256": "a88f3b3e6fa7130cddbec8019847ee76f9e798694a4f659c2333fe328f558106",
+      "sha256": "d0ef0ed96f69c8fee7cb6c72e79b3b740c1894dc7903548ec8c45a34ccda7a16",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "6f18d511d1741383ba43c1006567e1732fd8bb5eb5d0b5134519d301751ed3ea",
   "editorSha256": "1fe6d410d82602aec6a0e26c15f24876ba46e3e64df5072103004e2cfa2a9217",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

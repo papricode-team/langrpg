@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "85f19fa4e00681451de4445e3f44f69583b5c744ace801909c716ae7a64889b3",
-  "atlasSha256": "d191aa7631e1730933bf1b0c08b350de03452d24d6f2382ff1ae2b32c80a2d3e",
+  "sha256": "5e7e3dc31b218ec75c818f95930586875196d19affd2691bf1782625c050958d",
+  "atlasSha256": "7417736cbc95c46a0f02a8e28ff90d0ee04c4e0e1f736715e4eda11177a94368",
   "textureBytes": 14227608,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/lindenhafen-riverside-vendor.webp",
-      "sha256": "85f19fa4e00681451de4445e3f44f69583b5c744ace801909c716ae7a64889b3",
+      "sha256": "5e7e3dc31b218ec75c818f95930586875196d19affd2691bf1782625c050958d",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/lindenhafen-riverside-vendor.1.webp",
-      "sha256": "05641a58283f3f55eb47e55350f380cfb24f513028be9e203b1fed1d693bddf5",
+      "sha256": "17df0fbd1f4a9a0624d01bf3b4aa234b465e5dddc23909ff521f8a1f1990a8be",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/lindenhafen-riverside-vendor.atlas.json"
+  "atlas": "web/public/assets/character-cast/lindenhafen-riverside-vendor.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

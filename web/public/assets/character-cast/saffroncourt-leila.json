@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/saffroncourt-leila.json",
   "recipeSha256": "5f18f51be95b3692777115cc282273424f4cf00216a2dde1c3e7d173e35c239d",
   "atlas": "web/public/assets/character-cast/saffroncourt-leila.webp",
-  "atlasSha256": "167678907f9d3898dd236bcdac6b888f1d1e29352195881cfb426309979bfb02",
+  "atlasSha256": "2dbb24a0a587b1b7073578df1ce33176d8f08778aa3bc90f9711c6979c2efac8",
   "geometry": "web/public/assets/character-cast/saffroncourt-leila.atlas.json",
-  "geometrySha256": "a0bdf2bd9ad2e71dd02b49ec86b3c683cca09348c13a6365e170374b2c0323bc",
+  "geometrySha256": "4919d05322b7203fe785574354e326f37bf0a4853814d4fe0ceead8028497be3",
   "textureBytes": 14726052,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/saffroncourt-leila.webp",
-      "sha256": "167678907f9d3898dd236bcdac6b888f1d1e29352195881cfb426309979bfb02",
+      "sha256": "2dbb24a0a587b1b7073578df1ce33176d8f08778aa3bc90f9711c6979c2efac8",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/saffroncourt-leila.1.webp",
-      "sha256": "a06b8a424085916599fad536cdb810bee6f0a292191713724b5944510e03c25b",
+      "sha256": "0be2e1b265b73bfe1c617b7fa232b025dc8a393c72a2470f8106ca42e2fb8bfe",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "02f24dcfab6e3d4f42fccdfb943de05e8ffa8acff0e430675efa4219a99b94bb",
   "editorSha256": "d1eb9cadee47f40c2f8bb361ea2da35f51da6a67b90cd7397c29bac120915316",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/saffroncourt-idriss.json",
   "recipeSha256": "d7ef5c6752ad015dcc738afc3de09a2b50433119fe68e06477eb7d027fa7dfc0",
   "atlas": "web/public/assets/character-cast/saffroncourt-idriss.webp",
-  "atlasSha256": "9e9474468e28b747233d63fa89f3105fcad31b83803aad2276a639c937ac8d20",
+  "atlasSha256": "fb455b3628cd9a2562eff3611c70569d3b48234c1a8a27a9c301ac80cab01095",
   "geometry": "web/public/assets/character-cast/saffroncourt-idriss.atlas.json",
-  "geometrySha256": "6a10be074b4666d3ebc48cdfc6ee7422a94a4b1ec0a4f60ad05996bd1c840854",
+  "geometrySha256": "7742fec291dd13315cfe132f61381ffe56b3de26ca424c618847ef5d1535e293",
   "textureBytes": 13639700,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/saffroncourt-idriss.webp",
-      "sha256": "9e9474468e28b747233d63fa89f3105fcad31b83803aad2276a639c937ac8d20",
+      "sha256": "fb455b3628cd9a2562eff3611c70569d3b48234c1a8a27a9c301ac80cab01095",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/saffroncourt-idriss.1.webp",
-      "sha256": "330202f86a8ccf497023b312fd70d51a23cb73facbc0c88ebffba75868768712",
+      "sha256": "15f3ccbeda33817b4022fc1fce1417976d3972b9fe4f1285b1d6f947defc2b4f",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "0bf8bf3cffd5c5217876079f44d1163cbea0db0def1caad2da9e084d75d9a298",
   "editorSha256": "1ba6e7143a614ef579f4eded2bd95967ebbc5f8e46d4564f160731d8147737a1",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

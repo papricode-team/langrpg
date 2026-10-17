@@ -35,23 +35,24 @@
     384,
     576
   ],
-  "sha256": "00c0e210168e7d6c45b3b4d0e92803cf17d360ad6f9b3a5fd03189f80f3213d7",
-  "atlasSha256": "cbd439b3e8018403a2e10a78b2b375461a2aee96d8254c61eabaff897f6dd3d4",
+  "sha256": "9001d2601cb8f6ffe95f3b71818537789621a824521daff22d679b343c034b28",
+  "atlasSha256": "056ed10f3ac94a8bf01f2aa3d1e9ba9ead6241bb9d4c37a9c4c9e21f9127201d",
   "textureBytes": 14459760,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/ruth.webp",
-      "sha256": "00c0e210168e7d6c45b3b4d0e92803cf17d360ad6f9b3a5fd03189f80f3213d7",
+      "sha256": "9001d2601cb8f6ffe95f3b71818537789621a824521daff22d679b343c034b28",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/ruth.1.webp",
-      "sha256": "3303793bce613d3cc80cf127c180c80f714436c2e5edc4d52a2bbf29977e35c5",
+      "sha256": "dc797877d9196ebe5d9946efa0318785b4297408bd20bdac021b4124ad613ea6",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/ruth.atlas.json"
+  "atlas": "web/public/assets/character-cast/ruth.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

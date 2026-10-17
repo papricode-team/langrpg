@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/cedarbay-resident-3.json",
   "recipeSha256": "cab2484ff85574d5e1fbd16b228af596e99b4bbc72929032e1e5aa3285acec29",
   "atlas": "web/public/assets/character-cast/cedarbay-resident-3.webp",
-  "atlasSha256": "5ea443fecc49e8eb7143505473961e5573ba80c54ee6c771151ca95f48675ebd",
+  "atlasSha256": "0cd493e98152bd390b74e2e3e2bba489aa9b1923bfd1bbde042de76720ca5374",
   "geometry": "web/public/assets/character-cast/cedarbay-resident-3.atlas.json",
-  "geometrySha256": "5ce430b56eeafcdcdd1d524a7cd77e54f2a0e4aad122342efd219f8fca11becd",
+  "geometrySha256": "7b79a9372c0e8b5013c2fea5b53894d3de56e757adf38c8945932381df966c33",
   "textureBytes": 14660748,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/cedarbay-resident-3.webp",
-      "sha256": "5ea443fecc49e8eb7143505473961e5573ba80c54ee6c771151ca95f48675ebd",
+      "sha256": "0cd493e98152bd390b74e2e3e2bba489aa9b1923bfd1bbde042de76720ca5374",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/cedarbay-resident-3.1.webp",
-      "sha256": "27e98db820b4f54d4db0fb5baad419ee8347513b5ad68523d41cc6e051da7397",
+      "sha256": "d9df48c8a1e7ff916c7f1b486a38b43d5546c099dff867ae3439799865df553e",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "bafd61b73a8bf28c146930bd38c0aa46d5befb80ac3e2eb09ac9ec5d0450251d",
   "editorSha256": "e5b7a662df072e39b6c52c520a147c2dcebd3d78a24c79e8fefdde69dea0cb82",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

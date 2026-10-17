@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "20dfcb7af1dd06baeedfbb3f8ee45928b762c56c653d4eec9d50841f3f5a034a",
-  "atlasSha256": "dad8ad995173e3ede4e4c3db38be960729677b66c928e7a3b0f58014abbc06e5",
+  "sha256": "8bbc9704ee7ab1d0819edf07dad8604e7863c0646a1a3819f48213bd814cb8a8",
+  "atlasSha256": "19e0cd8a5c538a6bcb7eb241fe5fd05587ca47ff64f2c982521d4f445a5213f2",
   "textureBytes": 13810020,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/terracielo-resident-1.webp",
-      "sha256": "20dfcb7af1dd06baeedfbb3f8ee45928b762c56c653d4eec9d50841f3f5a034a",
+      "sha256": "8bbc9704ee7ab1d0819edf07dad8604e7863c0646a1a3819f48213bd814cb8a8",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/terracielo-resident-1.1.webp",
-      "sha256": "80d7e4c415f7b8c3704160735090a1fa594cd7dbe42ce0fb4abc597c8bb26508",
+      "sha256": "94f6c9cf2b97ae51877846ba7658e9b5a0d8c2a37875850df164852944f0fff3",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/terracielo-resident-1.atlas.json"
+  "atlas": "web/public/assets/character-cast/terracielo-resident-1.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

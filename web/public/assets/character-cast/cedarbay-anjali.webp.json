@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "0c12c1c6a92cafcdcccbda5a7c0c023e1847d625c82cd1f0b9dc0770ef10b6e9",
-  "atlasSha256": "10b0d0d9ed4efcbcc9fd28ef9d31726254f711d61f1b5ddb9275b16b9c7755a5",
+  "sha256": "eb5239805ec06aa11b3d44c95e9d97b570fae12d789573e303e57472d3fe7f22",
+  "atlasSha256": "01ea2426290e3a6fc30b1e04d7b0d0387e98b2397e4920901e9ed8ea1a5558d7",
   "textureBytes": 14327152,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/cedarbay-anjali.webp",
-      "sha256": "0c12c1c6a92cafcdcccbda5a7c0c023e1847d625c82cd1f0b9dc0770ef10b6e9",
+      "sha256": "eb5239805ec06aa11b3d44c95e9d97b570fae12d789573e303e57472d3fe7f22",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/cedarbay-anjali.1.webp",
-      "sha256": "20fa908a55dc03ba500ca200d540b9fe295261e9cabd12af136cccd8145a097d",
+      "sha256": "c0c074d6910bb48f5f64e67a7207be39d9f2529d7971bb3f12e40e3f6115e7ba",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/cedarbay-anjali.atlas.json"
+  "atlas": "web/public/assets/character-cast/cedarbay-anjali.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

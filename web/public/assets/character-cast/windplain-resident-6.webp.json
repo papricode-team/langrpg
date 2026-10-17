@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "3db31f393749676e495dc18e08c917a41a86c6e62036a9f3215ae8f511c9814c",
-  "atlasSha256": "578a3e92980d408eeeabb2984a692ea2dd742fa2dd477b680224264164fb48b2",
+  "sha256": "ec20ecda0d6cdda17e280c1b3203fc15b39a0bbd5a7f742d6286f6d170588ffa",
+  "atlasSha256": "d290689f8c022b15cf7deffc054a291948c06cab777119376907da4de856de6c",
   "textureBytes": 14361816,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/windplain-resident-6.webp",
-      "sha256": "3db31f393749676e495dc18e08c917a41a86c6e62036a9f3215ae8f511c9814c",
+      "sha256": "ec20ecda0d6cdda17e280c1b3203fc15b39a0bbd5a7f742d6286f6d170588ffa",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/windplain-resident-6.1.webp",
-      "sha256": "f167017e00e389ea839c0bf18013c770e072eac1a64869e2c6f899ceabb5e7d5",
+      "sha256": "2fe46206eae0c7a207013db3eb43c214fec1231c7bba572fb6289448dbbd3f7e",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/windplain-resident-6.atlas.json"
+  "atlas": "web/public/assets/character-cast/windplain-resident-6.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

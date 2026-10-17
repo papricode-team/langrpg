@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/hilde.json",
   "recipeSha256": "fe24811fbf62020c50b2f7cf207cb6bf5b11c64aefe6c3d0277dca67415280d7",
   "atlas": "web/public/assets/character-cast/hilde.webp",
-  "atlasSha256": "5f6b000a2a8524a394376ed0f9e377c40c4cdc48d7d5e405f9255c84344f66ac",
+  "atlasSha256": "cb1275e477c6ef7762ff424f8e3e86c0e2420ed21c5b07b1b1c07e9d18f71c7f",
   "geometry": "web/public/assets/character-cast/hilde.atlas.json",
-  "geometrySha256": "85d05e4be943e5faed3ffdc71c14bb2d9bc92abe4c9f213d6160994eda8002a2",
+  "geometrySha256": "40ffb7ea6257dbe2a3f7b74f8359b1179fd97678066160209beab35b32635c81",
   "textureBytes": 14070368,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/hilde.webp",
-      "sha256": "5f6b000a2a8524a394376ed0f9e377c40c4cdc48d7d5e405f9255c84344f66ac",
+      "sha256": "cb1275e477c6ef7762ff424f8e3e86c0e2420ed21c5b07b1b1c07e9d18f71c7f",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/hilde.1.webp",
-      "sha256": "db61967f348dd958a1d9a2fcd0c5187348b5f0ddfe384127a4babc1ab74869ed",
+      "sha256": "7bb961304939a8d528a9d3e33bf65a3bf3867098f7afb6e7061de59c93683a4c",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -33,33 +33,5 @@
   "editorSha256": "683024f472d1702af20ebb24df88dc048e22bd7244e8b807c8a411cb74377289",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "native": {
-    "key": "character-cast-hilde-native",
-    "image": "web/public/assets/character-cast/native/hilde.webp",
-    "atlas": "web/public/assets/character-cast/native/hilde.atlas.json",
-    "sha256": "7ba92eb13ea2c8934f75c06345c1372968baa8cbcbb7f9878e66cbdeb9ec599c",
-    "atlasSha256": "79d47475b00c3311c21b6ce36639c6337d967b43fe4ec9ae9fe1f8493c2aa05f",
-    "textureBytes": 29107564,
-    "multiAtlas": true,
-    "images": [
-      {
-        "path": "web/public/assets/character-cast/native/hilde.webp",
-        "sha256": "7ba92eb13ea2c8934f75c06345c1372968baa8cbcbb7f9878e66cbdeb9ec599c",
-        "firstFrame": 0,
-        "frameCount": 18
-      },
-      {
-        "path": "web/public/assets/character-cast/native/hilde.1.webp",
-        "sha256": "d95effde72c4f56ac5af8188b9e69a03cfb37e7bb52961f3db7ce7067f1bfcbe",
-        "firstFrame": 18,
-        "frameCount": 18
-      }
-    ],
-    "cell": [
-      512,
-      768
-    ],
-    "source": "art/proofs/character-cast-painted/hilde.webp",
-    "sourceSha256": "683024f472d1702af20ebb24df88dc048e22bd7244e8b807c8a411cb74377289"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

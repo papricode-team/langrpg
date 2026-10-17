@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/rainmarket-haru.json",
   "recipeSha256": "f02bc54692007187d955c851b3993ea3aa9207f2cab078c72a13c6c36abea959",
   "atlas": "web/public/assets/character-cast/rainmarket-haru.webp",
-  "atlasSha256": "5f02916e5b9f6772c7b7886170d81dbd638c3c42cf865b82de493179b59f7abe",
+  "atlasSha256": "3560363746dee15e20609870a05dbd741e1f94c65e970fbfaff99ffe4616971d",
   "geometry": "web/public/assets/character-cast/rainmarket-haru.atlas.json",
-  "geometrySha256": "3b6d07ecac790fae3962128d0f715982ab044fd81d5621f6218233be0185db6c",
+  "geometrySha256": "6c17e4fda7a72f44a95c585e7cfab9762bc2ab5eefe48900609ec678fe47485d",
   "textureBytes": 14514056,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/rainmarket-haru.webp",
-      "sha256": "5f02916e5b9f6772c7b7886170d81dbd638c3c42cf865b82de493179b59f7abe",
+      "sha256": "3560363746dee15e20609870a05dbd741e1f94c65e970fbfaff99ffe4616971d",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/rainmarket-haru.1.webp",
-      "sha256": "d6e092b00ae5efef3645e260785abb23e2c50b344562d35d2274b21fd17efca6",
+      "sha256": "54519e7cc3c39dc65d425ec898876291e9127aa6f0d55a7f3de8c2c07605c848",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "4cd88cdc4b204545fc89085a05817f5bf5d1807db00f1411369d8807cbecee38",
   "editorSha256": "24cb51bbbf69c82b7b483b9ae0a66ea14aa1993fafebe1789d62f6134a244705",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

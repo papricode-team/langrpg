@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "167678907f9d3898dd236bcdac6b888f1d1e29352195881cfb426309979bfb02",
-  "atlasSha256": "a0bdf2bd9ad2e71dd02b49ec86b3c683cca09348c13a6365e170374b2c0323bc",
+  "sha256": "2dbb24a0a587b1b7073578df1ce33176d8f08778aa3bc90f9711c6979c2efac8",
+  "atlasSha256": "4919d05322b7203fe785574354e326f37bf0a4853814d4fe0ceead8028497be3",
   "textureBytes": 14726052,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/saffroncourt-leila.webp",
-      "sha256": "167678907f9d3898dd236bcdac6b888f1d1e29352195881cfb426309979bfb02",
+      "sha256": "2dbb24a0a587b1b7073578df1ce33176d8f08778aa3bc90f9711c6979c2efac8",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/saffroncourt-leila.1.webp",
-      "sha256": "a06b8a424085916599fad536cdb810bee6f0a292191713724b5944510e03c25b",
+      "sha256": "0be2e1b265b73bfe1c617b7fa232b025dc8a393c72a2470f8106ca42e2fb8bfe",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/saffroncourt-leila.atlas.json"
+  "atlas": "web/public/assets/character-cast/saffroncourt-leila.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

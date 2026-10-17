@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "debdd1da10c26ce43309f3e044317a952a3d95fce758a8cbddfe4b158a8fa5a4",
-  "atlasSha256": "c697aca36299e2938ff04a39c987b01d1734450bd72364eac17850771358bec3",
+  "sha256": "0ce68c6e9dbdfb51fda0197840cc5dc4ac1f3fd7955557078d584d06670200ab",
+  "atlasSha256": "3bca64c1ef46856bd8dca4ee39772c26e10534c644135a3d0bf9a9e9f02e3a75",
   "textureBytes": 14027352,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/rainmarket-resident-7.webp",
-      "sha256": "debdd1da10c26ce43309f3e044317a952a3d95fce758a8cbddfe4b158a8fa5a4",
+      "sha256": "0ce68c6e9dbdfb51fda0197840cc5dc4ac1f3fd7955557078d584d06670200ab",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/rainmarket-resident-7.1.webp",
-      "sha256": "a432bb4b2ddb7c5fd92d872e7a6951f911cc010aebbc5855b7ad2f1b4791f34a",
+      "sha256": "c2ff7ca5319424d504ea7ddc1cdbe72de701fbf701010100762e80c99e69d6e3",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/rainmarket-resident-7.atlas.json"
+  "atlas": "web/public/assets/character-cast/rainmarket-resident-7.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

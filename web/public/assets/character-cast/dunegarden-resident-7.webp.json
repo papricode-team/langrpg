@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "53529dc77847f68f5310898abf87eb14d4b9defa79eadb3511b7f486ea3bd252",
-  "atlasSha256": "8c2f9b8fe78689fee8b33a2d11b79562e537a58385f123a7dfcbc8eea207a7e4",
+  "sha256": "f85d7025ee39da633ea51988c69563ce67f75ce9ffe3607bbf90fabe1b5cf7e1",
+  "atlasSha256": "55fbbb6ec24fa73965f480d2ba824ef62ec9aacc06e955b36971914769c5f02f",
   "textureBytes": 14031000,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/dunegarden-resident-7.webp",
-      "sha256": "53529dc77847f68f5310898abf87eb14d4b9defa79eadb3511b7f486ea3bd252",
+      "sha256": "f85d7025ee39da633ea51988c69563ce67f75ce9ffe3607bbf90fabe1b5cf7e1",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/dunegarden-resident-7.1.webp",
-      "sha256": "38ad6fef9224ce7a1c200221cbad415847e323149a6565fc8e2c0677275865b7",
+      "sha256": "18fc79d4901e277430e7445926e8d3be8a0f07ca4b2d9dd3149846027c0e782c",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/dunegarden-resident-7.atlas.json"
+  "atlas": "web/public/assets/character-cast/dunegarden-resident-7.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

@@ -35,23 +35,24 @@
     384,
     576
   ],
-  "sha256": "d484303294b56c10eb45cef63b9cd8892da84730e9c3a76ebc72052e93f147bf",
-  "atlasSha256": "3221b909d4eec0271be5ee3d9ddb5e3faf81da7817ee187ad5e14a55266dc63f",
+  "sha256": "d537681f5c4828ca427e14a30fc04e5ecedd208817dd959f4fd8358643205f62",
+  "atlasSha256": "0bf208cd63381b84ad5d9ae815d04442860a4fe7f914e6e6bf88d6b0ee78d7a0",
   "textureBytes": 14430336,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/jakob.webp",
-      "sha256": "d484303294b56c10eb45cef63b9cd8892da84730e9c3a76ebc72052e93f147bf",
+      "sha256": "d537681f5c4828ca427e14a30fc04e5ecedd208817dd959f4fd8358643205f62",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/jakob.1.webp",
-      "sha256": "e64d8a65f92fd93ce74eea80fa8abe9e107b776841fe33694ea0adad0c14271c",
+      "sha256": "d308500e6c2ed0bacccf3cdf2f76a97075005bad55b3f6d4875c7f1b1919c51b",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/jakob.atlas.json"
+  "atlas": "web/public/assets/character-cast/jakob.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

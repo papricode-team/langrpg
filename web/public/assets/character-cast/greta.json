@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/greta.json",
   "recipeSha256": "8a2f18d6c4d0ba9f0f6683791e5c9dc544e8aa1850e19b197a38db3a2cdf8f4c",
   "atlas": "web/public/assets/character-cast/greta.webp",
-  "atlasSha256": "2acc9b979218017a8f314b6df11270d6ca1044ab0d3ae57dd770bfa7b5d9e11d",
+  "atlasSha256": "7d4c3f59bc6eee0df518d1140b554a0fcdcd8e4c515330e9cfcd958a16d4143d",
   "geometry": "web/public/assets/character-cast/greta.atlas.json",
-  "geometrySha256": "1887f3121aedc5f02fcc8bde97080a120d9c84c350654b9939fab65a628b6355",
+  "geometrySha256": "38e1c42edc24b58e7845bf3836c767dc9a40ac11c991ed689a7704e5d348b893",
   "textureBytes": 14340384,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/greta.webp",
-      "sha256": "2acc9b979218017a8f314b6df11270d6ca1044ab0d3ae57dd770bfa7b5d9e11d",
+      "sha256": "7d4c3f59bc6eee0df518d1140b554a0fcdcd8e4c515330e9cfcd958a16d4143d",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/greta.1.webp",
-      "sha256": "a77649eb812a76c7ce50d431e027c8bd64eb8b459e7765a217ac0a9cc830b761",
+      "sha256": "3d36c0716969f73276211d017234ca796303a2d316970de5515e01fea6b2f106",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -37,20 +37,20 @@
     "key": "character-cast-greta-native",
     "image": "web/public/assets/character-cast/native/greta.webp",
     "atlas": "web/public/assets/character-cast/native/greta.atlas.json",
-    "sha256": "26b7b2cf6043b8e1bb9a3e48a0f4cf71c2e34da888b74f556bd6b3175611c604",
-    "atlasSha256": "03733d3d97ae2c2cc75b89678d10a359b9459d86bc1dbd6008325855a166227c",
+    "sha256": "4f2abfccf31e86f4b0197fbef969f0ee86bf4e6f3b0573c6e73b6973df3b7aee",
+    "atlasSha256": "efd56a2499e0101e60349369057988d3a958850cacf82f2d74d21f2f6b281d9f",
     "textureBytes": 28303632,
     "multiAtlas": true,
     "images": [
       {
         "path": "web/public/assets/character-cast/native/greta.webp",
-        "sha256": "26b7b2cf6043b8e1bb9a3e48a0f4cf71c2e34da888b74f556bd6b3175611c604",
+        "sha256": "4f2abfccf31e86f4b0197fbef969f0ee86bf4e6f3b0573c6e73b6973df3b7aee",
         "firstFrame": 0,
         "frameCount": 18
       },
       {
         "path": "web/public/assets/character-cast/native/greta.1.webp",
-        "sha256": "dc4633d89e8373139a0d6b2de9749ea5be17d6208eacd237498dd7f6f870d713",
+        "sha256": "f8cfca5092bff3d2e1ad840dc7870089e0d4c967ad73e6d24da34ef45c656374",
         "firstFrame": 18,
         "frameCount": 18
       }
@@ -60,6 +60,8 @@
       768
     ],
     "source": "art/proofs/character-cast-painted/greta.webp",
-    "sourceSha256": "a85d745563b8de697390259ac56d024b349f69be91f7145242fc572c395cf586"
-  }
+    "sourceSha256": "a85d745563b8de697390259ac56d024b349f69be91f7145242fc572c395cf586",
+    "encodingId": "near-lossless-20-v1"
+  },
+  "encodingId": "near-lossless-20-v1"
 }

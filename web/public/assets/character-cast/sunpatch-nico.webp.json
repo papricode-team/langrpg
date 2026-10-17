@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "824e207a281124d77dcda5fa0ce029c8fad692c23b019975208f2b2b14625501",
-  "atlasSha256": "ce3690eb0fc8e5d176842ee044cbce02a5a3040c50b11154dc460d6810f0ac76",
+  "sha256": "db1b49d44a03d5184c39b790d1608bdfe1753ab6263150505146fe931721c490",
+  "atlasSha256": "45c42e1258bb5e0d657127989d411af593e9a1796f04440c2260557b4fea7edc",
   "textureBytes": 14413068,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/sunpatch-nico.webp",
-      "sha256": "824e207a281124d77dcda5fa0ce029c8fad692c23b019975208f2b2b14625501",
+      "sha256": "db1b49d44a03d5184c39b790d1608bdfe1753ab6263150505146fe931721c490",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/sunpatch-nico.1.webp",
-      "sha256": "43ed927a02ecee64885b304ebb59660b754322930c35a87b095fd9c2c85245b6",
+      "sha256": "268da65e5da903083d3ed360635806d8fbfc23d5035b06b1651b1de337fada42",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/sunpatch-nico.atlas.json"
+  "atlas": "web/public/assets/character-cast/sunpatch-nico.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

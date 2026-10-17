@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/windplain-erdene.json",
   "recipeSha256": "48b3665bab50cb31c7c15f3f9afedded5dbbf340dd5533e26d0ef65e7cbe05ab",
   "atlas": "web/public/assets/character-cast/windplain-erdene.webp",
-  "atlasSha256": "1f6d8ef7da3ec7bff56c6de95da916a68b33cc8a231587a0ffc3d30f364f0835",
+  "atlasSha256": "82c46d8770eb6e1264837d478d14362af04751d22612db6ed7d7c65357f5f2f4",
   "geometry": "web/public/assets/character-cast/windplain-erdene.atlas.json",
-  "geometrySha256": "76cd0beb76e1647dd4cc66f13f4585464e06e567c3a9432b5761b072ff935590",
+  "geometrySha256": "1cb1b5d58dc199340fe5dcd26acbf5a47cea6303da8014ce9ec9d1f37b196eb3",
   "textureBytes": 14439040,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/windplain-erdene.webp",
-      "sha256": "1f6d8ef7da3ec7bff56c6de95da916a68b33cc8a231587a0ffc3d30f364f0835",
+      "sha256": "82c46d8770eb6e1264837d478d14362af04751d22612db6ed7d7c65357f5f2f4",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/windplain-erdene.1.webp",
-      "sha256": "3c178227692ce55e716655af237cc4cf0a5cd8ea460d43d413a5f8a8f3edcd37",
+      "sha256": "2a42a2554c839206f64b88ddc2b0db36c510da581ec45cdc7e5181a194d7e960",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "14f1e269b6228673115441028a70fb20a3de994cc42516f632df8aeb9861a0eb",
   "editorSha256": "8c1b9e4967f6bb4b64b730452094e59ecb1b315fbe591d586620b43e967cfd77",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

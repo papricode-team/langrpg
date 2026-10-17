@@ -1,0 +1,18 @@
+{
+  "id": "schaffner",
+  "name": "Brandt",
+  "approved": true,
+  "date": "2026-10-17",
+  "recipe": "art/source/character-kit/cast/schaffner.json",
+  "sourceRecipeCommit": "5cb29e9c50ba48ecdae11218051283c6700cbee1",
+  "recipeSha256": "e43faca37792ae2bcd830bbf3a731f8b8168691d913da0363bcd5f14433bb93f",
+  "proofSha256": "90472eb59779ddcfdaa3a7e35ec6d87a6eead8c36813111e906bf29c8a9b7592",
+  "assetVersion": "e80b2c9758205a2f",
+  "board": "art/proofs/character-style-review/schaffner-walk-review.png",
+  "boardSha256": "9496d8d7154c29d1065ddab422c69ab4ce61cc5d7ad8ef3cbc5e8af8121572cc",
+  "notes": "Reviewed every frame on the before/after board and enlarged front, side and rear views. The approved prologue recipe from main is unchanged; dark teal cap and blazer, brass trim, moustache and trousers stay consistent through all four facings. Painted materials preserve all frame alpha and registration (zero alpha differences).",
+  "registrationAudit": "art/proofs/character-style-review/schaffner-registration-audit.json",
+  "registrationAuditSha256": "20775815c2db745d028677c66eea7d67fa2bcc7af923d06c793fb147a970bb16",
+  "reference": "art/source/character-portraits/schaffner/expressions.png",
+  "scope": "Painted finish and cast integration; original authored recipe and legacy approval evidence retained."
+}

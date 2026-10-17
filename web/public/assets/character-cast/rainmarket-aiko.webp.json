@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "7db764d45808bdf16de291a28966c58a532e83167e051bcccc98910a811d548d",
-  "atlasSha256": "d1123b88833b09df310413b4a8a84637a2eaffaf45f6871160abafa4256edf67",
+  "sha256": "2d3c4136feac6ed222e2b00056b0885a3cf469f9ff51a1968531c2abde6b195e",
+  "atlasSha256": "e8ed54ad15e0d750cf1a720cf949c9c823f95cbdfe929271bf4223a16d64d08f",
   "textureBytes": 14525784,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/rainmarket-aiko.webp",
-      "sha256": "7db764d45808bdf16de291a28966c58a532e83167e051bcccc98910a811d548d",
+      "sha256": "2d3c4136feac6ed222e2b00056b0885a3cf469f9ff51a1968531c2abde6b195e",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/rainmarket-aiko.1.webp",
-      "sha256": "63cc16d112443d5188bc0fac9af739f2b3de052c4abbadfa061cbbd8a98644b5",
+      "sha256": "c6652e13d0ec8990957bfa4d7b7d25ded88075db7786d36fa965b50bfcd8b71b",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/rainmarket-aiko.atlas.json"
+  "atlas": "web/public/assets/character-cast/rainmarket-aiko.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

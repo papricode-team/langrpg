@@ -9,7 +9,12 @@ revision. Story recipes follow [identities.md](identities.md); the retained
 Marta pilot compares portrait, original painted sprite, previous kit and new kit
 in `art/proofs/character-style-review/marta-portrait-old-new.png`.
 
-All 200 current walking identities and four approved Wave sheets are rebuilt.
+All 201 current walking identities and four approved Wave sheets are rebuilt,
+including Brandt (`schaffner`) from the A0 night-train prologue. His approved
+recipe from main is retained unchanged; the painted walking/native atlases and
+hash-bound review use the same pipeline as every other cast identity. The new
+all-frame review and zero-difference alpha audit are in
+`art/proofs/character-style-review/schaffner-{walk-review.png,registration-audit.json,review.json}`.
 New full cast proofs go to `art/proofs/character-cast-painted/`, preserving every
 earlier approval artifact. The compiled runtime manifest now lives at
 `art/source/character-kit/cast/runtime-manifest.json` and is imported by
@@ -17,8 +22,21 @@ earlier approval artifact. The compiled runtime manifest now lives at
 the historical `web/src/data/character-cast.json` is no longer consumed.
 `node scripts/character-style-review.mjs` generates all-frame contact boards
 and checks byte-identical coverage against previous bakes for unchanged recipes.
+`node scripts/refresh-character-cast.mjs` also queues newly authored identities
+whose first bake report does not exist yet.
 Dedicated Voss/Elise portrait masters and exact prompts live in `../story-cast/`;
 `node scripts/prepare-story-cast.mjs --portraits-only` exports them independently.
+
+Runtime cast exports use versioned near-lossless WebP (quality 20, effort 6,
+alpha quality 100) to keep painted texture within the unchanged distribution
+budget. This intentionally rounds soft alpha by at most 8/255 in the reviewed
+samples; editor proofs remain lossless. `node scripts/character-cast.mjs export`
+upgrades intact legacy lossless pages once, including native pages and their
+hashes/cache keys. An export with an older encoding ID needs a fresh bake.
+Play-size comparisons and measurements are in `../../proofs/character-cast-budget/`.
+Native room atlases follow the authored indoor NPC inventory. Run
+`node scripts/character-cast.mjs prune` to remove intact unused native exports
+after room/cast changes; all lossless editor proofs remain available for rebakes.
 
 **Wardrobe parity (2026-10-17).** The active native catalogue in `hd/catalogue.json`
 contains the same 81 walking wardrobe options for regular, slim and broad builds.

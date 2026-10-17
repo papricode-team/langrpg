@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/cedarbay-nila.json",
   "recipeSha256": "5d4f193600af1bbb86ea80f8e65ba93ca103baac5e273b097e053b366f6cba14",
   "atlas": "web/public/assets/character-cast/cedarbay-nila.webp",
-  "atlasSha256": "869eef5f43df1ab96e16612cb98990710c0ee6fe8f9b3214f934b24aae4926dd",
+  "atlasSha256": "361539a674fb9c76a69f7e7742cf08f4ece0dbddd2a24936dabc426cf3b6c064",
   "geometry": "web/public/assets/character-cast/cedarbay-nila.atlas.json",
-  "geometrySha256": "b21efc4b2b9bc5c649085be24236215c0fde98780bf2c88f8f9d54e982e4b072",
+  "geometrySha256": "3c5a8376a3e22334e3d1306b09aff92ec019feef996246f144b2a30bb66c1b25",
   "textureBytes": 13945152,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/cedarbay-nila.webp",
-      "sha256": "869eef5f43df1ab96e16612cb98990710c0ee6fe8f9b3214f934b24aae4926dd",
+      "sha256": "361539a674fb9c76a69f7e7742cf08f4ece0dbddd2a24936dabc426cf3b6c064",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/cedarbay-nila.1.webp",
-      "sha256": "8ca0a823833b344613d5b6f804df9616adde7666cb2c104eb4f08b772f0fcf27",
+      "sha256": "199f66efc19cb49a16c711a8959fe8a860a71dbee3d5791b2c538918cfca14e7",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "1d8ce4433d35fc234838897c70b72c18a635f0784dc9c39bfcdb27d56487f2a7",
   "editorSha256": "ca5f971e546c056bc155e168e58cac69f2d8ae2d8932e1001fb97d50490d4cb8",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

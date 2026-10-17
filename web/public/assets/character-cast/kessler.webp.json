@@ -38,23 +38,24 @@
     384,
     576
   ],
-  "sha256": "6d20900e51cb3184c80da5d95688359ca8c2ec53c97c7fbbbc87f5ceb945ef55",
-  "atlasSha256": "3c0ed380523158a53ee3eb9912826e88b0caeff7a0fb68fc40c7b535171e4a7c",
+  "sha256": "636d2b9894f8464db28286af967e7161cc3cc641cfce215a0993478be36cea54",
+  "atlasSha256": "1960ded9ed0bc265ca5eb30e5b4b95a4dd6364b652f93a0f6919769c7a50734a",
   "textureBytes": 14750896,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/kessler.webp",
-      "sha256": "6d20900e51cb3184c80da5d95688359ca8c2ec53c97c7fbbbc87f5ceb945ef55",
+      "sha256": "636d2b9894f8464db28286af967e7161cc3cc641cfce215a0993478be36cea54",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/kessler.1.webp",
-      "sha256": "affa95f4b833489b8c8a55a86a00e1835a006e08dde5d028b372c4baeeb99a3a",
+      "sha256": "3d6e7e8de1df5ccbd08dd19a2b06747c4a85d83c6aad2b0d94cf5d90f36f61dc",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/kessler.atlas.json"
+  "atlas": "web/public/assets/character-cast/kessler.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

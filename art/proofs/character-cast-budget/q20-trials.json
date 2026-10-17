@@ -1,0 +1,94 @@
+{
+  "encoder": {
+    "nearLossless": true,
+    "quality": 20,
+    "alphaQuality": 100,
+    "effort": 6
+  },
+  "alphaMaxError": 8,
+  "layout": "Columns source/q40 distribution/q20 distribution; rows frames0,4,9. Actual painted figure height150or300px.",
+  "tierBytes": [
+    {
+      "name": "marta",
+      "q40": {
+        "high": 224274,
+        "medium": 195158,
+        "low": 115674
+      },
+      "q20": {
+        "high": 215248,
+        "medium": 192440,
+        "low": 114502
+      }
+    },
+    {
+      "name": "fritz",
+      "q40": {
+        "high": 218612,
+        "medium": 196794,
+        "low": 90308
+      },
+      "q20": {
+        "high": 209358,
+        "medium": 194090,
+        "low": 85246
+      }
+    },
+    {
+      "name": "lindenhafen-resident-courier",
+      "q40": {
+        "high": 223750,
+        "medium": 169960,
+        "low": 118476
+      },
+      "q20": {
+        "high": 211996,
+        "medium": 163566,
+        "low": 118118
+      }
+    }
+  ],
+  "boards": [
+    {
+      "name": "marta",
+      "paintedHeight": 150,
+      "path": "art/proofs/character-cast-budget/marta-q20-train-150px-compare.png",
+      "sha256": "1c7aa90a6e6536bc2ce69c5c305e18856a43cbbbc5678609511768890c6f669e"
+    },
+    {
+      "name": "marta",
+      "paintedHeight": 300,
+      "path": "art/proofs/character-cast-budget/marta-q20-train-300px-compare.png",
+      "sha256": "07ac8e54e14f5cc4de392a07fb1291e638775d80da8c61a19ae899bfb3182c89"
+    },
+    {
+      "name": "fritz",
+      "paintedHeight": 150,
+      "path": "art/proofs/character-cast-budget/fritz-q20-train-150px-compare.png",
+      "sha256": "6a2145c9233f41fcba8d92bcc29259b76124d2360d1f58fff7c9cc8cdd754889"
+    },
+    {
+      "name": "fritz",
+      "paintedHeight": 300,
+      "path": "art/proofs/character-cast-budget/fritz-q20-train-300px-compare.png",
+      "sha256": "b154ca91235bbe1ec08806a971b3506eaa18f4a108b678bd3a6b6bffb35d8dce"
+    },
+    {
+      "name": "lindenhafen-resident-courier",
+      "paintedHeight": 150,
+      "path": "art/proofs/character-cast-budget/lindenhafen-resident-courier-q20-train-150px-compare.png",
+      "sha256": "1ee93cf0d6f65508fe64ca8410aee8364a242a7d93e78ab612eb24678f966907"
+    },
+    {
+      "name": "lindenhafen-resident-courier",
+      "paintedHeight": 300,
+      "path": "art/proofs/character-cast-budget/lindenhafen-resident-courier-q20-train-300px-compare.png",
+      "sha256": "049b5173a6fb8f0af3d9da89a9bb285d8dff2c6089b5f317c4786cdf45f28f61"
+    }
+  ],
+  "review": {
+    "reviewer": "Codex local image viewer at original resolution",
+    "result": "visually acceptable runtime candidate",
+    "finding": "All six boards viewed; no visible degradation against q40 at painted150px and300px. Additional Low savings are only2% combined on these samples, insufficient to resolve the remaining Low budget alone. Source-alpha max difference8/255 intentionally exceeds q40 bound4/255."
+  }
+}

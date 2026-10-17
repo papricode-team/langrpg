@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "09791a7b0617d6b24b870c8b856ec32e6407de048addf9eeed0d617d12b9253c",
-  "atlasSha256": "db6a537d0ee419cd06f420981d377f96b7e5563700f5a61c9b2a015bd177fb00",
+  "sha256": "0f7a431e8e4281ba2428fc80d1a91b991b7266cd9a8236ac2e989c59791bfe5e",
+  "atlasSha256": "80c7052b67de4993831ce0569c76143b4746958029c6ce129e04f5c388f6ac14",
   "textureBytes": 13387332,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/saffroncourt-karim.webp",
-      "sha256": "09791a7b0617d6b24b870c8b856ec32e6407de048addf9eeed0d617d12b9253c",
+      "sha256": "0f7a431e8e4281ba2428fc80d1a91b991b7266cd9a8236ac2e989c59791bfe5e",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/saffroncourt-karim.1.webp",
-      "sha256": "4c92b1cb4adba3b1ae8bf72fa631d807b062aa55cd338fe3c5e49fdfcfbc7372",
+      "sha256": "ce298c51ebcd2e26c8d71c81d868ec6f67d708ef38dc12fd7afb1cab8495844a",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/saffroncourt-karim.atlas.json"
+  "atlas": "web/public/assets/character-cast/saffroncourt-karim.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

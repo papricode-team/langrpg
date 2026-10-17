@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/pip.json",
   "recipeSha256": "35daa018e6fac0de7f2a8a8c2baedf868eb2be76690a8a31451eef6c4be0cd3b",
   "atlas": "web/public/assets/character-cast/pip.webp",
-  "atlasSha256": "dc3c34891474b0b00e395d3c167a3ebc5507df4ff242d3280007902ab2212db0",
+  "atlasSha256": "8d5c0f0cce717f2a0bf2741ad3092b7b7c5e07c16abd1f7f5de7a0372565dd84",
   "geometry": "web/public/assets/character-cast/pip.atlas.json",
-  "geometrySha256": "4683c3587afefd94c06a0702b190f3223aa52d839d73d4cbe6f9f0b7ec8a8267",
+  "geometrySha256": "46367b70e0145f49f27d083360de4b1099833ef03880eeae3cf4644256b1540e",
   "textureBytes": 13951184,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/pip.webp",
-      "sha256": "dc3c34891474b0b00e395d3c167a3ebc5507df4ff242d3280007902ab2212db0",
+      "sha256": "8d5c0f0cce717f2a0bf2741ad3092b7b7c5e07c16abd1f7f5de7a0372565dd84",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/pip.1.webp",
-      "sha256": "98c4f21bf63eb9e87f2f2510a1ff6a6d1088b8e51e314dc3993ccf8603353efd",
+      "sha256": "14d4ccffd49542fcc2b680797d2120b736ad7226d428c3efb087475946c965ec",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -33,33 +33,5 @@
   "editorSha256": "4860798d14aabb36c8da975f42e057f32dab55a8dd79dd370586730b4b815545",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "native": {
-    "key": "character-cast-pip-native",
-    "image": "web/public/assets/character-cast/native/pip.webp",
-    "atlas": "web/public/assets/character-cast/native/pip.atlas.json",
-    "sha256": "134a5b99a6f03c6b30534f37e287fc5ba58786026c16f06c3c808bc58d59b537",
-    "atlasSha256": "321f0ea476f186f3b68ee83e9dba5add408ce2c0fb8cfab7614cfce27a72ebeb",
-    "textureBytes": 28709232,
-    "multiAtlas": true,
-    "images": [
-      {
-        "path": "web/public/assets/character-cast/native/pip.webp",
-        "sha256": "134a5b99a6f03c6b30534f37e287fc5ba58786026c16f06c3c808bc58d59b537",
-        "firstFrame": 0,
-        "frameCount": 18
-      },
-      {
-        "path": "web/public/assets/character-cast/native/pip.1.webp",
-        "sha256": "781ac4bd31a092f28465962418a34ed11fdb35069c7ed9bdb82f2748d8d0dffb",
-        "firstFrame": 18,
-        "frameCount": 18
-      }
-    ],
-    "cell": [
-      512,
-      768
-    ],
-    "source": "art/proofs/character-cast-painted/pip.webp",
-    "sourceSha256": "4860798d14aabb36c8da975f42e057f32dab55a8dd79dd370586730b4b815545"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

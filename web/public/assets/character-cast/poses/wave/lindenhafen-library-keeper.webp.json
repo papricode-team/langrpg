@@ -42,23 +42,24 @@
     384,
     576
   ],
-  "sha256": "cd3a8ff560d628018889e76cf07d364c0882104c60a8520a2d3bf5a8c56c0ed1",
-  "atlasSha256": "4ca881b733687597bbd4f6c3999b7dea33fbbdf88ac8351d16a20b0e0742effb",
+  "sha256": "121eb4a5678c4bf3e13e05966fdb841ff272a1ed2e29f9cae9e123886f52dfc0",
+  "atlasSha256": "0002c0ba5e0b0f1ac41d8b70a85c1711c149c5cdb797da716d132e8729a96793",
   "textureBytes": 14044076,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/poses/wave/lindenhafen-library-keeper.webp",
-      "sha256": "cd3a8ff560d628018889e76cf07d364c0882104c60a8520a2d3bf5a8c56c0ed1",
+      "sha256": "121eb4a5678c4bf3e13e05966fdb841ff272a1ed2e29f9cae9e123886f52dfc0",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/poses/wave/lindenhafen-library-keeper.1.webp",
-      "sha256": "c7bdd37e50b8997d5eb4274f299d31fa8422c3e284ea59f413ec0506394d5f19",
+      "sha256": "c26bf10e2c3ff927b7fa698705a56e342d8e74935a7d9ad6fc806f8d962ce380",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/poses/wave/lindenhafen-library-keeper.atlas.json"
+  "atlas": "web/public/assets/character-cast/poses/wave/lindenhafen-library-keeper.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

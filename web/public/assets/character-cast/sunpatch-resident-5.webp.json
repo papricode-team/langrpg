@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "9e2ff627dba8ce25b2d8e4582cfc702ad156f3db6ef2afcdf5f90b66ec864d3d",
-  "atlasSha256": "a989115d8c568993075ca8a8c0a6f45917016cb77050a088064a703e0d882361",
+  "sha256": "90ddfd8416f99f765b3b8fcc8d913aa43f0f8b9df345d60ac5a9845fdfd0776c",
+  "atlasSha256": "d6731941965b9009c664440c0ffea4d1f0e247e35b4f7f3e57b87a72b05023a1",
   "textureBytes": 14431996,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/sunpatch-resident-5.webp",
-      "sha256": "9e2ff627dba8ce25b2d8e4582cfc702ad156f3db6ef2afcdf5f90b66ec864d3d",
+      "sha256": "90ddfd8416f99f765b3b8fcc8d913aa43f0f8b9df345d60ac5a9845fdfd0776c",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/sunpatch-resident-5.1.webp",
-      "sha256": "5cce0637025601b858019786f44f7338ba40ae500f027995158fa086a7be9980",
+      "sha256": "88144b000e23c7518de56251d88c70d9c4160eb45aa5c8fa9d9ced7bded7e7b2",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/sunpatch-resident-5.atlas.json"
+  "atlas": "web/public/assets/character-cast/sunpatch-resident-5.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

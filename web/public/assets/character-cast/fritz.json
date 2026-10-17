@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/fritz.json",
   "recipeSha256": "725e710a93138ba0c57d1c91eee2f20012c04c3f233fedca7b116f294e065e58",
   "atlas": "web/public/assets/character-cast/fritz.webp",
-  "atlasSha256": "bba9d63d37b62b1042e030171507762a57576bcccdb3981a10cbc8ca7714c1f3",
+  "atlasSha256": "300261733f8d89b6b1207543e18fd9b97c7a5f408cfdc75be0f23e67efcd63b2",
   "geometry": "web/public/assets/character-cast/fritz.atlas.json",
-  "geometrySha256": "2c8546a9fb227fd30be28401632c0073d0c4d79c10cd4afd81a412af9cd15ce2",
+  "geometrySha256": "8a17145ecd060524f682c1b7f6ca80ef8936a979aa5ef2e37f126f3830447f2f",
   "textureBytes": 14063556,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/fritz.webp",
-      "sha256": "bba9d63d37b62b1042e030171507762a57576bcccdb3981a10cbc8ca7714c1f3",
+      "sha256": "300261733f8d89b6b1207543e18fd9b97c7a5f408cfdc75be0f23e67efcd63b2",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/fritz.1.webp",
-      "sha256": "956343e717b18e48223239bf194d0907213257cd8d027f009ec93bce1c12a527",
+      "sha256": "b71c67c386ed40e58e0f5384b86668ea5000cdca77d34e44725e09ff300df4ee",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -37,20 +37,20 @@
     "key": "character-cast-fritz-native",
     "image": "web/public/assets/character-cast/native/fritz.webp",
     "atlas": "web/public/assets/character-cast/native/fritz.atlas.json",
-    "sha256": "336cbca2138651f2fadf3fd5a11667ffd61de8a5681688265eee8852b3def7d8",
-    "atlasSha256": "906a51ea437ba90cfd78ac053598f4159a96c8fef9547dfa925a186958472e38",
+    "sha256": "523148b42e2ed051e8d9bbc478d1aab8129a65599f81b26d8802f605f0fbb747",
+    "atlasSha256": "1644804b077539ca47a3c1f36836a47b5f11e1da9f3fc9602796513cbb7ec4d2",
     "textureBytes": 27070536,
     "multiAtlas": true,
     "images": [
       {
         "path": "web/public/assets/character-cast/native/fritz.webp",
-        "sha256": "336cbca2138651f2fadf3fd5a11667ffd61de8a5681688265eee8852b3def7d8",
+        "sha256": "523148b42e2ed051e8d9bbc478d1aab8129a65599f81b26d8802f605f0fbb747",
         "firstFrame": 0,
         "frameCount": 18
       },
       {
         "path": "web/public/assets/character-cast/native/fritz.1.webp",
-        "sha256": "38ed64e8092e46bca02b702f57befeeb4737e937277cbc6d1a1ee13e8af3a005",
+        "sha256": "d0456b87419f00265d161a352f24cc8e0dfd153b8a1ec1397007dfa8423ddacf",
         "firstFrame": 18,
         "frameCount": 18
       }
@@ -60,6 +60,8 @@
       768
     ],
     "source": "art/proofs/character-cast-painted/fritz.webp",
-    "sourceSha256": "1cce9d369de97b5c0291be841a0fd70e73dc39e5825f40185c26339f8e94d732"
-  }
+    "sourceSha256": "1cce9d369de97b5c0291be841a0fd70e73dc39e5825f40185c26339f8e94d732",
+    "encodingId": "near-lossless-20-v1"
+  },
+  "encodingId": "near-lossless-20-v1"
 }

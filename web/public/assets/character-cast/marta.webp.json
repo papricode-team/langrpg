@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "f7b7284019f658934948006f1bf11ed6042e5876290ebe16133129437e58bcc6",
-  "atlasSha256": "dbb8c1edbf30e3bab6a9cc5bedb16e1c9dd4ff8afec732358bad5ad7d2937a28",
+  "sha256": "ba0a3dbc1d96d3a1ae6825ff6ea860475792b3256ffba86d82422ca06033eddb",
+  "atlasSha256": "75c0fb24d301d1553520b2616ecc125f462c924d3deec600193753fba17bdc45",
   "textureBytes": 14340384,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/marta.webp",
-      "sha256": "f7b7284019f658934948006f1bf11ed6042e5876290ebe16133129437e58bcc6",
+      "sha256": "ba0a3dbc1d96d3a1ae6825ff6ea860475792b3256ffba86d82422ca06033eddb",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/marta.1.webp",
-      "sha256": "810da898842434c95dddacbbcdb3fdcdc3f842297cd2f953d0371a7bfe8b2d11",
+      "sha256": "eac472e9e63a5f00e7da1fa7c96978c0922e22ffd0772af4477e21f795b75162",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/marta.atlas.json"
+  "atlas": "web/public/assets/character-cast/marta.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

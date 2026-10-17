@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "9abc1785ac6ee4bd111ea87f1cff465accc17a6d0d000cfbcc2cc3f196ce3796",
-  "atlasSha256": "98d2dec0cfc03e0105bc0ea0e63b583f62dabac0acabc1f4fe54991060cb720d",
+  "sha256": "8edb93d7348b6a1c0042d759d8aa2e4476758d1bc22dccaa6e6782faff0d574a",
+  "atlasSha256": "0db767905e8ffe284ef861399b2d2be5d63ec1bbb180173d4c9f6e42ee934c2a",
   "textureBytes": 14318424,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/nebelstadt-resident-archivist.webp",
-      "sha256": "9abc1785ac6ee4bd111ea87f1cff465accc17a6d0d000cfbcc2cc3f196ce3796",
+      "sha256": "8edb93d7348b6a1c0042d759d8aa2e4476758d1bc22dccaa6e6782faff0d574a",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/nebelstadt-resident-archivist.1.webp",
-      "sha256": "d71f8c85be97b9c6a281db338459fd52e6b1a5e1296d50e69df73f622051c351",
+      "sha256": "cb26940b068b835abe21b56aa425860be03cb53e6b4575ff60f00131ed0ec3b7",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/nebelstadt-resident-archivist.atlas.json"
+  "atlas": "web/public/assets/character-cast/nebelstadt-resident-archivist.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/lindenhafen-resident-reader.json",
   "recipeSha256": "8658e2cf95be2527fb656a5eb79f9659d35d35eb8113bb174c327e88c94e7015",
   "atlas": "web/public/assets/character-cast/lindenhafen-resident-reader.webp",
-  "atlasSha256": "91efeba66f7407c3827d838eb2aead426b0e94f5a6d66ef87faa9719f504e5d6",
+  "atlasSha256": "e4051044b4ba068ec9e6f5796c5b469c266ae674762a780f3dc2e5b666c683aa",
   "geometry": "web/public/assets/character-cast/lindenhafen-resident-reader.atlas.json",
-  "geometrySha256": "0e694fb026fb29d3ff7546865ca38f8a34dcae6a2247be42eaaf56eac250042a",
+  "geometrySha256": "feb99026dede96196f61bc039ba3e85763848bedbce319836d0eade3c56d443e",
   "textureBytes": 14085252,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/lindenhafen-resident-reader.webp",
-      "sha256": "91efeba66f7407c3827d838eb2aead426b0e94f5a6d66ef87faa9719f504e5d6",
+      "sha256": "e4051044b4ba068ec9e6f5796c5b469c266ae674762a780f3dc2e5b666c683aa",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/lindenhafen-resident-reader.1.webp",
-      "sha256": "fafb3b5b8eec052bac166e618da520346f653011eeccfc68e7c4a4dd1f398c44",
+      "sha256": "84ddb5e9675216457d0a769ecf83a97119d807b4d4a330f908ced97873e0e9a8",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "e6e28ef1d534fda98ef78c268b3ffb4adacedcc5ad0bc2403dac95e0eefb1f7a",
   "editorSha256": "6568c1dc700903d5ed5f78f28914b6fc8301ce03bc591ff62e3e3e764f15df82",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

@@ -60,3 +60,33 @@ values. Initial checking before manifest creation reported `TS2307: Cannot find
 module '../public/assets/character-cast/manifest.json'`; the final source manifest
 and import pass. An audit started before the final worker and correctly stopped
 with `Paint bake pending: falk`; the complete post-bake audit passes.
+
+## Main integration addendum (2026-10-17)
+
+`schaffner` (Brandt) retains main's approved recipe from `5cb29e9c` and now has
+painted walking/native atlases, a 36-frame proof and hash-bound visual approval:
+**201 walking identities and four Wave sheets**. His editor alpha is unchanged;
+review evidence is in `art/proofs/character-style-review/schaffner-*`. Refresh
+now queues identities without previous reports and checks native artifacts.
+
+Painted texture and unused room variants exceeded the distribution budget.
+Runtime exports now use WebP `{nearLossless:true, quality:20, alphaQuality:100,
+effort:6}`; `export` migrates original lossless pages once and updates hashes,
+cache keys and sidecars. RGB/soft-alpha rounding is intentional (alpha ≤8/255
+in reviewed samples; the new test bound changes accordingly). Lossless editor
+proofs, geometry and exact compositor tests remain intact. Source/previous/new
+frames for Marta, Fritz and the courier were viewed at 150/300 painted pixels
+with no visible loss. `prune` removes 28 unused native pages for 12 outdoor-only
+actors; future native bakes follow the authored indoor inventory (six actors).
+
+Built character art fell from **217,473,208 to 183,151,832 bytes (207.40 →
+174.67 MiB)**. All-art Low/Medium totals are **109.19/184.31 MiB**, within the
+unchanged limits. All 422 cast pages are referenced. Proofs and exact measurements
+are in `art/proofs/character-cast-budget/`. The requested Node suite passes
+**100 tests**, Vitest **61 tests**, web checking, production build and budgets
+all pass. The build uses a writable temporary quality cache; the existing
+`assemble-site.mjs` restores `/game/` before checking distribution budgets.
+
+Builder, loader and tests use `art/source/character-kit/cast/runtime-manifest.json`.
+A dormant compact-JSON target in `web/vite.config.ts` still names the historical
+manifest; it is outside the assigned files and does not load it.

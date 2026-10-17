@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/kessler.json",
   "recipeSha256": "4819d63ad0dd436c7ad0e48b8c8cb29ba9702b23cbe1fe48cd2d105fa485e9c9",
   "atlas": "web/public/assets/character-cast/kessler.webp",
-  "atlasSha256": "6d20900e51cb3184c80da5d95688359ca8c2ec53c97c7fbbbc87f5ceb945ef55",
+  "atlasSha256": "636d2b9894f8464db28286af967e7161cc3cc641cfce215a0993478be36cea54",
   "geometry": "web/public/assets/character-cast/kessler.atlas.json",
-  "geometrySha256": "3c0ed380523158a53ee3eb9912826e88b0caeff7a0fb68fc40c7b535171e4a7c",
+  "geometrySha256": "1960ded9ed0bc265ca5eb30e5b4b95a4dd6364b652f93a0f6919769c7a50734a",
   "textureBytes": 14750896,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/kessler.webp",
-      "sha256": "6d20900e51cb3184c80da5d95688359ca8c2ec53c97c7fbbbc87f5ceb945ef55",
+      "sha256": "636d2b9894f8464db28286af967e7161cc3cc641cfce215a0993478be36cea54",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/kessler.1.webp",
-      "sha256": "affa95f4b833489b8c8a55a86a00e1835a006e08dde5d028b372c4baeeb99a3a",
+      "sha256": "3d6e7e8de1df5ccbd08dd19a2b06747c4a85d83c6aad2b0d94cf5d90f36f61dc",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -33,33 +33,5 @@
   "editorSha256": "812a34ad31445c457d1341dac10ddb08f5fdeda399d0d0d4d918bc0d1a05a0af",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "native": {
-    "key": "character-cast-kessler-native",
-    "image": "web/public/assets/character-cast/native/kessler.webp",
-    "atlas": "web/public/assets/character-cast/native/kessler.atlas.json",
-    "sha256": "a61fd1f453adc69d0503731ab07ee3110192a271dc6618440e04a5c4c5996897",
-    "atlasSha256": "0fcc49a761ab1cce056a66a2cb9d9f226ce6ec400ebe45383e5ef9eda4d362e2",
-    "textureBytes": 28297400,
-    "multiAtlas": true,
-    "images": [
-      {
-        "path": "web/public/assets/character-cast/native/kessler.webp",
-        "sha256": "a61fd1f453adc69d0503731ab07ee3110192a271dc6618440e04a5c4c5996897",
-        "firstFrame": 0,
-        "frameCount": 18
-      },
-      {
-        "path": "web/public/assets/character-cast/native/kessler.1.webp",
-        "sha256": "0f44e9603fca87bc94c27d07fa6fb43ea03fc0b772dea3b2377f0648aa31a79f",
-        "firstFrame": 18,
-        "frameCount": 18
-      }
-    ],
-    "cell": [
-      512,
-      768
-    ],
-    "source": "art/proofs/character-cast-painted/kessler.webp",
-    "sourceSha256": "812a34ad31445c457d1341dac10ddb08f5fdeda399d0d0d4d918bc0d1a05a0af"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

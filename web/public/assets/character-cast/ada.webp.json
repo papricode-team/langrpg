@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "43451e270090a1b3422be7ad32ce4e2a80a90cff6e0f11f407e3651b0b42b2fc",
-  "atlasSha256": "42a17da635f3280fb8d6e769c25e22e9f7c8b2fa90cffde71d9dd51a6ad11d34",
+  "sha256": "b901490cab3530cfcc3369694d2f4bb68f87fc6e47891d2cae1c6057d20979b0",
+  "atlasSha256": "79693207b31b46cf95dd39fa3060ab57a5c997be8eec24cf024c35434e0096a0",
   "textureBytes": 14318424,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/ada.webp",
-      "sha256": "43451e270090a1b3422be7ad32ce4e2a80a90cff6e0f11f407e3651b0b42b2fc",
+      "sha256": "b901490cab3530cfcc3369694d2f4bb68f87fc6e47891d2cae1c6057d20979b0",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/ada.1.webp",
-      "sha256": "bd477a7b2b9b8a4a31ae1ad7d46da6d837f7fce7c77d6763fd92a4be8bbf1da7",
+      "sha256": "e20b007fc3fa486652723986d9fad27c86729e84197b3eb0e1a345f5806d2d7c",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/ada.atlas.json"
+  "atlas": "web/public/assets/character-cast/ada.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/waldruh-resident-guest.json",
   "recipeSha256": "6cbc64c3aada0818cab7ef27c383d07bd85b01f261bbe8dd4cfbcbb508b72f94",
   "atlas": "web/public/assets/character-cast/waldruh-resident-guest.webp",
-  "atlasSha256": "73dabd50fb0411437ca6b9496b3f2b8d0152c922032a47fc758e4b0bcdceee2f",
+  "atlasSha256": "cb7975378ad6676bd3c06a6bea01a7c4b7b3018c1a5eb5d83a35704e068a1013",
   "geometry": "web/public/assets/character-cast/waldruh-resident-guest.atlas.json",
-  "geometrySha256": "03648310891d1ce9dc4337a25dd4e97fabc73b44a1a5e0efa5d3ebfacbfc0d5f",
+  "geometrySha256": "58923796b028ac91882b867494bac0e7f9e4a4e8366c9d4d76a2858ec0a8bffc",
   "textureBytes": 14378520,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/waldruh-resident-guest.webp",
-      "sha256": "73dabd50fb0411437ca6b9496b3f2b8d0152c922032a47fc758e4b0bcdceee2f",
+      "sha256": "cb7975378ad6676bd3c06a6bea01a7c4b7b3018c1a5eb5d83a35704e068a1013",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/waldruh-resident-guest.1.webp",
-      "sha256": "e4a01efa170a5337433eb909fbf69d9725ae541783a621b3592692d820ac8e2f",
+      "sha256": "3eab3913f58182b9c2fea154009eead8ae86e5f5c7c01a6c15073d1bc75e225d",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "f3a5b1802ce34ad0c38fede3afdf5300625a0cb4f9f60c3c443f8c5c1c461df5",
   "editorSha256": "162cf6f4fe63185958e6814851db8cba86dc338abf7c84be7f088b93f5d14d78",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

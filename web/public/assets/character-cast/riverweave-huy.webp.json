@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "ea93074cd85be847f323837f0340a310de5cb6bd8d06ef9500167e2900812d9b",
-  "atlasSha256": "b77849f737d03e99a4f04ba5806b2e9fb278da29428845a08cbeb0d39c06af15",
+  "sha256": "a323edfea142990fb343ea768068661266ed0935560feeb195183b894611654c",
+  "atlasSha256": "48fb64d5790796f013926f1ec74f250276c9e1597746156be899b71edd9c9565",
   "textureBytes": 14038200,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/riverweave-huy.webp",
-      "sha256": "ea93074cd85be847f323837f0340a310de5cb6bd8d06ef9500167e2900812d9b",
+      "sha256": "a323edfea142990fb343ea768068661266ed0935560feeb195183b894611654c",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/riverweave-huy.1.webp",
-      "sha256": "d111fb9a48b89348b33b3678f01b15153e494928c9d15228f5e9f2322ec366b2",
+      "sha256": "41909faaaf7e91a5a6fc77ccfda9d83b38848ed29f4308ae5d5b1a43188410e0",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/riverweave-huy.atlas.json"
+  "atlas": "web/public/assets/character-cast/riverweave-huy.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

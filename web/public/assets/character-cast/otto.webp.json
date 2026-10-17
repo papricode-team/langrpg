@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "ad31ab6d9d59c7c67c2c907a1f1955ead6add94b8e0b52a35d2af20845cd9aac",
-  "atlasSha256": "9078aa571fe4858bec5785334447d0ca8e8ba961ff3c961a6173c1598fa52ca6",
+  "sha256": "04e6f65cd3734556506235ff3c244d2b591644cf571107c47ad59e971a63a55b",
+  "atlasSha256": "d8e3f5748bd7f622f8d598e013330c456e7bab48e1dc7509953ed9b8aad1dbf7",
   "textureBytes": 14434924,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/otto.webp",
-      "sha256": "ad31ab6d9d59c7c67c2c907a1f1955ead6add94b8e0b52a35d2af20845cd9aac",
+      "sha256": "04e6f65cd3734556506235ff3c244d2b591644cf571107c47ad59e971a63a55b",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/otto.1.webp",
-      "sha256": "fc40a7863f0bd24e4f1b4930e45daf40b09ebbb76dbe2875cb3272a1e3274eef",
+      "sha256": "0f26e43624e557e6dacc0fdb5283ad840abff947fa83091207afca08a8d3c184",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/otto.atlas.json"
+  "atlas": "web/public/assets/character-cast/otto.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

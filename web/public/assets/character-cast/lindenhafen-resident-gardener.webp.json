@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "5c2e099505cfb8378e365e75b8a8fd0efedfcfa7890ab1b218bbed1aaa9fc9f2",
-  "atlasSha256": "cfbf56e8efe1b2b2a1a9de2acc568f5725118108e786c8c1e4405f589678bfe7",
+  "sha256": "cf0550b82b77cc67d97062c3b2b647133c4abda3a3e79f2265378295fb6083a3",
+  "atlasSha256": "898f641f959d0f60cd847fa16fb76e3e80425a96cfe62dd44e16a823f9ef61e4",
   "textureBytes": 13955760,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/lindenhafen-resident-gardener.webp",
-      "sha256": "5c2e099505cfb8378e365e75b8a8fd0efedfcfa7890ab1b218bbed1aaa9fc9f2",
+      "sha256": "cf0550b82b77cc67d97062c3b2b647133c4abda3a3e79f2265378295fb6083a3",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/lindenhafen-resident-gardener.1.webp",
-      "sha256": "19d557a0932cb08b333b10b70f12de43e4e8ec21cd489c9927e3bb925b80f3ed",
+      "sha256": "523129d3521d8a2c7e08a5f1f5524649027ce773a59c3ecbcd8883a90d071a23",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/lindenhafen-resident-gardener.atlas.json"
+  "atlas": "web/public/assets/character-cast/lindenhafen-resident-gardener.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/elise.json",
   "recipeSha256": "1c55b18195ba4634ec30a8e39d96cbc623bbaf456b1995d274f2c4003a5880f0",
   "atlas": "web/public/assets/character-cast/elise.webp",
-  "atlasSha256": "6686dca3f06c5fe3728c3308d24a4331f05259c832aba8763bbd8377c56a9da6",
+  "atlasSha256": "4a6114fbeedbe092d9cda9b807634d3786183562a5a99db3336c3b0cb0144a92",
   "geometry": "web/public/assets/character-cast/elise.atlas.json",
-  "geometrySha256": "7b89429af144ef80b4ce49299f72dcbed103f0e6a237dd2c069f030f3edf72bc",
+  "geometrySha256": "3d6ac932e11245a3a785f49881acb9aad0d1f7f3e605c36fae09142a1f051cdb",
   "textureBytes": 14453344,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/elise.webp",
-      "sha256": "6686dca3f06c5fe3728c3308d24a4331f05259c832aba8763bbd8377c56a9da6",
+      "sha256": "4a6114fbeedbe092d9cda9b807634d3786183562a5a99db3336c3b0cb0144a92",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/elise.1.webp",
-      "sha256": "333c6082cffb404baee89900e6aa3bbd3cc36980978c2791c78ba6e39e17ca16",
+      "sha256": "2d6248afb450052f206865dcad48e17bf19da339739d0eb8c5e9703e340c6c17",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -33,33 +33,5 @@
   "editorSha256": "bbf3b7ade56b75cfb93c8ec3dfef3a6234d595bd906ffc63de299510f7b00bc8",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "native": {
-    "key": "character-cast-elise-native",
-    "image": "web/public/assets/character-cast/native/elise.webp",
-    "atlas": "web/public/assets/character-cast/native/elise.atlas.json",
-    "sha256": "abd5c930d0c4bcec38d0f503cc9f9ef3011c1b7070fef18873d6ca2f9d47c6fb",
-    "atlasSha256": "78f152a60a816b5d2fd4ccd99bafa30d99392af6a5c0057743b4d8f7c7421604",
-    "textureBytes": 28194376,
-    "multiAtlas": true,
-    "images": [
-      {
-        "path": "web/public/assets/character-cast/native/elise.webp",
-        "sha256": "abd5c930d0c4bcec38d0f503cc9f9ef3011c1b7070fef18873d6ca2f9d47c6fb",
-        "firstFrame": 0,
-        "frameCount": 18
-      },
-      {
-        "path": "web/public/assets/character-cast/native/elise.1.webp",
-        "sha256": "fe873d53cb193f2a4020a45832fbf985af3bc0deb9bf4fe9dde76b331116e4d1",
-        "firstFrame": 18,
-        "frameCount": 18
-      }
-    ],
-    "cell": [
-      512,
-      768
-    ],
-    "source": "art/proofs/character-cast-painted/elise.webp",
-    "sourceSha256": "bbf3b7ade56b75cfb93c8ec3dfef3a6234d595bd906ffc63de299510f7b00bc8"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

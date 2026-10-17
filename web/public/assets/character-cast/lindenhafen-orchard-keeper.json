@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/lindenhafen-orchard-keeper.json",
   "recipeSha256": "707ff6320ce9dad23c754784750a24a928f0b0204f3866254040f0b1f2986320",
   "atlas": "web/public/assets/character-cast/lindenhafen-orchard-keeper.webp",
-  "atlasSha256": "04436667851b7c2d90b09c11f1489fc517ed26a5e8c4aae4f7fb508b12d6481a",
+  "atlasSha256": "67d1e8d9fb62880c253933f28929e239cfd0a72104456965946cffd2620b5bf8",
   "geometry": "web/public/assets/character-cast/lindenhafen-orchard-keeper.atlas.json",
-  "geometrySha256": "64fd8cbffbddcacdc30134ff7adcadc1b842028fb237729b3c015af6050a5ef0",
+  "geometrySha256": "d72de79d4c878d4fbad112ad6327fa82a28dda3b7a4ba7bf785450cfb7d5ddcb",
   "textureBytes": 14227608,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/lindenhafen-orchard-keeper.webp",
-      "sha256": "04436667851b7c2d90b09c11f1489fc517ed26a5e8c4aae4f7fb508b12d6481a",
+      "sha256": "67d1e8d9fb62880c253933f28929e239cfd0a72104456965946cffd2620b5bf8",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/lindenhafen-orchard-keeper.1.webp",
-      "sha256": "ee25a95284b3da7383d0b61129036c80dafd6a9e2a76b868a1f9e4bf613fc593",
+      "sha256": "d54a68b5ca9f030c327611244cc8b434e97e38e5fbbb66673c8553ddec726d86",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "968f85747a06bf027f433b9eec4ee80691cb2c24db740c7d6c610f86a76dc3ff",
   "editorSha256": "6d8a22b9868f80e54057458b11ea64e5d0109b5ff7d1ee05797ec6d4b9515522",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

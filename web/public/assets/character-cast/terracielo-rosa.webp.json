@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "9c7bee804fd04056efbf373cbe90afcaa8b12d49686ef0c15bc687f553506e5f",
-  "atlasSha256": "31ed3ee0561518bbecabccc1931f72787b0fc407fbf451f94bebe973e4f44c90",
+  "sha256": "20e9b622ee0b71e48289f3986d0014a8b16d84016a31dd9ce1b95788b06745fe",
+  "atlasSha256": "f290118635cf60f0113bdfae5a6e0ebbfe80b31d6553d6c5524c564c1f62fa5c",
   "textureBytes": 14226600,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/terracielo-rosa.webp",
-      "sha256": "9c7bee804fd04056efbf373cbe90afcaa8b12d49686ef0c15bc687f553506e5f",
+      "sha256": "20e9b622ee0b71e48289f3986d0014a8b16d84016a31dd9ce1b95788b06745fe",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/terracielo-rosa.1.webp",
-      "sha256": "7cebab3244bec0d88e821a994ebd7861944ef1e97fc775ce2afa3d147116e227",
+      "sha256": "a70d62c70ad9319f840593decfd8d30b72b6d1d4fddfd2a71e187095f3e18570",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/terracielo-rosa.atlas.json"
+  "atlas": "web/public/assets/character-cast/terracielo-rosa.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

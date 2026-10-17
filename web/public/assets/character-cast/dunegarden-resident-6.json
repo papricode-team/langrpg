@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/dunegarden-resident-6.json",
   "recipeSha256": "0da8945a7423c3751adf85c2e1aadca96c1e37551afab0ce5b0948dd456a51d4",
   "atlas": "web/public/assets/character-cast/dunegarden-resident-6.webp",
-  "atlasSha256": "7d033e09488d864dddfd29f3a01fb2e26a14ab84607e3d85eac8a139da707353",
+  "atlasSha256": "35289ec93c3286fa5b1aadf5ad8cca6b1e54532ff5e8c683d81b7acfc1659746",
   "geometry": "web/public/assets/character-cast/dunegarden-resident-6.atlas.json",
-  "geometrySha256": "a378b3db68042fd84e05713e74083884003788ffecfb0a65299ac7dee8d9b734",
+  "geometrySha256": "9a741fbbfd05be82f328a76a9c68516d273543c323efd0c23976b9f3084ff24e",
   "textureBytes": 14164464,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/dunegarden-resident-6.webp",
-      "sha256": "7d033e09488d864dddfd29f3a01fb2e26a14ab84607e3d85eac8a139da707353",
+      "sha256": "35289ec93c3286fa5b1aadf5ad8cca6b1e54532ff5e8c683d81b7acfc1659746",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/dunegarden-resident-6.1.webp",
-      "sha256": "c627b9dd5590457bb7da3ab42ee62075465038fff3e9b6a19985615c57391d62",
+      "sha256": "be5e85d4a007161ac4433f52d77b2e6f69c97ea15ea1a0c3116092a3b0859368",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "11a99a4dd37c29769f5b88c17da8ffbf89a5cddbca022d70894c2b83ae755302",
   "editorSha256": "85ba3ad72a3eb47aadb3fabab53af465d99b0ddcd8cfa9172209ca9dff2cff61",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

@@ -24,6 +24,8 @@ for(const request of requests.objects){
  // pixels relative to the bottom-centre pivot used by every exported object.
  const footprint=request.geometry?.footprint??(collidable?Array.from({length:8},(_,i)=>[Math.cos(i*Math.PI/4)*width*.22,-width*.04+Math.sin(i*Math.PI/4)*width*.07]):[]);
  const originY=request.originY??bottom/height,pivot=originY*height;
+ // Omit procedural motion when the scenery role owns it: tree/cypress use
+ // the renderer's calm, period-aware sway rather than the stronger prop sway.
  objects.push({id:request.id,name:request.name,role:request.asset,worldWidth:request.worldWidth,motion:request.motion,collidable,
   width,height,originX:.5,originY,
   asset:`/assets/terrain-objects/${request.id}.webp`,thumbnail:`/assets/terrain-objects/${request.id}-thumb.webp`,

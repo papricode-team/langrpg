@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "d46535ff3317646957bf6b8875d8bcff694efeda3cd7689a456089b4dd4e6093",
-  "atlasSha256": "6389822fb84f187d8ef203ae7d66dea6a5cd36a493b408678033eb5dfe8e1c71",
+  "sha256": "9eb24c92ed3b0e6480fdad0041f088718a1d6fe0707877cbdc3c22bca5bd6052",
+  "atlasSha256": "78bd5e507979b6429e6af54bccacc141857b2106f0458394bd07747ce8ea057c",
   "textureBytes": 14490220,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/kigalights-diane.webp",
-      "sha256": "d46535ff3317646957bf6b8875d8bcff694efeda3cd7689a456089b4dd4e6093",
+      "sha256": "9eb24c92ed3b0e6480fdad0041f088718a1d6fe0707877cbdc3c22bca5bd6052",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/kigalights-diane.1.webp",
-      "sha256": "ac496b92849e15a15b212a6d354e863c340feaa935c4b8953edcf17d5ec486ef",
+      "sha256": "679fce37b1f2372df03fa7e56ea8a2c4c2cae3661ea7151b2ece5f36183de098",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/kigalights-diane.atlas.json"
+  "atlas": "web/public/assets/character-cast/kigalights-diane.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

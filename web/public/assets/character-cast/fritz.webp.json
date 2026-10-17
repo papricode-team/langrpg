@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "bba9d63d37b62b1042e030171507762a57576bcccdb3981a10cbc8ca7714c1f3",
-  "atlasSha256": "2c8546a9fb227fd30be28401632c0073d0c4d79c10cd4afd81a412af9cd15ce2",
+  "sha256": "300261733f8d89b6b1207543e18fd9b97c7a5f408cfdc75be0f23e67efcd63b2",
+  "atlasSha256": "8a17145ecd060524f682c1b7f6ca80ef8936a979aa5ef2e37f126f3830447f2f",
   "textureBytes": 14063556,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/fritz.webp",
-      "sha256": "bba9d63d37b62b1042e030171507762a57576bcccdb3981a10cbc8ca7714c1f3",
+      "sha256": "300261733f8d89b6b1207543e18fd9b97c7a5f408cfdc75be0f23e67efcd63b2",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/fritz.1.webp",
-      "sha256": "956343e717b18e48223239bf194d0907213257cd8d027f009ec93bce1c12a527",
+      "sha256": "b71c67c386ed40e58e0f5384b86668ea5000cdca77d34e44725e09ff300df4ee",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/fritz.atlas.json"
+  "atlas": "web/public/assets/character-cast/fritz.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

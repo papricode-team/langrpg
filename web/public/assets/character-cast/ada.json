@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/ada.json",
   "recipeSha256": "3cd730a8870983c81180b36b8badd6e15c2ec730d35089abb0a51ef8269bfbc1",
   "atlas": "web/public/assets/character-cast/ada.webp",
-  "atlasSha256": "43451e270090a1b3422be7ad32ce4e2a80a90cff6e0f11f407e3651b0b42b2fc",
+  "atlasSha256": "b901490cab3530cfcc3369694d2f4bb68f87fc6e47891d2cae1c6057d20979b0",
   "geometry": "web/public/assets/character-cast/ada.atlas.json",
-  "geometrySha256": "42a17da635f3280fb8d6e769c25e22e9f7c8b2fa90cffde71d9dd51a6ad11d34",
+  "geometrySha256": "79693207b31b46cf95dd39fa3060ab57a5c997be8eec24cf024c35434e0096a0",
   "textureBytes": 14318424,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/ada.webp",
-      "sha256": "43451e270090a1b3422be7ad32ce4e2a80a90cff6e0f11f407e3651b0b42b2fc",
+      "sha256": "b901490cab3530cfcc3369694d2f4bb68f87fc6e47891d2cae1c6057d20979b0",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/ada.1.webp",
-      "sha256": "bd477a7b2b9b8a4a31ae1ad7d46da6d837f7fce7c77d6763fd92a4be8bbf1da7",
+      "sha256": "e20b007fc3fa486652723986d9fad27c86729e84197b3eb0e1a345f5806d2d7c",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -33,45 +33,5 @@
   "editorSha256": "357ae0d194f74bd702e9941f619f3fe04aa028ccfac00657594c84a9f4e2d668",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "native": {
-    "key": "character-cast-ada-native",
-    "image": "web/public/assets/character-cast/native/ada.webp",
-    "atlas": "web/public/assets/character-cast/native/ada.atlas.json",
-    "sha256": "61fb6a5d291bfd5934ba4fa726f17681c8898608f3009065b4b55fdb03f0fd29",
-    "atlasSha256": "42059cea5c81452711e771d572464d8caf0ad827a92698663c45e7bd279b8b3e",
-    "textureBytes": 36854336,
-    "multiAtlas": true,
-    "images": [
-      {
-        "path": "web/public/assets/character-cast/native/ada.webp",
-        "sha256": "61fb6a5d291bfd5934ba4fa726f17681c8898608f3009065b4b55fdb03f0fd29",
-        "firstFrame": 0,
-        "frameCount": 9
-      },
-      {
-        "path": "web/public/assets/character-cast/native/ada.1.webp",
-        "sha256": "559688529d843c9e00956cfa27d4557bdc518b51dbba6eb47b40543972d34feb",
-        "firstFrame": 9,
-        "frameCount": 9
-      },
-      {
-        "path": "web/public/assets/character-cast/native/ada.2.webp",
-        "sha256": "3d3f7d2739a9ca340ef159b98813d2b187445b0e16e26cca19d86fefa15f8ea6",
-        "firstFrame": 18,
-        "frameCount": 9
-      },
-      {
-        "path": "web/public/assets/character-cast/native/ada.3.webp",
-        "sha256": "cd2a058eb30999e30bda914c810ed651c620d869add3c5f136e2d0a7f37a3750",
-        "firstFrame": 27,
-        "frameCount": 9
-      }
-    ],
-    "cell": [
-      512,
-      768
-    ],
-    "source": "art/proofs/character-cast-painted/ada.webp",
-    "sourceSha256": "357ae0d194f74bd702e9941f619f3fe04aa028ccfac00657594c84a9f4e2d668"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

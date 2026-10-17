@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/kigalights-samuel.json",
   "recipeSha256": "9a3d2b68c90af44cfb8e70eb612f6acf62c32a74677aa99d40755e85b27ec382",
   "atlas": "web/public/assets/character-cast/kigalights-samuel.webp",
-  "atlasSha256": "e61bf23713d205a37e8c73d41c062715098bb119f4299bd026a4f161febf01ee",
+  "atlasSha256": "828c6aba536c0a7ab5b1fa73b767b9f960a41809cf8b11a40135374e64d3b558",
   "geometry": "web/public/assets/character-cast/kigalights-samuel.atlas.json",
-  "geometrySha256": "746638c17a3685670076fd8c0ab6e82daf77b28468e3e6faf746ff01e9d4352b",
+  "geometrySha256": "e78a8c962d279f4290b259c90afa7c07ea1e031a667f3ec8736be5e08456df8d",
   "textureBytes": 13362216,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/kigalights-samuel.webp",
-      "sha256": "e61bf23713d205a37e8c73d41c062715098bb119f4299bd026a4f161febf01ee",
+      "sha256": "828c6aba536c0a7ab5b1fa73b767b9f960a41809cf8b11a40135374e64d3b558",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/kigalights-samuel.1.webp",
-      "sha256": "eb66f81d610039853b581fa6ab587e3cfe9d2a2937b7f4056b5db07ae0b80dc8",
+      "sha256": "1b25d603c99e3195947f3ab40ffbe87719502d76d8070aeab3bc176616c217ea",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "0f830d470612274dfe37bb3f61229ce69101f9f3f18e87a4377560e19487c33f",
   "editorSha256": "5c4d9e4db2657607d49048170049a70e1918f8ba4687fc232f8b21d9fa2929cb",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

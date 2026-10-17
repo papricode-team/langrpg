@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/riverweave-resident-0.json",
   "recipeSha256": "a5e6ab6b24577f6772f0d160f69a258d900c5a72c52605ec0e382fbe7783d054",
   "atlas": "web/public/assets/character-cast/riverweave-resident-0.webp",
-  "atlasSha256": "088265e11709e2e387a3661b0f5a55e7ecdb6594e55ef2500cf6c0808cd3bee8",
+  "atlasSha256": "3354f00fd15136ef417e524e4cfb1ecd7b80abec15efb7df0ed5a3f100f1da81",
   "geometry": "web/public/assets/character-cast/riverweave-resident-0.atlas.json",
-  "geometrySha256": "ee231072924894c2172ecd796009fa4456aa299da13c440060fa45bb24b97c53",
+  "geometrySha256": "5e760451c9fdfbf24209d10de6985b9c8300f934fdb7ab0ab3e1b3fefb840c2e",
   "textureBytes": 13860524,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/riverweave-resident-0.webp",
-      "sha256": "088265e11709e2e387a3661b0f5a55e7ecdb6594e55ef2500cf6c0808cd3bee8",
+      "sha256": "3354f00fd15136ef417e524e4cfb1ecd7b80abec15efb7df0ed5a3f100f1da81",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/riverweave-resident-0.1.webp",
-      "sha256": "16f3ee1cc43ecd9a3613571c57a7cf2f7ecb6c273527bfa0a55b8a6cc5793111",
+      "sha256": "2193547f8dcf2766568b9aa7e04ea5359dd9bdecfcfd8ee76b6c1a2e4815f1fc",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "a7138f9776103aa4d0f21270d2ba1b3d1ecf2473707c5e924e973b518ee8f305",
   "editorSha256": "c41adac093b078c055da117e4ee8d56c76e79a245bfa848226d15f07108f65e6",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

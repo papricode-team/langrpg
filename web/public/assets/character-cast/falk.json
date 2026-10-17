@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/falk.json",
   "recipeSha256": "9c6b932e25b0abe70cfb1bdd872dd9271b87ec80098f026da22cea7beb37b09a",
   "atlas": "web/public/assets/character-cast/falk.webp",
-  "atlasSha256": "9d98d46daf7e73a7741e1b86f7f5326c244a55a1da809b8f74287c4062de1a65",
+  "atlasSha256": "e966994576e253b32d39cabe6314c2e89bc0c77bff2c361c6e3c2b1fe729a6df",
   "geometry": "web/public/assets/character-cast/falk.atlas.json",
-  "geometrySha256": "cf83cd3ff5d96993550aad664ca7204626b6a28ed2dcd8fe7adf745643e0c431",
+  "geometrySha256": "5d572c3eb65dce89624b14cc10eb579ecc73dfe39c7cecf1f36d39a3acd48850",
   "textureBytes": 13871936,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/falk.webp",
-      "sha256": "9d98d46daf7e73a7741e1b86f7f5326c244a55a1da809b8f74287c4062de1a65",
+      "sha256": "e966994576e253b32d39cabe6314c2e89bc0c77bff2c361c6e3c2b1fe729a6df",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/falk.1.webp",
-      "sha256": "78ba5b0b0934314df059ba3a43019f185a1fbffa5008afe90483ec776ec9fde4",
+      "sha256": "3bc9b8898585ef8b747c10adf0eddb904a4fefa4d71f4800a6e6a0217fef6a02",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -33,33 +33,5 @@
   "editorSha256": "8d0e53879d450e66c1856d93312530b4c77e8ca06802602ef837570155199514",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "native": {
-    "key": "character-cast-falk-native",
-    "image": "web/public/assets/character-cast/native/falk.webp",
-    "atlas": "web/public/assets/character-cast/native/falk.atlas.json",
-    "sha256": "55c46fcb66f8dac0ab32ba93450f7b6cb4d6fad5ff53956aef6ec99364d7fc42",
-    "atlasSha256": "ebdf65e41d21d72fca2cadc013ed6ac81e758bc9a966a1884b5b7f8fb271f3c6",
-    "textureBytes": 29035552,
-    "multiAtlas": true,
-    "images": [
-      {
-        "path": "web/public/assets/character-cast/native/falk.webp",
-        "sha256": "55c46fcb66f8dac0ab32ba93450f7b6cb4d6fad5ff53956aef6ec99364d7fc42",
-        "firstFrame": 0,
-        "frameCount": 18
-      },
-      {
-        "path": "web/public/assets/character-cast/native/falk.1.webp",
-        "sha256": "63e7171039c85e7f3159a17767ec79eaf2666b519247175212b179a5c562dd13",
-        "firstFrame": 18,
-        "frameCount": 18
-      }
-    ],
-    "cell": [
-      512,
-      768
-    ],
-    "source": "art/proofs/character-cast-painted/falk.webp",
-    "sourceSha256": "8d0e53879d450e66c1856d93312530b4c77e8ca06802602ef837570155199514"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

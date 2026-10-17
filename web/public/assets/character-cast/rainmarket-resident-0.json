@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/rainmarket-resident-0.json",
   "recipeSha256": "c1ad335b2f2f88087d6eda9ffee1538b1a8afbebe23ab87c947ff2279dd1b7d4",
   "atlas": "web/public/assets/character-cast/rainmarket-resident-0.webp",
-  "atlasSha256": "728843735c3fa13f47d2b8a7dc2af33519888f891513b014f44099d129ae4fb0",
+  "atlasSha256": "ca9d6c5d33ae3727a5851bd1b3fbe3e814fdb58ab10b6bb529c334fa9d0a2d6e",
   "geometry": "web/public/assets/character-cast/rainmarket-resident-0.atlas.json",
-  "geometrySha256": "9d0f31aefdcd1d4d10b7c3b8cbff1928a2a3228bb031515158dfd06dda85f043",
+  "geometrySha256": "faf2bd500e442697753d74005046ee81eea74ffe3f0f2f7a33d7602efad30732",
   "textureBytes": 14707912,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/rainmarket-resident-0.webp",
-      "sha256": "728843735c3fa13f47d2b8a7dc2af33519888f891513b014f44099d129ae4fb0",
+      "sha256": "ca9d6c5d33ae3727a5851bd1b3fbe3e814fdb58ab10b6bb529c334fa9d0a2d6e",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/rainmarket-resident-0.1.webp",
-      "sha256": "878da869059d805c30d36f237e32c8d49709786b9e5c2e01b573209f28f1adbe",
+      "sha256": "cc3cd14915ce720e3da3ff91f6356bc206f98f4da8c1cc6fff5a62ea77dad46d",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "b5ecf3026eb2dbfe664e0adc516a4e079108f55d6c9fdbc821b1ebed791d0820",
   "editorSha256": "b9def6d0c3583124d08319f1dfd7fa0d4b40c043a0c86b581b53b156df638d0f",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

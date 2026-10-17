@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/lindenhafen-riverside-vendor.json",
   "recipeSha256": "abbb3763bc8ac69a5d863d1aca98a33d5e7bb77e448d937a56accd8e02a5c144",
   "atlas": "web/public/assets/character-cast/poses/wave/lindenhafen-riverside-vendor.webp",
-  "atlasSha256": "8cbd3e8cfe7c7b9d21163d5b0e4d3dbc9bae48cbfe0f1426dfa2a638bf763d2d",
+  "atlasSha256": "cc8b80a51c739a70ea041bc44435aeace1a01a7cd3c860f6405a74d73c777d39",
   "geometry": "web/public/assets/character-cast/poses/wave/lindenhafen-riverside-vendor.atlas.json",
-  "geometrySha256": "36204a44e1c7fcaa5247aff8ae231288928865beacbb15969e40fc047bca3ddf",
+  "geometrySha256": "5f21df152f05304c30956694f182c887f3381d4a8ff36782979a904823e5c340",
   "textureBytes": 14044076,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/poses/wave/lindenhafen-riverside-vendor.webp",
-      "sha256": "8cbd3e8cfe7c7b9d21163d5b0e4d3dbc9bae48cbfe0f1426dfa2a638bf763d2d",
+      "sha256": "cc8b80a51c739a70ea041bc44435aeace1a01a7cd3c860f6405a74d73c777d39",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/poses/wave/lindenhafen-riverside-vendor.1.webp",
-      "sha256": "bb1bf8059afcc4741ec7f442a9ef08daa90a4cf5ea17f386669aed9152144bdb",
+      "sha256": "fb03571d3126f92dfa05e60efcaf62fe70576977fbd3c485fc76889614689704",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "beba074fbedb75becddb0320e8d33c190e5ac49e08e81cdfcbec9d2610aa7b87",
   "editorSha256": "b7a2024ff7eb7ab9d781b5103c71dea4a1049ba5994bd166698c18e79d4f013d",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

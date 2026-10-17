@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/emil.json",
   "recipeSha256": "d257bfe760788138af315ebef510d82f17c572e818e5ec82c2b72b6d005cacc4",
   "atlas": "web/public/assets/character-cast/emil.webp",
-  "atlasSha256": "4e2246c4ab8872945371f7c1b69677b3aac0a14a245c71f73d40af919121482a",
+  "atlasSha256": "55589943ecc65739a2322b47875076a236fadfb5d19fd5717650f74bf5f14487",
   "geometry": "web/public/assets/character-cast/emil.atlas.json",
-  "geometrySha256": "5113a3718ad34c6ac369401701e79f71f787af1026cede308b7ca350348ce9d5",
+  "geometrySha256": "4be8d1b866d931ba105578f2e6722f91bb9800281d163ce7641232013f961d00",
   "textureBytes": 14183232,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/emil.webp",
-      "sha256": "4e2246c4ab8872945371f7c1b69677b3aac0a14a245c71f73d40af919121482a",
+      "sha256": "55589943ecc65739a2322b47875076a236fadfb5d19fd5717650f74bf5f14487",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/emil.1.webp",
-      "sha256": "21fb7f30bf016e16edcea4fd9e933f58a943b917c00297df8634c6b112f7c51f",
+      "sha256": "732469fcc6c4f00aaf5de3529dfd1b45c5057e03c81b9dee7d90a8e10aec377a",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -37,20 +37,20 @@
     "key": "character-cast-emil-native",
     "image": "web/public/assets/character-cast/native/emil.webp",
     "atlas": "web/public/assets/character-cast/native/emil.atlas.json",
-    "sha256": "c632065e107cdfd5921841f1f08e58f69b00dc491c5e1df9dca5db4d3bd940f4",
-    "atlasSha256": "5267bf6ac884aae73642352d7cbe63fcd6c85fc6789135da8acd363d88ef834f",
+    "sha256": "40ec0a39d50066c9c99f0639e866b93794d2026d8b9cf394868f4ae14b28a9fd",
+    "atlasSha256": "4fc33859763ef4745559a1d4d2de8be47316307bc49ffb00f2151f392340bc6a",
     "textureBytes": 27305388,
     "multiAtlas": true,
     "images": [
       {
         "path": "web/public/assets/character-cast/native/emil.webp",
-        "sha256": "c632065e107cdfd5921841f1f08e58f69b00dc491c5e1df9dca5db4d3bd940f4",
+        "sha256": "40ec0a39d50066c9c99f0639e866b93794d2026d8b9cf394868f4ae14b28a9fd",
         "firstFrame": 0,
         "frameCount": 18
       },
       {
         "path": "web/public/assets/character-cast/native/emil.1.webp",
-        "sha256": "32e5209ba7f57977d6c13d0ec35823c862cd6fe19336fb757b43fb20ae8d68a1",
+        "sha256": "be7d558adccbab71386d395e43cc91c541c8c66015e7b4428a4875b513eea0eb",
         "firstFrame": 18,
         "frameCount": 18
       }
@@ -60,6 +60,8 @@
       768
     ],
     "source": "art/proofs/character-cast-painted/emil.webp",
-    "sourceSha256": "87fe496ecaf41067c75ff844b7a36709a27891094988693f2387991e9275b9ee"
-  }
+    "sourceSha256": "87fe496ecaf41067c75ff844b7a36709a27891094988693f2387991e9275b9ee",
+    "encodingId": "near-lossless-20-v1"
+  },
+  "encodingId": "near-lossless-20-v1"
 }

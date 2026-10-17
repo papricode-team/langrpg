@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/terracielo-pilar.json",
   "recipeSha256": "7b127f26d50b14418205b933af2206064d2c03987fa71bd5986bb1f890b219b8",
   "atlas": "web/public/assets/character-cast/terracielo-pilar.webp",
-  "atlasSha256": "01130b9b08609d128ac951be5170340db5c0dea65546a26c7e83bc7cf84b25d4",
+  "atlasSha256": "9642679c4a2385f4e4293d3b5a3ec9fbe9af0200557b71fca04fe17539d225fc",
   "geometry": "web/public/assets/character-cast/terracielo-pilar.atlas.json",
-  "geometrySha256": "fd4f9039d6fee3822d534e6b05f16b6ebfabf61cc6afc6782e2385420d6bc002",
+  "geometrySha256": "083b2bbb9e42546846addf84e2f3a06fa52656470d5d6330d6c5378e2bc97059",
   "textureBytes": 13643388,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/terracielo-pilar.webp",
-      "sha256": "01130b9b08609d128ac951be5170340db5c0dea65546a26c7e83bc7cf84b25d4",
+      "sha256": "9642679c4a2385f4e4293d3b5a3ec9fbe9af0200557b71fca04fe17539d225fc",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/terracielo-pilar.1.webp",
-      "sha256": "304ecfb43d86a2e237a0f9c40b8bc3aa506bd1b22c1297132654d26214907eeb",
+      "sha256": "c4c7bd6eff816ebae22798d1d1fbd27dd12799874af91f250fdc126d385776d1",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "73488dd5819ccf60ae7c5b1916b31de5be48f9f7399f0cb6ae13472635033d3b",
   "editorSha256": "43d60c0e961c2c50c57f0ba7cc071213395d90bf36442c827567da8d1ed9fa2d",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

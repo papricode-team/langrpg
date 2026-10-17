@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/lindenhafen-promenade-reader.json",
   "recipeSha256": "2b0cf00914368e66ae70caf117bf9d8f21af6987e91f10a464529ba667d1b7cc",
   "atlas": "web/public/assets/character-cast/lindenhafen-promenade-reader.webp",
-  "atlasSha256": "5be14a5c0854d93434aa14387754de6b14ce2331631ef578fbba1915110c0a9e",
+  "atlasSha256": "9157b4b09d8ce73de0035074d261c8d0faf5bcde2ace2f4e45193bd7bfa3b852",
   "geometry": "web/public/assets/character-cast/lindenhafen-promenade-reader.atlas.json",
-  "geometrySha256": "34744359041bb63354afad22876bbc631989a9d8b6a1c3aeb4e7f54bd34764ea",
+  "geometrySha256": "456a143d8e4ced31df58a77a0b54927dbbd1c42543327b539a5aa9a4756f2897",
   "textureBytes": 14227608,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/lindenhafen-promenade-reader.webp",
-      "sha256": "5be14a5c0854d93434aa14387754de6b14ce2331631ef578fbba1915110c0a9e",
+      "sha256": "9157b4b09d8ce73de0035074d261c8d0faf5bcde2ace2f4e45193bd7bfa3b852",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/lindenhafen-promenade-reader.1.webp",
-      "sha256": "e86fa767d0d48924b64e846c8e0419c121e5d6065a54987dc9a2f6cfa294feb3",
+      "sha256": "5ae61d076800dd702c176d5dbe57a46d692c115bce0b9a0e4ec8e1cfd88dfd2e",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "25ac8b33d6607f147c994d9f881f82e43a15cf1fd1e9f56e3756cf61f7bf04df",
   "editorSha256": "81721211b749c4f5ed222fd1a6bca1d63efa5a218a02406abff9edb9e3fc16af",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

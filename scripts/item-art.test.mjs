@@ -6,10 +6,12 @@ import { synthesizeMiniGameSfx, minigameSfxNames } from './generate-minigame-sfx
 import { minigameAudioJobs } from './minigame-audio-content.mjs';
 import { encodeMonoPcmWav } from './world-audio-synthesis.mjs';
 
-test('art plan names 181 real concrete course nouns with one visual identity each',async()=>{
+// 18 story nouns from the minigame pass joined the plan; only the final sheet may be partly filled.
+test('art plan names 199 real concrete course nouns with one visual identity each',async()=>{
   const plan=await createItemArtPlan(),frames=plan.sheets.flatMap(sheet=>sheet.frames),nouns=frames.filter(frame=>frame.lexemeId);
-  assert.equal(nouns.length,181);assert.equal(new Set(nouns.map(frame=>frame.lexemeId)).size,181);
-  assert.equal(frames.length,208);assert.ok(plan.sheets.every(sheet=>sheet.frames.length===16));
+  assert.equal(nouns.length,199);assert.equal(new Set(nouns.map(frame=>frame.lexemeId)).size,199);
+  assert.equal(frames.length,230);
+  assert.ok(plan.sheets.slice(0,-1).every(sheet=>sheet.frames.length===16));assert.ok(plan.sheets.at(-1).frames.length>0&&plan.sheets.at(-1).frames.length<=16);
   for(const id of ['kaffee','buch','zug','fahrkarte','bahnsteig','schluessel'])assert.ok(nouns.some(frame=>frame.lexemeId===`${id}-noun`));
   assert.notEqual(nouns.find(frame=>frame.lexemeId==='apfel-noun').subject,nouns.find(frame=>frame.lexemeId==='tomate-noun').subject);
 });

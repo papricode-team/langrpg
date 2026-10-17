@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/marta.json",
   "recipeSha256": "b543a8c64dd83ce64385646d0cd32498b89c603626918389873cb4f39d9e857b",
   "atlas": "web/public/assets/character-cast/marta.webp",
-  "atlasSha256": "f7b7284019f658934948006f1bf11ed6042e5876290ebe16133129437e58bcc6",
+  "atlasSha256": "ba0a3dbc1d96d3a1ae6825ff6ea860475792b3256ffba86d82422ca06033eddb",
   "geometry": "web/public/assets/character-cast/marta.atlas.json",
-  "geometrySha256": "dbb8c1edbf30e3bab6a9cc5bedb16e1c9dd4ff8afec732358bad5ad7d2937a28",
+  "geometrySha256": "75c0fb24d301d1553520b2616ecc125f462c924d3deec600193753fba17bdc45",
   "textureBytes": 14340384,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/marta.webp",
-      "sha256": "f7b7284019f658934948006f1bf11ed6042e5876290ebe16133129437e58bcc6",
+      "sha256": "ba0a3dbc1d96d3a1ae6825ff6ea860475792b3256ffba86d82422ca06033eddb",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/marta.1.webp",
-      "sha256": "810da898842434c95dddacbbcdb3fdcdc3f842297cd2f953d0371a7bfe8b2d11",
+      "sha256": "eac472e9e63a5f00e7da1fa7c96978c0922e22ffd0772af4477e21f795b75162",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -37,20 +37,20 @@
     "key": "character-cast-marta-native",
     "image": "web/public/assets/character-cast/native/marta.webp",
     "atlas": "web/public/assets/character-cast/native/marta.atlas.json",
-    "sha256": "76b9882b26ece9e630af4a9bb5b709c916126ab8d64b40264741cb01566bc388",
-    "atlasSha256": "019fd69770a7a937bd1e32a0028522939f0ed627e1e416b46e6bb831dd31c517",
+    "sha256": "c881e38a11ca3c43635bd838995119301666eee1ae1269b0d7c722243acf69d4",
+    "atlasSha256": "2f280129a795599df270cbd8b22c1869f52c276ccf3bb5833ab2dcd992874547",
     "textureBytes": 28303632,
     "multiAtlas": true,
     "images": [
       {
         "path": "web/public/assets/character-cast/native/marta.webp",
-        "sha256": "76b9882b26ece9e630af4a9bb5b709c916126ab8d64b40264741cb01566bc388",
+        "sha256": "c881e38a11ca3c43635bd838995119301666eee1ae1269b0d7c722243acf69d4",
         "firstFrame": 0,
         "frameCount": 18
       },
       {
         "path": "web/public/assets/character-cast/native/marta.1.webp",
-        "sha256": "55d6ae3263c017d147f034d8e27c97583b01083ea41aad51831074c2d185d937",
+        "sha256": "5d8ca259b9d7d4fba4ace45789f7a6ef80602584a75727db0dc5cc373540a232",
         "firstFrame": 18,
         "frameCount": 18
       }
@@ -60,6 +60,8 @@
       768
     ],
     "source": "art/proofs/character-cast-painted/marta.webp",
-    "sourceSha256": "d663ed34cd8e68f189f311d63db8ff185170184c919b7881b868ec40632724e9"
-  }
+    "sourceSha256": "d663ed34cd8e68f189f311d63db8ff185170184c919b7881b868ec40632724e9",
+    "encodingId": "near-lossless-20-v1"
+  },
+  "encodingId": "near-lossless-20-v1"
 }

@@ -38,23 +38,24 @@
     384,
     576
   ],
-  "sha256": "8c5a4dde93bf994cfb0071db147beb8aa60152cf58d929f2a33dbba98f9d5233",
-  "atlasSha256": "2d4041d04c8d3ffd4b3298eb80a79582edcc3bc196e49c9cc5b284f3a3733eca",
+  "sha256": "6cf634b2a1ecce0b663da1173d25a4e0bef52b38188a3b98d67e5fffd019bf31",
+  "atlasSha256": "961726ffb0a4d835111c1b06bd6d0a75a477119c37202c58981be39f160de090",
   "textureBytes": 14739904,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/berg.webp",
-      "sha256": "8c5a4dde93bf994cfb0071db147beb8aa60152cf58d929f2a33dbba98f9d5233",
+      "sha256": "6cf634b2a1ecce0b663da1173d25a4e0bef52b38188a3b98d67e5fffd019bf31",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/berg.1.webp",
-      "sha256": "9ef68dfa83919cdcad62bd59904a9bfafef1c64323e52f6684cbe6cf9abb0813",
+      "sha256": "8bac90559ccdcfff8177a00514c44a38fdd44be23cab300631a0efa0bb8feb3f",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/berg.atlas.json"
+  "atlas": "web/public/assets/character-cast/berg.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

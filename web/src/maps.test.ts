@@ -89,7 +89,8 @@ for (const map of maps.map(map => getMap(map.id))) describe(`${map.name} paths`,
 
 describe('region-specific scenery barriers', () => {
   const blocked: Record<StoryMapId, number[][]> = {
-    lindenhafen: [[1346,520],[700,540],[700,772],[860,684]],
+    // The market stalls moved east in town pass 2; sample the north counter.
+    lindenhafen: [[1346,520],[700,540],[1025,708],[860,684]],
     waldruh: [[1170,600],[600,410],[735,520],[1424,300],[640,920],[885,410]],
     nebelstadt: [[250,320],[700,320],[818,690],[1452,700],[600,950],[1150,750],[230,492],[2222,870]],
   };

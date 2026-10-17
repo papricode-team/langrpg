@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/berg.json",
   "recipeSha256": "70a9819d302c02a56ba15f440f5e8c9760e9d301cd1e8c65230b2a0c93afa67e",
   "atlas": "web/public/assets/character-cast/berg.webp",
-  "atlasSha256": "8c5a4dde93bf994cfb0071db147beb8aa60152cf58d929f2a33dbba98f9d5233",
+  "atlasSha256": "6cf634b2a1ecce0b663da1173d25a4e0bef52b38188a3b98d67e5fffd019bf31",
   "geometry": "web/public/assets/character-cast/berg.atlas.json",
-  "geometrySha256": "2d4041d04c8d3ffd4b3298eb80a79582edcc3bc196e49c9cc5b284f3a3733eca",
+  "geometrySha256": "961726ffb0a4d835111c1b06bd6d0a75a477119c37202c58981be39f160de090",
   "textureBytes": 14739904,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/berg.webp",
-      "sha256": "8c5a4dde93bf994cfb0071db147beb8aa60152cf58d929f2a33dbba98f9d5233",
+      "sha256": "6cf634b2a1ecce0b663da1173d25a4e0bef52b38188a3b98d67e5fffd019bf31",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/berg.1.webp",
-      "sha256": "9ef68dfa83919cdcad62bd59904a9bfafef1c64323e52f6684cbe6cf9abb0813",
+      "sha256": "8bac90559ccdcfff8177a00514c44a38fdd44be23cab300631a0efa0bb8feb3f",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -33,45 +33,5 @@
   "editorSha256": "66c40134763610b2db95a5838e0c555981142390544da7f354b0bdd4b51005c1",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "native": {
-    "key": "character-cast-berg-native",
-    "image": "web/public/assets/character-cast/native/berg.webp",
-    "atlas": "web/public/assets/character-cast/native/berg.atlas.json",
-    "sha256": "d15723b03a8af738d8249b0017bdc4013470528e89e30d54a2c47fef12e04573",
-    "atlasSha256": "bc184c0bf691e6854591a2586e51d4785e5691da142a5c2e7e47cd49198ec1b8",
-    "textureBytes": 37960472,
-    "multiAtlas": true,
-    "images": [
-      {
-        "path": "web/public/assets/character-cast/native/berg.webp",
-        "sha256": "d15723b03a8af738d8249b0017bdc4013470528e89e30d54a2c47fef12e04573",
-        "firstFrame": 0,
-        "frameCount": 9
-      },
-      {
-        "path": "web/public/assets/character-cast/native/berg.1.webp",
-        "sha256": "77b58976449310600cb5866faefe85ecb604011e5fdda3fa305506cfbf5683d4",
-        "firstFrame": 9,
-        "frameCount": 9
-      },
-      {
-        "path": "web/public/assets/character-cast/native/berg.2.webp",
-        "sha256": "ba0537c5724d6a919e1f77bdf7c949ac2c4f4e011a46e0824391217343d1637e",
-        "firstFrame": 18,
-        "frameCount": 9
-      },
-      {
-        "path": "web/public/assets/character-cast/native/berg.3.webp",
-        "sha256": "79578f7288e071b710084a797efe346ee8255f66736c79aeefd507fb1b8804d1",
-        "firstFrame": 27,
-        "frameCount": 9
-      }
-    ],
-    "cell": [
-      512,
-      768
-    ],
-    "source": "art/proofs/character-cast-painted/berg.webp",
-    "sourceSha256": "66c40134763610b2db95a5838e0c555981142390544da7f354b0bdd4b51005c1"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

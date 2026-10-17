@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/terracielo-luz.json",
   "recipeSha256": "6026dbb721be255e8484d19cfaa695cad4eb7dd5665715a8d3d977031fc34bf8",
   "atlas": "web/public/assets/character-cast/terracielo-luz.webp",
-  "atlasSha256": "f346091254c685b398b769ef4444fc5da266091013f1005588eb20c85621eb10",
+  "atlasSha256": "296c2669e746e43aad355fe859bba74d9e97c760db9a8f4f119360b1eeccc391",
   "geometry": "web/public/assets/character-cast/terracielo-luz.atlas.json",
-  "geometrySha256": "1c9f0305672014722d2a088c4b1439f85cb9d5b0e867083a8272edebcf652211",
+  "geometrySha256": "9bfd833c992dc8936e960789b015ba3ca4a61c29879040040278819190c2cb3a",
   "textureBytes": 13952400,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/terracielo-luz.webp",
-      "sha256": "f346091254c685b398b769ef4444fc5da266091013f1005588eb20c85621eb10",
+      "sha256": "296c2669e746e43aad355fe859bba74d9e97c760db9a8f4f119360b1eeccc391",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/terracielo-luz.1.webp",
-      "sha256": "dfd389a85d64d71a2de22bf171b0e6a126de52899c7722b2fef3e4e87c5da94d",
+      "sha256": "f9b4596d684a8a5b678cb7028b12a9b86848a63a22deace0872fe618a8fa028d",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "670f67a4b2a74cc59c0e0d9581a06d9a70a95ddf35bed4446cc5b9408ee99b74",
   "editorSha256": "cbf8a313975657a0e1c6bfa63ee63622bc3150611408e00927223ec2c167a9f1",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

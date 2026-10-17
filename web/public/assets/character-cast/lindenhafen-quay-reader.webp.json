@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "5996feabac95322cb5e558f03f3db3d6520a33a0629534a453090e39272463e0",
-  "atlasSha256": "0f38b4e85ddee146210a52f8ea219f1982715876f55d5216d8461006652d313b",
+  "sha256": "371f167a4bef8a1a1fa435877e2a2d5e08139b18674bb20def5b205e5a888944",
+  "atlasSha256": "7436fb09cb4e3d63ab3a547e89870843d5b9df48823ebc0dab197c2ca7122b7e",
   "textureBytes": 14227608,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/lindenhafen-quay-reader.webp",
-      "sha256": "5996feabac95322cb5e558f03f3db3d6520a33a0629534a453090e39272463e0",
+      "sha256": "371f167a4bef8a1a1fa435877e2a2d5e08139b18674bb20def5b205e5a888944",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/lindenhafen-quay-reader.1.webp",
-      "sha256": "8fcd89ebcd8ae22dbf128ea51b023d4f005cc8d3e159fb004ca45c3241515257",
+      "sha256": "508ae3b5a4631e8ea0b6e78be8c3439a2f2b02a90b57c2d27544a4e6b671e8b2",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/lindenhafen-quay-reader.atlas.json"
+  "atlas": "web/public/assets/character-cast/lindenhafen-quay-reader.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

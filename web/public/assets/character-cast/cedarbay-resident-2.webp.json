@@ -41,23 +41,24 @@
     384,
     576
   ],
-  "sha256": "9034ba637f3cf26e1fa89f94bd1fea701a10e6126f5afb0f586c4ab2517f0530",
-  "atlasSha256": "f700732a885ae7597ccaa819aaba1701edf600fd4fce308405b109fca60b4053",
+  "sha256": "9333fb2e79f4916ce0235cecb7ff3011a87062d45d90bd981187f58aea15feaf",
+  "atlasSha256": "f1ef03523481fdce0e0bb69e65752c2012310c772cc4d76663bac841afb0ef3c",
   "textureBytes": 14332528,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/cedarbay-resident-2.webp",
-      "sha256": "9034ba637f3cf26e1fa89f94bd1fea701a10e6126f5afb0f586c4ab2517f0530",
+      "sha256": "9333fb2e79f4916ce0235cecb7ff3011a87062d45d90bd981187f58aea15feaf",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/cedarbay-resident-2.1.webp",
-      "sha256": "419da28c96e3467b32f3b8ab65c418dbe88882ef6f51d24394b9bf321a0b8424",
+      "sha256": "e187c901d88c96923e3492f5d8bf264bef03b9b47e1d697c5c9aa376e457efab",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/cedarbay-resident-2.atlas.json"
+  "atlas": "web/public/assets/character-cast/cedarbay-resident-2.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/terracielo-ana.json",
   "recipeSha256": "c7a08d189c492f05c6b8e74992fc26bccedbf5274c63c3c2cdd99ddc2e24f098",
   "atlas": "web/public/assets/character-cast/terracielo-ana.webp",
-  "atlasSha256": "f56709551da5bfae1edd3edb1aa5c5870a93923d0515cfda2f0003fdae51f5a6",
+  "atlasSha256": "4badc5534d36787162ae47143a6db6d000c25eb4717503126daf8fed78bfcd17",
   "geometry": "web/public/assets/character-cast/terracielo-ana.atlas.json",
-  "geometrySha256": "32c00412a8ec47003b93b2bb349711bf73da59e39ceda4b72c11ed41b8d42b25",
+  "geometrySha256": "68f6dbc030b56a0408996f03a9e40acbe6f660802d2ed6f56f584c7e72192bfc",
   "textureBytes": 14354480,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/terracielo-ana.webp",
-      "sha256": "f56709551da5bfae1edd3edb1aa5c5870a93923d0515cfda2f0003fdae51f5a6",
+      "sha256": "4badc5534d36787162ae47143a6db6d000c25eb4717503126daf8fed78bfcd17",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/terracielo-ana.1.webp",
-      "sha256": "10f7ead63cb5c92c95fdde739b3db1a191ca1791656739aaf4891fe71ef33034",
+      "sha256": "6f19b103a5c31fb007da2483b54f4804db1ad3ad8299142e86864bedb3f2bb7a",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "7db6c8879ff552fb8f31d9b9103e180670d0d4228a51dd65c007506f7ec2ab16",
   "editorSha256": "b933ecdaaad9f1fb6c282cee12f1228e11cf58a0b395472ce2b3404266bce0a6",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

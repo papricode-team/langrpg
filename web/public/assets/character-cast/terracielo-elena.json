@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/terracielo-elena.json",
   "recipeSha256": "de442bead59e65b7db85ab5f9837e49ad3460605314a6dc698bded15ebfe2486",
   "atlas": "web/public/assets/character-cast/terracielo-elena.webp",
-  "atlasSha256": "68c22a5ffcf199ef4626427e97d99edd05e9c30fbd3de4a8674dbffe9e980fff",
+  "atlasSha256": "98476028f713e9a6bfbe2d60abbc0b0f881a38cb80379472758a47398a71c1fa",
   "geometry": "web/public/assets/character-cast/terracielo-elena.atlas.json",
-  "geometrySha256": "5431fbf66bdabf80af4fdb33a6a0b1167c7872cb92709342c86c7b3e52741e7c",
+  "geometrySha256": "8c4bb2380b59dc4ba4bbf933b4c597d67a2eb14f4eb8e320dd4428130260d198",
   "textureBytes": 14233840,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/terracielo-elena.webp",
-      "sha256": "68c22a5ffcf199ef4626427e97d99edd05e9c30fbd3de4a8674dbffe9e980fff",
+      "sha256": "98476028f713e9a6bfbe2d60abbc0b0f881a38cb80379472758a47398a71c1fa",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/terracielo-elena.1.webp",
-      "sha256": "8f4fbf3e0f04c9d0f127c7b5338d7bc076901a134d015e8202811124bd9dbc54",
+      "sha256": "37a8cbf263fed864217c289c07b5561134fa24744d6cf1404d0a016e7bc5aed6",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "2d74155fef218982774412e7ab29ba011c3e704c63a1c25466d624dd625830a4",
   "editorSha256": "20b23e03b6846fddd175ac643590387e08dc0a9fb10b152a439d198e900acdf8",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

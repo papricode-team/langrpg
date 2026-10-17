@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/terracielo-rosa.json",
   "recipeSha256": "508e5465a12049b30b7b3384c22100dcfb5973fa2d4c434e49f1e2b036869cd7",
   "atlas": "web/public/assets/character-cast/terracielo-rosa.webp",
-  "atlasSha256": "9c7bee804fd04056efbf373cbe90afcaa8b12d49686ef0c15bc687f553506e5f",
+  "atlasSha256": "20e9b622ee0b71e48289f3986d0014a8b16d84016a31dd9ce1b95788b06745fe",
   "geometry": "web/public/assets/character-cast/terracielo-rosa.atlas.json",
-  "geometrySha256": "31ed3ee0561518bbecabccc1931f72787b0fc407fbf451f94bebe973e4f44c90",
+  "geometrySha256": "f290118635cf60f0113bdfae5a6e0ebbfe80b31d6553d6c5524c564c1f62fa5c",
   "textureBytes": 14226600,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/terracielo-rosa.webp",
-      "sha256": "9c7bee804fd04056efbf373cbe90afcaa8b12d49686ef0c15bc687f553506e5f",
+      "sha256": "20e9b622ee0b71e48289f3986d0014a8b16d84016a31dd9ce1b95788b06745fe",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/terracielo-rosa.1.webp",
-      "sha256": "7cebab3244bec0d88e821a994ebd7861944ef1e97fc775ce2afa3d147116e227",
+      "sha256": "a70d62c70ad9319f840593decfd8d30b72b6d1d4fddfd2a71e187095f3e18570",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "c72ca777d2fa1258703124dd6c7135f21654278197beb56cdf6b4fe0c4847e09",
   "editorSha256": "0d5bb33ec3145d8a423d8bf8033344f90c3be0c68dd4302752db3113f61ee862",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }

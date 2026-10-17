@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/dunegarden-aisha.json",
   "recipeSha256": "e5d7351591219d8c203d392acb13068cd2636bc29dd26f61d3438d1763dfd5b7",
   "atlas": "web/public/assets/character-cast/dunegarden-aisha.webp",
-  "atlasSha256": "476a461537ca994fec04608bc3e7b41af2f487d3eae37e62c7e665ae8ae9225c",
+  "atlasSha256": "d3aa8273dcf527f616ff0652328a3675dbd22268e57218f2bba89c1a10993177",
   "geometry": "web/public/assets/character-cast/dunegarden-aisha.atlas.json",
-  "geometrySha256": "044cf08ac74ea86ad645b4c388e3d1046c8d89302302a05ab69bd6a741390be8",
+  "geometrySha256": "017ca1d72bd6891abf09741f713b2358c8e2b2204c1a12e8a30a7b7e10572b03",
   "textureBytes": 14524936,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/dunegarden-aisha.webp",
-      "sha256": "476a461537ca994fec04608bc3e7b41af2f487d3eae37e62c7e665ae8ae9225c",
+      "sha256": "d3aa8273dcf527f616ff0652328a3675dbd22268e57218f2bba89c1a10993177",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/dunegarden-aisha.1.webp",
-      "sha256": "f5f8b51b57a3e8aa6fb386097926ce06a41509cc694b6067e83c15e4246af884",
+      "sha256": "67e9a6ee728dfdf0556713592d6ae03446807343fbbd81db539ee8dba6fe6a9f",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -32,5 +32,6 @@
   "proofSha256": "6305f6ee006e1c5fe7dadaaa0a052245dfac91857049a5545a33b2ee4ca3abf7",
   "editorSha256": "77257f040b3206a76c8710effa1a13b6a644013c974aad98a208fa62ddbe5ddd",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36
+  "frames": 36,
+  "encodingId": "near-lossless-20-v1"
 }
