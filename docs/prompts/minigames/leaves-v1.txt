@@ -1,0 +1,16 @@
+Use case: stylized-concept
+Asset type: production transparent 2D game sprites for the Falling Leaves word game in glotworld, a cozy hand-painted European village story RPG. Greta hosts the game under a linden tree; each leaf carries an English meaning in white text across its middle.
+Primary request: Three separate images, one autumn linden leaf each (heart-shaped Tilia leaf with a short curved stem and a finely serrated edge), lying flat and rotated so the leaf is wider than tall (stem pointing left). Variants:
+  1. leaf-gold: warm golden yellow #e2b84a with ochre veins.
+  2. leaf-amber: amber orange #d98a35 shading to burnt orange at the rim.
+  3. leaf-russet: russet red-brown #a8502d with a few darker freckles.
+Composition: 1024 x 640 canvas, straight-on top-down, the leaf fills about 92 percent of width and 88 percent of height, centred. The central band of the leaf (roughly the middle 60 percent of width and 40 percent of height) is a fairly even, mid-dark tone with only faint veins, so white text with a dark shadow stays readable on it.
+Style: painterly hand-painted game art matching warm brass and dark-green UI, soft light from upper left, subtle inner shading and a slightly darker rim; no photorealism, no pixel art.
+Constraints: no letters or words, no background, no drop shadow outside the silhouette, no other objects, no watermark. Genuine alpha transparency outside the leaf.
+
+Generated with Codex's built-in image generation tool, transparent background.
+Originals: art/source/minigames/masters/prop-leaf-{gold,amber,russet}.png
+Runtime: web/public/assets/minigames/sprites/prop-leaf-{gold,amber,russet}.webp, drawn as the .word-leaf background.
+
+Runtime export (Node with sharp), 400 px wide:
+await sharp(master).trim().resize({width:400}).webp({quality:75,alphaQuality:90,effort:6}).toFile(runtime);
