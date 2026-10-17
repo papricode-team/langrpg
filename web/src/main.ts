@@ -402,8 +402,10 @@ function renderShell() {
 
         <div class="game-controls-hint" hidden><kbd>WASD</kbd><span>${t('Move')}</span><b>·</b><kbd>E</kbd><span>${t('Interact')}</span><b>·</b><kbd>M</kbd><span>${t('Atlas')}</span></div>
         <button type="button" class="game-menu-button game-menu-sprite" data-view="menu" aria-label="${e(t('Open game menu'))}"><img class="menu-button-art" src="/assets/ui/menu-button-v1.webp" width="64" height="64" alt="" aria-hidden="true" draggable="false"/><span>${t('Menu')}</span><kbd class="menu-keyboard-glyph" aria-hidden="true">Esc</kbd><i id="review-dot" hidden></i></button>
-        <button type="button" class="world-edit-button" id="world-edit-button" data-action="edit-world" aria-pressed="false" hidden>Edit</button>
-        <a class="admin-analytics-link" id="admin-analytics-link" href="/admin.html" target="_blank" rel="noopener" hidden>Admin</a>
+        <div class="admin-world-controls">
+          <button type="button" class="world-edit-button" id="world-edit-button" data-action="edit-world" aria-pressed="false" hidden>Edit</button>
+          <a class="admin-analytics-link" id="admin-analytics-link" href="/admin.html" target="_blank" rel="noopener" hidden>Admin</a>
+        </div>
         <div class="touch-controls"><div class="joystick" id="joystick" role="group" aria-label="${e(t('Touch movement joystick'))}"><span class="joystick-ring"></span><span class="joystick-axis"></span><span class="joystick-knob" id="joystick-knob">${icon('compass')}</span></div><button class="talk-button" id="talk-button" data-action="talk" aria-label="${e(t('Interact with something nearby'))}" hidden disabled>${icon('chat')}<span id="nearby-name"></span></button></div>
       </div>
       <div class="world-watch-caption"><span>${t('A moment in {place}', { place: '<strong id="watch-region">Lindenhafen</strong>' })}</span><span id="watch-time">12:00 · ${upper(t('Day'))}</span><button data-action="stop-watching">${t('Return to exploring')} <kbd>ESC</kbd></button></div>

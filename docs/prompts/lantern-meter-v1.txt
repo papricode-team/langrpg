@@ -1,0 +1,13 @@
+Use case: stylized-concept
+Asset type: production transparent 2D game HUD lantern sprite for glotworld, a cozy hand-painted European village story RPG.
+Primary request: A small exquisite aged-brass lantern, front-facing, with a loop handle, a domed cap, four tapered brass uprights enclosing smoky emerald glass, a tiny warm ivory-gold flame inside, and a sturdy rounded base. It is a magical instrument that senses fading story names. Elegant, tactile storybook inventory art, painterly yet crisply readable at 64 pixels, matching the game's warm brass and deep forest-green enamel menu button.
+Composition: a single lantern centered in a square canvas, full silhouette including handle, fills about 88 percent of height and 66 percent of width, equal transparent margin around it. Straight-on orthographic view, no tilt or perspective. The base can have two subtle engraved leaf motifs. Strong silhouette and simple large forms.
+Materials: softly worn warm brass #c4a567, pale gold highlights #e8d39b, very dark forest-green smoky glass #152d25, restrained amber light within. Soft light from upper left. Rich illustrated depth and hand-painted edge highlights, no photorealism, no pixel art.
+Constraints: isolated lantern only, genuine alpha transparency. No background, no enclosing square tile, no meter or bar, no letters or words, no symbols floating outside, no large bloom, no cast shadow outside the silhouette, no watermark. Keep the flame small so runtime CSS can add stronger glow when a fading name is nearby.
+
+Generated with the built-in image_gen tool, transparent_background=true.
+Original: art/ui/lantern-meter-v1.png
+Runtime: web/public/assets/ui/lantern-meter-v1.webp (80 x 160; alpha preserved; twice the rendered resolution).
+
+Runtime export (Node with sharp):
+await sharp('art/ui/lantern-meter-v1.png').trim().resize({height:160}).webp({quality:50,alphaQuality:85,effort:6}).toFile('web/public/assets/ui/lantern-meter-v1.webp');
