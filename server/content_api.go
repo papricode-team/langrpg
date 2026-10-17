@@ -163,7 +163,9 @@ func (a *App) readContent(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	kind, id, has := strings.Cut(path, "/")
-	limits := map[string]int{"bootstrap": 6, "graphs": 10, "exercises": 60, "units": 60, "expeditions": 30, "minigames": 30, "contexts": 60}
+	// Progress changes trigger fresh content reads during normal play. Leave
+	// headroom for those refreshes and multiple tabs sharing the same account.
+	limits := map[string]int{"bootstrap": 18, "graphs": 30, "exercises": 180, "units": 180, "expeditions": 90, "minigames": 90, "contexts": 180}
 	if !a.contentBudget(w, account, kind, limits[kind], 1) {
 		return
 	}
@@ -223,9 +225,9 @@ func (a *App) contentMissing(w http.ResponseWriter, account Account, kind string
 }
 func (a *App) contentBatch(w http.ResponseWriter, r *http.Request, account Account, path string) {
 	ids := strings.Split(r.URL.Query().Get("ids"), ",")
-	cap, limit, kind := 12, 120, "sentence"
+	cap, limit, kind := 12, 360, "sentence"
 	if path == "lexemes" {
-		cap, limit, kind = 24, 240, "lexeme"
+		cap, limit, kind = 24, 720, "lexeme"
 	}
 	if len(ids) < 1 || len(ids) > cap {
 		writeError(w, 400, fmt.Sprintf("request 1 to %d UUIDs", cap))
@@ -284,7 +286,7 @@ func (a *App) contentUnits(w http.ResponseWriter, r *http.Request, account Accou
 	sort.Slice(visible, func(i, j int) bool { return visible[i].Slug < visible[j].Slug })
 	end := min(len(visible), offset+limit)
 	start := min(offset, len(visible))
-	if !a.contentBudget(w, account, "units", 60, max(1, end-start)) {
+	if !a.contentBudget(w, account, "units", 180, max(1, end-start)) {
 		return
 	}
 	records := []map[string]any{}

@@ -18,6 +18,12 @@ describe('mini-game spaced retries and scaffolds', () => {
     expect(queue.next()).toBeUndefined();
   });
 
+  it('asks a small pool at most twice per word instead of filling every round', () => {
+    const [a, b, c] = ['a', 'b', 'c'].map(id => item(id)), queue = new RoundQueue([a, b, c], 30);
+    expect(queue.remaining).toBe(6);
+    expect(Array.from({ length: 6 }, () => queue.next()!.item.lexemeId)).toEqual(['a', 'b', 'c', 'a', 'b', 'c']);
+  });
+
   it('retests at the end when fewer than two cues remain, without inventing an empty-pool round', () => {
     const a = item('a'), queue = new RoundQueue([a], 1);
     queue.next(); queue.miss(a);

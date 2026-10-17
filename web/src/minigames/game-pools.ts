@@ -75,9 +75,9 @@ export function mechanicPool(definition: MiniGameDefinition, pool: (query: PoolQ
   return items;
 }
 
-/** Fewest words a round can be built from. */
+/** Fewest words a round can be built from. Baskets and leaves need more: with three words every answer is memorised after one pass. */
 export function minimumPool(definition: MiniGameDefinition, silent: boolean): number {
-  if (isWordGame(definition)) return poolModality(definition, silent) === 'production' ? 1 : definition.mechanic === 'pairs' || definition.mechanic === 'baskets' ? 3 : 2;
+  if (isWordGame(definition)) return poolModality(definition, silent) === 'production' ? 1 : ['baskets','leaves'].includes(definition.mechanic) ? 5 : definition.mechanic === 'pairs' ? 3 : 2;
   return definition.modalities.includes('production') ? 1 : 2;
 }
 

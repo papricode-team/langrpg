@@ -1,6 +1,6 @@
 # A0: the night train (tutorial level)
 
-The prologue is the game's tutorial. A player who chose **No, none** at "Have you learned any German before?" wakes in a night-train carriage on the way to Lindenhafen. Over seven short beats they learn how the game is played and say their first German sentences. Everything happens in one walkable room, so the controls taught here are the controls used everywhere afterwards. A0 is a story label, not a CEFR level.
+The prologue is the game's tutorial and the default starting point of every new German story. After choosing languages and a character, the player wakes in a night-train carriage on the way to Lindenhafen. Saved story progress resumes an unfinished train journey across devices; existing adventures already in town keep their place. Over seven short beats players learn how the game is played and say their first German sentences. Everything happens in one walkable room, so the controls taught here are the controls used everywhere afterwards. A0 is a story label, not a CEFR level.
 
 This replaces the first implementation in PR 20, in which the seven scenes were dialogue boxes over two static perspective paintings: the player never walked, the conductor said the player's lines and each gate asked the player to repeat what they had just heard (see the review in `docs/a0-prologue-plan.md` §10).
 

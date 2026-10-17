@@ -301,8 +301,10 @@ Production target sentence references cannot disclose an exercise's model answer
 Private conditional caching includes account, course, support language, progress
 revision and record version. Authentication and entitlement run before returning
 304. Per-account, per-minute read limits charge batches by record count: sentences
-120, lexemes 240, exercises 60, graphs 10, bootstrap 6. Accounts share these limits
-across sessions. Unavailable reads and exhausted budgets are logged without bans.
+360, lexemes 720, exercises 180, units 180 (shared by individual and paged
+reads), contexts 180, expeditions 90, minigames 90, graphs 30, bootstrap 18.
+Accounts share these limits across sessions. Unavailable reads and exhausted
+budgets are logged without bans.
 
 Model answers return from recorded attempts only. After a graded attempt,
 `POST /api/attempt` with `{recover:true,exerciseId}` recovers that account/course's

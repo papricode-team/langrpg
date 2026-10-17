@@ -1,6 +1,6 @@
 import './tokens.css';
 import { contentEntitlementKey } from './content-entitlements';
-import { currentPrologueQuest, storyQuestId, storyQuestComplete } from './prologue-progress';
+import { currentPrologueQuest, shouldStartPrologue, storyQuestId, storyQuestComplete } from './prologue-progress';
 import { coachStep, type CoachState, type CoachStep } from './tutorial-coach';
 import {buildingRoomId} from './room-layout';
 import {roomKind} from './room-kind';
@@ -335,7 +335,7 @@ let progressOwner: string | undefined;
 let bootstrapRefresh: Promise<void> | undefined;
 function entitlementKey(value: Progress): string {
   // The opening heartbeat can restore words before the train room has loaded.
-  const train = !!interiorId?.startsWith('train-') || localStorage.getItem(`atlas.prologue.${api.selfId}`) === 'true' && !storyQuestComplete(value.completedQuestIds, 'a0-morgen');
+  const train = !!interiorId?.startsWith('train-') || shouldStartPrologue(value);
   return contentEntitlementKey(value, train);
 }
 function acceptProgress(value: Progress, owner?: string, catalogueCurrent = false) {
@@ -1003,13 +1003,13 @@ function onRegionReady(id: MapId) {
   if (!started || !mapConfirmed || id !== mapId || view !== 'world' || document.hidden || document.querySelector<HTMLDialogElement>('#account-dialog')!.open || document.querySelector<HTMLDialogElement>('#dialog')!.open) return;
   // The train needs its own room and graph, not the town's encounters and routines.
   // Load those when the player actually enters Lindenhafen.
-  if (pendingPrologue || !prologueBooted && localStorage.getItem(`atlas.prologue.${api.selfId}`) === 'true' && !storyQuestComplete(progress.completedQuestIds, 'a0-morgen')) {
+  if (pendingPrologue || !prologueBooted && onPrologueRoute()) {
     if (cinematicActive || !worldCanInteract()) return;
     const target = pendingPrologue; pendingPrologue = undefined; prologueBooted = true;
     readCoachMemory();
     void startPrologue(target, !target); return;
   }
-  if (interiorId?.startsWith('train-')) return;
+  if (interiorId?.startsWith('train-') || onPrologueRoute()) return;
   if (!loadedRegions.has(id)) {
     if (!loadingRegions.has(id)) {
       loadingRegions.add(id);
@@ -1654,8 +1654,7 @@ function prologueDoorFound(graph: QuestGraph) {
   return stage === 'choice' && !!graph.completionInvestigations?.length && graph.completionInvestigations.every(id => seen.includes(id));
 }
 function onPrologueRoute() {
-  try { return localStorage.getItem(`atlas.prologue.${api.selfId}`) === 'true' && !storyQuestComplete(progress.completedQuestIds, 'a0-morgen'); }
-  catch { return false; }
+  return shouldStartPrologue(progress);
 }
 function readCoachMemory() {
   try { Object.assign(coachMemory, { moved: false, talked: [] }, JSON.parse(localStorage.getItem(`atlas.coach.${api.selfId}`) ?? '{}')); }
@@ -2215,7 +2214,7 @@ async function enterGame(result: SessionResult): Promise<boolean> {
   // The builder updates in place. Repaint the world shell once the new adventure is saved.
   if (shellLanguage !== baseLanguage()) { window.location.reload(); return false; }
   started = true;
-  if (localStorage.getItem(`atlas.prologue.${result.player.id}`) !== 'true') showFirstControls();
+  if (!shouldStartPrologue(result.progress)) showFirstControls();
   readCoachMemory();
   account = result.account;
   updateWorldEditButton();
