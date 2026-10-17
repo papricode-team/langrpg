@@ -9,18 +9,20 @@ export interface InteriorEncounterOptions {
   object: InteriorObjectSpec;
   /** Root owns portrait rendering and the cast's current availability. */
   portraitMarkup?: string;
-  /** Exactly one optional secondary link; no card or promotional metadata. */
-  miniGame?: { id: string; title: string };
+  /** The station's own activity, such as a café shift at the coffee counter. */
+  activity?: { action: string; icon: string };
+  /** Secondary game links: the station's own game, then its host's games. No cards or promotional metadata. */
+  miniGames?: readonly { id: string; title: string }[];
 }
 
 const copy = (english: string, turkish: string): string => baseLanguage() === 'tr' ? turkish : english;
 
-export function renderInteriorEncounter({ room, object, portraitMarkup, miniGame }: InteriorEncounterOptions): string {
+export function renderInteriorEncounter({ room, object, portraitMarkup, activity, miniGames = [] }: InteriorEncounterOptions): string {
   const conversation = interiorConversationFor(object.id);
   const greeting = conversation?.nodes[conversation.start]?.line;
   const name = conversation?.name ?? object.label;
   const role = conversation ? copy(conversation.role.english, conversation.role.turkish) : room.germanName;
   const title = conversation ? copy(conversation.title.english, conversation.title.turkish) : object.sessionTitle;
   const words = object.vocabulary.map((word, index) => `<button class="word-chip" data-interior-word="${e(object.id)}" data-word-index="${index}" lang="de">${e([word.article, word.lemma].filter(Boolean).join(' '))}</button>`).join('');
-  return `<div class="interior-encounter" data-interior-encounter="${e(object.id)}"><header class="interior-encounter-heading">${portraitMarkup ?? `<span class="interior-object-emblem">${icon(room.icon)}</span>`}<div><h2>${e(name)}</h2><p class="encounter-role">${e(role)}</p></div></header>${greeting ? `<blockquote class="interior-dialogue">${renderNarrative(interiorLineNarrative(greeting))}<button class="icon-button" data-speak="${e(greeting.german)}" aria-label="${e(copy('Listen', 'Dinle'))}">${icon('volume')}</button></blockquote>` : ''}${words ? `<div class="interior-word-chips" aria-label="${e(copy('Words', 'Sözcükler'))}">${words}</div>` : ''}<button class="primary-button interior-primary" data-practice-interior="${e(object.id)}">${e(title)} ${icon('arrow')}</button><div class="encounter-secondary">${miniGame ? `<button class="text-button" data-minigame="${e(miniGame.id)}">${e(copy('Play', 'Oyna'))} ${e(miniGame.title)}</button>` : ''}<button class="text-button interior-back" data-action="close-dialog">${e(copy('Leave', 'Ayrıl'))}</button></div></div>`;
+  return `<div class="interior-encounter" data-interior-encounter="${e(object.id)}"><header class="interior-encounter-heading">${portraitMarkup ?? `<span class="interior-object-emblem">${icon(room.icon)}</span>`}<div><h2>${e(name)}</h2><p class="encounter-role">${e(role)}</p></div></header>${greeting ? `<blockquote class="interior-dialogue">${renderNarrative(interiorLineNarrative(greeting))}<button class="icon-button" data-speak="${e(greeting.german)}" aria-label="${e(copy('Listen', 'Dinle'))}">${icon('volume')}</button></blockquote>` : ''}${words ? `<div class="interior-word-chips" aria-label="${e(copy('Words', 'Sözcükler'))}">${words}</div>` : ''}<button class="primary-button interior-primary" data-practice-interior="${e(object.id)}">${e(title)} ${icon('arrow')}</button><div class="encounter-secondary">${activity ? `<button class="text-button" data-interior-activity="${e(object.id)}">${icon(activity.icon)} ${e(activity.action)}</button>` : ''}${miniGames.map(game => `<button class="text-button" data-minigame="${e(game.id)}">${e(copy('Play', 'Oyna'))} ${e(game.title)}</button>`).join('')}<button class="text-button interior-back" data-action="close-dialog">${e(copy('Leave', 'Ayrıl'))}</button></div></div>`;
 }

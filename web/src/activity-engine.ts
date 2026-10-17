@@ -280,8 +280,10 @@ export function evaluateActivity(scenario:ActivityScenario,state:ActivityState):
     if (board.departure&&state.departure!==board.departure) feedback.push('Check the departure time against the dispatch.');
     if (board.help&&!state.help) feedback.push('The bridge needs help before the delivery can be completed.');
   }
-  const valid=feedback.length===0;
-  return {valid,answer:valid?exerciseForScenario(scenario).answer:`Meine Lösung: ${JSON.stringify(state).slice(0,240)}`,feedback};
+  const valid=feedback.length===0, summary=`Meine Lösung: ${JSON.stringify(state).slice(0,240)}`;
+  // The content API withholds answer keys, so a solved board may have no
+  // canonical text. The server grades the submitted board state either way.
+  return {valid,answer:valid?exerciseForScenario(scenario).answer||summary:summary,feedback};
 }
 
 const seededHash = (text:string):number => {let value=2166136261;for(const char of text)value=Math.imul(value^char.charCodeAt(0),16777619);return value>>>0;};

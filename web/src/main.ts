@@ -627,11 +627,17 @@ async function showInteriorObject(id: string) {
   }
   const npc = object.npcId ? npcs.find(item => item.id === object.npcId) : undefined;
   if (npc) wordExposure.record({npcId:npc.id});
-  const miniGame = object.minigame ? miniGameById.get(object.minigame) : undefined;
+  // A station offers its own game, then the games its host offers in conversation,
+  // so the café counter plays what Marta plays.
+  const stationGame = object.minigame ? miniGameById.get(object.minigame) : undefined;
+  const hosted = npc ? hostedGames(npc.id, miniGameById, miniGameReadiness(), gameDay()) : [];
+  const miniGames = [...new Set([stationGame, ...hosted].filter(game => !!game))].slice(0, 3).map(game => ({id:game.id,title:game.title}));
+  const gameCopy = object.activityId ? interiorGameCopy(room.id) : undefined;
+  const activity = gameCopy && object.activityId ? {action:gameCopy.action,icon:activityInfo.find(item => item.id === object.activityId)?.icon ?? 'cup'} : undefined;
   try { await loadInteriorConversation(id); } catch (error) { if (current()) toast((error as Error).message, true); return; }
   if (!current() || interiorId !== room.id) return;
   interiorConversation = undefined;
-  openDialog(renderInteriorEncounter({room,object,portraitMarkup:npc?portrait(npc.id,'large-portrait'):undefined,miniGame:miniGame?{id:miniGame.id,title:miniGame.title}:undefined}), 'interior-dialog', npc?.id);
+  openDialog(renderInteriorEncounter({room,object,portraitMarkup:npc?portrait(npc.id,'large-portrait'):undefined,activity,miniGames}), 'interior-dialog', npc?.id);
 }
 async function startInteriorPractice(id: string) {
   const current = dialogSession.begin();
