@@ -28,24 +28,10 @@
 #hud-level { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .xp-badge { flex:none; }
 .player-progress { height:3px; }
-.location-banner { top:max(40px,env(safe-area-inset-top)); padding-block:18px 22px; padding-inline:0; }
+.location-banner { top:max(40px,env(safe-area-inset-top)); width:max-content; padding:18px 18px 22px; }
 .location-title::before,.location-title::after { display:none; }
-.hud-compass-ribbon {
-  position:absolute;
-  top:-24px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:20px;
-  color:var(--ui-cream);
-  text-shadow:0 1px 3px #10211f;
-  font:500 var(--type-caption)/1.3 var(--font-body);
-}
-.hud-compass-ribbon b { font-weight:600; letter-spacing:6px; }
-.location-title { font-size:clamp(17px,2.2vw,28px); max-width:100%; overflow:hidden; text-overflow:ellipsis; }
-.location-subtitle { letter-spacing:.5px; text-transform:none; }
+.location-title { display:block; min-width:0; max-width:100%; font-size:clamp(17px,2.2vw,28px); white-space:normal; overflow-wrap:anywhere; text-wrap:balance; }
+.location-subtitle { min-width:0; max-width:100%; overflow-wrap:anywhere; letter-spacing:.5px; text-transform:none; }
 
 .hud-tools {
   position:absolute;
