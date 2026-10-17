@@ -8,6 +8,8 @@ import { resolve, dirname } from 'node:path';
 import { grammarLessons, passages, writingLessons, checkpoints } from './course-lessons.mjs';
 import { createLexemeMapper } from './course-word-mapping.mjs';
 import { createListeningDistractorPicker, spokenWord } from './course-listening-distractors.mjs';
+import { acceptedAnswersFor } from './answer-patterns.mjs';
+import { syncLegacyServer } from './legacy-server-sync.mjs';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const read = async path => JSON.parse(await readFile(resolve(root, path), 'utf8'));
 const levels = ['A1','A2','B1'];
@@ -130,8 +132,9 @@ for(const level of levels) {
     }
   }
 }
-const makeTask = (unitId,level,kind,index,mode,prompt,answer,options,context='',acceptedAnswers=[],explanation='') => {
+const makeTask = (unitId,level,kind,index,mode,prompt,answer,options,context='',authoredAnswers=[],explanation='') => {
   const id=`${unitId}-exercise-${index}`,german=context || answer;
+  const acceptedAnswers=acceptedAnswersFor({id,answer,acceptedAnswers:authoredAnswers});
   return {id,itemId:`${unitId}-item-${index}`,mode,level,kind,unitId,prompt,german,english:prompt,answer,...(options ? {options} : {}),...(['type','sentence'].includes(mode)?{caseSensitive:true}:{}),...(mode==='sentence'?{tokens:answer.split(' ')}:{}),...(acceptedAnswers.length?{acceptedAnswers}:{}),hint:explanation || `Reference answer: ${answer}`,explanation:explanation || `A suitable answer is: ${answer}`};
 };
 for(const [id,level,title,explanation,examples,tasks] of grammarLessons) {
@@ -254,5 +257,6 @@ for(const level of levels) {
   await writeFile(resolve(root,`web/src/data/course-exercises-${level.toLowerCase()}.json`),JSON.stringify({edition:data.edition,indices,exercises:levelExercises})+'\n');
 }
 await writeFile(resolve(root,'server/course.json'),JSON.stringify(manifest,null,2)+'\n');
+syncLegacyServer('course', manifest);
 if(activityBoards)await writeFile(resolve(root,'server/activity_boards.json'),JSON.stringify(activityBoards,null,2)+'\n');
 console.log(JSON.stringify({lexemes:lexicon.length,units:units.length,grammar:grammar.length,exercises:exercises.length,byLevel:Object.fromEntries(levels.map(level=>[level,lexicon.filter(w=>w.level===level).length])),referenceCoverage:referenceCoverage.map(({level,mappedForms,normalizedReferenceForms,remainingForms})=>({level,mappedForms,normalizedReferenceForms,remaining:remainingForms.length}))},null,2));
