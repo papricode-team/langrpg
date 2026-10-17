@@ -50,7 +50,9 @@ describe('lantern round readiness', () => {
 
   it('lets characters offer only rounds that can start, rotating by day', () => {
     expect(hostedGames('marta', miniGameById, context())).toEqual([]);
-    const food = [item('Kaffee', 'coffee', { pos: 'noun', topic: 'food', sprite: 'kaffee' }), item('Brot', 'bread', { pos: 'noun', topic: 'food', sprite: 'brot' }), item('Tee', 'tea', { pos: 'noun', topic: 'food', sprite: 'tee' })];
+    const food = [item('Kaffee', 'coffee', { pos: 'noun', topic: 'food', sprite: 'kaffee' }), item('Brot', 'bread', { pos: 'noun', topic: 'food', sprite: 'brot' }), item('Tee', 'tea', { pos: 'noun', topic: 'food', sprite: 'tee' }), item('Milch', 'milk', { pos: 'noun', topic: 'food', sprite: 'milch' })];
+    // Market Baskets waits for five sortable words, so three is not yet enough.
+    expect(hostedGames('marta', miniGameById, context({ pool: filtered([...opening, ...food.slice(0, 2)]) }), 0).map(game => game.id)).toEqual(['tray-rush']);
     const stocked = context({ pool: filtered([...opening, ...food]) });
     expect(hostedGames('marta', miniGameById, stocked, 0).map(game => game.id)).toEqual(['tray-rush', 'market-baskets']);
     expect(hostedGames('marta', miniGameById, stocked, 1).map(game => game.id)).toEqual(['market-baskets', 'tray-rush']);

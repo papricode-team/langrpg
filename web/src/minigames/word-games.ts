@@ -12,6 +12,7 @@ import './word-games.css';
 import { minigameBackdrop } from './stages';
 import { paintedMark, paintedFeedback, paintNoun } from './painted-ui';
 import { itemSpriteFor, itemSpriteByLemma } from './item-manifest';
+import { Pace, paceNames, paceSettings, startingPace } from './adaptive';
 
 export { basketTopics, isLetterWord };
 
@@ -87,6 +88,7 @@ export class WordMemoryGame implements MiniGame {
   private elapsed = 0; private previous = 0; private raf = 0; private shownSeconds = -1;
   private running = false; private paused = false; private manualPaused = false; private destroyed = false; private saving = false;
   private namePractised = false;
+  private pace = new Pace(1); private roundStart = 0; private roundLimit?: number;
   private phraseQueue: PhrasePair[] = [];
   private get phraseMode() { return this.mechanic === 'pairs' && this.opts.prologue; }
   private generation = 0; private timers = new Set<ReturnType<typeof setTimeout>>();
@@ -98,6 +100,9 @@ export class WordMemoryGame implements MiniGame {
   private get play() { return this.root.querySelector<HTMLElement>('.minigame-play')!; }
   private get feedback() { return this.root.querySelector<HTMLElement>('.minigame-feedback')!; }
   private get modality(): Modality { return poolModality(this.definition, this.silent); }
+  private get settings() { return paceSettings(this.pace.tier, this.opts.level); }
+  /** A response timer at the current pace. */
+  private paced(ms: number) { return Math.round(ms * this.settings.time); }
 
   mount(root: HTMLElement, host: MiniGameHost, opts: MiniGameOptions) {
     this.root = root; this.services = host; this.opts = opts; this.namePractised = false;
@@ -105,7 +110,8 @@ export class WordMemoryGame implements MiniGame {
     const pool = mechanicPool(this.definition, query => host.pool(query), { level: opts.level, silent: host.silent, seed: opts.seed, fixedPool: opts.fixedPool });
     this.phraseQueue = opts.phrases ? seededShuffle(opts.phrases, opts.seed) : [];
     this.pool = pool.map(item => item.pos === 'noun' && !item.sprite ? { ...item, sprite: itemSpriteFor(item.lexemeId) ?? itemSpriteByLemma(item.lemma) ?? 'prop-placeholder' } : item); this.queue = new RoundQueue(this.pool, this.definition.rounds);
-    root.innerHTML = `<section class="minigame word-game" data-game-mechanic="${e(this.mechanic)}" style="--minigame-art:url('${e(opts.backdrop ?? minigameBackdrop(this.mechanic))}')"><header class="minigame-heading"><div><h2>${e(this.title)}</h2><p class="word-game-host">${e(this.host)}</p></div><div class="minigame-score"><span data-game-score>0 / 0</span><time data-game-time>${this.definition.seconds}s</time></div></header><div class="minigame-lanterns" aria-hidden="true">${Array.from({ length: 12 }, () => '<i></i>').join('')}</div><div class="minigame-play"></div><p class="minigame-feedback" role="status" aria-live="polite"></p><footer class="minigame-footer"><span>${['anagram','fuse'].includes(this.mechanic) ? 'Type letters · Backspace' : this.mechanic === 'train' ? 'Type · Enter' : '1–6 · ← → · Enter'}</span><button type="button" data-game-action="pause">Pause</button><button type="button" data-game-action="finish">Finish round</button></footer></section>`;
+    this.pace = new Pace(startingPace(this.pool, this.modality, opts.level, this.storedPace()));
+    root.innerHTML = `<section class="minigame word-game" data-game-mechanic="${e(this.mechanic)}" style="--minigame-art:url('${e(opts.backdrop ?? minigameBackdrop(this.mechanic))}')"><header class="minigame-heading"><div><h2>${e(this.title)}</h2><p class="word-game-host">${e(this.host)}</p></div><div class="minigame-score"><span data-game-score>0 / 0</span><span class="word-game-pace" data-game-pace data-tier="${this.pace.tier}">${paceNames[this.pace.tier]} pace</span><time data-game-time>${this.definition.seconds}s</time></div></header><div class="minigame-lanterns" aria-hidden="true">${Array.from({ length: 12 }, () => '<i></i>').join('')}</div><div class="minigame-play"></div><p class="minigame-feedback" role="status" aria-live="polite"></p><footer class="minigame-footer"><span>${['anagram','fuse'].includes(this.mechanic) ? 'Type letters · Backspace' : this.mechanic === 'train' ? 'Type · Enter' : '1–6 · ← → · Enter'}</span><button type="button" data-game-action="pause">Pause</button><button type="button" data-game-action="finish">Finish round</button></footer></section>`;
     root.querySelector('.word-game')!.classList.toggle('minigame-reduced-motion', host.reducedMotion);
     const minimum = minimumPool(this.definition, this.silent);
     if (this.phraseMode ? this.phraseQueue.length < 2 : this.pool.length < minimum) {
@@ -190,7 +196,7 @@ export class WordMemoryGame implements MiniGame {
     this.round?.destroy?.(); this.round = undefined; this.patience = undefined; this.handlers.clear(); this.awaitingRetry = false;
     if (this.elapsed >= this.definition.seconds * 1000 || !(this.phraseMode ? this.phraseQueue.length : this.queue.remaining)) { this.finish(); return; }
     this.roundItems = [];
-    this.count++; this.generation++; this.feedback.textContent = ''; this.feedback.classList.remove('is-miss');
+    this.count++; this.generation++; this.roundStart = this.elapsed; this.roundLimit = undefined; this.feedback.textContent = ''; this.feedback.classList.remove('is-miss');
     const build = { pairs: this.pairs, mirror: this.mirror, anagram: this.anagram, baskets: this.baskets, leaves: this.leaves, loom: this.loom, fuse: this.fuse, fog: this.fog, bells: this.bells, train: this.train } as Record<string, () => Round | undefined>;
     this.round = this.phraseMode ? this.phrasePairs() : build[this.mechanic]?.call(this);
     if (!this.round) this.finish();
@@ -200,7 +206,7 @@ export class WordMemoryGame implements MiniGame {
       if (art.childElementCount) this.play.firstElementChild?.prepend(art);
     }
   }
-  private wait(limit: number, done: () => void) { this.patience = { limit, used: 0, done }; }
+  private wait(limit: number, done: () => void) { this.roundLimit = limit; this.patience = { limit, used: 0, done }; }
   private patienceBar() { return '<div class="minigame-patience"><i></i></div>'; }
 
   /** Saves one decision's answers; every miss returns two turns later and is repeated aloud when sound is on. */
@@ -213,6 +219,7 @@ export class WordMemoryGame implements MiniGame {
       const marks = grades.map(grade => grade.correct), correct = marks.every(Boolean);
       this.summary.attempts += marks.length; this.summary.correct += marks.filter(Boolean).length; this.summary.hinted += results.filter(result => result.hinted).length;
       results.forEach(result => this.seen.add(result.lexemeId));
+      this.adapt(correct);
       if (correct) { this.chain++; this.summary.longestChain = Math.max(this.summary.longestChain, this.chain); }
       else { this.chain = 0; items.forEach((item, index) => { if (!marks[index]) this.queue.miss(item); }); }
       this.services.audio.sfx(correct ? this.mechanic === 'bells' ? 'bell' : this.mechanic === 'fuse' ? 'lantern-light' : this.mechanic === 'train' ? 'flap' : 'chime' : 'miss');
@@ -232,6 +239,14 @@ export class WordMemoryGame implements MiniGame {
         this.on('retry', (_value, button) => { button.remove(); this.awaitingRetry = false; resolve(this.grade(results, items, correction)); });
       });
     } finally { if (generation === this.generation && !this.destroyed) { this.saving = false; this.play.removeAttribute('aria-busy'); } }
+  }
+  /** Moves the pace after a graded answer; quick answers count for more than slow ones. */
+  private adapt(correct: boolean) {
+    const speed = this.roundLimit ? Math.min(1, (this.elapsed - this.roundStart) / this.roundLimit) : undefined;
+    const change = this.pace.record(correct, speed); if (!change) return;
+    const badge = this.root.querySelector<HTMLElement>('[data-game-pace]'); if (!badge) return;
+    badge.textContent = `${paceNames[this.pace.tier]} pace`; badge.dataset.tier = String(this.pace.tier);
+    badge.classList.remove('is-up', 'is-down'); void badge.offsetWidth; badge.classList.add(change > 0 ? 'is-up' : 'is-down');
   }
   private result(entry: Entry, answer: string, modality: Modality = this.modality, extra: Partial<RoundResult> = {}): RoundResult {
     return { lexemeId: entry.item.lexemeId, modality, hinted: this.hinted(entry), responseMs: Math.round(this.patience?.used ?? 0), answer, answerKind: modality === 'production' ? undefined : 'lexeme', ...extra };
@@ -277,7 +292,7 @@ export class WordMemoryGame implements MiniGame {
 
   // ——— 1. Lantern Pairs: tie each German word to its meaning on a shared board ———
   private pairs(): Round | undefined {
-    const entries = this.take(this.opts.level === 'A1' ? 4 : 5); if (!entries.length) return;
+    const entries = this.take(this.settings.pairs); if (!entries.length) return;
     const left = seededShuffle(entries, this.opts.seed + this.count), right = seededShuffle(entries, this.opts.seed + this.count * 3);
     let german: number | undefined, meaning: number | undefined; const matched = new Set<string>();
     this.play.innerHTML = `<div class="word-pairs"><div class="word-pairs-column" role="group" aria-label="German words">${left.map((entry, index) => `<button type="button" class="word-tile" lang="de" data-game-option="${index}" data-wg="de:${index}">${e(display(entry.item))}</button>`).join('')}</div><div class="word-pairs-rope" aria-hidden="true"></div><div class="word-pairs-column" role="group" aria-label="Meanings">${right.map((entry, index) => `<button type="button" class="word-tile word-tile-meaning" data-game-key="meaning" data-wg="en:${index}">${e(entry.item.english)}</button>`).join('')}</div></div>`;
@@ -322,7 +337,7 @@ export class WordMemoryGame implements MiniGame {
       this.on('fix', value => finish(fixes[Number(value)].lemma));
       this.play.querySelector<HTMLButtonElement>('[data-wg="fix:0"]')?.focus();
     });
-    this.wait(responseLimit(item, false) + 3000, () => finish('__timeout__'));
+    this.wait(this.paced(responseLimit(item, false) + 3000), () => finish('__timeout__'));
     this.play.querySelector<HTMLButtonElement>('[data-wg="true"]')?.focus();
     return {};
   }
@@ -343,7 +358,7 @@ export class WordMemoryGame implements MiniGame {
     this.on('tile', value => place(Number(value)));
     this.on('undo', () => { used.pop(); render(); });
     this.on('clear', () => { used.length = 0; render(); });
-    this.wait(responseLimit(item, true) * 1.5, () => submit('__timeout__'));
+    this.wait(this.paced(responseLimit(item, true) * 1.5), () => submit('__timeout__'));
     return { key: event => {
       if (event.key === 'Backspace') { used.pop(); render(); return true; }
       const index = letters.findIndex((letter, i) => !used.includes(i) && sameLetters(letter, event.key));
@@ -355,12 +370,12 @@ export class WordMemoryGame implements MiniGame {
   // ——— 4. Market Baskets: sort each word into the basket of its topic ———
   private baskets(): Round | undefined {
     const [entry] = this.take(1); if (!entry) return;
-    const item = entry.item, others = seededShuffle(basketOrder.filter(topic => topic !== item.topic), this.opts.seed + this.count).slice(0, this.opts.level === 'A1' ? 2 : 3);
+    const item = entry.item, others = seededShuffle(basketOrder.filter(topic => topic !== item.topic), this.opts.seed + this.count).slice(0, this.settings.options - 1);
     const topics = [item.topic, ...others].sort((a, b) => basketOrder.indexOf(a) - basketOrder.indexOf(b));
     this.play.innerHTML = `<div class="word-baskets"><p class="minigame-round-kicker">Which basket does Marta pack this in?</p><div class="word-basket-card" lang="de">${e(display(item))}</div><div class="minigame-options" role="group" aria-label="Baskets">${topics.map((topic, index) => `<button type="button" class="minigame-object word-basket" data-game-option="${index}" data-wg="basket:${index}"><span class="word-basket-weave" aria-hidden="true"></span><span class="minigame-object-label">${e(basketTopics[topic])}</span><kbd>${index + 1}</kbd></button>`).join('')}</div>${this.patienceBar()}</div>`;
     const finish = (answer: string) => void this.grade([this.result(entry, answer, 'recognition', { answerKind: 'topic' })], [item], `${display(item)} · ${item.english} → ${basketTopics[item.topic]}`).then(marks => { if (marks) this.advance(marks[0] ? 600 : 1500); });
     this.on('basket', value => { this.play.querySelector('.word-basket-card')?.classList.add('is-dropping'); finish(topics[Number(value)]); });
-    this.wait(responseLimit(item, false), () => finish('__timeout__'));
+    this.wait(this.paced(responseLimit(item, false)), () => finish('__timeout__'));
     this.play.querySelector<HTMLButtonElement>('[data-wg="basket:0"]')?.focus();
     return {};
   }
@@ -368,15 +383,16 @@ export class WordMemoryGame implements MiniGame {
   // ——— 5. Falling Leaves: catch the leaf with the meaning before it reaches the ground ———
   private leaves(): Round | undefined {
     const [entry] = this.take(1); if (!entry) return;
-    const item = entry.item, options = this.choicesFor(item, this.opts.level === 'A1' ? 3 : 4), random = seededRandom(this.opts.seed + this.count * 11);
-    const limit = responseLimit(item, false) + 1500, motion = !this.services.reducedMotion;
+    const item = entry.item, options = this.choicesFor(item, this.settings.options), random = seededRandom(this.opts.seed + this.count * 11);
+    const limit = this.paced(responseLimit(item, false) + 1500), motion = !this.services.reducedMotion;
     // The true leaf starts last of all, so the others have landed before it is out of time.
     const leaves = options.map(option => ({ option, delay: option === item ? 600 : random() * 900, duration: option === item ? limit - 600 : limit * (.55 + random() * .3), sway: random() * Math.PI * 2 }));
-    this.play.innerHTML = `<div class="word-leaves"><h3 class="minigame-cue" lang="de">${e(display(item))}</h3><div class="word-leaves-sky ${motion ? '' : 'is-still'}" role="group" aria-label="Falling meanings">${leaves.map((leaf, index) => `<button type="button" class="word-leaf" style="--lane:${(index + .5) / leaves.length}" data-game-option="${index}" data-wg="leaf:${index}"><span>${e(leaf.option.english)}</span><kbd>${index + 1}</kbd></button>`).join('')}<div class="word-leaves-ground" aria-hidden="true"></div></div>${motion ? '' : this.patienceBar()}</div>`;
+    this.play.innerHTML = `<div class="word-leaves"><h3 class="minigame-cue" lang="de">${e(display(item))}</h3><div class="word-leaves-sky ${motion ? '' : 'is-still'}" role="group" aria-label="Falling meanings">${leaves.map((leaf, index) => `<button type="button" class="word-leaf" style="--lane:${(index + .5) / leaves.length};--count:${leaves.length}" data-game-option="${index}" data-wg="leaf:${index}"><span>${e(leaf.option.english)}</span><kbd>${index + 1}</kbd></button>`).join('')}<div class="word-leaves-ground" aria-hidden="true"></div></div>${motion ? '' : this.patienceBar()}</div>`;
     let time = 0, done = false;
     const finish = (answer: string) => { if (done) return; done = true; void this.grade([this.result(entry, answer)], [item], `${display(item)} = ${item.english}`).then(marks => { if (marks) this.advance(marks[0] ? 600 : 1500); }); };
     this.on('leaf', (value, button) => { button.classList.add('is-caught'); finish(leaves[Number(value)].option.lemma); });
     if (!motion) { this.wait(limit, () => finish('__timeout__')); return {}; }
+    this.roundLimit = limit;
     const buttons = [...this.play.querySelectorAll<HTMLElement>('.word-leaf')];
     return { tick: delta => {
       time += delta;
@@ -391,9 +407,9 @@ export class WordMemoryGame implements MiniGame {
 
   // ——— 6. Letter Loom: find the German word for each meaning in the letter grid ———
   private loom(): Round | undefined {
-    const size = this.opts.level === 'A1' ? 7 : 8;
-    const entries = this.take(this.opts.level === 'A1' ? 3 : 4); if (!entries.length) return;
-    const grid = buildLetterGrid(entries.map(entry => entry.item.lemma), size, this.opts.seed + this.count * 101, this.opts.level === 'B1');
+    const { loomSize: size, loomWords, diagonal } = this.settings;
+    const entries = this.take(loomWords); if (!entries.length) return;
+    const grid = buildLetterGrid(entries.map(entry => entry.item.lemma), size, this.opts.seed + this.count * 101, diagonal);
     const clues = entries.filter(entry => grid.placed.some(row => row.word === entry.item.lemma));
     // A word that did not fit the grid simply waits for the next one.
     if (!clues.length) return this.loom();
@@ -415,7 +431,7 @@ export class WordMemoryGame implements MiniGame {
         clues.shift(); if (!marks[0]) placement.cells.forEach(cell => this.play.querySelector(`[data-wg="cell:${cell}"]`)?.classList.add('is-revealed'));
         this.play.querySelector(`[data-clue="${CSS.escape(entry.item.lexemeId)}"]`)?.classList.add(marks[0] ? 'is-found' : 'is-missed');
         found.forEach(cell => this.play.querySelector(`[data-wg="cell:${cell}"]`)?.classList.add('is-found'));
-        if (!clues.length) this.advance(marks[0] ? 900 : 1800); else { mark(); this.wait(30000, timeout); }
+        if (!clues.length) this.advance(marks[0] ? 900 : 1800); else { mark(); this.wait(this.paced(30000), timeout); }
       });
     };
     const timeout = () => { const entry = current(); if (!entry) return; const placement = grid.placed.find(row => row.word === entry.item.lemma)!; choose(placement.cells[0], placement.cells[0]); };
@@ -426,7 +442,7 @@ export class WordMemoryGame implements MiniGame {
       else choose(start, cell);
     });
     this.on('drag', value => { const [from, to] = value.split(':').map(Number); choose(from, to); });
-    mark(); this.wait(30000, timeout);
+    mark(); this.wait(this.paced(30000), timeout);
     return {};
   }
   private flash(cells: number[]) { cells.forEach(cell => this.play.querySelector(`[data-wg="cell:${cell}"]`)?.classList.add('is-wrong')); this.later(() => cells.forEach(cell => this.play.querySelector(`[data-wg="cell:${cell}"]`)?.classList.remove('is-wrong')), 700); }
@@ -434,7 +450,7 @@ export class WordMemoryGame implements MiniGame {
   // ——— 7. Lantern Fuse: guess the letters before the fuse burns down ———
   private fuse(): Round | undefined {
     const [entry] = this.take(1); if (!entry) return;
-    const item = entry.item, guessed = new Set<string>(), lives = this.opts.level === 'A1' ? 7 : 6; let wrong = 0, over = false;
+    const item = entry.item, guessed = new Set<string>(), lives = this.settings.lives; let wrong = 0, over = false;
     const needed = new Set([...item.lemma.toLocaleLowerCase('de')]);
     this.play.innerHTML = `<div class="word-fuse"><p class="minigame-context">${e(item.english)}</p><div class="word-fuse-line" aria-hidden="true"><span class="word-fuse-cord"></span><span class="word-fuse-spark"></span><span class="word-fuse-lantern"></span></div><p class="word-fuse-word" lang="de" aria-live="polite">${e(maskWord(item.lemma, guessed))}</p><p class="word-fuse-lives" aria-live="polite">${lives} sparks left</p><div class="word-fuse-keys" role="group" aria-label="German letters">${alphabet.map(letter => `<button type="button" data-game-key="letter" data-wg="letter:${letter}" lang="de">${letter}</button>`).join('')}</div></div>`;
     const finish = (answer: string) => { over = true; void this.grade([this.result({ ...entry, retry: true }, answer, 'production')], [item]).then(marks => { if (marks) { this.play.querySelector('.word-fuse-word')!.textContent = item.lemma; this.play.querySelector('.word-fuse')?.classList.add(marks[0] ? 'is-lit' : 'is-out'); this.advance(marks[0] ? 900 : 1800); } }); };
@@ -456,7 +472,7 @@ export class WordMemoryGame implements MiniGame {
   // ——— 8. Fog Window: name the object before the fog clears ———
   private fog(): Round | undefined {
     const [entry] = this.take(1, item => !!item.sprite); if (!entry) return;
-    const item = entry.item, options = this.choicesFor(item, this.opts.level === 'A1' ? 3 : 4), limit = responseLimit(item, false) + 2000;
+    const item = entry.item, options = this.choicesFor(item, this.settings.options), limit = this.paced(responseLimit(item, false) + 2000);
     if (this.opts.prologue) {
       this.play.innerHTML = `<div class="word-fog"><div class="word-fog-window" style="--clear:0"><div class="word-fog-picture" lang="de">${e(display(item))}</div><span class="word-fog-mist" aria-hidden="true"></span></div><div class="minigame-options" role="group" aria-label="${e(t('Choose the reply you have just heard.'))}">${options.map((_,index)=>`<button type="button" class="minigame-object" data-game-option="${index}" data-wg="fog:${index}"><kbd>${index+1}</kbd></button>`).join('')}</div>${this.patienceBar()}</div>`;
       options.forEach((option,index)=>this.play.querySelector(`[data-wg="fog:${index}"]`)!.prepend(this.services.sprites.render(option.sprite!, option.english,96)));
@@ -475,11 +491,11 @@ export class WordMemoryGame implements MiniGame {
   // ——— 9. Echo Bells: hear the word (or glimpse it in silent mode), then ring the bell with its meaning ———
   private bells(): Round | undefined {
     const [entry] = this.take(1); if (!entry) return;
-    const item = entry.item, options = this.choicesFor(item, this.opts.level === 'A1' ? 3 : 4), generation = this.generation;
+    const item = entry.item, options = this.choicesFor(item, this.settings.options), generation = this.generation;
     let modality = this.modality, ready = false, hinted = false, interrupted = false;
     this.play.innerHTML = `<div class="word-bells"><div class="word-bells-echo" lang="de" aria-live="polite">${modality === 'listening' ? `<span class="minigame-listening-cue">${paintedMark('listening')}</span>` : `<span class="word-bells-glimpse">${e(display(item))}</span>`}</div>${modality === 'listening' ? '<div class="minigame-audio-controls"><button type="button" data-game-key="replay" data-wg="replay">Hear again</button></div>' : ''}<div class="minigame-options word-bell-row" role="group" aria-label="Bells">${options.map((option, index) => `<button type="button" class="minigame-object word-bell" data-game-option="${index}" data-wg="bell:${index}"><span class="word-bell-shape" aria-hidden="true"></span><span class="minigame-object-label">${e(option.english)}</span><kbd>${index + 1}</kbd></button>`).join('')}</div>${this.patienceBar()}</div>`;
     options.forEach((option, index) => paintNoun(this.play.querySelector(`[data-wg="bell:${index}"]`), option, this.services.sprites, 48));
-    const begin = () => { if (generation !== this.generation || ready) return; ready = true; this.wait(responseLimit(item, false) + 2000, () => finish('__timeout__')); };
+    const begin = () => { if (generation !== this.generation || ready) return; ready = true; this.wait(this.paced(responseLimit(item, false) + 2000), () => finish('__timeout__')); };
     const listen = (replay: boolean) => {
       if (replay) hinted = true;
       void this.services.speak(item).then(begin, () => {
@@ -493,7 +509,7 @@ export class WordMemoryGame implements MiniGame {
     this.on('bell', (value, button) => { if (!ready) { this.feedback.textContent = modality === 'listening' ? 'Listen to the whole word first.' : 'Wait for the echo to fade.'; return; } button.classList.add('is-ringing'); finish(options[Number(value)].lemma); });
     this.on('replay', () => { if (modality === 'listening') listen(true); });
     if (modality === 'listening') listen(false);
-    else this.later(() => { if (generation !== this.generation) return; this.play.querySelector('.word-bells-glimpse')?.classList.add('is-faded'); begin(); }, this.opts.level === 'A1' ? 1600 : 1100);
+    else this.later(() => { if (generation !== this.generation) return; this.play.querySelector('.word-bells-glimpse')?.classList.add('is-faded'); begin(); }, this.settings.glimpseMs);
     return { resume: () => { if (interrupted && !ready) { interrupted = false; listen(false); } }, destroy: () => this.services.audio.stop() };
   }
 
@@ -508,7 +524,7 @@ export class WordMemoryGame implements MiniGame {
 
     const [entry] = this.take(1); if (!entry) return;
     const item = entry.item, stage = scaffoldStage(item.level, this.opts.currentLevel ?? this.opts.level, item.recalls.production);
-    const scaffolded = stage !== 'edges' && stage !== 'none' || entry.retry, limit = responseLimit(item, true) + 4000;
+    const scaffolded = stage !== 'edges' && stage !== 'none' || entry.retry, limit = this.paced(responseLimit(item, true) + 4000);
     this.play.innerHTML = `<div class="word-train"><div class="word-train-track" aria-hidden="true"><span class="word-train-engine" style="--depart:0"><span class="word-train-car">${item.sprite ? '<span class="word-train-cargo"></span>' : ''}</span></span></div><p class="minigame-context">${e(item.english)}</p>${scaffolded || stage === 'edges' ? `<p class="minigame-scaffold" lang="de">${e(scaffoldText(item.lemma, stage))}</p>` : ''}<form class="minigame-recall"><input id="word-train-answer" aria-label="German word" lang="de" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="…" required/><div class="minigame-umlauts">${['ä','ö','ü','ß'].map(letter => `<button type="button" data-game-key="umlaut" data-wg="umlaut:${letter}">${letter}</button>`).join('')}</div><button type="submit" class="primary-button">Board the train</button></form>${this.patienceBar()}</div>`;
     if (item.sprite) this.play.querySelector('.word-train-cargo')?.append(this.services.sprites.render(item.sprite, '', 64));
     const input = this.play.querySelector<HTMLInputElement>('#word-train-answer')!;
@@ -542,7 +558,7 @@ export class WordMemoryGame implements MiniGame {
     this.round?.destroy?.(); this.round = undefined; this.patience = undefined;
     this.running = false; this.generation++; if (this.raf) cancelAnimationFrame(this.raf); this.raf = 0;
     this.timers.forEach(timer => clearTimeout(timer)); this.timers.clear();
-    this.services.audio.stop(); this.summary.activeMs = this.elapsed; this.saveBest(); this.services.end(this.summary);
+    this.services.audio.stop(); this.summary.activeMs = this.elapsed; this.saveBest(); this.savePace(); this.services.end(this.summary);
   }
   private finish() {
     if (!this.running || this.destroyed || this.saving) return;
@@ -555,6 +571,9 @@ export class WordMemoryGame implements MiniGame {
   private bestKey() { const date = new Date(); date.setDate(date.getDate() - (date.getDay() + 6) % 7); return `atlas.minigame.chain:${this.services.playerId ?? 'local'}:${this.id}:${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`; }
   private bestLabel() { try { return `This week’s longest chain: ${Number(localStorage.getItem(this.bestKey()) ?? 0)}`; } catch { return ''; } }
   private saveBest() { try { const best = Number(localStorage.getItem(this.bestKey()) ?? 0); localStorage.setItem(this.bestKey(), String(Math.max(best, this.summary.longestChain))); } catch { /* Optional record only. */ } }
+  private paceKey() { return `atlas.minigame.pace:${this.services.playerId ?? 'local'}:${this.id}`; }
+  private storedPace() { try { const value = localStorage.getItem(this.paceKey()); return value === null ? undefined : Number(value); } catch { return undefined; } }
+  private savePace() { try { localStorage.setItem(this.paceKey(), String(this.pace.tier)); } catch { /* The next run falls back to the pool's memory. */ } }
   destroy() {
     if (this.running && !this.destroyed) this.endRound();
     this.destroyed = true; this.generation++; if (this.raf) cancelAnimationFrame(this.raf);
