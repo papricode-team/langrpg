@@ -39,6 +39,8 @@ export interface DialogueLine {
   glosses?: Record<string, string>;
   variants?: { german: string; english: string; clipId: string }[];
   reply?: { exerciseId: string; correction: DialogueLine };
+  /** Starts with its meaning hidden even in the prologue, so the player meets a line they cannot follow yet. */
+  hideMeaning?: boolean;
 }
 export interface DialogueChoice { id: string; sentenceId?: string; german: string; english: string; next: string; effects: DialogueEffect[]; condition?: DialogueCondition; /** `english` already went through t() (interface labels such as “Continue”). */ localized?: boolean; }
 export interface DialogueNode { id: string; stage: StoryStage; lines: DialogueLine[]; next?: string; choices?: DialogueChoice[]; gateExerciseId?: string; terminal?: boolean; }
@@ -59,6 +61,10 @@ export interface QuestGraph {
   gateKind?: 'name';
   interiorId?: string;
   practiceGame?: string;
+  /** What the player can now say, shown on the card that closes a prologue beat. */
+  phrases?: { german: string; english: string }[];
+  /** Scaffold fade: reply options show German only; a tapped word still shows its meaning. */
+  hideReplyMeaning?: boolean;
 }
 /** Increase reading load gently within A1, rather than treating it as one difficulty. */
 /** Main story scenes grow from 8 to 12 words; everyday errands stay at 10. */

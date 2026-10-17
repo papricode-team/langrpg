@@ -15,6 +15,8 @@ const HISTORY_LIMIT = 30;
 export interface DialoguePresentation {
   title: string; line: DialogueLine; name: string; npc?: NPC; portrait: string;
   index: number; total: number; help: boolean; busy: boolean; error?: string;
+  /** Reply meanings follow `help` unless the scene has faded them out. */
+  choiceHelp?: boolean;
   glosses: Record<string, string>; choices?: DialogueChoice[];
   choicePrompt?: string;
   lookup?: WordLookup;
@@ -37,7 +39,7 @@ function historyMarkup(history: DialogueHistoryEntry[] | undefined): string {
 }
 function choiceMarkup(choice: DialogueChoice, p: DialoguePresentation): string {
   const sentence = presentSentence(choice, p.name);
-  return `<div class="dialogue-choice"><div class="dialogue-choice-phrase">${renderTranslatedSentence(choice, p.name, p.help)}</div><button type="button" class="dialogue-choice-submit" data-dialogue-choice="${e(choice.id)}" aria-label="${e(`${t('Say it')}: ${sentence.text}`)}" ${p.busy ? 'disabled' : ''}>${e(t('Say it'))} ${icon('arrow')}</button></div>`;
+  return `<div class="dialogue-choice"><div class="dialogue-choice-phrase">${renderTranslatedSentence(choice, p.name, p.choiceHelp ?? p.help)}</div><button type="button" class="dialogue-choice-submit" data-dialogue-choice="${e(choice.id)}" aria-label="${e(`${t('Say it')}: ${sentence.text}`)}" ${p.busy ? 'disabled' : ''}>${e(t('Say it'))} ${icon('arrow')}</button></div>`;
 }
 /** Set while an admin is in edit mode: lets them hide monologue lines for everyone. */
 export interface DialogueLineEditor { hide(lineId: string): Promise<void>; }

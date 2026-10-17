@@ -41,213 +41,246 @@ Scene-only notes for review are in `> REVIEW:` blocks.
 
 # PROLOGUE — THE NIGHT TRAIN
 
-Brandt, the train conductor, asks; the player answers. The train rooms are illustrated backdrops. Object inspections and replies advance the story independently of vocabulary intake.
+The tutorial level. One walkable carriage; Brandt, the conductor, asks and the player answers. Each beat teaches one way of playing and one family of phrases (see `docs/a0-prologue.md`). Lines marked *(meaning hidden)* start without their translation.
 
-### A ticket in your hand `a0-ticket`
+### A ticket, please `a0-ticket`
 
 **intro**
 
-> **BRANDT:** *Guten Abend.* — Good evening.
-> **BRANDT:** *Die Fahrkarte, bitte.* — The ticket, please.
+> **BRANDT:** *Hallo! Guten Abend!* — Hello! Good evening!
+> **PLAYER (reply):** *Hallo!* — Hello!
+> **PLAYER (distractor):** *Danke.* — Thank you.
+> **PLAYER (distractor):** *Bitte.* — Here you are.
+> **BRANDT (if not):** *Hallo!* — Hello!
+> **BRANDT:** *Fahrkarte, bitte.* — Ticket, please.
 
 **gate**
 
-> **BRANDT:** *Die Fahrkarte, bitte.* — The ticket, please.
+> **BRANDT:** *Fahrkarte, bitte.* — Ticket, please.
 
-Task: He is asking for your ticket. Hand it over.
+Task: Brandt wants your ticket. Hand it over.
 > **PLAYER (reply):** *Bitte.* — Here you are.
-> **PLAYER (distractor):** *Guten Abend.* — Good evening.
+> **PLAYER (distractor):** *Danke.* — Thank you.
+> **PLAYER (distractor):** *Hallo!* — Hello!
 
 **choice**
 
-> **BRANDT:** *Danke.* — Thank you.
-> **BRANDT:** *Lindenhafen! Gut.* — Lindenhafen! Good.
-> [CHOICE **PLAYER** → `complete`] *Danke.* — Thank you.
+> **BRANDT:** *Danke!* — Thank you!
+> [CHOICE **PLAYER** → `complete`] *Bitte!* — You’re welcome!
 
 **complete**
 
-> **BRANDT:** *Danke.* — Thank you.
+> **BRANDT:** *Gut. Guten Abend!* — Good. Good evening!
 
-**Objects in the room**
+**Objects in the carriage**
 
-- `prologue-ticket`: *Fahrkarte. Lindenhafen.* — Ticket. Lindenhafen.
+- `interior:prologue-ticket`: *Fahrkarte: Lindenhafen.* — Ticket: Lindenhafen. Below it, a name — so pale you can hardly read it.
+
+**Phrase card:** *Hallo! Guten Abend!* · *Fahrkarte, bitte.* · *Bitte.* · *Danke!* · *Bitte!*
 
 ### Your name on the ticket `a0-name`
 
 **intro**
 
-> **BRANDT:** *Der Name!* — The name!
-> **BRANDT:** *Wie heißen Sie?* — What is your name?
+> **BRANDT:** *Hm … Name?* — Hmm… the name?
+> **BRANDT:** *Ich heiße Brandt.* — My name is Brandt.
 
 **gate**
 
 > **BRANDT:** *Wie heißen Sie?* — What is your name?
 
-Task: Say your name.
+Task: Tell Brandt your name.
 > **PLAYER (reply):** *Ich heiße {name}.* — My name is {name}.
 
 **choice**
 
-> **BRANDT:** *{name}. Gut.* — {name}. Good.
-> **BRANDT:** *Der Name bleibt.* — The name stays.
-> [CHOICE **PLAYER** → `complete`] *Danke.* — Thank you.
+> **BRANDT:** *{name}! Ja! Gut!* — {name}! Yes! Good!
+> [CHOICE **PLAYER** → `complete`] *Danke!* — Thank you!
 
 **complete**
 
-> **BRANDT:** *Danke, {name}.* — Thank you, {name}.
+> **BRANDT:** *Bitte, {name}.* — You’re welcome, {name}.
 
-**Objects in the room**
+**Objects in the carriage**
 
-- `prologue-name`: *Fahrkarte. Lindenhafen.* — Ticket. Lindenhafen. The name has faded.
+- `interior:prologue-ticket` (optional): *Name … gut!* — The name… good! The ink on your ticket is dark and clear again.
+
+**Phrase card:** *Ich heiße Brandt.* · *Wie heißen Sie?* · *Ich heiße {name}.*
 
 ### Carriage seven `a0-wagen`
 
 **intro**
 
-> **BRANDT:** *Eins. Zwei. Drei.* — One. Two. Three.
-> **BRANDT:** *Vier. Fünf. Sechs.* — Four. Five. Six.
-> **BRANDT:** *Sieben.* — Seven.
-> **BRANDT:** *Wagen sieben, bitte.* — Carriage seven, please.
+> **BRANDT:** *Eins … zwei … drei.* — One… two… three.
+> **BRANDT:** *Vier, fünf, sechs, sieben!* — Four, five, six, seven!
+> **BRANDT:** *Wagen sieben. Hier!* — Carriage seven. Here!
 
 **gate**
 
-> **BRANDT:** *Wagen sieben?* — Carriage seven?
+> **BRANDT:** *Wagen eins? Wagen drei?* — Carriage one? Carriage three?
 
-Task: Which carriage are you in? Look at the door.
+Task: Brandt asks which carriage you are in. Answer him.
 > **PLAYER (reply):** *Sieben.* — Seven.
 > **PLAYER (distractor):** *Drei.* — Three.
+> **PLAYER (distractor):** *Eins.* — One.
 
 **choice**
 
-> **BRANDT:** *Ja. Wagen sieben.* — Yes. Carriage seven.
-> [CHOICE **PLAYER** → `complete`] *Danke.* — Thank you.
+> **BRANDT:** *Ja! Wagen sieben.* — Yes! Carriage seven.
+> [CHOICE **PLAYER** → `complete`] *Danke!* — Thank you!
 
 **complete**
 
-> **BRANDT:** *Gut.* — Good.
+> **BRANDT:** *Gut! Bitte.* — Good! You’re welcome.
 
-**Objects in the room**
+**Objects in the carriage**
 
-- `prologue-wagen`: *Wagen sieben.* — Carriage seven.
+- `interior:prologue-wagen`: *Wagen eins … Wagen sieben.* — Carriage one… carriage seven. The track curves and you count seven glass carriages. Yours is the last.
 
-### Tea in the dining car `a0-tee`
+**Phrase card:** *Eins … zwei … drei.* · *Vier, fünf, sechs, sieben!* · *Wagen sieben. Hier!* · *Ja! Wagen sieben.*
+
+### Tea in the dining corner `a0-tee`
 
 **intro**
 
-> **BRANDT:** *Guten Abend.* — Good evening.
-> **BRANDT:** *Tee oder Kaffee?* — Tea or coffee?
+> **BRANDT:** *Guten Abend!* — Good evening!
 
 **gate**
 
-> **BRANDT:** *Tee oder Kaffee?* — Tea or coffee?
+> **BRANDT:** *Kaffee?* — Coffee?
 
-Task: You would like tea. Order it.
-> **PLAYER (reply):** *Einen Tee, bitte.* — A tea, please.
-> **PLAYER (distractor):** *Einen Kaffee, bitte.* — A coffee, please.
+Task: Brandt offers coffee. You would rather not. Say no, politely.
+> **PLAYER (reply):** *Nein, danke.* — No, thank you.
+> **PLAYER (distractor):** *Ja, bitte.* — Yes, please.
+> **PLAYER (distractor):** *Hallo!* — Hello!
 
 **choice**
 
-> **BRANDT:** *Milch?* — Milk?
-> [CHOICE **PLAYER** → `complete`] *Ja, bitte.* — Yes, please.
-> [CHOICE **PLAYER** → `complete`] *Nein, danke.* — No, thank you.
+> **BRANDT:** *Nein? Tee?* — No? Tea?
+> [CHOICE **PLAYER** → `after-tea`] *Ja, bitte!* — Yes, please!
+> [CHOICE **PLAYER** → `after-nothing`] *Nein, danke.* — No, thank you.
 
-**complete**
+**after-tea**
 
 > **BRANDT:** *Bitte. Der Tee.* — Here you are. The tea.
 
-**Objects in the room**
+**after-nothing**
 
-- `prologue-tee`: *Tee. Kaffee.* — Tea. Coffee.
+> **BRANDT:** *Nein? Gut!* — No? All right!
 
-### Where is …? `a0-wo`
+**complete**
+
+> **BRANDT:** *Gut. Danke!* — Good. Thank you!
+
+**Objects in the carriage**
+
+- `interior:prologue-tee` (optional): *Tee. Kaffee.* — Tea. Coffee. A copper samovar hums on the counter.
+
+**Phrase card:** *Kaffee?* · *Nein? Tee?* · *Ja, bitte!* · *Nein, danke.*
+
+### Where is the washroom? `a0-wo`
 
 **intro**
 
-> **BRANDT:** *Ja?* — Yes?
+> **BRANDT:** *Ja? Bitte?* — Yes? Can I help?
 
 **gate**
 
-> **BRANDT:** *Ja?* — Yes?
+> **BRANDT:** *Ja, {name}?* — Yes, {name}?
 
-Task: Ask where the toilet is.
+Task: You need the washroom. Ask Brandt where it is.
 > **PLAYER (reply):** *Wo ist die Toilette?* — Where is the toilet?
 > **PLAYER (distractor):** *Wo ist der Tee?* — Where is the tea?
+> **PLAYER (distractor):** *Ich heiße …* — My name is …
 
 **choice**
 
-> **BRANDT:** *Die Toilette? Da.* — The toilet? There.
-> [CHOICE **PLAYER** → `complete`] *Danke.* — Thank you.
+> **BRANDT:** *Die Toilette? Da!* — The toilet? Over there!
+> [CHOICE **PLAYER** → `complete`] *Danke!* — Thank you!
 
 **complete**
 
-> **BRANDT:** *Da: der Ausgang.* — There: the exit.
+> **BRANDT:** *Besetzt? Ha! Gut.* — Occupied? Ha! Fine.
 
-**Objects in the room**
+**Objects in the carriage**
 
-- `prologue-wo`: *Die Toilette.* — The toilet.
-- `prologue-exit`: *Der Ausgang.* — The exit.
+- `interior:prologue-wo` (after the reply): *Toilette: besetzt.* — Toilet: occupied. Someone is in there. Never mind — now you know where it is.
 
-### Slower, please `a0-langsam`
+**Phrase card:** *Wo ist die Toilette?* · *Die Toilette? Da!* · *Besetzt? Ha! Gut.*
+
+### Too fast `a0-langsam`
 
 **intro**
 
-> **BRANDT:** *Lindenhafen kommt!* — Lindenhafen is coming up!
-> **BRANDT:** *Verstehen Sie?* — Do you understand?
+> **BRANDT:** *Lindenhafen! Bahnsteig sieben!* — Lindenhafen! Platform seven! *(meaning hidden)*
 
 **gate**
 
 > **BRANDT:** *Verstehen Sie?* — Do you understand?
 
-Task: You did not catch that. Say so.
-> **PLAYER (reply):** *Ich verstehe nicht.* — I do not understand.
-> **PLAYER (distractor):** *Ja.* — Yes.
+Task: That was far too fast. Tell Brandt.
+> **PLAYER (reply):** *Ich verstehe nicht.* — I don’t understand.
+> **PLAYER (distractor):** *Ja, bitte!* — Yes, please!
+> **PLAYER (distractor):** *Guten Abend!* — Good evening!
 
 **choice**
 
-> **BRANDT:** *Lindenhafen kommt.* — Lindenhafen is coming up.
-> [CHOICE **PLAYER** → `after-repeat`] *Noch einmal, bitte.* — Once again, please.
-> [CHOICE **PLAYER** → `complete`] *Danke.* — Thank you.
+> **BRANDT:** *Ah! Langsam.* — Ah! Slowly.
+> **BRANDT:** *Lindenhafen. Bahnsteig sieben.* — Lindenhafen. Platform seven.
+> [CHOICE **PLAYER** → `again`] *Noch einmal, bitte.* — Once more, please.
+> [CHOICE **PLAYER** → `complete`] *Danke! Ich verstehe.* — Thank you! I understand.
+
+**again**
+
+> **BRANDT:** *Lindenhafen … Bahnsteig … sieben.* — Lindenhafen… platform… seven.
 
 **complete**
 
-> **BRANDT:** *Gut.* — Good.
+> **BRANDT:** *Gut! Danke!* — Good! Thank you!
 
-**after-repeat**
+**Objects in the carriage**
 
-> **BRANDT:** *Lindenhafen kommt. Gut?* — Lindenhafen is coming up. All right?
+- `interior:prologue-wagen` (optional): *Lindenhafen? Nein, noch nicht.* — Lindenhafen? No, not yet. Only dark forest and the moon.
 
-**Objects in the room**
+**Phrase card:** *Verstehen Sie?* · *Ich verstehe nicht.* · *Ah! Langsam.* · *Noch einmal, bitte.*
 
-- `prologue-langsam`: *Lindenhafen.* — Lindenhafen.
-
-### Morning `a0-morgen`
+### Platform seven `a0-morgen`
 
 **intro**
 
-> **BRANDT:** *Guten Morgen.* — Good morning.
-> **BRANDT:** *Der Zug ist da.* — The train is here.
+> **BRANDT:** *Guten Morgen!* — Good morning!
+> **PLAYER (reply):** *Guten Morgen!* — Good morning!
+> **PLAYER (distractor):** *Guten Abend!* — Good evening!
+> **PLAYER (distractor):** *Auf Wiedersehen!* — Goodbye!
+> **BRANDT (if not):** *Abend? Nein! Morgen!* — Evening? No! Morning!
 > **BRANDT:** *Lindenhafen! Bahnsteig sieben.* — Lindenhafen! Platform seven.
+> **BRANDT:** *Fahrkarte. Bitte!* — Your ticket. Here you are!
 
 **gate**
 
-> **BRANDT:** *Auf Wiedersehen, {name}.* — Goodbye, {name}.
+> **BRANDT:** *So, {name}!* — Well, {name}!
 
-Task: Say goodbye.
-> **PLAYER (reply):** *Auf Wiedersehen.* — Goodbye.
-> **PLAYER (distractor):** *Guten Morgen.* — Good morning.
+Task: This is your stop. Say goodbye to Brandt.
+> **PLAYER (reply):** *Auf Wiedersehen!* — Goodbye!
+> **PLAYER (distractor):** *Guten Abend!* — Good evening!
+> **PLAYER (distractor):** *Ich verstehe nicht.* — I don’t understand.
 
 **choice**
 
-> **BRANDT:** *Gut.* — Good.
-> [CHOICE **PLAYER** → `complete`] *Danke.* — Thank you.
+> **BRANDT:** *Auf Wiedersehen!* — Goodbye!
+> [CHOICE **PLAYER** → `complete`] *Danke, Herr Brandt!* — Thank you, Mr Brandt!
 
 **complete**
 
-> **BRANDT:** *Bahnsteig sieben. Da.* — Platform seven. There.
+> **BRANDT:** *Bitte, {name}!* — You’re welcome, {name}!
 
-**Objects in the room**
+**Objects in the carriage**
 
-- `prologue-morgen`: *Lindenhafen. Bahnsteig sieben.* — Lindenhafen. Platform seven.
+- `interior:prologue-wagen` (optional): *Guten Morgen, Lindenhafen!* — Good morning, Lindenhafen! Roofs and a canal glitter in the sunrise.
+
+**Phrase card:** *Guten Morgen!* · *Lindenhafen! Bahnsteig sieben.* · *Auf Wiedersehen!* · *Danke, Herr Brandt!*
+
+---
 
 # ACT ONE — LINDENHAFEN
 ### "The names that fade" (A1)

@@ -60,7 +60,7 @@ describe('enterable learning spaces', () => {
       const start = pixels(getMap(map.id).spawn, navigation);
       const entrances = buildingEntrances(map.id);
       expect(entrances.filter(entrance => !entrance.interiorId.startsWith('train-')).slice(0, 4).map(entrance => entrance.interiorId)).toEqual(['cafe', 'bakery', 'supermarket', 'inn']);
-      expect(entrances).toHaveLength(getWorldScene(map.id).scenery.filter(item => ['house', 'archive', 'cafe', 'station', 'workshop', 'greenhouse'].includes(item.asset)).length + (map.id === 'lindenhafen' ? 2 : 0));
+      expect(entrances).toHaveLength(getWorldScene(map.id).scenery.filter(item => ['house', 'archive', 'cafe', 'station', 'workshop', 'greenhouse'].includes(item.asset)).length + (map.id === 'lindenhafen' ? 1 : 0));
       expect(new Set(entrances.map(entrance => entrance.id)).size).toBe(entrances.length);
       for (const entrance of entrances) {
         expect(entrance.id).toBe(`building:${entrance.interiorId}`);
@@ -71,11 +71,6 @@ describe('enterable learning spaces', () => {
 
   it('keeps room arrival, every conversation, every station, and the exit connected', () => {
     for (const interior of [...interiors, ...buildingInteriors]) {
-      if (interior.presentation === 'backdrop') {
-        expect(interior.id.startsWith('train-')).toBe(true);
-        for (const point of [...interior.npcs,...interior.objects]) { expect(point.x).toBeGreaterThan(0); expect(point.x).toBeLessThan(1); expect(point.y).toBeGreaterThan(0); expect(point.y).toBeLessThan(1); }
-        continue;
-      }
       const navigation = createInteriorNavigation(interior.id);
       const pointNavigation = createInteriorNavigation(interior.id, {agentRadius:0});
       const start = pixels(interior.spawn, interior);
@@ -93,14 +88,9 @@ describe('enterable learning spaces', () => {
   it('routes around solid furniture while leaving the central aisle open', () => {
     const aisle: Partial<Record<InteriorId, MapPoint>> = {
       cafe: { x: 500, y: 785 }, bakery: { x: 950, y: 785 }, supermarket: { x: 1250, y: 785 },
-      inn: { x: 780, y: 785 }, 'train-compartment': { x: 845, y: 800 }, 'train-dining': { x: 845, y: 800 },
+      inn: { x: 780, y: 785 }, 'train-compartment': { x: 760, y: 600 },
     };
     for (const interior of interiors) {
-      if (interior.presentation === 'backdrop') {
-        expect(interior.id.startsWith('train-')).toBe(true);
-        for (const point of [...interior.npcs,...interior.objects]) { expect(point.x).toBeGreaterThan(0); expect(point.x).toBeLessThan(1); expect(point.y).toBeGreaterThan(0); expect(point.y).toBeLessThan(1); }
-        continue;
-      }
       const navigation = createInteriorNavigation(interior.id);
       const start = pixels(interior.spawn);
       expectReachable(navigation, start, aisle[interior.id]!, `${interior.name} central aisle`);

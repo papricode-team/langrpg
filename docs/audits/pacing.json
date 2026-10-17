@@ -21,7 +21,7 @@
       "B1": 560
     },
     "storyLexemes": 841,
-    "storyVocabularyReadyByHour": 92.8
+    "storyVocabularyReadyByHour": 93.1
   },
   "quests": [
     {
@@ -45,67 +45,15 @@
     {
       "questId": "a0-name",
       "level": "A0",
-      "lexemes": 10,
+      "lexemes": 9,
       "newLexemes": 6,
       "storyWords": [],
-      "unmapped": [],
+      "unmapped": [
+        "Hm"
+      ],
       "ambiguous": [],
       "milestone": 14,
       "vocabularyReadyHour": 0.4,
-      "newWordsAboveBudget": 0,
-      "levels": {
-        "A1": 10,
-        "A2": 0,
-        "B1": 0
-      },
-      "requiredPathLexemes": 10
-    },
-    {
-      "questId": "a0-wagen",
-      "level": "A0",
-      "lexemes": 12,
-      "newLexemes": 9,
-      "storyWords": [],
-      "unmapped": [],
-      "ambiguous": [],
-      "milestone": 25,
-      "vocabularyReadyHour": 1.5,
-      "newWordsAboveBudget": 0,
-      "levels": {
-        "A1": 12,
-        "A2": 0,
-        "B1": 0
-      },
-      "requiredPathLexemes": 12
-    },
-    {
-      "questId": "a0-tee",
-      "level": "A0",
-      "lexemes": 12,
-      "newLexemes": 6,
-      "storyWords": [],
-      "unmapped": [],
-      "ambiguous": [],
-      "milestone": 33,
-      "vocabularyReadyHour": 2.3,
-      "newWordsAboveBudget": 0,
-      "levels": {
-        "A1": 12,
-        "A2": 0,
-        "B1": 0
-      },
-      "requiredPathLexemes": 12
-    },
-    {
-      "questId": "a0-wo",
-      "level": "A0",
-      "lexemes": 9,
-      "newLexemes": 5,
-      "storyWords": [],
-      "unmapped": [],
-      "ambiguous": [],
-      "milestone": 37,
-      "vocabularyReadyHour": 2.7,
       "newWordsAboveBudget": 0,
       "levels": {
         "A1": 9,
@@ -115,46 +63,104 @@
       "requiredPathLexemes": 9
     },
     {
-      "questId": "a0-langsam",
+      "questId": "a0-wagen",
       "level": "A0",
-      "lexemes": 11,
-      "newLexemes": 5,
+      "lexemes": 13,
+      "newLexemes": 9,
       "storyWords": [],
       "unmapped": [],
       "ambiguous": [],
-      "milestone": 43,
-      "vocabularyReadyHour": 3.3,
+      "milestone": 25,
+      "vocabularyReadyHour": 1.5,
+      "newWordsAboveBudget": 0,
+      "levels": {
+        "A1": 13,
+        "A2": 0,
+        "B1": 0
+      },
+      "requiredPathLexemes": 13
+    },
+    {
+      "questId": "a0-tee",
+      "level": "A0",
+      "lexemes": 10,
+      "newLexemes": 4,
+      "storyWords": [],
+      "unmapped": [],
+      "ambiguous": [],
+      "milestone": 28,
+      "vocabularyReadyHour": 1.8,
       "newWordsAboveBudget": 0,
       "levels": {
         "A1": 10,
+        "A2": 0,
+        "B1": 0
+      },
+      "requiredPathLexemes": 10
+    },
+    {
+      "questId": "a0-wo",
+      "level": "A0",
+      "lexemes": 13,
+      "newLexemes": 5,
+      "storyWords": [],
+      "unmapped": [
+        "Ha"
+      ],
+      "ambiguous": [],
+      "milestone": 34,
+      "vocabularyReadyHour": 2.4,
+      "newWordsAboveBudget": 0,
+      "levels": {
+        "A1": 13,
+        "A2": 0,
+        "B1": 0
+      },
+      "requiredPathLexemes": 13
+    },
+    {
+      "questId": "a0-langsam",
+      "level": "A0",
+      "lexemes": 15,
+      "newLexemes": 6,
+      "storyWords": [],
+      "unmapped": [
+        "Ah"
+      ],
+      "ambiguous": [],
+      "milestone": 41,
+      "vocabularyReadyHour": 3.1,
+      "newWordsAboveBudget": 0,
+      "levels": {
+        "A1": 14,
         "A2": 1,
         "B1": 0
       },
-      "requiredPathLexemes": 11
+      "requiredPathLexemes": 15
     },
     {
       "questId": "a0-morgen",
       "level": "A0",
-      "lexemes": 11,
+      "lexemes": 16,
       "newLexemes": 5,
       "storyWords": [],
       "unmapped": [],
       "ambiguous": [],
-      "milestone": 48,
-      "vocabularyReadyHour": 3.8,
+      "milestone": 46,
+      "vocabularyReadyHour": 3.6,
       "newWordsAboveBudget": 0,
       "levels": {
-        "A1": 11,
+        "A1": 16,
         "A2": 0,
         "B1": 0
       },
-      "requiredPathLexemes": 11
+      "requiredPathLexemes": 16
     },
     {
       "questId": "a1-arrival",
       "level": "A1",
       "lexemes": 93,
-      "newLexemes": 71,
+      "newLexemes": 74,
       "storyWords": [
         "Laterne",
         "Messingamt"
@@ -179,9 +185,9 @@
         "nicht",
         "sieben"
       ],
-      "milestone": 132,
-      "vocabularyReadyHour": 12.2,
-      "newWordsAboveBudget": 68,
+      "milestone": 134,
+      "vocabularyReadyHour": 12.4,
+      "newWordsAboveBudget": 71,
       "levels": {
         "A1": 90,
         "A2": 1,
@@ -193,7 +199,7 @@
       "questId": "a1-cafe",
       "level": "A1",
       "lexemes": 93,
-      "newLexemes": 42,
+      "newLexemes": 40,
       "storyWords": [
         "Stempel",
         "Gutschein"
@@ -209,7 +215,7 @@
       ],
       "milestone": 171,
       "vocabularyReadyHour": 16.1,
-      "newWordsAboveBudget": 37,
+      "newWordsAboveBudget": 35,
       "levels": {
         "A1": 93,
         "A2": 0,
@@ -280,7 +286,7 @@
       "questId": "a1-shopping",
       "level": "A1",
       "lexemes": 84,
-      "newLexemes": 14,
+      "newLexemes": 15,
       "storyWords": [
         "Suppe"
       ],
@@ -292,9 +298,9 @@
         "mir"
       ],
       "ambiguous": [],
-      "milestone": 215,
-      "vocabularyReadyHour": 20.5,
-      "newWordsAboveBudget": 10,
+      "milestone": 216,
+      "vocabularyReadyHour": 20.6,
+      "newWordsAboveBudget": 11,
       "levels": {
         "A1": 83,
         "A2": 0,
@@ -314,8 +320,8 @@
       "ambiguous": [
         "Im"
       ],
-      "milestone": 235,
-      "vocabularyReadyHour": 22.5,
+      "milestone": 236,
+      "vocabularyReadyHour": 22.6,
       "newWordsAboveBudget": 8,
       "levels": {
         "A1": 96,
@@ -346,8 +352,8 @@
         "meine",
         "sein"
       ],
-      "milestone": 245,
-      "vocabularyReadyHour": 23.5,
+      "milestone": 246,
+      "vocabularyReadyHour": 23.6,
       "newWordsAboveBudget": 3,
       "levels": {
         "A1": 95,
@@ -376,8 +382,8 @@
         "Ihr",
         "ihr"
       ],
-      "milestone": 252,
-      "vocabularyReadyHour": 24.2,
+      "milestone": 253,
+      "vocabularyReadyHour": 24.3,
       "newWordsAboveBudget": 3,
       "levels": {
         "A1": 69,
@@ -409,8 +415,8 @@
         "ihren",
         "meine"
       ],
-      "milestone": 266,
-      "vocabularyReadyHour": 25.6,
+      "milestone": 267,
+      "vocabularyReadyHour": 25.7,
       "newWordsAboveBudget": 13,
       "levels": {
         "A1": 90,
@@ -437,8 +443,8 @@
         "ihren",
         "meine"
       ],
-      "milestone": 275,
-      "vocabularyReadyHour": 26.5,
+      "milestone": 276,
+      "vocabularyReadyHour": 26.6,
       "newWordsAboveBudget": 2,
       "levels": {
         "A1": 79,
@@ -466,8 +472,8 @@
         "ihren",
         "zum"
       ],
-      "milestone": 284,
-      "vocabularyReadyHour": 27.4,
+      "milestone": 285,
+      "vocabularyReadyHour": 27.5,
       "newWordsAboveBudget": 5,
       "levels": {
         "A1": 82,
@@ -498,8 +504,8 @@
         "Sie",
         "meine"
       ],
-      "milestone": 292,
-      "vocabularyReadyHour": 28.2,
+      "milestone": 293,
+      "vocabularyReadyHour": 28.3,
       "newWordsAboveBudget": 7,
       "levels": {
         "A1": 89,
@@ -512,7 +518,7 @@
       "questId": "a1-station",
       "level": "A1",
       "lexemes": 105,
-      "newLexemes": 14,
+      "newLexemes": 13,
       "storyWords": [
         "jemand",
         "Büro"
@@ -527,9 +533,9 @@
         "Sie",
         "im"
       ],
-      "milestone": 306,
-      "vocabularyReadyHour": 29.6,
-      "newWordsAboveBudget": 9,
+      "milestone": 307,
+      "vocabularyReadyHour": 29.7,
+      "newWordsAboveBudget": 8,
       "levels": {
         "A1": 101,
         "A2": 2,
@@ -557,8 +563,8 @@
         "im",
         "meine"
       ],
-      "milestone": 318,
-      "vocabularyReadyHour": 30.8,
+      "milestone": 321,
+      "vocabularyReadyHour": 31.1,
       "newWordsAboveBudget": 6,
       "levels": {
         "A1": 90,
@@ -583,8 +589,8 @@
       "ambiguous": [
         "im"
       ],
-      "milestone": 328,
-      "vocabularyReadyHour": 31.8,
+      "milestone": 331,
+      "vocabularyReadyHour": 32.1,
       "newWordsAboveBudget": 2,
       "levels": {
         "A1": 81,
@@ -614,8 +620,8 @@
         "sein",
         "zur"
       ],
-      "milestone": 342,
-      "vocabularyReadyHour": 33.2,
+      "milestone": 343,
+      "vocabularyReadyHour": 33.3,
       "newWordsAboveBudget": 6,
       "levels": {
         "A1": 92,
@@ -645,8 +651,8 @@
         "meine",
         "sein"
       ],
-      "milestone": 347,
-      "vocabularyReadyHour": 33.7,
+      "milestone": 348,
+      "vocabularyReadyHour": 33.8,
       "newWordsAboveBudget": 5,
       "levels": {
         "A1": 87,
@@ -672,8 +678,8 @@
         "sein",
         "zur"
       ],
-      "milestone": 355,
-      "vocabularyReadyHour": 34.5,
+      "milestone": 356,
+      "vocabularyReadyHour": 34.6,
       "newWordsAboveBudget": 0,
       "levels": {
         "A1": 77,
@@ -700,8 +706,8 @@
         "gehört",
         "meine"
       ],
-      "milestone": 364,
-      "vocabularyReadyHour": 35.4,
+      "milestone": 365,
+      "vocabularyReadyHour": 35.5,
       "newWordsAboveBudget": 2,
       "levels": {
         "A1": 86,
@@ -732,8 +738,8 @@
         "ihren",
         "im"
       ],
-      "milestone": 372,
-      "vocabularyReadyHour": 36.2,
+      "milestone": 373,
+      "vocabularyReadyHour": 36.3,
       "newWordsAboveBudget": 3,
       "levels": {
         "A1": 91,
@@ -769,8 +775,8 @@
         "im",
         "sein"
       ],
-      "milestone": 377,
-      "vocabularyReadyHour": 36.7,
+      "milestone": 378,
+      "vocabularyReadyHour": 36.8,
       "newWordsAboveBudget": 5,
       "levels": {
         "A1": 98,
@@ -796,8 +802,8 @@
         "im",
         "meine"
       ],
-      "milestone": 384,
-      "vocabularyReadyHour": 37.4,
+      "milestone": 385,
+      "vocabularyReadyHour": 37.5,
       "newWordsAboveBudget": 0,
       "levels": {
         "A1": 83,
@@ -839,8 +845,8 @@
         "im",
         "meine"
       ],
-      "milestone": 458,
-      "vocabularyReadyHour": 44.8,
+      "milestone": 461,
+      "vocabularyReadyHour": 45.1,
       "newWordsAboveBudget": 76,
       "levels": {
         "A1": 113,
@@ -879,8 +885,8 @@
         "Sie",
         "ihr"
       ],
-      "milestone": 497,
-      "vocabularyReadyHour": 48.7,
+      "milestone": 498,
+      "vocabularyReadyHour": 48.8,
       "newWordsAboveBudget": 41,
       "levels": {
         "A1": 107,
@@ -923,8 +929,8 @@
         "ihren",
         "zum"
       ],
-      "milestone": 527,
-      "vocabularyReadyHour": 51.7,
+      "milestone": 528,
+      "vocabularyReadyHour": 51.8,
       "newWordsAboveBudget": 36,
       "levels": {
         "A1": 119,
@@ -964,8 +970,8 @@
         "Sie",
         "beim"
       ],
-      "milestone": 564,
-      "vocabularyReadyHour": 55.4,
+      "milestone": 565,
+      "vocabularyReadyHour": 55.5,
       "newWordsAboveBudget": 38,
       "levels": {
         "A1": 88,
@@ -1010,8 +1016,8 @@
         "im",
         "sein"
       ],
-      "milestone": 606,
-      "vocabularyReadyHour": 59.6,
+      "milestone": 607,
+      "vocabularyReadyHour": 59.7,
       "newWordsAboveBudget": 50,
       "levels": {
         "A1": 113,
@@ -1047,8 +1053,8 @@
         "weggelegt"
       ],
       "ambiguous": [],
-      "milestone": 623,
-      "vocabularyReadyHour": 61.3,
+      "milestone": 624,
+      "vocabularyReadyHour": 61.4,
       "newWordsAboveBudget": 21,
       "levels": {
         "A1": 99,
@@ -1096,8 +1102,8 @@
         "im",
         "meine"
       ],
-      "milestone": 676,
-      "vocabularyReadyHour": 66.6,
+      "milestone": 677,
+      "vocabularyReadyHour": 66.7,
       "newWordsAboveBudget": 59,
       "levels": {
         "A1": 113,
@@ -1150,8 +1156,8 @@
         "gehört",
         "ihren"
       ],
-      "milestone": 714,
-      "vocabularyReadyHour": 70.4,
+      "milestone": 715,
+      "vocabularyReadyHour": 70.5,
       "newWordsAboveBudget": 53,
       "levels": {
         "A1": 117,
@@ -1197,8 +1203,8 @@
         "ihr",
         "meine"
       ],
-      "milestone": 728,
-      "vocabularyReadyHour": 71.8,
+      "milestone": 731,
+      "vocabularyReadyHour": 72.1,
       "newWordsAboveBudget": 27,
       "levels": {
         "A1": 93,
@@ -1261,8 +1267,8 @@
         "ihr",
         "meine"
       ],
-      "milestone": 757,
-      "vocabularyReadyHour": 74.7,
+      "milestone": 758,
+      "vocabularyReadyHour": 74.8,
       "newWordsAboveBudget": 53,
       "levels": {
         "A1": 123,
@@ -1320,8 +1326,8 @@
         "sein",
         "zum"
       ],
-      "milestone": 785,
-      "vocabularyReadyHour": 77.5,
+      "milestone": 786,
+      "vocabularyReadyHour": 77.6,
       "newWordsAboveBudget": 44,
       "levels": {
         "A1": 92,
@@ -1370,8 +1376,8 @@
         "im",
         "meine"
       ],
-      "milestone": 802,
-      "vocabularyReadyHour": 79.2,
+      "milestone": 803,
+      "vocabularyReadyHour": 79.3,
       "newWordsAboveBudget": 29,
       "levels": {
         "A1": 104,
@@ -1423,8 +1429,8 @@
         "ihrem",
         "meine"
       ],
-      "milestone": 821,
-      "vocabularyReadyHour": 81.1,
+      "milestone": 822,
+      "vocabularyReadyHour": 81.2,
       "newWordsAboveBudget": 34,
       "levels": {
         "A1": 112,
@@ -1461,8 +1467,8 @@
       "ambiguous": [
         "zum"
       ],
-      "milestone": 828,
-      "vocabularyReadyHour": 81.8,
+      "milestone": 831,
+      "vocabularyReadyHour": 82.1,
       "newWordsAboveBudget": 15,
       "levels": {
         "A1": 82,
@@ -1521,8 +1527,8 @@
         "beim",
         "gehört"
       ],
-      "milestone": 851,
-      "vocabularyReadyHour": 84.1,
+      "milestone": 852,
+      "vocabularyReadyHour": 84.2,
       "newWordsAboveBudget": 43,
       "levels": {
         "A1": 120,
@@ -1573,8 +1579,8 @@
         "ihr",
         "sein"
       ],
-      "milestone": 872,
-      "vocabularyReadyHour": 86.2,
+      "milestone": 873,
+      "vocabularyReadyHour": 86.3,
       "newWordsAboveBudget": 38,
       "levels": {
         "A1": 121,
@@ -1604,8 +1610,8 @@
         "zuvor"
       ],
       "ambiguous": [],
-      "milestone": 885,
-      "vocabularyReadyHour": 87.5,
+      "milestone": 886,
+      "vocabularyReadyHour": 87.6,
       "newWordsAboveBudget": 13,
       "levels": {
         "A1": 89,
@@ -1661,8 +1667,8 @@
         "im",
         "meine"
       ],
-      "milestone": 911,
-      "vocabularyReadyHour": 90.1,
+      "milestone": 912,
+      "vocabularyReadyHour": 90.2,
       "newWordsAboveBudget": 44,
       "levels": {
         "A1": 110,
@@ -1732,8 +1738,8 @@
         "paar",
         "sein"
       ],
-      "milestone": 938,
-      "vocabularyReadyHour": 92.8,
+      "milestone": 941,
+      "vocabularyReadyHour": 93.1,
       "newWordsAboveBudget": 60,
       "levels": {
         "A1": 157,

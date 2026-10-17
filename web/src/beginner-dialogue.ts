@@ -245,8 +245,26 @@ export const beginnerGateTranslations: Record<string, readonly (readonly [german
       "Here you are."
     ],
     [
-      "Guten Abend.",
-      "Good evening."
+      "Danke.",
+      "Thank you."
+    ],
+    [
+      "Hallo!",
+      "Hello!"
+    ]
+  ],
+  "a0-ticket-exercise-7": [
+    [
+      "Hallo!",
+      "Hello!"
+    ],
+    [
+      "Danke.",
+      "Thank you."
+    ],
+    [
+      "Bitte.",
+      "Here you are."
     ]
   ],
   "a0-wagen-exercise-1": [
@@ -257,16 +275,24 @@ export const beginnerGateTranslations: Record<string, readonly (readonly [german
     [
       "Drei.",
       "Three."
+    ],
+    [
+      "Eins.",
+      "One."
     ]
   ],
   "a0-tee-exercise-1": [
     [
-      "Einen Tee, bitte.",
-      "A tea, please."
+      "Nein, danke.",
+      "No, thank you."
     ],
     [
-      "Einen Kaffee, bitte.",
-      "A coffee, please."
+      "Ja, bitte.",
+      "Yes, please."
+    ],
+    [
+      "Hallo!",
+      "Hello!"
     ]
   ],
   "a0-wo-exercise-1": [
@@ -277,29 +303,69 @@ export const beginnerGateTranslations: Record<string, readonly (readonly [german
     [
       "Wo ist der Tee?",
       "Where is the tea?"
+    ],
+    [
+      "Ich heiße …",
+      "My name is …"
     ]
   ],
   "a0-langsam-exercise-1": [
     [
       "Ich verstehe nicht.",
-      "I do not understand."
+      "I don’t understand."
     ],
     [
-      "Ja.",
-      "Yes."
+      "Ja, bitte!",
+      "Yes, please!"
+    ],
+    [
+      "Guten Abend!",
+      "Good evening!"
     ]
   ],
   "a0-morgen-exercise-1": [
     [
-      "Auf Wiedersehen.",
-      "Goodbye."
+      "Auf Wiedersehen!",
+      "Goodbye!"
     ],
     [
-      "Guten Morgen.",
-      "Good morning."
+      "Guten Abend!",
+      "Good evening!"
+    ],
+    [
+      "Ich verstehe nicht.",
+      "I don’t understand."
+    ]
+  ],
+  "a0-morgen-exercise-7": [
+    [
+      "Guten Morgen!",
+      "Good morning!"
+    ],
+    [
+      "Guten Abend!",
+      "Good evening!"
+    ],
+    [
+      "Auf Wiedersehen!",
+      "Goodbye!"
     ]
   ]
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /** Choice IDs remain canonical German answers so the existing server can grade them. */
 export function beginnerGateChoices(exerciseId: string): DialogueChoice[] {
@@ -316,5 +382,5 @@ export const greetingMeanings: Record<string, string> = {
 };
 
 export function beginnerReplyMeaning(german: string): string | undefined {
-  return greetingMeanings[german];
+  return greetingMeanings[german] ?? Object.values(beginnerGateTranslations).flat().find(([reply]) => reply === german)?.[1];
 }

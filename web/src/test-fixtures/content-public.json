@@ -1828,7 +1828,6 @@
             "level": "A1"
           },
           {
-            "id": "d8634d7b-dfdd-5f3c-8782-48b89289f3dd",
             "kind": "interior",
             "worldId": "train-dining",
             "ownerId": "train-dining",
@@ -19141,57 +19140,132 @@
       "version": 1,
       "body": {
         "category": "interior",
+        "owners": [
+          {
+            "kind": "interior",
+            "id": "train-compartment",
+            "level": "A1"
+          }
+        ],
         "data": {
           "id": "train-compartment",
           "name": "The night train",
-          "germanName": "Wagen sieben.",
+          "germanName": "Wagen sieben",
           "subtitle": "Prologue",
-          "description": "Listen, look and choose.",
+          "description": "A glass carriage on the night train to Lindenhafen.",
           "icon": "cup",
-          "asset": "/assets/interior-train-compartment.webp",
+          "asset": "/assets/interior-train-night.webp",
+          "dawnAsset": "/assets/interior-train-dawn.webp",
+          "presentation": "painted",
           "width": 1536,
           "height": 1024,
-          "characterHeight": 390,
+          "characterHeight": 150,
           "spawn": {
-            "x": 0.56,
-            "y": 0.73
+            "x": 0.1953,
+            "y": 0.5078
           },
           "exit": {
-            "x": 0.77,
-            "y": 0.54
+            "x": 0.8802,
+            "y": 0.6836
           },
           "floorAreas": [
             [
               [
-                600,
-                650
+                100,
+                458
               ],
               [
-                980,
-                520
+                222,
+                458
               ],
               [
-                1340,
-                570
+                222,
+                410
               ],
               [
-                1360,
-                930
+                392,
+                410
               ],
               [
-                350,
-                930
+                392,
+                458
+              ],
+              [
+                528,
+                458
+              ],
+              [
+                528,
+                398
+              ],
+              [
+                935,
+                398
+              ],
+              [
+                935,
+                432
+              ],
+              [
+                1440,
+                432
+              ],
+              [
+                1440,
+                728
+              ],
+              [
+                100,
+                728
               ]
             ]
           ],
           "npcs": [
             {
               "id": "schaffner",
-              "x": 0.58,
-              "y": 0.76,
+              "x": 0.3646,
+              "y": 0.5078,
               "interactionId": "interior:prologue-conversation-train-compartment",
               "role": "Train conductor",
-              "support": {}
+              "prologueStations": {
+                "a0-ticket": [
+                  560,
+                  520
+                ],
+                "a0-name": [
+                  470,
+                  500
+                ],
+                "a0-wagen": [
+                  700,
+                  470
+                ],
+                "a0-tee": [
+                  1100,
+                  478
+                ],
+                "a0-wo": [
+                  1100,
+                  478
+                ],
+                "a0-langsam": [
+                  880,
+                  560
+                ],
+                "a0-morgen": [
+                  1250,
+                  640
+                ],
+                "done": [
+                  1250,
+                  640
+                ]
+              },
+              "support": {
+                "tr": {
+                  "role": "Tren kondüktörü"
+                }
+              }
             }
           ],
           "props": [
@@ -19199,284 +19273,155 @@
               "id": "ticket-on-table",
               "sheet": "interior-train-furniture",
               "asset": "train-ticket-pale",
-              "x": 550,
-              "y": 550,
-              "width": 70,
-              "interactive": "interior:prologue-name"
+              "x": 306,
+              "y": 352,
+              "width": 64,
+              "depth": 420,
+              "interactive": "interior:prologue-ticket"
+            },
+            {
+              "id": "tea-on-counter",
+              "sheet": "interior-train-furniture",
+              "asset": "train-tea",
+              "x": 1196,
+              "y": 336,
+              "width": 30,
+              "depth": 440
             }
           ],
           "objects": [
-            {
-              "id": "interior:prologue-ticket",
-              "label": "A ticket in your hand",
-              "germanName": "Fahrkarte. Lindenhafen.",
-              "sessionTitle": "Prologue",
-              "prompt": "Listen, look and choose.",
-              "description": "Ticket. Lindenhafen.",
-              "dialogue": "Fahrkarte. Lindenhafen.",
-              "x": 0.36,
-              "y": 0.53,
-              "exerciseIds": [
-                "ce59e242-abb6-51ca-9ebe-c5783f84a33b"
-              ],
-              "vocabulary": [],
-              "support": {}
-            },
-            {
-              "id": "interior:prologue-name",
-              "label": "Your name on the ticket",
-              "germanName": "Fahrkarte. Lindenhafen.",
-              "sessionTitle": "Prologue",
-              "prompt": "Listen, look and choose.",
-              "description": "Ticket. Lindenhafen.",
-              "dialogue": "Fahrkarte. Lindenhafen.",
-              "x": 0.36,
-              "y": 0.53,
-              "exerciseIds": [
-                "1c37406d-8a5d-5b5e-bc58-2482cbe47044"
-              ],
-              "vocabulary": [],
-              "support": {}
-            },
-            {
-              "id": "interior:prologue-wagen",
-              "label": "Carriage seven",
-              "germanName": "Wagen sieben.",
-              "sessionTitle": "Prologue",
-              "prompt": "Listen, look and choose.",
-              "description": "Carriage seven.",
-              "dialogue": "Wagen sieben.",
-              "x": 0.72,
-              "y": 0.4,
-              "exerciseIds": [
-                "88ea62a2-4e86-5586-a700-167e5b1964ad"
-              ],
-              "vocabulary": [],
-              "support": {}
-            },
-            {
-              "id": "interior:prologue-langsam",
-              "label": "Slower, please",
-              "germanName": "Lindenhafen.",
-              "sessionTitle": "Prologue",
-              "prompt": "Listen, look and choose.",
-              "description": "Lindenhafen.",
-              "dialogue": "Lindenhafen.",
-              "x": 0.64,
-              "y": 0.3,
-              "exerciseIds": [
-                "49d5e506-1482-5553-a2a3-89dc19cfc068"
-              ],
-              "vocabulary": [],
-              "support": {}
-            },
-            {
-              "id": "interior:prologue-morgen",
-              "label": "Morning",
-              "germanName": "Lindenhafen. Bahnsteig sieben.",
-              "sessionTitle": "Prologue",
-              "prompt": "Listen, look and choose.",
-              "description": "Lindenhafen. Platform seven.",
-              "dialogue": "Lindenhafen. Bahnsteig sieben.",
-              "x": 0.43,
-              "y": 0.34,
-              "exerciseIds": [
-                "6c23769b-faee-5782-a1db-d8d8adc4da82"
-              ],
-              "vocabulary": [],
-              "support": {}
-            },
             {
               "id": "interior:prologue-conversation-train-compartment",
               "label": "Brandt",
-              "germanName": "Guten Abend.",
+              "germanName": "Hallo! Guten Abend!",
               "sessionTitle": "Prologue",
-              "prompt": "Listen, look and choose.",
+              "prompt": "Look closely.",
               "description": "Speak with the conductor.",
-              "dialogue": "Guten Abend.",
-              "npcId": "schaffner",
-              "x": 0.58,
-              "y": 0.76,
+              "dialogue": "Hallo! Guten Abend!",
+              "x": 0.3646,
+              "y": 0.5078,
               "exerciseIds": [],
               "vocabulary": [],
-              "support": {}
-            }
-          ],
-          "windowEffects": [
-            {
-              "x": 200,
-              "y": 340,
-              "width": 280,
-              "alpha": 0.18
+              "npcId": "schaffner",
+              "support": {
+                "tr": {
+                  "label": "Brandt",
+                  "sessionTitle": "Önsöz"
+                }
+              }
             },
             {
-              "x": 660,
-              "y": 365,
-              "width": 140,
-              "alpha": 0.15
-            }
-          ],
-          "presentation": "backdrop",
-          "support": {}
-        }
-      }
-    },
-    {
-      "id": "d8634d7b-dfdd-5f3c-8782-48b89289f3dd",
-      "courseId": "d1dded34-e2d5-59fb-b7c8-10622eded3d7",
-      "kind": "context",
-      "version": 1,
-      "body": {
-        "category": "interior",
-        "data": {
-          "id": "train-dining",
-          "name": "The dining car",
-          "germanName": "Tee?",
-          "subtitle": "Prologue",
-          "description": "Listen, look and choose.",
-          "icon": "cup",
-          "asset": "/assets/interior-train-dining.webp",
-          "width": 1536,
-          "height": 1024,
-          "characterHeight": 390,
-          "spawn": {
-            "x": 0.46,
-            "y": 0.73
-          },
-          "exit": {
-            "x": 0.33,
-            "y": 0.42
-          },
-          "floorAreas": [
-            [
-              [
-                430,
-                430
+              "id": "interior:prologue-ticket",
+              "label": "Your ticket",
+              "germanName": "Die Fahrkarte",
+              "sessionTitle": "Prologue",
+              "prompt": "Look closely.",
+              "description": "Your ticket lies on the little table.",
+              "dialogue": "Die Fahrkarte",
+              "x": 0.1992,
+              "y": 0.4199,
+              "exerciseIds": [],
+              "vocabulary": [],
+              "prologueBeats": [
+                "a0-ticket",
+                "a0-name"
               ],
-              [
-                640,
-                430
-              ],
-              [
-                1100,
-                700
-              ],
-              [
-                1180,
-                930
-              ],
-              [
-                420,
-                930
-              ],
-              [
-                300,
-                700
-              ]
-            ]
-          ],
-          "npcs": [
-            {
-              "id": "schaffner",
-              "x": 0.43,
-              "y": 0.74,
-              "interactionId": "interior:prologue-conversation-train-dining",
-              "role": "Train conductor",
-              "support": {}
-            }
-          ],
-          "props": [
-            {
-              "id": "tea-on-table",
-              "sheet": "interior-train-furniture",
-              "asset": "train-tea",
-              "x": 790,
-              "y": 407,
-              "width": 32
+              "support": {
+                "tr": {
+                  "sessionTitle": "Önsöz"
+                }
+              }
             },
             {
-              "id": "train-exit-sign",
-              "sheet": "interior-train-furniture",
-              "asset": "train-exit",
-              "x": 485,
-              "y": 180,
-              "width": 95,
-              "interactive": "interior:prologue-exit"
-            }
-          ],
-          "objects": [
+              "id": "interior:prologue-wagen",
+              "label": "The window",
+              "germanName": "Das Fenster",
+              "sessionTitle": "Prologue",
+              "prompt": "Look closely.",
+              "description": "The track curves. You can see the carriages behind you.",
+              "dialogue": "Das Fenster",
+              "x": 0.3893,
+              "y": 0.4199,
+              "exerciseIds": [],
+              "vocabulary": [],
+              "prologueBeats": [
+                "a0-wagen",
+                "a0-langsam",
+                "a0-morgen"
+              ],
+              "support": {
+                "tr": {
+                  "sessionTitle": "Önsöz"
+                }
+              }
+            },
             {
               "id": "interior:prologue-tee",
-              "label": "Tea in the dining car",
-              "germanName": "Tee. Kaffee.",
+              "label": "The samovar",
+              "germanName": "Der Samowar",
               "sessionTitle": "Prologue",
-              "prompt": "Listen, look and choose.",
-              "description": "Tea. Coffee.",
-              "dialogue": "Tee. Kaffee.",
-              "x": 0.23,
-              "y": 0.31,
-              "exerciseIds": [
-                "1b9f605e-4629-5129-b26c-a3fd09f8cc0e"
-              ],
+              "prompt": "Look closely.",
+              "description": "A copper samovar hums on the counter.",
+              "dialogue": "Der Samowar",
+              "x": 0.6966,
+              "y": 0.4375,
+              "exerciseIds": [],
               "vocabulary": [],
-              "support": {}
+              "prologueBeats": [
+                "a0-tee"
+              ],
+              "support": {
+                "tr": {
+                  "sessionTitle": "Önsöz"
+                }
+              }
             },
             {
               "id": "interior:prologue-wo",
-              "label": "Where is …?",
-              "germanName": "Die Toilette.",
+              "label": "A narrow door",
+              "germanName": "Die Toilette",
               "sessionTitle": "Prologue",
-              "prompt": "Listen, look and choose.",
-              "description": "The toilet.",
-              "dialogue": "Die Toilette.",
-              "x": 0.33,
-              "y": 0.42,
-              "exerciseIds": [
-                "08e8cd66-0ce9-54a6-bc4d-94357c65ed3e"
+              "prompt": "Look closely.",
+              "description": "A narrow walnut door with a round window.",
+              "dialogue": "Die Toilette",
+              "x": 0.4785,
+              "y": 0.4082,
+              "exerciseIds": [],
+              "vocabulary": [],
+              "prologueBeats": [
+                "a0-wo"
               ],
-              "vocabulary": [],
-              "support": {}
+              "support": {
+                "tr": {
+                  "sessionTitle": "Önsöz"
+                }
+              }
             },
             {
-              "id": "interior:prologue-conversation-train-dining",
-              "label": "Brandt",
-              "germanName": "Guten Abend.",
+              "id": "interior:prologue-sounds",
+              "label": "The fogged window",
+              "germanName": "Das Fenster",
               "sessionTitle": "Prologue",
-              "prompt": "Listen, look and choose.",
-              "description": "Speak with the conductor.",
-              "dialogue": "Guten Abend.",
-              "npcId": "schaffner",
-              "x": 0.43,
-              "y": 0.74,
+              "prompt": "Look closely.",
+              "description": "Letters appear in the fog on the glass.",
+              "dialogue": "Das Fenster",
+              "x": 0.1042,
+              "y": 0.4648,
               "exerciseIds": [],
               "vocabulary": [],
-              "support": {}
-            },
-            {
-              "id": "interior:prologue-exit",
-              "label": "The exit sign",
-              "germanName": "Der Ausgang.",
-              "sessionTitle": "Prologue",
-              "prompt": "Listen, look and choose.",
-              "description": "The exit.",
-              "dialogue": "Der Ausgang.",
-              "x": 0.315,
-              "y": 0.18,
-              "exerciseIds": [],
-              "vocabulary": [],
-              "support": {}
+              "support": {
+                "tr": {
+                  "sessionTitle": "Önsöz"
+                }
+              }
             }
           ],
-          "windowEffects": [
-            {
-              "x": 190,
-              "y": 290,
-              "width": 230,
-              "alpha": 0.15
+          "support": {
+            "tr": {
+              "subtitle": "Önsöz",
+              "name": "Gece treni"
             }
-          ],
-          "presentation": "backdrop",
-          "support": {}
+          }
         }
       }
     },

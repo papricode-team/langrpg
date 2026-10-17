@@ -149,7 +149,7 @@ export function buildingRoomKind(owner: SceneScenery): RoomKind | undefined {
 export function sceneEntrances(scene: WorldScene): SceneEntrance[] {
   const station = scene.id === 'lindenhafen' ? scene.scenery.find(item => item.id === 'station') : undefined;
   // Boarding the train uses the station platform; rooms share the same outdoor return.
-  const train: SceneEntrance[] = station ? (['train-compartment', 'train-dining'] as const).map(interiorId => ({id:`${interiorId}-entrance`,ownerId:station.id,interiorId,owner:station})) : [];
+  const train: SceneEntrance[] = station ? (['train-compartment'] as const).map(interiorId => ({id:`${interiorId}-entrance`,ownerId:station.id,interiorId,owner:station})) : [];
   return [...train, ...scene.scenery.flatMap(owner => {
     const kind = buildingRoomKind(owner);
     if (!kind) return [];

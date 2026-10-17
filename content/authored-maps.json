@@ -1475,640 +1475,6 @@
   }
  },
  {
-  "text": "Die Fahrkarte.",
-  "translations": {
-   "en": {
-    "text": "The ticket.",
-    "words": [
-     {
-      "source": {
-       "text": "Die",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "The",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Fahrkarte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "ticket",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Bilet.",
-    "words": [
-     {
-      "source": {
-       "text": "Die",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "Fahrkarte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Bilet",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Name.",
-  "translations": {
-   "en": {
-    "text": "Name.",
-    "words": [
-     {
-      "source": {
-       "text": "Name",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Name",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Ad.",
-    "words": [
-     {
-      "source": {
-       "text": "Name",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Ad",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Wie heißen Sie?",
-  "translations": {
-   "en": {
-    "text": "What is your name?",
-    "words": [
-     {
-      "source": {
-       "text": "Wie",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "What",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "heißen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "name",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Sie",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "your",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Adınız ne?",
-    "words": [
-     {
-      "source": {
-       "text": "Wie",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "ne",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "heißen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Adınız",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Sie",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Adınız",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "eins, zwei, drei",
-  "translations": {
-   "en": {
-    "text": "one, two, three",
-    "words": [
-     {
-      "source": {
-       "text": "eins",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "one",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "zwei",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "two",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "drei",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "three",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "bir, iki, üç",
-    "words": [
-     {
-      "source": {
-       "text": "eins",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "bir",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "zwei",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "iki",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "drei",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "üç",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "vier, fünf, sechs",
-  "translations": {
-   "en": {
-    "text": "four, five, six",
-    "words": [
-     {
-      "source": {
-       "text": "vier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "four",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "fünf",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "five",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sechs",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "six",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "dört, beş, altı",
-    "words": [
-     {
-      "source": {
-       "text": "vier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "dört",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "fünf",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "beş",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sechs",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "altı",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Wagen sieben.",
-  "translations": {
-   "en": {
-    "text": "Carriage seven.",
-    "words": [
-     {
-      "source": {
-       "text": "Wagen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Carriage",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "seven",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Yedinci vagon.",
-    "words": [
-     {
-      "source": {
-       "text": "Wagen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "vagon",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Yedinci",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Ein Wagen.",
-  "translations": {
-   "en": {
-    "text": "A carriage.",
-    "words": [
-     {
-      "source": {
-       "text": "Ein",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "A",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Wagen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "carriage",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Bir vagon.",
-    "words": [
-     {
-      "source": {
-       "text": "Ein",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Bir",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Wagen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "vagon",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Tee oder Kaffee?",
-  "translations": {
-   "en": {
-    "text": "Tea or coffee?",
-    "words": [
-     {
-      "source": {
-       "text": "Tee",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Tea",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "oder",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "or",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Kaffee",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "coffee",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Çay mı kahve mi?",
-    "words": [
-     {
-      "source": {
-       "text": "Tee",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Çay",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "oder",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "mı",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Kaffee",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "kahve",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Mit Milch?",
-  "translations": {
-   "en": {
-    "text": "With milk?",
-    "words": [
-     {
-      "source": {
-       "text": "Mit",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "With",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Milch",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "milk",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Sütlü mü?",
-    "words": [
-     {
-      "source": {
-       "text": "Mit",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Sütlü",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Milch",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Sütlü",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
   "text": "Nein, danke.",
   "translations": {
    "en": {
@@ -2172,699 +1538,6 @@
   }
  },
  {
-  "text": "Wo ist …?",
-  "translations": {
-   "en": {
-    "text": "Where is …?",
-    "words": [
-     {
-      "source": {
-       "text": "Wo",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Where",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "ist",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "is",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Nerede?",
-    "words": [
-     {
-      "source": {
-       "text": "Wo",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Nerede",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "ist",
-       "occurrence": 1
-      },
-      "targets": []
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Die Toilette.",
-  "translations": {
-   "en": {
-    "text": "The toilet.",
-    "words": [
-     {
-      "source": {
-       "text": "Die",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "The",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Toilette",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "toilet",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Tuvalet.",
-    "words": [
-     {
-      "source": {
-       "text": "Die",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "Toilette",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Tuvalet",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Hier.",
-  "translations": {
-   "en": {
-    "text": "Here.",
-    "words": [
-     {
-      "source": {
-       "text": "Hier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Here",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Burada.",
-    "words": [
-     {
-      "source": {
-       "text": "Hier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Burada",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Da.",
-  "translations": {
-   "en": {
-    "text": "There.",
-    "words": [
-     {
-      "source": {
-       "text": "Da",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "There",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Orada.",
-    "words": [
-     {
-      "source": {
-       "text": "Da",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Orada",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Ausgang.",
-  "translations": {
-   "en": {
-    "text": "Exit.",
-    "words": [
-     {
-      "source": {
-       "text": "Ausgang",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Exit",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Çıkış.",
-    "words": [
-     {
-      "source": {
-       "text": "Ausgang",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Çıkış",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Ich verstehe nicht.",
-  "translations": {
-   "en": {
-    "text": "I do not understand.",
-    "words": [
-     {
-      "source": {
-       "text": "Ich",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "I",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "verstehe",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "understand",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "nicht",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "not",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Anlamıyorum.",
-    "words": [
-     {
-      "source": {
-       "text": "Ich",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Anlamıyorum",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "verstehe",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Anlamıyorum",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "nicht",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Anlamıyorum",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Langsam, bitte.",
-  "translations": {
-   "en": {
-    "text": "Slowly, please.",
-    "words": [
-     {
-      "source": {
-       "text": "Langsam",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Slowly",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "bitte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "please",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Yavaşça, lütfen.",
-    "words": [
-     {
-      "source": {
-       "text": "Langsam",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Yavaşça",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "bitte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "lütfen",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Wie bitte?",
-  "translations": {
-   "en": {
-    "text": "Pardon?",
-    "words": [
-     {
-      "source": {
-       "text": "Wie",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Pardon",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "bitte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Pardon",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Efendim?",
-    "words": [
-     {
-      "source": {
-       "text": "Wie",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Efendim",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "bitte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Efendim",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Auf Wiedersehen.",
-  "translations": {
-   "en": {
-    "text": "Goodbye.",
-    "words": [
-     {
-      "source": {
-       "text": "Auf",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Goodbye",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Wiedersehen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Goodbye",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Hoşça kalın.",
-    "words": [
-     {
-      "source": {
-       "text": "Auf",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Hoşça kalın",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Wiedersehen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Hoşça kalın",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Guten Morgen.",
-  "translations": {
-   "en": {
-    "text": "Good morning.",
-    "words": [
-     {
-      "source": {
-       "text": "Guten",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Good",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Morgen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "morning",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Günaydın.",
-    "words": [
-     {
-      "source": {
-       "text": "Guten",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Günaydın",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Morgen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Günaydın",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Der Zug kommt.",
-  "translations": {
-   "en": {
-    "text": "The train is coming.",
-    "words": [
-     {
-      "source": {
-       "text": "Der",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "The",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Zug",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "train",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "kommt",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "is coming",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Tren geliyor.",
-    "words": [
-     {
-      "source": {
-       "text": "Der",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "Zug",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Tren",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "kommt",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "geliyor",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Lindenhafen!",
-  "translations": {
-   "en": {
-    "text": "Lindenhafen!",
-    "words": [
-     {
-      "source": {
-       "text": "Lindenhafen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Lindenhafen",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Lindenhafen!",
-    "words": [
-     {
-      "source": {
-       "text": "Lindenhafen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Lindenhafen",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
   "text": "Ich heiße {name}.",
   "translations": {
    "en": {
@@ -2919,3028 +1592,6 @@
       "targets": [
        {
         "text": "adım",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Hier: {name}. Bahnsteig sieben. E.",
-  "translations": {
-   "en": {
-    "text": "Here: {name}. Platform seven. E.",
-    "words": [
-     {
-      "source": {
-       "text": "Hier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Here",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Bahnsteig",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Platform",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "seven",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "E",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "E",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Burada: {name}. Yedinci peron. E.",
-    "words": [
-     {
-      "source": {
-       "text": "Hier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Burada",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Bahnsteig",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "peron",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Yedinci",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "E",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "E",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Hier gehen Namen weg.",
-  "translations": {
-   "en": {
-    "text": "Here, names fade.",
-    "words": [
-     {
-      "source": {
-       "text": "Hier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Here",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "gehen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "fade",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Namen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "names",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "weg",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "fade",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Burada adlar siliniyor.",
-    "words": [
-     {
-      "source": {
-       "text": "Hier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Burada",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "gehen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "siliniyor",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Namen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "adlar",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "weg",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "siliniyor",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Sag deinen Namen laut.",
-  "translations": {
-   "en": {
-    "text": "Say your name aloud.",
-    "words": [
-     {
-      "source": {
-       "text": "Sag",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Say",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "deinen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "your",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Namen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "name",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "laut",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "aloud",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Adını yüksek sesle söyle.",
-    "words": [
-     {
-      "source": {
-       "text": "Sag",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "söyle",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "deinen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Adını",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Namen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Adını",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "laut",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "yüksek sesle",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Danke. Mein Buch für Sie.",
-  "translations": {
-   "en": {
-    "text": "Thank you. My ledger, for you.",
-    "words": [
-     {
-      "source": {
-       "text": "Danke",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Thank you",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Mein",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "My",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Buch",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "ledger",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "für",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "for",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Sie",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "you",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Teşekkürler. Defterim sizin için.",
-    "words": [
-     {
-      "source": {
-       "text": "Danke",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Teşekkürler",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Mein",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Defterim",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Buch",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Defterim",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "für",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "için",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Sie",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "sizin",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Mein Schlüssel. Für Bahnsteig sieben.",
-  "translations": {
-   "en": {
-    "text": "My key. For platform seven.",
-    "words": [
-     {
-      "source": {
-       "text": "Mein",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "My",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Schlüssel",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "key",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Für",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "For",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Bahnsteig",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "platform",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "seven",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Anahtarım. Yedinci peron için.",
-    "words": [
-     {
-      "source": {
-       "text": "Mein",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Anahtarım",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Schlüssel",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Anahtarım",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Für",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "için",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Bahnsteig",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "peron",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Yedinci",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Marta ist im Café.",
-  "translations": {
-   "en": {
-    "text": "Marta is in the café.",
-    "words": [
-     {
-      "source": {
-       "text": "Marta",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Marta",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "ist",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "is",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "im",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "in the",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Café",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "café",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Marta kafede.",
-    "words": [
-     {
-      "source": {
-       "text": "Marta",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Marta",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "ist",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "im",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "kafede",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Café",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "kafede",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Guten Morgen. Lindenhafen.",
-  "translations": {
-   "en": {
-    "text": "Good morning. Lindenhafen.",
-    "words": [
-     {
-      "source": {
-       "text": "Guten",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Good",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Morgen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "morning",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Lindenhafen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Lindenhafen",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Günaydın. Lindenhafen.",
-    "words": [
-     {
-      "source": {
-       "text": "Guten",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Günaydın",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Morgen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Günaydın",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Lindenhafen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Lindenhafen",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "eins, zwei, drei.",
-  "translations": {
-   "en": {
-    "text": "one, two, three.",
-    "words": [
-     {
-      "source": {
-       "text": "eins",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "one",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "zwei",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "two",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "drei",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "three",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "bir, iki, üç",
-    "words": [
-     {
-      "source": {
-       "text": "eins",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "bir",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "zwei",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "iki",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "drei",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "üç",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "vier, fünf, sechs.",
-  "translations": {
-   "en": {
-    "text": "four, five, six.",
-    "words": [
-     {
-      "source": {
-       "text": "vier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "four",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "fünf",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "five",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sechs",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "six",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "dört, beş, altı",
-    "words": [
-     {
-      "source": {
-       "text": "vier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "dört",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "fünf",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "beş",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sechs",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "altı",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Bahnsteig sieben.",
-  "translations": {
-   "en": {
-    "text": "Platform seven.",
-    "words": [
-     {
-      "source": {
-       "text": "Bahnsteig",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Platform",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "seven",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Yedinci peron.",
-    "words": [
-     {
-      "source": {
-       "text": "Bahnsteig",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "peron",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Yedinci",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Danke. Bitte.",
-  "translations": {
-   "en": {
-    "text": "Thank you. Here you are.",
-    "words": [
-     {
-      "source": {
-       "text": "Danke",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Thank you",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Bitte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Here you are",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Teşekkürler. Buyurun.",
-    "words": [
-     {
-      "source": {
-       "text": "Danke",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Teşekkürler",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Bitte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Buyurun",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Bitte. Bahnsteig sieben.",
-  "translations": {
-   "en": {
-    "text": "Here you are. Platform seven.",
-    "words": [
-     {
-      "source": {
-       "text": "Bitte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Here you are",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Bahnsteig",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Platform",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "seven",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Buyurun. Yedinci peron.",
-    "words": [
-     {
-      "source": {
-       "text": "Bitte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Buyurun",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Bahnsteig",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "peron",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Yedinci",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Marta ist hier.",
-  "translations": {
-   "en": {
-    "text": "Marta is here.",
-    "words": [
-     {
-      "source": {
-       "text": "Marta",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Marta",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "ist",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "is",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "hier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "here",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Marta burada.",
-    "words": [
-     {
-      "source": {
-       "text": "Marta",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Marta",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "ist",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "hier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "burada",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Name?",
-  "translations": {
-   "en": {
-    "text": "Name?",
-    "words": [
-     {
-      "source": {
-       "text": "Name",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Name",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Ad?",
-    "words": [
-     {
-      "source": {
-       "text": "Name",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Ad",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Tee?",
-  "translations": {
-   "en": {
-    "text": "Tea?",
-    "words": [
-     {
-      "source": {
-       "text": "Tee",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Tea",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Çay?",
-    "words": [
-     {
-      "source": {
-       "text": "Tee",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Çay",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Der Zug.",
-  "translations": {
-   "en": {
-    "text": "The train.",
-    "words": [
-     {
-      "source": {
-       "text": "Der",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "The",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Zug",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "train",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Tren.",
-    "words": [
-     {
-      "source": {
-       "text": "Der",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "Zug",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Tren",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Voss?",
-  "translations": {
-   "en": {
-    "text": "Voss?",
-    "words": [
-     {
-      "source": {
-       "text": "Voss",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Voss",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Voss?",
-    "words": [
-     {
-      "source": {
-       "text": "Voss",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Voss",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Voss: Messingamt. Namen, Namen, Namen.",
-  "translations": {
-   "en": {
-    "text": "Voss: the Brass Office. Names, names, names.",
-    "words": [
-     {
-      "source": {
-       "text": "Voss",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Voss",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Messingamt",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Brass Office",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Namen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Names",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Namen",
-       "occurrence": 2
-      },
-      "targets": [
-       {
-        "text": "names",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Namen",
-       "occurrence": 3
-      },
-      "targets": [
-       {
-        "text": "names",
-        "occurrence": 2
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Voss: Pirinç Dairesi. Adlar, adlar, adlar.",
-    "words": [
-     {
-      "source": {
-       "text": "Voss",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Voss",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Messingamt",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Pirinç Dairesi",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Namen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Adlar",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Namen",
-       "occurrence": 2
-      },
-      "targets": [
-       {
-        "text": "adlar",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Namen",
-       "occurrence": 3
-      },
-      "targets": [
-       {
-        "text": "adlar",
-        "occurrence": 2
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Die Laterne?",
-  "translations": {
-   "en": {
-    "text": "The lantern?",
-    "words": [
-     {
-      "source": {
-       "text": "Die",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "The",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Laterne",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "lantern",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Fener?",
-    "words": [
-     {
-      "source": {
-       "text": "Die",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "Laterne",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Fener",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Bahnsteig sieben: 12 Jahre zu.",
-  "translations": {
-   "en": {
-    "text": "Platform seven: closed for twelve years.",
-    "words": [
-     {
-      "source": {
-       "text": "Bahnsteig",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Platform",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "seven",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Jahre",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "years",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "zu",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "closed",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Yedinci peron: on iki yıldır kapalı.",
-    "words": [
-     {
-      "source": {
-       "text": "Bahnsteig",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "peron",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Yedinci",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Jahre",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "yıldır",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "zu",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "kapalı",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Kein Zug. Die Laterne bleibt hier.",
-  "translations": {
-   "en": {
-    "text": "No train. The lantern stays here.",
-    "words": [
-     {
-      "source": {
-       "text": "Kein",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "No",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Zug",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "train",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Die",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "The",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Laterne",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "lantern",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "bleibt",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "stays",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "hier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "here",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Tren yok. Fener burada kalıyor.",
-    "words": [
-     {
-      "source": {
-       "text": "Kein",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "yok",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Zug",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Tren",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Die",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "Laterne",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Fener",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "bleibt",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "kalıyor",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "hier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "burada",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "E.?",
-  "translations": {
-   "en": {
-    "text": "E.?",
-    "words": [
-     {
-      "source": {
-       "text": "E",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "E",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "E.?",
-    "words": [
-     {
-      "source": {
-       "text": "E",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "E",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "E.? Hier ist dein Name.",
-  "translations": {
-   "en": {
-    "text": "E.? Here is your name.",
-    "words": [
-     {
-      "source": {
-       "text": "E",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "E",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Hier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Here",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "ist",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "is",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "dein",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "your",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Name",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "name",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "E.? Adın burada.",
-    "words": [
-     {
-      "source": {
-       "text": "E",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "E",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Hier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "burada",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "ist",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "dein",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Adın",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Name",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Adın",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "E. kennt deinen Namen.",
-  "translations": {
-   "en": {
-    "text": "E. knows your name.",
-    "words": [
-     {
-      "source": {
-       "text": "E",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "E",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "kennt",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "knows",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "deinen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "your",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Namen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "name",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "E. adını biliyor.",
-    "words": [
-     {
-      "source": {
-       "text": "E",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "E",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "kennt",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "biliyor",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "deinen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "adını",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Namen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "adını",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Fahrkarte: {name}. Bahnsteig sieben. E.",
-  "translations": {
-   "en": {
-    "text": "Ticket: {name}. Platform seven. E.",
-    "words": [
-     {
-      "source": {
-       "text": "Fahrkarte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Ticket",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Bahnsteig",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Platform",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "seven",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "E",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "E",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Bilet: {name}. Yedinci peron. E.",
-    "words": [
-     {
-      "source": {
-       "text": "Fahrkarte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Bilet",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Bahnsteig",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "peron",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Yedinci",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "E",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "E",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Bahnsteig eins, zwei, drei, vier, fünf, sechs.",
-  "translations": {
-   "en": {
-    "text": "Platforms one, two, three, four, five, six.",
-    "words": [
-     {
-      "source": {
-       "text": "Bahnsteig",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Platforms",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "eins",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "one",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "zwei",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "two",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "drei",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "three",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "vier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "four",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "fünf",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "five",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sechs",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "six",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Birinci, ikinci, üçüncü, dördüncü, beşinci, altıncı peronlar.",
-    "words": [
-     {
-      "source": {
-       "text": "Bahnsteig",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "peronlar",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "eins",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Birinci",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "zwei",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "ikinci",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "drei",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "üçüncü",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "vier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "dördüncü",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "fünf",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "beşinci",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sechs",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "altıncı",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Langsam: Die Fahrkarte ist nicht gültig.",
-  "translations": {
-   "en": {
-    "text": "Slowly: the ticket is not valid.",
-    "words": [
-     {
-      "source": {
-       "text": "Langsam",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Slowly",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Die",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "the",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Fahrkarte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "ticket",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "ist",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "is",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "nicht",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "not",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "gültig",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "valid",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Yavaşça: Bilet geçerli değil.",
-    "words": [
-     {
-      "source": {
-       "text": "Langsam",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Yavaşça",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Die",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "Fahrkarte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Bilet",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "ist",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "nicht",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "değil",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "gültig",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "geçerli",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Die Fahrkarte, bitte.",
-  "translations": {
-   "en": {
-    "text": "The ticket, please.",
-    "words": [
-     {
-      "source": {
-       "text": "Die",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "The",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Fahrkarte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "ticket",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "bitte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "please",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Bilet, lütfen.",
-    "words": [
-     {
-      "source": {
-       "text": "Die",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "Fahrkarte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Bilet",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "bitte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "lütfen",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Guten Morgen. Voss. Messingamt.",
-  "translations": {
-   "en": {
-    "text": "Good morning. Voss. The Brass Office.",
-    "words": [
-     {
-      "source": {
-       "text": "Guten",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Good",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Morgen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "morning",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Voss",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Voss",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Messingamt",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Brass Office",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Günaydın. Voss. Pirinç Dairesi.",
-    "words": [
-     {
-      "source": {
-       "text": "Guten",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Günaydın",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Morgen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Günaydın",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Voss",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Voss",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Messingamt",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Pirinç Dairesi",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Fahrkarte-bitte-danke!",
-  "translations": {
-   "en": {
-    "text": "Ticket-please-thank-you!",
-    "words": [
-     {
-      "source": {
-       "text": "Fahrkarte-bitte-danke",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Ticket-please-thank-you",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Bilet-lütfen-teşekkürler!",
-    "words": [
-     {
-      "source": {
-       "text": "Fahrkarte-bitte-danke",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Bilet-lütfen-teşekkürler",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Fahrkarte, bitte. Danke.",
-  "translations": {
-   "en": {
-    "text": "Ticket, please. Thank you.",
-    "words": [
-     {
-      "source": {
-       "text": "Fahrkarte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Ticket",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "bitte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "please",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Danke",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Thank you",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Bilet, lütfen. Teşekkürler.",
-    "words": [
-     {
-      "source": {
-       "text": "Fahrkarte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Bilet",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "bitte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "lütfen",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Danke",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Teşekkürler",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Die Fahrkarte, bitte.",
-  "translations": {
-   "en": {
-    "text": "The ticket, please.",
-    "words": [
-     {
-      "source": {
-       "text": "Die",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "The",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Fahrkarte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "ticket",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "bitte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "please",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Biletiniz, lütfen.",
-    "words": [
-     {
-      "source": {
-       "text": "Die",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "Fahrkarte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Biletiniz",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "bitte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "lütfen",
         "occurrence": 1
        }
       ]
@@ -6027,88 +1678,6 @@
   }
  },
  {
-  "text": "Warum die Laterne?",
-  "translations": {
-   "en": {
-    "text": "Why the lantern?",
-    "words": [
-     {
-      "source": {
-       "text": "Warum",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Why",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "die",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "the",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Laterne",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "lantern",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Neden fener?",
-    "words": [
-     {
-      "source": {
-       "text": "Warum",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Neden",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "die",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "Laterne",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "fener",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
   "text": "Wer ist E.?",
   "translations": {
    "en": {
@@ -6186,788 +1755,6 @@
   }
  },
  {
-  "text": "Die Fahrkarte, bitte?",
-  "translations": {
-   "en": {
-    "text": "The ticket, please?",
-    "words": [
-     {
-      "source": {
-       "text": "Die",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "The",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Fahrkarte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "ticket",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "bitte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "please",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Bilet, lütfen?",
-    "words": [
-     {
-      "source": {
-       "text": "Die",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "Fahrkarte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Bilet",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "bitte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "lütfen",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Zug? Nein. Die Laterne bleibt hier.",
-  "translations": {
-   "en": {
-    "text": "A train? No. The lantern stays here.",
-    "words": [
-     {
-      "source": {
-       "text": "Zug",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "train",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Nein",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "No",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Die",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "The",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Laterne",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "lantern",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "bleibt",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "stays",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "hier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "here",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Tren mi? Hayır. Fener burada kalıyor.",
-    "words": [
-     {
-      "source": {
-       "text": "Zug",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Tren",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Nein",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Hayır",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Die",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "Laterne",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Fener",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "bleibt",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "kalıyor",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "hier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "burada",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "E. Dein Name.",
-  "translations": {
-   "en": {
-    "text": "E. Your name.",
-    "words": [
-     {
-      "source": {
-       "text": "E",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "E",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Dein",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Your",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Name",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "name",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "E. Senin adın.",
-    "words": [
-     {
-      "source": {
-       "text": "E",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "E",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Dein",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Senin",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Name",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "adın",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Namen bleiben hier nicht.",
-  "translations": {
-   "en": {
-    "text": "Names do not stay here.",
-    "words": [
-     {
-      "source": {
-       "text": "Namen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Names",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "bleiben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "stay",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "hier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "here",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "nicht",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "not",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Adlar burada kalmıyor.",
-    "words": [
-     {
-      "source": {
-       "text": "Namen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Adlar",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "bleiben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "kalmıyor",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "hier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "burada",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "nicht",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "kalmıyor",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Bahnsteig sieben: zwölf Jahre zu.",
-  "translations": {
-   "en": {
-    "text": "Platform seven: closed for twelve years.",
-    "words": [
-     {
-      "source": {
-       "text": "Bahnsteig",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Platform",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "seven",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "zwölf",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "twelve",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Jahre",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "years",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "zu",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "closed",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Yedinci peron: on iki yıldır kapalı.",
-    "words": [
-     {
-      "source": {
-       "text": "Bahnsteig",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "peron",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Yedinci",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "zwölf",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "on iki",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Jahre",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "yıldır",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "zu",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "kapalı",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Name?",
-  "translations": {
-   "en": {
-    "text": "Your name?",
-    "words": [
-     {
-      "source": {
-       "text": "Name",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "name",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Ad?",
-    "words": [
-     {
-      "source": {
-       "text": "Name",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Ad",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "eins, zwei, drei.",
-  "translations": {
-   "en": {
-    "text": "one, two, three.",
-    "words": [
-     {
-      "source": {
-       "text": "eins",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "one",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "zwei",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "two",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "drei",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "three",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "bir, iki, üç.",
-    "words": [
-     {
-      "source": {
-       "text": "eins",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "bir",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "zwei",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "iki",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "drei",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "üç",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "vier, fünf, sechs.",
-  "translations": {
-   "en": {
-    "text": "four, five, six.",
-    "words": [
-     {
-      "source": {
-       "text": "vier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "four",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "fünf",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "five",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sechs",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "six",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "dört, beş, altı.",
-    "words": [
-     {
-      "source": {
-       "text": "vier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "dört",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "fünf",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "beş",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sechs",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "altı",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
   "text": "Guten Abend.",
   "translations": {
    "en": {
@@ -7022,190 +1809,6 @@
       "targets": [
        {
         "text": "akşamlar",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Lindenhafen! Gut.",
-  "translations": {
-   "en": {
-    "text": "Lindenhafen! Good.",
-    "words": [
-     {
-      "source": {
-       "text": "Lindenhafen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Lindenhafen",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Gut",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Good",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Lindenhafen! Güzel.",
-    "words": [
-     {
-      "source": {
-       "text": "Lindenhafen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Lindenhafen",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Gut",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Güzel",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Fahrkarte. Lindenhafen.",
-  "translations": {
-   "en": {
-    "text": "Ticket. Lindenhafen.",
-    "words": [
-     {
-      "source": {
-       "text": "Fahrkarte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Ticket",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Lindenhafen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Lindenhafen",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Bilet. Lindenhafen.",
-    "words": [
-     {
-      "source": {
-       "text": "Fahrkarte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Bilet",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Lindenhafen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Lindenhafen",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Der Name!",
-  "translations": {
-   "en": {
-    "text": "The name!",
-    "words": [
-     {
-      "source": {
-       "text": "Der",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "The",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Name",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "name",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Adınız!",
-    "words": [
-     {
-      "source": {
-       "text": "Der",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "Name",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Adınız",
         "occurrence": 1
        }
       ]
@@ -7302,403 +1905,6 @@
   }
  },
  {
-  "text": "{name}. Gut.",
-  "translations": {
-   "en": {
-    "text": "{name}. Good.",
-    "words": [
-     {
-      "source": {
-       "text": "Gut",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Good",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "{name}. Güzel.",
-    "words": [
-     {
-      "source": {
-       "text": "Gut",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Güzel",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Der Name bleibt.",
-  "translations": {
-   "en": {
-    "text": "The name stays.",
-    "words": [
-     {
-      "source": {
-       "text": "Der",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "The",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Name",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "name",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "bleibt",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "stays",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Adınız kalıyor.",
-    "words": [
-     {
-      "source": {
-       "text": "Der",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "Name",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Adınız",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "bleibt",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "kalıyor",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Danke, {name}.",
-  "translations": {
-   "en": {
-    "text": "Thank you, {name}.",
-    "words": [
-     {
-      "source": {
-       "text": "Danke",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Thank you",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Teşekkürler, {name}.",
-    "words": [
-     {
-      "source": {
-       "text": "Danke",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Teşekkürler",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Fahrkarte. Lindenhafen.",
-  "translations": {
-   "en": {
-    "text": "Ticket. Lindenhafen. The name has faded.",
-    "words": [
-     {
-      "source": {
-       "text": "Fahrkarte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Ticket",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Lindenhafen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Lindenhafen",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Bilet. Lindenhafen.",
-    "words": [
-     {
-      "source": {
-       "text": "Fahrkarte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Bilet",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Lindenhafen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Lindenhafen",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Eins. Zwei. Drei.",
-  "translations": {
-   "en": {
-    "text": "One. Two. Three.",
-    "words": [
-     {
-      "source": {
-       "text": "Eins",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "One",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Zwei",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Two",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Drei",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Three",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Bir. İki. Üç.",
-    "words": [
-     {
-      "source": {
-       "text": "Eins",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Bir",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Zwei",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "İki",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Drei",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Üç",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Vier. Fünf. Sechs.",
-  "translations": {
-   "en": {
-    "text": "Four. Five. Six.",
-    "words": [
-     {
-      "source": {
-       "text": "Vier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Four",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Fünf",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Five",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Sechs",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Six",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Dört. Beş. Altı.",
-    "words": [
-     {
-      "source": {
-       "text": "Vier",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Dört",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Fünf",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Beş",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Sechs",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Altı",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
   "text": "Sieben.",
   "translations": {
    "en": {
@@ -7729,321 +1935,6 @@
       "targets": [
        {
         "text": "Yedi",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Wagen sieben, bitte.",
-  "translations": {
-   "en": {
-    "text": "Carriage seven, please.",
-    "words": [
-     {
-      "source": {
-       "text": "Wagen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Carriage",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "seven",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "bitte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "please",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Yedinci vagon, lütfen.",
-    "words": [
-     {
-      "source": {
-       "text": "Wagen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "vagon",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Yedinci",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "bitte",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "lütfen",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Wagen sieben?",
-  "translations": {
-   "en": {
-    "text": "Carriage seven?",
-    "words": [
-     {
-      "source": {
-       "text": "Wagen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Carriage",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "seven",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Yedinci vagon mu?",
-    "words": [
-     {
-      "source": {
-       "text": "Wagen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "vagon",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Yedinci",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Ja. Wagen sieben.",
-  "translations": {
-   "en": {
-    "text": "Yes. Carriage seven.",
-    "words": [
-     {
-      "source": {
-       "text": "Ja",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Yes",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Wagen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Carriage",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "seven",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Evet. Yedinci vagon.",
-    "words": [
-     {
-      "source": {
-       "text": "Ja",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Evet",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Wagen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "vagon",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Yedinci",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Gut.",
-  "translations": {
-   "en": {
-    "text": "Good.",
-    "words": [
-     {
-      "source": {
-       "text": "Gut",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Good",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Güzel.",
-    "words": [
-     {
-      "source": {
-       "text": "Gut",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Güzel",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Milch?",
-  "translations": {
-   "en": {
-    "text": "Milk?",
-    "words": [
-     {
-      "source": {
-       "text": "Milch",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Milk",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Süt?",
-    "words": [
-     {
-      "source": {
-       "text": "Milch",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Süt",
         "occurrence": 1
        }
       ]
@@ -8198,393 +2089,6 @@
   }
  },
  {
-  "text": "Tee. Kaffee.",
-  "translations": {
-   "en": {
-    "text": "Tea. Coffee.",
-    "words": [
-     {
-      "source": {
-       "text": "Tee",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Tea",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Kaffee",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Coffee",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Çay. Kahve.",
-    "words": [
-     {
-      "source": {
-       "text": "Tee",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Çay",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Kaffee",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Kahve",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Ja?",
-  "translations": {
-   "en": {
-    "text": "Yes?",
-    "words": [
-     {
-      "source": {
-       "text": "Ja",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Yes",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Evet?",
-    "words": [
-     {
-      "source": {
-       "text": "Ja",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Evet",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Die Toilette? Da.",
-  "translations": {
-   "en": {
-    "text": "The toilet? There.",
-    "words": [
-     {
-      "source": {
-       "text": "Die",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "The",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Toilette",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "toilet",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Da",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "There",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Tuvalet mi? Orada.",
-    "words": [
-     {
-      "source": {
-       "text": "Die",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "Toilette",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Tuvalet",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Da",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Orada",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Da: der Ausgang.",
-  "translations": {
-   "en": {
-    "text": "There: the exit.",
-    "words": [
-     {
-      "source": {
-       "text": "Da",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "There",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "der",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "the",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Ausgang",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "exit",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Orada: çıkış.",
-    "words": [
-     {
-      "source": {
-       "text": "Da",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Orada",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "der",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "Ausgang",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "çıkış",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Der Ausgang.",
-  "translations": {
-   "en": {
-    "text": "The exit.",
-    "words": [
-     {
-      "source": {
-       "text": "Der",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "The",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Ausgang",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "exit",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Çıkış.",
-    "words": [
-     {
-      "source": {
-       "text": "Der",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "Ausgang",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Çıkış",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Lindenhafen kommt!",
-  "translations": {
-   "en": {
-    "text": "Lindenhafen is coming up!",
-    "words": [
-     {
-      "source": {
-       "text": "Lindenhafen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Lindenhafen",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "kommt",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "is coming up",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Lindenhafen yaklaşıyor!",
-    "words": [
-     {
-      "source": {
-       "text": "Lindenhafen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Lindenhafen",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "kommt",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "yaklaşıyor",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
   "text": "Verstehen Sie?",
   "translations": {
    "en": {
@@ -8639,69 +2143,6 @@
       "targets": [
        {
         "text": "musunuz",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Lindenhafen kommt.",
-  "translations": {
-   "en": {
-    "text": "Lindenhafen is coming up.",
-    "words": [
-     {
-      "source": {
-       "text": "Lindenhafen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Lindenhafen",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "kommt",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "is coming up",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Lindenhafen yaklaşıyor.",
-    "words": [
-     {
-      "source": {
-       "text": "Lindenhafen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Lindenhafen",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "kommt",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "yaklaşıyor",
         "occurrence": 1
        }
       ]
@@ -8798,233 +2239,6 @@
   }
  },
  {
-  "text": "Lindenhafen kommt. Gut?",
-  "translations": {
-   "en": {
-    "text": "Lindenhafen is coming up. All right?",
-    "words": [
-     {
-      "source": {
-       "text": "Lindenhafen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Lindenhafen",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "kommt",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "is coming up",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Gut",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "All right",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Lindenhafen yaklaşıyor. Tamam mı?",
-    "words": [
-     {
-      "source": {
-       "text": "Lindenhafen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Lindenhafen",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "kommt",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "yaklaşıyor",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Gut",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Tamam",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Lindenhafen.",
-  "translations": {
-   "en": {
-    "text": "Lindenhafen.",
-    "words": [
-     {
-      "source": {
-       "text": "Lindenhafen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Lindenhafen",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Lindenhafen.",
-    "words": [
-     {
-      "source": {
-       "text": "Lindenhafen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Lindenhafen",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Der Zug ist da.",
-  "translations": {
-   "en": {
-    "text": "The train is here.",
-    "words": [
-     {
-      "source": {
-       "text": "Der",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "The",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Zug",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "train",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "ist",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "is",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "da",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "here",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Tren burada.",
-    "words": [
-     {
-      "source": {
-       "text": "Der",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "Zug",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Tren",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "ist",
-       "occurrence": 1
-      },
-      "targets": []
-     },
-     {
-      "source": {
-       "text": "da",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "burada",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
   "text": "Lindenhafen! Bahnsteig sieben.",
   "translations": {
    "en": {
@@ -9103,156 +2317,6 @@
       "targets": [
        {
         "text": "Yedinci",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Auf Wiedersehen, {name}.",
-  "translations": {
-   "en": {
-    "text": "Goodbye, {name}.",
-    "words": [
-     {
-      "source": {
-       "text": "Auf",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Goodbye",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Wiedersehen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Goodbye",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Hoşça kalın, {name}.",
-    "words": [
-     {
-      "source": {
-       "text": "Auf",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Hoşça kalın",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Wiedersehen",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Hoşça kalın",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   }
-  }
- },
- {
-  "text": "Bahnsteig sieben. Da.",
-  "translations": {
-   "en": {
-    "text": "Platform seven. There.",
-    "words": [
-     {
-      "source": {
-       "text": "Bahnsteig",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Platform",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "seven",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Da",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "There",
-        "occurrence": 1
-       }
-      ]
-     }
-    ]
-   },
-   "tr": {
-    "text": "Yedinci peron. Orada.",
-    "words": [
-     {
-      "source": {
-       "text": "Bahnsteig",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "peron",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "sieben",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Yedinci",
-        "occurrence": 1
-       }
-      ]
-     },
-     {
-      "source": {
-       "text": "Da",
-       "occurrence": 1
-      },
-      "targets": [
-       {
-        "text": "Orada",
         "occurrence": 1
        }
       ]
@@ -9764,10 +2828,1922 @@
   }
  },
  {
-  "text": "Ja.",
+  "text": "Hallo! Guten Abend!",
   "translations": {
    "en": {
-    "text": "Yes.",
+    "text": "Hello! Good evening!",
+    "words": [
+     {
+      "source": {
+       "text": "Hallo",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Hello",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Guten",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Good",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Abend",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "evening",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Merhaba! İyi akşamlar!",
+    "words": [
+     {
+      "source": {
+       "text": "Hallo",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Merhaba",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Guten",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "İyi",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Abend",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "akşamlar",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Ich heiße Brandt.",
+  "translations": {
+   "en": {
+    "text": "My name is Brandt.",
+    "words": [
+     {
+      "source": {
+       "text": "Ich",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "My",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "heiße",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "name is",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Brandt",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Brandt",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Benim adım Brandt.",
+    "words": [
+     {
+      "source": {
+       "text": "Ich",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Benim",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "heiße",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "adım",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Brandt",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Brandt",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Eins.",
+  "translations": {
+   "en": {
+    "text": "One.",
+    "words": [
+     {
+      "source": {
+       "text": "Eins",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "One",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Bir.",
+    "words": [
+     {
+      "source": {
+       "text": "Eins",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Bir",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Vier, fünf, sechs, sieben!",
+  "translations": {
+   "en": {
+    "text": "Four, five, six, seven!",
+    "words": [
+     {
+      "source": {
+       "text": "Vier",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Four",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "fünf",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "five",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "sechs",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "six",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "sieben",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "seven",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Dört, beş, altı, yedi!",
+    "words": [
+     {
+      "source": {
+       "text": "Vier",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Dört",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "fünf",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "beş",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "sechs",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "altı",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "sieben",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "yedi",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Wagen sieben. Hier!",
+  "translations": {
+   "en": {
+    "text": "Carriage seven. Here!",
+    "words": [
+     {
+      "source": {
+       "text": "Wagen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Carriage",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "sieben",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "seven",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Hier",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Here",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Yedinci vagon. Burası!",
+    "words": [
+     {
+      "source": {
+       "text": "Wagen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "vagon",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "sieben",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Yedinci",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Hier",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Burası",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Ja! Wagen sieben.",
+  "translations": {
+   "en": {
+    "text": "Yes! Carriage seven.",
+    "words": [
+     {
+      "source": {
+       "text": "Ja",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Yes",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Wagen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Carriage",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "sieben",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "seven",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Evet! Yedinci vagon.",
+    "words": [
+     {
+      "source": {
+       "text": "Ja",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Evet",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Wagen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "vagon",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "sieben",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Yedinci",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Kaffee?",
+  "translations": {
+   "en": {
+    "text": "Coffee?",
+    "words": [
+     {
+      "source": {
+       "text": "Kaffee",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Coffee",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Kahve?",
+    "words": [
+     {
+      "source": {
+       "text": "Kaffee",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Kahve",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Nein? Tee?",
+  "translations": {
+   "en": {
+    "text": "No? Tea?",
+    "words": [
+     {
+      "source": {
+       "text": "Nein",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "No",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Tee",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Tea",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Hayır mı? Çay?",
+    "words": [
+     {
+      "source": {
+       "text": "Nein",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Hayır",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Tee",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Çay",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Ja, bitte!",
+  "translations": {
+   "en": {
+    "text": "Yes, please!",
+    "words": [
+     {
+      "source": {
+       "text": "Ja",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Yes",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "bitte",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "please",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Evet, lütfen!",
+    "words": [
+     {
+      "source": {
+       "text": "Ja",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Evet",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "bitte",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "lütfen",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Ich heiße …",
+  "translations": {
+   "en": {
+    "text": "My name is …",
+    "words": [
+     {
+      "source": {
+       "text": "Ich",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "My",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "heiße",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "name is",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Benim adım…",
+    "words": [
+     {
+      "source": {
+       "text": "Ich",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Benim",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "heiße",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "adım",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Die Toilette? Da!",
+  "translations": {
+   "en": {
+    "text": "The toilet? Over there!",
+    "words": [
+     {
+      "source": {
+       "text": "Die",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "The",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Toilette",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "toilet",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Da",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Over there",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Tuvalet mi? Şurada!",
+    "words": [
+     {
+      "source": {
+       "text": "Die",
+       "occurrence": 1
+      },
+      "targets": []
+     },
+     {
+      "source": {
+       "text": "Toilette",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Tuvalet",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Da",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Şurada",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Besetzt? Ha! Gut.",
+  "translations": {
+   "en": {
+    "text": "Occupied? Ha! Fine.",
+    "words": [
+     {
+      "source": {
+       "text": "Besetzt",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Occupied",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Ha",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Ha",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Gut",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Fine",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Dolu mu? Ha! Peki.",
+    "words": [
+     {
+      "source": {
+       "text": "Besetzt",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Dolu",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Ha",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Ha",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Gut",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Peki",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Ich verstehe nicht.",
+  "translations": {
+   "en": {
+    "text": "I don’t understand.",
+    "words": [
+     {
+      "source": {
+       "text": "Ich",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "I",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "verstehe",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "understand",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "nicht",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "don’t",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Anlamıyorum.",
+    "words": [
+     {
+      "source": {
+       "text": "Ich",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Anlamıyorum",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "verstehe",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Anlamıyorum",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "nicht",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Anlamıyorum",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Ah! Langsam.",
+  "translations": {
+   "en": {
+    "text": "Ah! Slowly.",
+    "words": [
+     {
+      "source": {
+       "text": "Ah",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Ah",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Langsam",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Slowly",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Ah! Yavaşça.",
+    "words": [
+     {
+      "source": {
+       "text": "Ah",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Ah",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Langsam",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Yavaşça",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Danke!",
+  "translations": {
+   "en": {
+    "text": "Thank you!",
+    "words": [
+     {
+      "source": {
+       "text": "Danke",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Thank you",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Teşekkürler!",
+    "words": [
+     {
+      "source": {
+       "text": "Danke",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Teşekkürler",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Bitte!",
+  "translations": {
+   "en": {
+    "text": "You’re welcome!",
+    "words": [
+     {
+      "source": {
+       "text": "Bitte",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "You’re welcome",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Rica ederim!",
+    "words": [
+     {
+      "source": {
+       "text": "Bitte",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Rica ederim",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Gut. Guten Abend!",
+  "translations": {
+   "en": {
+    "text": "Good. Good evening!",
+    "words": [
+     {
+      "source": {
+       "text": "Gut",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Good",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Guten",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Good",
+        "occurrence": 2
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Abend",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "evening",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Güzel. İyi akşamlar!",
+    "words": [
+     {
+      "source": {
+       "text": "Gut",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Güzel",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Guten",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "İyi",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Abend",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "akşamlar",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Fahrkarte: Lindenhafen.",
+  "translations": {
+   "en": {
+    "text": "Ticket: Lindenhafen. Below it, a name — so pale you can hardly read it.",
+    "words": [
+     {
+      "source": {
+       "text": "Fahrkarte",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Ticket",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Lindenhafen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Lindenhafen",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Bilet: Lindenhafen. Altında bir ad var; o kadar soluk ki zor okunuyor.",
+    "words": [
+     {
+      "source": {
+       "text": "Fahrkarte",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Bilet",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Lindenhafen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Lindenhafen",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Hm … Name?",
+  "translations": {
+   "en": {
+    "text": "Hmm… the name?",
+    "words": [
+     {
+      "source": {
+       "text": "Hm",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Hmm",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Name",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "name",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Hım… ad?",
+    "words": [
+     {
+      "source": {
+       "text": "Hm",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Hım",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Name",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "ad",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "{name}! Ja! Gut!",
+  "translations": {
+   "en": {
+    "text": "{name}! Yes! Good!",
+    "words": [
+     {
+      "source": {
+       "text": "Ja",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Yes",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Gut",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Good",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "{name}! Evet! Güzel!",
+    "words": [
+     {
+      "source": {
+       "text": "Ja",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Evet",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Gut",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Güzel",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Bitte, {name}.",
+  "translations": {
+   "en": {
+    "text": "You’re welcome, {name}.",
+    "words": [
+     {
+      "source": {
+       "text": "Bitte",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "You’re welcome",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Rica ederim, {name}.",
+    "words": [
+     {
+      "source": {
+       "text": "Bitte",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Rica ederim",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Wagen eins? Wagen drei?",
+  "translations": {
+   "en": {
+    "text": "Carriage one? Carriage three?",
+    "words": [
+     {
+      "source": {
+       "text": "Wagen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Carriage",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "eins",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "one",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Wagen",
+       "occurrence": 2
+      },
+      "targets": [
+       {
+        "text": "Carriage",
+        "occurrence": 2
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "drei",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "three",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Birinci vagon mu? Üçüncü vagon mu?",
+    "words": [
+     {
+      "source": {
+       "text": "Wagen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "vagon",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "eins",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Birinci",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Wagen",
+       "occurrence": 2
+      },
+      "targets": [
+       {
+        "text": "vagon",
+        "occurrence": 2
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "drei",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Üçüncü",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Gut! Bitte.",
+  "translations": {
+   "en": {
+    "text": "Good! You’re welcome.",
+    "words": [
+     {
+      "source": {
+       "text": "Gut",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Good",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Bitte",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "You’re welcome",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Güzel! Rica ederim.",
+    "words": [
+     {
+      "source": {
+       "text": "Gut",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Güzel",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Bitte",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Rica ederim",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Wagen eins … Wagen sieben.",
+  "translations": {
+   "en": {
+    "text": "Carriage one… carriage seven. The track curves and you count seven glass carriages. Yours is the last.",
+    "words": [
+     {
+      "source": {
+       "text": "Wagen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Carriage",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "eins",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "one",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Wagen",
+       "occurrence": 2
+      },
+      "targets": [
+       {
+        "text": "carriage",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "sieben",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "seven",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Birinci vagon… yedinci vagon. Ray kıvrılıyor ve yedi cam vagon sayıyorsunuz. Sizinki sonuncusu.",
+    "words": [
+     {
+      "source": {
+       "text": "Wagen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "vagon",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "eins",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Birinci",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Wagen",
+       "occurrence": 2
+      },
+      "targets": [
+       {
+        "text": "vagon",
+        "occurrence": 2
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "sieben",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "yedinci",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Nein? Gut!",
+  "translations": {
+   "en": {
+    "text": "No? All right!",
+    "words": [
+     {
+      "source": {
+       "text": "Nein",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "No",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Gut",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "All right",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Hayır mı? Peki!",
+    "words": [
+     {
+      "source": {
+       "text": "Nein",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Hayır",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Gut",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Peki",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Gut. Danke!",
+  "translations": {
+   "en": {
+    "text": "Good. Thank you!",
+    "words": [
+     {
+      "source": {
+       "text": "Gut",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Good",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Danke",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Thank you",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Güzel. Teşekkürler!",
+    "words": [
+     {
+      "source": {
+       "text": "Gut",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Güzel",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Danke",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Teşekkürler",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Ja? Bitte?",
+  "translations": {
+   "en": {
+    "text": "Yes? Can I help?",
+    "words": [
+     {
+      "source": {
+       "text": "Ja",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Yes",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Bitte",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Can I help",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Evet? Buyurun?",
+    "words": [
+     {
+      "source": {
+       "text": "Ja",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Evet",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Bitte",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Buyurun",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Ja, {name}?",
+  "translations": {
+   "en": {
+    "text": "Yes, {name}?",
     "words": [
      {
       "source": {
@@ -9784,7 +4760,7 @@
     ]
    },
    "tr": {
-    "text": "Evet.",
+    "text": "Evet, {name}?",
     "words": [
      {
       "source": {
@@ -9794,6 +4770,1356 @@
       "targets": [
        {
         "text": "Evet",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Toilette: besetzt.",
+  "translations": {
+   "en": {
+    "text": "Toilet: occupied. Someone is in there. Never mind — now you know where it is.",
+    "words": [
+     {
+      "source": {
+       "text": "Toilette",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Toilet",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "besetzt",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "occupied",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Tuvalet: dolu. İçeride biri var. Olsun, artık nerede olduğunu biliyorsunuz.",
+    "words": [
+     {
+      "source": {
+       "text": "Toilette",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Tuvalet",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "besetzt",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "dolu",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Lindenhafen! Bahnsteig sieben!",
+  "translations": {
+   "en": {
+    "text": "Lindenhafen! Platform seven!",
+    "words": [
+     {
+      "source": {
+       "text": "Lindenhafen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Lindenhafen",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Bahnsteig",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Platform",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "sieben",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "seven",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Lindenhafen! Yedinci peron!",
+    "words": [
+     {
+      "source": {
+       "text": "Lindenhafen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Lindenhafen",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Bahnsteig",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "peron",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "sieben",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Yedinci",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Noch einmal, bitte.",
+  "translations": {
+   "en": {
+    "text": "Once more, please.",
+    "words": [
+     {
+      "source": {
+       "text": "Noch",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "more",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "einmal",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Once",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "bitte",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "please",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Bir kez daha, lütfen.",
+    "words": [
+     {
+      "source": {
+       "text": "Noch",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "daha",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "einmal",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Bir kez",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "bitte",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "lütfen",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Danke! Ich verstehe.",
+  "translations": {
+   "en": {
+    "text": "Thank you! I understand.",
+    "words": [
+     {
+      "source": {
+       "text": "Danke",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Thank you",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Ich",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "I",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "verstehe",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "understand",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Teşekkürler! Anlıyorum.",
+    "words": [
+     {
+      "source": {
+       "text": "Danke",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Teşekkürler",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Ich",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Anlıyorum",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "verstehe",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Anlıyorum",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Lindenhafen … Bahnsteig … sieben.",
+  "translations": {
+   "en": {
+    "text": "Lindenhafen… platform… seven.",
+    "words": [
+     {
+      "source": {
+       "text": "Lindenhafen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Lindenhafen",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Bahnsteig",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "platform",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "sieben",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "seven",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Lindenhafen… peron… yedi.",
+    "words": [
+     {
+      "source": {
+       "text": "Lindenhafen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Lindenhafen",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Bahnsteig",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "peron",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "sieben",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "yedi",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Gut! Danke!",
+  "translations": {
+   "en": {
+    "text": "Good! Thank you!",
+    "words": [
+     {
+      "source": {
+       "text": "Gut",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Good",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Danke",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Thank you",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Güzel! Teşekkürler!",
+    "words": [
+     {
+      "source": {
+       "text": "Gut",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Güzel",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Danke",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Teşekkürler",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Abend? Nein! Morgen!",
+  "translations": {
+   "en": {
+    "text": "Evening? No! Morning!",
+    "words": [
+     {
+      "source": {
+       "text": "Abend",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Evening",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Nein",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "No",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Morgen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Morning",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Akşam mı? Hayır! Sabah!",
+    "words": [
+     {
+      "source": {
+       "text": "Abend",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Akşam",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Nein",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Hayır",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Morgen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Sabah",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Fahrkarte. Bitte!",
+  "translations": {
+   "en": {
+    "text": "Your ticket. Here you are!",
+    "words": [
+     {
+      "source": {
+       "text": "Fahrkarte",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "ticket",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Bitte",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Here you are",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Biletiniz. Buyurun!",
+    "words": [
+     {
+      "source": {
+       "text": "Fahrkarte",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Biletiniz",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Bitte",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Buyurun",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Danke, Herr Brandt!",
+  "translations": {
+   "en": {
+    "text": "Thank you, Mr Brandt!",
+    "words": [
+     {
+      "source": {
+       "text": "Danke",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Thank you",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Herr",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Mr",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Brandt",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Brandt",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Teşekkürler, Brandt Bey!",
+    "words": [
+     {
+      "source": {
+       "text": "Danke",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Teşekkürler",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Herr",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Bey",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Brandt",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Brandt",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Bitte, {name}!",
+  "translations": {
+   "en": {
+    "text": "You’re welcome, {name}!",
+    "words": [
+     {
+      "source": {
+       "text": "Bitte",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "You’re welcome",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Rica ederim, {name}!",
+    "words": [
+     {
+      "source": {
+       "text": "Bitte",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Rica ederim",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Nein, danke. Tee, bitte!",
+  "translations": {
+   "en": {
+    "text": "No, thank you. Tea, please!",
+    "words": [
+     {
+      "source": {
+       "text": "Nein",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "No",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "danke",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "thank you",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Tee",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Tea",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "bitte",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "please",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Hayır, teşekkürler. Çay, lütfen!",
+    "words": [
+     {
+      "source": {
+       "text": "Nein",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Hayır",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "danke",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "teşekkürler",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Tee",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Çay",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "bitte",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "lütfen",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Da!",
+  "translations": {
+   "en": {
+    "text": "There!",
+    "words": [
+     {
+      "source": {
+       "text": "Da",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "There",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Şurada!",
+    "words": [
+     {
+      "source": {
+       "text": "Da",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Şurada",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Name … gut!",
+  "translations": {
+   "en": {
+    "text": "The name… good! The ink on your ticket is dark and clear again.",
+    "words": [
+     {
+      "source": {
+       "text": "Name",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "name",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "gut",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "good",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Ad… güzel! Biletinizdeki mürekkep yine koyu ve net.",
+    "words": [
+     {
+      "source": {
+       "text": "Name",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Ad",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "gut",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "güzel",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Eins … zwei … drei.",
+  "translations": {
+   "en": {
+    "text": "One… two… three.",
+    "words": [
+     {
+      "source": {
+       "text": "Eins",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "One",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "zwei",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "two",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "drei",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "three",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Bir… iki… üç.",
+    "words": [
+     {
+      "source": {
+       "text": "Eins",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Bir",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "zwei",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "iki",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "drei",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "üç",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Tee. Kaffee.",
+  "translations": {
+   "en": {
+    "text": "Tea. Coffee. A copper samovar hums on the counter.",
+    "words": [
+     {
+      "source": {
+       "text": "Tee",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Tea",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Kaffee",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Coffee",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Çay. Kahve. Tezgâhta bakır bir semaver mırıldanıyor.",
+    "words": [
+     {
+      "source": {
+       "text": "Tee",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Çay",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Kaffee",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Kahve",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Lindenhafen? Nein, noch nicht.",
+  "translations": {
+   "en": {
+    "text": "Lindenhafen? No, not yet. Only dark forest and the moon.",
+    "words": [
+     {
+      "source": {
+       "text": "Lindenhafen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Lindenhafen",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Nein",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "No",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "noch",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "yet",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "nicht",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "not",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Lindenhafen mi? Hayır, henüz değil. Yalnızca karanlık orman ve ay.",
+    "words": [
+     {
+      "source": {
+       "text": "Lindenhafen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Lindenhafen",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Nein",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Hayır",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "noch",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "henüz",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "nicht",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "değil",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "So, {name}!",
+  "translations": {
+   "en": {
+    "text": "Well, {name}!",
+    "words": [
+     {
+      "source": {
+       "text": "So",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Well",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Evet, {name}!",
+    "words": [
+     {
+      "source": {
+       "text": "So",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Evet",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "text": "Guten Morgen, Lindenhafen!",
+  "translations": {
+   "en": {
+    "text": "Good morning, Lindenhafen! Roofs and a canal glitter in the sunrise.",
+    "words": [
+     {
+      "source": {
+       "text": "Guten",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Good",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Morgen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "morning",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Lindenhafen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Lindenhafen",
+        "occurrence": 1
+       }
+      ]
+     }
+    ]
+   },
+   "tr": {
+    "text": "Günaydın, Lindenhafen! Gün doğumunda çatılar ve bir kanal parıldıyor.",
+    "words": [
+     {
+      "source": {
+       "text": "Guten",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Günaydın",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Morgen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Günaydın",
+        "occurrence": 1
+       }
+      ]
+     },
+     {
+      "source": {
+       "text": "Lindenhafen",
+       "occurrence": 1
+      },
+      "targets": [
+       {
+        "text": "Lindenhafen",
         "occurrence": 1
        }
       ]

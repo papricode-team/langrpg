@@ -107,13 +107,13 @@ test('compiles upstairs and basement stairs with exact return landings and floor
 });
 
 // Both train destinations share the station but never inherit its editable floors.
-test('keeps train backdrops independent of the station building layout',async()=>{
+test('keeps the train carriage independent of the station building layout',async()=>{
   const {getInterior}=await import('../web/src/interiors.ts');
   const {createRoomLayout}=await import('../web/src/room-layout-runtime.ts');
   const value=structuredClone(source),station=value.maps.lindenhafen.scenery.find(item=>item.id==='station');
   station.roomLayout=createRoomLayout(getInterior('station'));
   const entries=compileRegistry(value).maps.lindenhafen.entrances;
-  for(const id of ['train-compartment','train-dining']) {
+  for(const id of ['train-compartment']) {
     assert.equal(entries[id].ownerId,'station');
     assert.equal(entries[id].spawn,undefined);
     assert.equal(entries[id].doors,undefined);

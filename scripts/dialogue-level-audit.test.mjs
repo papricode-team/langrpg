@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { auditDialogueCorpus } from './dialogue-level-audit.mjs';
+import { beginnerGateTranslations } from '../web/src/beginner-dialogue.ts';
 import { npcs } from './content-source.mjs';
 
 const course = JSON.parse(await readFile(new URL('../web/src/data/course.json', import.meta.url), 'utf8'));
@@ -144,9 +145,11 @@ test('A0 requires approved vocabulary, short turns, translated gates and actual 
 test('A0 requires a player reply that is not a conductor line and a separate task prompt', () => {
   const graph=structuredClone(graphs.find(g=>g.questId==='a0-ticket'));
   const audit=()=>auditDialogueCorpus({...options,graphs:[graph],hasClip:()=>true});
-  graph.nodes[0].lines.push({id:'echo',speaker:'schaffner',german:'Bitte.',english:'Here you are.',clipId:'echo'});
+  const intro=graph.nodes[0].lines.length;
+  // The conductor speaking every offered reply turns the task into an echo.
+  for (const [german,english] of beginnerGateTranslations[graph.gateExerciseId]) graph.nodes[0].lines.push({id:`echo-${german}`,speaker:'schaffner',german,english,clipId:'echo'});
   assert.ok(audit().a0Gate.violations.some(message=>message.includes('reply')));
-  graph.nodes[0].lines.pop();graph.gatePrompt=graph.nodes[0].lines[0].english;
+  graph.nodes[0].lines.length=intro;graph.gatePrompt=graph.nodes[0].lines[0].english;
   assert.ok(audit().a0Gate.violations.some(message=>message.includes('prompt')));
 });
 test('A0 reports seven individual numbers but excludes them from the six-new limit', () => {

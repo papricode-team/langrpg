@@ -6,12 +6,14 @@
       "npcId": "schaffner",
       "npc": {
         "id": "schaffner",
-        "x": 0.58,
-        "y": 0.76
+        "x": 0.3646,
+        "y": 0.5078
       },
       "interiorId": "train-compartment",
       "gateExerciseId": "a0-ticket-exercise-1",
-      "replyExerciseIds": [],
+      "replyExerciseIds": [
+        "a0-ticket-exercise-7"
+      ],
       "choiceIds": [
         "continue"
       ],
@@ -27,8 +29,8 @@
       "objects": [
         {
           "id": "prologue-ticket",
-          "x": 0.36,
-          "y": 0.53
+          "x": 0.1992,
+          "y": 0.4199
         }
       ]
     },
@@ -38,8 +40,8 @@
       "npcId": "schaffner",
       "npc": {
         "id": "schaffner",
-        "x": 0.58,
-        "y": 0.76
+        "x": 0.3646,
+        "y": 0.5078
       },
       "interiorId": "train-compartment",
       "gateKind": "name",
@@ -57,11 +59,14 @@
       "investigationObjectIds": [
         "prologue-name"
       ],
+      "optionalInvestigationObjectIds": [
+        "prologue-name"
+      ],
       "objects": [
         {
           "id": "prologue-name",
-          "x": 0.36,
-          "y": 0.53
+          "x": 0.1992,
+          "y": 0.4199
         }
       ]
     },
@@ -71,8 +76,8 @@
       "npcId": "schaffner",
       "npc": {
         "id": "schaffner",
-        "x": 0.58,
-        "y": 0.76
+        "x": 0.3646,
+        "y": 0.5078
       },
       "interiorId": "train-compartment",
       "gateExerciseId": "a0-wagen-exercise-1",
@@ -92,8 +97,8 @@
       "objects": [
         {
           "id": "prologue-wagen",
-          "x": 0.72,
-          "y": 0.4
+          "x": 0.3893,
+          "y": 0.4199
         }
       ]
     },
@@ -103,34 +108,41 @@
       "npcId": "schaffner",
       "npc": {
         "id": "schaffner",
-        "x": 0.43,
-        "y": 0.74
+        "x": 0.3646,
+        "y": 0.5078
       },
-      "interiorId": "train-dining",
+      "interiorId": "train-compartment",
       "gateExerciseId": "a0-tee-exercise-1",
       "replyExerciseIds": [],
       "choiceIds": [
-        "continue",
-        "no-milk"
+        "tea",
+        "nothing"
       ],
       "choices": [
         {
-          "id": "continue",
-          "effects": []
+          "id": "tea",
+          "effects": [
+            {
+              "flag": "prologue-tea"
+            }
+          ]
         },
         {
-          "id": "no-milk",
+          "id": "nothing",
           "effects": []
         }
       ],
       "investigationObjectIds": [
         "prologue-tee"
       ],
+      "optionalInvestigationObjectIds": [
+        "prologue-tee"
+      ],
       "objects": [
         {
           "id": "prologue-tee",
-          "x": 0.23,
-          "y": 0.31
+          "x": 0.6966,
+          "y": 0.4375
         }
       ]
     },
@@ -140,10 +152,10 @@
       "npcId": "schaffner",
       "npc": {
         "id": "schaffner",
-        "x": 0.43,
-        "y": 0.74
+        "x": 0.3646,
+        "y": 0.5078
       },
-      "interiorId": "train-dining",
+      "interiorId": "train-compartment",
       "gateExerciseId": "a0-wo-exercise-1",
       "replyExerciseIds": [],
       "choiceIds": [
@@ -156,25 +168,16 @@
         }
       ],
       "investigationObjectIds": [
-        "prologue-wo",
-        "prologue-exit"
+        "prologue-wo"
       ],
       "completionInvestigationObjectIds": [
         "prologue-wo"
       ],
-      "optionalInvestigationObjectIds": [
-        "prologue-exit"
-      ],
       "objects": [
         {
           "id": "prologue-wo",
-          "x": 0.33,
-          "y": 0.42
-        },
-        {
-          "id": "prologue-exit",
-          "x": 0.315,
-          "y": 0.18
+          "x": 0.4785,
+          "y": 0.4082
         }
       ]
     },
@@ -184,34 +187,37 @@
       "npcId": "schaffner",
       "npc": {
         "id": "schaffner",
-        "x": 0.58,
-        "y": 0.76
+        "x": 0.3646,
+        "y": 0.5078
       },
       "interiorId": "train-compartment",
       "gateExerciseId": "a0-langsam-exercise-1",
       "replyExerciseIds": [],
       "choiceIds": [
-        "continue",
-        "thank-you"
+        "again",
+        "continue"
       ],
       "choices": [
         {
-          "id": "continue",
+          "id": "again",
           "effects": []
         },
         {
-          "id": "thank-you",
+          "id": "continue",
           "effects": []
         }
       ],
       "investigationObjectIds": [
         "prologue-langsam"
       ],
+      "optionalInvestigationObjectIds": [
+        "prologue-langsam"
+      ],
       "objects": [
         {
           "id": "prologue-langsam",
-          "x": 0.64,
-          "y": 0.3
+          "x": 0.3893,
+          "y": 0.4199
         }
       ]
     },
@@ -221,12 +227,14 @@
       "npcId": "schaffner",
       "npc": {
         "id": "schaffner",
-        "x": 0.58,
-        "y": 0.76
+        "x": 0.3646,
+        "y": 0.5078
       },
       "interiorId": "train-compartment",
       "gateExerciseId": "a0-morgen-exercise-1",
-      "replyExerciseIds": [],
+      "replyExerciseIds": [
+        "a0-morgen-exercise-7"
+      ],
       "choiceIds": [
         "continue"
       ],
@@ -239,11 +247,14 @@
       "investigationObjectIds": [
         "prologue-morgen"
       ],
+      "optionalInvestigationObjectIds": [
+        "prologue-morgen"
+      ],
       "objects": [
         {
           "id": "prologue-morgen",
-          "x": 0.43,
-          "y": 0.34
+          "x": 0.3893,
+          "y": 0.4199
         }
       ]
     },

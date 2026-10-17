@@ -1081,8 +1081,7 @@ func (w *World) coordinateVersionError(mapID, interiorID string, version *int) s
 // Room coordinates match the authored 1536 × 1024 interiors. Each region
 // has its own copy of these buildings; outdoor return positions stay separate.
 var interiorSpawns = map[string]MapSpawn{
-	"train-compartment": {X: .55, Y: .78},
-	"train-dining":      {X: .55, Y: .78},
+	"train-compartment": {X: 330.0 / 1536, Y: 600.0 / 1024},
 	"cafe":              {X: 548.0 / 1536, Y: 800.0 / 1024},
 	"bakery":            {X: 1000.0 / 1536, Y: 800.0 / 1024},
 	"supermarket":       {X: 1230.0 / 1536, Y: 790.0 / 1024},

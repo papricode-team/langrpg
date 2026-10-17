@@ -41,28 +41,29 @@ const press = () => (document.querySelector<HTMLButtonElement>('[data-dialogue-a
 const until = (selector: string, limit = 80) => { for (let step = 0; step < limit && !document.querySelector(selector); step++) press(); expect(document.querySelector(selector), selector).not.toBeNull(); };
 
 describe('conversation scene lifecycle', () => {
-  it('keeps the A0 ticket inspection between the request and the player reply', async () => {
+  it('answers the A0 greeting, sends the player to the ticket and asks for it on their return', async () => {
     const f = fixture('intro', 'a0-ticket', true);
-    f.options.onInvestigate.mockImplementation((graph: QuestGraph) => {
-      const evidence = graph.investigations.find(item => !(f.progress.story?.inspections[graph.questId] ?? []).includes(item.objectId));
-      if (evidence) void f.controller.inspect(graph.questId, evidence.objectId);
-      else void f.controller.open(graph.questId);
-    });
     await f.controller.open('a0-ticket');
-    press();
-    expect(document.querySelector('.dialogue-line')?.textContent).toContain('Die Fahrkarte, bitte.');
+    expect(document.querySelector('.dialogue-line')?.textContent).toContain('Hallo! Guten Abend!');
+    // The player replies before Brandt goes on; the first replies still show their meaning.
+    expect([...document.querySelectorAll('[data-dialogue-choice]')].map(button => (button as HTMLElement).dataset.dialogueChoice)).toEqual(['Hallo!', 'Danke.', 'Bitte.']);
+    expect(document.querySelector('.dialogue-choice [data-sentence-inline-translation]')?.textContent).toBe('Hello!');
+    f.click('[data-dialogue-choice="Hallo!"]');
+    await vi.waitFor(() => expect(document.querySelector('.dialogue-line')?.textContent).toContain('Fahrkarte, bitte.'));
+    expect(f.api.request).toHaveBeenCalledWith('/attempt', expect.objectContaining({ exerciseId: 'a0-ticket-exercise-7', mode: 'recognition' }));
+    // Brandt does not open the ticket for the player: the scene hands control back to walk to it.
     expect(document.querySelector('[data-dialogue-action="next"]')?.textContent).toContain('Look closer');
     press();
-    await vi.waitFor(() => expect(document.querySelector('.investigation-artifact .dialogue-line')?.textContent).toContain('Fahrkarte. Lindenhafen.'));
+    expect(f.options.onInvestigate).toHaveBeenCalledWith(expect.objectContaining({ questId: 'a0-ticket' }));
     expect(f.api.inspectStory).not.toHaveBeenCalled();
-    expect(f.api.storyTransition).not.toHaveBeenCalled();
-    expect(document.querySelector('[data-dialogue-action="next"]')?.textContent).toContain('Continue');
+    await f.controller.inspect('a0-ticket', 'prologue-ticket');
+    expect(document.querySelector('.investigation-artifact .dialogue-line')?.textContent).toContain('Fahrkarte: Lindenhafen.');
     press();
+    await vi.waitFor(() => expect(f.api.inspectStory).toHaveBeenCalledTimes(1));
+    await f.controller.open('a0-ticket');
     await vi.waitFor(() => expect(document.querySelector('[data-dialogue-choice="Bitte."]')).not.toBeNull());
-    expect(f.api.inspectStory).toHaveBeenCalledTimes(1);
     expect(f.api.storyTransition).toHaveBeenCalledWith(expect.objectContaining({questId:'a0-ticket', nodeId:'intro'}));
-    expect(document.querySelector('.dialogue-choice-prompt')?.textContent).toContain('He is asking for your ticket. Hand it over.');
-    expect(f.api.request).not.toHaveBeenCalled();
+    expect(document.querySelector('.dialogue-choice-prompt')?.textContent).toContain('Brandt wants your ticket. Hand it over.');
   });
   it('starts A1 with supported greeting choices and reveals meanings only on request', async () => {
     const f = fixture('intro', 'a1-arrival', true);
@@ -760,12 +761,20 @@ describe('pre-A1 train support', () => {
   it('shows meanings, offers slow replay and never opens a keyboard for the ticket gate', async () => {
     const f = fixture('gate', 'a0-ticket');
     await f.controller.open('a0-ticket');
-    expect(document.querySelector('.dialogue-translation')?.textContent).toContain('The ticket, please.');
+    expect(document.querySelector('.dialogue-translation')?.textContent).toContain('Ticket, please.');
     expect(f.options.speak).toHaveBeenCalled();
     expect(document.querySelector('input, textarea')).toBeNull();
-    expect(document.querySelectorAll('[data-dialogue-choice]')).toHaveLength(2);
+    expect(document.querySelectorAll('[data-dialogue-choice]')).toHaveLength(3);
     f.click('[data-dialogue-action="translate"]');
     expect(document.querySelector('.dialogue-translation')).toBeNull();
+  });
+  it('fades reply meanings from the tea scene on while the conductor stays translated', async () => {
+    const f = fixture('gate', 'a0-tee');
+    await f.controller.open('a0-tee');
+    expect(document.querySelector('.dialogue-translation')?.textContent).toContain('Coffee?');
+    expect([...document.querySelectorAll('[data-dialogue-choice]')].map(button => (button as HTMLElement).dataset.dialogueChoice)).toEqual(['Nein, danke.', 'Ja, bitte.', 'Hallo!']);
+    expect(document.querySelector('.dialogue-choice [data-sentence-inline-translation]')).toBeNull();
+    expect(f.options.speak).toHaveBeenCalled();
   });
   it('records only supported name practice, without a lexical attempt', async () => {
     const f = fixture('gate', 'a0-name');

@@ -1,7 +1,8 @@
 /** Layout types are separate from the identity of a building in a town. */
 export const roomKinds = ['cafe', 'bakery', 'supermarket', 'inn', 'library', 'workshop', 'station', 'greenhouse', 'home'] as const;
-export const backdropRoomKinds = ['train-compartment', 'train-dining'] as const;
-export const allRoomKinds = [...roomKinds, ...backdropRoomKinds] as const;
+/** The prologue carriage is a painted story room, never an editable building layout. */
+export const trainRoomKinds = ['train-compartment'] as const;
+export const allRoomKinds = [...roomKinds, ...trainRoomKinds] as const;
 export type RoomKind = typeof allRoomKinds[number];
 export type RoomId = RoomKind | `${RoomKind}--${string}` | `${RoomKind}::${string}`;
 export function roomKind(id: string): RoomKind {

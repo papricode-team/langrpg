@@ -5,6 +5,7 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import './register-content-loader.mjs';
 import { quests } from './content-source.mjs';
+import { syncLegacyServer } from './legacy-server-sync.mjs';
 const { applyAuthoredMapPlacements } = await import('../web/src/map-authoring.ts');
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -14,6 +15,8 @@ async function exportJSON(path, value) {
     if (await readFile(file, 'utf8') !== text) throw new Error(`${path} is stale; run npm run assets.`);
   } else await writeFile(file, text);
 }
+// build-content reads the server manifests from content/source.json's copy.
+const syncCopy = (kind, value) => { if (!process.argv.includes('--check')) syncLegacyServer(kind, value); };
 // The authoring loader resolves these to the complete private corpus. Browser
 // modules now contain presentation registries and cannot produce grading data.
 const { expeditionRegions } = await import('../web/src/expeditions.ts');
@@ -34,6 +37,7 @@ const games = expeditionGames.map(game => {
   return { id: game.id, fields, validValues, order: game.steps.map(step => step.id) };
 });
 await exportJSON('server/expeditions.json', { encounters, games });
+syncCopy('expeditions', { encounters, games });
 const { maps: rawMaps } = await import('../web/src/maps.ts');
 // Match getMap() exactly: physical proof must use the editor's placements,
 // including after a designer moves an investigation object or its speaker.
@@ -52,8 +56,9 @@ const rules = graphs.map(graph => {
       if (!object) throw new Error(`Missing ${item.worldId} in ${interior.id}`);
       return { id: item.objectId, x: object.x, y: object.y };
     });
-    const choices = graph.nodes.find(node => node.stage === 'choice').choices;
-    return {questId:graph.questId,mapId:map.id,npcId:quest.npcId,npc:{id:npc.id,x:npc.x,y:npc.y},interiorId:graph.interiorId,gateKind:graph.gateKind,gateExerciseId:graph.gateExerciseId,replyExerciseIds:[],choiceIds:choices.map(c=>c.id),choices:choices.map(c=>({id:c.id,effects:c.effects})),investigationObjectIds:objects.map(i=>i.id),...(graph.completionInvestigations?.length?{completionInvestigationObjectIds:graph.completionInvestigations}:{}),...(graph.optionalInvestigations?.length?{optionalInvestigationObjectIds:graph.optionalInvestigations}:{}),objects};
+    const choices = graph.nodes.find(node => node.id === 'choice').choices;
+    const replies = graph.nodes.flatMap(node => node.lines.flatMap(line => line.reply ? [line.reply.exerciseId] : []));
+    return {questId:graph.questId,mapId:map.id,npcId:quest.npcId,npc:{id:npc.id,x:npc.x,y:npc.y},interiorId:graph.interiorId,gateKind:graph.gateKind,gateExerciseId:graph.gateExerciseId,replyExerciseIds:replies,choiceIds:choices.map(c=>c.id),choices:choices.map(c=>({id:c.id,effects:c.effects})),investigationObjectIds:objects.map(i=>i.id),...(graph.completionInvestigations?.length?{completionInvestigationObjectIds:graph.completionInvestigations}:{}),...(graph.optionalInvestigations?.length?{optionalInvestigationObjectIds:graph.optionalInvestigations}:{}),objects};
   }
   const npc = map.npcs.find(npc => npc.id === quest.npcId);
   if (!npc) throw new Error(`Missing ${quest.npcId} in ${map.id}`);
@@ -82,4 +87,5 @@ const place = (row, label) => {
 const ink = { ...mechanics.ink, entries: mechanics.ink.entries.map(entry => place(entry, 'ink')) };
 const sideQuests = mechanics.sideQuests.map(side => place(side, 'ticket'));
 await exportJSON('server/story_rules.json', { rules, ink, sideQuests });
+syncCopy('storyRules', { rules, ink, sideQuests });
 process.stdout.write(`Exported ${rules.length} investigations, ${encounters.length} encounters and ${games.length} validated neighborhood plans.\n`);
