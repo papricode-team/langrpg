@@ -2,8 +2,8 @@ import catalogue from './data/terrain-materials.json' with {type:'json'};
 // Keep plan previews and ground colour sampling aligned with the repainted masters.
 // Asset IDs and URLs stay stable for existing authored worlds.
 const paintedPalette:Record<string,{color:string;name?:string}>={
-  'meadow':{color:'#7d9360'},
-  'canal-grass':{color:'#7d9360'},
+  'meadow':{color:'#5f7d4a'},
+  'canal-grass':{color:'#5f7d4a'},
   'cobble':{color:'#b7a382'},
   'limestone':{color:'#e0c89b'},
   'brick':{color:'#b16c4d'},

@@ -33,7 +33,7 @@ describe('Lindenhafen navigation', () => {
   });
 
   it('blocks water, building foundations, market counters, and fountain rims', () => {
-    const obstacles = [[1346,520], [700,540], [1840,380], [700,772], [860,684]];
+    const obstacles = [[1346,520], [650,540], [1840,380], [1025,708], [860,684]];
     for (const [x, y] of obstacles) expect(navigation.isWalkable(x, y)).toBe(false);
   });
 

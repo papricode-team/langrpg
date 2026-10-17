@@ -1,0 +1,17 @@
+Tool: built-in image_gen
+Transparent background: true
+Style references (attached in order):
+docs/style/references/target-art-direction.webp
+art/ui/round-button-v1.png
+art/ui/nameplate-v1.png
+art/ui/parchment-card-v1.png
+web/public/assets/lindenhafen-props.webp
+
+Exact prompt:
+Create a single art direction CONTACT SHEET comparing exactly THREE distinct tiny in-world interaction prompt designs for glotworld, a hand-painted German-learning story RPG. References attached in order: (1) target town painting for world palette and delicate scale, (2) round brass / green leather HUD button for materials, (3) nameplate for brass/green leather craft, (4) parchment card for pale cream readable centre, (5) town prop paintings for brushwork. Match this established painted kit; warm upper-left light, fine visible brushwork, restrained antique brass, warm cream, deep green accents. NOT modern flat vector, NOT dark wooden planks, no ornate bulk.
+Arrange three separated horizontal rows with generous empty transparent gutters, one concept per row, top to bottom:
+TOP A: a small round antique brass keycap medallion with blank cream enamel centre, next to a short warm cream parchment label tab with softly rounded corners, very thin brass trim. The keycap and tab are separate pieces with a tiny gap. This is the lightest and most legible option.
+MIDDLE B: a compact warm parchment speech-bubble tag with tiny tail and a small round brass keycap at its left edge; blank text area.
+BOTTOM C: a slim pale ivory enamel-and-brass rounded pill with a small deep green round key inset.
+For each row show one enlarged hero and beside it one tiny version representing 24 CSS px height. Blank centres everywhere. NO letters, words, numbers, decorative writing, labels, arrows, or faux text. Each whole prompt should be compact (roughly 4:1 width-to-height). The label needs generous quiet blank space for one short live-rendered word. Genuine transparent RGBA background, no checkerboard baked in, no ground, no cast rectangular shadow or background plate. Crisp edges, delicate highlights; large forms still read at 24 px. This is concept exploration, do not combine the directions.
+

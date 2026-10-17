@@ -1,0 +1,17 @@
+Use case: stylized-concept
+Asset type: production 2D game HUD centre Atlas medallion for glotworld.
+Primary request: ONE circular dark forest-green enamel medallion, surrounded by aged-brass bezel with fine beaded inner edge and restrained four cardinal diamond details. In the centre, an embossed pale brass emblem of a folded travel atlas with a small compass star, large and simple enough to read at 64 pixels. Exact same hand-painted materials as reference round-button-v1.png. This is an Atlas navigation button with no lettering.
+Input images: target-art-direction.webp gives dock placement only; round-button-v1.png defines exact kit style; cafe, town props and interior room define painterly finish and upper-left light only.
+Composition: square 1024 x 1024, single centred full circular object, diameter 900 pixels, 62 pixels clear alpha padding on every side. Straight-on UI ornament, circular and symmetric; town references are 60-degree three-quarter world art, not the UI projection.
+Materials: worn warm brass #c4a567, pale gold #e8d39b, dark bronze #5b4520, deep green enamel #16332d to #0f241e. Soft upper-left highlight, fine visible brushwork, gentle wear. No photorealism or harsh outlines.
+Constraints: no text, words, letters, numbers, characters, watermark, external shadow or cut edges. Genuine alpha transparency outside circle; opaque enamel centre.
+
+Production record (not part of the generation prompt above):
+Generated 2026-10-17 with Codex's built-in image generation tool, transparent background.
+Selected master: art/ui/atlas-medallion-v2.png (1254 × 1254).
+Exact prompt also preserved beside the master: art/ui/atlas-medallion-v2.txt.
+Runtime: web/public/assets/ui/atlas-medallion-v2.webp (192 × 192, 14,294 bytes).
+Straight-on projection is deliberate for HUD chrome; the world references retain the 60-degree view.
+Export with Node + sharp (do not trim: retain original alignment and alpha):
+await sharp('art/ui/atlas-medallion-v2.png').resize({width:192}).webp({quality:80,alphaQuality:100,effort:6}).toFile('web/public/assets/ui/atlas-medallion-v2.webp');
+Acceptance: inspected full-size with image viewer; opaque enamel centre; zero alpha >16 pixels on any source-image edge. No text or cut ornament.

@@ -1,5 +1,5 @@
 import { getMap, maps } from './maps';
-import { WORLD_UI, loadWorldUi } from './world-ui';
+import { WORLD_UI, loadWorldUi, waitForWorldUi } from './world-ui';
 import { WORLD_TITLE_FONT, refreshWorldFonts } from './world-fonts';
 import * as Phaser from 'phaser';
 import { emitWorld, readWorld, SceneKeys, WorldEvents } from './world-state';
@@ -42,7 +42,11 @@ export class TravelScene extends Phaser.Scene {
     this.load.image('world-travel-preview', map.previewAsset);
   }
 
-  create(): void {
+  async create(): Promise<void> {
+    let alive = true;
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => { alive = false; });
+    await waitForWorldUi(this.textures);
+    if (!alive || !this.sys.isActive()) return;
     refreshWorldFonts(this);
     const density = readWorld(this.registry, 'density') ?? 1;
     // The curtain takes pointer input so nothing behind it can be clicked during the load.

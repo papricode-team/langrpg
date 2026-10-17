@@ -1,6 +1,6 @@
 import { interiorPeopleTint } from './world-lighting';
 import { roomKind } from './room-kind';
-import { fadeWorldOut, loadWorldUi } from './world-ui';
+import { fadeWorldOut, loadWorldUi, waitForWorldUi } from './world-ui';
 import {buildingRoomId, buildingRoomRoot} from './room-layout';
 import * as Phaser from 'phaser';
 import type { MapId } from './maps';
@@ -81,7 +81,11 @@ export class InteriorScene extends ExploreScene {
     this.events.once(Phaser.Scenes.Events.SHUTDOWN,()=>{for(const key of nativeKeys)if(this.textures.exists(key))this.textures.remove(key);});
   }
 
-  create(): void {
+  async create(): Promise<void> {
+    let alive = true;
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => { alive = false; });
+    await waitForWorldUi(this.textures);
+    if (!alive || !this.sys.isActive()) return;
     super.create();
     // The town stays on screen while the room loads; it sleeps once the room can draw.
     this.scene.sleep(SceneKeys.World);

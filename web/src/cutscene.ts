@@ -1,4 +1,4 @@
-import { cinematicImageSize } from './world-grade';
+import { trainFraming } from './world-cinematic';
 import { WORLD_UI } from './world-ui';
 import { WORLD_TITLE_FONT, WORLD_LABEL_FONT, refreshWorldFonts } from './world-fonts';
 import * as Phaser from 'phaser';
@@ -40,9 +40,9 @@ export class CutsceneScene extends Phaser.Scene {
     const {width,height} = this.scale, density = Math.min(2, window.devicePixelRatio || 1);
     if(!this.reduced&&['arrival','travel'].includes(data.kind)&&this.textures.exists('greenhouse-train')){
       const source = this.textures.get('greenhouse-train').getSourceImage() as HTMLImageElement;
-      const size = cinematicImageSize(source.naturalWidth || source.width, source.naturalHeight || source.height, width * .92, height * .7);
-      const train=this.add.image(-size.width / 2,height*.48,'greenhouse-train').setDisplaySize(size.width,size.height);
-      this.tweens.add({targets:train,x:width*1.4,duration:data.kind==='arrival'?6000:3000,ease:'Sine.easeInOut'});
+      const size = trainFraming(source.naturalWidth || source.width, source.naturalHeight || source.height, width, height, density);
+      const train=this.add.image(width*.5,height*.48,'greenhouse-train').setDisplaySize(size.width,size.height);
+      this.tweens.add({targets:train,x:width+size.width/2,duration:data.kind==='arrival'?6000:3000,ease:'Sine.easeInOut'});
     }
     const top = this.add.rectangle(0, this.reduced ? 0 : -68*density, width, 68*density, 0x08110e, .88).setOrigin(0);
     const bottom = this.add.rectangle(0, this.reduced ? height-156*density : height, width, 156*density, 0x08110e, .92).setOrigin(0);
@@ -86,14 +86,9 @@ export class CutsceneScene extends Phaser.Scene {
     if (this.reduced) { ++this.index; this.present(); return; }
     this.changing = true;
     this.tweens.killTweensOf(this.dialogue!);
-    // Hold the outgoing ink while the new beat appears underneath it.
-    const copies = [this.speaker, this.line, this.subtitle].filter((text): text is Phaser.GameObjects.Text => !!text)
-      .map(text => this.add.text(text.x, text.y, text.text, text.style.toJSON())
-        .setWordWrapWidth(text.style.wordWrapWidth).setOrigin(text.originX, text.originY));
-    const outgoing = this.add.container(0, 0, copies).setAlpha(this.dialogue?.alpha ?? 1);
-    ++this.index; this.present();
-    this.tweens.add({targets:outgoing, alpha:0, duration:180, ease:'Sine.easeOut', onComplete:() => {
-      outgoing.destroy(); this.changing = false;
+    // Finish erasing the previous beat before changing any of its text.
+    this.tweens.add({targets:this.dialogue, alpha:0, duration:180, ease:'Sine.easeIn', onComplete:() => {
+      ++this.index; this.changing = false; this.present();
     }});
   }
   private complete() { this.scene.stop(); }

@@ -13,5 +13,5 @@ for(const material of catalogue.materials){
  if(info.width!==material.width||info.height!==material.height||material.sourceWidth<1024||material.sourceHeight<1024)throw new Error(`${material.id}: incorrect resolution`);
  report.push({id:material.id,width:info.width,height:info.height,sourcePixelsPerWorldUnit:material.width/material.worldSize,maxHorizontalSeamDifference:horizontal,maxVerticalSeamDifference:vertical});
 }
-await writeFile('docs/audits/terrain-material-seams.json',JSON.stringify(report,null,2)+'\n');
+await writeFile(process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)??'docs/audits/terrain-material-seams.json',JSON.stringify(report,null,2)+'\n');
 console.log(`PASS: ${report.length} high-resolution materials, every decoded outer-edge pixel matches exactly in both directions.`);

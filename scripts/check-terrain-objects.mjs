@@ -11,5 +11,5 @@ for(const object of objects){
  if(transparent<info.width*info.height*.05||painted<info.width*info.height*.05)throw Error(`${object.id}: missing usable cutout alpha`);
  report.push({id:object.id,width:info.width,height:info.height,transparentPixels:transparent,paintedPixels:painted,motion:object.motion});
 }
-await writeFile('docs/audits/terrain-objects.json',JSON.stringify(report,null,2)+'\n');
+await writeFile(process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)??'docs/audits/terrain-objects.json',JSON.stringify(report,null,2)+'\n');
 console.log(`PASS: ${objects.length} native HD transparent objects, ${objects.filter(o=>o.motion!=='still').length} with procedural motion.`);

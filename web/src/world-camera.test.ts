@@ -6,14 +6,14 @@ import { timeAmbient } from './world-lighting';
 describe('world presentation', () => {
   it('preserves CSS person scale on Retina while doubling canvas detail', () => {
     const css = explorationZoom(1920, 1080, 1), retina = explorationZoom(3840, 2160, 2);
-    expect(css.zoom * 72).toBeCloseTo(129.6);
+    expect(css.zoom * 72).toBeCloseTo(108);
     expect(retina.zoom / 2).toBe(css.zoom);
     expect(canvasSize(1920, 1080, 3)).toEqual({ width: 3840, height: 2160, density: 2 });
   });
-  it('pulls exploration framing back 20% and accounts for the taller indoor bodies', () => {
+  it('frames outdoor adults at 10% with readable floors and slightly closer rooms', () => {
     for (const [width,height,indoor] of [[1920,1080,false],[1440,900,true],[390,844,false]] as const) {
       const mobile=width<760||width<1000&&height<520;
-      const personHeight=Math.max(mobile?88:110,Math.min(indoor?180:162,height*.15))*.8;
+      const personHeight=Math.max(mobile?60:72,Math.min(indoor?144:120,height*(indoor?.12:.10)));
       const bodyHeight=indoor?132:72;
       const zoom=explorationZoom(width,height,1,indoor).zoom;
       expect(zoom).toBeCloseTo(Math.max(width/1536,height/1024,personHeight/bodyHeight));
@@ -22,6 +22,13 @@ describe('world presentation', () => {
       const retina=explorationZoom(width*2,height*2,2,indoor).zoom;
       expect(conversationZoom(retina,true)/2).toBeCloseTo(conversationZoom(zoom,true));
     }
+  });
+  it('keeps a 60px adult on landscape phones and 72px on short desktop windows', () => {
+    const bounds = {width:6000,height:4000};
+    expect(explorationZoom(844,390,1,false,132,bounds).zoom*72).toBe(60);
+    expect(explorationZoom(1280,600,1,false,132,bounds).zoom*72).toBe(72);
+    expect(explorationZoom(1280,720,1,false,132,bounds).zoom*72).toBe(72);
+    expect(explorationZoom(390,844,1,false,132,bounds).zoom*72).toBeCloseTo(84.4);
   });
   it('retains map-cover bounds on wide and tall screens', () => {
     for(const [width,height] of [[3840,1080],[1200,2000]]) {
@@ -34,7 +41,7 @@ describe('world presentation', () => {
     for (const [width, height] of [[1920, 1080], [390, 844], [844, 390]]) {
       const zoom = explorationZoom(width, height, 1, true, 240).zoom;
       const mobile = explorationZoom(width, height).mobile;
-      const personHeight = Math.max(mobile ? 88 : 110, Math.min(180, height * .15)) * .8;
+      const personHeight = Math.max(mobile ? 60 : 72, Math.min(144, height * .12));
       expect(zoom).toBeCloseTo(Math.max(width / 1536, height / 1024, personHeight / 240));
       expect(explorationZoom(width * 2, height * 2, 2, true, 240).zoom / 2).toBeCloseTo(zoom);
     }

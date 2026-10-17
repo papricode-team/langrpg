@@ -23,12 +23,13 @@ for(const request of requests.objects){
  // Authored modular pieces use their actual walls and wheel bases, in native
  // pixels relative to the bottom-centre pivot used by every exported object.
  const footprint=request.geometry?.footprint??(collidable?Array.from({length:8},(_,i)=>[Math.cos(i*Math.PI/4)*width*.22,-width*.04+Math.sin(i*Math.PI/4)*width*.07]):[]);
+ const originY=request.originY??bottom/height,pivot=originY*height;
  objects.push({id:request.id,name:request.name,role:request.asset,worldWidth:request.worldWidth,motion:request.motion,collidable,
-  width,height,originX:.5,originY:request.originY??bottom/height,
+  width,height,originX:.5,originY,
   asset:`/assets/terrain-objects/${request.id}.webp`,thumbnail:`/assets/terrain-objects/${request.id}-thumb.webp`,
   ...(request.layer?{layer:request.layer}:{}),
-  geometry:{referenceWidth:width,visualBounds:{left:left-width/2,top:top-bottom,right:right-width/2,bottom:0},...request.geometry,footprint},
-  source:`${request.id}.png`,prompt:`docs/prompts/terrain-objects/${request.id}.txt`});
+  geometry:{referenceWidth:width,visualBounds:{left:left-width/2,top:top-pivot,right:right-width/2,bottom:bottom-pivot},...request.geometry,footprint},
+  source:`${request.id}.png`,prompt:request.promptFile??`docs/prompts/terrain-objects/${request.id}.txt`});
 }
 // Do not rewrite shared catalogue files during an isolated art pass.
 if(!process.argv.includes('--art-only'))await writeFile('web/src/data/terrain-objects.json',JSON.stringify({version:1,generator:'built-in image_gen',objects},null,2)+'\n');

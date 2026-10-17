@@ -1,0 +1,7 @@
+Use case: stylized-concept
+Asset type: production 2D game UI art for glotworld.
+Primary request: ONE perfectly circular minimap brass bezel, a hollow ring with a completely transparent circular centre, matching the reference round-button-v1 kit exactly: softly worn aged brass, beaded inner lip, thin green enamel inset and four subtle cardinal diamond accents. No disc inside: the entire centre hole is alpha transparency for a town map at runtime.
+Input images: target-art-direction.webp is HUD layout only; round-button-v1.png are the exact UI material/style references. Cafe building, props and room are painterly finish and upper-left lighting references only.
+Composition: square 1024 x 1024, ring centred, outer diameter 920 pixels, inner transparent hole diameter 790 pixels; 52 pixels clear alpha padding around every edge. Straight-on circular UI ornament, not a perspective world object. World references use 60-degree three-quarter view but this HUD ring must be straight-on.
+Materials: warm brass #c4a567, pale gold #e8d39b, dark bronze #5b4520, deep forest enamel #16332d. Fine hand-painted brushwork, soft upper-left light, gentle wear, no photoreal textures or hard outlines.
+Constraints: one ring only, no letters, text, numbers, map, characters, watermark or shadow outside silhouette. Genuine alpha transparency outside AND inside ring.

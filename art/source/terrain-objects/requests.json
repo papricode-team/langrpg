@@ -387,6 +387,163 @@
       "geometry": {
         "footprint": []
       }
+    },
+    {
+      "id": "town-linden",
+      "name": "Summer linden",
+      "asset": "tree",
+      "worldWidth": 158.72,
+      "motion": "sway",
+      "collidable": true,
+      "promptFile": "art/source/terrain-objects/town-linden-prompt.txt",
+      "geometry": {
+        "footprint": [
+          [
+            75,
+            -24
+          ],
+          [
+            53.033008588991066,
+            -2.786796564403577
+          ],
+          [
+            4.592425496802574e-15,
+            6
+          ],
+          [
+            -53.03300858899106,
+            -2.7867965644035735
+          ],
+          [
+            -75,
+            -23.999999999999996
+          ],
+          [
+            -53.03300858899107,
+            -45.21320343559643
+          ],
+          [
+            -1.3777276490407723e-14,
+            -54
+          ],
+          [
+            53.03300858899105,
+            -45.21320343559643
+          ]
+        ]
+      }
+    },
+    {
+      "id": "town-plane",
+      "name": "Summer plane",
+      "asset": "tree",
+      "worldWidth": 158.72,
+      "motion": "sway",
+      "collidable": true,
+      "promptFile": "art/source/terrain-objects/town-plane-prompt.txt",
+      "geometry": {
+        "footprint": [
+          [
+            75,
+            -24
+          ],
+          [
+            53.033008588991066,
+            -2.786796564403577
+          ],
+          [
+            4.592425496802574e-15,
+            6
+          ],
+          [
+            -53.03300858899106,
+            -2.7867965644035735
+          ],
+          [
+            -75,
+            -23.999999999999996
+          ],
+          [
+            -53.03300858899107,
+            -45.21320343559643
+          ],
+          [
+            -1.3777276490407723e-14,
+            -54
+          ],
+          [
+            53.03300858899105,
+            -45.21320343559643
+          ]
+        ]
+      }
+    },
+    {
+      "id": "town-boxwood",
+      "name": "Clipped box topiary",
+      "asset": "planter",
+      "worldWidth": 52,
+      "motion": "sway",
+      "collidable": true,
+      "promptFile": "art/source/terrain-objects/town-boxwood-prompt.txt"
+    },
+    {
+      "id": "town-hedge",
+      "name": "Rose hedge on garden wall",
+      "asset": "planter",
+      "worldWidth": 130,
+      "motion": "still",
+      "collidable": true,
+      "promptFile": "art/source/terrain-objects/town-hedge-prompt.txt",
+      "geometry": {
+        "footprint": [
+          [
+            -560,
+            -600
+          ],
+          [
+            510,
+            -45
+          ],
+          [
+            560,
+            -100
+          ],
+          [
+            -515,
+            -655
+          ]
+        ]
+      }
+    },
+    {
+      "id": "town-ivy",
+      "name": "Climbing ivy trellis",
+      "asset": "planter",
+      "worldWidth": 52,
+      "motion": "sway",
+      "collidable": true,
+      "promptFile": "art/source/terrain-objects/town-ivy-prompt.txt"
+    },
+    {
+      "id": "town-radial-cobble",
+      "name": "Radial fountain paving",
+      "asset": "planter",
+      "worldWidth": 256,
+      "motion": "still",
+      "collidable": false,
+      "promptFile": "art/source/terrain-objects/town-radial-cobble-prompt.txt",
+      "layer": "ground",
+      "originY": 0.5
+    },
+    {
+      "id": "town-garden-statue",
+      "name": "Botanist garden statue",
+      "asset": "planter",
+      "worldWidth": 65,
+      "motion": "still",
+      "collidable": true,
+      "promptFile": "art/source/terrain-objects/town-garden-statue-prompt.txt"
     }
   ]
 }

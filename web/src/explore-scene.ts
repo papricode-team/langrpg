@@ -1,4 +1,6 @@
+import { storyLabelAlpha } from './world-labels';
 import { WORLD_UI } from './world-ui';
+import { interactionPromptAlpha, interactionPromptDepth, interactionPromptLayout, interactionPromptVariant, PROMPT_FONT_SIZE } from './world-prompt';
 import { worldGrade } from './world-grade';
 import { interiorPeopleTint } from './world-lighting';
 import { WORLD_TITLE_FONT, WORLD_LABEL_FONT, refreshWorldFonts } from './world-fonts';
@@ -40,9 +42,13 @@ export interface Character {
   role?: Phaser.GameObjects.Text;
   marker?: Phaser.GameObjects.Text;
   halo?: Phaser.GameObjects.Image;
-  hint?: Phaser.GameObjects.Text;
-  hintPlate?: Phaser.GameObjects.Image;
-  hintKey?: Phaser.GameObjects.Text;
+  prompt?: {
+    root: Phaser.GameObjects.Container;
+    tab: Phaser.GameObjects.Image;
+    icon: Phaser.GameObjects.Image;
+    verb: Phaser.GameObjects.Text;
+    key: Phaser.GameObjects.Text;
+  };
   x: number;
   y: number;
   targetX: number;
@@ -362,6 +368,11 @@ export abstract class ExploreScene extends Phaser.Scene {
     this.input?.keyboard?.resetKeys();
     this.cancelRoute();
     this.setNearby(undefined);
+    this.hideCharacterPrompts();
+  }
+
+  private hideCharacterPrompts(): void {
+    for (const npc of this.characters.values()) npc.prompt?.root.setAlpha(0).setVisible(false);
   }
 
   interactNearest(): boolean {
@@ -428,13 +439,16 @@ export abstract class ExploreScene extends Phaser.Scene {
 
   setStoryState(state: WorldStoryState): void {
     this.storyState = state;
-    for (const npc of this.characters.values()) if (!this.characterRevealed(npc)) npc.root.setVisible(false);
+    for (const npc of this.characters.values()) if (!this.characterRevealed(npc)) {
+      npc.root.setVisible(false); npc.prompt?.root.setAlpha(0).setVisible(false);
+    }
     this.refreshNearby();
   }
 
   protected applyConversationTarget(id: string | undefined): void {
     const npc = id ? this.characters.get(id) : undefined;
     this.conversationTarget = npc && this.characterRevealed(npc) ? id : undefined;
+    if (this.conversationTarget) this.hideCharacterPrompts();
     if (npc && this.local && this.characterRevealed(npc)) this.faceCharacters(this.local, npc);
   }
 
@@ -462,7 +476,10 @@ export abstract class ExploreScene extends Phaser.Scene {
   setTerrainOnly(terrainOnly: boolean): void {
     this.terrainOnly = terrainOnly;
     this.local?.root.setVisible(!terrainOnly && !this.watching);
-    for (const character of this.characters.values()) character.root.setVisible(!terrainOnly && this.characterRevealed(character));
+    for (const character of this.characters.values()) {
+      character.root.setVisible(!terrainOnly && this.characterRevealed(character));
+      if (terrainOnly) character.prompt?.root.setAlpha(0).setVisible(false);
+    }
     for (const character of this.peers.values()) character.root.setVisible(!terrainOnly);
   }
 
@@ -601,6 +618,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     if (!this.ready || this.suspended) return;
     this.sendPosition();
     const labelScale = this.labelScale;
+    this.positionCharacterLabels(this.local);
     this.local.name.setScale(labelScale).setVisible(this.controlsEnabled && !this.conversationTarget && !this.cinematicTarget);
     this.updateCharacters(seconds);
     this.updatePeers(seconds);
@@ -710,20 +728,44 @@ export abstract class ExploreScene extends Phaser.Scene {
       const visible = npc.x >= view.x - 100 && npc.x <= view.right + 100 && npc.y >= view.y - 110 && npc.y <= view.bottom + 100;
       const revealed = this.characterRevealed(npc);
       npc.root.setVisible(visible && revealed && !this.terrainOnly);
-      if (!visible || !revealed) continue;
+      if (!visible || !revealed) {
+        npc.prompt?.root.setAlpha(0).setVisible(false);
+        continue;
+      }
       this.animateCharacter(npc, step.x, step.y, this.elapsed + npc.phase);
       const near = this.controlsEnabled && Math.hypot(npc.x - this.local.x, npc.y - this.local.y) < INTERACTION_DISTANCE;
       const show = this.controlsEnabled && (near || !!npc.hovered);
       npc.halo?.setVisible(show).setAlpha(near ? 1 : .65);
-      npc.name.setScale(labelScale).setVisible(show);
-      npc.role?.setScale(labelScale).setVisible(show && !this.mobileCamera);
-      npc.hint?.setScale(labelScale).setVisible(show);
-      npc.hintPlate?.setScale(132 / npc.hintPlate.width * labelScale, 40 / npc.hintPlate.height * labelScale).setVisible(show);
-      npc.hintKey?.setScale(labelScale).setVisible(show && !this.mobileCamera);
-      npc.hint?.setX(12 * labelScale); npc.hintKey?.setX(-48 * labelScale);
-      npc.marker?.setVisible(!this.watching && !this.indoor && this.objective === npc.id && !show);
+      const alpha = storyLabelAlpha(Math.hypot(npc.x - this.local.x, npc.y - this.local.y) / labelScale, show);
+      const labelled = this.controlsEnabled && !this.watching && !this.conversationTarget;
+      this.positionCharacterLabels(npc);
+      npc.name.setScale(labelScale).setAlpha(alpha).setVisible(labelled);
+      npc.role?.setScale(labelScale).setAlpha(alpha).setVisible(labelled);
+      this.updateCharacterPrompt(npc, seconds);
+      npc.marker?.setScale(labelScale).setVisible(!this.watching && this.objective === npc.id && !this.conversationTarget);
       this.afterCharacter(npc);
     }
+  }
+
+  private updateCharacterPrompt(npc: Character, seconds: number): void {
+    const prompt = npc.prompt;
+    if (!prompt) return;
+    const allowed = this.controlsEnabled && !this.editing && !this.watching && !this.terrainOnly && !this.conversationTarget && !this.cinematicTarget;
+    const focused = this.nearbyInteraction === (npc.interactionId ?? npc.id) || !!npc.hovered;
+    const alpha = allowed ? interactionPromptAlpha(prompt.root.alpha, focused, seconds, this.reducedMotion) : 0;
+    prompt.root.setAlpha(alpha).setVisible(alpha > 0);
+    if (!alpha) return;
+    const scale = this.labelScale;
+    const layout = interactionPromptLayout(prompt.verb.width, npc.figure.width * npc.artScale / scale);
+    // Bottom edge clears the full name canvas, including its outline, by 4 CSS px.
+    prompt.root.setScale(scale).setPosition(npc.x, npc.y + npc.name.y - (npc.name.height / 2 + 4 + layout.height / 2) * scale);
+    prompt.tab.setPosition(layout.tabX, layout.tabY).setDisplaySize(layout.tabWidth, layout.tabHeight);
+    prompt.verb.setPosition(layout.tabX, layout.tabY);
+    const keyCode = this.keys?.interact?.keyCode ?? 69;
+    const variant = interactionPromptVariant(this.mobileCamera, keyCode >= 65 && keyCode <= 90 ? String.fromCharCode(keyCode) : 'E');
+    if (prompt.icon.texture.key !== variant.texture) prompt.icon.setTexture(variant.texture);
+    prompt.icon.setPosition(layout.keyX, layout.keyY).setDisplaySize(layout.keySize, layout.keySize);
+    prompt.key.setText(variant.key).setPosition(layout.keyX, layout.keyY).setVisible(!!variant.key);
   }
 
   private updatePeers(seconds: number): void {
@@ -732,6 +774,7 @@ export abstract class ExploreScene extends Phaser.Scene {
       const dx = (peer.targetX - peer.x) * interpolation, dy = (peer.targetY - peer.y) * interpolation;
       peer.x += dx; peer.y += dy;
       this.animateCharacter(peer, dx, dy, this.elapsed + peer.phase);
+      this.positionCharacterLabels(peer);
       peer.name.setScale(labelScale).setVisible(this.controlsEnabled && (Math.hypot(peer.x - this.local.x, peer.y - this.local.y) < 180 || !!peer.hovered));
     }
   }
@@ -770,8 +813,10 @@ export abstract class ExploreScene extends Phaser.Scene {
         portal.halo.setAlpha(lit ? .42 : .12);
         if (lit && !this.reducedMotion) this.tweens.add({ targets: portal.halo, alpha: .5, duration: 1050, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
       }
-      portal.glyph?.setVisible(lit);
-      portal.label.setVisible(lit && !this.conversationTarget);
+      portal.glyph?.setScale(scale).setVisible(lit);
+      // Only the door E would open names itself, so it never stacks on a nearby character's name.
+      const named = this.controlsEnabled && !this.editing && (this.nearbyInteraction === portal.id || portal.hovered && this.input.isOver);
+      portal.label.setVisible(named && visible && !this.terrainOnly && !this.conversationTarget);
       portal.label.setScale(scale);
     }
   }
@@ -806,14 +851,14 @@ export abstract class ExploreScene extends Phaser.Scene {
     if (!this.marker) return;
     this.marker.setScale(1);
     for (const object of this.objects.values()) object.marker.setY(-8);
-    for (const npc of this.characters.values()) npc.marker?.setY(-96);
+    for (const npc of this.characters.values()) npc.marker?.setAlpha(1);
     if (this.reducedMotion) return;
     this.markerTweens.push(this.tweens.add({ targets: this.marker, scale: 1.04, duration: 785, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' }));
     for (const object of this.objects.values()) {
       this.markerTweens.push(this.tweens.add({ targets: object.marker, y: -6.5, duration: 1570, yoyo: true, repeat: -1, ease: 'Sine.easeInOut', delay: (object.x / 170 % 3.14) * 500 }));
     }
     for (const npc of this.characters.values()) {
-      if (npc.marker) this.markerTweens.push(this.tweens.add({ targets: npc.marker, y: -94.5, duration: 1570, yoyo: true, repeat: -1, ease: 'Sine.easeInOut', delay: npc.phase * 250 }));
+      if (npc.marker) this.markerTweens.push(this.tweens.add({ targets: npc.marker, alpha: .55, duration: 1570, yoyo: true, repeat: -1, ease: 'Sine.easeInOut', delay: npc.phase * 250 }));
     }
   }
 
@@ -841,7 +886,7 @@ export abstract class ExploreScene extends Phaser.Scene {
   }
   protected applyLabelDensity(density: number): void {
     for (const actor of this.actors()) {
-      actor?.name.setResolution(density); actor?.role?.setResolution(density); actor?.hint?.setResolution(density); actor?.hintKey?.setResolution(density); actor?.marker?.setResolution(density);
+      actor?.name.setResolution(density); actor?.role?.setResolution(density); actor?.prompt?.verb.setResolution(density); actor?.prompt?.key.setResolution(density); actor?.marker?.setResolution(density);
     }
     for (const object of this.objects.values()) object.label.setResolution(density);
     for (const portal of this.portals.values()) { portal.label.setResolution(density); portal.glyph?.setResolution(density); }
@@ -896,14 +941,14 @@ export abstract class ExploreScene extends Phaser.Scene {
       const frameWidth = animation?.width ?? art.width;
       const frameHeight = animation?.height ?? art.height;
       const footY = animation?.originY ?? art.footY;
-      const width = Math.max(frameWidth + art.width / NPC_ART.width * 80, 44 / (npc.artScale * this.fitZoom));
+      const width = Math.max(frameWidth + art.width / NPC_ART.width * 80, 44 * this.density / (npc.artScale * this.fitZoom));
       const top = art.width / NPC_ART.width * 12;
       hit?.setTo((frameWidth - width) / 2, top, width, frameHeight * footY - top);
     }
-    for (const object of this.objects.values()) { const size = Math.max(52, 44 / this.fitZoom); object.hit.setSize(size, size, true); }
+    for (const object of this.objects.values()) { const size = Math.max(52, 44 * this.density / this.fitZoom); object.hit.setSize(size, size, true); }
     for (const portal of this.portals.values()) {
-      const size = Math.max(76, 44 / this.fitZoom);
-      portal.hit.setSize(portal.door?.hit.width ?? size, portal.door?.hit.height ?? size, true);
+      const size = Math.max(76, 44 * this.density / this.fitZoom);
+      portal.hit.setSize(Math.max(portal.door?.hit.width ?? 0, size), Math.max(portal.door?.hit.height ?? 0, size), true);
     }
   }
 
@@ -923,11 +968,15 @@ export abstract class ExploreScene extends Phaser.Scene {
       configure?.(character);
       character.halo = this.add.image(0, 2, WORLD_UI.ring).setDisplaySize(37, 17).setVisible(false);
       character.root.addAt(character.halo, 1);
-      character.marker = this.add.text(0, -96, '✦', { resolution: this.density, fontFamily: WORLD_TITLE_FONT, fontSize: '17px', color: '#ffe3a3', stroke: '#68563c', strokeThickness: 2 }).setOrigin(.5).setVisible(false);
-      character.hintPlate = this.add.image(0, 35, WORLD_UI.prompt).setDisplaySize(132, 40).setVisible(false);
-      character.hint = this.add.text(12, 35, 'SPRECHEN', { resolution: this.density, fontFamily: WORLD_LABEL_FONT, fontSize: '12px', fontStyle: 'bold', color: '#fff2cf' }).setOrigin(.5).setVisible(false);
-      character.hintKey = this.add.text(-48, 35, 'E', { resolution: this.density, fontFamily: WORLD_LABEL_FONT, fontSize: '12px', fontStyle: 'bold', color: '#30281b' }).setOrigin(.5).setVisible(false);
-      character.root.add([character.marker, character.hintPlate, character.hint, character.hintKey]);
+      character.marker = this.add.text(0, -96, '◇', { resolution: this.density, fontFamily: WORLD_TITLE_FONT, fontSize: '17px', color: '#ffe3a3', stroke: '#68563c', strokeThickness: 2 }).setOrigin(.5).setVisible(false);
+      character.root.add(character.marker);
+      const tab = this.add.image(0, 0, WORLD_UI.promptTab);
+      const icon = this.add.image(0, 0, WORLD_UI.promptKeycap);
+      const verb = this.add.text(0, 0, 'Sprechen', { resolution: this.density, fontFamily: WORLD_LABEL_FONT, fontSize: `${PROMPT_FONT_SIZE}px`, color: '#302b21', padding: { y: 2 } }).setOrigin(.5);
+      const key = this.add.text(0, 0, 'E', { resolution: this.density, fontFamily: WORLD_LABEL_FONT, fontSize: `${PROMPT_FONT_SIZE}px`, fontStyle: 'bold', color: '#302b21', padding: { y: 2 } }).setOrigin(.5);
+      const promptRoot = this.add.container(x, y, [tab, icon, verb, key]).setDepth(interactionPromptDepth(this.worldHeight)).setAlpha(0).setVisible(false);
+      character.prompt = { root: promptRoot, tab, icon, verb, key };
+      character.root.once(Phaser.GameObjects.Events.DESTROY, () => promptRoot.destroy());
       const animation = character.walkingAnimation ?? character.idleAnimation;
       const hitArt = character.nativePixels ? NATIVE_MODULAR_ART : character.componentCast ? CAST_ART : character.modularNpc ? MODULAR_ART : NPC_ART;
       const hitPadding = hitArt.width / NPC_ART.width * 40, hitTop = hitArt.width / NPC_ART.width * 12;
@@ -955,7 +1004,7 @@ export abstract class ExploreScene extends Phaser.Scene {
       const halo = this.add.image(0, 0, WORLD_UI.ring).setDisplaySize(OBJECT_HALO.width, OBJECT_HALO.height).setAlpha(.4);
       const marker = this.add.image(0, -8, 'discovery').setScale(.8).setAlpha(.7);
       const label = this.add.text(0, -35, spec.label, { resolution: this.density, fontFamily: WORLD_TITLE_FONT, fontSize: '13px', color: '#fff0d0', stroke: '#283b36', strokeThickness: 4 }).setOrigin(.5).setVisible(false);
-      const hit = this.add.zone(0, -7, Math.max(52, 44 / this.fitZoom), Math.max(52, 44 / this.fitZoom)).setInteractive({ useHandCursor: true });
+      const hit = this.add.zone(0, -7, Math.max(52, 44 * this.density / this.fitZoom), Math.max(52, 44 * this.density / this.fitZoom)).setInteractive({ useHandCursor: true });
       const root = this.add.container(x, y, [halo, marker, label, hit]).setDepth(worldDepth(y, 'shadow'));
       const object: WorldObject = { spec, x, y, root, halo, marker, label, hit, hovered: false, activatedUntil: 0,
         interactionId: spec.id.startsWith(`${prefix}:`) ? spec.id : `${prefix}:${spec.id}` };
@@ -981,12 +1030,14 @@ export abstract class ExploreScene extends Phaser.Scene {
     const glyph = exit ? this.add.text(0, -29, 'Exit', {
       resolution: this.density, fontFamily: WORLD_TITLE_FONT, fontSize: '12px', color: '#fff1cd', backgroundColor: '#594a36', padding: { x: 5, y: 3 },
     }).setOrigin(.5).setVisible(false) : undefined;
-    const name = this.add.text(0, exit ? 24 : -(door?.height ?? 34) - 16, label, {
+    // The name floats on the label layer so the building's own roof cannot cover it; it dies with the portal root.
+    const name = this.add.text(x, y + (exit ? 24 : -(door?.height ?? 34) - 16), label, {
       resolution: this.density, fontFamily: WORLD_TITLE_FONT, fontSize: '14px', color: '#fff1cf', stroke: '#283c35', strokeThickness: 4,
-    }).setOrigin(.5).setVisible(false);
+    }).setOrigin(.5).setVisible(false).setDepth(worldDepth(this.worldHeight + 100, 'label'));
     const hit = this.add.zone(door?.hit.x ?? 0, door?.hit.y ?? -14, door?.hit.width ?? 76, door?.hit.height ?? 76).setInteractive({ useHandCursor: true });
-    const root = this.add.container(x, y, [...(halo ? [halo] : []), ...(effect ? [effect.root] : []), ...(glyph ? [glyph] : []), name, hit])
+    const root = this.add.container(x, y, [...(halo ? [halo] : []), ...(effect ? [effect.root] : []), ...(glyph ? [glyph] : []), hit])
       .setDepth(worldDepth(door?.depth ?? y, 'label'));
+    root.once(Phaser.GameObjects.Events.DESTROY, () => name.destroy());
     const portal: WorldPortal = { id, x, y, root, halo, label: name, glyph, hit, hovered: false, door, effect };
     this.bindHover(hit, portal, () => this.approachInteraction(id));
     this.portals.set(id, portal);
@@ -1145,6 +1196,15 @@ export abstract class ExploreScene extends Phaser.Scene {
     if (character.componentCast || character.modularNpc || !character.npc || character.localArtVariant !== undefined) character.figure.setTint(this.indoor ? this.indoorTint : tint);
   }
 
+  protected positionCharacterLabels(character: Character): void {
+    const art = character.nativePixels ? NATIVE_MODULAR_ART : character.componentCast ? CAST_ART : character.modularNpc ? MODULAR_ART : NPC_ART;
+    const head = art.bodyHeight * character.artScale;
+    character.name.setY(-head - 12 * this.labelScale);
+    character.role?.setY(13 * this.labelScale);
+    // The objective diamond sits beside the name, leaving the prompt row clear.
+    character.marker?.setPosition(-(character.name.width / 2 + 12) * this.labelScale, character.name.y);
+  }
+
   protected createCharacter(id: string, name: string, x: number, y: number, avatar: Avatar, role?: string, npcFrame = -1, localArtVariant?: number): Character {
     const candidate=castActor(id);
     const castAsset=this.indoor?candidate?.native:candidate;
@@ -1160,11 +1220,11 @@ export abstract class ExploreScene extends Phaser.Scene {
     // available; indoor entry can reuse the town's frames immediately.
     const layers = [this.add.sprite(0, 0, baked?.key ?? '__WHITE', baked ? frame : undefined).setOrigin(.5, art.footY).setScale(artScale)];
     const figure = layers[0];
-    const nameText = this.add.text(0, -79, name, { resolution: this.density, fontFamily: WORLD_TITLE_FONT, fontSize: '13px', color: '#fff6e2', stroke: '#25362d', strokeThickness: 3 }).setOrigin(0.5).setVisible(!npc);
+    const nameText = this.add.text(0, -79, name, { resolution: this.density, fontFamily: WORLD_TITLE_FONT, fontSize: '13px', color: '#ffffff', stroke: '#25362d', strokeThickness: 3 }).setOrigin(0.5).setVisible(!npc);
     const root = this.add.container(x, y, [shadow, ...layers, nameText]).setDepth(worldDepth(y, 'character'));
     let roleText: Phaser.GameObjects.Text | undefined;
     if (role) {
-      roleText = this.add.text(0, 13, role, { resolution: this.density, fontFamily: WORLD_LABEL_FONT, fontSize: '12px', color: '#f4e6c2', stroke: '#263a31', strokeThickness: 2 }).setOrigin(0.5).setVisible(false);
+      roleText = this.add.text(0, 13, role, { resolution: this.density, fontFamily: WORLD_LABEL_FONT, fontSize: '12px', color: '#fff4dc', stroke: '#1f2c25', strokeThickness: 3 }).setOrigin(0.5).setVisible(false);
       root.add(roleText);
     }
     const character: Character = { id, root, figure, layers, shadow, name: nameText, role: roleText, x, y, targetX: x, targetY: y, phase: Math.random() * 6.28, facing: 0, walkDistance: 0, frame, npc, artScale, breathe: 1, avatar: candidate?.recipe ?? avatar, localArtVariant, componentCast:!!baked, modularNpc, nativePixels };

@@ -1,5 +1,5 @@
 import { loadWorldFonts } from './world-fonts';
-import { loadWorldUi } from './world-ui';
+import { loadWorldUi, waitForWorldUi } from './world-ui';
 import * as Phaser from 'phaser';
 import { castActorsForMap, castAssets, castAssetUrl, castAtlasUrl } from './character-cast';
 import { loadWorldAudio } from './world-audio';
@@ -29,8 +29,10 @@ export class BootScene extends Phaser.Scene {
   }
 
   async create(): Promise<void> {
-    await loadWorldFonts();
-    if (!this.sys.isActive()) return;
+    let alive = true;
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => { alive = false; });
+    await Promise.all([loadWorldFonts(), waitForWorldUi(this.textures)]);
+    if (!alive || !this.sys.isActive()) return;
     this.scene.start(SceneKeys.World, { mapId: readWorld(this.registry, 'mapId') });
   }
 }

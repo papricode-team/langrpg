@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 import './test-support/phaser-dom';
 import { describe, expect, it, vi } from 'vitest';
-import { ExploreScene, isTyping } from './explore-scene';
+import { ExploreScene, isTyping, type Character } from './explore-scene';
 import type { NavigationGrid, MapPoint } from './navigation';
 import type { WorldClock, WorldTimeState } from './world-clock';
 import { WorldEvents, type WorldPlayer } from './world-state';
@@ -72,6 +72,21 @@ describe('explore scene restarts', () => {
 });
 
 describe('explore scene resize', () => {
+  it('retains 44 CSS px hit targets on Retina after pulling the camera back', () => {
+    const scene = new ProbeScene();
+    const state = scene as unknown as {density:number;fitZoom:number;characters:Map<string,unknown>;objects:Map<string,unknown>;portals:Map<string,unknown>;resizeHitTargets:()=>void};
+    state.density=2;state.fitZoom=1.2;
+    const hit={setTo:vi.fn()}, objectHit={setSize:vi.fn()}, portalHit={setSize:vi.fn()};
+    state.characters=new Map([['npc',{figure:{input:{hitArea:hit}},artScale:.1,componentCast:true}]]);
+    state.objects=new Map([['object',{hit:objectHit}]]);
+    state.portals=new Map([['portal',{door:{hit:{width:20,height:30}},hit:portalHit}]]);
+    state.resizeHitTargets();
+    expect(hit.setTo.mock.calls[0][2]*.1*1.2/2).toBeCloseTo(44);
+    expect(objectHit.setSize.mock.calls[0][0]*1.2/2).toBeCloseTo(44);
+    expect(portalHit.setSize.mock.calls[0][0]*1.2/2).toBeGreaterThanOrEqual(44);
+    expect(portalHit.setSize.mock.calls[0][1]*1.2/2).toBeGreaterThanOrEqual(44);
+  });
+
   it('re-renders labels only when the pixel density changes', () => {
     const { scene, resolution } = probe();
     scene.init();
@@ -112,5 +127,69 @@ describe('typing focus', () => {
     expect(isTyping()).toBe(true);
     input.remove();
     expect(isTyping()).toBe(false);
+  });
+});
+
+describe('detached NPC prompts', () => {
+  function promptProbe() {
+    const { scene, internals } = probe();
+    scene.init();
+    const chain = () => {
+      const object = { alpha: 0, visible: false, x: 0, y: 0, texture: { key: '' },
+        setAlpha: vi.fn((value: number) => { object.alpha = value; return object; }),
+        setVisible: vi.fn((value: boolean) => { object.visible = value; return object; }),
+        setScale: vi.fn(() => object), setDisplaySize: vi.fn(() => object), setText: vi.fn(() => object),
+        setTexture: vi.fn((key: string) => { object.texture.key = key; return object; }),
+        setPosition: vi.fn((x: number, y: number) => { object.x = x; object.y = y; return object; }),
+      };
+      return object;
+    };
+    const root = chain(), icon = chain(), key = chain(), tab = chain();
+    const npc = { id: 'marta', x: 200, y: 300, artScale: 80 / 426, figure: { width: 384 },
+      name: { y: -92, width: 42, height: 20 }, prompt: { root, icon, tab, key, verb: { ...chain(), width: 54 } },
+    } as unknown as Character;
+    const state = scene as unknown as {
+      controlsEnabled: boolean; nearbyInteraction?: string; mobileCamera: boolean; watching: boolean; editing: boolean;
+      terrainOnly: boolean; conversationTarget?: string; cinematicTarget?: object;
+      characters: Map<string, Character>; updateCharacterPrompt(npc: Character, seconds: number): void;
+    };
+    state.controlsEnabled = true; state.nearbyInteraction = 'marta'; state.characters.set('marta', npc);
+    return { scene, internals, state, npc, root, key, icon };
+  }
+
+  it('clears the whole name and stays above a player standing below the NPC', () => {
+    const { state, npc, root, key } = promptProbe();
+    state.updateCharacterPrompt(npc, .12);
+    expect(root.visible).toBe(true);
+    expect(root.y + 12).toBeLessThan(npc.y + npc.name.y - npc.name.height / 2);
+    expect(key.setText).toHaveBeenCalledWith('E');
+    state.nearbyInteraction = 'door';
+    state.updateCharacterPrompt(npc, .12);
+    expect(root.visible).toBe(false);
+    npc.hovered = true;
+    state.updateCharacterPrompt(npc, .12);
+    expect(root.visible).toBe(true);
+    state.mobileCamera = true;
+    state.updateCharacterPrompt(npc, .12);
+    expect(key.visible).toBe(false);
+  });
+
+  it.each(['watching', 'terrainOnly', 'editing', 'conversationTarget', 'cinematicTarget'] as const)('hides immediately during %s', mode => {
+    const { state, npc, root } = promptProbe();
+    state.updateCharacterPrompt(npc, .12);
+    expect(root.visible).toBe(true);
+    Object.assign(state, { [mode]: mode === 'conversationTarget' ? 'marta' : mode === 'cinematicTarget' ? {} : true });
+    state.updateCharacterPrompt(npc, 0);
+    expect(root.visible).toBe(false);
+    expect(root.alpha).toBe(0);
+  });
+
+  it('clears detached prompts before a disabled scene can pause without another frame', () => {
+    const { scene, state, npc, root } = promptProbe();
+    state.updateCharacterPrompt(npc, .12);
+    expect(root.visible).toBe(true);
+    scene.clearControls();
+    expect(root.visible).toBe(false);
+    expect(root.alpha).toBe(0);
   });
 });

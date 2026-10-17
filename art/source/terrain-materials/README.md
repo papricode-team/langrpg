@@ -9,3 +9,18 @@ The exporter keeps its periodic-overlap algorithm, including exact decoded bound
 Export: `node scripts/prepare-terrain-materials.mjs --art-only`. Check: `node scripts/check-terrain-materials.mjs`. Without the flag the normal catalogue-writing behaviour remains. All decoded outer edges still match exactly. Comparisons: `docs/audits/visual-style/terrain-after-materials.jpg`; actual runtime repeats: `terrain-after-repeat.jpg` in the same directory.
 
 The renderer samples one global `canal-masonry` for kerbs, copings and canal walls. The repaint warms those joins, but per-town wall materials and further contour wear need a renderer change outside this asset pass.
+
+## Town planting pass 2 — 2026-10-17
+
+Only `meadow.png` and `canal-grass.png` were repainted in this pass, using built-in
+ImageGen to replace yellow highlights with deeper leaf greens around `#5f7d4a`.
+Their exact sibling `*-style-prompt.txt` files and the manifest/style-review
+selection entries describe the replacements. All other material masters are retained.
+Native resolution stays 1254 × 1254; the periodic export stays 1152 × 1152.
+
+For an isolated repaint, `node scripts/prepare-terrain-materials.mjs
+--only=meadow,canal-grass --art-only` exports just those two runtime textures and
+thumbnails. Without `--art-only`, a filtered export updates only the selected
+catalogue entries. `check-terrain-materials.mjs --report=<path>` can write a
+pass-specific seam report. Neither filtering nor report selection changes the
+zero-difference seam requirement or the 2 MB runtime budget.

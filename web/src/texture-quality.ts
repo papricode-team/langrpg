@@ -29,6 +29,8 @@ function patchPhaser(): void {
   loader.addFile = function (file) {
     for (const item of Array.isArray(file) ? file : [file]) {
       if ((item.type !== 'image' && item.type !== 'spritesheet') || typeof item.url !== 'string' || !webglActive()) continue;
+      // Foreground cutscene art needs its native pixels even on Low/Retina.
+      if (tieredAsset(item.url)?.rel === 'story-cast/greenhouse-train.webp') continue;
       item.url = qualityUrl(item.url, 'low');
       const asset = tieredAsset(item.url);
       if (!asset) continue;
@@ -57,7 +59,7 @@ function adopt(source: Phaser.Textures.TextureSource): void {
   const image = source.image;
   if (typeof HTMLImageElement === 'undefined' || !(image instanceof HTMLImageElement)) return;
   const asset = imageAssets.get(image) ?? tieredAsset(image.src);
-  if (!asset) return;
+  if (!asset || asset.rel === 'story-cast/greenhouse-train.webp') return;
   const [width, height] = logicalSize(asset.rel)!;
   source.width = width; source.height = height;
   sources.set(source, asset);

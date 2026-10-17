@@ -1,0 +1,79 @@
+{
+  "after": {
+    "objects": 241,
+    "buildings": 27,
+    "materials": [
+      {
+        "id": "meadow",
+        "share": 0.047878755281448145
+      },
+      {
+        "id": "moss",
+        "share": 0.007848269738000799
+      },
+      {
+        "id": "cobble",
+        "share": 0.053053212248916994
+      },
+      {
+        "id": "limestone",
+        "share": 0.661644145260521
+      },
+      {
+        "id": "deep-water",
+        "share": 0.07639926078181779
+      },
+      {
+        "id": "town-cobble",
+        "share": 0.15319435553413505
+      }
+    ],
+    "pavedShareOfDryLand": 0.9396827830370013
+  },
+  "before": {
+    "objects": 153,
+    "buildings": 16,
+    "materials": [
+      {
+        "id": "meadow",
+        "share": 0.582444025174478
+      },
+      {
+        "id": "moss",
+        "share": 0.11685075055534522
+      },
+      {
+        "id": "cobble",
+        "share": 0.1282345277605816
+      },
+      {
+        "id": "limestone",
+        "share": 0.08506929027953401
+      },
+      {
+        "id": "gravel",
+        "share": 0.011003410992021099
+      },
+      {
+        "id": "deep-water",
+        "share": 0.07639926078181779
+      }
+    ],
+    "pavedShareOfDryLand": 0.2309480806832993
+  },
+  "otherTownsUnchanged": true,
+  "existingIdentitiesRetained": true,
+  "canalWeightsAndBridgesUnchanged": true,
+  "movedStoryFeet": [
+    {
+      "id": "emil",
+      "x": 580,
+      "y": 1140
+    },
+    {
+      "id": "lindenhafen-workbench",
+      "x": 655,
+      "y": 1140
+    }
+  ]
+}

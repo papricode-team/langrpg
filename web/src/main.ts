@@ -65,6 +65,8 @@ import './interiors.css';
 import './quest-cta.css';
 import './story-mechanics.css';
 import './hud.css';
+import './hud-layout.css';
+import { hudNavigationMarkup, hudChapterMarkup, minimapMarkup, updateMinimapPlayer, type HudChapter } from './hud-layout';
 import { World } from './world';
 import type { Avatar, WorldPlayer, WorldPresentation } from './world';
 import { quests, npcs, vocabulary } from './content';
@@ -359,7 +361,9 @@ function completedAtLevel(l: Level) { return quests.filter(q => q.level === l &&
 function toast(message: string, bad = false) {
   notifications?.notify(message, bad);
 }
+let stopHudFrames: (() => void) | undefined;
 function renderShell() {
+  stopHudFrames?.();
   shellLanguage = baseLanguage();
   screenFilterControls?.destroy();
   app.innerHTML = `
@@ -368,12 +372,11 @@ function renderShell() {
       <div class="world-vignette" aria-hidden="true"></div>
       <div class="game-hud" id="game-hud">
         <div class="access-hud" id="access-hud" hidden><span class="access-clock-icon">${icon('clock')}</span><div><span id="access-label">Free play</span><strong id="access-time" role="timer">05:00</strong></div><button type="button" id="access-button">Login</button><button type="button" id="access-invite" hidden>Invite a friend</button></div>
-        <div class="player-hud"><button class="player-medallion" data-view="character" aria-label="${e(t('Edit your character'))}">${portrait('self')}<span class="medallion-gem" aria-hidden="true"></span></button><div class="player-details"><span class="player-name" id="profile-name">${e(profile.name)}</span><span class="player-meta"><span id="hud-level">A1 · ${e(titleLabel('Wanderer'))}</span><span class="xp-badge"><strong id="xp-value">0</strong> XP</span></span><span class="player-progress" role="progressbar" id="chapter-progress" aria-label="${e(t('Chapter stories discovered'))}" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0"><span id="chapter-fill"></span></span></div></div>
-        <div class="location-banner" id="location-banner"><span class="location-title" id="location-title">${e(getMap(mapId).name)}</span><span class="location-subtitle" id="location-subtitle">${e(localized(getMap(mapId).subtitle))}</span></div>
+        <div class="player-hud"><button class="player-medallion" data-view="character" aria-label="${e(t('Edit your character'))}">${portrait('self')}<span class="medallion-gem" aria-hidden="true"></span></button><div class="player-details"><span class="player-name" id="profile-name">${e(profile.name)}</span><span class="player-title" id="hud-title">${e(t('Wanderer of the Atlas'))}</span><span class="player-meta"><span id="hud-level">A1</span><span class="xp-badge"><strong id="xp-value">0</strong> XP</span></span><span class="player-progress" role="progressbar" id="chapter-progress" aria-label="${e(t('Chapter stories discovered'))}" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0"><span id="chapter-fill"></span></span></div></div>
+        <div class="location-banner" id="location-banner"><span class="hud-compass-ribbon" aria-hidden="true">W <b>· N ·</b> E</span><span class="location-title" id="location-title">${e(getMap(mapId).name)}</span><span class="location-subtitle" id="location-subtitle">${e(localized(getMap(mapId).subtitle))}</span></div>
         <aside class="quest-tracker" id="quest-tracker" aria-label="${e(t('Next story objective'))}"><div id="quest-panel"></div></aside>
 
-        <div class="game-controls-hint" hidden><kbd>WASD</kbd><span>${t('Move')}</span><b>·</b><kbd>E</kbd><span>${t('Interact')}</span><b>·</b><kbd>M</kbd><span>${t('Atlas')}</span></div>
-        <button type="button" class="game-menu-button game-menu-sprite" data-view="menu" aria-label="${e(t('Open game menu'))}"><img class="menu-button-art" src="/assets/ui/menu-button-v1.webp" width="64" height="64" alt="" aria-hidden="true" draggable="false"/><span>${t('Menu')}</span><kbd class="menu-keyboard-glyph" aria-hidden="true">Esc</kbd><i id="review-dot" hidden></i></button>
+        ${hudNavigationMarkup(prefs.muted)}
         <div class="admin-world-controls">
           <button type="button" class="world-edit-button" id="world-edit-button" data-action="edit-world" aria-pressed="false" hidden>Edit</button>
           <a class="admin-analytics-link" id="admin-analytics-link" href="/admin.html" target="_blank" rel="noopener" hidden>Admin</a>
@@ -408,6 +411,10 @@ function renderShell() {
     onBarkShown: bark => { if (bark.wordIds.length) wordExposure.record({wordIds:bark.wordIds}); },
     onCinematicLine: (speaker,german,clipId) => { if(!prefs.silentMode&&!prefs.muted)speak(german,speaker,clipId); },
     onCinematicEnd: stopSpeech,
+  });
+  stopHudFrames = world.onFrame(() => {
+    const scene = sceneDocument.maps[mapId];
+    if (scene && !interiorId) updateMinimapPlayer(document, world.getPlayerPosition(), scene.width, scene.height);
   });
   mechanicsUi?.stop();
   mechanicsUi = new StoryMechanicsUi({
@@ -518,6 +525,8 @@ function syncLocation() {
   if (room) shell.dataset.interior = room.id;
   else delete shell.dataset.interior;
   showArrival(room?.name ?? region.name, room ? t('Inside {place}', { place: region.name }) : localized(region.subtitle));
+  refreshHudMap();
+  updateLocalHud();
   document.querySelector('#watch-region')!.textContent = room?.name ?? region.name;
   document.querySelector('#explore-view')!.setAttribute('aria-label', room ? t('{place} interior', { place: room.name }) : region.name);
 
@@ -711,16 +720,16 @@ function updateProgress() {
   const objective = finished ? nextAct ? t('Travel to {place}',{place:getMap(nextAct.mapId).name}) : t('Read your discoveries') : investigation ? t('Inspect {name}',{name:findObject(investigationWorldId(investigation))?.label??t('the evidence')}) : t('Speak with {name}',{name:localizedName(npc.name)});
   document.querySelector('#quest-panel')!.innerHTML = interiorId
     ? storyBeacon({ attributes: 'data-action="leave-interior"', glyph: 'arrow', label: getMap(mapId).name, text: t('Leave {name}', { name: getInterior(interiorId, mapId).name }), quiet: true })
-    : storyBeacon({ attributes: 'data-action="next-objective"', glyph: finished ? 'map' : 'flag', label: finished ? t('Chapter complete') : t('Follow the story'), text: objective, bell: savedStory.bell > 0 && savedStory.bell < 7 ? savedStory.bell : undefined, cracks: (savedStory as { inkWarnings?: number }).inkWarnings ?? 0 });
+    : storyBeacon({ attributes: 'data-action="next-objective"', glyph: finished ? 'map' : 'flag', label: finished ? t('Chapter complete') : t('Follow the story'), text: objective, chapter: { chapter: `${t('Chapter {number}', { number: ['A1', 'A2', 'B1'].indexOf(q.level) + 1 })} · ${q.level}`, title: localized(q.title), summary: localized(q.objectives[0] ?? q.subtitle), done, total, reward: finished ? 0 : q.reward }, bell: savedStory.bell > 0 && savedStory.bell < 7 ? savedStory.bell : undefined, cracks: (savedStory as { inkWarnings?: number }).inkWarnings ?? 0 });
   updateFadingNameChip();
   document.querySelector<HTMLElement>('#review-dot')!.hidden = !dueItems(progress).length;
   if (view === 'journal' || view === 'quests' || view === 'story' || view === 'menu') refreshLearningMenu(document.querySelector<HTMLElement>('#other-view')!,renderOther);
 }
 /** The next story step is the one golden action over the world; indoors it quietens to a way back out. */
-function storyBeacon(options: { attributes: string; glyph: string; label: string; text: string; bell?: number; quiet?: boolean; cracks?: number }): string {
-  const { attributes, glyph, label, text, bell, quiet, cracks } = options;
+function storyBeacon(options: { attributes: string; glyph: string; label: string; text: string; bell?: number; quiet?: boolean; cracks?: number; chapter?: HudChapter }): string {
+  const { attributes, glyph, label, text, bell, quiet, cracks, chapter } = options;
   const cracked = cracks ? ` cracked" title="${e(t('A name in town is lost. Say it again to heal the bell.'))}` : '';
-  return `<button class="story-beacon${quiet ? ' quiet' : ''}" ${attributes}><span class="beacon-mark" aria-hidden="true">${quiet ? '' : '<span class="quest-spark"></span>'}${icon(glyph)}</span><span class="beacon-copy"><span class="beacon-label">${e(label)}</span><strong class="objective-text">${e(text)}</strong></span>${bell ? `<span class="objective-bell${cracked}" aria-label="${e(cracks ? t('The seventh bell, cracked by a lost name') : t('The seventh bell'))}">${icon('clock')}${bell}/7</span>` : ''}${quiet ? '' : icon('chevron', 'beacon-chevron')}</button>`;
+  return `<button class="story-beacon${quiet ? ' quiet' : ''}${chapter ? ' hud-chapter-card' : ''}" ${attributes}><span class="beacon-mark" aria-hidden="true">${quiet ? '' : '<span class="quest-spark"></span>'}${icon(glyph)}</span><span class="beacon-copy"><span class="beacon-label">${e(label)}</span><strong class="objective-text">${e(text)}</strong></span>${bell ? `<span class="objective-bell${cracked}" aria-label="${e(cracks ? t('The seventh bell, cracked by a lost name') : t('The seventh bell'))}">${icon('clock')}${bell}/7</span>` : ''}${quiet ? '' : icon('chevron', 'beacon-chevron')}${chapter ? hudChapterMarkup(chapter) : ''}</button>`;
 }
 /** The player's own name pales on the ticket; a small chip offers to say it. */
 function updateFadingNameChip() {
@@ -735,11 +744,43 @@ function updateFadingNameChip() {
 function updatePlayerHud(title: string) {
   const done = completedAtLevel(level), total = quests.filter(item => item.level === level).length || 1;
   document.querySelector('#profile-name')!.textContent = profile.name;
-  document.querySelector('#hud-level')!.textContent = `${level} · ${title}`;
+  document.querySelector('#hud-level')!.textContent = `${activeCourse?.title ?? t('German')} · ${level}`;
+  document.querySelector('#hud-title')!.textContent = title === titleLabel('Wanderer') ? t('Wanderer of the Atlas') : title;
+  const due = dueItems(progress).length;
+  document.querySelector<HTMLElement>('#hud-revisit')!.hidden = !due;
+  document.querySelector('#hud-revisit-label')!.textContent = t('{count} words ready to revisit', { count: due });
+  refreshHudMap();
   document.querySelector('#xp-value')!.textContent = String(progress.xp);
   document.querySelector<HTMLElement>('#chapter-fill')!.style.width = `${Math.round(done / total * 100)}%`;
   const bar = document.querySelector<HTMLElement>('#chapter-progress')!;
   bar.setAttribute('aria-valuenow', String(done)); bar.setAttribute('aria-valuemax', String(total));
+}
+function refreshHudMap() {
+  const host = document.querySelector<HTMLElement>('#hud-minimap');
+  if (!host) return;
+  host.hidden = !!interiorId;
+  const scene = sceneDocument.maps[mapId];
+  if (!scene || interiorId) return;
+  const region = getMap(mapId);
+  const residents = scene.npcs.flatMap(anchor => {
+    const npc = npcs.find(item => item.id === anchor.id) ?? getExpedition(mapId)?.npcs.find(item => item.id === anchor.id);
+    return npc ? [{ ...anchor, name: localizedName(npc.name) }] : [];
+  });
+  // Rebuild only when the published anchors, language or town change; frame updates preserve focus.
+  const signature = JSON.stringify([mapId, scene.width, scene.height, residents]);
+  if (host.dataset.mapSignature !== signature) {
+    host.innerHTML = minimapMarkup({ name: region.name, previewAsset: region.previewAsset, width: scene.width, height: scene.height, npcs: residents });
+    host.dataset.mapSignature = signature;
+  }
+  updateMinimapPlayer(host, world.getPlayerPosition(), scene.width, scene.height);
+}
+function updateLocalHud() {
+  const place = document.querySelector('#hud-local-place');
+  const status = document.querySelector('#hud-local-status');
+  if (!place || !status) return;
+  place.textContent = interiorId ? getInterior(interiorId, mapId).name : getMap(mapId).name;
+  const others = players.filter(player => player.id !== api.selfId && (!player.mapId || player.mapId === mapId) && player.interiorId === interiorId);
+  status.textContent = connection !== 'online' ? t('Reconnecting') : others.length ? others.map(player => player.name).join(' · ') : t('You are exploring this place.');
 }
 function syncTrackerState() { /* The objective chip opens a focused encounter instead of expanding across the world. */ }
 let arrivalTimer: ReturnType<typeof setTimeout> | undefined;
@@ -1931,7 +1972,7 @@ function bindGlobalEvents() {
       case 'login-account': accountEntry.showLogin(); break;
       case 'logout-account': accountEntry.showLogout(); break;
       case 'reset-game': accessSession.showResetGame(); break;
-      case 'sound': prefs.muted = !prefs.muted; localStorage.setItem('atlas.muted', String(prefs.muted)); world.setAudioPreferences({ silent: prefs.silentMode, muted: prefs.muted });  if (!prefs.muted) playCue(true); if (view === 'settings') renderOther(); break;
+      case 'sound': { prefs.muted = !prefs.muted; localStorage.setItem('atlas.muted', String(prefs.muted)); world.setAudioPreferences({ silent: prefs.silentMode, muted: prefs.muted });  if (!prefs.muted) playCue(true); const soundButton = document.querySelector<HTMLButtonElement>('#hud-sound'); if (soundButton) { soundButton.setAttribute('aria-pressed', String(!prefs.muted)); soundButton.innerHTML = icon(prefs.muted ? 'muted' : 'volume'); } if (view === 'settings') renderOther(); break; }
     }
   });
   document.querySelector<HTMLDialogElement>('#dialog')!.addEventListener('cancel', () => { cancelRun(); pendingDestination = undefined; });
@@ -2140,13 +2181,14 @@ async function boot() {
   }
 }
 function updateConnection() {
+  updateLocalHud();
   const close = document.querySelector<HTMLElement>('.menu-close');
   if (!close) return;
   close.querySelector('.connection-dot')?.remove();
   if (connection !== 'online') close.insertAdjacentHTML('beforeend', `<span class="connection-dot" role="status" aria-label="${e(connection === 'incompatible' ? t('Reload to continue') : connection === 'replaced' ? t('Active in another tab') : t('Reconnecting'))}"></span>`);
 }
 document.addEventListener('visibilitychange', () => { accessSession.syncActivity(); accessSession.updateHud(); void accessSession.sendHeartbeat(accessSession.isActive()); accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online' && !document.querySelector<HTMLDialogElement>('#account-dialog')?.open); syncWorldMode(); if (document.hidden) { if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;pendingExerciseChoice=undefined;} activityController?.pause(); miniGameController?.pause(); deliveryController?.pause(); stopSpeech(); } else if(!accessBlocked(accessClock.snapshot(performance.now())) && !document.querySelector<HTMLDialogElement>('#account-dialog')?.open) { activityController?.resume(); miniGameController?.resume(); deliveryController?.resume(); } if (!document.hidden && regionReady) onRegionReady(mapId); });
-window.addEventListener('beforeunload', () => { notifications?.destroy(); removeFormNotifications?.(); removeSentenceTranslations(); stopUpdateChecks?.(); removeUpdateNotice?.(); wordExposure.destroy(); if (reminderTimer !== undefined) clearInterval(reminderTimer); accessSession.destroy(); accountReminder?.tick(performance.now(), false); screenFilterControls?.destroy(); activityController?.destroy(); stopSpeech(); api.destroy(); world?.destroy(); });
+window.addEventListener('beforeunload', () => { stopHudFrames?.(); notifications?.destroy(); removeFormNotifications?.(); removeSentenceTranslations(); stopUpdateChecks?.(); removeUpdateNotice?.(); wordExposure.destroy(); if (reminderTimer !== undefined) clearInterval(reminderTimer); accessSession.destroy(); accountReminder?.tick(performance.now(), false); screenFilterControls?.destroy(); activityController?.destroy(); stopSpeech(); api.destroy(); world?.destroy(); });
 void boot();
 
 mountSupportBanner();
