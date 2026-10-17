@@ -144,9 +144,13 @@
   50% { box-shadow:0 0 12px #ffd98ac0; }
 }
 
-/* The town card: where you are, what the place is like, and where you can step inside. */
+/* The town card: where you are, what the place is like, and where you can step inside.
+   Beside the hero it takes the hero's height and never sets it, so a town with many
+   rooms cannot push the story action below the fold; its places scroll instead. */
 .journey-town {
   grid-area:town;
+  contain:size;
+  min-height:0;
   display:flex;
   flex-direction:column;
   gap:18px;
@@ -194,7 +198,16 @@
 .journey-places {
   display:flex;
   flex-wrap:wrap;
+  align-content:flex-start;
   gap:8px;
+  flex:0 1 auto;
+  min-height:0;
+  overflow-y:auto;
+  /* Room for the focus ring inside the scroll area. */
+  margin:-4px;
+  padding:4px;
+  scrollbar-width:thin;
+  scrollbar-color:#d8bb8060 transparent;
 }
 
 .journey-places>button {
@@ -362,6 +375,12 @@
   }
   .journey-hero {
     min-height:400px;
+  }
+  .journey-town {
+    contain:none;
+  }
+  .journey-places {
+    overflow:visible;
   }
   .journey-tools {
     grid-template-columns:repeat(2,minmax(0,1fr));
