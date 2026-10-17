@@ -1,5 +1,13 @@
 /** German interface support for the introductory English course. */
 export const germanUi: Record<string, string> = {
+  'Fading names': 'Verblassende Namen',
+  'The lamp leans toward a fading name': 'Die Laterne weist auf einen verblassenden Namen hin',
+  'How fading names work': 'So funktionieren verblassende Namen',
+  'Names written around town fade as you play. You can bring them back, even after the ink disappears.': 'Geschriebene Namen in der Stadt verblassen beim Spielen. Du kannst sie zurückbringen, auch wenn die Tinte schon verschwunden ist.',
+  'Follow the lamp: the bar fills as you get closer to fading writing or a forgotten ticket name. With sound on, the lamp also hums. An empty bar means no signal here.': 'Folge der Laterne: Der Balken füllt sich, wenn du dich einer verblassenden Schrift oder einem vergessenen Namen auf einer Fahrkarte näherst. Bei eingeschaltetem Ton summt die Laterne auch. Ein leerer Balken bedeutet, dass es hier kein Signal gibt.',
+  'Inspect the writing or ticket. Type the name in the answer box, using the hint if you need it, then choose “Say it”. A correct answer brings the name back.': 'Untersuche die Schrift oder die Fahrkarte. Schreibe den Namen ins Antwortfeld, nutze bei Bedarf den Hinweis und wähle dann „Sag es“. Eine richtige Antwort bringt den Namen zurück.',
+  'No microphone is needed. You can say the name aloud for practice.': 'Du brauchst kein Mikrofon. Zum Üben kannst du den Namen laut sagen.',
+  'Keep exploring': 'Weiter erkunden',
   "Feed chicken": "Huhn füttern",
   "Pet dog": "Hund streicheln",
   "Pet cat": "Katze streicheln",

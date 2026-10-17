@@ -46,9 +46,9 @@ describe('town minimap coordinate frame', () => {
 });
 
 describe('backed HUD actions and progress', () => {
-  it('routes dock items to existing pages and preserves the muted state', () => {
+  it('keeps only Atlas in the dock and preserves the muted state', () => {
     const root = document.createElement('div'); root.innerHTML = hudNavigationMarkup(true);
-    expect([...root.querySelectorAll('.hud-dock button')].map(button => (button as HTMLElement).dataset.view)).toEqual(['quests', 'journal', 'atlas', 'character', 'settings']);
+    expect([...root.querySelectorAll('.hud-dock button')].map(button => (button as HTMLElement).dataset.view)).toEqual(['atlas']);
     expect(root.querySelector('#hud-sound')?.getAttribute('aria-pressed')).toBe('false');
     expect(root.querySelector('#hud-revisit')?.hasAttribute('hidden')).toBe(true);
     expect(root.querySelector('#hud-local-status')?.textContent).toBe('');
