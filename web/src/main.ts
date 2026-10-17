@@ -395,7 +395,7 @@ function renderShell() {
       <div class="game-hud" id="game-hud">
         <div class="access-hud" id="access-hud" hidden><span class="access-clock-icon">${icon('clock')}</span><div><span id="access-label">Free play</span><strong id="access-time" role="timer">05:00</strong></div><button type="button" id="access-button">Login</button><button type="button" id="access-invite" hidden>Invite a friend</button></div>
         <div class="player-hud"><button class="player-medallion" data-view="character" aria-label="${e(t('Edit your character'))}">${portrait('self')}<span class="medallion-gem" aria-hidden="true"></span></button><div class="player-details"><span class="player-name" id="profile-name">${e(profile.name)}</span><span class="player-title" id="hud-title">${e(t('Wanderer of the Atlas'))}</span><span class="player-meta"><span id="hud-level">A1</span><span class="xp-badge"><strong id="xp-value">0</strong> XP</span></span><span class="player-progress" role="progressbar" id="chapter-progress" aria-label="${e(t('Chapter stories discovered'))}" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0"><span id="chapter-fill"></span></span></div></div>
-        <div class="location-banner" id="location-banner"><span class="hud-compass-ribbon" aria-hidden="true">W <b>· N ·</b> E</span><span class="location-title" id="location-title">${e(getMap(mapId).name)}</span><span class="location-subtitle" id="location-subtitle">${e(localized(getMap(mapId).subtitle))}</span></div>
+        <div class="location-banner" id="location-banner"><span class="location-title" id="location-title">${e(getMap(mapId).name)}</span><span class="location-subtitle" id="location-subtitle">${e(localized(getMap(mapId).subtitle))}</span></div>
         <aside class="quest-tracker" id="quest-tracker" aria-label="${e(t('Next story objective'))}"><div id="quest-panel"></div></aside>
 
         ${hudNavigationMarkup(prefs.muted)}
@@ -745,7 +745,6 @@ function updateProgress() {
 
     world.setObjective(interiorId ? undefined : expedition.npcs.find(npc => !expeditionEncounterResult(npc.encounterId)?.correct)?.id);
     document.querySelector('#quest-panel')!.innerHTML = storyBeacon({ attributes: `data-expedition-game="${expedition.id}"`, glyph: status === 'completed' ? 'check' : 'compass', label: expedition.name, text: game.title });
-    document.querySelector<HTMLElement>('#review-dot')!.hidden = !dueItems(progress).length;
     if (['journal', 'quests', 'story', 'menu'].includes(view)) refreshLearningMenu(document.querySelector<HTMLElement>('#other-view')!,renderOther);
     return;
   }
@@ -772,7 +771,6 @@ function updateProgress() {
     ? storyBeacon({ attributes: 'data-action="leave-interior"', glyph: 'arrow', label: getMap(mapId).name, text: t('Leave {name}', { name: getInterior(interiorId, mapId).name }), quiet: true })
     : storyBeacon({ attributes: 'data-action="next-objective"', glyph: finished ? 'map' : 'flag', label: finished ? t('Chapter complete') : t('Follow the story'), text: objective, chapter: { chapter: `${t('Chapter {number}', { number: ['A1', 'A2', 'B1'].indexOf(q.level) + 1 })} · ${q.level}`, title: localized(q.title), summary: localized(q.objectives[0] ?? q.subtitle), done, total, reward: finished ? 0 : q.reward }, bell: savedStory.bell > 0 && savedStory.bell < 7 ? savedStory.bell : undefined, cracks: (savedStory as { inkWarnings?: number }).inkWarnings ?? 0 });
   updateFadingNameChip();
-  document.querySelector<HTMLElement>('#review-dot')!.hidden = !dueItems(progress).length;
   if (view === 'journal' || view === 'quests' || view === 'story' || view === 'menu') refreshLearningMenu(document.querySelector<HTMLElement>('#other-view')!,renderOther);
 }
 /** The next story step is the one golden action over the world; indoors it quietens to a way back out. */

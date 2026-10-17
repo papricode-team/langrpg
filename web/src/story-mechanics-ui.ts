@@ -35,6 +35,7 @@ export class StoryMechanicsUi {
   private hum?: { context: AudioContext; oscillator: OscillatorNode; gain: GainNode };
   private busy = false;
   private meter?: HTMLElement;
+  private lampReadout?: HTMLElement;
 
   constructor(private options: StoryMechanicsUiOptions) {}
 
@@ -68,11 +69,9 @@ export class StoryMechanicsUi {
     this.meter = document.createElement('div');
     this.meter.className = 'lamp-meter';
     this.meter.hidden = true;
-    this.meter.setAttribute('role', 'meter');
-    this.meter.setAttribute('aria-valuemin', '0');
-    this.meter.setAttribute('aria-valuemax', '100');
-    this.meter.setAttribute('aria-label', t('The lamp leans toward a fading name'));
-    this.meter.innerHTML = `<img class="lamp-meter-art" src="/assets/ui/lantern-meter-v1.webp" width="80" height="160" alt="" aria-hidden="true" draggable="false"/><span class="lamp-meter-readout" aria-hidden="true"><span class="lamp-meter-label">${e(t('Fading names'))}</span><span class="lamp-meter-bar"><span></span></span><span class="lamp-meter-scale"></span></span>`;
+    this.meter.innerHTML = `<img class="lamp-meter-art" src="/assets/ui/lantern-meter-v1.webp" width="80" height="160" alt="" aria-hidden="true" draggable="false"/><span class="lamp-meter-readout"><span class="lamp-meter-label" aria-hidden="true">${e(t('Fading names'))}</span><span class="lamp-meter-bar" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="${e(t('The lamp leans toward a fading name'))}"><span></span></span><span class="lamp-meter-scale" aria-hidden="true"></span></span><button class="lamp-meter-help" type="button" aria-haspopup="dialog" aria-label="${e(t('How fading names work'))}" title="${e(t('How fading names work'))}"><span aria-hidden="true">?</span></button>`;
+    this.lampReadout = this.meter.querySelector<HTMLElement>('[role="meter"]')!;
+    this.meter.querySelector('button')!.addEventListener('click', () => this.openHelp());
     hud.append(this.meter);
     this.timer = setInterval(() => this.push(), 4000);
     this.lampTimer = setInterval(() => this.updateLamp(), 250);
@@ -83,6 +82,7 @@ export class StoryMechanicsUi {
     if (this.lampTimer) clearInterval(this.lampTimer);
     this.meter?.remove();
     this.meter = undefined;
+    this.lampReadout = undefined;
     this.silence();
   }
 
@@ -92,10 +92,14 @@ export class StoryMechanicsUi {
     if (this.meter) {
       this.meter.hidden = !carried;
       this.meter.style.setProperty('--lamp', strength.toFixed(2));
-      this.meter.setAttribute('aria-valuenow', String(Math.round(strength * 100)));
+      this.lampReadout?.setAttribute('aria-valuenow', String(Math.round(strength * 100)));
       this.meter.classList.toggle('leaning', strength > .45);
     }
     this.setHum(strength);
+  }
+
+  private openHelp(): void {
+    this.options.openDialog(`<div class="help-dialog"><h2>${e(t('How fading names work'))}</h2><p>${e(t('Names written around town fade as you play. You can bring them back, even after the ink disappears.'))}</p><ol><li>${e(t('Follow the lamp: the bar fills as you get closer to fading writing or a forgotten ticket name. With sound on, the lamp also hums. An empty bar means no signal here.'))}</li><li>${e(t('Inspect the writing or ticket. Type the name in the answer box, using the hint if you need it, then choose “Say it”. A correct answer brings the name back.'))}</li></ol><p>${e(t('No microphone is needed. You can say the name aloud for practice.'))}</p><button class="primary-button" data-action="close-dialog">${e(t('Keep exploring'))}</button></div>`, 'lamp-help-dialog');
   }
 
   private setHum(strength: number): void {
