@@ -7,11 +7,13 @@ if(!['localhost','127.0.0.1','[::1]'].includes(new URL(url).hostname))throw Erro
 const authored=JSON.parse(await readFile(new URL('../content/source.json',import.meta.url),'utf8'));
 const meanings=new Map(authored.quests.filter(quest=>quest.level==='A0').flatMap(quest=>quest.exercises.map(exercise=>[exercise.german,exercise.english])));
 const phone=process.env.ATLAS_UI_VIEWPORT==='phone';
+const resumeOnly=process.env.ATLAS_PROLOGUE_RESUME_ONLY==='1';
 const directory=resolve('output/ui-screenshots',phone?'flow-phone':'flow-desktop');await mkdir(directory,{recursive:true});
 const b=await chromium.launch({...(process.env.ATLAS_CHROMIUM_PATH?{executablePath:process.env.ATLAS_CHROMIUM_PATH}:{})}),p=await b.newPage({viewport:phone?{width:390,height:844}:{width:1280,height:720}}),errors=[],attempts=[];
 p.on('response',async r=>{if(r.url().endsWith('/api/attempt')){const data=await r.json();if(data.correct===false)console.log('Attempt not accepted',r.status(),{correct:data.correct,reason:data.reason,error:data.error,answer:data.correctedAnswer});}});
 p.on('response',r=>{if(r.status()===429&&new URL(r.url()).pathname.startsWith('/api/content/'))errors.push('Content read limited: '+new URL(r.url()).pathname)});
 p.on('pageerror',e=>errors.push(e.stack));p.on('request',r=>{if(r.url().endsWith('/api/attempt'))attempts.push(r.postDataJSON())});
+async function checkFlow(){
 let ticketOpenedDirectly=false, bootstrapReads=0;
 p.on('response',r=>{if(new URL(r.url()).pathname==='/api/content/bootstrap')bootstrapReads++;});
 try{
@@ -78,6 +80,15 @@ try{
      await p.locator('[data-action="close-dialog"]').click();
      console.log('Phrase match saved:',phrase);
    }
+   if(index===1&&resumeOnly){
+     await p.reload();
+     await p.waitForSelector('.dialogue-line',{timeout:30000});
+     await p.waitForFunction(()=>window.atlasWorld?.isExploreReady(),{},{timeout:30000});
+     console.log('Saved train reload dismisses loading curtain: true');
+     await p.screenshot({path:resolve(directory,'live-prologue-resumed.png')});
+     if(errors.length)throw Error(errors.join('\n'));
+     return;
+   }
    if(index<6){await p.waitForTimeout(350);if(!await p.locator('.dialogue-line').isVisible())await p.locator('[data-action="prologue"]').first().click();await p.waitForSelector('.dialogue-line',{timeout:15000});}
  }
  await p.locator('[data-action="prologue"]').first().click();
@@ -91,3 +102,6 @@ try{
  console.log('Errors',errors);console.log('Lexical attempt modes',submissions.map(a=>a.mode));
  await p.screenshot({path:resolve(directory,'live-prologue-complete.png')});
 }catch(e){console.log('FLOW ERROR',e.message);console.log((await p.locator('body').innerText()).slice(-2300));console.log('Runtime errors',errors);await p.screenshot({path:resolve(directory,'live-prologue-debug.png')});process.exitCode=1;}finally{await b.close();}
+
+}
+await checkFlow();

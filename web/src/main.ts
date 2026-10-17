@@ -966,6 +966,14 @@ const loadedRegions = new Set<string>();
 const loadingRegions = new Set<string>();
 function onRegionReady(id: MapId) {
   if (!started || !mapConfirmed || id !== mapId || view !== 'world' || document.hidden || document.querySelector<HTMLDialogElement>('#account-dialog')!.open || document.querySelector<HTMLDialogElement>('#dialog')!.open) return;
+  // The train needs its own room and graph, not the town's encounters and routines.
+  // Load those when the player actually enters Lindenhafen.
+  if (pendingPrologue || !prologueBooted && localStorage.getItem(`atlas.prologue.${api.selfId}`) === 'true' && !storyQuestComplete(progress.completedQuestIds, 'a0-morgen')) {
+    if (cinematicActive || !worldCanInteract()) return;
+    const target = pendingPrologue; pendingPrologue = undefined; prologueBooted = true;
+    void startPrologue(target); return;
+  }
+  if (interiorId?.startsWith('train-')) return;
   if (!loadedRegions.has(id)) {
     if (!loadingRegions.has(id)) {
       loadingRegions.add(id);
@@ -975,11 +983,6 @@ function onRegionReady(id: MapId) {
   }
   if (cinematicActive) return;
   if (!worldCanInteract()) return;
-  if (pendingPrologue || !prologueBooted && localStorage.getItem(`atlas.prologue.${api.selfId}`) === 'true' && !storyQuestComplete(progress.completedQuestIds, 'a0-morgen')) {
-    const target = pendingPrologue; pendingPrologue = undefined; prologueBooted = true;
-    void startPrologue(target); return;
-  }
-  if (interiorId?.startsWith('train-')) return;
   if (pendingStoryBeat || pendingTravelBeat || id === 'lindenhafen' && !progress.completedQuestIds.includes('a1-arrival') && !progress.story?.flags['cinematic:arrival'] && !attemptedCinematics.has('arrival')) {
     // A beat that could not be shown waits for the next region-ready check instead of retrying at once.
     void playPendingCinematic().then(played => { if (played && id === mapId) onRegionReady(id); })
