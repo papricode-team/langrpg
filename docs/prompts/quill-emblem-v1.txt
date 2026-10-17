@@ -1,0 +1,13 @@
+Use case: stylized-concept
+Asset type: production transparent 2D game HUD icon for glotworld, a cozy hand-painted European village story RPG.
+Primary request: A small round brass medallion emblem marking "your turn to speak": a cream feather quill crossed over a tiny folded letter, set on a deep forest-green enamel disc inside a worn brass ring with a fine beaded edge. Elegant storybook inventory art, crisply readable at 48 pixels.
+Composition: single medallion centered in a square 1024 x 1024 canvas, fills about 88 percent, straight-on orthographic, simple large forms, strong silhouette.
+Materials: warm brass #c4a567, pale gold highlights #e8d39b, forest green enamel #1d4a3c, cream quill #f2e6c4. Soft light from upper left, hand-painted, no photorealism, no pixel art.
+Constraints: no letters or words on the letter, no background, no cast shadow outside the silhouette, no glow bloom, no watermark. Genuine alpha transparency.
+
+Generated with Codex's built-in image generation tool, transparent background.
+Original: art/ui/quill-emblem-v1.png
+Runtime: web/public/assets/ui/quill-emblem-v1.webp (128 x 127), shown at 64px beside the task on .dialogue-objective-emblem.
+
+Runtime export (Node with sharp):
+await sharp('art/ui/quill-emblem-v1.png').trim().resize({width:128}).webp({quality:75,alphaQuality:90,effort:6}).toFile('web/public/assets/ui/quill-emblem-v1.webp');

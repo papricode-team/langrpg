@@ -1,0 +1,13 @@
+Use case: stylized-concept
+Asset type: production 2D game UI art for glotworld, a cozy hand-painted European village story RPG with a premium, Blizzard/Hearthstone-quality painted interface in aged brass, deep forest-green enamel and warm ivory parchment.
+Primary request: A round icon-button bezel: a heavy aged-brass ring with a fine beaded inner edge, enclosing a deep forest-green convex enamel disc with a soft highlight at upper left. Used for close, help and audio buttons; the icon is drawn on top at runtime, so the disc centre is empty.
+Composition: 512 x 512, single ring centred, filling about 92 percent, straight-on, perfectly circular and symmetric.
+Materials: softly worn warm brass #c4a567, pale gold highlights #e8d39b, dark bronze #5b4520, deep forest green #16332d to #0f241e, emerald #2f7a5a, ivory parchment #efe2bf. Soft light from upper left, rich hand-painted edge highlights and gentle wear, no photorealism, no pixel art.
+Constraints: no letters, no words, no numbers, no watermark, no characters, no drop shadow outside the silhouette. Everything outside the object must be genuine alpha transparency.
+
+Generated with Codex's built-in image generation tool, transparent background.
+Original: art/ui/round-button-v1.png
+Runtime: web/public/assets/ui/round-button-v1.webp, drawn as a border-image (stretched to the button, on close, help, audio and the joystick).
+
+Runtime export (Node with sharp):
+await sharp(await sharp('art/ui/round-button-v1.png').trim().toBuffer()).resize({width:128}).webp({quality:72,alphaQuality:90,effort:6}).toFile('web/public/assets/ui/round-button-v1.webp');

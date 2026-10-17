@@ -168,11 +168,6 @@
   cursor:default
 }
 
-.departure-board button:focus-visible {
-  outline:3px solid #f2d48c;
-  outline-offset:3px
-}
-
 .departure-board-paused {
   opacity:.55
 }

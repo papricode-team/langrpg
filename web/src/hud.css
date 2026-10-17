@@ -5,8 +5,23 @@
   left:max(24px,env(safe-area-inset-left));
   display:flex;
   align-items:center;
-  gap:14px;
+  gap:36px;
+  height:96px;
+  padding:0 34px 0 13px;
+  isolation:isolate;
   pointer-events:none;
+}
+
+/* The painted nameplate: a portrait ring joined to an enamel plate. */
+.player-hud::before {
+  content:'';
+  position:absolute;
+  z-index:-1;
+  inset:0;
+  border:solid transparent;
+  border-width:0 18px 0 102px;
+  border-image:url('/assets/ui/nameplate-v1.webp') 0 30 0 170 fill / 0 18px 0 102px / 0 stretch;
+  filter:drop-shadow(0 6px 10px #020907b3);
 }
 
 .player-medallion {
@@ -17,26 +32,25 @@
   width:64px;
   height:64px;
   padding:0;
-  border:2px solid #d8bb80;
+  border:0;
   border-radius:50%;
   background:radial-gradient(circle at 50% 35%,#2f4f3f,#132a22);
-  box-shadow:0 0 0 3px #10211fcc,0 0 0 4px #d8bb8055,0 6px 18px #06140f80;
+  box-shadow:none;
   transition:box-shadow .18s ease,transform .18s ease;
 }
 
 .player-medallion .portrait {
-  width:56px;
-  height:56px;
+  width:64px;
+  height:64px;
 }
 
 .player-medallion:hover {
   transform:scale(1.04);
-  box-shadow:0 0 0 3px #10211fcc,0 0 0 4px #f0d49a,0 0 22px #f0d49a60;
+  box-shadow:0 0 22px #f0d49a80;
 }
 
 .player-medallion:focus-visible {
   outline:none;
-  box-shadow:0 0 0 3px #10211f,0 0 0 5px #fff3ce,0 0 24px #f0d49a90;
 }
 
 /* The gem takes the crest earned through the acts. */
@@ -58,14 +72,18 @@
 
 .player-details {
   display:grid;
-  gap:4px;
+  gap:3px;
   min-width:150px;
+  max-width:260px;
   text-shadow:0 1px 3px #061410d0;
 }
 
 .player-name {
-  color:#f8eed2;
-  font:400 var(--type-title)/1.15 'Fraunces',serif;
+  overflow:hidden;
+  color:#f6e2a8;
+  font:600 18px/1.3 'Fraunces',serif;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 
 .player-meta {
@@ -73,12 +91,12 @@
   align-items:center;
   gap:10px;
   color:#e7d29d;
-  font:600 var(--type-caption)/1.3 'DM Sans',sans-serif;
+  font:600 var(--type-caption)/1.1 'DM Sans',sans-serif;
   letter-spacing:.4px;
 }
 
 .xp-badge {
-  padding:2px 8px;
+  padding:1px 7px;
   border:1px solid #d8bb8066;
   border-radius:999px;
   color:#f6e6bb;
@@ -94,7 +112,7 @@
   position:relative;
   display:block;
   width:100%;
-  height:5px;
+  height:3px;
   overflow:hidden;
   border-radius:3px;
   background:#0c1c18b3;
@@ -118,29 +136,34 @@
   display:grid;
   justify-items:center;
   gap:2px;
-  max-width:min(440px,calc(100vw - 760px));
-  padding:6px 28px 10px;
+  max-width:min(520px,calc(100vw - 720px));
+  padding:13px 18px 17px;
   transform:translateX(-50%);
   text-align:center;
   pointer-events:none;
-  background:radial-gradient(ellipse at 50% 50%,#0a1a15a0,transparent 72%);
+  /* Parchment ribbon on a brass rod (art/ui/town-banner-v1.png). */
+  border:solid transparent;
+  border-width:0 44px;
+  border-image:url('/assets/ui/town-banner-v1.webp') 0 72 fill / 0 44px / 0 stretch;
+  background:#efe2bf content-box;
+  filter:drop-shadow(0 6px 10px #020907b3);
 }
 
 .location-title {
   display:flex;
   align-items:center;
   gap:14px;
-  color:#f8eed2;
-  font:400 var(--type-title)/1.2 'Fraunces',serif;
-  text-shadow:0 2px 8px #061410;
+  color:#2a2112;
+  font:600 var(--type-title)/1.2 'Fraunces',serif;
+  text-shadow:0 1px 0 #fff6dc;
   white-space:nowrap;
 }
 
 .location-title::before,.location-title::after {
   content:'';
-  width:44px;
+  width:18px;
   height:1px;
-  background:linear-gradient(90deg,transparent,#e7cf95);
+  background:linear-gradient(90deg,transparent,#8a6526);
 }
 
 .location-title::after {
@@ -148,11 +171,10 @@
 }
 
 .location-subtitle {
-  color:#e2d3ac;
-  font:600 var(--type-caption)/1.3 'DM Sans',sans-serif;
-  letter-spacing:.6px;
+  color:#7a5a22;
+  font:700 var(--type-caption)/1.3 'DM Sans',sans-serif;
+  letter-spacing:1.2px;
   text-transform:uppercase;
-  text-shadow:0 1px 4px #061410;
 }
 
 .location-subtitle:empty {
@@ -188,17 +210,19 @@
 
 @media (--phone) {
   .player-hud {
-    top:max(16px,env(safe-area-inset-top));
-    left:16px;
-    gap:10px;
+    top:max(12px,env(safe-area-inset-top));
+    left:12px;
+    gap:30px;
+    height:84px;
+    padding:0 26px 0 11px;
   }
-  .player-medallion {
-    width:48px;
-    height:48px;
+  .player-hud::before {
+    border-width:0 16px 0 89px;
+    border-image-width:0 16px 0 89px;
   }
-  .player-medallion .portrait {
-    width:42px;
-    height:42px;
+  .player-medallion,.player-medallion .portrait {
+    width:56px;
+    height:56px;
   }
   .player-details {
     min-width:0;
@@ -208,21 +232,24 @@
     font-size:var(--type-body);
   }
   .player-progress {
-    width:120px;
+    width:100%;
   }
 }
 
 @media (--short-landscape) {
   .player-hud {
     top:max(12px,env(safe-area-inset-top));
+    gap:26px;
+    height:72px;
+    padding:0 24px 0 10px;
   }
-  .player-medallion {
+  .player-hud::before {
+    border-width:0 14px 0 77px;
+    border-image-width:0 14px 0 77px;
+  }
+  .player-medallion,.player-medallion .portrait {
     width:48px;
     height:48px;
-  }
-  .player-medallion .portrait {
-    width:42px;
-    height:42px;
   }
   .player-name {
     font-size:var(--type-body);
@@ -264,7 +291,6 @@
   text-decoration:none;
 }
 .admin-analytics-link[hidden],.world-edit-button[hidden] { display:none; }
-.world-edit-button:focus-visible { outline:3px solid #f1deb0; outline-offset:3px; }
 .world-edit-button[aria-pressed=true] { background:#d4b97c; color:#152d25; font-weight:700; }
 
 /* The generated enamel sprite supplies its own frame and lighting. */

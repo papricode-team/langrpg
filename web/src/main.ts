@@ -118,6 +118,7 @@ import { loadExerciseExample, renderCourseExample } from './course-examples';
 import { miniGameDefinitions, miniGameById } from './minigames/catalogue';
 import type { MiniGame } from './minigames/types';
 import './minigames/minigames.css';
+import './ui-kit.css';
 import { MiniGameInput } from './minigames/input';
 import { isWordGame } from './minigames/word-game-mechanics';
 import { hostedGames, miniGameBlock, miniGameBlockLabel, miniGameBlockMessage, miniGameLevel, suggestedGame, type ReadinessContext } from './minigames/availability';
@@ -439,7 +440,6 @@ function renderShell() {
     games: npcId => hostedGames(npcId, miniGameById, miniGameReadiness(), gameDay()),
     onGame: id => void startMiniGame(id),
     onPractice: npcId => { const activity = activityInfo.find(item => item.npcId === npcId); if (activity) void startActivity(activity.id); else setView('journal'); },
-    onGrammarGuide: guideId => { courseLevel=guideId.split('-')[0].toUpperCase() as Level; courseTab='grammar'; setView('course'); void loadCourse().then(()=>{if(view!=='course')return;renderOther();document.querySelector<HTMLElement>(`[data-grammar-guide="${guideId}"]`)?.scrollIntoView({block:'start'});}).catch(error=>toast((error as Error).message,true)); },
   });
   world.setAudioPreferences({ silent: prefs.silentMode, muted: prefs.muted });
   world.setAvatar(profile.avatar);

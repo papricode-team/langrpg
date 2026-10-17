@@ -51,13 +51,16 @@ button:disabled {
   opacity:.48
 }
 
-button,a,input,select {
+/* Focus carries no painted ring; Windows high contrast still gets the system outline. */
+button,a,input,select,textarea,summary,[tabindex] {
   outline:none
 }
 
-:is(button,input,select,textarea,summary,a[href]):focus-visible {
-  outline:2px solid var(--gold-light);
-  outline-offset:4px
+@media (forced-colors:active) {
+  :is(button,a,input,select,textarea,summary,[tabindex]):focus-visible {
+    outline:2px solid Highlight;
+    outline-offset:3px
+  }
 }
 
 button {

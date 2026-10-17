@@ -1,0 +1,13 @@
+Use case: stylized-concept
+Asset type: production 2D game UI art for glotworld, a cozy hand-painted European village story RPG with a premium, Blizzard/Hearthstone-quality painted interface in aged brass, deep forest-green enamel and warm ivory parchment.
+Primary request: A selected-item marker for a vertical side menu: a horizontal deep-emerald silk ribbon that runs left to right and ends on the right in a swallowtail notch, with a brass clasp bar on its left end (a small vertical brass bar with two rivets). Subtle silk sheen and fold shading.
+Composition: 1024 x 192, straight-on. Brass clasp occupies the first 60 pixels, the swallowtail notch the last 70 pixels, the middle is uniform ribbon so it stretches horizontally. Ribbon fills about 80 percent of height, vertically centred.
+Materials: softly worn warm brass #c4a567, pale gold highlights #e8d39b, dark bronze #5b4520, deep forest green #16332d to #0f241e, emerald #2f7a5a, ivory parchment #efe2bf. Soft light from upper left, rich hand-painted edge highlights and gentle wear, no photorealism, no pixel art.
+Constraints: no letters, no words, no numbers, no watermark, no characters, no drop shadow outside the silhouette. Everything outside the object must be genuine alpha transparency.
+
+Generated with Codex's built-in image generation tool, transparent background.
+Original: art/ui/rail-ribbon-v1.png
+Runtime: web/public/assets/ui/rail-ribbon-v1.webp, drawn as a border-image (slice 0 50 0 44, width 0 34px 0 30px, on the selected side-menu page).
+
+Runtime export (Node with sharp):
+await sharp(await sharp('art/ui/rail-ribbon-v1.png').trim().toBuffer()).resize({height:72}).webp({quality:72,alphaQuality:90,effort:6}).toFile('web/public/assets/ui/rail-ribbon-v1.webp');

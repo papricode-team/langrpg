@@ -1,0 +1,13 @@
+Use case: stylized-concept
+Asset type: production 2D game UI art for glotworld, a cozy hand-painted European village story RPG with a premium, Blizzard/Hearthstone-quality painted interface in aged brass, deep forest-green enamel and warm ivory parchment.
+Primary request: A smaller, lighter nine-slice frame for content cards and sections. A thin aged-brass molding about 14 pixels thick with small, compact corner ornaments (a little brass leaf curl with a tiny round emerald stud at each corner). Inside the molding, a deep forest-green enamel panel with a very faint inner bevel and subtle darker vignette near the edge.
+Composition: 768 x 768, straight-on, perfectly symmetric on both axes, all four corners identical. Corner ornaments fit within 72 pixels of each canvas corner. Straight edges are a plain uniform molding running flush to the canvas edge so they stretch cleanly. Interior flat and featureless.
+Materials: softly worn warm brass #c4a567, pale gold highlights #e8d39b, dark bronze #5b4520, deep forest green #16332d to #0f241e, emerald #2f7a5a, ivory parchment #efe2bf. Soft light from upper left, rich hand-painted edge highlights and gentle wear, no photorealism, no pixel art.
+Constraints: no letters, no words, no numbers, no watermark, no characters, no drop shadow outside the silhouette. Everything outside the object must be genuine alpha transparency.
+
+Generated with Codex's built-in image generation tool, transparent background.
+Original: art/ui/card-frame-v1.png
+Runtime: web/public/assets/ui/card-frame-v1.webp, drawn as a border-image (slice 40, width 20px, on menu cards, notifications and the talk button).
+
+Runtime export (Node with sharp):
+await sharp(await sharp('art/ui/card-frame-v1.png').trim().toBuffer()).resize({width:384}).webp({quality:72,alphaQuality:90,effort:6}).toFile('web/public/assets/ui/card-frame-v1.webp');

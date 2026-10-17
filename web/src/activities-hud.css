@@ -12,10 +12,6 @@
   background:linear-gradient(130deg,#0d231deb,#112d23ce),var(--activity-art) center/cover
 }
 
-.activity-shell button:focus-visible {
-  outline-color:#f1cf79
-}
-
 .activity-banner {
   border-bottom:2px solid #b89d61
 }

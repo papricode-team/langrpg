@@ -7,8 +7,6 @@ import { t } from './i18n';
 export interface LanternRewards {
   title: string;
   crest: 'ember' | 'leaf' | 'silver' | 'star';
-  echo: boolean;
-  wordlight: boolean;
   trailkeeper: boolean;
 }
 
@@ -21,8 +19,6 @@ export function lanternRewards(progress: Pick<Progress, 'xp' | 'completedQuestId
   return {
     title: completed.has('b1-atlas') ? 'Atlas Keeper' : actTwo ? 'Route Keeper' : actOne ? 'Lamplighter' : count >= 1 ? 'Lantern Bearer' : 'Wanderer',
     crest: completed.has('b1-atlas') ? 'star' : actTwo ? 'silver' : actOne ? 'leaf' : 'ember',
-    echo: count >= 1,
-    wordlight: count >= 3 && progress.xp >= 60,
     trailkeeper: actOne,
   };
 }
@@ -41,5 +37,5 @@ export function titleLabel(title: string): string {
 
 export function lanternRewardsMarkup(progress: Progress): string {
   const rewards = lanternRewards(progress);
-  return `<section class="lantern-rewards"><div class="earned-crest" data-crest="${rewards.crest}">${icon('lantern')}</div><div><h3>${e(titleLabel(rewards.title))}</h3><p>${e(t('Your crest grows with the routes you restore.'))}</p></div><div class="lantern-powers"><article class="${rewards.echo ? 'earned' : ''}"><strong>${rewards.echo ? '✓ ' : ''}${e(t('Echo'))}</strong><span class="caption">${e(rewards.echo ? t('Hear a dialogue line more slowly.') : t('Restore the first clue to earn a slow echo.'))}</span></article><article class="${rewards.wordlight ? 'earned' : ''}"><strong>${rewards.wordlight ? '✓ ' : ''}${e(t('Wordlight'))}</strong><span class="caption">${e(rewards.wordlight ? t('Light up all unfamiliar words in a line.') : t('Restore three clues and earn 60 XP to light unfamiliar words.'))}</span></article><article class="${rewards.trailkeeper ? 'earned' : ''}"><strong>${rewards.trailkeeper ? '✓ ' : ''}${e(t('Lamplighter crest'))}</strong><span class="caption">${e(rewards.trailkeeper ? t('Your green crest marks the first restored town.') : t('Restore Lindenhafen to earn the green crest.'))}</span></article></div></section>`;
+  return `<section class="lantern-rewards"><div class="earned-crest" data-crest="${rewards.crest}">${icon('lantern')}</div><div><h3>${e(titleLabel(rewards.title))}</h3><p>${e(t('Your crest grows with the routes you restore.'))}</p></div><div class="lantern-powers"><article class="${rewards.trailkeeper ? 'earned' : ''}"><strong>${rewards.trailkeeper ? '✓ ' : ''}${e(t('Lamplighter crest'))}</strong><span class="caption">${e(rewards.trailkeeper ? t('Your green crest marks the first restored town.') : t('Restore Lindenhafen to earn the green crest.'))}</span></article></div></section>`;
 }

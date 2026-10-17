@@ -43,11 +43,6 @@
   line-height:1.3
 }
 
-.activity-shell button:focus-visible {
-  outline:3px solid #9a6630;
-  outline-offset:3px
-}
-
 .activity-shell button:disabled {
   opacity:.45;
   cursor:wait
