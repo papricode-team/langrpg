@@ -82,6 +82,9 @@ type worldClient struct {
 	messageCount  int
 	authorizeMap  func(context.Context, string) error
 	admin         bool
+	// moved marks a position others have not seen yet; corrected marks a
+	// move the server shortened, which the mover must hear about too.
+	moved, corrected bool
 }
 
 type World struct {
@@ -117,23 +120,100 @@ func New(maxPlayers int, origins []string, identity Identity, compiled MapRegist
 	return w
 }
 
+// The tick batches movement into one small delta per room. Rosters go out only
+// when someone arrives, leaves or changes; clients extrapolate the shared clock
+// and only need an occasional resync.
+const (
+	moveTick      = 100 * time.Millisecond
+	clockInterval = 30 * time.Second
+)
+
 func (w *World) run(ctx context.Context) {
 	defer close(w.done)
-	ticker := time.NewTicker(100 * time.Millisecond)
+	ticker := time.NewTicker(moveTick)
 	defer ticker.Stop()
+	lastClock := time.Now()
 	for {
 		select {
 		case <-ctx.Done():
 			return
-		case <-ticker.C:
+		case now := <-ticker.C:
 			w.mu.Lock()
-			for _, mapID := range mapIDs {
-				if w.mapCountLocked(mapID) > 0 {
-					w.broadcastPlayersLocked(mapID)
-				}
+			w.flushMovesLocked()
+			if now.Sub(lastClock) >= clockInterval {
+				lastClock = now
+				w.broadcastClockLocked()
 			}
 			w.mu.Unlock()
 		}
+	}
+}
+
+type locationKey struct{ mapID, interiorID string }
+
+// flushMovesLocked sends each room the positions that changed since the last
+// tick as [id, x, y] entries. Movers do not hear their own position back
+// unless the server shortened their move.
+func (w *World) flushMovesLocked() {
+	var moved map[locationKey][]any
+	for _, client := range w.clients {
+		if client.moved {
+			key := locationKey{client.player.MapID, client.player.InteriorID}
+			if moved == nil {
+				moved = map[locationKey][]any{}
+			}
+			moved[key] = append(moved[key], moveEntry(client.player))
+		}
+	}
+	shared := map[locationKey][]byte{}
+	for _, client := range w.clients {
+		key := locationKey{client.player.MapID, client.player.InteriorID}
+		entries := moved[key]
+		if !client.moved && !client.corrected {
+			if len(entries) == 0 {
+				continue
+			}
+			b, ok := shared[key]
+			if !ok {
+				b = movesMessage(key, entries)
+				shared[key] = b
+			}
+			w.enqueueLocked(client, b)
+			continue
+		}
+		own := moveEntry(client.player)
+		filtered := make([]any, 0, len(entries)+1)
+		for _, entry := range entries {
+			if entry.([]any)[0] != client.player.ID {
+				filtered = append(filtered, entry)
+			}
+		}
+		if client.corrected {
+			filtered = append(filtered, own)
+		}
+		if len(filtered) > 0 {
+			w.enqueueLocked(client, movesMessage(key, filtered))
+		}
+	}
+	for _, client := range w.clients {
+		client.moved, client.corrected = false, false
+	}
+}
+
+func moveEntry(player Player) any { return []any{player.ID, player.X, player.Y} }
+
+func movesMessage(key locationKey, entries []any) []byte {
+	b, _ := json.Marshal(map[string]any{"type": "moves", "mapId": key.mapID, "interiorId": key.interiorID, "moves": entries})
+	return b
+}
+
+func (w *World) broadcastClockLocked() {
+	b, err := json.Marshal(map[string]any{"type": "clock", "clock": w.Clock()})
+	if err != nil {
+		return
+	}
+	for _, client := range w.clients {
+		w.enqueueLocked(client, b)
 	}
 }
 
@@ -489,6 +569,8 @@ func (w *World) moveInLocationVersioned(client *worldClient, mapID, interiorID s
 	client.player.X += dx / distance * step / definition.Width
 	client.player.Y += dy / distance * step / definition.Height
 	memory.movementCredit -= step
+	client.moved = client.moved || step > 0
+	client.corrected = client.corrected || step < distance
 	position := MapSpawn{X: client.player.X, Y: client.player.Y}
 	if interiorID == "" {
 		memory.rememberPosition(client.player.MapID, position, definition.CoordinateFrame)
@@ -509,8 +591,15 @@ func (w *World) mapCountLocked(mapID string) int {
 	return count
 }
 
+// broadcastPlayersLocked sends the full roster, which also carries every
+// pending position on the map, so those moves need no separate delta.
 func (w *World) broadcastPlayersLocked(mapID string) {
 	w.broadcastLocked(mapID, map[string]any{"type": "players", "mapId": mapID, "players": w.playersLocked(mapID), "clock": w.Clock()})
+	for _, client := range w.clients {
+		if client.player.MapID == mapID {
+			client.moved, client.corrected = false, false
+		}
+	}
 }
 
 func (w *World) enqueueMapLocked(client *worldClient, kind string) {
@@ -616,6 +705,7 @@ func (w *World) UpdateProfile(player Player) Player {
 	defer w.mu.Unlock()
 	if client := w.clients[player.ID]; client != nil {
 		client.player.Name, client.player.Avatar = player.Name, player.Avatar
+		w.broadcastPlayersLocked(client.player.MapID)
 		return client.player
 	}
 	return player

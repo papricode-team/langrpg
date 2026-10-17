@@ -382,6 +382,28 @@ func readWorld(t *testing.T, ctx context.Context, conn *websocket.Conn, kind str
 	}
 }
 
+// readMoves waits for the next movement delta and returns its entries as players.
+func readMoves(t *testing.T, ctx context.Context, conn *websocket.Conn) []Player {
+	t.Helper()
+	packet := readWorld(t, ctx, conn, "moves")
+	var mapID, interiorID string
+	var entries [][3]json.RawMessage
+	_ = json.Unmarshal(packet["mapId"], &mapID)
+	_ = json.Unmarshal(packet["interiorId"], &interiorID)
+	if err := json.Unmarshal(packet["moves"], &entries); err != nil {
+		t.Fatal(err)
+	}
+	players := make([]Player, 0, len(entries))
+	for _, entry := range entries {
+		player := Player{MapID: mapID, InteriorID: interiorID}
+		if json.Unmarshal(entry[0], &player.ID) != nil || json.Unmarshal(entry[1], &player.X) != nil || json.Unmarshal(entry[2], &player.Y) != nil {
+			t.Fatalf("malformed move entry %s", entry)
+		}
+		players = append(players, player)
+	}
+	return players
+}
+
 func writeWorld(t *testing.T, ctx context.Context, conn *websocket.Conn, message any) {
 	t.Helper()
 	b, _ := json.Marshal(message)
@@ -425,8 +447,7 @@ func TestConcurrentPlayersAndAuthoritativeMovement(t *testing.T) {
 	}
 	writeWorld(t, ctx, one, map[string]any{"type": "move", "coordinateVersion": compiledWorldMaps.Maps[DefaultMapID].CoordinateVersion, "x": 1, "y": 1})
 	for {
-		message := readWorld(t, ctx, two, "players")
-		_ = json.Unmarshal(message["players"], &players)
+		players = readMoves(t, ctx, two)
 		moved := false
 		for _, player := range players {
 			if player.ID == playerOne.ID {

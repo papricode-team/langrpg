@@ -240913,7 +240913,9 @@
       "answer": "Ich möchte bitte einen Tee.",
       "acceptedAnswers": [
         "Ich möchte einen Tee, bitte.",
-        "Ich hätte gern einen Tee, bitte."
+        "Ich hätte gern einen Tee.",
+        "Ich hätte gern einen Tee, bitte.",
+        "Ich hätte bitte gern einen Tee."
       ],
       "caseSensitive": true,
       "wordIds": [
@@ -241030,7 +241032,9 @@
       "mode": "production",
       "answer": "Können Sie mir bitte helfen?",
       "acceptedAnswers": [
-        "Können Sie mir helfen, bitte?"
+        "Können Sie mir helfen, bitte?",
+        "Könnten Sie mir bitte helfen?",
+        "Könnten Sie mir helfen, bitte?"
       ],
       "caseSensitive": true,
       "wordIds": [

@@ -45,13 +45,18 @@ func TestSharedGermanGradingFixtures(t *testing.T) {
 	}
 	var fixtures []struct {
 		Name, Mode, Expected, Answer, Feedback string
-		Sensitive, Correct                     bool
+		Sensitive, Correct, CourseRule         bool
 		AcceptedAnswers                        []string
 	}
 	if err := json.Unmarshal(data, &fixtures); err != nil {
 		t.Fatal(err)
 	}
 	for _, fixture := range fixtures {
+		if fixture.CourseRule {
+			// Inner punctuation and equivalents come from the course grading configuration;
+			// TestContentGermanConfiguredGradingMatchesLegacyFixtures grades these.
+			continue
+		}
 		t.Run(fixture.Name, func(t *testing.T) {
 			exercise := Exercise{Mode: fixture.Mode, Answer: fixture.Expected, CaseSensitive: fixture.Sensitive, AcceptedAnswers: fixture.AcceptedAnswers}
 			if got := exercise.Grade(fixture.Answer); got != fixture.Correct {

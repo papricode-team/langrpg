@@ -103,6 +103,24 @@ const initialMap = (): MapId => {
   catch { return 'lindenhafen'; }
 };
 
+/** Apply [id, x, y] movement entries to a roster; undefined when nothing changed. */
+export function applyMoves(players: readonly WorldPlayer[], moves: unknown[]): WorldPlayer[] | undefined {
+  const positions = new Map<string, { x: number; y: number }>();
+  for (const entry of moves) {
+    if (!Array.isArray(entry) || typeof entry[0] !== 'string') continue;
+    const point = { x: entry[1], y: entry[2] };
+    if (validSpawn(point)) positions.set(entry[0], point);
+  }
+  let changed = false;
+  const next = players.map(player => {
+    const point = positions.get(player.id);
+    if (!point || (point.x === player.x && point.y === player.y)) return player;
+    changed = true;
+    return { ...player, x: point.x, y: point.y };
+  });
+  return changed ? next : undefined;
+}
+
 class ApiError extends Error {
   constructor(message: string, readonly status: number) { super(message); }
 }
@@ -122,6 +140,8 @@ export class Api {
   private worldRefreshSequence = 0;
   private requestSequence = 0;
   private publishedAccessSequence = 0;
+  /** The last roster, kept current by movement deltas and this player's own moves. */
+  private players: WorldPlayer[] = [];
   onMap?: (mapId: MapId, spawn: { x: number; y: number }) => void;
   onInterior?: (interiorId: InteriorId | undefined) => void;
   onPlayers?: (players: WorldPlayer[], selfId: string) => void;
@@ -261,6 +281,7 @@ export class Api {
     this.pendingMap = undefined;
     this.pendingInterior = undefined;
     this.onStatus?.('connecting');
+    this.players = [];
     const ws = new WebSocket(`${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}/api/world?token=${encodeURIComponent(this.token)}&mapId=${encodeURIComponent(this.mapId)}`);
     this.socket = ws;
     ws.onopen = () => { if (this.stopped || this.socket !== ws) return; this.reconnectCount = 0; };
@@ -272,6 +293,7 @@ export class Api {
         if (!this.worldReady && value.type !== 'welcome' && value.type !== 'error') return;
         const clock = parseSharedWorldTime(value.clock);
         const publishClock = () => { if (clock) this.onClock?.(clock); };
+        const publishPlayers = (players: WorldPlayer[]) => { this.players = players; this.onPlayers?.(players, this.selfId); };
         if (value.type === 'welcome' || value.type === 'map') {
           if (!isMapId(value.mapId) || !validInterior(value.mapId, value.interiorId) || !validSpawn(value.spawn) || !Array.isArray(value.players)) return;
           if(!compatibleScene(value.scene,value.mapId,value.interiorId||undefined)) { this.rejectWorldVersion(); return; }
@@ -285,7 +307,7 @@ export class Api {
           this.onMap?.(this.mapId, value.spawn);
           this.onInterior?.(this.interiorId);
           publishClock();
-          this.onPlayers?.(value.players, this.selfId);
+          publishPlayers(value.players);
           if (value.type === 'welcome') this.onStatus?.('online');
         } else if (value.type === 'interior' && value.mapId === this.mapId) {
           if (!validInterior(this.mapId, value.interiorId) || !validSpawn(value.spawn) || !Array.isArray(value.players)) return;
@@ -296,7 +318,7 @@ export class Api {
           this.pendingInterior = undefined;
           this.onInterior?.(id);
           publishClock();
-          this.onPlayers?.(value.players, this.selfId);
+          publishPlayers(value.players);
         } else if (value.type === 'world.patch' && typeof value.from === 'string' && typeof value.contentVersion === 'string' && Array.isArray(value.ops)) {
           this.onWorldPatch?.({from: value.from, contentVersion: value.contentVersion, ops: value.ops});
         } else if (value.type === 'story.changed' && typeof value.graphId === 'string') {
@@ -307,8 +329,12 @@ export class Api {
           this.onEditPreview?.({objectId: value.objectId, x: value.x, y: value.y, adminName: String(value.adminName ?? '')});
         } else if (value.type === 'players' && value.mapId === this.mapId && Array.isArray(value.players)) {
           publishClock();
-          this.onPlayers?.(value.players, this.selfId);
-
+          publishPlayers(value.players);
+        } else if (value.type === 'moves' && value.mapId === this.mapId && (value.interiorId || undefined) === this.interiorId && Array.isArray(value.moves)) {
+          const moved = applyMoves(this.players, value.moves);
+          if (moved) publishPlayers(moved);
+        } else if (value.type === 'clock') {
+          publishClock();
         } else if (value.type === 'error') {
           this.pendingMap = undefined;
           if (this.pendingInterior) {
@@ -365,8 +391,12 @@ export class Api {
   }
   private lastEditPreview = 0;
   move(x: number, y: number) {
-    if (!this.pendingMap && !this.pendingInterior) this.send({ type: 'move', mapId: this.mapId,
-      ...(this.interiorId ? { interiorId: this.interiorId } : {}), coordinateVersion:this.interiorId?1:getWorldScene(this.mapId).coordinateVersion, x, y });
+    if (this.pendingMap || this.pendingInterior) return;
+    if (!this.send({ type: 'move', mapId: this.mapId,
+      ...(this.interiorId ? { interiorId: this.interiorId } : {}), coordinateVersion:this.interiorId?1:getWorldScene(this.mapId).coordinateVersion, x, y })) return;
+    // The server does not echo accepted moves, so the roster follows what was sent.
+    // Otherwise the next delta for another player would carry a stale self position.
+    this.players = this.players.map(player => player.id === this.selfId ? { ...player, x, y } : player);
   }
   private send(message: unknown) {
     if (!this.worldReady || this.stopped || this.incompatible || this.socket?.readyState !== WebSocket.OPEN || this.socket.bufferedAmount >= 32768) return false;
