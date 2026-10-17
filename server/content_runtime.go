@@ -451,8 +451,9 @@ func courseStartingPlayer(base Player, course contentstore.Course) Player {
 	_ = json.Unmarshal(course.World, &config)
 	base.MapID = DefaultMapID
 	base.InteriorID = ""
-	base.X = .52
-	base.Y = .61
+	spawn := startingSpawn()
+	base.X = spawn.X
+	base.Y = spawn.Y
 	if config.Spawn.MapID != "" && validMapID(config.Spawn.MapID) && world.ValidCoordinate(config.Spawn.X) && world.ValidCoordinate(config.Spawn.Y) {
 		base.MapID = config.Spawn.MapID
 		base.X = config.Spawn.X
