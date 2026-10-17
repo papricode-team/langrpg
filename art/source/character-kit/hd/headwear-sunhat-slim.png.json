@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "e765cf3bda6d8a79c1b643dd000644bea9361d8af2b5071ba95168201538ae5d",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "85b294c3a8b9a6527807718ea7ae631bc0d894174b6d34b37a03a3ce87a42b13",
+  "promptSha256": "bed40ddbcf9838785b74cf53b0b8e50e0d28cd6f3d5ef5cf1037578a5767fd91",
+  "generationPromptSha256": "5d5cde1a247569bc5cb4085b67d366b7db4eb9a8eb0a903a9708d5a19fa644d2",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "cd9bd7b4a01c1f8add15c0e785e1699326ba8bc952439c40ed7bb823c8d88eac",
+  "candidate": "art/source/character-kit/hd/headwear-sunhat-slim-candidate.png",
+  "lockedSha256": "fa914530a7db645fcb38bea56bdd8b3c05d0623d378f18e642b22e06da43b96b"
+}

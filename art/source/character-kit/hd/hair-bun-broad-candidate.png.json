@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-bun-broad-page-0-candidate-1.png",
+      "sha256": "0204422e6c8ae4329c8702166fc4f4df50ebae7eacf21dfd754c19d9944ea6f0"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-bun-broad-page-0-candidate-1.txt",
+      "sha256": "121dc473a6fd4d404f255c5a772a0eb35ce27a5e16789558b65750f86eaa18b5"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-bun-broad-page-1-candidate-1.png",
+      "sha256": "d9970ab7e379c01a63855378d9a7b0011c61a6e304de7e530b8365abd652373a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-bun-broad-page-1-candidate-1.txt",
+      "sha256": "121dc473a6fd4d404f255c5a772a0eb35ce27a5e16789558b65750f86eaa18b5"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-bun-broad-page-2-candidate-1.png",
+      "sha256": "1aefc53089fa8edefd9096c6dc764f862ee8a3f10955bff65dae688b4ae5ea9e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-bun-broad-page-2-candidate-1.txt",
+      "sha256": "121dc473a6fd4d404f255c5a772a0eb35ce27a5e16789558b65750f86eaa18b5"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-bun-broad-page-3-candidate-1.png",
+      "sha256": "584d083f2063213ed717083d6816d2a99284fb354f43807bd6f0e9bac183b1ff"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-bun-broad-page-3-candidate-1.txt",
+      "sha256": "121dc473a6fd4d404f255c5a772a0eb35ce27a5e16789558b65750f86eaa18b5"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "837d40c61c77d89506c3b96cfd584e9759e609e51cc43202c66122a7eb6ce5c2"
+}

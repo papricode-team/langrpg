@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/riverweave-an.png",
   "proofSha256": "7555edad257aafcddb8daf02f0f6433ac89462b2e308b22c1c6c958043a013b6",
   "editorSha256": "26687e4197b0f4d982c7ce1ee1c3730f0359ba279ac28766cb186168c27a01a7",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "97a2a7c18730cecf878cebc3446127f36de5497bf37b5922faa4591423ae71dd"
+  }
 }

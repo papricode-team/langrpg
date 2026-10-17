@@ -7,7 +7,7 @@
  * and repeated builds share them.
  */
 import { createHash } from 'node:crypto';
-import { mkdir, readFile, readdir, rename, stat, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, readdir, rename, rm, stat, writeFile } from 'node:fs/promises';
 import { availableParallelism, homedir } from 'node:os';
 import { dirname, join, relative, resolve, sep } from 'node:path';
 import sharp from 'sharp';
@@ -61,6 +61,12 @@ export function qualityPlan(rel, width, height, density) {
 
 export function defaultCacheDir() {
   return process.env.ASSET_QUALITY_CACHE || join(homedir(), '.cache', 'glotworld-asset-quality');
+}
+
+/** Keep archived low-resolution authoring exports out of the active HD release. */
+export async function pruneLegacyCharacterKit(assetsDir, catalogue) {
+  if (catalogue.assetBase !== '/assets/character-kit-hd/') return;
+  await rm(join(assetsDir, 'character-kit'), {recursive:true, force:true});
 }
 
 /** One cached lossy encode of `buffer` at `size`. */
@@ -239,6 +245,7 @@ export function assetQualityPlugin(root) {
       if (!outDir) return;
       const assets = join(outDir, 'assets');
       try { await stat(assets); } catch { return; }
+      await pruneLegacyCharacterKit(assets, await readJSON(resolve(root, 'web/src/data/character-kit.json')));
       const started = Date.now();
       const totals = await buildQualityTiers(assets, { log: message => this.info?.(message), densities: await sceneryDensities(publicAssets, seedPath) });
       console.log(`Asset quality: ${totals.files} tiered images in ${((Date.now() - started) / 1000).toFixed(1)} s; masters ${MB(totals.master)} -> high ${MB(totals.high)}, medium ${MB(totals.medium)}, low ${MB(totals.low)} (${MB(totals.untouched)} shipped untouched).`);

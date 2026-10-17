@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "6eb2947265a799d04ba11dc55d8f5890e5fe2de7e749730f76160aba9228b279",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "464b8ef39fd416b7d6d49acbd3d4db79ea700ad00be3e543e6e5ec4a97be2c99",
+  "promptSha256": "724e4cba61996c181171124fefeea6e83d2a7e86341f305370d6ac2b55989824",
+  "generationPromptSha256": "5dedc40522aa78eddc14fdf88b8a499d9c76b5d66479f99ab92e2646e333de2b",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "92bec50feb3bb98a356b8ce3c6f1f35b0a3f012b20a375b561ec7db16f8d6eb5",
+  "candidate": "art/source/character-kit/hd/top-henley-slim-candidate.png",
+  "lockedSha256": "4316cacb6c871fcda97c4a1a35cdd8c71d387b6afd6a68b3ed4b3a38afac925b"
+}

@@ -288,17 +288,6 @@ export function lockPixels(base, candidate, mask, materials, policy = {}, manife
     }
   }
   if (!count) throw new Error('No eligible changed paint inside mask');
-  if (policy.minFramePaintPixels) {
-    const component = extract(base, { info: base.info, data: locked }, mask, policy, manifest);
-    for (const frame of manifest.frames) {
-      const regions = regionsIn(component, base.info, frame.transform.sourceCell);
-      if (regions.reduce((sum, region) => sum + region.length, 0) >= policy.minFramePaintPixels) continue;
-      for (const region of regions) for (const i of region) {
-        if (policy.operation === 'replace') locked.fill(0, i * 4, i * 4 + 4);
-        else base.data.copy(locked, i * 4, i * 4, i * 4 + 4);
-      }
-    }
-  }
   if (policy.maxSpeckPixels || policy.anchorMaterial) {
     if (!manifest) throw new Error('Speck cleanup requires registration');
     const component = extract(base, { info: base.info, data: locked }, mask, policy, manifest);
@@ -306,6 +295,17 @@ export function lockPixels(base, candidate, mask, materials, policy = {}, manife
       const lacksAnchor = policy.anchorMaterial && !region.some(i => material(candidate.data[i * 4], candidate.data[i * 4 + 1], candidate.data[i * 4 + 2]) === policy.anchorMaterial);
       if (!lacksAnchor && region.length > (policy.maxSpeckPixels ?? 0)) continue; // substantial paint islands must fail check
       for (const i of region) {
+        if (policy.operation === 'replace') locked.fill(0, i * 4, i * 4 + 4);
+        else base.data.copy(locked, i * 4, i * 4, i * 4 + 4);
+      }
+    }
+  }
+  if (policy.minFramePaintPixels) {
+    const component = extract(base, { info: base.info, data: locked }, mask, policy, manifest);
+    for (const frame of manifest.frames) {
+      const regions = regionsIn(component, base.info, frame.transform.sourceCell);
+      if (regions.reduce((sum, region) => sum + region.length, 0) >= policy.minFramePaintPixels) continue;
+      for (const region of regions) for (const i of region) {
         if (policy.operation === 'replace') locked.fill(0, i * 4, i * 4 + 4);
         else base.data.copy(locked, i * 4, i * 4, i * 4 + 4);
       }

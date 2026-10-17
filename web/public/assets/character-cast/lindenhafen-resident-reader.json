@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/lindenhafen-resident-reader.png",
   "proofSha256": "2ca926a0504d4f6497a9fa04b60620d58a4b2be47a65071c756422a3ea56cd3f",
   "editorSha256": "2d6993c725ed4db81be2e8376afbc6119ff03d15a8899766c6d7a6aef3d1c70d",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "4db894c771064b5f1fd263f2a84fb60bbeed1e7ced6ed577ef06a1ed5319b6fc"
+  }
 }

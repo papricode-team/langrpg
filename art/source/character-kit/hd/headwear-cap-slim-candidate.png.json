@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-cap-slim-page-0-candidate-2.png",
+      "sha256": "0a78a7a9aa287bee4196a78535f0339214197ba650c6fc1f38ffab882b88ade2"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-cap-slim-page-0-candidate-2.txt",
+      "sha256": "b8a2ca77919b4280fcc559c0e73d7f4eaef716916db8fc9e5ff6c9c847929779"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-0.json",
+      "sha256": "9207c077e0be3b69b427bf2fef3c5c6ec2cba6cd90360ea2f21dee3997475f8b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-cap-slim-page-1-candidate-1.png",
+      "sha256": "b995309c63e04a29b5ca3bf6f7bd4c7b073c120622b087aa9dbd23e43e3455b6"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-cap-slim-page-1-candidate-1.txt",
+      "sha256": "7939414788161676c5dd65f633028771567dbb9a204b8c6e1bdbfccb105d53a4"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-1.json",
+      "sha256": "f25ab7ae6f2211a6dcf84a772de156dca1aea4c9a1667b243da9303f7f1651ae"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-cap-slim-page-2-candidate-1.png",
+      "sha256": "8efad68281a14978e0821b5898149d9e5bb2ce8557b5736aeb8b85f8a430e5af"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-cap-slim-page-2-candidate-1.txt",
+      "sha256": "7939414788161676c5dd65f633028771567dbb9a204b8c6e1bdbfccb105d53a4"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-2.json",
+      "sha256": "114454392f0cfb9ed7f499b8732bbd8ea3acae965a2db03ac0e20f8ab4e31746"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-cap-slim-page-3-candidate-1.png",
+      "sha256": "89ee38445286f311b032f9543ede8f1b24f2b00bf2bdeed97e380e2634378845"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-cap-slim-page-3-candidate-1.txt",
+      "sha256": "7939414788161676c5dd65f633028771567dbb9a204b8c6e1bdbfccb105d53a4"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-3.json",
+      "sha256": "9aef7f92c4a053f1ceb57baa15a3a3771a2c646922f5b26f7f9c0ac68ec0b4bd"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "41b493913937019599d763dd827f89790806bf2374f94ba59bfd3512df118b19"
+}

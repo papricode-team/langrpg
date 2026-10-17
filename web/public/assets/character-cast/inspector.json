@@ -16,7 +16,7 @@
   "proof": "art/proofs/character-cast/inspector.png",
   "proofSha256": "066579691cf585cb44c66b0044c9eccd4df1745c471fa72c6611bbcddd7127d5",
   "editorSha256": "3b6ce699cfe91e49f81312842ae4a79362500aa7b3c6981c8d4a0b69ca5f2888",
-  "assetVersion": "4c9d233bf71007a9",
+  "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-inspector-native",
@@ -46,5 +46,10 @@
     ],
     "source": "art/proofs/character-cast/inspector.webp",
     "sourceSha256": "3b6ce699cfe91e49f81312842ae4a79362500aa7b3c6981c8d4a0b69ca5f2888"
+  },
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "ce61c027f509f918e7c5c01968cc29f1faafb94807b324d6269cef1364790bdd"
   }
 }

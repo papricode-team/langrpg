@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-turban-slim-page-0-candidate-1.png",
+      "sha256": "8cebd9f61ae8c7c404f7ced5e0a2a00f9745c1491292b1445828ff4d52df04f4"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-turban-slim-page-0-candidate-1.txt",
+      "sha256": "9e65696d92e346a22d72ccbee77501056afaecdd7afd63837627399f3f268f69"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-0.json",
+      "sha256": "9207c077e0be3b69b427bf2fef3c5c6ec2cba6cd90360ea2f21dee3997475f8b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-turban-slim-page-1-candidate-1.png",
+      "sha256": "9bff1bc0531eab6d617930914e8e64f084237156582fbb1529dbf324e384e2c8"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-turban-slim-page-1-candidate-1.txt",
+      "sha256": "9e65696d92e346a22d72ccbee77501056afaecdd7afd63837627399f3f268f69"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-1.json",
+      "sha256": "f25ab7ae6f2211a6dcf84a772de156dca1aea4c9a1667b243da9303f7f1651ae"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-turban-slim-page-2-candidate-2.png",
+      "sha256": "4df16547604165e46caa18823b1b34ac0322dc2274b567629584601fe71aef0f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-turban-slim-page-2-candidate-2.txt",
+      "sha256": "af5933bf452da2378dedba02a4d489080fd75355324c6f0e8b13d928438f68fb"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-2.json",
+      "sha256": "114454392f0cfb9ed7f499b8732bbd8ea3acae965a2db03ac0e20f8ab4e31746"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-turban-slim-page-3-candidate-1.png",
+      "sha256": "cc68d148c314abcaeb14c3bc96c5f78d81a587eb02f0794ff4ce29945587e2ce"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-turban-slim-page-3-candidate-1.txt",
+      "sha256": "9e65696d92e346a22d72ccbee77501056afaecdd7afd63837627399f3f268f69"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-3.json",
+      "sha256": "9aef7f92c4a053f1ceb57baa15a3a3771a2c646922f5b26f7f9c0ac68ec0b4bd"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "5997a75874b9771c68a69fb3bd6e56c3a8bf80cc06edf766f3fa9fc26c92ece1"
+}

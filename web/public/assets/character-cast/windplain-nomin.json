@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/windplain-nomin.png",
   "proofSha256": "1f7e9f4e4073f36b2f307cefa4fac602cada8f07e7edb4937ce8173db061d9f1",
   "editorSha256": "e80eb4639273dcd3fd1845fea7a36a4ae15c7c6f926e1ed9306c2c7d23250078",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "e4ffb4da89bb6441651b990a996bd8dd62040dc9158206e4d5d43c42f8c9cb4a"
+  }
 }

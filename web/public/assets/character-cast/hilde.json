@@ -16,7 +16,7 @@
   "proof": "art/proofs/character-cast/hilde.png",
   "proofSha256": "8926132b26b8741717a4a94de3ce3fd0191f895aa1ba7d27591d879e4887c666",
   "editorSha256": "c1aa8389c827023ab148b992695b7e7bd98bb037c8f111d5486a49ab8d5a9b28",
-  "assetVersion": "4c9d233bf71007a9",
+  "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-hilde-native",
@@ -46,5 +46,10 @@
     ],
     "source": "art/proofs/character-cast/hilde.webp",
     "sourceSha256": "c1aa8389c827023ab148b992695b7e7bd98bb037c8f111d5486a49ab8d5a9b28"
+  },
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "e2bff95c4571d3eaf4822572163d0e400edff1e7a233f277c9ced79be1c3ba4f"
   }
 }

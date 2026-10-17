@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceCatalogue": "4c9d233bf71007a9",
+  "sourceCatalogue": "e80b2c9758205a2f",
   "cell": 256,
   "assetBase": "/assets/player-portraits/",
   "components": {
@@ -68,6 +68,84 @@
       "outsideCrop": true
     },
     "held-lantern": {
+      "outsideCrop": true
+    },
+    "bottom-cropped-broad": {
+      "outsideCrop": true
+    },
+    "bottom-skirt-long-broad": {
+      "outsideCrop": true
+    },
+    "footwear-clogs-broad": {
+      "outsideCrop": true
+    },
+    "footwear-tall-boots-broad": {
+      "outsideCrop": true
+    },
+    "bottom-skirt-long-slim": {
+      "outsideCrop": true
+    },
+    "footwear-clogs-slim": {
+      "outsideCrop": true
+    },
+    "footwear-shoes-broad": {
+      "outsideCrop": true
+    },
+    "footwear-sandals-slim": {
+      "outsideCrop": true
+    },
+    "bottom-cropped-slim": {
+      "outsideCrop": true
+    },
+    "bottom-wide-slim": {
+      "outsideCrop": true
+    },
+    "bottom-cargo-slim": {
+      "outsideCrop": true
+    },
+    "footwear-shoes-slim": {
+      "outsideCrop": true
+    },
+    "footwear-flats-slim": {
+      "outsideCrop": true
+    },
+    "footwear-tall-boots-slim": {
+      "outsideCrop": true
+    },
+    "bottom-shorts-broad": {
+      "outsideCrop": true
+    },
+    "bottom-wide-broad": {
+      "outsideCrop": true
+    },
+    "bottom-cargo-broad": {
+      "outsideCrop": true
+    },
+    "footwear-flats-broad": {
+      "outsideCrop": true
+    },
+    "bottom-shorts-slim": {
+      "outsideCrop": true
+    },
+    "footwear-sandals-broad": {
+      "outsideCrop": true
+    },
+    "bottom-slim-slim": {
+      "outsideCrop": true
+    },
+    "bag-belt-pouch-slim": {
+      "outsideCrop": true
+    },
+    "bottom-slim-broad": {
+      "outsideCrop": true
+    },
+    "bag-belt-pouch-broad": {
+      "outsideCrop": true
+    },
+    "held-lantern-slim": {
+      "outsideCrop": true
+    },
+    "held-lantern-broad": {
       "outsideCrop": true
     },
     "body-broad": {
@@ -3309,7 +3387,7 @@
       "sheets": {
         "detail": {
           "path": "markings-blush.detail.webp",
-          "sha256": "767b5db65478f83144e33eb0af5746a899deff4bd6dfe1a66ea9327e223e1194"
+          "sha256": "62f8c7874d4a70a9ef70968053e8c8dbadd419a8e040edafa5e80cfeb7ace9dc"
         }
       },
       "source": "accessories-1",
@@ -3328,10 +3406,10 @@
           "height": 69
         },
         "target": {
-          "left": 100,
-          "top": 118,
-          "width": 64,
-          "height": 14
+          "left": 98,
+          "top": 115,
+          "width": 68,
+          "height": 19
         }
       },
       "tints": {}
@@ -3494,6 +3572,5136 @@
         }
       },
       "tints": {}
+    },
+    "top-sweater-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-sweater-slim.primary.webp",
+          "sha256": "02045ee0d1e0bf14ff38710afdad470207d01eb92aa38adee738ef8f8e18c7e6"
+        },
+        "detail": {
+          "path": "top-sweater-slim.detail.webp",
+          "sha256": "c720305d1d84dfb4bb2eff6698dcf999d68786708a931d590db4c4337cc5375c"
+        }
+      },
+      "source": "wardrobe-tops-0",
+      "sourceSha256": "6d0c02375bbbd8583c06f05dcc84daf890288f1d24d04ccf1959a65eac7e492f",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 49,
+          "top": 273,
+          "width": 328,
+          "height": 145
+        },
+        "target": {
+          "left": 31,
+          "top": 169,
+          "width": 196,
+          "height": 87
+        }
+      },
+      "tints": {}
+    },
+    "top-sweater-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-sweater-broad.primary.webp",
+          "sha256": "eb8850324b370203b4f9a3183e4188652a781a77e07c3480ca30ede8824b4a76"
+        },
+        "detail": {
+          "path": "top-sweater-broad.detail.webp",
+          "sha256": "b6842705e183862f4b9fd3e1cf9ec5d2b417d6acce81c40a40e37a75902f9e99"
+        }
+      },
+      "source": "wardrobe-tops-0",
+      "sourceSha256": "6d0c02375bbbd8583c06f05dcc84daf890288f1d24d04ccf1959a65eac7e492f",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 14,
+          "top": 255,
+          "width": 400,
+          "height": 163
+        },
+        "target": {
+          "left": 7,
+          "top": 157,
+          "width": 242,
+          "height": 99
+        }
+      },
+      "tints": {}
+    },
+    "top-henley-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-henley-slim.primary.webp",
+          "sha256": "1cff1c71e6b3a811ef5df33eafce0d3e7fd9af5bdbcd5367d22a49d49d129f1b"
+        },
+        "detail": {
+          "path": "top-henley-slim.detail.webp",
+          "sha256": "7bae63a00409ea4b1be4b15fcf698d0dce6e48dd0b1685167ec58420a07c0e40"
+        }
+      },
+      "source": "wardrobe-tops-0",
+      "sourceSha256": "6d0c02375bbbd8583c06f05dcc84daf890288f1d24d04ccf1959a65eac7e492f",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 59,
+          "top": 277,
+          "width": 321,
+          "height": 141
+        },
+        "target": {
+          "left": 33,
+          "top": 171,
+          "width": 194,
+          "height": 85
+        }
+      },
+      "tints": {}
+    },
+    "top-sleeveless-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-sleeveless-slim.primary.webp",
+          "sha256": "5912994ed5c38fe8ec956ec9c1bbf7d3f751075992d6a46293e554f3ac59d264"
+        },
+        "detail": {
+          "path": "top-sleeveless-slim.detail.webp",
+          "sha256": "ddd67aeaeb3552d80a549bc3d6ee8c51d8b7de603372f79d144a724a6e678c9c"
+        }
+      },
+      "source": "wardrobe-tops-0",
+      "sourceSha256": "6d0c02375bbbd8583c06f05dcc84daf890288f1d24d04ccf1959a65eac7e492f",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 117,
+          "top": 277,
+          "width": 197,
+          "height": 141
+        },
+        "target": {
+          "left": 74,
+          "top": 172,
+          "width": 113,
+          "height": 84
+        }
+      },
+      "tints": {}
+    },
+    "face-oval-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail",
+        "skin"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "face-oval-slim.detail.webp",
+          "sha256": "fc4aea4c4bccca62b6118436ab4aa59a728cdd66a55ab05ecef071369060bfbf"
+        },
+        "skin": {
+          "path": "face-oval-slim.skin.webp",
+          "sha256": "c7ac184df744efa11052c2324a3c08831e20bee8df39cdfb48c2b716244e8130"
+        }
+      },
+      "source": "wardrobe-heads-0",
+      "sourceSha256": "c6313edeaed073f10a4b93a52e60c10f2b09561d9a00dc8c9b230301846a361d",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 57,
+          "top": 49,
+          "width": 312,
+          "height": 369
+        },
+        "target": {
+          "left": 37,
+          "top": 30,
+          "width": 187,
+          "height": 226
+        }
+      },
+      "replacesBody": true,
+      "tints": {
+        "skin": "skin"
+      }
+    },
+    "face-angular-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail",
+        "skin"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "face-angular-slim.detail.webp",
+          "sha256": "9e598f1f373980fa7aeda0c13fdef62edb15272804ced61a003ddaef9360b488"
+        },
+        "skin": {
+          "path": "face-angular-slim.skin.webp",
+          "sha256": "a3c77dd4806b27fcf37fba8d2b14d9f5777d53989dc0cedab8b28c5dc6df68d5"
+        }
+      },
+      "source": "wardrobe-heads-0",
+      "sourceSha256": "c6313edeaed073f10a4b93a52e60c10f2b09561d9a00dc8c9b230301846a361d",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 56,
+          "top": 49,
+          "width": 312,
+          "height": 369
+        },
+        "target": {
+          "left": 37,
+          "top": 30,
+          "width": 187,
+          "height": 226
+        }
+      },
+      "replacesBody": true,
+      "tints": {
+        "skin": "skin"
+      }
+    },
+    "face-almond-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail",
+        "skin"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "face-almond-slim.detail.webp",
+          "sha256": "8d07fb40cde60b0dbf071d6509029a8f3477588606c2add70cb1bc552c9f5787"
+        },
+        "skin": {
+          "path": "face-almond-slim.skin.webp",
+          "sha256": "3b8e30a18b7b54fec886443eb19f5475899235ca991be19d2ed5659ffda4ae99"
+        }
+      },
+      "source": "wardrobe-heads-0",
+      "sourceSha256": "c6313edeaed073f10a4b93a52e60c10f2b09561d9a00dc8c9b230301846a361d",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 55,
+          "top": 49,
+          "width": 312,
+          "height": 369
+        },
+        "target": {
+          "left": 37,
+          "top": 30,
+          "width": 187,
+          "height": 226
+        }
+      },
+      "replacesBody": true,
+      "tints": {
+        "skin": "skin"
+      }
+    },
+    "face-mature-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail",
+        "skin"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "face-mature-slim.detail.webp",
+          "sha256": "f0c073c6d61874c8c786310b0a4e652bc2d01be0b592826a082b437e91332aaa"
+        },
+        "skin": {
+          "path": "face-mature-slim.skin.webp",
+          "sha256": "f9c965b5f2799206db16452a31cf49c72cb1d94b3a2129c37e411de1127dd04b"
+        }
+      },
+      "source": "wardrobe-heads-0",
+      "sourceSha256": "c6313edeaed073f10a4b93a52e60c10f2b09561d9a00dc8c9b230301846a361d",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 57,
+          "top": 48,
+          "width": 312,
+          "height": 370
+        },
+        "target": {
+          "left": 37,
+          "top": 30,
+          "width": 187,
+          "height": 226
+        }
+      },
+      "replacesBody": true,
+      "tints": {
+        "skin": "skin"
+      }
+    },
+    "markings-freckles-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "markings-freckles-slim.detail.webp",
+          "sha256": "0a53e80a22e35b98aa45b0145917e308a47989884163943bbf36fd5a1c4dd3cc"
+        }
+      },
+      "source": "wardrobe-heads-0",
+      "sourceSha256": "c6313edeaed073f10a4b93a52e60c10f2b09561d9a00dc8c9b230301846a361d",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 137,
+          "top": 191,
+          "width": 150,
+          "height": 38
+        },
+        "target": {
+          "left": 97,
+          "top": 118,
+          "width": 66,
+          "height": 14
+        }
+      },
+      "tints": {}
+    },
+    "markings-blush-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "markings-blush-slim.detail.webp",
+          "sha256": "d1ad385fabbb9c45163810daa98734c853bc5a16f824af84a0691a82efa788c6"
+        }
+      },
+      "source": "wardrobe-heads-0",
+      "sourceSha256": "c6313edeaed073f10a4b93a52e60c10f2b09561d9a00dc8c9b230301846a361d",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 147,
+          "top": 184,
+          "width": 139,
+          "height": 39
+        },
+        "target": {
+          "left": 94,
+          "top": 115,
+          "width": 71,
+          "height": 17
+        }
+      },
+      "tints": {}
+    },
+    "hair-curls-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-curls-slim.primary.webp",
+          "sha256": "d0743ecf6f9ef4433e0b897ea53a0e74a09eb96ba075217eebb8dc7a468ed903"
+        },
+        "detail": {
+          "path": "hair-curls-slim.detail.webp",
+          "sha256": "714bcb8a78732bc33c0f83cd7dc5e6c193c6ac94cf1418486cc7f4fbfa0a8093"
+        }
+      },
+      "source": "wardrobe-heads-0",
+      "sourceSha256": "c6313edeaed073f10a4b93a52e60c10f2b09561d9a00dc8c9b230301846a361d",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 49,
+          "top": 38,
+          "width": 308,
+          "height": 308
+        },
+        "target": {
+          "left": 40,
+          "top": 26,
+          "width": 167,
+          "height": 167
+        }
+      },
+      "tints": {}
+    },
+    "hair-ponytail-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-ponytail-slim.primary.webp",
+          "sha256": "a78721e706d6959c44fde8b522ca75256c86cfb3d71b736923370d1195a74d7d"
+        },
+        "detail": {
+          "path": "hair-ponytail-slim.detail.webp",
+          "sha256": "cd1b1bdf2e453af850feb23e81ba329939d0f5b55a625d8d7134908a01db2231"
+        }
+      },
+      "source": "wardrobe-heads-0",
+      "sourceSha256": "c6313edeaed073f10a4b93a52e60c10f2b09561d9a00dc8c9b230301846a361d",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 113,
+          "top": 27,
+          "width": 195,
+          "height": 321
+        },
+        "target": {
+          "left": 76,
+          "top": 17,
+          "width": 104,
+          "height": 165
+        }
+      },
+      "tints": {}
+    },
+    "hair-braids-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-braids-slim.primary.webp",
+          "sha256": "ee4732c627dfa2343fc6fd498363c6860c979aff33dc02de9c372a84b551c700"
+        },
+        "detail": {
+          "path": "hair-braids-slim.detail.webp",
+          "sha256": "cd26804a9afeb3bbecbb3caf33a174d5454f6ee5239216991ecd87e6936ac691"
+        }
+      },
+      "source": "wardrobe-heads-0",
+      "sourceSha256": "c6313edeaed073f10a4b93a52e60c10f2b09561d9a00dc8c9b230301846a361d",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 103,
+          "top": 37,
+          "width": 217,
+          "height": 333
+        },
+        "target": {
+          "left": 70,
+          "top": 24,
+          "width": 119,
+          "height": 184
+        }
+      },
+      "tints": {}
+    },
+    "hair-locs-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-locs-slim.primary.webp",
+          "sha256": "c5877268d6607db21efbfe599853d31bd9ffc8d1e4b66b4e3864be296641a03a"
+        },
+        "detail": {
+          "path": "hair-locs-slim.detail.webp",
+          "sha256": "6cf1e94ad8e29481185b43379f41fdcae79e5473905d7c428db52a78c767526a"
+        }
+      },
+      "source": "wardrobe-mixed-0",
+      "sourceSha256": "6b1b3423fbdf583b9ef9f39338863c86fc8a1eca6c76e1fb65e2adb3ae872906",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 564
+        },
+        "paint": {
+          "left": 65,
+          "top": 114,
+          "width": 279,
+          "height": 337
+        },
+        "target": {
+          "left": 49,
+          "top": 17,
+          "width": 149,
+          "height": 182
+        }
+      },
+      "tints": {}
+    },
+    "top-dress-day-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-dress-day-slim.primary.webp",
+          "sha256": "54b35f546601b8324518792e9447197b55d8de7814a2662d18c9d8717ac749ba"
+        },
+        "secondary": {
+          "path": "top-dress-day-slim.secondary.webp",
+          "sha256": "8eff5d6bcd0fe68d06288bc4e29ecf7e220ce0234ff9fe1a09d8b29a871b8f7b"
+        },
+        "detail": {
+          "path": "top-dress-day-slim.detail.webp",
+          "sha256": "b97d8e08528cc905705f4cac0a5f16215f6f55dad0c0deb6c36027cc8f9e7e7e"
+        }
+      },
+      "source": "wardrobe-mixed-0",
+      "sourceSha256": "6b1b3423fbdf583b9ef9f39338863c86fc8a1eca6c76e1fb65e2adb3ae872906",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 564
+        },
+        "paint": {
+          "left": 16,
+          "top": 368,
+          "width": 369,
+          "height": 161
+        },
+        "target": {
+          "left": 32,
+          "top": 167,
+          "width": 195,
+          "height": 89
+        }
+      },
+      "tints": {}
+    },
+    "top-tunic-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-tunic-slim.primary.webp",
+          "sha256": "e2841a1702b9e021aff674783e04dbd6f8a4f7685039d44429ed2ba1259c2f63"
+        },
+        "secondary": {
+          "path": "top-tunic-slim.secondary.webp",
+          "sha256": "9dae42f60926e7588271dbec6a24ba23c318cf70530f98f9e026479d55aaaa0f"
+        },
+        "detail": {
+          "path": "top-tunic-slim.detail.webp",
+          "sha256": "738f4e4ce4f49e17db1b53cad94ea7383a44d6ecae0b689e39a985f838e5f7a8"
+        }
+      },
+      "source": "wardrobe-mixed-0",
+      "sourceSha256": "6b1b3423fbdf583b9ef9f39338863c86fc8a1eca6c76e1fb65e2adb3ae872906",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 564
+        },
+        "paint": {
+          "left": 27,
+          "top": 366,
+          "width": 379,
+          "height": 163
+        },
+        "target": {
+          "left": 32,
+          "top": 172,
+          "width": 195,
+          "height": 84
+        }
+      },
+      "tints": {}
+    },
+    "top-turtleneck-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-turtleneck-slim.primary.webp",
+          "sha256": "c5447388bb783db9d9004bff538644718f4038e4c0cf08bf2b809109b326642f"
+        },
+        "detail": {
+          "path": "top-turtleneck-slim.detail.webp",
+          "sha256": "356d32902ee38e22c247675a1f008870d6609d81272446729cf225bbd218f2c0"
+        }
+      },
+      "source": "wardrobe-mixed-0",
+      "sourceSha256": "6b1b3423fbdf583b9ef9f39338863c86fc8a1eca6c76e1fb65e2adb3ae872906",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 28,
+          "top": 90,
+          "width": 378,
+          "height": 200
+        },
+        "target": {
+          "left": 32,
+          "top": 148,
+          "width": 196,
+          "height": 108
+        }
+      },
+      "tints": {}
+    },
+    "top-dress-long-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-dress-long-slim.primary.webp",
+          "sha256": "1ffd8d44a587f98372f88603e912a11ad5f6f192ce0cc3bb66fef95ca537d917"
+        },
+        "detail": {
+          "path": "top-dress-long-slim.detail.webp",
+          "sha256": "cc3ef3782ac5b3b46f181144b18b68ee2de12e8efbc47686c0901f3e084bf6cc"
+        }
+      },
+      "source": "wardrobe-tops-1",
+      "sourceSha256": "6a5fd7e0a3f14d7cf57a5dbbd374caf6bc106e18c9aac6016ef6ecfa727f56d5",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 451
+        },
+        "paint": {
+          "left": 39,
+          "top": 255,
+          "width": 344,
+          "height": 179
+        },
+        "target": {
+          "left": 36,
+          "top": 160,
+          "width": 190,
+          "height": 96
+        }
+      },
+      "tints": {}
+    },
+    "top-dress-long-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-dress-long-broad.primary.webp",
+          "sha256": "eaed22e813af024e1959cf6108db919957311221c172ac2b95249d9b8c62b79e"
+        },
+        "detail": {
+          "path": "top-dress-long-broad.detail.webp",
+          "sha256": "6f445699f19138e5b651dd0ec9cc557c006cff897fd832ac22ca15295403803b"
+        }
+      },
+      "source": "wardrobe-tops-1",
+      "sourceSha256": "6a5fd7e0a3f14d7cf57a5dbbd374caf6bc106e18c9aac6016ef6ecfa727f56d5",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 451
+        },
+        "paint": {
+          "left": 11,
+          "top": 250,
+          "width": 397,
+          "height": 184
+        },
+        "target": {
+          "left": 15,
+          "top": 156,
+          "width": 228,
+          "height": 100
+        }
+      },
+      "tints": {}
+    },
+    "top-dress-pinafore-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-dress-pinafore-broad.primary.webp",
+          "sha256": "228265190059e442da696c952edc411381b3638df5af1a031d2cb74c235bccac"
+        },
+        "secondary": {
+          "path": "top-dress-pinafore-broad.secondary.webp",
+          "sha256": "46348df9f2c13fc43237052c9cf899b093aab948397873e173aed65724da6892"
+        },
+        "detail": {
+          "path": "top-dress-pinafore-broad.detail.webp",
+          "sha256": "8ce9fb7c5865191cee74519bf51762f89821ac794b425f95de1e6b2b43748f30"
+        }
+      },
+      "source": "wardrobe-tops-1",
+      "sourceSha256": "6a5fd7e0a3f14d7cf57a5dbbd374caf6bc106e18c9aac6016ef6ecfa727f56d5",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 451
+        },
+        "paint": {
+          "left": 15,
+          "top": 248,
+          "width": 400,
+          "height": 186
+        },
+        "target": {
+          "left": 11,
+          "top": 157,
+          "width": 236,
+          "height": 99
+        }
+      },
+      "tints": {}
+    },
+    "top-sleeveless-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-sleeveless-broad.primary.webp",
+          "sha256": "7bc295f8d0259918c436909534287417404b0c490be63773da9e9f055400f1d9"
+        },
+        "detail": {
+          "path": "top-sleeveless-broad.detail.webp",
+          "sha256": "69a4895e4bd0db6c9605cd017edc329cd0f7020684188373fa5583b6d61342c9"
+        }
+      },
+      "source": "wardrobe-tops-1",
+      "sourceSha256": "6a5fd7e0a3f14d7cf57a5dbbd374caf6bc106e18c9aac6016ef6ecfa727f56d5",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 451,
+          "width": 418,
+          "height": 426
+        },
+        "paint": {
+          "left": 73,
+          "top": 233,
+          "width": 275,
+          "height": 171
+        },
+        "target": {
+          "left": 56,
+          "top": 161,
+          "width": 147,
+          "height": 95
+        }
+      },
+      "tints": {}
+    },
+    "top-blouse-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-blouse-broad.primary.webp",
+          "sha256": "b74adb6e8759845aeeb5f13f4a4fc22f16d835afd22e3510c0439b12255a3da3"
+        },
+        "secondary": {
+          "path": "top-blouse-broad.secondary.webp",
+          "sha256": "41024605863daad3c68155780332022e7eb16a8238e03212c1e735ebceb6e15b"
+        },
+        "detail": {
+          "path": "top-blouse-broad.detail.webp",
+          "sha256": "2ab1d13c683f1968b8a850736aa4305706b428bffd98d9f5eb8a91e7a475687b"
+        }
+      },
+      "source": "wardrobe-tops-1",
+      "sourceSha256": "6a5fd7e0a3f14d7cf57a5dbbd374caf6bc106e18c9aac6016ef6ecfa727f56d5",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 451,
+          "width": 418,
+          "height": 426
+        },
+        "paint": {
+          "left": 0,
+          "top": 226,
+          "width": 418,
+          "height": 177
+        },
+        "target": {
+          "left": 0,
+          "top": 158,
+          "width": 256,
+          "height": 98
+        }
+      },
+      "tints": {}
+    },
+    "top-turtleneck-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-turtleneck-broad.primary.webp",
+          "sha256": "c00c1b76831edae709ac4afc9152b07c4953d76b3cdedf451190b51b3307bcd1"
+        },
+        "detail": {
+          "path": "top-turtleneck-broad.detail.webp",
+          "sha256": "99d2482a3dfd178d052219d77472b5fd745fa3cbc810b32a761f18cbb2bf1a44"
+        }
+      },
+      "source": "wardrobe-tops-1",
+      "sourceSha256": "6a5fd7e0a3f14d7cf57a5dbbd374caf6bc106e18c9aac6016ef6ecfa727f56d5",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 451,
+          "width": 418,
+          "height": 426
+        },
+        "paint": {
+          "left": 13,
+          "top": 206,
+          "width": 401,
+          "height": 197
+        },
+        "target": {
+          "left": 11,
+          "top": 142,
+          "width": 236,
+          "height": 114
+        }
+      },
+      "tints": {}
+    },
+    "hair-crop-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-crop-slim.primary.webp",
+          "sha256": "2b6bd92fa87e56f98ed763ad9d02abbb68bbd3849ed7f4167bbed65003164d6e"
+        },
+        "detail": {
+          "path": "hair-crop-slim.detail.webp",
+          "sha256": "7b7086f27f5fcb46452252d2012ac7a4bf0cf9c12485021ea7ddc4f0e15dcb79"
+        }
+      },
+      "source": "wardrobe-heads-1",
+      "sourceSha256": "6420da3426b56cf034c969f33a64b3f28cb010b84792c2c6e2923e30d6112fa3",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 75,
+          "top": 49,
+          "width": 267,
+          "height": 223
+        },
+        "target": {
+          "left": 73,
+          "top": 21,
+          "width": 110,
+          "height": 86
+        }
+      },
+      "tints": {}
+    },
+    "hair-pixie-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-pixie-slim.primary.webp",
+          "sha256": "4e0d6794fe97278e0cbabc7f6d93cc5b038e3952854ec275f4cbff903e2eebc3"
+        },
+        "detail": {
+          "path": "hair-pixie-slim.detail.webp",
+          "sha256": "9fb7940031ab8f0a913a038d6162b8cd31963710cf4486cb3346954970f4225c"
+        }
+      },
+      "source": "wardrobe-heads-1",
+      "sourceSha256": "6420da3426b56cf034c969f33a64b3f28cb010b84792c2c6e2923e30d6112fa3",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 64,
+          "top": 38,
+          "width": 291,
+          "height": 244
+        },
+        "target": {
+          "left": 65,
+          "top": 14,
+          "width": 120,
+          "height": 97
+        }
+      },
+      "tints": {}
+    },
+    "hair-straight-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-straight-slim.primary.webp",
+          "sha256": "0c36b2fdead351f70bba96ec9234aa7676243e83e0cb569a5cb633e761404050"
+        },
+        "detail": {
+          "path": "hair-straight-slim.detail.webp",
+          "sha256": "4a607ecc9324810a6e08370cc9f2ffb977449b8201f82199978da4264968f33b"
+        }
+      },
+      "source": "wardrobe-heads-1",
+      "sourceSha256": "6420da3426b56cf034c969f33a64b3f28cb010b84792c2c6e2923e30d6112fa3",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 66,
+          "top": 54,
+          "width": 303,
+          "height": 364
+        },
+        "target": {
+          "left": 65,
+          "top": 25,
+          "width": 125,
+          "height": 164
+        }
+      },
+      "tints": {}
+    },
+    "hair-bun-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-bun-slim.primary.webp",
+          "sha256": "e11952061300a9c8fec1bbd3db222ad0a772589e5b9f00d9ff409bbae49a0f3b"
+        },
+        "detail": {
+          "path": "hair-bun-slim.detail.webp",
+          "sha256": "b137bafe221bf7564c1379de0d182b8c6da60f6f710b414f20f83a9be1090df7"
+        }
+      },
+      "source": "wardrobe-heads-1",
+      "sourceSha256": "6420da3426b56cf034c969f33a64b3f28cb010b84792c2c6e2923e30d6112fa3",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 78,
+          "top": 62,
+          "width": 262,
+          "height": 251
+        },
+        "target": {
+          "left": 78,
+          "top": 12,
+          "width": 103,
+          "height": 93
+        }
+      },
+      "tints": {}
+    },
+    "hair-afro-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-afro-slim.primary.webp",
+          "sha256": "5ea24da54d677d1b54466c0c5caaf23144e83dcf490cd1e453a16d1d28c27826"
+        },
+        "detail": {
+          "path": "hair-afro-slim.detail.webp",
+          "sha256": "52338852c19d7ee99c20010dfc4e83a0a335ed4acf3fc778fabfdf7d1076106d"
+        }
+      },
+      "source": "wardrobe-heads-1",
+      "sourceSha256": "6420da3426b56cf034c969f33a64b3f28cb010b84792c2c6e2923e30d6112fa3",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 6,
+          "top": 28,
+          "width": 412,
+          "height": 372
+        },
+        "target": {
+          "left": 39,
+          "top": 0,
+          "width": 177,
+          "height": 150
+        }
+      },
+      "tints": {}
+    },
+    "hair-mohawk-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-mohawk-slim.primary.webp",
+          "sha256": "5a2016f8fd635565ed3530cc0fd8a87a64bd672fac20314e256c65e4a1b55c3a"
+        },
+        "detail": {
+          "path": "hair-mohawk-slim.detail.webp",
+          "sha256": "e3b1106185527cf8593a75a34b3c29cc4e43b99ba387916c00fd9f780b699c93"
+        }
+      },
+      "source": "wardrobe-heads-1",
+      "sourceSha256": "6420da3426b56cf034c969f33a64b3f28cb010b84792c2c6e2923e30d6112fa3",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 143,
+          "top": 87,
+          "width": 148,
+          "height": 149
+        },
+        "target": {
+          "left": 105,
+          "top": 15,
+          "width": 49,
+          "height": 49
+        }
+      },
+      "tints": {}
+    },
+    "hair-crop-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-crop-broad.primary.webp",
+          "sha256": "2331e8af7c9be90e76bf2d11935ec16efad43017c8124488cb92bc410cf88630"
+        },
+        "detail": {
+          "path": "hair-crop-broad.detail.webp",
+          "sha256": "e42523bec649b3b636f912f203389c2a49f16d3438741603337fa0c8c437c820"
+        }
+      },
+      "source": "wardrobe-heads-1",
+      "sourceSha256": "6420da3426b56cf034c969f33a64b3f28cb010b84792c2c6e2923e30d6112fa3",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 56,
+          "top": 55,
+          "width": 310,
+          "height": 251
+        },
+        "target": {
+          "left": 74,
+          "top": 22,
+          "width": 107,
+          "height": 85
+        }
+      },
+      "tints": {}
+    },
+    "hair-pixie-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-pixie-broad.primary.webp",
+          "sha256": "8555b7f708cdeb3cb36da64ce51c57ad2fbb88fb537bdf19b171228e3569d4a8"
+        },
+        "detail": {
+          "path": "hair-pixie-broad.detail.webp",
+          "sha256": "0fdf12dad3fc199f9466cdddeaf22f62abb5ef7a39abe5ed663e4e7f22658374"
+        }
+      },
+      "source": "wardrobe-heads-1",
+      "sourceSha256": "6420da3426b56cf034c969f33a64b3f28cb010b84792c2c6e2923e30d6112fa3",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 47,
+          "top": 53,
+          "width": 327,
+          "height": 271
+        },
+        "target": {
+          "left": 69,
+          "top": 17,
+          "width": 116,
+          "height": 95
+        }
+      },
+      "tints": {}
+    },
+    "hair-buzz-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-buzz-broad.primary.webp",
+          "sha256": "7a0437934a5bd9f81bb1bfc8780e7271f8a85dc91101e91e3ddb428b4cbd36ea"
+        },
+        "detail": {
+          "path": "hair-buzz-broad.detail.webp",
+          "sha256": "339c3e9676ad65b24416b13d70bdfb0662a899b065d4b189211ed07479f0a098"
+        }
+      },
+      "source": "wardrobe-heads-1",
+      "sourceSha256": "6420da3426b56cf034c969f33a64b3f28cb010b84792c2c6e2923e30d6112fa3",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 90,
+          "top": 82,
+          "width": 275,
+          "height": 222
+        },
+        "target": {
+          "left": 80,
+          "top": 30,
+          "width": 99,
+          "height": 73
+        }
+      },
+      "tints": {}
+    },
+    "hair-bob-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-bob-broad.primary.webp",
+          "sha256": "47f7b25fbf64e6980136251c568919030e8b944531e62ca5ab59f8972a933a41"
+        },
+        "detail": {
+          "path": "hair-bob-broad.detail.webp",
+          "sha256": "20bd3fbb154f49fd9a1c9941f41bb48806aae044c999b0bdb37f0716f85eeff9"
+        }
+      },
+      "source": "wardrobe-heads-2",
+      "sourceSha256": "a3b510e5b02aa367e921d5e1113096aac6bfbd185bd2fc125ed25283539a5b97",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 501
+        },
+        "paint": {
+          "left": 48,
+          "top": 83,
+          "width": 349,
+          "height": 287
+        },
+        "target": {
+          "left": 60,
+          "top": 26,
+          "width": 136,
+          "height": 119
+        }
+      },
+      "tints": {}
+    },
+    "face-round-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail",
+        "skin"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "face-round-slim.detail.webp",
+          "sha256": "6d59343a59eb6a3b6a9755b173b72c3cf009cb4568a49b8a649c91ceff5a8d11"
+        },
+        "skin": {
+          "path": "face-round-slim.skin.webp",
+          "sha256": "2aa68ea96239503898aef8880b2885aa41c8fb97612426e8df2637e0d3b11735"
+        }
+      },
+      "source": "wardrobe-heads-2",
+      "sourceSha256": "a3b510e5b02aa367e921d5e1113096aac6bfbd185bd2fc125ed25283539a5b97",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 501
+        },
+        "paint": {
+          "left": 26,
+          "top": 53,
+          "width": 369,
+          "height": 415
+        },
+        "target": {
+          "left": 37,
+          "top": 30,
+          "width": 187,
+          "height": 226
+        }
+      },
+      "replacesBody": true,
+      "tints": {
+        "skin": "skin"
+      }
+    },
+    "headwear-beret-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-beret-slim.primary.webp",
+          "sha256": "9377e8ea5c924779b3055d71429e13001b31b9860aa4f3a07fed3b9ac24201c1"
+        },
+        "secondary": {
+          "path": "headwear-beret-slim.secondary.webp",
+          "sha256": "a7f00129e343c0107250fa0145e78cf12bc55021b98aa47037123cccabfaf69e"
+        },
+        "detail": {
+          "path": "headwear-beret-slim.detail.webp",
+          "sha256": "7ab6f0f149c92276d6559b417ef69795b737f8144918eab8a738995dbc7f29dd"
+        }
+      },
+      "source": "wardrobe-heads-2",
+      "sourceSha256": "a3b510e5b02aa367e921d5e1113096aac6bfbd185bd2fc125ed25283539a5b97",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 501
+        },
+        "paint": {
+          "left": 55,
+          "top": 82,
+          "width": 329,
+          "height": 205
+        },
+        "target": {
+          "left": 62,
+          "top": 21,
+          "width": 134,
+          "height": 78
+        }
+      },
+      "tints": {}
+    },
+    "hair-buzz-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-buzz-slim.primary.webp",
+          "sha256": "ee7937a6228e6c6c67a75f20572bfb59d4fd5936afbd2c5771747c11f99f463d"
+        },
+        "detail": {
+          "path": "hair-buzz-slim.detail.webp",
+          "sha256": "1c735f9024417f2854cf4bf841343cabb413d4e76331a9f14c1a8949ef99c279"
+        }
+      },
+      "source": "wardrobe-heads-3",
+      "sourceSha256": "c168ac7a7157d198ca4d807476dce34737dd5c4ca830c169b233f4c8ce25d9f1",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 57,
+          "top": 63,
+          "width": 324,
+          "height": 252
+        },
+        "target": {
+          "left": 78,
+          "top": 27,
+          "width": 102,
+          "height": 78
+        }
+      },
+      "tints": {}
+    },
+    "hair-coils-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-coils-slim.primary.webp",
+          "sha256": "be3eeeaac879e8c3b15fd026f0ccbc57d908a3dec7dfc647df4c0d867cafd315"
+        },
+        "detail": {
+          "path": "hair-coils-slim.detail.webp",
+          "sha256": "a261e00b802214333552a3cc5e7c4706f153195452233b10456802d16c37bca3"
+        }
+      },
+      "source": "wardrobe-heads-3",
+      "sourceSha256": "c168ac7a7157d198ca4d807476dce34737dd5c4ca830c169b233f4c8ce25d9f1",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 36,
+          "top": 61,
+          "width": 347,
+          "height": 259
+        },
+        "target": {
+          "left": 72,
+          "top": 19,
+          "width": 113,
+          "height": 84
+        }
+      },
+      "tints": {}
+    },
+    "headwear-beanie-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-beanie-slim.primary.webp",
+          "sha256": "99e506df1d0e82ab11368cbbbc8c7bfff53bae67331f5a9bf08e221c6ce3b723"
+        },
+        "secondary": {
+          "path": "headwear-beanie-slim.secondary.webp",
+          "sha256": "af3105da4e978cc98c4d1fa63190b2481f69ccedc937d8aa3a7e533abbe0b3d3"
+        },
+        "detail": {
+          "path": "headwear-beanie-slim.detail.webp",
+          "sha256": "d346b2354d84d96c1e0ba5fafde3f56e49a0ccc7cdbd8b5013dfd156cf00c8a0"
+        }
+      },
+      "source": "wardrobe-heads-3",
+      "sourceSha256": "c168ac7a7157d198ca4d807476dce34737dd5c4ca830c169b233f4c8ce25d9f1",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 25,
+          "top": 59,
+          "width": 342,
+          "height": 294
+        },
+        "target": {
+          "left": 72,
+          "top": 21,
+          "width": 114,
+          "height": 103
+        }
+      },
+      "tints": {}
+    },
+    "hair-straight-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-straight-broad.primary.webp",
+          "sha256": "685ed3343c09a59950fa3790c46fd93328499c30a494531b69d12432b75078da"
+        },
+        "detail": {
+          "path": "hair-straight-broad.detail.webp",
+          "sha256": "39f9d26198caf0a7e15f50c987eaa57bca86306efd58a77eb1f7cbf73cddf6ea"
+        }
+      },
+      "source": "wardrobe-heads-4",
+      "sourceSha256": "5bc3c8cd680915d214e281f957d0d8a8724c3ff2bb6fc6dd3c8c95d53879f06f",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 463
+        },
+        "paint": {
+          "left": 66,
+          "top": 65,
+          "width": 315,
+          "height": 344
+        },
+        "target": {
+          "left": 62,
+          "top": 25,
+          "width": 134,
+          "height": 159
+        }
+      },
+      "tints": {}
+    },
+    "hair-braids-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-braids-broad.primary.webp",
+          "sha256": "3eb1a8026d90e3238b3394c9ec60462a7ad25bd52da31b83057233d979a46193"
+        },
+        "detail": {
+          "path": "hair-braids-broad.detail.webp",
+          "sha256": "ca6a629479e1d08a347e40f4901703c9c6e905f2ccd77dc2adefbff552827153"
+        }
+      },
+      "source": "wardrobe-heads-4",
+      "sourceSha256": "5bc3c8cd680915d214e281f957d0d8a8724c3ff2bb6fc6dd3c8c95d53879f06f",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 463
+        },
+        "paint": {
+          "left": 93,
+          "top": 60,
+          "width": 249,
+          "height": 387
+        },
+        "target": {
+          "left": 70,
+          "top": 27,
+          "width": 116,
+          "height": 178
+        }
+      },
+      "tints": {}
+    },
+    "hair-locs-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-locs-broad.primary.webp",
+          "sha256": "814381e0a6029fc98fc498ac61415cf2df8d87b796feab8752dd710f25bd409c"
+        },
+        "detail": {
+          "path": "hair-locs-broad.detail.webp",
+          "sha256": "b9b960230b402fbd826097243cc4e52d025b5037900f969456543cc6087c20fb"
+        }
+      },
+      "source": "wardrobe-heads-4",
+      "sourceSha256": "5bc3c8cd680915d214e281f957d0d8a8724c3ff2bb6fc6dd3c8c95d53879f06f",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 463
+        },
+        "paint": {
+          "left": 64,
+          "top": 60,
+          "width": 328,
+          "height": 358
+        },
+        "target": {
+          "left": 54,
+          "top": 27,
+          "width": 145,
+          "height": 161
+        }
+      },
+      "tints": {}
+    },
+    "hair-bun-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-bun-broad.primary.webp",
+          "sha256": "734ce6ac239856ad269bf552fd294144ca6cdc8426ce05c5b63b69bc35e0022e"
+        },
+        "detail": {
+          "path": "hair-bun-broad.detail.webp",
+          "sha256": "0f77be8e44b0a8722504b77ea3b71a5126a9dba640e1210a74fefec10768b581"
+        }
+      },
+      "source": "wardrobe-heads-4",
+      "sourceSha256": "5bc3c8cd680915d214e281f957d0d8a8724c3ff2bb6fc6dd3c8c95d53879f06f",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 463,
+          "width": 418,
+          "height": 372
+        },
+        "paint": {
+          "left": 85,
+          "top": 66,
+          "width": 268,
+          "height": 270
+        },
+        "target": {
+          "left": 77,
+          "top": 14,
+          "width": 102,
+          "height": 97
+        }
+      },
+      "tints": {}
+    },
+    "headwear-cap-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "skin",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-cap-broad.primary.webp",
+          "sha256": "883ed688d46dc3063c858250ceded018f35cdec61eb20ac3f2d3be64fd043e5e"
+        },
+        "secondary": {
+          "path": "headwear-cap-broad.secondary.webp",
+          "sha256": "01759c4e3bac80ddfe4b4058463f1dd9486e1e94804b05ba06ca32f746e050e0"
+        },
+        "skin": {
+          "path": "headwear-cap-broad.skin.webp",
+          "sha256": "34cfaf02de2d972ee0f46bbb01a6c1114cec35a017cfaad989b9e45129819b67"
+        },
+        "detail": {
+          "path": "headwear-cap-broad.detail.webp",
+          "sha256": "e54975f10eb79b06966a54836138c7bf1e8bf166f05818c1d20164ff0fcc8513"
+        }
+      },
+      "source": "wardrobe-heads-4",
+      "sourceSha256": "5bc3c8cd680915d214e281f957d0d8a8724c3ff2bb6fc6dd3c8c95d53879f06f",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 463,
+          "width": 418,
+          "height": 372
+        },
+        "paint": {
+          "left": 80,
+          "top": 100,
+          "width": 283,
+          "height": 192
+        },
+        "target": {
+          "left": 77,
+          "top": 28,
+          "width": 103,
+          "height": 68
+        }
+      },
+      "tints": {}
+    },
+    "headwear-beanie-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-beanie-broad.primary.webp",
+          "sha256": "15eca33dd3de552794dd4a38539dd1423e497d7e0d170435687aa2fd9c8e5aa1"
+        },
+        "secondary": {
+          "path": "headwear-beanie-broad.secondary.webp",
+          "sha256": "4d370a4ca67a2fafa452ce95704bfdfa90c31a13cae3059a34d650fb650a43ba"
+        },
+        "detail": {
+          "path": "headwear-beanie-broad.detail.webp",
+          "sha256": "8ac33bad2576eb4af658036f338c94838d634ad8df80bc375ad94b469600aa2b"
+        }
+      },
+      "source": "wardrobe-heads-4",
+      "sourceSha256": "5bc3c8cd680915d214e281f957d0d8a8724c3ff2bb6fc6dd3c8c95d53879f06f",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 463,
+          "width": 418,
+          "height": 372
+        },
+        "paint": {
+          "left": 74,
+          "top": 95,
+          "width": 299,
+          "height": 243
+        },
+        "target": {
+          "left": 71,
+          "top": 25,
+          "width": 113,
+          "height": 90
+        }
+      },
+      "tints": {}
+    },
+    "headwear-brimmed-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-brimmed-broad.primary.webp",
+          "sha256": "c37b2a5f3e4f88f30a14e82e461c152584543a5e345068c4a43e24733321c608"
+        },
+        "secondary": {
+          "path": "headwear-brimmed-broad.secondary.webp",
+          "sha256": "ed52651fdd39faa55b74e0c61156978dd6e2166f3843050c9bd0f80d676022da"
+        },
+        "detail": {
+          "path": "headwear-brimmed-broad.detail.webp",
+          "sha256": "17fb2d6ce1f483b1f08c620cc9175c8375da41c02acfa204ec672d7b52ccf5e4"
+        }
+      },
+      "source": "wardrobe-heads-4",
+      "sourceSha256": "5bc3c8cd680915d214e281f957d0d8a8724c3ff2bb6fc6dd3c8c95d53879f06f",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 836,
+          "width": 489,
+          "height": 418
+        },
+        "paint": {
+          "left": 12,
+          "top": 115,
+          "width": 454,
+          "height": 205
+        },
+        "target": {
+          "left": 13,
+          "top": 25,
+          "width": 226,
+          "height": 94
+        }
+      },
+      "tints": {}
+    },
+    "markings-freckles-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "markings-freckles-broad.detail.webp",
+          "sha256": "fce75ece9907067917a3618cc1f0b76b42f3474b44e99b739751dc0447845033"
+        }
+      },
+      "source": "wardrobe-heads-4",
+      "sourceSha256": "5bc3c8cd680915d214e281f957d0d8a8724c3ff2bb6fc6dd3c8c95d53879f06f",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 0,
+          "top": 250,
+          "width": 321,
+          "height": 56
+        },
+        "target": {
+          "left": 95,
+          "top": 116,
+          "width": 70,
+          "height": 15
+        }
+      },
+      "tints": {}
+    },
+    "markings-blush-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "markings-blush-broad.detail.webp",
+          "sha256": "5537e7f7588990fdc2a5a544140515fd1e5664bdf47f30f0079d43fc959012ad"
+        }
+      },
+      "source": "wardrobe-heads-4",
+      "sourceSha256": "5bc3c8cd680915d214e281f957d0d8a8724c3ff2bb6fc6dd3c8c95d53879f06f",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 140,
+          "top": 260,
+          "width": 197,
+          "height": 58
+        },
+        "target": {
+          "left": 94,
+          "top": 113,
+          "width": 72,
+          "height": 19
+        }
+      },
+      "tints": {}
+    },
+    "hair-afro-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-afro-broad.primary.webp",
+          "sha256": "f87bd6a8ce1f0849fc6a7a8d183650835aa7c7642ca254814fb37e11de1f27ba"
+        },
+        "detail": {
+          "path": "hair-afro-broad.detail.webp",
+          "sha256": "eacc837d16fbb04238565eb1a687fc40289c41cdbba8b48f41b487efe9ed9126"
+        }
+      },
+      "source": "wardrobe-heads-5",
+      "sourceSha256": "a2febfbe7ce0560f74800bad28e073a1de1887d7b8a454112272b4f7762f3308",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 30,
+          "top": 9,
+          "width": 388,
+          "height": 340
+        },
+        "target": {
+          "left": 42,
+          "top": 6,
+          "width": 174,
+          "height": 146
+        }
+      },
+      "tints": {}
+    },
+    "hair-coils-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-coils-broad.primary.webp",
+          "sha256": "88788200d3938f50074c58282e16a5034bb6eafd78ad036823dc51dc7f365609"
+        },
+        "detail": {
+          "path": "hair-coils-broad.detail.webp",
+          "sha256": "275b2411f322eb02a9b5a7e3c6de05123fbd36b3fd00cdc497c80db81692faff"
+        }
+      },
+      "source": "wardrobe-heads-5",
+      "sourceSha256": "a2febfbe7ce0560f74800bad28e073a1de1887d7b8a454112272b4f7762f3308",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 92,
+          "top": 52,
+          "width": 301,
+          "height": 218
+        },
+        "target": {
+          "left": 70,
+          "top": 21,
+          "width": 120,
+          "height": 85
+        }
+      },
+      "tints": {}
+    },
+    "hair-mohawk-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-mohawk-broad.primary.webp",
+          "sha256": "bbb8248e6a6342d58febd3c2f11461d71996f2d0860143add5ac9fda86a69e30"
+        },
+        "detail": {
+          "path": "hair-mohawk-broad.detail.webp",
+          "sha256": "bff3034d104f140fa1b78bde9f385b87cf7968eb5223c33b952ad639c48645d3"
+        }
+      },
+      "source": "wardrobe-heads-5",
+      "sourceSha256": "a2febfbe7ce0560f74800bad28e073a1de1887d7b8a454112272b4f7762f3308",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 171,
+          "top": 63,
+          "width": 119,
+          "height": 135
+        },
+        "target": {
+          "left": 108,
+          "top": 23,
+          "width": 41,
+          "height": 46
+        }
+      },
+      "tints": {}
+    },
+    "facial-hair-goatee-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "facial-hair-goatee-broad.primary.webp",
+          "sha256": "4e1063995530c6dedde677df4351ee77de7f25ba816d6ae981c124b808b5ce12"
+        },
+        "detail": {
+          "path": "facial-hair-goatee-broad.detail.webp",
+          "sha256": "a453966a96e54a6b3b981f04c669a19085a9b5ca6a21142229f32d08eccf332c"
+        }
+      },
+      "source": "wardrobe-heads-5",
+      "sourceSha256": "a2febfbe7ce0560f74800bad28e073a1de1887d7b8a454112272b4f7762f3308",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 143,
+          "top": 199,
+          "width": 128,
+          "height": 108
+        },
+        "target": {
+          "left": 113,
+          "top": 132,
+          "width": 34,
+          "height": 34
+        }
+      },
+      "tints": {}
+    },
+    "facial-hair-moustache-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "facial-hair-moustache-broad.primary.webp",
+          "sha256": "c373eeefef9493cba429b0b6b6855271f85391d36a102466a4b7d1aa1c9ad8ff"
+        },
+        "detail": {
+          "path": "facial-hair-moustache-broad.detail.webp",
+          "sha256": "0868e1e3692b7e0ec0bc0a23c9de53e3bf3f450691dba4e1c76318c4b647128a"
+        }
+      },
+      "source": "wardrobe-heads-5",
+      "sourceSha256": "a2febfbe7ce0560f74800bad28e073a1de1887d7b8a454112272b4f7762f3308",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 157,
+          "top": 192,
+          "width": 149,
+          "height": 40
+        },
+        "target": {
+          "left": 110,
+          "top": 128,
+          "width": 39,
+          "height": 14
+        }
+      },
+      "tints": {}
+    },
+    "facial-hair-short-beard-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "facial-hair-short-beard-slim.primary.webp",
+          "sha256": "ce543f0fe9f40f5d3e62671bc3f0e42f21229493c988dca00e06acdf68d640cc"
+        },
+        "detail": {
+          "path": "facial-hair-short-beard-slim.detail.webp",
+          "sha256": "3d61c767baa2f0b0bab2937d2bb261f8e33412f5fe512ae902d9cab0b5aafbff"
+        }
+      },
+      "source": "wardrobe-heads-5",
+      "sourceSha256": "a2febfbe7ce0560f74800bad28e073a1de1887d7b8a454112272b4f7762f3308",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 118,
+          "top": 162,
+          "width": 234,
+          "height": 153
+        },
+        "target": {
+          "left": 87,
+          "top": 120,
+          "width": 85,
+          "height": 47
+        }
+      },
+      "tints": {}
+    },
+    "facial-hair-full-beard-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "facial-hair-full-beard-slim.primary.webp",
+          "sha256": "9b31bed675b1360799be60d4939969f66707e0fd9794a3ccef5044dbfb6123ec"
+        },
+        "detail": {
+          "path": "facial-hair-full-beard-slim.detail.webp",
+          "sha256": "729746c29006e5ae2b6dbeb04a7ebc4018e8f84c6241ab62633c42cccce8c4c7"
+        }
+      },
+      "source": "wardrobe-heads-5",
+      "sourceSha256": "a2febfbe7ce0560f74800bad28e073a1de1887d7b8a454112272b4f7762f3308",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 89,
+          "top": 59,
+          "width": 257,
+          "height": 225
+        },
+        "target": {
+          "left": 82,
+          "top": 101,
+          "width": 94,
+          "height": 82
+        }
+      },
+      "tints": {}
+    },
+    "neck-scarf-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "neck-scarf-slim.primary.webp",
+          "sha256": "369dc718224a5ff950159fa09a2c6d1b75bdc78c5585abbc069c67b33160fa26"
+        },
+        "detail": {
+          "path": "neck-scarf-slim.detail.webp",
+          "sha256": "ce8dfd512449a04cab779fcfa8d5f79cd79a754b7b893618387bb350378e227e"
+        }
+      },
+      "source": "wardrobe-heads-5",
+      "sourceSha256": "a2febfbe7ce0560f74800bad28e073a1de1887d7b8a454112272b4f7762f3308",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 85,
+          "top": 97,
+          "width": 268,
+          "height": 307
+        },
+        "target": {
+          "left": 78,
+          "top": 145,
+          "width": 103,
+          "height": 111
+        }
+      },
+      "tints": {}
+    },
+    "neck-cowl-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "neck-cowl-slim.primary.webp",
+          "sha256": "30c82b411520e3d8103ddc156ae7f7dfa678e1b79637f89dd0f08d151f43c70c"
+        },
+        "detail": {
+          "path": "neck-cowl-slim.detail.webp",
+          "sha256": "8b5153663f90bb8992b506d79cdb2f1102c9b00fc62fda1db738d8544a839b8a"
+        }
+      },
+      "source": "wardrobe-heads-5",
+      "sourceSha256": "a2febfbe7ce0560f74800bad28e073a1de1887d7b8a454112272b4f7762f3308",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 73,
+          "top": 108,
+          "width": 299,
+          "height": 257
+        },
+        "target": {
+          "left": 72,
+          "top": 145,
+          "width": 115,
+          "height": 105
+        }
+      },
+      "tints": {}
+    },
+    "outer-raincoat-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-raincoat-broad.primary.webp",
+          "sha256": "8f3cb3d0b13bb15665667537618a3200a15d96bec9ddd3b6a1f20392753afac7"
+        },
+        "secondary": {
+          "path": "outer-raincoat-broad.secondary.webp",
+          "sha256": "c4f1ef4e3e270a4c201d1320540f662a177c860657183168dae41be5f583779e"
+        },
+        "detail": {
+          "path": "outer-raincoat-broad.detail.webp",
+          "sha256": "92abd0c1542b03ac7588a40f33fa5d402719900d62fc0a6180c3756ec09193dd"
+        }
+      },
+      "source": "wardrobe-tops-2",
+      "sourceSha256": "7567c236b3ff81bc716f185c6f733f2530686c662816bfccc83f5eef6805a308",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 438
+        },
+        "paint": {
+          "left": 5,
+          "top": 238,
+          "width": 413,
+          "height": 189
+        },
+        "target": {
+          "left": 5,
+          "top": 145,
+          "width": 248,
+          "height": 111
+        }
+      },
+      "tints": {}
+    },
+    "top-dress-pinafore-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-dress-pinafore-slim.primary.webp",
+          "sha256": "9b1f45fed515fbe8eba7569d8dcf42235c62f4f8fd09834817e46cb34bcc9b63"
+        },
+        "secondary": {
+          "path": "top-dress-pinafore-slim.secondary.webp",
+          "sha256": "6730330d9ca2ac07605a5885e91c027430171a8dcf2661faf2201587cc1f6fbe"
+        },
+        "detail": {
+          "path": "top-dress-pinafore-slim.detail.webp",
+          "sha256": "d1bcd3758b1f2001af0c1426e0f787ba9d2f7d9b9f4295351232bd376bf2311f"
+        }
+      },
+      "source": "wardrobe-tops-2",
+      "sourceSha256": "7567c236b3ff81bc716f185c6f733f2530686c662816bfccc83f5eef6805a308",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 438
+        },
+        "paint": {
+          "left": 0,
+          "top": 258,
+          "width": 380,
+          "height": 169
+        },
+        "target": {
+          "left": 36,
+          "top": 158,
+          "width": 190,
+          "height": 98
+        }
+      },
+      "tints": {}
+    },
+    "top-tunic-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-tunic-broad.primary.webp",
+          "sha256": "73e7c8d990e632ab301a90ef7e151e77975dd79b718d2dec4475ceeea1992741"
+        },
+        "secondary": {
+          "path": "top-tunic-broad.secondary.webp",
+          "sha256": "2201b62f06c854f84bcc6ad1823dd5a73a7387794de747e400c30a6a342a59ca"
+        },
+        "detail": {
+          "path": "top-tunic-broad.detail.webp",
+          "sha256": "84ed8d1f2416ce8032440e478c6be9a30ef846d85133413f77ac23ec4d2e325e"
+        }
+      },
+      "source": "wardrobe-tops-2",
+      "sourceSha256": "7567c236b3ff81bc716f185c6f733f2530686c662816bfccc83f5eef6805a308",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 438
+        },
+        "paint": {
+          "left": 7,
+          "top": 270,
+          "width": 407,
+          "height": 157
+        },
+        "target": {
+          "left": 9,
+          "top": 166,
+          "width": 240,
+          "height": 90
+        }
+      },
+      "tints": {}
+    },
+    "face-oval-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail",
+        "skin"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "face-oval-broad.detail.webp",
+          "sha256": "73c24137851a50186719d706d8a0c0b83b51bdbf3376d8d99d13259010168a01"
+        },
+        "skin": {
+          "path": "face-oval-broad.skin.webp",
+          "sha256": "2cd0e0e405f07c4651285d4c968fa182f28ab616417571fb4e104a382a8ad23d"
+        }
+      },
+      "source": "wardrobe-heads-6",
+      "sourceSha256": "affb7c413a0d9586aaac7a9b176eeab1af12f5d23b14d7465522d615c4759d6e",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 20,
+          "top": 52,
+          "width": 380,
+          "height": 366
+        },
+        "target": {
+          "left": 13,
+          "top": 31,
+          "width": 231,
+          "height": 225
+        }
+      },
+      "replacesBody": true,
+      "tints": {
+        "skin": "skin"
+      }
+    },
+    "face-angular-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail",
+        "skin"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "face-angular-broad.detail.webp",
+          "sha256": "0bb728ff1f2f0d589334b4bfb1d77b5d7123fd7b22f28a65f5e5c7e5650c6a69"
+        },
+        "skin": {
+          "path": "face-angular-broad.skin.webp",
+          "sha256": "51e73ab9ee9506c28192a050b6d41d730eab1c0eadaaecaaedb08f6c104e8c0b"
+        }
+      },
+      "source": "wardrobe-heads-6",
+      "sourceSha256": "affb7c413a0d9586aaac7a9b176eeab1af12f5d23b14d7465522d615c4759d6e",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 20,
+          "top": 52,
+          "width": 380,
+          "height": 366
+        },
+        "target": {
+          "left": 13,
+          "top": 31,
+          "width": 231,
+          "height": 225
+        }
+      },
+      "replacesBody": true,
+      "tints": {
+        "skin": "skin"
+      }
+    },
+    "face-round-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail",
+        "skin"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "face-round-broad.detail.webp",
+          "sha256": "5dc40101d92e29fe907b6334b1691d76583324ce46856accb24f1da129562524"
+        },
+        "skin": {
+          "path": "face-round-broad.skin.webp",
+          "sha256": "db0cc71c244af2691ed294cce3c6b4d6be2dff51f843300629cb2b54f672fb1d"
+        }
+      },
+      "source": "wardrobe-heads-6",
+      "sourceSha256": "affb7c413a0d9586aaac7a9b176eeab1af12f5d23b14d7465522d615c4759d6e",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 19,
+          "top": 51,
+          "width": 380,
+          "height": 367
+        },
+        "target": {
+          "left": 13,
+          "top": 31,
+          "width": 231,
+          "height": 225
+        }
+      },
+      "replacesBody": true,
+      "tints": {
+        "skin": "skin"
+      }
+    },
+    "face-almond-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail",
+        "skin"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "face-almond-broad.detail.webp",
+          "sha256": "f180027e7e7fe1ff6ec1a1b4dcd17744d6f78804827b4714c18947c6a58acdbb"
+        },
+        "skin": {
+          "path": "face-almond-broad.skin.webp",
+          "sha256": "2ca0bd8b04e311099df5c2329946f1e05f589324bb1c053ac054a3d2d704e957"
+        }
+      },
+      "source": "wardrobe-heads-6",
+      "sourceSha256": "affb7c413a0d9586aaac7a9b176eeab1af12f5d23b14d7465522d615c4759d6e",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 19,
+          "top": 52,
+          "width": 381,
+          "height": 366
+        },
+        "target": {
+          "left": 13,
+          "top": 31,
+          "width": 231,
+          "height": 225
+        }
+      },
+      "replacesBody": true,
+      "tints": {
+        "skin": "skin"
+      }
+    },
+    "face-mature-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail",
+        "skin"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "face-mature-broad.detail.webp",
+          "sha256": "f887acc360faab6a3db53efea81396609472e87691df8aa549ccde5cbec36241"
+        },
+        "skin": {
+          "path": "face-mature-broad.skin.webp",
+          "sha256": "b90cda814a76097559fbe5373a3cb74196a8dffd92ca31c4ff1aab873e73d189"
+        }
+      },
+      "source": "wardrobe-heads-6",
+      "sourceSha256": "affb7c413a0d9586aaac7a9b176eeab1af12f5d23b14d7465522d615c4759d6e",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 19,
+          "top": 52,
+          "width": 381,
+          "height": 366
+        },
+        "target": {
+          "left": 13,
+          "top": 31,
+          "width": 231,
+          "height": 225
+        }
+      },
+      "replacesBody": true,
+      "tints": {
+        "skin": "skin"
+      }
+    },
+    "neck-scarf-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "neck-scarf-broad.primary.webp",
+          "sha256": "77b5ecde21ecf35052123ac4316e5ffcd2eba0eaf0e30b5cb88e63d43338fc9a"
+        },
+        "detail": {
+          "path": "neck-scarf-broad.detail.webp",
+          "sha256": "1bf0b313d80dd5630a56d84255aeb4ca2ba768c9fcf044f9a6b325e7b9581641"
+        }
+      },
+      "source": "wardrobe-heads-6",
+      "sourceSha256": "affb7c413a0d9586aaac7a9b176eeab1af12f5d23b14d7465522d615c4759d6e",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 115,
+          "top": 229,
+          "width": 192,
+          "height": 189
+        },
+        "target": {
+          "left": 73,
+          "top": 141,
+          "width": 112,
+          "height": 115
+        }
+      },
+      "tints": {}
+    },
+    "neck-kerchief-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "neck-kerchief-broad.primary.webp",
+          "sha256": "905b04eaaed36ce2df0adce9ea046ffc02c404d22beccacc2914276f9ae463ec"
+        },
+        "detail": {
+          "path": "neck-kerchief-broad.detail.webp",
+          "sha256": "f0c816921568454f9e0468eefd11ad81f08253057f38632d83bdeb4cba87cc6d"
+        }
+      },
+      "source": "wardrobe-heads-6",
+      "sourceSha256": "affb7c413a0d9586aaac7a9b176eeab1af12f5d23b14d7465522d615c4759d6e",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 97,
+          "top": 234,
+          "width": 230,
+          "height": 152
+        },
+        "target": {
+          "left": 78,
+          "top": 153,
+          "width": 103,
+          "height": 68
+        }
+      },
+      "tints": {}
+    },
+    "neck-cowl-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "neck-cowl-broad.primary.webp",
+          "sha256": "bd120e0801ed4e3d205ef67cd442399a3e67914e9587bc7cafa9572e414de068"
+        },
+        "detail": {
+          "path": "neck-cowl-broad.detail.webp",
+          "sha256": "faf69a26b036023e2de30adff18eb8e07318eb8d725633f972c5d0d81bc68b85"
+        }
+      },
+      "source": "wardrobe-heads-6",
+      "sourceSha256": "affb7c413a0d9586aaac7a9b176eeab1af12f5d23b14d7465522d615c4759d6e",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 62,
+          "top": 215,
+          "width": 356,
+          "height": 183
+        },
+        "target": {
+          "left": 55,
+          "top": 137,
+          "width": 149,
+          "height": 95
+        }
+      },
+      "tints": {}
+    },
+    "headwear-brimmed-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-brimmed-slim.primary.webp",
+          "sha256": "4b4138c32cc4202b37c3e236760584a673eed7ab88abc6bcaf515d8acf527f0c"
+        },
+        "secondary": {
+          "path": "headwear-brimmed-slim.secondary.webp",
+          "sha256": "b9be5142f76bb41904c96dd387a328ba26841d5d481bf08d2a9065a6ac5fc048"
+        },
+        "detail": {
+          "path": "headwear-brimmed-slim.detail.webp",
+          "sha256": "316b2afd1c1a95afad0213787e352a61fc07e7373b88d04a255e242fb8ce766b"
+        }
+      },
+      "source": "wardrobe-heads-6",
+      "sourceSha256": "affb7c413a0d9586aaac7a9b176eeab1af12f5d23b14d7465522d615c4759d6e",
+      "registration": {
+        "source": {
+          "left": 802,
+          "top": 836,
+          "width": 451,
+          "height": 418
+        },
+        "paint": {
+          "left": 27,
+          "top": 112,
+          "width": 421,
+          "height": 197
+        },
+        "target": {
+          "left": 10,
+          "top": 15,
+          "width": 236,
+          "height": 100
+        }
+      },
+      "tints": {}
+    },
+    "bag-tote-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "bag-tote-slim.primary.webp",
+          "sha256": "f3424c065abd1efeb68ce51f8b21abde64adf507d6492b6406ec5177f5a6004e"
+        },
+        "detail": {
+          "path": "bag-tote-slim.detail.webp",
+          "sha256": "1b1e7439b668c070dd9e6cf3ff9ed968eda81a984ffafbd7071dcd237dce1089"
+        }
+      },
+      "source": "wardrobe-lower-4",
+      "sourceSha256": "d35a25ebb5a5213984e6dbde2387442335401fd32084de4f83bcbfc40f108860",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 198,
+          "top": 203,
+          "width": 108,
+          "height": 215
+        },
+        "target": {
+          "left": 161,
+          "top": 172,
+          "width": 35,
+          "height": 84
+        }
+      },
+      "tints": {}
+    },
+    "bag-satchel-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "bag-satchel-slim.primary.webp",
+          "sha256": "e12d0697d54f0f4b4b59b1606c0288ad132ae197d834e99676ae944e1e0281c9"
+        },
+        "detail": {
+          "path": "bag-satchel-slim.detail.webp",
+          "sha256": "69045e5e50919f16116cd510e59d435c9d7630fcf1bb6ef9da5313e566733824"
+        }
+      },
+      "source": "wardrobe-lower-4",
+      "sourceSha256": "d35a25ebb5a5213984e6dbde2387442335401fd32084de4f83bcbfc40f108860",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 124,
+          "top": 202,
+          "width": 161,
+          "height": 216
+        },
+        "target": {
+          "left": 80,
+          "top": 172,
+          "width": 60,
+          "height": 84
+        }
+      },
+      "tints": {}
+    },
+    "headwear-cap-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "skin",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-cap-slim.primary.webp",
+          "sha256": "93cb912f0b47bbe131954465511ff6e355b93f0cb1e268897f23decce044037c"
+        },
+        "secondary": {
+          "path": "headwear-cap-slim.secondary.webp",
+          "sha256": "47593b2ad66b1d522ea3705aae08680b5949a6c222f1782b08fdd0dbc97805fb"
+        },
+        "skin": {
+          "path": "headwear-cap-slim.skin.webp",
+          "sha256": "17fd0ddca17eae435f7e3cb62822ca2141da6777cac80ea00935513a57e7f056"
+        },
+        "detail": {
+          "path": "headwear-cap-slim.detail.webp",
+          "sha256": "91181249037622eb083c69b6bda7f257d8e3db8a6b8f10fdf739a9c18e6fbf82"
+        }
+      },
+      "source": "wardrobe-heads-7",
+      "sourceSha256": "8433ab5feaed24f197cd349a3ff0671a318e95c4b37e589852b07b19cce07af9",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 338,
+          "height": 418
+        },
+        "paint": {
+          "left": 66,
+          "top": 61,
+          "width": 259,
+          "height": 175
+        },
+        "target": {
+          "left": 75,
+          "top": 25,
+          "width": 108,
+          "height": 74
+        }
+      },
+      "tints": {}
+    },
+    "headwear-sunhat-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-sunhat-slim.primary.webp",
+          "sha256": "9b1c6e1d0ca0d1bd4513c57e036906185dfb5ea12fb222e4953daf92a33401c9"
+        },
+        "secondary": {
+          "path": "headwear-sunhat-slim.secondary.webp",
+          "sha256": "b84cc735a72aabfc1521312a03624af83652914535a28cbb5f7c9bc9136b413a"
+        },
+        "detail": {
+          "path": "headwear-sunhat-slim.detail.webp",
+          "sha256": "bc5860bba4d4a5d64041e60d6f36591219cf7fa83419202ac7c4af3cb7fff3e4"
+        }
+      },
+      "source": "wardrobe-heads-7",
+      "sourceSha256": "8433ab5feaed24f197cd349a3ff0671a318e95c4b37e589852b07b19cce07af9",
+      "registration": {
+        "source": {
+          "left": 338,
+          "top": 0,
+          "width": 564,
+          "height": 418
+        },
+        "paint": {
+          "left": 21,
+          "top": 50,
+          "width": 536,
+          "height": 279
+        },
+        "target": {
+          "left": 0,
+          "top": 23,
+          "width": 256,
+          "height": 133
+        }
+      },
+      "tints": {}
+    },
+    "headwear-turban-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-turban-slim.primary.webp",
+          "sha256": "92a5e070d379b09bcba40347f531d17bee655a47c497fd5eb1441ed90b60904d"
+        },
+        "secondary": {
+          "path": "headwear-turban-slim.secondary.webp",
+          "sha256": "59b46a24118c9045ca6b09c6268b4594433892f52018e62e91d40b8dcc1972da"
+        },
+        "detail": {
+          "path": "headwear-turban-slim.detail.webp",
+          "sha256": "b4dd82523e57265d3504ea02d39befd4d046c6968c94af9f859811cd8d69b9e4"
+        }
+      },
+      "source": "wardrobe-heads-7",
+      "sourceSha256": "8433ab5feaed24f197cd349a3ff0671a318e95c4b37e589852b07b19cce07af9",
+      "registration": {
+        "source": {
+          "left": 902,
+          "top": 0,
+          "width": 351,
+          "height": 418
+        },
+        "paint": {
+          "left": 29,
+          "top": 61,
+          "width": 286,
+          "height": 209
+        },
+        "target": {
+          "left": 66,
+          "top": 20,
+          "width": 121,
+          "height": 82
+        }
+      },
+      "tints": {}
+    },
+    "headwear-headband-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-headband-slim.primary.webp",
+          "sha256": "e04b69eade1d356ce7dae09560227aff2f31afd4e90aeac7261a3f562ee63afd"
+        },
+        "secondary": {
+          "path": "headwear-headband-slim.secondary.webp",
+          "sha256": "66d5e92d7e5380d372218edf83fb152f3f8e9e7fae0d59b33b02bf4b74cbe40d"
+        },
+        "detail": {
+          "path": "headwear-headband-slim.detail.webp",
+          "sha256": "ecb3761b9475f297da736b0b96b828acd0b5c8767b39fec0a992b04e13a4d62b"
+        }
+      },
+      "source": "wardrobe-heads-7",
+      "sourceSha256": "8433ab5feaed24f197cd349a3ff0671a318e95c4b37e589852b07b19cce07af9",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 83,
+          "top": 120,
+          "width": 249,
+          "height": 65
+        },
+        "target": {
+          "left": 77,
+          "top": 66,
+          "width": 104,
+          "height": 27
+        }
+      },
+      "tints": {}
+    },
+    "neck-kerchief-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "neck-kerchief-slim.primary.webp",
+          "sha256": "a50b6f613661a0bd3944f08c0b92d6399d79a36fd1cee52e9ad69660d8f05105"
+        },
+        "detail": {
+          "path": "neck-kerchief-slim.detail.webp",
+          "sha256": "766d9487e1a1e39f88ddcc344f81a9fd7ff7a87bbe288e92fd57b7bd76695194"
+        }
+      },
+      "source": "wardrobe-heads-7",
+      "sourceSha256": "8433ab5feaed24f197cd349a3ff0671a318e95c4b37e589852b07b19cce07af9",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 102,
+          "top": 225,
+          "width": 316,
+          "height": 175
+        },
+        "target": {
+          "left": 89,
+          "top": 159,
+          "width": 81,
+          "height": 63
+        }
+      },
+      "tints": {}
+    },
+    "hair-curls-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-curls-broad.primary.webp",
+          "sha256": "c157d3fc33aa913e23015d00389ecb27bbf0a0935aa9a92c9f177a9721bd37d4"
+        },
+        "detail": {
+          "path": "hair-curls-broad.detail.webp",
+          "sha256": "89e335742aa61292df6e4875b46a8003e05c2460d834461efbf27fe98da09548"
+        }
+      },
+      "source": "wardrobe-heads-7",
+      "sourceSha256": "8433ab5feaed24f197cd349a3ff0671a318e95c4b37e589852b07b19cce07af9",
+      "registration": {
+        "source": {
+          "left": 815,
+          "top": 418,
+          "width": 438,
+          "height": 418
+        },
+        "paint": {
+          "left": 20,
+          "top": 24,
+          "width": 413,
+          "height": 371
+        },
+        "target": {
+          "left": 29,
+          "top": 25,
+          "width": 191,
+          "height": 172
+        }
+      },
+      "tints": {}
+    },
+    "hair-ponytail-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-ponytail-broad.primary.webp",
+          "sha256": "e8787c055ccbf9c5871a9b0700e2bc2d2b5b8f34603f02f28dc4aa68fb73116d"
+        },
+        "detail": {
+          "path": "hair-ponytail-broad.detail.webp",
+          "sha256": "dd3e83b66689ca513e72ed1b70a44e55c48343d157d3017c330aa736e3048773"
+        }
+      },
+      "source": "wardrobe-heads-7",
+      "sourceSha256": "8433ab5feaed24f197cd349a3ff0671a318e95c4b37e589852b07b19cce07af9",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 66,
+          "top": 31,
+          "width": 287,
+          "height": 355
+        },
+        "target": {
+          "left": 74,
+          "top": 15,
+          "width": 108,
+          "height": 159
+        }
+      },
+      "tints": {}
+    },
+    "hair-bob-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "hair-bob-slim.primary.webp",
+          "sha256": "2bd7a96a9d2786b251e7fe244108b2fdc3a59538e5e0fa9e2fa34d71f9f5161d"
+        },
+        "detail": {
+          "path": "hair-bob-slim.detail.webp",
+          "sha256": "07a8e4484293a6802d6cb339004ad7f11d0c923a63b253c0a875f240e6ebb822"
+        }
+      },
+      "source": "wardrobe-heads-7",
+      "sourceSha256": "8433ab5feaed24f197cd349a3ff0671a318e95c4b37e589852b07b19cce07af9",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 43,
+          "top": 56,
+          "width": 330,
+          "height": 312
+        },
+        "target": {
+          "left": 64,
+          "top": 24,
+          "width": 129,
+          "height": 128
+        }
+      },
+      "tints": {}
+    },
+    "facial-hair-full-beard-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "facial-hair-full-beard-broad.primary.webp",
+          "sha256": "fc8ee4bdb1e888be6596afcf3c7bcdf6db53bf57a289c749ea6d3cbed6d009c1"
+        },
+        "detail": {
+          "path": "facial-hair-full-beard-broad.detail.webp",
+          "sha256": "b67cd86ca36b6afc3df945f7b0a567011405597f32cb7e684013a920aae33f71"
+        }
+      },
+      "source": "wardrobe-heads-7",
+      "sourceSha256": "8433ab5feaed24f197cd349a3ff0671a318e95c4b37e589852b07b19cce07af9",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 104,
+          "top": 189,
+          "width": 240,
+          "height": 185
+        },
+        "target": {
+          "left": 84,
+          "top": 112,
+          "width": 89,
+          "height": 69
+        }
+      },
+      "tints": {}
+    },
+    "headwear-bucket-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-bucket-slim.primary.webp",
+          "sha256": "0daf3c9eec2529121c53388a9289bec38c23229386300e9e87d43b237d408bde"
+        },
+        "secondary": {
+          "path": "headwear-bucket-slim.secondary.webp",
+          "sha256": "9e4929aa15245c23c915f01f675546fddf61d6a99b45b19cb84faa501d3fda4a"
+        },
+        "detail": {
+          "path": "headwear-bucket-slim.detail.webp",
+          "sha256": "c2c87e5e5a4988f7bb53b5dca0637893f7880c97e27476abfb7461c75894905c"
+        }
+      },
+      "source": "wardrobe-heads-8",
+      "sourceSha256": "d29425d1a30d60f90e783f6990d46319f9dc4a363ed438db6f677fdc4c71840e",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 51,
+          "top": 82,
+          "width": 321,
+          "height": 218
+        },
+        "target": {
+          "left": 47,
+          "top": 24,
+          "width": 155,
+          "height": 109
+        }
+      },
+      "tints": {}
+    },
+    "headwear-beret-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-beret-broad.primary.webp",
+          "sha256": "9eb99fdd9c96b3c8c0f223ab81ec72da8220b7f9f83bc32c81451700b0912e77"
+        },
+        "secondary": {
+          "path": "headwear-beret-broad.secondary.webp",
+          "sha256": "8236dc90fdbbb00d52089c9fae6d08fd287e03d99bd6fa4dc38087dcf15cf21f"
+        },
+        "detail": {
+          "path": "headwear-beret-broad.detail.webp",
+          "sha256": "e4a7964169c107ea0e13240d62076aec1df60b731b207df06c26f6446d05626d"
+        }
+      },
+      "source": "wardrobe-heads-8",
+      "sourceSha256": "d29425d1a30d60f90e783f6990d46319f9dc4a363ed438db6f677fdc4c71840e",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 34,
+          "top": 66,
+          "width": 303,
+          "height": 190
+        },
+        "target": {
+          "left": 47,
+          "top": 19,
+          "width": 139,
+          "height": 82
+        }
+      },
+      "tints": {}
+    },
+    "headwear-sunhat-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-sunhat-broad.primary.webp",
+          "sha256": "3430bfef44859e800775eb6787f12139bf72f163549c828aaa2f1f68a9b9096e"
+        },
+        "secondary": {
+          "path": "headwear-sunhat-broad.secondary.webp",
+          "sha256": "7f4d41dd3031b2f22dcd1783d108aa192779f6e6ad6acc27c12fd8e345907869"
+        },
+        "detail": {
+          "path": "headwear-sunhat-broad.detail.webp",
+          "sha256": "a5ec55235bce46f46e19d049b9da5e6263f303c6e4736e507cee30bacbb53150"
+        }
+      },
+      "source": "wardrobe-heads-8",
+      "sourceSha256": "d29425d1a30d60f90e783f6990d46319f9dc4a363ed438db6f677fdc4c71840e",
+      "registration": {
+        "source": {
+          "left": 764,
+          "top": 0,
+          "width": 489,
+          "height": 418
+        },
+        "paint": {
+          "left": 31,
+          "top": 86,
+          "width": 453,
+          "height": 240
+        },
+        "target": {
+          "left": 0,
+          "top": 28,
+          "width": 256,
+          "height": 128
+        }
+      },
+      "tints": {}
+    },
+    "headwear-bucket-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-bucket-broad.primary.webp",
+          "sha256": "e7f16cfa85a56d3eb45f6885b07be9f73db69c91bbb095e831b9068c9402c7db"
+        },
+        "secondary": {
+          "path": "headwear-bucket-broad.secondary.webp",
+          "sha256": "3188e87d8b6e2666ffb8a02d088e4755253e30f3aaf38323d5a476fd6649611a"
+        },
+        "detail": {
+          "path": "headwear-bucket-broad.detail.webp",
+          "sha256": "9e3816a14c02bba05e066b690c51eaf5b8c71f46ffa3591f0cff97a6a1495aad"
+        }
+      },
+      "source": "wardrobe-heads-8",
+      "sourceSha256": "d29425d1a30d60f90e783f6990d46319f9dc4a363ed438db6f677fdc4c71840e",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 37,
+          "top": 90,
+          "width": 352,
+          "height": 224
+        },
+        "target": {
+          "left": 51,
+          "top": 28,
+          "width": 154,
+          "height": 92
+        }
+      },
+      "tints": {}
+    },
+    "headwear-turban-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-turban-broad.primary.webp",
+          "sha256": "96c1d1d6ff20a8fdb520f30dac29ef2feb1bc2f35d9d2b1e5277c2cf9b64d882"
+        },
+        "secondary": {
+          "path": "headwear-turban-broad.secondary.webp",
+          "sha256": "6c29c8ed6592f751da6248080004f1fd951b1d455ee8244758fc69d88a014098"
+        },
+        "detail": {
+          "path": "headwear-turban-broad.detail.webp",
+          "sha256": "84a3fe5d848f7d9607b4b04c233153c5acc93a9844b50d505a652fe04f5535f0"
+        }
+      },
+      "source": "wardrobe-heads-8",
+      "sourceSha256": "d29425d1a30d60f90e783f6990d46319f9dc4a363ed438db6f677fdc4c71840e",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 71,
+          "top": 84,
+          "width": 283,
+          "height": 213
+        },
+        "target": {
+          "left": 72,
+          "top": 29,
+          "width": 112,
+          "height": 77
+        }
+      },
+      "tints": {}
+    },
+    "headwear-headband-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "headwear-headband-broad.primary.webp",
+          "sha256": "ff756ec58d0be1d0cf234821c8fa52ca97d91d2285e7a3b98e9896c6a9345c71"
+        },
+        "secondary": {
+          "path": "headwear-headband-broad.secondary.webp",
+          "sha256": "96bd206a887e5521564d1e7f7bb66e6d7a5f2373fae3ac7d03abab54014718c7"
+        },
+        "detail": {
+          "path": "headwear-headband-broad.detail.webp",
+          "sha256": "a1ddb1234cc8e9e70f6e0f9ef553b2d5873b7487a86b77b8dca0b622e1b293a7"
+        }
+      },
+      "source": "wardrobe-heads-8",
+      "sourceSha256": "d29425d1a30d60f90e783f6990d46319f9dc4a363ed438db6f677fdc4c71840e",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 85,
+          "top": 185,
+          "width": 248,
+          "height": 64
+        },
+        "target": {
+          "left": 80,
+          "top": 69,
+          "width": 99,
+          "height": 20
+        }
+      },
+      "tints": {}
+    },
+    "facial-hair-moustache-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "facial-hair-moustache-slim.primary.webp",
+          "sha256": "4f2bc38d5d35f3166385f263d56b9a2264dbb0bb09e677ed40e507eae69ca152"
+        },
+        "detail": {
+          "path": "facial-hair-moustache-slim.detail.webp",
+          "sha256": "619660555f1c43f0337cfc9eee815a7713629a23424b40772ea2660b3aa15824"
+        }
+      },
+      "source": "wardrobe-heads-8",
+      "sourceSha256": "d29425d1a30d60f90e783f6990d46319f9dc4a363ed438db6f677fdc4c71840e",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 114,
+          "top": 208,
+          "width": 183,
+          "height": 47
+        },
+        "target": {
+          "left": 111,
+          "top": 130,
+          "width": 36,
+          "height": 13
+        }
+      },
+      "tints": {}
+    },
+    "facial-hair-goatee-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "facial-hair-goatee-slim.primary.webp",
+          "sha256": "371777ea4ff2bc582ae79eb0afe98f59eedc1631a0b0ebb7268ffc9f0317c330"
+        },
+        "detail": {
+          "path": "facial-hair-goatee-slim.detail.webp",
+          "sha256": "b86294d7150fa760aeb77b25be7117d1ac2423d06f072c84231a32e2acad77cd"
+        }
+      },
+      "source": "wardrobe-heads-8",
+      "sourceSha256": "d29425d1a30d60f90e783f6990d46319f9dc4a363ed438db6f677fdc4c71840e",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 118,
+          "top": 210,
+          "width": 179,
+          "height": 119
+        },
+        "target": {
+          "left": 114,
+          "top": 132,
+          "width": 29,
+          "height": 27
+        }
+      },
+      "tints": {}
+    },
+    "facial-hair-short-beard-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "facial-hair-short-beard-broad.primary.webp",
+          "sha256": "67d2510a5c567dbb1f4b0d10a2f539c3948976c24a34cbf65285c75abef912c6"
+        },
+        "detail": {
+          "path": "facial-hair-short-beard-broad.detail.webp",
+          "sha256": "5ac47f65de291c5e7e70ceceace1ecd6637862a3ffa62876599ded220b7b7d79"
+        }
+      },
+      "source": "wardrobe-heads-8",
+      "sourceSha256": "d29425d1a30d60f90e783f6990d46319f9dc4a363ed438db6f677fdc4c71840e",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 93,
+          "top": 175,
+          "width": 230,
+          "height": 158
+        },
+        "target": {
+          "left": 87,
+          "top": 118,
+          "width": 84,
+          "height": 49
+        }
+      },
+      "tints": {}
+    },
+    "top-blouse-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-blouse-slim.primary.webp",
+          "sha256": "b1067f300d7003ac5a849aba12a9c718bda682dbdc2d5f7dbb888fe2c022e7db"
+        },
+        "secondary": {
+          "path": "top-blouse-slim.secondary.webp",
+          "sha256": "2ae1fbc79734335fc3a78e4b0ca22a8bec4037f1b7aa515f20381548890eb259"
+        },
+        "detail": {
+          "path": "top-blouse-slim.detail.webp",
+          "sha256": "a2b1359470edaa6f050793beb0ae1a3d7088ae09f1f7cb74a6309c9f37c90467"
+        }
+      },
+      "source": "wardrobe-tops-3",
+      "sourceSha256": "5472e6ca78e0f3618f3e4e3abe6511f715d3acd7c9cda4fbac7de7170392ef22",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 451
+        },
+        "paint": {
+          "left": 7,
+          "top": 252,
+          "width": 402,
+          "height": 187
+        },
+        "target": {
+          "left": 25,
+          "top": 160,
+          "width": 209,
+          "height": 96
+        }
+      },
+      "tints": {}
+    },
+    "outer-cardigan-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-cardigan-slim.primary.webp",
+          "sha256": "ebd344c726e82a2228b58814341306c047bce5959f81b03b47c12bc0e745c3e2"
+        },
+        "secondary": {
+          "path": "outer-cardigan-slim.secondary.webp",
+          "sha256": "cd943bc70429788b9fe664dc5924fc7c9292be91442462edc26400bf6d10f765"
+        },
+        "detail": {
+          "path": "outer-cardigan-slim.detail.webp",
+          "sha256": "aa230522d71d857b3a607ef07a6aaa03744026da2d6c1bb6a1133f95288ebe29"
+        }
+      },
+      "source": "wardrobe-tops-3",
+      "sourceSha256": "5472e6ca78e0f3618f3e4e3abe6511f715d3acd7c9cda4fbac7de7170392ef22",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 451
+        },
+        "paint": {
+          "left": 15,
+          "top": 253,
+          "width": 392,
+          "height": 186
+        },
+        "target": {
+          "left": 33,
+          "top": 165,
+          "width": 194,
+          "height": 91
+        }
+      },
+      "tints": {}
+    },
+    "outer-raincoat-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-raincoat-slim.primary.webp",
+          "sha256": "fff946eb7b3cf852e44b38bebf4111d5e2864971c2d746d3499e39c8fea02c18"
+        },
+        "secondary": {
+          "path": "outer-raincoat-slim.secondary.webp",
+          "sha256": "c9659b7a59c2b0f988971d797c0eaea850716ba4b4fb8c8d46a9d6ec50a21e3f"
+        },
+        "detail": {
+          "path": "outer-raincoat-slim.detail.webp",
+          "sha256": "6bf6afcfd98232debb1dabf277b3b17ecd57f703b4bdeeaaa4dda1d34a087044"
+        }
+      },
+      "source": "wardrobe-tops-3",
+      "sourceSha256": "5472e6ca78e0f3618f3e4e3abe6511f715d3acd7c9cda4fbac7de7170392ef22",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 451
+        },
+        "paint": {
+          "left": 13,
+          "top": 250,
+          "width": 394,
+          "height": 189
+        },
+        "target": {
+          "left": 31,
+          "top": 155,
+          "width": 197,
+          "height": 101
+        }
+      },
+      "tints": {}
+    },
+    "outer-trench-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-trench-slim.primary.webp",
+          "sha256": "3b7c4abe696e734779d7caf3d1f20a88b0981b26ebecde6bf1cae2f9d83287ec"
+        },
+        "secondary": {
+          "path": "outer-trench-slim.secondary.webp",
+          "sha256": "0ef343d50213d07e88bfb7ee610db27d36aeb9d66312da5b72d25c38e515c5af"
+        },
+        "detail": {
+          "path": "outer-trench-slim.detail.webp",
+          "sha256": "5d4a0b7a52d33dc85f67c37be4f4cf294183b441c49bc9523a0a51c7eca8aca4"
+        }
+      },
+      "source": "wardrobe-tops-3",
+      "sourceSha256": "5472e6ca78e0f3618f3e4e3abe6511f715d3acd7c9cda4fbac7de7170392ef22",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 564,
+          "width": 418,
+          "height": 300
+        },
+        "paint": {
+          "left": 14,
+          "top": 81,
+          "width": 386,
+          "height": 197
+        },
+        "target": {
+          "left": 27,
+          "top": 151,
+          "width": 204,
+          "height": 105
+        }
+      },
+      "tints": {}
+    },
+    "outer-trench-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-trench-broad.primary.webp",
+          "sha256": "0874b7a59f53baff93925d437795fc5f1c17ed2045ef42c2f97c1507d378eda2"
+        },
+        "secondary": {
+          "path": "outer-trench-broad.secondary.webp",
+          "sha256": "58dd8cfee977100ffc3e9fbb9a180f2c0318de382764db290d4f6fcfacf85fbd"
+        },
+        "detail": {
+          "path": "outer-trench-broad.detail.webp",
+          "sha256": "82e53f8734b06ae4b1690d0f3a96a50506d4b145e9da459aa60f86181af270a3"
+        }
+      },
+      "source": "wardrobe-tops-3",
+      "sourceSha256": "5472e6ca78e0f3618f3e4e3abe6511f715d3acd7c9cda4fbac7de7170392ef22",
+      "registration": {
+        "source": {
+          "left": 426,
+          "top": 564,
+          "width": 401,
+          "height": 300
+        },
+        "paint": {
+          "left": 0,
+          "top": 71,
+          "width": 401,
+          "height": 207
+        },
+        "target": {
+          "left": 9,
+          "top": 142,
+          "width": 240,
+          "height": 114
+        }
+      },
+      "tints": {}
+    },
+    "outer-cloak-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-cloak-broad.primary.webp",
+          "sha256": "600e5b58124d748d3c86e53aeee42feee0653307bf7cae6b85c77fc08ccc7252"
+        },
+        "secondary": {
+          "path": "outer-cloak-broad.secondary.webp",
+          "sha256": "909ee6b0dda684758b7b4b3d325ac497e5c729a6e6b5892499a4f95aaf91d471"
+        },
+        "detail": {
+          "path": "outer-cloak-broad.detail.webp",
+          "sha256": "b7698b6018151d63d0fc92f777660b12551ffa71deb2d399c38e4759809c91db"
+        }
+      },
+      "source": "wardrobe-tops-3",
+      "sourceSha256": "5472e6ca78e0f3618f3e4e3abe6511f715d3acd7c9cda4fbac7de7170392ef22",
+      "registration": {
+        "source": {
+          "left": 852,
+          "top": 564,
+          "width": 401,
+          "height": 300
+        },
+        "paint": {
+          "left": 6,
+          "top": 82,
+          "width": 377,
+          "height": 196
+        },
+        "target": {
+          "left": 34,
+          "top": 158,
+          "width": 191,
+          "height": 98
+        }
+      },
+      "tints": {}
+    },
+    "outer-blazer-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-blazer-broad.primary.webp",
+          "sha256": "7fcc857884d75c7a7c1d9ba8cae0357cd637bfd6225ac21aa816914946b95bb0"
+        },
+        "secondary": {
+          "path": "outer-blazer-broad.secondary.webp",
+          "sha256": "6af07e7ebce88462c6f3a379357a9c2b588d57ab0e116b6485373b63c30769f7"
+        },
+        "detail": {
+          "path": "outer-blazer-broad.detail.webp",
+          "sha256": "ddbe6d254927e3c2c5ba57edbe566fb9272aba2b9733ea936e1ca53878edcb74"
+        }
+      },
+      "source": "wardrobe-tops-3",
+      "sourceSha256": "5472e6ca78e0f3618f3e4e3abe6511f715d3acd7c9cda4fbac7de7170392ef22",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 940,
+          "width": 418,
+          "height": 313
+        },
+        "paint": {
+          "left": 0,
+          "top": 88,
+          "width": 418,
+          "height": 207
+        },
+        "target": {
+          "left": 7,
+          "top": 151,
+          "width": 243,
+          "height": 105
+        }
+      },
+      "tints": {}
+    },
+    "top-henley-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-henley-broad.primary.webp",
+          "sha256": "3769e93f95acf526ad8e12214f0bfeb9747902b36447ed60afa39a764f48a1be"
+        },
+        "detail": {
+          "path": "top-henley-broad.detail.webp",
+          "sha256": "7dfe8c0448d6f0c1155b3138388691b480b088d573e9164d1710cab1704deb9a"
+        }
+      },
+      "source": "wardrobe-tops-3",
+      "sourceSha256": "5472e6ca78e0f3618f3e4e3abe6511f715d3acd7c9cda4fbac7de7170392ef22",
+      "registration": {
+        "source": {
+          "left": 426,
+          "top": 940,
+          "width": 401,
+          "height": 313
+        },
+        "paint": {
+          "left": 0,
+          "top": 96,
+          "width": 401,
+          "height": 199
+        },
+        "target": {
+          "left": 11,
+          "top": 159,
+          "width": 236,
+          "height": 97
+        }
+      },
+      "tints": {}
+    },
+    "top-dress-day-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-dress-day-broad.primary.webp",
+          "sha256": "5b800c9836208c149f7ec1da2706164da924d3fbe715e597167265ec40a08fe9"
+        },
+        "secondary": {
+          "path": "top-dress-day-broad.secondary.webp",
+          "sha256": "f1ebc62f1ff8dcacc19a5f6d34610b44e683c9de208a612482d84822d90a8e86"
+        },
+        "detail": {
+          "path": "top-dress-day-broad.detail.webp",
+          "sha256": "e9e8375b9fddc3c0679c4de583ef4fcfe2c45f4e1cb7a49b54aaefe0c688bc83"
+        }
+      },
+      "source": "wardrobe-tops-3",
+      "sourceSha256": "5472e6ca78e0f3618f3e4e3abe6511f715d3acd7c9cda4fbac7de7170392ef22",
+      "registration": {
+        "source": {
+          "left": 852,
+          "top": 940,
+          "width": 401,
+          "height": 313
+        },
+        "paint": {
+          "left": 0,
+          "top": 101,
+          "width": 401,
+          "height": 194
+        },
+        "target": {
+          "left": 7,
+          "top": 159,
+          "width": 243,
+          "height": 97
+        }
+      },
+      "tints": {}
+    },
+    "eyewear-round-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "eyewear-round-slim.primary.webp",
+          "sha256": "82d07fec46a84c48d82a7b51cda09dca48963f79612ed3264bd58567ac4725d4"
+        },
+        "detail": {
+          "path": "eyewear-round-slim.detail.webp",
+          "sha256": "6fd827bcc05d543a84021cc090b1fdae29cd1536690f25ee306c433a3dc9f471"
+        }
+      },
+      "source": "wardrobe-eyewear-0",
+      "sourceSha256": "710d92e829f997eb96c990d5c281d4ef7885bfcf54d71b940c6975e80fe01e74",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 67,
+          "top": 151,
+          "width": 290,
+          "height": 91
+        },
+        "target": {
+          "left": 78,
+          "top": 88,
+          "width": 102,
+          "height": 36
+        }
+      },
+      "tints": {}
+    },
+    "eyewear-square-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "eyewear-square-slim.primary.webp",
+          "sha256": "0f5bcc4891b64e75f06697e7231c71b66ea4948f8a28c8565770db3d21d55fd2"
+        },
+        "detail": {
+          "path": "eyewear-square-slim.detail.webp",
+          "sha256": "4ed78812231aa8ea93bffbe5db4f294c6e746a234f03b95be7ccb0ffebef95cf"
+        }
+      },
+      "source": "wardrobe-eyewear-0",
+      "sourceSha256": "710d92e829f997eb96c990d5c281d4ef7885bfcf54d71b940c6975e80fe01e74",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 79,
+          "top": 163,
+          "width": 278,
+          "height": 61
+        },
+        "target": {
+          "left": 78,
+          "top": 93,
+          "width": 102,
+          "height": 25
+        }
+      },
+      "tints": {}
+    },
+    "eyewear-cat-eye-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "eyewear-cat-eye-slim.primary.webp",
+          "sha256": "abbece434d6678a2666fc89c50325d9b797bc6f584930ef5f9863050be06def7"
+        },
+        "detail": {
+          "path": "eyewear-cat-eye-slim.detail.webp",
+          "sha256": "acd529417164089e1a09e10426a1d5e3d17ad5fa869285d9486e3dc7a4d6cefb"
+        }
+      },
+      "source": "wardrobe-eyewear-0",
+      "sourceSha256": "710d92e829f997eb96c990d5c281d4ef7885bfcf54d71b940c6975e80fe01e74",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 82,
+          "top": 157,
+          "width": 280,
+          "height": 78
+        },
+        "target": {
+          "left": 79,
+          "top": 93,
+          "width": 101,
+          "height": 28
+        }
+      },
+      "tints": {}
+    },
+    "eyewear-sunglasses-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "eyewear-sunglasses-slim.primary.webp",
+          "sha256": "82d3582ebad8e19ad143b3eac8154c5c65286d14ebbb8e93145078f875e3e20b"
+        },
+        "detail": {
+          "path": "eyewear-sunglasses-slim.detail.webp",
+          "sha256": "aa3334c1641ee2438bfbf85acc18795d1d53ffb9f471f34692cdafd848da024a"
+        }
+      },
+      "source": "wardrobe-eyewear-0",
+      "sourceSha256": "710d92e829f997eb96c990d5c281d4ef7885bfcf54d71b940c6975e80fe01e74",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 64,
+          "top": 148,
+          "width": 297,
+          "height": 78
+        },
+        "target": {
+          "left": 77,
+          "top": 73,
+          "width": 105,
+          "height": 46
+        }
+      },
+      "tints": {}
+    },
+    "eyewear-round-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "eyewear-round-broad.primary.webp",
+          "sha256": "913d0a10b73427272190b8c98c3e74b82e797352db00ead0e4b42cc92b724c90"
+        },
+        "detail": {
+          "path": "eyewear-round-broad.detail.webp",
+          "sha256": "773cb1c51ce5c6264f2a7c71f11df8a1d9ebd63081947c1f03674a29fc2bb776"
+        }
+      },
+      "source": "wardrobe-eyewear-0",
+      "sourceSha256": "710d92e829f997eb96c990d5c281d4ef7885bfcf54d71b940c6975e80fe01e74",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 70,
+          "top": 148,
+          "width": 303,
+          "height": 93
+        },
+        "target": {
+          "left": 78,
+          "top": 91,
+          "width": 104,
+          "height": 32
+        }
+      },
+      "tints": {}
+    },
+    "eyewear-square-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "eyewear-square-broad.primary.webp",
+          "sha256": "1978f633e7f51c323e6f35aaae09780f2be1202eac50911e7632b3084f0c6576"
+        },
+        "detail": {
+          "path": "eyewear-square-broad.detail.webp",
+          "sha256": "5effc07e6d226c4c7e9698b5f3db030be21b8ab1402843617f53387e72f75125"
+        }
+      },
+      "source": "wardrobe-eyewear-0",
+      "sourceSha256": "710d92e829f997eb96c990d5c281d4ef7885bfcf54d71b940c6975e80fe01e74",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 73,
+          "top": 155,
+          "width": 300,
+          "height": 72
+        },
+        "target": {
+          "left": 78,
+          "top": 92,
+          "width": 103,
+          "height": 26
+        }
+      },
+      "tints": {}
+    },
+    "eyewear-cat-eye-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "eyewear-cat-eye-broad.primary.webp",
+          "sha256": "e2aa5711ab9dc231abaebfdcb89e8ac6ae87e7ad426016c910293d8d2991c88d"
+        },
+        "detail": {
+          "path": "eyewear-cat-eye-broad.detail.webp",
+          "sha256": "d4fca9eebbb33861e9e1b19a12f5bb310f03fbb2ac0ee5aecef5ceca60449931"
+        }
+      },
+      "source": "wardrobe-eyewear-0",
+      "sourceSha256": "710d92e829f997eb96c990d5c281d4ef7885bfcf54d71b940c6975e80fe01e74",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 66,
+          "top": 128,
+          "width": 292,
+          "height": 81
+        },
+        "target": {
+          "left": 79,
+          "top": 92,
+          "width": 102,
+          "height": 29
+        }
+      },
+      "tints": {}
+    },
+    "eyewear-sunglasses-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "eyewear-sunglasses-broad.primary.webp",
+          "sha256": "4bd94a2dcd5ff0750ef89400e10d036367375542220a1b2d81d03cc5ebb76ee8"
+        },
+        "detail": {
+          "path": "eyewear-sunglasses-broad.detail.webp",
+          "sha256": "8cabcc0613c5709466ffa92dc68587ad1cefc71a4e7cf47e6c80414dbed9dbca"
+        }
+      },
+      "source": "wardrobe-eyewear-0",
+      "sourceSha256": "710d92e829f997eb96c990d5c281d4ef7885bfcf54d71b940c6975e80fe01e74",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 75,
+          "top": 129,
+          "width": 284,
+          "height": 71
+        },
+        "target": {
+          "left": 76,
+          "top": 92,
+          "width": 107,
+          "height": 26
+        }
+      },
+      "tints": {}
+    },
+    "markings-beauty-mark-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "markings-beauty-mark-slim.detail.webp",
+          "sha256": "3187dd1a7a8111eddbe4b9d80fd9304279bbeb5b3748d3d4459ddf156cc2ba2c"
+        }
+      },
+      "source": "wardrobe-eyewear-0",
+      "sourceSha256": "710d92e829f997eb96c990d5c281d4ef7885bfcf54d71b940c6975e80fe01e74",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 836,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 183,
+          "top": 205,
+          "width": 20,
+          "height": 18
+        },
+        "target": {
+          "left": 103,
+          "top": 133,
+          "width": 8,
+          "height": 7
+        }
+      },
+      "tints": {}
+    },
+    "bag-backpack-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "bag-backpack-slim.primary.webp",
+          "sha256": "a783dd3f8abb98e93a93a2af34b4042d83f90673f11b499e4cb35a2fe2f0f9fb"
+        },
+        "detail": {
+          "path": "bag-backpack-slim.detail.webp",
+          "sha256": "b2ff560e02d2acd96735eb3738e04eeb2ecf6473c42a73c1e86e352a84cd4a99"
+        }
+      },
+      "source": "wardrobe-accessories-0",
+      "sourceSha256": "3ef721f334b649513de0d88c9b0edd6dd2c97e3a928e0577c61b8b925d1065aa",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 451
+        },
+        "paint": {
+          "left": 69,
+          "top": 233,
+          "width": 277,
+          "height": 210
+        },
+        "target": {
+          "left": 69,
+          "top": 162,
+          "width": 124,
+          "height": 94
+        }
+      },
+      "tints": {}
+    },
+    "bag-backpack-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "bag-backpack-broad.primary.webp",
+          "sha256": "9afa578504bea1546831ed14d588e6b724243a993078817c483fc5627c7a1ce3"
+        },
+        "detail": {
+          "path": "bag-backpack-broad.detail.webp",
+          "sha256": "24ef5532d12afc6051619d8c07195ddeb4133e31f84e71cd6ce2a6d5665a4914"
+        }
+      },
+      "source": "wardrobe-accessories-0",
+      "sourceSha256": "3ef721f334b649513de0d88c9b0edd6dd2c97e3a928e0577c61b8b925d1065aa",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 451
+        },
+        "paint": {
+          "left": 56,
+          "top": 228,
+          "width": 330,
+          "height": 217
+        },
+        "target": {
+          "left": 53,
+          "top": 161,
+          "width": 154,
+          "height": 95
+        }
+      },
+      "tints": {}
+    },
+    "bag-satchel-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "bag-satchel-broad.primary.webp",
+          "sha256": "71a3e6ded5cbb0bf8750c7fb4421b746a89ddd612079f82ab00c360443737812"
+        },
+        "detail": {
+          "path": "bag-satchel-broad.detail.webp",
+          "sha256": "c1bb73f9e2e7f913124f9ad8f8a38098a136fc1a8ee08ea4efc890e0d423a9a0"
+        }
+      },
+      "source": "wardrobe-accessories-0",
+      "sourceSha256": "3ef721f334b649513de0d88c9b0edd6dd2c97e3a928e0577c61b8b925d1065aa",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 451
+        },
+        "paint": {
+          "left": 102,
+          "top": 236,
+          "width": 186,
+          "height": 208
+        },
+        "target": {
+          "left": 69,
+          "top": 167,
+          "width": 73,
+          "height": 89
+        }
+      },
+      "tints": {}
+    },
+    "bag-tote-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "bag-tote-broad.primary.webp",
+          "sha256": "56ba8150529575fbd0575fa78639ac19bb5b1d942025d95bd87c0695ef3564a6"
+        },
+        "detail": {
+          "path": "bag-tote-broad.detail.webp",
+          "sha256": "a160ddfb78d976526bc413461bede4b4e0e5c9a303a05c262d0026dbc8287f99"
+        }
+      },
+      "source": "wardrobe-accessories-0",
+      "sourceSha256": "3ef721f334b649513de0d88c9b0edd6dd2c97e3a928e0577c61b8b925d1065aa",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 601,
+          "width": 418,
+          "height": 275
+        },
+        "paint": {
+          "left": 250,
+          "top": 65,
+          "width": 107,
+          "height": 196
+        },
+        "target": {
+          "left": 175,
+          "top": 171,
+          "width": 37,
+          "height": 85
+        }
+      },
+      "tints": {}
+    },
+    "markings-beauty-mark-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "detail"
+      ],
+      "sheets": {
+        "detail": {
+          "path": "markings-beauty-mark-broad.detail.webp",
+          "sha256": "e5ad35bf25b0e3e5dd6fbf7cfb4afd7eac7a442f6e88bfadd013fd2942ed14d8"
+        }
+      },
+      "source": "wardrobe-accessories-0",
+      "sourceSha256": "3ef721f334b649513de0d88c9b0edd6dd2c97e3a928e0577c61b8b925d1065aa",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 418,
+          "width": 418,
+          "height": 418
+        },
+        "paint": {
+          "left": 198,
+          "top": 213,
+          "width": 20,
+          "height": 19
+        },
+        "target": {
+          "left": 101,
+          "top": 129,
+          "width": 6,
+          "height": 7
+        }
+      },
+      "tints": {}
+    },
+    "outer-waistcoat-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-waistcoat-slim.primary.webp",
+          "sha256": "d759e04d472ff28771fc334b7f7b6906368e77f0fab7ace98aaf6e0d594795e9"
+        },
+        "secondary": {
+          "path": "outer-waistcoat-slim.secondary.webp",
+          "sha256": "ed7c16978f42bbcfebe77928bdbc57dd4c0b6d29ebb4957db791e5fdc43cd6a7"
+        },
+        "detail": {
+          "path": "outer-waistcoat-slim.detail.webp",
+          "sha256": "46354be753d0f66eead1d52bcdf9d0ddb4e903e3ee6b8725d94497a39166276e"
+        }
+      },
+      "source": "wardrobe-tops-4",
+      "sourceSha256": "a0290d40d15b68e39712e44e8f558e0329aa02771070a9a49082a8e04fa32162",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 0,
+          "width": 418,
+          "height": 463
+        },
+        "paint": {
+          "left": 96,
+          "top": 272,
+          "width": 240,
+          "height": 183
+        },
+        "target": {
+          "left": 75,
+          "top": 172,
+          "width": 111,
+          "height": 84
+        }
+      },
+      "tints": {}
+    },
+    "outer-waistcoat-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-waistcoat-broad.primary.webp",
+          "sha256": "501025075aa9f27d4930d5f349e629e2d89fe0c177cc61aa0f33fbc2f5a126fb"
+        },
+        "secondary": {
+          "path": "outer-waistcoat-broad.secondary.webp",
+          "sha256": "7e0906fd256d81e8bd7415869a2a82624429fee30166021e3a1239893b835997"
+        },
+        "detail": {
+          "path": "outer-waistcoat-broad.detail.webp",
+          "sha256": "3374be64e7d3558c9020edf32a943307f3a251cc1640469b0b9f1f0d5cc6f39a"
+        }
+      },
+      "source": "wardrobe-tops-4",
+      "sourceSha256": "a0290d40d15b68e39712e44e8f558e0329aa02771070a9a49082a8e04fa32162",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 0,
+          "width": 418,
+          "height": 463
+        },
+        "paint": {
+          "left": 69,
+          "top": 256,
+          "width": 282,
+          "height": 198
+        },
+        "target": {
+          "left": 60,
+          "top": 164,
+          "width": 141,
+          "height": 92
+        }
+      },
+      "tints": {}
+    },
+    "outer-blazer-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-blazer-slim.primary.webp",
+          "sha256": "5809be940b0424f44b29f8d6049fef899be9dc61b8c398f37358a226585f25a5"
+        },
+        "secondary": {
+          "path": "outer-blazer-slim.secondary.webp",
+          "sha256": "b5a101f062fd0f8acbf913ee49ef1b628e231307f632fcff796a90179e274890"
+        },
+        "detail": {
+          "path": "outer-blazer-slim.detail.webp",
+          "sha256": "2964512db55dd6cb754f262811e36be91b780055c7aa026425a8b987440199b0"
+        }
+      },
+      "source": "wardrobe-tops-4",
+      "sourceSha256": "a0290d40d15b68e39712e44e8f558e0329aa02771070a9a49082a8e04fa32162",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 0,
+          "width": 418,
+          "height": 463
+        },
+        "paint": {
+          "left": 20,
+          "top": 249,
+          "width": 381,
+          "height": 205
+        },
+        "target": {
+          "left": 32,
+          "top": 155,
+          "width": 195,
+          "height": 101
+        }
+      },
+      "tints": {}
+    },
+    "outer-cardigan-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-cardigan-broad.primary.webp",
+          "sha256": "f9ec4d1fb6b50bb9b7ba9758ceb63ad38d18df886f4a314bbb5c56333f2efdbf"
+        },
+        "secondary": {
+          "path": "outer-cardigan-broad.secondary.webp",
+          "sha256": "c63d9845cbcb0428aa897bb7fdb2c377d34dc87905dd96ed85bc2fcdc0ed58a8"
+        },
+        "detail": {
+          "path": "outer-cardigan-broad.detail.webp",
+          "sha256": "39ecbcb8927706fa5fd21c878ceed8718feb10bfa41676a4d37d4982494fd046"
+        }
+      },
+      "source": "wardrobe-tops-4",
+      "sourceSha256": "a0290d40d15b68e39712e44e8f558e0329aa02771070a9a49082a8e04fa32162",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 564,
+          "width": 418,
+          "height": 300
+        },
+        "paint": {
+          "left": 8,
+          "top": 97,
+          "width": 410,
+          "height": 187
+        },
+        "target": {
+          "left": 10,
+          "top": 158,
+          "width": 238,
+          "height": 98
+        }
+      },
+      "tints": {}
+    },
+    "top-dress-wrap-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-dress-wrap-broad.primary.webp",
+          "sha256": "49e6450c47a79c22f3998fabe9e1491e86ef1f7eb16dbb2da240bb0e0428be73"
+        },
+        "secondary": {
+          "path": "top-dress-wrap-broad.secondary.webp",
+          "sha256": "8eff5d6bcd0fe68d06288bc4e29ecf7e220ce0234ff9fe1a09d8b29a871b8f7b"
+        },
+        "detail": {
+          "path": "top-dress-wrap-broad.detail.webp",
+          "sha256": "4391424d2e41dbf2f241795fe9e8e000369dc1107ebd94cb4bc2b757232a1c09"
+        }
+      },
+      "source": "wardrobe-tops-4",
+      "sourceSha256": "a0290d40d15b68e39712e44e8f558e0329aa02771070a9a49082a8e04fa32162",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 564,
+          "width": 418,
+          "height": 300
+        },
+        "paint": {
+          "left": 0,
+          "top": 90,
+          "width": 418,
+          "height": 193
+        },
+        "target": {
+          "left": 12,
+          "top": 151,
+          "width": 234,
+          "height": 105
+        }
+      },
+      "tints": {}
+    },
+    "top-dress-wrap-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "top-dress-wrap-slim.primary.webp",
+          "sha256": "e0780da35f8a565ccfbb4461631e6e408e9be542fe3aa064a2a8cbd690cc7197"
+        },
+        "secondary": {
+          "path": "top-dress-wrap-slim.secondary.webp",
+          "sha256": "8eff5d6bcd0fe68d06288bc4e29ecf7e220ce0234ff9fe1a09d8b29a871b8f7b"
+        },
+        "detail": {
+          "path": "top-dress-wrap-slim.detail.webp",
+          "sha256": "dcc9412850bd7e5b28af8caf092ba5480743d2599e0bb2fd2fa76dee3d15517c"
+        }
+      },
+      "source": "wardrobe-tops-4",
+      "sourceSha256": "a0290d40d15b68e39712e44e8f558e0329aa02771070a9a49082a8e04fa32162",
+      "registration": {
+        "source": {
+          "left": 852,
+          "top": 564,
+          "width": 401,
+          "height": 300
+        },
+        "paint": {
+          "left": 8,
+          "top": 120,
+          "width": 373,
+          "height": 164
+        },
+        "target": {
+          "left": 33,
+          "top": 169,
+          "width": 194,
+          "height": 87
+        }
+      },
+      "tints": {}
+    },
+    "outer-apron-broad": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-apron-broad.primary.webp",
+          "sha256": "4905adae5c450ff42942f6c0bcfaf11414cd2c0d8a343e4a4c163fa37e7ec202"
+        },
+        "secondary": {
+          "path": "outer-apron-broad.secondary.webp",
+          "sha256": "9b038cc66c64dad2253c1b91f69b3e2a7c75e32fed2dbae2c6b350ee6c46fd68"
+        },
+        "detail": {
+          "path": "outer-apron-broad.detail.webp",
+          "sha256": "20dd5c203ef8a3ba5bde6dae5fc89c2ddde96b52d4ff4c262b352fba6de65dea"
+        }
+      },
+      "source": "wardrobe-tops-4",
+      "sourceSha256": "a0290d40d15b68e39712e44e8f558e0329aa02771070a9a49082a8e04fa32162",
+      "registration": {
+        "source": {
+          "left": 0,
+          "top": 877,
+          "width": 418,
+          "height": 376
+        },
+        "paint": {
+          "left": 78,
+          "top": 118,
+          "width": 283,
+          "height": 236
+        },
+        "target": {
+          "left": 64,
+          "top": 158,
+          "width": 131,
+          "height": 98
+        }
+      },
+      "tints": {}
+    },
+    "outer-apron-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-apron-slim.primary.webp",
+          "sha256": "65388f10a2ea93c7bb44fc045b176acc047fe65348e6e89dae84cacc7031cd2f"
+        },
+        "secondary": {
+          "path": "outer-apron-slim.secondary.webp",
+          "sha256": "1db3ee7f50989f2717354dd318cbcf7fd0fafbda636545053797b5b1e31578b6"
+        },
+        "detail": {
+          "path": "outer-apron-slim.detail.webp",
+          "sha256": "ef0bd0243607abeb50852d0ca148a7dc934b269075201c6462dacb82534978d3"
+        }
+      },
+      "source": "wardrobe-tops-4",
+      "sourceSha256": "a0290d40d15b68e39712e44e8f558e0329aa02771070a9a49082a8e04fa32162",
+      "registration": {
+        "source": {
+          "left": 418,
+          "top": 877,
+          "width": 418,
+          "height": 376
+        },
+        "paint": {
+          "left": 83,
+          "top": 132,
+          "width": 251,
+          "height": 222
+        },
+        "target": {
+          "left": 77,
+          "top": 167,
+          "width": 107,
+          "height": 89
+        }
+      },
+      "tints": {}
+    },
+    "outer-cloak-slim": {
+      "cell": 256,
+      "nativeCell": 418,
+      "materials": [
+        "primary",
+        "secondary",
+        "detail"
+      ],
+      "sheets": {
+        "primary": {
+          "path": "outer-cloak-slim.primary.webp",
+          "sha256": "287d3bfe300c2d8ebd35602099f04c4c44c7be13f1b24e47ca797c76fda5cfab"
+        },
+        "secondary": {
+          "path": "outer-cloak-slim.secondary.webp",
+          "sha256": "92da921734a4cdb7394d56092845e316520872cadf050f624960efa950b41589"
+        },
+        "detail": {
+          "path": "outer-cloak-slim.detail.webp",
+          "sha256": "d5fb29f02b939e1a695be0f33a95f2d38f27dc700bbc7561990a091a73101119"
+        }
+      },
+      "source": "wardrobe-tops-4",
+      "sourceSha256": "a0290d40d15b68e39712e44e8f558e0329aa02771070a9a49082a8e04fa32162",
+      "registration": {
+        "source": {
+          "left": 836,
+          "top": 877,
+          "width": 418,
+          "height": 376
+        },
+        "paint": {
+          "left": 53,
+          "top": 124,
+          "width": 311,
+          "height": 230
+        },
+        "target": {
+          "left": 57,
+          "top": 164,
+          "width": 145,
+          "height": 92
+        }
+      },
+      "tints": {}
     }
   },
   "sources": [
@@ -3592,7 +8800,151 @@
       "prompt": "art/source/player-portraits/prompts/accessories-1.txt",
       "promptSha256": "562dc503830bce192e8c45d759c3f32e4d98dfae540cecee51c8d01cef461e08",
       "nativeCell": 418
+    },
+    {
+      "page": "wardrobe-tops-0",
+      "path": "art/source/player-portraits/candidates/wardrobe-tops-0.png",
+      "sha256": "6d0c02375bbbd8583c06f05dcc84daf890288f1d24d04ccf1959a65eac7e492f",
+      "prompt": "art/source/player-portraits/prompts/wardrobe-tops-0.txt",
+      "promptSha256": "fea62e649a59451263f2227502bcedae086db244a3bc3f86d82108a3bb61cb42",
+      "nativeCell": 418
+    },
+    {
+      "page": "wardrobe-heads-0",
+      "path": "art/source/player-portraits/candidates/wardrobe-heads-0.png",
+      "sha256": "c6313edeaed073f10a4b93a52e60c10f2b09561d9a00dc8c9b230301846a361d",
+      "prompt": "art/source/player-portraits/prompts/wardrobe-heads-0.txt",
+      "promptSha256": "4a5221c28aceece86eafe4a0e1e55760c21b3c8776f54d169e8c230f5ac4a39a",
+      "nativeCell": 418
+    },
+    {
+      "page": "wardrobe-mixed-0",
+      "path": "art/source/player-portraits/candidates/wardrobe-mixed-0.png",
+      "sha256": "6b1b3423fbdf583b9ef9f39338863c86fc8a1eca6c76e1fb65e2adb3ae872906",
+      "prompt": "art/source/player-portraits/prompts/wardrobe-mixed-0.txt",
+      "promptSha256": "fa1f0b5cf3c9ce89aaac81f34711a5639b3d7f0679cd4134e791b08ea188214d",
+      "nativeCell": 418
+    },
+    {
+      "page": "wardrobe-tops-1",
+      "path": "art/source/player-portraits/candidates/wardrobe-tops-1.png",
+      "sha256": "6a5fd7e0a3f14d7cf57a5dbbd374caf6bc106e18c9aac6016ef6ecfa727f56d5",
+      "prompt": "art/source/player-portraits/prompts/wardrobe-tops-1.txt",
+      "promptSha256": "a599b46b67039a5cea6e3c913005268e841c16cccc144327b2a932b9ded89ba3",
+      "nativeCell": 418
+    },
+    {
+      "page": "wardrobe-heads-1",
+      "path": "art/source/player-portraits/candidates/wardrobe-heads-1.png",
+      "sha256": "6420da3426b56cf034c969f33a64b3f28cb010b84792c2c6e2923e30d6112fa3",
+      "prompt": "art/source/player-portraits/prompts/wardrobe-heads-1.txt",
+      "promptSha256": "c7896b2f2805098ffb9534476a70d30fbd0384f8c55ff00f99d28ba1fca5e298",
+      "nativeCell": 418
+    },
+    {
+      "page": "wardrobe-heads-2",
+      "path": "art/source/player-portraits/candidates/wardrobe-heads-2.png",
+      "sha256": "a3b510e5b02aa367e921d5e1113096aac6bfbd185bd2fc125ed25283539a5b97",
+      "prompt": "art/source/player-portraits/prompts/wardrobe-heads-2.txt",
+      "promptSha256": "6120000c8d061a09633024dbd7157d80b9e04969cc1de5b048f6a17aebf029f1",
+      "nativeCell": 418
+    },
+    {
+      "page": "wardrobe-heads-3",
+      "path": "art/source/player-portraits/candidates/wardrobe-heads-3.png",
+      "sha256": "c168ac7a7157d198ca4d807476dce34737dd5c4ca830c169b233f4c8ce25d9f1",
+      "prompt": "art/source/player-portraits/prompts/wardrobe-heads-3.txt",
+      "promptSha256": "56455d007c9f1011404066b8cc1765f5ca4fe7bfb0c8fe9446ae1489bfcd7360",
+      "nativeCell": 418
+    },
+    {
+      "page": "wardrobe-heads-4",
+      "path": "art/source/player-portraits/candidates/wardrobe-heads-4.png",
+      "sha256": "5bc3c8cd680915d214e281f957d0d8a8724c3ff2bb6fc6dd3c8c95d53879f06f",
+      "prompt": "art/source/player-portraits/prompts/wardrobe-heads-4.txt",
+      "promptSha256": "93f0f2715f404b309de473b77c0f3c4912c4a328ef0029e5dae3bb4ff8ab3aae",
+      "nativeCell": 418
+    },
+    {
+      "page": "wardrobe-heads-5",
+      "path": "art/source/player-portraits/candidates/wardrobe-heads-5.png",
+      "sha256": "a2febfbe7ce0560f74800bad28e073a1de1887d7b8a454112272b4f7762f3308",
+      "prompt": "art/source/player-portraits/prompts/wardrobe-heads-5.txt",
+      "promptSha256": "910ca6653e0a11955fb0eee138dfa6cd5f3b34843afa5b7687a78fe9a3c0087e",
+      "nativeCell": 418
+    },
+    {
+      "page": "wardrobe-tops-2",
+      "path": "art/source/player-portraits/candidates/wardrobe-tops-2.png",
+      "sha256": "7567c236b3ff81bc716f185c6f733f2530686c662816bfccc83f5eef6805a308",
+      "prompt": "art/source/player-portraits/prompts/wardrobe-tops-2.txt",
+      "promptSha256": "59fed09fe3a0612d15ffd2adb2360805f77668f4c15dd60098d74ec4166efb29",
+      "nativeCell": 418
+    },
+    {
+      "page": "wardrobe-heads-6",
+      "path": "art/source/player-portraits/candidates/wardrobe-heads-6.png",
+      "sha256": "affb7c413a0d9586aaac7a9b176eeab1af12f5d23b14d7465522d615c4759d6e",
+      "prompt": "art/source/player-portraits/prompts/wardrobe-heads-6.txt",
+      "promptSha256": "b11f6fa0bc138820b5b2322bcc622ceadf9305882a319268192ec61973100bfd",
+      "nativeCell": 418
+    },
+    {
+      "page": "wardrobe-lower-4",
+      "path": "art/source/player-portraits/candidates/wardrobe-lower-4.png",
+      "sha256": "d35a25ebb5a5213984e6dbde2387442335401fd32084de4f83bcbfc40f108860",
+      "prompt": "art/source/player-portraits/prompts/wardrobe-lower-4.txt",
+      "promptSha256": "f742365a3126cd766bb60130b1bee7b664262519cd77801186defa2669f2d029",
+      "nativeCell": 418
+    },
+    {
+      "page": "wardrobe-heads-7",
+      "path": "art/source/player-portraits/candidates/wardrobe-heads-7.png",
+      "sha256": "8433ab5feaed24f197cd349a3ff0671a318e95c4b37e589852b07b19cce07af9",
+      "prompt": "art/source/player-portraits/prompts/wardrobe-heads-7.txt",
+      "promptSha256": "b051fb7aab498983d94a8084950e13c91716c578c671e2d03985d2d04f100ba9",
+      "nativeCell": 418
+    },
+    {
+      "page": "wardrobe-heads-8",
+      "path": "art/source/player-portraits/candidates/wardrobe-heads-8.png",
+      "sha256": "d29425d1a30d60f90e783f6990d46319f9dc4a363ed438db6f677fdc4c71840e",
+      "prompt": "art/source/player-portraits/prompts/wardrobe-heads-8.txt",
+      "promptSha256": "9d0e595587dc933793e99e671fa6806255070d7efadb6c5a101857eab6319e96",
+      "nativeCell": 418
+    },
+    {
+      "page": "wardrobe-tops-3",
+      "path": "art/source/player-portraits/candidates/wardrobe-tops-3.png",
+      "sha256": "5472e6ca78e0f3618f3e4e3abe6511f715d3acd7c9cda4fbac7de7170392ef22",
+      "prompt": "art/source/player-portraits/prompts/wardrobe-tops-3.txt",
+      "promptSha256": "10c34173cde0ffe4beb49056477c594aca109173274e13cca89b5cc1101b6d77",
+      "nativeCell": 418
+    },
+    {
+      "page": "wardrobe-eyewear-0",
+      "path": "art/source/player-portraits/candidates/wardrobe-eyewear-0.png",
+      "sha256": "710d92e829f997eb96c990d5c281d4ef7885bfcf54d71b940c6975e80fe01e74",
+      "prompt": "art/source/player-portraits/prompts/wardrobe-eyewear-0.txt",
+      "promptSha256": "ba4302e2776415588468f87ca413a7c53d664f45f6e7fc9318fed8a2ffd5f04e",
+      "nativeCell": 418
+    },
+    {
+      "page": "wardrobe-accessories-0",
+      "path": "art/source/player-portraits/candidates/wardrobe-accessories-0.png",
+      "sha256": "3ef721f334b649513de0d88c9b0edd6dd2c97e3a928e0577c61b8b925d1065aa",
+      "prompt": "art/source/player-portraits/prompts/wardrobe-accessories-0.txt",
+      "promptSha256": "264fc9c02554e39a07f3ad19386f2540b0363f954fe19f4388d7998078d7b181",
+      "nativeCell": 418
+    },
+    {
+      "page": "wardrobe-tops-4",
+      "path": "art/source/player-portraits/candidates/wardrobe-tops-4.png",
+      "sha256": "a0290d40d15b68e39712e44e8f558e0329aa02771070a9a49082a8e04fa32162",
+      "prompt": "art/source/player-portraits/prompts/wardrobe-tops-4.txt",
+      "promptSha256": "481339f27dd42867a10f26e30efea11cc3795cafa396fbd8fe0f3d55f5138870",
+      "nativeCell": 418
     }
   ],
-  "assetVersion": "9cfcb16e5c4b3bdf"
+  "assetVersion": "97a9c4f27b32b659"
 }

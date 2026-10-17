@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/cedarbay-resident-4.png",
   "proofSha256": "54aeaa05d7078c43e01948754186ae7957e2f55deb721d1f1f461b90c7a6cf62",
   "editorSha256": "2907b6ce758c4b14e8fb3204caeda139307a9c03d285244e6b9c75a2d3b90412",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "6021b2c1a9904aa5142ad728e84f50713b7e973090e7d5114bc58d25c5c2a454"
+  }
 }

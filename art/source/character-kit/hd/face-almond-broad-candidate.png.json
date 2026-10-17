@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/face-almond-broad-page-0-candidate-1.png",
+      "sha256": "a8aa14b4d4754f62e09dfc5c8fb095ac8d990dee2f2550ec8cdff42cf97564a9"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-almond-broad-page-0-candidate-1.txt",
+      "sha256": "2bbc17da68efc2c2057cf46f07f4c324a3156518abaeddf5485ad3731bb82104"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/face-almond-broad-page-1-candidate-2.png",
+      "sha256": "0243c34d991a762e894a8eabde48fde54029f7265873cca94fa440576e95cba0"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-almond-broad-page-1-candidate-2.txt",
+      "sha256": "8a96a05a84f6dddddcdb80c216da669a77a4b936a374c039d80a421182055cba"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/face-almond-broad-page-2-candidate-1.png",
+      "sha256": "53ac620a834252ace9d52c705fc8dfcb922d47741547e2d7650304f36925789c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-almond-broad-page-2-candidate-1.txt",
+      "sha256": "2bbc17da68efc2c2057cf46f07f4c324a3156518abaeddf5485ad3731bb82104"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/face-almond-broad-page-3-candidate-1.png",
+      "sha256": "6b2d336967adad3041eac8c8340b0393a237f77a39ee70588011414b995a8a0c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-almond-broad-page-3-candidate-1.txt",
+      "sha256": "2bbc17da68efc2c2057cf46f07f4c324a3156518abaeddf5485ad3731bb82104"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "246ca682d8b0cf4a33b880c4b47fef12005c20f847dc940c60d1ebf70178058d"
+}

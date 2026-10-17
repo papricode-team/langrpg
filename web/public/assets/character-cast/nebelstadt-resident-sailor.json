@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/nebelstadt-resident-sailor.png",
   "proofSha256": "9e0f50f872f1bde7059ec9a09af827a48fff3227c469e6acce047f90c75bad0e",
   "editorSha256": "97a95400c48f67001e30de1d3da8ea0f0dce6df4201f9c14160fb3ce097b8916",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "2e0e6d9ef8c6fafe8b68dcf5ebd789aa8c69b6ec7e68f6a4a764b137b544975f"
+  }
 }

@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "candidateSha256": "54fc9550ef0978d630621fe058c3a40cacd1362e80b05b8ae97c6a86a38b2cc2",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "2aa2b30428afc35ec2a1d87971a5ee6e8ac4376100ce3b789bba5947dc283eb4",
+  "promptSha256": "aa64e1cf3ad1bcb533e2917948696ccb202a4a9397244624073b71e46d33ec56",
+  "generationPromptSha256": "a8c9d68d036e08d972252c064578ea5f994e5163154941429c371fe1dfd06068",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailReach": 2,
+    "detailMaterial": "primary"
+  },
+  "preparationSha256": "882e935c541f6f31c4b1d7b5f6011b2216c09cfa428751ffca98ebd00b43c397",
+  "candidate": "art/source/character-kit/hd/neck-kerchief-broad-candidate.png",
+  "lockedSha256": "3f83f77330c4b143bab5ee27741dabaeeaeb9080c8c7c1a313ec33d1dafb9a2a"
+}

@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "candidateSha256": "99552ba85616085b2a14ba0730540f6db3ea318502dbee89acf355b2910ed08a",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "464b8ef39fd416b7d6d49acbd3d4db79ea700ad00be3e543e6e5ec4a97be2c99",
+  "promptSha256": "b9d9d51b6d5a9a1a2b3584b4635a0dc5bb37ef9fbfdb8d7887f7fd7516c7b6de",
+  "generationPromptSha256": "9f456d5bb6b3c4a5d17de47d4412e709d6f1e6017eee7eb7c1a79e26638886dd",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 2,
+      "left": 2
+    },
+    "regionReason": "The foreground bare arm occludes the connection between torso fabric and a visible rear-hem section in profile views."
+  },
+  "preparationSha256": "0ebe09094d325f2f976aef609fe3e7ad44295f666e0be9e24ed77358bdd57d5d",
+  "candidate": "art/source/character-kit/hd/top-sleeveless-slim-candidate.png",
+  "lockedSha256": "97b8f07856e60544de160671cca66089ee97b31bb5a8b4e8bdae450ad6f6fd36"
+}

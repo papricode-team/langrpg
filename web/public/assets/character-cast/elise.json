@@ -31,7 +31,7 @@
   "proof": "art/proofs/character-cast/elise.png",
   "proofSha256": "8e22acb161cee7e962153ea2ed645e4a376afdc4658e0505fbc158549008f6f0",
   "editorSha256": "b791b10dfc14fdd05b623587151074b431284fbfba26b8d0b3d3dd9bccdbc5da",
-  "assetVersion": "4c9d233bf71007a9",
+  "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-elise-native",
@@ -61,5 +61,10 @@
     ],
     "source": "art/proofs/character-cast/elise.webp",
     "sourceSha256": "b791b10dfc14fdd05b623587151074b431284fbfba26b8d0b3d3dd9bccdbc5da"
+  },
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "06ab923ed65599e20d0164011b7fa84ea2315268395c5332dc948e45c49b5b54"
   }
 }

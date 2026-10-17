@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-belt-pouch-broad-page-0-candidate-1.png",
+      "sha256": "35440dd42fca63fe2212bc73824ef9466bbc7b03bb0004302620211f3b1441ce"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-belt-pouch-broad-page-0-candidate-1.txt",
+      "sha256": "89086d9f6d868c1fe91135f9c9f449dc751ecb5c16d11247889ea79f086a9aa5"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-0.json",
+      "sha256": "d4c597d609eaced853a49300a3c916edad44486d2083661e2e1f72015c5fb832"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-belt-pouch-broad-page-1-candidate-1.png",
+      "sha256": "8b293ae7514eec5bfe42e038e416b664a695992edcbb92c5f172903f3e307aeb"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-belt-pouch-broad-page-1-candidate-1.txt",
+      "sha256": "89086d9f6d868c1fe91135f9c9f449dc751ecb5c16d11247889ea79f086a9aa5"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-1.json",
+      "sha256": "597ae57a47283b3583f871d7ecfb79f8eb0d069ec363f819db5347b622c0eec5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-belt-pouch-broad-page-2-candidate-1.png",
+      "sha256": "d8edb278e598d588a755ea3adef0a11ce2c8c6580e2908207118635011e100f6"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-belt-pouch-broad-page-2-candidate-1.txt",
+      "sha256": "24cc3532a423448f451aaa6b8511a3ff4130da4a96f1e0c4d6aa11f24401752b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-2.json",
+      "sha256": "3822b1501237a22f8d5952fa86901bb95b3a7ca3e1637d7063b13b8b5a890e21"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-belt-pouch-broad-page-3-candidate-1.png",
+      "sha256": "e997311dfcc48745cf1d4c571d082d689be5ab20d8a17c738a66883411c80fb2"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-belt-pouch-broad-page-3-candidate-1.txt",
+      "sha256": "886da8b70efa2c8da4c9f51a1a4b6b13a035ce00f5c5b94b6f3f94c3674d590b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-3.json",
+      "sha256": "09412f0261449be2e3d6bacbb0fb474dfa77e215dc568cef97a5387d7eceba7e"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-belt-pouch-broad-page-4-candidate-1.png",
+      "sha256": "170bbd52f0402f4af48794a07e39c02a56ccce0a883f67db493fa0b0e0dca8c0"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-belt-pouch-broad-page-4-candidate-1.txt",
+      "sha256": "eeb72cb4e3bb21c8acbe5bb50d3f59da0ba9039ecf291ba437ac336a01cb754d"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-4.json",
+      "sha256": "5252f9b6b506aeba7aa6b065493407dc63e3afa72771694c1fc3d3f025c359a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-belt-pouch-broad-page-5-candidate-1.png",
+      "sha256": "1ad4eef99cd0fc83f561af314a7f944084548338d8544f2959158d0107208c94"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-belt-pouch-broad-page-5-candidate-1.txt",
+      "sha256": "ea35ec202a2688025cc1b745141c7c6b668524d97e391427c5589fd1564ca235"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-5.json",
+      "sha256": "72beb8597382255bf7cfde12b003f50107cce66fee1e4d12ba961c28edfdb6dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-belt-pouch-broad-page-6-candidate-1.png",
+      "sha256": "9fcd1b0605c1882b44001fa9d61da4a485001d13fa468613e3a034fb85ece336"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-belt-pouch-broad-page-6-candidate-1.txt",
+      "sha256": "50b8b7b3b7d2dccfe339e40284df328a265c45ba6257cf4138ffba7f2fe6fd98"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-6.json",
+      "sha256": "369c87b8e1c6db5e23506f6c9c049b8866e3b95c4a57ebb3e5fdb50cff738546"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-belt-pouch-broad-page-7-candidate-1.png",
+      "sha256": "b30f26960a81524b202896537b361942322148e62b5bed9636c352c607e79a8f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-belt-pouch-broad-page-7-candidate-1.txt",
+      "sha256": "3cd6f6244dc695c880f7227b2988cc24c79d4a45c44fdaf74a1ecbbdfda3a043"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-7.json",
+      "sha256": "594be292ae2bb672b79bc0f64091efc6184647dc4159416c469120e9794ae6a2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-belt-pouch-broad-page-8-candidate-1.png",
+      "sha256": "f76ef772af43cd49ee7bed39737f9f1e001060512122c435216850ad3df92518"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-belt-pouch-broad-page-8-candidate-1.txt",
+      "sha256": "3cd6f6244dc695c880f7227b2988cc24c79d4a45c44fdaf74a1ecbbdfda3a043"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-8.json",
+      "sha256": "59b98d4a2e80d5eda70982582ea13bff1711eca74a22fd82e4b3ed6ef6f68734"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "ec785a8b366fe68fd8b83dd25844c00553489bc6df1b32046175d42fcca3bceb"
+}

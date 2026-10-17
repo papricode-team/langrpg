@@ -31,6 +31,11 @@
   "proof": "art/proofs/character-cast/nebelstadt-resident-archivist.png",
   "proofSha256": "fc20db572583a8ef41aeeff0f7bb8629c206cc761f54b50187980f9778d7ac95",
   "editorSha256": "bc057e8e9f5b99501be5de0283a70fe5d9823b6af140f5f0d72d57036ae41671",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "d2d0ea1f9338c5190adb8002b14237aeacd8c4342c6ee7826b22e817c41cb762"
+  }
 }

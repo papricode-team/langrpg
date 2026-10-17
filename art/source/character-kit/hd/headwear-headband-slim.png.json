@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "c7ea1032efc764cd5c124b0110f7b2cc3257803e07d2b2a5dc91c26a9977b4f5",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "85b294c3a8b9a6527807718ea7ae631bc0d894174b6d34b37a03a3ce87a42b13",
+  "promptSha256": "041cd5a5f583900b9b6c19ae8933de47a716a0f660085f48d9d98cd503bd3750",
+  "generationPromptSha256": "520adfafbcb73dd69eefbeb79b9aa9f1a5f8d83a73b54eead248537c4ce1d824",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "997da8ae5e533c1d71109e2e70d37b9f422163ffe86e50b19982c81c7641f458",
+  "candidate": "art/source/character-kit/hd/headwear-headband-slim-candidate.png",
+  "lockedSha256": "d8c94e41b7e67614cc949166e0af5914da88173434e29920d4a2b8c6fa14b8ec"
+}

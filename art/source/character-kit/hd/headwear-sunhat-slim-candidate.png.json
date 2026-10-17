@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-sunhat-slim-page-0-candidate-1.png",
+      "sha256": "d81c8d80527a2babe600c12e094830c0deb0d5ee723f5e2aeaff8717a29cb5a2"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-sunhat-slim-page-0-candidate-1.txt",
+      "sha256": "5d5cde1a247569bc5cb4085b67d366b7db4eb9a8eb0a903a9708d5a19fa644d2"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-0.json",
+      "sha256": "9207c077e0be3b69b427bf2fef3c5c6ec2cba6cd90360ea2f21dee3997475f8b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-sunhat-slim-page-1-candidate-1.png",
+      "sha256": "1411c97945294f099c629ef7c9d38c96f170510be989f6ebaa32ff5f2474586e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-sunhat-slim-page-1-candidate-1.txt",
+      "sha256": "5d5cde1a247569bc5cb4085b67d366b7db4eb9a8eb0a903a9708d5a19fa644d2"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-1.json",
+      "sha256": "f25ab7ae6f2211a6dcf84a772de156dca1aea4c9a1667b243da9303f7f1651ae"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-sunhat-slim-page-2-candidate-1.png",
+      "sha256": "d8b3cda6fb85b76af0fb1f0daa02aed619e33bdd6c4e41d5a75d443d6e499677"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-sunhat-slim-page-2-candidate-1.txt",
+      "sha256": "5d5cde1a247569bc5cb4085b67d366b7db4eb9a8eb0a903a9708d5a19fa644d2"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-2.json",
+      "sha256": "114454392f0cfb9ed7f499b8732bbd8ea3acae965a2db03ac0e20f8ab4e31746"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-sunhat-slim-page-3-candidate-2.png",
+      "sha256": "1f38d3fcf67a69dd4ce6fb74b8a64e0a90a186f8047d9ef0e9d8a1760d4accf2"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-sunhat-slim-page-3-candidate-2.txt",
+      "sha256": "f4f6df2df7a42adf7c2f5cc950ca541aeaf2e6a81aea9d209c1a171a29965aa7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-3.json",
+      "sha256": "9aef7f92c4a053f1ceb57baa15a3a3771a2c646922f5b26f7f9c0ac68ec0b4bd"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "e765cf3bda6d8a79c1b643dd000644bea9361d8af2b5071ba95168201538ae5d"
+}

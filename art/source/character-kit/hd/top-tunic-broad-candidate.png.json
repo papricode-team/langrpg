@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/top-tunic-broad-page-0-candidate-1.png",
+      "sha256": "67cb8ff4d53f2a26576e3f59da362b4a0d5635d20e3cf1ea04b8079ffbf78196"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-tunic-broad-page-0-candidate-1.txt",
+      "sha256": "7ff8c92432c9c95d4a853460efa2e4d250535f530dce07b77ca2b12c3c6d9eef"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-0.json",
+      "sha256": "d4c597d609eaced853a49300a3c916edad44486d2083661e2e1f72015c5fb832"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-tunic-broad-page-1-candidate-1.png",
+      "sha256": "59e34c7a54803bfa119edbcc680c4ab37e608378dffdb6fe59172f223b74807b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-tunic-broad-page-1-candidate-1.txt",
+      "sha256": "7ff8c92432c9c95d4a853460efa2e4d250535f530dce07b77ca2b12c3c6d9eef"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-1.json",
+      "sha256": "597ae57a47283b3583f871d7ecfb79f8eb0d069ec363f819db5347b622c0eec5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-tunic-broad-page-2-candidate-1.png",
+      "sha256": "697466225390375a148ea78ec02e83329902ff2aae88286aa392b189fa64d10f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-tunic-broad-page-2-candidate-1.txt",
+      "sha256": "7ff8c92432c9c95d4a853460efa2e4d250535f530dce07b77ca2b12c3c6d9eef"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-2.json",
+      "sha256": "3822b1501237a22f8d5952fa86901bb95b3a7ca3e1637d7063b13b8b5a890e21"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-tunic-broad-page-3-candidate-1.png",
+      "sha256": "0f66a05945f75e713b76adb3cff629753e72aa04acb0387fd9a854a42d31e2ac"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-tunic-broad-page-3-candidate-1.txt",
+      "sha256": "7ff8c92432c9c95d4a853460efa2e4d250535f530dce07b77ca2b12c3c6d9eef"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-3.json",
+      "sha256": "09412f0261449be2e3d6bacbb0fb474dfa77e215dc568cef97a5387d7eceba7e"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-tunic-broad-page-4-candidate-1.png",
+      "sha256": "a6ea18162e4504e6e323462a0d65525e3e9e1023eedef1207b1fb85d00a095ea"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-tunic-broad-page-4-candidate-1.txt",
+      "sha256": "7ff8c92432c9c95d4a853460efa2e4d250535f530dce07b77ca2b12c3c6d9eef"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-4.json",
+      "sha256": "5252f9b6b506aeba7aa6b065493407dc63e3afa72771694c1fc3d3f025c359a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-tunic-broad-page-5-candidate-1.png",
+      "sha256": "c1e948d249c4d7f67f67ed74b5e56da55dccf2341573dfee2afd639bf9fadb6f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-tunic-broad-page-5-candidate-1.txt",
+      "sha256": "7ff8c92432c9c95d4a853460efa2e4d250535f530dce07b77ca2b12c3c6d9eef"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-5.json",
+      "sha256": "72beb8597382255bf7cfde12b003f50107cce66fee1e4d12ba961c28edfdb6dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-tunic-broad-page-6-candidate-1.png",
+      "sha256": "a9ee256b0a81cb0cb228fbaffdcfbb5f5827bf7f03c62ee3de4241a48c63b675"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-tunic-broad-page-6-candidate-1.txt",
+      "sha256": "7ff8c92432c9c95d4a853460efa2e4d250535f530dce07b77ca2b12c3c6d9eef"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-6.json",
+      "sha256": "369c87b8e1c6db5e23506f6c9c049b8866e3b95c4a57ebb3e5fdb50cff738546"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-tunic-broad-page-7-candidate-1.png",
+      "sha256": "65655135b062a99ace563bf33d21dbadb7c44cde277b0e01fae178ebb4ec77b4"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-tunic-broad-page-7-candidate-1.txt",
+      "sha256": "7ff8c92432c9c95d4a853460efa2e4d250535f530dce07b77ca2b12c3c6d9eef"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-7.json",
+      "sha256": "594be292ae2bb672b79bc0f64091efc6184647dc4159416c469120e9794ae6a2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-tunic-broad-page-8-candidate-1.png",
+      "sha256": "ad841dd6ad2f5eafc44ae872c1edbe1ed0c5ff0d47495330f7102d2a5c2ddadb"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-tunic-broad-page-8-candidate-1.txt",
+      "sha256": "7ff8c92432c9c95d4a853460efa2e4d250535f530dce07b77ca2b12c3c6d9eef"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-8.json",
+      "sha256": "59b98d4a2e80d5eda70982582ea13bff1711eca74a22fd82e4b3ed6ef6f68734"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "086b551654d218aa29f8fd254e1fe7b72f246621b65184ae19beed645c77a066"
+}

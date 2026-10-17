@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "candidateSha256": "65f52705a40b14e0b7abf76c93f5d817ce2df5432440eeadc31a2403c7d1261a",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "2aa2b30428afc35ec2a1d87971a5ee6e8ac4376100ce3b789bba5947dc283eb4",
+  "promptSha256": "04bc41698c07bde9f22e3ad686ce9d527fc0df41b9881e7e3531ac5d201b4b7b",
+  "generationPromptSha256": "8950b18fdb201669f77c8212db2e64760ae66740ac367a3783a75f236cf4a3ef",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailReach": 2,
+    "detailMaterial": "primary"
+  },
+  "preparationSha256": "110c0449dcf63d7b1f3cdb8b3ab92a115000c7095e0af6857faaa13014d25631",
+  "candidate": "art/source/character-kit/hd/neck-scarf-slim-candidate.png",
+  "lockedSha256": "89ed0dee30295e70258c24905becdb4cd2768a2ed041c826633adf2fc7691711"
+}

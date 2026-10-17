@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-trench-slim-page-0-candidate-1.png",
+      "sha256": "a848366d8634bff1efab97f39180bab23b1854750850fa0d9f0a6cd40fd41366"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-trench-slim-page-0-candidate-1.txt",
+      "sha256": "88d496d0e77c1966ba376e54b74bc6fe81c8a25ee8e439111ad48a22f72ccc55"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-0.json",
+      "sha256": "a6c84addbfd340ec426f28ea82ae85b2cc2b70137b1516da583c89ea1fd9c3c8"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-trench-slim-page-1-candidate-1.png",
+      "sha256": "04f4545d899825b75e4af39da37b4c72288f1e3fc983ebc396af92dcc2835c9a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-trench-slim-page-1-candidate-1.txt",
+      "sha256": "88d496d0e77c1966ba376e54b74bc6fe81c8a25ee8e439111ad48a22f72ccc55"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-1.json",
+      "sha256": "200f02d5272755448caa8ff37144a13da72062cdd95a20c1a7ff61ef7ff62814"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-trench-slim-page-2-candidate-1.png",
+      "sha256": "4d3e1dab5f545f5ee9971fb147338676e8c1303933515853b27f2eadbc975d06"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-trench-slim-page-2-candidate-1.txt",
+      "sha256": "88d496d0e77c1966ba376e54b74bc6fe81c8a25ee8e439111ad48a22f72ccc55"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-2.json",
+      "sha256": "30efcafbe9d7830013cf5b7b68ce9c0f1f7e02a3753d8c70007005f678193dd2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-trench-slim-page-3-candidate-1.png",
+      "sha256": "2620cdb9df25bb30a7d977e3830d7d9f50f3b124c94f97b45409b9bc393b7e27"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-trench-slim-page-3-candidate-1.txt",
+      "sha256": "88d496d0e77c1966ba376e54b74bc6fe81c8a25ee8e439111ad48a22f72ccc55"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-3.json",
+      "sha256": "c3b47bcc3acbc328ad2378c245359a6a3c2b8edd6d4ac6fd90495f1b180f8485"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-trench-slim-page-4-candidate-1.png",
+      "sha256": "2fcae1283da51884d8d2022e1fbe527232bc57bf71567162d5d54ff95dff04a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-trench-slim-page-4-candidate-1.txt",
+      "sha256": "88d496d0e77c1966ba376e54b74bc6fe81c8a25ee8e439111ad48a22f72ccc55"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-4.json",
+      "sha256": "3e12d382498d7598725fce3e44099a593cbd15caa44e9c7bc572e3931559e2ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-trench-slim-page-5-candidate-1.png",
+      "sha256": "d7e5af2d6e37e533ffe4e318eedbba6b46725c459858fff7e82ced686b5f71b5"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-trench-slim-page-5-candidate-1.txt",
+      "sha256": "88d496d0e77c1966ba376e54b74bc6fe81c8a25ee8e439111ad48a22f72ccc55"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-5.json",
+      "sha256": "9801f02cbaa07933d6c115805b6442f6e7adf1db9ca8bd68a1185df134371b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-trench-slim-page-6-candidate-1.png",
+      "sha256": "bab5fdfe282c1a76b2d5f7e1c1d92b9e8f53d41d9c4dbbac597604deb32a814e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-trench-slim-page-6-candidate-1.txt",
+      "sha256": "88d496d0e77c1966ba376e54b74bc6fe81c8a25ee8e439111ad48a22f72ccc55"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-6.json",
+      "sha256": "b376d6ff991750e64f8e4e02d1eee9baecab7f17b23cfca6d0d24ea933096ab6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-trench-slim-page-7-candidate-1.png",
+      "sha256": "bc5cc45f9677f644ac901498d0d7ce9dcc16f28550c6bb7a64e1233397339f56"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-trench-slim-page-7-candidate-1.txt",
+      "sha256": "88d496d0e77c1966ba376e54b74bc6fe81c8a25ee8e439111ad48a22f72ccc55"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-7.json",
+      "sha256": "54b515875467084c2615401a4aa41788ff7ea91081d871208308ecdfda0f48d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-trench-slim-page-8-candidate-1.png",
+      "sha256": "12d39aea4bc1defe199e16ec116761f3438b603c8eac0cbd9a413d33158a095e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-trench-slim-page-8-candidate-1.txt",
+      "sha256": "88d496d0e77c1966ba376e54b74bc6fe81c8a25ee8e439111ad48a22f72ccc55"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-8.json",
+      "sha256": "a907bceabc2de3865bb70e4f875dcc255387929f55bac0e8f698706c5c1bcdb1"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "8c7f9860f48e6669457170535a881600244da4e5afedf18b0852a2817c8687a6"
+}

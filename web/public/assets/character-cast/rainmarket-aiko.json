@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/rainmarket-aiko.png",
   "proofSha256": "21615d0014ef551da43c18a48568734e70759ec19014a3fe71ce7c6d1f3f96f7",
   "editorSha256": "773d197811235f83ddaae7788a7381edffd3b276745e48d8099724f7b5631f64",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "cb726c18ee5cb5863613c0644808a5fc32947ac9249edede7289a2dfd90dbdf1"
+  }
 }

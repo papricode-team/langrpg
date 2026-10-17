@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/markings-freckles-broad-page-0-candidate-1.png",
+      "sha256": "2c7fa9f904ca15751213db00b06a048d670c516a8fae9ad9174e3aa908fe4014"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/markings-freckles-broad-page-0-candidate-1.txt",
+      "sha256": "545cc2d922955a59a32d169b11f17d80f641da6a192c49969983c5de81f49d93"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/markings-freckles-broad-page-1-candidate-1.png",
+      "sha256": "c2075304910570bde8fbf15930ec7176cf3769b8cea7d0e75a8c37be7ff650d5"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/markings-freckles-broad-page-1-candidate-1.txt",
+      "sha256": "545cc2d922955a59a32d169b11f17d80f641da6a192c49969983c5de81f49d93"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/markings-freckles-broad-page-2-candidate-1.png",
+      "sha256": "ec532b8505a0926cd848afc4b9ed79d5772d09a9e48a1a4ef5d8c07782858248"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/markings-freckles-broad-page-2-candidate-1.txt",
+      "sha256": "545cc2d922955a59a32d169b11f17d80f641da6a192c49969983c5de81f49d93"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/markings-freckles-broad-page-3-candidate-1.png",
+      "sha256": "3ecda56ed3f60e1ebf48c8f39325c7caa612e780537b4f35078e572ca0b7b99c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/markings-freckles-broad-page-3-candidate-1.txt",
+      "sha256": "545cc2d922955a59a32d169b11f17d80f641da6a192c49969983c5de81f49d93"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "bf784fd6fb6155a587df6d4aec507181e19069ca023e0f4b4a77b4b4c1bfc581"
+}

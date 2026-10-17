@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-ponytail-slim-page-0-candidate-1.png",
+      "sha256": "e03a2ed85a56401482a3bccb824752aa9d2930e3330fcea74d215d1906746422"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-ponytail-slim-page-0-candidate-1.txt",
+      "sha256": "0a9c6a62d2ad9a3071031712c51a4c23e0252bd032dcf6d547e89f064284d3c6"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-0.json",
+      "sha256": "9207c077e0be3b69b427bf2fef3c5c6ec2cba6cd90360ea2f21dee3997475f8b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-ponytail-slim-page-1-candidate-1.png",
+      "sha256": "533d7fef7bb92104911e4e528cf8726eb1bdfbb9cf73934ce44700028eec898b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-ponytail-slim-page-1-candidate-1.txt",
+      "sha256": "0a9c6a62d2ad9a3071031712c51a4c23e0252bd032dcf6d547e89f064284d3c6"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-1.json",
+      "sha256": "f25ab7ae6f2211a6dcf84a772de156dca1aea4c9a1667b243da9303f7f1651ae"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-ponytail-slim-page-2-candidate-1.png",
+      "sha256": "05bbde633f843b46eadfa06acde3eb4d3a603a1c5fd372108301c34ba99bc855"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-ponytail-slim-page-2-candidate-1.txt",
+      "sha256": "0a9c6a62d2ad9a3071031712c51a4c23e0252bd032dcf6d547e89f064284d3c6"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-2.json",
+      "sha256": "114454392f0cfb9ed7f499b8732bbd8ea3acae965a2db03ac0e20f8ab4e31746"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-ponytail-slim-page-3-candidate-1.png",
+      "sha256": "84c582bc749be09e51fbafc6d31d340d237f1bdc3fb669fbe667baf8c272b075"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-ponytail-slim-page-3-candidate-1.txt",
+      "sha256": "0a9c6a62d2ad9a3071031712c51a4c23e0252bd032dcf6d547e89f064284d3c6"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-3.json",
+      "sha256": "9aef7f92c4a053f1ceb57baa15a3a3771a2c646922f5b26f7f9c0ac68ec0b4bd"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "9a95d86c737706547ef0f328b279c04ee3e3518adc30590c49b7a89573c17d6a"
+}

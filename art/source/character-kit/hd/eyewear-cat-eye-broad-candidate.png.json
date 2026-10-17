@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-cat-eye-broad-page-0-candidate-1.png",
+      "sha256": "da73e4aacc7690e110cfa6cd38e759d4d6270de35fdd41f8fc56cc839c24bf1b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-cat-eye-broad-page-0-candidate-1.txt",
+      "sha256": "1a796a15a47943fbc0067abf30441a98ba9a6d4dad0f33fa295f361bc2654360"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-cat-eye-broad-page-1-candidate-1.png",
+      "sha256": "2c0ac239da4dd27c2e6b10d454f13116019983c1b6197f33127a110727907571"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-cat-eye-broad-page-1-candidate-1.txt",
+      "sha256": "21fe8803abf22bd88c9f5fd48b51fdb633ef3e3aa08cf723a35b3df3b41d1993"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-cat-eye-broad-page-2-candidate-1.png",
+      "sha256": "4a12a43b4ebcafdf0ed8fe28d93195f7c8aa886bca7c076edb5250333fa0ffc3"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-cat-eye-broad-page-2-candidate-1.txt",
+      "sha256": "a5c44126aa3dc6a7ac8c5ca09acbf42303a098079b4424abc371a6a26f2a5e41"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-cat-eye-broad-page-3-candidate-1.png",
+      "sha256": "e6152bab7aa22014c73ea8e3c5582223d025486f9722a6d940e3908e8f5ac162"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-cat-eye-broad-page-3-candidate-1.txt",
+      "sha256": "159889a7c34e9b9b639e5f321bf53920826de19af7a25e8d371c568eb9176afe"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "5254693fea5b2ce8438179d35136e7aa431c3b31e62c72f57584840a4022a397"
+}

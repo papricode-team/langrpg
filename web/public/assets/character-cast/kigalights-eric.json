@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/kigalights-eric.png",
   "proofSha256": "f91b4d5262a3e71ffd6aaf43eb6bc120900363c81a4663bc25c834e9f1a8c162",
   "editorSha256": "d56c2e7523973113ca980a337c138f723cd53fcb6c5c602d195d0a926640e195",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "a24c3f626ff45100685730b6b43e12ad4c9980a1408c48f3492e20076b7bedc2"
+  }
 }

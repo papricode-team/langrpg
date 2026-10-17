@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "candidateSha256": "9b5ee95337eab2df23da1a6ca9cae353827e0963558020de0309dd0dc211e006",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "9a0fca38c51f5dadffc15a604398714f317a988a4c4b16476c6ac92ae2468cec",
+  "promptSha256": "e8e876d2e447213e7fbdc50ee433ef704b9f4d28993cff9d993c8dbbfec51397",
+  "generationPromptSha256": "197df014863fa6521f68cbf3956fb940e445426b970de798c2e08fb0cb651692",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailEnclosedBy": "primary"
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 3,
+      "left": 3,
+      "down": 2
+    },
+    "regionReason": "Foreground hands occlude narrow hem sections: up to two visible regions in front views and three in profiles. Frame 7 retains the small green hem segment beneath the hand."
+  },
+  "preparationSha256": "6205a43d1116d310c22587574f32bd9088b0ac7ad6c14e72a7d515185fbd07c4",
+  "candidate": "art/source/character-kit/hd/top-tunic-slim-candidate.png",
+  "lockedSha256": "da67401ef1bc207992b671540c3865f3fecc6f8184387688c4b206efccf8da9c"
+}

@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-round-broad-page-0-candidate-1.png",
+      "sha256": "664f6924455a39a77c353a4eeff25f98139b6886c5b23a07d0c5c32178439645"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-round-broad-page-0-candidate-1.txt",
+      "sha256": "782a406f2fc71e302356c40a97cc68837077c255ec1afd64db7267345a9e9d0b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-round-broad-page-1-candidate-1.png",
+      "sha256": "f6171edc0c0ed9044df7676fcfb9e83c990043d696c05779111e87b1f7aba4ce"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-round-broad-page-1-candidate-1.txt",
+      "sha256": "bd7a36438813f47a9abf1cc96d089914d727863cb5dc8d99ae7982f711f48258"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-round-broad-page-2-candidate-1.png",
+      "sha256": "3f5f36579907c60d88a556a249c80c35a2aca298af8693e25bd27a3f6355400a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-round-broad-page-2-candidate-1.txt",
+      "sha256": "5c919d86c8895d14acba62a4ed78502fe998eb704fa3ce831606f1612bd81ab2"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-round-broad-page-3-candidate-1.png",
+      "sha256": "c3bcb47c02bc851cfbee8c1ff41d0d9992a7578405aa6e1c50853ce2decc81db"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-round-broad-page-3-candidate-1.txt",
+      "sha256": "d124b2a2dfa53b4de6557594f33525e5806aa1265707534c6d6cc80461e4a0ee"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "a29fb205bcb4387dcf423c0766b258b1e7ee76ec0f16f649aceabb24c860d382"
+}

@@ -31,6 +31,11 @@
   "proof": "art/proofs/character-cast/windplain-resident-7.png",
   "proofSha256": "faf923a99831a41f1fceb5de62d10a8f57acb59f8a4695a5217b139b85ee8375",
   "editorSha256": "a35f7d5755f58054c56fa06c25fff31a7ed52b723abc2e389ec0ff5338ae3317",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "6d87f7104f83ee978fbaf4db17a5ccb58dc5cb6f23a9ce8d9d4134084f7c69a2"
+  }
 }

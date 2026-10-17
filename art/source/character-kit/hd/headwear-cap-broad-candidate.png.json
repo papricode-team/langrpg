@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-cap-broad-page-0-candidate-1.png",
+      "sha256": "a2929e62089222f0d355e99d07676257225cb63f2aaccae4b718e051211853be"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-cap-broad-page-0-candidate-1.txt",
+      "sha256": "7bf6c72ef0a5f1549e0c058e856a6cbf6ee70c64dc89fd2bef2c1a3f4359db37"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-cap-broad-page-1-candidate-1.png",
+      "sha256": "76f13994a635e506c889a62ae22872d2cad2476a717778349fffc786e297cb7d"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-cap-broad-page-1-candidate-1.txt",
+      "sha256": "7bf6c72ef0a5f1549e0c058e856a6cbf6ee70c64dc89fd2bef2c1a3f4359db37"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-cap-broad-page-2-candidate-1.png",
+      "sha256": "388dbc511aca991f4d3e75fe956cfc4bd060d612a29bcf941eef051fb097d858"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-cap-broad-page-2-candidate-1.txt",
+      "sha256": "7bf6c72ef0a5f1549e0c058e856a6cbf6ee70c64dc89fd2bef2c1a3f4359db37"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-cap-broad-page-3-candidate-1.png",
+      "sha256": "4de715e26dc8683d3391fee2d737397222b2c302996e555e0fb9bc963c9241f8"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-cap-broad-page-3-candidate-1.txt",
+      "sha256": "7bf6c72ef0a5f1549e0c058e856a6cbf6ee70c64dc89fd2bef2c1a3f4359db37"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "1b12b2178348b103e2cc8a0383009d8ee3119f3fc669bf4d070f78f5f24593b1"
+}

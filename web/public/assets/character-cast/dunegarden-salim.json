@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/dunegarden-salim.png",
   "proofSha256": "fdc3a1ea362353d59e32a6123f6491981eb269d4122df0de6d279940b2429312",
   "editorSha256": "10661fc50f73f58fcc1e7974598a007e08c9405616322057608e7ebc97201ce3",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "d03a24bca89e4f25c4f54cd827eaac4fc967b3d42d6aa3d8874f003078a8b735"
+  }
 }

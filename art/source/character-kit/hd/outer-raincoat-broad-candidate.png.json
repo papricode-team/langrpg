@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-raincoat-broad-page-0-candidate-1.png",
+      "sha256": "50935bb7b45b523d33269018e8343dc81b1531dc76e65354d74d0e963b6dd2ee"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-raincoat-broad-page-0-candidate-1.txt",
+      "sha256": "f4ed904dffab164a0991ef9d2913f08393aa54aaa9f0809abeb04fe3bd64070e"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-0.json",
+      "sha256": "d4c597d609eaced853a49300a3c916edad44486d2083661e2e1f72015c5fb832"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-raincoat-broad-page-1-candidate-1.png",
+      "sha256": "bb4afae28fe7bebbe0f0a9ebe1081a30fe095d429ef4adc496bda722a86dc472"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-raincoat-broad-page-1-candidate-1.txt",
+      "sha256": "f4ed904dffab164a0991ef9d2913f08393aa54aaa9f0809abeb04fe3bd64070e"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-1.json",
+      "sha256": "597ae57a47283b3583f871d7ecfb79f8eb0d069ec363f819db5347b622c0eec5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-raincoat-broad-page-2-candidate-1.png",
+      "sha256": "9d13cfd6fdb496e0ab68ae2adb817aed0aca07a6641cf218ec2f6380dfd5622f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-raincoat-broad-page-2-candidate-1.txt",
+      "sha256": "5c7225a8966239c0324bb4adc7c0375d3268d87f357b434b796da221736ec360"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-2.json",
+      "sha256": "3822b1501237a22f8d5952fa86901bb95b3a7ca3e1637d7063b13b8b5a890e21"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-raincoat-broad-page-3-candidate-1.png",
+      "sha256": "4b6a9ff4b7d03e4247b9cbbe3c9ca4d5d021c436353c16cf4369810037c3b345"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-raincoat-broad-page-3-candidate-1.txt",
+      "sha256": "8c0f949f9f17493d1ec76e475eb38bea0a6346e500168e074fe7956a749144db"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-3.json",
+      "sha256": "09412f0261449be2e3d6bacbb0fb474dfa77e215dc568cef97a5387d7eceba7e"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-raincoat-broad-page-4-candidate-1.png",
+      "sha256": "9385f4fdd96af97dd6f5de0245c54c5211ff068c922a8c116709c922a4d3b96a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-raincoat-broad-page-4-candidate-1.txt",
+      "sha256": "1b75a6fda4de2ac81b1f6f1b40bbfa554962c11ab5283ae6b0adb21763b47227"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-4.json",
+      "sha256": "5252f9b6b506aeba7aa6b065493407dc63e3afa72771694c1fc3d3f025c359a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-raincoat-broad-page-5-candidate-1.png",
+      "sha256": "41116d274fde09d397c678435ff79326d4952fe54b92bd27e9d937a5436ff045"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-raincoat-broad-page-5-candidate-1.txt",
+      "sha256": "e24e86b12043e9fb0da5c000eda90da28d130000307ff58f8cd0ec9118bac743"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-5.json",
+      "sha256": "72beb8597382255bf7cfde12b003f50107cce66fee1e4d12ba961c28edfdb6dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-raincoat-broad-page-6-candidate-1.png",
+      "sha256": "7ab6b9487c8bfe885be5400ab1ecf9f56385e178ff8cf9ae5eb6c9c74942f837"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-raincoat-broad-page-6-candidate-1.txt",
+      "sha256": "d02b8b82f6ea8e8eca43f3daac63e7ed5d5c3e2183bc067774336187d59d9acb"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-6.json",
+      "sha256": "369c87b8e1c6db5e23506f6c9c049b8866e3b95c4a57ebb3e5fdb50cff738546"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-raincoat-broad-page-7-candidate-1.png",
+      "sha256": "d4fc63cd1b4350e7a5ebde4346394a7d1c9a31fe487ebf84ca38e86ba7a0baca"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-raincoat-broad-page-7-candidate-1.txt",
+      "sha256": "028e22cad70c0f2adefb344d71d88980197c7b8839d7d9253879c775ef037b73"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-7.json",
+      "sha256": "594be292ae2bb672b79bc0f64091efc6184647dc4159416c469120e9794ae6a2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-raincoat-broad-page-8-candidate-1.png",
+      "sha256": "afb350bcc8098bf3d52b031241b0bd7629d33c5e67f3fae6fa1a26a3b0b3e72f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-raincoat-broad-page-8-candidate-1.txt",
+      "sha256": "028e22cad70c0f2adefb344d71d88980197c7b8839d7d9253879c775ef037b73"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-8.json",
+      "sha256": "59b98d4a2e80d5eda70982582ea13bff1711eca74a22fd82e4b3ed6ef6f68734"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "4110f8344e6c722da8442be2e49236082bce255ae1f34850a43dd4489157d7a7"
+}

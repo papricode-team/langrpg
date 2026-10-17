@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-buzz-broad-page-0-candidate-1.png",
+      "sha256": "049a5d5f9e41efc1130c365a146df0cf101f4d4da89920f6138581977cc26ebb"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-buzz-broad-page-0-candidate-1.txt",
+      "sha256": "f76a8e2718dedd671a6505c818f48e30fce5a423d7eaa12abfe7e9a59e0fe89c"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-buzz-broad-page-1-candidate-1.png",
+      "sha256": "d8420cad1688b6b612debe82d751886bb4594741c8f56417430dc2767167c7ea"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-buzz-broad-page-1-candidate-1.txt",
+      "sha256": "f76a8e2718dedd671a6505c818f48e30fce5a423d7eaa12abfe7e9a59e0fe89c"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-buzz-broad-page-2-candidate-1.png",
+      "sha256": "7031fd242beb683353f47a9d5a784d0613988ef2135e01892ae1de41d19a9a90"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-buzz-broad-page-2-candidate-1.txt",
+      "sha256": "f76a8e2718dedd671a6505c818f48e30fce5a423d7eaa12abfe7e9a59e0fe89c"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-buzz-broad-page-3-candidate-1.png",
+      "sha256": "f9132fb72cc16d773e39431cd257516f2062b27e17f478c7bcbd947140f6498b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-buzz-broad-page-3-candidate-1.txt",
+      "sha256": "f76a8e2718dedd671a6505c818f48e30fce5a423d7eaa12abfe7e9a59e0fe89c"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "3ddb3b77502205ce636f7241eb09a0620f211fe44a81ad01630f7bbfd36967aa"
+}

@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-square-broad-page-0-candidate-1.png",
+      "sha256": "7ba416b7c5404c0001daf28bb9b4057fc1ae47edfb06584eb0edf19a634a37f6"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-square-broad-page-0-candidate-1.txt",
+      "sha256": "b48b969eab1aa56cbf5608e9c1c3e705c0d01fe3bb62430c1cadb49d7f3e291b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-square-broad-page-1-candidate-1.png",
+      "sha256": "e58f6ecbf1a9c7317829957f32e63e0478907d7854f774392d7a1be1ebce4a63"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-square-broad-page-1-candidate-1.txt",
+      "sha256": "3f502a663d0c33dadab92e2674b68cfc870ad81acec370b60d61925a0229a1ca"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-square-broad-page-2-candidate-1.png",
+      "sha256": "7ce17e154d383ea40212a9796fab5ffc2fca8f58b48eefb8d20b7c7d765861fb"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-square-broad-page-2-candidate-1.txt",
+      "sha256": "71df0e64366fdbdf7c81ac18401603d3de45f86c7e56bc7cf6145db3b8ed92ef"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-square-broad-page-3-candidate-1.png",
+      "sha256": "cdccc0585d7d7e9a25be68da5e3ecccf430a6822d8976db84dfe82adef54e78e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-square-broad-page-3-candidate-1.txt",
+      "sha256": "dc2a64d945e678a6438bbc3e3d6434e5e5f833f666a8f6d7447883e8febd6082"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "53de7aa54e82454b8bf678b00ce2cbc8e17acc657dbda021b885ff9c0ee77516"
+}

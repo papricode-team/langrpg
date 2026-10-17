@@ -7,10 +7,24 @@ import {material} from './character-kit.mjs';
 import {splitMaterials} from './character-kit-assets.mjs';
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const base='art/source/player-portraits';
+/** Optional normalized crop records the actual placement in a retained painting. */
+export function portraitSourceCell(meta,index,part){
+ const nativeCell=Math.floor(meta.width/3);
+ if(!part.sourceCrop)return {left:Math.floor(index%3*meta.width/3),top:Math.floor(Math.floor(index/3)*meta.height/3),width:nativeCell,height:nativeCell};
+ const {left,top,width,height}=part.sourceCrop;
+ if(![left,top,width,height].every(Number.isFinite)||left<0||top<0||width<=0||height<=0||left+width>1||top+height>1)throw new Error(`Invalid portrait source crop: ${part.id}`);
+ return {left:Math.floor(left*meta.width),top:Math.floor(top*meta.height),width:Math.floor(width*meta.width),height:Math.floor(height*meta.height)};
+}
 export function bounds(data,width,height,threshold=32){
  let left=width,top=height,right=-1,bottom=-1;
  for(let y=0;y<height;y++)for(let x=0;x<width;x++)if(data[(y*width+x)*4+3]>threshold){left=Math.min(left,x);top=Math.min(top,y);right=Math.max(right,x);bottom=Math.max(bottom,y);}
  return right<0?null:{left,top,width:right-left+1,height:bottom-top+1};
+}
+/** Translucent makeup guides can be entirely below the opaque-art cutoff. */
+export function portraitGuideBounds(data,width,height){
+ let maxAlpha=0;
+ for(let p=3;p<data.length;p+=4)maxAlpha=Math.max(maxAlpha,data[p]);
+ return bounds(data,width,height,Math.min(64,maxAlpha/2));
 }
 /** Discard isolated cell-edge slivers and extraction specks, never interior detail. */
 export function cleanCell(data,width,height,largestOnly=false){
@@ -49,7 +63,7 @@ export async function buildPlayerPortraits(){
   const nativeCell=Math.floor(meta.width/3),sourceHash=hash(bytes);
   sources.push({page:page.id,path,sha256:sourceHash,prompt,promptSha256:hash(await readFile(prompt)),nativeCell});
   for(const [i,part]of page.parts.entries()){
-   const cell={left:Math.floor(i%3*meta.width/3),top:Math.floor(Math.floor(i/3)*meta.height/3),width:nativeCell,height:nativeCell};
+   const cell=portraitSourceCell(meta,i,part);
    // The long braids extend into otherwise empty space above the next overlay.
    if(page.id==='hair-0'&&i===2)cell.height=Math.round(meta.height*.40);
    if(page.id==='hair-0'&&i===5){cell.top=Math.round(meta.height*.40);cell.height=Math.floor(meta.height*2/3)-cell.top;}
@@ -60,7 +74,7 @@ export async function buildPlayerPortraits(){
    source.data=cleanCell(source.data,source.info.width,source.info.height,['hair','body','face','headwear'].includes(part.slot));
    const from=bounds(source.data,source.info.width,source.info.height);
    const guide=await sharp(page.reference).extract({left:i%3*384,top:Math.floor(i/3)*384,width:384,height:384}).resize(256,256).ensureAlpha().raw().toBuffer();
-   const target=bounds(guide,256,256,64);
+   const target=portraitGuideBounds(guide,256,256);
    if(!from||!target)throw new Error(`Empty authored portrait ${part.id}`);
    if(part.id==='markings-beauty-mark'){
     target.left+=Math.round((target.width-4)/2);target.top+=Math.round((target.height-4)/2);target.width=target.height=4;

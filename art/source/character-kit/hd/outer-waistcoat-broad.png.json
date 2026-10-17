@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "candidateSha256": "f183c3b30d3a355f400b559d7f5b908d8339048d9ad8baf27d3ecbf700681111",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "4ef45c8a348f1d891f8ae9abff1a0e8fd3c2d795e67295bea841975bceb0c2da",
+  "promptSha256": "ab3177c0db785f5289a072cbab39d53e96a4e82286a94399d16262885f205321",
+  "generationPromptSha256": "73540b99cebc3952e080f6d21bd2aaf0ef748d36c07e2476b930e90f1825c886",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 150,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32,
+      "includeEnclosed": true
+    },
+    "detailMaxChroma": 0.15,
+    "detailMaterial": "primary"
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 2,
+      "left": 2,
+      "down": 2
+    },
+    "regionReason": "The far neckline and armhole binding are separated from the near panel by the exposed torso or swinging arm in profile. The front collar edge may also be separated by the deep seam and open neckline."
+  },
+  "preparationSha256": "cb3d71c82fae5d67702015743ae88f3760e2e3ffd5db949bba062e23a7910a25",
+  "candidate": "art/source/character-kit/hd/outer-waistcoat-broad-candidate.png",
+  "lockedSha256": "1952556aa355172b771b2b8e3099dec01359f7a572e159fc0a097c6617dc98b3"
+}

@@ -16,7 +16,7 @@
   "proof": "art/proofs/character-cast/falk.png",
   "proofSha256": "3eeb31c6f92e0a41999de4d07ca392c83948728c52c1179dafa33011576e7a16",
   "editorSha256": "4a8d99151a6030e16494ba9f1715b78b1867031e3ebb78c2ec03dbba3c6683ae",
-  "assetVersion": "4c9d233bf71007a9",
+  "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-falk-native",
@@ -46,5 +46,10 @@
     ],
     "source": "art/proofs/character-cast/falk.webp",
     "sourceSha256": "4a8d99151a6030e16494ba9f1715b78b1867031e3ebb78c2ec03dbba3c6683ae"
+  },
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "0dd3da54fca080119cee715a7f99cd08027c32c9ef748147d0b2a5e59979fad6"
   }
 }

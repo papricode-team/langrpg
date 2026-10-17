@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-headband-slim-page-0-candidate-1.png",
+      "sha256": "2ad904cf6ebfd864a66e343e85b8276176966f853ebc193bd46b48ef3cb0f383"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-headband-slim-page-0-candidate-1.txt",
+      "sha256": "520adfafbcb73dd69eefbeb79b9aa9f1a5f8d83a73b54eead248537c4ce1d824"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-0.json",
+      "sha256": "9207c077e0be3b69b427bf2fef3c5c6ec2cba6cd90360ea2f21dee3997475f8b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-headband-slim-page-1-candidate-2.png",
+      "sha256": "068312f647519042dce949e6d9f69aa24ce33bd3be58e219d6ce10a116b68b53"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-headband-slim-page-1-candidate-2.txt",
+      "sha256": "43e40b40411a260d1f5b2b327cb0806dc2819fff4901e2facce756077a831d15"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-1.json",
+      "sha256": "f25ab7ae6f2211a6dcf84a772de156dca1aea4c9a1667b243da9303f7f1651ae"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-headband-slim-page-2-candidate-1.png",
+      "sha256": "36835e3390f40dcb78a7e4af621112316ba8dcc5d6be201579b2f09b39eaf5a0"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-headband-slim-page-2-candidate-1.txt",
+      "sha256": "520adfafbcb73dd69eefbeb79b9aa9f1a5f8d83a73b54eead248537c4ce1d824"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-2.json",
+      "sha256": "114454392f0cfb9ed7f499b8732bbd8ea3acae965a2db03ac0e20f8ab4e31746"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-headband-slim-page-3-candidate-1.png",
+      "sha256": "7b8e3704811ced46e53c87c9072e98647ca00fbe23f39695e719fd2d66bf4f8e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-headband-slim-page-3-candidate-1.txt",
+      "sha256": "520adfafbcb73dd69eefbeb79b9aa9f1a5f8d83a73b54eead248537c4ce1d824"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-3.json",
+      "sha256": "9aef7f92c4a053f1ceb57baa15a3a3771a2c646922f5b26f7f9c0ac68ec0b4bd"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "c7ea1032efc764cd5c124b0110f7b2cc3257803e07d2b2a5dc91c26a9977b4f5"
+}

@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/nebelstadt-resident-port-worker.png",
   "proofSha256": "4572ebe3981033f67a7b6fbc657a43c3162ac400237f286cc67e62f17876f80e",
   "editorSha256": "f3a95d42accdaad7f23e27e5ebec3eaf820c36b407144f43d322cae1381a522c",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "84443b0b257b0ccecafe128b06005253d1c9176a0454992261ec7c9e21644d38"
+  }
 }

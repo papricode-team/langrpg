@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/dunegarden-huda.png",
   "proofSha256": "29bcdd9c42ae9a4c3ebeb4d013575e4403bd674830b3cbca32dffa9668d55d2b",
   "editorSha256": "907cdc35eab27ac76afd85af83bd515c263970cdc4eb4efe3561cc162ac9c48a",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "d250ddd254114348888fb1f2068a7bc3180768f34dc7065bfe531c3bf11aa119"
+  }
 }

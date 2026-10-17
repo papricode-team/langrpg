@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/dunegarden-hamad.png",
   "proofSha256": "834a3657e0297fdb26650835e783dd360a0d6e233d2048924d09bf8c1ed9e96f",
   "editorSha256": "72cb3d968fecef809a38ac5b4d5266accb212a8da369c36cb41897fcb447a83a",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "b76d1cfed96b4f0a5a26d12e6ba7db5db036b85ca94f663d609b0218d7f565c1"
+  }
 }

@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "candidateSha256": "76f4ca939af1fe2fec397569468e5ac77e4fa059e45429c335a1ad2bb5566b23",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "c0382c1435b89296a17e0e1afc62f27045f8f5b87700599789e681ce0ff9aa1c",
+  "promptSha256": "b6ce541f832cf781b223a110d29b0909742a38b2be721f667cc8013942feffec",
+  "generationPromptSha256": "bd62ea9cf45bdb4f7ac417772b2a6216b48735b6a983ea2ab34751994f51c65d",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailReach": 2,
+    "detailMaterial": "primary"
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 3,
+      "left": 3
+    },
+    "regionReason": "Profile arms occlude the diagonal strap and hip bag, leaving the substantial bag plus visible strap sections on either side of the arm. Front and rear paint remain connected."
+  },
+  "preparationSha256": "9cf3bb2becc47950edaa34d0db8a014a00d7dbda7d606dff8a0b7a5c08433d2a",
+  "candidate": "art/source/character-kit/hd/bag-satchel-broad-candidate.png",
+  "lockedSha256": "b1e441a9d6d340dba950710adbbd95c19d0bd844034f4f093e9acd798488f40a"
+}

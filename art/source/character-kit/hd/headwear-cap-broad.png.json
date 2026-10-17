@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "candidateSha256": "1b12b2178348b103e2cc8a0383009d8ee3119f3fc669bf4d070f78f5f24593b1",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "85b294c3a8b9a6527807718ea7ae631bc0d894174b6d34b37a03a3ce87a42b13",
+  "promptSha256": "9d2bea7f26c530c39be85c67593f3b150549a16b2713179797d36026d8cc6698",
+  "generationPromptSha256": "7bf6c72ef0a5f1549e0c058e856a6cbf6ee70c64dc89fd2bef2c1a3f4359db37",
+  "materials": [
+    "primary",
+    "secondary",
+    "skin",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "maxSpeckPixels": 12,
+    "anchorMaterial": "primary",
+    "fringeMaterials": [
+      "skin",
+      "detail"
+    ],
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "1a58e52ae6cea1a9de23c2b8d6df90a0b654eaf49fede9f2c02e9685cbb4ddd2",
+  "candidate": "art/source/character-kit/hd/headwear-cap-broad-candidate.png",
+  "lockedSha256": "1b8319551489712c2d2ed89c883f90ea7571c3d09b8f0b609bd6cff979f72a25"
+}

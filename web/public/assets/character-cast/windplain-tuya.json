@@ -31,6 +31,11 @@
   "proof": "art/proofs/character-cast/windplain-tuya.png",
   "proofSha256": "fb3de5b5a7a1ee7824521d5cc2d3b7f1c3016a0cc64c435c096fe1a960b47e91",
   "editorSha256": "ad652a7bc9efa9024116c7d0fb0d4f3f1e2bb8e9699227acadebfffb3abfebe0",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "a294d6a9ec3722381d40f47ba828291ec0f19832304f91d261b343900fecde31"
+  }
 }

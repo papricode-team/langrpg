@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/kigalights-grace.png",
   "proofSha256": "b644889ddc4ac691578464e4199a22b2733d433f94db81733dad39f668d4bd4b",
   "editorSha256": "c84f7b175a473bea455930160667dd7c4ffdf8377329f0e1ce5a163ac2d7f61c",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "72621ab9f00bbf27e8c6d2d12734278315265d0b6e6dcee5d8ff9e78ee3a5ce6"
+  }
 }

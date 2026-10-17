@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-cowl-slim-page-0-candidate-2.png",
+      "sha256": "ffc53efd37766eb89f14ddb1848a0fd9674912033d7832109446d8974261a588"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-cowl-slim-page-0-candidate-2.txt",
+      "sha256": "ea4ccc0878abdd397ff8bf24e3b5a2b4e15004fcee181c161fda534a495a1a14"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-0.json",
+      "sha256": "a6c84addbfd340ec426f28ea82ae85b2cc2b70137b1516da583c89ea1fd9c3c8"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-cowl-slim-page-1-candidate-2.png",
+      "sha256": "8db938062ad529bb4fc49de38889cd7b00a8552f755c70193d88cc10b681ffef"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-cowl-slim-page-1-candidate-2.txt",
+      "sha256": "ea4ccc0878abdd397ff8bf24e3b5a2b4e15004fcee181c161fda534a495a1a14"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-1.json",
+      "sha256": "200f02d5272755448caa8ff37144a13da72062cdd95a20c1a7ff61ef7ff62814"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-cowl-slim-page-2-candidate-2.png",
+      "sha256": "4f8a8dbd4aeb6594355aaa5b1b48ddb9be5ef899cd653496683a1ddfe8a676ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-cowl-slim-page-2-candidate-2.txt",
+      "sha256": "525ec841416e31c57e313060f45c80935524bf69c5a3bf71ba2dac235df2795f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-2.json",
+      "sha256": "30efcafbe9d7830013cf5b7b68ce9c0f1f7e02a3753d8c70007005f678193dd2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-cowl-slim-page-3-candidate-2.png",
+      "sha256": "5e4bff8b769645f630cd5d4bb29ae214b2d7dd1ae038e0baa6296cbe2accf138"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-cowl-slim-page-3-candidate-2.txt",
+      "sha256": "5b6f077768d3aeb940acc0bb054bcf2fb2f31c9d78aef06bfe87f1cdf49e99d0"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-3.json",
+      "sha256": "c3b47bcc3acbc328ad2378c245359a6a3c2b8edd6d4ac6fd90495f1b180f8485"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-cowl-slim-page-4-candidate-2.png",
+      "sha256": "561dc6176dbaf225a7113a9f8ed63860f4415568a03ac111c1c0f5014ef6070b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-cowl-slim-page-4-candidate-2.txt",
+      "sha256": "5c81f324eb72dc5a52c3906be9b7f234a5412213768f945b61e5fc21b7d0834a"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-4.json",
+      "sha256": "3e12d382498d7598725fce3e44099a593cbd15caa44e9c7bc572e3931559e2ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-cowl-slim-page-5-candidate-2.png",
+      "sha256": "d8d89465e56970136592f19b52d3c454e7e9464dae078d93ae913fa4e4289f45"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-cowl-slim-page-5-candidate-2.txt",
+      "sha256": "830b38705f1bc8b37441ac0ec0faaa0c5ad65ee09c5bf622537ca7bfe39153f0"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-5.json",
+      "sha256": "9801f02cbaa07933d6c115805b6442f6e7adf1db9ca8bd68a1185df134371b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-cowl-slim-page-6-candidate-2.png",
+      "sha256": "4f1eae87a6213408ccb9a643a89f087b4bcdafe386bbd5d157560cff09e49104"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-cowl-slim-page-6-candidate-2.txt",
+      "sha256": "bfc7fc7e85036a4fca3bfdfb041837f387db1fc29429020650ee8081cfc1d180"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-6.json",
+      "sha256": "b376d6ff991750e64f8e4e02d1eee9baecab7f17b23cfca6d0d24ea933096ab6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-cowl-slim-page-7-candidate-2.png",
+      "sha256": "bcd57bdec369a7c392428a000ffe96336257b21cfe6ed811521a3d5d203e4ecd"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-cowl-slim-page-7-candidate-2.txt",
+      "sha256": "6cee554f232b5cd30e1d298a8e71fbd68b31dcc0fc7ba331a713d81d59c5f423"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-7.json",
+      "sha256": "54b515875467084c2615401a4aa41788ff7ea91081d871208308ecdfda0f48d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-cowl-slim-page-8-candidate-2.png",
+      "sha256": "8b7ad3885228970903efed53cf7cb9b847abff647c885e72044875469d28f2e0"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-cowl-slim-page-8-candidate-2.txt",
+      "sha256": "6cee554f232b5cd30e1d298a8e71fbd68b31dcc0fc7ba331a713d81d59c5f423"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-8.json",
+      "sha256": "a907bceabc2de3865bb70e4f875dcc255387929f55bac0e8f698706c5c1bcdb1"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "523e59ea872b95c35080fc0ef7b97c991c973f234742803042884a7dc1b6c065"
+}

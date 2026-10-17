@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "candidateSha256": "7c695e7a3ca1687e47ac92b357f01598392ad4921695e8488d9f0f24e66858e2",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "58e849238e8230a54a86b15959cc6dc65ccf2535146587380d0c021a89a77ff1",
+  "promptSha256": "5214f703e540d6eff3925b7f4294cfcf48b9e433bb6fc2b5aed178b3249cde40",
+  "generationPromptSha256": "70cd7248688907388fc26fba43cd866515cc2e2af2dedadccaae9a3182fb96b7",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 360,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailMaxChroma": 0.15
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "left": 2
+    },
+    "regionReason": "The far curl ends are visible beneath the chin, separated from the near hair by the head."
+  },
+  "preparationSha256": "d3ba5638bd5c101900c94e47fb063cb4c3244a017b7e8819968f98423d0ec6ad",
+  "candidate": "art/source/character-kit/hd/hair-curls-broad-candidate.png",
+  "lockedSha256": "ebc226b6847e3fc0220dd41bfa8ce95e58fab4eabb578a880065463213876d8a"
+}

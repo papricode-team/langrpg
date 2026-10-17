@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "candidateSha256": "96a67e7c1502e34b497862830f8d138eac2275b860f02252820d63cd46072211",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "2c3b86d1afa9758cc10f086f6bb7e4b6767e933f34c07a584ad726a9f6353b5f",
+  "promptSha256": "37e32784a325b7a602b8c6d7a1ae9db9b4442a1e538e58208782414d4eba0c2f",
+  "generationPromptSha256": "57ca077a2e983b722e9a75b652bd63eb82d0909f6e0ca36645554e95724370cd",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 112,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailReach": 2,
+    "detailMaterial": "primary"
+  },
+  "validation": {
+    "maxRegions": 2,
+    "maxRegionsByFacing": {
+      "down": 3,
+      "right": 3
+    },
+    "regionReason": "A pair of sandals normally forms two regions. In down-facing raised-foot views, the exposed instep separates the ankle strap from the toe-and-sole region; up to three attached regions are allowed in that facing only. In right profile a crossed foreground foot separates the rear ankle strap from its sole."
+  },
+  "preparationSha256": "48b734b8421e7a2e30df264a407115276b79f1c48174ef53607ae4faed4632d3",
+  "candidate": "art/source/character-kit/hd/footwear-sandals-broad-candidate.png",
+  "lockedSha256": "a80b10a63502039fb56afe7ee98c079e7318188f0cdc81e60db806733f820292"
+}

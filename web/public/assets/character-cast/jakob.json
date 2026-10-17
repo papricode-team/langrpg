@@ -16,7 +16,7 @@
   "proof": "art/proofs/character-cast/jakob.png",
   "proofSha256": "0c97f45258205056ee1d0a69214b4c939a9400b4c9d9a002c883f89b8bc8314d",
   "editorSha256": "9517b24f4a273dea93c59ca806fe1b9b50619789c494a278184e926317308317",
-  "assetVersion": "4c9d233bf71007a9",
+  "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-jakob-native",
@@ -46,5 +46,10 @@
     ],
     "source": "art/proofs/character-cast/jakob.webp",
     "sourceSha256": "9517b24f4a273dea93c59ca806fe1b9b50619789c494a278184e926317308317"
+  },
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "c2d573aa721781f0b0f4f9c90a8c3eadd9692ef8c692fcc668f8f22e32a4b9fa"
   }
 }

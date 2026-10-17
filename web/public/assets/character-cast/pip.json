@@ -16,7 +16,7 @@
   "proof": "art/proofs/character-cast/pip.png",
   "proofSha256": "b3c8d9f29fb8163800369cf3c3b3d6a70faa6cbeb64f45b406cad3e2037d8400",
   "editorSha256": "c639f05f6c3e14a42eaa4bc05638a5bd8888fa4fae6bcc0c8ff6b9871ddc65b6",
-  "assetVersion": "4c9d233bf71007a9",
+  "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-pip-native",
@@ -46,5 +46,10 @@
     ],
     "source": "art/proofs/character-cast/pip.webp",
     "sourceSha256": "c639f05f6c3e14a42eaa4bc05638a5bd8888fa4fae6bcc0c8ff6b9871ddc65b6"
+  },
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "14fcbddf4909e066f7dfa1f7c2cf81e88a75a992fdf76a7e2c738ffb7de74f7e"
   }
 }

@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "candidateSha256": "26d22fbb98a708276a0facb4a4869967fab442cce5e4c6f496e55dfa780ba3f7",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "c0382c1435b89296a17e0e1afc62f27045f8f5b87700599789e681ce0ff9aa1c",
+  "promptSha256": "2b93dc6015d252b4683183504832d36cb8da3e50c0baedf7df1683f61afcb4c1",
+  "generationPromptSha256": "4afd48af86f3aa69d3944ea024978a2a614da8d85b9471c52c8556483af9cd28",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailReach": 2,
+    "detailMaterial": "primary"
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 3,
+      "left": 2,
+      "down": 3
+    },
+    "regionReason": "The sternum clasp and torso occlude the join between upper and lower shoulder strap segments."
+  },
+  "preparationSha256": "ca486fed153264357bd276ac1eb55a0aecbccc2240a70eda1c13da3508182c7b",
+  "candidate": "art/source/character-kit/hd/bag-backpack-slim-candidate.png",
+  "lockedSha256": "5d856e55e40837414ae1037fc43d2a14f895580350187e613a6cc0fdab9d8921"
+}

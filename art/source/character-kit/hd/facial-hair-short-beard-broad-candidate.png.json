@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/facial-hair-short-beard-broad-page-0-candidate-1.png",
+      "sha256": "577c0a0774543f3f7afdd4526bfb05937d12007f14d78e0006bcccbacd12247d"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/facial-hair-short-beard-broad-page-0-candidate-1.txt",
+      "sha256": "4bb4573614500711dc97cc50d51f36b793d62bbd297d70dac3649b836790f69b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/facial-hair-short-beard-broad-page-1-candidate-1.png",
+      "sha256": "d07c13e1f8226310a482bf63dc255292eeca78d67e7f11dab56b08163f3665e3"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/facial-hair-short-beard-broad-page-1-candidate-1.txt",
+      "sha256": "4bb4573614500711dc97cc50d51f36b793d62bbd297d70dac3649b836790f69b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/facial-hair-short-beard-broad-page-2-candidate-1.png",
+      "sha256": "c87734875c1b9a09c26f06077fbf6583f878e7ff014c01daf5603792f9428296"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/facial-hair-short-beard-broad-page-2-candidate-1.txt",
+      "sha256": "4bb4573614500711dc97cc50d51f36b793d62bbd297d70dac3649b836790f69b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/facial-hair-short-beard-broad-page-3-candidate-2.png",
+      "sha256": "f769e21b1767d8e2b311a53bda127624a27a505f80f3e887714bcaf4e463259e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/facial-hair-short-beard-broad-page-3-candidate-2.txt",
+      "sha256": "8a4deff279385251dbc4f99a8a17ce8930a6c4ed38a6d4a9604c0e412d839ecc"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "048995b9740df43757d74ddf9750b6e587d8677c3cf775b11c3a9f7f2649c03b"
+}

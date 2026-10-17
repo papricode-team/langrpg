@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/seoulsteps-resident-5.png",
   "proofSha256": "2a75da5d79bd74d79e5037c657c3ea5536ba9bf18a79f05fca921e1563c8afb4",
   "editorSha256": "525697eead0948a2bdc728d5421d52dbc04af89d828aae0fd446febcd883751e",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "8a2a1bd9353c1c537f4ef8dddcd37a8e0ec410c59f5c78105ff0a41b86e5e819"
+  }
 }

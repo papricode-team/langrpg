@@ -1,6 +1,21 @@
 # Character kit
 
-**Resolution rebuild in progress (2026-10-13).** The user rejected the published
+**Wardrobe parity (2026-10-17).** The active native catalogue in `hd/catalogue.json`
+contains the same 81 walking wardrobe options for regular, slim and broad builds.
+The 146 new build-specific components retain their generated page paintings,
+prompts, registration, locked sheets and all 36-frame review proofs. Portraits
+have independent paintings under `../player-portraits/`; components below the
+portrait crop have explicit coverage records.
+
+`node scripts/character-wardrobe-parity.mjs --check` audits the compiled options;
+the tooling test also checks the source and server catalogues. For future gaps,
+`prepare-character-wardrobe.mjs` prepares staged page jobs, and
+`stage-character-wardrobe.mjs COMPONENT_ID` assembles, locks, checks and renders
+review proofs without approving them. Export checked art before preparing its
+portrait guide with `prepare-wardrobe-portraits.mjs wardrobe-PAGE COMPONENT_ID ...`.
+Visual review and hash-bound approval are still required before publication.
+
+**Historical resolution rebuild note (2026-10-13).** The user rejected the published
 set's on-screen sharpness. The completion notes below describe the earlier
 low-resolution publication, not acceptance of its visual quality. Native
 replacements, prompts, and registration live in `hd/`; see the

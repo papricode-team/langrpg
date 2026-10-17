@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "3ddb3b77502205ce636f7241eb09a0620f211fe44a81ad01630f7bbfd36967aa",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "7aaf52b0d7bc99f52ffd5599149cd0d28c54f5da0719bb4927c7e7b4c5788433",
+  "promptSha256": "e61784fcd973d3013efc0c2d8ed4274371c8dbdb63eef47a3b27764f31a36080",
+  "generationPromptSha256": "f76a8e2718dedd671a6505c818f48e30fce5a423d7eaa12abfe7e9a59e0fe89c",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "detailEnclosedBy": "primary"
+  },
+  "preparationSha256": "21d81f6233fe5601c695f5dbe702ff5c77526d8841d53a5dcf9cfce44441826e",
+  "candidate": "art/source/character-kit/hd/hair-buzz-broad-candidate.png",
+  "lockedSha256": "426e0e638a9b9cf218d2a510bbe4c39c27d9c24300d2937d2efc8de5abb84d32"
+}

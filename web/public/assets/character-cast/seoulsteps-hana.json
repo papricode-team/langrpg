@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/seoulsteps-hana.png",
   "proofSha256": "4157c5333cca2a0584a488969f7b1e5c986956bc93deab6ce7e4f1f2eb59bd02",
   "editorSha256": "9fcf5f671d3de4942e782ca03aea8cf55060dafe8c3fb54a396d1225d749d9bd",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "116f0f39e2894ab0d17d0121f7c49ec9009ee62c95e78d54fb6aac148247b2c4"
+  }
 }
