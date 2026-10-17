@@ -42,7 +42,7 @@ campaign illustrations, not screenshots or promises of exact in-game geometry.
 | `lindenhafen-vista.png` | `lindenhafen.webp`, 720 × 600 | Harbor and railway act key art |
 | `waldruh-vista.png` | `waldruh.webp`, 720 × 600 | Forest and stopped-clock act key art |
 | `nebelstadt-vista.png` | `nebelstadt.webp`, 720 × 600 | Lighthouse and fading-sign act key art |
-| `hero-foreground.png` | `hero-foreground.webp`, 1920 × 1080 | Transparent forest, railing and traveler layer |
+| `hero-foreground.png` | `hero-foreground.avif` and `.webp` fallback, 1920 × 1080 | Transparent forest, railing and traveler layer |
 | `hero-sky.png` | `hero-sky.webp`, 1440 × 810 | Dusk sky and distant hills atmosphere |
 | `hero-town.png` | `hero-town.webp`, 1920 × 1080; `hero-town-960.webp`, 960 × 540 | Transparent town and canal atmosphere |
 | `fog.png` | `fog.webp`, 768 × 256 | Transparent drifting mist |

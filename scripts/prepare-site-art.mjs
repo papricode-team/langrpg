@@ -9,6 +9,8 @@ await Promise.all([
   sharp(hero).resize(1200, 630, { fit: 'cover' }).jpeg({ quality: 85, mozjpeg: true }).toFile(`${out}/glotworld-social.jpg`),
   ...['lindenhafen', 'waldruh', 'nebelstadt'].map(town => sharp(`art/source/marketing/${town}-vista.png`).resize(720, 600, { fit: 'cover', position: 'centre' }).webp({ quality: 80 }).toFile(`${out}/${town}.webp`)),
   ...['hero-foreground', 'hero-town'].map(layer => sharp(`art/source/marketing/${layer}.png`).resize(1920, 1080, { fit: 'fill' }).webp({ quality: 78, alphaQuality: 85 }).toFile(`${out}/${layer}.webp`)),
+  // The foreground overlay paints above the fold on desktop; AVIF keeps it light.
+  sharp('art/source/marketing/hero-foreground.png').resize(1920, 1080, { fit: 'fill' }).avif({ quality: 50, effort: 6 }).toFile(`${out}/hero-foreground.avif`),
   sharp('art/source/marketing/hero-town.png').resize(960, 540, { fit: 'fill' }).webp({ quality: 78, alphaQuality: 85 }).toFile(`${out}/hero-town-960.webp`),
   sharp('art/source/marketing/hero-sky.png').resize(1440, 810, { fit: 'fill' }).webp({ quality: 76 }).toFile(`${out}/hero-sky.webp`),
   sharp('art/source/marketing/fog.png').resize(768, 256).webp({ quality: 65, alphaQuality: 70 }).toFile(`${out}/fog.webp`),

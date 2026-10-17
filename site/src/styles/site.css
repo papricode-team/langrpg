@@ -1924,6 +1924,7 @@ h2+p {
   position: absolute;
   inset: 0;
   background: url('/images/hero-foreground.webp') 65% 50% / cover no-repeat;
+  background-image: image-set(url('/images/hero-foreground.avif') type('image/avif'),url('/images/hero-foreground.webp') type('image/webp'));
   opacity: .8;
   animation: foreground-breath 24s ease-in-out infinite alternate;
 }
@@ -1949,9 +1950,6 @@ h2+p {
   animation: lantern-motes 12s linear infinite;
 }
 .hero-embers-far { left: 83%; bottom: 12%; opacity: .45; animation-delay: -6s; animation-duration: 19s; }
-.hero-companion { position: absolute; left: 560px; bottom: 80px; --sprite-width: 134px; filter: drop-shadow(0 6px 12px #0009); }
-.hero-companion::before { content: ''; position: absolute; inset: 7% 8% 9%; border: 1px solid #d9b77055; border-radius: 48% 48% 4px 4px; background: linear-gradient(180deg,#08222530,#082225bb); box-shadow: inset 0 0 20px #e2b76d10; z-index: -1; }
-.companion-shadow { position: absolute; width: 78%; height: 17px; left: 11%; bottom: 5px; background: radial-gradient(ellipse,#b99a6266,#1b302b 60%,#091e20 85%); border: 1px solid #d5b77599; border-radius: 50%; box-shadow: 0 4px 0 #03191c,0 9px 14px #0009,0 0 20px #e4bc7920; z-index: -1; }
 .intro-section,.learning-section,.journey-section,.faq-section,.cast-section { --muted: #b4c1b8; }
 .world-section::before,.cast-section::before,.journal-section::before {
   content: '';
@@ -1966,11 +1964,15 @@ h2+p {
 }
 .town-card::after { content: ''; position: absolute; inset: 7px; border: 1px solid #dcb76d25; pointer-events: none; }
 .town-card:hover { transform: translateY(-7px); border-color: #dcb76d; box-shadow: 0 24px 42px #0008,0 0 35px #c6923020; }
-.town-inhabitants { display: flex; align-items: flex-end; position: absolute; top: 31%; left: 12%; --sprite-width: 66px; filter: drop-shadow(0 4px 4px #0009); transition: transform 1.6s ease-in-out; }
-.town-inhabitants>:last-child { --sprite-width: 47px; margin-left: -12px; }
+/* Residents walk a lantern-lit path at the top of the card copy, at street scale. */
+.town-inhabitants { position: relative; display: flex; align-items: flex-end; gap: 2px; height: 66px; margin-bottom: 18px; padding-left: 2px; --sprite-width: 42px; filter: drop-shadow(0 3px 3px #000b); }
+.town-inhabitants>* { transition: transform 1.6s ease-in-out; }
+.town-inhabitants>:last-child { --sprite-width: 30px; margin-left: 4px; }
+.town-inhabitants::before { content: ''; position: absolute; left: -29px; right: -29px; bottom: -4px; height: 14px; background: radial-gradient(ellipse 45% 100% at 22% 50%,#000a,transparent 70%); z-index: -1; }
+.town-inhabitants::after { content: ''; position: absolute; left: -29px; right: -29px; bottom: 0; height: 1px; background: linear-gradient(90deg,transparent,#d9b77088 12%,#d9b77044 70%,transparent); }
 .town-inhabitants .world-sprite.is-visible .world-sprite__strip { animation-play-state: paused; }
 .town-card:hover .world-sprite.is-visible .world-sprite__strip { animation-play-state: running; }
-.town-card:hover .town-inhabitants { transform: translateX(45px); }
+.town-card:hover .town-inhabitants>* { transform: translateX(45px); }
 .game-frame::after { content: ''; position: absolute; inset: -10px; pointer-events: none; border: 22px solid transparent; border-image: url('/images/brass-frame.webp') 128 / 22px; }
 .conversation .eyebrow { color: #665331; }
 .conversation .button { color: #17312c; }
@@ -2018,19 +2020,16 @@ h2+p {
   .town-copy h3 { font-size: 28px; }
   .level-grid article,.level-grid article:first-child,.level-grid article:last-child { padding: 28px 22px; }
   .level-grid p { min-height: 155px; }
-  .hero-companion { left: auto; right: 0; --sprite-width: 112px; }
 }
 @media(max-width:800px) {
   .hero { min-height: 750px; }
   .hero h1 { font-size: clamp(42px,7.2vw,62px); }
   .hero-content { padding-bottom: 125px; }
-  .hero-companion { --sprite-width: 94px; bottom: 35px; }
   .hero-atmosphere::before { background-image: none; }
   .hero-shade { background: linear-gradient(90deg,#071d22dc,#071d2270),linear-gradient(0deg,#081e20,transparent 80%); }
   .town-card { min-height: 420px; }
   .town-copy { max-width: 470px; padding: 30px; }
   .town-copy h3 { font-size: 36px; }
-  .town-inhabitants { top: 12%; left: auto; right: 10%; }
   .town-shade { background: linear-gradient(0deg,#061a1e,#071d22d9 45%,#071d2220 90%); }
   .learning-section .section-heading { align-items: flex-start; }
   .game-frame { padding: 12px; }
@@ -2056,8 +2055,6 @@ h2+p {
   .hero .eyebrow { max-width: 290px; font-size: 8px; }
   .hero-description { max-width: 300px; }
   .hero-meta { max-width: 240px; padding-right: 35px; }
-  .hero-companion { right: -5px; bottom: 65px; --sprite-width: 78px; }
-  .companion-shadow { height: 12px; bottom: 3px; }
   .hero-actions .button { font-size: 11px; padding-inline: 20px; }
   .hero-bottom>a { max-width: 105px; }
   .intro-grid h2,.section-heading h2,.demo-intro h2 { font-size: 36px; }
@@ -2065,7 +2062,7 @@ h2+p {
   .town-card { min-height: 490px; }
   .town-copy { padding: 25px; }
   .town-copy h3 { font-size: 32px; }
-  .town-inhabitants { top: 23%; right: 8%; --sprite-width: 60px; }
+  .town-inhabitants { --sprite-width: 38px; height: 58px; margin-bottom: 14px; }
   .town-copy>.eyebrow { font-size: 8px; }
   .town-shade { background: linear-gradient(0deg,#061a1e,#071d22f2 30%,#071d2255 65%,transparent 90%); }
   .game-frame { padding: 8px; }
@@ -2096,7 +2093,7 @@ h2+p {
     animation: none!important;
     transition: none!important;
   }
-  .button:hover,.button:active,.guide-card:hover,.town-card:hover,.town-card:hover>img,.town-card:hover .town-inhabitants,.guide-card:hover img,.cast-card:hover img {
+  .button:hover,.button:active,.guide-card:hover,.town-card:hover,.town-card:hover>img,.town-card:hover .town-inhabitants>*,.guide-card:hover img,.cast-card:hover img {
     transform: none;
   }
 }

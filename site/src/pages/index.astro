@@ -31,7 +31,6 @@ const schema = [
       <h1 id="hero-title">A new world.<br />A new adventure.<br /><em>In German.</em></h1>
       <p class="hero-description">Somewhere, a town is forgetting its name.<br class="desktop-break" /> The words you learn could bring it back.</p>
       <div class="hero-actions"><a class="button" href="/game/" data-play>Begin your adventure <svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12h15M13 5l7 7-7 7" /></svg></a><a class="text-link light-link" href="#first-words"><span class="play-circle" aria-hidden="true">▷</span> Try your first words</a></div>
-      <div class="hero-companion" aria-hidden="true"><WorldSprite kind="player-idle" eager /><span class="companion-shadow"></span></div>
       <p class="hero-meta">Learn German through play <span>✧</span> In your browser <span>✧</span> No download</p>
     </div>
     <div class="hero-bottom container"><span>THE LANTERN ATLAS <span class="small-star">✦</span> A LANGUAGE ADVENTURE</span><a href="#welcome">Step into the story <span aria-hidden="true">↓</span></a></div>
@@ -45,7 +44,7 @@ const schema = [
   </section>
   <section class="world-section section" id="world">
     <div class="container"><div class="section-heading"><div><p class="eyebrow">FOLLOW THE LANTERN</p><h2>Three towns.<br /><em>A thousand reasons to stay.</em></h2></div><p>From sunlit canals to forests full of secrets.<br />Find your way, one conversation at a time.</p></div>
-      <div class="town-grid">{towns.map((town, i) => <article class="town-card"><img src={`/images/${town.image}.webp`} alt={`Painted story setting of ${town.name}`} width="720" height="600" loading="lazy" /><div class="town-shade"></div><div class="town-inhabitants"><WorldSprite kind={i === 1 ? "otto-walk" : "marta-walk"} /><WorldSprite kind={i === 1 ? "marta-walk" : "otto-walk"} /><WorldSprite kind={i === 2 ? "cat" : "chicken"} /></div><div class="town-copy"><span class="town-number">0{i + 1}</span><p class="eyebrow">{town.tag}</p><h3>{town.name}</h3><p>{town.text}</p><div class="town-word"><span lang="de">{town.word}</span><span>{town.meaning}</span></div></div></article>)}</div>
+      <div class="town-grid">{towns.map((town, i) => <article class="town-card"><img src={`/images/${town.image}.webp`} alt={`Painted story setting of ${town.name}`} width="720" height="600" loading="lazy" /><div class="town-shade"></div><div class="town-copy"><span class="town-number">0{i + 1}</span><div class="town-inhabitants" aria-hidden="true"><WorldSprite kind={i === 1 ? "otto-walk" : "marta-walk"} /><WorldSprite kind={i === 1 ? "marta-walk" : "otto-walk"} /><WorldSprite kind={i === 2 ? "cat" : "chicken"} /></div><p class="eyebrow">{town.tag}</p><h3>{town.name}</h3><p>{town.text}</p><div class="town-word"><span lang="de">{town.word}</span><span>{town.meaning}</span></div></div></article>)}</div>
       <p class="section-caption">Game world artwork · Three story acts, followed by ten optional coastal expeditions</p>
     </div>
   </section>

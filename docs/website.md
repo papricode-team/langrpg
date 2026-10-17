@@ -117,7 +117,7 @@ content remain in static HTML.
 
 The original harbor remains the preloaded main image. On small screens the
 duplicate foreground plate is omitted, while fog, sparks and the main image's
-slow movement remain. This avoids downloading a 257 KiB desktop decoration on
+slow movement remain. This avoids downloading a 102 KiB AVIF (257 KiB WebP fallback) desktop decoration on
 mobile. The soft fog export is 17 KiB. Sky and town layers farther down the page
 use native lazy images, so the atmosphere does not compete with the first view.
 
