@@ -26,7 +26,17 @@
       "worldWidth": 64,
       "motion": "sway",
       "subject": "a loose small patch of white daisies, blue cornflowers and tiny yellow meadow flowers with individual stems and a compact grassy base",
-      "prompt": "Use case: stylized-concept. Asset type: high-resolution transparent scenery cutout for a cozy European village exploration game. Style: finely detailed hand-painted 2.5D game art, soft natural brush texture, realistic small material details, restrained warm earthy palette; compatible with ornate timber-and-stone village buildings, not vector, not low-poly, not chunky pixel art. Camera: fixed elevated three-quarter orthographic view, about 45 degrees downward, no perspective vanishing point. Soft diffuse daylight from upper left. One isolated asset centered, fills roughly 85 percent of a square canvas with generous safe margin, all parts fully visible. True transparent background including between leaves and branches. No surrounding landscape, ground tile, vignette, backdrop, frame, lettering, interface, watermark or hard cast shadow. Render at the largest native square resolution available; crisp fine detail suitable for zooming in. Subject: a loose small patch of white daisies, blue cornflowers and tiny yellow meadow flowers with individual stems and a compact grassy base."
+      "prompt": "Use case: stylized-concept. Asset type: high-resolution transparent scenery cutout for a cozy European village exploration game. Style: finely detailed hand-painted 2.5D game art, soft natural brush texture, realistic small material details, restrained warm earthy palette; compatible with ornate timber-and-stone village buildings, not vector, not low-poly, not chunky pixel art. Camera: fixed elevated three-quarter orthographic view, about 45 degrees downward, no perspective vanishing point. Soft diffuse daylight from upper left. One isolated asset centered, fills roughly 85 percent of a square canvas with generous safe margin, all parts fully visible. True transparent background including between leaves and branches. No surrounding landscape, ground tile, vignette, backdrop, frame, lettering, interface, watermark or hard cast shadow. Render at the largest native square resolution available; crisp fine detail suitable for zooming in. Subject: a loose small patch of white daisies, blue cornflowers and tiny yellow meadow flowers with individual stems and a compact grassy base.",
+      "originY": 0.9792663476874003,
+      "geometry": {
+        "visualBounds": {
+          "left": -587,
+          "top": -1190,
+          "right": 598,
+          "bottom": 0
+        }
+      },
+      "stylePrompt": "art/source/terrain-objects/detail-wildflowers-style-prompt.txt"
     },
     {
       "id": "detail-mushrooms",
@@ -44,7 +54,17 @@
       "worldWidth": 42,
       "motion": "sway",
       "subject": "a small untidy tuft of fine meadow grass with a few dry seed heads, individual blades and a compact rooted base",
-      "prompt": "Use case: stylized-concept. Asset type: high-resolution transparent scenery cutout for a cozy European village exploration game. Style: finely detailed hand-painted 2.5D game art, soft natural brush texture, realistic small material details, restrained warm earthy palette; compatible with ornate timber-and-stone village buildings, not vector, not low-poly, not chunky pixel art. Camera: fixed elevated three-quarter orthographic view, about 45 degrees downward, no perspective vanishing point. Soft diffuse daylight from upper left. One isolated asset centered, fills roughly 85 percent of a square canvas with generous safe margin, all parts fully visible. True transparent background including between leaves and branches. No surrounding landscape, ground tile, vignette, backdrop, frame, lettering, interface, watermark or hard cast shadow. Render at the largest native square resolution available; crisp fine detail suitable for zooming in. Subject: a small untidy tuft of fine meadow grass with a few dry seed heads, individual blades and a compact rooted base."
+      "prompt": "Use case: stylized-concept. Asset type: high-resolution transparent scenery cutout for a cozy European village exploration game. Style: finely detailed hand-painted 2.5D game art, soft natural brush texture, realistic small material details, restrained warm earthy palette; compatible with ornate timber-and-stone village buildings, not vector, not low-poly, not chunky pixel art. Camera: fixed elevated three-quarter orthographic view, about 45 degrees downward, no perspective vanishing point. Soft diffuse daylight from upper left. One isolated asset centered, fills roughly 85 percent of a square canvas with generous safe margin, all parts fully visible. True transparent background including between leaves and branches. No surrounding landscape, ground tile, vignette, backdrop, frame, lettering, interface, watermark or hard cast shadow. Render at the largest native square resolution available; crisp fine detail suitable for zooming in. Subject: a small untidy tuft of fine meadow grass with a few dry seed heads, individual blades and a compact rooted base.",
+      "originY": 0.9864433811802232,
+      "geometry": {
+        "visualBounds": {
+          "left": -560,
+          "top": -1217,
+          "right": 558,
+          "bottom": 0
+        }
+      },
+      "stylePrompt": "art/source/terrain-objects/detail-grass-tuft-style-prompt.txt"
     },
     {
       "id": "detail-river-rocks",

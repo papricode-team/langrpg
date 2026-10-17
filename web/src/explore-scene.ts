@@ -109,6 +109,8 @@ export interface ResidentGait { moving: boolean; distance: number; velocityX: nu
 /** Pip is twelve: the shared adult mannequin is drawn smaller for him. */
 export const childScale = (id: string): number => id === 'pip' ? .8 : 1;
 export const INTERACTION_DISTANCE = 140;
+/** World-unit footprint of the painted ring under an interactable object. */
+const OBJECT_HALO = { width: 36, height: 17 } as const;
 export const DEFAULT_AVATAR: Avatar = { hair: '#4d3229', skin: '#dfad85', outfit: '#497d75' };
 export const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
 export const avatarKey = (avatar: Avatar) => avatarTextureKey(normalizeAvatar(avatar));
@@ -788,7 +790,9 @@ export abstract class ExploreScene extends Phaser.Scene {
       const active = Math.max(objective ? .6 : 0, Math.max(0, object.activatedUntil - time) / 4);
       object.label.setVisible(highlighted && (!this.indoor || object.hovered || nearestId === object.interactionId));
       object.label.setScale(scale);
-      object.halo.setAlpha(highlighted ? .9 : .32 + active * .5).setScale(this.reducedMotion ? 1 : 1 + active * Math.sin(time * 8) * .15);
+      // The halo is a painted texture sized by display size; a bare setScale would draw it at native size.
+      const pulse = this.reducedMotion ? 1 : 1 + active * Math.sin(time * 8) * .15;
+      object.halo.setAlpha(highlighted ? .9 : .32 + active * .5).setDisplaySize(OBJECT_HALO.width * pulse, OBJECT_HALO.height * pulse);
       // The idle bob and glow run as tweens on the marker's container; state adds emphasis.
       object.marker.setAlpha(highlighted ? .95 : .58 + active * .3);
       object.marker.setScale(.65 + active * .4);
@@ -948,7 +952,7 @@ export abstract class ExploreScene extends Phaser.Scene {
   protected createMapObjects(specs: readonly WorldObjectSpec[], prefix: 'object' | 'interior' = 'object'): void {
     for (const spec of specs) {
       const x = spec.x * this.worldWidth, y = spec.y * this.worldHeight;
-      const halo = this.add.image(0, 0, WORLD_UI.ring).setDisplaySize(36, 17).setAlpha(.4);
+      const halo = this.add.image(0, 0, WORLD_UI.ring).setDisplaySize(OBJECT_HALO.width, OBJECT_HALO.height).setAlpha(.4);
       const marker = this.add.image(0, -8, 'discovery').setScale(.8).setAlpha(.7);
       const label = this.add.text(0, -35, spec.label, { resolution: this.density, fontFamily: WORLD_TITLE_FONT, fontSize: '13px', color: '#fff0d0', stroke: '#283b36', strokeThickness: 4 }).setOrigin(.5).setVisible(false);
       const hit = this.add.zone(0, -7, Math.max(52, 44 / this.fitZoom), Math.max(52, 44 / this.fitZoom)).setInteractive({ useHandCursor: true });

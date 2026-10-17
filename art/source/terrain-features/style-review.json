@@ -1,0 +1,101 @@
+{
+  "date": "2026-10-17",
+  "generator": "built-in image_gen",
+  "review": "docs/visual-style-review.md",
+  "styleReferences": [
+    "web/public/assets/lindenhafen-day-building-cafe.webp",
+    "art/source/terrain-features/quay-straight.png"
+  ],
+  "selected": [
+    {
+      "id": "quay-straight",
+      "master": "art/source/terrain-features/quay-straight.png",
+      "prompt": "art/source/terrain-features/quay-straight-style-prompt.txt",
+      "generatedFile": "exec-445d4f66-cfc5-4750-9ef9-8e504fa15984.png"
+    },
+    {
+      "id": "old-town-bend",
+      "master": "art/source/terrain-features/old-town-bend.png",
+      "prompt": "art/source/terrain-features/old-town-bend-style-prompt.txt",
+      "generatedFile": "exec-1ab932d8-5528-49d4-ae43-01055f9a5012.png"
+    },
+    {
+      "id": "market-fork",
+      "master": "art/source/terrain-features/market-fork.png",
+      "prompt": "art/source/terrain-features/market-fork-style-prompt.txt",
+      "generatedFile": "exec-abe6888c-30be-4018-bdb6-7bd36dfcfe98.png"
+    },
+    {
+      "id": "diagonal-lane",
+      "master": "art/source/terrain-features/diagonal-lane.png",
+      "prompt": "art/source/terrain-features/diagonal-lane-style-prompt.txt",
+      "generatedFile": "exec-79fb178b-0335-41c2-9fc8-7dbf5ae21f45.png"
+    },
+    {
+      "id": "market-square",
+      "master": "art/source/terrain-features/market-square.png",
+      "prompt": "art/source/terrain-features/market-square-style-prompt.txt",
+      "generatedFile": "exec-8d725f2f-f621-4709-999e-a0a63f6f36ce.png"
+    },
+    {
+      "id": "quay-convex",
+      "master": "art/source/terrain-features/quay-convex.png",
+      "prompt": "art/source/terrain-features/quay-convex-style-prompt.txt",
+      "generatedFile": "exec-28d96487-4449-452b-89cb-27775d2e9e49.png"
+    },
+    {
+      "id": "quay-inlet",
+      "master": "art/source/terrain-features/quay-inlet.png",
+      "prompt": "art/source/terrain-features/quay-inlet-style-prompt.txt",
+      "generatedFile": "exec-a4adc9e9-3be6-4f12-b0d6-4a6196127b6c.png"
+    },
+    {
+      "id": "water-stair",
+      "master": "art/source/terrain-features/water-stair.png",
+      "prompt": "art/source/terrain-features/water-stair-style-prompt.txt",
+      "generatedFile": "exec-caef4322-288d-4c99-a47d-e437cd4b9a72.png"
+    },
+    {
+      "id": "hill-stair",
+      "master": "art/source/terrain-features/hill-stair.png",
+      "prompt": "art/source/terrain-features/hill-stair-style-prompt.txt",
+      "generatedFile": "exec-20af24e5-8bb8-46c2-bf33-058441bad781.png"
+    },
+    {
+      "id": "garden-path",
+      "master": "art/source/terrain-features/garden-path.png",
+      "prompt": "art/source/terrain-features/garden-path-style-prompt.txt",
+      "generatedFile": "exec-8d891ef7-924b-4a2e-a5ef-bc9b56589d9a.png"
+    },
+    {
+      "id": "timber-landing",
+      "master": "art/source/terrain-features/timber-landing.png",
+      "prompt": "art/source/terrain-features/timber-landing-style-prompt.txt",
+      "generatedFile": "exec-8cb558c6-4a9a-46bd-acbc-9242f2034edd.png"
+    },
+    {
+      "id": "quay-terrace",
+      "master": "art/source/terrain-features/quay-terrace.png",
+      "prompt": "art/source/terrain-features/quay-terrace-style-prompt.txt",
+      "generatedFile": "exec-81706a06-a388-479f-8a0a-de562a27e302.png"
+    },
+    {
+      "id": "compass-landing",
+      "master": "art/source/terrain-features/compass-landing.png",
+      "prompt": "art/source/terrain-features/compass-landing-style-prompt.txt",
+      "generatedFile": "exec-fd751c58-112d-4a4d-9bab-9d6599809a2e.png"
+    },
+    {
+      "id": "compass-inlay",
+      "master": "art/source/terrain-features/compass-inlay.png",
+      "prompt": "art/source/terrain-features/compass-inlay-style-prompt.txt",
+      "generatedFile": "exec-38c19d2e-aa5e-4ab4-850b-03e9077baa24.png"
+    },
+    {
+      "id": "canal-arch-bridge",
+      "master": "art/source/terrain-features/canal-arch-bridge.png",
+      "prompt": "art/source/terrain-features/canal-arch-bridge-style-prompt.txt",
+      "generatedFile": "exec-28b402e0-45b4-4fce-bd7b-a269518352ac.png"
+    }
+  ]
+}

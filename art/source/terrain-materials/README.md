@@ -1,0 +1,11 @@
+# Painted material style pass — 2026-10-17
+
+All 24 distinct PNG masters were repainted with built-in `image_gen`; the manifest exports 26 material entries because cliff/rock and banked/canal water share masters. `style-review.json` identifies the selected generations and exact sibling `*-style-prompt.txt` files. Original prompts in `manifest.json` describe the earlier sources; the style-review prompts describe the current replacements.
+
+Lindenhafen uses sandstone/cream paving, restrained terracotta repairs, sage ground cover and jade/teal water. Slate retains Nebelstadt's muted coastal grey-green. Snow and ice retain their own identities. Local stones, blades and ripples carry upper-left highlights and small lower-right crevice shadows; a tile-wide lighting gradient would repeat across the town and is explicitly excluded.
+
+The exporter keeps its periodic-overlap algorithm, including exact decoded boundary pixels. No seam tolerance was relaxed. The current sources are 1254 × 1254 and their periodic runtime derivatives are 1152 × 1152. Asset URLs remain stable, including the historical `town-cobble-bridge-blue.webp` filename, which now contains warm stone. The pure catalogue module `web/src/terrain-materials.ts` overrides legacy average colors and the old blue-cobble name for plan previews and ground sampling without changing shared generated JSON.
+
+Export: `node scripts/prepare-terrain-materials.mjs --art-only`. Check: `node scripts/check-terrain-materials.mjs`. Without the flag the normal catalogue-writing behaviour remains. All decoded outer edges still match exactly. Comparisons: `docs/audits/visual-style/terrain-after-materials.jpg`; actual runtime repeats: `terrain-after-repeat.jpg` in the same directory.
+
+The renderer samples one global `canal-masonry` for kerbs, copings and canal walls. The repaint warms those joins, but per-town wall materials and further contour wear need a renderer change outside this asset pass.
