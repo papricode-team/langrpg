@@ -39,7 +39,7 @@ describe('beginner dialogue replies', () => {
   });
 
   it('leaves later levels and unknown exercises without replacement replies', () => {
-    for (const graph of questGraphs.filter(graph => graph.level !== 'A1')) {
+    for (const graph of questGraphs.filter(graph => graph.level === 'A2' || graph.level === 'B1')) {
       expect(beginnerGateChoices(graph.gateExerciseId)).toEqual([]);
     }
     expect(beginnerGateChoices('unknown')).toEqual([]);

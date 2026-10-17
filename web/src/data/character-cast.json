@@ -9524,7 +9524,67 @@
         "textureBytes": 27869096,
         "multiAtlas": true
       }
+    },
+    {
+      "id": "schaffner",
+      "name": "Otto’s colleague",
+      "mapId": null,
+      "recipe": {
+        "v": 2,
+        "build": "regular",
+        "skin": "#d6a07d",
+        "hair": "#c6c1b5",
+        "parts": {
+          "face": "mature",
+          "markings": null,
+          "facial-hair": "moustache",
+          "hair": "crop",
+          "headwear": "cap",
+          "top": "shirt",
+          "outer": "blazer",
+          "bottom": "straight",
+          "footwear": "shoes",
+          "eyewear": null,
+          "neck": null,
+          "bag": null,
+          "held": null
+        },
+        "colors": {
+          "bag.primary": "#694731",
+          "bottom.primary": "#343b48",
+          "eyewear.primary": "#48372e",
+          "footwear.primary": "#48372e",
+          "headwear.primary": "#244744",
+          "headwear.secondary": "#c99167",
+          "neck.primary": "#943f3f",
+          "outer.primary": "#244744",
+          "outer.secondary": "#b99a5f",
+          "top.primary": "#e8d9bd",
+          "top.secondary": "#a88e67"
+        }
+      },
+      "key": "character-cast-schaffner",
+      "image": "/assets/character-cast/schaffner.webp",
+      "atlas": "/assets/character-cast/schaffner.atlas.json",
+      "atlasSha256": "41c1461b18f069f40716788cc3bef254e3a7d8b2062f28a887db9af978ada153",
+      "sha256": "d8f2c645ebfacbc458809b4fddd8350a434c059fa0f23a285a1081bad61fbdae",
+      "recipeSha256": "e43faca37792ae2bcd830bbf3a731f8b8168691d913da0363bcd5f14433bb93f",
+      "textureBytes": 14294940,
+      "native": {
+        "key": "character-cast-schaffner-native",
+        "image": "/assets/character-cast/native/schaffner.webp",
+        "atlas": "/assets/character-cast/native/schaffner.atlas.json",
+        "sha256": "9fdcf9d7298be55c982505790fa1f7d1d8650d98bc73171955aabce7f1373632",
+        "atlasSha256": "b939cb0263b3eef8076f00728636e8d42eb2bb1315d800e3d30d544e63b17e10",
+        "recipeSha256": "e43faca37792ae2bcd830bbf3a731f8b8168691d913da0363bcd5f14433bb93f",
+        "cell": [
+          512,
+          768
+        ],
+        "textureBytes": 27370544,
+        "multiAtlas": true
+      }
     }
   ],
-  "versionHash": "2c01c3494321fe67"
+  "versionHash": "a560b71954379233"
 }

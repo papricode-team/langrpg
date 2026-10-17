@@ -29,22 +29,34 @@ function inView(sprite: Phaser.GameObjects.Sprite, width: number, height: number
 /** Fixed furniture keeps its pixels and foot anchor; only separate details animate. */
 export class WorldInterior {
   private background: Phaser.GameObjects.Image | Phaser.GameObjects.Graphics;
+  private ticket?: Phaser.GameObjects.Sprite;
   private layers: InteriorLayer[] = [];
   private effects: InteriorEffect[] = [];
   private visible = true;
   private reducedMotion = false;
   private motionTime = 0;
+  private dawn?: Phaser.GameObjects.Rectangle;
+  private dawnActive = false;
 
   constructor(scene: Phaser.Scene, spec: InteriorSpec) {
     const backgroundKey = `interior-${spec.id}-room`;
     this.background = scene.textures.exists(backgroundKey)
       ? scene.add.image(0, 0, backgroundKey).setOrigin(0).setDisplaySize(spec.width, spec.height).setDepth(-1000)
       : scene.add.graphics().fillStyle(0x584e38).fillRect(0, 0, spec.width, spec.height).setDepth(-1000);
+    if (spec.id.startsWith('train-')) this.dawn = scene.add.rectangle(0,0,spec.width,spec.height,0xffd4a0,.18).setOrigin(0).setDepth(-999).setVisible(false);
+    const trainStills = scene.cache.json.get('interior-train-stills') as SceneryAnimationManifest | undefined;
     const manifest = scene.cache.json.get('interior-animations') as SceneryAnimationManifest | undefined;
     const stills = scene.cache.json.get('interior-stills') as SceneryAnimationManifest | undefined;
     const effectManifest = scene.cache.json.get('interior-effect-animations') as SceneryAnimationManifest | undefined;
+    const fog = (scene.cache.json.get('interior-train-effects') as SceneryAnimationManifest | undefined)?.assets.fog;
+    if (fog && scene.textures.exists(fog.key)) for (const [index, detail] of (spec.windowEffects ?? []).entries()) {
+      const scale = detail.width / fog.referenceWidth;
+      const create = () => scene.add.sprite(detail.x, detail.y, fog.key, fog.frames[0])
+        .setOrigin(fog.originX, fog.originY).setScale(scale).setDepth(-998).setAlpha(0);
+      this.effects.push({propId:`window-${index}`,sprites:[create(),create()],animation:fog,width:fog.width*scale,height:fog.height*scale,alpha:detail.alpha,phase:index});
+    }
     for (const prop of spec.props) {
-      const animation = stills?.assets[prop.asset] ?? manifest?.assets[prop.asset];
+      const animation = trainStills?.assets[prop.asset] ?? stills?.assets[prop.asset] ?? manifest?.assets[prop.asset];
       if (!animation || !scene.textures.exists(animation.key)) continue;
       // The authored poses differ in rigid geometry, even with a shared pivot.
       // One canonical pose also keeps independently placed tabletop goods aligned.
@@ -53,6 +65,7 @@ export class WorldInterior {
       const scale = prop.width / animation.referenceWidth;
       const sprite = scene.add.sprite(prop.x, prop.y, animation.key, frame)
         .setOrigin(animation.originX, animation.originY).setScale(scale).setDepth(worldDepth(prop.depth ?? prop.y));
+      if (prop.asset === 'train-ticket-pale') this.ticket = sprite;
       this.layers.push({ sprite, width: animation.width * scale, height: animation.height * scale });
       for (const [index, detail] of (prop.effects ?? []).entries()) {
         const effect = effectManifest?.assets[detail.asset];
@@ -68,12 +81,15 @@ export class WorldInterior {
     }
   }
 
+  restoreTicket(restored: boolean): void { this.ticket?.setFrame(restored ? 'train-ticket-dark' : 'train-ticket-pale'); }
+  setDawn(active: boolean): void { this.dawnActive = active; this.dawn?.setVisible(active && this.visible); }
   get objectCount(): number { return this.layers.length; }
   get animatedObjectCount(): number { return new Set(this.effects.map(effect => effect.propId)).size; }
   setReducedMotion(reduced: boolean): void { this.reducedMotion = reduced; }
   setVisible(visible: boolean): void {
     this.visible = visible;
     this.background.setVisible(visible);
+    this.dawn?.setVisible(visible && this.dawnActive);
     if (!visible) for (const layer of this.layers) layer.sprite.setVisible(false);
     if (!visible) for (const effect of this.effects) for (const sprite of effect.sprites) sprite.setVisible(false);
   }
@@ -99,6 +115,7 @@ export class WorldInterior {
 
   destroy(): void {
     this.background.destroy();
+    this.dawn?.destroy();
     for (const layer of this.layers) layer.sprite.destroy();
     for (const effect of this.effects) for (const sprite of effect.sprites) sprite.destroy();
     this.layers = [];

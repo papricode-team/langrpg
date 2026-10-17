@@ -58,7 +58,7 @@ describe('canonical scene contract', () => {
     }
     const upgraded=parseWorldSceneDocument(legacy);
     expect(upgraded.version).toBe(4);
-    expect(sceneEntrances(upgraded.maps.lindenhafen).map(item=>item.interiorId).sort()).toEqual(['bakery','cafe','inn','supermarket']);
+    expect(sceneEntrances(upgraded.maps.lindenhafen).map(item=>item.interiorId).sort()).toEqual(['bakery','cafe','inn','supermarket','train-compartment','train-dining']);
     expect('entrances' in upgraded.maps.lindenhafen).toBe(false);
   });
   it('lets only buildings with a painted door host a room, once per town', () => {

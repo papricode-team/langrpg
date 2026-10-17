@@ -387,8 +387,8 @@ func (a *App) session(w http.ResponseWriter, r *http.Request) {
 		writeError(w, 400, "choose valid hair, skin and outfit values")
 		return
 	}
-	if input.Level != "" && input.Level != "A1" && input.Level != "A2" && input.Level != "B1" {
-		writeError(w, 400, "level must be A1, A2 or B1")
+	if input.Level != "" && input.Level != "A0" && input.Level != "A1" && input.Level != "A2" && input.Level != "B1" {
+		writeError(w, 400, "level must be A0, A1, A2 or B1")
 		return
 	}
 	if input.BaseLanguage != "" && !store.ValidBaseLanguage(input.BaseLanguage) {
@@ -473,7 +473,7 @@ func (a *App) isGuidedStoryGate(input AttemptInput) bool {
 	exercise, installed := a.curriculum.Exercises[input.ExerciseID]
 	return input.GuidedChoice && input.SceneAttempt && input.Mode == "recognition" && input.Hinted &&
 		known && installed && exercise.Mode == "production" && input.ExerciseID == rule.GateExerciseID &&
-		a.curriculum.Items[exercise.ItemID].Level == "A1" && input.ActivityID == "" && input.RunID == ""
+		(a.curriculum.Items[exercise.ItemID].Level == "A0" || a.curriculum.Items[exercise.ItemID].Level == "A1") && input.ActivityID == "" && input.RunID == ""
 }
 
 func contains(values []string, value string) bool {

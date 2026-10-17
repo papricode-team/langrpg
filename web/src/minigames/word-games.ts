@@ -1,4 +1,5 @@
 import { escapeHtml as e } from '../icons';
+import {t} from '../i18n';
 import { seededShuffle } from '../game-shuffle';
 import { scaffoldStage, scaffoldText } from '../typing-scaffold';
 import { distractors } from './pool';
@@ -82,6 +83,7 @@ export class WordMemoryGame implements MiniGame {
   private summary!: RoundSummary; private chain = 0; private seen = new Set<string>(); private count = 0;
   private elapsed = 0; private previous = 0; private raf = 0; private shownSeconds = -1;
   private running = false; private paused = false; private manualPaused = false; private destroyed = false; private saving = false;
+  private namePractised = false;
   private generation = 0; private timers = new Set<ReturnType<typeof setTimeout>>();
   private patience?: { limit: number; used: number; done: () => void };
   constructor(private definition: MiniGameDefinition) { this.id = definition.id; this.title = definition.title; this.host = definition.host; this.modalities = definition.modalities; this.levels = definition.levels; }
@@ -93,7 +95,7 @@ export class WordMemoryGame implements MiniGame {
   private get modality(): Modality { return poolModality(this.definition, this.silent); }
 
   mount(root: HTMLElement, host: MiniGameHost, opts: MiniGameOptions) {
-    this.root = root; this.services = host; this.opts = opts;
+    this.root = root; this.services = host; this.opts = opts; this.namePractised = false;
     this.summary = { gameId: this.id, attempts: 0, correct: 0, hinted: 0, activeMs: 0, longestChain: 0 };
     const pool = mechanicPool(this.definition, query => host.pool(query), { level: opts.level, silent: host.silent, seed: opts.seed, fixedPool: opts.fixedPool });
     this.pool = pool; this.queue = new RoundQueue(pool, this.definition.rounds);
@@ -403,8 +405,14 @@ export class WordMemoryGame implements MiniGame {
   private fog(): Round | undefined {
     const [entry] = this.take(1, item => !!item.sprite); if (!entry) return;
     const item = entry.item, options = this.choicesFor(item, this.opts.level === 'A1' ? 3 : 4), limit = responseLimit(item, false) + 2000;
+    if (this.opts.prologue) {
+      this.play.innerHTML = `<div class="word-fog"><div class="word-fog-window" style="--clear:0"><div class="word-fog-picture" lang="de">${e(display(item))}</div><span class="word-fog-mist" aria-hidden="true"></span></div><div class="minigame-options" role="group" aria-label="${e(t('Choose the reply you have just heard.'))}">${options.map((_,index)=>`<button type="button" class="minigame-object" data-game-option="${index}" data-wg="fog:${index}"><kbd>${index+1}</kbd></button>`).join('')}</div>${this.patienceBar()}</div>`;
+      options.forEach((option,index)=>this.play.querySelector(`[data-wg="fog:${index}"]`)!.prepend(this.services.sprites.render(option.sprite!, option.english,96)));
+      if (!this.silent) void this.services.speak(item);
+    } else {
     this.play.innerHTML = `<div class="word-fog"><div class="word-fog-window" style="--clear:0"><div class="word-fog-picture"></div><span class="word-fog-mist" aria-hidden="true"></span></div><div class="minigame-options" role="group" aria-label="What is behind the fog?">${options.map((option, index) => `<button type="button" class="minigame-object" data-game-option="${index}" data-wg="fog:${index}" lang="de"><span class="minigame-object-label">${e(display(option))}</span><kbd>${index + 1}</kbd></button>`).join('')}</div>${this.patienceBar()}</div>`;
     this.play.querySelector('.word-fog-picture')!.append(this.services.sprites.render(item.sprite!, 'An object in the fog', 180));
+    }
     const finish = (answer: string) => { this.play.querySelector<HTMLElement>('.word-fog-window')!.style.setProperty('--clear', '1'); void this.grade([this.result(entry, answer)], [item]).then(marks => { if (marks) this.advance(marks[0] ? 650 : 1500); }); };
     this.on('fog', value => finish(options[Number(value)].lemma));
     this.wait(limit, () => finish('__timeout__'));
@@ -438,6 +446,13 @@ export class WordMemoryGame implements MiniGame {
 
   // ——— 10. Night Train: write the German word before the train leaves the platform ———
   private train(): Round | undefined {
+    if (this.opts.namePractice && !this.namePractised) {
+      this.play.innerHTML = `<div class="word-train"><div class="word-train-track" aria-hidden="true"><span class="word-train-engine"><span class="word-train-car"></span></span></div><p>${e(t('Write only your player name. You can say it aloud too.'))}</p><p>${e(this.services.playerName)}</p><form class="minigame-recall"><label for="word-train-name">Ich heiße</label><input id="word-train-name" autocomplete="off" spellcheck="false"/><button class="primary-button" type="submit">${e(t('Continue'))}</button></form></div>`;
+      const input=this.play.querySelector<HTMLInputElement>('#word-train-name')!;
+      this.on('form',()=>{if(input.value.trim().normalize('NFC')!==this.services.playerName.normalize('NFC')){this.feedback.textContent=t('Write your player name: {name}',{name:this.services.playerName});return;}this.namePractised=true;this.next();});
+      input.focus(); return {};
+    }
+
     const [entry] = this.take(1); if (!entry) return;
     const item = entry.item, stage = scaffoldStage(item.level, this.opts.currentLevel ?? this.opts.level, item.recalls.production);
     const scaffolded = stage !== 'edges' && stage !== 'none' || entry.retry, limit = responseLimit(item, true) + 4000;

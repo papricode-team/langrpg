@@ -1,4 +1,4 @@
-import { quests, type Exercise, type Level } from './content.ts';
+import { quests, type Exercise, type CourseLevel as Level } from './content.ts';
 import { courseExerciseById } from './course';
 import type { Progress } from './api';
 import { seededShuffle } from './game-shuffle.ts';

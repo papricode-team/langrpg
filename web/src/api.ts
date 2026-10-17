@@ -240,7 +240,7 @@ export class Api {
   }
   completeUnit(unitId: string) { return this.request<CompletionResult>('/course/complete', { unitId }); }
   story() { return this.request<StoryResult>('/story'); }
-  storyTransition(input: { id: string; questId: string; nodeId: string; choiceId?: string; attemptId?: string }) { return this.request<StoryResult>('/story/transition', input); }
+  storyTransition(input: { id: string; questId: string; nodeId: string; choiceId?: string; attemptId?: string; namePractice?: boolean }) { return this.request<StoryResult>('/story/transition', input); }
   inspectStory(input: { id: string; questId: string; objectId: string }) { return this.request<StoryResult>('/story/inspect', input); }
   saveStory(slot: string, name: string) { return this.request<StoryResult>('/story/save', { slot, name }); }
   loadStory(slot: string) { return this.request<StoryResult>('/story/load', { slot }); }

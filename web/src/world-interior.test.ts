@@ -5,6 +5,8 @@ import { WorldInterior } from './world-interior';
 import furniture from '../public/assets/interior-animations.json';
 import details from '../public/assets/interior-effect-animations.json';
 import stills from '../public/assets/interior-stills.json';
+import trainStills from '../public/assets/interior-train-stills.json';
+import trainEffects from '../public/assets/interior-train-effects.json';
 
 class Sprite {
   originX = .5; originY = .5; scale = 1; depth = 0; alpha = 1; visible = true; destroyed = false;
@@ -26,10 +28,10 @@ function fixture(id: InteriorId) {
     const sprite = new Sprite(x, y, key, frame); sprites.push(sprite); return sprite;
   };
   const scene = {
-    add: { image: create, sprite: create },
+    add: { image: create, sprite: create, rectangle: (x:number,y:number) => create(x,y,'dawn') },
     textures: { exists: () => true, get: () => ({ has: () => true }) },
     cache: { json: { get: (key: string) => key === 'interior-animations' ? furniture
-      : key === 'interior-stills' ? stills : key === 'interior-effect-animations' ? details : undefined } },
+      : key === 'interior-stills' ? stills : key === 'interior-train-stills' ? trainStills : key === 'interior-train-effects' ? trainEffects : key === 'interior-effect-animations' ? details : undefined } },
   } as unknown as Phaser.Scene;
   const room = new WorldInterior(scene, getInterior(id));
   const bodies = sprites.filter(sprite => sprite.key !== 'interior-effects');
@@ -40,6 +42,21 @@ const pose = (sprite: Sprite) => [sprite.x, sprite.y, sprite.frame, sprite.scale
 const appearance = (sprite: Sprite) => [sprite.frame, sprite.alpha];
 
 describe('stable interior rendering', () => {
+  it('restores the ticket, lights dawn and freezes window fog without moving the room', () => {
+    const {room,sprites}=fixture('train-compartment');
+    const ticket=sprites.find(sprite=>sprite.frame==='train-ticket-pale')!;
+    const fog=sprites.filter(sprite=>sprite.key==='interior-train-fog');
+    const dawn=sprites.find(sprite=>sprite.key==='dawn')!;
+    expect(fog).toHaveLength(4);
+    expect(dawn.visible).toBe(false);
+    room.restoreTicket(true); room.setDawn(true); room.update(1,roomView);
+    expect(ticket.frame).toBe('train-ticket-dark'); expect(dawn.visible).toBe(true);
+    const frozen=fog.map(sprite=>[...pose(sprite),sprite.alpha]);
+    room.setReducedMotion(true); room.update(10,roomView);
+    expect(fog.map(sprite=>[...pose(sprite),sprite.alpha])).toEqual(frozen);
+    room.setVisible(false);expect(dawn.visible).toBe(false);
+    room.destroy();expect(fog.every(sprite=>sprite.destroyed)).toBe(true);
+  });
   it.each(['cafe', 'bakery', 'supermarket', 'inn'] as const)('keeps %s furniture and its anchors identical throughout an idle cycle', id => {
     const { room, bodies } = fixture(id);
     const initial = bodies.map(pose);

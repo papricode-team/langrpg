@@ -5,7 +5,7 @@ import { miniGameDefinitions } from './catalogue';
 import { loadMiniGame } from './index';
 import { buildLetterGrid, isLetterWord, lineCells, maskWord, nextWordGame, scrambleLetters, WordMemoryGame } from './word-games';
 import { isWordGame } from './word-game-mechanics';
-import type { GameItem, MiniGameHost, RoundResult } from './types';
+import type { GameItem, MiniGameHost, MiniGameOptions, RoundResult } from './types';
 
 let frames: Map<number, FrameRequestCallback>, frameId: number, games: WordMemoryGame[];
 const flush = async () => { for (let index = 0; index < 32; index++) await Promise.resolve(); };
@@ -20,11 +20,11 @@ const grade = (result: RoundResult) => {
   const target = words().find(word => word.lexemeId === result.lexemeId)!;
   return result.answerKind === 'topic' ? result.answer === target.topic : result.answer.toLocaleLowerCase('de') === target.lemma.toLocaleLowerCase('de');
 };
-function setup(id: string, extra: Partial<MiniGameHost> = {}) {
+function setup(id: string, extra: Partial<MiniGameHost> = {}, options: Partial<MiniGameOptions> = {}) {
   const root = document.createElement('div'); document.body.append(root);
   const host = { pool: vi.fn(() => words()), submit: vi.fn(async (result: RoundResult): Promise<AttemptResult> => ({ attemptId: `a-${result.lexemeId}`, correct: grade(result), xpAdded: 0, duplicate: false, correctedAnswer: result.answer, reason: 'Saved', progress: emptyProgress() })), speak: vi.fn(async () => {}), speakText: vi.fn(async () => {}), sprites: { has: vi.fn(() => true), preload: vi.fn(async () => {}), render: vi.fn((_frame: string, alt: string) => { const image = document.createElement('img'); image.alt = alt; return image; }) }, audio: { sfx: vi.fn(), stop: vi.fn() }, input: { bind: vi.fn(() => vi.fn()) }, end: vi.fn(), expose: vi.fn(), progress: () => emptyProgress(), exercises: new Map(), playerName: 'Ada', silent: false, reducedMotion: true, ...extra } as unknown as MiniGameHost;
   const game = new WordMemoryGame(miniGameDefinitions.find(game => game.id === id)!); games.push(game);
-  game.mount(root, host, { level: 'A1', seed: 7 });
+  game.mount(root, host, { level: 'A1', seed: 7, ...options });
   const start = async () => { root.querySelector<HTMLButtonElement>('[data-game-action="start"]')!.click(); await flush(); };
   const button = (selector: string) => root.querySelector<HTMLButtonElement>(selector)!;
   const cue = () => byEnglish.get(root.querySelector('.minigame-context')?.textContent ?? '') ?? words().find(word => [word.lemma, `${word.article} ${word.lemma}`].includes(root.querySelector('.minigame-cue,.word-basket-card,.word-bells-glimpse')?.textContent ?? ''))!;
@@ -149,6 +149,22 @@ describe('the ten word games submit real answers', () => {
     const sprite = (host.sprites.render as ReturnType<typeof vi.fn>).mock.calls.at(-1)![0] as string, word = words().find(row => row.sprite === sprite)!;
     [...root.querySelectorAll<HTMLButtonElement>('[data-wg^="fog:"]')].find(button => button.textContent?.includes(word.lemma))!.click(); await flush();
     expect(submitted()[0]).toMatchObject({ lexemeId: word.lexemeId, answer: word.lemma, modality: 'recognition', answerKind: 'lexeme' });
+  });
+  it('the prologue Fog Window offers picture choices and works silently', async () => {
+    const {root,host,start,submitted}=setup('fog-window',{silent:true},{prologue:true}); await start();
+    const label=root.querySelector('.word-fog-picture')!.textContent;
+    const word=words().find(word=>label===`${word.article} ${word.lemma}`)!;
+    const choice=[...root.querySelectorAll<HTMLButtonElement>('[data-wg^="fog:"]')].find(button=>button.querySelector('img')?.alt===word.english)!;
+    expect(choice.textContent?.includes(word.lemma)).toBe(false);
+    expect(host.speak).not.toHaveBeenCalled();
+    choice.click();await flush();expect(submitted()[0]).toMatchObject({answer:word.lemma,modality:'recognition'});
+  });
+  it('the first prologue train prompt accepts the player name without grading a word', async () => {
+    const {root,start,submitted}=setup('night-train',{}, {namePractice:true});await start();
+    const input=root.querySelector<HTMLInputElement>('#word-train-name')!;
+    expect(input).not.toBeNull(); input.value='Ada';
+    input.closest('form')!.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));await flush();
+    expect(submitted()).toHaveLength(0);expect(root.querySelector('#word-train-answer')).not.toBeNull();
   });
   it('Echo Bells waits for the word to be heard and submits listening evidence', async () => {
     let finish!: () => void;

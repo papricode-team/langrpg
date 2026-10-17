@@ -1,0 +1,19 @@
+.prologue-sounds { padding:clamp(16px,4vw,36px); border-radius:18px; background:linear-gradient(#09202399,#092023cc),url('/assets/minigames/prologue-sounds.webp') center/cover; color:#fff3dc; }
+.prologue-sounds header,.prologue-actions { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+.prologue-sounds header { justify-content:space-between; }
+.prologue-sounds .sound-cue { font-size:clamp(48px,12vw,88px); text-align:center; min-height:1.4em; color:#f3d291; }
+.sound-tiles { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:18px; }
+.sound-tiles button { min-height:48px; font-size:24px; }
+.prologue-actions { padding:12px; background:#182e2d; border-radius:12px; }
+.prologue-actions>span { color:#f3d291; }
+.dialogue-word-gloss { display:block; }
+#dialog .prologue-sounds .outline-button,#dialog .prologue-sounds .text-button { color:#fff3dc; }
+.prologue-sounds .outline-button:hover,.prologue-sounds .outline-button:focus-visible { background:#405d56; color:#fff; }
+.prologue-sounds header { padding-right:60px; }
+@media (--phone) {
+  #game-shell.prologue-active .quest-tracker { display:block; top:88px; right:12px; left:12px; width:auto; max-width:none; }
+  .prologue-actions { padding:8px 12px; gap:8px; }
+  .prologue-actions>span,.prologue-actions>details,.prologue-actions>[data-action="leave-interior"] { display:none; }
+  .prologue-actions>.primary-button { flex:1; min-width:0; }
+  .prologue-actions>[data-action="prologue-sounds"] { font-size:12px; }
+}

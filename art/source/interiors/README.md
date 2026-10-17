@@ -17,3 +17,5 @@ counter, café table/chairs, pastry display, grocery checkout, oven, and scales.
 Its companion prompt records the human-scale proportions. The still exporter
 uses inspected row boundaries and native alpha, keeping countertop goods small
 and floor pivots aligned with the room geometry.
+
+`train-window-fog.png` contains four native-alpha window-detail frames. The prologue exporter writes a separate atlas, blended at fixed glass positions; reduced motion freezes the frame and blend. Dawn uses the existing warm room overlay with the same geometry.

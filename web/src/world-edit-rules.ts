@@ -49,7 +49,7 @@ const soften = (value: WorldProblem): WorldProblem => value.severity === 'error'
 export const problem = (code: WorldProblemCode, map: string, message: string, objectIds: string[] = [], point?: ScenePoint, severity: WorldProblem['severity'] = 'error'): WorldProblem =>
   ({code, map, message, objectIds, ...(point ? {point: {x: Math.round(point.x), y: Math.round(point.y)}} : {}), severity});
 
-export const roomNames: Readonly<Record<SceneInteriorKind, string>> = {cafe: 'café', bakery: 'bakery', supermarket: 'supermarket', inn: 'inn'};
+export const roomNames: Readonly<Record<SceneInteriorKind, string>> = {'train-compartment': 'train compartment', 'train-dining': 'dining car', cafe: 'café', bakery: 'bakery', supermarket: 'supermarket', inn: 'inn'};
 const assetNames: Readonly<Record<string, string>> = {
   archive: 'archive', cafe: 'café building', station: 'station', workshop: 'workshop', house: 'house', tree: 'tree', cypress: 'cypress',
   lamp: 'lamp', stall: 'market stall', fountain: 'fountain', arch: 'arch', greenhouse: 'greenhouse', boat: 'boat', bench: 'bench',
@@ -360,8 +360,8 @@ export function newWarnings(before: WorldScene, after: WorldScene): WorldProblem
 /** Composition hints for a whole town. They never block an edit. */
 export function sceneWarnings(scene: WorldScene): WorldProblem[] {
   const problems: WorldProblem[] = [], map = scene.id;
-  if (scene.kind !== 'interior' && ['lindenhafen', 'waldruh', 'nebelstadt'].includes(map)) for (const kind of sceneInteriorIds) {
-    if (!scene.scenery.some(item => item.interior?.kind === kind))
+  if (scene.kind !== 'interior' && ['lindenhafen', 'waldruh', 'nebelstadt'].includes(map)) for (const kind of sceneInteriorIds.filter(kind => !kind.startsWith('train-') || map === 'lindenhafen')) {
+    if (!sceneEntrances(scene).some(entrance => entrance.interiorId === kind))
       problems.push(problem('missing-room', map, `${townName(map)} has no ${roomNames[kind]}. Players cannot do the ${roomNames[kind]} activities here. Choose a building with a door and set its room.`, [], undefined, 'warning'));
   }
   return problems;

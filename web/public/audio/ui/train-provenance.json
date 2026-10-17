@@ -1,0 +1,14 @@
+{
+  "author": "glotworld project",
+  "source": "scripts/generate-train-audio.mjs",
+  "license": "Original deterministic synthesis, no external samples",
+  "sampleRate": 24000,
+  "seed": 716,
+  "clips": [
+    "wheels",
+    "whistle",
+    "door",
+    "brakes",
+    "cup"
+  ]
+}

@@ -250,6 +250,12 @@ export async function loadExercise(id: string): Promise<Exercise> {
   const quest = runtimeArray<Quest>('quests').find(quest => quest.id === body.questId); if (quest && !quest.exercises.some(row => row.id === id)) quest.exercises.push(exercise);
   return exercise;
 }
+/** A story gate and its supported replies become available together. */
+export async function loadDialogueExercise(id: string): Promise<Exercise> {
+  const exercise = await loadExercise(id);
+  await loadContexts('beginnerChoices', id);
+  return exercise;
+}
 /** The diagnostic manifest authorizes just eight exercises and their authored cues. */
 export async function loadPlacement(): Promise<PlacementQuestion[]> {
   const generation = revision;

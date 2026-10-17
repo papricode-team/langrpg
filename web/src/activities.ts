@@ -1,5 +1,5 @@
 import './activities.css';
-import { npcs, type Exercise, type Level } from './content';
+import { npcs, type Exercise, type CourseLevel as Level } from './content';
 import type { Progress } from './api';
 import { escapeHtml as e, icon } from './icons';
 import {

@@ -90,6 +90,7 @@ test('existing helper imports are reused without duplicate bindings',()=>{
 });
 test('artwork keeps presentation paths while audio is supplied by the live server registry',()=>{
   const art=transformed('minigames/item-manifest.ts'),audio=transformed('minigames/host.ts');
+  assert(!art.includes('train-item-data.json'));assert(!art.includes('"lemma": "Wagen"'));assert(!art.includes('"subject": "railway carriage"'));assert(art.includes(ids['lexeme:wagen-noun']));assert(art.includes('/assets/train/train-carriage.webp'));
   assert(!art.includes('"lemma": "Apfel"'));assert(!art.includes('"plural": "Äpfel"'));assert(art.includes('/assets/minigames/items.webp'));
   assert(!audio.includes('Einen Kaffee, bitte.'));assert(!audio.includes('/audio/minigame-tray-coffee.ogg'));assert(audio.includes('runtimeObject("miniGameAudio"'));assert(audio.includes('targetLanguage()'));syntax(art);syntax(audio);
 });
@@ -162,7 +163,7 @@ test('development manifest requests, including encoded paths, use redacted respo
 });
 test('development blocks direct authoring banks while transformed modules and presentation stay available',()=>{
   for(const path of ['content/source.json','content/imported-alignment-drafts.json','content/imported-drafts/9a83d89d/reviewed.json','server/content.json','server/grading-fixtures.json','content_ids.json'])assert(privateDevelopmentRequest(`/@fs/${resolve(root,path)}`,root),path);
-  for(const path of ['/src/data/course.json','/src/data/course-exercises-a1.json?import','/src/data/i18n/tr-story.json?raw','/src/minigames/story-scripts.json','/src/content.ts?raw','/src/npc-dialogue.ts?url',`/@fs/${resolve(root,'web/src/expeditions.ts')}?raw`,'/src/%64ata/course-meta.json','/src/content.ts?r%61w','/src/interior-conversations.ts?raw','/src/word-detail.ts?raw','/src/story-panels.ts?raw','/src/story-panels.ts?url','/src/test-fixtures/content-public.json','/src/test-fixtures/content-public.json?raw','/src/test-fixtures/content-public.json?url&import'])assert(privateDevelopmentRequest(path,root),path);
+  for(const path of ['/src/minigames/train-item-data.json','/src/minigames/train-item-data.json?raw','/src/data/course.json','/src/data/course-exercises-a1.json?import','/src/data/i18n/tr-story.json?raw','/src/minigames/story-scripts.json','/src/content.ts?raw','/src/npc-dialogue.ts?url',`/@fs/${resolve(root,'web/src/expeditions.ts')}?raw`,'/src/%64ata/course-meta.json','/src/content.ts?r%61w','/src/interior-conversations.ts?raw','/src/word-detail.ts?raw','/src/story-panels.ts?raw','/src/story-panels.ts?url','/src/test-fixtures/content-public.json','/src/test-fixtures/content-public.json?raw','/src/test-fixtures/content-public.json?url&import'])assert(privateDevelopmentRequest(path,root),path);
   for(const path of ['/src/content.ts','/src/npc-dialogue.ts?import','/src/data/world-scenes.json','/src/data/i18n/tr-ui.json','/src/maps.ts?raw','/assets/interior-bakery-objects.json','/audio/a1-arrival-exercise-1.ogg','/src/test-fixtures/content-public.json?import'])assert.equal(privateDevelopmentRequest(path,root),false,path);
 });
 test('development denies private JSON and raw lesson requests before Vite file serving',()=>{

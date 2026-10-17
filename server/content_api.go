@@ -449,7 +449,7 @@ func (a *App) recordVisible(record contentstore.Record, account Account) bool {
 	return false
 }
 func (a *App) levelVisible(level string, account Account) bool {
-	if level == "" || level == "A1" {
+	if level == "" || level == "A0" || level == "A1" {
 		return true
 	}
 	if level == "A2" {

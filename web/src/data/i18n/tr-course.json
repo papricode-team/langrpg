@@ -25960,6 +25960,743 @@
     "explanation": "wenn + koşul, sonra ana cümle.",
     "english": "Hat kapalıyken ışın Waldruh’a ulaşamaz."
    }
+  },
+  "a0-ticket-exercise-1": {
+   "german": "Bitte.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Buyurun.",
+    "hint": "Buyurun.",
+    "explanation": "Buyurun."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Here you are.",
+    "english": "Here you are.",
+    "explanation": "Here you are."
+   }
+  },
+  "a0-ticket-exercise-2": {
+   "german": "Fahrkarte, bitte.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Bilet, lütfen.",
+    "hint": "Bilet, lütfen.",
+    "explanation": "Bilet, lütfen."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Ticket, please.",
+    "english": "Ticket, please.",
+    "explanation": "Ticket, please."
+   }
+  },
+  "a0-ticket-exercise-3": {
+   "german": "Bitte.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Buyurun.",
+    "hint": "Buyurun.",
+    "explanation": "Buyurun."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Here you are.",
+    "english": "Here you are.",
+    "explanation": "Here you are."
+   }
+  },
+  "a0-ticket-exercise-4": {
+   "german": "Danke.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Teşekkürler.",
+    "hint": "Teşekkürler.",
+    "explanation": "Teşekkürler."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Thank you.",
+    "english": "Thank you.",
+    "explanation": "Thank you."
+   }
+  },
+  "a0-ticket-exercise-5": {
+   "german": "Die Fahrkarte.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Bilet.",
+    "hint": "Bilet.",
+    "explanation": "Bilet."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "The ticket.",
+    "english": "The ticket.",
+    "explanation": "The ticket."
+   }
+  },
+  "a0-ticket-exercise-6": {
+   "german": "Guten Abend.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "İyi akşamlar.",
+    "hint": "İyi akşamlar.",
+    "explanation": "İyi akşamlar."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Good evening.",
+    "english": "Good evening.",
+    "explanation": "Good evening."
+   }
+  },
+  "a0-ticket-exercise-7": {
+   "german": "Fahrkarte, bitte.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Bilet, lütfen.",
+    "hint": "Bilet, lütfen.",
+    "explanation": "Bilet, lütfen."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Ticket, please.",
+    "english": "Ticket, please.",
+    "explanation": "Ticket, please."
+   }
+  },
+  "a0-name-exercise-1": {
+   "german": "Name.",
+   "tr": {
+    "prompt": "Adını söyle.",
+    "english": "Ad.",
+    "hint": "Ad.",
+    "explanation": "Ad."
+   },
+   "source": {
+    "prompt": "Say your name.",
+    "hint": "Name.",
+    "english": "Name.",
+    "explanation": "Name."
+   }
+  },
+  "a0-name-exercise-2": {
+   "german": "Name.",
+   "tr": {
+    "prompt": "Adını söyle.",
+    "english": "Ad.",
+    "hint": "Ad.",
+    "explanation": "Ad."
+   },
+   "source": {
+    "prompt": "Say your name.",
+    "hint": "Name.",
+    "english": "Name.",
+    "explanation": "Name."
+   }
+  },
+  "a0-name-exercise-3": {
+   "german": "Name.",
+   "tr": {
+    "prompt": "Adını söyle.",
+    "english": "Ad.",
+    "hint": "Ad.",
+    "explanation": "Ad."
+   },
+   "source": {
+    "prompt": "Say your name.",
+    "hint": "Name.",
+    "english": "Name.",
+    "explanation": "Name."
+   }
+  },
+  "a0-name-exercise-4": {
+   "german": "Wie heißen Sie?",
+   "tr": {
+    "prompt": "Adını söyle.",
+    "english": "Adınız ne?",
+    "hint": "Adınız ne?",
+    "explanation": "Adınız ne?"
+   },
+   "source": {
+    "prompt": "Say your name.",
+    "hint": "What is your name?",
+    "english": "What is your name?",
+    "explanation": "What is your name?"
+   }
+  },
+  "a0-name-exercise-5": {
+   "german": "Name.",
+   "tr": {
+    "prompt": "Adını söyle.",
+    "english": "Ad.",
+    "hint": "Ad.",
+    "explanation": "Ad."
+   },
+   "source": {
+    "prompt": "Say your name.",
+    "hint": "Name.",
+    "english": "Name.",
+    "explanation": "Name."
+   }
+  },
+  "a0-name-exercise-6": {
+   "german": "Name.",
+   "tr": {
+    "prompt": "Adını söyle.",
+    "english": "Ad.",
+    "hint": "Ad.",
+    "explanation": "Ad."
+   },
+   "source": {
+    "prompt": "Say your name.",
+    "hint": "Name.",
+    "english": "Name.",
+    "explanation": "Name."
+   }
+  },
+  "a0-name-exercise-7": {
+   "german": "Wie heißen Sie?",
+   "tr": {
+    "prompt": "Adını söyle.",
+    "english": "Adınız ne?",
+    "hint": "Adınız ne?",
+    "explanation": "Adınız ne?"
+   },
+   "source": {
+    "prompt": "Say your name.",
+    "hint": "What is your name?",
+    "english": "What is your name?",
+    "explanation": "What is your name?"
+   }
+  },
+  "a0-wagen-exercise-1": {
+   "german": "sieben",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "yedi",
+    "hint": "yedi",
+    "explanation": "yedi"
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "seven",
+    "english": "seven",
+    "explanation": "seven"
+   }
+  },
+  "a0-wagen-exercise-2": {
+   "german": "vier, fünf, sechs",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "dört, beş, altı",
+    "hint": "dört, beş, altı",
+    "explanation": "dört, beş, altı"
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "four, five, six",
+    "english": "four, five, six",
+    "explanation": "four, five, six"
+   }
+  },
+  "a0-wagen-exercise-3": {
+   "german": "sieben",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "yedi",
+    "hint": "yedi",
+    "explanation": "yedi"
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "seven",
+    "english": "seven",
+    "explanation": "seven"
+   }
+  },
+  "a0-wagen-exercise-4": {
+   "german": "Wagen sieben.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Yedinci vagon.",
+    "hint": "Yedinci vagon.",
+    "explanation": "Yedinci vagon."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Carriage seven.",
+    "english": "Carriage seven.",
+    "explanation": "Carriage seven."
+   }
+  },
+  "a0-wagen-exercise-5": {
+   "german": "Ein Wagen.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Bir vagon.",
+    "hint": "Bir vagon.",
+    "explanation": "Bir vagon."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "A carriage.",
+    "english": "A carriage.",
+    "explanation": "A carriage."
+   }
+  },
+  "a0-wagen-exercise-6": {
+   "german": "eins, zwei, drei",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "bir, iki, üç",
+    "hint": "bir, iki, üç",
+    "explanation": "bir, iki, üç"
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "one, two, three",
+    "english": "one, two, three",
+    "explanation": "one, two, three"
+   }
+  },
+  "a0-wagen-exercise-7": {
+   "german": "vier, fünf, sechs",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "dört, beş, altı",
+    "hint": "dört, beş, altı",
+    "explanation": "dört, beş, altı"
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "four, five, six",
+    "english": "four, five, six",
+    "explanation": "four, five, six"
+   }
+  },
+  "a0-tee-exercise-1": {
+   "german": "Einen Tee, bitte.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Bir çay, lütfen.",
+    "hint": "Bir çay, lütfen.",
+    "explanation": "Bir çay, lütfen."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "A tea, please.",
+    "english": "A tea, please.",
+    "explanation": "A tea, please."
+   }
+  },
+  "a0-tee-exercise-2": {
+   "german": "Einen Tee, bitte.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Bir çay, lütfen.",
+    "hint": "Bir çay, lütfen.",
+    "explanation": "Bir çay, lütfen."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "A tea, please.",
+    "english": "A tea, please.",
+    "explanation": "A tea, please."
+   }
+  },
+  "a0-tee-exercise-3": {
+   "german": "Mit Milch?",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Sütlü mü?",
+    "hint": "Sütlü mü?",
+    "explanation": "Sütlü mü?"
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "With milk?",
+    "english": "With milk?",
+    "explanation": "With milk?"
+   }
+  },
+  "a0-tee-exercise-4": {
+   "german": "Nein, danke.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Hayır, teşekkürler.",
+    "hint": "Hayır, teşekkürler.",
+    "explanation": "Hayır, teşekkürler."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "No, thank you.",
+    "english": "No, thank you.",
+    "explanation": "No, thank you."
+   }
+  },
+  "a0-tee-exercise-5": {
+   "german": "Tee oder Kaffee?",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Çay mı kahve mi?",
+    "hint": "Çay mı kahve mi?",
+    "explanation": "Çay mı kahve mi?"
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Tea or coffee?",
+    "english": "Tea or coffee?",
+    "explanation": "Tea or coffee?"
+   }
+  },
+  "a0-tee-exercise-6": {
+   "german": "Einen Tee, bitte.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Bir çay, lütfen.",
+    "hint": "Bir çay, lütfen.",
+    "explanation": "Bir çay, lütfen."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "A tea, please.",
+    "english": "A tea, please.",
+    "explanation": "A tea, please."
+   }
+  },
+  "a0-tee-exercise-7": {
+   "german": "Mit Milch?",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Sütlü mü?",
+    "hint": "Sütlü mü?",
+    "explanation": "Sütlü mü?"
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "With milk?",
+    "english": "With milk?",
+    "explanation": "With milk?"
+   }
+  },
+  "a0-wo-exercise-1": {
+   "german": "Wo ist …?",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Nerede?",
+    "hint": "Nerede?",
+    "explanation": "Nerede?"
+   },
+   "english": "Where is …?",
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Where is …?",
+    "english": "Where is …?",
+    "explanation": "Where is …?"
+   }
+  },
+  "a0-wo-exercise-2": {
+   "german": "Die Toilette.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Tuvalet.",
+    "hint": "Tuvalet.",
+    "explanation": "Tuvalet."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "The toilet.",
+    "english": "The toilet.",
+    "explanation": "The toilet."
+   }
+  },
+  "a0-wo-exercise-3": {
+   "german": "Hier.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Burada.",
+    "hint": "Burada.",
+    "explanation": "Burada."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Here.",
+    "english": "Here.",
+    "explanation": "Here."
+   }
+  },
+  "a0-wo-exercise-4": {
+   "german": "Da.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Orada.",
+    "hint": "Orada.",
+    "explanation": "Orada."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "There.",
+    "english": "There.",
+    "explanation": "There."
+   }
+  },
+  "a0-wo-exercise-5": {
+   "german": "Ausgang.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Çıkış.",
+    "hint": "Çıkış.",
+    "explanation": "Çıkış."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Exit.",
+    "english": "Exit.",
+    "explanation": "Exit."
+   }
+  },
+  "a0-wo-exercise-6": {
+   "german": "Wo ist …?",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Nerede?",
+    "hint": "Nerede?",
+    "explanation": "Nerede?"
+   },
+   "english": "Where is …?",
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Where is …?",
+    "english": "Where is …?",
+    "explanation": "Where is …?"
+   }
+  },
+  "a0-wo-exercise-7": {
+   "german": "Die Toilette.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Tuvalet.",
+    "hint": "Tuvalet.",
+    "explanation": "Tuvalet."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "The toilet.",
+    "english": "The toilet.",
+    "explanation": "The toilet."
+   }
+  },
+  "a0-langsam-exercise-1": {
+   "german": "Noch einmal, bitte.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Bir kez daha, lütfen.",
+    "hint": "Bir kez daha, lütfen.",
+    "explanation": "Bir kez daha, lütfen."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Once again, please.",
+    "english": "Once again, please.",
+    "explanation": "Once again, please."
+   }
+  },
+  "a0-langsam-exercise-2": {
+   "german": "Langsam, bitte.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Yavaşça, lütfen.",
+    "hint": "Yavaşça, lütfen.",
+    "explanation": "Yavaşça, lütfen."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Slowly, please.",
+    "english": "Slowly, please.",
+    "explanation": "Slowly, please."
+   }
+  },
+  "a0-langsam-exercise-3": {
+   "german": "Noch einmal, bitte.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Bir kez daha, lütfen.",
+    "hint": "Bir kez daha, lütfen.",
+    "explanation": "Bir kez daha, lütfen."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Once again, please.",
+    "english": "Once again, please.",
+    "explanation": "Once again, please."
+   }
+  },
+  "a0-langsam-exercise-4": {
+   "german": "Wie bitte?",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Efendim?",
+    "hint": "Efendim?",
+    "explanation": "Efendim?"
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Pardon?",
+    "english": "Pardon?",
+    "explanation": "Pardon?"
+   }
+  },
+  "a0-langsam-exercise-5": {
+   "german": "Ich verstehe nicht.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Anlamıyorum.",
+    "hint": "Anlamıyorum.",
+    "explanation": "Anlamıyorum."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "I do not understand.",
+    "english": "I do not understand.",
+    "explanation": "I do not understand."
+   }
+  },
+  "a0-langsam-exercise-6": {
+   "german": "Langsam, bitte.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Yavaşça, lütfen.",
+    "hint": "Yavaşça, lütfen.",
+    "explanation": "Yavaşça, lütfen."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Slowly, please.",
+    "english": "Slowly, please.",
+    "explanation": "Slowly, please."
+   }
+  },
+  "a0-langsam-exercise-7": {
+   "german": "Noch einmal, bitte.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Bir kez daha, lütfen.",
+    "hint": "Bir kez daha, lütfen.",
+    "explanation": "Bir kez daha, lütfen."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Once again, please.",
+    "english": "Once again, please.",
+    "explanation": "Once again, please."
+   }
+  },
+  "a0-morgen-exercise-1": {
+   "german": "Auf Wiedersehen.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Hoşça kalın.",
+    "hint": "Hoşça kalın.",
+    "explanation": "Hoşça kalın."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Goodbye.",
+    "english": "Goodbye.",
+    "explanation": "Goodbye."
+   }
+  },
+  "a0-morgen-exercise-2": {
+   "german": "Der Zug kommt.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Tren geliyor.",
+    "hint": "Tren geliyor.",
+    "explanation": "Tren geliyor."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "The train is coming.",
+    "english": "The train is coming.",
+    "explanation": "The train is coming."
+   }
+  },
+  "a0-morgen-exercise-3": {
+   "german": "Guten Morgen.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Günaydın.",
+    "hint": "Günaydın.",
+    "explanation": "Günaydın."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Good morning.",
+    "english": "Good morning.",
+    "explanation": "Good morning."
+   }
+  },
+  "a0-morgen-exercise-4": {
+   "german": "Auf Wiedersehen.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Hoşça kalın.",
+    "hint": "Hoşça kalın.",
+    "explanation": "Hoşça kalın."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Goodbye.",
+    "english": "Goodbye.",
+    "explanation": "Goodbye."
+   }
+  },
+  "a0-morgen-exercise-5": {
+   "german": "Guten Morgen.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Günaydın.",
+    "hint": "Günaydın.",
+    "explanation": "Günaydın."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Good morning.",
+    "english": "Good morning.",
+    "explanation": "Good morning."
+   }
+  },
+  "a0-morgen-exercise-6": {
+   "german": "Der Zug kommt.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Tren geliyor.",
+    "hint": "Tren geliyor.",
+    "explanation": "Tren geliyor."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "The train is coming.",
+    "english": "The train is coming.",
+    "explanation": "The train is coming."
+   }
+  },
+  "a0-morgen-exercise-7": {
+   "german": "Guten Morgen.",
+   "tr": {
+    "prompt": "Az önce duyduğun yanıtı seç.",
+    "english": "Günaydın.",
+    "hint": "Günaydın.",
+    "explanation": "Günaydın."
+   },
+   "source": {
+    "prompt": "Choose the reply you have just heard.",
+    "hint": "Good morning.",
+    "english": "Good morning.",
+    "explanation": "Good morning."
+   }
   }
  },
  "texts": {

@@ -1,10 +1,17 @@
 {
   "method": "Raw dictionary matches are retained beside adjusted flags. Explicitly English-glossed story vocabulary carries forward in canonical quest order, with at most two new story words per Act I quest. Bounded resolutions cover registered character/town names, surnames after Frau/Herr, single-letter clues, standard contractions and level-tagged surface forms. Act I checks every dialogue line, simpler variant, reply correction, investigation, choice and optional-practice quest introduction; all unapproved above-level words, unresolved words, listed advanced patterns and turns over the quest limit (8, 8, 10, 10, 12, 12 words) fail. The exact parcel warning has one artifact exception with its complete meaning available on demand and raw difficulty retained; it grants no vocabulary approval to other lines. Level tags, homographs, imported inflections and grammar heuristics still require editorial review. A zero result is not CEFR certification or measured learner known-word coverage; placement is reported separately and is outside this story gate.",
   "summary": {
+    "A0": {
+      "lines": 51,
+      "linesWithAboveLevelWords": 0,
+      "linesWithUnmappedWords": 0,
+      "linesWithGrammarFlags": 0,
+      "longSentences": 0
+    },
     "A1": {
-      "lines": 630,
+      "lines": 613,
       "linesWithAboveLevelWords": 117,
-      "linesWithUnmappedWords": 305,
+      "linesWithUnmappedWords": 297,
       "linesWithGrammarFlags": 0,
       "longSentences": 0
     },
@@ -24,6 +31,13 @@
     }
   },
   "variantSummary": {
+    "A0": {
+      "lines": 0,
+      "linesWithAboveLevelWords": 0,
+      "linesWithUnmappedWords": 0,
+      "linesWithGrammarFlags": 0,
+      "longSentences": 0
+    },
     "A1": {
       "lines": 20,
       "linesWithAboveLevelWords": 2,
@@ -47,6 +61,13 @@
     }
   },
   "placementSummary": {
+    "A0": {
+      "lines": 0,
+      "linesWithAboveLevelWords": 0,
+      "linesWithUnmappedWords": 0,
+      "linesWithGrammarFlags": 0,
+      "longSentences": 0
+    },
     "A1": {
       "lines": 3,
       "linesWithAboveLevelWords": 2,
@@ -70,10 +91,17 @@
     }
   },
   "rawSummary": {
+    "A0": {
+      "lines": 79,
+      "linesWithAboveLevelWords": 0,
+      "linesWithUnmappedWords": 0,
+      "linesWithGrammarFlags": 0,
+      "longSentences": 0
+    },
     "A1": {
-      "lines": 828,
+      "lines": 810,
       "linesWithAboveLevelWords": 162,
-      "linesWithUnmappedWords": 397,
+      "linesWithUnmappedWords": 389,
       "linesWithGrammarFlags": 0,
       "longSentences": 0
     },
@@ -93,8 +121,15 @@
     }
   },
   "adjustedSummary": {
+    "A0": {
+      "lines": 79,
+      "linesWithAboveLevelWords": 0,
+      "linesWithUnmappedWords": 0,
+      "linesWithGrammarFlags": 0,
+      "longSentences": 0
+    },
     "A1": {
-      "lines": 828,
+      "lines": 810,
       "linesWithAboveLevelWords": 0,
       "linesWithUnmappedWords": 0,
       "linesWithGrammarFlags": 0,
@@ -1459,6 +1494,11 @@
       ]
     }
   ],
+  "a0Gate": {
+    "passed": true,
+    "violations": [],
+    "checkedEntries": 79
+  },
   "actOneGate": {
     "maxNewStoryWordsPerQuest": 2,
     "maxUnapprovedAboveLevelWords": 0,
@@ -1466,6 +1506,13 @@
     "maxAdvancedGrammarFlags": 0,
     "maxWordsPerTurn": 16,
     "questWordLimits": {
+      "a0-ticket": 4,
+      "a0-name": 4,
+      "a0-wagen": 4,
+      "a0-tee": 4,
+      "a0-wo": 4,
+      "a0-langsam": 4,
+      "a0-morgen": 4,
       "a1-arrival": 8,
       "a1-cafe": 8,
       "a1-market": 10,
@@ -1489,11 +1536,1031 @@
       "a1-bench": 10,
       "a1-office-window": 10
     },
-    "checkedEntries": 828,
+    "checkedEntries": 810,
     "passed": true,
     "violations": []
   },
   "lines": [
+    {
+      "questId": "a0-ticket",
+      "kind": "line",
+      "lineId": "a0-ticket-0",
+      "german": "Guten Abend.",
+      "english": "Good evening.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-ticket",
+      "kind": "line",
+      "lineId": "a0-ticket-1",
+      "german": "Fahrkarte, bitte.",
+      "english": "Ticket, please.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-ticket",
+      "kind": "line",
+      "lineId": "a0-ticket-2",
+      "german": "Bitte.",
+      "english": "Here you are.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-ticket",
+      "kind": "line",
+      "lineId": "a0-ticket-3",
+      "german": "Danke.",
+      "english": "Thank you.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-ticket",
+      "kind": "line",
+      "lineId": "a0-ticket-4",
+      "german": "Die Fahrkarte.",
+      "english": "The ticket.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-ticket",
+      "kind": "line",
+      "lineId": "a0-ticket-gate",
+      "german": "Guten Abend.",
+      "english": "Good evening.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-ticket",
+      "kind": "line",
+      "lineId": "a0-ticket-choice",
+      "german": "Bitte.",
+      "english": "Here you are.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-ticket",
+      "kind": "line",
+      "lineId": "a0-ticket-complete",
+      "german": "Die Fahrkarte.",
+      "english": "The ticket.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-name",
+      "kind": "line",
+      "lineId": "a0-name-0",
+      "german": "Wie heißen Sie?",
+      "english": "What is your name?",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-name",
+      "kind": "line",
+      "lineId": "a0-name-1",
+      "german": "Ich heiße {name}.",
+      "english": "My name is {name}.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-name",
+      "kind": "line",
+      "lineId": "a0-name-2",
+      "german": "Name.",
+      "english": "Name.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-name",
+      "kind": "line",
+      "lineId": "a0-name-gate",
+      "german": "Wie heißen Sie?",
+      "english": "What is your name?",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-name",
+      "kind": "line",
+      "lineId": "a0-name-choice",
+      "german": "Ich heiße {name}.",
+      "english": "My name is {name}.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-name",
+      "kind": "line",
+      "lineId": "a0-name-complete",
+      "german": "Name.",
+      "english": "Name.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-wagen",
+      "kind": "line",
+      "lineId": "a0-wagen-0",
+      "german": "eins, zwei, drei",
+      "english": "one, two, three",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-wagen",
+      "kind": "line",
+      "lineId": "a0-wagen-1",
+      "german": "vier, fünf, sechs",
+      "english": "four, five, six",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-wagen",
+      "kind": "line",
+      "lineId": "a0-wagen-2",
+      "german": "sieben",
+      "english": "seven",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-wagen",
+      "kind": "line",
+      "lineId": "a0-wagen-3",
+      "german": "Wagen sieben.",
+      "english": "Carriage seven.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-wagen",
+      "kind": "line",
+      "lineId": "a0-wagen-4",
+      "german": "Ein Wagen.",
+      "english": "A carriage.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-wagen",
+      "kind": "line",
+      "lineId": "a0-wagen-gate",
+      "german": "eins, zwei, drei",
+      "english": "one, two, three",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-wagen",
+      "kind": "line",
+      "lineId": "a0-wagen-choice",
+      "german": "sieben",
+      "english": "seven",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-wagen",
+      "kind": "line",
+      "lineId": "a0-wagen-complete",
+      "german": "Ein Wagen.",
+      "english": "A carriage.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-tee",
+      "kind": "line",
+      "lineId": "a0-tee-0",
+      "german": "Tee oder Kaffee?",
+      "english": "Tea or coffee?",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-tee",
+      "kind": "line",
+      "lineId": "a0-tee-1",
+      "german": "Einen Tee, bitte.",
+      "english": "A tea, please.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-tee",
+      "kind": "line",
+      "lineId": "a0-tee-2",
+      "german": "Mit Milch?",
+      "english": "With milk?",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-tee",
+      "kind": "line",
+      "lineId": "a0-tee-3",
+      "german": "Nein, danke.",
+      "english": "No, thank you.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-tee",
+      "kind": "line",
+      "lineId": "a0-tee-gate",
+      "german": "Tee oder Kaffee?",
+      "english": "Tea or coffee?",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-tee",
+      "kind": "line",
+      "lineId": "a0-tee-choice",
+      "german": "Einen Tee, bitte.",
+      "english": "A tea, please.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-tee",
+      "kind": "line",
+      "lineId": "a0-tee-complete",
+      "german": "Nein, danke.",
+      "english": "No, thank you.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-wo",
+      "kind": "line",
+      "lineId": "a0-wo-0",
+      "german": "Wo ist …?",
+      "english": "Where is …?",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-wo",
+      "kind": "line",
+      "lineId": "a0-wo-1",
+      "german": "Die Toilette.",
+      "english": "The toilet.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-wo",
+      "kind": "line",
+      "lineId": "a0-wo-2",
+      "german": "Hier.",
+      "english": "Here.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-wo",
+      "kind": "line",
+      "lineId": "a0-wo-3",
+      "german": "Da.",
+      "english": "There.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-wo",
+      "kind": "line",
+      "lineId": "a0-wo-4",
+      "german": "Ausgang.",
+      "english": "Exit.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-wo",
+      "kind": "line",
+      "lineId": "a0-wo-gate",
+      "german": "Wo ist …?",
+      "english": "Where is …?",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-wo",
+      "kind": "line",
+      "lineId": "a0-wo-choice",
+      "german": "Wo ist …?",
+      "english": "Where is …?",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-wo",
+      "kind": "line",
+      "lineId": "a0-wo-complete",
+      "german": "Ausgang.",
+      "english": "Exit.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-langsam",
+      "kind": "line",
+      "lineId": "a0-langsam-0",
+      "german": "Ich verstehe nicht.",
+      "english": "I do not understand.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-langsam",
+      "kind": "line",
+      "lineId": "a0-langsam-1",
+      "german": "Langsam, bitte.",
+      "english": "Slowly, please.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-langsam",
+      "kind": "line",
+      "lineId": "a0-langsam-2",
+      "german": "Noch einmal, bitte.",
+      "english": "Once again, please.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-langsam",
+      "kind": "line",
+      "lineId": "a0-langsam-3",
+      "german": "Wie bitte?",
+      "english": "Pardon?",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-langsam",
+      "kind": "line",
+      "lineId": "a0-langsam-gate",
+      "german": "Ich verstehe nicht.",
+      "english": "I do not understand.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-langsam",
+      "kind": "line",
+      "lineId": "a0-langsam-choice",
+      "german": "Noch einmal, bitte.",
+      "english": "Once again, please.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-langsam",
+      "kind": "line",
+      "lineId": "a0-langsam-complete",
+      "german": "Wie bitte?",
+      "english": "Pardon?",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-morgen",
+      "kind": "line",
+      "lineId": "a0-morgen-0",
+      "german": "Guten Morgen.",
+      "english": "Good morning.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-morgen",
+      "kind": "line",
+      "lineId": "a0-morgen-1",
+      "german": "Der Zug kommt.",
+      "english": "The train is coming.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-morgen",
+      "kind": "line",
+      "lineId": "a0-morgen-2",
+      "german": "Lindenhafen!",
+      "english": "Lindenhafen!",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-morgen",
+      "kind": "line",
+      "lineId": "a0-morgen-3",
+      "german": "Auf Wiedersehen.",
+      "english": "Goodbye.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-morgen",
+      "kind": "line",
+      "lineId": "a0-morgen-gate",
+      "german": "Guten Morgen.",
+      "english": "Good morning.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-morgen",
+      "kind": "line",
+      "lineId": "a0-morgen-choice",
+      "german": "Auf Wiedersehen.",
+      "english": "Goodbye.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-morgen",
+      "kind": "line",
+      "lineId": "a0-morgen-complete",
+      "german": "Auf Wiedersehen.",
+      "english": "Goodbye.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
     {
       "questId": "a1-arrival",
       "kind": "line",
@@ -1511,170 +2578,6 @@
         {
           "word": "Lindenhafen",
           "reason": "proper-name"
-        }
-      ],
-      "adjusted": {
-        "aboveLevelWords": [],
-        "unmappedWords": [],
-        "advancedGrammar": [],
-        "longSentences": 0,
-        "overlongTurn": false
-      }
-    },
-    {
-      "questId": "a1-arrival",
-      "kind": "line",
-      "lineId": "a1-arrival-intro-1",
-      "german": "Moment. Du kommst von Bahnsteig sieben?",
-      "english": "Hang on. You came in on platform seven?",
-      "level": "A1",
-      "aboveLevelWords": [],
-      "unmappedWords": [],
-      "advancedGrammar": [],
-      "longSentences": 0,
-      "resolutions": [],
-      "adjusted": {
-        "aboveLevelWords": [],
-        "unmappedWords": [],
-        "advancedGrammar": [],
-        "longSentences": 0,
-        "overlongTurn": false
-      }
-    },
-    {
-      "questId": "a1-arrival",
-      "kind": "line",
-      "lineId": "a1-arrival-intro-2",
-      "german": "Bahnsteig sieben ist seit zwölf Jahren zu.",
-      "english": "Platform seven has been closed for twelve years.",
-      "level": "A1",
-      "aboveLevelWords": [],
-      "unmappedWords": [],
-      "advancedGrammar": [],
-      "longSentences": 0,
-      "resolutions": [],
-      "adjusted": {
-        "aboveLevelWords": [],
-        "unmappedWords": [],
-        "advancedGrammar": [],
-        "longSentences": 0,
-        "overlongTurn": false
-      }
-    },
-    {
-      "questId": "a1-arrival",
-      "kind": "line",
-      "lineId": "a1-arrival-intro-3",
-      "german": "Seit zwölf Jahren kommt hier kein Zug.",
-      "english": "No train has stopped here in twelve years.",
-      "level": "A1",
-      "aboveLevelWords": [],
-      "unmappedWords": [],
-      "advancedGrammar": [],
-      "longSentences": 0,
-      "resolutions": [],
-      "adjusted": {
-        "aboveLevelWords": [],
-        "unmappedWords": [],
-        "advancedGrammar": [],
-        "longSentences": 0,
-        "overlongTurn": false
-      }
-    },
-    {
-      "questId": "a1-arrival",
-      "kind": "line",
-      "lineId": "a1-arrival-intro-4",
-      "german": "Aber ich mache jeden Morgen die Laterne an.",
-      "english": "But I still light the lantern every morning.",
-      "level": "A1",
-      "aboveLevelWords": [
-        "Laterne"
-      ],
-      "unmappedWords": [
-        "jeden"
-      ],
-      "advancedGrammar": [],
-      "longSentences": 0,
-      "resolutions": [
-        {
-          "word": "Laterne",
-          "reason": "introduced-story-word",
-          "english": "lantern",
-          "introducedIn": "a1-arrival"
-        },
-        {
-          "word": "jeden",
-          "reason": "level-tagged-surface-form",
-          "lexemeId": "jeder-pron"
-        }
-      ],
-      "adjusted": {
-        "aboveLevelWords": [],
-        "unmappedWords": [],
-        "advancedGrammar": [],
-        "longSentences": 0,
-        "overlongTurn": false
-      }
-    },
-    {
-      "questId": "a1-arrival",
-      "kind": "line",
-      "lineId": "a1-arrival-intro-5",
-      "german": "Ordnung ist Ordnung. Auch ohne Zug.",
-      "english": "Rules are rules. Train or no train.",
-      "level": "A1",
-      "aboveLevelWords": [],
-      "unmappedWords": [],
-      "advancedGrammar": [],
-      "longSentences": 0,
-      "resolutions": [],
-      "adjusted": {
-        "aboveLevelWords": [],
-        "unmappedWords": [],
-        "advancedGrammar": [],
-        "longSentences": 0,
-        "overlongTurn": false
-      }
-    },
-    {
-      "questId": "a1-arrival",
-      "kind": "line",
-      "lineId": "a1-arrival-intro-6",
-      "german": "Und heute kommt dein Zug. Pünktlich!",
-      "english": "And today your train comes in. On time!",
-      "level": "A1",
-      "aboveLevelWords": [],
-      "unmappedWords": [],
-      "advancedGrammar": [],
-      "longSentences": 0,
-      "resolutions": [],
-      "adjusted": {
-        "aboveLevelWords": [],
-        "unmappedWords": [],
-        "advancedGrammar": [],
-        "longSentences": 0,
-        "overlongTurn": false
-      }
-    },
-    {
-      "questId": "a1-arrival",
-      "kind": "line",
-      "lineId": "a1-arrival-intro-7",
-      "german": "Das gefällt mir nicht.",
-      "english": "I do not like that.",
-      "level": "A1",
-      "aboveLevelWords": [],
-      "unmappedWords": [
-        "mir"
-      ],
-      "advancedGrammar": [],
-      "longSentences": 0,
-      "resolutions": [
-        {
-          "word": "mir",
-          "reason": "level-tagged-surface-form",
-          "lexemeId": "ich-pron"
         }
       ],
       "adjusted": {
@@ -1708,9 +2611,9 @@
     {
       "questId": "a1-arrival",
       "kind": "line",
-      "lineId": "a1-arrival-intro-9",
-      "german": "Hier steht {name}. Bahnsteig sieben. Unten: E.",
-      "english": "It says {name}. Platform seven. At the bottom: E.",
+      "lineId": "a1-arrival-intro-9-prologue",
+      "german": "Hier: {name}. Bahnsteig sieben. E.",
+      "english": "Here: {name}. Platform seven. E.",
       "level": "A1",
       "aboveLevelWords": [],
       "unmappedWords": [
@@ -1735,9 +2638,9 @@
     {
       "questId": "a1-arrival",
       "kind": "line",
-      "lineId": "a1-arrival-intro-10",
-      "german": "Sieh! Dein Name geht weg.",
-      "english": "Look! Your name is fading.",
+      "lineId": "a1-arrival-intro-11-prologue",
+      "german": "Hier gehen Namen weg.",
+      "english": "Here, names fade.",
       "level": "A1",
       "aboveLevelWords": [],
       "unmappedWords": [],
@@ -1755,56 +2658,9 @@
     {
       "questId": "a1-arrival",
       "kind": "line",
-      "lineId": "a1-arrival-intro-11",
-      "german": "Hier in Lindenhafen gehen Namen weg.",
-      "english": "Here in Lindenhafen, names fade.",
-      "level": "A1",
-      "aboveLevelWords": [],
-      "unmappedWords": [
-        "Lindenhafen"
-      ],
-      "advancedGrammar": [],
-      "longSentences": 0,
-      "resolutions": [
-        {
-          "word": "Lindenhafen",
-          "reason": "proper-name"
-        }
-      ],
-      "adjusted": {
-        "aboveLevelWords": [],
-        "unmappedWords": [],
-        "advancedGrammar": [],
-        "longSentences": 0,
-        "overlongTurn": false
-      }
-    },
-    {
-      "questId": "a1-arrival",
-      "kind": "line",
-      "lineId": "a1-arrival-intro-12",
-      "german": "Sag deinen Namen laut. Dann bleibt er.",
-      "english": "Say your name out loud. Then it stays.",
-      "level": "A1",
-      "aboveLevelWords": [],
-      "unmappedWords": [],
-      "advancedGrammar": [],
-      "longSentences": 0,
-      "resolutions": [],
-      "adjusted": {
-        "aboveLevelWords": [],
-        "unmappedWords": [],
-        "advancedGrammar": [],
-        "longSentences": 0,
-        "overlongTurn": false
-      }
-    },
-    {
-      "questId": "a1-arrival",
-      "kind": "line",
-      "lineId": "a1-arrival-intro-13",
-      "german": "Gut. Siehst du? Er ist wieder schwarz.",
-      "english": "Good. See? The ink is dark again.",
+      "lineId": "a1-arrival-intro-12-prologue",
+      "german": "Sag deinen Namen laut.",
+      "english": "Say your name aloud.",
       "level": "A1",
       "aboveLevelWords": [],
       "unmappedWords": [],
@@ -1936,165 +2792,6 @@
     {
       "questId": "a1-arrival",
       "kind": "line",
-      "lineId": "a1-arrival-choice-1",
-      "german": "Bahnsteig sieben steht nicht im Plan.",
-      "english": "Platform seven is not on the timetable.",
-      "level": "A1",
-      "aboveLevelWords": [],
-      "unmappedWords": [
-        "im"
-      ],
-      "advancedGrammar": [],
-      "longSentences": 0,
-      "resolutions": [
-        {
-          "word": "im",
-          "reason": "grammatical-contraction",
-          "parts": [
-            "in",
-            "dem"
-          ]
-        }
-      ],
-      "adjusted": {
-        "aboveLevelWords": [],
-        "unmappedWords": [],
-        "advancedGrammar": [],
-        "longSentences": 0,
-        "overlongTurn": false
-      }
-    },
-    {
-      "questId": "a1-arrival",
-      "kind": "line",
-      "lineId": "a1-arrival-choice-2",
-      "german": "Der Zug war aber hier. Ich war da.",
-      "english": "But the train was here. I was there.",
-      "level": "A1",
-      "aboveLevelWords": [],
-      "unmappedWords": [],
-      "advancedGrammar": [],
-      "longSentences": 0,
-      "resolutions": [],
-      "adjusted": {
-        "aboveLevelWords": [],
-        "unmappedWords": [],
-        "advancedGrammar": [],
-        "longSentences": 0,
-        "overlongTurn": false
-      }
-    },
-    {
-      "questId": "a1-arrival",
-      "kind": "line",
-      "lineId": "a1-arrival-choice-3",
-      "german": "Der Plan ist richtig, Herr Otto. Immer.",
-      "english": "The timetable is right, Otto. Always.",
-      "level": "A1",
-      "aboveLevelWords": [],
-      "unmappedWords": [
-        "Otto"
-      ],
-      "advancedGrammar": [],
-      "longSentences": 0,
-      "resolutions": [
-        {
-          "word": "Otto",
-          "reason": "proper-name"
-        }
-      ],
-      "adjusted": {
-        "aboveLevelWords": [],
-        "unmappedWords": [],
-        "advancedGrammar": [],
-        "longSentences": 0,
-        "overlongTurn": false
-      }
-    },
-    {
-      "questId": "a1-arrival",
-      "kind": "line",
-      "lineId": "a1-arrival-choice-4",
-      "german": "Ihr Plan, Herr Voss. Mein Bahnsteig.",
-      "english": "Your timetable, Mr Voss. My platform.",
-      "level": "A1",
-      "aboveLevelWords": [],
-      "unmappedWords": [
-        "Ihr",
-        "Voss"
-      ],
-      "advancedGrammar": [],
-      "longSentences": 0,
-      "resolutions": [
-        {
-          "word": "Ihr",
-          "reason": "possessive-before-noun",
-          "lexemeId": "ihr-det"
-        },
-        {
-          "word": "Voss",
-          "reason": "proper-name"
-        }
-      ],
-      "adjusted": {
-        "aboveLevelWords": [],
-        "unmappedWords": [],
-        "advancedGrammar": [],
-        "longSentences": 0,
-        "overlongTurn": false
-      }
-    },
-    {
-      "questId": "a1-arrival",
-      "kind": "line",
-      "lineId": "a1-arrival-choice-5",
-      "german": "Die Fahrkarte kommt in mein Buch. Bitte.",
-      "english": "The ticket goes into my ledger. Please.",
-      "level": "A1",
-      "aboveLevelWords": [],
-      "unmappedWords": [],
-      "advancedGrammar": [],
-      "longSentences": 0,
-      "resolutions": [],
-      "adjusted": {
-        "aboveLevelWords": [],
-        "unmappedWords": [],
-        "advancedGrammar": [],
-        "longSentences": 0,
-        "overlongTurn": false
-      }
-    },
-    {
-      "questId": "a1-arrival",
-      "kind": "line",
-      "lineId": "a1-arrival-choice-6",
-      "german": "Oder sie bleibt hier. Bei uns.",
-      "english": "Or it stays here. With us.",
-      "level": "A1",
-      "aboveLevelWords": [],
-      "unmappedWords": [
-        "uns"
-      ],
-      "advancedGrammar": [],
-      "longSentences": 0,
-      "resolutions": [
-        {
-          "word": "uns",
-          "reason": "level-tagged-surface-form",
-          "lexemeId": "ich-pron"
-        }
-      ],
-      "adjusted": {
-        "aboveLevelWords": [],
-        "unmappedWords": [],
-        "advancedGrammar": [],
-        "longSentences": 0,
-        "overlongTurn": false
-      }
-    },
-    {
-      "questId": "a1-arrival",
-      "kind": "line",
       "lineId": "a1-arrival-choice-7",
       "german": "Wer bekommt Ihre Fahrkarte: Otto oder ich?",
       "english": "Who gets your ticket: Otto or me?",
@@ -2122,9 +2819,9 @@
     {
       "questId": "a1-arrival",
       "kind": "line",
-      "lineId": "a1-arrival-after-report-0",
-      "german": "Danke. Jetzt ist alles in Ordnung.",
-      "english": "Thank you. Now everything is in order.",
+      "lineId": "a1-arrival-after-report-0-prologue-trim",
+      "german": "Danke. Bitte.",
+      "english": "Thank you. Here you are.",
       "level": "A1",
       "aboveLevelWords": [],
       "unmappedWords": [],
@@ -2142,9 +2839,9 @@
     {
       "questId": "a1-arrival",
       "kind": "line",
-      "lineId": "a1-arrival-after-report-1",
-      "german": "Mein Buch für Sie. Dort steht alles.",
-      "english": "A copy of my ledger, for you. Everything is in it.",
+      "lineId": "a1-arrival-after-protect-1-prologue-trim",
+      "german": "Bitte. Bahnsteig sieben.",
+      "english": "Here you are. Platform seven.",
       "level": "A1",
       "aboveLevelWords": [],
       "unmappedWords": [],
@@ -2162,104 +2859,9 @@
     {
       "questId": "a1-arrival",
       "kind": "line",
-      "lineId": "a1-arrival-after-report-2",
-      "german": "Jetzt hat Voss deinen Namen. Sag ihn oft.",
-      "english": "Now Voss has your name. Say it often.",
-      "level": "A1",
-      "aboveLevelWords": [],
-      "unmappedWords": [
-        "Voss"
-      ],
-      "advancedGrammar": [],
-      "longSentences": 0,
-      "resolutions": [
-        {
-          "word": "Voss",
-          "reason": "proper-name"
-        }
-      ],
-      "adjusted": {
-        "aboveLevelWords": [],
-        "unmappedWords": [],
-        "advancedGrammar": [],
-        "longSentences": 0,
-        "overlongTurn": false
-      }
-    },
-    {
-      "questId": "a1-arrival",
-      "kind": "line",
-      "lineId": "a1-arrival-after-protect-0",
-      "german": "Gut. Ich komme wieder. Mit Formular.",
-      "english": "Fine. I will be back. With a form.",
-      "level": "A1",
-      "aboveLevelWords": [],
-      "unmappedWords": [],
-      "advancedGrammar": [],
-      "longSentences": 0,
-      "resolutions": [],
-      "adjusted": {
-        "aboveLevelWords": [],
-        "unmappedWords": [],
-        "advancedGrammar": [],
-        "longSentences": 0,
-        "overlongTurn": false
-      }
-    },
-    {
-      "questId": "a1-arrival",
-      "kind": "line",
-      "lineId": "a1-arrival-after-protect-1",
-      "german": "Hier. Mein alter Schlüssel. Für Bahnsteig sieben.",
-      "english": "Here. My old key. For platform seven.",
-      "level": "A1",
-      "aboveLevelWords": [],
-      "unmappedWords": [],
-      "advancedGrammar": [],
-      "longSentences": 0,
-      "resolutions": [],
-      "adjusted": {
-        "aboveLevelWords": [],
-        "unmappedWords": [],
-        "advancedGrammar": [],
-        "longSentences": 0,
-        "overlongTurn": false
-      }
-    },
-    {
-      "questId": "a1-arrival",
-      "kind": "line",
-      "lineId": "a1-arrival-after-protect-2",
-      "german": "Sag deinen Namen jeden Tag. Dann bleibt er.",
-      "english": "Say your name every day. Then it stays.",
-      "level": "A1",
-      "aboveLevelWords": [],
-      "unmappedWords": [
-        "jeden"
-      ],
-      "advancedGrammar": [],
-      "longSentences": 0,
-      "resolutions": [
-        {
-          "word": "jeden",
-          "reason": "level-tagged-surface-form",
-          "lexemeId": "jeder-pron"
-        }
-      ],
-      "adjusted": {
-        "aboveLevelWords": [],
-        "unmappedWords": [],
-        "advancedGrammar": [],
-        "longSentences": 0,
-        "overlongTurn": false
-      }
-    },
-    {
-      "questId": "a1-arrival",
-      "kind": "line",
-      "lineId": "a1-arrival-complete-0",
-      "german": "Du hast Hunger. Geh zu Marta ins Café.",
-      "english": "You are hungry. Go to Marta at the café.",
+      "lineId": "a1-arrival-complete-0-prologue-trim",
+      "german": "Marta ist hier.",
+      "english": "Marta is here.",
       "level": "A1",
       "aboveLevelWords": [],
       "unmappedWords": [
@@ -2372,8 +2974,8 @@
     {
       "questId": "a1-arrival",
       "kind": "line",
-      "lineId": "a1-arrival-topic-lantern-0",
-      "german": "Das mache ich seit dreißig Jahren.",
+      "lineId": "a1-arrival-intro-2",
+      "german": "Bahnsteig sieben ist seit zwölf Jahren zu.",
       "level": "A1",
       "aboveLevelWords": [],
       "unmappedWords": [],
@@ -2391,8 +2993,62 @@
     {
       "questId": "a1-arrival",
       "kind": "line",
-      "lineId": "a1-arrival-topic-lantern-1",
-      "german": "Ein Bahnsteig ohne Licht ist kein Bahnsteig.",
+      "lineId": "a1-arrival-intro-3",
+      "german": "Seit zwölf Jahren kommt hier kein Zug.",
+      "level": "A1",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a1-arrival",
+      "kind": "line",
+      "lineId": "a1-arrival-intro-4",
+      "german": "Aber ich mache jeden Morgen die Laterne an.",
+      "level": "A1",
+      "aboveLevelWords": [
+        "Laterne"
+      ],
+      "unmappedWords": [
+        "jeden"
+      ],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [
+        {
+          "word": "Laterne",
+          "reason": "introduced-story-word",
+          "english": "lantern",
+          "introducedIn": "a1-arrival"
+        },
+        {
+          "word": "jeden",
+          "reason": "level-tagged-surface-form",
+          "lexemeId": "jeder-pron"
+        }
+      ],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a1-arrival",
+      "kind": "line",
+      "lineId": "a1-arrival-intro-5",
+      "german": "Ordnung ist Ordnung. Auch ohne Zug.",
       "level": "A1",
       "aboveLevelWords": [],
       "unmappedWords": [],
@@ -35010,6 +35666,139 @@
   ],
   "investigations": [
     {
+      "questId": "a0-ticket",
+      "kind": "investigation",
+      "lineId": "prologue-ticket",
+      "german": "Guten Abend.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-name",
+      "kind": "investigation",
+      "lineId": "prologue-name",
+      "german": "Name.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-wagen",
+      "kind": "investigation",
+      "lineId": "prologue-wagen",
+      "german": "eins, zwei, drei",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-tee",
+      "kind": "investigation",
+      "lineId": "prologue-tee",
+      "german": "Tee oder Kaffee?",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-wo",
+      "kind": "investigation",
+      "lineId": "prologue-wo",
+      "german": "Die Toilette.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-langsam",
+      "kind": "investigation",
+      "lineId": "prologue-langsam",
+      "german": "Ich verstehe nicht.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-morgen",
+      "kind": "investigation",
+      "lineId": "prologue-morgen",
+      "german": "Guten Morgen.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
       "questId": "a1-arrival",
       "kind": "investigation",
       "lineId": "lindenhafen-platform-ticket",
@@ -36610,6 +37399,139 @@
     }
   ],
   "choices": [
+    {
+      "questId": "a0-ticket",
+      "kind": "choice",
+      "lineId": "choice:continue",
+      "german": "Bitte.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-name",
+      "kind": "choice",
+      "lineId": "choice:continue",
+      "german": "Ich heiße {name}.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-wagen",
+      "kind": "choice",
+      "lineId": "choice:continue",
+      "german": "sieben",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-tee",
+      "kind": "choice",
+      "lineId": "choice:continue",
+      "german": "Einen Tee, bitte.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-wo",
+      "kind": "choice",
+      "lineId": "choice:continue",
+      "german": "Wo ist …?",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-langsam",
+      "kind": "choice",
+      "lineId": "choice:continue",
+      "german": "Noch einmal, bitte.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
+    {
+      "questId": "a0-morgen",
+      "kind": "choice",
+      "lineId": "choice:continue",
+      "german": "Auf Wiedersehen.",
+      "level": "A0",
+      "aboveLevelWords": [],
+      "unmappedWords": [],
+      "advancedGrammar": [],
+      "longSentences": 0,
+      "resolutions": [],
+      "adjusted": {
+        "aboveLevelWords": [],
+        "unmappedWords": [],
+        "advancedGrammar": [],
+        "longSentences": 0,
+        "overlongTurn": false
+      }
+    },
     {
       "questId": "a1-arrival",
       "kind": "choice",

@@ -1,0 +1,48 @@
+{
+  "recipe": {
+    "v": 2,
+    "build": "regular",
+    "skin": "#d6a07d",
+    "hair": "#c6c1b5",
+    "parts": {
+      "face": "mature",
+      "markings": null,
+      "facial-hair": "moustache",
+      "hair": "crop",
+      "headwear": "cap",
+      "top": "shirt",
+      "outer": "blazer",
+      "bottom": "straight",
+      "footwear": "shoes",
+      "eyewear": null,
+      "neck": null,
+      "bag": null,
+      "held": null
+    },
+    "colors": {
+      "bag.primary": "#694731",
+      "bottom.primary": "#343b48",
+      "eyewear.primary": "#48372e",
+      "footwear.primary": "#48372e",
+      "headwear.primary": "#244744",
+      "headwear.secondary": "#c99167",
+      "neck.primary": "#943f3f",
+      "outer.primary": "#244744",
+      "outer.secondary": "#b99a5f",
+      "top.primary": "#e8d9bd",
+      "top.secondary": "#a88e67"
+    }
+  },
+  "assetVersion": "4c9d233bf71007a9",
+  "recipeKey": "avatar-v2:4c9d233bf71007a9:[\"regular\",\"#d6a07d\",\"#c6c1b5\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"shoes\"],[\"hair\",\"crop\"],[\"headwear\",\"cap\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#343b48\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#244744\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#943f3f\"],[\"outer.primary\",\"#244744\"],[\"outer.secondary\",\"#b99a5f\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
+  "preview": false,
+  "frames": 36,
+  "cell": [
+    384,
+    576
+  ],
+  "sha256": "d8f2c645ebfacbc458809b4fddd8350a434c059fa0f23a285a1081bad61fbdae",
+  "atlasSha256": "41c1461b18f069f40716788cc3bef254e3a7d8b2062f28a887db9af978ada153",
+  "textureBytes": 14294940,
+  "atlas": "web/public/assets/character-cast/schaffner.atlas.json"
+}

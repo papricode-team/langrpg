@@ -71,7 +71,7 @@ export interface SceneResident {
   actionArt?:ResidentActionLook;
   schedule:SceneResidentTask[];
 }
-export const sceneInteriorIds = ['cafe', 'bakery', 'supermarket', 'inn'] as const;
+export const sceneInteriorIds = ['cafe', 'bakery', 'supermarket', 'inn', 'train-compartment', 'train-dining'] as const;
 export type SceneInteriorKind = typeof sceneInteriorIds[number];
 export interface SceneInterior {
   kind: SceneInteriorKind;
@@ -132,7 +132,10 @@ export function sceneryHasDoor(mapId:string,placement:{asset:string;frame?:strin
 }
 /** Every building that hosts a room, in scenery order. */
 export function sceneEntrances(scene: WorldScene): SceneEntrance[] {
-  return scene.scenery.flatMap(owner=>owner.interior?[{id:`${owner.interior.kind}-entrance`,ownerId:owner.id,interiorId:owner.interior.kind,owner}]:[])
+  const station = scene.id === 'lindenhafen' ? scene.scenery.find(item => item.id === 'station') : undefined;
+  // Boarding the train uses the station platform; rooms share the same outdoor return.
+  const train: SceneEntrance[] = station ? (['train-compartment', 'train-dining'] as const).map(interiorId => ({id:`${interiorId}-entrance`,ownerId:station.id,interiorId,owner:station})) : [];
+  return [...train, ...scene.scenery.flatMap(owner=>owner.interior?[{id:`${owner.interior.kind}-entrance`,ownerId:owner.id,interiorId:owner.interior.kind,owner}]:[])]
     .sort((a,b)=>sceneInteriorIds.indexOf(a.interiorId)-sceneInteriorIds.indexOf(b.interiorId));
 }
 /** The doorway step, or the outdoor return point, of a building that hosts a room. */

@@ -20,15 +20,141 @@
       "A2": 639,
       "B1": 560
     },
-    "storyLexemes": 839,
-    "storyVocabularyReadyByHour": 92.8
+    "storyLexemes": 841,
+    "storyVocabularyReadyByHour": 93.1
   },
   "quests": [
     {
+      "questId": "a0-ticket",
+      "level": "A0",
+      "lexemes": 6,
+      "newLexemes": 6,
+      "storyWords": [],
+      "unmapped": [],
+      "ambiguous": [],
+      "milestone": 6,
+      "vocabularyReadyHour": 0,
+      "newWordsAboveBudget": 0,
+      "levels": {
+        "A1": 6,
+        "A2": 0,
+        "B1": 0
+      },
+      "requiredPathLexemes": 6
+    },
+    {
+      "questId": "a0-name",
+      "level": "A0",
+      "lexemes": 5,
+      "newLexemes": 5,
+      "storyWords": [],
+      "unmapped": [],
+      "ambiguous": [],
+      "milestone": 13,
+      "vocabularyReadyHour": 0.3,
+      "newWordsAboveBudget": 0,
+      "levels": {
+        "A1": 5,
+        "A2": 0,
+        "B1": 0
+      },
+      "requiredPathLexemes": 5
+    },
+    {
+      "questId": "a0-wagen",
+      "level": "A0",
+      "lexemes": 9,
+      "newLexemes": 9,
+      "storyWords": [],
+      "unmapped": [],
+      "ambiguous": [],
+      "milestone": 24,
+      "vocabularyReadyHour": 1.4,
+      "newWordsAboveBudget": 0,
+      "levels": {
+        "A1": 9,
+        "A2": 0,
+        "B1": 0
+      },
+      "requiredPathLexemes": 9
+    },
+    {
+      "questId": "a0-tee",
+      "level": "A0",
+      "lexemes": 9,
+      "newLexemes": 6,
+      "storyWords": [],
+      "unmapped": [],
+      "ambiguous": [],
+      "milestone": 32,
+      "vocabularyReadyHour": 2.2,
+      "newWordsAboveBudget": 0,
+      "levels": {
+        "A1": 9,
+        "A2": 0,
+        "B1": 0
+      },
+      "requiredPathLexemes": 9
+    },
+    {
+      "questId": "a0-wo",
+      "level": "A0",
+      "lexemes": 7,
+      "newLexemes": 6,
+      "storyWords": [],
+      "unmapped": [],
+      "ambiguous": [],
+      "milestone": 37,
+      "vocabularyReadyHour": 2.7,
+      "newWordsAboveBudget": 0,
+      "levels": {
+        "A1": 7,
+        "A2": 0,
+        "B1": 0
+      },
+      "requiredPathLexemes": 7
+    },
+    {
+      "questId": "a0-langsam",
+      "level": "A0",
+      "lexemes": 8,
+      "newLexemes": 5,
+      "storyWords": [],
+      "unmapped": [],
+      "ambiguous": [],
+      "milestone": 43,
+      "vocabularyReadyHour": 3.3,
+      "newWordsAboveBudget": 0,
+      "levels": {
+        "A1": 7,
+        "A2": 1,
+        "B1": 0
+      },
+      "requiredPathLexemes": 8
+    },
+    {
+      "questId": "a0-morgen",
+      "level": "A0",
+      "lexemes": 7,
+      "newLexemes": 5,
+      "storyWords": [],
+      "unmapped": [],
+      "ambiguous": [],
+      "milestone": 48,
+      "vocabularyReadyHour": 3.8,
+      "newWordsAboveBudget": 0,
+      "levels": {
+        "A1": 7,
+        "A2": 0,
+        "B1": 0
+      },
+      "requiredPathLexemes": 7
+    },
+    {
       "questId": "a1-arrival",
       "level": "A1",
-      "lexemes": 99,
-      "newLexemes": 99,
+      "lexemes": 69,
+      "newLexemes": 49,
       "storyWords": [
         "Laterne",
         "Messingamt"
@@ -37,14 +163,12 @@
         "Jeden",
         "jeden",
         "mir",
-        "uns",
         "vom"
       ],
       "ambiguous": [
         "Abgeben",
         "Bahnsteig",
         "Fahrkarte",
-        "Ihr",
         "Plan",
         "bitte",
         "danke",
@@ -53,20 +177,21 @@
         "nicht",
         "sieben"
       ],
-      "milestone": 121,
-      "vocabularyReadyHour": 11.1,
-      "newWordsAboveBudget": 96,
+      "milestone": 105,
+      "vocabularyReadyHour": 9.5,
+      "newWordsAboveBudget": 45,
       "levels": {
-        "A1": 96,
+        "A1": 67,
         "A2": 1,
-        "B1": 2
-      }
+        "B1": 1
+      },
+      "requiredPathLexemes": 38
     },
     {
       "questId": "a1-cafe",
       "level": "A1",
       "lexemes": 93,
-      "newLexemes": 44,
+      "newLexemes": 56,
       "storyWords": [
         "Stempel",
         "Gutschein"
@@ -80,14 +205,15 @@
         "Ihr",
         "im"
       ],
-      "milestone": 162,
-      "vocabularyReadyHour": 15.2,
-      "newWordsAboveBudget": 39,
+      "milestone": 165,
+      "vocabularyReadyHour": 15.5,
+      "newWordsAboveBudget": 51,
       "levels": {
         "A1": 93,
         "A2": 0,
         "B1": 0
-      }
+      },
+      "requiredPathLexemes": 82
     },
     {
       "questId": "a1-timetable",
@@ -105,20 +231,21 @@
         "ihren",
         "sein"
       ],
-      "milestone": 186,
-      "vocabularyReadyHour": 17.6,
+      "milestone": 191,
+      "vocabularyReadyHour": 18.1,
       "newWordsAboveBudget": 19,
       "levels": {
         "A1": 91,
         "A2": 1,
         "B1": 0
-      }
+      },
+      "requiredPathLexemes": 79
     },
     {
       "questId": "a1-notice",
       "level": "A1",
       "lexemes": 66,
-      "newLexemes": 6,
+      "newLexemes": 7,
       "storyWords": [
         "Regel",
         "Zettel"
@@ -137,20 +264,21 @@
         "ihr",
         "meine"
       ],
-      "milestone": 193,
-      "vocabularyReadyHour": 18.3,
-      "newWordsAboveBudget": 4,
+      "milestone": 197,
+      "vocabularyReadyHour": 18.7,
+      "newWordsAboveBudget": 5,
       "levels": {
         "A1": 61,
         "A2": 3,
         "B1": 2
-      }
+      },
+      "requiredPathLexemes": 60
     },
     {
       "questId": "a1-shopping",
       "level": "A1",
       "lexemes": 84,
-      "newLexemes": 16,
+      "newLexemes": 15,
       "storyWords": [
         "Suppe"
       ],
@@ -162,20 +290,21 @@
         "mir"
       ],
       "ambiguous": [],
-      "milestone": 212,
-      "vocabularyReadyHour": 20.2,
-      "newWordsAboveBudget": 12,
+      "milestone": 215,
+      "vocabularyReadyHour": 20.5,
+      "newWordsAboveBudget": 11,
       "levels": {
         "A1": 83,
         "A2": 0,
         "B1": 1
-      }
+      },
+      "requiredPathLexemes": 76
     },
     {
       "questId": "a1-room",
       "level": "A1",
       "lexemes": 99,
-      "newLexemes": 18,
+      "newLexemes": 17,
       "storyWords": [
         "Gästebuch"
       ],
@@ -183,14 +312,15 @@
       "ambiguous": [
         "Im"
       ],
-      "milestone": 232,
-      "vocabularyReadyHour": 22.2,
-      "newWordsAboveBudget": 9,
+      "milestone": 235,
+      "vocabularyReadyHour": 22.5,
+      "newWordsAboveBudget": 8,
       "levels": {
         "A1": 96,
         "A2": 1,
         "B1": 2
-      }
+      },
+      "requiredPathLexemes": 91
     },
     {
       "questId": "a1-market",
@@ -214,14 +344,15 @@
         "meine",
         "sein"
       ],
-      "milestone": 242,
-      "vocabularyReadyHour": 23.2,
+      "milestone": 245,
+      "vocabularyReadyHour": 23.5,
       "newWordsAboveBudget": 3,
       "levels": {
         "A1": 95,
         "A2": 0,
         "B1": 1
-      }
+      },
+      "requiredPathLexemes": 90
     },
     {
       "questId": "a1-chalk",
@@ -243,14 +374,15 @@
         "Ihr",
         "ihr"
       ],
-      "milestone": 247,
-      "vocabularyReadyHour": 23.7,
+      "milestone": 252,
+      "vocabularyReadyHour": 24.2,
       "newWordsAboveBudget": 3,
       "levels": {
         "A1": 69,
         "A2": 2,
         "B1": 3
-      }
+      },
+      "requiredPathLexemes": 62
     },
     {
       "questId": "a1-neighbour",
@@ -275,14 +407,15 @@
         "ihren",
         "meine"
       ],
-      "milestone": 264,
-      "vocabularyReadyHour": 25.4,
+      "milestone": 266,
+      "vocabularyReadyHour": 25.6,
       "newWordsAboveBudget": 13,
       "levels": {
         "A1": 90,
         "A2": 1,
         "B1": 3
-      }
+      },
+      "requiredPathLexemes": 81
     },
     {
       "questId": "a1-pharmacy",
@@ -302,14 +435,15 @@
         "ihren",
         "meine"
       ],
-      "milestone": 274,
-      "vocabularyReadyHour": 26.4,
+      "milestone": 276,
+      "vocabularyReadyHour": 26.6,
       "newWordsAboveBudget": 3,
       "levels": {
         "A1": 79,
         "A2": 1,
         "B1": 1
-      }
+      },
+      "requiredPathLexemes": 72
     },
     {
       "questId": "a1-directions",
@@ -330,20 +464,21 @@
         "ihren",
         "zum"
       ],
-      "milestone": 283,
-      "vocabularyReadyHour": 27.3,
+      "milestone": 285,
+      "vocabularyReadyHour": 27.5,
       "newWordsAboveBudget": 5,
       "levels": {
         "A1": 82,
         "A2": 0,
         "B1": 2
-      }
+      },
+      "requiredPathLexemes": 69
     },
     {
       "questId": "a1-bench",
       "level": "A1",
       "lexemes": 95,
-      "newLexemes": 10,
+      "newLexemes": 9,
       "storyWords": [
         "Komma"
       ],
@@ -361,20 +496,21 @@
         "Sie",
         "meine"
       ],
-      "milestone": 291,
-      "vocabularyReadyHour": 28.1,
-      "newWordsAboveBudget": 8,
+      "milestone": 293,
+      "vocabularyReadyHour": 28.3,
+      "newWordsAboveBudget": 7,
       "levels": {
         "A1": 89,
         "A2": 4,
         "B1": 2
-      }
+      },
+      "requiredPathLexemes": 85
     },
     {
       "questId": "a1-station",
       "level": "A1",
       "lexemes": 105,
-      "newLexemes": 14,
+      "newLexemes": 15,
       "storyWords": [
         "jemand",
         "Büro"
@@ -389,14 +525,15 @@
         "Sie",
         "im"
       ],
-      "milestone": 305,
-      "vocabularyReadyHour": 29.5,
-      "newWordsAboveBudget": 9,
+      "milestone": 307,
+      "vocabularyReadyHour": 29.7,
+      "newWordsAboveBudget": 10,
       "levels": {
         "A1": 101,
         "A2": 2,
         "B1": 2
-      }
+      },
+      "requiredPathLexemes": 98
     },
     {
       "questId": "a1-phone",
@@ -418,14 +555,15 @@
         "im",
         "meine"
       ],
-      "milestone": 317,
-      "vocabularyReadyHour": 30.7,
+      "milestone": 321,
+      "vocabularyReadyHour": 31.1,
       "newWordsAboveBudget": 6,
       "levels": {
         "A1": 90,
         "A2": 3,
         "B1": 2
-      }
+      },
+      "requiredPathLexemes": 85
     },
     {
       "questId": "a1-weather",
@@ -443,20 +581,21 @@
       "ambiguous": [
         "im"
       ],
-      "milestone": 327,
-      "vocabularyReadyHour": 31.7,
+      "milestone": 331,
+      "vocabularyReadyHour": 32.1,
       "newWordsAboveBudget": 2,
       "levels": {
         "A1": 81,
         "A2": 2,
         "B1": 1
-      }
+      },
+      "requiredPathLexemes": 74
     },
     {
       "questId": "a1-workshop",
       "level": "A1",
       "lexemes": 100,
-      "newLexemes": 9,
+      "newLexemes": 10,
       "storyWords": [
         "Lampe",
         "funktioniert"
@@ -473,14 +612,15 @@
         "sein",
         "zur"
       ],
-      "milestone": 338,
-      "vocabularyReadyHour": 32.8,
-      "newWordsAboveBudget": 5,
+      "milestone": 343,
+      "vocabularyReadyHour": 33.3,
+      "newWordsAboveBudget": 6,
       "levels": {
         "A1": 92,
         "A2": 6,
         "B1": 2
-      }
+      },
+      "requiredPathLexemes": 94
     },
     {
       "questId": "a1-office-window",
@@ -503,14 +643,15 @@
         "meine",
         "sein"
       ],
-      "milestone": 345,
-      "vocabularyReadyHour": 33.5,
+      "milestone": 348,
+      "vocabularyReadyHour": 33.8,
       "newWordsAboveBudget": 5,
       "levels": {
         "A1": 87,
         "A2": 2,
         "B1": 3
-      }
+      },
+      "requiredPathLexemes": 80
     },
     {
       "questId": "a1-bike",
@@ -529,14 +670,15 @@
         "sein",
         "zur"
       ],
-      "milestone": 353,
-      "vocabularyReadyHour": 34.3,
+      "milestone": 356,
+      "vocabularyReadyHour": 34.6,
       "newWordsAboveBudget": 0,
       "levels": {
         "A1": 77,
         "A2": 0,
         "B1": 1
-      }
+      },
+      "requiredPathLexemes": 69
     },
     {
       "questId": "a1-lost-found",
@@ -556,14 +698,15 @@
         "gehört",
         "meine"
       ],
-      "milestone": 362,
-      "vocabularyReadyHour": 35.2,
+      "milestone": 365,
+      "vocabularyReadyHour": 35.5,
       "newWordsAboveBudget": 2,
       "levels": {
         "A1": 86,
         "A2": 0,
         "B1": 2
-      }
+      },
+      "requiredPathLexemes": 82
     },
     {
       "questId": "a1-invitation",
@@ -587,14 +730,15 @@
         "ihren",
         "im"
       ],
-      "milestone": 368,
-      "vocabularyReadyHour": 35.8,
+      "milestone": 373,
+      "vocabularyReadyHour": 36.3,
       "newWordsAboveBudget": 3,
       "levels": {
         "A1": 91,
         "A2": 1,
         "B1": 1
-      }
+      },
+      "requiredPathLexemes": 85
     },
     {
       "questId": "a1-lost-parcel",
@@ -623,20 +767,21 @@
         "im",
         "sein"
       ],
-      "milestone": 375,
-      "vocabularyReadyHour": 36.5,
+      "milestone": 378,
+      "vocabularyReadyHour": 36.8,
       "newWordsAboveBudget": 5,
       "levels": {
         "A1": 98,
         "A2": 2,
         "B1": 2
-      }
+      },
+      "requiredPathLexemes": 95
     },
     {
       "questId": "a1-departure",
       "level": "A1",
       "lexemes": 87,
-      "newLexemes": 7,
+      "newLexemes": 6,
       "storyWords": [
         "hin"
       ],
@@ -649,14 +794,15 @@
         "im",
         "meine"
       ],
-      "milestone": 383,
-      "vocabularyReadyHour": 37.3,
-      "newWordsAboveBudget": 1,
+      "milestone": 385,
+      "vocabularyReadyHour": 37.5,
+      "newWordsAboveBudget": 0,
       "levels": {
         "A1": 83,
         "A2": 2,
         "B1": 2
-      }
+      },
+      "requiredPathLexemes": 81
     },
     {
       "questId": "a2-apartment",
@@ -691,14 +837,15 @@
         "im",
         "meine"
       ],
-      "milestone": 457,
-      "vocabularyReadyHour": 44.7,
+      "milestone": 461,
+      "vocabularyReadyHour": 45.1,
       "newWordsAboveBudget": 76,
       "levels": {
         "A1": 113,
         "A2": 27,
         "B1": 27
-      }
+      },
+      "requiredPathLexemes": 143
     },
     {
       "questId": "a2-upstairs",
@@ -730,20 +877,21 @@
         "Sie",
         "ihr"
       ],
-      "milestone": 496,
-      "vocabularyReadyHour": 48.6,
+      "milestone": 498,
+      "vocabularyReadyHour": 48.8,
       "newWordsAboveBudget": 41,
       "levels": {
         "A1": 107,
         "A2": 21,
         "B1": 19
-      }
+      },
+      "requiredPathLexemes": 127
     },
     {
       "questId": "a2-evening-plans",
       "level": "A2",
       "lexemes": 154,
-      "newLexemes": 30,
+      "newLexemes": 29,
       "storyWords": [],
       "unmapped": [
         "Ah",
@@ -773,14 +921,15 @@
         "ihren",
         "zum"
       ],
-      "milestone": 527,
-      "vocabularyReadyHour": 51.7,
-      "newWordsAboveBudget": 37,
+      "milestone": 528,
+      "vocabularyReadyHour": 51.8,
+      "newWordsAboveBudget": 36,
       "levels": {
         "A1": 119,
         "A2": 19,
         "B1": 16
-      }
+      },
+      "requiredPathLexemes": 143
     },
     {
       "questId": "a2-ink-seller",
@@ -813,14 +962,15 @@
         "Sie",
         "beim"
       ],
-      "milestone": 564,
-      "vocabularyReadyHour": 55.4,
+      "milestone": 565,
+      "vocabularyReadyHour": 55.5,
       "newWordsAboveBudget": 38,
       "levels": {
         "A1": 88,
         "A2": 13,
         "B1": 18
-      }
+      },
+      "requiredPathLexemes": 100
     },
     {
       "questId": "a2-rail-trip",
@@ -858,14 +1008,15 @@
         "im",
         "sein"
       ],
-      "milestone": 606,
-      "vocabularyReadyHour": 59.6,
+      "milestone": 607,
+      "vocabularyReadyHour": 59.7,
       "newWordsAboveBudget": 50,
       "levels": {
         "A1": 113,
         "A2": 17,
         "B1": 22
-      }
+      },
+      "requiredPathLexemes": 138
     },
     {
       "questId": "a2-forest-rails",
@@ -894,14 +1045,15 @@
         "weggelegt"
       ],
       "ambiguous": [],
-      "milestone": 623,
-      "vocabularyReadyHour": 61.3,
+      "milestone": 624,
+      "vocabularyReadyHour": 61.4,
       "newWordsAboveBudget": 21,
       "levels": {
         "A1": 99,
         "A2": 13,
         "B1": 11
-      }
+      },
+      "requiredPathLexemes": 116
     },
     {
       "questId": "a2-broken-clock",
@@ -942,14 +1094,15 @@
         "im",
         "meine"
       ],
-      "milestone": 676,
-      "vocabularyReadyHour": 66.6,
+      "milestone": 677,
+      "vocabularyReadyHour": 66.7,
       "newWordsAboveBudget": 59,
       "levels": {
         "A1": 113,
         "A2": 33,
         "B1": 35
-      }
+      },
+      "requiredPathLexemes": 152
     },
     {
       "questId": "a2-clinic",
@@ -995,14 +1148,15 @@
         "gehört",
         "ihren"
       ],
-      "milestone": 714,
-      "vocabularyReadyHour": 70.4,
+      "milestone": 715,
+      "vocabularyReadyHour": 70.5,
       "newWordsAboveBudget": 53,
       "levels": {
         "A1": 117,
         "A2": 33,
         "B1": 23
-      }
+      },
+      "requiredPathLexemes": 147
     },
     {
       "questId": "a2-cellar",
@@ -1041,14 +1195,15 @@
         "ihr",
         "meine"
       ],
-      "milestone": 728,
-      "vocabularyReadyHour": 71.8,
+      "milestone": 731,
+      "vocabularyReadyHour": 72.1,
       "newWordsAboveBudget": 27,
       "levels": {
         "A1": 93,
         "A2": 18,
         "B1": 17
-      }
+      },
+      "requiredPathLexemes": 117
     },
     {
       "questId": "a2-archive",
@@ -1104,14 +1259,15 @@
         "ihr",
         "meine"
       ],
-      "milestone": 757,
-      "vocabularyReadyHour": 74.7,
+      "milestone": 758,
+      "vocabularyReadyHour": 74.8,
       "newWordsAboveBudget": 53,
       "levels": {
         "A1": 123,
         "A2": 31,
         "B1": 26
-      }
+      },
+      "requiredPathLexemes": 156
     },
     {
       "questId": "b1-witness",
@@ -1162,14 +1318,15 @@
         "sein",
         "zum"
       ],
-      "milestone": 785,
-      "vocabularyReadyHour": 77.5,
+      "milestone": 786,
+      "vocabularyReadyHour": 77.6,
       "newWordsAboveBudget": 44,
       "levels": {
         "A1": 92,
         "A2": 23,
         "B1": 28
-      }
+      },
+      "requiredPathLexemes": 130
     },
     {
       "questId": "b1-record-room",
@@ -1211,14 +1368,15 @@
         "im",
         "meine"
       ],
-      "milestone": 802,
-      "vocabularyReadyHour": 79.2,
+      "milestone": 803,
+      "vocabularyReadyHour": 79.3,
       "newWordsAboveBudget": 29,
       "levels": {
         "A1": 104,
         "A2": 7,
         "B1": 23
-      }
+      },
+      "requiredPathLexemes": 121
     },
     {
       "questId": "b1-new-route",
@@ -1263,14 +1421,15 @@
         "ihrem",
         "meine"
       ],
-      "milestone": 821,
-      "vocabularyReadyHour": 81.1,
+      "milestone": 822,
+      "vocabularyReadyHour": 81.2,
       "newWordsAboveBudget": 34,
       "levels": {
         "A1": 112,
         "A2": 26,
         "B1": 26
-      }
+      },
+      "requiredPathLexemes": 143
     },
     {
       "questId": "b1-signalman",
@@ -1300,14 +1459,15 @@
       "ambiguous": [
         "zum"
       ],
-      "milestone": 828,
-      "vocabularyReadyHour": 81.8,
+      "milestone": 831,
+      "vocabularyReadyHour": 82.1,
       "newWordsAboveBudget": 15,
       "levels": {
         "A1": 82,
         "A2": 18,
         "B1": 9
-      }
+      },
+      "requiredPathLexemes": 94
     },
     {
       "questId": "b1-work",
@@ -1359,14 +1519,15 @@
         "beim",
         "gehört"
       ],
-      "milestone": 851,
-      "vocabularyReadyHour": 84.1,
+      "milestone": 852,
+      "vocabularyReadyHour": 84.2,
       "newWordsAboveBudget": 43,
       "levels": {
         "A1": 120,
         "A2": 26,
         "B1": 34
-      }
+      },
+      "requiredPathLexemes": 165
     },
     {
       "questId": "b1-council",
@@ -1410,14 +1571,15 @@
         "ihr",
         "sein"
       ],
-      "milestone": 872,
-      "vocabularyReadyHour": 86.2,
+      "milestone": 873,
+      "vocabularyReadyHour": 86.3,
       "newWordsAboveBudget": 38,
       "levels": {
         "A1": 121,
         "A2": 38,
         "B1": 39
-      }
+      },
+      "requiredPathLexemes": 180
     },
     {
       "questId": "b1-temptation",
@@ -1440,14 +1602,15 @@
         "zuvor"
       ],
       "ambiguous": [],
-      "milestone": 885,
-      "vocabularyReadyHour": 87.5,
+      "milestone": 886,
+      "vocabularyReadyHour": 87.6,
       "newWordsAboveBudget": 13,
       "levels": {
         "A1": 89,
         "A2": 24,
         "B1": 21
-      }
+      },
+      "requiredPathLexemes": 123
     },
     {
       "questId": "b1-storm",
@@ -1496,14 +1659,15 @@
         "im",
         "meine"
       ],
-      "milestone": 911,
-      "vocabularyReadyHour": 90.1,
+      "milestone": 912,
+      "vocabularyReadyHour": 90.2,
       "newWordsAboveBudget": 44,
       "levels": {
         "A1": 110,
         "A2": 25,
         "B1": 30
-      }
+      },
+      "requiredPathLexemes": 148
     },
     {
       "questId": "b1-atlas",
@@ -1566,14 +1730,15 @@
         "paar",
         "sein"
       ],
-      "milestone": 938,
-      "vocabularyReadyHour": 92.8,
+      "milestone": 941,
+      "vocabularyReadyHour": 93.1,
       "newWordsAboveBudget": 60,
       "levels": {
         "A1": 157,
         "A2": 42,
         "B1": 54
-      }
+      },
+      "requiredPathLexemes": 240
     }
   ]
 }

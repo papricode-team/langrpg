@@ -1,4 +1,4 @@
-import type { Level } from './content';
+import type { Level, CourseLevel } from './content';
 
 export type StoryStage = 'intro' | 'gate' | 'choice' | 'complete';
 export type Faction = 'brassOffice' | 'lamplighters' | 'unwritten';
@@ -16,7 +16,7 @@ export interface StoryState {
   lanternStreak?: number;
   promise?: { day: number; title: string; target: number; correctAnswers: number; completed: boolean };
   expeditions?: Record<string, { selected: number; correct: boolean; attempts: number }>;
-  expeditionPlans?: Record<string, { level: Level; values: Record<string, number>; order: string[]; completed: boolean; attempts: number }>;
+  expeditionPlans?: Record<string, { level: CourseLevel; values: Record<string, number>; order: string[]; completed: boolean; attempts: number }>;
   ending?: string;
 }
 export interface DialogueCondition { flag?: string; withoutFlag?: string; item?: string; missingItem?: string; faction?: Faction; minimum?: number; ending?: string; anyOf?: DialogueCondition[]; }
@@ -46,15 +46,22 @@ export interface DialogueTopic { id: string; sentenceId?: string; german: string
 export interface QuestGraph {
   questId: string; level: Level; start: string; gateExerciseId: string; evidenceItem: string;
   gatePrompt: string;
-  investigations: { objectId: string; german: string; english: string; lock?: { condition: DialogueCondition; reason: { german?: string; english: string } } }[];
+  investigations: { objectId: string; worldId?: string; clipId?: string; german: string; english: string; lock?: { condition: DialogueCondition; reason: { german?: string; english: string } } }[];
   objectives: { text: string; location: string; stage: StoryStage }[];
   nodes: DialogueNode[];
   topics?: DialogueTopic[];
   introducedWords?: Record<string, string>;
+  /** Explicit surface forms permitted in a pre-A1 conversation. */
+  allowedWords?: string[];
+  gateKind?: 'name';
+  interiorId?: string;
+  practiceGame?: string;
 }
 /** Increase reading load gently within A1, rather than treating it as one difficulty. */
 /** Main story scenes grow from 8 to 12 words; everyday errands stay at 10. */
 export const beginnerTurnWordLimits: Readonly<Record<string, number>> = {
+  'a0-ticket': 4, 'a0-name': 4, 'a0-wagen': 4, 'a0-tee': 4,
+  'a0-wo': 4, 'a0-langsam': 4, 'a0-morgen': 4,
   'a1-arrival': 8, 'a1-cafe': 8, 'a1-market': 10, 'a1-station': 10,
   'a1-workshop': 12, 'a1-lost-parcel': 12, 'a1-timetable': 10, 'a1-room': 10,
   'a1-shopping': 10, 'a1-neighbour': 10, 'a1-pharmacy': 10, 'a1-directions': 10,

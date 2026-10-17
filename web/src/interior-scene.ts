@@ -18,6 +18,12 @@ const sharedSheets = ['cafe-objects', 'bakery-objects', 'supermarket-objects', '
 /** Rooms load their own painting on first entry; shared furniture sheets stay cached afterwards. */
 export function loadInteriorAssets(load: Phaser.Loader.LoaderPlugin, spec: InteriorSpec): void {
   load.image(`interior-${spec.id}-room`, worldAssetUrl(spec.asset));
+  if (spec.id.startsWith('train-')) {
+    load.atlas('interior-train-furniture', '/assets/interior-train-furniture.webp', '/assets/interior-train-furniture.json');
+    load.json('interior-train-stills', '/assets/interior-train-stills.json');
+    load.atlas('interior-train-fog', '/assets/interior-train-fog.webp', '/assets/interior-train-fog.json');
+    load.json('interior-train-effects', '/assets/interior-train-effects.json');
+  }
   for (const sheet of sharedSheets) load.atlas(`interior-${sheet}`, worldAssetUrl(`/assets/interior-${sheet}.webp`), worldAssetUrl(`/assets/interior-${sheet}.json`));
   load.json('interior-animations', worldAssetUrl('/assets/interior-animations.json'));
   load.atlas('interior-effects', worldAssetUrl('/assets/interior-effects.webp'), worldAssetUrl('/assets/interior-effects.json'));
@@ -35,6 +41,7 @@ export class InteriorScene extends ExploreScene {
   private propTargets: Phaser.GameObjects.Zone[] = [];
   private instant = false;
   private leaving = false;
+  private dawnSoundPlayed = false;
 
   constructor() { super({ key: SceneKeys.Interior }); }
 
@@ -50,7 +57,7 @@ export class InteriorScene extends ExploreScene {
     this.mapId = data.mapId;
     this.regionId = data.mapId;
     this.instant = !!data.instant;
-    this.room = undefined; this.propTargets = []; this.leaving = false;
+    this.room = undefined; this.propTargets = []; this.leaving = false; this.dawnSoundPlayed = false;
   }
 
   preload(): void {
@@ -73,6 +80,10 @@ export class InteriorScene extends ExploreScene {
     this.scene.sleep(SceneKeys.World);
     if (!this.instant) this.transitionRoom();
     this.resetPlayerPosition();
+    if (this.spec.id.startsWith('train-')) {
+      if (this.instant) this.audio?.effect('train-door', .12);
+      if (!readWorld(this.registry, 'storyState').completedQuestIds.includes('a0-ticket')) this.audio?.effect('train-whistle', .1);
+    }
   }
 
   protected createNavigation(): NavigationGrid { return createInteriorNavigation(this.spec.id); }
@@ -99,13 +110,14 @@ export class InteriorScene extends ExploreScene {
   }
 
   private createPropTargets(): void {
+    const trainStills = this.cache.json.get('interior-train-stills') as SceneryAnimationManifest | undefined;
     const manifest = this.cache.json.get('interior-animations') as SceneryAnimationManifest | undefined;
     const stills = this.cache.json.get('interior-stills') as SceneryAnimationManifest | undefined;
     for (const prop of this.spec.props) {
       if (!prop.interactive) continue;
       const object = this.objects.get(prop.interactive);
       if (!object) continue;
-      const animation = stills?.assets[prop.asset] ?? manifest?.assets[prop.asset];
+      const animation = trainStills?.assets[prop.asset] ?? stills?.assets[prop.asset] ?? manifest?.assets[prop.asset];
       const height = prop.width * (animation ? animation.height / animation.referenceWidth : .75);
       const centerX = prop.x + (.5 - (animation?.originX ?? .5)) * prop.width;
       const centerY = prop.y + (.5 - (animation?.originY ?? .97)) * height;
@@ -117,7 +129,7 @@ export class InteriorScene extends ExploreScene {
   }
 
   transitionRoom(): void {
-    this.audio?.effect('door', .16);
+    this.audio?.effect(this.spec.id.startsWith('train-') ? 'train-door' : 'door', .16);
     this.cameras.main.resetFX();
     if (!this.reducedMotion) this.cameras.main.fadeIn(220, 29, 35, 30);
   }
@@ -167,10 +179,15 @@ export class InteriorScene extends ExploreScene {
     const resident = [...this.characters.values()].find(character => character.interactionId === id && this.characterRevealed(character));
     if (resident) this.faceCharacters(this.local, resident);
     station.activatedUntil = this.elapsed + 4;
+    if (station.spec.id === 'interior:prologue-tee') this.audio?.effect('train-cup', .15);
     emitWorld(this.game, WorldEvents.InteriorInteract, station.spec.id);
   }
 
   protected updateScene(): void {
+    this.room?.restoreTicket(!!readWorld(this.registry, 'storyState').flags?.['prologue-name-practice']);
+    const dawn = readWorld(this.registry, 'storyState').completedQuestIds.includes('a0-langsam');
+    this.room?.setDawn(dawn);
+    if (this.spec.id.startsWith('train-') && dawn && !this.dawnSoundPlayed) { this.dawnSoundPlayed = true; this.audio?.effect('train-brakes', .1); }
     this.room?.update(this.decorativeElapsed, this.cameras.main.worldView);
   }
 

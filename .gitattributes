@@ -43,3 +43,8 @@ art/proofs/*.gif filter=lfs diff=lfs merge=lfs -text
 
 # Painted animal animation masters and retained generation references.
 art/source/animals/*.png filter=lfs diff=lfs merge=lfs -text
+
+# Train interior masters.
+art/source/interiors/*.png filter=lfs diff=lfs merge=lfs -text
+
+art/source/minigames/prologue/*.png filter=lfs diff=lfs merge=lfs -text

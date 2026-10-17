@@ -135,7 +135,7 @@ export class World {
     events.on(WorldEvents.InteriorInteract, (id: string) => options.onInteriorInteract?.(id));
     events.on(WorldEvents.Bark, (bark: WorldBark) => options.onBarkShown?.(bark));
     events.on(WorldEvents.Time, (state: WorldTimeState) => options.onTimeChange?.(state));
-    events.on(WorldEvents.InteriorChange, (id: InteriorId | undefined) => { options.onInteriorChange?.(id); });
+    events.on(WorldEvents.InteriorChange, (id: InteriorId | undefined) => { this.audio.setInterior(id); options.onInteriorChange?.(id); });
     events.on(WorldEvents.ExploreReady, (key: string) => {
       if (key === SceneKeys.World && this.world?.ready) this.townRestarting = false;
       this.flush(); this.applyPresentation();
@@ -232,6 +232,8 @@ export class World {
   }
 
   // Inspection ---------------------------------------------------------------
+
+  isExploreReady(): boolean { return !!this.explore && !this.game.scene.isActive(SceneKeys.Travel); }
 
   getWorldStats(): WorldStats {
     const interior = this.activeKey === SceneKeys.Interior && this.interior?.ready ? this.interior : undefined;

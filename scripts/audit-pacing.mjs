@@ -11,15 +11,17 @@ import { pacingReport, questVocabularyDemand } from './syllabus.mjs';
 
 const read = async path => JSON.parse(await readFile(new URL(path, import.meta.url), 'utf8'));
 const course = await read('../web/src/data/course.json');
-const graphs = await read('../web/src/data/dialogue-graphs.json');
+const {graphs} = await read('../content/source.json');
 const syllabus = await read('../web/src/data/syllabus.json');
 const { storyMaps } = await import('../web/src/maps.ts');
 const questOrder = quests.map(quest => quest.id);
 const demand = questVocabularyDemand({ graphs, lexicon: course.lexicon, questOrder, properNames: [...npcs.map(npc => npc.name), ...storyMaps.map(map => map.name)] });
+const requiredDemand = questVocabularyDemand({graphs:graphs.map(graph=>({...graph,topics:[]})),lexicon:course.lexicon,questOrder,properNames:[...npcs.map(npc=>npc.name),...storyMaps.map(map=>map.name)]});
 const report = {
   method: 'Every German surface of a scene (lines, simpler variants, corrections, choices, optional questions and evidence) is mapped to course lexemes with the conservative exposure mapper. Names, Frau/Herr surnames, single-letter clues and explicitly glossed story words are excluded. The syllabus introduces story vocabulary first, so vocabularyReadyHour is the earliest hour of optional intake that covers every lexeme in the scene, assuming intake never pauses. This is a vocabulary coverage metric, not a story access requirement; story conversations remain available in clue order regardless of intake. newWordsAboveBudget counts new lexemes plus glossed story words and unmapped words beyond one hour of intake. These are content measurements, not learner outcomes.',
   ...pacingReport({ syllabus, lexicon: course.lexicon, demand, questOrder }),
 };
+for (const quest of report.quests) quest.requiredPathLexemes = requiredDemand.get(quest.questId).wordIds.length;
 if (!process.argv.includes('--check')) {
   await mkdir(new URL('../docs/audits/', import.meta.url), { recursive: true });
   await writeFile(new URL('../docs/audits/pacing.json', import.meta.url), JSON.stringify(report, null, 2) + '\n');

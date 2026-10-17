@@ -53,6 +53,8 @@ export function compileStoryRules(document, authored, {strict = true} = {}) {
   const storyRules = structuredClone(authored);
   const fail = message => { if (strict) throw new Error(message); };
   for (const rule of storyRules.rules) {
+    // Interior anchors belong to their room spec, not the editable town map.
+    if (rule.interiorId) continue;
     const scene = document.maps[rule.mapId];
     if (!scene) { fail(`Missing scene for story ${rule.questId}`); continue; }
     const normalize = anchor => ({id: anchor.id, x: anchor.x / scene.width, y: anchor.y / scene.height});

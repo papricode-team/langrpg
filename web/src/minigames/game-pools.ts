@@ -53,7 +53,7 @@ export function mechanicPool(definition: MiniGameDefinition, pool: (query: PoolQ
   switch (definition.mechanic) {
     case 'catch': {
       const distinct = new Map<string, GameItem>();
-      for (const item of pool({ modality, level: options.level, seed: options.seed }).filter(item => item.pos === 'num')) {
+      for (const item of pool({ modality, level: options.level, seed: options.seed, fixedPool:options.fixedPool }).filter(item => item.pos === 'num')) {
         const label = catchingNumberLabel({ label: item.lemma, answer: item.lemma });
         if (label !== undefined && !distinct.has(label)) distinct.set(label, item);
       }

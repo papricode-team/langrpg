@@ -3456,6 +3456,18 @@
         "board": "art/proofs/character-cast/hd-review-24.png",
         "boardSha256": "b7315dedeb26c890aa0316d608bda670accd4274a60fcabd611a17c5878bf7be"
       }
+    },
+    {
+      "id": "schaffner",
+      "name": "Otto’s colleague",
+      "mapId": null,
+      "status": "approved",
+      "reference": "art/source/character-portraits/schaffner/expressions.png",
+      "review": {
+        "recipeSha256": "e43faca37792ae2bcd830bbf3a731f8b8168691d913da0363bcd5f14433bb93f",
+        "proofSha256": "c7ec393b55895d56f8e662fd0c8fefaf1644464e74b6fc718607f4db4f19843f",
+        "notes": "Inspected the complete 36-frame walk proof: dark cap and uniform remain legible across directions, consistent scale and no missing frames."
+      }
     }
   ]
 }

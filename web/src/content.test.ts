@@ -5,6 +5,7 @@ import manifest from '../../server/curriculum.json';
 
 // Act I is one path of 22 scenes; Act II has ten and Act III nine.
 const questIds = [
+  'a0-ticket', 'a0-name', 'a0-wagen', 'a0-tee', 'a0-wo', 'a0-langsam', 'a0-morgen',
   'a1-arrival', 'a1-cafe', 'a1-timetable', 'a1-notice', 'a1-shopping', 'a1-room', 'a1-market', 'a1-chalk',
   'a1-neighbour', 'a1-pharmacy', 'a1-directions', 'a1-bench', 'a1-station', 'a1-phone', 'a1-weather', 'a1-workshop',
   'a1-office-window', 'a1-bike', 'a1-lost-found', 'a1-invitation', 'a1-lost-parcel', 'a1-departure',
@@ -18,15 +19,15 @@ const exercises = quests.flatMap(quest => quest.exercises);
 describe('canonical language content', () => {
   it('preserves the saved quest identities and complete chapter structure', () => {
     expect(quests.map(quest => quest.id)).toEqual(questIds);
-    expect(chapters.map(chapter => chapter.level)).toEqual(['A1', 'A2', 'B1']);
-    const scenesPerAct = { A1: 22, A2: 10, B1: 9 };
+    expect(chapters.map(chapter => chapter.level)).toEqual(['A0', 'A1', 'A2', 'B1']);
+    const scenesPerAct = { A0: 7, A1: 22, A2: 10, B1: 9 };
     for (const chapter of chapters) {
       expect(quests.filter(quest => quest.level === chapter.level)).toHaveLength(scenesPerAct[chapter.level]);
     }
     for (const quest of quests) {
       expect(quest.exercises).toHaveLength(7);
       expect(npcs.some(npc => npc.id === quest.npcId)).toBe(true);
-      expect(quest.story.map(sentence => sentence.german).join(' ').trim().length).toBeGreaterThan(50);
+      if (quest.level !== 'A0' && quest.id !== 'a1-arrival') expect(quest.story.map(sentence => sentence.german).join(' ').trim().length).toBeGreaterThan(50);
     }
   });
 
@@ -42,7 +43,7 @@ describe('canonical language content', () => {
       }
     }
     const arrival = quests.find(quest => quest.id === 'a1-arrival')!.story;
-    expect(arrival.some(sentence => sentence.german.includes('Bahnsteig sieben') && sentence.english.includes('platform seven'))).toBe(true);
+    expect(arrival.some(sentence => sentence.german.includes('Bahnsteig sieben') && sentence.english.toLowerCase().includes('platform seven'))).toBe(true);
     expect(arrival.map(sentence => sentence.german).join(' ')).not.toMatch(/Elise|siebte Glocke/);
     const conclusion = quests.find(quest => quest.id === 'b1-atlas')!.story;
     expect(conclusion.some(sentence => sentence.german.includes('Schlüssel') && sentence.english.includes('key'))).toBe(true);

@@ -12,6 +12,11 @@ test('compiles all regions and aligns server spawns and story evidence with draf
   assert.equal(Object.keys(compiled.registry.maps).length, 3);
   assert.deepEqual(compiled.registry.maps.lindenhafen.spawn, {x: scene.spawn.x / scene.width, y: scene.spawn.y / scene.height});
   for (const rule of compiled.storyRules.rules) {
+    if (rule.interiorId) {
+      const authored = JSON.parse(await readFile(new URL('../server/story_rules.json', import.meta.url), 'utf8'));
+      assert.deepEqual(rule, authored.rules.find(item => item.questId === rule.questId));
+      continue;
+    }
     const map = value.maps[rule.mapId];
     for (const target of [rule.npc, ...rule.objects]) {
       const anchor = [...map.npcs, ...map.objects].find(item => item.id === target.id);
