@@ -85,7 +85,7 @@ func newFrontendHandler(directory string) (http.Handler, error) {
 			notFound(w, r)
 			return
 		}
-		if contentType := mime.TypeByExtension(path.Ext(name)); contentType != "" {
+		if contentType := frontendContentType(name); contentType != "" {
 			w.Header().Set("Content-Type", contentType)
 		}
 		// Public HTML, sitemaps and named artwork are replaced in place.
@@ -93,7 +93,7 @@ func newFrontendHandler(directory string) (http.Handler, error) {
 		switch {
 		case strings.HasPrefix(name, "_astro/"):
 			w.Header().Set("Cache-Control", "public, max-age=31536000, immutable")
-		case path.Ext(name) == ".html", path.Ext(name) == ".xml", name == "robots.txt", strings.HasPrefix(name, "images/"),
+		case path.Ext(name) == ".html", path.Ext(name) == ".xml", name == "robots.txt", strings.HasPrefix(name, "images/"), strings.HasPrefix(name, "video/"),
 			strings.HasPrefix(name, "assets/") && (path.Ext(name) == ".webp" || path.Ext(name) == ".json"):
 			w.Header().Set("Cache-Control", "no-cache")
 		default:
@@ -115,6 +115,18 @@ func newFrontendHandler(directory string) (http.Handler, error) {
 		defer file.Close()
 		http.ServeContent(w, r, name, info.ModTime(), file.(io.ReadSeeker))
 	}), nil
+}
+
+// Go's built-in table lacks video types and the runtime image may have no
+// mime.types file; name them so browsers never depend on content sniffing.
+func frontendContentType(name string) string {
+	switch path.Ext(name) {
+	case ".webm":
+		return "video/webm"
+	case ".mp4":
+		return "video/mp4"
+	}
+	return mime.TypeByExtension(path.Ext(name))
 }
 
 func acceptsGzip(value string) bool {

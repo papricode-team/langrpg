@@ -64,6 +64,16 @@ for (const file of htmlFiles) {
     await checkPublicAsset(url, route);
     if (asset.localName === 'link') await checkCSS(await readFile(join(root, new URL(url, 'https://glotworld.com').pathname), 'utf8'), route);
   }
+  // Gameplay video is decorative motion: muted, looped, inline, fetched only when played, with a poster.
+  for (const video of doc.querySelectorAll('video')) {
+    for (const attribute of ['muted', 'loop', 'playsinline', 'poster']) assert.ok(video.hasAttribute(attribute), `${route}: video needs ${attribute}`);
+    assert.equal(video.getAttribute('preload'), 'none', `${route}: video must not preload`);
+    assert.ok(!video.hasAttribute('autoplay'), `${route}: video starts from script so motion preferences apply`);
+    await checkPublicAsset(video.getAttribute('poster'), route);
+    const sources = [...video.querySelectorAll('source[src]')];
+    assert.deepEqual(sources.map(source => source.getAttribute('type')).sort(), ['video/mp4', 'video/webm'], `${route}: video needs WebM and MP4 sources`);
+    for (const source of sources) await checkPublicAsset(source.getAttribute('src'), route);
+  }
   for (const style of doc.querySelectorAll('style')) await checkCSS(style.textContent, route);
   for (const element of doc.querySelectorAll('[style]')) await checkCSS(element.getAttribute('style'), route);
   for (const element of doc.querySelectorAll('[srcset], [imagesrcset]')) {
@@ -91,5 +101,7 @@ assert.ok(!sitemapURLs.some(url => /\/game|\/404|admin|reset-password/.test(url)
 assert.match(await readFile(join(root, 'robots.txt'), 'utf8'), /Sitemap: https:\/\/glotworld.com\/sitemap-index.xml/);
 assert.match(await readFile(join(root, 'game/index.html'), 'utf8'), /noindex, follow/);
 for (const file of await files(join(root, 'images'))) assert.ok((await stat(file)).size < 550 * 1024, `${file}: website image exceeds 550 KiB`);
+// Keep in step with scripts/record-site-gameplay.mjs.
+for (const file of await files(join(root, 'video'))) assert.ok((await stat(file)).size <= 1.5 * 1024 * 1024, `${file}: website video exceeds 1.5 MiB`);
 await window.happyDOM.close();
-console.log(`Website checks pass: ${pages.size - 1} indexable pages, unique metadata, structured data, crawlable guides, sitemap, internal links, image and JavaScript budgets.`);
+console.log(`Website checks pass: ${pages.size - 1} indexable pages, unique metadata, structured data, crawlable guides, sitemap, internal links, image, video and JavaScript budgets.`);

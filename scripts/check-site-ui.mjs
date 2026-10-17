@@ -31,6 +31,8 @@ try {
     const context = await browser.newContext({ viewport, reducedMotion: 'reduce' });
     const page = await context.newPage();
     const forbidden = observeRequests(page);
+    const videoRequests = [];
+    page.on('request', request => { if (new URL(request.url()).pathname.startsWith('/video/')) videoRequests.push(request.url()); });
     const errors = [], failed = [];
     page.on('pageerror', error => errors.push(error.message));
     page.on('response', response => { if (response.status() >= 400) failed.push(`${response.status()} ${response.url()}`); });
@@ -48,6 +50,8 @@ try {
       heroFooterGap: document.querySelector('.hero-bottom>a').getBoundingClientRect().left - document.querySelector('.hero-bottom>span').getBoundingClientRect().right,
     }));
     assert.ok(layout.content <= layout.width, `${viewport.width}: horizontal overflow ${layout.content}`);
+    assert.deepEqual(videoRequests, [], 'Reduced motion must not download the gameplay video');
+    assert.equal(await page.locator('[data-video-toggle]').isVisible(), false, 'Reduced motion hides the video control');
     assert.deepEqual(layout.brokenImages, []);
     assert.deepEqual(forbidden, [], 'Public pages must not request game assets, Phaser or the API');
     assert.deepEqual(layout.activeAnimations, [], 'Reduced motion must stop every animation');
@@ -106,15 +110,28 @@ try {
   const animations = await motionPage.evaluate(() => document.getAnimations().filter(animation => animation.playState === 'running').map(animation => animation.animationName || animation.id));
   assert.ok(animations.length > 0, 'The normal-motion homepage should animate');
   assert.deepEqual(forbidden, []);
+  // Real gameplay starts only in view, can be paused, and stops for reduced motion.
+  const video = motionPage.locator('[data-gameplay-video]'), toggle = motionPage.locator('[data-video-toggle]');
+  await video.scrollIntoViewIfNeeded();
+  await motionPage.waitForFunction(() => { const v = document.querySelector('[data-gameplay-video]'); return v.classList.contains('is-playing') && v.currentTime > 0.3; }, null, { timeout: 15_000 });
+  await motionPage.waitForTimeout(1200);
+  await motionPage.locator('.game-frame').screenshot({ path: `${output}/gameplay-video.png` });
+  await toggle.click();
+  assert.equal(await video.evaluate(v => v.paused), true, 'The pause control must stop the gameplay video');
+  assert.equal(await toggle.getAttribute('aria-label'), 'Play gameplay video');
+  await toggle.click();
+  await motionPage.waitForFunction(() => !document.querySelector('[data-gameplay-video]').paused);
   await motionPage.emulateMedia({ reducedMotion: 'reduce' });
   await motionPage.waitForTimeout(100);
+  assert.equal(await video.evaluate(v => v.paused), true, 'Reduced motion must pause the gameplay video');
+  assert.equal(await toggle.isVisible(), false);
   assert.equal(await motionPage.evaluate(() => document.getAnimations().filter(animation => animation.playState === 'running').length), 0, 'Changing reduced-motion preference must stop live animations');
   await motionPage.goto(`${origin}/this-page-does-not-exist/`);
   await revealPage(motionPage);
   assert.equal(await motionPage.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
   await motionPage.screenshot({ path: `${output}/404.png`, fullPage: true });
   await animated.close();
-  report.push({ motion: 'CSS animations present; preference change stops them', lcp, notFound: 'illustrated 404 checked' });
+  report.push({ motion: 'CSS animations present; preference change stops them', video: 'plays in view; pause control and reduced motion stop it', lcp, notFound: 'illustrated 404 checked' });
 } finally {
   await browser.close();
 }

@@ -121,6 +121,42 @@ slow movement remain. This avoids downloading a 102 KiB AVIF (257 KiB WebP fallb
 mobile. The soft fog export is 17 KiB. Sky and town layers farther down the page
 use native lazy images, so the atmosphere does not compete with the first view.
 
+### Gameplay video
+
+The "how you learn" frame plays a muted ten-second loop of the real game over
+its screenshot: the train arriving in Lindenhafen, a German reply to Otto, and
+a walk across the station square. The screenshot stays the accessible image,
+the poster and the reduced-motion view. The video has `preload="none"` and
+starts from a small script only while at least a third of it is visible, so it
+downloads nothing until the visitor scrolls to it. Reduced motion, a live
+change to reduced motion, and Save-Data all keep it paused and hidden. A pause
+button is shown while it can play, because the loop runs longer than five seconds.
+
+Files are `site/public/video/gameplay.webm` (VP9) and `gameplay.mp4` (H.264,
+for browsers without VP9). Each must stay at or under **1.5 MiB**;
+`check-site.mjs` enforces this together with the muted, looped, inline,
+no-autoplay and poster attributes. The Go server names both video types itself
+and revalidates `/video/` like named artwork, so a new recording replaces the
+old one on the next visit. Byte-range requests work for Safari.
+
+Re-record after the opening scene, the station or the dialogue UI changes:
+
+```sh
+npm run build
+node scripts/record-site-gameplay.mjs
+```
+
+The script boots the Go server on `web/dist` with a throwaway JSON store, plays
+a new guest through the opening, and films the DevTools screencast at 1.5×
+pixel density. It cuts on markers it logs during play and finds the canvas
+cutscene by its letterbox. It needs `ffmpeg` with `libvpx-vp9` and `libx264`
+(`brew install ffmpeg`). Set `GAMEPLAY_URL` to use a running server, and
+`ATLAS_CHROMIUM_PATH` if Playwright's browser is not installed. Review
+`output/gameplay-recording/master.mp4`, the uncut take, before committing.
+`node scripts/record-site-gameplay.mjs --cut` re-cuts and re-encodes that take
+without replaying the game; the segments and encoder settings are at the
+bottom of the script.
+
 ### Visual-pass verification (2026-10-17)
 
 - Clean installation and full `npm run verify` passed in **123 seconds**, including disposable
