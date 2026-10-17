@@ -43,11 +43,6 @@
   line-height:1.3
 }
 
-.activity-shell button:focus-visible {
-  outline:3px solid #9a6630;
-  outline-offset:3px
-}
-
 .activity-shell button:disabled {
   opacity:.45;
   cursor:wait
@@ -3584,10 +3579,6 @@
 .activity-shell {
   color:#eee5c9;
   background:linear-gradient(130deg,#0d231deb,#112d23ce),var(--activity-art) center/cover
-}
-
-.activity-shell button:focus-visible {
-  outline-color:#f1cf79
 }
 
 .activity-banner {

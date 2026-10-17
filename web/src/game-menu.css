@@ -28,7 +28,7 @@
 
 #menu-layer .menu-frame {
   display:grid;
-  grid-template-columns:208px minmax(0,1fr);
+  grid-template-columns:248px minmax(0,1fr);
   grid-template-rows:auto auto minmax(0,1fr);
   grid-template-areas:'header header' 'rail back' 'rail content';
   gap:0 28px;
@@ -160,7 +160,7 @@
   color:#3a2a0e;
 }
 
-/* The selected section and page carry a lit brass bar; focus adds a painted image highlight. */
+/* The selected section and page carry a lit brass bar. */
 #menu-layer .menu-tab::after {
   content:'';
   position:absolute;
@@ -256,6 +256,7 @@
   background:none;
   font:500 var(--type-body)/1.4 'DM Sans',sans-serif;
   text-align:left;
+  white-space:nowrap;
   cursor:pointer;
 }
 
@@ -303,12 +304,6 @@
   overflow:auto;
   scrollbar-color:#d8bb8050 transparent;
   outline:none;
-}
-
-#menu-layer[data-input='keys'] :is(button,input,select,textarea,summary,a[href]):focus-visible,
-#menu-layer[data-input='pad'] :is(button,input,select,textarea,summary,a[href]):focus {
-  outline:none;
-  box-shadow:var(--focus-ring);
 }
 
 #menu-layer .options-panel {
@@ -455,7 +450,7 @@
     padding:24px;
   }
   #menu-layer .menu-frame {
-    grid-template-columns:172px minmax(0,1fr);
+    grid-template-columns:224px minmax(0,1fr);
     gap:0 20px;
   }
   #menu-layer .menu-tab {

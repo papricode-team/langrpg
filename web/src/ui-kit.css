@@ -41,10 +41,6 @@
   filter:grayscale(.55) brightness(.75);
 }
 
-:is(.menu-layer,.dialog,.notification-card) .primary-button:focus-visible {
-  box-shadow:var(--focus-ring);
-}
-
 :is(.menu-layer,.dialog:not(.interior-dialog),.notification-card) .outline-button {
   min-height:48px;
   padding:6px 8px;
@@ -166,14 +162,6 @@
   }
 }
 
-/* Painted controls keep their art when focused and take a lit brass ring instead. */
-#menu-layer :is(.menu-page.selected,.menu-tab.active,.menu-close,.icon-button,.primary-button,.outline-button,.lexeme,.route-unit,.route-tabs button,.route-levels button):focus-visible,
-#menu-layer[data-input='pad'] :is(.menu-page.selected,.menu-tab.active,.menu-close,.icon-button,.primary-button,.outline-button,.lexeme,.route-unit,.route-tabs button,.route-levels button):focus {
-  outline:2px solid #f6dc9f;
-  outline-offset:3px;
-  box-shadow:none;
-}
-
 /* Level and view switches: enamel chips, the chosen one on a brass tab plate. */
 #menu-layer :is(.route-levels,.route-tabs) button {
   min-height:44px;
@@ -256,14 +244,60 @@
   filter:drop-shadow(0 6px 10px #020907b3);
 }
 
-@media (--phone) {
-  #menu-layer .todays-words {
-    flex-wrap:wrap;
-  }
+#menu-layer .todays-words {
+  flex-wrap:wrap;
+}
+
+#menu-layer .todays-words .primary-button {
+  flex:none;
+  white-space:nowrap;
 }
 
 #menu-layer .route-search input {
   border:0;
   background:none;
   box-shadow:none;
+}
+
+/* Long German labels stay on one line inside painted plates. */
+#dialog.activity-dialog .activity-primary {
+  white-space:nowrap;
+}
+
+#dialog.activity-dialog .activity-kitchen-tools {
+  grid-template-columns:repeat(auto-fill,minmax(min(100%,132px),1fr));
+}
+
+#menu-layer .menu-page.selected {
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+@media (--tablet) {
+  #menu-layer .menu-page.selected {
+    border-width:0 26px 0 22px;
+    border-image-width:0 26px 0 22px;
+  }
+}
+
+@media (--phone) {
+  #menu-layer :is(.route-levels,.route-tabs) {
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  #menu-layer :is(.route-levels,.route-tabs) button {
+    flex:none;
+    white-space:nowrap;
+  }
+  #menu-layer .option-rows .option-row {
+    padding:14px 10px;
+  }
+}
+
+@media (--short-landscape) {
+  .dialog[open]:not(.interior-dialog):not(#menu-layer) {
+    border-width:12px;
+    border-image-width:34px;
+  }
 }

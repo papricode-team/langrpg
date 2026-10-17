@@ -70,7 +70,7 @@
   font-family:Fraunces,serif
 }
 
-.word-tile:hover,.word-tile:focus-visible,.word-tile.is-selected {
+.word-tile:hover,.word-tile.is-selected {
   border-color:#f1cc7b;
   outline:2px solid #f1cc7b;
   outline-offset:2px
@@ -240,7 +240,7 @@
   opacity:.75
 }
 
-.word-leaf:focus-visible,.word-leaf:hover {
+.word-leaf:hover {
   outline:3px solid #f1cc7b;
   outline-offset:2px
 }
@@ -332,7 +332,7 @@
   font: 600 var(--type-body) Fraunces,serif
 }
 
-.word-loom-cell:focus-visible,.word-loom-cell:hover {
+.word-loom-cell:hover {
   outline:2px solid #173d36
 }
 
