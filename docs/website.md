@@ -20,6 +20,8 @@ No extra deployment service, Node server, DNS change or Sites project is needed.
   Game assets retain their absolute `/assets/` and `/audio/` paths.
 - `STATIC_DIR=/absolute/path/to/web/dist` makes the Go service serve the combined
   build locally. Use a disposable `DATA_PATH` for QA, not production state.
+  Set `ALLOWED_ORIGINS` to the preview origin too (for example,
+  `http://127.0.0.1:8098`); browser font requests include an Origin header.
 
 The Docker build installs both workspaces and runs the combined root build.
 Keep `PUBLIC_URL=https://glotworld.com` as an origin, without `/game`. Checkout
@@ -85,6 +87,60 @@ Set `ATLAS_CHROMIUM_PATH` if a local Chrome executable is needed. Screenshots an
 reports go to `output/ui-screenshots/landing`, never the tracked screenshot gallery.
 The check covers 1440, 390 and 320 pixel widths, missing images, overflow, the
 café exercise, mobile navigation, attribution and JavaScript-disabled reading.
+It scrolls through the page to load deferred art, rejects requests to game assets,
+Phaser or the API, and checks both motion preferences. Reduced motion must stop
+every animation, including when the preference changes while the page is open.
+The normal-motion check also confirms that the preloaded hero remains the largest
+contentful paint element and captures the illustrated 404 page.
+
+## Campaign art and motion
+
+The public pages use a dusk-harbor palette: deep petrol teal, lantern amber and
+brass. Cream is reserved for the café exercise and long-form guide reading.
+The homepage combines painted campaign illustration with real exported game
+characters. Campaign vistas are illustrations, not gameplay screenshots; the
+gameplay frame remains explicitly labelled as a browser capture.
+
+Website art is separate from the game's mutable asset directory. Generate
+campaign exports with `node scripts/prepare-site-art.mjs` and character/animal
+sheets with `node scripts/prepare-site-sprites.mjs`. The latter assembles real
+authored frames into horizontal strips for CSS `steps()` animation. Masters and
+generation prompts belong in `art/source/marketing/`; optimized public exports
+belong in `site/public/images/`, including its `sprites/` subdirectory.
+
+Keep the existing limits: **20 KiB of JavaScript per public page** and **550 KiB
+per exported image**. `check-site.mjs` checks CSS background URLs as well as HTML
+images, responsive sources and scripts, so sprites cannot bypass the public-asset
+boundary. No canvas or game runtime is needed for the campaign motion. All
+decorative art is hidden from assistive technology; real headings and learning
+content remain in static HTML.
+
+The original harbor remains the preloaded main image. On small screens the
+duplicate foreground plate is omitted, while fog, sparks and the main image's
+slow movement remain. This avoids downloading a 257 KiB desktop decoration on
+mobile. The soft fog export is 17 KiB. Sky and town layers farther down the page
+use native lazy images, so the atmosphere does not compete with the first view.
+
+### Visual-pass verification (2026-10-17)
+
+- Clean installation and full `npm run verify` passed in **123 seconds**, including disposable
+  PostgreSQL and concurrency race tests; no checks or budgets were relaxed.
+- Browser acceptance passed at 1440, 390 and 320 pixels: no overflow, broken
+  images, failed asset requests or JavaScript errors. Café interaction,
+  navigation, attribution, JavaScript-disabled reading and reduced motion pass.
+- The normal-motion check identifies `img.hero-art` as LCP and confirms that a
+  live change to reduced-motion stops every running animation.
+- Homepage JavaScript totals **2,808 bytes**. The largest new image export is
+  **348,792 bytes**, below the unchanged 550 KiB cap.
+- Mobile Lighthouse on the local Go build with production precompression:
+  **95 Performance / 100 Accessibility / 100 Best Practices / 100 SEO**;
+  LCP **2.9 s**, TBT **0 ms**, CLS **0**. These are lab results, not production
+  field measurements.
+
+Reports and screenshots are in `output/ui-screenshots/landing/`, including
+`report.json`, `home-{1440,390,320}.png`, `article-{1440,390,320}.png`, `404.png`
+and `lighthouse-cinematic-final.report.{json,html}`. They are intentionally
+untracked. Re-run the checks against the deployed origin for field validation.
 
 ## Release and discoverability
 

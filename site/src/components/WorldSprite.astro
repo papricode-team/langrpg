@@ -1,0 +1,36 @@
+---
+import '../styles/sprites.css';
+
+interface Props {
+  kind: 'player-idle' | 'player-walk' | 'marta' | 'otto' | 'marta-walk' | 'otto-walk' | 'cat' | 'chicken';
+  class?: string;
+  eager?: boolean;
+}
+const { kind, class: className, eager = false } = Astro.props;
+const frames = { 'player-idle': 1, 'player-walk': 8, marta: 6, otto: 6, 'marta-walk': 8, 'otto-walk': 8, cat: 4, chicken: 4 }[kind];
+const height = kind === 'cat' || kind === 'chicken' ? 128 : 192;
+---
+<span
+  class:list={['world-sprite', `world-sprite--${kind}`, className, { 'is-visible': eager }]}
+  data-world-sprite
+  aria-hidden="true"
+>
+  <img
+    class="world-sprite__strip"
+    src={`/images/sprites/${kind}.webp`}
+    width={128 * frames}
+    height={height}
+    alt=""
+    loading={eager ? 'eager' : 'lazy'}
+    decoding="async"
+  />
+</span>
+
+<script>
+  // Lazy image loading keeps sheets below the fold out of the critical path;
+  // the observer also suspends their CSS animation when outside the viewport.
+  const observer = new IntersectionObserver(entries => {
+    for (const entry of entries) entry.target.classList.toggle('is-visible', entry.isIntersecting);
+  }, { rootMargin: '80px' });
+  document.querySelectorAll('[data-world-sprite]').forEach(sprite => observer.observe(sprite));
+</script>
