@@ -25,7 +25,7 @@ func issueInvite(t *testing.T, app *App, token string) string {
 		t.Fatal(w.Code, w.Body.String())
 	}
 	u, err := url.Parse(result.URL)
-	if err != nil || u.Scheme != "https" || u.Host != "glotworld.com" || u.Query().Get("ref") == "" {
+	if err != nil || u.Scheme != "https" || u.Host != "glotworld.com" || u.Path != "/game/" || u.Query().Get("ref") == "" {
 		t.Fatal("invalid invite", result.URL, err)
 	}
 	return u.Query().Get("ref")

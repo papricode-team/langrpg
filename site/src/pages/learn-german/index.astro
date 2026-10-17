@@ -1,0 +1,8 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { guides } from '../../data/guides';
+---
+<SiteLayout title="Learn German: Free Beginner Guides & Practice | glotworld" description="Explore practical German-learning guides: beginner phrases, der die das, word order, café conversations and vocabulary practice for A1, A2 and B1 learners.">
+  <header class="journal-hero"><div class="container"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Learn German</span></nav><p class="eyebrow">THE TRAVELER’S FIELD NOTES</p><h1>A little German.<br /><em>A world of possibility.</em></h1><p>Useful words. Clear explanations. Small things to try today. Pack a little language for wherever you’re going.</p></div></header>
+  <section class="all-guides section container" aria-label="German learning guides"><div class="guide-grid">{guides.map(guide => <a class="guide-card" href={`/learn-german/${guide.slug}/`}><div class="guide-image"><img src={`/images/${guide.image}.webp`} alt={guide.alt} width="720" height="480" loading="lazy" /><span>{guide.category}</span></div><div class="guide-copy"><p class="eyebrow">{guide.level} <span>·</span> {guide.minutes} MIN READ</p><h2 style="font-size:28px;margin-top:17px">{guide.title}</h2><p>{guide.description}</p><span class="text-link">Read the field note <span aria-hidden="true">↗</span></span></div></a>)}</div></section>
+</SiteLayout>
