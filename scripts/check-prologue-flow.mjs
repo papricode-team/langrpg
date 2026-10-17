@@ -12,11 +12,14 @@ const b=await chromium.launch({...(process.env.ATLAS_CHROMIUM_PATH?{executablePa
 p.on('response',async r=>{if(r.url().endsWith('/api/attempt')){const data=await r.json();if(data.correct===false)console.log('Attempt not accepted',r.status(),{correct:data.correct,reason:data.reason,error:data.error,answer:data.correctedAnswer});}});
 p.on('response',r=>{if(r.status()===429&&new URL(r.url()).pathname.startsWith('/api/content/'))errors.push('Content read limited: '+new URL(r.url()).pathname)});
 p.on('pageerror',e=>errors.push(e.stack));p.on('request',r=>{if(r.url().endsWith('/api/attempt'))attempts.push(r.postDataJSON())});
-let ticketOpenedDirectly=false;
+let ticketOpenedDirectly=false, bootstrapReads=0;
+p.on('response',r=>{if(new URL(r.url()).pathname==='/api/content/bootstrap')bootstrapReads++;});
 try{
  await p.goto(url);await p.locator('#language-entry-form [type="submit"]').click();await p.locator('#confirm-languages').click();await p.locator('[data-experience="none"]').click();await p.locator('#entry-name').fill('Ava');await p.locator('#name-entry-form [type="submit"]').click();
  await p.waitForSelector('.prologue-sounds',{timeout:45000});if(await p.locator('[data-placement]').count())throw Error('Placement appeared on the zero-German route.');console.log('No placement before sounds: true');await p.locator('[data-sound="close"]').click();
  await p.waitForSelector('.dialogue-line',{timeout:30000});console.log('First scene:',await p.locator('.dialogue-line').innerText());if(await p.locator('#dialogue-answer').count())throw Error('The first scene asked for typed German.');console.log('German typing fields: 0');
+ if(bootstrapReads!==1)throw Error('Initial session reloaded its catalogue '+bootstrapReads+' times.');
+ console.log('Initial catalogue reads:',bootstrapReads);
  for(const [index,reply] of ['Bitte.','Ava','Sieben.','Einen Tee, bitte.','Wo ist die Toilette?','Ich verstehe nicht.','Auf Wiedersehen.'].entries()){
    let completed=false;
    for(let step=0;step<35;step++){

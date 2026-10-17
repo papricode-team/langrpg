@@ -309,8 +309,12 @@ let attemptBusy = false;
 function cancelRun() { exerciseInputCleanup?.();exerciseInputCleanup=undefined;if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;}pendingExerciseChoice=undefined;run?.reviewAttempt?.cancel(); run = undefined; }
 let progressOwner: string | undefined;
 let bootstrapRefresh: Promise<void> | undefined;
-function entitlementKey(value: Progress): string { return contentEntitlementKey(value, !!interiorId?.startsWith('train-')); }
-function acceptProgress(value: Progress, owner?: string) {
+function entitlementKey(value: Progress): string {
+  // The opening heartbeat can restore words before the train room has loaded.
+  const train = !!interiorId?.startsWith('train-') || localStorage.getItem(`atlas.prologue.${api.selfId}`) === 'true' && !storyQuestComplete(value.completedQuestIds, 'a0-morgen');
+  return contentEntitlementKey(value, train);
+}
+function acceptProgress(value: Progress, owner?: string, catalogueCurrent = false) {
   const previousEntitlements = entitlementKey(progress);
   if (owner && progressOwner !== owner) { attemptedCinematics.clear(); progressOwner = owner; progress = emptyProgress(); exposedContexts.clear(); }
   const previous = progress;
@@ -320,7 +324,7 @@ function acceptProgress(value: Progress, owner?: string) {
       const gained = progress.xp - previous.xp;
       if (gained > 0) toast(t('+{count} XP', {count:gained}));
     }
-    if (started && activeCourse?.target === 'de' && previousEntitlements !== entitlementKey(progress)) {
+    if (started && !catalogueCurrent && activeCourse?.target === 'de' && previousEntitlements !== entitlementKey(progress)) {
       bootstrapRefresh ??= refreshBootstrap().then(async () => { await loadRestoredWords(progress); updateProgress(); if (view !== 'world') refreshLearningMenu(document.querySelector<HTMLElement>('#other-view')!,renderOther); }).catch(error => toast(error.message, true)).finally(() => { bootstrapRefresh = undefined; });
     } else if (started && activeCourse?.target === 'de' && JSON.stringify(previous.intake?.wordIds) !== JSON.stringify(progress.intake?.wordIds)) {
       void loadRestoredWords(progress).then(() => updateProgress()).catch(error => toast(error.message, true));
@@ -2303,7 +2307,8 @@ async function enterGame(result: SessionResult): Promise<boolean> {
   account = result.account;
   updateWorldEditButton();
   document.querySelector<HTMLElement>('#admin-analytics-link')!.hidden = account.admin !== true;
-  acceptProgress(result.progress, result.player.id);
+  // loadServerContent already installed catalogue visibility for this snapshot.
+  acceptProgress(result.progress, result.player.id, true);
   profile = { name: result.player.name, avatar: result.player.avatar };
   localStorage.setItem('atlas.profile', JSON.stringify(profile));
 
