@@ -436,6 +436,19 @@ describe('conversation scene lifecycle', () => {
     expect(document.querySelector('.dialogue-feedback')?.textContent ?? '').not.toContain('complete');
     expect(document.querySelector('[data-dialogue-choice="protect"]')).toBeNull();
   });
+  it('moves past a saved choice even when the town fails to react to the completion', async () => {
+    const f=fixture('choice');
+    const failure=new TypeError('reaction failed');
+    f.options.onComplete.mockImplementation(()=>{throw failure;});
+    const logged=vi.spyOn(console,'error').mockImplementation(()=>{});
+    await f.controller.open('a1-arrival');until('[data-dialogue-choice="protect"]');
+    f.click('[data-dialogue-choice="protect"]');
+    await vi.waitFor(()=>expect(f.options.onComplete).toHaveBeenCalledTimes(1));
+    expect(f.api.storyTransition).toHaveBeenCalledTimes(1);
+    expect(document.querySelector('[data-dialogue-choice="protect"]')).toBeNull();
+    expect(document.querySelector('.dialogue-feedback')).toBeNull();
+    expect(logged.mock.lastCall?.[1]).toBe(failure);
+  });
   it('keeps the investigation stage when its transition is temporarily rejected', async () => {
     const f=fixture();f.progress.story!.inspections['a1-arrival']=questGraphs[0].investigations.map(item=>item.objectId);
     f.progress.story!.flags['reply:a1-arrival-exercise-1']=true;
