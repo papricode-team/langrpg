@@ -1,3 +1,4 @@
+import {buildingRoomId, buildingRoomRoot} from './room-layout';
 import * as Phaser from 'phaser';
 import type { MapId } from './maps';
 import type { MapPoint, NavigationGrid } from './navigation';
@@ -10,14 +11,20 @@ import { worldAssetUrl } from './world-asset-url';
 import {castActor,castAssetUrl,castAtlasUrl} from './character-cast';
 import { ExploreScene, type Character, type WorldObject } from './explore-scene';
 import { emitWorld, readWorld, SceneKeys, WorldEvents, writeWorld, type WorldPlayer } from './world-state';
+import {roomMaterials} from './room-kit';
+import {terrainMaterial, terrainMaterialKey} from './terrain-materials';
 import type { WorldScene } from './world-scene';
 
-export interface InteriorSceneData { id: InteriorId; mapId: MapId; instant?: boolean }
+export interface InteriorSceneData { id: InteriorId; mapId: MapId; instant?: boolean; stairs?: boolean }
 const sharedSheets = ['cafe-objects', 'bakery-objects', 'supermarket-objects', 'decor', 'furniture'] as const;
 
-/** Rooms load their own painting on first entry; shared furniture sheets stay cached afterwards. */
-export function loadInteriorAssets(load: Phaser.Loader.LoaderPlugin, spec: InteriorSpec): void {
-  load.image(`interior-${spec.id}-room`, worldAssetUrl(spec.asset));
+/** Shared material tiles and furniture are cached across every building instance. */
+export function loadInteriorAssets(load: Phaser.Loader.LoaderPlugin, _spec: InteriorSpec): void {
+  load.image('room-kit-furniture', worldAssetUrl('/assets/room-kit-furniture.webp'));
+  for (const id of roomMaterials) {
+    const material = terrainMaterial(id)!;
+    load.image(terrainMaterialKey(id), worldAssetUrl(material.asset));
+  }
   for (const sheet of sharedSheets) load.atlas(`interior-${sheet}`, worldAssetUrl(`/assets/interior-${sheet}.webp`), worldAssetUrl(`/assets/interior-${sheet}.json`));
   load.json('interior-animations', worldAssetUrl('/assets/interior-animations.json'));
   load.atlas('interior-effects', worldAssetUrl('/assets/interior-effects.webp'), worldAssetUrl('/assets/interior-effects.json'));
@@ -34,6 +41,7 @@ export class InteriorScene extends ExploreScene {
   private room?: WorldInterior;
   private propTargets: Phaser.GameObjects.Zone[] = [];
   private instant = false;
+  private stairTransition = false;
   private leaving = false;
 
   constructor() { super({ key: SceneKeys.Interior }); }
@@ -46,10 +54,11 @@ export class InteriorScene extends ExploreScene {
 
   init(data: InteriorSceneData): void {
     super.init();
-    this.spec = getInterior(data.id);
+    this.spec = getInterior(data.id, data.mapId);
     this.mapId = data.mapId;
     this.regionId = data.mapId;
     this.instant = !!data.instant;
+    this.stairTransition = !!data.stairs;
     this.room = undefined; this.propTargets = []; this.leaving = false;
   }
 
@@ -75,7 +84,18 @@ export class InteriorScene extends ExploreScene {
     this.resetPlayerPosition();
   }
 
-  protected createNavigation(): NavigationGrid { return createInteriorNavigation(this.spec.id); }
+  syncPlayers(players: readonly WorldPlayer[], selfId: string): void {
+    // A live wall edit can strand an existing position in an empty, sealed area.
+    const spawn = this.spawnPoint();
+    const adjusted = this.spec.layout ? players.map(player => {
+      if (!this.ownsPlayer(player)) return player;
+      const point = this.navigation.closestPoint(player.x * this.worldWidth, player.y * this.worldHeight, spawn);
+      return {...player,x:point.x/this.worldWidth,y:point.y/this.worldHeight};
+    }) : players;
+    super.syncPlayers(adjusted, selfId);
+  }
+
+  protected createNavigation(): NavigationGrid { return createInteriorNavigation(this.spec.id, {}, this.mapId); }
   protected spawnPoint(): MapPoint { return this.navigation.closestPoint(this.spec.spawn.x * this.worldWidth, this.spec.spawn.y * this.worldHeight); }
   protected spawnFacing(): number { return 2; }
   protected ownsPlayer(player: WorldPlayer): boolean {
@@ -95,6 +115,10 @@ export class InteriorScene extends ExploreScene {
     });
     this.createMapObjects(spec.objects.map(object => ({ ...object, kind: 'instrument' as const })), 'interior');
     this.createPropTargets();
+    for(const door of spec.layout?.links ?? []) {
+      const destination=getInterior(buildingRoomId(spec.id,door.targetRoom) as InteriorId,this.mapId);
+      this.createPortal(`room-door:${door.id}`,door.x,door.y,door.kind==='stairs'?`Stairs ${spec.stairDirections?.[door.id]} · ${destination.name}`:destination.name);
+    }
     this.createPortal(`exit:${spec.id}`, spec.exit.x * this.worldWidth, spec.exit.y * this.worldHeight, 'Return to town', undefined, true);
   }
 
@@ -117,12 +141,21 @@ export class InteriorScene extends ExploreScene {
   }
 
   transitionRoom(): void {
-    this.audio?.effect('door', .16);
+    if(!this.stairTransition)this.audio?.effect('door', .16);
     this.cameras.main.resetFX();
     if (!this.reducedMotion) this.cameras.main.fadeIn(220, 29, 35, 30);
   }
 
-  protected usePortal(): void { this.leave(); }
+  protected usePortal(id:string): void {
+    const door=this.spec.layout?.links?.find(d=>`room-door:${d.id}`===id);
+    if(!door){this.leave();return;}
+    if(this.leaving)return;
+    this.leaving=true;this.suspended=true;this.clearControls();
+    const target=buildingRoomId(this.spec.id,door.targetRoom) as InteriorId;
+    writeWorld(this.registry,'interiorId',target);
+    this.scene.restart({id:target,mapId:this.mapId,stairs:door.kind==='stairs'});
+    emitWorld(this.game,WorldEvents.InteriorChange,target,door.id);
+  }
 
   /** Hand the frame back to the town, which places the player at this room's door. */
   leave(instant = false): void {
@@ -132,7 +165,7 @@ export class InteriorScene extends ExploreScene {
     this.clearControls();
     writeWorld(this.registry, 'interiorId', undefined);
     const town = this.scene.get(SceneKeys.World) as WorldScene;
-    town.resumeFromInterior({ returnFrom: this.spec.id, instant });
+    town.resumeFromInterior({ returnFrom: buildingRoomRoot(this.spec.id) as InteriorId, instant });
     this.scene.stop();
     emitWorld(this.game, WorldEvents.InteriorChange, undefined);
   }

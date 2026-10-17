@@ -101,7 +101,7 @@ export interface WorldEventPayloads {
   [WorldEvents.Object]: [id: string];
   [WorldEvents.Nearby]: [id: string | undefined];
   [WorldEvents.MapReady]: [id: MapId];
-  [WorldEvents.InteriorChange]: [id: InteriorId | undefined];
+  [WorldEvents.InteriorChange]: [id: InteriorId | undefined, doorId?:string];
   [WorldEvents.InteriorInteract]: [id: string];
   [WorldEvents.Bark]: [bark: WorldBark];
   [WorldEvents.Time]: [state: WorldTimeState];

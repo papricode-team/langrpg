@@ -4,6 +4,7 @@ import (
 	"maps"
 	"slices"
 	"sort"
+	"strings"
 )
 
 // SessionReplacedStatus closes a tab whose character connected elsewhere; the
@@ -17,7 +18,10 @@ const AccessRequiredStatus = accessRequiredStatus
 func MapIDs() []string { return slices.Clone(mapIDs) }
 
 // InteriorSpawn is where a player appears on entering a known building.
-func InteriorSpawn(interiorID string) MapSpawn { return interiorSpawns[interiorID] }
+func InteriorSpawn(interiorID string) MapSpawn {
+	kind, _, _ := strings.Cut(strings.Split(interiorID, "::")[0], "--")
+	return interiorSpawns[kind]
+}
 
 // ContentVersion is the version of the map registry currently published.
 func (w *World) ContentVersion() string {

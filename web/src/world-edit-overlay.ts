@@ -1,3 +1,4 @@
+import {buildingRoomKind} from './scene-schema';
 /** The in-game edit mode panels: a top band, an inspector and the Add palette. */
 import './world-edit.css';
 import {escapeHtml as escape} from './icons';
@@ -62,6 +63,7 @@ export class WorldEditOverlay implements EditView {
     const action = button.dataset.edit, controller = this.controller;
     switch (action) {
       case 'done': this.onDone?.(); break;
+      case 'edit-room': void controller?.editRoom(); break;
       case 'undo': void controller?.undo(); break;
       case 'add': this.paletteOpen = !this.paletteOpen; if (this.paletteOpen) controller?.deselect(); else controller?.cancelPlacing(); this.render(); break;
       case 'flip': controller?.flip(); break;
@@ -140,8 +142,9 @@ export class WorldEditOverlay implements EditView {
       }).join('')}</div></div>`;
       body += `<div class="world-edit-row"><button type="button" data-edit="flip"${disabled}>Flip</button><button type="button" data-edit="delete" class="danger"${disabled}>Delete</button></div>
         <label class="world-edit-field"><span>Size</span><input type="range" name="size" min="${size.min}" max="${size.max}" step="1" value="${Math.min(size.max, Math.max(size.min, item.width))}"${disabled || size.min === size.max ? ' disabled' : ''}></label>`;
+      if (buildingRoomKind(item)) body += `<button type="button" data-edit="edit-room"${disabled}>Edit room layout</button>`;
       if (selection.rooms.length) body += `<label class="world-edit-field"><span>Room inside</span><select name="room"${disabled}>
-          <option value=""${room ? '' : ' selected'}>No room</option>
+          <option value=""${room ? '' : ' selected'}>Default for this building</option>
           ${selection.rooms.map(kind => `<option value="${kind}"${kind === room ? ' selected' : ''}>${escape(capital(roomNames[kind]))}</option>`).join('')}
         </select></label>`;
       body += `<label class="world-edit-check"><input type="checkbox" name="solid"${item.collidable !== false ? ' checked' : ''}${disabled}> Players walk around it</label>
