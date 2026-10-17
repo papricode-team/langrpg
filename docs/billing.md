@@ -9,12 +9,12 @@ credentials are present; this also disables checkout. With `FREE_TO_PLAY=false`
 (the default), Creem configuration controls whether trials apply. Partial credential
 configuration remains a startup error unless free play is explicitly enabled.
 
-With Creem configured and free play disabled, the game permits five minutes of
-anonymous play. At expiry, signup keeps the character and progress and unlocks the remainder of fifteen total free minutes.
+With Creem configured and free play disabled, the game permits ten minutes of
+anonymous play. At expiry, signup keeps the character and progress and unlocks the remainder of two total free hours.
 Logging into an existing account restores that account's own allowance. An
 explicit game restart is available to guests and registered accounts. It clears
 progress, moves the same character back to the beginning and grants a fresh
-fifteen minutes. Players can repeat this as often as they like; credentials,
+two hours. Players can repeat this as often as they like; credentials,
 preferences and paid access are preserved. The server persists elapsed play and enforces access on HTTP and
 WebSocket mutations across devices, reloads and tabs.
 

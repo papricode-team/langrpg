@@ -582,6 +582,313 @@
       },
       "source": "detail-birdbath.png",
       "prompt": "docs/prompts/terrain-objects/detail-birdbath.txt"
+    },
+    {
+      "id": "station-ticket-hall",
+      "name": "Station ticket hall",
+      "role": "station",
+      "worldWidth": 310,
+      "motion": "still",
+      "collidable": true,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.9338118022328549,
+      "asset": "/assets/terrain-objects/station-ticket-hall.webp",
+      "thumbnail": "/assets/terrain-objects/station-ticket-hall-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -530,
+          "top": -1066,
+          "right": 542,
+          "bottom": 0
+        },
+        "footprint": [
+          [
+            -527,
+            -351
+          ],
+          [
+            -227,
+            -621
+          ],
+          [
+            538,
+            -306
+          ],
+          [
+            233,
+            -6
+          ]
+        ],
+        "sortLine": [
+          [
+            -527,
+            -336
+          ],
+          [
+            233,
+            -6
+          ],
+          [
+            538,
+            -291
+          ]
+        ],
+        "door": {
+          "x": -162,
+          "y": -201,
+          "width": 140,
+          "height": 160
+        }
+      },
+      "source": "station-ticket-hall.png",
+      "prompt": "docs/prompts/terrain-objects/station-ticket-hall.txt"
+    },
+    {
+      "id": "station-office",
+      "name": "Station office and waiting room",
+      "role": "station",
+      "worldWidth": 300,
+      "motion": "still",
+      "collidable": true,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.9250398724082934,
+      "asset": "/assets/terrain-objects/station-office.webp",
+      "thumbnail": "/assets/terrain-objects/station-office-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -481,
+          "top": -1001,
+          "right": 586,
+          "bottom": 0
+        },
+        "footprint": [
+          [
+            -481,
+            -200
+          ],
+          [
+            253,
+            -605
+          ],
+          [
+            583,
+            -435
+          ],
+          [
+            -147,
+            -10
+          ]
+        ],
+        "sortLine": [
+          [
+            -481,
+            -193
+          ],
+          [
+            -147,
+            -10
+          ],
+          [
+            583,
+            -435
+          ]
+        ],
+        "door": {
+          "x": -297,
+          "y": -140,
+          "width": 105,
+          "height": 160
+        }
+      },
+      "source": "station-office.png",
+      "prompt": "docs/prompts/terrain-objects/station-office.txt"
+    },
+    {
+      "id": "station-platform-canopy",
+      "name": "Station platform canopy",
+      "role": "station",
+      "worldWidth": 310,
+      "motion": "still",
+      "collidable": false,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.9481658692185008,
+      "asset": "/assets/terrain-objects/station-platform-canopy.webp",
+      "thumbnail": "/assets/terrain-objects/station-platform-canopy-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -506,
+          "top": -1135,
+          "right": 588,
+          "bottom": 0
+        },
+        "footprint": [],
+        "sortLine": [
+          [
+            -502,
+            -169
+          ],
+          [
+            -272,
+            -4
+          ],
+          [
+            583,
+            -639
+          ]
+        ]
+      },
+      "source": "station-platform-canopy.png",
+      "prompt": "docs/prompts/terrain-objects/station-platform-canopy.txt"
+    },
+    {
+      "id": "railway-locomotive",
+      "name": "Steam locomotive",
+      "role": "train",
+      "worldWidth": 280,
+      "motion": "still",
+      "collidable": true,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.9130781499202552,
+      "asset": "/assets/terrain-objects/railway-locomotive.webp",
+      "thumbnail": "/assets/terrain-objects/railway-locomotive-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -568,
+          "top": -1031,
+          "right": 573,
+          "bottom": 0
+        },
+        "footprint": [
+          [
+            -477,
+            -115
+          ],
+          [
+            393,
+            -645
+          ],
+          [
+            533,
+            -495
+          ],
+          [
+            -247,
+            -5
+          ]
+        ],
+        "sortLine": [
+          [
+            -562,
+            -125
+          ],
+          [
+            -247,
+            -5
+          ],
+          [
+            533,
+            -495
+          ]
+        ]
+      },
+      "source": "railway-locomotive.png",
+      "prompt": "docs/prompts/terrain-objects/railway-locomotive.txt"
+    },
+    {
+      "id": "railway-carriage",
+      "name": "Passenger carriage",
+      "role": "train",
+      "worldWidth": 310,
+      "motion": "still",
+      "collidable": true,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.9114832535885168,
+      "asset": "/assets/terrain-objects/railway-carriage.webp",
+      "thumbnail": "/assets/terrain-objects/railway-carriage-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -601,
+          "top": -1015,
+          "right": 624,
+          "bottom": 0
+        },
+        "footprint": [
+          [
+            -527,
+            -93
+          ],
+          [
+            483,
+            -723
+          ],
+          [
+            593,
+            -623
+          ],
+          [
+            -342,
+            -3
+          ]
+        ],
+        "sortLine": [
+          [
+            -527,
+            -93
+          ],
+          [
+            -342,
+            -3
+          ],
+          [
+            593,
+            -623
+          ]
+        ]
+      },
+      "source": "railway-carriage.png",
+      "prompt": "docs/prompts/terrain-objects/railway-carriage.txt"
+    },
+    {
+      "id": "railway-rails",
+      "name": "Straight railway track",
+      "role": "rails",
+      "worldWidth": 310,
+      "motion": "still",
+      "collidable": false,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.8748006379585327,
+      "asset": "/assets/terrain-objects/railway-rails.webp",
+      "thumbnail": "/assets/terrain-objects/railway-rails-thumb.webp",
+      "layer": "ground",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -596,
+          "top": -913,
+          "right": 621,
+          "bottom": 0
+        },
+        "footprint": []
+      },
+      "source": "railway-rails.png",
+      "prompt": "docs/prompts/terrain-objects/railway-rails.txt"
     }
   ]
 }

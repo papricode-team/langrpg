@@ -1,3 +1,5 @@
+import { animalSpecies } from './animal-behavior';
+import { animalTextureKey } from './animal-art';
 import type * as Phaser from 'phaser';
 import type { WorldMapSpec } from './maps';
 import { sceneryTextureKey, sceneryVariationKey } from './placed-scenery';
@@ -28,6 +30,8 @@ export function regionAssets(map: WorldMapSpec,includeDetailLibrary=false): read
   const assets: RegionAsset[] = [
     { key: sceneryTextureKey(map.id), image: map.sceneryAsset, atlas: map.sceneryAtlas },
   ];
+  for (const species of animalSpecies)
+    assets.push({ key: animalTextureKey(species, map.id), image: `/assets/animals/${species}.webp`, atlas: `/assets/animals/${species}.json` });
   // Expedition props already include every local house and tree silhouette.
   if (map.variationAsset !== map.sceneryAsset || map.variationAtlas !== map.sceneryAtlas) {
     assets.push({ key: sceneryVariationKey(map.id), image: map.variationAsset, atlas: map.variationAtlas });

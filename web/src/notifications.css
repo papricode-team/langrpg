@@ -84,6 +84,27 @@
   height:14px;
 }
 
+.notification-action {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-top:8px;
+  padding:5px 12px;
+  border:1px solid #c9aa64;
+  border-radius:999px;
+  background:#c9aa641f;
+  color:#edd29b;
+  font:inherit;
+  font-size: var(--type-caption);
+  font-weight:600;
+  cursor:pointer;
+}
+
+.notification-action>.icon {
+  width:12px;
+  height:12px;
+}
+
 .notifications .bad {
   border-left-color:#de9b72;
 }

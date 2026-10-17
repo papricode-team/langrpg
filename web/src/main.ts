@@ -1,3 +1,4 @@
+import { animalAction, animalSpeciesFromId } from './animal-behavior';
 import { mountSupportBanner } from './support-session';
 import { startAnalytics, trackAnalytics, browserAnalyticsEnabled, setBrowserAnalyticsEnabled } from './analytics-client';
 import { castPortraitMarkup } from './cast-portrait';
@@ -112,6 +113,8 @@ import type { MiniGame } from './minigames/types';
 import './minigames/minigames.css';
 import { MiniGameInput } from './minigames/input';
 import { isWordGame } from './minigames/word-game-mechanics';
+import { hostedGames, miniGameBlock, miniGameBlockLabel, miniGameBlockMessage, miniGameLevel, suggestedGame, type ReadinessContext } from './minigames/availability';
+import { gameItemPool } from './minigames/pool';
 import { DialogSession, openAsyncDialog, trackDialogClose, type AsyncDialogHost } from './dialog-session';
 
 const uiCheckRequest = import.meta.env.DEV ? new URLSearchParams(location.search).get('ui-check') : null;
@@ -445,9 +448,11 @@ function renderShell() {
     onClose: () => { dialogueOpen = false; document.querySelector('#game-shell')!.classList.remove('dialogue-open'); world.setConversationTarget(undefined); syncWorldMode(); document.querySelector<HTMLElement>('#world-container')!.focus(); if (pendingStoryBeat) queueMicrotask(() => void playPendingCinematic().catch(error => console.warn('The story scene could not load; it will be offered again.', error))); },
     onProgress: value => { acceptProgress(value); updateProgress(); },
     onInvestigate: graph => { investigationQuest = graph.questId; updateProgress(); const next = nextInvestigation(graph); if (next) { world.focusObject(investigationWorldId(next)); toast(t('Read the evidence, then return to the witness.')); } else { const q = quests.find(q => q.id === graph.questId)!; world.focusNpc(q.npcId); toast(t('The evidence is saved. Return to {name}.', { name: localizedName(npcs.find(npc => npc.id === q.npcId)!.name) })); } },
-    onComplete: (graph, xp, effects) => { investigationQuest = undefined; pendingStoryBeat = questCinematics[graph.questId]; updateProgress(); playCue(true); const clue = clueFor(graph.questId); toast(`${clue ? localized(clue.title) : t('Discovery saved')}${xp ? ` · +${xp} XP` : ''}${consequenceNote(effects)}`); },
+    onComplete: (graph, xp, effects) => { investigationQuest = undefined; pendingStoryBeat = questCinematics[graph.questId]; updateProgress(); playCue(true); const clue = clueFor(graph.questId); toast(`${clue ? localized(clue.title) : t('Discovery saved')}${xp ? ` · +${xp} XP` : ''}${consequenceNote(effects)}`); suggestRoundAfter(quests.find(quest => quest.id === graph.questId)?.npcId); },
     expose: exerciseId => { const graph=questGraphs.find(graph=>graph.gateExerciseId===exerciseId); if(graph)localStorage.setItem(`atlas.sceneHinted.${api.selfId}.${graph.questId}`,'true'); recordExposure({ exerciseId }); },
-    onPractice: npcId => { const drill = ({marta:'tray-rush',fritz:'numbered-apples',otto:'departure-board',lina:'sorting-office',emil:'workbench',ada:'adas-alphabet',inspector:'brass-stamp',elise:'re-ink'} as Record<string,string>)[npcId]; if (drill) { void startMiniGame(drill); return; } const activity = activityInfo.find(item => item.npcId === npcId); if (activity) void startActivity(activity.id); else setView('journal'); },
+    games: npcId => hostedGames(npcId, miniGameById, miniGameReadiness(), gameDay()),
+    onGame: id => void startMiniGame(id),
+    onPractice: npcId => { const activity = activityInfo.find(item => item.npcId === npcId); if (activity) void startActivity(activity.id); else setView('journal'); },
     onGrammarGuide: guideId => { courseLevel=guideId.split('-')[0].toUpperCase() as Level; courseTab='grammar'; setView('course'); void loadCourse().then(()=>{if(view!=='course')return;renderOther();document.querySelector<HTMLElement>(`[data-grammar-guide="${guideId}"]`)?.scrollIntoView({block:'start'});}).catch(error=>toast((error as Error).message,true)); },
   });
   world.setAudioPreferences({ silent: silentMode, muted });
@@ -504,6 +509,7 @@ function watchWorld(watching: boolean): void {
 }
 function interiorIcon(id: InteriorId) { return id === 'cafe' ? 'cup' : id === 'bakery' ? 'leaf' : 'basket'; }
 function updateNearby(id?: string) {
+  const animal = animalSpeciesFromId(id);
   const entrance = id?.startsWith('building:') ? buildingEntrances(mapId).find(item => item.id === id) : undefined;
   const inside = id?.startsWith('interior:') ? getInteriorObject(id) : undefined;
   const exit = id?.startsWith('exit:') && interiorId;
@@ -512,12 +518,12 @@ function updateNearby(id?: string) {
   const talking = !entrance && !exit && !!(inside?.npcId || npc);
   const insideNpcName = inside?.npcId ? npcs.find(item => item.id === inside.npcId)?.name : undefined;
   const insideName = insideNpcName ? localizedName(insideNpcName) : inside?.label;
-  const name = entrance?.label ?? insideName ?? (exit ? getInterior(exit).name : object?.label ?? (npc ? localizedName(npc.name) : undefined));
+  const name = (animal ? animalAction(animal) : undefined) ?? entrance?.label ?? insideName ?? (exit ? getInterior(exit).name : object?.label ?? (npc ? localizedName(npc.name) : undefined));
   const button = document.querySelector<HTMLButtonElement>('#talk-button')!;
   button.disabled = !name;
   button.hidden = !name;
   document.querySelector('#nearby-name')!.textContent = name ?? '';
-  button.setAttribute('aria-label', name ? (entrance ? t('Enter {name}', { name }) : exit ? t('Leave {name}', { name }) : talking ? t('Talk to {name}', { name }) : t('Inspect {name}', { name })) : t('Move closer to interact'));
+  button.setAttribute('aria-label', name ? (animal ? name : entrance ? t('Enter {name}', { name }) : exit ? t('Leave {name}', { name }) : talking ? t('Talk to {name}', { name }) : t('Inspect {name}', { name })) : t('Move closer to interact'));
 }
 function syncLocation() {
   const room = interiorId ? getInterior(interiorId) : undefined, region = getMap(mapId);
@@ -1133,15 +1139,30 @@ function miniGameBoard(storyOnly=false):string {
   return lanternGameBoard(storyOnly?'Story games':'Mini-games',game=>!isWordGame(game)&&(!storyOnly||game.tier==='B'))+(storyOnly?'':lanternGameBoard('Word games',isWordGame));
 }
 function lanternGameBoard(title:'Story games'|'Mini-games'|'Word games',include:(game:typeof miniGameDefinitions[number])=>boolean):string {
-  const levels:Level[]=['A1','A2','B1'];
-  const choices=miniGameDefinitions.filter(game=>game.levels.some(value=>levels.indexOf(value)<=levels.indexOf(level))&&include(game));
+  const context=miniGameReadiness();
+  const choices=miniGameDefinitions.filter(game=>miniGameLevel(game,level)&&include(game)).map(game=>({game,block:miniGameBlock(game,context)}));
   if(!choices.length)return '';
-  return `<section class="lantern-games"><h3>${e(t(title))}</h3><div class="minigame-grid">${choices.map(game=>{
-    const gameLevel=game.levels.filter(value=>levels.indexOf(value)<=levels.indexOf(level)).at(-1)!;
-    const quest=game.questIds?.find(id=>quests.find(quest=>quest.id===id)?.level===gameLevel)??game.questIds?.[0];
-    const unlocked=!quest||questUnlocked(quest,progress.completedQuestIds);
-    return `<article class="minigame-entry"><h3>${e(game.title)}</h3><p>${e(game.instruction)}</p><button class="outline-button" data-minigame="${e(game.id)}" ${unlocked?'':'disabled'}>${unlocked?'Play a lantern round':'Follow the story to this scene'} ${icon('arrow')}</button></article>`;
-  }).join('')}</div></section>`;
+  // Rounds that can start now come first; the rest say what opens them.
+  choices.sort((a,b)=>Number(!!a.block)-Number(!!b.block));
+  return `<section class="lantern-games"><h3>${e(t(title))}</h3><div class="minigame-grid">${choices.map(({game,block})=>
+    `<article class="minigame-entry"><h3>${e(game.title)}</h3><p>${e(game.instruction)}</p><button class="outline-button" data-minigame="${e(game.id)}" ${block?'disabled':''}>${block?e(miniGameBlockLabel(block)):'Play a lantern round'} ${icon('arrow')}</button></article>`
+  ).join('')}</div></section>`;
+}
+/** What decides whether a round can open now: level, story, sound, writing, dusk and restored words. */
+function miniGameReadiness():ReadinessContext {
+  return {
+    level,silent:silentMode,writingReady:writingReady(),hour:world.getWorldTime().hour,
+    sceneFor:(game,gameLevel)=>game.questIds?.find(id=>quests.find(quest=>quest.id===id)?.level===gameLevel)??game.questIds?.[0],
+    sceneAvailable:id=>questAvailable(id,progress),
+    pool:course?query=>gameItemPool(course!.courseLexicon,progress,query):undefined,
+    fixedPool:id=>syllabus.quests.find(quest=>quest.questId===id)?.wordIds,
+  };
+}
+const gameDay=()=>Math.floor(Date.now()/86_400_000);
+/** A story beat ends with a round the learner can play straight away. */
+function suggestRoundAfter(npcId?:string){
+  const game=suggestedGame(miniGameDefinitions,miniGameReadiness(),npcId,gameDay());
+  if(game)notifications?.notify(t('Try a round of {game}.',{game:game.title}),false,{label:t('Play'),minigame:game.id});
 }
 function recordExpeditionExposure(text:string):void {
   void loadCourse().then(module=>{
@@ -1151,10 +1172,14 @@ function recordExpeditionExposure(text:string):void {
   }).catch(()=>{});
 }
 async function startMiniGame(id:string):Promise<void>{
+  const definition=miniGameById.get(id);if(!definition)return;
+  // A story round's content stays private until its scene, so check the gates before asking for it.
+  const early=miniGameBlock(definition,{...miniGameReadiness(),pool:undefined});
+  if(early==='writing'){showOpeningPracticeNotice(true);return;}
+  if(early){toast(miniGameBlockMessage(early,definition));return;}
   const current=dialogSession.begin();
   try { await loadMiniGame(id); } catch (error) { if(current())toast((error as Error).message, true); return; }
   if(!current())return;
-  const definition=miniGameById.get(id);if(!definition)return;
   if(connection!=='online'){toast(t('The town is reconnecting. Try again in a moment.'),true);return;}
   if(id==='neighborhood-boards'){
     if(getExpedition(mapId))startExpeditionGame(mapId);
@@ -1162,14 +1187,10 @@ async function startMiniGame(id:string):Promise<void>{
     return;
   }
   if(id==='delivery-run'){try{await startWorldDelivery();}catch(error){toast((error as Error).message,true);}return;}
-  const levels:Level[]=['A1','A2','B1'],gameLevel=definition.levels.filter(value=>levels.indexOf(value)<=levels.indexOf(level)).at(-1);
-  if(!gameLevel){toast(`This lantern round belongs to ${definition.levels.join(' / ')}.`);return;}
-  // Letter tiles, grids and guessed letters need no typing, so they stay open before writing practice.
-  if(definition.modalities.every(mode=>mode==='production')&&!['anagram','loom','fuse'].includes(definition.mechanic)&&!writingReady()){showOpeningPracticeNotice(true);return;}
+  // Too few restored words is explained inside the round, beside its "Practise today's words" button.
+  const context=miniGameReadiness(),gameLevel=miniGameLevel(definition,level);if(!gameLevel)return;
   if(isWordGame(definition))try{localStorage.setItem('atlas.wordGame.last',id);}catch{/* Rotation is only a convenience. */}
-  if(['lantern-lighting','word-chain','hold-the-signal'].includes(id)){const hour=world.getWorldTime().hour;if(hour>=6&&hour<18){toast('The lantern games open at dusk, after 18:00.');return;}}
-  const questId=definition.questIds?.find(id=>quests.find(quest=>quest.id===id)?.level===gameLevel)??definition.questIds?.[0];
-  if(questId&&!questUnlocked(questId,progress.completedQuestIds)){toast('Follow the story to this scene first.');return;}
+  const questId=context.sceneFor(definition,gameLevel);
   deliveryController?.destroy();deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;
   setView('world');cancelRun();activityController?.destroy();activityController=undefined;
   const owner=api.selfId;
@@ -1515,7 +1536,7 @@ function optionRows(): OptionRow[] {
     ...accountCredentialRows(account),
     { kind: 'choice', id: 'usage-analytics', label: t('Usage analytics'), help: t('Share visits and app issues with Glotworld to help improve the game. No external analytics services. Your browser privacy preference takes priority. Learning progress and billing records are saved separately.'), value: browserAnalyticsEnabled() ? 'on' : 'off', choices: onOff },
     { kind: 'action', id: 'manage-access', label: t('Game access'), help: accessClock.snapshot(performance.now())?.phase === 'free' ? t('Enjoy unlimited free play.') : t('Manage your access and billing.'), action: 'manage-access', button: accessClock.snapshot(performance.now())?.phase === 'free' ? t('Free to play') : accessClock.snapshot(performance.now())?.phase === 'paid' ? t('Manage access') : t('View access options'), glyph: 'clock' },
-    { kind: 'custom', id: 'account', label: account.registered ? t('Your adventure is linked') : t('Take your adventure with you'), help: account.registered ? t('Playing as {name}. Log in on another device with {email} and your password.', { name: profile.name, email: account.email }) : t('Playing as {name}. Add an email and password to continue on another device.', { name: profile.name }), html: `<div class="option-buttons">${account.registered ? '' : `<button class="option-action" data-action="save-account">${e(t('Add email & password'))}</button>`}<button class="option-action" data-action="login-account">${t('Log in to a saved adventure')}</button><button class="option-action" data-action="reset-game">${accessClock.snapshot(performance.now())?.phase === 'free' ? 'Reset game' : 'Reset game &amp; play 15 minutes'}</button><button class="option-action" data-action="logout-account">${t('Log out')}</button></div>` },
+    { kind: 'custom', id: 'account', label: account.registered ? t('Your adventure is linked') : t('Take your adventure with you'), help: account.registered ? t('Playing as {name}. Log in on another device with {email} and your password.', { name: profile.name, email: account.email }) : t('Playing as {name}. Add an email and password to continue on another device.', { name: profile.name }), html: `<div class="option-buttons">${account.registered ? '' : `<button class="option-action" data-action="save-account">${e(t('Add email & password'))}</button>`}<button class="option-action" data-action="login-account">${t('Log in to a saved adventure')}</button><button class="option-action" data-action="reset-game">${accessClock.snapshot(performance.now())?.phase === 'free' ? 'Reset game' : 'Reset game &amp; play 2 hours'}</button><button class="option-action" data-action="logout-account">${t('Log out')}</button></div>` },
   ];
 }
 // Automatic quality can change while the Display tab is open; keep its label current.
@@ -2214,7 +2235,7 @@ function showSaveAccount(required = accessClock.snapshot(performance.now())?.pha
   if (!started || account.registered) return;
   const allowance = accessClock.snapshot(performance.now());
   if (allowance?.phase === 'free') required = false;
-  accessSession.showDialog(`<h2 id="account-title">${required ? 'Sign up to keep going.' : 'Save your adventure.'}</h2><p>${allowance?.phase === 'free' ? 'Keep your character and progress on every device. Playing is free with no time limit; creating an account is optional.' : required ? `Create a free account to keep your progress${(allowance?.playedSeconds ?? 0) < 900 ? ` and play for ${Math.ceil((900 - (allowance?.playedSeconds ?? 0)) / 60)} more minutes` : ', then choose a plan to continue'}. Or reset your game for another 15 free minutes.` : `Keep your character and progress on every device. You get 15 free minutes in total; ${formatAccessTime(Math.max(0, 900 - (allowance?.playedSeconds ?? 0)))} remain in your trial.`}</p><div class="account-switch" role="group" aria-label="Account options"><button type="button" class="selected" aria-pressed="true">Sign up</button><button type="button" id="signup-login" aria-pressed="false">Log in</button></div><form id="save-account-form"><label class="form-label" for="account-email">${t('Email')}</label><input class="name-input" id="account-email" name="email" type="email" required maxlength="254" autocomplete="email"/><label class="form-label" for="account-password">${t('Choose a password')}</label><input class="name-input" id="account-password" name="password" type="password" required minlength="10" maxlength="128" autocomplete="new-password" aria-describedby="password-help"/><span id="password-help" class="caption">${t('Use 10–128 characters.')}</span><label class="form-label" for="account-password-confirm">${t('Confirm password')}</label><input class="name-input" id="account-password-confirm" type="password" required minlength="10" maxlength="128" autocomplete="new-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">Sign up &amp; keep my progress ${icon('check')}</button></form>${required ? '<p class="game-reset-note">Reset your game for 15 free minutes as often as you like. Your progress is cleared and your character stays the same.</p><button type="button" class="text-button" id="guest-reset">Reset game &amp; play 15 minutes free</button>' : '<button type="button" class="text-button" id="account-later">Back to my adventure</button>'}`, required);
+  accessSession.showDialog(`<h2 id="account-title">${required ? 'Sign up to keep going.' : 'Save your adventure.'}</h2><p>${allowance?.phase === 'free' ? 'Keep your character and progress on every device. Playing is free with no time limit; creating an account is optional.' : required ? `Create a free account to keep your progress${(allowance?.playedSeconds ?? 0) < 7200 ? ` and play for ${Math.ceil((7200 - (allowance?.playedSeconds ?? 0)) / 60)} more minutes` : ', then choose a plan to continue'}. Or reset your game for another 2 free hours.` : `Keep your character and progress on every device. You get 2 free hours in total; ${formatAccessTime(Math.max(0, 7200 - (allowance?.playedSeconds ?? 0)))} remain in your trial.`}</p><div class="account-switch" role="group" aria-label="Account options"><button type="button" class="selected" aria-pressed="true">Sign up</button><button type="button" id="signup-login" aria-pressed="false">Log in</button></div><form id="save-account-form"><label class="form-label" for="account-email">${t('Email')}</label><input class="name-input" id="account-email" name="email" type="email" required maxlength="254" autocomplete="email"/><label class="form-label" for="account-password">${t('Choose a password')}</label><input class="name-input" id="account-password" name="password" type="password" required minlength="10" maxlength="128" autocomplete="new-password" aria-describedby="password-help"/><span id="password-help" class="caption">${t('Use 10–128 characters.')}</span><label class="form-label" for="account-password-confirm">${t('Confirm password')}</label><input class="name-input" id="account-password-confirm" type="password" required minlength="10" maxlength="128" autocomplete="new-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">Sign up &amp; keep my progress ${icon('check')}</button></form>${required ? '<p class="game-reset-note">Reset your game for 2 free hours as often as you like. Your progress is cleared and your character stays the same.</p><button type="button" class="text-button" id="guest-reset">Reset game &amp; play 2 hours free</button>' : '<button type="button" class="text-button" id="account-later">Back to my adventure</button>'}`, required);
   document.querySelector<HTMLButtonElement>('#signup-login')!.onclick = () => showLogin();
   if (allowance?.phase !== 'free' && pendingReferral(localStorage)) document.querySelector('#save-account-form')!.insertAdjacentHTML('beforebegin', '<p class="referral-status">Your signup gives the friend who invited you 90 extra minutes of free play.</p>');
   document.querySelector<HTMLButtonElement>('#guest-reset')?.addEventListener('click', accessSession.showResetGame);
@@ -2260,7 +2281,7 @@ function showLogout() {
 
 function showLogin() {
   const required = started && accessClock.snapshot(performance.now())?.phase === 'login_required';
-  accessSession.showDialog(`<h2 id="account-title">${t('Continue your adventure.')}</h2><p>${t('Use the email and password you saved to restore your name, character and progress.')}${started ? ` ${t('Logging in opens the adventure linked to that email.')}` : ''}</p>${started && !account.registered ? `<div class="account-switch" role="group" aria-label="Account options"><button type="button" id="login-signup" aria-pressed="false">Sign up</button><button type="button" class="selected" aria-pressed="true">Log in</button></div>` : ''}<form id="login-account-form"><label class="form-label" for="login-email">${t('Email')}</label><input class="name-input" id="login-email" type="email" required maxlength="254" autocomplete="username"/><label class="form-label" for="login-password">${t('Password')}</label><input class="name-input" id="login-password" type="password" required maxlength="128" autocomplete="current-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">${e(t('Log in & continue'))} ${icon('arrow')}</button></form>${required ? '<p class="game-reset-note">Signing up keeps this guest adventure. Logging in restores the adventure saved to that email.</p><button type="button" class="text-button" id="guest-reset">Reset game &amp; play 15 minutes free</button>' : `<button class="text-button" id="login-back">${started ? t('Back to my adventure') : entryLanguage ? t('Back to choosing a name') : t('Back to choosing languages')}</button>`}`, required);
+  accessSession.showDialog(`<h2 id="account-title">${t('Continue your adventure.')}</h2><p>${t('Use the email and password you saved to restore your name, character and progress.')}${started ? ` ${t('Logging in opens the adventure linked to that email.')}` : ''}</p>${started && !account.registered ? `<div class="account-switch" role="group" aria-label="Account options"><button type="button" id="login-signup" aria-pressed="false">Sign up</button><button type="button" class="selected" aria-pressed="true">Log in</button></div>` : ''}<form id="login-account-form"><label class="form-label" for="login-email">${t('Email')}</label><input class="name-input" id="login-email" type="email" required maxlength="254" autocomplete="username"/><label class="form-label" for="login-password">${t('Password')}</label><input class="name-input" id="login-password" type="password" required maxlength="128" autocomplete="current-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">${e(t('Log in & continue'))} ${icon('arrow')}</button></form>${required ? '<p class="game-reset-note">Signing up keeps this guest adventure. Logging in restores the adventure saved to that email.</p><button type="button" class="text-button" id="guest-reset">Reset game &amp; play 2 hours free</button>' : `<button class="text-button" id="login-back">${started ? t('Back to my adventure') : entryLanguage ? t('Back to choosing a name') : t('Back to choosing languages')}</button>`}`, required);
   document.querySelector<HTMLButtonElement>('#login-back')?.addEventListener('click', () => {
     if (started) document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
     else if (entryLanguage) showNameEntry(!!api.token);

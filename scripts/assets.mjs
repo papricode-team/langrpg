@@ -12,6 +12,7 @@ const content = [
   ['audit-pacing.mjs'],
 ];
 const paint = [
+  ['prepare-animal-art.mjs'],
   ['prepare-resident-action-art.mjs'],
   ['prepare-world-art.mjs'], ['prepare-world-variations.mjs'],
   ['prepare-world-animations.mjs', '--set', 'day'], ['prepare-world-animations.mjs', '--set', 'night'],

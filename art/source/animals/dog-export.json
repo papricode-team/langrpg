@@ -1,0 +1,1450 @@
+{
+  "sourceHash": "a24b5e6cb1c8d62c2b9142a124fcfdef63f4f29df465d70c46165c38caa74b78",
+  "matte": {
+    "removedPixels": 243745,
+    "removedAlphaTotal": 244656,
+    "maxRemovedAlpha": 4
+  },
+  "frames": [
+    {
+      "variant": 0,
+      "pose": "walk-0",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 33,
+        "y0": 25,
+        "x1": 142,
+        "y1": 150,
+        "pixels": 6733
+      },
+      "footX": 122,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 9,
+        "y": 33,
+        "w": 69,
+        "h": 78
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "walk-1",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 184,
+        "y0": 27,
+        "x1": 293,
+        "y1": 157,
+        "pixels": 6730
+      },
+      "footX": 276.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 7,
+        "y": 30,
+        "w": 69,
+        "h": 81
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "walk-2",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 334,
+        "y0": 25,
+        "x1": 443,
+        "y1": 161,
+        "pixels": 6839
+      },
+      "footX": 417,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 13,
+        "y": 27,
+        "w": 69,
+        "h": 85
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "walk-3",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 465,
+        "y0": 26,
+        "x1": 582,
+        "y1": 159,
+        "pixels": 6653
+      },
+      "footX": 555,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 9,
+        "y": 29,
+        "w": 74,
+        "h": 83
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "walk-back-0",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 609,
+        "y0": 41,
+        "x1": 721,
+        "y1": 152,
+        "pixels": 6684
+      },
+      "footX": 649,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 39,
+        "y": 42,
+        "w": 71,
+        "h": 70
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "walk-back-1",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 743,
+        "y0": 25,
+        "x1": 857,
+        "y1": 153,
+        "pixels": 6711
+      },
+      "footX": 790,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 34,
+        "y": 32,
+        "w": 72,
+        "h": 80
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "walk-back-2",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 887,
+        "y0": 24,
+        "x1": 1000,
+        "y1": 154,
+        "pixels": 6708
+      },
+      "footX": 940.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 31,
+        "y": 30,
+        "w": 71,
+        "h": 81
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "walk-back-3",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 1034,
+        "y0": 24,
+        "x1": 1146,
+        "y1": 155,
+        "pixels": 6990
+      },
+      "footX": 1078,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 36,
+        "y": 30,
+        "w": 71,
+        "h": 82
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "idle-0",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 34,
+        "y0": 162,
+        "x1": 143,
+        "y1": 295,
+        "pixels": 7684
+      },
+      "footX": 101.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 22,
+        "y": 29,
+        "w": 69,
+        "h": 83
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "idle-1",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 186,
+        "y0": 162,
+        "x1": 298,
+        "y1": 294,
+        "pixels": 7974
+      },
+      "footX": 262,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 17,
+        "y": 29,
+        "w": 71,
+        "h": 83
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "rest-0",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 326,
+        "y0": 211,
+        "x1": 439,
+        "y1": 279,
+        "pixels": 6258
+      },
+      "footX": 374.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 34,
+        "y": 68,
+        "w": 71,
+        "h": 44
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "rest-1",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 469,
+        "y0": 211,
+        "x1": 582,
+        "y1": 280,
+        "pixels": 6162
+      },
+      "footX": 517.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 34,
+        "y": 67,
+        "w": 71,
+        "h": 45
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "forage-0",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 606,
+        "y0": 173,
+        "x1": 733,
+        "y1": 294,
+        "pixels": 7995
+      },
+      "footX": 701.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 5,
+        "y": 36,
+        "w": 80,
+        "h": 76
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "forage-1",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 754,
+        "y0": 174,
+        "x1": 870,
+        "y1": 297,
+        "pixels": 7164
+      },
+      "footX": 841,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 10,
+        "y": 35,
+        "w": 73,
+        "h": 77
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "forage-2",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 886,
+        "y0": 169,
+        "x1": 1013,
+        "y1": 299,
+        "pixels": 8066
+      },
+      "footX": 977.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 8,
+        "y": 30,
+        "w": 80,
+        "h": 81
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "forage-3",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 1037,
+        "y0": 170,
+        "x1": 1148,
+        "y1": 295,
+        "pixels": 7202
+      },
+      "footX": 1111.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 18,
+        "y": 33,
+        "w": 70,
+        "h": 78
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "happy-0",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 33,
+        "y0": 308,
+        "x1": 132,
+        "y1": 442,
+        "pixels": 7827
+      },
+      "footX": 101,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 22,
+        "y": 28,
+        "w": 63,
+        "h": 84
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "happy-1",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 177,
+        "y0": 321,
+        "x1": 284,
+        "y1": 442,
+        "pixels": 7680
+      },
+      "footX": 249.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 19,
+        "y": 36,
+        "w": 68,
+        "h": 76
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "happy-2",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 320,
+        "y0": 325,
+        "x1": 436,
+        "y1": 442,
+        "pixels": 7610
+      },
+      "footX": 399,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 15,
+        "y": 38,
+        "w": 73,
+        "h": 74
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "happy-3",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 481,
+        "y0": 316,
+        "x1": 572,
+        "y1": 442,
+        "pixels": 6821
+      },
+      "footX": 511.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 44,
+        "y": 33,
+        "w": 58,
+        "h": 79
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "annoyed-0",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 605,
+        "y0": 320,
+        "x1": 722,
+        "y1": 446,
+        "pixels": 7250
+      },
+      "footX": 680.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 17,
+        "y": 33,
+        "w": 74,
+        "h": 79
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "annoyed-1",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 759,
+        "y0": 330,
+        "x1": 858,
+        "y1": 445,
+        "pixels": 6972
+      },
+      "footX": 827,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 22,
+        "y": 39,
+        "w": 63,
+        "h": 72
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "annoyed-2",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 894,
+        "y0": 321,
+        "x1": 997,
+        "y1": 445,
+        "pixels": 7033
+      },
+      "footX": 961.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 22,
+        "y": 34,
+        "w": 65,
+        "h": 78
+      }
+    },
+    {
+      "variant": 0,
+      "pose": "annoyed-3",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 1045,
+        "y0": 317,
+        "x1": 1153,
+        "y1": 445,
+        "pixels": 7297
+      },
+      "footX": 1111.5,
+      "scale": 0.6031746031746031,
+      "registration": {
+        "x": 23,
+        "y": 32,
+        "w": 68,
+        "h": 80
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "walk-0",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 43,
+        "y0": 457,
+        "x1": 145,
+        "y1": 604,
+        "pixels": 6695
+      },
+      "footX": 116,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 25,
+        "y": 33,
+        "w": 55,
+        "h": 78
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "walk-1",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 188,
+        "y0": 460,
+        "x1": 300,
+        "y1": 604,
+        "pixels": 6794
+      },
+      "footX": 272.5,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 20,
+        "y": 35,
+        "w": 60,
+        "h": 77
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "walk-2",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 326,
+        "y0": 466,
+        "x1": 440,
+        "y1": 606,
+        "pixels": 6795
+      },
+      "footX": 414.5,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 18,
+        "y": 37,
+        "w": 61,
+        "h": 74
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "walk-3",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 472,
+        "y0": 466,
+        "x1": 582,
+        "y1": 606,
+        "pixels": 6309
+      },
+      "footX": 557.5,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 19,
+        "y": 37,
+        "w": 59,
+        "h": 74
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "walk-back-0",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 614,
+        "y0": 467,
+        "x1": 712,
+        "y1": 599,
+        "pixels": 5792
+      },
+      "footX": 655.5,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 42,
+        "y": 41,
+        "w": 53,
+        "h": 70
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "walk-back-1",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 746,
+        "y0": 466,
+        "x1": 848,
+        "y1": 603,
+        "pixels": 6314
+      },
+      "footX": 792,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 39,
+        "y": 39,
+        "w": 55,
+        "h": 73
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "walk-back-2",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 890,
+        "y0": 467,
+        "x1": 993,
+        "y1": 599,
+        "pixels": 5957
+      },
+      "footX": 934.5,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 40,
+        "y": 41,
+        "w": 55,
+        "h": 70
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "walk-back-3",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 1039,
+        "y0": 467,
+        "x1": 1145,
+        "y1": 603,
+        "pixels": 6093
+      },
+      "footX": 1083,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 40,
+        "y": 39,
+        "w": 57,
+        "h": 72
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "idle-0",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 37,
+        "y0": 607,
+        "x1": 142,
+        "y1": 744,
+        "pixels": 7074
+      },
+      "footX": 108,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 27,
+        "y": 39,
+        "w": 56,
+        "h": 73
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "idle-1",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 190,
+        "y0": 609,
+        "x1": 300,
+        "y1": 744,
+        "pixels": 7193
+      },
+      "footX": 264,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 25,
+        "y": 40,
+        "w": 59,
+        "h": 72
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "rest-0",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 330,
+        "y0": 659,
+        "x1": 437,
+        "y1": 726,
+        "pixels": 5881
+      },
+      "footX": 381.5,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 37,
+        "y": 75,
+        "w": 58,
+        "h": 37
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "rest-1",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 470,
+        "y0": 660,
+        "x1": 576,
+        "y1": 726,
+        "pixels": 5778
+      },
+      "footX": 522,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 36,
+        "y": 75,
+        "w": 57,
+        "h": 36
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "forage-0",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 618,
+        "y0": 618,
+        "x1": 724,
+        "y1": 744,
+        "pixels": 6373
+      },
+      "footX": 680,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 31,
+        "y": 44,
+        "w": 57,
+        "h": 67
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "forage-1",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 762,
+        "y0": 627,
+        "x1": 871,
+        "y1": 751,
+        "pixels": 6350
+      },
+      "footX": 844,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 21,
+        "y": 45,
+        "w": 59,
+        "h": 66
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "forage-2",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 894,
+        "y0": 620,
+        "x1": 1010,
+        "y1": 748,
+        "pixels": 6291
+      },
+      "footX": 973,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 22,
+        "y": 43,
+        "w": 62,
+        "h": 68
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "forage-3",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 1047,
+        "y0": 630,
+        "x1": 1152,
+        "y1": 762,
+        "pixels": 6616
+      },
+      "footX": 1118.5,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 26,
+        "y": 41,
+        "w": 56,
+        "h": 70
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "happy-0",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 39,
+        "y0": 760,
+        "x1": 133,
+        "y1": 900,
+        "pixels": 7610
+      },
+      "footX": 106.5,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 28,
+        "y": 37,
+        "w": 51,
+        "h": 74
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "happy-1",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 178,
+        "y0": 776,
+        "x1": 282,
+        "y1": 900,
+        "pixels": 7236
+      },
+      "footX": 249.5,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 26,
+        "y": 45,
+        "w": 56,
+        "h": 66
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "happy-2",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 329,
+        "y0": 762,
+        "x1": 431,
+        "y1": 900,
+        "pixels": 7160
+      },
+      "footX": 394.5,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 29,
+        "y": 38,
+        "w": 55,
+        "h": 73
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "happy-3",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 477,
+        "y0": 760,
+        "x1": 568,
+        "y1": 897,
+        "pixels": 6901
+      },
+      "footX": 509.5,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 46,
+        "y": 39,
+        "w": 49,
+        "h": 73
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "annoyed-0",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 615,
+        "y0": 765,
+        "x1": 719,
+        "y1": 904,
+        "pixels": 7229
+      },
+      "footX": 689.5,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 25,
+        "y": 38,
+        "w": 56,
+        "h": 74
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "annoyed-1",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 765,
+        "y0": 772,
+        "x1": 855,
+        "y1": 903,
+        "pixels": 6807
+      },
+      "footX": 829.5,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 30,
+        "y": 42,
+        "w": 49,
+        "h": 70
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "annoyed-2",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 888,
+        "y0": 765,
+        "x1": 991,
+        "y1": 904,
+        "pixels": 7049
+      },
+      "footX": 970,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 21,
+        "y": 38,
+        "w": 55,
+        "h": 74
+      }
+    },
+    {
+      "variant": 1,
+      "pose": "annoyed-3",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 1048,
+        "y0": 769,
+        "x1": 1149,
+        "y1": 903,
+        "pixels": 6741
+      },
+      "footX": 1113,
+      "scale": 0.5135135135135135,
+      "registration": {
+        "x": 30,
+        "y": 40,
+        "w": 54,
+        "h": 71
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "walk-0",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 33,
+        "y0": 912,
+        "x1": 152,
+        "y1": 1049,
+        "pixels": 8326
+      },
+      "footX": 117.5,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 16,
+        "y": 33,
+        "w": 68,
+        "h": 78
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "walk-1",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 188,
+        "y0": 918,
+        "x1": 305,
+        "y1": 1051,
+        "pixels": 7775
+      },
+      "footX": 270,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 18,
+        "y": 36,
+        "w": 67,
+        "h": 76
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "walk-2",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 325,
+        "y0": 919,
+        "x1": 446,
+        "y1": 1059,
+        "pixels": 7860
+      },
+      "footX": 410,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 16,
+        "y": 32,
+        "w": 69,
+        "h": 80
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "walk-3",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 466,
+        "y0": 934,
+        "x1": 588,
+        "y1": 1065,
+        "pixels": 7522
+      },
+      "footX": 553,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 15,
+        "y": 37,
+        "w": 70,
+        "h": 75
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "walk-back-0",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 611,
+        "y0": 927,
+        "x1": 721,
+        "y1": 1054,
+        "pixels": 7287
+      },
+      "footX": 664,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 34,
+        "y": 39,
+        "w": 63,
+        "h": 73
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "walk-back-1",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 749,
+        "y0": 927,
+        "x1": 857,
+        "y1": 1056,
+        "pixels": 7254
+      },
+      "footX": 798,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 36,
+        "y": 38,
+        "w": 62,
+        "h": 74
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "walk-back-2",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 885,
+        "y0": 928,
+        "x1": 1003,
+        "y1": 1056,
+        "pixels": 7605
+      },
+      "footX": 937,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 34,
+        "y": 38,
+        "w": 68,
+        "h": 73
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "walk-back-3",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 1039,
+        "y0": 932,
+        "x1": 1149,
+        "y1": 1055,
+        "pixels": 7271
+      },
+      "footX": 1084,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 38,
+        "y": 41,
+        "w": 63,
+        "h": 70
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "idle-0",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 30,
+        "y0": 1059,
+        "x1": 144,
+        "y1": 1180,
+        "pixels": 8518
+      },
+      "footX": 101.5,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 24,
+        "y": 42,
+        "w": 66,
+        "h": 69
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "idle-1",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 176,
+        "y0": 1058,
+        "x1": 302,
+        "y1": 1179,
+        "pixels": 8781
+      },
+      "footX": 267,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 13,
+        "y": 42,
+        "w": 72,
+        "h": 69
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "rest-0",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 326,
+        "y0": 1092,
+        "x1": 441,
+        "y1": 1164,
+        "pixels": 6500
+      },
+      "footX": 380,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 33,
+        "y": 69,
+        "w": 66,
+        "h": 42
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "rest-1",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 468,
+        "y0": 1091,
+        "x1": 583,
+        "y1": 1164,
+        "pixels": 6571
+      },
+      "footX": 521.5,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 33,
+        "y": 69,
+        "w": 66,
+        "h": 43
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "forage-0",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 611,
+        "y0": 1065,
+        "x1": 741,
+        "y1": 1181,
+        "pixels": 8037
+      },
+      "footX": 705,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 11,
+        "y": 45,
+        "w": 74,
+        "h": 67
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "forage-1",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 762,
+        "y0": 1074,
+        "x1": 873,
+        "y1": 1187,
+        "pixels": 7064
+      },
+      "footX": 841,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 19,
+        "y": 47,
+        "w": 64,
+        "h": 65
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "forage-2",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 896,
+        "y0": 1073,
+        "x1": 1023,
+        "y1": 1184,
+        "pixels": 7615
+      },
+      "footX": 974,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 20,
+        "y": 48,
+        "w": 73,
+        "h": 64
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "forage-3",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 1036,
+        "y0": 1078,
+        "x1": 1154,
+        "y1": 1189,
+        "pixels": 7559
+      },
+      "footX": 1107.5,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 24,
+        "y": 48,
+        "w": 68,
+        "h": 64
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "happy-0",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 36,
+        "y0": 1189,
+        "x1": 141,
+        "y1": 1312,
+        "pixels": 8158
+      },
+      "footX": 101.5,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 27,
+        "y": 41,
+        "w": 61,
+        "h": 70
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "happy-1",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 180,
+        "y0": 1203,
+        "x1": 291,
+        "y1": 1310,
+        "pixels": 7225
+      },
+      "footX": 250.5,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 24,
+        "y": 50,
+        "w": 64,
+        "h": 62
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "happy-2",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 321,
+        "y0": 1194,
+        "x1": 437,
+        "y1": 1311,
+        "pixels": 8290
+      },
+      "footX": 395,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 22,
+        "y": 44,
+        "w": 67,
+        "h": 67
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "happy-3",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 475,
+        "y0": 1188,
+        "x1": 581,
+        "y1": 1316,
+        "pixels": 7551
+      },
+      "footX": 536,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 29,
+        "y": 38,
+        "w": 61,
+        "h": 73
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "annoyed-0",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 609,
+        "y0": 1202,
+        "x1": 716,
+        "y1": 1317,
+        "pixels": 7601
+      },
+      "footX": 682.5,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 22,
+        "y": 46,
+        "w": 62,
+        "h": 66
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "annoyed-1",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 768,
+        "y0": 1206,
+        "x1": 862,
+        "y1": 1317,
+        "pixels": 7387
+      },
+      "footX": 829,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 29,
+        "y": 48,
+        "w": 55,
+        "h": 64
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "annoyed-2",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 895,
+        "y0": 1203,
+        "x1": 996,
+        "y1": 1317,
+        "pixels": 7077
+      },
+      "footX": 969,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 22,
+        "y": 46,
+        "w": 58,
+        "h": 66
+      }
+    },
+    {
+      "variant": 2,
+      "pose": "annoyed-3",
+      "source": "dog.png",
+      "bounds": {
+        "x0": 1047,
+        "y0": 1203,
+        "x1": 1154,
+        "y1": 1317,
+        "pixels": 7408
+      },
+      "footX": 1116.5,
+      "scale": 0.5507246376811594,
+      "registration": {
+        "x": 25,
+        "y": 46,
+        "w": 62,
+        "h": 66
+      }
+    }
+  ]
+}

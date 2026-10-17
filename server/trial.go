@@ -11,8 +11,8 @@ import (
 )
 
 const (
-	guestPlayLimit     = 5 * time.Minute
-	trialPlayLimit     = 15 * time.Minute
+	guestPlayLimit     = 10 * time.Minute
+	trialPlayLimit     = 2 * time.Hour
 	referralPlayBonus  = 90 * time.Minute
 	maxReferralSignups = (time.Duration(1<<63-1) - trialPlayLimit) / referralPlayBonus
 	playLease          = 30 * time.Second
@@ -33,7 +33,7 @@ func playLimit(account Account) time.Duration {
 	if account.Email != "" {
 		return trialPlayLimit + referralBonus(account)
 	}
-	// Every explicit restart receives fifteen minutes, including guest restarts.
+	// Every explicit restart receives two hours, including guest restarts.
 	if account.Access.ResetTrial || account.ActiveCourseID == "" && account.Access.Generation > 0 {
 		return trialPlayLimit
 	}
@@ -251,9 +251,9 @@ func accessBlocked(status AccessStatus) bool {
 }
 
 func writeAccessBlocked(w http.ResponseWriter, status AccessStatus) {
-	code, message := http.StatusForbidden, "sign in or create an account to keep your progress, or reset the game for another 15 free minutes"
+	code, message := http.StatusForbidden, "sign in or create an account to keep your progress, or reset the game for another 2 free hours"
 	if status.Phase == "payment_required" {
-		code, message = http.StatusPaymentRequired, "subscribe to keep your progress, or reset the game for another 15 free minutes"
+		code, message = http.StatusPaymentRequired, "subscribe to keep your progress, or reset the game for another 2 free hours"
 	}
 	writeJSON(w, code, map[string]any{"error": message, "access": status})
 }
@@ -418,7 +418,7 @@ func (a *App) resetAccess(w http.ResponseWriter, r *http.Request) {
 }
 
 func resetGameProgress(account *Account) error {
-	// A restart grants the advertised fresh fifteen minutes; past referral
+	// A restart grants the advertised fresh two hours; past referral
 	// rewards cannot be replayed. Attribution and already-issued links survive.
 	account.Referrals.ResetSignups = account.Referrals.SuccessfulSignups
 	revision := account.Progress.Revision

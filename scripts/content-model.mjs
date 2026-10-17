@@ -32,7 +32,7 @@ export function selectorRange(text, selector, label = 'selector') {
 
 export function sourceTokens(text) {
   const counts = new Map(), result = [];
-  for (const match of text.matchAll(/\{[a-zA-Z][a-zA-Z0-9_]*\}|[\p{L}\p{M}]+(?:[-’'][\p{L}\p{M}]+)*/gu)) {
+  for (const match of text.matchAll(/\{[a-zA-Z][a-zA-Z0-9_]*\}|[\p{L}\p{M}]+(?:[-’'][\p{L}\p{M}]+)*[²³]?/gu)) {
     // A player's substituted name is presentation, not a vocabulary occurrence.
     if (match[0].startsWith('{')) continue;
     const occurrence = (counts.get(match[0]) ?? 0) + 1; counts.set(match[0], occurrence);

@@ -25859,13 +25859,13 @@
   "b1-temptation-exercise-1": {
    "german": "Wenn ich den Schlüssel drehe, was passiert dann?",
    "source": {
-    "prompt": "Ask Ada what happens if you turn the key.",
+    "prompt": "Ask Voss what happens if you turn the key.",
     "hint": "wenn-clause first, verb at its end; then the question.",
     "explanation": "After a wenn-clause the main clause starts with its verb or question word.",
     "english": "If I turn the key, what happens then?"
    },
    "tr": {
-    "prompt": "Ada’ya anahtarı çevirirsen ne olacağını sor.",
+    "prompt": "Voss’a anahtarı çevirirsen ne olacağını sor.",
     "hint": "Önce wenn cümlesi, fiil sonunda; sonra soru.",
     "explanation": "wenn cümlesinden sonra ana cümle fiil ya da soru kelimesiyle başlar.",
     "english": "Anahtarı çevirirsem o zaman ne olur?"

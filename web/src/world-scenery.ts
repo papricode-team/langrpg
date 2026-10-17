@@ -101,7 +101,9 @@ export class WorldScenery {
         // The collision snapshot and wall line share one reference coordinate
         // frame. Night paintings can have different native crop dimensions.
         sortLine:spec.sortLine??(authoredGeometry?authoredGeometry.sortLine:animation?.sortLine)};
-      const sampleDepth=createDepthSampler(spec,geometry);
+      // Flat track art belongs above terrain and below every upright object,
+      // regardless of where its far endpoint falls in the world.
+      const sampleDepth=detail?.layer==='ground'?()=>0:createDepthSampler(spec,geometry);
       const sprite=scene.add.sprite(spec.x,spec.y,key,frameName)
         .setOrigin(detail?.originX??base?.originX??animation?.originX??.5,detail?.originY??base?.originY??animation?.originY??1).setScale(scale)
         .setDepth(worldDepth(spec.depth??sampleDepth(spec.x))).setFlipX(spec.flipX??false);
@@ -121,12 +123,12 @@ export class WorldScenery {
       }
       const contactArtwork={frame,referenceWidth:spec.width/scale,originX:sprite.originX,originY:sprite.originY};
       const contactKind=sceneryContactKind(spec),groundAt=(x:number,y:number)=>foundationGround(mapId,x,y,this.terrain);
-      const foundation=building?new BuildingFoundation(scene,mapId,spec,authoredGeometry??animation,contactArtwork,groundAt)
+      const foundation=building&&(!detail||detail.collidable)?new BuildingFoundation(scene,mapId,spec,authoredGeometry??animation,contactArtwork,groundAt)
         :contactKind?new SceneryContact(scene,mapId,spec,contactKind,contactArtwork,groundAt):undefined;
       // Each narrow strip has its own wall segment depth. This also sorts two
       // characters correctly when they stand on opposite sides of one building.
       // A camera-dependent single depth cannot represent both relationships.
-      const segmented=geometry.sortLine&&new Set(geometry.sortLine.map(point=>point[1])).size>1&&spec.depth===undefined;
+      const segmented=detail?.layer!=='ground'&&geometry.sortLine&&new Set(geometry.sortLine.map(point=>point[1])).size>1&&spec.depth===undefined;
       const baseParts=segmented?this.segmentPart(parts[0],sampleDepth):[parts[0]];
       const renderedParts=[...baseParts,...parts.slice(1).flatMap(part=>segmented?this.segmentPart(part,sampleDepth):[part])];
       if(foundation?.surface)renderedParts.push(...this.segmentFoundationSurface({sprite:foundation.surface,scale:foundation.surface.scaleX,

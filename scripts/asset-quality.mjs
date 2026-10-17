@@ -53,7 +53,9 @@ export function qualityPlan(rel, width, height, density) {
     const scale = Math.min(1, cap.max[0] / width, cap.max[1] / height);
     return { high: fit([width, height], scale), reduced: {} };
   }
-  const reduced = Math.min(width, height) >= MIN_REDUCED_SIDE
+  // Animal sheets pack 128px cells with ~76px figures; halving the whole atlas
+  // would reduce each animal below its displayed size even on the low tier.
+  const reduced = !rel.startsWith('animals/') && Math.min(width, height) >= MIN_REDUCED_SIDE
     ? Object.fromEntries(REDUCED_TIERS.map(tier => [tier, fit([width, height], density ? Math.min(1, SCENERY_DENSITY[tier] / density) : QUALITY_TIERS[tier])]))
     : {};
   return { high: [width, height], reduced };

@@ -144,6 +144,229 @@
       "motion": "still",
       "subject": "a small weathered carved stone birdbath with a shallow circular basin on a short pedestal, a little clear water, faint moss at the base, no bird",
       "prompt": "Use case: stylized-concept. Asset type: high-resolution transparent scenery cutout for a cozy European village exploration game. Style: finely detailed hand-painted 2.5D game art, soft natural brush texture, realistic small material details, restrained warm earthy palette; compatible with ornate timber-and-stone village buildings, not vector, not low-poly, not chunky pixel art. Camera: fixed elevated three-quarter orthographic view, about 45 degrees downward, no perspective vanishing point. Soft diffuse daylight from upper left. One isolated asset centered, fills roughly 85 percent of a square canvas with generous safe margin, all parts fully visible. True transparent background including between leaves and branches. No surrounding landscape, ground tile, vignette, backdrop, frame, lettering, interface, watermark or hard cast shadow. Render at the largest native square resolution available; crisp fine detail suitable for zooming in. Subject: a small weathered carved stone birdbath with a shallow circular basin on a short pedestal, a little clear water, faint moss at the base, no bird."
+    },
+    {
+      "id": "station-ticket-hall",
+      "prompt": "Use case: stylized-concept. Asset type: ONE modular transparent game scenery piece for glotworld map editor. Reference is style and camera only. Match ivory limestone, jade teal copper roofs, fine dark ironwork and gold trim of reference. Finely detailed painterly 2.5D European railway architecture. Elevated orthographic three-quarter camera about 60 degrees downward, front faces bottom-left, length axis bottom-left to top-right matching reference tracks. Soft neutral daylight upper-left. Actual transparent background, including openings. Single isolated object, fully visible with safe transparent margins, native high detail square image at least 1024px. No text, watermark, ground landscape, grass, backdrop, cast shadow, people, or other pieces. This must be independently placeable. A freestanding symmetrical two-storey railway ticket hall with central clock gable, jade pitched roof, two chimney stacks, ivory stone walls, arched windows, warm timber double entrance and small jade porch. Similar to the front building in reference, reconstructed as a COMPLETE rectangular freestanding building with right rear wall. Only narrow foundation lip. REMOVE the attached long platform hall, all trains and ALL tracks. No benches or planters.",
+      "name": "Station ticket hall",
+      "asset": "station",
+      "worldWidth": 310,
+      "collidable": true,
+      "motion": "still",
+      "geometry": {
+        "footprint": [
+          [
+            -527,
+            -351
+          ],
+          [
+            -227,
+            -621
+          ],
+          [
+            538,
+            -306
+          ],
+          [
+            233,
+            -6
+          ]
+        ],
+        "sortLine": [
+          [
+            -527,
+            -336
+          ],
+          [
+            233,
+            -6
+          ],
+          [
+            538,
+            -291
+          ]
+        ],
+        "door": {
+          "x": -162,
+          "y": -201,
+          "width": 140,
+          "height": 160
+        }
+      }
+    },
+    {
+      "id": "station-office",
+      "prompt": "Use case: stylized-concept. Asset type: ONE modular transparent game scenery piece for glotworld map editor. Reference is style and camera only. Match ivory limestone, jade teal copper roofs, fine dark ironwork and gold trim of reference. Finely detailed painterly 2.5D European railway architecture. Elevated orthographic three-quarter camera about 60 degrees downward, front faces bottom-left, length axis bottom-left to top-right matching reference tracks. Soft neutral daylight upper-left. Actual transparent background, including openings. Single isolated object, fully visible with safe transparent margins, native high detail square image at least 1024px. No text, watermark, ground landscape, grass, backdrop, cast shadow, people, or other pieces. This must be independently placeable. A separate smaller single-storey railway waiting-room and stationmaster office, elongated rectangular ivory stone building, jade pitched roof with small chimney, three arched windows and one timber door on visible long front wall. Same architectural family as reference but distinctly lower and simpler than ticket hall. Full freestanding building, narrow foundation lip ONLY. No clock, platform, canopy, train or rails.",
+      "name": "Station office and waiting room",
+      "asset": "station",
+      "worldWidth": 300,
+      "collidable": true,
+      "motion": "still",
+      "geometry": {
+        "footprint": [
+          [
+            -481,
+            -200
+          ],
+          [
+            253,
+            -605
+          ],
+          [
+            583,
+            -435
+          ],
+          [
+            -147,
+            -10
+          ]
+        ],
+        "sortLine": [
+          [
+            -481,
+            -193
+          ],
+          [
+            -147,
+            -10
+          ],
+          [
+            583,
+            -435
+          ]
+        ],
+        "door": {
+          "x": -297,
+          "y": -140,
+          "width": 105,
+          "height": 160
+        }
+      }
+    },
+    {
+      "id": "station-platform-canopy",
+      "prompt": "Use case: stylized-concept. Asset type: ONE modular transparent game scenery piece for glotworld map editor. Reference is style and camera only. Match ivory limestone, jade teal copper roofs, fine dark ironwork and gold trim of reference. Finely detailed painterly 2.5D European railway architecture. Elevated orthographic three-quarter camera about 60 degrees downward, front faces bottom-left, length axis bottom-left to top-right matching reference tracks. Soft neutral daylight upper-left. Actual transparent background, including openings. Single isolated object, fully visible with safe transparent margins, native high detail square image at least 1024px. No text, watermark, ground landscape, grass, backdrop, cast shadow, people, or other pieces. This must be independently placeable. A separate open railway platform canopy module: long narrow jade copper and blue glass pitched canopy supported on exactly six ornate dark iron columns, three pairs. Long axis southwest to northeast like reference platform. Completely open sides, NO solid building or walls. Slim cream limestone platform floor directly beneath pillars, low straight clean edge. Roof and base terminate cleanly at both ends so repeated copies can extend a platform. NO benches, planters, signs, tracks, locomotive or rolling stock.",
+      "name": "Station platform canopy",
+      "asset": "station",
+      "worldWidth": 310,
+      "collidable": false,
+      "motion": "still",
+      "geometry": {
+        "footprint": [],
+        "sortLine": [
+          [
+            -502,
+            -169
+          ],
+          [
+            -272,
+            -4
+          ],
+          [
+            583,
+            -639
+          ]
+        ]
+      }
+    },
+    {
+      "id": "railway-locomotive",
+      "prompt": "Use case: stylized-concept. Asset type: ONE modular transparent game scenery piece for glotworld map editor. Reference is style and camera only. Match ivory limestone, jade teal copper roofs, fine dark ironwork and gold trim of reference. Finely detailed painterly 2.5D European railway architecture. Elevated orthographic three-quarter camera about 60 degrees downward, front faces bottom-left, length axis bottom-left to top-right matching reference tracks. Soft neutral daylight upper-left. Actual transparent background, including openings. Single isolated object, fully visible with safe transparent margins, native high detail square image at least 1024px. No text, watermark, ground landscape, grass, backdrop, cast shadow, people, or other pieces. This must be independently placeable. Isolate and fully reconstruct ONLY the burgundy, black and brass steam locomotive from the reference. Full engine including chimney, brass domes, black cab, visible large red driving wheels, wheel rods and buffers. Front facing southwest/bottom-left, rear upper-right, same orthographic alignment as reference train. No carriage, NO rails, NO sleepers, NO gravel, NO station, no platform, no smoke, no ground patch. Wheels fully reconstructed and transparent gap beneath.",
+      "name": "Steam locomotive",
+      "asset": "train",
+      "worldWidth": 280,
+      "collidable": true,
+      "motion": "still",
+      "geometry": {
+        "footprint": [
+          [
+            -477,
+            -115
+          ],
+          [
+            393,
+            -645
+          ],
+          [
+            533,
+            -495
+          ],
+          [
+            -247,
+            -5
+          ]
+        ],
+        "sortLine": [
+          [
+            -562,
+            -125
+          ],
+          [
+            -247,
+            -5
+          ],
+          [
+            533,
+            -495
+          ]
+        ]
+      }
+    },
+    {
+      "id": "railway-carriage",
+      "prompt": "Use case: stylized-concept. Asset type: ONE modular transparent game scenery piece for glotworld map editor. Reference is style and camera only. Match ivory limestone, jade teal copper roofs, fine dark ironwork and gold trim of reference. Finely detailed painterly 2.5D European railway architecture. Elevated orthographic three-quarter camera about 60 degrees downward, front faces bottom-left, length axis bottom-left to top-right matching reference tracks. Soft neutral daylight upper-left. Actual transparent background, including openings. Single isolated object, fully visible with safe transparent margins, native high detail square image at least 1024px. No text, watermark, ground landscape, grass, backdrop, cast shadow, people, or other pieces. This must be independently placeable. Isolate and fully reconstruct ONLY one burgundy and cream passenger railway carriage, long black curved roof, six warm glass windows on visible side, detailed dark bogies and wheels and small coupling at both ends. Long axis southwest bottom-left to northeast top-right matching locomotive in reference. No locomotive, NO rails, NO sleepers, NO gravel, NO station or platform, no ground patch. All wheels fully visible.",
+      "name": "Passenger carriage",
+      "asset": "train",
+      "worldWidth": 310,
+      "collidable": true,
+      "motion": "still",
+      "geometry": {
+        "footprint": [
+          [
+            -527,
+            -93
+          ],
+          [
+            483,
+            -723
+          ],
+          [
+            593,
+            -623
+          ],
+          [
+            -342,
+            -3
+          ]
+        ],
+        "sortLine": [
+          [
+            -527,
+            -93
+          ],
+          [
+            -342,
+            -3
+          ],
+          [
+            593,
+            -623
+          ]
+        ]
+      }
+    },
+    {
+      "id": "railway-rails",
+      "prompt": "Use case: stylized-concept. ONE modular straight rail track segment for an isometric 2.5D game. Reference images show the locomotive and carriage this track MUST fit beneath. Draw ONLY two perfectly parallel straight steel rails and evenly spaced dark timber sleepers with fasteners. True transparent background everywhere between sleepers. NO trains, buildings, gravel, ballast or ground. Crucial projection: long track axis travels from bottom-left toward top-right at exactly 33 degrees upward from horizontal (slope -0.65), matching train wheel baseline in references, NOT the steeper 45-degree diagonal. Orthographic view, no perspective narrowing. BOTH rails cut off at aligned straight ends; rails extend half a sleeper interval beyond last/first sleeper so copies can repeat end to end. Narrow gauge appropriate to reference wheels, no buffer stop. Fine painted steel and wood detail matching reference. Single isolated piece centered, 6% clear transparent margin all sides, high native square resolution at least1024. Neutral daylight top-left. No cast shadow, no text.",
+      "name": "Straight railway track",
+      "asset": "rails",
+      "worldWidth": 310,
+      "collidable": false,
+      "layer": "ground",
+      "motion": "still",
+      "geometry": {
+        "footprint": []
+      }
     }
   ]
 }

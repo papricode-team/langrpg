@@ -220,6 +220,18 @@ describe('conversation scene lifecycle', () => {
     expect(document.querySelector('.dialogue-translation')).toBeNull();
   });
 
+  it('ends a resident conversation with the rounds that character can start', () => {
+    const f = fixture('intro', 'a1-arrival');
+    const onGame = vi.fn();
+    Object.assign(f.options, { games: () => [{ id: 'lantern-pairs', title: 'Lantern Pairs' }, { id: 're-ink', title: 'Re-ink' }, { id: 'tray-rush', title: 'Tray Rush' }], onGame });
+    f.controller.greet(npcs.find(npc => npc.id === 'elise')!, 'A1');
+    until('[data-dialogue-choice="game:lantern-pairs"]');
+    expect(document.querySelector('[data-dialogue-choice="game:re-ink"]')).not.toBeNull();
+    expect(document.querySelector('[data-dialogue-choice="game:tray-rush"]')).toBeNull();
+    f.click('[data-dialogue-choice="game:re-ink"]');
+    expect(onGame).toHaveBeenCalledWith('re-ink');
+  });
+
   it('starts beginner evidence hidden and resets its translation toggle on each inspection', () => {
     const f = fixture('intro', 'a1-arrival', true);
     f.controller.inspect('a1-arrival', 'lindenhafen-platform-ticket');
@@ -409,6 +421,20 @@ describe('conversation scene lifecycle', () => {
     until('[data-dialogue-choice="protect"]');f.click('[data-dialogue-choice="protect"]');
     await vi.waitFor(()=>expect(f.options.onComplete).toHaveBeenCalled());
     expect(f.progress.completedQuestIds).toContain('a1-arrival');
+  });
+  it('finishes a scene the server already completed instead of repeating the choice', async () => {
+    const f=fixture('choice');
+    const completed=Object.assign(new Error('this discovery is complete; revisit it in your journal'),{status:409});
+    f.api.storyTransition.mockImplementationOnce(async()=>{f.progress.completedQuestIds.push('a1-arrival');f.progress.story!.nodes['a1-arrival']='complete';f.progress.story!.choices['a1-arrival']='protect';throw completed;});
+    const story=vi.fn(async()=>({story:f.progress.story!,progress:{...f.progress,revision:f.progress.revision+1}}));
+    (f.api as unknown as {story:typeof story}).story=story;
+    await f.controller.open('a1-arrival');until('[data-dialogue-choice="protect"]');
+    const other=[...document.querySelectorAll<HTMLButtonElement>('[data-dialogue-choice]')].find(button=>button.dataset.dialogueChoice!=='protect')!;
+    other.click();
+    await vi.waitFor(()=>expect(f.options.onComplete).toHaveBeenCalledTimes(1));
+    expect(story).toHaveBeenCalledTimes(1);
+    expect(document.querySelector('.dialogue-feedback')?.textContent ?? '').not.toContain('complete');
+    expect(document.querySelector('[data-dialogue-choice="protect"]')).toBeNull();
   });
   it('keeps the investigation stage when its transition is temporarily rejected', async () => {
     const f=fixture();f.progress.story!.inspections['a1-arrival']=questGraphs[0].investigations.map(item=>item.objectId);

@@ -11,7 +11,7 @@ import { beginnerGateChoices, beginnerReplyMeaning, needsBeginnerStorySupport } 
 
 
 export interface QuestControllerOptions {
-  api: Pick<Api, 'request' | 'storyTransition' | 'inspectStory'>;
+  api: Pick<Api, 'request' | 'storyTransition' | 'inspectStory'> & Partial<Pick<Api, 'story'>>;
   loadGraph?(questId: string): Promise<QuestGraph | undefined>;
   loadSentence?(line: DialogueLine): Promise<DialogueLine>;
   loadExercise?(exerciseId: string): Promise<Exercise>;
@@ -34,6 +34,9 @@ export interface QuestControllerOptions {
   onComplete(graph: QuestGraph, xpAdded: number, effects?: readonly DialogueEffect[]): void;
   expose(exerciseId: string): void;
   onPractice?(npcId: string): void;
+  /** Rounds this character can start now, best first. */
+  games?(npcId: string): readonly { id: string; title: string }[];
+  onGame?(gameId: string): void;
   onGrammarGuide?(guideId:string): void;
 }
 
@@ -131,6 +134,11 @@ export class QuestController {
     if (greeting) this.ambient.lines.unshift(greeting);
     this.index = 0; this.translated = false; this.error = ''; this.busy = false; this.render(true);
   }
+  /** A character who hosts a round offers it as the conversation closes. */
+  private gameChoices(npcId: string): DialogueChoice[] {
+    const lines = ['Spielen wir eine Runde!', 'Noch ein Spiel, bitte!'];
+    return (this.options.games?.(npcId) ?? []).slice(0, 2).map((game, index) => ({ id: `game:${game.id}`, german: lines[index], english: t('Play {game}', { game: game.title }), next: '', effects: [] }));
+  }
   private allInspected() {
     return this.graph!.investigations.every(item => (this.options.progress().story?.inspections?.[this.graph!.questId] ?? []).includes(item.objectId));
   }
@@ -207,7 +215,7 @@ export class QuestController {
       const { npc, lines } = this.ambient, source = this.line(lines[this.index], voice, rate), atEnd = this.index === lines.length - 1;
       if (!source) return;
       const line = { ...(this.options.prepareLine?.(source) ?? source), audioRequires: source.audioRequires || !canVoiceDialogue(source.german) };
-      this.view.render({ audioEnabled, title: t('A CONVERSATION IN THE TOWN'), line, name: this.options.playerName(), npc, portrait: this.options.portrait(npc.id,line.expression ?? 'neutral'), index:this.index,total:lines.length,help:this.translationVisible(line),busy:false,glosses:this.options.glosses?.(line.german)??{},powers,wordlight:this.wordlight,choices:atEnd?[{id:'practice',german:'Ich möchte üben.',english:'I would like to practise.',next:'',effects:[]},{id:'leave',german:'Bis später!',english:'See you later!',next:'',effects:[]}]:[] });
+      this.view.render({ audioEnabled, title: t('A CONVERSATION IN THE TOWN'), line, name: this.options.playerName(), npc, portrait: this.options.portrait(npc.id,line.expression ?? 'neutral'), index:this.index,total:lines.length,help:this.translationVisible(line),busy:false,glosses:this.options.glosses?.(line.german)??{},powers,wordlight:this.wordlight,choices:atEnd?[...this.gameChoices(npc.id),{id:'practice',german:'Ich möchte üben.',english:'I would like to practise.',next:'',effects:[]},{id:'leave',german:'Bis später!',english:'See you later!',next:'',effects:[]}]:[] });
       if (voice) { this.options.onOpen(npc.id); this.speakLine({ ...line, speaker: npc.id }, rate); }
       return;
     }
@@ -364,7 +372,7 @@ export class QuestController {
     finally { if (generation === this.generation) { this.busy = false; this.render(); } }
   }
   private async choose(id: string) {
-    if (this.ambient) { const npcId = this.ambient.npc.id; this.close(); if (id === 'practice') this.options.onPractice?.(npcId); return; }
+    if (this.ambient) { const npcId = this.ambient.npc.id; this.close(); if (id === 'practice') this.options.onPractice?.(npcId); else if (id.startsWith('game:')) this.options.onGame?.(id.slice(5)); return; }
     if (!this.graph || this.busy || !this.node) return;
     if (id === 'topic-continue') { await this.action('next'); return; }
     if (id.startsWith('topic:') && this.node.stage === 'intro') {
@@ -382,10 +390,31 @@ export class QuestController {
     const graph = this.graph, generation = this.generation;
     if (!this.replay) {
       const before = this.options.progress().xp;
-      await this.transition('choice', { choiceId: id }); if (generation !== this.generation || this.error || this.graph !== graph) return;
-      this.options.onComplete(graph, this.options.progress().xp - before, choice.effects);
+      await this.transition('choice', { choiceId: id }); if (generation !== this.generation || this.graph !== graph) return;
+      // A choice the server already saved (a lost response, or a retry under a new action ID) is
+      // rejected as complete; resync and finish the scene with the choice the server recorded.
+      const saved = this.error ? await this.savedChoice(graph.questId) : id;
+      if (generation !== this.generation || this.graph !== graph || saved === undefined) return;
+      const recorded = dialogueChoices(this.node!, storyState(this.options.progress().story)).find(item => item.id === saved) ?? choice;
+      this.options.onComplete(graph, this.options.progress().xp - before, recorded.effects);
+      this.node = graph.nodes.find(node => node.id === recorded.next)!; this.index = 0; this.translated = false; this.error = ''; this.render(true);
+      return;
     }
     this.node = this.graph.nodes.find(node => node.id === choice.next)!; this.index = 0; this.translated = false; this.error = ''; this.render(true);
+  }
+  /** The choice the server saved for a completed scene, after refreshing progress; undefined while the scene is open. */
+  private async savedChoice(questId: string): Promise<string | undefined> {
+    if (!this.options.api.story) return undefined;
+    const generation = this.generation; this.busy = true; this.render();
+    try {
+      const result = await this.options.api.story();
+      if (generation !== this.generation) return undefined;
+      this.options.onProgress(result.progress);
+    } catch { return undefined; }
+    finally { if (generation === this.generation) { this.busy = false; this.render(); } }
+    if (!this.options.progress().completedQuestIds.includes(questId)) return undefined;
+    this.pending = undefined;
+    return this.options.progress().story?.choices[questId] ?? '';
   }
   private async reply(answer: string, source: DialogueLine) {
     const graph = this.graph!, exercise = this.exercise(source.reply!.exerciseId);

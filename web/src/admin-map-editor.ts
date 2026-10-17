@@ -1,3 +1,5 @@
+import {animalSpawns} from './animal-spawns';
+import {animalSpecies, animalVariants, animalName, type AnimalSpecies} from './animal-types';
 /**
  * The Map editor section of the admin area. It edits the published world
  * directly: every change shows at once, is checked by the server in the
@@ -313,6 +315,7 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
     let text: string;
     if (mode === 'terrain') text = 'Pick a piece or a ground material on the right · Delete removes the selected piece · Space-drag to pan';
     else if (placing) text = `Click to place ${variantLabel(placing)}. Shift-click places another. Esc stops.`;
+    else if (selection.length && selection.every(item => item.kind === 'animal')) text = 'Drag to move home · Arrows nudge · Delete removes · Changes save automatically';
     else if (selection.length) text = 'Drag to move · Arrows nudge · Delete removes · ' + `${mod}+D duplicates`;
     else text = 'Click to select · Drag empty ground to select a group · Space-drag or two fingers to pan · Pinch or ' + `${mod}+scroll to zoom`;
     hint.innerHTML = `<span>${escape(text)}</span>${where}`;
@@ -327,15 +330,22 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
     const key = JSON.stringify([mapId, group, search, placing?.frame]);
     if (key === libraryKey) return;
     libraryKey = key;
-    query('.me-chips').innerHTML = [{asset: '', label: 'All'}, ...groups].map(value =>
+    query('.me-chips').innerHTML = [{asset: '', label: 'All'}, {asset: 'animals', label: 'Animals'}, ...groups].map(value =>
       `<button type="button" data-group="${value.asset}" aria-pressed="${value.asset === group}">${escape(capital(value.label))}</button>`).join('');
     const shown = choices.filter(choice => (!group || choice.asset === group)
       && (!search || `${variantLabel(choice)} ${assetLabel(choice)} ${choice.frame}`.toLocaleLowerCase().includes(search)));
-    query('.me-library').innerHTML = shown.length ? shown.map(choice => {
+    const animalChoices = animalSpecies.flatMap(species => animalVariants[species].map((name, variant) => ({species, variant, name})))
+      .filter(item => (!group || group === 'animals') && (!search || `${item.species} ${item.name} animal`.toLowerCase().includes(search)));
+    const animalHtml = animalChoices.map(item => {
+      const image = scene.animalThumbnail(item.species, item.variant);
+      return `<button type="button" data-animal-species="${item.species}" data-animal-variant="${item.variant}" title="Place ${escape(item.name)}">
+        ${image ? `<img src="${image}" alt="" draggable="false">` : ''}<span>${escape(item.name)}</span></button>`;
+    }).join('');
+    query('.me-library').innerHTML = animalHtml + (shown.length ? shown.map(choice => {
       const image = scene.thumbnail(choice.frame), active = placing?.frame === choice.frame;
       return `<button type="button" data-place="${escape(choice.frame)}" aria-pressed="${active}" title="${escape(capital(variantLabel(choice)))}${choice.rooms.length ? ' · can hold a room' : ''}">
         ${image ? `<img src="${escape(image)}" alt="" draggable="false">` : '<span class="me-noimage"></span>'}<span>${escape(capital(variantLabel(choice)))}</span></button>`;
-    }).join('') : `<p class="me-empty">No objects match “${escape(librarySearch)}”.</p>`;
+    }).join('') : animalHtml ? '' : `<p class="me-empty">No objects match “${escape(librarySearch)}”.</p>`);
   }
 
   // Layers ------------------------------------------------------------------------------------------------
@@ -343,11 +353,12 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
   function renderLayers(): void {
     if (side !== 'layers') return;
     const town = getWorldScene(mapId), search = layerSearch.trim().toLocaleLowerCase(), chosen = new Set(selection.map(item => item.id));
-    const key = JSON.stringify([mapId, store.document === sceneDocument ? store.version : '', town.scenery.length, search, [...chosen], town.scenery.map(item => item.id).join()]);
+    const key = JSON.stringify([mapId, store.document === sceneDocument ? store.version : '', town.scenery.length, search, [...chosen], town.scenery.map(item => item.id).join(), animalSpawns(town)]);
     if (key === layersKey) return;
     layersKey = key;
     const match = (label: string, id: string) => !search || label.toLocaleLowerCase().includes(search) || id.includes(search);
     const sections: {title: string; rows: {kind: MapItem['kind']; id: string; label: string}[]}[] = [
+      {title: 'Animals', rows: animalSpawns(town).map(item => ({kind: 'animal' as const, id: item.id, label: animalName(item)}))},
       {title: 'Story characters', rows: town.npcs.map(item => ({kind: 'npc' as const, id: item.id, label: objectLabel(town, item.id)}))},
       {title: 'Story evidence', rows: town.objects.map(item => ({kind: 'object' as const, id: item.id, label: capital(objectLabel(town, item.id).replace(/^the /, ''))}))},
     ];
@@ -379,20 +390,32 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
   function renderInspector(): void {
     const target = panel('objects'), town = getWorldScene(mapId);
     const items = selection.map(item => item.kind === 'scenery' ? town.scenery.find(value => value.id === item.id) : undefined);
-    const key = JSON.stringify([mapId, selection, items, [...locks], selection.length ? '' : [town.scenery.length, town.npcs.length, audit, sceneEntrances(town)]]);
+    const key = JSON.stringify([mapId, selection, items, animalSpawns(town), [...locks], selection.length ? '' : [town.scenery.length, town.npcs.length, audit, sceneEntrances(town)]]);
     // Rebuild only when what is shown changes, so typing in a field survives.
     if (key === inspectorKey) return;
     inspectorKey = key;
     if (!selection.length) { target.innerHTML = townPanel(town); return; }
     if (selection.length > 1) {
-      const scenery = items.filter(Boolean).length;
-      target.innerHTML = `<header class="me-inspect-head"><div><h2>${selection.length} selected</h2><p>${scenery} objects${selection.length - scenery ? ` · ${selection.length - scenery} story markers` : ''}</p></div></header>
-        <div class="me-actions">${scenery ? `<button type="button" data-cmd="flip">Flip <kbd>X</kbd></button><button type="button" data-cmd="duplicate">Duplicate <kbd>${mod}D</kbd></button><button type="button" data-cmd="delete" class="danger">Remove <kbd>⌫</kbd></button>` : ''}</div>
+      const scenery = items.filter(Boolean).length, animals = selection.filter(item => item.kind === 'animal').length;
+      target.innerHTML = `<header class="me-inspect-head"><div><h2>${selection.length} selected</h2><p>${scenery} objects${animals ? ` · ${animals} animals` : ''}${selection.length - scenery - animals ? ` · ${selection.length - scenery - animals} story markers` : ''}</p></div></header>
+        <div class="me-actions">${scenery ? `<button type="button" data-cmd="flip">Flip <kbd>X</kbd></button><button type="button" data-cmd="duplicate">Duplicate objects <kbd>${mod}D</kbd></button>` : ''}${scenery || animals ? '<button type="button" data-cmd="delete" class="danger">Remove <kbd>⌫</kbd></button>' : ''}</div>
         <p class="me-note">Drag any of them to move the group. Arrow keys nudge.</p>`;
       return;
     }
     const entry = selection[0], item = items[0], locked = locks.get(entry.id), disabled = locked ? ' disabled' : '';
     const lockNote = locked ? `<p class="me-note warning">${escape(locked)} is editing this right now.</p>` : '';
+    if (entry.kind === 'animal') {
+      const animal = animalSpawns(town).find(value => value.id === entry.id);
+      if (!animal) return;
+      const image = scene.animalThumbnail(animal.species, animal.variant);
+      target.innerHTML = `<header class="me-inspect-head">${image ? `<img src="${image}" alt="">` : ''}<div><h2>${escape(animalName(animal))}</h2><p>Animal home</p></div></header>${lockNote}
+        <label class="me-field"><span>Species</span><select name="animal-species"${disabled}>${animalSpecies.map(species => `<option value="${species}"${species === animal.species ? ' selected' : ''}>${capital(species)}</option>`).join('')}</select></label>
+        <label class="me-field"><span>Variant</span><select name="animal-variant"${disabled}>${animalVariants[animal.species].map((name, variant) => `<option value="${variant}"${variant === animal.variant ? ' selected' : ''}>${escape(name)}</option>`).join('')}</select></label>
+        ${positionFields(animal, disabled)}
+        <p class="me-note">Drag to move its home. Wanders nearby during the day, walks home at 18:00 and rests until 06:00. Changes save automatically.</p>
+        <button type="button" data-cmd="delete" class="danger"${disabled}>Remove animal</button>`;
+      return;
+    }
     if (!item) {
       const anchor = (entry.kind === 'npc' ? town.npcs : town.objects).find(value => value.id === entry.id);
       if (!anchor) { target.innerHTML = ''; return; }
@@ -424,7 +447,7 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
     const rooms = new Map(sceneEntrances(town).map(entrance => [entrance.interiorId, entrance.ownerId]));
     return `<header class="me-inspect-head"><div><h2>${escape(townName(mapId))}</h2><p>Nothing selected</p></div></header>
       <dl class="me-facts"><div><dt>Objects</dt><dd>${town.scenery.length}</dd></div><div><dt>Story markers</dt><dd>${town.npcs.length + town.objects.length}</dd></div>
-        <div><dt>Residents</dt><dd>${town.residents?.length ?? 0}</dd></div><div><dt>Activity spots</dt><dd>${town.activities?.length ?? 0}</dd></div></dl>
+        <div><dt>Animals</dt><dd>${animalSpawns(town).length}</dd></div><div><dt>Residents</dt><dd>${town.residents?.length ?? 0}</dd></div><div><dt>Activity spots</dt><dd>${town.activities?.length ?? 0}</dd></div></dl>
       <h3>Rooms</h3><ul class="me-list">${(['cafe', 'bakery', 'supermarket', 'inn'] as const).map(kind => {
         const owner = rooms.get(kind);
         return `<li><span>${escape(capital(roomNames[kind]))}</span>${owner ? `<button type="button" data-focus="${escape(owner)}">Show</button>` : '<em>Missing</em>'}</li>`;
@@ -473,13 +496,13 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
   }, 'Resize');
 
   const remove = () => {
-    const items = selectedScenery(), town = getWorldScene(mapId);
-    if (!items.length) { if (selection.length) toast('Story characters and evidence belong to the story and cannot be removed here.'); return; }
-    if (!editable(items)) return;
+    const items = selectedScenery(), town = getWorldScene(mapId), animals = selection.filter(item => item.kind === 'animal');
+    if (!items.length && !animals.length) { if (selection.length) toast('Story characters and evidence belong to the story and cannot be removed here.'); return; }
+    if (!editable([...items, ...animals])) return;
     const rooms = items.filter(item => item.interior);
     if (rooms.length && !confirm(`Remove ${rooms.map(item => objectLabel(town, item.id)).join(' and ')} with ${rooms.length === 1 ? 'its door' : 'their doors'}? Players lose access to ${rooms.length === 1 ? 'that room' : 'those rooms'} in ${townName(mapId)}.`)) return;
-    if (commit(items.map(item => ({kind: 'remove' as const, map: mapId, id: item.id})), `Remove ${describe(items)}`, false))
-      scene.setSelection(selection.filter(item => item.kind !== 'scenery'));
+    if (commit([...items.map(item => ({kind: 'remove' as const, map: mapId, id: item.id})), ...animals.map(item => ({kind: 'removeAnimal' as const, map: mapId, id: item.id}))], `Remove ${items.length + animals.length} items`, false))
+      scene.setSelection(selection.filter(item => item.kind !== 'scenery' && item.kind !== 'animal'));
   };
 
   /** Copies of objects, shifted so their group's first object lands on `at`. Rooms stay with the original. */
@@ -605,6 +628,11 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
     if (button.dataset.side) { setSide(button.dataset.side as Side); return; }
     if (button.dataset.tool) { setTool(button.dataset.tool as 'select' | 'hand'); return; }
     if (button.dataset.group !== undefined) { group = button.dataset.group; renderLibrary(); return; }
+    if (button.dataset.animalSpecies) {
+      if (mode !== 'objects') setMode('objects');
+      scene.startPlacingAnimal(button.dataset.animalSpecies as AnimalSpecies, Number(button.dataset.animalVariant));
+      return;
+    }
     if (button.dataset.place) {
       const choice = paletteChoices(mapId).find(value => value.frame === button.dataset.place);
       if (choice && placing?.frame === choice.frame) scene.cancelPlacing();
@@ -682,11 +710,16 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
         if (kind) { const range = sizeRange(mapId, {...item, interior: {kind}}); if (item.width < range.min) update.width = range.min; }
         return update;
       }, 'Change room of');
+    } else if (input.name === 'animal-species' || input.name === 'animal-variant') {
+      const entry = selection[0];
+      if (entry?.kind !== 'animal' || !editable(selection)) return;
+      const change = input.name === 'animal-species' ? {species: input.value as AnimalSpecies, variant: 0} : {variant: Number(input.value)};
+      commit([{kind: 'updateAnimal', map: mapId, id: entry.id, ...change}], 'Change animal');
     } else if (input.name === 'x' || input.name === 'y') {
       const value = Number(input.value), entry = selection[0], at = entry && scene.position(entry);
       if (!at || !Number.isFinite(value) || selection.length !== 1 || !editable(selection)) return;
       const next = {...at, [input.name]: Math.round(value)};
-      commit([entry.kind === 'scenery' ? {kind: 'move', map: mapId, id: entry.id, ...next} : {kind: 'moveAnchor', map: mapId, anchor: entry.kind, id: entry.id, ...next}],
+      commit([entry.kind === 'scenery' ? {kind: 'move', map: mapId, id: entry.id, ...next} : entry.kind === 'animal' ? {kind: 'updateAnimal', map: mapId, id: entry.id, ...next} : {kind: 'moveAnchor', map: mapId, anchor: entry.kind, id: entry.id, ...next}],
         `Move ${objectLabel(getWorldScene(mapId), entry.id)}`);
     }
   });

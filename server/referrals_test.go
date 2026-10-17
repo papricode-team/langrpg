@@ -61,11 +61,11 @@ func TestReferralSignupExtendsInviterOnlyAndIsIdempotent(t *testing.T) {
 	}
 	credited, _ := app.store.Get(context.Background(), tokenHash(inviterToken))
 	status := app.accessState(credited, app.now())
-	if status.RemainingSeconds != 600+5400 || status.ReferralBonusSeconds != 5400 || status.ReferralSignups != 1 || credited.Progress.XP != 123 || !reflect.DeepEqual(credited.Player.Avatar, inviter.Avatar) {
+	if status.RemainingSeconds != 6600+5400 || status.ReferralBonusSeconds != 5400 || status.ReferralSignups != 1 || credited.Progress.XP != 123 || !reflect.DeepEqual(credited.Player.Avatar, inviter.Avatar) {
 		t.Fatal("incorrect bonus or changed progress", status)
 	}
 	friend, _ := app.store.Get(context.Background(), tokenHash(friendToken))
-	if app.accessState(friend, app.now()).RemainingSeconds != 900 || friend.Referrals.InvitedBy != inviter.ID {
+	if app.accessState(friend, app.now()).RemainingSeconds != 7200 || friend.Referrals.InvitedBy != inviter.ID {
 		t.Fatal("friend received the inviter's bonus or attribution was lost")
 	}
 	// Logging in and retrying signup for an existing account cannot add credit.
@@ -97,7 +97,7 @@ func TestReferralAfterTrialReopensOnlyTheNewAllowance(t *testing.T) {
 	}
 	inviter, _ := app.store.Get(context.Background(), tokenHash(token))
 	status := app.accessState(inviter, app.now())
-	if status.Phase != "trial" || status.RemainingSeconds != 5400 || status.PlayedSeconds != 900 || !inviter.Access.ActiveSince.IsZero() {
+	if status.Phase != "trial" || status.RemainingSeconds != 5400 || status.PlayedSeconds != 7200 || !inviter.Access.ActiveSince.IsZero() {
 		t.Fatal("waiting at the wall charged the bonus", status)
 	}
 	app.store.UpdateAccount(context.Background(), tokenHash(token), func(a *Account) error {
@@ -239,7 +239,7 @@ func TestReferralStoresConcurrentCreditsAndPersistence(t *testing.T) {
 			}
 			defer reopened.Close()
 			restored, err := reopened.Get(ctx, tokenHash(inviterToken))
-			if err != nil || restored.Referrals.SuccessfulSignups != credits || app.accessState(restored, app.now()).RemainingSeconds != 900+credits*5400 {
+			if err != nil || restored.Referrals.SuccessfulSignups != credits || app.accessState(restored, app.now()).RemainingSeconds != 7200+credits*5400 {
 				t.Fatal("restart lost referral time", err, restored.Referrals)
 			}
 		})
@@ -260,13 +260,13 @@ func TestReferralResetDiscardsOldBonusButPreservesInvites(t *testing.T) {
 		}
 		if i == 0 {
 			reset, err := app.store.ResetGame(context.Background(), tokenHash(token))
-			if err != nil || app.accessState(reset, app.now()).RemainingSeconds != 900 || referralSignups(reset) != 0 || !reset.Referrals.Enabled {
+			if err != nil || app.accessState(reset, app.now()).RemainingSeconds != 7200 || referralSignups(reset) != 0 || !reset.Referrals.Enabled {
 				t.Fatal("reset replayed reward or disabled link", err, reset.Referrals)
 			}
 		}
 	}
 	account, err := app.store.Get(context.Background(), tokenHash(token))
-	if err != nil || app.accessState(account, app.now()).RemainingSeconds != 6300 || referralSignups(account) != 1 {
+	if err != nil || app.accessState(account, app.now()).RemainingSeconds != 12600 || referralSignups(account) != 1 {
 		t.Fatal("new invite failed after reset", err, account.Referrals)
 	}
 }
@@ -335,5 +335,63 @@ func TestReferralCreditsAreCappedPerDayAndInTotal(t *testing.T) {
 	}
 	if credits() != referralLifetimeLimit {
 		t.Fatal("lifetime cap not applied", credits())
+	}
+}
+
+// A signup that took its time before waiting for the inviter's lock can commit
+// after one stamped later; the later credit still counts toward the daily cap.
+func TestReferralCapCountsCreditsStampedAfterALateSignup(t *testing.T) {
+	app := trialTestApp(t)
+	ctx := context.Background()
+	inviterToken, _ := createSession(t, app, "Queued inviter")
+	app.store.SetCredentials(ctx, tokenHash(inviterToken), "queued@example.com", "encoded")
+	code := issueInvite(t, app, inviterToken)
+	start := app.now()
+	for i := 0; i < referralDailyLimit+1; i++ {
+		token, _ := createSession(t, app, "Friend")
+		// Each request committed in turn carries an earlier clock than the one before.
+		at := start.Add(-time.Duration(i) * 10 * time.Millisecond)
+		if err := app.store.RegisterWithReferral(ctx, tokenHash(token), "queued-"+strconv.Itoa(i)+"@example.com", "encoded", code, at); err != nil {
+			t.Fatal(err)
+		}
+	}
+	inviter, _ := app.store.Get(ctx, tokenHash(inviterToken))
+	if inviter.Referrals.SuccessfulSignups != referralDailyLimit || len(inviter.Referrals.RecentCredits) != referralDailyLimit {
+		t.Fatal("out-of-order signups exceeded the daily cap", inviter.Referrals)
+	}
+	// Stamps from clocks minutes apart still count, whichever side is ahead.
+	for _, skew := range []time.Duration{5 * time.Minute, -5 * time.Minute} {
+		skewed := Account{Referrals: ReferralState{RecentCredits: []time.Time{start, start.Add(skew)}}}
+		if recent := recentReferralCredits(skewed, start.Add(time.Millisecond)); len(recent) != 2 {
+			t.Fatal("credit from a skewed clock dropped", skew, recent)
+		}
+	}
+	// A corrupt far-future stamp does not block credits forever.
+	if recent := recentReferralCredits(Account{Referrals: ReferralState{RecentCredits: []time.Time{start.Add(48 * time.Hour)}}}, start); len(recent) != 0 {
+		t.Fatal("far-future credit counted", recent)
+	}
+}
+
+// One registration whose clock reads minutes ahead of or behind the others must
+// not make a stamp look stale and reopen the daily cap.
+func TestReferralCapHoldsWhenOneSignupClockIsOff(t *testing.T) {
+	for _, skew := range []time.Duration{5 * time.Minute, -5 * time.Minute} {
+		app := trialTestApp(t)
+		ctx := context.Background()
+		inviterToken, _ := createSession(t, app, "Skewed inviter")
+		app.store.SetCredentials(ctx, tokenHash(inviterToken), "skewed@example.com", "encoded")
+		code := issueInvite(t, app, inviterToken)
+		start := app.now()
+		clocks := []time.Time{start, start.Add(skew), start.Add(time.Millisecond), start.Add(2 * time.Millisecond), start.Add(3 * time.Millisecond)}
+		for i, at := range clocks {
+			token, _ := createSession(t, app, "Friend")
+			if err := app.store.RegisterWithReferral(ctx, tokenHash(token), "skewed-"+strconv.Itoa(i)+"@example.com", "encoded", code, at); err != nil {
+				t.Fatal(err)
+			}
+		}
+		inviter, _ := app.store.Get(ctx, tokenHash(inviterToken))
+		if inviter.Referrals.SuccessfulSignups != referralDailyLimit || len(inviter.Referrals.RecentCredits) != referralDailyLimit {
+			t.Fatal("a skewed clock reopened the daily cap", skew, inviter.Referrals)
+		}
 	}
 }

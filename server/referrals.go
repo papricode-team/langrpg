@@ -34,11 +34,19 @@ const (
 	referralLifetimeLimit = 10
 )
 
+// referralClockSkew admits credits stamped after now. A registration takes its
+// time before it waits for the inviter's row lock, and clocks disagree (wall
+// clock corrections, other servers), so a signup that commits first can carry a
+// later stamp; dropping it would reopen the daily cap. Any bound short of the
+// window itself is a gap a clock can fall through, so only stamps further ahead
+// than a whole day are treated as corrupt.
+const referralClockSkew = 24 * time.Hour
+
 // recentReferralCredits keeps the credits of the last 24 hours.
 func recentReferralCredits(account Account, now time.Time) []time.Time {
 	var recent []time.Time
 	for _, at := range account.Referrals.RecentCredits {
-		if now.Sub(at) < 24*time.Hour && !at.After(now) {
+		if now.Sub(at) < 24*time.Hour && at.Sub(now) < referralClockSkew {
 			recent = append(recent, at)
 		}
 	}

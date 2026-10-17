@@ -41,7 +41,7 @@ func (s *JSONStore) ListAdminAccounts(_ context.Context, query, kind string, off
 	return accounts[min(offset, total):min(offset+limit, total)], total, nil
 }
 func (s *PGStore) ListAdminAccounts(ctx context.Context, query, kind string, offset, limit int) ([]Account, int, error) {
-	const filter = ` WHERE ($2 <> 'registered' OR COALESCE(data->>'email','') <> '') AND ($2 <> 'guest' OR COALESCE(data->>'email','') = '') AND (strpos(lower(COALESCE(data->>'email','')), $1)>0 OR strpos(lower(COALESCE(data->'player'->>'name','')), $1)>0 OR strpos(lower(id), $1)>0)`
+	const filter = ` WHERE ($2 <> 'registered' OR email IS NOT NULL) AND ($2 <> 'guest' OR email IS NULL) AND (strpos(lower(COALESCE(email,'')), $1)>0 OR strpos(lower(player_name), $1)>0 OR strpos(lower(id), $1)>0)`
 	tx, err := s.pool.BeginTx(ctx, pgx.TxOptions{IsoLevel: pgx.RepeatableRead, AccessMode: pgx.ReadOnly})
 	if err != nil {
 		return nil, 0, err
@@ -51,7 +51,7 @@ func (s *PGStore) ListAdminAccounts(ctx context.Context, query, kind string, off
 	if err = tx.QueryRow(ctx, `SELECT count(*) FROM accounts`+filter, query, kind).Scan(&total); err != nil {
 		return nil, 0, err
 	}
-	rows, err := tx.Query(ctx, `SELECT jsonb_build_object('player',jsonb_build_object('id',id,'name',data->'player'->'name'),'email',data->'email','createdAt',data->'createdAt','billing',(data->'billing') - 'purchases' - 'webhookReceipts','support',jsonb_build_object('grant',data->'support'->'grant'),'access',data->'access','referrals',data->'referrals','activeCourseId',data->'activeCourseId') FROM accounts`+filter+` ORDER BY data->>'createdAt' DESC,id LIMIT $3 OFFSET $4`, query, kind, limit, offset)
+	rows, err := tx.Query(ctx, `SELECT id,COALESCE(email,''),player_name,created_at,jsonb_build_object('billing',(data->'billing') - 'purchases' - 'webhookReceipts','support',jsonb_build_object('grant',data->'support'->'grant'),'access',data->'access','referrals',data->'referrals','activeCourseId',data->'activeCourseId') FROM accounts`+filter+` ORDER BY created_at DESC NULLS LAST,id LIMIT $3 OFFSET $4`, query, kind, limit, offset)
 	if err != nil {
 		return nil, 0, err
 	}
@@ -59,8 +59,12 @@ func (s *PGStore) ListAdminAccounts(ctx context.Context, query, kind string, off
 	for rows.Next() {
 		var data []byte
 		var a Account
-		if err = rows.Scan(&data); err == nil {
+		var created *time.Time
+		if err = rows.Scan(&a.Player.ID, &a.Email, &a.Player.Name, &created, &data); err == nil {
 			err = json.Unmarshal(data, &a)
+		}
+		if created != nil {
+			a.CreatedAt = created.UTC()
 		}
 		if err != nil {
 			rows.Close()
@@ -139,19 +143,14 @@ func (s *PGStore) ManageAccount(ctx context.Context, id string, revoke bool, new
 		return Account{}, nil, err
 	}
 	defer tx.Rollback(ctx)
-	var data []byte
-	err = tx.QueryRow(ctx, `SELECT data FROM accounts WHERE id=$1 FOR UPDATE`, id).Scan(&data)
+	_, account, err := s.scanAccount(tx.QueryRow(ctx, `SELECT `+pgAccountColumns+` FROM accounts a WHERE a.id=$1 FOR UPDATE OF a`, id))
 	if errors.Is(err, pgx.ErrNoRows) {
 		return Account{}, nil, ErrUnauthorized
 	}
 	if err != nil {
 		return Account{}, nil, err
 	}
-	var account Account
-	if err = json.Unmarshal(data, &account); err != nil {
-		return Account{}, nil, err
-	}
-	s.hooks.NormalizeProgress(&account.Progress)
+	purchases := clonePurchases(account.Billing.Purchases)
 	if err = fn(&account); err != nil {
 		return Account{}, nil, err
 	}
@@ -184,11 +183,7 @@ func (s *PGStore) ManageAccount(ctx context.Context, id string, revoke bool, new
 			return Account{}, nil, err
 		}
 	}
-	data, err = json.Marshal(account)
-	if err != nil {
-		return Account{}, nil, err
-	}
-	if _, err = tx.Exec(ctx, `UPDATE accounts SET data=$2 WHERE id=$1`, id, data); err != nil {
+	if err = s.writeAccount(ctx, tx, id, purchases, account); err != nil {
 		return Account{}, nil, err
 	}
 	if err = tx.Commit(ctx); err != nil {

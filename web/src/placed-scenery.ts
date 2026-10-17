@@ -6,7 +6,7 @@ import {worldDepth} from './world-depth';
 import {terrainObject,terrainObjectKey} from './terrain-objects';
 
 /** Each frame is reusable transparent artwork, independent of the terrain. */
-export const sceneryAssets = ['archive', 'cafe', 'station', 'workshop', 'house', 'tree', 'cypress', 'lamp',
+export const sceneryAssets = ['archive', 'cafe', 'station', 'train', 'rails', 'workshop', 'house', 'tree', 'cypress', 'lamp',
   'stall', 'fountain', 'arch', 'greenhouse', 'boat', 'bench', 'planter', 'sign'] as const;
 export type SceneryAsset = typeof sceneryAssets[number];
 export type SceneryMotion = 'tree' | 'cloth' | 'boat' | 'lamp' | 'building' | 'water' | 'still';

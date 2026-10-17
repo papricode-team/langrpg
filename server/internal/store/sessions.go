@@ -135,7 +135,7 @@ func (s *PGStore) PruneExpiredSessions(ctx context.Context) (int, error) {
 	if s.idle <= 0 {
 		return 0, nil
 	}
-	result, err := s.pool.Exec(ctx, `DELETE FROM sessions s USING accounts a WHERE a.id=s.account_id AND COALESCE(a.data->>'email','')<>'' AND s.last_used_at < $1`, s.sessionCutoff(s.sessionNow()))
+	result, err := s.pool.Exec(ctx, `DELETE FROM sessions s USING accounts a WHERE a.id=s.account_id AND a.email IS NOT NULL AND s.last_used_at < $1`, s.sessionCutoff(s.sessionNow()))
 	if err != nil {
 		return 0, err
 	}
@@ -144,7 +144,7 @@ func (s *PGStore) PruneExpiredSessions(ctx context.Context) (int, error) {
 
 // pgLiveSession is appended to queries that join accounts a and sessions s.
 // $2 is the idle cutoff from sessionCutoff.
-const pgLiveSession = ` AND (s.last_used_at > $2 OR COALESCE(a.data->>'email','')='')`
+const pgLiveSession = ` AND (s.last_used_at > $2 OR a.email IS NULL)`
 
 type SessionPruner interface {
 	PruneExpiredSessions(context.Context) (int, error)
@@ -186,17 +186,15 @@ func (s *PGStore) touchSession(ctx context.Context, db pgExecer, hash string, la
 
 // lockSessionAccount resolves a live session and locks its account row for the
 // transaction, recording use in the same transaction when it is stale.
-func (s *PGStore) lockSessionAccount(ctx context.Context, tx pgx.Tx, hash string) (string, []byte, error) {
-	var id string
-	var data []byte
+func (s *PGStore) lockSessionAccount(ctx context.Context, tx pgx.Tx, hash string) (string, Account, error) {
 	var lastUsed time.Time
 	now := s.sessionNow()
-	err := tx.QueryRow(ctx, "SELECT a.id,a.data,s.last_used_at FROM accounts a JOIN sessions s ON s.account_id=a.id WHERE s.token_hash=$1"+pgLiveSession+" FOR UPDATE OF a", hash, s.sessionCutoff(now)).Scan(&id, &data, &lastUsed)
+	id, account, err := s.scanAccount(tx.QueryRow(ctx, "SELECT "+pgAccountColumns+",s.last_used_at FROM accounts a JOIN sessions s ON s.account_id=a.id WHERE s.token_hash=$1"+pgLiveSession+" FOR UPDATE OF a", hash, s.sessionCutoff(now)), &lastUsed)
 	if err != nil {
-		return "", nil, err
+		return "", Account{}, err
 	}
 	if err = s.touchSession(ctx, tx, hash, lastUsed, now); err != nil {
-		return "", nil, err
+		return "", Account{}, err
 	}
-	return id, data, nil
+	return id, account, nil
 }

@@ -45,6 +45,10 @@ describe('story bible', () => {
 describe('story continuity across paths and surfaces', () => {
   const scene = (questId: string) => questGraphs.find(graph => graph.questId === questId)!;
   const spoken = (questId: string) => scene(questId).nodes.flatMap(node => node.lines);
+  it('sends the player to someone new after every scene', () => {
+    const repeats = quests.slice(1).filter((quest, index) => quest.npcId === quests[index].npcId).map(quest => `${quests[quests.indexOf(quest) - 1].id} → ${quest.id} (${quest.npcId})`);
+    expect(repeats).toEqual([]);
+  });
   it('delivers the letter warning before the archive and finale pay it off', () => {
     const warning = 'Bevor du uns wieder auslöschst, komm.';
     const parcel = scene('a1-lost-parcel').nodes.find(node => node.id === 'complete')!.lines;

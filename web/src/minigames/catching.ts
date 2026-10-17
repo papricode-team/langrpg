@@ -1,6 +1,9 @@
 import { seededShuffle } from '../game-shuffle';
 import type { SpriteLibrary } from './sprite-library';
+import { catchingNumberLabel } from './game-pools';
 import './catching.css';
+
+export { catchingNumberLabel };
 
 export type CatchLane = 0 | 1 | 2;
 export interface CatchingChoice { label: string; sprite?: string; answer: string; }
@@ -15,23 +18,6 @@ export interface CatchingState {
 }
 export interface CatchingStep { state: CatchingState; caughtIndex?: number; missed: boolean; }
 export interface CatchingController { start(): void; pause(): void; resume(): void; destroy(): void; }
-
-const numberLabels: Record<string, number> = {
-  null: 0, ein: 1, eins: 1, zwei: 2, drei: 3, vier: 4, fünf: 5, fuenf: 5, sechs: 6, sieben: 7, acht: 8, neun: 9,
-  zehn: 10, elf: 11, zwölf: 12, zwoelf: 12, dreizehn: 13, vierzehn: 14, fünfzehn: 15, fuenfzehn: 15,
-  sechzehn: 16, siebzehn: 17, achtzehn: 18, neunzehn: 19, zwanzig: 20, dreißig: 30, dreissig: 30,
-  vierzig: 40, fünfzig: 50, fuenfzig: 50, sechzig: 60, siebzig: 70, achtzig: 80, neunzig: 90,
-  hundert: 100, einhundert: 100, zweihundert: 200, tausend: 1000, eintausend: 1000,
-};
-/** Numbers stay numeric on apples; the spoken German is never printed as an answer. */
-export function catchingNumberLabel(choice: CatchingChoice): string | undefined {
-  if (/^[\d\s.,:€+-]+$/.test(choice.label) && /\d/.test(choice.label)) return choice.label.trim();
-  for (const value of [choice.label, choice.answer]) {
-    const number = numberLabels[value.toLocaleLowerCase('de').trim()];
-    if (number !== undefined) return String(number);
-  }
-  return undefined;
-}
 
 /** The target only ensures a valid pool. The selected crate lane supplies the answer. */
 export function createCatchingState(choices: readonly CatchingChoice[], targetAnswer: string, durationMs: number): CatchingState {

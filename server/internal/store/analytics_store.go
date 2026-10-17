@@ -124,23 +124,21 @@ func (s *PGStore) ReadAnalytics(ctx context.Context, from, to time.Time) ([]Anal
 	if err != nil {
 		return nil, nil, err
 	}
-	rows, err = tx.Query(ctx, `SELECT id,COALESCE(data->>'email',''),data->>'createdAt',COALESCE(data->'billing','{}'::jsonb),COALESCE(data->'analytics','{}'::jsonb) FROM accounts`)
+	rows, err = tx.Query(ctx, `SELECT id,COALESCE(email,''),created_at,COALESCE((data->'billing') - 'purchases' - 'webhookReceipts','{}'::jsonb),COALESCE(data->'analytics','{}'::jsonb) FROM accounts`)
 	if err != nil {
 		return nil, nil, err
 	}
 	accounts := []AnalyticsAccount{}
 	for rows.Next() {
 		var a AnalyticsAccount
-		var created string
+		var created *time.Time
 		var billingData, milestones []byte
 		if err = rows.Scan(&a.ID, &a.Email, &created, &billingData, &milestones); err != nil {
 			rows.Close()
 			return nil, nil, err
 		}
-		a.CreatedAt, err = time.Parse(time.RFC3339Nano, created)
-		if err != nil {
-			rows.Close()
-			return nil, nil, err
+		if created != nil {
+			a.CreatedAt = created.UTC()
 		}
 		if err = json.Unmarshal(billingData, &a.Billing); err != nil {
 			rows.Close()

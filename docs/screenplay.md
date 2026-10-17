@@ -1765,7 +1765,7 @@ Scene-only notes for review are in `> REVIEW:` blocks.
 > **ADA:** For the first time everyone hears what they were only allowed to sign before.
 
 > **ADA:** Do you hear the wind? The storm is coming before the next bell.
-> **ADA:** {name}, come with me to the observatory. Before the storm comes, you must know something about your key.
+> **ADA:** {name}, Voss is waiting at the observatory. Before the storm comes, you must know something about your key.
 
 ---
 
@@ -1773,7 +1773,7 @@ Scene-only notes for review are in `> REVIEW:` blocks.
 
 *The dark beam is stronger than ever. With the key you could close the route tonight. Then the beam stops. But Waldruh goes dark again.*
 
-> **ADA:** The stairs to the observatory are locked. With a lantern lock. You know which key fits.
+> **VOSS:** The stairs to the observatory are locked. With a lantern lock. You know which key fits.
 > **ADA:** Up at the desk is the place where Elise closed the route back then.
 > **VOSS:** The beam is stronger tonight than ever. The coils are off, but the old wiring is enough.
 > **VOSS:** The coils are still running. The council wanted the plan first. Now we are paying for it. *(if flag scene b1-work)*
@@ -1784,16 +1784,16 @@ Scene-only notes for review are in `> REVIEW:` blocks.
 
 *Optional questions:* “Why did Elise turn it back then?” · “Who recorded the tape?”
 
-> **ADA:** I will not tell you what to do. I will only tell you what your key can do.
+> **VOSS:** I will not tell you what to do. I decided for others once. That was enough.
 
-**GATE — PLAYER:** *„Wenn ich den Schlüssel drehe, was passiert dann?“* (Ask Ada what happens if you turn the key.)
+**GATE — PLAYER:** *„Wenn ich den Schlüssel drehe, was passiert dann?“* (Ask Voss what happens if you turn the key.)
 
 > **ADA:** Then the route closes. One minute, one turn. The beam has no path any more.
 > **ADA:** Tonight there would be peace. No storm over the names. Tomorrow you start again.
 > **ADA:** But Waldruh would be dark again. All the new names there, on the stone and at the table.
 > **VOSS:** I have done this once before. One signature. It is easy. That is the terrible thing about it.
 > **ADA:** From the harbour, quietly: “Is anyone there? I am still here.”
-> **ADA:** Will you turn the key tonight? Or do we weather the storm without it?
+> **VOSS:** Will you turn the key tonight? Or do we weather the storm without it?
 
 **[CHOICE `route-closed-again`]** *„Ich drehe ihn. Nur für diese Nacht.“* — I will turn it. Just for tonight.
 > **ADA:** The beam breaks off. It is quiet over the harbour.
@@ -1804,7 +1804,7 @@ Scene-only notes for review are in `> REVIEW:` blocks.
 > **ADA:** Then we weather it. The key stays in your pocket.
 > **VOSS:** Back then someone should have said no. Today someone did.
 
-> **ADA:** Do you hear the wind? Greta is already in the garden. The water is rising.
+> **VOSS:** Do you hear the wind? Greta is already in the garden. The water is rising.
 
 **CINEMATIC — TEMPTATION**
 > ADA: Ein Schlüssel. Eine Minute. Dann ist der Strahl dunkel.

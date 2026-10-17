@@ -2,7 +2,6 @@ package store
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"glotworld/server/internal/billing"
 
@@ -41,17 +40,10 @@ func (s *JSONStore) UpdateAccountByID(_ context.Context, id string, fn func(*Acc
 }
 
 func (s *PGStore) GetAccountByID(ctx context.Context, id string) (Account, error) {
-	var data []byte
-	err := s.pool.QueryRow(ctx, "SELECT data FROM accounts WHERE id=$1", id).Scan(&data)
+	_, account, err := s.scanAccount(s.pool.QueryRow(ctx, "SELECT "+pgAccountColumns+" FROM accounts a WHERE a.id=$1", id))
 	if errors.Is(err, pgx.ErrNoRows) {
 		return Account{}, ErrUnauthorized
 	}
-	if err != nil {
-		return Account{}, err
-	}
-	var account Account
-	err = json.Unmarshal(data, &account)
-	s.hooks.NormalizeProgress(&account.Progress)
 	return account, err
 }
 
@@ -61,27 +53,18 @@ func (s *PGStore) UpdateAccountByID(ctx context.Context, id string, fn func(*Acc
 		return Account{}, err
 	}
 	defer tx.Rollback(ctx)
-	var data []byte
-	err = tx.QueryRow(ctx, "SELECT data FROM accounts WHERE id=$1 FOR UPDATE", id).Scan(&data)
+	_, account, err := s.scanAccount(tx.QueryRow(ctx, "SELECT "+pgAccountColumns+" FROM accounts a WHERE a.id=$1 FOR UPDATE OF a", id))
 	if errors.Is(err, pgx.ErrNoRows) {
 		return Account{}, ErrUnauthorized
 	}
 	if err != nil {
 		return Account{}, err
 	}
-	var account Account
-	if err = json.Unmarshal(data, &account); err != nil {
-		return Account{}, err
-	}
-	s.hooks.NormalizeProgress(&account.Progress)
+	purchases := clonePurchases(account.Billing.Purchases)
 	if err = fn(&account); err != nil {
 		return Account{}, err
 	}
-	data, err = json.Marshal(account)
-	if err != nil {
-		return Account{}, err
-	}
-	if _, err = tx.Exec(ctx, "UPDATE accounts SET data=$2 WHERE id=$1", id, data); err != nil {
+	if err = s.writeAccount(ctx, tx, id, purchases, account); err != nil {
 		return Account{}, err
 	}
 	if err = tx.Commit(ctx); err != nil {
@@ -104,17 +87,16 @@ func (s *PGStore) FindBillingAccount(ctx context.Context, subscriptionID, transa
 	if subscriptionID == "" && transactionID == "" {
 		return "", ErrUnauthorized
 	}
-	// JSONB containment is served by the accounts_billing_purchases GIN index
-	// (jsonb_path_ops); each reference is looked up separately so an empty
-	// one never widens the match.
+	// Each reference is looked up separately, by its own partial index on
+	// billing_purchases (the <>'' condition lets a generic plan use it), so an
+	// empty one never widens the match.
 	var id string
 	err := pgx.ErrNoRows
-	for _, match := range []struct{ key, value string }{{"subscriptionId", subscriptionID}, {"transactionId", transactionID}} {
+	for _, match := range []struct{ column, value string }{{"subscription_id", subscriptionID}, {"transaction_id", transactionID}} {
 		if match.value == "" {
 			continue
 		}
-		purchase, _ := json.Marshal([]map[string]string{{match.key: match.value}})
-		err = s.pool.QueryRow(ctx, `SELECT id FROM accounts WHERE data->'billing'->'purchases' @> $1::jsonb LIMIT 1`, purchase).Scan(&id)
+		err = s.pool.QueryRow(ctx, `SELECT account_id FROM billing_purchases WHERE `+match.column+`=$1 AND `+match.column+`<>'' ORDER BY account_id LIMIT 1`, match.value).Scan(&id)
 		if !errors.Is(err, pgx.ErrNoRows) {
 			break
 		}
