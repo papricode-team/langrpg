@@ -33,17 +33,10 @@ export function updateMinimapPlayer(root: ParentNode, position: HudMapPoint | un
 }
 
 export function hudNavigationMarkup(muted: boolean): string {
-  const dock = [
-    { view: 'quests', label: t('Quests'), glyph: 'scroll', key: 'Q' },
-    { view: 'journal', label: t('Journal'), glyph: 'book', key: 'J' },
-    { view: 'atlas', label: t('Atlas'), glyph: 'map', key: 'M' },
-    { view: 'character', label: t('Character'), glyph: 'shirt', key: 'C' },
-    { view: 'settings', label: t('Settings'), glyph: 'settings', key: 'O' },
-  ];
   return `<div class="hud-tools" role="group" aria-label="${e(t('Game controls'))}"><button class="hud-round" type="button" data-view="help" aria-label="${e(t('Help'))}">?</button><button class="hud-round" type="button" data-action="fullscreen" aria-label="${e(t('Full screen'))}">${icon('expand')}</button><button class="hud-round" id="hud-sound" type="button" data-action="sound" aria-label="${e(t('Sound'))}" aria-pressed="${!muted}">${icon(muted ? 'muted' : 'volume')}</button></div>
     <aside class="hud-minimap" id="hud-minimap" aria-label="${e(t('Town map · resident meeting places'))}"></aside>
     <aside class="hud-local hud-painted-panel" aria-label="${e(t('Local presence'))}"><div class="hud-local-heading">${icon('users')}<strong id="hud-local-place"></strong><span>${e(t('Local'))}</span></div><p id="hud-local-status" role="status"></p></aside>
-    <div class="hud-dock-area"><p class="hud-key-hints"><kbd>W A S D</kbd> ${e(t('Move'))}<span>·</span><kbd>E</kbd> ${e(t('Talk'))}<span>·</span>${e(t('Click to wander'))}</p><nav class="hud-dock hud-painted-panel" aria-label="${e(t('Adventure menu'))}">${dock.map(item => `<button type="button" class="hud-dock-item${item.view === 'atlas' ? ' hud-dock-atlas game-menu-button' : ''}" data-view="${item.view}" aria-label="${e(item.label)}"><span class="hud-dock-art" aria-hidden="true">${item.view === 'atlas' ? '<img src="/assets/ui/atlas-medallion-v2.webp" alt=""/>' : icon(item.glyph)}</span><span>${e(item.label)}</span><kbd aria-hidden="true">${item.key}</kbd>${item.view === 'journal' ? '<i id="review-dot" hidden></i>' : ''}</button>`).join('')}</nav></div>
+    <div class="hud-dock-area"><nav class="hud-dock hud-painted-panel" aria-label="${e(t('Adventure menu'))}"><button type="button" class="hud-dock-item hud-dock-atlas game-menu-button" data-view="atlas" aria-label="${e(t('Atlas'))}"><span class="hud-dock-art" aria-hidden="true"><img src="/assets/ui/atlas-medallion-v2.webp" alt=""/></span><span>${e(t('Atlas'))}</span><kbd aria-hidden="true">M</kbd></button></nav></div>
     <button class="hud-revisit hud-painted-panel" id="hud-revisit" type="button" data-action="review" hidden>${icon('leaf')}<span id="hud-revisit-label"></span>${icon('arrow')}</button>`;
 }
 
