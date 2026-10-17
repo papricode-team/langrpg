@@ -3,6 +3,7 @@ import { WORLD_UI, loadWorldUi, waitForWorldUi } from './world-ui';
 import { WORLD_TITLE_FONT, refreshWorldFonts } from './world-fonts';
 import * as Phaser from 'phaser';
 import { emitWorld, readWorld, SceneKeys, WorldEvents } from './world-state';
+import { t } from './i18n';
 
 export interface TravelSceneData { label: string }
 
@@ -55,7 +56,7 @@ export class TravelScene extends Phaser.Scene {
     this.backdrop = this.add.rectangle(0, 0, 1, 1, 0x1d2a26).setOrigin(0).setInteractive();
     if (this.textures.exists('world-travel-preview')) this.painting = this.add.image(0, 0, 'world-travel-preview').setAlpha(.66);
     this.titlePlate = this.add.image(0, 0, WORLD_UI.ink);
-    this.title = this.add.text(0, 0, this.label, { fontFamily: WORLD_TITLE_FONT, fontSize: `${22 * density}px`, color: '#302c22' }).setOrigin(.5);
+    this.title = this.add.text(0, 0, t('Loading…'), { fontFamily: WORLD_TITLE_FONT, fontSize: `${22 * density}px`, color: '#302c22' }).setOrigin(.5);
     this.track = this.add.rectangle(0, 0, 1, 2 * density, 0x3b4c43).setOrigin(0, .5);
     this.bar = this.add.rectangle(0, 0, 1, 2 * density, 0xe5c37c).setOrigin(0, .5);
     this.painted = true;
@@ -90,7 +91,7 @@ export class TravelScene extends Phaser.Scene {
   private handleProgress(value: number, label: string): void {
     this.progress = Math.max(this.progress, Math.min(1, value));
     if (label) this.label = label;
-    if (this.painted) { this.title.setText(this.label); this.layout(); }
+    if (this.painted) this.layout();
   }
 
   private handleExploreReady(key: string): void {
