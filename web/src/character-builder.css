@@ -202,11 +202,6 @@
   cursor:pointer
 }
 
-.character-builder button:focus-visible,.character-builder select:focus-visible {
-  outline:3px solid #b38b3f;
-  outline-offset:2px
-}
-
 #account-dialog:has(.character-builder) {
   width:min(940px,96vw);
   max-height:92dvh;

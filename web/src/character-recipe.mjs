@@ -1,5 +1,5 @@
 /** Shared, platform-independent v2 recipes and composition rules. */
-import compiled from './data/character-kit.json' with { type: 'json' };
+import compiled from '../../server/character-kit.json' with { type: 'json' };
 import { resolveComponentRules } from './character-rules.mjs';
 export const characterCatalogue = compiled;
 /** Expressions replace only the matching face; recipe identity and clothing stay intact. */

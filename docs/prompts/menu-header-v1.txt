@@ -1,0 +1,13 @@
+Use case: stylized-concept
+Asset type: production 2D game UI art for glotworld, a cozy hand-painted European village story RPG with a premium, Blizzard/Hearthstone-quality painted interface in aged brass, deep forest-green enamel and warm ivory parchment.
+Primary request: A top navigation bar for a full-screen game menu: a long horizontal carved bar of deep forest-green enamel bordered top and bottom by aged-brass moldings, with a heavier ornate brass cartouche at each end (scrollwork with a round emerald gem). The middle is plain uniform molding so it can stretch to any width.
+Composition: 2048 x 256, straight-on, perfectly left-right symmetric. Bar fills about 70 percent of height, vertically centred. End cartouches occupy no more than 200 pixels each.
+Materials: softly worn warm brass #c4a567, pale gold highlights #e8d39b, dark bronze #5b4520, deep forest green #16332d to #0f241e, emerald #2f7a5a, ivory parchment #efe2bf. Soft light from upper left, rich hand-painted edge highlights and gentle wear, no photorealism, no pixel art.
+Constraints: no letters, no words, no numbers, no watermark, no characters, no drop shadow outside the silhouette. Everything outside the object must be genuine alpha transparency.
+
+Generated with Codex's built-in image generation tool, transparent background.
+Original: art/ui/menu-header-v1.png
+Runtime: web/public/assets/ui/menu-header-v1.webp, drawn as a border-image (slice 0 170, width 0 112px, on the menu header bar).
+
+Runtime export (Node with sharp):
+await sharp(await sharp('art/ui/menu-header-v1.png').trim().toBuffer()).resize({height:96}).webp({quality:72,alphaQuality:90,effort:6}).toFile('web/public/assets/ui/menu-header-v1.webp');

@@ -18,7 +18,7 @@ The Go service owns session credentials, player movement, curriculum grading, qu
 | `internal/metrics` | Prometheus text exposition without third-party clients. | — |
 | `internal/pgtest` | Isolated PostgreSQL schemas for integration tests. | — |
 
-`server/character-kit.json` stays at its published path because the asset scripts write it; `package main` embeds it and hands it to `avatar`. The map registry is compiled from the stored world, never embedded.
+`server/character-kit.json` is the only copy of the character catalogue: the asset scripts write it, the client imports it from here, and `package main` embeds it and hands it to `avatar`. The map registry is compiled from the stored world, never embedded.
 
 ## User administration
 

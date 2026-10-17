@@ -254,7 +254,7 @@ export function assetQualityPlugin(root) {
       if (!outDir) return;
       const assets = join(outDir, 'assets');
       try { await stat(assets); } catch { return; }
-      await pruneLegacyCharacterKit(assets, await readJSON(resolve(root, 'web/src/data/character-kit.json')));
+      await pruneLegacyCharacterKit(assets, await readJSON(resolve(root, 'server/character-kit.json')));
       const started = Date.now();
       const totals = await buildQualityTiers(assets, { log: message => this.info?.(message), densities: await sceneryDensities(publicAssets, seedPath) });
       console.log(`Asset quality: ${totals.files} tiered images in ${((Date.now() - started) / 1000).toFixed(1)} s; masters ${MB(totals.master)} -> high ${MB(totals.high)}, medium ${MB(totals.medium)}, low ${MB(totals.low)} (${MB(totals.untouched)} shipped untouched).`);

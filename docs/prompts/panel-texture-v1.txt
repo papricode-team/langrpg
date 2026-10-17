@@ -1,0 +1,15 @@
+Use case: stylized-concept
+Asset type: production 2D game UI art for glotworld, a cozy hand-painted European village story RPG with a premium, Blizzard/Hearthstone-quality painted interface in aged brass, deep forest-green enamel and warm ivory parchment.
+Primary request: A seamless, tileable square texture of deep forest-green tooled leather / lacquered felt, used as the background of every menu panel. Very subtle low-contrast mottling and fine grain, a faint embossed damask pattern barely visible. Must tile seamlessly on all four edges with no visible seams, no vignette, no lighting gradient, no border.
+Composition: 1024 x 1024, fully opaque, uniform overall brightness (dark, around #13302a average) so cream text stays readable on it.
+Note: this one is fully opaque; ignore the transparency constraint below.
+Materials: softly worn warm brass #c4a567, pale gold highlights #e8d39b, dark bronze #5b4520, deep forest green #16332d to #0f241e, emerald #2f7a5a, ivory parchment #efe2bf. Soft light from upper left, rich hand-painted edge highlights and gentle wear, no photorealism, no pixel art.
+Constraints: no letters, no words, no numbers, no watermark, no characters, no drop shadow outside the silhouette. Everything outside the object must be genuine alpha transparency.
+
+Generated with Codex's built-in image generation tool, opaque.
+Original: art/ui/panel-texture-v1.png
+Runtime: web/public/assets/ui/panel-texture-v1.webp (512 x 512), tiled behind menu panels, cards and dialogs.
+
+Runtime export (Node with sharp), shifting the mean colour to #16302a while keeping the grain:
+const s=await sharp('art/ui/panel-texture-v1.png').stats(), target=[22,48,42], k=.9;
+await sharp('art/ui/panel-texture-v1.png').resize(512).removeAlpha().linear([k,k,k], s.channels.slice(0,3).map((c,i)=>target[i]-c.mean*k)).webp({quality:82,effort:6}).toFile('web/public/assets/ui/panel-texture-v1.webp');

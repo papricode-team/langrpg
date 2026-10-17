@@ -302,7 +302,7 @@ export function compileCatalogue(source, exported) {
 }
 
 export async function buildCatalogue(root, source, verify) {
-  if(source.highResolution)requireCompleteHDReplacement(source,await readJSON(resolve(root,'web/src/data/character-kit.json')));
+  if(source.highResolution)requireCompleteHDReplacement(source,await readJSON(resolve(root,'server/character-kit.json')));
   validateCatalogue(source);
   const directory = assetRoot(source);
   const exported = await readJSON(resolve(root, directory, 'manifest.json'));
@@ -320,7 +320,6 @@ export async function buildCatalogue(root, source, verify) {
     }
     if (sha(await readFile(resolve(root, directory, asset.thumbnail))) !== asset.thumbnailSha256) throw new Error(`Changed thumbnail for ${entry.id}`);
   }
-  await saveJSON(resolve(root, 'web/src/data/character-kit.json'), compiled);
   await saveJSON(resolve(root, 'server/character-kit.json'), compiled);
   return compiled;
 }

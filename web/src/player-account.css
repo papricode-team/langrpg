@@ -20,11 +20,6 @@
   flex: 0 0 32px;
 }
 
-.glotworld-brand:focus-visible {
-  outline: 2px solid var(--gold-light);
-  outline-offset: 4px;
-}
-
 .account-dialog h2 {
   font-size: var(--type-display);
   line-height: 1.15;

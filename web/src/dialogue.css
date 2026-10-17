@@ -14,15 +14,16 @@
 
 .world-dialogue {
   pointer-events:auto;
-  width:min(760px,100%);
-  max-height:70dvh;
+  width:min(820px,100%);
+  max-height:72dvh;
   overflow:auto;
-  border:1px solid #dbc58b90;
-  border-radius:20px;
-  background:linear-gradient(145deg,#183d36f5,#122d2af5);
+  /* Painted brass frame (art/ui/dialogue-frame-v1.png); the gradient shows only if it fails to load. */
+  border:20px solid transparent;
+  border-image:url('/assets/ui/dialogue-frame-v1.webp') 112 fill / 56px / 0 stretch;
+  background:linear-gradient(145deg,#183d36,#122d2a) padding-box;
   color:#f5e7c6;
-  box-shadow:0 15px 70px #071c1b99;
-  padding:20px 24px;
+  filter:drop-shadow(0 18px 34px #04110ecc);
+  padding:10px 24px 20px;
   font-family:'DM Sans',sans-serif;
   overscroll-behavior:contain;
   scrollbar-width:thin;
@@ -32,7 +33,10 @@
 .dialogue-heading {
   display:flex;
   gap:12px;
-  align-items:center
+  align-items:center;
+  padding:0 0 10px 10px;
+  border-bottom:1px solid transparent;
+  border-image:linear-gradient(90deg,#c4a56700,#c4a567aa 20%,#c4a567aa 80%,#c4a56700) 1
 }
 
 .dialogue-heading .portrait,.dialogue-heading .story-portrait {
@@ -50,6 +54,8 @@
 
 .dialogue-heading h2 {
   font-family:Fraunces,serif;
+  color:#f1d995;
+  text-shadow:0 1px 0 #0b1a16,0 0 14px #e8c77333;
   font-size: var(--type-title);
   line-height:1.25;
   margin:3px 0 0;
@@ -79,6 +85,8 @@
   font-family:Fraunces,serif;
   font-size: var(--type-title);
   line-height:1.55;
+  color:#fbf1d6;
+  text-shadow:0 1px 0 #0b1a16;
   margin:18px 0 10px;
   overflow-wrap:anywhere
 }
@@ -153,12 +161,7 @@
   gap:9px
 }
 
-.dialogue-gate label {
-  font-size: var(--type-caption);
-  color:#dce3d0
-}
-
-.dialogue-gate>div {
+.dialogue-gate-entry {
   display:flex;
   gap:12px
 }
@@ -166,12 +169,19 @@
 .dialogue-gate input {
   min-width:0;
   flex:1;
-  padding:13px 14px;
+  min-height:58px;
+  padding:12px 16px;
   border-radius:10px;
-  border:1px solid #9aac92;
-  background:#f4edd9;
-  color:#203e36;
-  font: var(--type-body) 'DM Sans',sans-serif
+  border:2px solid #8a6d36;
+  background:linear-gradient(#efe3c2,#f8f0da 30%);
+  box-shadow:inset 0 2px 6px #5a42184d,0 0 0 1px #0d201b;
+  color:#1f2f27;
+  font:500 var(--type-title) Fraunces,serif;
+  transition:border-color .15s,box-shadow .15s
+}
+
+.dialogue-gate input:focus {
+  outline:none
 }
 
 .dialogue-gate .caption {
@@ -249,8 +259,7 @@
 }
 
 .world-dialogue :is(button,input,select,textarea,summary,a[href]):focus-visible {
-  outline:none;
-  box-shadow:var(--focus-ring)
+  outline:none
 }
 
 .dialogue-choice mark {
@@ -260,7 +269,7 @@
 }
 
 .dialogue-advance {
-  margin-top:4px
+  margin-top:6px
 }
 
 .story-portrait {
@@ -458,7 +467,7 @@
   .dialogue-choice-submit {
     padding:8px 10px
   }
-  .dialogue-gate>div {
+  .dialogue-gate-entry {
     flex-direction:column;
     gap:8px
   }
@@ -491,12 +500,6 @@
 
 .cinematic-open .game-hud {
   visibility:hidden
-}
-
-.dialogue-word.wordlight-lit {
-  background:#d5bb6655;
-  border-radius:3px;
-  box-shadow:0 0 9px #e7d38844
 }
 
 .lantern-rewards {
@@ -588,7 +591,25 @@
 
 .dialogue-hint-tools {
   display:flex;
-  gap:18px
+  gap:8px
+}
+
+.dialogue-hint-tools .text-button {
+  min-height:40px;
+  padding:6px 14px;
+  border:1px solid #c4a56766;
+  border-radius:999px;
+  background:#0c1f1a99;
+  color:#e6d29b;
+  font:600 var(--type-caption) 'DM Sans',sans-serif;
+  letter-spacing:.3px;
+  text-decoration:none
+}
+
+.dialogue-hint-tools .text-button:hover:not(:disabled),.dialogue-hint-tools .text-button[aria-expanded="true"] {
+  border-color:#e8d39b;
+  background:#c4a56726;
+  color:#fbefc9
 }
 
 .dialogue-grammar {
@@ -732,8 +753,8 @@
 
 .dialogue-hint-tools {
   flex-wrap:wrap;
-  column-gap:18px;
-  row-gap:2px
+  column-gap:8px;
+  row-gap:6px
 }
 
 .dialogue-answer-help {
@@ -878,3 +899,180 @@
 .dialogue-admin { display: flex; justify-content: flex-end; margin-top: 6px; }
 .dialogue-admin button { min-height: 32px; padding: 4px 12px; border-radius: 8px; border: 1px dashed #c4a567; background: transparent; color: inherit; font: 600 13px 'DM Sans', system-ui, sans-serif; cursor: pointer; }
 .dialogue-admin button:disabled { cursor: default; opacity: .8; }
+
+/* The task is the hero of a gate: a parchment plaque with a quill medallion. */
+.world-dialogue.has-gate .dialogue-line {
+  color:#e9dcbc
+}
+
+.dialogue-gate {
+  gap:12px;
+  margin-top:4px
+}
+
+.dialogue-objective {
+  display:flex;
+  align-items:center;
+  gap:14px;
+  min-height:96px;
+  margin:4px 0 2px;
+  padding:4px 10px 4px 0;
+  border:solid transparent;
+  border-width:14px 34px 14px 46px;
+  border-image:url('/assets/ui/objective-plaque-v1.webp') 48 110 fill / 24px 55px / 0 stretch;
+  background:#efe2bf padding-box;
+  color:#2a2112;
+  filter:drop-shadow(0 8px 14px #02090799)
+}
+
+.dialogue-objective-emblem {
+  flex:none;
+  width:64px;
+  height:64px;
+  margin-left:-40px;
+  background:url('/assets/ui/quill-emblem-v1.webp') center / contain no-repeat;
+  filter:drop-shadow(0 3px 5px #3a2a0e88);
+  animation:dialogue-emblem-glow 2.8s ease-in-out infinite
+}
+
+.dialogue-objective>div {
+  min-width:0
+}
+
+.dialogue-objective-kicker {
+  display:block;
+  font:700 var(--type-caption)/1.2 'DM Sans',sans-serif;
+  letter-spacing:1.8px;
+  text-transform:uppercase;
+  color:#8a6526
+}
+
+.dialogue-objective label {
+  display:block;
+  margin-top:3px;
+  font:600 26px/1.25 Fraunces,serif;
+  color:#2a2112;
+  overflow-wrap:anywhere
+}
+
+@keyframes dialogue-emblem-glow {
+  0%,100% { filter:drop-shadow(0 3px 5px #3a2a0e88) }
+  50% { filter:drop-shadow(0 3px 5px #3a2a0e88) drop-shadow(0 0 10px #f3d68fcc) }
+}
+
+.dialogue-gate .dialogue-feedback {
+  margin:0;
+  padding:10px 14px;
+  border:1px solid #c4a56755;
+  border-left:3px solid #e2c27a;
+  border-radius:6px;
+  background:#0c1f1acc;
+  color:#f3e4bd;
+  font-size:var(--type-body)
+}
+
+.dialogue-say {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  flex:none;
+  min-width:150px;
+  min-height:58px;
+  padding:0 8px;
+  border:solid transparent;
+  border-width:0 28px;
+  border-image:url('/assets/ui/brass-button-v1.webp') 0 64 fill / 0 28px / 0 stretch;
+  background:#c9a85e padding-box;
+  color:#2b1f08;
+  font:700 var(--type-title) Fraunces,serif;
+  letter-spacing:.3px;
+  text-shadow:0 1px 0 #f7e6b0b3;
+  cursor:pointer;
+  filter:drop-shadow(0 4px 6px #02090799);
+  transition:filter .15s,transform .1s
+}
+
+.dialogue-say .icon {
+  width:18px;
+  height:18px
+}
+
+.dialogue-say:hover:not(:disabled) {
+  filter:drop-shadow(0 4px 6px #02090799) drop-shadow(0 0 12px #f0d49a88) brightness(1.07)
+}
+
+.dialogue-say:active:not(:disabled) {
+  transform:translateY(1px);
+  filter:drop-shadow(0 2px 3px #02090799) brightness(.96)
+}
+
+.dialogue-say:disabled {
+  cursor:default;
+  filter:grayscale(.5) brightness(.8)
+}
+
+.dialogue-gate-help {
+  font-size:var(--type-caption);
+  line-height:1.45;
+  color:#9fb3a3
+}
+
+.dialogue-tools button {
+  min-height:40px;
+  padding:6px 14px;
+  border:1px solid #c4a56755;
+  border-radius:999px;
+  background:#0c1f1a99;
+  font-weight:600;
+  cursor:pointer
+}
+
+.dialogue-tools button:hover:not(:disabled) {
+  border-color:#e8d39b;
+  color:#fbefc9
+}
+
+.dialogue-tools [data-dialogue-action="translate"] {
+  padding:6px 14px;
+  border-color:#c4a56755;
+  border-radius:999px
+}
+
+@media(--phone) {
+  .world-dialogue {
+    border-width:14px;
+    border-image-width:40px;
+    padding:8px 12px 14px
+  }
+  .dialogue-objective {
+    min-height:72px;
+    gap:10px;
+    border-width:10px 20px 10px 30px;
+    border-image-width:18px 40px
+  }
+  .dialogue-objective-emblem {
+    width:46px;
+    height:46px;
+    margin-left:-28px
+  }
+  .dialogue-objective label {
+    font-size:var(--type-title)
+  }
+  .world-dialogue.has-gate .dialogue-history {
+    max-height:4.5em
+  }
+  .world-dialogue.has-gate .dialogue-line {
+    font-size:var(--type-body);
+    margin:10px 0 6px
+  }
+  .dialogue-say {
+    width:100%
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .dialogue-objective-emblem {
+    animation:none
+  }
+}

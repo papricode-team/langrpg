@@ -220,11 +220,6 @@
   font-size: var(--type-caption);
 }
 
-.screen-filter-panel button:focus-visible,.screen-filter-panel input:focus-visible {
-  outline-color:#416347;
-  outline-offset:3px;
-}
-
 @media (--phone) {
   .screen-filter-panel {
     top:max(114px,calc(env(safe-area-inset-top) + 100px));

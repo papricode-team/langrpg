@@ -72,7 +72,7 @@ export function compactExpeditionLearning(data){
 }
 export async function writeExpeditionLearning(check=false){
  const data=await buildExpeditionLearning(),text=JSON.stringify(data,null,2)+'\n';
- const outputs=[['web/src/data/expedition-learning.json',text],['server/expedition_learning.json',text],['web/src/data/expedition-learning-runtime.json',JSON.stringify(compactExpeditionLearning(data))+'\n']];
+ const outputs=[['server/expedition_learning.json',text],['web/src/data/expedition-learning-runtime.json',JSON.stringify(compactExpeditionLearning(data))+'\n']];
  for(const [file,contents] of outputs){if(check){if(await readFile(resolve(root,file),'utf8')!==contents)throw new Error(`Stale expedition learning mappings: ${file}`);}else await writeFile(resolve(root,file),contents);}
  return data;
 }

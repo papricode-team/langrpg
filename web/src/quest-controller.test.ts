@@ -384,7 +384,6 @@ describe('conversation scene lifecycle', () => {
     const f = fixture();
     f.options.playerName = () => '4534Gokay';
     Object.assign(f.options,{prepareLine:(line:DialogueLine)=>({...line,german:line.german.replaceAll('{name}','4534Gokay')})});
-    f.progress.completedQuestIds.push('a1-cafe'); // Unlock slower playback.
     f.progress.story!.flags['reply:a1-arrival-exercise-1'] = true;
     await f.controller.open('a1-arrival');
     for (let step = 0; step < 20 && document.querySelector('.dialogue-line')?.textContent !== 'Deine Fahrkarte, bitte.'; step++) press();
@@ -395,7 +394,7 @@ describe('conversation scene lifecycle', () => {
     expect(f.options.speak).not.toHaveBeenCalled();
     expect(f.options.stopSpeech).toHaveBeenCalledOnce();
     expect(document.querySelector('[data-dialogue-action="audio"]')?.getAttribute('aria-pressed')).toBe('true');
-    for (const action of ['listen', 'slow']) {
+    for (const action of ['listen']) {
       expect(document.querySelector<HTMLButtonElement>(`[data-dialogue-action="${action}"]`)!.disabled).toBe(true);
       f.click(`[data-dialogue-action="${action}"]`);
     }
@@ -405,8 +404,6 @@ describe('conversation scene lifecycle', () => {
     press();
     expect(f.options.speak).toHaveBeenCalledOnce();
     expect(document.querySelector<HTMLButtonElement>('[data-dialogue-action="listen"]')!.disabled).toBe(false);
-    f.click('[data-dialogue-action="slow"]');
-    expect(f.options.speak.mock.lastCall?.[3]).toBe(.65);
   });
   it.each(['Hallo, {name}!', 'Dein Zug fährt um {time}.'])('keeps resident greetings with variables silent: %s', async german => {
     const f = fixture();
@@ -525,8 +522,11 @@ describe('conversation scene lifecycle', () => {
   it('marks requested contextual grammar as a hint while preserving the typed reply', async () => {
     const f=fixture('gate');await f.controller.open('a1-arrival');until('#dialogue-answer');
     document.querySelector<HTMLInputElement>('#dialogue-answer')!.value='Noch einmal, bitte.';
+    f.options.speak.mockClear();
     f.click('[data-dialogue-action="grammar"]');
     expect(document.querySelector('.dialogue-grammar')?.textContent).toContain('Mit bitte');
+    expect(f.options.speak).not.toHaveBeenCalled();
+    expect(document.querySelector('[data-dialogue-action="guide"]')).toBeNull();
     expect(document.querySelector<HTMLInputElement>('#dialogue-answer')!.value).toBe('Noch einmal, bitte.');
     expect(f.options.expose).toHaveBeenCalledWith('a1-arrival-exercise-7');
     document.querySelector('form')!.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));

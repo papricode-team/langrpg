@@ -32,7 +32,7 @@ const sources = [];
 const walk = dir => { for (const item of readdirSync(dir, { withFileTypes: true })) { const path = join(dir, item.name); if (item.isDirectory()) walk(path); else if (/\.ts$/.test(item.name) && !/\.test\.ts$/.test(item.name)) sources.push(readFileSync(path, 'utf8')); } };
 walk(join(root, 'web/src'));
 // Catalogue labels are runtime data, so static t('…') scanning cannot see them.
-const characterKit = existsSync(join(root, 'web/src/data/character-kit.json')) ? read('web/src/data/character-kit.json') : null;
+const characterKit = existsSync(join(root, 'server/character-kit.json')) ? read('server/character-kit.json') : null;
 const characterKeys = characterKit ? [...characterKit.slots, ...characterKit.components].map(item => item.labelKey).concat(Object.values(characterKit.poseSets ?? {}).map(pose => pose.label)) : [];
 const keys = [...new Set([...uiKeys(sources), ...characterKeys])].sort();
 const uiMissing = keys.filter(key => !ui[key]?.trim());

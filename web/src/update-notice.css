@@ -77,11 +77,6 @@
   background:#d8bb8018;
 }
 
-.update-notice .update-notice-actions>button:focus-visible {
-  outline:2px solid #edd29b;
-  outline-offset:2px;
-}
-
 /* Each world layer is fixed to the viewport, so each receives the same inset. */
 html.update-notice-visible #game-shell, html.update-notice-visible .world-stage, html.update-notice-visible #world-container, html.update-notice-visible #menu-layer {
   top:var(--update-notice-height,0px);

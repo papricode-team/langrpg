@@ -231,28 +231,10 @@
 
 #menu-layer .course-picker [role=status]:empty { display:none; }
 
-/* Nine-slice SVG artwork gives every menu control the same painted focus effect.
-   Border-image widths do not change layout or replace a control's background.
-   Native radios and checkboxes keep the shared ring because they do not paint border images. */
-#menu-layer :is(button,input:where(:not([type=radio],[type=checkbox])),select,textarea,summary,a[href]):focus-visible,
-#menu-layer[data-input='keys'] :is(button,input:where(:not([type=radio],[type=checkbox])),select,textarea,summary,a[href]):focus-visible,
-#menu-layer[data-input='pad'] :is(button,input:where(:not([type=radio],[type=checkbox])),select,textarea,summary,a[href]):focus {
-  outline:none;
-  box-shadow:none;
-  border-image:url('/assets/ui/menu-focus.svg') 16 fill / 16px / 3px stretch;
-}
-
 @media (forced-colors:active) {
   #menu-layer .course-picker select {
     appearance:auto;
     background-image:none;
-  }
-
-  #menu-layer :is(button,input,select,textarea,summary,a[href]):focus-visible,
-  #menu-layer[data-input='pad'] :is(button,input,select,textarea,summary,a[href]):focus {
-    border-image:none;
-    outline:2px solid Highlight;
-    outline-offset:3px;
   }
 }
 

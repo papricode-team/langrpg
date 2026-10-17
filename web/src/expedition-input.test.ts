@@ -2,7 +2,7 @@
 import {afterEach,beforeEach,describe,expect,it,vi} from 'vitest';
 import {emptyProgress,type Api} from './api';
 import {ExpeditionLearning} from './expedition-learning';
-import expeditionLearningManifest from './data/expedition-learning.json';
+import expeditionLearningManifest from '../../server/expedition_learning.json';
 import {expeditionRegions} from './expeditions';
 import {expeditionGames,mountExpeditionGame} from './expedition-games';
 import {mountExpeditionEncounter,pendingEncounterCommands} from './expedition-encounter';

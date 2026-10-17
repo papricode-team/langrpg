@@ -1,0 +1,13 @@
+Use case: stylized-concept
+Asset type: production 2D game UI art for glotworld, a cozy hand-painted European village story RPG with a premium, Blizzard/Hearthstone-quality painted interface in aged brass, deep forest-green enamel and warm ivory parchment.
+Primary request: A selected-tab plaque for the main menu navigation: a short horizontal brass plate with gently flared, notched ends (like a bookmark tab or heraldic label), a polished pale-gold face, a darker bronze rim, and a tiny emerald gem set at the bottom centre of the rim. The face is clean so an icon and a word can sit on it.
+Composition: 768 x 256, straight-on, perfectly left-right symmetric, plate fills about 96 percent of width and 78 percent of height. The flared ends occupy no more than 90 pixels at each end; the middle is uniform.
+Materials: softly worn warm brass #c4a567, pale gold highlights #e8d39b, dark bronze #5b4520, deep forest green #16332d to #0f241e, emerald #2f7a5a, ivory parchment #efe2bf. Soft light from upper left, rich hand-painted edge highlights and gentle wear, no photorealism, no pixel art.
+Constraints: no letters, no words, no numbers, no watermark, no characters, no drop shadow outside the silhouette. Everything outside the object must be genuine alpha transparency.
+
+Generated with Codex's built-in image generation tool, transparent background.
+Original: art/ui/tab-plate-v1.png
+Runtime: web/public/assets/ui/tab-plate-v1.webp, drawn as a border-image (slice 0 56, width 0 30px, on the active menu tab and selected switches).
+
+Runtime export (Node with sharp):
+await sharp(await sharp('art/ui/tab-plate-v1.png').trim().toBuffer()).resize({height:96}).webp({quality:72,alphaQuality:90,effort:6}).toFile('web/public/assets/ui/tab-plate-v1.webp');

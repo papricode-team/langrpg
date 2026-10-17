@@ -18,7 +18,7 @@
   overflow:hidden;
   border:0;
   color:var(--game-text);
-  background:linear-gradient(180deg,#07130fe8,#0b1d18f2);
+  background:radial-gradient(ellipse at 50% 40%,transparent 40%,#020907d9 100%),linear-gradient(180deg,#07130fd9,#0b1d18eb);
   backdrop-filter:blur(9px) saturate(.75);
 }
 
@@ -28,16 +28,20 @@
 
 #menu-layer .menu-frame {
   display:grid;
-  grid-template-columns:208px minmax(0,1fr);
+  grid-template-columns:248px minmax(0,1fr);
   grid-template-rows:auto auto minmax(0,1fr);
   grid-template-areas:'header header' 'rail back' 'rail content';
   gap:0 28px;
   width:min(1320px,100%);
   height:100%;
   min-height:0;
-  background:none;
-  border:0;
+  padding:4px 28px 8px;
+  /* The whole menu is one painted book: brass frame over tooled leather. */
+  border:22px solid transparent;
+  border-image:url('/assets/ui/dialogue-frame-v1.webp') 112 / 56px / 0 stretch;
+  background:#16302a url('/assets/ui/panel-texture-v1.webp') center / 384px padding-box;
   box-shadow:none;
+  filter:drop-shadow(0 24px 60px #020907e6);
 }
 
 #menu-chrome {
@@ -59,8 +63,10 @@
   grid-template-columns:minmax(48px,1fr) auto minmax(48px,1fr);
   align-items:center;
   gap:16px;
-  padding:0 0 18px;
-  border-bottom:1px solid var(--game-line);
+  margin:0 -18px;
+  padding:10px 34px;
+  border:0;
+  border-image:url('/assets/ui/menu-header-v1.webp') 0 170 fill / 0 112px / 0 stretch;
 }
 
 #menu-layer .menu-brand,.menu-crest {
@@ -77,12 +83,12 @@
 }
 
 #menu-layer .menu-crest {
-  width:44px;
-  height:44px;
-  border:1px solid #d8bb8060;
+  width:48px;
+  height:48px;
+  border:0;
   border-radius:50%;
-  background:radial-gradient(circle at 50% 40%,#2a4a3c,#0e211b);
-  box-shadow:0 0 16px #f0d49a30;
+  background:#1d4a3c url('/assets/ui/round-button-v1.webp') center / 100% 100% no-repeat;
+  box-shadow:0 0 16px #f0d49a40;
 }
 
 .menu-wordmark {
@@ -136,15 +142,25 @@
 }
 
 #menu-layer .menu-tab.active {
-  color:#fbefcf;
-  background:linear-gradient(0deg,#d8bb8022,transparent 70%);
+  min-width:164px;
+  color:#2b1f08;
+  border-width:0 30px;
+  border-style:solid;
+  border-color:transparent;
+  border-image:url('/assets/ui/tab-plate-v1.webp') 0 56 fill / 0 30px / 0 stretch;
+  padding-left:4px;
+  padding-right:4px;
+  background:none;
+  font-weight:700;
+  text-shadow:0 1px 0 #f7e6b0b3;
+  filter:drop-shadow(0 3px 6px #020907a6);
 }
 
 #menu-layer .menu-tab.active .icon {
-  color:var(--game-gold);
+  color:#3a2a0e;
 }
 
-/* The selected section and page carry a lit brass bar; focus adds a painted image highlight. */
+/* The selected section and page carry a lit brass bar. */
 #menu-layer .menu-tab::after {
   content:'';
   position:absolute;
@@ -161,8 +177,7 @@
 }
 
 #menu-layer .menu-tab.active::after {
-  opacity:1;
-  transform:scaleX(1);
+  opacity:0;
 }
 
 #menu-layer .menu-tab:hover,.menu-page:hover {
@@ -225,7 +240,7 @@
   padding:24px 0;
   overflow:auto;
   min-width:0;
-  border-right:1px solid #d8bb8024;
+  border-right:1px solid #c4a56740;
 }
 
 #menu-layer .menu-page {
@@ -241,6 +256,7 @@
   background:none;
   font:500 var(--type-body)/1.4 'DM Sans',sans-serif;
   text-align:left;
+  white-space:nowrap;
   cursor:pointer;
 }
 
@@ -255,19 +271,15 @@
 
 #menu-layer .menu-page.selected {
   color:#fbefcf;
-  background:linear-gradient(90deg,#d8bb8024,#d8bb8008);
-}
-
-#menu-layer .menu-page.selected::before {
-  content:'';
-  position:absolute;
-  left:0;
-  top:10px;
-  bottom:10px;
-  width:3px;
-  border-radius:2px;
-  background:#f0d49a;
-  box-shadow:0 0 10px #f0d49a;
+  padding:12px 8px;
+  border:solid transparent;
+  border-width:0 34px 0 30px;
+  border-radius:0;
+  border-image:url('/assets/ui/rail-ribbon-v1.webp') 0 50 0 44 fill / 0 34px 0 30px / 0 stretch;
+  background:#1d5a45 padding-box;
+  font-weight:600;
+  text-shadow:0 1px 0 #0b1a16;
+  filter:drop-shadow(0 3px 5px #02090799);
 }
 
 #menu-layer .menu-back {
@@ -292,12 +304,6 @@
   overflow:auto;
   scrollbar-color:#d8bb8050 transparent;
   outline:none;
-}
-
-#menu-layer[data-input='keys'] :is(button,input,select,textarea,summary,a[href]):focus-visible,
-#menu-layer[data-input='pad'] :is(button,input,select,textarea,summary,a[href]):focus {
-  outline:none;
-  box-shadow:var(--focus-ring);
 }
 
 #menu-layer .options-panel {
@@ -444,7 +450,7 @@
     padding:24px;
   }
   #menu-layer .menu-frame {
-    grid-template-columns:172px minmax(0,1fr);
+    grid-template-columns:224px minmax(0,1fr);
     gap:0 20px;
   }
   #menu-layer .menu-tab {
@@ -460,9 +466,13 @@
 @media (--phone) {
   #menu-layer {
     padding:max(12px,env(safe-area-inset-top)) 16px calc(56px + env(safe-area-inset-bottom));
-    background:#10251e;
+    background:#10251e url('/assets/ui/panel-texture-v1.webp') center / 320px;
   }
   #menu-layer .menu-frame {
+    padding:0;
+    border:0;
+    background:none;
+    filter:none;
     display:grid;
     grid-template-columns:minmax(0,1fr);
     grid-template-rows:auto auto minmax(0,1fr);
@@ -472,7 +482,9 @@
   #menu-layer .menu-header {
     grid-template-columns:1fr 44px;
     gap:12px;
-    padding:0 0 12px;
+    margin:0 -8px;
+    padding:4px 22px;
+    border-image-width:0 72px;
   }
   #menu-layer .menu-brand {
     justify-self:start;
@@ -492,8 +504,9 @@
     gap:0;
     height:calc(56px + env(safe-area-inset-bottom));
     padding:0 8px env(safe-area-inset-bottom);
-    background:#0b1d17;
-    border-top:1px solid #d8bb8050;
+    background:#0b1d17 url('/assets/ui/panel-texture-v1.webp') center / 320px;
+    border-top:2px solid var(--ui-brass);
+    box-shadow:0 -6px 16px #02090799;
   }
   #menu-layer .menu-tab {
     flex-direction:column;
@@ -511,8 +524,20 @@
     height:20px;
   }
   #menu-layer .menu-tab.active {
+    min-width:0;
     color:#f0d49a;
-    background:#d8bb800d;
+    border:0;
+    padding:5px 4px;
+    background:radial-gradient(ellipse at 50% 0,#e8d39b33,transparent 70%);
+    filter:none;
+    text-shadow:0 0 10px #e8c77366;
+  }
+  #menu-layer .menu-tab.active .icon {
+    color:#f0d49a;
+  }
+  #menu-layer .menu-tab.active::after {
+    opacity:1;
+    transform:scaleX(1);
   }
   #menu-layer .menu-tab::after {
     top:0;
@@ -533,23 +558,26 @@
     border:0;
     overflow:auto;
   }
-  #menu-layer .menu-page {
+  #menu-layer .menu-page,#menu-layer .menu-page.selected {
     min-height:72px;
     margin:0;
     padding:16px;
-    border:1px solid #d8bb8040;
-    background:#173025;
+    border:10px solid transparent;
+    border-image:url('/assets/ui/card-frame-v1.webp') 40 / 20px / 0 stretch;
+    background:#16302a padding-box;
+    color:var(--game-text);
     font-size:var(--type-title);
+    filter:none;
   }
   #menu-layer .menu-page .icon {
     width:24px;
     height:24px;
   }
   #menu-layer .menu-content {
-    padding:20px 0;
+    padding:12px 0;
   }
   #menu-layer .menu-back {
-    margin-top:8px;
+    margin-top:2px;
   }
   #menu-layer[data-menu-page='hub'] .menu-content {
     display:none;

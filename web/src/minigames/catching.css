@@ -13,11 +13,6 @@
   touch-action: pan-y;
 }
 
-.catching-stage:focus-visible {
-  outline: 3px solid #f2d58f;
-  outline-offset: 3px;
-}
-
 .catching-awning {
   position: absolute;
   inset: 0 0 auto;
@@ -140,11 +135,6 @@
 .catching-controls button[aria-pressed="true"] {
   background: #72562bee;
   box-shadow: inset 0 0 0 2px #f1d18a;
-}
-
-.catching-controls button:focus-visible {
-  outline: 3px solid #f2d58f;
-  outline-offset: 3px;
 }
 
 .catching-controls kbd {

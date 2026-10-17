@@ -4,7 +4,7 @@ import {readFile} from 'node:fs/promises';
 import {missingWardrobeOptions} from './character-wardrobe-parity.mjs';
 
 test('published wardrobe offers every regular option for slim and broad builds', async () => {
-  for(const path of ['../art/source/character-kit/hd/catalogue.json','../web/src/data/character-kit.json','../server/character-kit.json']) {
+  for(const path of ['../art/source/character-kit/hd/catalogue.json','../server/character-kit.json']) {
     const catalogue=JSON.parse(await readFile(new URL(path,import.meta.url)));
     assert.deepEqual(missingWardrobeOptions(catalogue),[],path);
   }

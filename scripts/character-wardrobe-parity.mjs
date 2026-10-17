@@ -11,7 +11,7 @@ export function missingWardrobeOptions(catalogue) {
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
-  const catalogue = JSON.parse(await readFile(new URL('../web/src/data/character-kit.json', import.meta.url)));
+  const catalogue = JSON.parse(await readFile(new URL('../server/character-kit.json', import.meta.url)));
   const missing = missingWardrobeOptions(catalogue);
   console.log(JSON.stringify({missingCount: missing.length, missing}, null, 2));
   if (process.argv.includes('--check') && missing.length) process.exitCode = 1;

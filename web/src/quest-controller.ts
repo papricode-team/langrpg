@@ -37,7 +37,6 @@ export interface QuestControllerOptions {
   /** Rounds this character can start now, best first. */
   games?(npcId: string): readonly { id: string; title: string }[];
   onGame?(gameId: string): void;
-  onGrammarGuide?(guideId:string): void;
 }
 
 interface SceneAttemptInput {
@@ -62,7 +61,6 @@ export class QuestController {
   private hinted = false;
   private translated = false;
   private translationLine = '';
-  private wordlight = false;
   private grammarShown = false;
   private answerShown = false;
   private busy = false;
@@ -209,13 +207,12 @@ export class QuestController {
     if (this.options.audioEnabled()) this.options.speak(line.german, line.speaker, line.clipId, rate);
   }
   private render(voice = false, rate?: number, focusGate = voice) {
-    const powers = lanternRewards(this.options.progress());
     const audioEnabled = this.options.audioEnabled();
     if (this.ambient) {
       const { npc, lines } = this.ambient, source = this.line(lines[this.index], voice, rate), atEnd = this.index === lines.length - 1;
       if (!source) return;
       const line = { ...(this.options.prepareLine?.(source) ?? source), audioRequires: source.audioRequires || !canVoiceDialogue(source.german) };
-      this.view.render({ audioEnabled, title: t('A CONVERSATION IN THE TOWN'), line, name: this.options.playerName(), npc, portrait: this.options.portrait(npc.id,line.expression ?? 'neutral'), index:this.index,total:lines.length,help:this.translationVisible(line),busy:false,glosses:this.options.glosses?.(line.german)??{},powers,wordlight:this.wordlight,choices:atEnd?[...this.gameChoices(npc.id),{id:'practice',german:'Ich möchte üben.',english:'I would like to practise.',next:'',effects:[]},{id:'leave',german:'Bis später!',english:'See you later!',next:'',effects:[]}]:[] });
+      this.view.render({ audioEnabled, title: t('A CONVERSATION IN THE TOWN'), line, name: this.options.playerName(), npc, portrait: this.options.portrait(npc.id,line.expression ?? 'neutral'), index:this.index,total:lines.length,help:this.translationVisible(line),busy:false,glosses:this.options.glosses?.(line.german)??{},choices:atEnd?[...this.gameChoices(npc.id),{id:'practice',german:'Ich möchte üben.',english:'I would like to practise.',next:'',effects:[]},{id:'leave',german:'Bis später!',english:'See you later!',next:'',effects:[]}]:[] });
       if (voice) { this.options.onOpen(npc.id); this.speakLine({ ...line, speaker: npc.id }, rate); }
       return;
     }
@@ -242,7 +239,7 @@ export class QuestController {
     const topicMenu = !this.topic && !this.artifact && !guidedGate && !reply && atEnd && this.node?.stage === 'intro' ? this.topicChoices(graph, state) : [];
     const choiceRows = guidedGate ? beginnerGateChoices(gate.id) : topicMenu.length ? topicMenu : reply ? (reply.options ?? []).map(german => ({ id: german, german, ...(reply.optionSentenceIds?.[german] ? { sentenceId: reply.optionSentenceIds[german] } : {}), english: this.beginner ? beginnerReplyMeaning(german) ?? '' : '', next: '', effects: [] })) : !this.artifact && atEnd ? dialogueChoices(this.node!, state) : [];
     const { choices, loading: choicesLoading } = this.hydrateChoices(choiceRows);
-    this.view.render({ prologue: graph.level === 'A0', nameGate: graph.gateKind === 'name', audioEnabled, title: this.artifact?.locked ? t('LOCKED') : this.artifact ? t('READ THE EVIDENCE') : localized(quests.find(q => q.id === graph.questId)?.title ?? ''), line, name: this.options.playerName(), npc: npcs.find(npc => npc.id === line.speaker), portrait: this.artifact ? '' : this.options.portrait(line.speaker,line.expression ?? 'neutral'), index: this.index, total: lines.length, help: this.translationVisible(line), busy: this.busy || !!(gateId && !gate) || !!(replyId && !reply) || choicesLoading, error: this.error, glosses: { ...(this.options.glosses?.(line.german) ?? {}), ...localizedGlosses(line.glosses ?? {}) }, powers,wordlight:this.wordlight, grammar: gate && !guidedGate ? this.options.grammar?.(graph.questId) ?? grammarForQuest(graph.questId) : undefined, grammarShown:this.grammarShown, answerShown:this.answerShown, exactAnswer:this.exactAnswers.get(graph.gateExerciseId), answerAvailable:this.exactAnswers.has(graph.gateExerciseId) || !!this.options.progress().exerciseStats[graph.gateExerciseId]?.attempts, choices, gate: guidedGate ? undefined : gate, choicePrompt: guidedGate ? localized(graph.gatePrompt) : undefined, gatePrompt: localized(graph.gatePrompt), advanceLabel: this.topic ? t('Back to the conversation') : this.artifact?.locked ? t('Keep exploring') : this.artifact ? graph.level === 'A0' ? t('Continue') : this.replay ? t('Return to the investigation') : t('Record this evidence') : atEnd && this.node?.stage === 'intro' && !this.replay && !this.allInspected() ? t(graph.level === 'A0' ? 'Look closer' : 'Examine the evidence') : atEnd && this.node?.terminal ? t('Keep exploring') : t('Continue') });
+    this.view.render({ prologue: graph.level === 'A0', nameGate: graph.gateKind === 'name', audioEnabled, title: this.artifact?.locked ? t('LOCKED') : this.artifact ? t('READ THE EVIDENCE') : localized(quests.find(q => q.id === graph.questId)?.title ?? ''), line, name: this.options.playerName(), npc: npcs.find(npc => npc.id === line.speaker), portrait: this.artifact ? '' : this.options.portrait(line.speaker,line.expression ?? 'neutral'), index: this.index, total: lines.length, help: this.translationVisible(line), busy: this.busy || !!(gateId && !gate) || !!(replyId && !reply) || choicesLoading, error: this.error, glosses: { ...(this.options.glosses?.(line.german) ?? {}), ...localizedGlosses(line.glosses ?? {}) }, grammar: gate && !guidedGate ? this.options.grammar?.(graph.questId) ?? grammarForQuest(graph.questId) : undefined, grammarShown:this.grammarShown, answerShown:this.answerShown, exactAnswer:this.exactAnswers.get(graph.gateExerciseId), answerAvailable:this.exactAnswers.has(graph.gateExerciseId) || !!this.options.progress().exerciseStats[graph.gateExerciseId]?.attempts, choices, gate: guidedGate ? undefined : gate, choicePrompt: guidedGate ? localized(graph.gatePrompt) : undefined, gatePrompt: localized(graph.gatePrompt), advanceLabel: this.topic ? t('Back to the conversation') : this.artifact?.locked ? t('Keep exploring') : this.artifact ? graph.level === 'A0' ? t('Continue') : this.replay ? t('Return to the investigation') : t('Record this evidence') : atEnd && this.node?.stage === 'intro' && !this.replay && !this.allInspected() ? t(graph.level === 'A0' ? 'Look closer' : 'Examine the evidence') : atEnd && this.node?.terminal ? t('Keep exploring') : t('Continue') });
     if (voice) { this.options.onOpen(line.speaker === 'Evidence' ? '' : line.speaker); this.speakLine(line, rate); }
     if (gate && focusGate) { this.startedAt = performance.now(); if (!guidedGate) this.view.focusGate(); }
   }
@@ -266,8 +263,7 @@ export class QuestController {
       this.render(enabled, undefined, false);
       return;
     }
-    if (action === 'slow' && (this.graph?.level === 'A0' || lanternRewards(this.options.progress()).echo)) { this.render(true,.65); return; }
-    if (action === 'wordlight' && lanternRewards(this.options.progress()).wordlight) { this.wordlight = !this.wordlight; if (this.wordlight) this.hint(); this.render(); return; }
+    if (action === 'slow' && this.graph?.level === 'A0') { this.render(true,.65); return; }
     if (this.ambient) {
       if (action === 'translate') { this.translated = !this.translated; this.render(); }
       if (action === 'listen') this.render(true);
@@ -295,8 +291,7 @@ export class QuestController {
       }
       return;
     }
-    if (action === 'grammar' && this.node?.stage === 'gate') { const note = this.options.grammar?.(this.graph.questId) ?? grammarForQuest(this.graph.questId); this.grammarShown = !this.grammarShown; this.hint(); this.render(); if(note && this.grammarShown) this.speakLine({ ...note, speaker: quests.find(q=>q.id===this.graph!.questId)!.npcId }); return; }
-    if (action === 'guide') { const note = grammarForQuest(this.graph.questId); if(note) this.options.onGrammarGuide?.(note.guideId); return; }
+    if (action === 'grammar' && this.node?.stage === 'gate') { this.grammarShown = !this.grammarShown; this.hint(); this.render(); return; }
     if (action === 'translate') { this.translated = !this.translated; if (this.translated) this.hint(); this.render(); return; }
     if (action === 'hint') { this.hint(); const ex = this.exercise(this.graph.gateExerciseId); if (!ex) return; this.error = localizedExercise(ex).hint; this.render(); return; }
     if (action === 'listen') { this.render(true); return; }
@@ -447,7 +442,7 @@ export class QuestController {
     } catch (error) { if (generation === this.generation) this.error = error instanceof Error ? error.message : t('Your reply could not save. Try again.'); }
     finally { if (generation === this.generation) { this.busy = false; this.render(); } }
   }
-  close() { this.generation++; this.topic = undefined; this.replyCorrection = undefined; this.view.close(); this.view.host.classList.remove('investigation-artifact'); this.graph = undefined; this.node = undefined; this.artifact = undefined; this.ambient = undefined; this.wordlight = false; this.busy = false; this.options.stopSpeech(); this.options.onClose(); }
+  close() { this.generation++; this.topic = undefined; this.replyCorrection = undefined; this.view.close(); this.view.host.classList.remove('investigation-artifact'); this.graph = undefined; this.node = undefined; this.artifact = undefined; this.ambient = undefined; this.busy = false; this.options.stopSpeech(); this.options.onClose(); }
   destroy() { this.close(); this.view.destroy(); }
 }
 

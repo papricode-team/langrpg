@@ -1,0 +1,13 @@
+Use case: stylized-concept
+Asset type: production transparent 2D game UI nine-slice dialogue panel frame for glotworld, a cozy hand-painted European village story RPG.
+Primary request: An ornate square dialogue window frame. A slim border of softly worn aged brass, with exquisite engraved filigree corner pieces: each corner is a small brass leaf-and-scroll ornament with a tiny inset emerald enamel gem. Along each straight edge the brass band is a plain, perfectly uniform molding (thin double line with a fine inner bevel) so the edges can be stretched seamlessly. A thin inner dark-gold hairline sits just inside the brass band. The interior is a deep forest-green lacquered panel (#16332d to #10261f) with an extremely subtle painted vignette and faint paper-like texture, darker toward the edges.
+Composition: perfectly square 1024 x 1024 canvas, straight-on orthographic, perfectly symmetric on both axes, all four corners identical (mirrored). The ornamental corners occupy no more than 150 pixels from each canvas corner. The straight brass edges are about 26 pixels thick and run flush with the canvas edge. The interior area between ornaments is flat and featureless so it stretches cleanly.
+Materials: warm brass #c4a567, pale gold highlights #e8d39b, deep forest green #16332d, emerald gem #2f7a5a. Soft light from upper left, hand-painted edge highlights, no photorealism, no pixel art.
+Constraints: no letters, no words, no icons in the middle, no characters, no drop shadow outside the canvas, no watermark. Outside the rounded brass edge must be genuinely transparent alpha.
+
+Generated with Codex's built-in image generation tool, transparent background.
+Original: art/ui/dialogue-frame-v1.png
+Runtime: web/public/assets/ui/dialogue-frame-v1.webp (640 x 638), drawn as a nine-slice border-image (slice 112, width 56px) on .world-dialogue.
+
+Runtime export (Node with sharp):
+await sharp('art/ui/dialogue-frame-v1.png').trim().resize({width:640}).webp({quality:72,alphaQuality:90,effort:6}).toFile('web/public/assets/ui/dialogue-frame-v1.webp');

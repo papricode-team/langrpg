@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 import {afterEach,beforeEach,describe,it,expect,vi} from 'vitest';
 import {emptyProgress,type Api,type AttemptResult,type Progress} from './api';
-import manifest from './data/expedition-learning.json';
+import manifest from '../../server/expedition_learning.json';
 import {expeditionLearningManifest as runtime,ExpeditionLearning,expeditionRecallReady,type ExpeditionPlanCommand,type ExpeditionPlanResult} from './expedition-learning';
 import {expeditionGames,mountExpeditionGame} from './expedition-games';
 import {expeditionRegions} from './expeditions';

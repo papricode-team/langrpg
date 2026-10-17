@@ -220,7 +220,6 @@
 
 .account-dialog .billing-secondary-button:hover { background: #355b49; border-color: #f3d895; }
 .account-dialog .billing-secondary-button:active { background: #203d32; }
-.account-dialog .billing-secondary-button:focus-visible { outline: 3px solid #f3d895; outline-offset: 3px; }
 .account-dialog .billing-secondary-button:disabled { opacity: .55; cursor: wait; }
 
 .billing-unavailable {
@@ -228,11 +227,6 @@
   border: 1px solid #ccaa7b77;
   border-radius: 10px;
   font-size: var(--type-caption);
-}
-
-.access-hud button:focus-visible, .account-switch button:focus-visible, .billing-plan:focus-visible {
-  outline: 3px solid #f3d895;
-  outline-offset: 3px;
 }
 
 @media (--phone) {
