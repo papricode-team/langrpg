@@ -9,12 +9,14 @@ export const publicLearningManifestPaths=[
 const publicLearningFields=new Set(['text','german','english','answer','acceptedAnswers','explanation','correctedAnswer','correctAnswer','answers','modelAnswer','sourceGerman','sourceText','translation','translations','meanings','glosses','words','lemma','article','articleForm','plural','surfaceForms','forms','example','prompt','hint']);
 const privateLearningJSON=/^(?:data\/(?:course(?:-[^/]+)?|dialogue-graphs|story-text|syllabus|expedition-learning(?:-runtime)?)\.json|data\/i18n\/(?:tr-course|tr-story)\.json|minigames\/(?:item-data|audio-data|story-scripts|loop-data)\.json)$/;
 const retainedLearningModules=new Set(['content.ts','course.ts','quest-graph.ts','story.ts','story-panels.ts','learning-context.ts','npc-dialogue.ts','activity-engine.ts','activity-stories.ts','beginner-dialogue.ts','contextual-grammar.ts','expeditions.ts','expedition-games.ts','interiors.ts','interior-conversations.ts','word-detail.ts','story-glossary.ts','cinematic-content.ts','world-routines.ts','i18n-tr.ts','minigames/catalogue.ts','minigames/scripted-stories.ts','minigames/item-manifest.ts']);
+/** The character catalogue is presentation data that the server embeds and the client imports. */
+const publicServerJSON='server/character-kit.json';
 /** Vite may serve files directly; only the retained learning authoring banks are blocked. */
 export function privateDevelopmentRequest(requestURL,root,{webRoot=resolve(root,'web')}={}) {
   let url,path;try{url=new URL(requestURL,'http://localhost');path=posix.normalize(decodeURIComponent(url.pathname));}catch{return false;}
   const file=path.startsWith('/@fs/')?resolve('/'+path.slice('/@fs/'.length)):resolve(webRoot,path.slice(1));
   const content=resolve(root,'content'),server=resolve(root,'server');
-  if(file===resolve(root,'content_ids.json')||file.startsWith(content+'/')||file.startsWith(server+'/')&&file.endsWith('.json'))return true;
+  if(file===resolve(root,'content_ids.json')||file.startsWith(content+'/')||file.startsWith(server+'/')&&file.endsWith('.json')&&file!==resolve(root,publicServerJSON))return true;
   const source=resolve(root,'web/src')+'/';
   if(!file.startsWith(source))return false;
   const relative=file.slice(source.length);
@@ -281,7 +283,7 @@ export function contentRuntimePlugin(root) {
           const rawAuthoring=path.startsWith(source)&&retainedLearningModules.has(path.slice(source.length))&&(query.has('raw')||query.has('url'));
           // Test support reads the private authoring source from disk; content.ts imports it only under Vitest.
           const testSupport=path.startsWith(source+'test-support/');
-          if(rawAuthoring||testSupport||path.startsWith(resolve(root,'content').replaceAll('\\','/')+'/')||path===resolve(root,'content_ids.json').replaceAll('\\','/')||path.startsWith(resolve(root,'server').replaceAll('\\','/')+'/')&&path.endsWith('.json')||forbidden.test(module.replaceAll('\\','/'))||/\/test-fixtures\/content-public\.json(?:\?|$)/.test(module.replaceAll('\\','/'))) throw new Error(`Learning content entered the browser bundle: ${module}`);
+          if(rawAuthoring||testSupport||path.startsWith(resolve(root,'content').replaceAll('\\','/')+'/')||path===resolve(root,'content_ids.json').replaceAll('\\','/')||path.startsWith(resolve(root,'server').replaceAll('\\','/')+'/')&&path.endsWith('.json')&&path!==resolve(root,publicServerJSON).replaceAll('\\','/')||forbidden.test(module.replaceAll('\\','/'))||/\/test-fixtures\/content-public\.json(?:\?|$)/.test(module.replaceAll('\\','/'))) throw new Error(`Learning content entered the browser bundle: ${module}`);
         }
       }
     },

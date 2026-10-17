@@ -1,0 +1,298 @@
+/* Activity layouts on phones and compact screens. Continues activities.css; imported after it. */
+@media(--phone) {
+  .dialog.activity-dialog {
+    width:calc(100vw - 16px);
+    max-height:calc(100dvh - 16px);
+    border-radius:9px
+  }
+  .activity-content {
+    padding:19px 16px 18px
+  }
+  .activity-banner {
+    padding:16px 63px 16px 18px;
+    gap:10px;
+    min-height:79px
+  }
+  .activity-banner>span {
+    font-size: var(--type-body);
+    gap:9px;
+    max-width:185px
+  }
+  .activity-banner>span>.icon {
+    width:24px;
+    height:24px
+  }
+  .activity-rounds {
+    gap:4px
+  }
+  .activity-rounds i {
+    width:23px;
+    height:33px
+  }
+  .activity-rounds .icon {
+    width:16px;
+    height:16px
+  }
+  .activity-pause {
+    display:none
+  }
+  .activity-task-header {
+    gap:12px;
+    margin-bottom:18px;
+    align-items:flex-start
+  }
+  .activity-portrait {
+    width:57px;
+    height:57px
+  }
+  .activity-task-header h2 {
+    font-size: var(--type-display)
+  }
+  .activity-task-header p {
+    font-size: var(--type-body)
+  }
+  .activity-order {
+    padding:13px 15px;
+    margin-bottom:17px
+  }
+  .activity-order>p {
+    font-size: var(--type-body);
+    margin-right:0
+  }
+  .activity-order>div {
+    font-size: var(--type-caption)
+  }
+  .activity-order aside {
+    font-size: var(--type-caption)
+  }
+  .activity-order>div button {
+    margin-top:-2px
+  }
+  .activity-pantry {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px
+  }
+  .activity-stock-item {
+    padding:11px
+  }
+  .activity-inventory-piece {
+    min-width:72px;
+    min-height:84px!important;
+    padding:10px 8px
+  }
+  .activity-inventory-piece>.icon {
+    width:29px;
+    height:29px
+  }
+  .activity-tray {
+    border-width:7px;
+    gap:8px;
+    min-height:125px;
+    padding:11px
+  }
+  .activity-kitchen {
+    padding:11px
+  }
+  .activity-kitchen-tools {
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:6px
+  }
+  .activity-tool {
+    font-size: var(--type-caption);
+    padding:8px 6px;
+    gap:5px
+  }
+  .activity-tool .icon {
+    width:16px;
+    height:16px
+  }
+  .activity-recipe-track li {
+    font-size: var(--type-caption);
+    padding:6px;
+    max-width:160px
+  }
+  .activity-service-settings {
+    gap:10px
+  }
+  .activity-task-actions {
+    gap:8px
+  }
+  .activity-task-actions>.activity-primary {
+    width:100%;
+    margin:7px 0 0
+  }
+  .activity-task-actions>.activity-link {
+    font-size: var(--type-caption)
+  }
+  .activity-market-ledger {
+    gap:7px;
+    margin-bottom:12px
+  }
+  .activity-market-ledger>span {
+    font-size: var(--type-caption);
+    gap:5px;
+    letter-spacing:0
+  }
+  .activity-market-ledger b {
+    font-size: var(--type-body)
+  }
+  .activity-market-stall {
+    gap:7px
+  }
+  .activity-market-stall .activity-stock-item {
+    flex-direction:column;
+    text-align:center;
+    padding:11px 7px;
+    position:relative;
+    gap:6px
+  }
+  .activity-market-stall .activity-stock-item>.icon:last-child {
+    display:none
+  }
+  .activity-market-stall .activity-stock-item b {
+    position:absolute;
+    right:5px;
+    top:4px
+  }
+  .activity-stock-item span {
+    font-size: var(--type-caption)
+  }
+  .activity-payment {
+    grid-template-columns:1fr;
+    gap:12px;
+    margin-top:15px
+  }
+  .activity-change-purse {
+    padding:12px
+  }
+  .activity-coin {
+    width:46px;
+    height:46px;
+    font-size: var(--type-caption)
+  }
+  .activity-evidence-room {
+    grid-template-columns:1fr;
+    gap:14px
+  }
+  .activity-evidence-pile {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px
+  }
+  .activity-evidence-pile>.activity-bench-label {
+    grid-column:1/-1;
+    margin-bottom:0
+  }
+  .activity-evidence {
+    margin:0;
+    min-height:88px!important;
+    padding:10px;
+    grid-template-columns:22px 1fr;
+    gap:5px
+  }
+  .activity-evidence>span {
+    font-size: var(--type-caption)
+  }
+  .activity-evidence>.caption {
+    font-size: var(--type-caption)
+  }
+  .activity-evidence>.icon {
+    width:19px;
+    height:19px
+  }
+  .activity-investigation-board {
+    padding:12px;
+    border-width:6px
+  }
+  .activity-evidence-link {
+    margin-bottom:13px
+  }
+  .activity-evidence-slot {
+    min-height:80px!important;
+    padding:12px
+  }
+  .activity-delivery-main {
+    grid-template-columns:1fr;
+    gap:14px
+  }
+  .activity-route-instructions ol {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    column-gap:27px;
+    padding-left:20px
+  }
+  .activity-route-instructions li {
+    font-size: var(--type-caption);
+    margin:0;
+    padding-right:36px
+  }
+  .activity-route-instructions li button {
+    width:44px;
+    height:44px;
+    right:-5px
+  }
+  .activity-dispatch-kit {
+    gap:10px
+  }
+  .activity-dispatch-kit>div {
+    min-width:0;
+    flex-basis:100%
+  }
+  .activity-dispatch-kit .activity-choice {
+    font-size: var(--type-caption);
+    padding:8px 10px
+  }
+  .activity-navigation {
+    gap:12px
+  }
+  .activity-turn-controls {
+    width:100%;
+    gap:6px
+  }
+  .activity-turn {
+    flex:1;
+    min-width:0;
+    padding:11px 6px;
+    font-size: var(--type-caption);
+    gap:5px
+  }
+  .activity-turn .icon {
+    width:17px;
+    height:17px
+  }
+  .activity-navigation>p {
+    min-width:0
+  }
+  .activity-intermission {
+    min-height:450px;
+    padding:24px 2px;
+    gap:14px
+  }
+  .activity-intermission h2 {
+    font-size: var(--type-display)
+  }
+  .activity-intermission>p {
+    font-size: var(--type-body)
+  }
+  .activity-intermission blockquote {
+    padding:14px 18px;
+    font-size: var(--type-body)
+  }
+  .activity-reward {
+    font-size: var(--type-caption)
+  }
+  .activity-discoveries {
+    padding:10px 14px
+  }
+  .activity-discoveries p {
+    font-size: var(--type-body);
+    gap:9px
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .activity-shell * {
+    animation:none!important;
+    transition:none!important
+  }
+}

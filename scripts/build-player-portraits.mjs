@@ -52,7 +52,7 @@ export function validateCoverage(catalogue,manifest){
  if(manifest.sourceCatalogue!==catalogue.assetVersion)throw new Error('Player portrait catalogue is stale');
 }
 export async function buildPlayerPortraits(){
- const layout=JSON.parse(await readFile(`${base}/layout.json`)),cat=JSON.parse(await readFile('web/src/data/character-kit.json'));
+ const layout=JSON.parse(await readFile(`${base}/layout.json`)),cat=JSON.parse(await readFile('server/character-kit.json'));
  const components={},sources=[];const files=[];
  for(const item of layout.coverage.filter(c=>!c.visible))components[item.id]={outsideCrop:true};
  for(const page of layout.pages){

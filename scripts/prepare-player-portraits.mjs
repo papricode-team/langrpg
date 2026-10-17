@@ -2,7 +2,7 @@
 import sharp from 'sharp';
 import {mkdir,readFile,writeFile} from 'node:fs/promises';
 import {combineMaterials,over} from '../web/src/character-compositor.mjs';
-const cat=JSON.parse(await readFile('web/src/data/character-kit.json'));
+const cat=JSON.parse(await readFile('server/character-kit.json'));
 const base='art/source/player-portraits';
 await mkdir(`${base}/references`,{recursive:true});await mkdir(`${base}/candidates`,{recursive:true});await mkdir(`${base}/prompts`,{recursive:true});
 const keyColors={primary:0x7a5a9a,secondary:0x5a9a6a,skin:0x5a9a9a,detail:0xffffff};

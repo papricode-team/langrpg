@@ -63,7 +63,7 @@ test('actual Vite production bundling keeps only UI translations and leaves auth
 
 
 test('character catalogues retain every component, pixel hash and registration through production packing',async()=>{
- const catalogues=['character-kit','character-cast','player-portraits'].map(name=>`web/src/data/${name}.json`);
+ const catalogues=['server/character-kit.json',...['character-cast','player-portraits'].map(name=>`web/src/data/${name}.json`)];
  const plugin=compactTranslationsPlugin(root,catalogues);
  let savings=0;
  for(const path of catalogues){

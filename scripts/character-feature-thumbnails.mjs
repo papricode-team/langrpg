@@ -10,7 +10,7 @@ import { characterSheetPages } from '../web/src/character-sheets.mjs';
 const ROOT = resolve(import.meta.dirname, '..');
 
 export async function exportFeatureThumbnails(root = ROOT) {
-  const catalogue = JSON.parse(await readFile(resolve(root, 'web/src/data/character-kit.json'), 'utf8'));
+  const catalogue = JSON.parse(await readFile(resolve(root, 'server/character-kit.json'), 'utf8'));
   const [width, height] = catalogue.format.editorCell;
   const raw = { width, height, channels: 4 };
   const cache = new Map();

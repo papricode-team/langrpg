@@ -1,0 +1,706 @@
+/* Touch controls, compact desktop and landscape phones. Continues style-encounters.css; imported after it. */
+/* Shared touch controls are enabled by viewport size below. */
+.joystick {
+  position:absolute;
+  left:max(21px,env(safe-area-inset-left));
+  bottom:0;
+  width:113px;
+  height:113px;
+  border:1px solid #d2c08b5e;
+  border-radius:50%;
+  background:radial-gradient(circle,#233c2bb3,#1b362388 50%,#1b362344 70%);
+  touch-action:none;
+  user-select:none;
+  box-shadow:inset 0 0 0 8px #d4c2880b,inset 0 0 18px #0e2a1f50
+}
+
+.joystick-ring {
+  position:absolute;
+  inset:15px;
+  border:1px solid #d8cc9a40;
+  border-radius:50%
+}
+
+.joystick-axis {
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  background:linear-gradient(90deg,transparent calc(50% - .5px),#d6c58e26 50%,transparent calc(50% + .5px)),linear-gradient(0deg,transparent calc(50% - .5px),#d6c58e26 50%,transparent calc(50% + .5px))
+}
+
+.joystick-knob {
+  position:absolute;
+  left:calc(50% - 24px);
+  top:calc(50% - 24px);
+  width:48px;
+  height:48px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:linear-gradient(135deg,#859875bf,#365940ed);
+  border:1px solid #d7c99695;
+  box-shadow:0 3px 12px #0b211b80,inset 0 1px 0 #f4e1a951;
+  color:#e3d5a7;
+  will-change:transform;
+  pointer-events:none
+}
+
+.joystick-knob .icon {
+  width:23px;
+  height:23px;
+  stroke-width:1.2
+}
+
+.joystick.held {
+  border-color:#e2ce94;
+  background-color:#1f402d70
+}
+
+.talk-button {
+  position:absolute;
+  right:max(22px,env(safe-area-inset-right));
+  bottom:15px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  width:82px;
+  height:82px;
+  border-radius:50%;
+  background:radial-gradient(circle at 40% 25%,#68835b,#284a33 65%);
+  border:1px solid #d2bc7d;
+  color:#f4e6be;
+  box-shadow:0 0 0 4px #1c3a2866,0 0 0 5px #c4ad683a,0 4px 18px #061f1660;
+  pointer-events:auto;
+  gap:4px
+}
+
+.talk-button>.icon {
+  width:25px;
+  height:25px;
+  stroke-width:1.3
+}
+
+.talk-button>span {
+  font-family:'Fraunces',serif;
+  font-size: var(--type-body)
+}
+
+.talk-button>.caption {
+  font-size: var(--type-caption);
+  letter-spacing:.5px;
+  color:#d0d5af;
+  max-width:75px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap
+}
+
+.talk-button:disabled {
+  opacity:.65;
+  background:#203b2b9c;
+  border-color:#b9ae7a70
+}
+
+/* Compact desktop and landscape phones. */
+@media(--tablet) {
+  .player-title {
+    font-size: var(--type-caption);
+    letter-spacing: .6px
+  }
+  .quest-tracker {
+    right:22px;
+    top:217px;
+    width:248px
+  }
+  .game-controls-hint {
+    font-size: var(--type-caption);
+    bottom:119px
+  }
+  .game-controls-hint kbd {
+    font-size: var(--type-caption)
+  }
+  .chapter-grid {
+    gap:14px
+  }
+  .journey-content {
+    padding:17px 14px
+  }
+  .journey-content h2 {
+    font-size: var(--type-display)
+  }
+  .journey-content>p {
+    font-size: var(--type-body)
+  }
+  .journey-quest strong {
+    font-size: var(--type-caption)
+  }
+  .journey-quest {
+    gap:6px
+  }
+  .word-card {
+    padding:18px
+  }
+  .journal-toolbar>span {
+    display:none
+  }
+}
+
+@media(--phone) {
+  .player-title {
+    display:none
+  }
+  .compass-line {
+    display:none
+  }
+  .connection-pill {
+    font-size: var(--type-caption);
+    white-space:nowrap
+  }
+  .quest-tracker {
+    top:177px;
+    right:17px;
+    width:219px;
+    max-width:60vw;
+    background:linear-gradient(100deg,#132d24e8,#163328c7)
+  }
+  .touch-controls {
+    display:block;
+    pointer-events:none;
+    position:absolute;
+    bottom:111px;
+    left:0;
+    right:0;
+    height:113px
+  }
+  .game-controls-hint {
+    display:none
+  }
+  .page-heading {
+    gap:13px;
+    align-items:flex-start;
+    margin-bottom:23px
+  }
+  .page-heading h1 {
+    font-size: var(--type-display);
+    line-height:1.3;
+    margin-bottom:10px
+  }
+  .page-heading p {
+    font-size: var(--type-body);
+    line-height:1.75
+  }
+  .primary-button,.outline-button {
+    font-size: var(--type-body);
+    padding:13px 15px;
+    min-height:46px
+  }
+  .journal-review {
+    max-width:124px;
+    white-space:normal;
+    font-size: var(--type-caption);
+    line-height:1.6;
+    gap:7px;
+    padding:11px;
+    flex:none
+  }
+  .journal-review>.icon {
+    width:14px;
+    height:14px
+  }
+  .chapter-grid {
+    grid-template-columns:1fr;
+    gap:25px
+  }
+  .journey-art {
+    height:145px;
+    background-size:160%
+  }
+  .journey-content {
+    padding:22px
+  }
+  .journey-content h2 {
+    min-height:0;
+    font-size: var(--type-display);
+    margin-bottom:13px
+  }
+  .journey-content>p {
+    min-height:0;
+    font-size: var(--type-body)
+  }
+  .journey-quest {
+    padding:17px 0;
+    gap:10px
+  }
+  .journey-quest strong {
+    font-size: var(--type-caption)
+  }
+  .journey-quest .caption {
+    font-size: var(--type-caption);
+    margin-top:6px
+  }
+  .quest-number {
+    font-size: var(--type-caption);
+    width:25px
+  }
+  .journal-stats {
+    grid-template-columns:repeat(2,1fr)
+  }
+  .journal-stats>div {
+    padding:18px 12px;
+    border-bottom:1px solid #b29c6333
+  }
+  .journal-stats>div:nth-child(2) {
+    border-right:0
+  }
+  .journal-stats>div:nth-child(3),.journal-stats>div:nth-child(4) {
+    border-bottom:0
+  }
+  .journal-stats span {
+    font-size: var(--type-caption)
+  }
+  .journal-stats .icon {
+    width:16px;
+    height:16px;
+    right:11px
+  }
+  .journal-toolbar label {
+    width:100%
+  }
+  .journal-toolbar input {
+    font-size: var(--type-body);
+    width:100%
+  }
+  .word-grid {
+    grid-template-columns:1fr
+  }
+  .word-card {
+    padding:21px
+  }
+  .word-card h3 {
+    font-size: var(--type-title)
+  }
+  .word-card>p {
+    font-size: var(--type-body)
+  }
+  .word-card>.caption {
+    font-size: var(--type-caption)
+  }
+  .memory-row {
+    font-size: var(--type-caption)
+  }
+  .character-page {
+    grid-template-columns:1fr
+  }
+  .character-illustration {
+    position:static;
+    border-right:0;
+    border-bottom:1px solid #c3a56644;
+    padding:29px 20px
+  }
+  .character-illustration>.painted-avatar {
+    width:148px;
+    height:222px;
+    margin-bottom:14px
+  }
+  .character-illustration h2 {
+    font-size: var(--type-display)
+  }
+  .character-xp {
+    margin-top:18px
+  }
+  .character-options {
+    padding:24px 20px
+  }
+  .form-label {
+    font-size: var(--type-caption)
+  }
+  .palette {
+    gap:13px
+  }
+  .swatch {
+    width:44px;
+    height:44px
+  }
+  .settings-card {
+    grid-template-columns:1fr;
+    padding:23px 20px;
+    gap:16px
+  }
+  .settings-card h3 {
+    font-size: var(--type-title)
+  }
+  .settings-card p {
+    font-size: var(--type-body)
+  }
+  .settings-card select {
+    font-size: var(--type-body);
+    margin-bottom:9px
+  }
+  .level-switch button {
+    font-size: var(--type-body);
+    min-height:43px
+  }
+  .connection-info {
+    font-size: var(--type-caption);
+    align-items:flex-start
+  }
+  .dialog {
+    padding:32px 23px 25px;
+    width:calc(100vw - 30px);
+    max-height:calc(100dvh - 40px);
+    box-shadow:0 0 0 3px #23392ded,0 0 0 4px #d1b57480,0 20px 60px #061c15a6
+  }
+  .dialog h2 {
+    font-size: var(--type-display)
+  }
+  .dialog-close {
+    top:10px;
+    right:10px;
+    width:44px;
+    height:44px
+  }
+  .large-portrait {
+    width:86px;
+    height:86px
+  }
+  .intro-story {
+    font-size: var(--type-body);
+    line-height:1.85;
+    padding:18px 5px
+  }
+  .intro-details {
+    gap:18px;
+    font-size: var(--type-caption)
+  }
+  .quest-intro>.primary-button {
+    width:100%;
+    font-size: var(--type-caption)
+  }
+  .quest-intro>.caption {
+    font-size: var(--type-caption)
+  }
+  .exercise-header {
+    font-size: var(--type-caption);
+    padding-right:24px;
+    gap:12px
+  }
+  .exercise-content h2 {
+    font-size: var(--type-display);
+    margin:12px 0 23px
+  }
+  .exercise-progress {
+    margin:17px 0 23px
+  }
+  .answer-option {
+    font-size: var(--type-body);
+    min-height:59px;
+    padding:14px 12px;
+    gap:12px
+  }
+  .exercise-actions {
+    gap:12px;
+    margin-top:22px
+  }
+  .exercise-actions>.text-button {
+    font-size: var(--type-caption);
+    max-width:102px
+  }
+  .exercise-actions>.primary-button {
+    font-size: var(--type-caption);
+    padding:13px 12px;
+    gap:8px
+  }
+  .exercise-feedback.shown {
+    padding:14px 12px;
+    gap:10px
+  }
+  .exercise-feedback p {
+    font-size: var(--type-body);
+    line-height:1.65
+  }
+  .exercise-feedback strong {
+    font-size: var(--type-caption)
+  }
+  .feedback-xp {
+    font-size: var(--type-caption)
+  }
+  .audio-scene {
+    padding:15px 12px;
+    gap:12px
+  }
+  .audio-scene strong {
+    font-size: var(--type-caption)
+  }
+  .audio-scene span {
+    font-size: var(--type-caption)
+  }
+  .audio-play {
+    width:45px;
+    height:45px
+  }
+  .word-token {
+    font-size: var(--type-body);
+    padding:10px 12px
+  }
+  .selected-token {
+    font-size: var(--type-body);
+    padding:8px 10px
+  }
+  .typed-answer {
+    font-size: var(--type-body);
+    padding:16px 12px
+  }
+  .typed-answer::placeholder {
+    font-size: var(--type-body)
+  }
+  .german-keys button {
+    height:44px;
+    width:44px
+  }
+  .npc-dialog {
+    margin:auto auto 20px;
+    padding:28px 23px;
+    max-height:calc(100dvh - 60px)
+  }
+  .npc-intro {
+    grid-template-columns:72px 1fr;
+    gap:8px 17px
+  }
+  .npc-intro>.portrait {
+    width:72px;
+    height:72px;
+    grid-row:1/3;
+    margin-top:3px
+  }
+  .npc-intro>h2 {
+    font-size: var(--type-display)
+  }
+  .speech-bubble {
+    grid-column:1/-1;
+    font-size: var(--type-title);
+    margin-top:7px;
+    line-height:1.6
+  }
+  .npc-intro>.text-button {
+    grid-column:1/-1
+  }
+  .npc-quest h3 {
+    font-size: var(--type-title);
+    max-width:225px
+  }
+  .npc-quest p {
+    font-size: var(--type-body);
+    margin-bottom:20px
+  }
+  .npc-quest .primary-button {
+    float:none;
+    width:100%
+  }
+  .map-dialog {
+    padding:28px 15px 20px
+  }
+  .map-dialog-header h2 {
+    font-size: var(--type-display)
+  }
+  .atlas-map {
+    aspect-ratio:1.2;
+    border-width:3px
+  }
+  .atlas-map>img {
+    object-fit:fill
+  }
+  .atlas-map-pin {
+    min-width:44px;
+    min-height:44px
+  }
+  .atlas-map-pin>.portrait {
+    width:30px;
+    height:30px
+  }
+  .atlas-map-pin>span:last-child {
+    font-size: var(--type-caption);
+    padding:2px 4px
+  }
+  .atlas-map-compass {
+    right:7px;
+    bottom:8px
+  }
+  .atlas-map-compass .icon {
+    width:23px;
+    height:23px
+  }
+  .map-tip {
+    font-size: var(--type-caption);
+    align-items:flex-start;
+    text-align:center;
+    gap:5px
+  }
+  .completion-stats {
+    gap:35px
+  }
+  .completion p {
+    font-size: var(--type-body)
+  }
+  .completion>.primary-button {
+    width:100%
+  }
+}
+
+@media(--phone) {
+  .quest-tracker {
+    right:15px;
+    top:165px;
+    max-width:62vw
+  }
+  .joystick {
+    width:102px;
+    height:102px;
+    left:17px
+  }
+  .joystick-knob {
+    left:calc(50% - 22px);
+    top:calc(50% - 22px);
+    width:44px;
+    height:44px
+  }
+  .talk-button {
+    width:74px;
+    height:74px;
+    right:19px
+  }
+  .character-options {
+    padding:23px 16px
+  }
+  .palette {
+    gap:10px
+  }
+  .swatch {
+    width:44px;
+    height:44px
+  }
+  .journal-stats span {
+    font-size: var(--type-caption)
+  }
+}
+
+@media (--short-landscape) {
+  .connection-pill {
+    font-size: var(--type-caption)
+  }
+  .quest-tracker {
+    right:19px;
+    top:149px;
+    width:224px
+  }
+  .game-controls-hint {
+    bottom:98px
+  }
+  .dialog {
+    max-height:calc(100dvh - 35px);
+    padding:29px 32px 25px
+  }
+  .dialog h2,.exercise-content h2 {
+    font-size: var(--type-display)
+  }
+  .large-portrait {
+    width:75px;
+    height:75px
+  }
+  .quest-intro>.portrait {
+    margin-bottom:13px
+  }
+  .intro-story {
+    font-size: var(--type-body);
+    padding:15px;
+    line-height:1.7
+  }
+  .npc-dialog {
+    margin:auto auto 19px
+  }
+}
+
+@media (--short-landscape) {
+  .touch-controls {
+    display:block;
+    pointer-events:none;
+    position:absolute;
+    bottom:102px;
+    left:0;
+    right:0;
+    height:84px
+  }
+  .joystick {
+    width:84px;
+    height:84px;
+    left:max(20px,env(safe-area-inset-left))
+  }
+  .joystick-ring {
+    inset:11px
+  }
+  .joystick-knob {
+    width:40px;
+    height:40px;
+    left:calc(50% - 20px);
+    top:calc(50% - 20px)
+  }
+  .joystick-knob .icon {
+    width:21px;
+    height:21px
+  }
+  .talk-button {
+    width:68px;
+    height:68px;
+    right:max(22px,env(safe-area-inset-right));
+    bottom:2px;
+    gap:2px
+  }
+  .talk-button>.icon {
+    width:21px;
+    height:21px
+  }
+  .talk-button>span {
+    font-size: var(--type-caption)
+  }
+  .talk-button>.caption {
+    font-size: var(--type-caption)
+  }
+  .game-controls-hint {
+    display:none
+  }
+  .quest-tracker {
+    top:138px
+  }
+  .dialog-close {
+    width:44px;
+    height:44px
+  }
+  .npc-dialog {
+    max-height:calc(100dvh - 38px)
+  }
+}
+
+@media (--short-landscape) {
+  .quest-tracker.expanded {
+    z-index:4;
+    pointer-events:auto;
+    max-height:calc(100dvh - var(--update-notice-height,0px) - 155px);
+    overflow:auto;
+  }
+}
+
+@media (--short-landscape) and (--phone) {
+  .quest-tracker {
+    top:131px;
+    width:208px;
+    max-width:40vw;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
+    animation:none!important;
+    transition:none!important;
+    scroll-behavior:auto!important
+  }
+}
