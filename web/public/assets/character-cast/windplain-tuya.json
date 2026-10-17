@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/windplain-tuya.json",
   "recipeSha256": "4e4cb4ab1284167677c873908f28a5f7652ee99700cbf0fbbb9d29cf40448eeb",
   "atlas": "web/public/assets/character-cast/windplain-tuya.webp",
-  "atlasSha256": "46fd70dd0424a24337d86abbb925b769199ef3c72980cbc5369c7195dd4e27cc",
+  "atlasSha256": "a69685e02802f0156026d680d25df6ac1e54d050f952c5054829dbe10421bd5f",
   "geometry": "web/public/assets/character-cast/windplain-tuya.atlas.json",
-  "geometrySha256": "929969d104dbbdeea2e7e65ce13cfa48b7c932bdaf699a3219d12634a397abeb",
+  "geometrySha256": "f8f9c688cf957df44a2f3d2b2edcfd373bfe681ef5cd9f7571e12fed38ae2a35",
   "textureBytes": 14061656,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/windplain-tuya.webp",
-      "sha256": "46fd70dd0424a24337d86abbb925b769199ef3c72980cbc5369c7195dd4e27cc",
+      "sha256": "a69685e02802f0156026d680d25df6ac1e54d050f952c5054829dbe10421bd5f",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/windplain-tuya.1.webp",
-      "sha256": "7003e6b4a1e3934f4689414a6e907dbd8dcdb7584070c4f37e01c1ddb8863d9f",
+      "sha256": "f183404ddd3d17ea7d2aad086d4d41207892a8cd5f036dd07506a738ebdaa985",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,15 +27,10 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "a294d6a9ec3722381d40f47ba828291ec0f19832304f91d261b343900fecde31",
-  "proof": "art/proofs/character-cast/windplain-tuya.png",
-  "proofSha256": "fb3de5b5a7a1ee7824521d5cc2d3b7f1c3016a0cc64c435c096fe1a960b47e91",
-  "editorSha256": "ad652a7bc9efa9024116c7d0fb0d4f3f1e2bb8e9699227acadebfffb3abfebe0",
+  "sourceComponentsSha256": "2459e9b6835f03a328ad23cc4dc2b12486fd5554d4ed53ef106ea1f03ae6b71a",
+  "proof": "art/proofs/character-cast-painted/windplain-tuya.png",
+  "proofSha256": "52e58b37dc4588eabfd5c5b3c147b86394cc1d7264660c77ea691fedf0592b08",
+  "editorSha256": "130dd168d39f9fb94638b75642f30c93c632e2a6dea3cd4bcf6287d5b6ecd9ec",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "a294d6a9ec3722381d40f47ba828291ec0f19832304f91d261b343900fecde31"
-  }
+  "frames": 36
 }

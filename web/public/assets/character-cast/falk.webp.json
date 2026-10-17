@@ -32,15 +32,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#e2b896\",\"#2f2a28\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"shoes\"],[\"hair\",\"crop\"],[\"headwear\",\"brimmed\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#7a5431\"],[\"bottom.primary\",\"#3a3a44\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#2a2522\"],[\"headwear.primary\",\"#2b2b33\"],[\"headwear.secondary\",\"#8c7448\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#3f5f8a\"],[\"outer.secondary\",\"#2f4a6e\"],[\"top.primary\",\"#f2efe6\"],[\"top.secondary\",\"#cfc8b8\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#e2b896\",\"#2f2a28\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"shoes\"],[\"hair\",\"crop\"],[\"headwear\",\"brimmed\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#7a5431\"],[\"bottom.primary\",\"#3a3a44\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#2a2522\"],[\"headwear.primary\",\"#2b2b33\"],[\"headwear.secondary\",\"#8c7448\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#3f5f8a\"],[\"outer.secondary\",\"#2f4a6e\"],[\"top.primary\",\"#f2efe6\"],[\"top.secondary\",\"#cfc8b8\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "60c9b418896967cd3465f00fd1c0eebac86b1dd02cc38a1c6fadf5aca9c9cadd",
-  "atlasSha256": "743d0cc72281bb47980f8a0d0dfa16f19a8fb3aaab61f7013ede732916210a03",
-  "textureBytes": 14173128,
+  "sha256": "9d98d46daf7e73a7741e1b86f7f5326c244a55a1da809b8f74287c4062de1a65",
+  "atlasSha256": "cf83cd3ff5d96993550aad664ca7204626b6a28ed2dcd8fe7adf745643e0c431",
+  "textureBytes": 13871936,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/falk.webp",
+      "sha256": "9d98d46daf7e73a7741e1b86f7f5326c244a55a1da809b8f74287c4062de1a65",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/falk.1.webp",
+      "sha256": "78ba5b0b0934314df059ba3a43019f185a1fbffa5008afe90483ec776ec9fde4",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/falk.atlas.json"
 }

@@ -4,23 +4,33 @@
   "recipe": "art/source/character-kit/cast/nebelstadt-resident-port-worker.json",
   "recipeSha256": "21b397e3eeca5d0ae574c1497aacca64eb4d3e40558a88dfd200f1d52ecc4627",
   "atlas": "web/public/assets/character-cast/nebelstadt-resident-port-worker.webp",
-  "atlasSha256": "01f0d01e4a43d5e6c63222f0c18014890617d9b387a87f8f97ebb42365339d4d",
+  "atlasSha256": "f904faabd4cb123c0bcbfc604d246c41f6e6dad1ead0b0f99b063a2952292574",
   "geometry": "web/public/assets/character-cast/nebelstadt-resident-port-worker.atlas.json",
-  "geometrySha256": "09831fcac6da9bba797682e5dca11809aa78896907a712734c336b0917023e41",
-  "textureBytes": 14200428,
+  "geometrySha256": "71c9fc6b65b46dd3fecb82c00b4ac58270cf549e0945b3d08d54e11f4c72583f",
+  "textureBytes": 13810076,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/nebelstadt-resident-port-worker.webp",
+      "sha256": "f904faabd4cb123c0bcbfc604d246c41f6e6dad1ead0b0f99b063a2952292574",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/nebelstadt-resident-port-worker.1.webp",
+      "sha256": "a0498f1568a7cbc0d9c586cb6bf702731ab1c70b8591342646a2f9198cefd52b",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "84443b0b257b0ccecafe128b06005253d1c9176a0454992261ec7c9e21644d38",
-  "proof": "art/proofs/character-cast/nebelstadt-resident-port-worker.png",
-  "proofSha256": "4572ebe3981033f67a7b6fbc657a43c3162ac400237f286cc67e62f17876f80e",
-  "editorSha256": "f3a95d42accdaad7f23e27e5ebec3eaf820c36b407144f43d322cae1381a522c",
+  "sourceComponentsSha256": "28a293c33441ed54ef3f1e4135956cfeaec96c6dfcce7b662e4316f5266dca67",
+  "proof": "art/proofs/character-cast-painted/nebelstadt-resident-port-worker.png",
+  "proofSha256": "91e8cce9cc66dd55d32f1c3cf159efa7b821ba393282ea30b9c3d2ea4bec8ba7",
+  "editorSha256": "47ab0264515a0713ff36477b638197958f42cf22436ca0d4c1b06de2dc4cfec7",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "84443b0b257b0ccecafe128b06005253d1c9176a0454992261ec7c9e21644d38"
-  }
+  "frames": 36
 }

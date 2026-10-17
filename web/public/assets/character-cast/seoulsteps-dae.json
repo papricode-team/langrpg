@@ -4,23 +4,33 @@
   "recipe": "art/source/character-kit/cast/seoulsteps-dae.json",
   "recipeSha256": "c9e98b0b28801bf6fff297a100009ffde9119823c23590e2aa294632110ceebb",
   "atlas": "web/public/assets/character-cast/seoulsteps-dae.webp",
-  "atlasSha256": "4b6ab0bb8e00abfa009ebf140dcb6d1585b036ad36c81b06defc2bad39a00dd9",
+  "atlasSha256": "59a839464a823f235eec7bb57d0cfdbbdbdf6219f2ad4c21a32785dddba8d84a",
   "geometry": "web/public/assets/character-cast/seoulsteps-dae.atlas.json",
-  "geometrySha256": "f06dd1bc44a61829967f849c84c57a2210a93a136047e524a54a69761f932372",
-  "textureBytes": 13927872,
+  "geometrySha256": "1cb4232cb1565a35d36804962d5a7921f194336456f21852178e5d8bd666d01b",
+  "textureBytes": 14067168,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/seoulsteps-dae.webp",
+      "sha256": "59a839464a823f235eec7bb57d0cfdbbdbdf6219f2ad4c21a32785dddba8d84a",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/seoulsteps-dae.1.webp",
+      "sha256": "e39fb0cd3f43affa62ccbcea0e231e94244f471b8ceaa954a45ac1d7ba6f138d",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "2134291de286193263c728d7ee707aece690c7144e45d7080f4de34a6fbea506",
-  "proof": "art/proofs/character-cast/seoulsteps-dae.png",
-  "proofSha256": "40519a5e2f4b708eff72be97451cbbeda262b3becd0aa5fa6a92c44010cfe8fa",
-  "editorSha256": "d3e9a6f15a61f1f45331b850ef96ae2e751c60447c0c3dda2ce7461223ab29ac",
+  "sourceComponentsSha256": "98f897ec877916ee9734dc8a8f68cc0945157db382bee96d31c5438caa8c4211",
+  "proof": "art/proofs/character-cast-painted/seoulsteps-dae.png",
+  "proofSha256": "018fc3515d301139f2ffaf49fe197b4d1cce08c3ce160f5fcd7c01068ea127aa",
+  "editorSha256": "811af342ca82668e990a881715b4732ad942ad4c30a0d962609a835b5f88a296",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "2134291de286193263c728d7ee707aece690c7144e45d7080f4de34a6fbea506"
-  }
+  "frames": 36
 }

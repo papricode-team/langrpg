@@ -4,23 +4,33 @@
   "recipe": "art/source/character-kit/cast/nebelstadt-resident-sailor.json",
   "recipeSha256": "4512c28d4ed8da181f5a1e34031ed0153f45ccc93f1dc7f2ea59fb44a6ddfc6f",
   "atlas": "web/public/assets/character-cast/nebelstadt-resident-sailor.webp",
-  "atlasSha256": "4bdbff39ff33115cd82bd9d3fce32390574fdea47f61850715048c8debf8fc20",
+  "atlasSha256": "c501df81e54282240960e86526540b8cf0b1bc1c2d7e7c12c1650bdecd57194d",
   "geometry": "web/public/assets/character-cast/nebelstadt-resident-sailor.atlas.json",
-  "geometrySha256": "7a71f4f2a0c417795c837ff0d322588d965aa4fd3c83b683f6285a3dec304430",
-  "textureBytes": 14197024,
+  "geometrySha256": "294873250ea7bcc46d9e04d31cdb6684f23335cabf922192fcc5b4f33b4c9067",
+  "textureBytes": 14434008,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/nebelstadt-resident-sailor.webp",
+      "sha256": "c501df81e54282240960e86526540b8cf0b1bc1c2d7e7c12c1650bdecd57194d",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/nebelstadt-resident-sailor.1.webp",
+      "sha256": "b331fb2def380ba3bd075c2ec9e43891b1191fc58cb18b02e70a928354e74670",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "2e0e6d9ef8c6fafe8b68dcf5ebd789aa8c69b6ec7e68f6a4a764b137b544975f",
-  "proof": "art/proofs/character-cast/nebelstadt-resident-sailor.png",
-  "proofSha256": "9e0f50f872f1bde7059ec9a09af827a48fff3227c469e6acce047f90c75bad0e",
-  "editorSha256": "97a95400c48f67001e30de1d3da8ea0f0dce6df4201f9c14160fb3ce097b8916",
+  "sourceComponentsSha256": "ba37441a5306a07d1531afdb103ecf84b54915f2a1485647da7981790701dd3b",
+  "proof": "art/proofs/character-cast-painted/nebelstadt-resident-sailor.png",
+  "proofSha256": "cd8274611e1e2c03089e3b94003c1df2432d1d2dd3894d8c24be663daa1d60a9",
+  "editorSha256": "4b0bf9fb55b5650b801ac3051d9c8cbefca9fc39e17547ca8321a2274bb88e11",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "2e0e6d9ef8c6fafe8b68dcf5ebd789aa8c69b6ec7e68f6a4a764b137b544975f"
-  }
+  "frames": 36
 }

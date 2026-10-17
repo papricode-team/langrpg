@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#d1aa80\",\"#292720\",[[\"bag\",\"backpack\"],[\"bottom\",\"slim\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"cap\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"raincoat\"],[\"top\",\"henley\"]],[[\"bag.primary\",\"#32383e\"],[\"bottom.primary\",\"#373b3d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#323638\"],[\"headwear.primary\",\"#353b41\"],[\"headwear.secondary\",\"#353b41\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#cb9a2f\"],[\"outer.secondary\",\"#cb9a2f\"],[\"top.primary\",\"#30383b\"],[\"top.secondary\",\"#30383b\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#d1aa80\",\"#292720\",[[\"bag\",\"backpack\"],[\"bottom\",\"slim\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"cap\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"raincoat\"],[\"top\",\"henley\"]],[[\"bag.primary\",\"#32383e\"],[\"bottom.primary\",\"#373b3d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#323638\"],[\"headwear.primary\",\"#353b41\"],[\"headwear.secondary\",\"#353b41\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#cb9a2f\"],[\"outer.secondary\",\"#cb9a2f\"],[\"top.primary\",\"#30383b\"],[\"top.secondary\",\"#30383b\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "a6cf9afd08dc43e873a910e50e767341f56b7a805168157ab07482360b2d26da",
-  "atlasSha256": "95d5c47bcf8a493cdd1e89c6be83f1909c571d626d4c72429c42bab1f4c0d6a2",
-  "textureBytes": 14389320,
+  "sha256": "7db764d45808bdf16de291a28966c58a532e83167e051bcccc98910a811d548d",
+  "atlasSha256": "d1123b88833b09df310413b4a8a84637a2eaffaf45f6871160abafa4256edf67",
+  "textureBytes": 14525784,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/rainmarket-aiko.webp",
+      "sha256": "7db764d45808bdf16de291a28966c58a532e83167e051bcccc98910a811d548d",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/rainmarket-aiko.1.webp",
+      "sha256": "63cc16d112443d5188bc0fac9af739f2b3de052c4abbadfa061cbbd8a98644b5",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/rainmarket-aiko.atlas.json"
 }

@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b28a61\",\"#74695b\",[[\"bag\",null],[\"bottom\",\"wide\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"braids\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"cardigan\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#454549\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#705036\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#c79c39\"],[\"outer.secondary\",\"#c79c39\"],[\"top.primary\",\"#383838\"],[\"top.secondary\",\"#383838\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b28a61\",\"#74695b\",[[\"bag\",null],[\"bottom\",\"wide\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"braids\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"cardigan\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#454549\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#705036\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#c79c39\"],[\"outer.secondary\",\"#c79c39\"],[\"top.primary\",\"#383838\"],[\"top.secondary\",\"#383838\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "f4dab302121f04ecb07d87b4ecf4a553605f5c7a1fc37a50ec0fe39da659725a",
-  "atlasSha256": "8ff0f6dec24ea60e64d3dc700579c377a93a5cf539ad421279be0b7886f71651",
-  "textureBytes": 14380728,
+  "sha256": "e09fc3dfa4664aa3972d0990cf9918653cc66d36741d46df62ed12bb33719156",
+  "atlasSha256": "f3efce27cd673244146640be37c20ddb3f6fba8a1a724128416a9d63a79eaad7",
+  "textureBytes": 14468484,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/sunpatch-alma.webp",
+      "sha256": "e09fc3dfa4664aa3972d0990cf9918653cc66d36741d46df62ed12bb33719156",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/sunpatch-alma.1.webp",
+      "sha256": "7d0da5d3634063c78c308c83ef0c748fb0486cb313f94377320d8f664df00a62",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/sunpatch-alma.atlas.json"
 }

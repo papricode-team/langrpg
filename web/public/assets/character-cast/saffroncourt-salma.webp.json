@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#bd8860\",\"#30261f\",[[\"bag\",null],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#cfbfa2\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#674431\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#354f6f\"],[\"outer.secondary\",\"#354f6f\"],[\"top.primary\",\"#e1d4b9\"],[\"top.secondary\",\"#e1d4b9\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#bd8860\",\"#30261f\",[[\"bag\",null],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#cfbfa2\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#674431\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#354f6f\"],[\"outer.secondary\",\"#354f6f\"],[\"top.primary\",\"#e1d4b9\"],[\"top.secondary\",\"#e1d4b9\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "7da25c327bcde789b206f27c535bf36e988429926ac20bbaf28172a159f3b7cb",
-  "atlasSha256": "30bd59c044323df572aad12883f6be5a06977a1bd4fc6ffca96ffe9855e58df6",
-  "textureBytes": 14915612,
+  "sha256": "7c3c20ea1deb6064f17e04b41142f50d09f557db2c2cd4845dfcf7fafadf72f7",
+  "atlasSha256": "9b5387734c6628159a84426ad0bfde991f0966ebb50f3dc8441adc1b0af48db6",
+  "textureBytes": 14454192,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/saffroncourt-salma.webp",
+      "sha256": "7c3c20ea1deb6064f17e04b41142f50d09f557db2c2cd4845dfcf7fafadf72f7",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/saffroncourt-salma.1.webp",
+      "sha256": "7035b64b4fd81e93f49820f9c949cbb29edc372fca55903765282f13b411ed3c",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/saffroncourt-salma.atlas.json"
 }

@@ -2,40 +2,55 @@
   "id": "marta",
   "poseSet": "walk",
   "recipe": "art/source/character-kit/cast/marta.json",
-  "recipeSha256": "75b5290e40cec1e20bd9c6017894ead34a654d7e6c4ea0c4228c7f2487904fa3",
+  "recipeSha256": "b543a8c64dd83ce64385646d0cd32498b89c603626918389873cb4f39d9e857b",
   "atlas": "web/public/assets/character-cast/marta.webp",
-  "atlasSha256": "ba1c5a32a528f0204aa1ea197238f7e0b70163e5f45c266cd3fde6790f2f0108",
+  "atlasSha256": "f7b7284019f658934948006f1bf11ed6042e5876290ebe16133129437e58bcc6",
   "geometry": "web/public/assets/character-cast/marta.atlas.json",
-  "geometrySha256": "59d2f6b7372e997d07bac7893e2f38464e085fa3130e33704072faae76a673ac",
-  "textureBytes": 14859288,
+  "geometrySha256": "dbb8c1edbf30e3bab6a9cc5bedb16e1c9dd4ff8afec732358bad5ad7d2937a28",
+  "textureBytes": 14340384,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/marta.webp",
+      "sha256": "f7b7284019f658934948006f1bf11ed6042e5876290ebe16133129437e58bcc6",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/marta.1.webp",
+      "sha256": "810da898842434c95dddacbbcdb3fdcdc3f842297cd2f953d0371a7bfe8b2d11",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "12670b2fbbd521063e1fb2dc304ff04c4e2871d33e64d9dd83adbbe7a03a30ba",
-  "proof": "art/proofs/character-cast/marta.png",
-  "proofSha256": "808b347c38d9a5eb82d415eff3b3062d18bfc1a9bb3b90a0da3384d9348353a9",
-  "editorSha256": "e06e9432124b5b5e2dbbba372545e13191bb5c9509ab16104f2f1791ace04e3b",
+  "sourceComponentsSha256": "ab23deb4558d62d0d4b47dc4531da1eb71fe1fc2f93a6c46aaeefac22b46911f",
+  "proof": "art/proofs/character-cast-painted/marta.png",
+  "proofSha256": "72c25183506f4edb3112f88b2d5ca49cb55fe0a65f481085bd454d2418db3003",
+  "editorSha256": "d663ed34cd8e68f189f311d63db8ff185170184c919b7881b868ec40632724e9",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-marta-native",
     "image": "web/public/assets/character-cast/native/marta.webp",
     "atlas": "web/public/assets/character-cast/native/marta.atlas.json",
-    "sha256": "77e0083fa669dd19581ffbeb3ed98383ba215ce4377743cb9f09ce03244b4f8c",
-    "atlasSha256": "6a70104e4ef8843915279bda02f417b4b4f5906dc1d19b87ed0d87fa9077841d",
-    "textureBytes": 28297400,
+    "sha256": "76b9882b26ece9e630af4a9bb5b709c916126ab8d64b40264741cb01566bc388",
+    "atlasSha256": "019fd69770a7a937bd1e32a0028522939f0ed627e1e416b46e6bb831dd31c517",
+    "textureBytes": 28303632,
     "multiAtlas": true,
     "images": [
       {
         "path": "web/public/assets/character-cast/native/marta.webp",
-        "sha256": "77e0083fa669dd19581ffbeb3ed98383ba215ce4377743cb9f09ce03244b4f8c",
+        "sha256": "76b9882b26ece9e630af4a9bb5b709c916126ab8d64b40264741cb01566bc388",
         "firstFrame": 0,
         "frameCount": 18
       },
       {
         "path": "web/public/assets/character-cast/native/marta.1.webp",
-        "sha256": "52da7aafe7749f5ea79ba60a5110d766adb2919c4043232576fd298b8b146374",
+        "sha256": "55d6ae3263c017d147f034d8e27c97583b01083ea41aad51831074c2d185d937",
         "firstFrame": 18,
         "frameCount": 18
       }
@@ -44,12 +59,7 @@
       512,
       768
     ],
-    "source": "art/proofs/character-cast/marta.webp",
-    "sourceSha256": "e06e9432124b5b5e2dbbba372545e13191bb5c9509ab16104f2f1791ace04e3b"
-  },
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "12670b2fbbd521063e1fb2dc304ff04c4e2871d33e64d9dd83adbbe7a03a30ba"
+    "source": "art/proofs/character-cast-painted/marta.webp",
+    "sourceSha256": "d663ed34cd8e68f189f311d63db8ff185170184c919b7881b868ec40632724e9"
   }
 }

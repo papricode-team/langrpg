@@ -1,0 +1,1584 @@
+{
+  "actors": [
+    {
+      "id": "marta",
+      "frames": 36,
+      "identityChanged": true,
+      "alphaDifferences": null
+    },
+    {
+      "id": "otto",
+      "frames": 36,
+      "identityChanged": true,
+      "alphaDifferences": null
+    },
+    {
+      "id": "lina",
+      "frames": 36,
+      "identityChanged": true,
+      "alphaDifferences": null
+    },
+    {
+      "id": "emil",
+      "frames": 36,
+      "identityChanged": true,
+      "alphaDifferences": null
+    },
+    {
+      "id": "ada",
+      "frames": 36,
+      "identityChanged": true,
+      "alphaDifferences": null
+    },
+    {
+      "id": "fritz",
+      "frames": 36,
+      "identityChanged": true,
+      "alphaDifferences": null
+    },
+    {
+      "id": "greta",
+      "frames": 36,
+      "identityChanged": true,
+      "alphaDifferences": null
+    },
+    {
+      "id": "inspector",
+      "frames": 36,
+      "identityChanged": true,
+      "alphaDifferences": null
+    },
+    {
+      "id": "elise",
+      "frames": 36,
+      "identityChanged": true,
+      "alphaDifferences": null
+    },
+    {
+      "id": "lindenhafen-resident-courier",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "lindenhafen-resident-reader",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "lindenhafen-resident-gardener",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "waldruh-resident-guest",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "waldruh-resident-commuter",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "waldruh-resident-shopper",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "nebelstadt-resident-archivist",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "nebelstadt-resident-sailor",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "nebelstadt-resident-port-worker",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "lindenhafen-parcel-courier",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "lindenhafen-parcel-vendor",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "lindenhafen-promenade-reader",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "lindenhafen-garden-keeper",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "lindenhafen-harbor-repairer",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "lindenhafen-quay-reader",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "lindenhafen-library-keeper",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "lindenhafen-library-keeper",
+      "pose": "wave",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "lindenhafen-orchard-keeper",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "lindenhafen-ferry-attendant",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "lindenhafen-ferry-attendant",
+      "pose": "wave",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "lindenhafen-island-reader",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "lindenhafen-riverside-vendor",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "lindenhafen-riverside-vendor",
+      "pose": "wave",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "lindenhafen-workyard-keeper",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "waldruh-supply-keeper",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "waldruh-supply-keeper",
+      "pose": "wave",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "waldruh-yard-courier",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "saffroncourt-salma",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "saffroncourt-youssef",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "saffroncourt-amina",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "saffroncourt-idriss",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "saffroncourt-leila",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "saffroncourt-karim",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "saffroncourt-nour",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "saffroncourt-sami",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "saffroncourt-resident-0",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "saffroncourt-resident-1",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "saffroncourt-resident-2",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "saffroncourt-resident-3",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "saffroncourt-resident-4",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "saffroncourt-resident-5",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "saffroncourt-resident-6",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "saffroncourt-resident-7",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "rainmarket-haru",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "rainmarket-aiko",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "rainmarket-jun",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "rainmarket-mei",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "rainmarket-ren",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "rainmarket-sora",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "rainmarket-ken",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "rainmarket-yui",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "rainmarket-resident-0",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "rainmarket-resident-1",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "rainmarket-resident-2",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "rainmarket-resident-3",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "rainmarket-resident-4",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "rainmarket-resident-5",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "rainmarket-resident-6",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "rainmarket-resident-7",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "windplain-sarnai",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "windplain-bat",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "windplain-tuya",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "windplain-erdene",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "windplain-nomin",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "windplain-munkh",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "windplain-oyun",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "windplain-ariun",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "windplain-resident-0",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "windplain-resident-1",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "windplain-resident-2",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "windplain-resident-3",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "windplain-resident-4",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "windplain-resident-5",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "windplain-resident-6",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "windplain-resident-7",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "riverweave-linh",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "riverweave-mai",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "riverweave-phuc",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "riverweave-bao",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "riverweave-trang",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "riverweave-huy",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "riverweave-chi",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "riverweave-an",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "riverweave-resident-0",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "riverweave-resident-1",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "riverweave-resident-2",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "riverweave-resident-3",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "riverweave-resident-4",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "riverweave-resident-5",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "riverweave-resident-6",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "riverweave-resident-7",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "terracielo-rosa",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "terracielo-mateo",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "terracielo-ana",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "terracielo-pilar",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "terracielo-diego",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "terracielo-elena",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "terracielo-tomas",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "terracielo-luz",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "terracielo-resident-0",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "terracielo-resident-1",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "terracielo-resident-2",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "terracielo-resident-3",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "terracielo-resident-4",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "terracielo-resident-5",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "terracielo-resident-6",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "terracielo-resident-7",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "sunpatch-ines",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "sunpatch-pablo",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "sunpatch-carmen",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "sunpatch-nico",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "sunpatch-alma",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "sunpatch-diego",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "sunpatch-luz",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "sunpatch-valeria",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "sunpatch-resident-0",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "sunpatch-resident-1",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "sunpatch-resident-2",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "sunpatch-resident-3",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "sunpatch-resident-4",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "sunpatch-resident-5",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "sunpatch-resident-6",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "sunpatch-resident-7",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "kigalights-aline",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "kigalights-eric",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "kigalights-chantal",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "kigalights-patrick",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "kigalights-grace",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "kigalights-samuel",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "kigalights-diane",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "kigalights-josiane",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "kigalights-resident-0",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "kigalights-resident-1",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "kigalights-resident-2",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "kigalights-resident-3",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "kigalights-resident-4",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "kigalights-resident-5",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "kigalights-resident-6",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "kigalights-resident-7",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "cedarbay-meera",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "cedarbay-ravi",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "cedarbay-anjali",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "cedarbay-arun",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "cedarbay-dev",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "cedarbay-latha",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "cedarbay-farah",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "cedarbay-nila",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "cedarbay-resident-0",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "cedarbay-resident-1",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "cedarbay-resident-2",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "cedarbay-resident-3",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "cedarbay-resident-4",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "cedarbay-resident-5",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "cedarbay-resident-6",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "cedarbay-resident-7",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "seoulsteps-minji",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "seoulsteps-jisoo",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "seoulsteps-hana",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "seoulsteps-soo",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "seoulsteps-eun",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "seoulsteps-dae",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "seoulsteps-joon",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "seoulsteps-yuna",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "seoulsteps-resident-0",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "seoulsteps-resident-1",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "seoulsteps-resident-2",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "seoulsteps-resident-3",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "seoulsteps-resident-4",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "seoulsteps-resident-5",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "seoulsteps-resident-6",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "seoulsteps-resident-7",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "dunegarden-maryam",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "dunegarden-salim",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "dunegarden-huda",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "dunegarden-khalid",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "dunegarden-saif",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "dunegarden-noura",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "dunegarden-aisha",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "dunegarden-hamad",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "dunegarden-resident-0",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "dunegarden-resident-1",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "dunegarden-resident-2",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "dunegarden-resident-3",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "dunegarden-resident-4",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "dunegarden-resident-5",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "dunegarden-resident-6",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "dunegarden-resident-7",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "kessler",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "pip",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "berg",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "hilde",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "falk",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "jakob",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "ruth",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    },
+    {
+      "id": "jonas",
+      "frames": 36,
+      "identityChanged": false,
+      "alphaDifferences": 0
+    }
+  ],
+  "boards": [
+    {
+      "path": "art/proofs/character-style-review/cast-board-00.png",
+      "sha256": "b4627294712940b51597b42f8fc78c33320f0bdf98d176f6d39924564179ad38",
+      "ids": [
+        "marta",
+        "otto",
+        "lina",
+        "emil",
+        "ada",
+        "fritz",
+        "greta",
+        "inspector"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-01.png",
+      "sha256": "46bde665ff4d1e8ac5a9d1b9e730b16dadd207358b7abadc061b6196ee2b5876",
+      "ids": [
+        "elise",
+        "lindenhafen-resident-courier",
+        "lindenhafen-resident-reader",
+        "lindenhafen-resident-gardener",
+        "waldruh-resident-guest",
+        "waldruh-resident-commuter",
+        "waldruh-resident-shopper",
+        "nebelstadt-resident-archivist"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-02.png",
+      "sha256": "03511089fa2713419e25da2840bc0d75477624cb376db560157d6a707955b0a1",
+      "ids": [
+        "nebelstadt-resident-sailor",
+        "nebelstadt-resident-port-worker",
+        "lindenhafen-parcel-courier",
+        "lindenhafen-parcel-vendor",
+        "lindenhafen-promenade-reader",
+        "lindenhafen-garden-keeper",
+        "lindenhafen-harbor-repairer",
+        "lindenhafen-quay-reader"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-03.png",
+      "sha256": "d832819f1e143bf8ceb1f7739859e29231a01d65a511cfa6fd5e0f6e9246ddd4",
+      "ids": [
+        "lindenhafen-library-keeper",
+        "lindenhafen-orchard-keeper",
+        "lindenhafen-ferry-attendant",
+        "lindenhafen-island-reader",
+        "lindenhafen-riverside-vendor",
+        "lindenhafen-workyard-keeper",
+        "waldruh-supply-keeper",
+        "waldruh-yard-courier"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-04.png",
+      "sha256": "bf48f5028a6f1cc9cf07f6c3ab366e7c8bff7a3377b831eb34773884287a9e81",
+      "ids": [
+        "saffroncourt-salma",
+        "saffroncourt-youssef",
+        "saffroncourt-amina",
+        "saffroncourt-idriss",
+        "saffroncourt-leila",
+        "saffroncourt-karim",
+        "saffroncourt-nour",
+        "saffroncourt-sami"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-05.png",
+      "sha256": "53c6d4b581c09c4dab2e4600d415a9ec0e41a58dba5dac04d30548c60023ffb3",
+      "ids": [
+        "saffroncourt-resident-0",
+        "saffroncourt-resident-1",
+        "saffroncourt-resident-2",
+        "saffroncourt-resident-3",
+        "saffroncourt-resident-4",
+        "saffroncourt-resident-5",
+        "saffroncourt-resident-6",
+        "saffroncourt-resident-7"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-06.png",
+      "sha256": "b8d5c04bd59413766119af91df704c86e9967b16c92324f40ef83bcc932f4d09",
+      "ids": [
+        "rainmarket-haru",
+        "rainmarket-aiko",
+        "rainmarket-jun",
+        "rainmarket-mei",
+        "rainmarket-ren",
+        "rainmarket-sora",
+        "rainmarket-ken",
+        "rainmarket-yui"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-07.png",
+      "sha256": "5ecb9daa44c26398aee4c87f8018d332cee1dc06db11487683e5bb29dc9be56c",
+      "ids": [
+        "rainmarket-resident-0",
+        "rainmarket-resident-1",
+        "rainmarket-resident-2",
+        "rainmarket-resident-3",
+        "rainmarket-resident-4",
+        "rainmarket-resident-5",
+        "rainmarket-resident-6",
+        "rainmarket-resident-7"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-08.png",
+      "sha256": "a2ffa6594516ad48ca432e9e5783f135f13621192f647be5c71a3b9cfeadf905",
+      "ids": [
+        "windplain-sarnai",
+        "windplain-bat",
+        "windplain-tuya",
+        "windplain-erdene",
+        "windplain-nomin",
+        "windplain-munkh",
+        "windplain-oyun",
+        "windplain-ariun"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-09.png",
+      "sha256": "9ec45be7ef3eb4134e6e151dcc3ce7ad032d9a04b570fa8cbb312cc2eb5d1eb2",
+      "ids": [
+        "windplain-resident-0",
+        "windplain-resident-1",
+        "windplain-resident-2",
+        "windplain-resident-3",
+        "windplain-resident-4",
+        "windplain-resident-5",
+        "windplain-resident-6",
+        "windplain-resident-7"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-10.png",
+      "sha256": "718b01c02398664d9c086d1c6f5198cd90add010c171acdb925498c509127144",
+      "ids": [
+        "riverweave-linh",
+        "riverweave-mai",
+        "riverweave-phuc",
+        "riverweave-bao",
+        "riverweave-trang",
+        "riverweave-huy",
+        "riverweave-chi",
+        "riverweave-an"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-11.png",
+      "sha256": "2e992ac5ae9769cf85904b90bdfcf23e293478650d6f581968cfa97f46ad068f",
+      "ids": [
+        "riverweave-resident-0",
+        "riverweave-resident-1",
+        "riverweave-resident-2",
+        "riverweave-resident-3",
+        "riverweave-resident-4",
+        "riverweave-resident-5",
+        "riverweave-resident-6",
+        "riverweave-resident-7"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-12.png",
+      "sha256": "308d9529bf22ffce65d3e9ccedbfcb0751bca1422699fc5c3e22f00781871d59",
+      "ids": [
+        "terracielo-rosa",
+        "terracielo-mateo",
+        "terracielo-ana",
+        "terracielo-pilar",
+        "terracielo-diego",
+        "terracielo-elena",
+        "terracielo-tomas",
+        "terracielo-luz"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-13.png",
+      "sha256": "2fe8bcee7e9bd08910a121cfde2392d2628a647b89102c44c1b0ebb3bcd56be6",
+      "ids": [
+        "terracielo-resident-0",
+        "terracielo-resident-1",
+        "terracielo-resident-2",
+        "terracielo-resident-3",
+        "terracielo-resident-4",
+        "terracielo-resident-5",
+        "terracielo-resident-6",
+        "terracielo-resident-7"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-14.png",
+      "sha256": "cf602d32adda9ab0de5ffa59a8b7b8f8b7e22630e5493643c7034343e5ac7d53",
+      "ids": [
+        "sunpatch-ines",
+        "sunpatch-pablo",
+        "sunpatch-carmen",
+        "sunpatch-nico",
+        "sunpatch-alma",
+        "sunpatch-diego",
+        "sunpatch-luz",
+        "sunpatch-valeria"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-15.png",
+      "sha256": "6d1f4a5e388463815c53b8f44fd8b9add45988d45c0c5d684c6d7c6e283e9833",
+      "ids": [
+        "sunpatch-resident-0",
+        "sunpatch-resident-1",
+        "sunpatch-resident-2",
+        "sunpatch-resident-3",
+        "sunpatch-resident-4",
+        "sunpatch-resident-5",
+        "sunpatch-resident-6",
+        "sunpatch-resident-7"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-16.png",
+      "sha256": "c6f4d24e3724bb4b462954f74df8827de0e42e57f6bce7677b14b31bdc534331",
+      "ids": [
+        "kigalights-aline",
+        "kigalights-eric",
+        "kigalights-chantal",
+        "kigalights-patrick",
+        "kigalights-grace",
+        "kigalights-samuel",
+        "kigalights-diane",
+        "kigalights-josiane"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-17.png",
+      "sha256": "5f0917f55d071f25af50c0b54608de2a3ff1fbf9a8d93df8dc8fa1fda1305dec",
+      "ids": [
+        "kigalights-resident-0",
+        "kigalights-resident-1",
+        "kigalights-resident-2",
+        "kigalights-resident-3",
+        "kigalights-resident-4",
+        "kigalights-resident-5",
+        "kigalights-resident-6",
+        "kigalights-resident-7"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-18.png",
+      "sha256": "bf574a35705dc7b897193998b366362aeb3516af0b7d680b3a6abc6342f0c470",
+      "ids": [
+        "cedarbay-meera",
+        "cedarbay-ravi",
+        "cedarbay-anjali",
+        "cedarbay-arun",
+        "cedarbay-dev",
+        "cedarbay-latha",
+        "cedarbay-farah",
+        "cedarbay-nila"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-19.png",
+      "sha256": "c8801b32e50215f71706f1e2b0592e4238cd9339dd4e23689b10fa7d439abe79",
+      "ids": [
+        "cedarbay-resident-0",
+        "cedarbay-resident-1",
+        "cedarbay-resident-2",
+        "cedarbay-resident-3",
+        "cedarbay-resident-4",
+        "cedarbay-resident-5",
+        "cedarbay-resident-6",
+        "cedarbay-resident-7"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-20.png",
+      "sha256": "628174702764f0860eb0b73f3598a1d4f98f291db151fbc577c663469dd92463",
+      "ids": [
+        "seoulsteps-minji",
+        "seoulsteps-jisoo",
+        "seoulsteps-hana",
+        "seoulsteps-soo",
+        "seoulsteps-eun",
+        "seoulsteps-dae",
+        "seoulsteps-joon",
+        "seoulsteps-yuna"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-21.png",
+      "sha256": "34bb6997e5fa32816b78a30ca6b8b6f5a15fbe94e3d5fc25843e7b20fb0b261a",
+      "ids": [
+        "seoulsteps-resident-0",
+        "seoulsteps-resident-1",
+        "seoulsteps-resident-2",
+        "seoulsteps-resident-3",
+        "seoulsteps-resident-4",
+        "seoulsteps-resident-5",
+        "seoulsteps-resident-6",
+        "seoulsteps-resident-7"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-22.png",
+      "sha256": "df198dbc0abbbb3230c44e82fe2b46d39ed82b2f320e2219c387a8189c166731",
+      "ids": [
+        "dunegarden-maryam",
+        "dunegarden-salim",
+        "dunegarden-huda",
+        "dunegarden-khalid",
+        "dunegarden-saif",
+        "dunegarden-noura",
+        "dunegarden-aisha",
+        "dunegarden-hamad"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-23.png",
+      "sha256": "12d44c472deaf0f2ae08b014af881a8a44a63b9e73f4e6db6a8df2569dfaecbb",
+      "ids": [
+        "dunegarden-resident-0",
+        "dunegarden-resident-1",
+        "dunegarden-resident-2",
+        "dunegarden-resident-3",
+        "dunegarden-resident-4",
+        "dunegarden-resident-5",
+        "dunegarden-resident-6",
+        "dunegarden-resident-7"
+      ]
+    },
+    {
+      "path": "art/proofs/character-style-review/cast-board-24.png",
+      "sha256": "6a333656959230bae47d32f979ca78f09171466abebc2193bfd9d63e4dde4708",
+      "ids": [
+        "kessler",
+        "pip",
+        "berg",
+        "hilde",
+        "falk",
+        "jakob",
+        "ruth",
+        "jonas"
+      ]
+    }
+  ]
+}

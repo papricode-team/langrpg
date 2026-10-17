@@ -6,7 +6,15 @@
     "data": "/assets/minigames/actions.json"
   },
   "backdrops": {
-    "workbench": "/assets/minigames/workbench.webp"
+    "workbench": "/assets/minigames/workbench.webp",
+    "station": "/assets/minigames/station.webp",
+    "market": "/assets/minigames/market.webp",
+    "archive": "/assets/minigames/archive.webp",
+    "garden": "/assets/minigames/garden.webp",
+    "clock": "/assets/minigames/clock.webp",
+    "council": "/assets/minigames/council.webp",
+    "listening": "/assets/minigames/listening.webp",
+    "workshop": "/assets/minigames/workshop.webp"
   },
   "frames": {
     "action-fritz-pointing": {
@@ -202,6 +210,30 @@
       "art/source/characters-painted.png",
       "web/public/assets/story-cast/inspector-portrait.webp"
     ],
-    "worldRegistration": "unchanged; game-only action sprites"
+    "worldRegistration": "unchanged; game-only action sprites",
+    "stages": {
+      "tool": "Built-in image_gen",
+      "sources": [
+        "art/source/minigames/scenes/station.png",
+        "art/source/minigames/scenes/market.png",
+        "art/source/minigames/scenes/archive.png",
+        "art/source/minigames/scenes/garden.png",
+        "art/source/minigames/scenes/clock.png",
+        "art/source/minigames/scenes/council.png",
+        "art/source/minigames/scenes/listening.png",
+        "art/source/minigames/scenes/workshop.png"
+      ],
+      "prompts": [
+        "art/source/minigames/scenes/station.txt",
+        "art/source/minigames/scenes/market.txt",
+        "art/source/minigames/scenes/archive.txt",
+        "art/source/minigames/scenes/garden.txt",
+        "art/source/minigames/scenes/clock.txt",
+        "art/source/minigames/scenes/council.txt",
+        "art/source/minigames/scenes/listening.txt",
+        "art/source/minigames/scenes/workshop.txt"
+      ],
+      "reference": "web/public/assets/minigames/workbench.webp"
+    }
   }
 }

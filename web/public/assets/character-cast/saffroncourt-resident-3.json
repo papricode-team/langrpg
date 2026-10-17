@@ -4,23 +4,33 @@
   "recipe": "art/source/character-kit/cast/saffroncourt-resident-3.json",
   "recipeSha256": "2f7864e6b9c0e9a61bf4902aed631196918c4782a6d4d197159a19e2d39310ee",
   "atlas": "web/public/assets/character-cast/saffroncourt-resident-3.webp",
-  "atlasSha256": "f4ff70dedbb5ae58a48bd865321e447df136c4c5ed6b5189b1d70138ecc70394",
+  "atlasSha256": "43f8cfc03b7771919be504a5e949bb80779774f490c5a7990610dc6553909e31",
   "geometry": "web/public/assets/character-cast/saffroncourt-resident-3.atlas.json",
-  "geometrySha256": "0cb93a2825ea28c4d0481ad180d92d69d184ac4f6f29d0079f92972edb743602",
-  "textureBytes": 14654612,
+  "geometrySha256": "73102c240a47459c1a789f119803c79aa4ad369d9e693b2a5951e28cedec6e37",
+  "textureBytes": 14707912,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/saffroncourt-resident-3.webp",
+      "sha256": "43f8cfc03b7771919be504a5e949bb80779774f490c5a7990610dc6553909e31",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/saffroncourt-resident-3.1.webp",
+      "sha256": "7bdb05b82ceb52a1fbd742381800f039677ffa70cfbc1d132b563b3ceeb57b00",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "9558ba04f70fd9ad1cec1b2bf634ea32445d3625ba5f8d0147f76c8c86e15fc9",
-  "proof": "art/proofs/character-cast/saffroncourt-resident-3.png",
-  "proofSha256": "2459e3bd943c5a49b64589faa26deb37487a279167fb252e5ad816a2eca984c6",
-  "editorSha256": "218c280a5802d855d2eb47567339312c5ad29f0cc0c7e476f804ef0e6906315e",
+  "sourceComponentsSha256": "a3d958a1adae16919b2159cba297508aea4fef2b4e4abcbf54c0c88a63d09813",
+  "proof": "art/proofs/character-cast-painted/saffroncourt-resident-3.png",
+  "proofSha256": "5fb713858e4459cbc8bb46f0a1e0b3a6de8e3cec2da1695c831f260f9e13bca5",
+  "editorSha256": "64d94b8b3527dcdf9aa206718c62e4fe68244869cf918034122b78d2602c5dac",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "9558ba04f70fd9ad1cec1b2bf634ea32445d3625ba5f8d0147f76c8c86e15fc9"
-  }
+  "frames": 36
 }

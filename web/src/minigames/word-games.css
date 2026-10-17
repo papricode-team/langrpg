@@ -6,7 +6,7 @@
 }
 
 .word-game-seal::before {
-  content:'✦'
+  content:none
 }
 
 .word-game-finish {
@@ -192,8 +192,14 @@
 
 .word-basket {
   min-height:120px;
-  border-radius:12px 12px 40px 40px;
-  background:repeating-linear-gradient(45deg,#7b5a2e 0 10px,#916c38 10px 20px)
+  border-radius:12px;
+  background:#173d36e8
+}
+
+.word-basket-weave {
+  width:86px;
+  height:64px;
+  background:url('/assets/minigames/sprites/prop-crate.webp') center/contain no-repeat
 }
 
 .word-basket .minigame-object-label {
@@ -383,9 +389,8 @@
   transition:left .35s;
   width:20px;
   height:20px;
-  border-radius:50%;
-  background:radial-gradient(#fff3c4,#f7a54a 45%,transparent 70%);
-  box-shadow:0 0 14px 4px #f7a54a99
+  background:url('/assets/minigames/sprites/prop-lantern-flare.webp') center/contain no-repeat;
+  filter:drop-shadow(0 0 5px #f7a54a)
 }
 
 .word-fuse-lantern {
@@ -394,14 +399,12 @@
   top:0;
   width:30px;
   height:34px;
-  border:2px solid #c6a05e;
-  border-radius:8px 8px 12px 12px;
-  background:#12322e
+  background:url('/assets/minigames/sprites/prop-lantern-off.webp') center/contain no-repeat
 }
 
 .word-fuse.is-lit .word-fuse-lantern {
-  background:#f7d27a;
-  box-shadow:0 0 22px #efc467
+  background:url('/assets/minigames/sprites/prop-lantern-lit.webp') center/contain no-repeat;
+  filter:drop-shadow(0 0 7px #efc467)
 }
 
 .word-fuse.is-out .word-fuse-word {
@@ -484,12 +487,11 @@
 }
 
 .word-bell-shape {
-  width:46px;
-  height:42px;
+  width:64px;
+  height:64px;
   margin-bottom:8px;
-  border-radius:24px 24px 6px 6px;
-  background:linear-gradient(#f2d48a,#a77d34);
-  box-shadow:0 6px 0 -2px #6b4f20
+  background:url('/assets/minigames/sprites/prop-bell.webp') center/contain no-repeat;
+  filter:drop-shadow(0 4px 4px #0005)
 }
 
 .word-bell.is-ringing .word-bell-shape {
@@ -521,11 +523,9 @@
 
 .word-train-engine::before {
   content:'';
-  width:54px;
-  height:46px;
-  border-radius:10px 22px 4px 4px;
-  background:#2c4a44;
-  border:2px solid #c6a05e
+  width:76px;
+  height:56px;
+  background:url('/assets/minigames/sprites/item-zug-noun.webp') center/contain no-repeat
 }
 
 .word-train-car {
@@ -534,9 +534,7 @@
   width:110px;
   height:46px;
   margin-left:6px;
-  border-radius:6px;
-  background:#7a3a2a;
-  border:2px solid #c6a05e
+  background:url('/assets/minigames/sprites/prop-crate.webp') center/contain no-repeat
 }
 
 .word-train-cargo img {
@@ -565,4 +563,34 @@
   .word-fuse-keys { grid-template-columns:repeat(6,minmax(44px,1fr)) }
   .word-letter { width:46px; height:52px }
   .word-leaf { min-width:96px; max-width:140px }
+}
+
+/* The light breathes over the painted stage; quiet dust uses the painted lantern flare. */
+.word-game::before,.word-game::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none
+}
+.word-game::before {
+  background:var(--minigame-art) center/cover;
+  opacity:.025;
+  filter:sepia(.18) brightness(1.1);
+  animation:word-painted-light 9s ease-in-out infinite alternate
+}
+.word-game::after {
+  background:url('/assets/minigames/sprites/prop-lantern-flare.webp') 12% 24%/5px 5px no-repeat,
+    url('/assets/minigames/sprites/prop-lantern-flare.webp') 28% 42%/4px 4px no-repeat,
+    url('/assets/minigames/sprites/prop-lantern-flare.webp') 69% 18%/4px 4px no-repeat,
+    url('/assets/minigames/sprites/prop-lantern-flare.webp') 83% 62%/5px 5px no-repeat;
+  opacity:.25;
+  animation:word-painted-dust 8s ease-in-out infinite alternate
+}
+@keyframes word-painted-light { to { opacity:.08 } }
+@keyframes word-painted-dust { to { transform:translate(9px,-12px); opacity:.1 } }
+.word-game.minigame-paused::before,.word-game.minigame-paused::after { animation-play-state:paused }
+.word-game.minigame-reduced-motion::before,.word-game.minigame-reduced-motion::after { animation:none; content:none }
+@media(prefers-reduced-motion:reduce) {
+  .word-game::before,.word-game::after { animation:none; content:none }
 }

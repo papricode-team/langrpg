@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#ad835b\",\"#2f261e\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"pixie\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#414746\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#6b4b34\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#526747\"],[\"outer.secondary\",\"#526747\"],[\"top.primary\",\"#e3d6b6\"],[\"top.secondary\",\"#e3d6b6\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#ad835b\",\"#2f261e\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"pixie\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#414746\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#6b4b34\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#526747\"],[\"outer.secondary\",\"#526747\"],[\"top.primary\",\"#e3d6b6\"],[\"top.secondary\",\"#e3d6b6\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "1da3187791784da397f5b357631f2f90ef0c9f86453e526e26cfcf7cd80c01bf",
-  "atlasSha256": "01d916780841d624da34795575786172ceb5186d408e40dd1744397de2c52823",
-  "textureBytes": 14532240,
+  "sha256": "46bcbda8f22f7f1a5e79111c806dbe63293d67f2fa5f7277d2af893f17c2e97f",
+  "atlasSha256": "d05769b1e0c00f94af6cd6fed90d3cb479cb5fd5f6f727cc186ec02e46aad664",
+  "textureBytes": 13779344,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/sunpatch-resident-6.webp",
+      "sha256": "46bcbda8f22f7f1a5e79111c806dbe63293d67f2fa5f7277d2af893f17c2e97f",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/sunpatch-resident-6.1.webp",
+      "sha256": "2a64e24842f6ead43e2c89f5df3bd188c33a4558a91dd4be2941f7c3abfe994b",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/sunpatch-resident-6.atlas.json"
 }

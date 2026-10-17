@@ -2,7 +2,7 @@
 .kicker {
   display:block;
   color:var(--game-gold);
-  font:700 var(--type-caption)/1.3 'DM Sans',sans-serif;
+  font:700 var(--type-caption)/1.3 var(--font-body);
   letter-spacing:.6px;
 }
 
@@ -22,7 +22,7 @@
   align-items:flex-end;
   min-height:500px;
   padding:40px;
-  border:1px solid #d8bb8048;
+  border:1px solid color-mix(in srgb, var(--brass) 28.2%, transparent);
   border-radius:6px;
   background:#16302a;
   box-shadow:inset 0 1px 0 #f4dfa51a,0 18px 40px #03100d70;
@@ -62,7 +62,7 @@
 .journey-hero h2 {
   margin:10px 0 12px;
   color:#fbf2d8;
-  font:400 40px/1.08 'Fraunces',serif;
+  font:400 40px/1.08 var(--font-display);
   letter-spacing:-.02em;
   text-wrap:balance;
   text-shadow:0 2px 14px #06140f;
@@ -81,7 +81,7 @@
   gap:14px;
   margin:24px 0 20px;
   padding:12px 18px 12px 12px;
-  border:1px solid #d8bb8040;
+  border:1px solid color-mix(in srgb, var(--brass) 25.1%, transparent);
   border-left:3px solid var(--game-gold);
   border-radius:4px;
   background:linear-gradient(90deg,#0b1b17d9,#0b1b1780);
@@ -90,14 +90,14 @@
 .journey-next>.portrait {
   width:56px;
   height:56px;
-  border:2px solid #d8bb80;
-  box-shadow:0 0 0 3px #0b1b17,0 0 14px #d8bb8050;
+  border:2px solid var(--brass);
+  box-shadow:0 0 0 3px #0b1b17,0 0 14px color-mix(in srgb, var(--brass) 31.4%, transparent);
 }
 
 .journey-next h3 {
   margin:2px 0;
   color:var(--game-text);
-  font:400 var(--type-title)/1.25 'Fraunces',serif;
+  font:400 var(--type-title)/1.25 var(--font-display);
 }
 
 .journey-next p {
@@ -111,7 +111,7 @@
   gap:12px;
   margin-top:20px;
   color:#d9cba3;
-  font:600 var(--type-caption)/1.3 'DM Sans',sans-serif;
+  font:600 var(--type-caption)/1.3 var(--font-body);
   letter-spacing:.6px;
 }
 
@@ -124,7 +124,7 @@
 .journey-progress i {
   width:14px;
   height:14px;
-  border:1px solid #d8bb8080;
+  border:1px solid color-mix(in srgb, var(--brass) 50.2%, transparent);
   background:#0b1b17;
   transform:rotate(45deg) scale(.8);
 }
@@ -155,9 +155,9 @@
   flex-direction:column;
   gap:18px;
   padding:28px;
-  border:1px solid #d8bb8040;
+  border:1px solid color-mix(in srgb, var(--brass) 25.1%, transparent);
   border-radius:6px;
-  background:radial-gradient(ellipse at 100% 0,#d8bb8018,transparent 60%),linear-gradient(160deg,#183229,#10241f);
+  background:radial-gradient(ellipse at 100% 0,color-mix(in srgb, var(--brass) 9.4%, transparent),transparent 60%),linear-gradient(160deg,#183229,#10241f);
   box-shadow:inset 0 1px 0 #f4dfa514;
 }
 
@@ -169,7 +169,7 @@
 
 .journey-town h3 {
   color:var(--game-text);
-  font:400 26px/1.15 'Fraunces',serif;
+  font:400 26px/1.15 var(--font-display);
 }
 
 .journey-town-crest {
@@ -178,11 +178,11 @@
   flex:none;
   width:48px;
   height:48px;
-  border:1px solid #d8bb8070;
+  border:1px solid color-mix(in srgb, var(--brass) 43.9%, transparent);
   border-radius:50%;
   color:var(--game-gold);
   background:#0d1f1b;
-  box-shadow:0 0 0 4px #d8bb8014;
+  box-shadow:0 0 0 4px color-mix(in srgb, var(--brass) 7.8%, transparent);
 }
 
 .journey-town-crest>.icon {
@@ -207,7 +207,7 @@
   margin:-4px;
   padding:4px;
   scrollbar-width:thin;
-  scrollbar-color:#d8bb8060 transparent;
+  scrollbar-color:color-mix(in srgb, var(--brass) 37.6%, transparent) transparent;
 }
 
 .journey-places>button {
@@ -216,7 +216,7 @@
   gap:8px;
   min-height:44px;
   padding:8px 14px;
-  border:1px solid #d8bb8040;
+  border:1px solid color-mix(in srgb, var(--brass) 25.1%, transparent);
   border-radius:999px;
   color:var(--game-text);
   background:#0d1f1bb3;
@@ -229,8 +229,8 @@
 }
 
 .journey-places>button:hover {
-  border-color:#d8bb8090;
-  background:#d8bb8014;
+  border-color:color-mix(in srgb, var(--brass) 56.5%, transparent);
+  background:color-mix(in srgb, var(--brass) 7.8%, transparent);
 }
 
 .journey-lantern {
@@ -239,7 +239,7 @@
   gap:14px;
   margin-top:auto;
   padding:14px 16px;
-  border:1px solid #d8bb8030;
+  border:1px solid color-mix(in srgb, var(--brass) 18.8%, transparent);
   border-radius:4px;
   background:#0b1b17a6;
 }
@@ -270,7 +270,7 @@
 
 .journey-lantern strong {
   color:var(--game-text);
-  font:400 var(--type-body)/1.3 'Fraunces',serif;
+  font:400 var(--type-body)/1.3 var(--font-display);
 }
 
 .journey-lantern>div>span:not(.journey-lantern-meter) {
@@ -306,7 +306,7 @@
   gap:14px;
   min-height:92px;
   padding:16px 18px;
-  border:1px solid #d8bb8033;
+  border:1px solid color-mix(in srgb, var(--brass) 20.0%, transparent);
   border-radius:6px;
   color:var(--game-text);
   background:linear-gradient(160deg,#173029,#11251f);
@@ -315,7 +315,7 @@
 }
 
 .journey-tools>button:hover {
-  border-color:#d8bb8088;
+  border-color:color-mix(in srgb, var(--brass) 53.3%, transparent);
   background:linear-gradient(160deg,#1e3b32,#142c25);
   transform:translateY(-2px);
   box-shadow:0 10px 24px #03100d60;
@@ -327,7 +327,7 @@
   flex:none;
   width:44px;
   height:44px;
-  border:1px solid #d8bb8055;
+  border:1px solid color-mix(in srgb, var(--brass) 33.3%, transparent);
   color:var(--game-gold);
   background:#0d1f1b;
   transform:rotate(45deg) scale(.82);
@@ -346,7 +346,7 @@
 }
 
 .journey-tool-copy strong {
-  font:400 var(--type-body)/1.3 'Fraunces',serif;
+  font:400 var(--type-body)/1.3 var(--font-display);
 }
 
 .journey-tool-copy>span {

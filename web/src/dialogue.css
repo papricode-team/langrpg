@@ -17,16 +17,16 @@
   width:min(760px,100%);
   max-height:70dvh;
   overflow:auto;
-  border:1px solid #dbc58b90;
-  border-radius:20px;
-  background:linear-gradient(145deg,#183d36f5,#122d2af5);
-  color:#f5e7c6;
-  box-shadow:0 15px 70px #071c1b99;
+  border:1px solid color-mix(in srgb, var(--brass) 56.5%, transparent);
+  border-radius:var(--radius-md);
+  background:var(--system-surface);
+  color:var(--text);
+  box-shadow:var(--shadow-lg);
   padding:20px 24px;
-  font-family:'DM Sans',sans-serif;
+  font-family:var(--font-body);
   overscroll-behavior:contain;
   scrollbar-width:thin;
-  scrollbar-color:#dbc58b50 transparent
+  scrollbar-color:color-mix(in srgb, var(--brass) 31.4%, transparent) transparent
 }
 
 .dialogue-heading {
@@ -44,12 +44,12 @@
   display:block;
   font-size: var(--type-caption);
   letter-spacing: .6px;
-  color:#bdc9ae;
+  color:var(--text-muted);
   overflow-wrap:anywhere
 }
 
 .dialogue-heading h2 {
-  font-family:Fraunces,serif;
+  font-family:var(--font-display);
   font-size: var(--type-title);
   line-height:1.25;
   margin:3px 0 0;
@@ -76,7 +76,7 @@
 }
 
 .dialogue-line {
-  font-family:Fraunces,serif;
+  font-family:var(--font-display);
   font-size: var(--type-title);
   line-height:1.55;
   margin:18px 0 10px;
@@ -109,7 +109,7 @@
   font-size: var(--type-caption);
   padding-bottom:12px;
   margin-bottom:12px;
-  border-bottom:1px solid #dbc58b30
+  border-bottom:1px solid color-mix(in srgb, var(--brass) 18.8%, transparent)
 }
 
 .dialogue-tools button {
@@ -171,7 +171,7 @@
   border:1px solid #9aac92;
   background:#f4edd9;
   color:#203e36;
-  font: var(--type-body) 'DM Sans',sans-serif
+  font: var(--type-body) var(--font-body)
 }
 
 .dialogue-gate .caption {
@@ -201,7 +201,7 @@
   border:1px solid #b8aa7980;
   border-radius:12px;
   padding:9px 12px 9px 16px;
-  background:#dbc58b08
+  background:color-mix(in srgb, var(--brass) 3.1%, transparent)
 }
 
 .dialogue-choice-phrase {
@@ -231,9 +231,9 @@
   min-height:44px;
   border:1px solid #b8aa7960;
   border-radius:8px;
-  background:#dbc58b12;
-  color:#f5e7c6;
-  font:600 var(--type-body)/1.5 'DM Sans',sans-serif;
+  background:color-mix(in srgb, var(--brass) 7.1%, transparent);
+  color:var(--text);
+  font:600 var(--type-body)/1.5 var(--font-body);
   padding:8px 12px;
   white-space:nowrap
 }
@@ -244,8 +244,8 @@
 }
 
 .dialogue-choice-submit:hover:not(:disabled) {
-  background:#dbc58b26;
-  border-color:#dbc58b
+  background:color-mix(in srgb, var(--brass) 14.9%, transparent);
+  border-color:var(--brass)
 }
 
 .world-dialogue :is(button,input,select,textarea,summary,a[href]):focus-visible {
@@ -294,7 +294,7 @@
 }
 
 .evidence-card h3 {
-  font-family:Fraunces,serif;
+  font-family:var(--font-display);
   margin:0 0 8px;
   font-size: var(--type-title)
 }
@@ -510,7 +510,7 @@
 }
 
 .lantern-rewards h3 {
-  font-family:Fraunces,serif;
+  font-family:var(--font-display);
   font-size: var(--type-title);
   margin:5px 0
 }
@@ -599,7 +599,7 @@
 }
 
 .dialogue-grammar strong {
-  font-family:Fraunces,serif;
+  font-family:var(--font-display);
   font-size: var(--type-body);
   line-height:1.5;
   font-weight:400
@@ -612,7 +612,7 @@
 
 .dialogue-grammar .caption {
   display:block;
-  color:#bdc9b4;
+  color:var(--text-muted);
   line-height:1.6
 }
 
@@ -670,16 +670,16 @@
   width:44px;
   height:44px;
   padding:10px;
-  border:1px solid #dbc58b60;
+  border:1px solid color-mix(in srgb, var(--brass) 37.6%, transparent);
   border-radius:50%;
-  background:#dbc58b12;
+  background:color-mix(in srgb, var(--brass) 7.1%, transparent);
   color:#b8c6b5;
   cursor:pointer
 }
 
 .dialogue-audio[aria-pressed="true"] {
-  color:#f5e7c6;
-  border-color:#dbc58b90
+  color:var(--text);
+  border-color:color-mix(in srgb, var(--brass) 56.5%, transparent)
 }
 
 .dialogue-audio .icon {
@@ -705,9 +705,9 @@
 }
 
 .dialogue-tools [data-dialogue-action="translate"][aria-pressed="true"] {
-  border-color:#dbc58b80;
+  border-color:color-mix(in srgb, var(--brass) 50.2%, transparent);
   background:#dbc89222;
-  color:#f5e7c6
+  color:var(--text)
 }
 
 .dialogue-translation {
@@ -738,7 +738,7 @@
 
 .dialogue-answer-help {
   padding:14px 16px;
-  border:1px solid #dbc58b60;
+  border:1px solid color-mix(in srgb, var(--brass) 37.6%, transparent);
   border-radius:8px;
   background:#dbc89214
 }
@@ -751,8 +751,8 @@
 
 .dialogue-answer-help>p {
   margin:8px 0;
-  font: var(--type-body)/1.5 'Fraunces',serif;
-  color:#f5e7c6;
+  font: var(--type-body)/1.5 var(--font-display);
+  color:var(--text);
   overflow-wrap:anywhere
 }
 
@@ -764,8 +764,8 @@
 .dialogue-answer-help>button {
   margin:12px 0 8px;
   padding:10px 14px;
-  color:#f5e7c6;
-  border-color:#dbc58b80;
+  color:var(--text);
+  border-color:color-mix(in srgb, var(--brass) 50.2%, transparent);
   min-height:44px
 }
 
@@ -802,7 +802,7 @@
 }
 
 .dialogue-word-gloss strong {
-  font-family:Fraunces,serif;
+  font-family:var(--font-display);
   font-weight:600;
   margin-right:6px
 }
@@ -827,11 +827,11 @@
   gap:6px;
   font-size: var(--type-caption);
   line-height:1.45;
-  color:#b7c5b1;
-  border-bottom:1px solid #dbc58b30;
+  color:var(--text-muted);
+  border-bottom:1px solid color-mix(in srgb, var(--brass) 18.8%, transparent);
   padding-bottom:10px;
   scrollbar-width:thin;
-  scrollbar-color:#dbc58b50 transparent
+  scrollbar-color:color-mix(in srgb, var(--brass) 31.4%, transparent) transparent
 }
 
 .dialogue-history li {
@@ -849,7 +849,7 @@
 }
 
 .dialogue-history span {
-  font-family:Fraunces,serif
+  font-family:var(--font-display)
 }
 
 .dialogue-history li.is-player {
@@ -876,5 +876,5 @@
 
 /* Admin edit mode: hide a monologue line for everyone. */
 .dialogue-admin { display: flex; justify-content: flex-end; margin-top: 6px; }
-.dialogue-admin button { min-height: 32px; padding: 4px 12px; border-radius: 8px; border: 1px dashed #c4a567; background: transparent; color: inherit; font: 600 13px 'DM Sans', system-ui, sans-serif; cursor: pointer; }
+.dialogue-admin button { min-height: 32px; padding: 4px 12px; border-radius: 8px; border: 1px dashed var(--brass); background: transparent; color: inherit; font: 600 13px var(--font-body); cursor: pointer; }
 .dialogue-admin button:disabled { cursor: default; opacity: .8; }

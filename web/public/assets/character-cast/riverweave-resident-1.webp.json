@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b89068\",\"#c6c1ae\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"goatee\"],[\"footwear\",\"sandals\"],[\"hair\",null],[\"headwear\",\"cap\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"henley\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#49563b\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#705039\"],[\"headwear.primary\",\"#a15943\"],[\"headwear.secondary\",\"#a15943\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#77a3ba\"],[\"top.secondary\",\"#77a3ba\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b89068\",\"#c6c1ae\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"goatee\"],[\"footwear\",\"sandals\"],[\"hair\",null],[\"headwear\",\"cap\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"henley\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#49563b\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#705039\"],[\"headwear.primary\",\"#a15943\"],[\"headwear.secondary\",\"#a15943\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#77a3ba\"],[\"top.secondary\",\"#77a3ba\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "330a6e587b55a17e198fdff1bb9b62bf6b9e11942c1e65d905486c7b54b3f58c",
-  "atlasSha256": "7539ea69da360a0d123e46bd20bab2c95ed7076e0a61e443784771ec943a0864",
-  "textureBytes": 14266496,
+  "sha256": "b51ea7f9a25f77c64a3b1bf0d26b8513c07236a9336f06a0dffb1e86b0737ea3",
+  "atlasSha256": "9bf0a144870da3d1518398f5415996f53e0f53a868670f18ce28440ec3677f68",
+  "textureBytes": 14275088,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/riverweave-resident-1.webp",
+      "sha256": "b51ea7f9a25f77c64a3b1bf0d26b8513c07236a9336f06a0dffb1e86b0737ea3",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/riverweave-resident-1.1.webp",
+      "sha256": "f6919ddf801b789aa523ad021e27e24246cf50d976ae2c929778c0a4acf48188",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/riverweave-resident-1.atlas.json"
 }

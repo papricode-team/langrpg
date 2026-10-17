@@ -1,0 +1,18 @@
+Use case: stylized-concept
+Asset type: transparent painterly game item sprite sheet
+Primary request: Paint 6 distinct isolated object sprites for glotworld near-isometric RPG in an exact 4 by 4 regular grid. Canvas 2048 by 2048 pixels. Each cell is 512 by 512 pixels; one named subject per cell, read left to right then top to bottom.
+Style/medium: detailed hand-painted storybook gouache and oil, softly textured materials, warm brass, cream ceramics, muted forest green, matching the existing café and supermarket interior object sheets. Three-quarter view, consistent top-left warm lighting.
+Scene/backdrop: genuinely transparent alpha, no painted backdrop.
+Composition: one complete object centred in each cell, maximum object extent 380 pixels, generous transparent margins of at least 60 pixels, no overlap between cells, no cast shadows outside the object. Keep small details legible at 128 pixels.
+Subjects in row-major order:
+1. one upright plain brown paper bag
+2. three wooden beads of increasing size on a cord, sequence motif
+3. one open cream instruction booklet showing simple lamp assembly pictures without text
+4. one miniature semicircle of seven wooden council chairs
+5. one cream report folio with illegible ink and a brass paper clip
+6. one miniature warm sandstone watermill with wooden wheel
+Constraints: exactly 6 objects, correct subject ordering, no labels, no legible text, no grid lines, no watermark, no emoji, no vector line icons. Transparent background; retain native alpha. Each silhouette must be identifiable without a written label.
+
+Important: six objects occupy row 1 cells 1-4, row 2 cells 1-2 of exact four by four grid. Remaining ten cells entirely transparent. Reference is style only. No text.
+Tool: built-in image_gen; transparent_background: true.
+Reference: web/public/assets/minigames/items.webp.

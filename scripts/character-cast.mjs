@@ -64,7 +64,7 @@ async function context(root) {
 function castPaths(id,poseSet) {
   if(!safe(id)||!safe(poseSet))throw new Error('Invalid cast id or pose set');
   const name=poseSet==='walk'?id:`poses/${poseSet}/${id}`;
-  return {atlas:`${OUTPUT}/${name}.webp`,geometry:`${OUTPUT}/${name}.atlas.json`,proof:`art/proofs/character-cast/${name}.png`,editor:`art/proofs/character-cast/${name}.webp`,report:`${OUTPUT}/${name}.json`};
+  return {atlas:`${OUTPUT}/${name}.webp`,geometry:`${OUTPUT}/${name}.atlas.json`,proof:`art/proofs/character-cast-painted/${name}.png`,editor:`art/proofs/character-cast-painted/${name}.webp`,report:`${OUTPUT}/${name}.json`};
 }
 
 /** Every runtime page must remain intact before an unchanged bake is reused. */
@@ -106,10 +106,10 @@ async function writePackedCast(input,cell,image,atlas,root) {
 export async function bakeNativeCastVariant(entry,{root=ROOT,componentCatalogue=characterCatalogue}={}) {
   if(!safe(entry.id))throw new Error('Invalid native cast id');
   if(entry.mapId!==null)return;
-  const input=resolve(root,`art/proofs/character-cast/${entry.id}.webp`);
+  const input=resolve(root,`art/proofs/character-cast-painted/${entry.id}.webp`);
   const image=`${OUTPUT}/native/${entry.id}.webp`,atlas=`${OUTPUT}/native/${entry.id}.atlas.json`;
   const packed=await writePackedCast(input,componentCatalogue.format.editorCell,image,atlas,root);
-  return {key:`character-cast-${entry.id}-native`,image,atlas,...packed,cell:componentCatalogue.format.editorCell,source:`art/proofs/character-cast/${entry.id}.webp`,sourceSha256:hash(await readFile(input))};
+  return {key:`character-cast-${entry.id}-native`,image,atlas,...packed,cell:componentCatalogue.format.editorCell,source:`art/proofs/character-cast-painted/${entry.id}.webp`,sourceSha256:hash(await readFile(input))};
 }
 
 export function castSourceSignature(recipe,catalogue,poseSet='walk',renderer=rendererSignature) {
@@ -170,7 +170,8 @@ export async function buildCast({root=ROOT}={}) {
   }
   const manifest={version:1,assetVersion:characterCatalogue.assetVersion,cell:characterCatalogue.format.runtimeCell,frames:36,actors};
   manifest.versionHash=hash(JSON.stringify(manifest)).slice(0,16);
-  await writeFile(resolve(root,'web/src/data/character-cast.json'),JSON.stringify(manifest,null,2)+'\n');
+  await mkdir(resolve(root,SOURCE),{recursive:true});
+  await writeFile(resolve(root,SOURCE,'runtime-manifest.json'),JSON.stringify(manifest,null,2)+'\n');
   return {approved:actors.length,expected:(await castInventory()).length,missing,candidates:source.entries.filter(e=>e.status!=='approved').map(e=>e.id)};
 }
 

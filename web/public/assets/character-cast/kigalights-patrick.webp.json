@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#6d4831\",\"#241d16\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#383b33\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#655c49\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#c27359\"],[\"top.secondary\",\"#c27359\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#6d4831\",\"#241d16\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#383b33\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#655c49\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#c27359\"],[\"top.secondary\",\"#c27359\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "3f4485c913e84cce179bfe79e3dc0ef57add2d15d73a59a2c2c7af69ea235299",
-  "atlasSha256": "21d8a3d8fb563814299bfe38d97dad6bcf79d82ba78a1c9bf057b312b46f75e9",
-  "textureBytes": 14654612,
+  "sha256": "3735e0c69bc139356b7cb7f02bcc13b8bf86f58e286dccdcf5ae63c27e9a32ab",
+  "atlasSha256": "2cfd1bdd7e60d5876458898ba92f67f255cd287cc76ec918214ee4c55383190c",
+  "textureBytes": 14715168,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/kigalights-patrick.webp",
+      "sha256": "3735e0c69bc139356b7cb7f02bcc13b8bf86f58e286dccdcf5ae63c27e9a32ab",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/kigalights-patrick.1.webp",
+      "sha256": "e81f0b05b712790e097158272df8e93f533b7e911302785d0dba97a4dd514c41",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/kigalights-patrick.atlas.json"
 }

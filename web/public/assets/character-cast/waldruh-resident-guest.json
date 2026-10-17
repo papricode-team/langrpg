@@ -4,23 +4,33 @@
   "recipe": "art/source/character-kit/cast/waldruh-resident-guest.json",
   "recipeSha256": "6cbc64c3aada0818cab7ef27c383d07bd85b01f261bbe8dd4cfbcbb508b72f94",
   "atlas": "web/public/assets/character-cast/waldruh-resident-guest.webp",
-  "atlasSha256": "b0824ce862c9ca945958227349b45d8c28aef40225ce76f2ef0aa526c1f975a6",
+  "atlasSha256": "73dabd50fb0411437ca6b9496b3f2b8d0152c922032a47fc758e4b0bcdceee2f",
   "geometry": "web/public/assets/character-cast/waldruh-resident-guest.atlas.json",
-  "geometrySha256": "4e87ed4911c1cd7a0a6d09ebd105a27ad0cdb463159c729bc693ff71f71cc0d7",
-  "textureBytes": 14471280,
+  "geometrySha256": "03648310891d1ce9dc4337a25dd4e97fabc73b44a1a5e0efa5d3ebfacbfc0d5f",
+  "textureBytes": 14378520,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/waldruh-resident-guest.webp",
+      "sha256": "73dabd50fb0411437ca6b9496b3f2b8d0152c922032a47fc758e4b0bcdceee2f",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/waldruh-resident-guest.1.webp",
+      "sha256": "e4a01efa170a5337433eb909fbf69d9725ae541783a621b3592692d820ac8e2f",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "0057c7eb6ad36b4bee182fa134f569b1a1f292eb5123e47d9ea5c0931e7b48b3",
-  "proof": "art/proofs/character-cast/waldruh-resident-guest.png",
-  "proofSha256": "df09d7b013c709a020302d7ec464402235e585bf08c881eebaaee3bfdbecd037",
-  "editorSha256": "f5ce1cb1eb9eaaa6d2984a6dc5a2fa447ad61b883a4915c775adcfbc0587e6af",
+  "sourceComponentsSha256": "7bfb0df9496332263f03b1f633ec3cfc9a9e43bc641e9ca9d6b865517b4c2a92",
+  "proof": "art/proofs/character-cast-painted/waldruh-resident-guest.png",
+  "proofSha256": "f3a5b1802ce34ad0c38fede3afdf5300625a0cb4f9f60c3c443f8c5c1c461df5",
+  "editorSha256": "162cf6f4fe63185958e6814851db8cba86dc338abf7c84be7f088b93f5d14d78",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "0057c7eb6ad36b4bee182fa134f569b1a1f292eb5123e47d9ea5c0931e7b48b3"
-  }
+  "frames": 36
 }

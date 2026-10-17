@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b2845b\",\"#30241b\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"sandals\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#9d4a38\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#68472c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#a4563e\"],[\"top.secondary\",\"#a4563e\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b2845b\",\"#30241b\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"sandals\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#9d4a38\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#68472c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#a4563e\"],[\"top.secondary\",\"#a4563e\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "aef83322a6ebc3ebb8519075b021bfbd533fad25d8fc71594f8e9367a64ee246",
-  "atlasSha256": "a1793e591ffb50fdd33448192d506c6ead7935e849a97b55893a8261d570d278",
-  "textureBytes": 14286100,
+  "sha256": "a70df2fd7aad436cddb9f5d2b8853cac41470b17503febe01906fb626337d03b",
+  "atlasSha256": "9f7e571a4ca69ebdfe21eb431bd5b58be931660dd6994e3926196e3df9c8ac41",
+  "textureBytes": 14001312,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/cedarbay-arun.webp",
+      "sha256": "a70df2fd7aad436cddb9f5d2b8853cac41470b17503febe01906fb626337d03b",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/cedarbay-arun.1.webp",
+      "sha256": "3c693a78abc45ecdc48c6f73edf7c24c3f7f32c1198b0730398873e7bb69161c",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/cedarbay-arun.atlas.json"
 }

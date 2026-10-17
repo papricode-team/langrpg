@@ -30,15 +30,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b07a55\",\"#302b2d\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",\"cap\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"raincoat\"],[\"top\",\"turtleneck\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#3b3b40\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#2a2420\"],[\"headwear.primary\",\"#2b3a44\"],[\"headwear.secondary\",\"#c9a25c\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#2f4c5c\"],[\"outer.secondary\",\"#253d4a\"],[\"top.primary\",\"#e8e2d4\"],[\"top.secondary\",\"#a88e67\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b07a55\",\"#302b2d\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",\"cap\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"raincoat\"],[\"top\",\"turtleneck\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#3b3b40\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#2a2420\"],[\"headwear.primary\",\"#2b3a44\"],[\"headwear.secondary\",\"#c9a25c\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#2f4c5c\"],[\"outer.secondary\",\"#253d4a\"],[\"top.primary\",\"#e8e2d4\"],[\"top.secondary\",\"#a88e67\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "2a7ee0445dc312c14333325fe8647c6af87af361fbcfcbe9f360c9a07bd5459d",
-  "atlasSha256": "cf215e046790cd3817d8c0e55f4c61f7ac0d7098287a0e1b58d94a569fd232ec",
-  "textureBytes": 14532956,
+  "sha256": "4a96c12f88b6fa02b3038b0371a96faa837f932e85e6f73329f7cc6a819f5035",
+  "atlasSha256": "4ae4f5d95b455f2e8d911aeff1b03915ca1aac69c5da94157170394c26e5ffa9",
+  "textureBytes": 14209776,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/jonas.webp",
+      "sha256": "4a96c12f88b6fa02b3038b0371a96faa837f932e85e6f73329f7cc6a819f5035",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/jonas.1.webp",
+      "sha256": "eaf5983a08b28fc57420f6620f2f6bb8e454248ed8b084f4dd1b65e9d139750e",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/jonas.atlas.json"
 }

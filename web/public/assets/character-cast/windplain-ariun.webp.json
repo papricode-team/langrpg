@@ -34,27 +34,27 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#be956f\",\"#292622\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"boots\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"trench\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#75503a\"],[\"bottom.primary\",\"#34495f\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#aa8655\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#8a8b85\"],[\"outer.secondary\",\"#8a8b85\"],[\"top.primary\",\"#3c4546\"],[\"top.secondary\",\"#3c4546\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#be956f\",\"#292622\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"boots\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"trench\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#75503a\"],[\"bottom.primary\",\"#34495f\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#aa8655\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#8a8b85\"],[\"outer.secondary\",\"#8a8b85\"],[\"top.primary\",\"#3c4546\"],[\"top.secondary\",\"#3c4546\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "fc00b81bbd5ca7c14e37d4e8553c8471b52bdafe2515fcd13bcab2c19904e9f7",
-  "atlasSha256": "04cb8169b894ece8365184a508924cde0b24f9b7751754f0147b15025d8630c0",
+  "sha256": "e2573e52a92165e8ee30bdccfc1ca92983b059eb316295fe275cad36ddd7c61b",
+  "atlasSha256": "cf98534c5e7da5a19d12b5c86de7d4aadd567fc49401707d3d9816454b58b29f",
   "textureBytes": 14691316,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/windplain-ariun.webp",
-      "sha256": "fc00b81bbd5ca7c14e37d4e8553c8471b52bdafe2515fcd13bcab2c19904e9f7",
+      "sha256": "e2573e52a92165e8ee30bdccfc1ca92983b059eb316295fe275cad36ddd7c61b",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/windplain-ariun.1.webp",
-      "sha256": "a68e8c753a6184bf894538e1bb8c50ad8e6fd7b81ecf350d1ae9d01971e62fc3",
+      "sha256": "80771d50de7ad30ee993d953d3de5ea7b552ba70cba9f1812dce4879ae90bb68",
       "firstFrame": 18,
       "frameCount": 18
     }

@@ -1,6 +1,32 @@
 import sharp from 'sharp';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import {WEBP_QUALITY} from './webp-quality.mjs';
+// Dedicated native portraits replace tiny crops from the old direction sheet.
+export async function prepareStoryPortraits() {
+  await mkdir('web/public/assets/story-cast', { recursive: true });
+  const actors = [], hash = bytes => createHash('sha256').update(bytes).digest('hex');
+  for (const id of ['inspector', 'elise']) {
+    // Native square head/shoulder crops match the eight illustrated portraits.
+    const crop = id === 'inspector' ? { left: 190, top: 0, width: 900, height: 900 }
+      : { left: 100, top: 0, width: 1050, height: 1050 };
+    await sharp(`art/source/story-cast/${id}-portrait-painted.png`)
+      .extract(crop).resize(724, 724).webp({ quality: WEBP_QUALITY })
+      .toFile(`web/public/assets/story-cast/${id}-portrait.webp`);
+    const source = `art/source/story-cast/${id}-portrait-painted.png`;
+    const prompt = `art/source/story-cast/${id}-portrait-painted.txt`;
+    const image = `/assets/story-cast/${id}-portrait.webp`;
+    actors.push({ id, source, sourceSha256: hash(await readFile(source)), crop, prompt,
+      promptSha256: hash(await readFile(prompt)), image,
+      sha256: hash(await readFile(`web/public${image}`)) });
+  }
+  await writeFile('web/public/assets/story-cast/portraits-manifest.json', JSON.stringify({
+    tool: 'Built-in image_gen', size: [724, 724], framing: 'Square head and shoulders; CSS cover, centered',
+    actors,
+  }, null, 2) + '\n');
+}
+await prepareStoryPortraits();
+if (!process.argv.includes('--portraits-only')) {
 const source = 'art/source/story-cast/inspector-elise-directions.png';
 const { data, info } = await sharp(source).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
 if (info.width !== 1536 || info.height !== 1024) throw new Error('Expected a 4 by 2 sheet of 384 by 512 cells');
@@ -27,9 +53,6 @@ await mkdir('web/public/assets/story-cast', { recursive: true });
 await sharp('art/source/story-cast/inn-room.png').webp({ quality: WEBP_QUALITY }).toFile('web/public/assets/interior-inn-room.webp');
 await sharp('art/source/story-cast/greenhouse-train.png').webp({quality: WEBP_QUALITY}).toFile('web/public/assets/story-cast/greenhouse-train.webp');
 await sharp({ create: { width: 1024, height: 768, channels: 4, background: '#00000000' } }).composite(frames).webp({ lossless: true }).toFile('web/public/assets/story-cast/directions.webp');
-for (const [row, id] of ['inspector', 'elise'].entries()) {
-  await sharp(source).extract({ left: 65, top: row * 512 + 6, width: 260, height: 250 }).resize(256, 256, { fit: 'contain', background: '#00000000' }).webp({ quality: WEBP_QUALITY }).toFile(`web/public/assets/story-cast/${id}-portrait.webp`);
-}
 await writeFile('web/public/assets/story-cast/manifest.json', JSON.stringify({ source, tool: 'Built-in image_gen', cell: [256,384], rows: ['inspector','elise'], directions: ['south','east','north','west'], registration: 'One uniform scale per character; soles at y=346; generated alpha preserved.', license: 'Generated for glotworld', prompt: 'art/source/story-cast/prompt.txt' }, null, 2) + '\n');
 
 const mainSource='art/source/story-cast/main-cast-directions.png';
@@ -56,3 +79,5 @@ for(let role=0;role<7;role++){
 }
 await sharp({create:{width:1024,height:2688,channels:4,background:'#00000000'}}).composite(mainFrames).webp({lossless:true}).toFile('web/public/assets/story-cast/main-directions.webp');
 await writeFile('web/public/assets/story-cast/main-manifest.json',JSON.stringify({source:mainSource,tool:'Built-in image_gen',cell:[256,384],rows:['marta','otto','lina','emil','ada','fritz','greta'],directions:['south','east','north','west'],registration:'Uniform scale per character; soles at y=346; generated transparency preserved.',prompt:'art/source/story-cast/main-cast-prompt.txt',license:'Generated for glotworld'},null,2)+'\n');
+
+}

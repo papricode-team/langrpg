@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#744c38\",\"#302b2d\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"almond\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"braids\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#a55c50\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#a55c50\"],[\"outer.secondary\",\"#a55c50\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#744c38\",\"#302b2d\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"almond\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"braids\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#a55c50\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#a55c50\"],[\"outer.secondary\",\"#a55c50\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "5cae5006eac3921d65c1448c853a962c28813ea46994bec0b9dabbb175336e0a",
-  "atlasSha256": "d8113d98991c06f879d6ece8e9839e60c19188d6d6bbc19d03d6ca976e0d917e",
-  "textureBytes": 14612780,
+  "sha256": "5c2e099505cfb8378e365e75b8a8fd0efedfcfa7890ab1b218bbed1aaa9fc9f2",
+  "atlasSha256": "cfbf56e8efe1b2b2a1a9de2acc568f5725118108e786c8c1e4405f589678bfe7",
+  "textureBytes": 13955760,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/lindenhafen-resident-gardener.webp",
+      "sha256": "5c2e099505cfb8378e365e75b8a8fd0efedfcfa7890ab1b218bbed1aaa9fc9f2",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/lindenhafen-resident-gardener.1.webp",
+      "sha256": "19d557a0932cb08b333b10b70f12de43e4e8ec21cd489c9927e3bb925b80f3ed",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/lindenhafen-resident-gardener.atlas.json"
 }

@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b88e61\",\"#30251b\",[[\"bag\",\"tote\"],[\"bottom\",\"straight\"],[\"eyewear\",\"square\"],[\"face\",\"oval\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",\"trench\"],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#b6984e\"],[\"bottom.primary\",\"#d1b1b3\"],[\"eyewear.primary\",\"#3d3b30\"],[\"footwear.primary\",\"#d8cbb2\"],[\"headwear.primary\",\"#a08eb4\"],[\"headwear.secondary\",\"#a08eb4\"],[\"neck.primary\",\"#a08eb4\"],[\"outer.primary\",\"#454d51\"],[\"outer.secondary\",\"#454d51\"],[\"top.primary\",\"#d9b6b9\"],[\"top.secondary\",\"#d9b6b9\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b88e61\",\"#30251b\",[[\"bag\",\"tote\"],[\"bottom\",\"straight\"],[\"eyewear\",\"square\"],[\"face\",\"oval\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",\"trench\"],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#b6984e\"],[\"bottom.primary\",\"#d1b1b3\"],[\"eyewear.primary\",\"#3d3b30\"],[\"footwear.primary\",\"#d8cbb2\"],[\"headwear.primary\",\"#a08eb4\"],[\"headwear.secondary\",\"#a08eb4\"],[\"neck.primary\",\"#a08eb4\"],[\"outer.primary\",\"#454d51\"],[\"outer.secondary\",\"#454d51\"],[\"top.primary\",\"#d9b6b9\"],[\"top.secondary\",\"#d9b6b9\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "94df0179f3ee1b5956f74660d877a7f51c5fc5de4061d6b418941560315e437a",
-  "atlasSha256": "d5ac31a4a41bc01cc89d00e65f1eccd161c984340e120b91316d985da16400a6",
-  "textureBytes": 14044004,
+  "sha256": "d9df026cb69149fe266c565f79fdb305d8aa96fe5edd5ff5a24f870ccc492c9b",
+  "atlasSha256": "d78a4f9e6aa358d41a8484908c1fe0cd038925480791847a3cf806cd7786f464",
+  "textureBytes": 13812684,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/dunegarden-noura.webp",
+      "sha256": "d9df026cb69149fe266c565f79fdb305d8aa96fe5edd5ff5a24f870ccc492c9b",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/dunegarden-noura.1.webp",
+      "sha256": "810adf2edbf4d6c59837c1b99d392d95f592d04ad682fdae46c72d383b1551fc",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/dunegarden-noura.atlas.json"
 }

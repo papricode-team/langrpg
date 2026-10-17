@@ -4,23 +4,33 @@
   "recipe": "art/source/character-kit/cast/dunegarden-huda.json",
   "recipeSha256": "910abcacfa26232834814eff07c7688afc3ee4560961b15d81253491461edca4",
   "atlas": "web/public/assets/character-cast/dunegarden-huda.webp",
-  "atlasSha256": "3c140902dba24143ff3b82060f5633b9c929a548c3792e81da304cc2a56e442c",
+  "atlasSha256": "44066c5a976989e708a8a6bfb8a67fe5e4d4ba27ae986e93f47539c58ab4139e",
   "geometry": "web/public/assets/character-cast/dunegarden-huda.atlas.json",
-  "geometrySha256": "d079e98b75ec80f541430fe90fb9cceadcd8a75a3f77cb9d7010230d0661c07d",
-  "textureBytes": 14807664,
+  "geometrySha256": "38dcd33a5ed5524336a9a5e72e91a44350a948bc209da72ce602d42f8c026d63",
+  "textureBytes": 14499240,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/dunegarden-huda.webp",
+      "sha256": "44066c5a976989e708a8a6bfb8a67fe5e4d4ba27ae986e93f47539c58ab4139e",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/dunegarden-huda.1.webp",
+      "sha256": "51be00debf2a0b4284fc30d1ed261490d3b2737d2ffe679bba9efc863fe44feb",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "d250ddd254114348888fb1f2068a7bc3180768f34dc7065bfe531c3bf11aa119",
-  "proof": "art/proofs/character-cast/dunegarden-huda.png",
-  "proofSha256": "29bcdd9c42ae9a4c3ebeb4d013575e4403bd674830b3cbca32dffa9668d55d2b",
-  "editorSha256": "907cdc35eab27ac76afd85af83bd515c263970cdc4eb4efe3561cc162ac9c48a",
+  "sourceComponentsSha256": "c0cf227dcb24e72c590107f4748d4f88a83f2dad12b082ffd8655f9ec11ff0a6",
+  "proof": "art/proofs/character-cast-painted/dunegarden-huda.png",
+  "proofSha256": "e18689bfddf4e20480a76cf46489fd1192219a1df43dce4e04e7399a9d46095a",
+  "editorSha256": "82f1ad0896f48bb65182f06194a7ccfbf495aaabc25e9a203a90b135f1ec7824",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "d250ddd254114348888fb1f2068a7bc3180768f34dc7065bfe531c3bf11aa119"
-  }
+  "frames": 36
 }

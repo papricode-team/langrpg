@@ -4,23 +4,33 @@
   "recipe": "art/source/character-kit/cast/saffroncourt-sami.json",
   "recipeSha256": "0ef51e33be9aeae58604ee234c034a2caaef66cb9d539aafec9f7d1997bbeec0",
   "atlas": "web/public/assets/character-cast/saffroncourt-sami.webp",
-  "atlasSha256": "13a503f23b5968ef649f45992ce3b20a8c1e6712e7d390e5a12cb858b3f6af46",
+  "atlasSha256": "ab01f98a99679d10ca6a8c6f1eee753862578167e29f1df116b308efc95b41cb",
   "geometry": "web/public/assets/character-cast/saffroncourt-sami.atlas.json",
-  "geometrySha256": "22c75a491d2f7412a861207a6ae75ad499d962b9dcdfbcfaf88b158da1344359",
-  "textureBytes": 13978440,
+  "geometrySha256": "67e8176f571734a2ff44f79f88637550045a52e1c87eade3064df627f877b6e8",
+  "textureBytes": 14103360,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/saffroncourt-sami.webp",
+      "sha256": "ab01f98a99679d10ca6a8c6f1eee753862578167e29f1df116b308efc95b41cb",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/saffroncourt-sami.1.webp",
+      "sha256": "acea0d5fe7a4f817c8299a7719b8d9e24697431ff3b6dea67f0d31c2cf7d6314",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "57c64e0e30daef5d3832705d098413f0444f4987786986563372bfe60bde01ac",
-  "proof": "art/proofs/character-cast/saffroncourt-sami.png",
-  "proofSha256": "f6fd8f316acd3ddb8e49d58593dc9e2053d7642222378224385a6fc0d6a41d7d",
-  "editorSha256": "3f1862273c92300708c502b0b1c949b7aa5b72748048cea643e721d32c71b436",
+  "sourceComponentsSha256": "3ef5c118d135b143ed7ba7e7e6929c7dc423d71cd610a44137a3194bc8b68b7b",
+  "proof": "art/proofs/character-cast-painted/saffroncourt-sami.png",
+  "proofSha256": "204fccdee68cedc11e52c8659ff71cf027bd8bb7932bca39ee5f28c7a8868a74",
+  "editorSha256": "54dbe727725300deac4cc42190927fcd474d6c429b840125dd08600b5f185e06",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "57c64e0e30daef5d3832705d098413f0444f4987786986563372bfe60bde01ac"
-  }
+  "frames": 36
 }

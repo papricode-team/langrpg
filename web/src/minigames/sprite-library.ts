@@ -17,14 +17,16 @@ export class SpriteLibrary {
     return image;
   }
   render(frame: string, alt = '', size = 128): HTMLElement {
-    if (!this.has(frame)) {
-      const missing = document.createElement('span'); missing.className = 'minigame-sprite-missing';
-      missing.textContent = 'Art unavailable'; missing.dataset.missingSprite = frame; return missing;
-    }
+    const requested = frame;
+    if (!this.has(frame)) frame = 'prop-placeholder';
     const image = document.createElement('img'); image.className = 'minigame-item-sprite';
-    image.src = allGameSpriteFrames[frame].url; image.alt = alt; image.width = size; image.height = size;
+    image.src = allGameSpriteFrames[frame].url; image.alt = alt;
+    if (requested !== frame) image.dataset.missingSprite = requested; image.width = size; image.height = size;
     image.draggable = false; image.decoding = 'async'; image.style.objectFit = 'contain';
-    image.addEventListener('error', () => { this.failed.add(frame); image.hidden = true; }, { once: true });
+    image.addEventListener('error', () => {
+      this.failed.add(frame); image.dataset.missingSprite = requested;
+      image.src = allGameSpriteFrames['prop-placeholder'].url;
+    }, { once: true });
     return image;
   }
   async preload(frames = Object.keys(allGameSpriteFrames)): Promise<void> {

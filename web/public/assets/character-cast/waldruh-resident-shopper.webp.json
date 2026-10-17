@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#c18b60\",\"#302b2d\",[[\"bag\",\"tote\"],[\"bottom\",\"skirt\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"flats\"],[\"hair\",\"bob\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#b18b4d\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#b18b4d\"],[\"outer.secondary\",\"#b18b4d\"],[\"top.primary\",\"#b18b4d\"],[\"top.secondary\",\"#a88e67\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#c18b60\",\"#302b2d\",[[\"bag\",\"tote\"],[\"bottom\",\"skirt\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"flats\"],[\"hair\",\"bob\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#b18b4d\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#b18b4d\"],[\"outer.secondary\",\"#b18b4d\"],[\"top.primary\",\"#b18b4d\"],[\"top.secondary\",\"#a88e67\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "37c9fed14bf7d2cc5fc061254c7ea8221cdd8253c76c505abff1278686f2da9a",
-  "atlasSha256": "68ea08375693c48d525e9e73095a505505bdffce9aa845a88843e26d11c30028",
-  "textureBytes": 14774032,
+  "sha256": "19d5ce94cf94fea2394180b345b2ed86ef019d36c46f3cf8da6bd604e8e193c7",
+  "atlasSha256": "df870ba028b6fb4a319e9942ec75e0548bce52e5f0cfb11000fa6047d033fff4",
+  "textureBytes": 14202456,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/waldruh-resident-shopper.webp",
+      "sha256": "19d5ce94cf94fea2394180b345b2ed86ef019d36c46f3cf8da6bd604e8e193c7",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/waldruh-resident-shopper.1.webp",
+      "sha256": "4759be9a26d36b9670e4dafb78b31882908e45ff37040c4b86442165dc30dac1",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/waldruh-resident-shopper.atlas.json"
 }

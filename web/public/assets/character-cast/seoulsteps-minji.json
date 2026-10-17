@@ -4,23 +4,33 @@
   "recipe": "art/source/character-kit/cast/seoulsteps-minji.json",
   "recipeSha256": "15ce721e1faa628dabd4e4f95f9dc77e8a302258406ceb0309f85bf6224f86ca",
   "atlas": "web/public/assets/character-cast/seoulsteps-minji.webp",
-  "atlasSha256": "53382ad12126cd8c2412b420fea47d6b2d03d8a5eebb19f1c2ca386db50c423d",
+  "atlasSha256": "5443ca4c80ed85be42231b690c5e4d771a55042c236b4aa997a42811ce67007c",
   "geometry": "web/public/assets/character-cast/seoulsteps-minji.atlas.json",
-  "geometrySha256": "81e1c4f98a37527f6d1894bf6303b9669fabaf055f8ffd2a6288cfdb606a0dcb",
-  "textureBytes": 14835892,
+  "geometrySha256": "bf95421efea9753ac1c0cd20f4ebe8636c25cacb0b06c1139c2568cf97981609",
+  "textureBytes": 14553808,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/seoulsteps-minji.webp",
+      "sha256": "5443ca4c80ed85be42231b690c5e4d771a55042c236b4aa997a42811ce67007c",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/seoulsteps-minji.1.webp",
+      "sha256": "f66681a5651892f24c4fdeb4f8dc2988ddc0b4943d3e6d84c8d13ae4d1cd3e16",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "9823f563e7fcbd91e3f45d80d317868501492c576ae02d405a82c01a8a30eb91",
-  "proof": "art/proofs/character-cast/seoulsteps-minji.png",
-  "proofSha256": "9b83ba4f2c7cf81a6e3828fff15b50a88b8116647841ef9bb1fededb9d1807ac",
-  "editorSha256": "8aa063a747612fbd29ebf0577bd6033b731c37c3927e1dabe61b115a8ab6b568",
+  "sourceComponentsSha256": "28f300779412a9c996ac6a1ef97c3d2352c8b8d52ec97fa0a803ef05529e9444",
+  "proof": "art/proofs/character-cast-painted/seoulsteps-minji.png",
+  "proofSha256": "2a43a1d202a7eb2a0aacbb4e14a71a58e45b267f12b8dd334f9ef1b07e230c68",
+  "editorSha256": "fd8bfc9b40419c99d34170475084d29cef1cbb24952e899e81e1a6bdd49d7d1f",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "9823f563e7fcbd91e3f45d80d317868501492c576ae02d405a82c01a8a30eb91"
-  }
+  "frames": 36
 }

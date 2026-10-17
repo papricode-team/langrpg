@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#c39b71\",\"#a29b89\",[[\"bag\",null],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"sandals\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#373a34\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#664d32\"],[\"headwear.primary\",\"#6e6b65\"],[\"headwear.secondary\",\"#6e6b65\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#704059\"],[\"top.secondary\",\"#704059\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#c39b71\",\"#a29b89\",[[\"bag\",null],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"sandals\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#373a34\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#664d32\"],[\"headwear.primary\",\"#6e6b65\"],[\"headwear.secondary\",\"#6e6b65\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#704059\"],[\"top.secondary\",\"#704059\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "c0854c6c5996cf4aeb45e92b334423935a897e66d7bf3a6bce94518ca3b108eb",
-  "atlasSha256": "b38a4ef67504b6256592e7a44a7cae3d872e3635f1e2028437772115b3a73e47",
-  "textureBytes": 13698404,
+  "sha256": "8c3fb36595f4f4ddf492018028716f989bcbb8c290677ac2cffe28c354699106",
+  "atlasSha256": "b7f65b6c9320cde7cd8c0227cadef2947bb7d1d3bab88f12732dab464a6a425b",
+  "textureBytes": 13994036,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/riverweave-phuc.webp",
+      "sha256": "8c3fb36595f4f4ddf492018028716f989bcbb8c290677ac2cffe28c354699106",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/riverweave-phuc.1.webp",
+      "sha256": "c340f936c484c65cb982ab676b6217fb2742d18d9553e4f8a5bd361dc297b465",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/riverweave-phuc.atlas.json"
 }

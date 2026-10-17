@@ -1,6 +1,7 @@
 # Source paintings use LFS. Town and expedition masters moved to LFS on
 # 2026-10-15; earlier history still holds them as ordinary blobs.
 art/ui/lantern-*.png filter=lfs diff=lfs merge=lfs -text
+art/ui/world-*.png filter=lfs diff=lfs merge=lfs -text
 art/source/*.png filter=lfs diff=lfs merge=lfs -text
 art/source/expeditions/*.png filter=lfs diff=lfs merge=lfs -text
 art/source/story-cast/*.png filter=lfs diff=lfs merge=lfs -text
@@ -50,3 +51,6 @@ art/source/marketing/*.png filter=lfs diff=lfs merge=lfs -text
 
 # Reusable room-component masters; runtime WebP remains a regular asset.
 art/source/interiors/room-kit-*.png filter=lfs diff=lfs merge=lfs -text
+
+# Minigame stage and item masters keep native resolution.
+art/source/minigames/**/*.png filter=lfs diff=lfs merge=lfs -text

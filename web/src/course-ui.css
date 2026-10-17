@@ -19,7 +19,7 @@
 
 .route-heading h2 {
   margin:5px 0 10px;
-  font-family:var(--font-display, 'Fraunces',serif);
+  font-family:var(--font-display, var(--font-display));
   font-size: var(--type-display);
   color:#294737;
 }
@@ -73,7 +73,7 @@
 
 .route-summary strong {
   font-size: var(--type-title);
-  font-family:'Fraunces',serif;
+  font-family:var(--font-display);
   color:#31513a;
   margin-right:6px;
 }
@@ -125,7 +125,7 @@
 }
 
 .route-unit strong {
-  font-family:'Fraunces',serif;
+  font-family:var(--font-display);
   font-size: var(--type-body);
   font-weight:500;
 }
@@ -221,7 +221,7 @@
 }
 
 .lexeme h3 {
-  font-family:'Fraunces',serif;
+  font-family:var(--font-display);
   font-size: var(--type-title);
   font-weight:500;
   color:#304b32;
@@ -288,7 +288,7 @@
 }
 
 .grammar-route h3 {
-  font-family:'Fraunces',serif;
+  font-family:var(--font-display);
   font-size: var(--type-title);
   font-weight:500;
   color:#344e36;
@@ -363,7 +363,7 @@
 }
 
 .activity-entry h3 {
-  font-family:'Fraunces',serif;
+  font-family:var(--font-display);
   font-size: var(--type-title);
   font-weight:500;
   margin:12px 0 10px;
@@ -386,9 +386,9 @@
 .activity-entry .primary-button {
   width:fit-content;
   min-height:44px;
-  border-color:#c3b579;
-  background:#e3d6a4;
-  color:#274c36;
+  border-color:var(--brass-light);
+  background:var(--button-primary);
+  color:var(--forest-deep);
 }
 
 .activity-entry .caption {
@@ -832,7 +832,7 @@
   z-index:1;
   margin-top:12px;
   padding-top:8px;
-  background:#eee5cd;
+  background:var(--parchment);
   gap:10px;
 }
 
@@ -1367,7 +1367,7 @@
 
 .todays-words strong {
   display:block;
-  font-family:'Fraunces',serif;
+  font-family:var(--font-display);
   font-size: var(--type-body);
   font-weight:500;
 }
@@ -1464,13 +1464,13 @@
   width:100%;
   padding:18px;
   border:1px solid var(--game-line);
-  background:#142923;
+  background:var(--forest);
   color:var(--game-text);
   text-align:left;
 }
 
 .compact-word-card h3,.compact-word-card strong {
-  font:400 var(--type-title)/1.3 'Fraunces',serif;
+  font:400 var(--type-title)/1.3 var(--font-display);
   color:var(--game-text);
   margin:0;
 }
@@ -1616,7 +1616,7 @@
   min-height:64px;
   padding:16px 0;
   color:var(--game-text);
-  font:400 var(--type-title)/1.4 'Fraunces',serif;
+  font:400 var(--type-title)/1.4 var(--font-display);
   cursor:pointer;
   list-style:none;
 }
@@ -1659,7 +1659,7 @@
 
 .grammar-route>summary {
   color:var(--game-text);
-  font:400 var(--type-title)/1.4 'Fraunces',serif;
+  font:400 var(--type-title)/1.4 var(--font-display);
 }
 
 :is(.grammar-route,.course-intro-examples) .sentence-inline-translation {

@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 import sharp from 'sharp';
-import {readFile,writeFile} from 'node:fs/promises';
+import {readFile,writeFile,stat} from 'node:fs/promises';
 const catalogue=JSON.parse(await readFile('web/src/data/terrain-materials.json','utf8'));
 const report=[];
 for(const material of catalogue.materials){
+ if((await stat(`web/public${material.asset}`)).size>=2_000_000)throw new Error(`${material.id}: runtime material exceeds 2 MB`);
  const {data,info}=await sharp(`web/public${material.asset}`).removeAlpha().raw().toBuffer({resolveWithObject:true});
  let horizontal=0,vertical=0;
  for(let y=0;y<info.height;y++)for(let c=0;c<info.channels;c++)horizontal=Math.max(horizontal,Math.abs(data[(y*info.width)*info.channels+c]-data[(y*info.width+info.width-1)*info.channels+c]));

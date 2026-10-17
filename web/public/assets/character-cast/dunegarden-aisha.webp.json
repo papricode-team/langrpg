@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#956d44\",\"#30251b\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#514632\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#51432e\"],[\"headwear.primary\",\"#dfd0ae\"],[\"headwear.secondary\",\"#dfd0ae\"],[\"neck.primary\",\"#dfd0ae\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#3f674b\"],[\"top.secondary\",\"#3f674b\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#956d44\",\"#30251b\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#514632\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#51432e\"],[\"headwear.primary\",\"#dfd0ae\"],[\"headwear.secondary\",\"#dfd0ae\"],[\"neck.primary\",\"#dfd0ae\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#3f674b\"],[\"top.secondary\",\"#3f674b\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "f53c3ecd37493b60b057017ad4ac52f6a91aa92be2d77b277de16d0494271884",
-  "atlasSha256": "5bcfaf7ed28363ff82f04d8d37a212596b62e31c8a6a92dfc7abd972b82a0221",
-  "textureBytes": 13986180,
+  "sha256": "476a461537ca994fec04608bc3e7b41af2f487d3eae37e62c7e665ae8ae9225c",
+  "atlasSha256": "044cf08ac74ea86ad645b4c388e3d1046c8d89302302a05ab69bd6a741390be8",
+  "textureBytes": 14524936,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/dunegarden-aisha.webp",
+      "sha256": "476a461537ca994fec04608bc3e7b41af2f487d3eae37e62c7e665ae8ae9225c",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/dunegarden-aisha.1.webp",
+      "sha256": "f5f8b51b57a3e8aa6fb386097926ce06a41509cc694b6067e83c15e4246af884",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/dunegarden-aisha.atlas.json"
 }

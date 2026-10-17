@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/terracielo-elena.json",
   "recipeSha256": "de442bead59e65b7db85ab5f9837e49ad3460605314a6dc698bded15ebfe2486",
   "atlas": "web/public/assets/character-cast/terracielo-elena.webp",
-  "atlasSha256": "dec54c2ddfb915dc5861516e7a239d4d16d5981851ca7e789431435f4ee14dac",
+  "atlasSha256": "68c22a5ffcf199ef4626427e97d99edd05e9c30fbd3de4a8674dbffe9e980fff",
   "geometry": "web/public/assets/character-cast/terracielo-elena.atlas.json",
-  "geometrySha256": "e4ae583583ab7f821ba42dcafb8f8fcff1fe6cfe6bd6912eb7a35f7dab2e6592",
+  "geometrySha256": "5431fbf66bdabf80af4fdb33a6a0b1167c7872cb92709342c86c7b3e52741e7c",
   "textureBytes": 14233840,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/terracielo-elena.webp",
-      "sha256": "dec54c2ddfb915dc5861516e7a239d4d16d5981851ca7e789431435f4ee14dac",
+      "sha256": "68c22a5ffcf199ef4626427e97d99edd05e9c30fbd3de4a8674dbffe9e980fff",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/terracielo-elena.1.webp",
-      "sha256": "5e765f2b504d79e6712a8627b7e051a90c59ad14f2fbf35c47b732dbda4e065c",
+      "sha256": "8f4fbf3e0f04c9d0f127c7b5338d7bc076901a134d015e8202811124bd9dbc54",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,15 +27,10 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "d673c74809ddd2aa5250de3d60d53e0a41fabdd2a1a0fa67ccbc341f49bb3e54",
-  "proof": "art/proofs/character-cast/terracielo-elena.png",
-  "proofSha256": "55b7cc7bbebf23446dd8cb9c240cd4017cf90c1e3e66bcc99077920e34c84e77",
-  "editorSha256": "c967c0355cb52d6a90a1afcd2d80a4ae60581708e4422af12e5384c038dae81a",
+  "sourceComponentsSha256": "77a53807cf1022f2c4251c0b004186ccae58229139289e802b5c5e6ac4824d63",
+  "proof": "art/proofs/character-cast-painted/terracielo-elena.png",
+  "proofSha256": "2d74155fef218982774412e7ab29ba011c3e704c63a1c25466d624dd625830a4",
+  "editorSha256": "20b23e03b6846fddd175ac643590387e08dc0a9fb10b152a439d198e900acdf8",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "d673c74809ddd2aa5250de3d60d53e0a41fabdd2a1a0fa67ccbc341f49bb3e54"
-  }
+  "frames": 36
 }

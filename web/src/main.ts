@@ -1,3 +1,4 @@
+import './tokens.css';
 import {buildingRoomId} from './room-layout';
 import {roomKind} from './room-kind';
 import { animalAction, animalSpeciesFromId } from './animal-behavior';
@@ -17,7 +18,7 @@ import { QuestController } from './quest-controller';
 import { createGlossLookup } from './learning-context';
 import { loadServerContent, loadQuestGraph, loadDialogueSentence, loadExercise, loadUnit, loadWords, loadRestoredWords, loadStoryContent, storyContentRemaining, loadContexts, loadNpcConversation, loadRegionContent, loadCinematic, hydrateNarratives, refreshBootstrap, runtimeReference, loadInterior, loadInteriorConversation, loadActivity, loadMiniGame, loadExpeditionEncounter, loadPlacement, invalidateContext, activeCourse, refreshQuestGraph } from './content-runtime';
 import { getSentence } from './content-api';
-import { mountCoursePlayer, mountCoursePicker } from './course-player';
+import { mountCoursePlayer } from './course-player';
 import { questGraph, questGraphs } from './quest-graph';
 import { storyState } from './dialogue';
 import type { QuestGraph } from './dialogue';
@@ -1425,12 +1426,6 @@ function renderOther() {
   queueMicrotask(() => { if (['story', 'menu', 'quests'].includes(view) && storyContentRemaining > 0) { const panel = document.querySelector('#other-view'); if (panel && !panel.querySelector('[data-action=load-story-page]')) panel.insertAdjacentHTML('beforeend', `<button class=outline-button data-action=load-story-page>${e(t('Load more stories'))}</button>`); } });
   wordExposure.disconnect();
   if (view !== 'settings') optionsPanel.close();
-  queueMicrotask(() => {
-    if (!['menu', 'course'].includes(view) || !started) return;
-    const panel = document.querySelector<HTMLElement>('#other-view'); if (!panel || panel.querySelector('[data-course-picker]')) return;
-    const picker = document.createElement('section'); picker.dataset.coursePicker = ''; panel.prepend(picker);
-    void mountCoursePicker(picker, api).catch(error => toast(error.message, true));
-  });
   const el = document.querySelector('#other-view')!;
   if (view === 'activities') { renderActivities(el); return; }
   if (view === 'course') { renderCourse(el); return; }

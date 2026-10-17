@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#80563a\",\"#8e8371\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"sandals\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#36756e\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#795030\"],[\"headwear.primary\",\"#af8540\"],[\"headwear.secondary\",\"#477c6e\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#dbc593\"],[\"top.secondary\",\"#b7883b\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#80563a\",\"#8e8371\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"sandals\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#36756e\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#795030\"],[\"headwear.primary\",\"#af8540\"],[\"headwear.secondary\",\"#477c6e\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#dbc593\"],[\"top.secondary\",\"#b7883b\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "a0c4e80850945aa9b5af829a775881b227b79c985cf7ae0d2056107f7813bca9",
-  "atlasSha256": "cd99f555c324c18c92ad33af2788c1d370f6335f258d3fdd6ea613b6a7929a69",
-  "textureBytes": 14415560,
+  "sha256": "43d6ecc8d5181427bfd18cd23938a5ff807964a4cd589fdb80c3a78ab2cafb41",
+  "atlasSha256": "3b83c90ee037007d39cc1ef1f6e284fa5a95a9c4ff220422accb1c8add854cc1",
+  "textureBytes": 14189680,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/kigalights-chantal.webp",
+      "sha256": "43d6ecc8d5181427bfd18cd23938a5ff807964a4cd589fdb80c3a78ab2cafb41",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/kigalights-chantal.1.webp",
+      "sha256": "b89fb8012087e20eacf042568c7ca83451f34315f2f62cf35e587a7e2ccbadb7",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/kigalights-chantal.atlas.json"
 }

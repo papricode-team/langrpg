@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "nounTarget": 181,
-  "propTarget": 27,
+  "nounTarget": 199,
+  "propTarget": 31,
   "atlas": "/assets/minigames/items.webp",
   "atlasData": "/assets/minigames/items.json",
   "atlases": [
@@ -19,6 +19,11 @@
       "key": "minigame-items-3",
       "image": "/assets/minigames/items-3.webp",
       "data": "/assets/minigames/items-3.json"
+    },
+    {
+      "key": "minigame-items-4",
+      "image": "/assets/minigames/items-4.webp",
+      "data": "/assets/minigames/items-4.json"
     }
   ],
   "atlas128": "/assets/minigames/items-128.webp",
@@ -4403,6 +4408,480 @@
         "w": 256,
         "h": 256
       }
+    },
+    "item-karte-noun": {
+      "name": "item-karte-noun",
+      "lexemeId": "karte-noun",
+      "lemma": "Karte",
+      "article": "die",
+      "plural": "Karten",
+      "level": "A1",
+      "topic": "travel",
+      "domain": "story",
+      "subject": "one folded cream map card showing painted paths without text",
+      "kind": "noun",
+      "sheet": "items-14",
+      "source": "art/source/minigames/items-14.png",
+      "url": "/assets/minigames/sprites/item-karte-noun.webp",
+      "atlasKey": "minigame-items-3",
+      "atlasFrame": {
+        "x": 0,
+        "y": 2048,
+        "w": 256,
+        "h": 256
+      },
+      "pictureable": true
+    },
+    "item-adresse-noun": {
+      "name": "item-adresse-noun",
+      "lexemeId": "adresse-noun",
+      "lemma": "Adresse",
+      "article": "die",
+      "plural": "Adressen",
+      "level": "A1",
+      "topic": "everyday",
+      "domain": "story",
+      "subject": "one cream addressed envelope with a small house emblem and illegible ink",
+      "kind": "noun",
+      "sheet": "items-14",
+      "source": "art/source/minigames/items-14.png",
+      "url": "/assets/minigames/sprites/item-adresse-noun.webp",
+      "atlasKey": "minigame-items-3",
+      "atlasFrame": {
+        "x": 256,
+        "y": 2048,
+        "w": 256,
+        "h": 256
+      },
+      "pictureable": false
+    },
+    "item-bahnhof-noun": {
+      "name": "item-bahnhof-noun",
+      "lexemeId": "bahnhof-noun",
+      "lemma": "Bahnhof",
+      "article": "der",
+      "plural": "Bahnhöfe",
+      "level": "A1",
+      "topic": "travel",
+      "domain": "story",
+      "subject": "one miniature warm sandstone railway station with a green roof",
+      "kind": "noun",
+      "sheet": "items-14",
+      "source": "art/source/minigames/items-14.png",
+      "url": "/assets/minigames/sprites/item-bahnhof-noun.webp",
+      "atlasKey": "minigame-items-3",
+      "atlasFrame": {
+        "x": 512,
+        "y": 2048,
+        "w": 256,
+        "h": 256
+      },
+      "pictureable": true
+    },
+    "item-reparatur-noun": {
+      "name": "item-reparatur-noun",
+      "lexemeId": "reparatur-noun",
+      "lemma": "Reparatur",
+      "article": "die",
+      "plural": "Reparaturen",
+      "level": "A1",
+      "topic": "home",
+      "domain": "story",
+      "subject": "one broken brass cog beside a small wrench, repair motif",
+      "kind": "noun",
+      "sheet": "items-14",
+      "source": "art/source/minigames/items-14.png",
+      "url": "/assets/minigames/sprites/item-reparatur-noun.webp",
+      "atlasKey": "minigame-items-3",
+      "atlasFrame": {
+        "x": 768,
+        "y": 2048,
+        "w": 256,
+        "h": 256
+      },
+      "pictureable": false
+    },
+    "item-anschluss-noun": {
+      "name": "item-anschluss-noun",
+      "lexemeId": "anschluss-noun",
+      "lemma": "Anschluss",
+      "article": "der",
+      "plural": "Anschlüsse",
+      "level": "A1",
+      "topic": "everyday",
+      "domain": "story",
+      "subject": "two connected brass railway track sections, connection motif",
+      "kind": "noun",
+      "sheet": "items-14",
+      "source": "art/source/minigames/items-14.png",
+      "url": "/assets/minigames/sprites/item-anschluss-noun.webp",
+      "atlasKey": "minigame-items-3",
+      "atlasFrame": {
+        "x": 1024,
+        "y": 2048,
+        "w": 256,
+        "h": 256
+      },
+      "pictureable": false
+    },
+    "item-fieber-noun": {
+      "name": "item-fieber-noun",
+      "lexemeId": "fieber-noun",
+      "lemma": "Fieber",
+      "article": "das",
+      "plural": "Fieber",
+      "level": "A1",
+      "topic": "health",
+      "domain": "story",
+      "subject": "one glass medical thermometer beside a folded cloth, fever motif",
+      "kind": "noun",
+      "sheet": "items-14",
+      "source": "art/source/minigames/items-14.png",
+      "url": "/assets/minigames/sprites/item-fieber-noun.webp",
+      "atlasKey": "minigame-items-3",
+      "atlasFrame": {
+        "x": 1280,
+        "y": 2048,
+        "w": 256,
+        "h": 256
+      },
+      "pictureable": false
+    },
+    "item-rad-noun": {
+      "name": "item-rad-noun",
+      "lexemeId": "rad-noun",
+      "lemma": "Rad",
+      "article": "das",
+      "plural": "Räder",
+      "level": "A2",
+      "topic": "home",
+      "domain": "story",
+      "subject": "one red painted wooden wheel with brass hub",
+      "kind": "noun",
+      "sheet": "items-14",
+      "source": "art/source/minigames/items-14.png",
+      "url": "/assets/minigames/sprites/item-rad-noun.webp",
+      "atlasKey": "minigame-items-3",
+      "atlasFrame": {
+        "x": 1536,
+        "y": 2048,
+        "w": 256,
+        "h": 256
+      },
+      "pictureable": true
+    },
+    "item-erinnerung-noun": {
+      "name": "item-erinnerung-noun",
+      "lexemeId": "erinnerung-noun",
+      "lemma": "Erinnerung",
+      "article": "die",
+      "plural": "Erinnerungen",
+      "level": "B1",
+      "topic": "everyday",
+      "domain": "story",
+      "subject": "one open small wooden keepsake box holding a sepia photograph, memory motif",
+      "kind": "noun",
+      "sheet": "items-14",
+      "source": "art/source/minigames/items-14.png",
+      "url": "/assets/minigames/sprites/item-erinnerung-noun.webp",
+      "atlasKey": "minigame-items-3",
+      "atlasFrame": {
+        "x": 1792,
+        "y": 2048,
+        "w": 256,
+        "h": 256
+      },
+      "pictureable": false
+    },
+    "item-zeichen-noun": {
+      "name": "item-zeichen-noun",
+      "lexemeId": "zeichen-noun",
+      "lemma": "Zeichen",
+      "article": "das",
+      "plural": "Zeichen",
+      "level": "B1",
+      "topic": "everyday",
+      "domain": "story",
+      "subject": "one carved wooden sign bearing a simple painted golden sun symbol, no letters",
+      "kind": "noun",
+      "sheet": "items-14",
+      "source": "art/source/minigames/items-14.png",
+      "url": "/assets/minigames/sprites/item-zeichen-noun.webp",
+      "atlasKey": "minigame-items-4",
+      "atlasFrame": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pictureable": false
+    },
+    "item-patient-noun": {
+      "name": "item-patient-noun",
+      "lexemeId": "patient-noun",
+      "lemma": "Patient",
+      "article": "der",
+      "plural": "Patienten",
+      "level": "B1",
+      "topic": "health",
+      "domain": "story",
+      "subject": "one seated fully clothed adult patient with cream blanket, miniature painted figure",
+      "kind": "noun",
+      "sheet": "items-14",
+      "source": "art/source/minigames/items-14.png",
+      "url": "/assets/minigames/sprites/item-patient-noun.webp",
+      "atlasKey": "minigame-items-4",
+      "atlasFrame": {
+        "x": 256,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pictureable": true
+    },
+    "item-linie-noun": {
+      "name": "item-linie-noun",
+      "lexemeId": "linie-noun",
+      "lemma": "Linie",
+      "article": "die",
+      "plural": "Linien",
+      "level": "B1",
+      "topic": "everyday",
+      "domain": "story",
+      "subject": "one coil of red cord laid out as a single straight line across cream paper",
+      "kind": "noun",
+      "sheet": "items-14",
+      "source": "art/source/minigames/items-14.png",
+      "url": "/assets/minigames/sprites/item-linie-noun.webp",
+      "atlasKey": "minigame-items-4",
+      "atlasFrame": {
+        "x": 512,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pictureable": false
+    },
+    "item-werkzeug-noun": {
+      "name": "item-werkzeug-noun",
+      "lexemeId": "werkzeug-noun",
+      "lemma": "Werkzeug",
+      "article": "das",
+      "plural": "Werkzeuge",
+      "level": "B1",
+      "topic": "home",
+      "domain": "story",
+      "subject": "one small open wooden toolbox with hammer and wrench",
+      "kind": "noun",
+      "sheet": "items-14",
+      "source": "art/source/minigames/items-14.png",
+      "url": "/assets/minigames/sprites/item-werkzeug-noun.webp",
+      "atlasKey": "minigame-items-4",
+      "atlasFrame": {
+        "x": 768,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pictureable": true
+    },
+    "prop-correct-seal": {
+      "name": "prop-correct-seal",
+      "subject": "one forest green wax seal embossed with a golden linden leaf, approval motif, no check mark",
+      "kind": "prop",
+      "sheet": "items-14",
+      "source": "art/source/minigames/items-14.png",
+      "url": "/assets/minigames/sprites/prop-correct-seal.webp",
+      "atlasKey": "minigame-items-4",
+      "atlasFrame": {
+        "x": 1024,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      }
+    },
+    "prop-miss-seal": {
+      "name": "prop-miss-seal",
+      "subject": "one muted terracotta wax seal with a gently dented centre and small fallen leaf, retry motif, no cross",
+      "kind": "prop",
+      "sheet": "items-14",
+      "source": "art/source/minigames/items-14.png",
+      "url": "/assets/minigames/sprites/prop-miss-seal.webp",
+      "atlasKey": "minigame-items-4",
+      "atlasFrame": {
+        "x": 1280,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      }
+    },
+    "prop-listening-horn": {
+      "name": "prop-listening-horn",
+      "subject": "one small brass gramophone horn on a wooden base",
+      "kind": "prop",
+      "sheet": "items-14",
+      "source": "art/source/minigames/items-14.png",
+      "url": "/assets/minigames/sprites/prop-listening-horn.webp",
+      "atlasKey": "minigame-items-4",
+      "atlasFrame": {
+        "x": 1536,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      }
+    },
+    "prop-placeholder": {
+      "name": "prop-placeholder",
+      "subject": "one closed cream linen drawstring pouch with a small brass sun clasp",
+      "kind": "prop",
+      "sheet": "items-14",
+      "source": "art/source/minigames/items-14.png",
+      "url": "/assets/minigames/sprites/prop-placeholder.webp",
+      "atlasKey": "minigame-items-4",
+      "atlasFrame": {
+        "x": 1792,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      }
+    },
+    "item-tuete-noun": {
+      "name": "item-tuete-noun",
+      "lexemeId": "tuete-noun",
+      "lemma": "Tüte",
+      "article": "die",
+      "plural": "Tüten",
+      "level": "B1",
+      "topic": "home",
+      "domain": "story",
+      "subject": "one upright plain brown paper bag",
+      "kind": "noun",
+      "sheet": "items-15",
+      "source": "art/source/minigames/items-15.png",
+      "url": "/assets/minigames/sprites/item-tuete-noun.webp",
+      "atlasKey": "minigame-items-4",
+      "atlasFrame": {
+        "x": 0,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "pictureable": true
+    },
+    "item-reihenfolge-noun": {
+      "name": "item-reihenfolge-noun",
+      "lexemeId": "reihenfolge-noun",
+      "lemma": "Reihenfolge",
+      "article": "die",
+      "plural": "Reihenfolgen",
+      "level": "B1",
+      "topic": "society",
+      "domain": "story",
+      "subject": "three wooden beads of increasing size on a cord, sequence motif",
+      "kind": "noun",
+      "sheet": "items-15",
+      "source": "art/source/minigames/items-15.png",
+      "url": "/assets/minigames/sprites/item-reihenfolge-noun.webp",
+      "atlasKey": "minigame-items-4",
+      "atlasFrame": {
+        "x": 256,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "pictureable": false
+    },
+    "item-anleitung-noun": {
+      "name": "item-anleitung-noun",
+      "lexemeId": "anleitung-noun",
+      "lemma": "Anleitung",
+      "article": "die",
+      "plural": "Anleitungen",
+      "level": "B1",
+      "topic": "everyday",
+      "domain": "story",
+      "subject": "one open cream instruction booklet showing simple lamp assembly pictures without text",
+      "kind": "noun",
+      "sheet": "items-15",
+      "source": "art/source/minigames/items-15.png",
+      "url": "/assets/minigames/sprites/item-anleitung-noun.webp",
+      "atlasKey": "minigame-items-4",
+      "atlasFrame": {
+        "x": 512,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "pictureable": true
+    },
+    "item-rat-noun": {
+      "name": "item-rat-noun",
+      "lexemeId": "rat-noun",
+      "lemma": "Rat",
+      "article": "der",
+      "plural": "Räte",
+      "level": "B1",
+      "topic": "everyday",
+      "domain": "story",
+      "subject": "one miniature semicircle of seven wooden council chairs",
+      "kind": "noun",
+      "sheet": "items-15",
+      "source": "art/source/minigames/items-15.png",
+      "url": "/assets/minigames/sprites/item-rat-noun.webp",
+      "atlasKey": "minigame-items-4",
+      "atlasFrame": {
+        "x": 768,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "pictureable": false
+    },
+    "item-bericht-noun": {
+      "name": "item-bericht-noun",
+      "lexemeId": "bericht-noun",
+      "lemma": "Bericht",
+      "article": "der",
+      "plural": "Berichte",
+      "level": "B1",
+      "topic": "work",
+      "domain": "story",
+      "subject": "one cream report folio with illegible ink and a brass paper clip",
+      "kind": "noun",
+      "sheet": "items-15",
+      "source": "art/source/minigames/items-15.png",
+      "url": "/assets/minigames/sprites/item-bericht-noun.webp",
+      "atlasKey": "minigame-items-4",
+      "atlasFrame": {
+        "x": 1024,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "pictureable": false
+    },
+    "item-muehle-noun": {
+      "name": "item-muehle-noun",
+      "lexemeId": "muehle-noun",
+      "lemma": "Mühle",
+      "article": "die",
+      "plural": "Mühlen",
+      "level": "A2",
+      "topic": "everyday",
+      "domain": "story",
+      "subject": "one miniature warm sandstone watermill with wooden wheel",
+      "kind": "noun",
+      "sheet": "items-15",
+      "source": "art/source/minigames/items-15.png",
+      "url": "/assets/minigames/sprites/item-muehle-noun.webp",
+      "atlasKey": "minigame-items-4",
+      "atlasFrame": {
+        "x": 1280,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "pictureable": true
     }
   },
   "missing": [],
@@ -4413,6 +4892,10 @@
       "art/source/interiors/interior-cafe-objects.png",
       "art/source/interiors/interior-supermarket-objects.png"
     ],
-    "nativeAlpha": true
+    "nativeAlpha": true,
+    "additionalPrompts": [
+      "art/source/minigames/items-14.txt",
+      "art/source/minigames/items-15.txt"
+    ]
   }
 }

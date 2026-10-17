@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/nebelstadt-resident-archivist.json",
   "recipeSha256": "eaa350d6821f0439296492d03e73ae86456b446660d3c5571466a4db6286b3ab",
   "atlas": "web/public/assets/character-cast/nebelstadt-resident-archivist.webp",
-  "atlasSha256": "94679bb5c274b3aa193d46515120ed989a03a4a44d67d50439fe03a9a1aa4354",
+  "atlasSha256": "9abc1785ac6ee4bd111ea87f1cff465accc17a6d0d000cfbcc2cc3f196ce3796",
   "geometry": "web/public/assets/character-cast/nebelstadt-resident-archivist.atlas.json",
-  "geometrySha256": "e784eae25dd931493edeee4c691c5273f54ab3d80c2c392b118dc91efb1bb96c",
+  "geometrySha256": "98d2dec0cfc03e0105bc0ea0e63b583f62dabac0acabc1f4fe54991060cb720d",
   "textureBytes": 14318424,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/nebelstadt-resident-archivist.webp",
-      "sha256": "94679bb5c274b3aa193d46515120ed989a03a4a44d67d50439fe03a9a1aa4354",
+      "sha256": "9abc1785ac6ee4bd111ea87f1cff465accc17a6d0d000cfbcc2cc3f196ce3796",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/nebelstadt-resident-archivist.1.webp",
-      "sha256": "6e86874b2442d645343992f8db95ba7887d4ffd1073ecaf6cb02611f8c35b7ba",
+      "sha256": "d71f8c85be97b9c6a281db338459fd52e6b1a5e1296d50e69df73f622051c351",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,15 +27,10 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "d2d0ea1f9338c5190adb8002b14237aeacd8c4342c6ee7826b22e817c41cb762",
-  "proof": "art/proofs/character-cast/nebelstadt-resident-archivist.png",
-  "proofSha256": "fc20db572583a8ef41aeeff0f7bb8629c206cc761f54b50187980f9778d7ac95",
-  "editorSha256": "bc057e8e9f5b99501be5de0283a70fe5d9823b6af140f5f0d72d57036ae41671",
+  "sourceComponentsSha256": "c4d6fb2726008a309d453225a6ab5e6ade4a583f76042e4f98599c8af37acfee",
+  "proof": "art/proofs/character-cast-painted/nebelstadt-resident-archivist.png",
+  "proofSha256": "7bbd768d40e8183f320e5d9bdba2b8782c8f397dae320436ab362f12e1f3b2a9",
+  "editorSha256": "64ae5ea40809585faa0c9ac3b7889335bcbf5ba0b9abb371828efeee633bacee",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "d2d0ea1f9338c5190adb8002b14237aeacd8c4342c6ee7826b22e817c41cb762"
-  }
+  "frames": 36
 }

@@ -1,0 +1,45 @@
+{
+  "recipe": {
+    "v": 2,
+    "build": "regular",
+    "skin": "#c4a17d",
+    "hair": "#7f7768",
+    "parts": {
+      "face": "round",
+      "markings": null,
+      "facial-hair": null,
+      "hair": "crop",
+      "headwear": null,
+      "top": "shirt",
+      "outer": "travel",
+      "bottom": "straight",
+      "footwear": "shoes",
+      "eyewear": null,
+      "neck": null,
+      "bag": "satchel",
+      "held": null
+    },
+    "colors": {
+      "bag.primary": "#3e4139",
+      "bottom.primary": "#795c3e",
+      "eyewear.primary": "#48372e",
+      "footwear.primary": "#715034",
+      "headwear.primary": "#354d70",
+      "headwear.secondary": "#c99167",
+      "neck.primary": "#854a5b",
+      "outer.primary": "#c4ad86",
+      "outer.secondary": "#c4ad86",
+      "top.primary": "#4d7895",
+      "top.secondary": "#4d7895"
+    }
+  },
+  "assetVersion": "e80b2c9758205a2f",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#c4a17d\",\"#7f7768\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#3e4139\"],[\"bottom.primary\",\"#795c3e\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#715034\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#c4ad86\"],[\"outer.secondary\",\"#c4ad86\"],[\"top.primary\",\"#4d7895\"],[\"top.secondary\",\"#4d7895\"]]]",
+  "preview": false,
+  "frames": 36,
+  "cell": [
+    512,
+    768
+  ],
+  "sha256": "811af342ca82668e990a881715b4732ad942ad4c30a0d962609a835b5f88a296"
+}

@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#cda47c\",\"#302a23\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#393b3a\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#5e533c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#c2932d\"],[\"outer.secondary\",\"#c2932d\"],[\"top.primary\",\"#424640\"],[\"top.secondary\",\"#424640\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#cda47c\",\"#302a23\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#393b3a\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#5e533c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#c2932d\"],[\"outer.secondary\",\"#c2932d\"],[\"top.primary\",\"#424640\"],[\"top.secondary\",\"#424640\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "3d17efb3f5734761c2597185aae1213694dfff31dc64e9477439adf3ad6fd8c2",
-  "atlasSha256": "2ca551db31c431b77da56e6c7c20a89d1d2e02096248dc37e7ac7828b80ebc55",
-  "textureBytes": 14908128,
+  "sha256": "1f6d8ef7da3ec7bff56c6de95da916a68b33cc8a231587a0ffc3d30f364f0835",
+  "atlasSha256": "76cd0beb76e1647dd4cc66f13f4585464e06e567c3a9432b5761b072ff935590",
+  "textureBytes": 14439040,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/windplain-erdene.webp",
+      "sha256": "1f6d8ef7da3ec7bff56c6de95da916a68b33cc8a231587a0ffc3d30f364f0835",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/windplain-erdene.1.webp",
+      "sha256": "3c178227692ce55e716655af237cc4cf0a5cd8ea460d43d413a5f8a8f3edcd37",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/windplain-erdene.atlas.json"
 }

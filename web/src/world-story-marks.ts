@@ -1,3 +1,5 @@
+import { WORLD_UI } from './world-ui';
+import { WORLD_TITLE_FONT, refreshWorldFonts } from './world-fonts';
 import * as Phaser from 'phaser';
 import { createAtmosphereTextures } from './world-atmosphere';
 import { setDepthIfChanged, worldDepth } from './world-depth';
@@ -17,7 +19,6 @@ export const storySpectacle: Readonly<Record<string, StorySpectacle>> = {
 };
 
 const INK_COLOR = '#1b1712';
-const PAPER = '#efe2c4';
 
 /**
  * Fading names are written into the world itself: a plate, a chalk line, a name
@@ -40,6 +41,7 @@ export class WorldStoryMarks {
 
   constructor(private scene: Phaser.Scene, private mapId: string, private width: number, private height: number, marks: StoryMarks) {
     createAtmosphereTextures(scene);
+    refreshWorldFonts(scene);
     this.marks = marks;
     this.setMarks(marks);
   }
@@ -63,16 +65,15 @@ export class WorldStoryMarks {
     let label = this.labels.get(ink.id);
     const x = ink.x * this.width, y = ink.y * this.height - (ink.objectId ? 70 : 48);
     if (!label) {
-      const paper = this.scene.add.rectangle(0, 0, 10, 10, Phaser.Display.Color.HexStringToColor(ink.kind === 'chalk' || ink.kind === 'slate' ? '#2f3b39' : ink.kind === 'stone' ? '#8c8a80' : PAPER).color, .82)
-        .setStrokeStyle(1, 0x6b5638, .55);
-      const text = this.scene.add.text(0, 0, '', { fontFamily: 'Georgia, serif', fontSize: '15px', fontStyle: 'italic', color: ink.kind === 'chalk' || ink.kind === 'slate' ? '#f4efe2' : INK_COLOR, padding: { x: 7, y: 3 } }).setOrigin(.5);
+      const paper = this.scene.add.image(0, 0, WORLD_UI.ink).setDisplaySize(100, 38);
+      const text = this.scene.add.text(0, 0, '', { fontFamily: WORLD_TITLE_FONT, fontSize: '15px', fontStyle: 'italic', color: INK_COLOR, padding: { x: 7, y: 3 } }).setOrigin(.5);
       label = this.scene.add.container(x, y, [paper, text]);
       label.setData('paper', paper); label.setData('text', text);
       this.labels.set(ink.id, label);
     }
-    const text = label.getData('text') as Phaser.GameObjects.Text, paper = label.getData('paper') as Phaser.GameObjects.Rectangle;
+    const text = label.getData('text') as Phaser.GameObjects.Text, paper = label.getData('paper') as Phaser.GameObjects.Image;
     const shown = ink.lost && !ink.silent ? '· · ·' : ink.text;
-    if (text.text !== shown) { text.setText(shown); paper.setSize(text.width + 6, text.height + 2); }
+    if (text.text !== shown) { text.setText(shown); paper.setDisplaySize(Math.max(112, text.width + 40), Math.max(42, text.height + 18)); }
     label.setPosition(x, y);
     label.setData('level', ink.level);
     setDepthIfChanged(label, worldDepth(ink.y * this.height + 2, 'label'));

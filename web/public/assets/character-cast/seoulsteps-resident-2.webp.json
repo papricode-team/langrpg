@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#ddbb9b\",\"#744630\",[[\"bag\",\"tote\"],[\"bottom\",\"slim\"],[\"eyewear\",null],[\"face\",\"oval\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"straight\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"trench\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#98b8c4\"],[\"bottom.primary\",\"#30332e\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#49372d\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#a35f3f\"],[\"outer.secondary\",\"#a35f3f\"],[\"top.primary\",\"#e8d8bc\"],[\"top.secondary\",\"#e8d8bc\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#ddbb9b\",\"#744630\",[[\"bag\",\"tote\"],[\"bottom\",\"slim\"],[\"eyewear\",null],[\"face\",\"oval\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"straight\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"trench\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#98b8c4\"],[\"bottom.primary\",\"#30332e\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#49372d\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#a35f3f\"],[\"outer.secondary\",\"#a35f3f\"],[\"top.primary\",\"#e8d8bc\"],[\"top.secondary\",\"#e8d8bc\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "f48a6c158754f3f35ebab67864f1019c64089cd0fcdbe63da930d3bf1f68797a",
-  "atlasSha256": "13aab378e09b2576dc0ae9bb95fe6216a321dd945be16eca8ffb9155d9ebde35",
-  "textureBytes": 14635824,
+  "sha256": "d00ad54c1a9ba84504f8a29f6c30bbd178760f0d9758ca848a52f802be5c1156",
+  "atlasSha256": "ae4a1b2283f22853c1c54f96259d18359fffc3137691f4018548d2763ec7f994",
+  "textureBytes": 14105932,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/seoulsteps-resident-2.webp",
+      "sha256": "d00ad54c1a9ba84504f8a29f6c30bbd178760f0d9758ca848a52f802be5c1156",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/seoulsteps-resident-2.1.webp",
+      "sha256": "119f4f307710076382ad7932a174fdcc8089757bdb2c77fdab388ba855768394",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/seoulsteps-resident-2.atlas.json"
 }

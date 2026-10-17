@@ -28,15 +28,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#c18b60\",\"#a75532\",[[\"bag\",null],[\"bottom\",null],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"flats\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"dress-day\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#4a3b30\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#f3efe5\"],[\"outer.secondary\",\"#d9d2c2\"],[\"top.primary\",\"#6f8f6a\"],[\"top.secondary\",\"#5a7656\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#c18b60\",\"#a75532\",[[\"bag\",null],[\"bottom\",null],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"flats\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"dress-day\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#4a3b30\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#f3efe5\"],[\"outer.secondary\",\"#d9d2c2\"],[\"top.primary\",\"#6f8f6a\"],[\"top.secondary\",\"#5a7656\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "912d6a6befe66d37ec345be9f240b7ce5cca0e6aded74ed30d1accff058466ec",
-  "atlasSha256": "93c147b6cbd0d8c496b32c9d32e1286d015e9dcd55cf47f6dfa0cd30525b2a63",
-  "textureBytes": 14853804,
+  "sha256": "00c0e210168e7d6c45b3b4d0e92803cf17d360ad6f9b3a5fd03189f80f3213d7",
+  "atlasSha256": "cbd439b3e8018403a2e10a78b2b375461a2aee96d8254c61eabaff897f6dd3d4",
+  "textureBytes": 14459760,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/ruth.webp",
+      "sha256": "00c0e210168e7d6c45b3b4d0e92803cf17d360ad6f9b3a5fd03189f80f3213d7",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/ruth.1.webp",
+      "sha256": "3303793bce613d3cc80cf127c180c80f714436c2e5edc4d52a2bbf29977e35c5",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/ruth.atlas.json"
 }

@@ -4,23 +4,33 @@
   "recipe": "art/source/character-kit/cast/cedarbay-resident-2.json",
   "recipeSha256": "ed7ed5e1e47dbb883ff2416f99c811e87af6fced8b56dffe9c7b28a7f7fc0157",
   "atlas": "web/public/assets/character-cast/cedarbay-resident-2.webp",
-  "atlasSha256": "10eb011f86cf36e98718e7e7a2683b67c184785f529ce8f4b67007933544d6b3",
+  "atlasSha256": "9034ba637f3cf26e1fa89f94bd1fea701a10e6126f5afb0f586c4ab2517f0530",
   "geometry": "web/public/assets/character-cast/cedarbay-resident-2.atlas.json",
-  "geometrySha256": "986b3dae2615a1bba530719b03d0256334ab6456883169892cfe525ea19fd562",
-  "textureBytes": 14597864,
+  "geometrySha256": "f700732a885ae7597ccaa819aaba1701edf600fd4fce308405b109fca60b4053",
+  "textureBytes": 14332528,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/cedarbay-resident-2.webp",
+      "sha256": "9034ba637f3cf26e1fa89f94bd1fea701a10e6126f5afb0f586c4ab2517f0530",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/cedarbay-resident-2.1.webp",
+      "sha256": "419da28c96e3467b32f3b8ab65c418dbe88882ef6f51d24394b9bf321a0b8424",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "af92860f958e7d4d40c820adf75714634e1c6e5f72b8682e20dadabe9ed166e9",
-  "proof": "art/proofs/character-cast/cedarbay-resident-2.png",
-  "proofSha256": "c03c9c29e7daa297c5e59120ecfa943bdd0624ff4d76508c0c1c7e82cba612ce",
-  "editorSha256": "73c672d60bab5ddb5d3803690c9717f9e81bb188923e64c2a633443cba715499",
+  "sourceComponentsSha256": "4b8bf701d5aaf1710b0410f664c73a856657658f4c9861cfce2dbbc70d1c2be8",
+  "proof": "art/proofs/character-cast-painted/cedarbay-resident-2.png",
+  "proofSha256": "67f5671e4517a3cdcd48b28ac1150c6330aa40faf30f7654e7dba20f9afc89c8",
+  "editorSha256": "a42ea8a85a4ce825d26aa43258290da3542af59160cf8f223758befb8b990cf1",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "af92860f958e7d4d40c820adf75714634e1c6e5f72b8682e20dadabe9ed166e9"
-  }
+  "frames": 36
 }

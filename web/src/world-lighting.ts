@@ -29,3 +29,9 @@ export function timeAmbient(mapId: MapId, hour: number, period: WorldPeriod = wo
     // Runtime ground effects have no painted night variant: use the full ambient.
     ground: tint, people: mix(tint, 0xffffff, .55), light: 0xffedd0 };
 }
+
+/** Warm reflected timber/parchment light, even when the outside town is in moonlight. */
+export function interiorPeopleTint(town: string, room = ''): number {
+  if (['station', 'supermarket', 'greenhouse'].includes(room)) return 0xfff5e5;
+  return town === 'nebelstadt' ? 0xfff3df : town === 'waldruh' ? 0xffedcf : 0xfff0d9;
+}

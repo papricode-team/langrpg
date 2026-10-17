@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b6895e\",\"#30251b\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#9b4b33\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#6e4a2c\"],[\"headwear.primary\",\"#9a4e36\"],[\"headwear.secondary\",\"#9a4e36\"],[\"neck.primary\",\"#9a4e36\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#a55b3b\"],[\"top.secondary\",\"#a55b3b\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b6895e\",\"#30251b\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#9b4b33\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#6e4a2c\"],[\"headwear.primary\",\"#9a4e36\"],[\"headwear.secondary\",\"#9a4e36\"],[\"neck.primary\",\"#9a4e36\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#a55b3b\"],[\"top.secondary\",\"#a55b3b\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "deae63a21bd6806e7910e08ccb76720e716f0a3af8ce820dc6ed6585bc945b3f",
-  "atlasSha256": "5bcfaf7ed28363ff82f04d8d37a212596b62e31c8a6a92dfc7abd972b82a0221",
-  "textureBytes": 13986180,
+  "sha256": "9c589c7edaf1df330bf00a42478a64edbd09a5349b8146fd7f5f1e21c770bc4b",
+  "atlasSha256": "11cbad9c43fe09d78562cdd0712e4c75d2dd44143cf763069907780a5bfd4137",
+  "textureBytes": 14524936,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/dunegarden-khalid.webp",
+      "sha256": "9c589c7edaf1df330bf00a42478a64edbd09a5349b8146fd7f5f1e21c770bc4b",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/dunegarden-khalid.1.webp",
+      "sha256": "6f53b99afc29d6bc9e33acdc494b0fb3271782dae0312c711616c1af45a5b8ce",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/dunegarden-khalid.atlas.json"
 }

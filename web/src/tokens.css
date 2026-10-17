@@ -1,0 +1,50 @@
+/* Shared materials. System panels use forest glass; authored documents use parchment.
+   Light comes from the upper left, like the painted world. */
+:root {
+  --brass: #c4a567;
+  --brass-light: #e8d39b;
+  --brass-dark: #76572e;
+  --color-ink: #273d32;
+  --ink-muted: #52634c;
+  --parchment: #eee5cd;
+  --parchment-light: #fbf3de;
+  --parchment-dark: #dfd1ac;
+  --forest: #152d25;
+  --forest-raised: #233d32;
+  --forest-deep: #10211f;
+  --text: #f3eddb;
+  --text-muted: #b1beb5;
+  --line: color-mix(in srgb, var(--brass) 35%, transparent);
+  --document-line: color-mix(in srgb, var(--brass-dark) 45%, transparent);
+  --system-surface: radial-gradient(ellipse at top left, color-mix(in srgb, var(--forest-raised) 96%, transparent), transparent 70%), linear-gradient(135deg, color-mix(in srgb, var(--forest) 97%, transparent), color-mix(in srgb, var(--forest-deep) 98%, transparent));
+  --document-surface: radial-gradient(ellipse at top left, var(--parchment-light), var(--parchment));
+  --button-primary: linear-gradient(115deg, var(--brass-light), var(--brass));
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-round: 999px;
+  --shadow-sm: 0 3px 10px #03100d30;
+  --shadow-md: 0 8px 30px #03100d55;
+  --shadow-lg: 0 24px 100px #03100dbb;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --focus-ring: 0 0 0 2px var(--forest-deep), 0 0 0 4px var(--brass-light);
+  /* Compatibility names share this palette; never define another palette in a mode. */
+  --ink: var(--color-ink);
+  --paper: var(--parchment);
+  --gold: var(--brass);
+  --gold-light: var(--brass-light);
+  --muted: var(--text-muted);
+  --game-surface: var(--forest-deep);
+  --game-panel: var(--forest);
+  --game-text: var(--text);
+  --game-muted: var(--text-muted);
+  --game-gold: var(--brass-light);
+  --game-line: var(--line);
+}

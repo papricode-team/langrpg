@@ -2,13 +2,13 @@
   "recipe": {
     "v": 2,
     "build": "regular",
-    "skin": "#d6a07d",
-    "hair": "#62412f",
+    "skin": "#c7976b",
+    "hair": "#33251f",
     "parts": {
       "face": "soft",
       "markings": null,
       "facial-hair": null,
-      "hair": "bun",
+      "hair": "curls",
       "headwear": null,
       "top": "blouse",
       "outer": "apron",
@@ -21,28 +21,43 @@
     },
     "colors": {
       "bag.primary": "#694731",
-      "bottom.primary": "#82634a",
+      "bottom.primary": "#734b37",
       "eyewear.primary": "#48372e",
       "footwear.primary": "#48372e",
       "headwear.primary": "#354d70",
       "headwear.secondary": "#c99167",
       "neck.primary": "#854a5b",
-      "outer.primary": "#75855f",
-      "outer.secondary": "#657448",
-      "top.primary": "#e8d9bd",
-      "top.secondary": "#a88e67"
+      "outer.primary": "#63713e",
+      "outer.secondary": "#4c5a32",
+      "top.primary": "#fff2d6",
+      "top.secondary": "#d8b982"
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#d6a07d\",\"#62412f\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#82634a\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#75855f\"],[\"outer.secondary\",\"#657448\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#c7976b\",\"#33251f\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"curls\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#734b37\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#63713e\"],[\"outer.secondary\",\"#4c5a32\"],[\"top.primary\",\"#fff2d6\"],[\"top.secondary\",\"#d8b982\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "ba1c5a32a528f0204aa1ea197238f7e0b70163e5f45c266cd3fde6790f2f0108",
-  "atlasSha256": "59d2f6b7372e997d07bac7893e2f38464e085fa3130e33704072faae76a673ac",
-  "textureBytes": 14859288,
+  "sha256": "f7b7284019f658934948006f1bf11ed6042e5876290ebe16133129437e58bcc6",
+  "atlasSha256": "dbb8c1edbf30e3bab6a9cc5bedb16e1c9dd4ff8afec732358bad5ad7d2937a28",
+  "textureBytes": 14340384,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/marta.webp",
+      "sha256": "f7b7284019f658934948006f1bf11ed6042e5876290ebe16133129437e58bcc6",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/marta.1.webp",
+      "sha256": "810da898842434c95dddacbbcdb3fdcdc3f842297cd2f953d0371a7bfe8b2d11",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/marta.atlas.json"
 }

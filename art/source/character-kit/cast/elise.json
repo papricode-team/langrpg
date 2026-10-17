@@ -1,20 +1,20 @@
 {
   "v": 2,
   "build": "regular",
-  "skin": "#bb825a",
-  "hair": "#c8c5bf",
+  "skin": "#c79972",
+  "hair": "#d0cbc4",
   "parts": {
     "face": "mature",
     "markings": null,
     "facial-hair": null,
-    "hair": "bun",
+    "hair": "bob",
     "headwear": null,
     "top": "shirt",
     "outer": "trench",
     "bottom": "straight",
     "footwear": "tall-boots",
     "eyewear": "round",
-    "neck": null,
+    "neck": "kerchief",
     "bag": "satchel",
     "held": "lantern"
   },
@@ -25,10 +25,10 @@
     "footwear.primary": "#48372e",
     "headwear.primary": "#354d70",
     "headwear.secondary": "#c99167",
-    "neck.primary": "#854a5b",
-    "outer.primary": "#596d86",
-    "outer.secondary": "#9ba8b8",
-    "top.primary": "#d5c8ac",
+    "neck.primary": "#91433d",
+    "outer.primary": "#526d86",
+    "outer.secondary": "#a68c5d",
+    "top.primary": "#fff0d6",
     "top.secondary": "#a88e67"
   }
 }

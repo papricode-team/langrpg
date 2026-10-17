@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#bd9068\",\"#2b2721\",[[\"bag\",\"satchel\"],[\"bottom\",\"wide\"],[\"eyewear\",null],[\"face\",\"oval\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#386487\"],[\"bottom.primary\",\"#3c4142\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#e0dbc8\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#c57056\"],[\"top.secondary\",\"#c57056\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#bd9068\",\"#2b2721\",[[\"bag\",\"satchel\"],[\"bottom\",\"wide\"],[\"eyewear\",null],[\"face\",\"oval\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#386487\"],[\"bottom.primary\",\"#3c4142\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#e0dbc8\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#c57056\"],[\"top.secondary\",\"#c57056\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "b66acf191fbebf024e137215a64c8ca4dd3d51179babd53f2e7a5cf4052e4392",
-  "atlasSha256": "50975a6b21a2de3299f113a4ab458bff804a993afb5266796fa1923776b658b7",
-  "textureBytes": 14678032,
+  "sha256": "613c955dbbbd0ff0f0595df4cbf04457969ae086168ac53079858175b766b929",
+  "atlasSha256": "dfe6d45c098e8334cc47d0d7104fa40e062df3f8da97d29e554c677ae50154a0",
+  "textureBytes": 14445704,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/riverweave-trang.webp",
+      "sha256": "613c955dbbbd0ff0f0595df4cbf04457969ae086168ac53079858175b766b929",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/riverweave-trang.1.webp",
+      "sha256": "f7efbc9d08490c6853934ce7b0a535cf2dfde22fb1129d787c7f8443172dafe5",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/riverweave-trang.atlas.json"
 }

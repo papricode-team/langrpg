@@ -4,23 +4,33 @@
   "recipe": "art/source/character-kit/cast/sunpatch-alma.json",
   "recipeSha256": "214fb6caf5ce1f06f05f00a112f0a254afe7b0d007c8c9aee681a8d09d4501a1",
   "atlas": "web/public/assets/character-cast/sunpatch-alma.webp",
-  "atlasSha256": "f4dab302121f04ecb07d87b4ecf4a553605f5c7a1fc37a50ec0fe39da659725a",
+  "atlasSha256": "e09fc3dfa4664aa3972d0990cf9918653cc66d36741d46df62ed12bb33719156",
   "geometry": "web/public/assets/character-cast/sunpatch-alma.atlas.json",
-  "geometrySha256": "8ff0f6dec24ea60e64d3dc700579c377a93a5cf539ad421279be0b7886f71651",
-  "textureBytes": 14380728,
+  "geometrySha256": "f3efce27cd673244146640be37c20ddb3f6fba8a1a724128416a9d63a79eaad7",
+  "textureBytes": 14468484,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/sunpatch-alma.webp",
+      "sha256": "e09fc3dfa4664aa3972d0990cf9918653cc66d36741d46df62ed12bb33719156",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/sunpatch-alma.1.webp",
+      "sha256": "7d0da5d3634063c78c308c83ef0c748fb0486cb313f94377320d8f664df00a62",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "f5425c0c05260791a41f93330579ad8d9443ed4c82bbde96b4b576166d662aec",
-  "proof": "art/proofs/character-cast/sunpatch-alma.png",
-  "proofSha256": "b49b1a790ec91b2a680e07860c38a5f3e8edb07b2cb61677ec401152caed9e23",
-  "editorSha256": "8fb285b9ef02d13590334f4a6bf3c98ed0f132b713aa268aa983282442fa6733",
+  "sourceComponentsSha256": "3b0c4a5d19d57d6204c97ee0e3a2609d05c7d543225f1e7c2355e09159c22fcf",
+  "proof": "art/proofs/character-cast-painted/sunpatch-alma.png",
+  "proofSha256": "f4e77c6560ed042267ec760839e70eb68cd1ac27ee86d583e26eab3731e7fede",
+  "editorSha256": "97eae27407eb9772c96a5751f197c70aeea027d4c1f766e69e704ef4cebda84c",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "f5425c0c05260791a41f93330579ad8d9443ed4c82bbde96b4b576166d662aec"
-  }
+  "frames": 36
 }

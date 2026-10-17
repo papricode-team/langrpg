@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#ad7a54\",\"#27211b\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"wide\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"braids\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#3b3735\"],[\"bottom.primary\",\"#587c9a\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#76658e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#cd6d51\"],[\"outer.secondary\",\"#cd6d51\"],[\"top.primary\",\"#eee8d6\"],[\"top.secondary\",\"#eee8d6\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#ad7a54\",\"#27211b\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"wide\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"braids\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#3b3735\"],[\"bottom.primary\",\"#587c9a\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#76658e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#cd6d51\"],[\"outer.secondary\",\"#cd6d51\"],[\"top.primary\",\"#eee8d6\"],[\"top.secondary\",\"#eee8d6\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "eafd1ec0ebed69dcd8d68d7dd9be7884153e83777024c5e28d810fe6f40f364b",
-  "atlasSha256": "0c4b56206c36c6c0112d12c7d36fc8e9bd3f6b28c09ea477f641e517bdba5dea",
-  "textureBytes": 14402364,
+  "sha256": "1c67f9cd227aa5a5a4619048867515b05c0a0a97516b6e52f7b6731394d056a0",
+  "atlasSha256": "9f783258a10fe9b66dc827f733d724fd091e48d07ad611342d64c5dd744ecae8",
+  "textureBytes": 14493812,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/saffroncourt-resident-2.webp",
+      "sha256": "1c67f9cd227aa5a5a4619048867515b05c0a0a97516b6e52f7b6731394d056a0",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/saffroncourt-resident-2.1.webp",
+      "sha256": "d887188b3757a3372a881344448dd12f05829e55e44cd392d034089938c65055",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/saffroncourt-resident-2.atlas.json"
 }

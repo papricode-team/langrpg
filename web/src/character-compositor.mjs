@@ -2,18 +2,19 @@
 
 /** Material masks are disjoint before filtering, so add their premultiplied
  * contributions. Source-over between materials would punch holes at seams. */
-export function combineMaterials(materials) {
+export function combineMaterials(materials, luminanceReference = 255) {
   if (!materials.length) throw new Error('A component needs material pixels');
   const length = materials[0].data.length;
   if (length % 4 || materials.some(layer => layer.data.length !== length)) throw new Error('Material dimensions must match');
   const out = new Uint8ClampedArray(length);
   for (let p = 0; p < length; p += 4) {
     let alpha = 0; const premultiplied = [0, 0, 0];
-    for (const { data, tint = 0xffffff } of materials) {
+    for (const { data, tint = 0xffffff, material } of materials) {
       const a = data[p + 3]; alpha += a;
+      const reference = material === 'detail' ? 255 : luminanceReference;
       for (let channel = 0; channel < 3; channel++) {
         const color = (tint >> ((2 - channel) * 8)) & 255;
-        premultiplied[channel] += data[p + channel] * color / 255 * a;
+        premultiplied[channel] += Math.min(255, data[p + channel] * color / reference) * a;
       }
     }
     if (!alpha) continue;
@@ -104,14 +105,54 @@ export function composeFrame(layers, images, frame, cellWidth, cellHeight, colum
       }
       materials.push({ data, tint: layer.tints[material], material });
     }
-    const pixels = combineMaterials(materials);
+    const pixels = combineMaterials(materials, cellWidth >= 64 && layer.slot && !['body', 'face', 'markings', 'facial-hair', 'hair'].includes(layer.slot) ? 180 : 255);
     const detail = materials.find(material => material.material === 'detail' && material.tint === 0xffffff);
     // Bare body gaps can be enclosed by an arm or fingers. Keep the face region
     // protected so the whites of the eyes remain part of the artwork.
     if (detail && layer.slot && sourceMatte !== 'preserve') clearWhiteMatte(pixels, detail.data, cellWidth, cellHeight, layer.slot === 'body');
     over(output, pixels);
   }
-  return output;
+  // Small synthetic sheets and detail-only tooling previews retain raw pixels.
+  // Paint only complete registered characters, after all material seams close.
+  return cellWidth >= 64 && cellHeight >= 96 && layers.some(layer => layer.slot === 'body')
+    ? paintedFinish(output, cellWidth, cellHeight) : output;
+}
+
+/** Frame-local, resolution-independent paint; never changes alpha or geometry.
+ * No frame/time seed: standing, walking, actions and portraits share one finish. */
+function paintedFinish(pixels, width, height) {
+  const source = pixels.slice(), scale = width / 384;
+  const grain = (x, y) => {
+    let value = Math.imul(x + 17, 374761393) ^ Math.imul(y + 31, 668265263);
+    value = Math.imul(value ^ value >>> 13, 1274126177);
+    return ((value ^ value >>> 16) >>> 0) / 4294967295 - .5;
+  };
+  const step = Math.max(1, Math.round(scale * 2));
+  for (let y = 0; y < height; y++) for (let x = 0; x < width; x++) {
+    const p = (y * width + x) * 4;
+    if (!source[p + 3]) continue;
+    const light = .5 - (x / width * .6 + y / height * .4);
+    const brush = grain(Math.floor((x + y * .35) / (scale * 7)), Math.floor(y / (scale * 3))) * 8;
+    const tooth = grain(Math.floor(x / scale), Math.floor(y / scale)) * 2;
+    let edge = 0, contour = 0;
+    for (const [dx, dy] of [[-step, -step], [step, step]]) {
+      const xx = x + dx, yy = y + dy;
+      const q = (yy * width + xx) * 4;
+      const alpha = xx < 0 || yy < 0 || xx >= width || yy >= height ? 0 : source[q + 3];
+      const exposed = Math.max(0, (source[p + 3] - alpha) / 255);
+      edge += exposed * (dx < 0 ? 5 : -12);
+      if (alpha > 200) contour += Math.max(0, (source[q] + source[q + 1] + source[q + 2] - source[p] - source[p + 1] - source[p + 2]) / 3 - 16) * .035;
+    }
+    const luma = source[p] * .2126 + source[p + 1] * .7152 + source[p + 2] * .0722;
+    for (let c = 0; c < 3; c++) {
+      // Lift the neutral-key underpainting so cream reads as linen, not grey.
+      const pigment = luma + (source[p + c] - luma) * 1.16;
+      const lift = Math.sin(Math.max(0, Math.min(255, pigment)) / 255 * Math.PI) * 13;
+      const warmth = [3.5, 1, -2.5][c] * (.5 + luma / 255);
+      pixels[p + c] = pigment + lift + warmth + light * 6 + brush + tooth + edge - contour;
+    }
+  }
+  return pixels;
 }
 
 /** A single registered atlas; both browser and offline baking use this loop. */

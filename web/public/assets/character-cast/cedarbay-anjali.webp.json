@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#ad8156\",\"#8e8472\",[[\"bag\",null],[\"bottom\",null],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"sandals\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",\"scarf\"],[\"outer\",null],[\"top\",\"dress-long\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#6d4a2c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#476f41\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#ded6b7\"],[\"top.secondary\",\"#ded6b7\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#ad8156\",\"#8e8472\",[[\"bag\",null],[\"bottom\",null],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"sandals\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",\"scarf\"],[\"outer\",null],[\"top\",\"dress-long\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#6d4a2c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#476f41\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#ded6b7\"],[\"top.secondary\",\"#ded6b7\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "5126f44618ca481e8857ccbcaac4c0a1aa8130e8ee97a8f150812b7d6da380ba",
-  "atlasSha256": "9dcee846ba62b908e892bbfe22d613d01800a5e7e6cc09d4dc851ba161bca1db",
-  "textureBytes": 15023840,
+  "sha256": "0c12c1c6a92cafcdcccbda5a7c0c023e1847d625c82cd1f0b9dc0770ef10b6e9",
+  "atlasSha256": "10b0d0d9ed4efcbcc9fd28ef9d31726254f711d61f1b5ddb9275b16b9c7755a5",
+  "textureBytes": 14327152,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/cedarbay-anjali.webp",
+      "sha256": "0c12c1c6a92cafcdcccbda5a7c0c023e1847d625c82cd1f0b9dc0770ef10b6e9",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/cedarbay-anjali.1.webp",
+      "sha256": "20fa908a55dc03ba500ca200d540b9fe295261e9cabd12af136cccd8145a097d",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/cedarbay-anjali.atlas.json"
 }

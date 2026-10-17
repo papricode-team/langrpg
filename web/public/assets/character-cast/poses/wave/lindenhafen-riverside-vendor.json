@@ -4,23 +4,33 @@
   "recipe": "art/source/character-kit/cast/lindenhafen-riverside-vendor.json",
   "recipeSha256": "abbb3763bc8ac69a5d863d1aca98a33d5e7bb77e448d937a56accd8e02a5c144",
   "atlas": "web/public/assets/character-cast/poses/wave/lindenhafen-riverside-vendor.webp",
-  "atlasSha256": "660d6e4ca4457a7d2d55657c6e6137404b82b752f34c3cd1f7831812e686683e",
+  "atlasSha256": "8cbd3e8cfe7c7b9d21163d5b0e4d3dbc9bae48cbfe0f1426dfa2a638bf763d2d",
   "geometry": "web/public/assets/character-cast/poses/wave/lindenhafen-riverside-vendor.atlas.json",
-  "geometrySha256": "2a4c1679ae3187ba2124de85e5a00cabec6f35f4efc2a71a163d4331ea687c80",
-  "textureBytes": 10811136,
+  "geometrySha256": "36204a44e1c7fcaa5247aff8ae231288928865beacbb15969e40fc047bca3ddf",
+  "textureBytes": 14044076,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/poses/wave/lindenhafen-riverside-vendor.webp",
+      "sha256": "8cbd3e8cfe7c7b9d21163d5b0e4d3dbc9bae48cbfe0f1426dfa2a638bf763d2d",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/poses/wave/lindenhafen-riverside-vendor.1.webp",
+      "sha256": "bb1bf8059afcc4741ec7f442a9ef08daa90a4cf5ea17f386669aed9152144bdb",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "61367a505c3fd858d2d2a9d1f5261bf5c372a325002d93d564453085edb4ac9c",
-  "proof": "art/proofs/character-cast/poses/wave/lindenhafen-riverside-vendor.png",
-  "proofSha256": "41613ef9fcf9a51ba0283abdc86bc514eb7ae47495ab28e92312b95a3060b518",
-  "editorSha256": "8e38d6506a27d21abd8959b10ff117284cf219173feb680806d5bd12a8659cae",
+  "sourceComponentsSha256": "82f5f8ea42ca2e2478d9b9b969555bf1d02b881bf9eeee85158cf6b6cc649b6a",
+  "proof": "art/proofs/character-cast-painted/poses/wave/lindenhafen-riverside-vendor.png",
+  "proofSha256": "beba074fbedb75becddb0320e8d33c190e5ac49e08e81cdfcbec9d2610aa7b87",
+  "editorSha256": "b7a2024ff7eb7ab9d781b5103c71dea4a1049ba5994bd166698c18e79d4f013d",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "61367a505c3fd858d2d2a9d1f5261bf5c372a325002d93d564453085edb4ac9c"
-  }
+  "frames": 36
 }

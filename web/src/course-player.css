@@ -1,10 +1,86 @@
-.course-player{max-width:860px;margin:0 auto;padding:32px 24px 60px;color:var(--ink,#243a43);font-family:'DM Sans',sans-serif}.course-player-heading{margin-bottom:28px}.course-player-heading h1{font-family:Fraunces,serif}.course-picker{display:flex;gap:12px;align-items:end;flex-wrap:wrap;padding:16px;border:1px solid #d7d7c9;border-radius:12px;margin-bottom:20px}.course-picker label,.course-player form label{display:grid;gap:6px}.course-picker select,.course-player input{padding:12px;border:1px solid #c3c9c8;border-radius:8px;background:#fff;font:inherit}.course-picker [role=status]{width:100%;margin:0}.course-player [data-journey]{padding:24px;background:#fffdf7;border:1px solid #d7d7c9;border-radius:16px}.course-current-line{font-size:1.4rem;line-height:1.8}.course-current-line button{font:inherit}.course-player form{display:grid;gap:12px;max-width:560px;margin-top:24px}.course-player-progress{display:flex;justify-content:space-between;font-size:.85rem}.course-word-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}.course-word-list article{padding:16px;border:1px solid #d7d7c9;border-radius:12px}.course-model-answer{padding:16px;background:#edf4eb;border-radius:8px}.course-player button{min-height:44px}.course-player [role=status]{min-height:24px}@media(--phone){.course-player{padding:20px 12px}.course-picker label{width:100%}.course-picker select{width:100%}.course-player [data-journey]{padding:18px}}
-.course-player button:disabled{opacity:.6;cursor:wait}.course-model-answer>.caption{display:block;margin-top:8px}.course-model-answer p{font-size:1.15rem}.course-choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}.course-choices article{display:grid;gap:12px;padding:16px;border:1px solid #c3c9c8;border-radius:10px}.course-choices article>button{justify-self:end}.course-player .sentence-word:focus-visible,.course-player button:focus-visible,.course-picker select:focus-visible{outline:2px solid #456d4f;outline-offset:3px}.course-player [aria-busy=true]{cursor:progress}
-.course-word-list article>button{display:block;margin-top:12px;width:100%}
-html:has(body.course-player-mode),body.course-player-mode{height:auto;min-height:100%;overflow-y:auto;background:#f3efe2;color:#273d32}
-body.course-player-mode #app{height:0;overflow:visible}
-.course-player{min-height:100vh}
-.course-account-actions{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0}
-.course-player-heading>span{color:#496b5b;font-size:.75rem;letter-spacing:.12em}
-.course-player .outline-button,.course-player .text-button{color:#274539;border-color:#b8c5b3;background:transparent}
-.course-word-list article{background:#fffdf7}
+/* Course play is a system surface, sharing the world's forest glass. */
+.course-player {
+  max-width:960px;
+  min-height:100vh;
+  margin:0 auto;
+  padding:var(--space-6) var(--space-5) 60px;
+  color:var(--text);
+  font-family:var(--font-body);
+  color-scheme:dark;
+}
+
+.course-player-heading { margin-bottom:28px; }
+.course-player-heading h1 { font-family:var(--font-display); }
+.course-player-heading>span { color:var(--brass-light); font-size:var(--type-caption); letter-spacing:.12em; }
+.course-account-actions { display:flex; gap:var(--space-4); flex-wrap:wrap; margin:var(--space-4) 0; }
+.course-picker {
+  display:flex;
+  gap:var(--space-3);
+  align-items:end;
+  flex-wrap:wrap;
+  padding:var(--space-4);
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  background:var(--system-surface);
+  color:var(--text);
+  color-scheme:dark;
+  margin-bottom:20px;
+}
+.course-picker label,.course-player form label { display:grid; gap:6px; }
+.course-picker select,.course-player :is(input,select,textarea) {
+  min-height:48px;
+  min-width:0;
+  max-width:100%;
+  padding:var(--space-3);
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  background:var(--forest-deep);
+  color:var(--text);
+  font:inherit;
+}
+.course-player input::placeholder { color:var(--text-muted); }
+.course-picker [role=status] { width:100%; margin:0; }
+.course-picker [role=status]:empty { display:none; }
+.course-player [data-journey] {
+  padding:var(--space-5);
+  background:var(--system-surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  box-shadow:var(--shadow-md);
+}
+.course-current-line { font-family:var(--font-display); font-size:var(--type-title); line-height:1.8; }
+.course-current-line button { font:inherit; }
+.course-player form { display:grid; gap:var(--space-3); max-width:560px; margin-top:var(--space-5); }
+.course-player-progress { display:flex; justify-content:space-between; font-size:var(--type-caption); color:var(--text-muted); }
+.course-word-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:var(--space-3); }
+.course-word-list article,.course-choices article { padding:var(--space-4); border:1px solid var(--line); border-radius:var(--radius-md); background:var(--forest); }
+.course-model-answer { padding:var(--space-4); background:var(--forest-raised); border-left:2px solid var(--brass); border-radius:var(--radius-sm); }
+.course-model-answer>.caption { display:block; margin-top:var(--space-2); color:var(--text-muted); }
+.course-model-answer p { font-size:var(--type-body); }
+.course-player button { min-height:44px; }
+.course-player [role=status] { min-height:24px; }
+.course-player button:disabled { opacity:.6; cursor:wait; }
+.course-choices { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:var(--space-3); }
+.course-choices article { display:grid; gap:var(--space-3); }
+.course-choices article>button { justify-self:end; }
+.course-player :is(.sentence-word,button,input,select,textarea):focus-visible,.course-picker select:focus-visible {
+  outline:2px solid var(--brass-light);
+  outline-offset:3px;
+  box-shadow:var(--focus-ring);
+}
+.course-player [aria-busy=true] { cursor:progress; }
+.course-word-list article>button { display:block; margin-top:var(--space-3); width:100%; }
+html:has(body.course-player-mode),body.course-player-mode {
+  height:auto;
+  min-height:100%;
+  overflow-y:auto;
+  background:var(--forest-deep);
+  color:var(--text);
+}
+body.course-player-mode #app { height:0; overflow:visible; }
+.course-player .outline-button,.course-player .text-button { color:var(--brass-light); border-color:var(--line); background:transparent; }
+@media (--phone) {
+  .course-player { padding:20px var(--space-3); }
+  .course-picker label,.course-picker select { width:100%; }
+  .course-player [data-journey] { padding:18px; }
+}

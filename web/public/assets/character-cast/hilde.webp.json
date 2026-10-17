@@ -29,15 +29,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#d6a07d\",\"#f0ede6\",[[\"bag\",null],[\"bottom\",null],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"clogs\"],[\"hair\",\"bob\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",\"kerchief\"],[\"outer\",\"apron\"],[\"top\",\"dress-long\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#7a5431\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#b0573f\"],[\"outer.primary\",\"#d9c8a8\"],[\"outer.secondary\",\"#c2af8c\"],[\"top.primary\",\"#6e4f6a\"],[\"top.secondary\",\"#5a3f57\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#d6a07d\",\"#f0ede6\",[[\"bag\",null],[\"bottom\",null],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"clogs\"],[\"hair\",\"bob\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",\"kerchief\"],[\"outer\",\"apron\"],[\"top\",\"dress-long\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#7a5431\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#b0573f\"],[\"outer.primary\",\"#d9c8a8\"],[\"outer.secondary\",\"#c2af8c\"],[\"top.primary\",\"#6e4f6a\"],[\"top.secondary\",\"#5a3f57\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "bc185a8829dc85de23117030c43c5a57ae066b060e171ac98dbd57671a4e381b",
-  "atlasSha256": "d1d21be76d2d523632fd9cf490a5ec60c11a2adbe38115553c9f7b9c1ff1c61f",
-  "textureBytes": 14821224,
+  "sha256": "5f6b000a2a8524a394376ed0f9e377c40c4cdc48d7d5e405f9255c84344f66ac",
+  "atlasSha256": "85d05e4be943e5faed3ffdc71c14bb2d9bc92abe4c9f213d6160994eda8002a2",
+  "textureBytes": 14070368,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/hilde.webp",
+      "sha256": "5f6b000a2a8524a394376ed0f9e377c40c4cdc48d7d5e405f9255c84344f66ac",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/hilde.1.webp",
+      "sha256": "db61967f348dd958a1d9a2fcd0c5187348b5f0ddfe384127a4babc1ab74869ed",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/hilde.atlas.json"
 }

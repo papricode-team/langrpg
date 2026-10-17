@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/rainmarket-resident-1.json",
   "recipeSha256": "353a60e18f1ba575caad5ba51a48943759b4910bee1f880819f545b76fbb02c3",
   "atlas": "web/public/assets/character-cast/rainmarket-resident-1.webp",
-  "atlasSha256": "d0336a34250aad6117dcdb3e870be82aff19ddecf4ff8084c22708b0edb1cb91",
+  "atlasSha256": "9eba73fe65e6231265ef48fe222a347bed0c7e63277e4b83ee2a6108385c17cf",
   "geometry": "web/public/assets/character-cast/rainmarket-resident-1.atlas.json",
-  "geometrySha256": "db0d18f4c90b281d4271b460814167d19e9c36d4bbdfa241a3c9901e681c3c56",
+  "geometrySha256": "c62fedc5a741308c29042c5cabbdee3a339d942c4eaeab6d7f54914f569cff02",
   "textureBytes": 14103372,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/rainmarket-resident-1.webp",
-      "sha256": "d0336a34250aad6117dcdb3e870be82aff19ddecf4ff8084c22708b0edb1cb91",
+      "sha256": "9eba73fe65e6231265ef48fe222a347bed0c7e63277e4b83ee2a6108385c17cf",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/rainmarket-resident-1.1.webp",
-      "sha256": "332b4dd4412372564a87e7c15c0f5d47a045777af348d044fcd06fc0cc955be0",
+      "sha256": "4f3381078f4578f236faa5080857fe7ae6e027715ad0280de76c51b381839b66",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,15 +27,10 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "cd97c5e2aac73a98ff2390f9e16e788e085d2bf6a1177a8317f80367b427e60e",
-  "proof": "art/proofs/character-cast/rainmarket-resident-1.png",
-  "proofSha256": "d03c952f8365e23432c4f165a65de75bca8c142f17d37d06f7030776f73e09ff",
-  "editorSha256": "987ae343bc4f9ac8ddeaeaefefdc019f017a1e1301b7470691c9316034ab9142",
+  "sourceComponentsSha256": "7b350432f71b9a72f45a18cc88b53c289a32d06af6ed2da3ff32eefc9caa7295",
+  "proof": "art/proofs/character-cast-painted/rainmarket-resident-1.png",
+  "proofSha256": "4d8292cb4bd48ceb9c5254bafd531001d3c8c14ff3687dc7ed3564ce7107cb4f",
+  "editorSha256": "7001271c5eb1c5a8417dbb6798e3c2efdeb560c71dad67ec5b0d4d6fee35e89b",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "cd97c5e2aac73a98ff2390f9e16e788e085d2bf6a1177a8317f80367b427e60e"
-  }
+  "frames": 36
 }

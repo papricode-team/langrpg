@@ -1,3 +1,6 @@
+import { interiorPeopleTint } from './world-lighting';
+import { roomKind } from './room-kind';
+import { fadeWorldOut, loadWorldUi } from './world-ui';
 import {buildingRoomId, buildingRoomRoot} from './room-layout';
 import * as Phaser from 'phaser';
 import type { MapId } from './maps';
@@ -50,6 +53,7 @@ export class InteriorScene extends ExploreScene {
   get worldHeight(): number { return this.spec.height; }
   get interiorId(): InteriorId { return this.spec.id; }
   protected get indoor(): boolean { return true; }
+  protected get indoorTint(): number { return interiorPeopleTint(this.mapId, roomKind(this.spec.id)); }
   protected get indoorCharacterHeight(): number { return this.spec.characterHeight ?? INTERIOR_CHARACTER_HEIGHT; }
 
   init(data: InteriorSceneData): void {
@@ -65,6 +69,7 @@ export class InteriorScene extends ExploreScene {
   preload(): void {
     this.load.on(Phaser.Loader.Events.PROGRESS, (value: number) => emitWorld(this.game, WorldEvents.LoadProgress, value, this.spec.name));
     loadInteriorAssets(this.load, this.spec);
+    loadWorldUi(this.load);
     const nativeKeys:string[]=[];
     for(const person of this.spec.npcs){
       const native=castActor(person.id)?.native;
@@ -152,9 +157,11 @@ export class InteriorScene extends ExploreScene {
     if(this.leaving)return;
     this.leaving=true;this.suspended=true;this.clearControls();
     const target=buildingRoomId(this.spec.id,door.targetRoom) as InteriorId;
-    writeWorld(this.registry,'interiorId',target);
-    this.scene.restart({id:target,mapId:this.mapId,stairs:door.kind==='stairs'});
-    emitWorld(this.game,WorldEvents.InteriorChange,target,door.id);
+    fadeWorldOut(this, this.reducedMotion, () => {
+      writeWorld(this.registry,'interiorId',target);
+      this.scene.restart({id:target,mapId:this.mapId,stairs:door.kind==='stairs'});
+      emitWorld(this.game,WorldEvents.InteriorChange,target,door.id);
+    });
   }
 
   /** Hand the frame back to the town, which places the player at this room's door. */
@@ -163,11 +170,13 @@ export class InteriorScene extends ExploreScene {
     this.leaving = true;
     this.suspended = true;
     this.clearControls();
-    writeWorld(this.registry, 'interiorId', undefined);
-    const town = this.scene.get(SceneKeys.World) as WorldScene;
-    town.resumeFromInterior({ returnFrom: buildingRoomRoot(this.spec.id) as InteriorId, instant });
-    this.scene.stop();
-    emitWorld(this.game, WorldEvents.InteriorChange, undefined);
+    fadeWorldOut(this, instant || this.reducedMotion, () => {
+      writeWorld(this.registry, 'interiorId', undefined);
+      const town = this.scene.get(SceneKeys.World) as WorldScene;
+      town.resumeFromInterior({ returnFrom: buildingRoomRoot(this.spec.id) as InteriorId, instant });
+      this.scene.stop();
+      emitWorld(this.game, WorldEvents.InteriorChange, undefined);
+    });
   }
 
   protected characterRevealed(character: Character): boolean {
@@ -204,7 +213,7 @@ export class InteriorScene extends ExploreScene {
   }
 
   protected updateScene(): void {
-    this.room?.update(this.decorativeElapsed, this.cameras.main.worldView);
+    this.room?.update(this.decorativeElapsed, this.cameras.main.worldView, this.clock.advance(0).hour);
   }
 
   setReducedMotion(reduced: boolean): void {

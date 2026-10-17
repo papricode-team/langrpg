@@ -4,23 +4,33 @@
   "recipe": "art/source/character-kit/cast/rainmarket-ken.json",
   "recipeSha256": "265d48954c9a64b639344d61a6b34bc13bffceb825310ac72b5c9c9bc017dcdb",
   "atlas": "web/public/assets/character-cast/rainmarket-ken.webp",
-  "atlasSha256": "952e01ca80a546b441045542f26346cfc83b09ee5ed7973f6e7856b97ac3e53e",
+  "atlasSha256": "7999e00803e9bf1f88b395602a59ca72c9c168d5a215b69020d9e01fab1ab038",
   "geometry": "web/public/assets/character-cast/rainmarket-ken.atlas.json",
-  "geometrySha256": "d69bca4be1b04664b25873ccc046c86bd7e2ab8e59d245d5bb46be7d9c746e03",
-  "textureBytes": 14178780,
+  "geometrySha256": "d9b09994709b41126f15e697fecb65a5a436ca1cf4aaae6445289c4995d0eb4c",
+  "textureBytes": 14445984,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/rainmarket-ken.webp",
+      "sha256": "7999e00803e9bf1f88b395602a59ca72c9c168d5a215b69020d9e01fab1ab038",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/rainmarket-ken.1.webp",
+      "sha256": "f3cb8529d121e4d3128a4a9b90b8d527d40d4be7b7b675d28e560bbcdbef7372",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "83ddfb35949ed5a6a3e80471378b0deb9fcbcd4efacae088eb89f7105c8f0aa4",
-  "proof": "art/proofs/character-cast/rainmarket-ken.png",
-  "proofSha256": "c5f34497dda0f68b6ba049c354804f68ed301d815c972282d90f76db43286d01",
-  "editorSha256": "10604219f6c5a1623d401e9ca17d9c3680a1ebde26378b694daf817ee3bedfe1",
+  "sourceComponentsSha256": "af81809b92573226c1364feaa3a79ab6b9c64497dab911a5e2c9245c0570a598",
+  "proof": "art/proofs/character-cast-painted/rainmarket-ken.png",
+  "proofSha256": "916dc305063d3e930ff1142e0e8e5c7444a0d5b76cd3ba1faba50c4a076ca4d6",
+  "editorSha256": "f8d29dc6a2bee3055b9f5c12b8353ab750010f26cbcd743dde3e3d4cecb648fd",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "83ddfb35949ed5a6a3e80471378b0deb9fcbcd4efacae088eb89f7105c8f0aa4"
-  }
+  "frames": 36
 }

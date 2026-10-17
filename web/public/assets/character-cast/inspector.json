@@ -2,40 +2,55 @@
   "id": "inspector",
   "poseSet": "walk",
   "recipe": "art/source/character-kit/cast/inspector.json",
-  "recipeSha256": "ced212e40651654c80add12160c40ebb7bea734929370a260bd61b433a0697f9",
+  "recipeSha256": "9a56634e6958efd0a9225c4f81384399750eb162e2a459039ac02e0817588a3c",
   "atlas": "web/public/assets/character-cast/inspector.webp",
-  "atlasSha256": "803e3034339720f32ddb3d950007c1a311cbd78a71531deaa69a16910cd8d15b",
+  "atlasSha256": "0d60967f93a7445e6f5ddafd22c2f4101679f041c73ae20f3c0565d5f8052646",
   "geometry": "web/public/assets/character-cast/inspector.atlas.json",
-  "geometrySha256": "cd8e345df996ad1bacda43f69ee8d11f07807a9f9318a74712b8397d24899164",
-  "textureBytes": 14014560,
+  "geometrySha256": "6e1cddfafef73745b1bd7e9681c185fbe47a01d2e3b696fedcfe6cfb990d14fc",
+  "textureBytes": 14114232,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/inspector.webp",
+      "sha256": "0d60967f93a7445e6f5ddafd22c2f4101679f041c73ae20f3c0565d5f8052646",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/inspector.1.webp",
+      "sha256": "91cc7241d27fa6c42916510e93afa91f0cd58987e445cd4d2fdaa76b35269f85",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "ce61c027f509f918e7c5c01968cc29f1faafb94807b324d6269cef1364790bdd",
-  "proof": "art/proofs/character-cast/inspector.png",
-  "proofSha256": "066579691cf585cb44c66b0044c9eccd4df1745c471fa72c6611bbcddd7127d5",
-  "editorSha256": "3b6ce699cfe91e49f81312842ae4a79362500aa7b3c6981c8d4a0b69ca5f2888",
+  "sourceComponentsSha256": "332f537bb29167e69b94cdcbaef93dac3e68ac8361ab2eff3d24785cbe39cc6c",
+  "proof": "art/proofs/character-cast-painted/inspector.png",
+  "proofSha256": "831bd9faaaf1cbaa76fbc8a9baaa05d3cc4114d4eb4882809c59933202d11074",
+  "editorSha256": "0db44f134ae08eba5ea4836327d4da82f776107cb5e664855153440cd79d0d46",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-inspector-native",
     "image": "web/public/assets/character-cast/native/inspector.webp",
     "atlas": "web/public/assets/character-cast/native/inspector.atlas.json",
-    "sha256": "3698f3974a7c9629f5feac2a736e9d9511c8439ec15e24ff33d5f538eabc42d9",
-    "atlasSha256": "ecf0fc427439eb9100c0830d6d3d452268ad7b45c231d50c3594c3e62e497f59",
+    "sha256": "e489373409647259af09fe137f84a038044ff13802e6343da88c4d42f4b4668e",
+    "atlasSha256": "112fb0c6dd4afc1cba43f314bfadd877a5a54fcf5a51683eb2d6a03fa5602527",
     "textureBytes": 27199152,
     "multiAtlas": true,
     "images": [
       {
         "path": "web/public/assets/character-cast/native/inspector.webp",
-        "sha256": "3698f3974a7c9629f5feac2a736e9d9511c8439ec15e24ff33d5f538eabc42d9",
+        "sha256": "e489373409647259af09fe137f84a038044ff13802e6343da88c4d42f4b4668e",
         "firstFrame": 0,
         "frameCount": 18
       },
       {
         "path": "web/public/assets/character-cast/native/inspector.1.webp",
-        "sha256": "9699fc49b91d0105e88bec1943da2a9c5afa3f9ee9786ab1318f934799d5bc05",
+        "sha256": "6d258bc491b7650cf457c2a27ed54ccd90b78af96c4bc03059edd14e9ff04222",
         "firstFrame": 18,
         "frameCount": 18
       }
@@ -44,12 +59,7 @@
       512,
       768
     ],
-    "source": "art/proofs/character-cast/inspector.webp",
-    "sourceSha256": "3b6ce699cfe91e49f81312842ae4a79362500aa7b3c6981c8d4a0b69ca5f2888"
-  },
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "ce61c027f509f918e7c5c01968cc29f1faafb94807b324d6269cef1364790bdd"
+    "source": "art/proofs/character-cast-painted/inspector.webp",
+    "sourceSha256": "0db44f134ae08eba5ea4836327d4da82f776107cb5e664855153440cd79d0d46"
   }
 }

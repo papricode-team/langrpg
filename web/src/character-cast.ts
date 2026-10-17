@@ -1,5 +1,5 @@
 import type { AvatarRecipe } from './character-recipe.mjs';
-import data from './data/character-cast.json';
+import data from '../../art/source/character-kit/cast/runtime-manifest.json';
 import { WALK_REFERENCE_CYCLE_DISTANCE } from './walk-animation';
 
 export interface CastAsset {

@@ -3,10 +3,10 @@
     "v": 2,
     "build": "regular",
     "skin": "#c18b60",
-    "hair": "#a75532",
+    "hair": "#b65a2c",
     "parts": {
       "face": "round",
-      "markings": null,
+      "markings": "freckles",
       "facial-hair": null,
       "hair": "curls",
       "headwear": null,
@@ -26,35 +26,35 @@
       "footwear.primary": "#48372e",
       "headwear.primary": "#354d70",
       "headwear.secondary": "#c99167",
-      "neck.primary": "#c39b46",
-      "outer.primary": "#4e729a",
-      "outer.secondary": "#324f75",
-      "top.primary": "#d4c7aa",
+      "neck.primary": "#dcae3e",
+      "outer.primary": "#436d96",
+      "outer.secondary": "#2e4d71",
+      "top.primary": "#f2e1bd",
       "top.secondary": "#a88e67"
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#c18b60\",\"#a75532\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"curls\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",\"scarf\"],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#73543b\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#c39b46\"],[\"outer.primary\",\"#4e729a\"],[\"outer.secondary\",\"#324f75\"],[\"top.primary\",\"#d4c7aa\"],[\"top.secondary\",\"#a88e67\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#c18b60\",\"#b65a2c\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"curls\"],[\"headwear\",null],[\"held\",null],[\"markings\",\"freckles\"],[\"neck\",\"scarf\"],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#73543b\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#dcae3e\"],[\"outer.primary\",\"#436d96\"],[\"outer.secondary\",\"#2e4d71\"],[\"top.primary\",\"#f2e1bd\"],[\"top.secondary\",\"#a88e67\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "5d7620521559ebb8e7bcde4b206078434ad2415bb5319548090701d84d71e9ed",
-  "atlasSha256": "bab48d94e21a9424846eeee3a7b35bdc94d65f48015c99c9ed5ebef3d2075645",
+  "sha256": "051fc5ee9419e4743eab5a061df7dae226b84de894485312f51255f3c0041c95",
+  "atlasSha256": "441905a632a36212d9ef176f622def1ec52f1a1b0668e350997fa4fdc06c7c72",
   "textureBytes": 14038736,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/lina.webp",
-      "sha256": "5d7620521559ebb8e7bcde4b206078434ad2415bb5319548090701d84d71e9ed",
+      "sha256": "051fc5ee9419e4743eab5a061df7dae226b84de894485312f51255f3c0041c95",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/lina.1.webp",
-      "sha256": "110e38b911fcc333250c3c0124f12469cb5fead987c4079f73e24849694915cd",
+      "sha256": "0c2f5b6273d0ab2c8325588367b1850dfb5b4ef3ff2b15c2464e83db2c23ff0b",
       "firstFrame": 18,
       "frameCount": 18
     }

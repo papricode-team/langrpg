@@ -2,23 +2,23 @@
   "id": "ada",
   "poseSet": "walk",
   "recipe": "art/source/character-kit/cast/ada.json",
-  "recipeSha256": "6b709556ad32ab3d7dfe05610cc5d913bfcf3a8f71e0347ab18c22ba7f8b611d",
+  "recipeSha256": "3cd730a8870983c81180b36b8badd6e15c2ec730d35089abb0a51ef8269bfbc1",
   "atlas": "web/public/assets/character-cast/ada.webp",
-  "atlasSha256": "a213460e82a893eaac4b54b968f12019f5da09437dfc441b581a1f5a69f12e63",
+  "atlasSha256": "43451e270090a1b3422be7ad32ce4e2a80a90cff6e0f11f407e3651b0b42b2fc",
   "geometry": "web/public/assets/character-cast/ada.atlas.json",
-  "geometrySha256": "2dc2ef1bf0dcb7d80934a4ee07a553a1294b99fab6f0c0820079eb53e90c81eb",
+  "geometrySha256": "42a17da635f3280fb8d6e769c25e22e9f7c8b2fa90cffde71d9dd51a6ad11d34",
   "textureBytes": 14318424,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/ada.webp",
-      "sha256": "a213460e82a893eaac4b54b968f12019f5da09437dfc441b581a1f5a69f12e63",
+      "sha256": "43451e270090a1b3422be7ad32ce4e2a80a90cff6e0f11f407e3651b0b42b2fc",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/ada.1.webp",
-      "sha256": "5ba34d2a3ac6c35123ad54eb0a440b7f6947dfe6a67ebb5fe3a72072444347dd",
+      "sha256": "bd477a7b2b9b8a4a31ae1ad7d46da6d837f7fce7c77d6763fd92a4be8bbf1da7",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,44 +27,51 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "a5b45fc2a340e7281d0d72d572f747c7b49e8f989f9d6b01a2d44d054f9fbb83",
-  "proof": "art/proofs/character-cast/ada.png",
-  "proofSha256": "cc4f3e5b7f1bcfff254ee1779573b4905ca67dd299d6c11f9df678206608113f",
-  "editorSha256": "75ea94924117f7a5eae8f5b979e5b787b199f29b8f1551a1d263ac01125ac8ed",
+  "sourceComponentsSha256": "6139eb0c01fe2f8386dc8e85d0cf3248fdb10398ee203df118c6e151d5ce27bb",
+  "proof": "art/proofs/character-cast-painted/ada.png",
+  "proofSha256": "d13ac440682a71cdc8cc63724fcd24e1fb39a411ae24463cec44fd38ad0084ea",
+  "editorSha256": "357ae0d194f74bd702e9941f619f3fe04aa028ccfac00657594c84a9f4e2d668",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-ada-native",
     "image": "web/public/assets/character-cast/native/ada.webp",
     "atlas": "web/public/assets/character-cast/native/ada.atlas.json",
-    "sha256": "ce918b4a525358e7f4324be9c13b18617e2dd032f6eaae40ae9621b735a3d639",
-    "atlasSha256": "e0ae4953324c7a6f9a9866872f1fd6e06144131f00e968a94ac9916685f7acfd",
-    "textureBytes": 28028160,
+    "sha256": "61fb6a5d291bfd5934ba4fa726f17681c8898608f3009065b4b55fdb03f0fd29",
+    "atlasSha256": "42059cea5c81452711e771d572464d8caf0ad827a92698663c45e7bd279b8b3e",
+    "textureBytes": 36854336,
     "multiAtlas": true,
     "images": [
       {
         "path": "web/public/assets/character-cast/native/ada.webp",
-        "sha256": "ce918b4a525358e7f4324be9c13b18617e2dd032f6eaae40ae9621b735a3d639",
+        "sha256": "61fb6a5d291bfd5934ba4fa726f17681c8898608f3009065b4b55fdb03f0fd29",
         "firstFrame": 0,
-        "frameCount": 18
+        "frameCount": 9
       },
       {
         "path": "web/public/assets/character-cast/native/ada.1.webp",
-        "sha256": "b4c7689a814fb6e1a6e5d419d0238cf70db9b3d8c6225b157cec69f1768ceb12",
+        "sha256": "559688529d843c9e00956cfa27d4557bdc518b51dbba6eb47b40543972d34feb",
+        "firstFrame": 9,
+        "frameCount": 9
+      },
+      {
+        "path": "web/public/assets/character-cast/native/ada.2.webp",
+        "sha256": "3d3f7d2739a9ca340ef159b98813d2b187445b0e16e26cca19d86fefa15f8ea6",
         "firstFrame": 18,
-        "frameCount": 18
+        "frameCount": 9
+      },
+      {
+        "path": "web/public/assets/character-cast/native/ada.3.webp",
+        "sha256": "cd2a058eb30999e30bda914c810ed651c620d869add3c5f136e2d0a7f37a3750",
+        "firstFrame": 27,
+        "frameCount": 9
       }
     ],
     "cell": [
       512,
       768
     ],
-    "source": "art/proofs/character-cast/ada.webp",
-    "sourceSha256": "75ea94924117f7a5eae8f5b979e5b787b199f29b8f1551a1d263ac01125ac8ed"
-  },
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "a5b45fc2a340e7281d0d72d572f747c7b49e8f989f9d6b01a2d44d054f9fbb83"
+    "source": "art/proofs/character-cast-painted/ada.webp",
+    "sourceSha256": "357ae0d194f74bd702e9941f619f3fe04aa028ccfac00657594c84a9f4e2d668"
   }
 }

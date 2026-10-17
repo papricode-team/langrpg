@@ -19,7 +19,7 @@ for(const entry of source.entries)for(const poseSet of ['walk',...Object.keys(en
   report.assetVersion=next.assetVersion;report.sourceComponentsSha256=castSourceSignature(recipe,next,poseSet);
   if(poseSet==='walk'&&entry.mapId===null)report.native=await bakeNativeCastVariant(entry,{componentCatalogue:next});
   await writeFile(path,JSON.stringify(report,null,2)+'\n');
-  for(const [sidecar,sha256] of [[`${report.atlas}.json`,report.atlasSha256],[`art/proofs/character-cast/${name}.webp.json`,report.editorSha256]]){
+  for(const [sidecar,sha256] of [[`${report.atlas}.json`,report.atlasSha256],[`${report.proof.replace(/\.png$/,'.webp')}.json`,report.editorSha256]]){
     const meta=await json(sidecar);meta.assetVersion=next.assetVersion;meta.recipeKey=avatarTextureKey(recipe,catalogueForPose(poseSet,next));meta.sha256=sha256;
     if(sidecar.startsWith('web/')){meta.atlas=report.geometry;meta.textureBytes=report.textureBytes;}
     await writeFile(sidecar,JSON.stringify(meta,null,2)+'\n');

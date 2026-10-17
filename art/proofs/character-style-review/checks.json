@@ -1,0 +1,66 @@
+{
+  "date": "2026-10-17",
+  "node": {
+    "passed": 85,
+    "failed": 0,
+    "skipped": 0,
+    "files": [
+      "character-kit-assets",
+      "character-atlas",
+      "character-portraits",
+      "character-kit",
+      "character-kit-reference",
+      "character-resolution",
+      "character-paint",
+      "character-story-portraits",
+      "character-cast"
+    ]
+  },
+  "vitest": {
+    "passed": 101,
+    "failed": 0,
+    "files": [
+      "character-compositor",
+      "character-sheets",
+      "character-recipe",
+      "avatar-portrait",
+      "avatar-texture-cache",
+      "avatar-preview",
+      "character-pose",
+      "modular-character",
+      "cast-portrait",
+      "character-scale",
+      "character-builder",
+      "world-map-assets"
+    ]
+  },
+  "typecheck": {
+    "command": "npm run check --workspace web",
+    "passed": true
+  },
+  "castBuild": {
+    "approved": 200,
+    "expected": 200,
+    "missing": [],
+    "candidates": []
+  },
+  "bake": {
+    "walkingCasts": 200,
+    "actionSheets": 4,
+    "frames": 7344,
+    "assetVersion": "e80b2c9758205a2f"
+  },
+  "visualReview": {
+    "castBoards": 25,
+    "unchangedAlphaSheets": 195,
+    "identityRevisions": 9,
+    "playerBuilds": 3
+  },
+  "budget": {
+    "checkedFiles": 1083,
+    "maxBytes": 2040524,
+    "limitBytes": 2097152,
+    "passed": true
+  },
+  "fullRepositoryVerificationRun": false
+}

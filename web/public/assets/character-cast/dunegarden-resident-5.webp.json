@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b1895d\",\"#302319\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"shoes\"],[\"hair\",\"buzz\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#343a31\"],[\"bottom.primary\",\"#cbbc95\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#e0d6bb\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#345da1\"],[\"outer.secondary\",\"#345da1\"],[\"top.primary\",\"#e2d4b5\"],[\"top.secondary\",\"#e2d4b5\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b1895d\",\"#302319\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"shoes\"],[\"hair\",\"buzz\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#343a31\"],[\"bottom.primary\",\"#cbbc95\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#e0d6bb\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#345da1\"],[\"outer.secondary\",\"#345da1\"],[\"top.primary\",\"#e2d4b5\"],[\"top.secondary\",\"#e2d4b5\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "40dbb7c7f4362a0571d2a0a98ec6dc4e680bbe7d156d4e98048b0099980c2d81",
-  "atlasSha256": "27b662acfbaed149d43f4cb09e1a910c5340048550e97e82ece0591d523fdb8e",
-  "textureBytes": 13721892,
+  "sha256": "27dce3a8da2e1f6984d05b5c58c1fc9c9e720113b04abd53b7ce2621589cbd9f",
+  "atlasSha256": "e8b9bafe28aaae626e41737398e3852aec0afd14c216523ab3674e46d731e976",
+  "textureBytes": 13906716,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/dunegarden-resident-5.webp",
+      "sha256": "27dce3a8da2e1f6984d05b5c58c1fc9c9e720113b04abd53b7ce2621589cbd9f",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/dunegarden-resident-5.1.webp",
+      "sha256": "830ab198681d070116afaf06b46d74f1ab076c954e26464677d5d2acb3557193",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/dunegarden-resident-5.atlas.json"
 }

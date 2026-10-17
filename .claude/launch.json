@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "glotworld-visual-pass",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "env": { "ATLAS_WEB_PORT": "5287", "ATLAS_API_PORT": "8197" },
+      "port": 5287
+    }
+  ]
+}

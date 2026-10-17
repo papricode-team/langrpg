@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#744c38\",\"#302b2d\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"buzz\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"henley\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#a55c50\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#a55c50\"],[\"outer.secondary\",\"#a55c50\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#744c38\",\"#302b2d\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"buzz\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"henley\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#a55c50\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#a55c50\"],[\"outer.secondary\",\"#a55c50\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "01f0d01e4a43d5e6c63222f0c18014890617d9b387a87f8f97ebb42365339d4d",
-  "atlasSha256": "09831fcac6da9bba797682e5dca11809aa78896907a712734c336b0917023e41",
-  "textureBytes": 14200428,
+  "sha256": "f904faabd4cb123c0bcbfc604d246c41f6e6dad1ead0b0f99b063a2952292574",
+  "atlasSha256": "71c9fc6b65b46dd3fecb82c00b4ac58270cf549e0945b3d08d54e11f4c72583f",
+  "textureBytes": 13810076,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/nebelstadt-resident-port-worker.webp",
+      "sha256": "f904faabd4cb123c0bcbfc604d246c41f6e6dad1ead0b0f99b063a2952292574",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/nebelstadt-resident-port-worker.1.webp",
+      "sha256": "a0498f1568a7cbc0d9c586cb6bf702731ab1c70b8591342646a2f9198cefd52b",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/nebelstadt-resident-port-worker.atlas.json"
 }

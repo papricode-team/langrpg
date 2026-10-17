@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b88d60\",\"#777060\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"buzz\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",\"scarf\"],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#d3c4a0\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#385039\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#c47e2d\"],[\"outer.primary\",\"#3c5d7b\"],[\"outer.secondary\",\"#3c5d7b\"],[\"top.primary\",\"#bcad8d\"],[\"top.secondary\",\"#bcad8d\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b88d60\",\"#777060\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"buzz\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",\"scarf\"],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#d3c4a0\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#385039\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#c47e2d\"],[\"outer.primary\",\"#3c5d7b\"],[\"outer.secondary\",\"#3c5d7b\"],[\"top.primary\",\"#bcad8d\"],[\"top.secondary\",\"#bcad8d\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "4b8b0dc78f71941f689952077e5fc75f773daf389b4a2359657b4e31b2862082",
-  "atlasSha256": "a01ff6e6a4d484790918879f7728b839bd986cc0c550249a0ac379deea8e5971",
-  "textureBytes": 13721892,
+  "sha256": "a0675ecb8918908804d72504b340b21608b448f53b98c0edec5ce332477c17dc",
+  "atlasSha256": "6b456df6481d5975b02efe6ec169ca70aa5c66bdaf89b515d3bb80a29630d26c",
+  "textureBytes": 13910312,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/terracielo-resident-7.webp",
+      "sha256": "a0675ecb8918908804d72504b340b21608b448f53b98c0edec5ce332477c17dc",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/terracielo-resident-7.1.webp",
+      "sha256": "a367cba2a3d1d009cd803e24ee35d0f57373b48656b547064867f553f38f3000",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/terracielo-resident-7.atlas.json"
 }

@@ -1,3 +1,19 @@
+/* Account and access controls belong to the system archetype. */
+.dialog.account-dialog {
+  background:var(--system-surface);
+  color:var(--text);
+  color-scheme:dark;
+  border-color:var(--line);
+  border-radius:var(--radius-md);
+  box-shadow:var(--shadow-lg);
+}
+.dialog.account-dialog :is(.form-label,.caption,.text-button,.dialog-close) { color:var(--text-muted); }
+.dialog.account-dialog :is(input,select) {
+  color:var(--text);
+  background:var(--forest-deep);
+  border-color:var(--line);
+}
+
 .account-dialog {
   width: min(480px, calc(100vw - 32px));
   max-height: calc(100dvh - 32px);

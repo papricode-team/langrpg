@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b68b61\",\"#2e2b25\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"buzz\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#a9863d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#4b3c2c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#6f8567\"],[\"top.secondary\",\"#6f8567\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b68b61\",\"#2e2b25\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"buzz\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#a9863d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#4b3c2c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#6f8567\"],[\"top.secondary\",\"#6f8567\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "a2d70d8b65330f36d71f9d5d4938a4078a2ce5b473c3687909405fc76352ffbf",
-  "atlasSha256": "697f120feada42b9594db0f300bafa2ce23ddba8e693634f91389e04e413101f",
-  "textureBytes": 14236488,
+  "sha256": "186624ed7cf19e3e60b936f8f3c05288b3c03dc3afb66d9e2aa9e4d9c6eaeb98",
+  "atlasSha256": "967ed0e2fd8882881251ca6e503c5b407270cf11fef0b02ddcc6ff30f9473cf8",
+  "textureBytes": 13842532,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/rainmarket-resident-3.webp",
+      "sha256": "186624ed7cf19e3e60b936f8f3c05288b3c03dc3afb66d9e2aa9e4d9c6eaeb98",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/rainmarket-resident-3.1.webp",
+      "sha256": "bfd1e478ccff7b4fe72b915e79289a1637f4c2f5a4130b97db78f92b915decb3",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/rainmarket-resident-3.atlas.json"
 }

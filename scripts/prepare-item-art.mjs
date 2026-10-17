@@ -77,7 +77,7 @@ for(const size of [256,128]){
   }
 }
 const frames=Object.fromEntries(sprites.map(({buffer,...sprite})=>[sprite.name,{...sprite,atlasKey:atlasKeys[sprite.name],atlasFrame:atlasFrames[sprite.name].frame}]));
-const manifest={version:1,nounTarget:plan.nounCount,propTarget:plan.propCount,atlas:atlases[0].image,atlasData:atlases[0].data,atlases,atlas128:'/assets/minigames/items-128.webp',frames,missing,provenance:{mode:'built-in image_gen',prompts:'docs/prompts/minigames/',styleReferences:plan.styleReferences,nativeAlpha:true}};
+const manifest={version:1,nounTarget:plan.nounCount,propTarget:plan.propCount,atlas:atlases[0].image,atlasData:atlases[0].data,atlases,atlas128:'/assets/minigames/items-128.webp',frames,missing,provenance:{mode:'built-in image_gen',prompts:'docs/prompts/minigames/',additionalPrompts:plan.sheets.slice(13).map(sheet=>`art/source/minigames/${sheet.id}.txt`),styleReferences:plan.styleReferences,nativeAlpha:true}};
 await writeFile(resolve(output,'items-manifest.json'),`${JSON.stringify(manifest,null,2)}\n`);
 await writeFile(resolve(root,'web/src/minigames/item-data.json'),`${JSON.stringify(manifest,null,2)}\n`);
 console.log(`${sprites.filter(sprite=>sprite.kind==='noun').length}/${plan.nounCount} distinct noun sprites; ${sprites.filter(sprite=>sprite.kind==='prop').length}/${plan.propCount} props; ${missing.length} missing frames. Packed 256 and 128 pixel atlases.`);

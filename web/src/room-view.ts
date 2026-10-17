@@ -1,3 +1,5 @@
+import { createScreenFilter } from './screen-filters';
+import { worldGrade } from './world-grade';
 /** Local MCP preview, supplied by the headless renderer; no world mutations or game session. */
 import * as Phaser from 'phaser';
 import type {InteriorSpec} from './interiors';
@@ -20,6 +22,7 @@ if(import.meta.env.DEV && spec) {
     create(){
       if(window.__ROOM_VIEW__?.error)return;
       try {
+        createScreenFilter(this)?.setGrade(worldGrade('lindenhafen', 12, true));
         this.room=new WorldInterior(this,current);this.room.setReducedMotion(true);
         this.cameras.main.centerOn(current.width/2,current.height/2);
         this.room.update(0,{x:0,y:0,right:current.width,bottom:current.height});
@@ -28,5 +31,5 @@ if(import.meta.env.DEV && spec) {
       }catch(error){window.__ROOM_VIEW__={error:String(error)};}
     }
   }
-  new Phaser.Game({type:Phaser.AUTO,width:current.width,height:current.height,scene:Preview,banner:false,audio:{noAudio:true}});
+  new Phaser.Game({type:Phaser.AUTO,width:current.width,height:current.height,scene:Preview,banner:false,render:{antialias:true,roundPixels:false,mipmapFilter:'LINEAR_MIPMAP_LINEAR'},audio:{noAudio:true}});
 }

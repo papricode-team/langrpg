@@ -226,7 +226,7 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
 
   // Canvas ---------------------------------------------------------------------------------------------
   const game = new Phaser.Game({type: Phaser.AUTO, parent: query('#me-canvas'), backgroundColor: '#c8d0bc', banner: false,
-    scale: {mode: Phaser.Scale.RESIZE, width: '100%', height: '100%'}, render: {antialias: true, roundPixels: false},
+    scale: {mode: Phaser.Scale.RESIZE, width: '100%', height: '100%'}, render: {antialias: true, roundPixels: false, mipmapFilter: 'LINEAR_MIPMAP_LINEAR'},
     input: {activePointers: 1}, scene: [AdminMapScene]});
   const scene = await new Promise<AdminMapScene>(resolve => {
     const check = () => { const value = game.scene.getScene('admin-map') as AdminMapScene | null; if (value) void value.created.then(() => resolve(value)); else requestAnimationFrame(check); };

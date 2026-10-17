@@ -4,23 +4,33 @@
   "recipe": "art/source/character-kit/cast/lindenhafen-resident-courier.json",
   "recipeSha256": "af93dee531a0abb07b66d65d6a9eed926251ffb0255190b6cc8c56f949bac7f5",
   "atlas": "web/public/assets/character-cast/lindenhafen-resident-courier.webp",
-  "atlasSha256": "c9a2dec16e1bc2a10e3564af6cf3f06b6aaf9ba009cee4096add3c4513c6ef3b",
+  "atlasSha256": "e15bd28aa6b50d7c2bfd1706a62f6abaf46ca11db72d2da6fd445c6ddaee78f5",
   "geometry": "web/public/assets/character-cast/lindenhafen-resident-courier.atlas.json",
-  "geometrySha256": "417ac3a6239edb9775cc8fa8adb8bff892507586bdab45df109572e1520851ab",
-  "textureBytes": 14488032,
+  "geometrySha256": "fe0061999263b5fae7958fe4e6b32af5b4d8082a9313b0330ac012395862d2c8",
+  "textureBytes": 14580844,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/lindenhafen-resident-courier.webp",
+      "sha256": "e15bd28aa6b50d7c2bfd1706a62f6abaf46ca11db72d2da6fd445c6ddaee78f5",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/lindenhafen-resident-courier.1.webp",
+      "sha256": "3e516eaf1f42ff2eb1d7913fb836fea8b2d8d1868a7bcf64c0e5ba7c267861be",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "38cbabefe41441d9895c79c0ea5873b5d11c62cddbfaffda4888e5719c57203a",
-  "proof": "art/proofs/character-cast/lindenhafen-resident-courier.png",
-  "proofSha256": "91c1d1c4515d5bffa607fe8ff3816276100dd660100b8b686a5a3f73fcf36aae",
-  "editorSha256": "b237cf21ca7fac34b1e605c343036205397dd75d9134cde2ef7faff2c9f2a095",
+  "sourceComponentsSha256": "9d6831538d7ea33b88eab94e8d1e3fb2997a85a2e1866dffa9110c9b541528e3",
+  "proof": "art/proofs/character-cast-painted/lindenhafen-resident-courier.png",
+  "proofSha256": "249324ec2f441652227d507405b1cdbd035c2c19cd565ad78dce9049114da2ed",
+  "editorSha256": "197f6e11d9fcbf7612ed9a73e09f74f90ba8a5233b9fbfe5516903ae498d1ac9",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "38cbabefe41441d9895c79c0ea5873b5d11c62cddbfaffda4888e5719c57203a"
-  }
+  "frames": 36
 }

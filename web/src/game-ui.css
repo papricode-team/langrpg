@@ -1,307 +1,78 @@
-/* Shared cinematic interface: the painted world, forest glass and restrained brass. */
-:root {
-  --game-surface: #10211f;
-  --game-panel: #172d29;
-  --game-text: #f3eddb;
-  --game-muted: #b1beb5;
-  --game-gold: #d8bb80;
-  --game-line: #d8bb802e;
-}
+/* Shared controls apply in every mode, including activity and interior dialogs. */
 
-/* Focus is a lit brass ring with a dark gap, so it reads on gold buttons and forest glass alike. */
-:root {
-  --focus-ring:0 0 0 2px #0b1b17,0 0 0 4px #f6dc9f,0 0 20px 2px #f0d49a70;
-}
-
-:is(.menu-layer,.dialog,.game-hud) :is(button,input,select,textarea,summary,a[href]):focus-visible {
-  outline:none;
-  box-shadow:var(--focus-ring);
-}
-
-/* The main action in menus and encounters: polished brass with a light sweep on hover. */
-.dialog:not(.activity-dialog):not(.interior-dialog) .primary-button,.menu-layer .primary-button {
-  position:relative;
-  isolation:isolate;
-  overflow:hidden;
-  border:1px solid #ffe3a0;
-  border-radius:4px;
-  color:#16251e;
-  background:linear-gradient(115deg,#ffe8b4,#e6c27a 55%,#cf9f55);
-  box-shadow:inset 0 1px 0 #fff7dd,inset 0 -1px 0 #a67b3c,0 6px 18px #0a161a55,0 0 18px #f4c66830;
+.primary-button,.dialog .primary-button,#menu-layer .primary-button,.activity-primary {
+  border:1px solid var(--brass-light);
+  border-radius:var(--radius-sm);
+  color:var(--forest-deep);
+  background:var(--button-primary);
+  box-shadow:inset 0 1px 0 var(--parchment-light),var(--shadow-sm);
   font-weight:700;
-  transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;
 }
 
-.dialog:not(.activity-dialog):not(.interior-dialog) .primary-button::after,.menu-layer .primary-button::after {
-  content:'';
-  position:absolute;
-  z-index:-1;
-  inset:0;
-  background:linear-gradient(110deg,transparent 30%,#fffbe8b0 50%,transparent 70%);
-  transform:translateX(-130%);
-  transition:transform .7s ease;
-  pointer-events:none;
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) .primary-button:hover:not(:disabled),.menu-layer .primary-button:hover:not(:disabled) {
-  filter:brightness(1.05);
-  transform:translateY(-1px);
-  box-shadow:inset 0 1px 0 #fff9e4,inset 0 -1px 0 #a67b3c,0 10px 22px #0a161a66,0 0 28px #f4c66860;
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) .primary-button:is(:hover,:focus-visible)::after,.menu-layer .primary-button:is(:hover,:focus-visible)::after {
-  transform:translateX(130%);
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) .primary-button:focus-visible,.menu-layer .primary-button:focus-visible {
-  box-shadow:inset 0 1px 0 #fff9e4,var(--focus-ring);
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) .primary-button .icon,.menu-layer .primary-button .icon {
-  transition:transform .18s ease;
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) .primary-button:hover .icon,.menu-layer .primary-button:hover .icon {
-  transform:translateX(3px);
-}
-
-@media (prefers-reduced-motion:reduce) {
-  .dialog .primary-button,.menu-layer .primary-button,.dialog .primary-button .icon,.menu-layer .primary-button .icon,.dialog .primary-button::after,.menu-layer .primary-button::after {
-    transition:none;
-  }
-}
-
-/* All encounters use the same quiet frame; native dialogs retain focus and Escape handling. */
-.dialog:not(.activity-dialog):not(.interior-dialog) {
-  color:var(--game-text);
-  background:radial-gradient(ellipse at top left,#263b30 0,transparent 65%),linear-gradient(135deg,#162c26f7,#10221ffb);
-  border:1px solid #d8bb8052;
-  border-radius:2px;
-  box-shadow:0 24px 100px #03100dcc;
-  scrollbar-color:#d8bb8055 transparent;
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog)::before {
-  inset:0;
-  border:0;
-  border-top:2px solid #d8bb80;
-  width:64px;
+.outline-button,.dialog .outline-button,#menu-layer .outline-button {
+  border:1px solid var(--panel-line,var(--line));
+  border-radius:var(--radius-sm);
+  background:transparent;
+  color:var(--panel-accent,var(--brass-light));
+  box-shadow:none;
 }
 
 .dialog::backdrop {
-  background:linear-gradient(0deg,#071612b8,#07161245);
+  background:color-mix(in srgb, var(--forest-deep) 65%, transparent);
   backdrop-filter:blur(4px);
 }
 
-.dialog:not(.activity-dialog):not(.interior-dialog) h2 {
-  color:var(--game-text);
-  font-weight:400;
+/* Encounters and exercises are documents. System dialogs opt into forest glass. */
+.dialog:not(.activity-dialog):not(.menu-layer):not(#account-dialog) {
+  --game-text:var(--color-ink);
+  --game-muted:var(--ink-muted);
+  --game-line:var(--document-line);
+  --game-gold:var(--brass-dark);
+  --panel-line:var(--document-line);
+  --panel-accent:var(--color-ink);
+  color:var(--color-ink);
+  background:var(--document-surface);
+  border-color:var(--brass);
+  border-radius:var(--radius-md);
+  box-shadow:var(--shadow-lg);
+  color-scheme:light;
 }
 
-.dialog:not(.activity-dialog):not(.interior-dialog) .dialog-close {
-  color:var(--game-muted);
-  border:1px solid #d8bb8030;
-  background:#0d211b90;
+.dialog:not(.activity-dialog):not(.menu-layer):not(#account-dialog) :is(.text-button,.dialog-close,.intro-story,.intro-details,.quest-intro>.caption,.completion p,.completion-stats span,.help-dialog p,.object-encounter>p,.objective-dialog p,.act-copy>p,.resting-note,.object-language>span,.story-reveal>p,.honest-note,.course-intro>p,.encounter-role) {
+  color:var(--ink-muted);
 }
 
-
-.dialog:not(.activity-dialog):not(.interior-dialog) .outline-button {
-  color:var(--game-gold);
-  border-color:#d8bb8055;
+.dialog:not(.activity-dialog):not(.menu-layer) :is(.encounter-greeting,.speech-bubble) {
+  color:var(--color-ink);
 }
 
-.dialog:not(.activity-dialog):not(.interior-dialog) .text-button {
-  color:var(--game-muted);
+.dialog:not(.activity-dialog):not(.menu-layer) .encounter-footer {
+  background:var(--parchment-dark);
 }
 
-.dialog:not(.activity-dialog):not(.interior-dialog) :is(.intro-story,.intro-details,.quest-intro>.caption,.completion p,.completion-stats span,.completion-stats strong,.help-dialog p,.object-encounter>p,.objective-dialog p,.act-copy>p,.resting-note,.object-language>span,.story-reveal>p,.honest-note,.course-intro>p) {
-  color:var(--game-muted);
+/* Journal pages are physical documents inside the system menu. Scoped aliases also
+   theme the existing labels, icons and controls without a second colour palette. */
+#menu-layer :is(.word-card,.lexeme,.compact-word-card,.clue-pages) {
+  --game-text:var(--color-ink);
+  --game-muted:var(--ink-muted);
+  --game-line:var(--document-line);
+  --game-gold:var(--brass-dark);
+  --panel-line:var(--document-line);
+  --panel-accent:var(--color-ink);
+  background:var(--document-surface);
+  color:var(--color-ink);
+  border-color:var(--document-line);
+  border-radius:var(--radius-md);
+  box-shadow:var(--shadow-sm);
+  color-scheme:light;
 }
 
-.dialog:not(.activity-dialog):not(.interior-dialog) :is(.story-objective,.next-lead,.object-encounter>blockquote) {
-  color:#e2d6b8;
-  background:#d8bb800b;
-  border-color:#d8bb8060;
+#menu-layer :is(.word-card,.lexeme,.compact-word-card,.clue-pages) :is(h3,h4,strong,summary) {
+  color:var(--color-ink);
 }
 
-.dialog:not(.activity-dialog):not(.interior-dialog) :is(.story-objective,.next-lead)>.icon {
-  color:var(--game-gold);
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) .large-portrait {
-  border:1px solid #d8bb8080;
-  box-shadow:0 8px 30px #0004;
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) .intro-story {
-  border-color:var(--game-line);
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) :is(.exercise-actions,.course-intro-examples) {
-  background:#142923;
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) .course-intro-examples {
-  border-color:var(--game-line);
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) .course-intro-examples p {
-  color:var(--game-muted);
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) :is(.answer-option,.word-token,.selected-token,.typed-answer,.german-keys button,.name-input) {
-  color:var(--game-text);
-  background:#233d32;
-  border-color:#d8bb8040;
-  box-shadow:none;
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) .answer-option:hover {
-  background:#345044;
-  border-color:#d8bb80;
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) .answer-option>span {
-  color:var(--game-gold);
-  border-color:#d8bb8050;
-  background:#142923;
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) .answer-option.correct-answer {
-  background:#31533e;
-  border-color:#96bb85;
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) .answer-option.wrong-answer {
-  background:#533a2c;
-  border-color:#c69572;
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) :is(.sentence-result,.audio-scene,.transcript,.exercise-feedback.shown,.exercise-hint) {
-  background:#233b3066;
-  color:var(--game-text);
-  border-color:var(--game-line);
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) :is(.audio-scene span,.audio-scene strong,.exercise-feedback p,.exercise-feedback .caption,.sentence-placeholder,.exercise-header,.form-label) {
-  color:var(--game-muted);
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) .exercise-feedback strong {
-  color:#b9d5a9;
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) .exercise-feedback.incorrect strong {
-  color:#e3c194;
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) .feedback-xp {
-  color:var(--game-gold);
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) :is(.typed-answer,.name-input)::placeholder {
-  color:#8eaa98;
-}
-
-.dialog:not(.activity-dialog):not(.interior-dialog) .german-keys button {
-  color:var(--game-gold);
-}
-
-#dialog.activity-dialog,#qa-dialog.activity-dialog {
-  border-radius:2px;
-  box-shadow:0 24px 100px #03100dcc;
-  border-color:#d8bb8060;
-}
-
-#dialog.activity-dialog>.dialog-close,#qa-dialog.activity-dialog>.dialog-close {
-  border-radius:0;
-  background:#10211f;
-  border:1px solid #d8bb8040;
-  color:var(--game-text);
-}
-
-.activity-dialog .activity-shell {
-  background:radial-gradient(ellipse at top left,#263b30,transparent 65%),#10211f;
-  color:var(--game-text);
-}
-
-.activity-dialog .activity-task-header h2 {
-  color:var(--game-text);
-  font-weight:400;
-}
-
-.activity-dialog :is(.activity-task-header p,.activity-link,.activity-no-pressure,.activity-navigation>p,.activity-empty,.activity-intermission>p,.activity-response) {
-  color:var(--game-muted);
-}
-
-.activity-dialog :is(.activity-kitchen,.activity-service-settings,.activity-change-purse,.activity-route-instructions,.activity-route-current,.activity-discoveries,.activity-guide,.activity-feedback-details,.activity-route-list) {
-  background:#1b322c;
-  color:var(--game-text);
-  border-color:var(--game-line);
-  border-radius:2px;
-}
-
-.activity-dialog :is(.activity-tool,.activity-stock-item,.activity-choice,.activity-panel-tabs button) {
-  background:#233d32;
-  color:var(--game-text);
-  border-color:#d8bb8040;
-  border-radius:2px;
-  box-shadow:none;
-}
-
-.activity-dialog :is(.activity-stock-item .caption,.activity-stock-item b,.activity-stock-item>.icon,.activity-market-ledger b,.activity-change-purse>strong) {
-  color:var(--game-gold);
-}
-
-.activity-dialog .activity-stock-item>.icon:first-child {
-  color:var(--game-gold);
-}
-
-.activity-dialog :is(.activity-active-direction>button,.activity-route-current button,.activity-route-instructions li button,.activity-route-list li button) {
-  color:var(--game-gold);
-}
-
-.activity-dialog .activity-choice.selected,.activity-dialog .activity-panel-tabs button[aria-selected='true'],.activity-dialog .activity-panel-tabs button[aria-pressed='true'] {
-  color:#f0d8a6;
-  background:#d8bb8022;
-  border-color:#d8bb8070;
-}
-
-.activity-dialog .activity-primary {
-  background:linear-gradient(110deg,#dfc590,#c8a66a);
-  color:#16251e;
-  border-color:#edd2a0;
-  border-radius:2px;
-  box-shadow:none;
-}
-
-.activity-dialog :is(.activity-guide h3,.activity-feedback-details h3,.activity-route-list h3,.activity-intermission h2,.activity-active-direction b) {
-  color:var(--game-text);
-}
-
-.activity-dialog :is(.activity-route-instructions li,.activity-route-list li,.activity-active-direction .caption,.activity-discoveries p,.activity-clarification) {
-  color:var(--game-muted);
-}
-
-.activity-dialog .activity-error {
-  color:#e2b29d;
-}
-
-.activity-dialog :is(.activity-scene-board,.activity-task-actions,.activity-recipe-track,.activity-market-ledger) {
-  border-color:var(--game-line);
-}
-
-.activity-dialog .activity-tray .activity-empty {
-  color:#67543b;
-}
-
-.activity-dialog .activity-recipe-track li.activity-empty {
-  color:var(--game-muted);
-}
-
-.activity-dialog .activity-shell button:focus-visible {
-  outline:2px solid #edd29b;
-  outline-offset:3px;
+#menu-layer :is(.word-card,.lexeme,.compact-word-card,.clue-pages) :is(p,.caption,.memory-row,.word-level) {
+  color:var(--ink-muted);
 }
 
 /* A conversation is a compact cinematic scene, with a single story action. */
@@ -331,12 +102,12 @@
 }
 
 .dialog.npc-dialog .encounter-heading h2 {
-  font: 400 var(--type-display)/1.1 'Fraunces',serif;
+  font: 400 var(--type-display)/1.1 var(--font-display);
   margin:7px 0 18px;
 }
 
 .encounter-greeting {
-  font: 400 var(--type-title)/1.45 'Fraunces',serif;
+  font: 400 var(--type-title)/1.45 var(--font-display);
   color:#e3e3ce;
   margin:0;
   max-width:600px;
@@ -375,7 +146,7 @@
 }
 
 .side-activity-button:hover {
-  color:#edd29b;
+  color:var(--brass-light);
 }
 
 .encounter-footer {
@@ -414,8 +185,8 @@
 }
 
 /* Supporting pages keep the same material language. Physical mini-game boards retain their own props. */
-#menu-layer :is(.route-unit,.lexeme,.grammar-route,.word-card,.settings-card,.character-page,.region-card,.story-act,.clue-pages,.quest-log-entry,.journal-stats>div) {
-  background:#142923cc;
+#menu-layer :is(.route-unit,.grammar-route,.settings-card,.character-page,.region-card,.story-act,.quest-log-entry,.journal-stats>div) {
+  background:color-mix(in srgb, var(--forest) 80.0%, transparent);
   color:var(--game-text);
   border-color:var(--game-line);
   box-shadow:none;
@@ -423,20 +194,20 @@
 
 #menu-layer :is(.route-unit:hover,.quest-log-entry:hover,.field-notes>button:hover) {
   background:#243b30;
-  border-color:#d8bb8060;
+  border-color:color-mix(in srgb, var(--brass) 37.6%, transparent);
 }
 
 #menu-layer .quest-log-entry.next {
-  border-color:#d8bb8075;
-  background:linear-gradient(90deg,#d8bb8018,#142923);
+  border-color:color-mix(in srgb, var(--brass) 45.9%, transparent);
+  background:linear-gradient(90deg,color-mix(in srgb, var(--brass) 9.4%, transparent),var(--forest));
 }
 
-#menu-layer :is(.route-unit strong,.lexeme h3,.grammar-route h3,.word-card h3,.region-card-copy h3,.story-act h3,.clue-page h4,.settings-card h3,.character-illustration h2) {
+#menu-layer :is(.route-unit strong,.lexeme h3,.grammar-route h3,.region-card-copy h3,.story-act h3,.settings-card h3,.character-illustration h2) {
   color:var(--game-text);
   font-weight:400;
 }
 
-#menu-layer :is(.route-unit .caption,.route-unit em,.lexeme p,.lexeme>.caption,.grammar-route p,.grammar-route blockquote .caption,.word-card p,.word-card>.caption,.region-card-copy p,.region-card-copy>.caption,.region-card-meta,.clue-page p,.clue-page .caption,.undiscovered-clue,.settings-card p,.character-illustration p,.honest-note) {
+#menu-layer :is(.route-unit .caption,.route-unit em,.lexeme p,.lexeme>.caption,.grammar-route p,.grammar-route blockquote .caption,.region-card-copy p,.region-card-copy>.caption,.region-card-meta,.undiscovered-clue,.settings-card p,.character-illustration p,.honest-note) {
   color:var(--game-muted);
 }
 
@@ -455,15 +226,15 @@
 }
 
 #menu-layer :is(.route-levels button.selected,.route-tabs button.selected,.level-switch button.selected) {
-  background:#d8bb8022;
+  background:color-mix(in srgb, var(--brass) 13.3%, transparent);
   color:#ecd3a1;
-  border-color:#d8bb8060;
+  border-color:color-mix(in srgb, var(--brass) 37.6%, transparent);
 }
 
 #menu-layer :is(.grammar-route blockquote,.act-cliffhanger) {
-  background:#d8bb800a;
+  background:color-mix(in srgb, var(--brass) 3.9%, transparent);
   color:#e3d4b3;
-  border-color:#d8bb8060;
+  border-color:color-mix(in srgb, var(--brass) 37.6%, transparent);
 }
 
 #menu-layer :is(.lexeme-header,.lexeme-header button,.lexeme .text-button,.word-card .icon-button) {
@@ -471,29 +242,24 @@
 }
 
 #menu-layer .lexeme-evidence span {
-  background:#2b4034;
-  color:#b8c6ac;
+  background:var(--parchment-dark);
+  color:var(--color-ink);
 }
 
 #menu-layer .lexeme-evidence .retained {
-  background:#344f39;
-  color:#d0ddb9;
+  background:var(--parchment-dark);
+  color:var(--color-ink);
 }
 
 #menu-layer .activity-entry {
   border-color:var(--game-line);
 }
 
-#menu-layer .activity-entry .primary-button {
-  background:#142923;
-  color:var(--game-gold);
-  border-color:#d8bb8060;
-  box-shadow:none;
-}
+
 
 #menu-layer .route-heading>.icon {
   border:1px solid var(--game-line);
-  background:#d8bb800a;
+  background:color-mix(in srgb, var(--brass) 3.9%, transparent);
   border-radius:0;
 }
 
@@ -503,7 +269,7 @@
 
 #menu-layer .region-card-copy .outline-button {
   color:var(--game-gold);
-  border-color:#d8bb8060;
+  border-color:color-mix(in srgb, var(--brass) 37.6%, transparent);
 }
 
 @media(--phone) {
@@ -751,5 +517,19 @@
   .encounter-footer {
     flex-wrap:wrap;
     padding:12px 16px 20px;
+  }
+}
+
+/* Keep focus above button shadows, including on parchment and brass surfaces. */
+:is(.dialog,.menu-layer,.course-player,.activity-shell,.game-hud) :is(button,input,select,textarea,summary,a[href]):focus-visible {
+  outline:2px solid var(--brass-light);
+  outline-offset:3px;
+  box-shadow:var(--focus-ring);
+}
+
+@media (forced-colors:active) {
+  :is(.dialog,.menu-layer,.course-player,.activity-shell,.game-hud) :is(button,input,select,textarea,summary,a[href]):focus-visible {
+    outline:2px solid Highlight;
+    box-shadow:none;
   }
 }

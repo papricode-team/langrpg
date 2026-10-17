@@ -4,23 +4,33 @@
   "recipe": "art/source/character-kit/cast/cedarbay-anjali.json",
   "recipeSha256": "61ac4d0e9895a5195c4476063f2f10dd9fee3ce71a923725ce7cc6fd075d1351",
   "atlas": "web/public/assets/character-cast/cedarbay-anjali.webp",
-  "atlasSha256": "5126f44618ca481e8857ccbcaac4c0a1aa8130e8ee97a8f150812b7d6da380ba",
+  "atlasSha256": "0c12c1c6a92cafcdcccbda5a7c0c023e1847d625c82cd1f0b9dc0770ef10b6e9",
   "geometry": "web/public/assets/character-cast/cedarbay-anjali.atlas.json",
-  "geometrySha256": "9dcee846ba62b908e892bbfe22d613d01800a5e7e6cc09d4dc851ba161bca1db",
-  "textureBytes": 15023840,
+  "geometrySha256": "10b0d0d9ed4efcbcc9fd28ef9d31726254f711d61f1b5ddb9275b16b9c7755a5",
+  "textureBytes": 14327152,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/cedarbay-anjali.webp",
+      "sha256": "0c12c1c6a92cafcdcccbda5a7c0c023e1847d625c82cd1f0b9dc0770ef10b6e9",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/cedarbay-anjali.1.webp",
+      "sha256": "20fa908a55dc03ba500ca200d540b9fe295261e9cabd12af136cccd8145a097d",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "bb613e9f5d9a631381326b72f73ef1398d233081c011e4eb3d28c59fd155e148",
-  "proof": "art/proofs/character-cast/cedarbay-anjali.png",
-  "proofSha256": "d2a6285f654d67c370fd187caa3f0707f24309c8b40d233f4a41b28366cb7f4d",
-  "editorSha256": "e6628a14a6d1579056a0754a2c65f73ca6a3ef4418efb6bf8554f152c548498c",
+  "sourceComponentsSha256": "505eff2a681f9a72b5d3d6ec845468578bb0843359d38a8c834e6a69725bc70f",
+  "proof": "art/proofs/character-cast-painted/cedarbay-anjali.png",
+  "proofSha256": "c51f263864349983be7b21c649c2c226477490e723cd830bad4baf85220f633c",
+  "editorSha256": "33bec35e357d3daf176d6899f4581288d6a0568d9ab4648479289511e9cda1ad",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "bb613e9f5d9a631381326b72f73ef1398d233081c011e4eb3d28c59fd155e148"
-  }
+  "frames": 36
 }

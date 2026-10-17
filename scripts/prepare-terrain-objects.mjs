@@ -30,5 +30,6 @@ for(const request of requests.objects){
   geometry:{referenceWidth:width,visualBounds:{left:left-width/2,top:top-bottom,right:right-width/2,bottom:0},...request.geometry,footprint},
   source:`${request.id}.png`,prompt:`docs/prompts/terrain-objects/${request.id}.txt`});
 }
-await writeFile('web/src/data/terrain-objects.json',JSON.stringify({version:1,generator:'built-in image_gen',objects},null,2)+'\n');
+// Do not rewrite shared catalogue files during an isolated art pass.
+if(!process.argv.includes('--art-only'))await writeFile('web/src/data/terrain-objects.json',JSON.stringify({version:1,generator:'built-in image_gen',objects},null,2)+'\n');
 console.log(`Exported ${objects.length}/${requests.objects.length} native-resolution transparent objects.`);

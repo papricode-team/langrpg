@@ -4,38 +4,53 @@
   "recipe": "art/source/character-kit/cast/falk.json",
   "recipeSha256": "9c6b932e25b0abe70cfb1bdd872dd9271b87ec80098f026da22cea7beb37b09a",
   "atlas": "web/public/assets/character-cast/falk.webp",
-  "atlasSha256": "60c9b418896967cd3465f00fd1c0eebac86b1dd02cc38a1c6fadf5aca9c9cadd",
+  "atlasSha256": "9d98d46daf7e73a7741e1b86f7f5326c244a55a1da809b8f74287c4062de1a65",
   "geometry": "web/public/assets/character-cast/falk.atlas.json",
-  "geometrySha256": "743d0cc72281bb47980f8a0d0dfa16f19a8fb3aaab61f7013ede732916210a03",
-  "textureBytes": 14173128,
+  "geometrySha256": "cf83cd3ff5d96993550aad664ca7204626b6a28ed2dcd8fe7adf745643e0c431",
+  "textureBytes": 13871936,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/falk.webp",
+      "sha256": "9d98d46daf7e73a7741e1b86f7f5326c244a55a1da809b8f74287c4062de1a65",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/falk.1.webp",
+      "sha256": "78ba5b0b0934314df059ba3a43019f185a1fbffa5008afe90483ec776ec9fde4",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "0dd3da54fca080119cee715a7f99cd08027c32c9ef748147d0b2a5e59979fad6",
-  "proof": "art/proofs/character-cast/falk.png",
-  "proofSha256": "3eeb31c6f92e0a41999de4d07ca392c83948728c52c1179dafa33011576e7a16",
-  "editorSha256": "4a8d99151a6030e16494ba9f1715b78b1867031e3ebb78c2ec03dbba3c6683ae",
+  "sourceComponentsSha256": "e5ec14cd3791d96c57c191be415260cc53e756be630705b7ccaff857b4883c75",
+  "proof": "art/proofs/character-cast-painted/falk.png",
+  "proofSha256": "87d3b2ffe4f34bc4d674fdcc5f5a3de298e871bc80a436a0fe3af7410004e13c",
+  "editorSha256": "8d0e53879d450e66c1856d93312530b4c77e8ca06802602ef837570155199514",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-falk-native",
     "image": "web/public/assets/character-cast/native/falk.webp",
     "atlas": "web/public/assets/character-cast/native/falk.atlas.json",
-    "sha256": "d43e0d9c02790058b8f1e6d363314c39fea919497c7258386b48fc6656af5367",
-    "atlasSha256": "3ad385061adfa4c906e1959d6d6a52eebd1e6f61066b32041ddebfa4ad2b1bd3",
+    "sha256": "55c46fcb66f8dac0ab32ba93450f7b6cb4d6fad5ff53956aef6ec99364d7fc42",
+    "atlasSha256": "ebdf65e41d21d72fca2cadc013ed6ac81e758bc9a966a1884b5b7f8fb271f3c6",
     "textureBytes": 29035552,
     "multiAtlas": true,
     "images": [
       {
         "path": "web/public/assets/character-cast/native/falk.webp",
-        "sha256": "d43e0d9c02790058b8f1e6d363314c39fea919497c7258386b48fc6656af5367",
+        "sha256": "55c46fcb66f8dac0ab32ba93450f7b6cb4d6fad5ff53956aef6ec99364d7fc42",
         "firstFrame": 0,
         "frameCount": 18
       },
       {
         "path": "web/public/assets/character-cast/native/falk.1.webp",
-        "sha256": "04cda121d32abb63b6d2dad68331a13a2e30b933805882e642ab5efa6a3ae64c",
+        "sha256": "63e7171039c85e7f3159a17767ec79eaf2666b519247175212b179a5c562dd13",
         "firstFrame": 18,
         "frameCount": 18
       }
@@ -44,12 +59,7 @@
       512,
       768
     ],
-    "source": "art/proofs/character-cast/falk.webp",
-    "sourceSha256": "4a8d99151a6030e16494ba9f1715b78b1867031e3ebb78c2ec03dbba3c6683ae"
-  },
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "0dd3da54fca080119cee715a7f99cd08027c32c9ef748147d0b2a5e59979fad6"
+    "source": "art/proofs/character-cast-painted/falk.webp",
+    "sourceSha256": "8d0e53879d450e66c1856d93312530b4c77e8ca06802602ef837570155199514"
   }
 }

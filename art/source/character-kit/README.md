@@ -1,5 +1,25 @@
 # Character kit
 
+**Painted material and identity pass (2026-10-17).** The shared browser/offline
+compositor now uses the native 180-grey reference for tintable clothing, retains
+untinted detail and skin/hair pigment, and applies a deterministic warm painted
+finish after composition. Frame-local brush/tooth variation and directional
+edges never change alpha or registration. Player texture keys include the paint
+revision. Story recipes follow [identities.md](identities.md); the retained
+Marta pilot compares portrait, original painted sprite, previous kit and new kit
+in `art/proofs/character-style-review/marta-portrait-old-new.png`.
+
+All 200 current walking identities and four approved Wave sheets are rebuilt.
+New full cast proofs go to `art/proofs/character-cast-painted/`, preserving every
+earlier approval artifact. The compiled runtime manifest now lives at
+`art/source/character-kit/cast/runtime-manifest.json` and is imported by
+`character-cast.ts`. `node scripts/character-cast.mjs build` writes that manifest;
+the historical `web/src/data/character-cast.json` is no longer consumed.
+`node scripts/character-style-review.mjs` generates all-frame contact boards
+and checks byte-identical coverage against previous bakes for unchanged recipes.
+Dedicated Voss/Elise portrait masters and exact prompts live in `../story-cast/`;
+`node scripts/prepare-story-cast.mjs --portraits-only` exports them independently.
+
 **Wardrobe parity (2026-10-17).** The active native catalogue in `hd/catalogue.json`
 contains the same 81 walking wardrobe options for regular, slim and broad builds.
 The 146 new build-specific components retain their generated page paintings,

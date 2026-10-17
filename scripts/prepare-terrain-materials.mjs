@@ -39,5 +39,6 @@ for(const item of manifest.materials){
   asset:`/assets/terrain-materials/${outputName}.webp`,thumbnail:`/assets/terrain-materials/${outputName}-thumb.webp`,
   width:periodic.width,height:periodic.height,sourceWidth:info.width,sourceHeight:info.height,worldSize:item.worldSize??256,repeat:'periodic-overlap',...(item.edge?{edge:item.edge}:{})});
 }
-await writeFile('web/src/data/terrain-materials.json',JSON.stringify({version:1,materials},null,2)+'\n');
+// Asset-only passes can run alongside catalogue work without writing outside this family.
+if(!process.argv.includes('--art-only'))await writeFile('web/src/data/terrain-materials.json',JSON.stringify({version:1,materials},null,2)+'\n');
 console.log(`Exported ${materials.length} near-lossless periodic materials without mirroring or upscaling.`);

@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b58c67\",\"#352b25\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"tall-boots\"],[\"hair\",\"braids\"],[\"headwear\",\"headband\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",\"trench\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#4c3e36\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#554b38\"],[\"headwear.primary\",\"#8e5044\"],[\"headwear.secondary\",\"#8e5044\"],[\"neck.primary\",\"#a79572\"],[\"outer.primary\",\"#653c53\"],[\"outer.secondary\",\"#a88461\"],[\"top.primary\",\"#d4c6a6\"],[\"top.secondary\",\"#d4c6a6\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b58c67\",\"#352b25\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"tall-boots\"],[\"hair\",\"braids\"],[\"headwear\",\"headband\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",\"trench\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#4c3e36\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#554b38\"],[\"headwear.primary\",\"#8e5044\"],[\"headwear.secondary\",\"#8e5044\"],[\"neck.primary\",\"#a79572\"],[\"outer.primary\",\"#653c53\"],[\"outer.secondary\",\"#a88461\"],[\"top.primary\",\"#d4c6a6\"],[\"top.secondary\",\"#d4c6a6\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "98678b835a35aae090d55e2b67ac85d6e1818bcc2b6a35831e526a2f27053460",
-  "atlasSha256": "2ea3d77323e81097b24fd84b2fa0ae64944183c995eda5c008deb800295f535e",
-  "textureBytes": 13869620,
+  "sha256": "b3933b949a7d28a096baefbdbb3152ca0319d7c14222f2106a8c349e1f04b9a1",
+  "atlasSha256": "5fdb62e4b31cb273ada4c1d0196ba9a8eb6797aefcdf5bec16a65864a4073bfe",
+  "textureBytes": 13915280,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/windplain-sarnai.webp",
+      "sha256": "b3933b949a7d28a096baefbdbb3152ca0319d7c14222f2106a8c349e1f04b9a1",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/windplain-sarnai.1.webp",
+      "sha256": "932cc4ba70ae41737473be073cec3742f702bbbe78b9076e361fd55d480922f1",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/windplain-sarnai.atlas.json"
 }

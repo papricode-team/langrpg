@@ -4,38 +4,53 @@
   "recipe": "art/source/character-kit/cast/jonas.json",
   "recipeSha256": "89bd91641c12dd292d11c861b7f061d225ed63d08ba92f084b72091189500cb7",
   "atlas": "web/public/assets/character-cast/jonas.webp",
-  "atlasSha256": "2a7ee0445dc312c14333325fe8647c6af87af361fbcfcbe9f360c9a07bd5459d",
+  "atlasSha256": "4a96c12f88b6fa02b3038b0371a96faa837f932e85e6f73329f7cc6a819f5035",
   "geometry": "web/public/assets/character-cast/jonas.atlas.json",
-  "geometrySha256": "cf215e046790cd3817d8c0e55f4c61f7ac0d7098287a0e1b58d94a569fd232ec",
-  "textureBytes": 14532956,
+  "geometrySha256": "4ae4f5d95b455f2e8d911aeff1b03915ca1aac69c5da94157170394c26e5ffa9",
+  "textureBytes": 14209776,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/jonas.webp",
+      "sha256": "4a96c12f88b6fa02b3038b0371a96faa837f932e85e6f73329f7cc6a819f5035",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/jonas.1.webp",
+      "sha256": "eaf5983a08b28fc57420f6620f2f6bb8e454248ed8b084f4dd1b65e9d139750e",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "cb99fcaa3fdc41a4415a13ad1cef91b2e82f32df805221096f846d3d8990404b",
-  "proof": "art/proofs/character-cast/jonas.png",
-  "proofSha256": "4c3bff713ea9273e484854ee56dcbca1d688a2434784a01853ec75c29e4c65ff",
-  "editorSha256": "5a8c46e3399db202534054807427d2e3270c1bde91f0026d34ed105b1a05c00d",
+  "sourceComponentsSha256": "8acc296699ebe3db423306fd68e1b255892d8a9d7e779c53a13ab6d93e0354ca",
+  "proof": "art/proofs/character-cast-painted/jonas.png",
+  "proofSha256": "eab15c107bf4ea104ec2ca3b4c4a53f26fe9240e7b6ddde926fcd7e3cd255eb7",
+  "editorSha256": "36c507d6e7234b2d2e0b31389b7bef7f69a8f151fe135ffd37f0f5598db3c321",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-jonas-native",
     "image": "web/public/assets/character-cast/native/jonas.webp",
     "atlas": "web/public/assets/character-cast/native/jonas.atlas.json",
-    "sha256": "fe051e5c846140eb855a45196ba7bf931f31240d4e775fc7bcd6605665991668",
-    "atlasSha256": "f827cc12037b9e4479511d602eceb972a620d10822d0e37752e6cd0820dcbc86",
+    "sha256": "a184f5bf0a188a74adfb7e20fd8394bd16b4c093e0b99eec77a21c288e4f86e7",
+    "atlasSha256": "dd63a519fea5bc4e409da8491ee79aea624dae6caaf1b51497d8fa89bb2692e9",
     "textureBytes": 27869096,
     "multiAtlas": true,
     "images": [
       {
         "path": "web/public/assets/character-cast/native/jonas.webp",
-        "sha256": "fe051e5c846140eb855a45196ba7bf931f31240d4e775fc7bcd6605665991668",
+        "sha256": "a184f5bf0a188a74adfb7e20fd8394bd16b4c093e0b99eec77a21c288e4f86e7",
         "firstFrame": 0,
         "frameCount": 18
       },
       {
         "path": "web/public/assets/character-cast/native/jonas.1.webp",
-        "sha256": "4753c3013d463c80b44cb6fc25b8462288c6061042400db8d60233baeb764b6e",
+        "sha256": "a339343a59ce9b478dcdc1f7f4026040ba31b3665ebb41670485df0370ed3edf",
         "firstFrame": 18,
         "frameCount": 18
       }
@@ -44,12 +59,7 @@
       512,
       768
     ],
-    "source": "art/proofs/character-cast/jonas.webp",
-    "sourceSha256": "5a8c46e3399db202534054807427d2e3270c1bde91f0026d34ed105b1a05c00d"
-  },
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "cb99fcaa3fdc41a4415a13ad1cef91b2e82f32df805221096f846d3d8990404b"
+    "source": "art/proofs/character-cast-painted/jonas.webp",
+    "sourceSha256": "36c507d6e7234b2d2e0b31389b7bef7f69a8f151fe135ffd37f0f5598db3c321"
   }
 }

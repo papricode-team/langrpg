@@ -1,5 +1,5 @@
 import {roomLayoutFingerprint} from './room-layout';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import type * as Phaser from 'phaser';
 import { getInterior, type InteriorId } from './interiors';
 import { WorldInterior } from './world-interior';
@@ -26,16 +26,17 @@ function fixture(id: InteriorId) {
   const create = (x: number, y: number, key: string, frame?: string) => {
     const sprite = new Sprite(x, y, key, frame); sprites.push(sprite); return sprite;
   };
+  const removeTexture = vi.fn();
   const scene = {
     add: { image: create, sprite: create },
-    textures: { exists: () => true, get: () => ({ has: () => true, customData: {layout:roomLayoutFingerprint(undefined)} }) },
+    textures: { remove: removeTexture, exists: () => true, get: () => ({ has: () => true, customData: {layout:`1:${roomLayoutFingerprint(undefined)}`} }) },
     cache: { json: { get: (key: string) => key === 'interior-animations' ? furniture
       : key === 'interior-stills' ? stills : key === 'interior-effect-animations' ? details : undefined } },
   } as unknown as Phaser.Scene;
   const room = new WorldInterior(scene, getInterior(id));
   const bodies = sprites.filter(sprite => sprite.key !== 'interior-effects');
   const effects = sprites.filter(sprite => sprite.key === 'interior-effects');
-  return { room, sprites, bodies, effects };
+  return { room, sprites, bodies, effects, removeTexture };
 }
 const pose = (sprite: Sprite) => [sprite.x, sprite.y, sprite.frame, sprite.scale, sprite.depth, sprite.originX, sprite.originY];
 const appearance = (sprite: Sprite) => [sprite.frame, sprite.alpha];
@@ -49,6 +50,22 @@ describe('stable interior rendering', () => {
       expect(bodies.map(pose)).toEqual(initial);
     }
   });
+  it('dims window pools at night and keeps a warm lamp lit without animation', () => {
+    const { room, sprites } = fixture('cafe');
+    const pools = sprites.filter(sprite => sprite.key === 'atmo-pool');
+    const halo = sprites.find(sprite => sprite.key === 'atmo-glow');
+    expect(pools.length).toBeGreaterThan(0);
+    expect(halo).toBeDefined();
+    room.setReducedMotion(true);
+    room.update(0, roomView, 12);
+    const dayPools = pools.map(sprite => sprite.alpha), dayHalo = halo!.alpha;
+    room.update(2, roomView, 22);
+    expect(pools.some((sprite, index) => sprite.alpha < dayPools[index])).toBe(true);
+    expect(halo!.alpha).toBeGreaterThan(dayHalo);
+    room.update(8, roomView, 22);
+    expect(halo!.alpha).toBeCloseTo(.105);
+  });
+
   it('gives the inn a stable tea table with steam confined to the kettle', () => {
     const { room, bodies, effects } = fixture('inn');
     expect(room.objectCount).toBe(6);
@@ -99,7 +116,7 @@ describe('stable interior rendering', () => {
   });
 
   it('hides, culls and destroys detail sprites alongside the room', () => {
-    const { room, sprites, effects } = fixture('bakery');
+    const { room, sprites, effects, removeTexture } = fixture('bakery');
     room.update(0, roomView);
     room.setVisible(false);
     expect(sprites.every(sprite => !sprite.visible)).toBe(true);
@@ -109,6 +126,7 @@ describe('stable interior rendering', () => {
     room.update(2, { x: 3000, y: 3000, right: 4000, bottom: 4000 });
     expect(effects.every(sprite => !sprite.visible)).toBe(true);
     room.destroy();
+    expect(removeTexture).toHaveBeenCalledWith('room-kit-bakery');
     expect(sprites.every(sprite => sprite.destroyed)).toBe(true);
     expect(room.objectCount).toBe(0);
     expect(room.animatedObjectCount).toBe(0);

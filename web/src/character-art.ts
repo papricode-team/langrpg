@@ -184,16 +184,17 @@ function pixelMaterial(pixels: Uint8ClampedArray, offset: number, x: number, y: 
 /** One shared shadow texture; every scene that starts afterwards reuses it. */
 export function createContactShadow(scene: Phaser.Scene): void {
   if (scene.textures.exists('character-shadow')) return;
-  const texture = scene.textures.createCanvas('character-shadow', 160, 64);
+  const texture = scene.textures.createCanvas('character-shadow', 192, 96);
   if (!texture) return;
   const context = texture.context;
   context.save();
-  context.translate(80, 32);
-  context.scale(1, 0.4);
+  context.translate(88, 42);
+  // Upper-left sunlight casts a feathered, skewed shadow toward the lower right.
+  context.transform(1, .18, .38, .4, 0, 0);
   const gradient = context.createRadialGradient(0, 0, 2, 0, 0, 75);
-  gradient.addColorStop(0, 'rgba(22,28,24,.36)');
-  gradient.addColorStop(0.35, 'rgba(22,28,24,.22)');
-  gradient.addColorStop(1, 'rgba(22,28,24,0)');
+  gradient.addColorStop(0, 'rgba(40,32,25,.30)');
+  gradient.addColorStop(0.35, 'rgba(40,32,25,.18)');
+  gradient.addColorStop(1, 'rgba(40,32,25,0)');
   context.fillStyle = gradient;
   context.fillRect(-80, -80, 160, 160);
   context.restore();

@@ -4,23 +4,33 @@
   "recipe": "art/source/character-kit/cast/terracielo-resident-5.json",
   "recipeSha256": "e9c4f1db17e5bc90b6ee46f1c79d24881ca86ca4e20380ae809dfbb1ff7cc47f",
   "atlas": "web/public/assets/character-cast/terracielo-resident-5.webp",
-  "atlasSha256": "5dc90e97f3d0779db9f8c6ad4e316f6a2849bb58d8cc82874950f80d0b37923a",
+  "atlasSha256": "19eccf62a30ae6e1f949acb16b5a692cd5c2e85d054871e62d7548ae7b15b569",
   "geometry": "web/public/assets/character-cast/terracielo-resident-5.atlas.json",
-  "geometrySha256": "c33834e1c1b507c2dddd8a29cd45ed719d51ece5bdcafb78702748a26060c1a9",
-  "textureBytes": 14734296,
+  "geometrySha256": "f391dd5843861adce97e149409b1a90479e4574aa6c959a43405c04379591900",
+  "textureBytes": 14776844,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/terracielo-resident-5.webp",
+      "sha256": "19eccf62a30ae6e1f949acb16b5a692cd5c2e85d054871e62d7548ae7b15b569",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/terracielo-resident-5.1.webp",
+      "sha256": "eee52d534a5bf9c7fce15c44a3c2692d02ded7a3f2d55a92c906ddd4910472cb",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "84a05fb332e98049c7ae5ee422bc47ca81e6d96143c889db4e79d51e4d1ebf33",
-  "proof": "art/proofs/character-cast/terracielo-resident-5.png",
-  "proofSha256": "af128863ecfb2cf9c71b4267696006a93cbb171fb048f7ce8537ed294bb8d792",
-  "editorSha256": "d609a25c3e587b5008e528627d9daf61c6222dab3288315649be9bc2bb9d8b8d",
+  "sourceComponentsSha256": "8fcca1446db4542e575246eef2de72cf6bcc25f83949f7f4b1119a548ab98a11",
+  "proof": "art/proofs/character-cast-painted/terracielo-resident-5.png",
+  "proofSha256": "2c4a884a1a33ef7fe30f3595f0fb9dacc72bcc912c1c6960a64ebc39ff3091f9",
+  "editorSha256": "6e98477695f6bc6f4e25cdc60893a40a054a86d2861e685903d2385d4cd98cfc",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "84a05fb332e98049c7ae5ee422bc47ca81e6d96143c889db4e79d51e4d1ebf33"
-  }
+  "frames": 36
 }

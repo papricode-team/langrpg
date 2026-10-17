@@ -4,23 +4,33 @@
   "recipe": "art/source/character-kit/cast/kigalights-josiane.json",
   "recipeSha256": "14fcc340c75fcdc02d74537121e21664b6e4fe1f2b1b97616ee7e7ae16703215",
   "atlas": "web/public/assets/character-cast/kigalights-josiane.webp",
-  "atlasSha256": "edd22426fba5b2e066fa78498e1a645423ef29d4f7a788af24a407db25edf62e",
+  "atlasSha256": "e0a8e6195bbf1520e970d3aeb1a66dd7de62601cb6b87547540afed8b53b414c",
   "geometry": "web/public/assets/character-cast/kigalights-josiane.atlas.json",
-  "geometrySha256": "9b0ac54c2174e52940a123f2c19ccf17e9968bb1262f1a3c777a20fbf8db10c8",
-  "textureBytes": 14839836,
+  "geometrySha256": "0cf0e265d34ef3862f187454e1f71de99690195593b078f1f32d4339c1872325",
+  "textureBytes": 13738860,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/kigalights-josiane.webp",
+      "sha256": "e0a8e6195bbf1520e970d3aeb1a66dd7de62601cb6b87547540afed8b53b414c",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/kigalights-josiane.1.webp",
+      "sha256": "db634a32686c45e0742fba6f520c058416332a9e9f3ccdb0cdf1d6c3e0bd7db7",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "38d9461f9c28e76944e6dd53f8c3cd1853d24e68b5cdab24f526a07a9a45d103",
-  "proof": "art/proofs/character-cast/kigalights-josiane.png",
-  "proofSha256": "d29c5ab1021a4558e1c49bab7162d1cce1d359e27cd6c8d6e7225cff7dab9362",
-  "editorSha256": "f1797041cfb87a381c8b8b41adf977e95e25529bfe8aab232cae975cc7910de5",
+  "sourceComponentsSha256": "a7c2c44339de4f0ac33bca6ad29019508335e9d42b879c978a9d2a9ab403278a",
+  "proof": "art/proofs/character-cast-painted/kigalights-josiane.png",
+  "proofSha256": "22ee2462fa539f4503f630c972434b43df22f356327a5be316b27472cf1bed76",
+  "editorSha256": "9c0169812405e2cf224103cee50750cfad443f9079d9e72eff8142b62f8fa61d",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "38d9461f9c28e76944e6dd53f8c3cd1853d24e68b5cdab24f526a07a9a45d103"
-  }
+  "frames": 36
 }

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/** Game-only character poses: deliberately independent from world walk registration. */
+/** Painted mechanic stages and game-only character poses: deliberately independent from world walk registration. */
 import sharp from 'sharp';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -7,6 +7,24 @@ import { projectRoot } from './item-art-plan.mjs';
 import {WEBP_QUALITY} from './webp-quality.mjs';
 const output=resolve(projectRoot,'web/public/assets/minigames'), source='art/source/minigames/scenes/action-poses.png';
 const names=['fritz-pointing','otto-watch','voss-stamping','lina-sorting','ada-filing','greta-watering'];
+const stageNames=['station','market','archive','garden','clock','council','listening','workshop'];
+async function exportStages(manifest) {
+  for(const name of stageNames){
+    const source=`art/source/minigames/scenes/${name}.png`;
+    const encoded=await sharp(resolve(projectRoot,source)).resize(1920,1080,{fit:'cover'}).webp({quality:WEBP_QUALITY,effort:5}).toBuffer();
+    if(encoded.length>2*1024*1024)throw Error(`${name}: stage exceeds 2 MiB`);
+    await writeFile(resolve(output,`${name}.webp`),encoded);
+    manifest.backdrops[name]=`/assets/minigames/${name}.webp`;
+  }
+  manifest.provenance.stages={tool:'Built-in image_gen',sources:stageNames.map(name=>`art/source/minigames/scenes/${name}.png`),prompts:stageNames.map(name=>`art/source/minigames/scenes/${name}.txt`),reference:'web/public/assets/minigames/workbench.webp'};
+  await writeFile(resolve(output,'scene-art-manifest.json'),`${JSON.stringify(manifest,null,2)}\n`);
+  await writeFile(resolve(projectRoot,'web/src/minigames/scene-art-data.json'),`${JSON.stringify(manifest,null,2)}\n`);
+}
+if(process.argv.includes('--stages-only')){
+  await exportStages(JSON.parse(await readFile(resolve(output,'scene-art-manifest.json'),'utf8')));
+  console.log('Exported eight painted 16:9 mechanic stages.');
+  process.exit(0);
+}
 await mkdir(resolve(output,'sprites'),{recursive:true});
 const {data,info}=await sharp(resolve(projectRoot,source)).ensureAlpha().raw().toBuffer({resolveWithObject:true});
 let clear=0;for(let pixel=0;pixel<info.width*info.height;pixel++)if(data[pixel*4+3]===0)clear++;
@@ -46,4 +64,5 @@ await sharp(resolve(projectRoot,'art/source/minigames/scenes/workbench.png')).re
 const manifest={version:1,atlas:{key:'minigame-actions',image:'/assets/minigames/actions.webp',data:'/assets/minigames/actions.json'},backdrops:{workbench:'/assets/minigames/workbench.webp'},frames:entries,provenance:{tool:'Built-in image_gen',source,backdropSource:'art/source/minigames/scenes/workbench.png',prompts:['docs/prompts/minigames/action-poses.txt','docs/prompts/minigames/workbench.txt'],references:['art/source/characters-painted.png','web/public/assets/story-cast/inspector-portrait.webp'],worldRegistration:'unchanged; game-only action sprites'}};
 await writeFile(resolve(output,'scene-art-manifest.json'),`${JSON.stringify(manifest,null,2)}\n`);
 await writeFile(resolve(projectRoot,'web/src/minigames/scene-art-data.json'),`${JSON.stringify(manifest,null,2)}\n`);
-console.log('Exported six cast action poses, six action portraits, and Emil’s painted workbench.');
+await exportStages(manifest);
+console.log('Exported eight mechanic stages, six cast action poses, six action portraits, and Emil’s painted workbench.');

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/** Explicit concrete nouns: broad course topics are not a reliable pictureability test. */
+/** Explicit painted noun identities; abstract story motifs stay paired with their authored text. */
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -102,6 +102,34 @@ export const gameMotionFrames = [
   ['prop-connection-blue','one blue electrical plug and socket connector joined by a short blue wire'],
 ].map(([name,subject])=>({name,subject,kind:'prop'}));
 
+// Story motifs include abstract nouns; they accompany the German sentence, never replace its meaning.
+export const storyItemSubjects = [
+  ['karte','one folded cream map card showing painted paths without text'],
+  ['adresse','one cream addressed envelope with a small house emblem and illegible ink'],
+  ['bahnhof','one miniature warm sandstone railway station with a green roof'],
+  ['reparatur','one broken brass cog beside a small wrench, repair motif'],
+  ['anschluss','two connected brass railway track sections, connection motif'],
+  ['fieber','one glass medical thermometer beside a folded cloth, fever motif'],
+  ['rad','one red painted wooden wheel with brass hub'],
+  ['erinnerung','one open small wooden keepsake box holding a sepia photograph, memory motif'],
+  ['zeichen','one carved wooden sign bearing a simple painted golden sun symbol, no letters'],
+  ['patient','one seated fully clothed adult patient with cream blanket, miniature painted figure'],
+  ['linie','one coil of red cord laid out as a single straight line across cream paper'],
+  ['werkzeug','one small open wooden toolbox with hammer and wrench'],
+  ['tuete','one upright plain brown paper bag'],
+  ['reihenfolge','three wooden beads of increasing size on a cord, sequence motif'],
+  ['anleitung','one open cream instruction booklet showing simple lamp assembly pictures without text'],
+  ['rat','one miniature semicircle of seven wooden council chairs'],
+  ['bericht','one cream report folio with illegible ink and a brass paper clip'],
+  ['muehle','one miniature warm sandstone watermill with wooden wheel'],
+];
+export const feedbackFrames = [
+  ['prop-correct-seal','one forest green wax seal embossed with a golden linden leaf, approval motif, no check mark'],
+  ['prop-miss-seal','one muted terracotta wax seal with a gently dented centre and small fallen leaf, retry motif, no cross'],
+  ['prop-listening-horn','one small brass gramophone horn on a wooden base'],
+  ['prop-placeholder','one closed cream linen drawstring pouch with a small brass sun clasp'],
+].map(([name,subject])=>({name,subject,kind:'prop'}));
+
 export async function createItemArtPlan(root = projectRoot) {
   const lexicon = JSON.parse(await readFile(resolve(root,'web/src/data/course-meta.json'),'utf8')).lexicon;
   const byId = new Map(lexicon.map(word=>[word.id,word]));
@@ -113,14 +141,19 @@ export async function createItemArtPlan(root = projectRoot) {
   if (new Set(nouns.map(row=>row.lexemeId)).size !== nouns.length) throw new Error('Duplicate item noun');
   const meat=byId.get('fleisch-noun');
   const supplement=[{name:'item-fleisch-noun',lexemeId:meat.id,lemma:meat.lemma,article:meat.article,level:meat.level,topic:meat.topic,domain:'food',subject:'one thick raw red cut of meat with a white fat edge, lying on a plain small plate',kind:'noun'},...gameMotionFrames];
-  const frames = [...nouns,...gamePropFrames,...supplement];
+  const storyNouns = storyItemSubjects.map(([id,subject]) => {
+    const word=byId.get(`${id}-noun`);
+    if(!word || word.pos!=='noun')throw Error(`Missing story noun: ${id}`);
+    return {name:`item-${word.id}`,lexemeId:word.id,lemma:word.lemma,article:word.article,plural:word.plural,level:word.level,topic:word.topic,domain:'story',subject,kind:'noun',pictureable:!['adresse','reparatur','anschluss','fieber','erinnerung','zeichen','linie','reihenfolge','rat','bericht'].includes(id)};
+  });
+  const frames = [...nouns,...gamePropFrames,...supplement,...storyNouns.slice(0,12),...feedbackFrames,...storyNouns.slice(12)];
   const sheets=[];
   for(let index=0;index<frames.length;index+=16){
     const rows=frames.slice(index,index+16), id=`items-${String(sheets.length+1).padStart(2,'0')}`;
     const prompt = `Use case: stylized-concept\nAsset type: transparent painterly game item sprite sheet\nPrimary request: Paint ${rows.length} distinct isolated object sprites for glotworld near-isometric RPG in an exact 4 by 4 regular grid. Canvas 2048 by 2048 pixels. Each cell is 512 by 512 pixels; one named subject per cell, read left to right then top to bottom.\nStyle/medium: detailed hand-painted storybook gouache and oil, softly textured materials, warm brass, cream ceramics, muted forest green, matching the existing café and supermarket interior object sheets. Three-quarter view, consistent top-left warm lighting.\nScene/backdrop: genuinely transparent alpha, no painted backdrop.\nComposition: one complete object centred in each cell, maximum object extent 380 pixels, generous transparent margins of at least 60 pixels, no overlap between cells, no cast shadows outside the object. Keep small details legible at 128 pixels.\nSubjects in row-major order:\n${rows.map((row,i)=>`${i+1}. ${row.subject}`).join('\n')}\nConstraints: exactly ${rows.length} objects, correct subject ordering, no labels, no legible text, no grid lines, no watermark, no emoji, no vector line icons. Transparent background; retain native alpha. Each silhouette must be identifiable without a written label.`;
     sheets.push({id,columns:4,rows:4,frames:rows,prompt});
   }
-  return {version:1,nounCount:nouns.length+1,propCount:gamePropFrames.length+gameMotionFrames.length,styleReferences:['art/source/interiors/interior-cafe-objects.png','art/source/interiors/interior-supermarket-objects.png'],sheets};
+  return {version:1,nounCount:nouns.length+1+storyNouns.length,propCount:gamePropFrames.length+gameMotionFrames.length+feedbackFrames.length,styleReferences:['art/source/interiors/interior-cafe-objects.png','art/source/interiors/interior-supermarket-objects.png'],sheets};
 }
 
 if (process.argv[1] && resolve(process.argv[1])===fileURLToPath(import.meta.url)) {

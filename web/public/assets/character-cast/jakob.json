@@ -4,38 +4,53 @@
   "recipe": "art/source/character-kit/cast/jakob.json",
   "recipeSha256": "a533db99913ea5201ec69eee9a46861396ce30365b2685845b6f7e7664cef5d5",
   "atlas": "web/public/assets/character-cast/jakob.webp",
-  "atlasSha256": "163faea8a37bc745eccd99701c7fb75577c32062d8cc4a6207ea2e4ebdd0c00a",
+  "atlasSha256": "d484303294b56c10eb45cef63b9cd8892da84730e9c3a76ebc72052e93f147bf",
   "geometry": "web/public/assets/character-cast/jakob.atlas.json",
-  "geometrySha256": "3d3ed1091b8f3d127df9ae8d5b4231c2de64a7f377ab3c54705e9a7434c4ee01",
-  "textureBytes": 14189736,
+  "geometrySha256": "3221b909d4eec0271be5ee3d9ddb5e3faf81da7817ee187ad5e14a55266dc63f",
+  "textureBytes": 14430336,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/jakob.webp",
+      "sha256": "d484303294b56c10eb45cef63b9cd8892da84730e9c3a76ebc72052e93f147bf",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/jakob.1.webp",
+      "sha256": "e64d8a65f92fd93ce74eea80fa8abe9e107b776841fe33694ea0adad0c14271c",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "c2d573aa721781f0b0f4f9c90a8c3eadd9692ef8c692fcc668f8f22e32a4b9fa",
-  "proof": "art/proofs/character-cast/jakob.png",
-  "proofSha256": "0c97f45258205056ee1d0a69214b4c939a9400b4c9d9a002c883f89b8bc8314d",
-  "editorSha256": "9517b24f4a273dea93c59ca806fe1b9b50619789c494a278184e926317308317",
+  "sourceComponentsSha256": "e3a46493026abbd52a874904f33bed16564f6998aad7f6f24e5516a1b1fe550f",
+  "proof": "art/proofs/character-cast-painted/jakob.png",
+  "proofSha256": "a521f61437459db5e2900762888e5f3604a47eeb315ccb5f74c87ab072ae7954",
+  "editorSha256": "8a3172acc19c9b43f480b0b8d3d9042a400628f24537f1c8883ccacb86c928cf",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-jakob-native",
     "image": "web/public/assets/character-cast/native/jakob.webp",
     "atlas": "web/public/assets/character-cast/native/jakob.atlas.json",
-    "sha256": "72817fcae13dd92c9c7edd337b328193f9cfa62a870ed5c173c9d578f09d223a",
-    "atlasSha256": "c654b5709cc1d62841e095e9a5998d1fad3dd6afa99ea056d847ebe549ccacba",
+    "sha256": "c28b9b7ad8e48e1caf780d49290896f6d97a721a2cf1e64cca29283a3e0d3e6e",
+    "atlasSha256": "5c445f2238cda7d6696d5cdf19e1c836c8ef9ff4edd1ca1b2a0b8200e7fedda6",
     "textureBytes": 28776368,
     "multiAtlas": true,
     "images": [
       {
         "path": "web/public/assets/character-cast/native/jakob.webp",
-        "sha256": "72817fcae13dd92c9c7edd337b328193f9cfa62a870ed5c173c9d578f09d223a",
+        "sha256": "c28b9b7ad8e48e1caf780d49290896f6d97a721a2cf1e64cca29283a3e0d3e6e",
         "firstFrame": 0,
         "frameCount": 18
       },
       {
         "path": "web/public/assets/character-cast/native/jakob.1.webp",
-        "sha256": "038c58911a7278407d5f586aa8f4b9c765187351b65fa64b3fdf1bbf79ae1b6a",
+        "sha256": "12f308bf7a0e6559ca3ad7411cd651404981c1acbef366ea8303adaaf57d5d59",
         "firstFrame": 18,
         "frameCount": 18
       }
@@ -44,12 +59,7 @@
       512,
       768
     ],
-    "source": "art/proofs/character-cast/jakob.webp",
-    "sourceSha256": "9517b24f4a273dea93c59ca806fe1b9b50619789c494a278184e926317308317"
-  },
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "c2d573aa721781f0b0f4f9c90a8c3eadd9692ef8c692fcc668f8f22e32a4b9fa"
+    "source": "art/proofs/character-cast-painted/jakob.webp",
+    "sourceSha256": "8a3172acc19c9b43f480b0b8d3d9042a400628f24537f1c8883ccacb86c928cf"
   }
 }

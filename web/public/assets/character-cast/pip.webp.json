@@ -27,15 +27,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#c18b60\",\"#a75532\",[[\"bag\",null],[\"bottom\",\"shorts\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"curls\"],[\"headwear\",null],[\"held\",null],[\"markings\",\"freckles\"],[\"neck\",null],[\"outer\",null],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#4e6a8a\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#5b3f2a\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#d9a441\"],[\"top.secondary\",\"#b58331\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#c18b60\",\"#a75532\",[[\"bag\",null],[\"bottom\",\"shorts\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"curls\"],[\"headwear\",null],[\"held\",null],[\"markings\",\"freckles\"],[\"neck\",null],[\"outer\",null],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#4e6a8a\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#5b3f2a\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#d9a441\"],[\"top.secondary\",\"#b58331\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "33d4931f2a0a565350be505fc22c1760506a0c03d4e5266b47e774f68d7380f5",
-  "atlasSha256": "6904bad6df33344417400bb2e04e66b5c5823811f9249fcd2ee135324e8c4641",
-  "textureBytes": 14734720,
+  "sha256": "dc3c34891474b0b00e395d3c167a3ebc5507df4ff242d3280007902ab2212db0",
+  "atlasSha256": "4683c3587afefd94c06a0702b190f3223aa52d839d73d4cbe6f9f0b7ec8a8267",
+  "textureBytes": 13951184,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/pip.webp",
+      "sha256": "dc3c34891474b0b00e395d3c167a3ebc5507df4ff242d3280007902ab2212db0",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/pip.1.webp",
+      "sha256": "98c4f21bf63eb9e87f2f2510a1ff6a6d1088b8e51e314dc3993ccf8603353efd",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/pip.atlas.json"
 }

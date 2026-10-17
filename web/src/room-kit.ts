@@ -46,7 +46,14 @@ export function roomKit(spec: InteriorSpec): RoomKit {
     walls.push({from: [Math.min(...xs), Math.max(...ys)], to: [Math.max(...xs), Math.max(...ys)], height: 76, window: false});
     if (spec.layout) walls.push({from:[Math.max(...xs),Math.min(...ys)],to:[Math.max(...xs),Math.max(...ys)],height:76,window:false});
   }
-  return {floors, walls, fixtures: spec.layout ? layoutFixtures(spec.layout) : defaultRoomFixtures(spec)};
+  const fixtures: RoomKit['fixtures'] = spec.layout ? layoutFixtures(spec.layout) : defaultRoomFixtures(spec);
+  // One small painted lamp sits against a back wall, outside the walking route.
+  // Authored lamps keep their own positions; the inn already has one.
+  if (!fixtures.some(fixture => fixture.kind === 'lamp')) {
+    const wall = walls.find(wall => wall.window);
+    if (wall) fixtures.push({kind:'lamp', x:wall.from[0]+24, y:wall.from[1]-50, width:32, height:54});
+  }
+  return {floors, walls, fixtures};
 }
 
 /** Canvas assembly is shared by Phaser and the standalone room preview. */

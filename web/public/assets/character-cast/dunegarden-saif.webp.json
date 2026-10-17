@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b3895f\",\"#2e241b\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#b18a4f\"],[\"bottom.primary\",\"#355277\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#4a4539\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#88afd0\"],[\"top.secondary\",\"#88afd0\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b3895f\",\"#2e241b\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#b18a4f\"],[\"bottom.primary\",\"#355277\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#4a4539\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#88afd0\"],[\"top.secondary\",\"#88afd0\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "edeeacad75ccf1faecfece4332eeb27222643c097cf1e1d343b8c4d62b9c9088",
-  "atlasSha256": "7088733de3f50bd95c6b8a739551f7492914b7c4a23174634e734af8c64b8b08",
-  "textureBytes": 14839220,
+  "sha256": "67f32e1ac777bd1834a348e1f98d4d93664f755f0ed0aa3aac32b274e60db26c",
+  "atlasSha256": "073690902e1bcb1001d3dc2251c0c61d07b6d869c44061672584e273c9da8128",
+  "textureBytes": 13800584,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/dunegarden-saif.webp",
+      "sha256": "67f32e1ac777bd1834a348e1f98d4d93664f755f0ed0aa3aac32b274e60db26c",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/dunegarden-saif.1.webp",
+      "sha256": "b8180cb12a5b15a55c0434116b9c9008cc0f2b0c2ad091786cc9c6f7bcd92bfb",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/dunegarden-saif.atlas.json"
 }

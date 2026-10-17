@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#91613e\",\"#523522\",[[\"bag\",null],[\"bottom\",\"wide\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#e1d7bd\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#9d7b4c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#345c9e\"],[\"outer.secondary\",\"#345c9e\"],[\"top.primary\",\"#e8dfc8\"],[\"top.secondary\",\"#e8dfc8\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#91613e\",\"#523522\",[[\"bag\",null],[\"bottom\",\"wide\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#e1d7bd\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#9d7b4c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#345c9e\"],[\"outer.secondary\",\"#345c9e\"],[\"top.primary\",\"#e8dfc8\"],[\"top.secondary\",\"#e8dfc8\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "3027154c01d85041830844e923d06173de9fa32b4006ebb05293ca7c18e9edc9",
-  "atlasSha256": "379c6b30a608a1a79843475d7535fe6415cff7649c861621a05548ca31a05fdf",
-  "textureBytes": 14880556,
+  "sha256": "3535d0f68b4dec26cdeae3ac0dbe4619f4fe459bc3683a31bd0eb13eaaacbf8c",
+  "atlasSha256": "87c067c96befcdd01d33f9054001a7ce126b3ca37d57bff8aa801de1edc7d250",
+  "textureBytes": 14594832,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/kigalights-resident-6.webp",
+      "sha256": "3535d0f68b4dec26cdeae3ac0dbe4619f4fe459bc3683a31bd0eb13eaaacbf8c",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/kigalights-resident-6.1.webp",
+      "sha256": "0fe54b5ebac947d77d3c31e5f64233968caeea59dccc7fcffeec3b7d9e68b885",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/kigalights-resident-6.atlas.json"
 }

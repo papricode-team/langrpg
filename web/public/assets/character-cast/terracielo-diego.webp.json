@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#a67d54\",\"#302822\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#2f7774\"],[\"bottom.primary\",\"#414444\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#d1c4a1\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#a24633\"],[\"outer.secondary\",\"#a24633\"],[\"top.primary\",\"#e0d3b5\"],[\"top.secondary\",\"#e0d3b5\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#a67d54\",\"#302822\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#2f7774\"],[\"bottom.primary\",\"#414444\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#d1c4a1\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#a24633\"],[\"outer.secondary\",\"#a24633\"],[\"top.primary\",\"#e0d3b5\"],[\"top.secondary\",\"#e0d3b5\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "3085a307e126925d96a4fb3f1fb22788a828748cd126b25de54ced73bb1961f6",
-  "atlasSha256": "425f24d8afbfd6e8d65a77123fb17e87947e0ce096ea9394d3419da447f0cf09",
-  "textureBytes": 14654612,
+  "sha256": "33463f17d9145c876bdebf3a7853f3f42c921fd817aebc73282cd507adac834c",
+  "atlasSha256": "7db481cd1a156270bafa4d30d6df9ed8cb4a3aed7c671ae573892dc221175c8c",
+  "textureBytes": 14726052,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/terracielo-diego.webp",
+      "sha256": "33463f17d9145c876bdebf3a7853f3f42c921fd817aebc73282cd507adac834c",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/terracielo-diego.1.webp",
+      "sha256": "365a363a6be1f5d66da4490b97f2df557a2f2308bb9c3e11de05c3ebeeedd40f",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/terracielo-diego.atlas.json"
 }

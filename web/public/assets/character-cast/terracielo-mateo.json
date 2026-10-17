@@ -4,23 +4,33 @@
   "recipe": "art/source/character-kit/cast/terracielo-mateo.json",
   "recipeSha256": "3ad90ec94ca230e154681dd72f5d4976a745829c1f09f24a2cc1d2aa28f11198",
   "atlas": "web/public/assets/character-cast/terracielo-mateo.webp",
-  "atlasSha256": "0f206379aad6b900ab284fe6d9e26f863f3bcba53be860e026c616e926b8b014",
+  "atlasSha256": "37bc86c2efaa1333c830ec0d027c032f9738b4f4ff7a4fc333db952a9a685f3e",
   "geometry": "web/public/assets/character-cast/terracielo-mateo.atlas.json",
-  "geometrySha256": "e5ac8217da2f62a473067b09f3615f3110f6fc53ac97bcd990d228e457ddaff4",
-  "textureBytes": 14490960,
+  "geometrySha256": "35bd4b23428260c3107419959314d63208bf88d4c49ea381be0996bf4d9f7001",
+  "textureBytes": 14190500,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/terracielo-mateo.webp",
+      "sha256": "37bc86c2efaa1333c830ec0d027c032f9738b4f4ff7a4fc333db952a9a685f3e",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/terracielo-mateo.1.webp",
+      "sha256": "6e6b1bd2bd2b1354bd907e72cedefaa66b22946172ca28fa7154349ffe082371",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "5e8eef233160618d27eb4dfa7315039c1b4b014da25963bd97c4214407ae5898",
-  "proof": "art/proofs/character-cast/terracielo-mateo.png",
-  "proofSha256": "3179521a8b62ff43755e125420b08c220518985db613ee2baea621a8889cd677",
-  "editorSha256": "7eb9431c5b38defdafacf107e69b8ddcf0313d860062295fc1cbbcfaa0d8b8e4",
+  "sourceComponentsSha256": "211e1a66cff5b7147713f538d1d0b4d115235387e682ca1ffa1bac4289332737",
+  "proof": "art/proofs/character-cast-painted/terracielo-mateo.png",
+  "proofSha256": "85869d9f963954605df0b4ac7cf275f317e74532b5f32d3beae52656b75a58eb",
+  "editorSha256": "b2dbe52c33ec8da13f2746e9a04d5003921dd79b3dbedea1d61bad9c4a948042",
   "assetVersion": "e80b2c9758205a2f",
-  "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "5e8eef233160618d27eb4dfa7315039c1b4b014da25963bd97c4214407ae5898"
-  }
+  "frames": 36
 }

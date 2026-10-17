@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#865537\",\"#30241f\",[[\"bag\",\"satchel\"],[\"bottom\",\"slim\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#e4d9bf\"],[\"bottom.primary\",\"#2c2e31\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#ddd8c9\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#932e39\"],[\"outer.secondary\",\"#932e39\"],[\"top.primary\",\"#e8dfca\"],[\"top.secondary\",\"#e8dfca\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#865537\",\"#30241f\",[[\"bag\",\"satchel\"],[\"bottom\",\"slim\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#e4d9bf\"],[\"bottom.primary\",\"#2c2e31\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#ddd8c9\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#932e39\"],[\"outer.secondary\",\"#932e39\"],[\"top.primary\",\"#e8dfca\"],[\"top.secondary\",\"#e8dfca\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "5994e529fce43d3fd2171cb520bd561d1b7dcfc09257de6750e998a806387b3c",
-  "atlasSha256": "fa7183de92e5688ea51aff6c938f9dc6ac519aa8d848c99f810e0bc1cfbaae93",
-  "textureBytes": 14654612,
+  "sha256": "167678907f9d3898dd236bcdac6b888f1d1e29352195881cfb426309979bfb02",
+  "atlasSha256": "a0bdf2bd9ad2e71dd02b49ec86b3c683cca09348c13a6365e170374b2c0323bc",
+  "textureBytes": 14726052,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/saffroncourt-leila.webp",
+      "sha256": "167678907f9d3898dd236bcdac6b888f1d1e29352195881cfb426309979bfb02",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/saffroncourt-leila.1.webp",
+      "sha256": "a06b8a424085916599fad536cdb810bee6f0a292191713724b5944510e03c25b",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/saffroncourt-leila.atlas.json"
 }

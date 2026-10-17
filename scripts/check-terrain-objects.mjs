@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 import sharp from 'sharp';
-import {readFile,writeFile} from 'node:fs/promises';
+import {readFile,writeFile,stat} from 'node:fs/promises';
 const {objects}=JSON.parse(await readFile('web/src/data/terrain-objects.json','utf8'));
 const report=[];
 for(const object of objects){
+ if((await stat(`web/public${object.asset}`)).size>=2_000_000)throw Error(`${object.id}: runtime object exceeds 2 MB`);
  const {data,info}=await sharp(`web/public${object.asset}`).ensureAlpha().raw().toBuffer({resolveWithObject:true});
  if(info.width!==object.width||info.height!==object.height||Math.min(info.width,info.height)<1024)throw Error(`${object.id}: invalid native HD export`);
  let transparent=0,painted=0;for(let i=3;i<data.length;i+=4){if(data[i]===0)transparent++;if(data[i]>200)painted++;}

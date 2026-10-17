@@ -34,15 +34,30 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#81563b\",\"#2a221a\",[[\"bag\",\"backpack\"],[\"bottom\",\"slim\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"braids\"],[\"headwear\",\"headband\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#3c5b4d\"],[\"bottom.primary\",\"#344d72\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#ded5be\"],[\"headwear.primary\",\"#3c5e8d\"],[\"headwear.secondary\",\"#3c5e8d\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#9bc7ac\"],[\"top.secondary\",\"#9bc7ac\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#81563b\",\"#2a221a\",[[\"bag\",\"backpack\"],[\"bottom\",\"slim\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"braids\"],[\"headwear\",\"headband\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#3c5b4d\"],[\"bottom.primary\",\"#344d72\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#ded5be\"],[\"headwear.primary\",\"#3c5e8d\"],[\"headwear.secondary\",\"#3c5e8d\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#9bc7ac\"],[\"top.secondary\",\"#9bc7ac\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "3df781061b6756668b776873a202cb3b3422420860b51e121d72350db3a18834",
-  "atlasSha256": "cfefe8e1458b01f0af05f3c06f54971d5edef1ceff76113e00c4c47ac3397570",
-  "textureBytes": 14387940,
+  "sha256": "d46535ff3317646957bf6b8875d8bcff694efeda3cd7689a456089b4dd4e6093",
+  "atlasSha256": "6389822fb84f187d8ef203ae7d66dea6a5cd36a493b408678033eb5dfe8e1c71",
+  "textureBytes": 14490220,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/kigalights-diane.webp",
+      "sha256": "d46535ff3317646957bf6b8875d8bcff694efeda3cd7689a456089b4dd4e6093",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/kigalights-diane.1.webp",
+      "sha256": "ac496b92849e15a15b212a6d354e863c340feaa935c4b8953edcf17d5ec486ef",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "atlas": "web/public/assets/character-cast/kigalights-diane.atlas.json"
 }
