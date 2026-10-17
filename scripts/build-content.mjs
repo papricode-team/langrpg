@@ -27,7 +27,8 @@ export function buildContent({ directory = root } = {}) {
     if(kind&&slug)id(kind,slug);
   }
   const germanId = id('course','german'), englishId = id('course','english');
-  const german = { id:germanId,slug:'german',target:'de',supportLanguages:['en','tr'],title:'German · glotworld',grading:{keyboardSubstitutions:{'ä':'ae','ö':'oe','ü':'ue','Ä':'Ae','Ö':'Oe','Ü':'Ue','ß':'ss','ẞ':'SS'},meaningfulCapitals:['Sie','Ihnen','Ihr','Ihre','Ihren','Ihrem','Ihrer','Ihres'],ignoreTrailing:'.!?',mechanicalTypos:true,caseSensitive:false},voice:'de-DE' };
+  const {ignoreInner,equivalents} = json(resolve(directory,'web/src/data/grading-equivalents-de.json'), json(resolve(root,'web/src/data/grading-equivalents-de.json')));
+  const german = { id:germanId,slug:'german',target:'de',supportLanguages:['en','tr'],title:'German · glotworld',grading:{keyboardSubstitutions:{'ä':'ae','ö':'oe','ü':'ue','Ä':'Ae','Ö':'Oe','Ü':'Ue','ß':'ss','ẞ':'SS'},meaningfulCapitals:['Sie','Ihnen','Ihr','Ihre','Ihren','Ihrem','Ihrer','Ihres'],ignoreTrailing:'.!?',mechanicalTypos:true,caseSensitive:false,ignoreInner,equivalents},voice:'de-DE' };
   const english = { id:englishId,...proof.course };
   const courses = [german, english];
   function add(kind, slug, body, course = germanId) {
@@ -150,7 +151,7 @@ export function buildContent({ directory = root } = {}) {
   itemReferences(source.graphs);itemReferences(source.legacyServer.storyRules);
   const wordIds = values => (values??[]).map(value=>id('lexeme',value));
   const exerciseRecord = (exercise, binding) => {
-    const {german:text,english,answer,acceptedAnswers,explanation,...rest}=exercise;
+    const {german:text,english,answer,acceptedAnswers,answerPattern:_pattern,explanation,...rest}=exercise;
     const tr = overlay.course.exercises[exercise.id]?.tr;
     const contextWords=exercise.wordIds??source.legacyServer.course.contextWordIds?.[exercise.id];
     const body={...rest,id:id('exercise',exercise.id),itemId:id('item',exercise.itemId),...binding,wordIds:wordIds(contextWords),...(exercise.targetWordId?{targetWordId:id('lexeme',exercise.targetWordId)}:{}),...(exercise.unitId?{unitId:id('unit',exercise.unitId)}:{}),prompt:exercise.prompt,hint:exercise.hint,support:{en:{prompt:exercise.prompt,hint:exercise.hint,explanation},...(tr?{tr}: {})},...(overlay.course.exercises[exercise.id]?.options?{optionTranslations:{tr:overlay.course.exercises[exercise.id].options}}:{}),grading:{answer,acceptedAnswers:acceptedAnswers??[],explanation,caseSensitive:exercise.caseSensitive??false}};
@@ -316,7 +317,7 @@ export function writeContent({ directory = root } = {}) {
   const write=(path,value)=>{writeFileSync(path+'.tmp',value);renameSync(path+'.tmp',path);};
   write(resolve(directory,'content_ids.json'),JSON.stringify(Object.fromEntries(Object.entries(bundle.ids).sort(([a],[b])=>a.localeCompare(b))),null,1)+'\n');
   write(resolve(directory,'server/content.json'),JSON.stringify(bundle)+'\n');
-  const presentation=JSON.parse(JSON.stringify({interiors:source.interiors,expeditionRegions:source.expeditionRegions},(key,value)=>['greeting','dialogue','germanName','sessionTitle','prompt','description','vocabulary','german','translation','text','response','correct','answer','acceptedAnswers','explanation','languageFocus','relationship','relationships','culture','feeling'].includes(key)?undefined:value));
+  const presentation=JSON.parse(JSON.stringify({interiors:source.interiors,expeditionRegions:source.expeditionRegions},(key,value)=>['greeting','dialogue','germanName','sessionTitle','prompt','description','vocabulary','german','translation','text','response','correct','answer','acceptedAnswers','answerPattern','explanation','languageFocus','relationship','relationships','culture','feeling'].includes(key)?undefined:value));
   for(const region of presentation.expeditionRegions)delete region.encounters;
   writeFileSync(resolve(directory,'content/presentation.json'),JSON.stringify(presentation)+'\n');
   return bundle;

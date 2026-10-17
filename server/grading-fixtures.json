@@ -21,5 +21,22 @@
   {"name":"NFC and trailing punctuation", "mode":"production", "expected":"schön", "answer":"  schön !?  ", "sensitive":false, "correct":true},
   {"name":"recognition remains exact", "mode":"recognition", "expected":"schön", "answer":"schoen", "sensitive":false, "correct":false},
   {"name":"listening remains exact", "mode":"listening", "expected":"Kaffee", "answer":"Kafefe", "sensitive":false, "correct":false},
-  {"name":"recognition punctuation", "mode":"recognition", "expected":"der Bahnhof", "answer":"  der   Bahnhof !  ", "sensitive":false, "correct":true}
+  {"name":"recognition punctuation", "mode":"recognition", "expected":"der Bahnhof", "answer":"  der   Bahnhof !  ", "sensitive":false, "correct":true},
+  {"name":"optional comma", "mode":"production", "expected":"Noch einmal, bitte.", "answer":"Noch einmal bitte", "sensitive":true, "correct":true, "courseRule":true},
+  {"name":"mid-answer full stop", "mode":"production", "expected":"Hallo! Ich heiße Alex.", "answer":"Hallo, ich heiße Alex", "sensitive":true, "correct":true, "courseRule":true},
+  {"name":"noch mal equivalent", "mode":"production", "expected":"Noch einmal, bitte.", "answer":"Noch mal bitte!", "sensitive":true, "correct":true, "courseRule":true},
+  {"name":"gerne equivalent in a sentence", "mode":"production", "expected":"Ich komme gern.", "answer":"Ich komme gerne", "sensitive":true, "correct":true, "courseRule":true},
+  {"name":"gerne stays distinct as a single word", "mode":"production", "expected":"gern", "answer":"gerne", "sensitive":false, "correct":false},
+  {"name":"digits in a sentence", "mode":"production", "expected":"Der Zug fährt um acht Uhr.", "answer":"Der Zug fährt um 8 Uhr.", "sensitive":true, "correct":true, "courseRule":true},
+  {"name":"number word for an authored digit", "mode":"production", "expected":"Am Bahnhof 7", "answer":"Am Bahnhof sieben", "sensitive":true, "correct":true, "courseRule":true},
+  {"name":"compound number keyboard form", "mode":"production", "expected":"Das kostet 25 Euro.", "answer":"Das kostet fuenfundzwanzig Euro", "sensitive":true, "correct":true, "courseRule":true},
+  {"name":"euro sign", "mode":"production", "expected":"Das kostet fünf Euro.", "answer":"Das kostet 5 €", "sensitive":true, "correct":true, "courseRule":true},
+  {"name":"number drill stays exact", "mode":"production", "expected":"acht", "answer":"8", "sensitive":false, "correct":false},
+  {"name":"wrong number stays wrong", "mode":"production", "expected":"Der Zug fährt um acht Uhr.", "answer":"Der Zug fährt um 9 Uhr.", "sensitive":true, "correct":false},
+  {"name":"contraction is not an equivalent", "mode":"production", "expected":"Ich gehe zum Bahnhof.", "answer":"Ich gehe zu dem Bahnhof", "sensitive":true, "correct":false},
+  {"name":"equivalents keep article errors", "mode":"production", "expected":"Ich möchte ein Kilo Kartoffeln.", "answer":"Ich möchte einen Kilogramm Kartoffeln", "sensitive":true, "correct":false},
+  {"name":"kilo equivalent", "mode":"production", "expected":"Ich möchte ein Kilo Kartoffeln.", "answer":"Ich möchte ein Kilogramm Kartoffeln", "sensitive":true, "correct":true, "courseRule":true},
+  {"name":"formal Sie survives dropped comma", "mode":"production", "expected":"Können Sie mir helfen, bitte?", "answer":"Koennen sie mir helfen bitte", "sensitive":true, "correct":false},
+  {"name":"formal Sie with dropped comma", "mode":"production", "expected":"Können Sie mir helfen, bitte?", "answer":"Koennen Sie mir helfen bitte", "sensitive":true, "correct":true, "courseRule":true},
+  {"name":"recognition ignores production equivalents", "mode":"recognition", "expected":"noch einmal", "answer":"noch mal", "sensitive":false, "correct":false}
 ]

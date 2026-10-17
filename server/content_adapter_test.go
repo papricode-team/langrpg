@@ -96,10 +96,16 @@ func TestContentGermanConfiguredGradingMatchesLegacyFixtures(t *testing.T) {
 		answer, _ := fixture["answer"].(string)
 		mode, _ := fixture["mode"].(string)
 		sensitive, _ := fixture["sensitive"].(bool)
+		correct, _ := fixture["correct"].(bool)
+		courseRule, _ := fixture["courseRule"].(bool)
 		old := Exercise{Answer: expected, Mode: mode, CaseSensitive: sensitive, AcceptedAnswers: stringValues(fixture["acceptedAnswers"])}
 		configured := old
 		configured.Grading = &app.curriculum.Grading
-		if old.Grade(answer) != configured.Grade(answer) {
+		if got := configured.Grade(answer); got != correct {
+			t.Errorf("German course grading for %v: %q vs %q graded %v, want %v", fixture["name"], answer, expected, got, correct)
+		}
+		// Course rules (inner punctuation, equivalents) exist only in the configured grader.
+		if !courseRule && old.Grade(answer) != configured.Grade(answer) {
 			t.Errorf("configured grading differs for %v: %q vs %q", fixture["name"], answer, expected)
 		}
 	}

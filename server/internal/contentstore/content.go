@@ -25,6 +25,12 @@ type Grading struct {
 	IgnoreTrailing        string            `json:"ignoreTrailing,omitempty"`
 	MechanicalTypos       bool              `json:"mechanicalTypos,omitempty"`
 	CaseSensitive         bool              `json:"caseSensitive,omitempty"`
+	// IgnoreInner lists punctuation stripped from the edges of every word of a
+	// production answer, so an optional comma or a mid-answer full stop never decides.
+	IgnoreInner string `json:"ignoreInner,omitempty"`
+	// Equivalents are groups of spellings that grade as the same in production
+	// answers of two or more words; the first member is canonical.
+	Equivalents [][]string `json:"equivalents,omitempty"`
 }
 type Course struct {
 	ID               string          `json:"id"`

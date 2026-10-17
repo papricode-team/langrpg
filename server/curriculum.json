@@ -1727,6 +1727,9 @@
       "itemId": "a1-arrival-item-6",
       "mode": "production",
       "answer": "Helfen Sie mir bitte.",
+      "acceptedAnswers": [
+        "Bitte helfen Sie mir."
+      ],
       "caseSensitive": true,
       "explanation": "Helfen Sie is a polite request. mir is the person receiving help."
     },
@@ -1736,10 +1739,7 @@
       "mode": "production",
       "answer": "Noch einmal, bitte.",
       "acceptedAnswers": [
-        "Noch mal, bitte.",
-        "Bitte noch einmal.",
-        "Noch einmal bitte.",
-        "Noch mal bitte."
+        "Bitte noch einmal."
       ],
       "caseSensitive": true,
       "explanation": "This short request is useful whenever you need repetition."
@@ -1749,6 +1749,11 @@
       "itemId": "a1-cafe-item-1",
       "mode": "production",
       "answer": "Ich möchte einen Kaffee.",
+      "acceptedAnswers": [
+        "Ich möchte einen Kaffee, bitte.",
+        "Ich möchte bitte einen Kaffee.",
+        "Ich möchte bitte einen Kaffee, bitte."
+      ],
       "caseSensitive": true,
       "explanation": "möchte makes the request polite; Kaffee is masculine, so the object is einen Kaffee."
     },
@@ -1801,6 +1806,9 @@
       "itemId": "a1-timetable-item-1",
       "mode": "production",
       "answer": "Wann fährt der Zug?",
+      "acceptedAnswers": [
+        "Wann fährt der Zug ab?"
+      ],
       "caseSensitive": true,
       "explanation": "Wann asks for a time. The verb comes second: Wann fährt der Zug?"
     },
@@ -1824,7 +1832,10 @@
       "mode": "production",
       "answer": "Der Zug fährt um acht Uhr.",
       "acceptedAnswers": [
-        "Der Zug fährt um 8 Uhr."
+        "Der Zug fährt um 8 Uhr.",
+        "Der Zug fährt um acht Uhr ab.",
+        "Um acht Uhr fährt der Zug.",
+        "Um acht Uhr fährt der Zug ab."
       ],
       "caseSensitive": true,
       "explanation": "um + number + Uhr gives a clock time."
@@ -1908,6 +1919,9 @@
       "itemId": "a1-shopping-item-1",
       "mode": "production",
       "answer": "Was kostet das Brot?",
+      "acceptedAnswers": [
+        "Wie viel kostet das Brot?"
+      ],
       "caseSensitive": true,
       "explanation": "Was kostet …? asks for a price. Brot is neuter: das Brot."
     },
@@ -1963,6 +1977,9 @@
       "itemId": "a1-room-item-1",
       "mode": "production",
       "answer": "Hast du ein Zimmer frei?",
+      "acceptedAnswers": [
+        "Hast du noch ein Zimmer frei?"
+      ],
       "caseSensitive": true,
       "explanation": "In a yes/no question the verb comes first. frei means free."
     },
@@ -2031,9 +2048,14 @@
       "mode": "production",
       "answer": "Ein Kilo Kartoffeln, bitte.",
       "acceptedAnswers": [
-        "Ein Kilogramm Kartoffeln, bitte.",
-        "Ein Kilo Kartoffeln bitte.",
-        "Ein Kilogramm Kartoffeln bitte."
+        "Ich möchte ein Kilo Kartoffeln.",
+        "Ich möchte ein Kilo Kartoffeln, bitte.",
+        "Ich möchte bitte ein Kilo Kartoffeln.",
+        "Ich möchte bitte ein Kilo Kartoffeln, bitte.",
+        "Ich hätte gern ein Kilo Kartoffeln.",
+        "Ich hätte gern ein Kilo Kartoffeln, bitte.",
+        "Ich hätte gern bitte ein Kilo Kartoffeln.",
+        "Ich hätte gern bitte ein Kilo Kartoffeln, bitte."
       ],
       "caseSensitive": true,
       "explanation": "Kartoffeln is the plural of Kartoffel. No extra word for of is needed here."
@@ -2057,6 +2079,11 @@
       "itemId": "a1-market-item-6",
       "mode": "production",
       "answer": "Ich bezahle mit Karte.",
+      "acceptedAnswers": [
+        "Ich bezahle mit der Karte.",
+        "Ich zahle mit Karte.",
+        "Ich zahle mit der Karte."
+      ],
       "caseSensitive": true,
       "explanation": "bezahlen means to pay; mit Karte means by card."
     },
@@ -2201,6 +2228,9 @@
       "itemId": "a1-pharmacy-item-4",
       "mode": "production",
       "answer": "Mein Hals tut weh.",
+      "acceptedAnswers": [
+        "Mir tut der Hals weh."
+      ],
       "caseSensitive": true,
       "explanation": "Body part + tut weh says that it hurts."
     },
@@ -2235,7 +2265,8 @@
       "mode": "production",
       "answer": "Wo ist die Gartenstraße?",
       "acceptedAnswers": [
-        "Wo ist die Gartenstraße"
+        "Wo ist die Gartenstraße",
+        "Entschuldigung, wo ist die Gartenstraße?"
       ],
       "caseSensitive": true,
       "explanation": "Wo asks for a place and the verb comes second."
@@ -2259,6 +2290,15 @@
       "itemId": "a1-directions-item-4",
       "mode": "production",
       "answer": "Geh geradeaus, dann rechts.",
+      "acceptedAnswers": [
+        "Geh geradeaus, dann nach rechts.",
+        "Geh geradeaus, und dann rechts.",
+        "Geh geradeaus, und dann nach rechts.",
+        "Gehe geradeaus, dann rechts.",
+        "Gehe geradeaus, dann nach rechts.",
+        "Gehe geradeaus, und dann rechts.",
+        "Gehe geradeaus, und dann nach rechts."
+      ],
       "caseSensitive": true,
       "explanation": "dann means then. Geh is the du command."
     },
@@ -2268,7 +2308,8 @@
       "mode": "production",
       "answer": "Wo ist der Bahnhof?",
       "acceptedAnswers": [
-        "Wo ist der Bahnhof"
+        "Wo ist der Bahnhof",
+        "Entschuldigung, wo ist der Bahnhof?"
       ],
       "caseSensitive": true,
       "explanation": "Bahnhof is masculine: der Bahnhof."
@@ -2358,6 +2399,11 @@
       "itemId": "a1-station-item-3",
       "mode": "production",
       "answer": "Ein Ticket nach Berlin, bitte.",
+      "acceptedAnswers": [
+        "Ein Ticket nach Berlin.",
+        "Ich möchte ein Ticket nach Berlin.",
+        "Ich möchte ein Ticket nach Berlin, bitte."
+      ],
       "caseSensitive": true,
       "explanation": "Use nach with city names such as Berlin when describing a destination."
     },
@@ -2373,6 +2419,12 @@
       "itemId": "a1-station-item-5",
       "mode": "production",
       "answer": "Ist dieser Platz frei?",
+      "acceptedAnswers": [
+        "Ist dieser Platz hier frei?",
+        "Ist der Platz frei?",
+        "Ist der Platz hier frei?",
+        "Ist hier frei?"
+      ],
       "caseSensitive": true,
       "explanation": "frei can mean free or available. Here it describes an unoccupied seat."
     },
@@ -2396,6 +2448,11 @@
       "itemId": "a1-phone-item-1",
       "mode": "production",
       "answer": "Kann ich bitte Otto sprechen?",
+      "acceptedAnswers": [
+        "Kann ich bitte mit Otto sprechen?",
+        "Könnte ich bitte Otto sprechen?",
+        "Könnte ich bitte mit Otto sprechen?"
+      ],
       "caseSensitive": true,
       "explanation": "Kann ich … sprechen? is the polite phone question. The verb sprechen goes to the end."
     },
@@ -2449,7 +2506,10 @@
       "mode": "production",
       "answer": "Wie ist das Wetter morgen?",
       "acceptedAnswers": [
-        "Wie ist das Wetter morgen"
+        "Wie ist das Wetter morgen",
+        "Wie ist morgen das Wetter?",
+        "Wie wird das Wetter morgen?",
+        "Wie wird morgen das Wetter?"
       ],
       "caseSensitive": true,
       "explanation": "Wie ist das Wetter? asks about the weather; add morgen for tomorrow."
@@ -2473,6 +2533,9 @@
       "itemId": "a1-weather-item-4",
       "mode": "production",
       "answer": "Heute ist es kalt.",
+      "acceptedAnswers": [
+        "Es ist heute kalt."
+      ],
       "caseSensitive": true,
       "explanation": "After heute the verb comes second: ist es."
     },
@@ -2544,6 +2607,10 @@
       "itemId": "a1-workshop-item-6",
       "mode": "production",
       "answer": "Bitte warten Sie hier.",
+      "acceptedAnswers": [
+        "Warten Sie bitte hier.",
+        "Warten Sie hier, bitte."
+      ],
       "caseSensitive": true,
       "explanation": "warten means wait; hier means here."
     },
@@ -2612,7 +2679,9 @@
       "mode": "production",
       "answer": "Wann ist das Fahrrad fertig?",
       "acceptedAnswers": [
-        "Wann ist das Fahrrad fertig"
+        "Wann ist das Fahrrad fertig",
+        "Wann ist das Rad fertig?",
+        "Wann ist es fertig?"
       ],
       "caseSensitive": true,
       "explanation": "Wann asks for a time; fertig means ready."
@@ -2637,7 +2706,10 @@
       "mode": "production",
       "answer": "Wie viel kostet das?",
       "acceptedAnswers": [
-        "Wie viel kostet das"
+        "Wie viel kostet das",
+        "Wie viel kostet es?",
+        "Was kostet das?",
+        "Was kostet es?"
       ],
       "caseSensitive": true,
       "explanation": "Wie viel kostet das? is the basic price question."
@@ -2817,6 +2889,10 @@
       "itemId": "a1-lost-parcel-item-6",
       "mode": "production",
       "answer": "Hier ist Ihr Paket.",
+      "acceptedAnswers": [
+        "Hier ist Ihr Paket, bitte.",
+        "Bitte, hier ist Ihr Paket."
+      ],
       "caseSensitive": true,
       "explanation": "Polite Ihr is capitalized. Hier ist … is useful when handing something over."
     },
@@ -2832,6 +2908,11 @@
       "itemId": "a1-departure-item-1",
       "mode": "production",
       "answer": "Eine Fahrkarte nach Waldruh, bitte.",
+      "acceptedAnswers": [
+        "Eine Fahrkarte nach Waldruh.",
+        "Ich möchte eine Fahrkarte nach Waldruh.",
+        "Ich möchte eine Fahrkarte nach Waldruh, bitte."
+      ],
       "caseSensitive": true,
       "explanation": "nach goes before a town name: nach Waldruh. bitte makes it polite."
     },
@@ -3048,6 +3129,9 @@
       "itemId": "a2-ink-seller-item-1",
       "mode": "production",
       "answer": "Haben Sie auch etwas Günstigeres?",
+      "acceptedAnswers": [
+        "Haben Sie etwas Günstigeres?"
+      ],
       "caseSensitive": true,
       "explanation": "etwas + comparative + -es: etwas Günstigeres."
     },
@@ -3220,6 +3304,9 @@
       "itemId": "a2-broken-clock-item-3",
       "mode": "production",
       "answer": "Kannst du mir die Anleitung erklären?",
+      "acceptedAnswers": [
+        "Kannst du mir bitte die Anleitung erklären?"
+      ],
       "caseSensitive": true,
       "explanation": "erklären takes the thing explained and the person receiving the explanation: mir."
     },
@@ -3235,6 +3322,9 @@
       "itemId": "a2-broken-clock-item-5",
       "mode": "production",
       "answer": "Das Werkzeug liegt unter dem Stuhl.",
+      "acceptedAnswers": [
+        "Es liegt unter dem Stuhl."
+      ],
       "caseSensitive": true,
       "explanation": "A fixed location with unter uses dative: dem Stuhl."
     },
@@ -3269,6 +3359,10 @@
       "itemId": "a2-clinic-item-2",
       "mode": "production",
       "answer": "Ich brauche einen Termin beim Arzt.",
+      "acceptedAnswers": [
+        "Ich möchte einen Termin beim Arzt.",
+        "Ich hätte gern einen Termin beim Arzt."
+      ],
       "caseSensitive": true,
       "explanation": "beim is short for bei dem; beim Arzt means with or at the doctor."
     },
@@ -3317,6 +3411,9 @@
       "itemId": "a2-cellar-item-1",
       "mode": "production",
       "answer": "Warum haben Sie das gemacht?",
+      "acceptedAnswers": [
+        "Warum haben Sie das getan?"
+      ],
       "caseSensitive": true,
       "explanation": "Perfect question: haben + participle at the end."
     },
@@ -3384,6 +3481,9 @@
       "itemId": "a2-archive-item-3",
       "mode": "production",
       "answer": "Seit wann arbeiten Sie hier?",
+      "acceptedAnswers": [
+        "Seit wann arbeiten Sie schon hier?"
+      ],
       "caseSensitive": true,
       "explanation": "Seit wann asks when an ongoing situation began. German uses present-tense arbeiten."
     },
@@ -3408,7 +3508,9 @@
       "mode": "production",
       "answer": "Können Sie mir das genauer erklären?",
       "acceptedAnswers": [
-        "Können Sie mir das bitte genauer erklären?"
+        "Können Sie mir das bitte genauer erklären?",
+        "Könnten Sie mir das genauer erklären?",
+        "Könnten Sie mir das bitte genauer erklären?"
       ],
       "caseSensitive": true,
       "explanation": "genauer means more precisely or in more detail."
@@ -3591,9 +3693,7 @@
       "mode": "production",
       "answer": "Ich schlage vor, dass wir früher losfahren.",
       "acceptedAnswers": [
-        "Ich schlage vor, dass wir eher losfahren.",
-        "Ich schlage vor dass wir früher losfahren.",
-        "Ich schlage vor dass wir eher losfahren."
+        "Ich schlage vor, dass wir eher losfahren."
       ],
       "caseSensitive": true,
       "explanation": "vorschlagen is separable; losfahren goes last in the dass clause."
@@ -3724,9 +3824,7 @@
       "mode": "production",
       "answer": "Ich bin dafür, weil die Verbindung wichtig ist.",
       "acceptedAnswers": [
-        "Ich bin dafür, denn die Verbindung ist wichtig.",
-        "Ich bin dafür weil die Verbindung wichtig ist.",
-        "Ich bin dafür denn die Verbindung ist wichtig."
+        "Ich bin dafür, denn die Verbindung ist wichtig."
       ],
       "caseSensitive": true,
       "explanation": "dafür means in favour. wichtig ist ends the reason clause."
@@ -3767,9 +3865,7 @@
       "mode": "production",
       "answer": "Ein Kompromiss wäre, die Strecke schrittweise zu öffnen.",
       "acceptedAnswers": [
-        "Ein Kompromiss wäre, die Strecke nach und nach zu öffnen.",
-        "Ein Kompromiss wäre die Strecke schrittweise zu öffnen.",
-        "Ein Kompromiss wäre die Strecke nach und nach zu öffnen."
+        "Ein Kompromiss wäre, die Strecke nach und nach zu öffnen."
       ],
       "caseSensitive": true,
       "explanation": "schrittweise means step by step. The infinitive phrase explains the compromise."
@@ -3840,9 +3936,7 @@
       "mode": "production",
       "answer": "Es wäre besser, die Gäste vorher zu informieren.",
       "acceptedAnswers": [
-        "Es wäre besser, die Gäste im Voraus zu informieren.",
-        "Es wäre besser die Gäste vorher zu informieren.",
-        "Es wäre besser die Gäste im Voraus zu informieren."
+        "Es wäre besser, die Gäste im Voraus zu informieren."
       ],
       "caseSensitive": true,
       "explanation": "wäre makes the recommendation less direct; vorher means beforehand."
@@ -3902,9 +3996,7 @@
       "mode": "production",
       "answer": "Sie wollte verhindern, dass der Streit schlimmer wird.",
       "acceptedAnswers": [
-        "Sie wollte verhindern, dass der Konflikt schlimmer wird.",
-        "Sie wollte verhindern dass der Streit schlimmer wird.",
-        "Sie wollte verhindern dass der Konflikt schlimmer wird."
+        "Sie wollte verhindern, dass der Konflikt schlimmer wird."
       ],
       "caseSensitive": true,
       "explanation": "verhindern means prevent; schlimmer is the comparative of schlimm."
@@ -3945,9 +4037,7 @@
       "mode": "production",
       "answer": "Ich freue mich darauf, die neue Strecke gemeinsam zu entdecken.",
       "acceptedAnswers": [
-        "Ich freue mich darauf, die neue Strecke zusammen zu entdecken.",
-        "Ich freue mich darauf die neue Strecke gemeinsam zu entdecken.",
-        "Ich freue mich darauf die neue Strecke zusammen zu entdecken."
+        "Ich freue mich darauf, die neue Strecke zusammen zu entdecken."
       ],
       "caseSensitive": true,
       "explanation": "sich freuen auf describes looking forward to something; darauf points to the following infinitive phrase."

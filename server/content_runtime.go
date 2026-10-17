@@ -294,13 +294,87 @@ func keyboardNormalize(value string, g CourseGrading) string {
 	}
 	return value
 }
+
+// productionForm applies a course's production-only rules after normalisation:
+// punctuation at word edges is dropped, and when the accepted form has two or
+// more words, each equivalent spelling is rewritten to its group's canonical
+// member. Single-word answers keep their exact spelling, so a number drill for
+// "acht" never accepts "8".
+func productionForm(value string, g CourseGrading, sensitive, phrases bool) string {
+	value = genericNormalize(value, g, sensitive)
+	if g.IgnoreInner == "" && len(g.Equivalents) == 0 {
+		return value
+	}
+	var words []string
+	for _, word := range strings.Fields(value) {
+		if word = strings.Trim(word, g.IgnoreInner); word != "" {
+			words = append(words, word)
+		}
+	}
+	if phrases {
+		words = canonicalPhrases(words, g)
+	}
+	return strings.Join(words, " ")
+}
+
+// canonicalPhrases rewrites the longest matching equivalent at each position.
+// Matching ignores case and keyboard spellings, so "fuenf" meets "fünf".
+func canonicalPhrases(words []string, g CourseGrading) []string {
+	fold := func(word string) string { return keyboardNormalize(strings.ToLower(word), g) }
+	type phrase struct{ match, canonical []string }
+	var phrases []phrase
+	for _, group := range g.Equivalents {
+		if len(group) == 0 {
+			continue
+		}
+		canonical := strings.Fields(group[0])
+		for _, member := range group {
+			phrases = append(phrases, phrase{strings.Fields(fold(member)), canonical})
+		}
+	}
+	sort.SliceStable(phrases, func(i, j int) bool { return len(phrases[i].match) > len(phrases[j].match) })
+	out := make([]string, 0, len(words))
+	for i := 0; i < len(words); {
+		matched := false
+		for _, p := range phrases {
+			if len(p.match) == 0 || i+len(p.match) > len(words) {
+				continue
+			}
+			equal := true
+			for k, word := range p.match {
+				if fold(words[i+k]) != word {
+					equal = false
+					break
+				}
+			}
+			if equal {
+				out = append(out, p.canonical...)
+				i += len(p.match)
+				matched = true
+				break
+			}
+		}
+		if !matched {
+			out = append(out, words[i])
+			i++
+		}
+	}
+	return out
+}
+
 func courseGrade(e Exercise, answer string) bool {
 	g := *e.Grading
 	production := e.Mode == "production"
-	actual := genericNormalize(answer, g, (e.CaseSensitive || g.CaseSensitive) && !production)
+	sensitive := (e.CaseSensitive || g.CaseSensitive) && !production
 	for _, accepted := range append([]string{e.Answer}, e.AcceptedAnswers...) {
+		actual, expected := genericNormalize(answer, g, sensitive), genericNormalize(accepted, g, sensitive)
+		phrases := false
+		if production {
+			phrases = len(strings.Fields(expected)) > 1
+			actual, expected = productionForm(answer, g, sensitive, phrases), productionForm(accepted, g, sensitive, phrases)
+		}
 		if production && e.CaseSensitive {
-			left, right := strings.Fields(genericNormalize(answer, g, true)), strings.Fields(genericNormalize(accepted, g, true))
+			left, right := strings.Fields(productionForm(answer, g, true, phrases)), strings.Fields(productionForm(accepted, g, true, phrases))
 			changed := false
 			if len(left) == len(right) {
 				for i, word := range right {
@@ -314,7 +388,6 @@ func courseGrade(e Exercise, answer string) bool {
 				continue
 			}
 		}
-		expected := genericNormalize(accepted, g, (e.CaseSensitive || g.CaseSensitive) && !production)
 		if actual == expected {
 			return true
 		}
