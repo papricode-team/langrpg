@@ -313,13 +313,18 @@ func TestContentLimitsCountRecordsAndShareAcrossSessions(t *testing.T) {
 		}
 	}
 	path := "/api/content/sentences?ids=" + strings.Join(ids, ",")
-	for i := 0; i < 10; i++ {
+	if len(ids) != 12 {
+		t.Fatalf("need a full sentence batch, got %d records", len(ids))
+	}
+	for i := 0; i < 30; i++ {
 		if res := request(app, "GET", path, token, nil); res.Code != 200 {
 			t.Fatalf("batch %d %d", i, res.Code)
 		}
 	}
 	if res := request(app, "GET", path, secondToken, nil); res.Code != 429 {
 		t.Fatalf("record-count/account limit %d", res.Code)
+	} else if res.Header().Get("Retry-After") != "60" {
+		t.Fatalf("missing retry delay: %v", res.Header())
 	}
 }
 
