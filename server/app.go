@@ -409,7 +409,8 @@ func (a *App) session(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	account := Account{Player: Player{ID: id, Name: input.Name, X: .52, Y: .61, Avatar: input.Avatar, MapID: DefaultMapID}, Progress: newProgress(), CreatedAt: a.now().UTC().Truncate(time.Microsecond), Preferences: store.NormalizePreferences(Preferences{BaseLanguage: input.BaseLanguage})}
+	spawn := startingSpawn()
+	account := Account{Player: Player{ID: id, Name: input.Name, X: spawn.X, Y: spawn.Y, Avatar: input.Avatar, MapID: DefaultMapID}, Progress: newProgress(), CreatedAt: a.now().UTC().Truncate(time.Microsecond), Preferences: store.NormalizePreferences(Preferences{BaseLanguage: input.BaseLanguage})}
 	if a.content != nil {
 		account.ActiveCourseID = a.curriculum.CourseID
 	}
