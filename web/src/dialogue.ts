@@ -46,7 +46,7 @@ export interface DialogueTopic { id: string; sentenceId?: string; german: string
 export interface QuestGraph {
   questId: string; level: Level; start: string; gateExerciseId: string; evidenceItem: string;
   gatePrompt: string;
-  investigations: { objectId: string; german: string; english: string; lock?: { condition: DialogueCondition; reason: { german?: string; english: string } } }[];
+  investigations: { objectId: string; /** The authored object slug when the API translated objectId to a content UUID; recorded clips are named after it. */ worldId?: string; german: string; english: string; lock?: { condition: DialogueCondition; reason: { german?: string; english: string } } }[];
   objectives: { text: string; location: string; stage: StoryStage }[];
   nodes: DialogueNode[];
   topics?: DialogueTopic[];

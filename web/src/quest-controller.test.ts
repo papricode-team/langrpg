@@ -661,6 +661,15 @@ describe('server content loading', () => {
     expect(loadGraph).toHaveBeenCalledWith(graph.questId);
     expect(loadSentence.mock.calls.map(([line]) => line.id)).toEqual(graph.nodes.find(node => node.stage === 'intro')!.lines.slice(0, 2).map(line => line.id));
   });
+  it('names the evidence clip after the authored object slug when the API translated its id', async () => {
+    const f = fixture('intro', 'a1-arrival');
+    const source = questGraphs.find(graph => graph.questId === 'a1-arrival')!;
+    const item = source.investigations.find(entry => entry.objectId === 'lindenhafen-noticeboard')!;
+    const graph = { ...source, investigations: [{ ...item, objectId: '1a95fad2-4b59-5b5c-9671-5982225d82f9', worldId: item.objectId }] };
+    Object.assign(f.options, { loadGraph: vi.fn(async () => graph) });
+    expect(await f.controller.inspect('a1-arrival', '1a95fad2-4b59-5b5c-9671-5982225d82f9')).toBe(true);
+    expect(f.options.speak).toHaveBeenCalledWith(item.german, 'Evidence', `artifact-a1-arrival-${item.objectId}`, undefined);
+  });
   it('does not display a late sentence response after the conversation closes', async () => {
     const f = fixture('intro');
     let resolve!: (line: DialogueLine) => void;

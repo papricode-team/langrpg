@@ -69,7 +69,7 @@ export class QuestController {
   private replay = false;
   private beginner = false;
   private error = '';
-  private artifact?: { objectId: string; german: string; english: string; locked?: boolean };
+  private artifact?: { objectId: string; worldId?: string; german: string; english: string; locked?: boolean };
   private pending?: { id: string; key: string; attempt?: Readonly<SceneAttemptInput> };
   private generation = 0;
   private startedAt = 0;
@@ -120,7 +120,7 @@ export class QuestController {
     // A locked door explains what opens it; nothing is recorded until it opens.
     const locked = artifact.lock && !conditionMet(artifact.lock.condition, storyState(this.options.progress().story)) ? artifact.lock : undefined;
     this.topic = undefined; this.replyCorrection = undefined; this.ambient = undefined; this.graph = graph; this.node = undefined; this.index = 0; this.answerShown = false;
-    this.artifact = locked ? { objectId: artifact.objectId, german: locked.reason.german ?? '', english: locked.reason.english, locked: true } : artifact;
+    this.artifact = locked ? { objectId: artifact.objectId, worldId: artifact.worldId, german: locked.reason.german ?? '', english: locked.reason.english, locked: true } : artifact;
     this.beginner = this.options.beginnerMode?.() ?? needsBeginnerStorySupport(this.options.progress());
     this.translated = false; this.hinted = false; this.busy = false; this.error = ''; this.pending = undefined;
     this.replay = (this.options.progress().story?.inspections?.[questId] ?? []).includes(objectId) || this.options.progress().completedQuestIds.includes(questId);
@@ -220,7 +220,7 @@ export class QuestController {
       return;
     }
     const graph = this.graph; if (!graph) return;
-    const state = storyState(this.options.progress().story), lines = this.artifact ? [{ ...this.artifact, id: this.artifact.objectId, speaker: 'Evidence', german: this.artifact.german, english: this.artifact.english, clipId: `artifact-${graph.questId}-${this.artifact.objectId}` }] : this.topic ? this.topic.lines.filter(line => conditionMet(line.condition, state)) : dialogueLines(this.node!, state);
+    const state = storyState(this.options.progress().story), lines = this.artifact ? [{ ...this.artifact, id: this.artifact.objectId, speaker: 'Evidence', german: this.artifact.german, english: this.artifact.english, clipId: `artifact-${graph.questId}-${this.artifact.worldId ?? this.artifact.objectId}` }] : this.topic ? this.topic.lines.filter(line => conditionMet(line.condition, state)) : dialogueLines(this.node!, state);
     const source = lines[this.index]; if (!source) return;
     const presented = this.line(this.replyCorrection ?? source, voice, rate);
     if (!presented) return;
