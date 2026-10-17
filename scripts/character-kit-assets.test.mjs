@@ -158,9 +158,8 @@ test('catalogue validates material-facing exceptions before compilation',async()
   assert.throws(()=>validateCatalogue(source),/mannequins/);
 });
 
-test('runtime/editor sheets have all 36 frames and client/server catalogues are identical',async()=>{
-  const web=await readFile(resolve(root,'web/src/data/character-kit.json')),server=await readFile(resolve(root,'server/character-kit.json'));assert.deepEqual(web,server);
-  const catalogue=JSON.parse(web);
+test('runtime/editor sheets have all 36 frames',async()=>{
+  const catalogue=JSON.parse(await readFile(resolve(root,'server/character-kit.json')));
   assert.deepEqual(catalogue.format.runtimeCell,[384,576]);
   assert.deepEqual(catalogue.format.editorCell,[512,768]);
   for(const component of [...catalogue.components,...Object.values(catalogue.poseSets??{}).flatMap(pose=>pose.components),...Object.values(catalogue.expressions??{}).flatMap(expression=>expression.components)])for(const sheet of Object.values(component.sheets)){

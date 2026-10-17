@@ -11,7 +11,17 @@
     <dialog class="dialog minigame-dialog activity-dialog" id="qa-dialog" aria-label="Story game preview"><button type="button" class="dialog-close" id="qa-close" aria-label="Close">×</button><div id="minigame-root"></div></dialog>
     <script type="module">
       import '../src/style.css';
+      import '../src/style-encounters.css';
+      import '../src/style-touch.css';
+      import '../src/style-menu-pages.css';
+      import '../src/style-menu-pages-compact.css';
+      import '../src/style-play-frame.css';
       import '../src/activities.css';
+      import '../src/activities-compact.css';
+      import '../src/activities-viewport.css';
+      import '../src/activities-viewport-compact.css';
+      import '../src/activities-overlays.css';
+      import '../src/activities-hud.css';
       import { miniGameById } from '../src/minigames/catalogue.ts';
       import { createScriptedStoryGame, scriptedStoryData, scriptedStoryExercises, canonicalStoryExercises } from '../src/minigames/scripted-stories.ts';
       import { createMiniGameHost } from '../src/minigames/host.ts';

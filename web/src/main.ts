@@ -2,12 +2,11 @@ import {buildingRoomId} from './room-layout';
 import {roomKind} from './room-kind';
 import { animalAction, animalSpeciesFromId } from './animal-behavior';
 import { mountSupportBanner } from './support-session';
-import { startAnalytics, trackAnalytics, browserAnalyticsEnabled, setBrowserAnalyticsEnabled } from './analytics-client';
+import { startAnalytics, trackAnalytics } from './analytics-client';
 import { castPortraitMarkup } from './cast-portrait';
 import { castActor } from './character-cast';
 import { StoryMechanicsUi } from './story-mechanics-ui';
-import { ticketsPage } from './story-mechanics';
-import { pendingReferral, referralAvailable } from './referrals';
+import { referralAvailable } from './referrals';
 import { brandMarkup } from './branding';
 import {loadPublishedWorld,sceneContentVersion,sceneDocument} from './scene-data';
 import {applyWorldPatch} from './world-patch';
@@ -17,12 +16,12 @@ import { mountOptionalPlacement } from './placement-ui';
 import { QuestController } from './quest-controller';
 import { createGlossLookup } from './learning-context';
 import { loadServerContent, loadQuestGraph, loadDialogueSentence, loadExercise, loadUnit, loadWords, loadRestoredWords, loadStoryContent, storyContentRemaining, loadContexts, loadNpcConversation, loadRegionContent, loadCinematic, hydrateNarratives, refreshBootstrap, runtimeReference, loadInterior, loadInteriorConversation, loadActivity, loadMiniGame, loadExpeditionEncounter, loadPlacement, invalidateContext, activeCourse, refreshQuestGraph } from './content-runtime';
-import { contentApi, configureContentSession, getSentence } from './content-api';
+import { getSentence } from './content-api';
 import { mountCoursePlayer, mountCoursePicker } from './course-player';
 import { questGraph, questGraphs } from './quest-graph';
 import { storyState } from './dialogue';
 import type { QuestGraph } from './dialogue';
-import { clueHeading, evidenceBoard, optionalStoryPractice, saveSlotsMarkup } from './story-panels';
+import { optionalStoryPractice } from './story-panels';
 import { lanternRewards, lanternRewardsMarkup, titleLabel } from './lantern-rewards';
 import type { CutsceneKind, CutsceneOutcome } from './cutscene';
 import { grammarForQuest } from './contextual-grammar';
@@ -32,8 +31,8 @@ import { IntakeClock, intakeStatus, introducedWords, missingWordCount, syllabus,
 import type { CourseLexeme } from './course';
 import { createStateStore } from './game-state';
 import { characterBuilderMarkup, bindCharacterBuilder } from './character-builder';
-import { mountLanguageOnboarding, onboardingLanguageSummary, onboardingStepsMarkup } from './onboarding';
-import { localHour, type WorldTimeMode } from './world-clock';
+import { localHour } from './world-clock';
+import { loadDevicePreferences } from './device-preferences';
 import '@fontsource/dm-sans/400.css';
 import '@fontsource/dm-sans/500.css';
 import '@fontsource/dm-sans/600.css';
@@ -41,6 +40,11 @@ import '@fontsource/dm-sans/700.css';
 import '@fontsource/fraunces/400.css';
 import '@fontsource/fraunces/600.css';
 import './style.css';
+import './style-encounters.css';
+import './style-touch.css';
+import './style-menu-pages.css';
+import './style-menu-pages-compact.css';
+import './style-play-frame.css';
 import './notifications.css';
 import { Notifications, installFormNotifications } from './notifications';
 import './course-ui.css';
@@ -49,20 +53,19 @@ import './game-menu.css';
 import './menu-home.css';
 import './expedition-games.css';
 import './sentence-translations.css';
-import { installSentenceTranslations, renderNarrative, type Narrative } from './sentence-translations';
+import { installSentenceTranslations, renderNarrative } from './sentence-translations';
 import { renderTranslatedSentence, findSentence } from './translated-sentence';
 import { getExpedition, getExpeditionNpc, getExpeditionEncounter, expeditionRegions } from './expeditions';
 import { ExpeditionLearning, placementLearning } from './expedition-learning';
 import { mountExpeditionEncounter } from './expedition-encounter';
-import { expeditionGames, getExpeditionGame, expeditionGameStatus, expeditionNotebook, mountExpeditionGame } from './expedition-games';
+import { expeditionGames, getExpeditionGame, expeditionGameStatus, mountExpeditionGame } from './expedition-games';
 import { adventureHome } from './game-panels';
 import './interiors.css';
 import './quest-cta.css';
 import './story-mechanics.css';
 import './hud.css';
 import { World } from './world';
-import { graphicsQualityMode, graphicsQualityTier, onGraphicsQualityChange, setGraphicsQualityMode, type QualityMode, type QualityTier } from './texture-quality';
-import type { Avatar, WorldPlayer, WorldMotion, WorldPresentation } from './world';
+import type { Avatar, WorldPlayer, WorldPresentation } from './world';
 import { quests, npcs, vocabulary } from './content';
 import type { Quest, Exercise, Level } from './content';
 import { Api, emptyProgress } from './api';
@@ -72,11 +75,11 @@ import { WorldEditSession } from './world-edit-session';
 import { setDialogueLineEditor } from './dialogue-view';
 import { watchForUpdates } from './app-updates';
 import { showUpdateNotice } from './update-notice';
-import type { Progress, ExposureInput, ConnectionStatus, SessionResult, AccountStatus, ExpeditionAnswerResult } from './api';
+import type { Progress, ConnectionStatus, SessionResult, AccountStatus, ExpeditionAnswerResult } from './api';
 import { dueItems, modeFor, memoryLabel, practiceExercises, remainingQuestExercises, skipListeningExercises, attemptFeedback, shuffledSentenceTiles } from './learning';
-import { AccountReminder, nameSuggestions } from './player-account';
+import { AccountReminder } from './player-account';
 import './player-account.css';
-import { AccessClock, accessBlocked, formatAccessTime } from './game-access';
+import { AccessClock, accessBlocked } from './game-access';
 import { AccessSession } from './access-session';
 import { Speech } from './speech';
 import { gameMode, type GameMode } from './game-mode';
@@ -88,20 +91,22 @@ import { ReviewAttempt } from './review-attempt';
 import { learnerLevel, scaffoldStage, scaffoldText } from './typing-scaffold';
 import type { AttemptSubmission, AttemptResult, RecallRating } from './review-attempt';
 import { icon, escapeHtml as e } from './icons';
-import turkishCoverage from './data/i18n/tr-coverage.json';
-import { t, localized, localizedName, localizedExercise, localizedGrammar, lexemeMeaning, upper, lower, baseLanguage, baseLanguageNames, cachedBaseLanguage, setBaseLanguage, type BaseLanguage } from './i18n';
+import { t, localized, localizedName, localizedExercise, localizedGrammar, lexemeMeaning, upper, lower, baseLanguage, cachedBaseLanguage, setBaseLanguage, type BaseLanguage } from './i18n';
 import { exerciseOptionsMarkup } from './exercise-options';
 import { maps, getMap, isStoryMap } from './maps';
 import type { MapId, WorldObjectSpec } from './maps';
 import { actFor, clueFor, discoveredClues, journalNarratives, objectStories, storyActs } from './story';
 import { activityDiscoveries } from './activity-stories';
-import { coastPage, coastThreadMarkup } from './coast-threads';
+import { coastThreadMarkup } from './coast-threads';
 import { ScreenFilterControls } from './screen-filter-controls';
 import { MenuMemory, MenuNavigator, menuChromeMarkup, menuSections, sectionOf, viewLabel, type MenuPage, type MenuView } from './menu-navigation';
-import { bindOptionRows, optionsMarkup, optionsTabs, type OptionRow, type OptionsTab } from './options-menu';
+import { optionsTabs, type OptionsTab } from './options-menu';
+import { OptionsPanel } from './options-panel';
+import { AccountEntry } from './account-entry';
+import { WordExposure } from './word-exposure';
+import { atlasPage, discoveriesPage, eliseLetter, interiorIcon, phraseJournalPage, questLogPage, type MenuPageContext } from './menu-pages';
 import { UiSounds } from './ui-sounds';
 import { controlsHelpMarkup } from './menu-help';
-import { accountCredentialRows, bindAccountCredentials } from './account-settings';
 import './you-menu.css';
 import { buildingEntrances, getInterior, getInteriorObject, interiorExercises, interiors } from './interiors';
 import type { InteriorId, InteriorObjectSpec } from './interiors';
@@ -162,7 +167,7 @@ const removeSentenceTranslations = installSentenceTranslations(document, sentenc
   if (run) run.hinted = true;
   if (sentence.closest('.dialogue-layer')) questController?.recordWordHelp();
   const wordIds = getSentence(sentence.dataset.sentenceId ?? '')?.words.flatMap(word => word.lexemeId ? [word.lexemeId] : []) ?? [];
-  if (wordIds.length) recordExposure({ wordIds: [...new Set(wordIds)].slice(0, 36) });
+  if (wordIds.length) wordExposure.record({ wordIds: [...new Set(wordIds)].slice(0, 36) });
 });
 if (!uiCheckSurface) startAnalytics(() => api.token);
 const api = new Api();
@@ -187,12 +192,8 @@ let pendingStoryBeat: CutsceneKind | undefined;
 let pendingTravelBeat = false;
 const questCinematics: Record<string, CutsceneKind> = { 'a1-arrival':'platform', 'a1-bench':'remembered', 'a1-station':'recording', 'a1-lost-parcel':'erasure', 'a2-broken-clock':'clockmill', 'a2-forest-rails':'rails', 'a2-archive':'confession', 'b1-new-route':'dark-beam', 'b1-work':'ledger', 'b1-temptation':'temptation', 'b1-storm':'storm', 'b1-atlas':'bell' };
 let started = false;
-let entryTarget: 'de' | 'en' = sessionStorage.getItem('atlas.entryTarget') === 'en' ? 'en' : 'de';
 let worldEdit: { bridge: EditBridge; overlay: WorldEditOverlay; session: WorldEditSession } | undefined;
 let shellLanguage: BaseLanguage = 'en';
-let entryLanguage: BaseLanguage | undefined;
-let entryLanguageSelection: BaseLanguage | undefined;
-let entryDraft: { name: string; avatar: Avatar } | undefined;
 let account: AccountStatus = { registered: false, email: '' };
 let accountReminder: AccountReminder | undefined;
 let reminderTimer: number | undefined;
@@ -202,7 +203,7 @@ const accessSession = new AccessSession({
   api, clock: accessClock, uiCheck: !!uiCheckSurface,
   started: () => started, connection: () => connection, account: () => account, activeCourse: () => activeCourse,
   toast: (message, bad) => toast(message, bad), syncWorldMode: () => syncWorldMode(),
-  showSaveAccount: (required, subscribeAfter) => showSaveAccount(required, subscribeAfter),
+  showSaveAccount: (required, subscribeAfter) => accountEntry.showSaveAccount(required, subscribeAfter),
   pauseForAccount: () => {
     accountKeptActivityPaused=!!document.querySelector('.activity-intermission,.expedition-encounter-learning[inert],.expedition-game[inert]');
     activityController?.pause();miniGameController?.pause();deliveryController?.pause();stopSpeech();
@@ -250,7 +251,6 @@ function announceRestoredWords(ids: readonly string[]) {
   toast(t('{count} words have returned to the Atlas. Open Your words to meet them.', { count: ids.length }));
 }
 function writingReady(): boolean { return accountReminder?.writingReady ?? false; }
-const entryNames = nameSuggestions();
 let level: Level = (localStorage.getItem('atlas.level') as Level) || 'A1';
 if (!['A1', 'A2', 'B1'].includes(level)) level = 'A1';
 let view: View = 'world';
@@ -262,23 +262,36 @@ catch { profile = { name: 'Wanderer', avatar: { hair: '#48372e', skin: '#d8a077'
 if (!profile || typeof profile.name !== 'string' || !profile.avatar || typeof profile.avatar !== 'object' || Array.isArray(profile.avatar)) profile = { name: 'Wanderer', avatar: { hair: '#48372e', skin: '#d8a077', outfit: '#326a65' } };
 profile.name = profile.name.trim().slice(0, 24) || 'Wanderer';
 profile.avatar = normalizeAvatar(profile.avatar);
-let worldMotion: WorldMotion = (localStorage.getItem('atlas.worldMotion') as WorldMotion) || 'auto';
 let watchingWorld = false;
-let worldTimeMode = (localStorage.getItem('atlas.worldTimeMode') as WorldTimeMode) || 'cycle';
-if (!['cycle', 'local', 'manual'].includes(worldTimeMode)) worldTimeMode = 'cycle';
-let manualWorldHour = Number(localStorage.getItem('atlas.worldHour') ?? 12);
-if (!Number.isFinite(manualWorldHour)) manualWorldHour = 12;
-if (!['auto', 'full', 'reduced'].includes(worldMotion)) worldMotion = 'auto';
-let muted = localStorage.getItem('atlas.muted') !== 'false';
-let silentMode = localStorage.getItem('atlas.silentMode') === 'true';
-const uiSounds = new UiSounds(() => !muted && !silentMode);
+const prefs = loadDevicePreferences();
+const uiSounds = new UiSounds(() => !prefs.muted && !prefs.silentMode);
 const menuMemory = new MenuMemory();
 let menuPageOpen = true;
 let menuNavigator: MenuNavigator | undefined;
-let optionsTab: OptionsTab = 'audio';
-let unbindOptions: (() => void) | undefined;
+/** First-run screens and the account dialogs (account-entry.ts). */
+const accountEntry = new AccountEntry({
+  api, access: accessSession, clock: accessClock,
+  started: () => started, account: () => account, profile: () => profile,
+  settingsOpen: () => view === 'settings', refresh: () => renderOther(), toast: (message, bad) => toast(message, bad),
+  enterGame: result => enterGame(result), accountChanged: updated => accountChanged(updated),
+});
+function accountChanged(updated: AccountStatus) {
+  account = updated;
+  updateWorldEditButton();
+  document.querySelector<HTMLElement>('#admin-analytics-link')!.hidden = account.admin !== true;
+}
+/** The settings page (options-panel.ts). */
+const optionsPanel = new OptionsPanel({
+  api, clock: accessClock, prefs,
+  world: () => world, progress: () => progress, level: () => level, account: () => account, profile: () => profile,
+  storySaves: () => storySaves, connection: () => connection, started: () => started, attemptBusy: () => attemptBusy,
+  settingsOpen: () => view === 'settings', refresh: () => renderOther(), toast: (message, bad) => toast(message, bad),
+  playUiSound: kind => uiSounds.play(kind), playCue: correct => playCue(correct), setSilentMode: enabled => setSilentMode(enabled),
+  changeBaseLanguage: language => accountEntry.changeBaseLanguage(language),
+  accountChanged: updated => accountChanged(updated),
+});
 function playablePractice<T extends Exercise>(exercises: readonly T[]): T[] {
-  return practiceExercises(exercises, silentMode, writingReady());
+  return practiceExercises(exercises, prefs.silentMode, writingReady());
 }
 function showOpeningPracticeNotice(placement = false) {
   cancelRun();
@@ -286,10 +299,8 @@ function showOpeningPracticeNotice(placement = false) {
   openDialog(`<div class="course-intro"><h2>${t('Listen, look and choose.')}</h2><p>${placement ? t('Start with A1 German and get comfortable in the town. The optional level sample opens after your first ten minutes of play.') : t('Writing practice opens after your first ten minutes of play. For now, discover the town through listening and simple choices. Your completed answers are saved.')}</p><button class="primary-button" data-action="close-dialog">${t('Keep exploring')} ${icon('arrow')}</button></div>`, 'course-dialog');
 }
 function silentModeButton() {
-  return `<button class="outline-button silent-mode-button" data-action="silent-mode" aria-pressed="${silentMode}">${icon(silentMode ? 'muted' : 'volume')} ${silentMode ? t('Silent mode on') : t('Silent mode off')}</button>`;
+  return `<button class="outline-button silent-mode-button" data-action="silent-mode" aria-pressed="${prefs.silentMode}">${icon(prefs.silentMode ? 'muted' : 'volume')} ${prefs.silentMode ? t('Silent mode on') : t('Silent mode off')}</button>`;
 }
-let speechRate = Number(localStorage.getItem('atlas.speechRate') || '0.82');
-if (![0.65, 0.82, 1].includes(speechRate)) speechRate = 0.82;
 let world: World;
 let notifications: Notifications | undefined;
 let removeFormNotifications: (() => void) | undefined;
@@ -305,7 +316,7 @@ function entitlementKey(value: Progress): string {
 }
 function acceptProgress(value: Progress, owner?: string) {
   const previousEntitlements = entitlementKey(progress);
-  if (owner && progressOwner !== owner) { attemptedCinematics.clear(); progressOwner = owner; progress = emptyProgress(); exposedContexts.clear(); }
+  if (owner && progressOwner !== owner) { attemptedCinematics.clear(); progressOwner = owner; progress = emptyProgress(); wordExposure.reset(); }
   const previous = progress;
   if (progressStore.replace(value, owner ?? progressOwner)) {
     progress = progressStore.get();
@@ -318,40 +329,11 @@ function acceptProgress(value: Progress, owner?: string) {
     }
   }
 }
-const exposedContexts = new Set<string>();
-const pendingWordExposures = new Set<string>();
-let exposureObserver: IntersectionObserver | undefined;
-let exposureTimer: number | undefined;
-function recordExposure(input: ExposureInput) {
-  if (uiCheckSurface || connection !== 'online') return;
-  const key = JSON.stringify(input);
-  if (exposedContexts.has(key)) return;
-  exposedContexts.add(key);
-  void api.expose(input).then(result => { acceptProgress(result.progress); updateProgress(); })
-    .catch(() => exposedContexts.delete(key));
-}
-function flushWordExposures() {
-  exposureTimer = undefined;
-  const wordIds = [...pendingWordExposures].slice(0, 36);
-  wordIds.forEach(id => pendingWordExposures.delete(id));
-  if (wordIds.length) recordExposure({wordIds});
-  if (pendingWordExposures.size) exposureTimer = window.setTimeout(flushWordExposures, 300);
-}
-function observeVisibleWords() {
-  exposureObserver?.disconnect();
-  const root = document.querySelector<HTMLElement>('#other-view');
-  if (!root) return;
-  exposureObserver = new IntersectionObserver(entries => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      const id = (entry.target as HTMLElement).dataset.lexeme;
-      if (id && !progress.words[id]) pendingWordExposures.add(id);
-      exposureObserver?.unobserve(entry.target);
-    }
-    if (pendingWordExposures.size && exposureTimer === undefined) exposureTimer = window.setTimeout(flushWordExposures, 350);
-  }, {root, threshold:0.3});
-  root.querySelectorAll('[data-lexeme]').forEach(card => exposureObserver!.observe(card));
-}
+/** Seen contexts and word cards (word-exposure.ts). */
+const wordExposure = new WordExposure({
+  api, enabled: () => !uiCheckSurface && connection === 'online', progress: () => progress,
+  onProgress: next => { acceptProgress(next); updateProgress(); },
+});
 
 
 function portrait(id: string, className = '', expression = 'neutral') {
@@ -404,8 +386,8 @@ function renderShell() {
   removeFormNotifications?.();
   removeFormNotifications = installFormNotifications(toast);
   world = new World(document.querySelector('#world-container')!, {
-    motion: worldMotion,
-    time: { mode: worldTimeMode, hour: worldTimeMode === 'manual' ? manualWorldHour : localHour() },
+    motion: prefs.worldMotion,
+    time: { mode: prefs.worldTimeMode, hour: prefs.worldTimeMode === 'manual' ? prefs.manualWorldHour : localHour() },
     onTimeChange: state => {
       const label = `${state.label} · ${upper(state.period === 'day' ? t('Day') : t('Night'))}`;
       for (const id of ['watch-time', 'world-hour-label']) {
@@ -421,8 +403,8 @@ function renderShell() {
     onReady: () => { regionReady = true; screenFilterControls?.refreshSupport(); document.querySelectorAll<HTMLCanvasElement>('[data-avatar-preview]').forEach(canvas => world.renderAvatarPreview(canvas, profile.avatar)); onRegionReady(mapId); },
     onMove: (x, y) => api.move(x, y),
     onNearby: updateNearby,
-    onBarkShown: bark => { if (bark.wordIds.length) recordExposure({wordIds:bark.wordIds}); },
-    onCinematicLine: (speaker,german,clipId) => { if(!silentMode&&!muted)speak(german,speaker,clipId); },
+    onBarkShown: bark => { if (bark.wordIds.length) wordExposure.record({wordIds:bark.wordIds}); },
+    onCinematicLine: (speaker,german,clipId) => { if(!prefs.silentMode&&!prefs.muted)speak(german,speaker,clipId); },
     onCinematicEnd: stopSpeech,
   });
   mechanicsUi?.stop();
@@ -431,7 +413,7 @@ function renderShell() {
     setMarks: marks => world.setStoryMarks(marks), lampStrength: () => world.lampStrength(),
     acceptProgress: value => { acceptProgress(value); updateProgress(); },
     openDialog: (html, className) => openDialog(html, className), closeDialog: () => document.querySelector<HTMLDialogElement>('#dialog')!.close(),
-    toast, cue: playCue, soundAllowed: () => !muted && !silentMode && view === 'world' && !document.hidden,
+    toast, cue: playCue, soundAllowed: () => !prefs.muted && !prefs.silentMode && view === 'world' && !document.hidden,
     onTick: () => updateFadingNameChip(),
   });
   mechanicsUi.start(document.querySelector<HTMLElement>('#game-hud')!);
@@ -444,7 +426,7 @@ function renderShell() {
   questController?.destroy();
   questController = new QuestController({
     api, progress: () => progress, playerName: () => profile.name,
-    portrait: (id, expression) => portrait(id, '', expression), speak, stopSpeech, audioEnabled: () => !silentMode, setAudioEnabled: enabled => setSilentMode(!enabled, false),
+    portrait: (id, expression) => portrait(id, '', expression), speak, stopSpeech, audioEnabled: () => !prefs.silentMode, setAudioEnabled: enabled => setSilentMode(!enabled, false),
     loadGraph: loadQuestGraph, loadSentence: loadDialogueSentence, loadExercise,
     grammar: questId => grammarForQuest(questId,course?.courseGrammar),
     wasHinted: questId => progress.story?.flags[`hint:${questId}`]===true || localStorage.getItem(`atlas.sceneHinted.${api.selfId}.${questId}`)==='true',
@@ -453,13 +435,13 @@ function renderShell() {
     onProgress: value => { acceptProgress(value); updateProgress(); },
     onInvestigate: graph => { investigationQuest = graph.questId; updateProgress(); const next = nextInvestigation(graph); if (next) { world.focusObject(investigationWorldId(next)); toast(t('Read the evidence, then return to the witness.')); } else { const q = quests.find(q => q.id === graph.questId)!; world.focusNpc(q.npcId); toast(t('The evidence is saved. Return to {name}.', { name: localizedName(npcs.find(npc => npc.id === q.npcId)!.name) })); } },
     onComplete: (graph, xp, effects) => { investigationQuest = undefined; pendingStoryBeat = questCinematics[graph.questId]; updateProgress(); playCue(true); const clue = clueFor(graph.questId); toast(`${clue ? localized(clue.title) : t('Discovery saved')}${xp ? ` · +${xp} XP` : ''}${consequenceNote(effects)}`); suggestRoundAfter(quests.find(quest => quest.id === graph.questId)?.npcId); },
-    expose: exerciseId => { const graph=questGraphs.find(graph=>graph.gateExerciseId===exerciseId); if(graph)localStorage.setItem(`atlas.sceneHinted.${api.selfId}.${graph.questId}`,'true'); recordExposure({ exerciseId }); },
+    expose: exerciseId => { const graph=questGraphs.find(graph=>graph.gateExerciseId===exerciseId); if(graph)localStorage.setItem(`atlas.sceneHinted.${api.selfId}.${graph.questId}`,'true'); wordExposure.record({ exerciseId }); },
     games: npcId => hostedGames(npcId, miniGameById, miniGameReadiness(), gameDay()),
     onGame: id => void startMiniGame(id),
     onPractice: npcId => { const activity = activityInfo.find(item => item.npcId === npcId); if (activity) void startActivity(activity.id); else setView('journal'); },
     onGrammarGuide: guideId => { courseLevel=guideId.split('-')[0].toUpperCase() as Level; courseTab='grammar'; setView('course'); void loadCourse().then(()=>{if(view!=='course')return;renderOther();document.querySelector<HTMLElement>(`[data-grammar-guide="${guideId}"]`)?.scrollIntoView({block:'start'});}).catch(error=>toast((error as Error).message,true)); },
   });
-  world.setAudioPreferences({ silent: silentMode, muted });
+  world.setAudioPreferences({ silent: prefs.silentMode, muted: prefs.muted });
   world.setAvatar(profile.avatar);
   updateSelfPortraits(document, profile.avatar);
   screenFilterControls = new ScreenFilterControls(document.querySelector<HTMLElement>('#game-hud')!, {
@@ -496,7 +478,7 @@ function renderShell() {
     const access = accessClock.snapshot(performance.now());
     if (access?.phase === 'paid') accessSession.showBillingAccount();
     else if (access?.registered) accessSession.showPaywall();
-    else showSaveAccount(access?.phase === 'login_required');
+    else accountEntry.showSaveAccount(access?.phase === 'login_required');
   };
   document.querySelector<HTMLButtonElement>('#access-invite')!.onclick = () => void accessSession.showInviteFriend();
   syncWorldMode();
@@ -511,7 +493,6 @@ function watchWorld(watching: boolean): void {
   document.querySelector('#watch-region')!.textContent = interiorId ? getInterior(interiorId, mapId).name : getMap(mapId).name;
   document.querySelector<HTMLButtonElement>(watching ? '[data-action="stop-watching"]' : '.game-menu-button')?.focus();
 }
-function interiorIcon(id: InteriorId) { id = roomKind(id); return id === 'cafe' ? 'cup' : id === 'bakery' ? 'leaf' : 'basket'; }
 function updateNearby(id?: string) {
   const animal = animalSpeciesFromId(id);
   const entrance = id?.startsWith('building:') ? buildingEntrances(mapId).find(item => item.id === id) : undefined;
@@ -598,7 +579,7 @@ async function showInteriorObject(id: string) {
     if (id === 'interior:inn:bed') { openDialog(`<div class="completion">${portrait('self')}<h2>${t('The lantern can rest.')}</h2><p>${t('Give a few familiar words another moment, or let the day end. Your discoveries stay with you.')}</p><button class="primary-button" data-action="review">${t('Evening review')} ${icon('leaf')}</button><button class="outline-button" data-action="sleep">${t('Sleep and begin tomorrow')} ${icon('clock')}</button>${miniGameHostLinks(object.minigame)}<button class="text-button" data-action="close-dialog">${t('Keep exploring')}</button></div>`, 'inn-dialog'); return; }
   }
   const npc = object.npcId ? npcs.find(item => item.id === object.npcId) : undefined;
-  if (npc) recordExposure({npcId:npc.id});
+  if (npc) wordExposure.record({npcId:npc.id});
   const miniGame = object.minigame ? miniGameById.get(object.minigame) : undefined;
   try { await loadInteriorConversation(id); } catch (error) { if (current()) toast((error as Error).message, true); return; }
   if (!current() || interiorId !== room.id) return;
@@ -685,16 +666,11 @@ function openPhrase(id: string) {
   showWordDetail({id,article:'',lemma:phrase.german,meaning:localized({german:phrase.german,english:phrase.english}),example:sample?[{german:sample.german,english:localizedExercise(sample).english,localized:true}]:undefined,details:memory?[{label:t('Memory'),value:memoryLabel(memory.repetitions,memory.stabilityDays)}]:[],practice:{kind:'phrase',id}});
 }
 async function practisePhrase(id: string) {
-  const exercise=phrasePracticeQueue(id,progress,quests,{silent:silentMode,writingReady:writingReady(),contextWords:course?.courseContextWordIds})[0];
+  const exercise=phrasePracticeQueue(id,progress,quests,{silent:prefs.silentMode,writingReady:writingReady(),contextWords:course?.courseContextWordIds})[0];
   if(!exercise){toast(t('This word is resting. There is a new adventure waiting.'));return;}
   if(connection!=='online'){toast(t('The town is reconnecting. Try again in a moment.'),true);return;}
   setView('world');run={queue:[exercise],index:0,correct:0,targetCount:1,hinted:false,audioHeard:false,answered:false,answer:'',tokenOrder:[],review:true,label:t('Story expressions'),started:Date.now()};
   openDialog('','quest-dialog');renderExercise();
-}
-function placesSection() {
-  const entrances = buildingEntrances(mapId);
-  if (!entrances.length) return '';
-  return `<section class="interior-places"><h3>${t('Places')}</h3><div class="interior-place-list">${entrances.map(entrance=>{const room=getInterior(entrance.interiorId, mapId);return `<button data-focus-building="${room.id}">${icon(interiorIcon(room.id))}<strong>${e(room.name)}</strong>${icon('chevron')}</button>`;}).join('')}</div></section>`;
 }
 function nextInvestigation(graph: QuestGraph) { return graph.investigations.find(item => !(progress.story?.inspections?.[graph.questId] ?? []).includes(item.objectId)); }
 function investigationWorldId(item: QuestGraph['investigations'][number]): string { return (item as typeof item & { worldId?: string }).worldId ?? item.objectId; }
@@ -825,7 +801,7 @@ function setView(next: View, openPage = true) {
   menuPageOpen = openPage;
   if (questController?.isOpen) questController.close();
   if (watchingWorld) watchWorld(false);
-  exposureObserver?.disconnect();
+  wordExposure.disconnect();
   if (next !== 'world') screenFilterControls?.close(false);
   if (next !== 'world' && view === 'world') menuFocus = document.activeElement as HTMLElement;
   const previous = view;
@@ -861,7 +837,7 @@ function menuPages(): MenuPage[] {
   if (view === 'world') return [];
   if (sectionOf(view).id === 'you') return [
     {label:t('Character'),attributes:'data-view="character"',selected:view==='character'},
-    ...optionsTabs.map(tab => ({label:tab.label(),attributes:`data-options-tab="${tab.id}"`,selected:view==='settings'&&tab.id===optionsTab})),
+    ...optionsTabs.map(tab => ({label:tab.label(),attributes:`data-options-tab="${tab.id}"`,selected:view==='settings'&&tab.id===optionsPanel.tab})),
     {label:t('Controls & help'),attributes:'data-view="help"',selected:view==='help'},
   ];
   return sectionOf(view).views.map(item => ({label:viewLabel(item),attributes:`data-view="${item}"`,selected:item===view}));
@@ -968,12 +944,6 @@ function consequenceNote(effects: readonly { faction?: string }[] = []): string 
   const note = effects.map(effect => effect.faction ? factionNotes[effect.faction]?.() : undefined).find(Boolean);
   return note ? ` · ${note}` : '';
 }
-/** Until her name is revealed in the parcel scene, the notes are signed only "E.". */
-
-function eliseLetter(letter: Narrative, questId: string): string {
-  const unsignedQuests = quests.slice(0, quests.findIndex(quest => quest.id === 'a1-lost-parcel')).map(quest => quest.id);
-  return letter.length ? `<blockquote class="elise-letter"><span>${t('A note from {name}', { name: unsignedQuests.includes(questId) ? 'E.' : 'Elise' })}</span>${renderNarrative(letter)}<span class="elise-signature">— ${unsignedQuests.includes(questId) ? 'E.' : 'Elise'}</span></blockquote>` : '';
-}
 function continueDestination() {
   if (pendingExpeditionGame) { const id = pendingExpeditionGame; pendingExpeditionGame = undefined; startExpeditionGame(id); return; }
   const destination = pendingDestination; pendingDestination = undefined;
@@ -1052,8 +1022,8 @@ async function showExpeditionEncounter(targetId:string) {
   const currentPlayer=expeditionLearning.captureOwner();
   activityController={destroy(){alive=false;runtime.controller?.destroy();runtime.speechHost?.destroy();root.replaceChildren();},pause(){paused=true;runtime.controller?.pause();},resume(){paused=false;runtime.controller?.resume();},reset(){runtime.controller?.reset();}};
   const {createMiniGameHost}=await import('./minigames/host');if(!alive||!root.isConnected||!currentPlayer())return;
-  runtime.speechHost=createMiniGameHost({api,gameId:'expedition-encounters',lexicon:[],exercises:[],progress:()=>progress,onProgress:next=>{acceptProgress(next);updateProgress();},onEnd:()=>{},playerName:profile.name,silent:silentMode,muted,reducedMotion:worldMotion==='reduced',narration:active=>world.setNarrationActive(active)});
-  runtime.controller=mountExpeditionEncounter(root,encounter,{learning:expeditionLearning,progress:()=>progress,onProgress:next=>{acceptProgress(next);updateProgress();},saveStory:(selected,id)=>api.request<ExpeditionAnswerResult>('/expedition/answer',{id,selected,encounterId:encounter.id}),speak:(text,path)=>runtime.speechHost!.speakText(text,path),stopSpeech:()=>runtime.speechHost?.audio.stop(),silent:silentMode,initialPaused:paused||document.hidden||document.querySelector<HTMLDialogElement>('#account-dialog')!.open,previouslyAnswered:!!expeditionEncounterResult(encounter.id)?.attempts});
+  runtime.speechHost=createMiniGameHost({api,gameId:'expedition-encounters',lexicon:[],exercises:[],progress:()=>progress,onProgress:next=>{acceptProgress(next);updateProgress();},onEnd:()=>{},playerName:profile.name,silent:prefs.silentMode,muted:prefs.muted,reducedMotion:prefs.worldMotion==='reduced',narration:active=>world.setNarrationActive(active)});
+  runtime.controller=mountExpeditionEncounter(root,encounter,{learning:expeditionLearning,progress:()=>progress,onProgress:next=>{acceptProgress(next);updateProgress();},saveStory:(selected,id)=>api.request<ExpeditionAnswerResult>('/expedition/answer',{id,selected,encounterId:encounter.id}),speak:(text,path)=>runtime.speechHost!.speakText(text,path),stopSpeech:()=>runtime.speechHost?.audio.stop(),silent:prefs.silentMode,initialPaused:paused||document.hidden||document.querySelector<HTMLDialogElement>('#account-dialog')!.open,previouslyAnswered:!!expeditionEncounterResult(encounter.id)?.attempts});
 }
 function expeditionActivityBoard() {
   if (!routeUnlocked('windplain', progress.completedQuestIds)) return '';
@@ -1158,7 +1128,7 @@ function lanternGameBoard(title:'Story games'|'Mini-games'|'Word games',include:
 /** What decides whether a round can open now: level, story, sound, writing, dusk and restored words. */
 function miniGameReadiness():ReadinessContext {
   return {
-    level,silent:silentMode,writingReady:writingReady(),hour:world.getWorldTime().hour,
+    level,silent:prefs.silentMode,writingReady:writingReady(),hour:world.getWorldTime().hour,
     sceneFor:(game,gameLevel)=>game.questIds?.find(id=>quests.find(quest=>quest.id===id)?.level===gameLevel)??game.questIds?.[0],
     sceneAvailable:id=>questAvailable(id,progress),
     pool:course?query=>gameItemPool(course!.courseLexicon,progress,query):undefined,
@@ -1175,7 +1145,7 @@ function recordExpeditionExposure(text:string):void {
   void loadCourse().then(module=>{
     const restored=introducedSet(),tokens=new Set(text.toLocaleLowerCase('de').match(/\p{L}+/gu)??[]);
     const wordIds=module.courseLexicon.filter(word=>restored.has(word.id)&&[word.lemma,...(word.surfaceForms??[])].some(form=>tokens.has(form.toLocaleLowerCase('de')))).map(word=>word.id);
-    if(wordIds.length)recordExposure({wordIds});
+    if(wordIds.length)wordExposure.record({wordIds});
   }).catch(()=>{});
 }
 async function startMiniGame(id:string):Promise<void>{
@@ -1212,7 +1182,7 @@ async function startMiniGame(id:string):Promise<void>{
       const sceneExercises=quests.flatMap(quest=>quest.exercises.map(exercise=>({...exercise,level:quest.level,kind:'writing' as const,unitId:quest.id,wordIds:(exercise as Exercise&{wordIds?:string[]}).wordIds??courseModule.courseContextWordIds[exercise.id]??[]})));
       miniGameHost=createMiniGameHost({api,gameId:id,lexicon:courseModule.courseLexicon,exercises:[...courseModule.courseExercises,...sceneExercises,...authoredExercises],progress:()=>progress,
         onProgress:value=>{if(owner===api.selfId){acceptProgress(value);updateProgress();}},onEnd:summary=>{if(summary.attempts)toast(`${summary.correct} / ${summary.attempts} answers remembered.`);},
-        playerName:profile.name,silent:silentMode,muted,reducedMotion:worldMotion==='reduced'||worldMotion==='auto'&&matchMedia('(prefers-reduced-motion: reduce)').matches,narration:active=>world.setNarrationActive(active)});
+        playerName:profile.name,silent:prefs.silentMode,muted:prefs.muted,reducedMotion:prefs.worldMotion==='reduced'||prefs.worldMotion==='auto'&&matchMedia('(prefers-reduced-motion: reduce)').matches,narration:active=>world.setNarrationActive(active)});
       miniGameController=game;
       const fixedPool=questId?syllabus.quests.find(quest=>quest.questId===questId)?.wordIds:undefined;
       game.mount(document.querySelector<HTMLElement>('#minigame-root')!,miniGameHost,{level:gameLevel,currentLevel:level,seed:crypto.getRandomValues(new Uint32Array(1))[0],fixedPool,backdrop:['workbench','lost-hour'].includes(id)?'/assets/minigames/workbench.webp':['seed-packets','17-59'].includes(id)?getMap('waldruh').previewAsset:interiorId?getInterior(interiorId, mapId).asset:getMap(mapId).previewAsset});
@@ -1221,13 +1191,13 @@ async function startMiniGame(id:string):Promise<void>{
     (error,dialog)=>{toast((error as Error).message,true);dialog.close();});
 }
 async function startWorldDelivery():Promise<void>{
-  if(silentMode){toast('Turn off silent mode to hear Lina’s directions.');return;}
+  if(prefs.silentMode){toast('Turn off silent mode to hear Lina’s directions.');return;}
   if(interiorId){toast('Meet Lina outside for the courtyard delivery.');return;}
   const current=dialogSession.begin(),owner=api.selfId,startingMap=mapId;
   const [module,{WorldDeliveryRun},{createMiniGameHost}]=await Promise.all([loadCourse(),import('./minigames/delivery'),import('./minigames/host')]);
   if(!current())return;
   deliveryController?.destroy();deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;
-  const host=createMiniGameHost({api,gameId:'delivery-run',lexicon:module.courseLexicon,exercises:module.courseExercises,progress:()=>progress,onProgress:value=>{if(owner===api.selfId){acceptProgress(value);updateProgress();}},onEnd:summary=>toast(`${summary.correct} / ${summary.attempts} spoken directions remembered.`),playerName:profile.name,silent:silentMode,muted,reducedMotion:worldMotion==='reduced',narration:active=>world.setNarrationActive(active)});
+  const host=createMiniGameHost({api,gameId:'delivery-run',lexicon:module.courseLexicon,exercises:module.courseExercises,progress:()=>progress,onProgress:value=>{if(owner===api.selfId){acceptProgress(value);updateProgress();}},onEnd:summary=>toast(`${summary.correct} / ${summary.attempts} spoken directions remembered.`),playerName:profile.name,silent:prefs.silentMode,muted:prefs.muted,reducedMotion:prefs.worldMotion==='reduced',narration:active=>world.setNarrationActive(active)});
   document.querySelector<HTMLDialogElement>('#dialog')!.close();setView('world');
   const controller=new WorldDeliveryRun(world,host,()=>{deliveryController=undefined;deliveryHost?.destroy();deliveryHost=undefined;syncWorldMode();},()=>mapId===startingMap&&!interiorId&&view==='world'&&!document.hidden&&connection==='online'&&!document.querySelector<HTMLDialogElement>('#account-dialog')!.open&&!document.querySelector<HTMLDialogElement>('#dialog')!.open,()=>syncWorldMode());
   if(!controller.mount(document.querySelector<HTMLElement>('#game-shell')!)){host.destroy();syncWorldMode();toast('Restore Lina’s direction words (links, rechts, oben and unten), then try a delivery outside.');return;}
@@ -1255,7 +1225,7 @@ async function startActivity(id: ActivityId, source?: {roomId:InteriorId; statio
       id, level: regionLevel, progress, sessionKey: venue ? `${api.selfId}:interior:${venue.id}` : api.selfId, venue,
       speak,
       onDelivery: destination => { world.showDeliveryArrival(destination.recipient); toast(`${destination.name} · ${destination.recipient}`); },
-      onSceneVisible: (_exerciseId, context) => recordExposure(context),
+      onSceneVisible: (_exerciseId, context) => wordExposure.record(context),
       onClose: () => dialog.close(),
       onProgress: value => { acceptProgress(value); updateProgress(); },
       submit: async (exercise, answer, hinted, mode, context) => {
@@ -1347,7 +1317,7 @@ function bindLexiconSearch(words: CourseModule['courseLexicon']) {
     const matches = words.filter(word => lower(`${word.lemma} ${word.english} ${lexemeMeaning(word)} ${word.topic}`).includes(lower(query)));
     document.querySelector('#lexicon-list')!.innerHTML = lexemeCards(matches.slice(0, 36));
     document.querySelector('#lexicon-status')!.textContent = !matches.length ? '' : matches.length > 36 ? t('{count} words. Showing the first 36; search to find any word.', { count: matches.length }) : matches.length === 1 ? t('{count} word.', { count: matches.length }) : t('{count} words.', { count: matches.length });
-    observeVisibleWords();
+    wordExposure.observe();
   };
   render();
   document.querySelector<HTMLInputElement>('#lexicon-search')!.oninput = event => render((event.target as HTMLInputElement).value);
@@ -1374,7 +1344,7 @@ async function startWordPractice(id: string) {
   if (connection !== 'online') { toast(t('The town is reconnecting. Try again in a moment.'), true); return; }
   const queue = playablePractice(module.courseExercises).filter(ex => ex.itemId === `word-${id}` && (!exerciseHasSuccess(ex) || Date.parse(memory?.evidence?.[modeFor(ex)]?.dueAt ?? '') <= Date.now()));
   if (!queue.length && !writingReady()) { showOpeningPracticeNotice(); return; }
-  if (!queue.length) { toast(silentMode ? t('No reading or writing practice is ready for this word. Listening is skipped in silent mode.') : t('This word is resting. There is a new adventure waiting.')); return; }
+  if (!queue.length) { toast(prefs.silentMode ? t('No reading or writing practice is ready for this word. Listening is skipped in silent mode.') : t('This word is resting. There is a new adventure waiting.')); return; }
   setView('world'); run = { queue, index:0, correct:0, targetCount:queue.length, hinted:false, audioHeard:false, answered:false, answer:'', tokenOrder:[], review:true, label:t('A word for your journey · {word}', { word: word.lemma }), started:Date.now() };
   openDialog('', 'quest-dialog'); renderExercise();
 }
@@ -1406,9 +1376,9 @@ async function startAdaptiveReview() {
   try { await loadWordDrills(module.courseLexicon.filter(word => progress.words[word.id] && wordReadyForReview(progress.words[word.id])).map(word => word.id)); } catch (error) { if (current()) toast((error as Error).message, true); return; }
   if (!current()) return;
   if (connection !== 'online') { toast(t('The town is reconnecting. Try again in a moment.'), true); return; }
-  const queue = reviewExercises(progress, module.courseExercises, quests.flatMap(q => q.exercises), Date.now(), silentMode, writingReady());
+  const queue = reviewExercises(progress, module.courseExercises, quests.flatMap(q => q.exercises), Date.now(), prefs.silentMode, writingReady());
   if (!queue.length && !writingReady()) { showOpeningPracticeNotice(); return; }
-  if (!queue.length) { toast(silentMode ? t('No reading or writing reviews are ready. Listening is skipped in silent mode.') : t('Your familiar words are resting. Follow a new route or play an adventure.')); return; }
+  if (!queue.length) { toast(prefs.silentMode ? t('No reading or writing reviews are ready. Listening is skipped in silent mode.') : t('Your familiar words are resting. Follow a new route or play an adventure.')); return; }
   setView('world'); run = { queue,index:0,correct:0,targetCount:queue.length,hinted:false,audioHeard:false,answered:false,answer:'',tokenOrder:[],review:true,label:t('A short recall walk'),started:Date.now() };
   openDialog('', 'quest-dialog'); renderExercise();
 }
@@ -1437,11 +1407,6 @@ function bindJoystick() {
   document.addEventListener('atlas-controls-reset', reset);
   document.addEventListener('visibilitychange', () => { if (document.hidden) reset(); });
 }
-function earnedActivityJournal(): string {
-  const discoveries = Object.keys(progress.activities ?? {}).flatMap(id => activityDiscoveries[id] ? [activityDiscoveries[id]] : []);
-  if (!discoveries.length) return '';
-  return `<section class="field-notes"><h3>${t('Witnesses from the road')}</h3>${discoveries.map(clue => `<article class="grammar-route"><h3>${e(localized(clue.title))}</h3><p>${renderNarrative(clue.text)}</p><blockquote>${renderNarrative(clue.lead)}</blockquote></article>`).join('')}</section>`;
-}
 let loadingStoryPage = false;
 async function loadStoryPage() {
   if (loadingStoryPage) return;
@@ -1450,10 +1415,16 @@ async function loadStoryPage() {
   catch (error) { toast((error as Error).message, true); }
   finally { loadingStoryPage = false; }
 }
+function menuPageContext(): MenuPageContext {
+  return {
+    progress, mapId, level, mechanics: mechanicsUi?.mechanics, currentQuest: currentQuest(), inspectedObjects: readSeen('objects'),
+    portrait: id => portrait(id), completedAtLevel, encounterSolved: id => !!expeditionEncounterResult(id)?.correct,
+  };
+}
 function renderOther() {
   queueMicrotask(() => { if (['story', 'menu', 'quests'].includes(view) && storyContentRemaining > 0) { const panel = document.querySelector('#other-view'); if (panel && !panel.querySelector('[data-action=load-story-page]')) panel.insertAdjacentHTML('beforeend', `<button class=outline-button data-action=load-story-page>${e(t('Load more stories'))}</button>`); } });
-  exposureObserver?.disconnect();
-  if (view !== 'settings') { unbindOptions?.(); unbindOptions = undefined; }
+  wordExposure.disconnect();
+  if (view !== 'settings') optionsPanel.close();
   queueMicrotask(() => {
     if (!['menu', 'course'].includes(view) || !started) return;
     const panel = document.querySelector<HTMLElement>('#other-view'); if (!panel || panel.querySelector('[data-course-picker]')) return;
@@ -1480,27 +1451,13 @@ function renderOther() {
       promise: promise ? { title: localized(promise.title), done: Math.min(promise.correctAnswers, promise.target), target: promise.target, lit: !!promise.completed } : undefined,
     });
   } else if (view === 'quests') {
-    const act = actFor(mapId), chapterQuests = quests.filter(q => q.level === level);
-    el.innerHTML = `<div class="quest-log-heading"><h2>${e(localized(act.title))}</h2></div>${questGraph(currentQuest().id) ? questObjectivesMarkup(questGraph(currentQuest().id)!,progress) : ''}<div class="quest-log-list">${chapterQuests.map((q, i) => { const done = progress.completedQuestIds.includes(q.id), next = q.id === currentQuest().id && !done; return `<button class="quest-log-entry ${done ? 'found' : next ? 'next' : ''}" data-follow-quest="${q.id}" ${questAvailable(q.id, progress) ? '' : 'disabled'}><span class="quest-log-number">${done ? icon('check') : String(i + 1).padStart(2, '0')}</span>${portrait(q.npcId)}<span class="quest-log-copy"><strong>${e(localized(q.title))}</strong></span>${icon('chevron')}</button>`; }).join('')}</div><button class="primary-button" data-action="next-objective">${icon('flag')} ${completedAtLevel(level) === 6 ? t('Follow the next route') : t('Find my next lead')}</button><div class="quest-region-strip">${maps.filter(map => !getExpedition(map.id) || routeUnlocked(map.id, progress.completedQuestIds)).map(map => `<button ${routeUnlocked(map.id, progress.completedQuestIds) ? '' : 'disabled'} data-travel="${map.id}" class="${map.id === mapId ? 'here' : ''}"><span>${map.level}</span>${e(map.name)}${icon(map.id === mapId ? 'pin' : 'arrow')}</button>`).join('')}</div>`;
+    el.innerHTML = questLogPage(menuPageContext());
   } else if (view === 'story') {
-    const found = discoveredClues(progress.completedQuestIds), inspected = readSeen('objects');
-    el.innerHTML = `<header class="learning-page-header"><h2>${t('Discoveries')}</h2></header>${evidenceBoard(progress)}${mechanicsUi ? ticketsPage(progress, mechanicsUi.mechanics, id => getMap(id as MapId).name) : ''}${coastPage(progress, maps.filter(item => getExpedition(item.id) && routeUnlocked(item.id, progress.completedQuestIds)))}<div class="story-acts">${storyActs.map(act=>{
-      const qs=quests.filter(q=>q.level===act.level),clues=found.filter(clue=>qs.some(q=>q.id===clue.questId));
-      if(!clues.length)return '';
-      return `<section class="story-act"><header><h3>${e(localized(act.title))}</h3><span class="clue-count">${clues.length}/6</span></header><div class="clue-pages">${clues.map(clue=>`<details class="clue-page"><summary>${clueHeading(clue)}${icon('chevron')}</summary><p>${renderNarrative(clue.text)}</p>${eliseLetter(clue.letter,clue.questId)}<p>${renderNarrative(clue.lead)}</p></details>`).join('')}</div>${clues.length===6?`<details class="lore-detail"><summary>${t('Next chapter')}</summary><blockquote>${renderNarrative(act.cliffhanger)}</blockquote></details>`:''}</section>`;
-    }).join('')}</div>${inspected.length?`<section class="field-notes"><h3>${t('Notes from the road')}</h3>${maps.flatMap(map=>map.objects.filter(object=>inspected.includes(object.id)).map(object=>`<button data-inspect-object="${object.id}" data-object-map="${map.id}"><strong>${e(object.label)}</strong>${icon('chevron')}</button>`)).join('')}</section>`:''}${earnedActivityJournal()}${routeUnlocked('windplain',progress.completedQuestIds)?expeditionNotebook(progress.story?.expeditionPlans??{}):''}<button class="primary-button" data-action="next-objective">${t('Follow the next lead')}</button>`;
+    el.innerHTML = discoveriesPage(menuPageContext());
   } else if (view === 'atlas') {
-    const current = getMap(mapId);
-    el.innerHTML = `<div class="atlas-heading"><h2>${t('Region atlas')}</h2></div><div class="region-cards">${maps.filter(map => !getExpedition(map.id) || routeUnlocked(map.id, progress.completedQuestIds)).map(map => {
-      const unlocked = routeUnlocked(map.id, progress.completedQuestIds), expedition = getExpedition(map.id), act = expedition ? undefined : actFor(map.id);
-      const status = expedition ? expeditionGameStatus(map.id, level, progress.story?.expeditionPlans ?? {}) : undefined;
-      const done = expedition ? expedition.encounters.filter(encounter => expeditionEncounterResult(encounter.id)?.correct).length : completedAtLevel(map.level);
-      return `<article class="region-card ${map.id === mapId ? 'current' : ''}"><div class="region-card-art" style="background-image:url('${map.previewAsset}')"><span>${expedition ? `${t('EXPEDITION')} · A1 / A2 / B1` : `${e(upper(t('Act {number}', { number: act!.number })))} · ${map.level}`}</span>${map.id === mapId ? `<b>${t('YOU ARE HERE')}</b>` : ''}</div><div class="region-card-copy"><h3>${e(map.name)}</h3><div class="region-card-meta"><span>${expedition ? t('{done} / {total} encounters', { done, total: expedition.encounters.length }) : t('{done} / {total} stories', { done, total: 6 })}</span><span>${expedition ? status === 'completed' ? t('Agreement remembered') : t('{count} neighbors · local game', { count: expedition.npcs.length }) : t('Story route')}</span></div><button class="${map.id === mapId ? 'outline-button' : 'primary-button'}" ${map.id === mapId ? 'data-view="world"' : `data-travel="${map.id}" ${unlocked ? '' : 'disabled'}`}>${map.id === mapId ? t('Return to exploring') : ` ${unlocked ? e(t('Travel to {place}', { place: map.name })) : t('Find the next clue first')}`} ${icon('arrow')}</button></div></article>`;
-    }).join('')}</div>${placesSection()}<section class="region-local-map"><div><h3>${e(t('People & little things'))}</h3><p>${t('Choose a marker to walk there.')}</p></div><div class="atlas-map" style="aspect-ratio:${current.width}/${current.height}"><img src="${current.previewAsset}" alt="${e(t('Painted map of {place}', { place: current.name }))}"/>${current.npcs.map(point => { const npc = npcs.find(item => item.id === point.id) ?? getExpeditionNpc(point.id); return npc ? `<button class="atlas-map-pin" data-waypoint="${point.id}" style="left:${point.x * 100}%;top:${point.y * 100}%" aria-label="${e(t('Walk to {name}', { name: localizedName(npc.name) }))}">${portrait(point.id)}<span>${e(localizedName(npc.name))}</span></button>` : ''; }).join('')}${current.objects.map(object => `<button class="object-map-pin" data-focus-object="${object.id}" style="left:${object.x * 100}%;top:${object.y * 100}%" aria-label="${e(t('Walk to {name}', { name: object.label }))}">${icon(object.kind === 'garden' ? 'leaf' : object.kind === 'clock' ? 'clock' : 'lantern')}</button>`).join('')}<span class="atlas-map-compass">${icon('compass')} N</span></div></section>`;
+    el.innerHTML = atlasPage(menuPageContext());
   } else if (view === 'journal') {
-    const learned = vocabulary.filter(v => progress.items[v.id]);
-    const due = dueItems(progress);
-    el.innerHTML = `<header class="learning-page-header"><h2>${t('Story expressions')}</h2><button class="icon-button" data-action="journal-help" aria-label="${e(t('Word journal help'))}">?</button>${due.length ? `<button class="primary-button journal-review" data-action="review">${t('Review {count} words', {count:Math.min(due.length,8)})}</button>` : ''}</header><div class="route-tabs"><button data-journal-tab="words">${t('Individual words')}</button><button class="selected" data-journal-tab="phrases">${t('Story expressions')}</button></div><div class="journal-toolbar"><label>${icon('book')}<input id="word-search" placeholder="${e(t('Find a word or meaning…'))}" aria-label="${e(t('Search your word journal'))}"/></label></div><div class="word-grid" id="word-grid">${learned.length ? learned.map(v => { const meaning = localized({german:v.german,english:v.english}); return `<button class="word-card compact-word-card" data-open-phrase="${e(v.id)}" data-word="${e(lower(`${v.german} ${v.english} ${meaning}`))}"><h3 lang="de">${e(v.german)}</h3><p>${e(meaning)}</p>${icon('chevron')}</button>`; }).join('') : `<div class="empty-state"><p>${t('Your story is still being written.')}</p><button class="primary-button" data-view="world">${t('Meet Lindenhafen')}</button></div>`}</div>`;
+    el.innerHTML = phraseJournalPage(menuPageContext());
     document.querySelector<HTMLInputElement>('#word-search')?.addEventListener('input', event => {
       const query = lower((event.target as HTMLInputElement).value);
       document.querySelectorAll<HTMLElement>('[data-word]').forEach(card => { card.hidden = !card.dataset.word!.includes(query); });
@@ -1511,98 +1468,9 @@ function renderOther() {
   } else if (view === 'help') {
     el.innerHTML = controlsHelpMarkup();
   } else if (view === 'settings') {
-    renderOptions(el as HTMLElement);
+    optionsPanel.render(el as HTMLElement);
   }
 }
-function optionRows(): OptionRow[] {
-  const onOff = [{ value: 'on', label: t('On') }, { value: 'off', label: t('Off') }];
-  if (optionsTab === 'audio') return [
-    { kind: 'choice', id: 'sound', label: t('Interface sounds'), help: t('Menu sounds and small musical cues after your answers.'), value: muted ? 'off' : 'on', choices: onOff },
-    { kind: 'choice', id: 'silent', label: t('Silent mode'), help: t('Automatically skip listening exercises and mute audio. Quests finish after reading and writing; listening stays available for later. Saved on this device.'), value: silentMode ? 'on' : 'off', choices: onOff },
-    { kind: 'choice', id: 'speech-rate', label: t('Listening pace'), help: t('German audio is included. Choose a comfortable pace and replay it whenever you like.'), value: String(speechRate), choices: [{ value: '0.65', label: t('A little slower') }, { value: '0.82', label: t('Easy pace') }, { value: '1', label: t('Natural pace') }] },
-  ];
-  if (optionsTab === 'display') {
-    const clock = world.getWorldTime();
-    const tierLabel: Record<QualityTier, string> = { low: t('Low'), medium: t('Medium'), high: t('High') };
-    return [
-      { kind: 'choice', id: 'graphics-quality', label: t('Graphics quality'), help: t('Sharper art downloads more and needs more graphics memory. Automatic starts at Low, raises the quality while the game runs smoothly and lowers it if play stutters. A level you choose stays fixed.'), value: graphicsQualityMode(), choices: [{ value: 'auto', label: t('Automatic ({tier})', { tier: tierLabel[graphicsQualityTier()] }) }, { value: 'low', label: tierLabel.low }, { value: 'medium', label: tierLabel.medium }, { value: 'high', label: tierLabel.high }] },
-      { kind: 'choice', id: 'world-motion', label: t('World motion'), help: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? t('Choose lively town scenery or a calmer world. Your device currently requests reduced motion.') : t('Choose lively town scenery or a calmer world. Your device currently requests full motion.'), value: worldMotion, choices: [{ value: 'auto', label: t('Follow device preference') }, { value: 'full', label: t('Full world animation') }, { value: 'reduced', label: t('Calm, still scenery') }] },
-      { kind: 'choice', id: 'time-mode', label: t('Time of day'), help: t('Watch warm daylight turn into moonlit streets. Let the day pass, follow your local clock, or choose a moment.'), value: worldTimeMode, choices: [{ value: 'cycle', label: t('Slow day and night cycle') }, { value: 'local', label: t('Real local time') }, { value: 'manual', label: t('Choose a time') }] },
-      { kind: 'scale', id: 'world-hour', label: t('Time to watch'), help: t('Changing the hour switches the world clock to the time you choose.'), value: Math.floor(clock.hour), min: 0, max: 23, step: 1, display: `${clock.label} · ${upper(clock.period === 'day' ? t('Day') : t('Night'))}`, valueId: 'world-hour-label' },
-      { kind: 'choice', id: 'fullscreen', label: t('Full screen'), help: t('Let the world fill the whole screen.'), value: document.fullscreenElement ? 'on' : 'off', choices: onOff },
-      { kind: 'action', id: 'screen-filters', label: t('Screen filters'), help: t('Experiment with a softer world or an old television finish. Your choices are saved with your adventure.'), action: 'screen-filters', button: t('Try filters in the world'), glyph: 'sparkles' },
-      { kind: 'action', id: 'watch-world', label: t('Watch the world'), help: t('Hide the interface and watch the town go about its day. Press Escape to return.'), action: 'watch-world', button: t('Watch the world'), glyph: 'compass' },
-    ];
-  }
-  if (optionsTab === 'language') return [
-    { kind: 'choice', id: 'base-language', label: t('Support language'), help: `${t('Meanings, hints, explanations and menus appear in this language. The German, its audio and how answers are checked stay the same.')}${baseLanguage() === 'tr' ? ` ${t('Turkish text is machine-written and awaits native-speaker review.')}` : ''}`, value: baseLanguage(), choices: (['en', 'tr'] as const).map(language => ({ value: language, label: baseLanguageNames[language] })) },
-    { kind: 'custom', id: 'chapter', label: t('Your learning chapter'), help: t('Routes open when you restore their names. Your learning scaffold follows the route.'), html: `<div class="level-switch settings-levels">${(['A1', 'A2', 'B1'] as const).map(l => `<button data-level="${l}" ${routeUnlocked(maps.find(map => map.level === l)!.id, progress.completedQuestIds) ? '' : 'disabled'} class="${l === level ? 'selected' : ''}">${l}</button>`).join('')}</div>` },
-    { kind: 'action', id: 'placement', label: t('Practice starting point'), help: t('A two-minute sample recommends useful language support.'), action: 'placement', button: t('Find my comfortable German level'), glyph: 'compass' },
-  ];
-  return [
-    ...accountCredentialRows(account),
-    { kind: 'choice', id: 'usage-analytics', label: t('Usage analytics'), help: t('Share visits and app issues with Glotworld to help improve the game. No external analytics services. Your browser privacy preference takes priority. Learning progress and billing records are saved separately.'), value: browserAnalyticsEnabled() ? 'on' : 'off', choices: onOff },
-    { kind: 'action', id: 'manage-access', label: t('Game access'), help: accessClock.snapshot(performance.now())?.phase === 'free' ? t('Enjoy unlimited free play.') : t('Manage your access and billing.'), action: 'manage-access', button: accessClock.snapshot(performance.now())?.phase === 'free' ? t('Free to play') : accessClock.snapshot(performance.now())?.phase === 'paid' ? t('Manage access') : t('View access options'), glyph: 'clock' },
-    { kind: 'custom', id: 'account', label: account.registered ? t('Your adventure is linked') : t('Take your adventure with you'), help: account.registered ? t('Playing as {name}. Log in on another device with {email} and your password.', { name: profile.name, email: account.email }) : t('Playing as {name}. Add an email and password to continue on another device.', { name: profile.name }), html: `<div class="option-buttons">${account.registered ? '' : `<button class="option-action" data-action="save-account">${e(t('Add email & password'))}</button>`}<button class="option-action" data-action="login-account">${t('Log in to a saved adventure')}</button><button class="option-action" data-action="reset-game">${accessClock.snapshot(performance.now())?.phase === 'free' ? 'Reset game' : 'Reset game &amp; play 2 hours'}</button><button class="option-action" data-action="logout-account">${t('Log out')}</button></div>` },
-  ];
-}
-// Automatic quality can change while the Display tab is open; keep its label current.
-onGraphicsQualityChange(() => {
-  const host = document.querySelector<HTMLElement>('[data-options-panel="display"]')?.parentElement;
-  if (host && view === 'settings' && optionsTab === 'display') renderOptions(host);
-});
-function renderOptions(el: HTMLElement) {
-  unbindOptions?.();
-  const focused = el.contains(document.activeElement) ? (document.activeElement as HTMLElement).dataset.option : undefined, scroll = el.scrollTop;
-  const rows = optionRows();
-  let extra = '';
-  if (optionsTab === 'language') extra = `<section data-course-picker></section>${baseLanguage() === 'tr' ? `<p class="honest-note">${t('Turkish support covers the story and all A1, A2 and B1 course exercises.')} ${t('Coverage: story {story}%, interface {ui}%, course words {words}%, course tasks {tasks}%.', turkishCoverage)}</p>` : ''}`;
-  if (optionsTab === 'account') {
-    const performance = world.getWorldStats();
-    extra = saveSlotsMarkup(storySaves) + `<div class="connection-info">${icon('users')} ${connection === 'online' ? t('Your route is connected. Your progress is saved on the server.') : connection === 'incompatible' ? t('The world has changed. Reload this page to continue.') : connection === 'replaced' ? t('Your character is active in another tab. Continue there, or close it and reload this page.') : t('The route is reconnecting. Keep this tab open.')}</div><details class="world-performance"><summary>${t('World performance')}</summary><p>${performance.fps ? t('{fps} frames per second · average {frame} ms · 95th percentile {p95} ms', { fps: performance.fps, frame: performance.frameMs, p95: performance.p95FrameMs }) : t('The world is warming up.')}</p><span class="caption">${t('{residents} residents · {objects} objects · {animated} animated details', { residents: performance.residents, objects: performance.objects, animated: performance.animated })}</span></details>`;
-  }
-  el.innerHTML = optionsMarkup(optionsTab, rows, extra);
-  const picker = el.querySelector<HTMLElement>('[data-course-picker]');
-  if (picker && started) void mountCoursePicker(picker, api).catch(error => toast(error.message, true));
-  if (optionsTab === 'account') {
-    const owner = api.token;
-    bindAccountCredentials(el, api, (updated, kind) => {
-      if (api.token !== owner) return;
-      account = updated;
-      updateWorldEditButton();
-      document.querySelector<HTMLElement>('#admin-analytics-link')!.hidden = account.admin !== true;
-      if (view === 'settings' && optionsTab === 'account') {
-        renderOptions(el);
-        el.querySelector<HTMLElement>(`.account-credential-editor:has([data-credential-form="${kind}"]) summary`)?.focus();
-      }
-      toast(t(kind === 'email' ? 'Your email has been updated.' : 'Your password has been updated.'));
-    });
-  }
-  unbindOptions = bindOptionRows(el, rows, (row, value) => changeOption(row.id, String(value)), kind => uiSounds.play(kind));
-  if (focused) { el.querySelector<HTMLElement>(`[data-option="${focused}"]`)?.focus({ preventScroll: true }); el.scrollTop = scroll; }
-}
-function changeOption(id: string, value: string) {
-  switch (id) {
-    case 'sound': muted = value === 'off'; localStorage.setItem('atlas.muted', String(muted)); world.setAudioPreferences({ silent: silentMode, muted }); if (!muted) playCue(true); break;
-    case 'silent': if (attemptBusy) { toast(t('Your answer is saving. Try again in a moment.')); return; } setSilentMode(value === 'on'); return;
-    case 'usage-analytics': setBrowserAnalyticsEnabled(value === 'on'); break;
-    case 'speech-rate': speechRate = Number(value); localStorage.setItem('atlas.speechRate', String(speechRate)); break;
-    case 'graphics-quality': setGraphicsQualityMode(value as QualityMode); break;
-    case 'world-motion': worldMotion = value as WorldMotion; localStorage.setItem('atlas.worldMotion', worldMotion); world.setMotionPreference(worldMotion); break;
-    case 'time-mode': worldTimeMode = value as WorldTimeMode; localStorage.setItem('atlas.worldTimeMode', worldTimeMode); world.setTimePreference({ mode: worldTimeMode, hour: manualWorldHour }); break;
-    case 'world-hour':
-      manualWorldHour = Number(value); worldTimeMode = 'manual';
-      localStorage.setItem('atlas.worldHour', String(manualWorldHour)); localStorage.setItem('atlas.worldTimeMode', worldTimeMode);
-      world.setTimePreference({ mode: worldTimeMode, hour: manualWorldHour }); break;
-    case 'fullscreen':
-      if (value === 'off') void document.exitFullscreen?.().catch(() => undefined).finally(() => { if (view === 'settings') renderOther(); });
-      else void document.documentElement.requestFullscreen?.().catch(() => toast(t('Full screen isn’t available here.'))).finally(() => { if (view === 'settings') renderOther(); });
-      return;
-    case 'base-language': void changeBaseLanguage(value as BaseLanguage); return;
-  }
-  if (view === 'settings') renderOther();
-}
-
 async function startPlacement() {
   if (!writingReady()) { showOpeningPracticeNotice(true); return; }
   openDialog(`<div id="placement-root"><p>${t('Opening your German sample…')}</p></div>`, 'activity-dialog');
@@ -1638,7 +1506,7 @@ async function showNpc(id: string) {
   if (available) {
     try { await loadContexts('questGrammar', available.id); await questController?.open(available.id); } catch (error) { toast((error as Error).message, true); } return;
   }
-  recordExposure({npcId:id});
+  wordExposure.record({npcId:id});
   try { await loadNpcConversation(id, level, progress, lanternRewards(progress).title); questController?.greet(npc, level); } catch (error) { toast((error as Error).message, true); }
 }
 function startQuest(id: string) {
@@ -1659,7 +1527,7 @@ function startQuestPractice(id: string) {
   const due = new Set(dueItems(progress));
   const queue = playablePractice(quest.exercises).filter(ex => !hasSuccessfulEncounter(ex.itemId) || due.has(ex.itemId));
   if (!queue.length && !writingReady() && quest.exercises.some(ex => (ex.mode === 'sentence' || ex.mode === 'type') && !hasSuccessfulEncounter(ex.itemId))) { showOpeningPracticeNotice(); return; }
-  run = { quest, queue, index: 0, correct: 0, targetCount: queue.length, hinted: false, audioHeard: false, answered: false, answer: '', tokenOrder: [], review: false, started: Date.now(), skipListening: silentMode };
+  run = { quest, queue, index: 0, correct: 0, targetCount: queue.length, hinted: false, audioHeard: false, answered: false, answer: '', tokenOrder: [], review: false, started: Date.now(), skipListening: prefs.silentMode };
   const npc = npcs.find(n => n.id === quest.npcId) ?? npcs[0];
   openDialog(`<div class="quest-intro">${portrait(npc.id, 'large-portrait')}<h2>${e(localized(quest.title))}</h2><p class="intro-story">${renderNarrative(quest.story)}</p><button class="primary-button" data-action="begin-exercises">${queue.length ? t('Let the adventure begin') : t('Discover the next clue')} ${icon('arrow')}</button></div>`, 'quest-dialog');
 }
@@ -1679,7 +1547,7 @@ function startReview() {
 function renderExercise() {
   exerciseInputCleanup?.();exerciseInputCleanup=undefined;if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;}pendingExerciseChoice=undefined;
   if (!run) return;
-  if (silentMode) { skipListeningExercises(run); run.skipListening = true; }
+  if (prefs.silentMode) { skipListeningExercises(run); run.skipListening = true; }
   if (run.index >= run.queue.length) { void finishRun(); return; }
   const ex = run.queue[run.index];
   run.hinted = false; run.audioHeard = false; run.answered = false; run.answer = ''; run.tokenOrder = [];
@@ -1691,7 +1559,7 @@ function renderExercise() {
   const optionMarkup = exerciseOptionsMarkup(ex, [...(ex.options ?? [])].map((option, i) => ({ option, seed: hash(`${run!.started}:${ex.id}:${run!.index}:${i}`) })).sort((a, b) => a.seed - b.seed).map(({ option }) => option));
   document.querySelector<HTMLDialogElement>('#dialog')!.innerHTML = `<button class="dialog-close" data-action="close-dialog" aria-label="${e(t('Close adventure'))}">${icon('close')}</button><div class="exercise-header"><span>${run.label ? e(run.label) : run.review ? t('A familiar face, a new encounter') : e(run.quest ? localized(run.quest.title) : t('Your learning route'))}</span><strong>${Math.min(run.index + 1, run.targetCount)} / ${run.targetCount}</strong></div><div class="exercise-progress"><span style="width:${Math.min(100, run.correct / (run.targetCount) * 100)}%"></span></div><div class="exercise-content"><div class="exercise-preferences">${silentModeButton()}</div><h2>${e(shown.prompt)}</h2>${ex.mode === 'listen' ? `<div class="audio-scene"><button class="audio-play" data-speak="${e(ex.german)}" aria-label="${e(t('Play German audio'))}">${icon('volume')}</button><div><strong>${e(t('A voice from {place}', { place: interiorId ? getInterior(interiorId, mapId).name : getMap(mapId).name }))}</strong><span>${t('Listen, then choose your answer. Replay any time.')}</span></div></div><button class="text-button transcript-button" data-action="transcript">${t('Show transcript')}</button><p class="transcript" id="transcript" hidden>${e(ex.german)}</p>` : ''}<div class="exercise-answer">${ex.mode === 'choice' || ex.mode === 'listen' ? `<div class="answer-options">${optionMarkup}</div>` : ex.mode === 'sentence' ? `<div class="sentence-result" id="sentence-result" aria-label="${e(t('Your sentence'))}"><span class="sentence-placeholder">${t('Tap the words to build your answer')}</span></div><div class="word-tokens" id="word-tokens">${shuffledSentenceTiles(ex, `${run.started}:${run.index}:${ex.id}`).map(({ token, i }) => `<button class="word-token" data-game-option="${i}" data-token="${i}" data-value="${e(token)}">${e(token)}</button>`).join('')}</div><button class="text-button" data-action="clear-sentence">${icon('refresh')} ${t('Start the sentence again')}</button>` : `<form id="typed-answer-form">${scaffold ? `<p class="typed-scaffold"><span>${t('Letter guide')}</span><strong lang="de">${e(scaffold)}</strong></p>` : ''}<input class="typed-answer" id="typed-answer" placeholder="${e(t('Write your answer in German…'))}" autocomplete="off" autocapitalize="sentences" spellcheck="false" aria-label="${e(t('Your German answer'))}"/><div class="german-keys">${['ä', 'ö', 'ü', 'ß'].map(char => `<button type="button" data-insert="${char}">${char}</button>`).join('')}</div><span class="typed-spelling-help">${t('Capitalize German nouns and formal Sie. You can use ae, oe and ue for umlauts.')}</span></form>`}</div><div id="exercise-feedback" class="exercise-feedback" aria-live="polite"></div><div class="exercise-actions"><button class="text-button" data-action="hint">${icon('sparkles')} ${t('A little help')}</button>${ex.mode === 'sentence' || ex.mode === 'type' ? `<button class="primary-button" data-action="check-answer" id="check-answer">${t('Check my answer')} ${icon('arrow')}</button>` : ''}<button class="primary-button" data-action="next-exercise" id="next-exercise" hidden>${t('On with the story')} ${icon('arrow')}</button></div><p class="exercise-hint" id="exercise-hint" hidden>${e(shown.hint)}</p></div>`;
   document.querySelector('#typed-answer-form')?.addEventListener('submit', event => { event.preventDefault(); void submitAnswer(); });
-  if (ex.mode === 'choice' || ex.mode === 'sentence') recordExposure({exerciseId:ex.id});
+  if (ex.mode === 'choice' || ex.mode === 'sentence') wordExposure.record({exerciseId:ex.id});
   if (ex.mode === 'type') document.querySelector<HTMLInputElement>('#typed-answer')?.focus();
   const inputRoot=document.querySelector<HTMLElement>('.exercise-content');if(inputRoot)exerciseInputCleanup=new MiniGameInput().bind(inputRoot);
 }
@@ -1805,7 +1673,7 @@ async function finishRun() {
       run = undefined; playCue(true); return;
     }
     if (activeRun.quest && !questGraph(activeRun.quest.id)) {
-      const skipListening = silentMode || !!activeRun.skipListening;
+      const skipListening = prefs.silentMode || !!activeRun.skipListening;
       const remaining = remainingQuestExercises(activeRun.quest.exercises, progress, skipListening);
       if (!writingReady() && remaining.some(ex => ex.mode === 'sentence' || ex.mode === 'type') && !playablePractice(remaining).length) { showOpeningPracticeNotice(); playCue(true); return; }
       if (remaining.length) {
@@ -1872,37 +1740,37 @@ function showProfile() { openDialog(`<div class="profile-dialog-heading"><h2>${t
 const audioPaths = new Map<string, string>();
 /** Narration and answer cues (speech.ts). */
 const speech = new Speech({
-  silent: () => silentMode, muted: () => muted,
+  silent: () => prefs.silentMode, muted: () => prefs.muted,
   narration: active => world?.setNarrationActive(active),
   clipFor: text => audioReference((findSentence(text) as { audio?: unknown } | undefined)?.audio) ?? audioPaths.get(text),
   voiceIndex: speaker => Math.max(0, npcs.findIndex(npc => npc.id === speaker)),
 });
 function stopSpeech() { speech.stop(); }
 function setSilentMode(enabled: boolean, notify = true) {
-  silentMode = enabled;
-  localStorage.setItem('atlas.silentMode', String(silentMode)); world.setAudioPreferences({ silent: silentMode, muted });
-  if (silentMode) { stopSpeech(); speech.suspendCues(); }
+  prefs.silentMode = enabled;
+  localStorage.setItem('atlas.silentMode', String(prefs.silentMode)); world.setAudioPreferences({ silent: prefs.silentMode, muted: prefs.muted });
+  if (prefs.silentMode) { stopSpeech(); speech.suspendCues(); }
   if (view === 'settings') renderOther();
-  if (silentMode && run && !run.answered && !run.submission && run.queue[run.index]?.mode === 'listen') renderExercise();
+  if (prefs.silentMode && run && !run.answered && !run.submission && run.queue[run.index]?.mode === 'listen') renderExercise();
   document.querySelectorAll<HTMLButtonElement>('[data-action="silent-mode"]').forEach(button => {
-    button.setAttribute('aria-pressed', String(silentMode));
-    button.innerHTML = `${icon(silentMode ? 'muted' : 'volume')} ${silentMode ? t('Silent mode on') : t('Silent mode off')}`;
+    button.setAttribute('aria-pressed', String(prefs.silentMode));
+    button.innerHTML = `${icon(prefs.silentMode ? 'muted' : 'volume')} ${prefs.silentMode ? t('Silent mode on') : t('Silent mode off')}`;
   });
   questController?.refreshAudio();
-  if (notify) toast(silentMode ? t('Silent mode on. Listening exercises will be skipped.') : t('Silent mode off. Listening exercises will return in your next session.'));
+  if (notify) toast(prefs.silentMode ? t('Silent mode on. Listening exercises will be skipped.') : t('Silent mode off. Listening exercises will return in your next session.'));
 }
 /** Speak German for the current exercise or dialogue; a listening exercise counts as heard only when it plays out. */
-function speak(text: string, speaker?: string, clipId?: string, rate = speechRate) {
+function speak(text: string, speaker?: string, clipId?: string, rate = prefs.speechRate) {
   const listeningRun = run;
   const listeningIndex = run?.index;
   const audioStatus = (message: string) => { if (run === listeningRun && run?.index === listeningIndex) { const label = document.querySelector<HTMLElement>('.audio-scene span'); if (label) label.textContent = message; } };
   speech.speak(text, {
     speaker, clipId, rate,
     started: () => audioStatus(t('Playing German audio…')),
-    heard: () => { if (run && run === listeningRun && run.index === listeningIndex && run.queue[run.index]?.mode === 'listen' && run.queue[run.index].german === text) { run.audioHeard = true; recordExposure({exerciseId:run.queue[run.index].id}); audioStatus(t('Audio finished. Choose your answer, or listen again.')); } },
+    heard: () => { if (run && run === listeningRun && run.index === listeningIndex && run.queue[run.index]?.mode === 'listen' && run.queue[run.index].german === text) { run.audioHeard = true; wordExposure.record({exerciseId:run.queue[run.index].id}); audioStatus(t('Audio finished. Choose your answer, or listen again.')); } },
     unavailable: () => {
       toast(t('The audio couldn’t play. You can use the transcript and try it again.'));
-      if (run && run === listeningRun && run.index === listeningIndex) { run.audioHeard = false; run.hinted = true; const transcript = document.querySelector<HTMLElement>('#transcript'); if (transcript) { transcript.hidden = false; recordExposure({exerciseId:run.queue[run.index].id}); } }
+      if (run && run === listeningRun && run.index === listeningIndex) { run.audioHeard = false; run.hinted = true; const transcript = document.querySelector<HTMLElement>('#transcript'); if (transcript) { transcript.hidden = false; wordExposure.record({exerciseId:run.queue[run.index].id}); } }
     },
   });
 }
@@ -1995,7 +1863,7 @@ function bindGlobalEvents() {
     if (target.dataset.coursePage) { coursePage = Math.max(0, Number(target.dataset.coursePage)); renderOther(); return; }
     if (target.dataset.courseLevel) { coursePage = 0; courseLevel = target.dataset.courseLevel as Level; void loadContexts('grammar', undefined, courseLevel).then(() => renderOther()).catch(error => toast(error.message, true)); return; }
     if (target.dataset.courseTab) { coursePage = 0; courseTab = target.dataset.courseTab as typeof courseTab; renderOther(); return; }
-    if (target.dataset.optionsTab) { optionsTab = target.dataset.optionsTab as OptionsTab; setView('settings'); return; }
+    if (target.dataset.optionsTab) { optionsPanel.tab = target.dataset.optionsTab as OptionsTab; setView('settings'); return; }
     if (target.dataset.journalTab) { journalTab = target.dataset.journalTab as typeof journalTab; renderOther(); return; }
     if (target.dataset.courseUnit) { void startCourseUnit(target.dataset.courseUnit); return; }
     if (target.dataset.wordPractice) { void startWordPractice(target.dataset.wordPractice); return; }
@@ -2044,7 +1912,7 @@ function bindGlobalEvents() {
       case 'act-begin': document.querySelector<HTMLDialogElement>('#dialog')!.close(); continueDestination(); break;
       case 'fullscreen': if (document.fullscreenElement) void document.exitFullscreen(); else void document.documentElement.requestFullscreen?.().catch(() => toast(t('Full screen isn’t available here.'))); break;
       case 'close-dialog': interiorConversation=undefined;wordDetailReturn=undefined;cancelRun(); document.querySelector<HTMLDialogElement>('#dialog')!.close(); pendingDestination = undefined; pendingExpeditionGame = undefined; break;
-      case 'manage-access': if(accessClock.snapshot(performance.now())?.phase==='paid')accessSession.showBillingAccount();else if(account.registered)accessSession.showPaywall();else showSaveAccount();break;
+      case 'manage-access': if(accessClock.snapshot(performance.now())?.phase==='paid')accessSession.showBillingAccount();else if(account.registered)accessSession.showPaywall();else accountEntry.showSaveAccount();break;
       case 'course-help': openDialog(`<div class="help-dialog"><h2>${t('Learning routes')}</h2><p>${t('Learn in short encounters, use the language in the world, then return when it is ready again. Vocabulary, grammar and connected texts have their own evidence.')}</p><button class="primary-button" data-action="close-dialog">${t('Back')}</button></div>`);break;
       case 'journal-help': openDialog(`<div class="help-dialog"><h2>${t('Your words')}</h2><p>${t('Seeing a word introduces it. Recognising, hearing and recalling it each build their own memory. Familiar words rest between encounters.')}</p><button class="primary-button" data-action="close-dialog">${t('Back')}</button></div>`);break;
       case 'begin-exercises': renderExercise(); break;
@@ -2057,18 +1925,18 @@ function bindGlobalEvents() {
       case 'sleep': if (interiorId && roomKind(interiorId) === 'inn') { void api.request<{progress:Progress}>('/story/sleep',{id:crypto.randomUUID()}).then(result => { acceptProgress(result.progress); updateProgress(); document.querySelector<HTMLDialogElement>('#dialog')!.close(); toast(t('A new day. Your lantern keeps the promises you made.')); }).catch(error => toast(error.message, true)); } break;
     case 'todays-words': void startTodaysWords(); break;
       case 'course-retry': coursePromise = undefined; void loadCourse().then(() => renderOther()).catch(error => toast(error.message, true)); break;
-      case 'hint': if (run && !run.answered && !run.submission) { run.hinted = true; document.querySelector<HTMLElement>('#exercise-hint')!.hidden = false; recordExposure({exerciseId:run.queue[run.index].id}); } break;
-      case 'transcript': if (run && !run.answered && !run.submission) { run.hinted = true; document.querySelector<HTMLElement>('#transcript')!.hidden = false; recordExposure({exerciseId:run.queue[run.index].id}); } break;
+      case 'hint': if (run && !run.answered && !run.submission) { run.hinted = true; document.querySelector<HTMLElement>('#exercise-hint')!.hidden = false; wordExposure.record({exerciseId:run.queue[run.index].id}); } break;
+      case 'transcript': if (run && !run.answered && !run.submission) { run.hinted = true; document.querySelector<HTMLElement>('#transcript')!.hidden = false; wordExposure.record({exerciseId:run.queue[run.index].id}); } break;
       case 'clear-sentence': if (run && !run.answered && !run.submission) { run.tokenOrder = []; run.answer = ''; document.querySelectorAll<HTMLButtonElement>('[data-token]').forEach(b => { b.disabled = false; }); document.querySelector('#sentence-result')!.innerHTML = `<span class="sentence-placeholder">${t('Tap the words to build your answer')}</span>`; } break;
       case 'silent-mode':
         if (attemptBusy) { toast(t('Your answer is saving. Try again in a moment.')); break; }
-        setSilentMode(!silentMode);
+        setSilentMode(!prefs.silentMode);
         break;
-      case 'save-account': showSaveAccount(); break;
-      case 'login-account': showLogin(); break;
-      case 'logout-account': showLogout(); break;
+      case 'save-account': accountEntry.showSaveAccount(); break;
+      case 'login-account': accountEntry.showLogin(); break;
+      case 'logout-account': accountEntry.showLogout(); break;
       case 'reset-game': accessSession.showResetGame(); break;
-      case 'sound': muted = !muted; localStorage.setItem('atlas.muted', String(muted)); world.setAudioPreferences({ silent: silentMode, muted });  if (!muted) playCue(true); if (view === 'settings') renderOther(); break;
+      case 'sound': prefs.muted = !prefs.muted; localStorage.setItem('atlas.muted', String(prefs.muted)); world.setAudioPreferences({ silent: prefs.silentMode, muted: prefs.muted });  if (!prefs.muted) playCue(true); if (view === 'settings') renderOther(); break;
     }
   });
   document.querySelector<HTMLDialogElement>('#dialog')!.addEventListener('cancel', () => { cancelRun(); pendingDestination = undefined; });
@@ -2085,93 +1953,6 @@ function bindGlobalEvents() {
   menu.addEventListener('click', event => { if (event.target === menu) setView('world'); });
 }
 
-function showLanguageEntry(restoreName = false, initialLanguage = entryLanguageSelection ?? baseLanguage()) {
-  entryLanguage = undefined;
-  accessSession.showDialog('');
-  mountLanguageOnboarding(document.querySelector<HTMLDialogElement>('#account-dialog')!, {
-    initialLanguage, initialLearningLanguage: entryTarget,
-    onConfirm: languages => {
-      entryTarget = languages.learningLanguage; sessionStorage.setItem('atlas.entryTarget', entryTarget);
-      entryLanguage = entryLanguageSelection = languages.motherTongue;
-      showNameEntry(restoreName);
-    },
-    onLogin: languages => { entryLanguageSelection = languages.motherTongue; showLogin(); },
-  });
-}
-const pendingLanguageKey = 'atlas.baseLanguagePending';
-/** Switch the support language, save it with the account, then repaint every screen in it. */
-async function changeBaseLanguage(language: BaseLanguage) {
-  if (activeCourse && !activeCourse.supportLanguages.includes(language)) return;
-  configureContentSession(() => api.token, { accountId: api.selfId, courseId: activeCourse?.id, supportLanguage: language });
-  const applied = await setBaseLanguage(language);
-  if (applied !== language) toast(t('Turkish support could not load. Check your connection and try again.'), true);
-  if (started) {
-    try { await api.savePreferences({ baseLanguage: applied }); localStorage.removeItem(pendingLanguageKey); }
-    catch { localStorage.setItem(pendingLanguageKey, 'true'); }
-  }
-  // The shell, HUD and open views are rendered once; a reload repaints them. Progress is saved on the server.
-  window.location.reload();
-}
-/** The account's language wins, unless this device changed it while the server was unreachable. */
-function reconcileBaseLanguage(result: SessionResult): boolean {
-  if (localStorage.getItem(pendingLanguageKey) === 'true') {
-    void api.savePreferences({ baseLanguage: baseLanguage() }).then(() => localStorage.removeItem(pendingLanguageKey)).catch(() => {});
-    return false;
-  }
-  if (result.preferences.baseLanguage === baseLanguage()) return false;
-  void setBaseLanguage(result.preferences.baseLanguage).then(() => window.location.reload()).catch(error => toast((error as Error).message, true));
-  return true;
-}
-function showNameEntry(restoreName = false) {
-  let typed: string | null = null;
-  try { typed = sessionStorage.getItem('atlas.entryName'); sessionStorage.removeItem('atlas.entryName'); } catch { /* Optional convenience only. */ }
-  const selected = entryDraft?.name ?? (typed?.trim() ? typed.trim().slice(0, 24) : restoreName ? profile.name : entryNames[0]);
-  const suggestions = entryNames.includes(selected) ? entryNames : [selected, ...entryNames.slice(0, 3)];
-  accessSession.showDialog(`${onboardingStepsMarkup(2)}<h2 id="account-title">${t('What should the town call you?')}</h2><p>${t('Pick a suggested name or write your own. This is the name other players will see.')}</p><div class="onboarding-language-summary"><div class="onboarding-language-pair">${onboardingLanguageSummary(baseLanguage(), entryTarget)}</div><button type="button" class="text-button" id="entry-languages">${t('Change languages')}</button></div><form id="name-entry-form"><div class="name-suggestions" role="group" aria-label="${e(t('Suggested player names'))}">${suggestions.map(name => `<button type="button" class="name-suggestion" aria-pressed="${name === selected}" data-suggested-name="${e(name)}">${e(name)}</button>`).join('')}</div><label class="form-label" for="entry-name">${t('Your player name')}</label><input id="entry-name" class="name-input" value="${e(selected)}" required minlength="2" maxlength="24" autocomplete="nickname" aria-describedby="name-help"/><span id="name-help">${t('2–24 letters or numbers; spaces, dashes, underscores and apostrophes are welcome.')}</span>${characterBuilderMarkup()}<p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">${t('Start my adventure')} ${icon('arrow')}</button></form><button type="button" class="text-button" id="entry-login">${t('Already played? Log in with email')}</button>`);
-  const form = document.querySelector<HTMLFormElement>('#name-entry-form')!;
-  const input = document.querySelector<HTMLInputElement>('#entry-name')!;
-  const getAvatar = bindCharacterBuilder(form, entryDraft?.avatar ?? profile.avatar);
-  if (!entryDraft && !restoreName && !typed) getAvatar.applyPreset(selected);
-  const sync = () => {
-    const name = input.value.trim();
-    input.setCustomValidity(/^[\p{L}\p{N}\p{M} _'-]{2,24}$/u.test(name) ? '' : t('Choose a name with 2–24 letters, numbers, spaces, dashes, underscores or apostrophes.'));
-    form.querySelectorAll<HTMLButtonElement>('[data-suggested-name]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.suggestedName === name)));
-  };
-  input.addEventListener('input', sync);
-  form.querySelectorAll<HTMLButtonElement>('[data-suggested-name]').forEach(button => { button.onclick = () => { input.value = button.dataset.suggestedName!; getAvatar.applyPreset(input.value); sync(); }; });
-  const saveDraft = () => { entryDraft = { name: input.value, avatar: getAvatar() }; };
-  document.querySelector<HTMLButtonElement>('#entry-login')!.onclick = () => { saveDraft(); showLogin(); };
-  document.querySelector<HTMLButtonElement>('#entry-languages')!.onclick = () => { saveDraft(); showLanguageEntry(restoreName); };
-  form.onsubmit = async event => {
-    event.preventDefault(); sync(); if (!form.checkValidity()) return;
-    const button = form.querySelector<HTMLButtonElement>('[type="submit"]')!;
-    button.disabled = true; button.textContent = t('Opening the town…');
-    document.querySelector<HTMLButtonElement>('#entry-languages')!.disabled = true;
-    document.querySelector<HTMLButtonElement>('#entry-login')!.disabled = true;
-    try {
-      const requestedSupport = baseLanguage();
-      let result = await api.session(input.value.trim(), getAvatar(), entryTarget === 'en' ? 'en' : requestedSupport);
-      if (entryTarget === 'en') {
-        configureContentSession(() => api.token, { accountId: result.player.id, supportLanguage: baseLanguage() });
-        const listing = await contentApi.courses<{ courses: import('./content-api').ContentCourse[] }>();
-        const course = listing.courses.find(course => course.target === entryTarget);
-        if (!course) throw new Error('This course is unavailable.');
-        const activated = await contentApi.activate<{ player: WorldPlayer; progress: Progress; preferences: SessionResult['preferences']; activeCourseId: string }>(course.id, requestedSupport);
-        result = { ...result, ...activated };
-      }
-      // Resuming a saved guest keeps its stored preference; apply the choice made on this screen.
-      if (result.preferences.baseLanguage !== baseLanguage()) result = { ...result, preferences: await api.savePreferences({ baseLanguage: baseLanguage() }) };
-      localStorage.setItem(`atlas.nameChosen.${result.player.id}`, 'true');
-      if (await enterGame(result)) document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
-    } catch (error) { accessSession.showError(error); }
-    finally {
-      button.disabled = false; button.innerHTML = `${t('Start my adventure')} ${icon('arrow')}`;
-      document.querySelector<HTMLButtonElement>('#entry-languages')!.disabled = false;
-      document.querySelector<HTMLButtonElement>('#entry-login')!.disabled = false;
-    }
-  };
-  sync();
-}
 async function enterGame(result: SessionResult): Promise<boolean> {
   trackAnalytics('page_view', 'game');
   await setBaseLanguage(result.preferences.baseLanguage);
@@ -2188,7 +1969,7 @@ async function enterGame(result: SessionResult): Promise<boolean> {
   if (result.access && accessBlocked(result.access)) {
     started = true; account = result.account; profile = { name: result.player.name, avatar: result.player.avatar };
     acceptProgress(result.progress, result.player.id); accessClock.update(result.access, performance.now());
-    if (result.access.phase === 'login_required') showSaveAccount(true); else accessSession.showPaywall();
+    if (result.access.phase === 'login_required') accountEntry.showSaveAccount(true); else accessSession.showPaywall();
     return false;
   }
   await loadServerContent(result);
@@ -2198,10 +1979,10 @@ async function enterGame(result: SessionResult): Promise<boolean> {
     document.querySelector<HTMLElement>('#game-shell')!.hidden = true; world.destroy();
     document.body.classList.add('course-player-mode');
     const host = document.createElement('main'); host.className = 'course-player'; document.body.append(host);
-    await mountCoursePlayer(host, { api, session: result, onAccessRequired: () => { if (account.registered) accessSession.showPaywall(); else showSaveAccount(true); }, onAccount: () => account.registered ? accessSession.showPaywall(false) : showSaveAccount(), onInvite: () => void accessSession.showInviteFriend(), canInvite: () => referralAvailable(accessClock.snapshot(performance.now())), onLogout: showLogout, isActive: () => !document.hidden && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open });
+    await mountCoursePlayer(host, { api, session: result, onAccessRequired: () => { if (account.registered) accessSession.showPaywall(); else accountEntry.showSaveAccount(true); }, onAccount: () => account.registered ? accessSession.showPaywall(false) : accountEntry.showSaveAccount(), onInvite: () => void accessSession.showInviteFriend(), canInvite: () => referralAvailable(accessClock.snapshot(performance.now())), onLogout: () => accountEntry.showLogout(), isActive: () => !document.hidden && !document.querySelector<HTMLDialogElement>('#account-dialog')!.open });
     return true;
   }
-  if (reconcileBaseLanguage(result)) return false;
+  if (accountEntry.reconcileBaseLanguage(result)) return false;
   // The builder updates in place. Repaint the world shell once the new adventure is saved.
   if (shellLanguage !== baseLanguage()) { window.location.reload(); return false; }
   started = true;
@@ -2238,77 +2019,6 @@ async function enterGame(result: SessionResult): Promise<boolean> {
   queueMicrotask(() => { accessSession.enforceWall(); accessSession.syncActivity(); });
   return true;
 }
-function showSaveAccount(required = accessClock.snapshot(performance.now())?.phase === 'login_required', subscribeAfter = false) {
-  if (!started || account.registered) return;
-  const allowance = accessClock.snapshot(performance.now());
-  if (allowance?.phase === 'free') required = false;
-  accessSession.showDialog(`<h2 id="account-title">${required ? 'Sign up to keep going.' : 'Save your adventure.'}</h2><p>${allowance?.phase === 'free' ? 'Keep your character and progress on every device. Playing is free with no time limit; creating an account is optional.' : required ? `Create a free account to keep your progress${(allowance?.playedSeconds ?? 0) < 7200 ? ` and play for ${Math.ceil((7200 - (allowance?.playedSeconds ?? 0)) / 60)} more minutes` : ', then choose a plan to continue'}. Or reset your game for another 2 free hours.` : `Keep your character and progress on every device. You get 2 free hours in total; ${formatAccessTime(Math.max(0, 7200 - (allowance?.playedSeconds ?? 0)))} remain in your trial.`}</p><div class="account-switch" role="group" aria-label="Account options"><button type="button" class="selected" aria-pressed="true">Sign up</button><button type="button" id="signup-login" aria-pressed="false">Log in</button></div><form id="save-account-form"><label class="form-label" for="account-email">${t('Email')}</label><input class="name-input" id="account-email" name="email" type="email" required maxlength="254" autocomplete="email"/><label class="form-label" for="account-password">${t('Choose a password')}</label><input class="name-input" id="account-password" name="password" type="password" required minlength="10" maxlength="128" autocomplete="new-password" aria-describedby="password-help"/><span id="password-help" class="caption">${t('Use 10–128 characters.')}</span><label class="form-label" for="account-password-confirm">${t('Confirm password')}</label><input class="name-input" id="account-password-confirm" type="password" required minlength="10" maxlength="128" autocomplete="new-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">Sign up &amp; keep my progress ${icon('check')}</button></form>${required ? '<p class="game-reset-note">Reset your game for 2 free hours as often as you like. Your progress is cleared and your character stays the same.</p><button type="button" class="text-button" id="guest-reset">Reset game &amp; play 2 hours free</button>' : '<button type="button" class="text-button" id="account-later">Back to my adventure</button>'}`, required);
-  document.querySelector<HTMLButtonElement>('#signup-login')!.onclick = () => showLogin();
-  if (allowance?.phase !== 'free' && pendingReferral(localStorage)) document.querySelector('#save-account-form')!.insertAdjacentHTML('beforebegin', '<p class="referral-status">Your signup gives the friend who invited you 90 extra minutes of free play.</p>');
-  document.querySelector<HTMLButtonElement>('#guest-reset')?.addEventListener('click', accessSession.showResetGame);
-
-  document.querySelector<HTMLButtonElement>('#account-later')?.addEventListener('click', () => document.querySelector<HTMLDialogElement>('#account-dialog')!.close());
-  const form = document.querySelector<HTMLFormElement>('#save-account-form')!;
-  const password = document.querySelector<HTMLInputElement>('#account-password')!;
-  const confirmation = document.querySelector<HTMLInputElement>('#account-password-confirm')!;
-  const checkConfirmation = () => confirmation.setCustomValidity(confirmation.value === password.value ? '' : t('The passwords must match.'));
-  confirmation.oninput = checkConfirmation; password.oninput = checkConfirmation;
-  form.onsubmit = async event => {
-    event.preventDefault(); checkConfirmation(); if (!form.checkValidity()) return;
-    const button = form.querySelector<HTMLButtonElement>('[type="submit"]')!;
-    button.disabled = true;
-    try {
-      account = await api.register(document.querySelector<HTMLInputElement>('#account-email')!.value.trim(), password.value);
-      updateWorldEditButton();
-      document.querySelector<HTMLElement>('#admin-analytics-link')!.hidden = account.admin !== true;
-      password.value = ''; confirmation.value = '';
-      if (!account.access) await api.access();
-      if (!activeCourse) { location.reload(); return; }
-      document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
-      if (subscribeAfter) accessSession.showPaywall();
-      if (view === 'settings') renderOther();
-      toast(t('Saved, {name}. Use your email and password to log in on another device.', { name: profile.name }));
-    } catch (error) { accessSession.showError(error); }
-    finally { button.disabled = false; }
-  };
-}
-function showLogout() {
-  accessSession.showDialog(`<h2 id="account-title">${t('Log out?')}</h2><p>${account.registered ? t('Your adventure is saved. Log in with your email and password to continue later.') : t('This guest adventure has no email or password. If you log out, you cannot return to this character. Save your adventure first to keep your progress.')}</p><p id="account-error" class="account-error" role="alert"></p>${!account.registered ? `<button class="primary-button" id="logout-save">${t('Save my adventure')}</button>` : ''}<button class="${account.registered ? 'primary-button' : 'text-button'}" id="logout-confirm">${account.registered ? t('Log out') : t('Log out without saving')}</button><button class="text-button" id="logout-cancel">${t('Back to my adventure')}</button>`);
-  document.querySelector<HTMLButtonElement>('#logout-save')?.addEventListener('click', () => showSaveAccount());
-  const cancel = document.querySelector<HTMLButtonElement>('#logout-cancel')!;
-  cancel.onclick = () => document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
-  const button = document.querySelector<HTMLButtonElement>('#logout-confirm')!;
-  button.onclick = async () => {
-    button.disabled = true;
-    cancel.disabled = true;
-    try { await api.logout(); location.reload(); }
-    catch { accessSession.showError(new Error(t('Could not log out. Check your connection and try again.'))); button.disabled = false; cancel.disabled = false; }
-  };
-}
-
-function showLogin() {
-  const required = started && accessClock.snapshot(performance.now())?.phase === 'login_required';
-  accessSession.showDialog(`<h2 id="account-title">${t('Continue your adventure.')}</h2><p>${t('Use the email and password you saved to restore your name, character and progress.')}${started ? ` ${t('Logging in opens the adventure linked to that email.')}` : ''}</p>${started && !account.registered ? `<div class="account-switch" role="group" aria-label="Account options"><button type="button" id="login-signup" aria-pressed="false">Sign up</button><button type="button" class="selected" aria-pressed="true">Log in</button></div>` : ''}<form id="login-account-form"><label class="form-label" for="login-email">${t('Email')}</label><input class="name-input" id="login-email" type="email" required maxlength="254" autocomplete="username"/><label class="form-label" for="login-password">${t('Password')}</label><input class="name-input" id="login-password" type="password" required maxlength="128" autocomplete="current-password"/><p id="account-error" class="account-error" role="alert"></p><button class="primary-button" type="submit">${e(t('Log in & continue'))} ${icon('arrow')}</button></form>${required ? '<p class="game-reset-note">Signing up keeps this guest adventure. Logging in restores the adventure saved to that email.</p><button type="button" class="text-button" id="guest-reset">Reset game &amp; play 2 hours free</button>' : `<button class="text-button" id="login-back">${started ? t('Back to my adventure') : entryLanguage ? t('Back to choosing a name') : t('Back to choosing languages')}</button>`}`, required);
-  document.querySelector<HTMLButtonElement>('#login-back')?.addEventListener('click', () => {
-    if (started) document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
-    else if (entryLanguage) showNameEntry(!!api.token);
-    else showLanguageEntry(!!api.token);
-  });
-  document.querySelector<HTMLButtonElement>('#login-signup')?.addEventListener('click', () => showSaveAccount(required));
-  document.querySelector<HTMLButtonElement>('#guest-reset')?.addEventListener('click', accessSession.showResetGame);
-  const form = document.querySelector<HTMLFormElement>('#login-account-form')!;
-  form.onsubmit = async event => {
-    event.preventDefault();
-    const button = form.querySelector<HTMLButtonElement>('[type="submit"]')!;
-    button.disabled = true;
-    try {
-      const result = await api.login(document.querySelector<HTMLInputElement>('#login-email')!.value.trim(), document.querySelector<HTMLInputElement>('#login-password')!.value);
-      localStorage.setItem(`atlas.nameChosen.${result.player.id}`, 'true');
-      // Restart the UI so in-flight learning responses cannot cross account owners.
-      location.reload();
-    } catch (error) { accessSession.showError(error); button.disabled = false; }
-  };
-}
 
 /** Deterministic development previews exercise the production renderers with a throwaway guest's content. */
 async function openUiCheck(surface: string) {
@@ -2329,7 +2039,7 @@ async function openUiCheck(surface: string) {
   else if(surface==='options')setView('settings');
   else if(surface==='character')setView('character');
   else if(surface==='help')setView('help');
-  else if(surface==='account'){account={registered:true,email:'wanderer@example.com'};optionsTab='account';setView('settings');}
+  else if(surface==='account'){account={registered:true,email:'wanderer@example.com'};optionsPanel.tab='account';setView('settings');}
   else if(surface==='journal')setView('journal');
   else if(surface==='course')setView('course');
   else if(surface==='encounter'){interiorId='cafe';syncLocation();await showInteriorObject('interior:cafe:coffee');}
@@ -2424,12 +2134,12 @@ async function boot() {
       account = result.account;
       if (account.registered || localStorage.getItem(`atlas.nameChosen.${result.player.id}`) === 'true') {
         if (await enterGame(result)) document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
-      } else showLanguageEntry(true, result.preferences.baseLanguage);
-    } else showLanguageEntry();
+      } else accountEntry.showLanguages(true, result.preferences.baseLanguage);
+    } else accountEntry.showLanguages();
   } catch (error) {
     if (import.meta.env.DEV) console.error(error);
     connection = 'offline'; updateConnection();
-    showLanguageEntry(!!api.token);
+    accountEntry.showLanguages(!!api.token);
     const message = document.querySelector<HTMLElement>('#account-error')!;
     message.textContent = t('The town could not connect. You can try starting again in a moment.');
   }
@@ -2441,7 +2151,7 @@ function updateConnection() {
   if (connection !== 'online') close.insertAdjacentHTML('beforeend', `<span class="connection-dot" role="status" aria-label="${e(connection === 'incompatible' ? t('Reload to continue') : connection === 'replaced' ? t('Active in another tab') : t('Reconnecting'))}"></span>`);
 }
 document.addEventListener('visibilitychange', () => { accessSession.syncActivity(); accessSession.updateHud(); void accessSession.sendHeartbeat(accessSession.isActive()); accountReminder?.tick(performance.now(), started && !document.hidden && connection === 'online' && !document.querySelector<HTMLDialogElement>('#account-dialog')?.open); syncWorldMode(); if (document.hidden) { if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;pendingExerciseChoice=undefined;} activityController?.pause(); miniGameController?.pause(); deliveryController?.pause(); stopSpeech(); } else if(!accessBlocked(accessClock.snapshot(performance.now())) && !document.querySelector<HTMLDialogElement>('#account-dialog')?.open) { activityController?.resume(); miniGameController?.resume(); deliveryController?.resume(); } if (!document.hidden && regionReady) onRegionReady(mapId); });
-window.addEventListener('beforeunload', () => { notifications?.destroy(); removeFormNotifications?.(); removeSentenceTranslations(); stopUpdateChecks?.(); removeUpdateNotice?.(); exposureObserver?.disconnect(); if (exposureTimer !== undefined) clearTimeout(exposureTimer); if (reminderTimer !== undefined) clearInterval(reminderTimer); accessSession.destroy(); accountReminder?.tick(performance.now(), false); screenFilterControls?.destroy(); activityController?.destroy(); stopSpeech(); api.destroy(); world?.destroy(); });
+window.addEventListener('beforeunload', () => { notifications?.destroy(); removeFormNotifications?.(); removeSentenceTranslations(); stopUpdateChecks?.(); removeUpdateNotice?.(); wordExposure.destroy(); if (reminderTimer !== undefined) clearInterval(reminderTimer); accessSession.destroy(); accountReminder?.tick(performance.now(), false); screenFilterControls?.destroy(); activityController?.destroy(); stopSpeech(); api.destroy(); world?.destroy(); });
 void boot();
 
 mountSupportBanner();

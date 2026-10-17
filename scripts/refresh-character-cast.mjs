@@ -7,7 +7,7 @@ import {bakeNativeCastVariant,castSourceSignature,castBakeArtifactsCurrent} from
 import {avatarTextureKey,catalogueForPose} from '../web/src/character-recipe.mjs';
 const json=async p=>JSON.parse(await readFile(p,'utf8'));
 const frozen='art/source/character-kit/cast/component-catalogue.json';
-const previous=await json(frozen),next=await json('web/src/data/character-kit.json'),source=await json('art/source/character-kit/cast/catalogue.json');
+const previous=await json(frozen),next=await json('server/character-kit.json'),source=await json('art/source/character-kit/cast/catalogue.json');
 if(next.format.runtimeCell.join()!==previous.format.runtimeCell.join()||next.format.editorCell.join()!==previous.format.editorCell.join())throw Error('Resolution changed: rebuild the complete cast explicitly');
 const jobs=[];let reused=0;
 for(const entry of source.entries)for(const poseSet of ['walk',...Object.keys(entry.poses??{})]){
