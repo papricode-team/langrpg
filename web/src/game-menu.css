@@ -483,7 +483,7 @@
     grid-template-columns:1fr 44px;
     gap:12px;
     margin:0 -8px;
-    padding:8px 22px;
+    padding:4px 22px;
     border-image-width:0 72px;
   }
   #menu-layer .menu-brand {
@@ -574,10 +574,10 @@
     height:24px;
   }
   #menu-layer .menu-content {
-    padding:20px 0;
+    padding:12px 0;
   }
   #menu-layer .menu-back {
-    margin-top:8px;
+    margin-top:2px;
   }
   #menu-layer[data-menu-page='hub'] .menu-content {
     display:none;
