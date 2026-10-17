@@ -12,7 +12,7 @@ const pages = new Map();
 const titles = new Set(), descriptions = new Set(), canonicals = new Set();
 const sitemap = await readFile(join(root, 'sitemap-0.xml'), 'utf8');
 const sitemapURLs = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
-const window = new Window({ settings: { disableJavaScriptEvaluation: true, disableCSSFileLoading: true, disableJavaScriptFileLoading: true } });
+const window = new Window({ settings: { disableJavaScriptEvaluation: true, enableCSSFileLoading: false, enableIframePageLoading: false, disableJavaScriptFileLoading: true } });
 const parser = new window.DOMParser();
 const languages = ['tr', 'de'];
 const sharedCopy = Object.fromEntries(await Promise.all(languages.map(async language => [language, JSON.parse(await readFile(`site/src/data/site-${language}.json`, 'utf8'))])));
