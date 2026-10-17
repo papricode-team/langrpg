@@ -6,6 +6,11 @@ import type { QualityGovernor, QualityMode, QualityTier } from './quality-govern
  * player's choice. texture-quality.ts applies it to Phaser textures; the avatar baker reads it too.
  */
 export const QUALITY_SCALE: Readonly<Record<QualityTier, number>> = { low: .5, medium: .75, high: 1 };
+/**
+ * The most canvas pixels per CSS pixel each tier draws. Phones run out of fill rate long before
+ * texture memory, so the tier caps the world's resolution as well as its textures.
+ */
+export const QUALITY_DENSITY: Readonly<Record<QualityTier, number>> = { low: 1, medium: 1.5, high: 2 };
 const STORAGE_KEY = 'atlas.graphicsQuality';
 
 interface Manifest { files: Record<string, readonly [number, number]>; }

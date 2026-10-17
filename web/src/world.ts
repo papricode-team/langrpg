@@ -17,7 +17,8 @@ import type { WorldWeatherMode } from './world-weather';
 import type { RoutineLexeme, WorldBark } from './world-routines';
 import type { Progress } from './api';
 import { BootScene } from './boot-scene';
-import { installTextureQuality } from './texture-quality';
+import { graphicsQualityTier, installTextureQuality, onGraphicsQualityChange } from './texture-quality';
+import { QUALITY_DENSITY } from './quality-state';
 import { WorldScene } from './world-scene';
 import { InteriorScene } from './interior-scene';
 import { TravelScene, raiseTravelCurtain } from './travel-scene';
@@ -75,9 +76,11 @@ export class World {
    */
   private townRestarting = false;
   private handleMotionPreference = () => this.set('reducedMotion', this.reducedMotion);
+  private stopQuality = onGraphicsQualityChange(() => this.resize());
 
   private get pixelDensity(): number {
-    return import.meta.env.DEV && this.options.pixelDensity !== undefined ? this.options.pixelDensity : window.devicePixelRatio;
+    if (import.meta.env.DEV && this.options.pixelDensity !== undefined) return this.options.pixelDensity;
+    return Math.min(window.devicePixelRatio, QUALITY_DENSITY[graphicsQualityTier()]);
   }
 
   constructor(private container: HTMLElement, private options: WorldOptions) {
@@ -419,6 +422,7 @@ export class World {
     if (!this.alive) return;
     this.alive = false;
     this.observer.disconnect();
+    this.stopQuality();
     this.motionPreference.removeEventListener('change', this.handleMotionPreference);
     this.audio.destroy();
     this.game.destroy(true);
