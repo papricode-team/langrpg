@@ -93,7 +93,7 @@ export const placementExerciseIds=[
   'a2-evening-plans-exercise-4','a2-archive-exercise-4','a2-apartment-exercise-6',
   'b1-council-exercise-5','b1-witness-exercise-3',
 ] as const;
-export interface PlacementExercise extends Exercise {level:CourseLevel;}
+export interface PlacementExercise extends Exercise {level:import('./content').Level;}
 export interface PlacementTurn {speaker:string;sentenceId?:string;german:string;english:string;}
 export interface PlacementQuestion {exercise:PlacementExercise;turn:PlacementTurn;}
 export const placementDialogue:Record<string,PlacementTurn>={

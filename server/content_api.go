@@ -449,7 +449,7 @@ func (a *App) recordVisible(record contentstore.Record, account Account) bool {
 	return false
 }
 func (a *App) levelVisible(level string, account Account) bool {
-	if level == "" || level == "A1" {
+	if level == "" || level == "A0" || level == "A1" {
 		return true
 	}
 	if level == "A2" {
@@ -740,7 +740,9 @@ func (a *App) publicRecordForAccount(record contentstore.Record, account Account
 			id := stringValue(object["objectId"])
 			worldID := a.canonical.Translate(id, false)
 			if worldID != "" {
-				object["worldId"] = worldID
+				if stringValue(object["worldId"]) == "" {
+					object["worldId"] = worldID
+				}
 				object["objectId"] = a.canonical.Translate(worldID, true)
 			}
 		}

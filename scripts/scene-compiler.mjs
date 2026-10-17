@@ -38,12 +38,12 @@ export function compileRegistry(document) {
     spawn: {x: scene.spawn.x / scene.width, y: scene.spawn.y / scene.height},
     coordinateVersion: scene.coordinateVersion,
     entrances: Object.fromEntries(sceneEntrances(scene).flatMap(entrance => {
-      if (entrance.owner.roomLayout) {
-        const problems = roomLayoutProblems(getInterior(entrance.owner.roomLayout.kind), entrance.owner.roomLayout);
+      const layout = entrance.interiorId.startsWith('train-') ? undefined : entrance.owner.roomLayout;
+      if (layout) {
+        const problems = roomLayoutProblems(getInterior(layout.kind), layout);
         if (problems.length) throw new SceneCompileError(problems.map(message=>problem('invalid',scene.id,message,[entrance.ownerId])));
       }
       const approach = sceneEntrancePoint(scene, entrance), back = sceneEntrancePoint(scene, entrance, true);
-      const layout=entrance.owner.roomLayout;
       const rooms=layout ? buildingRooms(layout) : [{id:'main',layout:undefined}];
       return rooms.map(room=>[buildingRoomId(entrance.interiorId,room.id), {id:entrance.id,ownerId:entrance.ownerId,
         ...(room.id!=='main'?{building:entrance.interiorId}:{}),
@@ -70,6 +70,8 @@ export function compileStoryRules(document, authored, {strict = true} = {}) {
   const storyRules = structuredClone(authored);
   const fail = message => { if (strict) throw new Error(message); };
   for (const rule of storyRules.rules) {
+    // Interior anchors belong to their room spec, not the editable town map.
+    if (rule.interiorId) continue;
     const scene = document.maps[rule.mapId];
     if (!scene) { fail(`Missing scene for story ${rule.questId}`); continue; }
     const normalize = anchor => ({id: anchor.id, x: anchor.x / scene.width, y: anchor.y / scene.height});

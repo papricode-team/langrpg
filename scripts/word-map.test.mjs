@@ -190,7 +190,7 @@ test('wrong-sense omissions suppress dictionary glosses across canonical context
 });
 test('special item and ending prose is server-owned with exact existing Turkish metadata',()=>{
   const records=bundle.records.filter(record=>record.kind==='context'&&['specialItem','storyEnding'].includes(record.body.category));
-  assert.equal(records.length,16);
+  assert.equal(records.length,23);
   for(const record of records) {
     assert(record.body.data.title);assert(record.body.data.text);
     assert(record.body.data.support.tr.title);assert(record.body.data.support.tr.text);

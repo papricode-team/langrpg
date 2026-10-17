@@ -4,7 +4,7 @@ import './activities-viewport.css';
 import './activities-viewport-compact.css';
 import './activities-overlays.css';
 import './activities-hud.css';
-import { npcs, type Exercise, type Level } from './content';
+import { npcs, type Exercise, type CourseLevel as Level } from './content';
 import type { Progress } from './api';
 import { escapeHtml as e, icon } from './icons';
 import {

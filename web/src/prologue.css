@@ -1,0 +1,36 @@
+.prologue-sounds { padding:clamp(16px,4vw,36px); border-radius:18px; background:linear-gradient(#09202399,#092023cc),url('/assets/minigames/prologue-sounds.webp') center/cover; color:#fff3dc; }
+.prologue-sounds header { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+.prologue-sounds header { justify-content:space-between; }
+.prologue-sounds .sound-cue { font-size:clamp(48px,12vw,88px); text-align:center; min-height:1.4em; color:#f3d291; }
+.sound-tiles { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:18px; }
+.sound-tiles button { min-height:48px; font-size:24px; }
+.dialogue-word-gloss { display:block; }
+#dialog .prologue-sounds .outline-button,#dialog .prologue-sounds .text-button { color:#fff3dc; }
+.prologue-sounds .outline-button:hover,.prologue-sounds .outline-button:focus-visible { background:#405d56; color:#fff; }
+.prologue-sounds header { padding-right:60px; }
+/* The tutorial coach is the story beacon with room for one instruction. */
+.story-beacon.coach { min-height:96px; overflow:visible; animation:none; }
+.story-beacon.coach::before { content:none; }
+.story-beacon.coach .objective-text { white-space:normal; overflow:visible; font-size:15px; line-height:1.35; }
+.story-beacon.coach + p { margin:8px 4px 0; color:#fff3dc; font:var(--type-caption)/1.4 'DM Sans',sans-serif; text-shadow:0 1px 3px #000c; }
+.story-beacon.coach ~ .text-button { color:#fff3dc; }
+/* During a conversation the coach's one tip sits above the dialogue. */
+.coach-tip { position:absolute; z-index:40; top:max(16px,env(safe-area-inset-top)); left:50%; width:min(560px,calc(100vw - 32px)); margin:0; padding:10px 16px; transform:translateX(-50%); border:solid transparent; border-width:10px 24px; border-image:url('/assets/ui/objective-plaque-v1.webp') 48 110 fill / 20px 40px / 0 stretch; color:#16302a; font:500 15px/1.4 'DM Sans',sans-serif; filter:drop-shadow(0 8px 14px #020907b3); pointer-events:none; }
+.coach-tip strong { color:#5a4a26; font-weight:700; text-transform:uppercase; letter-spacing:.6px; font-size:var(--type-caption); margin-right:6px; }
+.coach-tip[hidden] { display:none; }
+/* What the player can now say, closing each beat. */
+.phrase-card { display:grid; gap:12px; padding:4px 2px; }
+.phrase-card h2 { margin:0; }
+.phrase-card ul { display:grid; gap:6px; margin:0; padding:0; list-style:none; }
+.phrase-card li { display:flex; align-items:center; gap:12px; padding:2px 8px; border:solid transparent; border-width:8px; border-image:url('/assets/ui/parchment-card-v1.webp') 40 fill / 10px / 0 stretch; color:#1b3328; }
+.phrase-card li>span { display:grid; gap:2px; min-width:0; }
+.phrase-card li strong { font:600 18px/1.25 'Fraunces',serif; }
+.phrase-card li strong + span { color:#5a4a26; font:var(--type-body)/1.35 'DM Sans',sans-serif; }
+.phrase-listen { display:grid; place-items:center; flex:none; width:40px; height:40px; border:0; border-radius:50%; background:#24412f; color:#fff2c5; cursor:pointer; }
+.phrase-listen .icon { width:18px; height:18px; }
+.phrase-card-actions { display:flex; flex-wrap:wrap; gap:10px; }
+@media (--phone) {
+  #game-shell.prologue-active .quest-tracker { display:block; top:88px; right:12px; left:12px; width:auto; max-width:none; }
+  .story-beacon.coach { min-height:84px; }
+  .story-beacon.coach .objective-text { font-size:14px; }
+}

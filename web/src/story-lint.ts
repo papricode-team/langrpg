@@ -11,7 +11,7 @@ const informalAddress = /\b(du|dir|dich|dein[esnm]?r?)\b/i;
 const formalAddress = /\b(Ihnen|Ihre[mnrs]?|Ihr)\b/;
 const questionWord = /^(Wer|Was|Wo|Wohin|Woher|Wann|Warum|Wieso|Wie|Wem|Wen|Welche[rsnm]?|Womit|Wovon|Wozu)\b/;
 /** Officials and elders who say Sie to the player; residents say du. */
-const formalSpeakers = new Set(['inspector', 'ada', 'elise', 'kessler', 'berg', 'falk']);
+const formalSpeakers = new Set(['inspector', 'ada', 'elise', 'kessler', 'berg', 'falk', 'schaffner']);
 /** People residents address with Sie: officials, an elder they were taught by, a salesman. */
 const formalAddressees = new Set(['inspector', 'kessler', 'berg', 'falk', 'ruth', 'jakob']);
 
@@ -59,9 +59,12 @@ export function lintStory(graphs: QuestGraph[], rules: StoryRule[], quests: Pick
     }
     if (JSON.stringify(rule.investigationObjectIds) !== JSON.stringify(graph.investigations.map(item => item.objectId))) errors.push(`${id}: evidence objects differ from server rule`);
 
+    // A0 has a separate four-word/explicit-vocabulary gate, no political choices or optional lore.
+
     // No tutorial instructions in NPC mouths before the gate.
     for (const { line, where } of lines.filter(item => ['intro', 'gate'].includes(item.where))) if (metaInstruction.test(line.german)) errors.push(`${id}/${line.id}: NPC gives a tutorial instruction (${where}): ${line.german}`);
 
+    if (graph.level !== 'A0') {
     // Each scene names its own dilemma.
     const choiceLines = choiceNode.lines;
     const prompt = choiceLines[choiceLines.length - 1];
@@ -71,7 +74,7 @@ export function lintStory(graphs: QuestGraph[], rules: StoryRule[], quests: Pick
     prompts.set(prompt.german, id);
 
     // Variety and depth.
-    if (index > 0 && !lines.some(item => item.line.condition)) errors.push(`${id}: no callback to earlier choices (needs a conditional line)`);
+    if (id !== 'a1-arrival' && index > 0 && !lines.some(item => item.line.condition)) errors.push(`${id}: no callback to earlier choices (needs a conditional line)`);
     const topics = graph.topics ?? [];
     if (topics.length < 1 || topics.length > 3) errors.push(`${id}: needs 1–3 topics`);
     for (const topic of topics) {
@@ -81,6 +84,8 @@ export function lintStory(graphs: QuestGraph[], rules: StoryRule[], quests: Pick
     if (graph.nodes.reduce((sum, node) => sum + node.lines.length, 0) < 12) errors.push(`${id}: scene is too thin (fewer than 12 lines)`);
     const maxWords = graph.level === 'A1' ? 16 : 19;
     for (const { line } of lines) if (line.german.split(/\s+/).length > maxWords) errors.push(`${id}/${line.id}: over ${maxWords} words`);
+
+    }
 
     // Address: Voss offers du at the council. A capitalised sentence-initial
     // possessive can mean "her" ("Ihr Haus") and cannot establish formal address.

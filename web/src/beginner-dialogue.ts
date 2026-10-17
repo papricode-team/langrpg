@@ -19,95 +19,353 @@ export function needsBeginnerStorySupport(progress: Progress): boolean {
 
 /** Complete replies let new learners recognize the meaning before composing German. */
 export const beginnerGateTranslations: Record<string, readonly (readonly [german: string, english: string, sentenceId?: string])[]> = {
-  'a1-arrival-exercise-7': [
-    ['Noch einmal, bitte.', 'Once again, please.'],
-    ['Guten Morgen!', 'Good morning!'],
+  "a1-arrival-exercise-7": [
+    [
+      "Noch einmal, bitte.",
+      "Once again, please."
+    ],
+    [
+      "Guten Morgen!",
+      "Good morning!"
+    ]
   ],
-  'a1-timetable-exercise-1': [
-    ['Wann fährt der Zug?', 'When does the train leave?'],
-    ['Wo ist der Zug?', 'Where is the train?'],
+  "a1-timetable-exercise-1": [
+    [
+      "Wann fährt der Zug?",
+      "When does the train leave?"
+    ],
+    [
+      "Wo ist der Zug?",
+      "Where is the train?"
+    ]
   ],
-  'a1-cafe-exercise-1': [
-    ['Ich möchte einen Tee.', 'I would like a tea.'],
-    ['Ich möchte einen Kaffee.', 'I would like a coffee.'],
+  "a1-cafe-exercise-1": [
+    [
+      "Ich möchte einen Tee.",
+      "I would like a tea."
+    ],
+    [
+      "Ich möchte einen Kaffee.",
+      "I would like a coffee."
+    ]
   ],
-  'a1-room-exercise-1': [
-    ['Ich möchte ein Bad.', 'I would like a bathroom.'],
-    ['Hast du ein Zimmer frei?', 'Do you have a room free?'],
+  "a1-room-exercise-1": [
+    [
+      "Ich möchte ein Bad.",
+      "I would like a bathroom."
+    ],
+    [
+      "Hast du ein Zimmer frei?",
+      "Do you have a room free?"
+    ]
   ],
-  'a1-shopping-exercise-1': [
-    ['Ich möchte Eier.', 'I would like eggs.'],
-    ['Was kostet das Brot?', 'What does the bread cost?'],
+  "a1-shopping-exercise-1": [
+    [
+      "Ich möchte Eier.",
+      "I would like eggs."
+    ],
+    [
+      "Was kostet das Brot?",
+      "What does the bread cost?"
+    ]
   ],
-  'a1-market-exercise-1': [
-    ['Ich brauche zwei Äpfel.', 'I need two apples.'],
-    ['Ich brauche einen Kaffee.', 'I need a coffee.'],
+  "a1-market-exercise-1": [
+    [
+      "Ich brauche zwei Äpfel.",
+      "I need two apples."
+    ],
+    [
+      "Ich brauche einen Kaffee.",
+      "I need a coffee."
+    ]
   ],
-  'a1-neighbour-exercise-1': [
-    ['Wo ist Frau Berg?', 'Where is Frau Berg?'],
-    ['Wie ist Frau Berg?', 'What is Frau Berg like?'],
+  "a1-neighbour-exercise-1": [
+    [
+      "Wo ist Frau Berg?",
+      "Where is Frau Berg?"
+    ],
+    [
+      "Wie ist Frau Berg?",
+      "What is Frau Berg like?"
+    ]
   ],
-  'a1-pharmacy-exercise-1': [
-    ['Ich habe Kopfschmerzen.', 'I have a headache.'],
-    ['Ich habe Hunger.', 'I am hungry.'],
+  "a1-pharmacy-exercise-1": [
+    [
+      "Ich habe Kopfschmerzen.",
+      "I have a headache."
+    ],
+    [
+      "Ich habe Hunger.",
+      "I am hungry."
+    ]
   ],
-  'a1-directions-exercise-1': [
-    ['Wo ist die Gartenstraße?', 'Where is Gartenstraße?'],
-    ['Wo ist der Zug?', 'Where is the train?'],
+  "a1-directions-exercise-1": [
+    [
+      "Wo ist die Gartenstraße?",
+      "Where is Gartenstraße?"
+    ],
+    [
+      "Wo ist der Zug?",
+      "Where is the train?"
+    ]
   ],
-  'a1-station-exercise-5': [
-    ['Guten Abend!', 'Good evening!'],
-    ['Ist dieser Platz frei?', 'Is this seat free?'],
+  "a1-station-exercise-5": [
+    [
+      "Guten Abend!",
+      "Good evening!"
+    ],
+    [
+      "Ist dieser Platz frei?",
+      "Is this seat free?"
+    ]
   ],
-  'a1-weather-exercise-1': [
-    ['Wie ist das Wetter morgen?', 'What is the weather like tomorrow?'],
-    ['Wie spät ist es?', 'What time is it?'],
+  "a1-weather-exercise-1": [
+    [
+      "Wie ist das Wetter morgen?",
+      "What is the weather like tomorrow?"
+    ],
+    [
+      "Wie spät ist es?",
+      "What time is it?"
+    ]
   ],
-  'a1-workshop-exercise-2': [
-    ['Ich brauche eine Lampe.', 'I need a lamp.'],
-    ['Ich brauche einen Kaffee.', 'I need a coffee.'],
+  "a1-workshop-exercise-2": [
+    [
+      "Ich brauche eine Lampe.",
+      "I need a lamp."
+    ],
+    [
+      "Ich brauche einen Kaffee.",
+      "I need a coffee."
+    ]
   ],
-  'a1-bike-exercise-1': [
-    ['Wann ist das Fahrrad fertig?', 'When is the bike ready?'],
-    ['Wo ist das Fahrrad?', 'Where is the bike?'],
+  "a1-bike-exercise-1": [
+    [
+      "Wann ist das Fahrrad fertig?",
+      "When is the bike ready?"
+    ],
+    [
+      "Wo ist das Fahrrad?",
+      "Where is the bike?"
+    ]
   ],
-  'a1-phone-exercise-1': [
-    ['Kann ich bitte Otto sprechen?', 'May I speak to Otto, please?'],
-    ['Wo ist das Telefon?', 'Where is the telephone?'],
+  "a1-phone-exercise-1": [
+    [
+      "Kann ich bitte Otto sprechen?",
+      "May I speak to Otto, please?"
+    ],
+    [
+      "Wo ist das Telefon?",
+      "Where is the telephone?"
+    ]
   ],
-  'a1-invitation-exercise-1': [
-    ['Ja, ich komme gern.', 'Yes, I will gladly come.'],
-    ['Nein, ich esse allein.', 'No, I eat alone.'],
+  "a1-invitation-exercise-1": [
+    [
+      "Ja, ich komme gern.",
+      "Yes, I will gladly come."
+    ],
+    [
+      "Nein, ich esse allein.",
+      "No, I eat alone."
+    ]
   ],
-  'a1-lost-found-exercise-1': [
-    ['Meine Tasche ist blau.', 'My bag is blue.'],
-    ['Das ist mein Mantel.', 'That is my coat.'],
+  "a1-lost-found-exercise-1": [
+    [
+      "Meine Tasche ist blau.",
+      "My bag is blue."
+    ],
+    [
+      "Das ist mein Mantel.",
+      "That is my coat."
+    ]
   ],
-  'a1-lost-parcel-exercise-2': [
-    ['Wie heißt du?', 'What is your name?'],
-    ['Wie ist die Adresse?', 'What is the address?'],
+  "a1-lost-parcel-exercise-2": [
+    [
+      "Wie heißt du?",
+      "What is your name?"
+    ],
+    [
+      "Wie ist die Adresse?",
+      "What is the address?"
+    ]
   ],
-  'a1-departure-exercise-1': [
-    ['Eine Fahrkarte nach Waldruh, bitte.', 'A ticket to Waldruh, please.'],
-    ['Wo ist der Zug?', 'Where is the train?'],
+  "a1-departure-exercise-1": [
+    [
+      "Eine Fahrkarte nach Waldruh, bitte.",
+      "A ticket to Waldruh, please."
+    ],
+    [
+      "Wo ist der Zug?",
+      "Where is the train?"
+    ]
   ],
-  'a1-notice-exercise-1': [
-    ['Wo ist der Bahnhof?', 'Where is the station?'],
-    ['Warum darf ich das nicht?', 'Why am I not allowed to?'],
+  "a1-notice-exercise-1": [
+    [
+      "Wo ist der Bahnhof?",
+      "Where is the station?"
+    ],
+    [
+      "Warum darf ich das nicht?",
+      "Why am I not allowed to?"
+    ]
   ],
-  'a1-chalk-exercise-1': [
-    ['Wie heißt du?', 'What is your name?'],
-    ['Wie spät ist es?', 'What time is it?'],
+  "a1-chalk-exercise-1": [
+    [
+      "Wie heißt du?",
+      "What is your name?"
+    ],
+    [
+      "Wie spät ist es?",
+      "What time is it?"
+    ]
   ],
-  'a1-bench-exercise-1': [
-    ['Wie spät ist es?', 'What time is it?'],
-    ['Wie heißen Sie?', 'What is your name?'],
+  "a1-bench-exercise-1": [
+    [
+      "Wie spät ist es?",
+      "What time is it?"
+    ],
+    [
+      "Wie heißen Sie?",
+      "What is your name?"
+    ]
   ],
-  'a1-office-window-exercise-1': [
-    ['Das habe ich gelesen.', 'I read that.'],
-    ['Das haben Sie geschrieben.', 'You wrote that.'],
+  "a1-office-window-exercise-1": [
+    [
+      "Das habe ich gelesen.",
+      "I read that."
+    ],
+    [
+      "Das haben Sie geschrieben.",
+      "You wrote that."
+    ]
   ],
+  "a0-ticket-exercise-1": [
+    [
+      "Bitte.",
+      "Here you are."
+    ],
+    [
+      "Danke.",
+      "Thank you."
+    ],
+    [
+      "Hallo!",
+      "Hello!"
+    ]
+  ],
+  "a0-ticket-exercise-7": [
+    [
+      "Hallo!",
+      "Hello!"
+    ],
+    [
+      "Danke.",
+      "Thank you."
+    ],
+    [
+      "Bitte.",
+      "Here you are."
+    ]
+  ],
+  "a0-wagen-exercise-1": [
+    [
+      "Sieben.",
+      "Seven."
+    ],
+    [
+      "Drei.",
+      "Three."
+    ],
+    [
+      "Eins.",
+      "One."
+    ]
+  ],
+  "a0-tee-exercise-1": [
+    [
+      "Nein, danke.",
+      "No, thank you."
+    ],
+    [
+      "Ja, bitte.",
+      "Yes, please."
+    ],
+    [
+      "Hallo!",
+      "Hello!"
+    ]
+  ],
+  "a0-wo-exercise-1": [
+    [
+      "Wo ist die Toilette?",
+      "Where is the toilet?"
+    ],
+    [
+      "Wo ist der Tee?",
+      "Where is the tea?"
+    ],
+    [
+      "Ich heiße …",
+      "My name is …"
+    ]
+  ],
+  "a0-langsam-exercise-1": [
+    [
+      "Ich verstehe nicht.",
+      "I don’t understand."
+    ],
+    [
+      "Ja, bitte!",
+      "Yes, please!"
+    ],
+    [
+      "Guten Abend!",
+      "Good evening!"
+    ]
+  ],
+  "a0-morgen-exercise-1": [
+    [
+      "Auf Wiedersehen!",
+      "Goodbye!"
+    ],
+    [
+      "Guten Abend!",
+      "Good evening!"
+    ],
+    [
+      "Ich verstehe nicht.",
+      "I don’t understand."
+    ]
+  ],
+  "a0-morgen-exercise-7": [
+    [
+      "Guten Morgen!",
+      "Good morning!"
+    ],
+    [
+      "Guten Abend!",
+      "Good evening!"
+    ],
+    [
+      "Auf Wiedersehen!",
+      "Goodbye!"
+    ]
+  ]
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /** Choice IDs remain canonical German answers so the existing server can grade them. */
 export function beginnerGateChoices(exerciseId: string): DialogueChoice[] {
@@ -124,5 +382,5 @@ export const greetingMeanings: Record<string, string> = {
 };
 
 export function beginnerReplyMeaning(german: string): string | undefined {
-  return greetingMeanings[german];
+  return greetingMeanings[german] ?? Object.values(beginnerGateTranslations).flat().find(([reply]) => reply === german)?.[1];
 }

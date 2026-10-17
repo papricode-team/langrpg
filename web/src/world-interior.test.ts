@@ -6,6 +6,7 @@ import { WorldInterior } from './world-interior';
 import furniture from '../public/assets/interior-animations.json';
 import details from '../public/assets/interior-effect-animations.json';
 import stills from '../public/assets/interior-stills.json';
+import trainStills from '../public/assets/interior-train-stills.json';
 
 class Sprite {
   originX = .5; originY = .5; scale = 1; depth = 0; alpha = 1; visible = true; destroyed = false;
@@ -29,9 +30,10 @@ function fixture(id: InteriorId) {
   const removeTexture = vi.fn();
   const scene = {
     add: { image: create, sprite: create },
+    tweens: { add: (config: { targets: Sprite; alpha: number }) => config.targets.setAlpha(config.alpha), killTweensOf: () => undefined },
     textures: { remove: removeTexture, exists: () => true, get: () => ({ has: () => true, customData: {layout:`1:${roomLayoutFingerprint(undefined)}`} }) },
     cache: { json: { get: (key: string) => key === 'interior-animations' ? furniture
-      : key === 'interior-stills' ? stills : key === 'interior-effect-animations' ? details : undefined } },
+      : key === 'interior-stills' ? stills : key === 'interior-train-stills' ? trainStills : key === 'interior-effect-animations' ? details : undefined } },
   } as unknown as Phaser.Scene;
   const room = new WorldInterior(scene, getInterior(id));
   const bodies = sprites.filter(sprite => sprite.key !== 'interior-effects');
@@ -42,6 +44,21 @@ const pose = (sprite: Sprite) => [sprite.x, sprite.y, sprite.frame, sprite.scale
 const appearance = (sprite: Sprite) => [sprite.frame, sprite.alpha];
 
 describe('stable interior rendering', () => {
+  it('paints the carriage, restores the ticket, serves tea and crossfades to dawn without moving the room', () => {
+    const {room,sprites}=fixture('train-compartment');
+    const [night,dawn]=sprites.filter(sprite=>sprite.key.startsWith('interior-train-compartment-'));
+    expect([night.key,dawn.key]).toEqual(['interior-train-compartment-room','interior-train-compartment-dawn']);
+    expect(sprites.some(sprite=>sprite.key==='room-kit-furniture')).toBe(false);
+    const ticket=sprites.find(sprite=>sprite.frame==='train-ticket-pale')!, tea=sprites.find(sprite=>sprite.frame==='train-tea')!;
+    const anchors=sprites.map(pose);
+    room.update(1,roomView);
+    expect(dawn.alpha).toBe(0); expect(tea.visible).toBe(false);
+    room.restoreTicket(true); room.serveTea(true); room.setDawn(true); room.update(2,roomView);
+    expect(ticket.frame).toBe('train-ticket-dark'); expect(tea.visible).toBe(true); expect(dawn.alpha).toBe(1);
+    expect(sprites.map(sprite=>pose(sprite).filter((_,index)=>index!==2))).toEqual(anchors.map(values=>values.filter((_,index)=>index!==2)));
+    room.setVisible(false); expect(dawn.visible).toBe(false);
+    room.destroy(); expect(dawn.destroyed && night.destroyed).toBe(true);
+  });
   it.each(['cafe', 'bakery', 'supermarket', 'inn'] as const)('keeps %s furniture and its anchors identical throughout an idle cycle', id => {
     const { room, bodies } = fixture(id);
     const initial = bodies.map(pose);

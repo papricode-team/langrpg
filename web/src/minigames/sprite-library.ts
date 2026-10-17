@@ -37,6 +37,7 @@ export class SpriteLibrary {
   }
   /** Invoke during the scene preload phase, using native TexturePacker frame names. */
   loadPhaser(scene: Phaser.Scene): void {
+    if (!scene.textures.exists('interior-train-furniture')) scene.load.atlas('interior-train-furniture', '/assets/interior-train-furniture.webp', '/assets/interior-train-furniture.json');
     for (const atlas of itemAtlases) if (!scene.textures.exists(atlas.key)) scene.load.atlas(atlas.key, atlas.image, atlas.data);
     if (!scene.textures.exists(minigameActionAtlas.key)) scene.load.atlas(minigameActionAtlas.key, minigameActionAtlas.image, minigameActionAtlas.data);
   }

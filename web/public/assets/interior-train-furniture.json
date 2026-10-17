@@ -1,0 +1,372 @@
+{
+  "frames": {
+    "train-bench-left": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 362,
+        "h": 271
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 362,
+        "h": 271
+      },
+      "sourceSize": {
+        "w": 362,
+        "h": 271
+      }
+    },
+    "train-bench-right": {
+      "frame": {
+        "x": 362,
+        "y": 0,
+        "w": 362,
+        "h": 271
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 362,
+        "h": 271
+      },
+      "sourceSize": {
+        "w": 362,
+        "h": 271
+      }
+    },
+    "train-rack": {
+      "frame": {
+        "x": 724,
+        "y": 0,
+        "w": 362,
+        "h": 271
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 362,
+        "h": 271
+      },
+      "sourceSize": {
+        "w": 362,
+        "h": 271
+      }
+    },
+    "train-suitcase": {
+      "frame": {
+        "x": 1086,
+        "y": 0,
+        "w": 362,
+        "h": 271
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 362,
+        "h": 271
+      },
+      "sourceSize": {
+        "w": 362,
+        "h": 271
+      }
+    },
+    "train-table": {
+      "frame": {
+        "x": 0,
+        "y": 271,
+        "w": 362,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 362,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 362,
+        "h": 272
+      }
+    },
+    "train-door": {
+      "frame": {
+        "x": 362,
+        "y": 271,
+        "w": 362,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 362,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 362,
+        "h": 272
+      }
+    },
+    "train-toilet-door": {
+      "frame": {
+        "x": 724,
+        "y": 271,
+        "w": 362,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 362,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 362,
+        "h": 272
+      }
+    },
+    "train-exit": {
+      "frame": {
+        "x": 1086,
+        "y": 271,
+        "w": 362,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 362,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 362,
+        "h": 272
+      }
+    },
+    "train-samovar": {
+      "frame": {
+        "x": 0,
+        "y": 543,
+        "w": 362,
+        "h": 271
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 362,
+        "h": 271
+      },
+      "sourceSize": {
+        "w": 362,
+        "h": 271
+      }
+    },
+    "train-tea": {
+      "frame": {
+        "x": 362,
+        "y": 543,
+        "w": 362,
+        "h": 271
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 362,
+        "h": 271
+      },
+      "sourceSize": {
+        "w": 362,
+        "h": 271
+      }
+    },
+    "train-menu": {
+      "frame": {
+        "x": 724,
+        "y": 543,
+        "w": 362,
+        "h": 271
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 362,
+        "h": 271
+      },
+      "sourceSize": {
+        "w": 362,
+        "h": 271
+      }
+    },
+    "train-punch": {
+      "frame": {
+        "x": 1086,
+        "y": 543,
+        "w": 362,
+        "h": 271
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 362,
+        "h": 271
+      },
+      "sourceSize": {
+        "w": 362,
+        "h": 271
+      }
+    },
+    "train-carriage": {
+      "frame": {
+        "x": 0,
+        "y": 814,
+        "w": 362,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 362,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 362,
+        "h": 272
+      }
+    },
+    "train-ticket-dark": {
+      "frame": {
+        "x": 362,
+        "y": 814,
+        "w": 362,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 362,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 362,
+        "h": 272
+      }
+    },
+    "train-ticket-pale": {
+      "frame": {
+        "x": 724,
+        "y": 814,
+        "w": 362,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 362,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 362,
+        "h": 272
+      }
+    },
+    "train-ticket-blank": {
+      "frame": {
+        "x": 1086,
+        "y": 814,
+        "w": 362,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 362,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 362,
+        "h": 272
+      }
+    },
+    "item-wagen-noun": {
+      "frame": {
+        "x": 0,
+        "y": 814,
+        "w": 362,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 362,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 362,
+        "h": 272
+      }
+    },
+    "item-ausgang-noun": {
+      "frame": {
+        "x": 1086,
+        "y": 271,
+        "w": 362,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 362,
+        "h": 272
+      },
+      "sourceSize": {
+        "w": 362,
+        "h": 272
+      }
+    }
+  },
+  "meta": {
+    "image": "interior-train-furniture.webp",
+    "size": {
+      "w": 1448,
+      "h": 1086
+    },
+    "scale": "1"
+  }
+}

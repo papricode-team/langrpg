@@ -5,7 +5,7 @@ import { courseGrammar } from './course';
 
 describe('grammar in a conversation', () => {
   it('connects every production scene to an existing grammar guide and a contextual German note', () => {
-    for (const quest of quests) {
+    for (const quest of quests.filter(quest => quest.level !== 'A0')) {
       const note = grammarForQuest(quest.id,courseGrammar)!;
       expect(note.german).toBeTruthy(); expect(note.english).toBeTruthy();
       expect(note.title).toBeTruthy(); expect(note.explanation).toBeTruthy();

@@ -7,6 +7,7 @@ import './register-content-loader.mjs';
 import { quests } from './content-source.mjs';
 
 const { getMap } = await import('../web/src/maps.ts');
+const { getInterior } = await import('../web/src/interiors.ts');
 const { rules } = JSON.parse(await readFile(new URL('../server/story_rules.json', import.meta.url), 'utf8'));
 const graphs = JSON.parse(await readFile(new URL('../web/src/data/dialogue-graphs.json', import.meta.url), 'utf8'));
 
@@ -23,7 +24,8 @@ test('server investigation proof follows the actual edited runtime placements an
     const rule = rules.find(rule => rule.questId === graph.questId);
     assert.ok(rule, `missing server graph ${graph.questId}`);
     const quest = quests.find(quest => quest.id === graph.questId);
-    const map = getMap(rule.mapId);
+    const map = graph.interiorId ? getInterior(graph.interiorId) : getMap(rule.mapId);
+    assert.equal(rule.interiorId, graph.interiorId);
     const npc = map.npcs.find(npc => npc.id === quest.npcId);
     assert.deepEqual(rule.npc, {id:npc.id,x:npc.x,y:npc.y}, `${graph.questId} NPC moved without regenerating server proof`);
     assert.equal(rule.npcId, quest.npcId);
@@ -31,9 +33,9 @@ test('server investigation proof follows the actual edited runtime placements an
     assert.deepEqual(rule.replyExerciseIds, [...new Set(graph.nodes.flatMap(node => node.lines.flatMap(line => line.reply ? [line.reply.exerciseId] : [])))]);
     assert.deepEqual(rule.investigationObjectIds, graph.investigations.map(item => item.objectId));
     assert.deepEqual(rule.objects, graph.investigations.map(item => {
-      const object = map.objects.find(object => object.id === item.objectId);
+      const object = map.objects.find(object => object.id === (item.worldId ?? item.objectId));
       assert.ok(object, `missing ${item.objectId}`);
-      return { id: object.id, x: object.x, y: object.y };
+      return { id: item.objectId, x: object.x, y: object.y };
     }), `${graph.questId} objects moved without regenerating server proof`);
     assert.deepEqual(rule.choices, graph.nodes.find(node => node.id === 'choice').choices.map(choice => ({ id: choice.id, effects: choice.effects, ...(choice.condition ? { condition: choice.condition } : {}) })));
   }

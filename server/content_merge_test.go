@@ -220,8 +220,8 @@ func TestContentStoryPanelsRequireOwnInventoryOrExactEnding(t *testing.T) {
 			panelIDs = append(panelIDs, record.ID)
 		}
 	}
-	if len(panelIDs) != 16 {
-		t.Fatalf("expected all sixteen server-owned story panels, got %d", len(panelIDs))
+	if len(panelIDs) != 23 {
+		t.Fatalf("expected all 23 server-owned story panels including prologue keepsakes, got %d", len(panelIDs))
 	}
 	seed := func(session string, inventory []string, ending string) Account {
 		t.Helper()

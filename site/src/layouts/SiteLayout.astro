@@ -1,9 +1,15 @@
 ---
 import '@fontsource/dm-sans/latin-400.css';
 import '@fontsource/dm-sans/latin-600.css';
+import '@fontsource/dm-sans/latin-ext-400.css';
+import '@fontsource/dm-sans/latin-ext-600.css';
 import '@fontsource/fraunces/latin-400.css';
 import '@fontsource/fraunces/latin-700.css';
+import '@fontsource/fraunces/latin-ext-400.css';
+import '@fontsource/fraunces/latin-ext-700.css';
 import '../styles/site.css';
+import LanguageSelector from '../components/LanguageSelector.astro';
+import SiteNavigation from '../components/SiteNavigation.astro';
 interface Props {
   title: string;
   description: string;
@@ -15,6 +21,7 @@ interface Props {
 const { title, description, image = '/images/glotworld-social.jpg', imageAlt = image === '/images/glotworld-social.jpg' ? 'An illustrated harbor town in the world of glotworld' : title, noindex = false, schema = [] } = Astro.props;
 const canonical = new URL(Astro.url.pathname === '/404/' ? '/404.html' : Astro.url.pathname, Astro.site).href;
 const root = Astro.site!.href;
+const pageKey = Astro.url.pathname === '/404/' ? '404.html' : Astro.url.pathname.replace(/^\/+|\/+$/g, '').replaceAll('/', '--') || 'index';
 const graph = [
   { '@type': 'Organization', '@id': `${root}#organization`, name: 'glotworld', url: root, logo: `${root}favicon.svg` },
   { '@type': 'WebSite', '@id': `${root}#website`, name: 'glotworld', url: root, inLanguage: 'en', publisher: { '@id': `${root}#organization` } },
@@ -50,20 +57,28 @@ const graph = [
     <meta name="twitter:image" content={new URL(image, Astro.site).href} />
     <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c')} />
     <slot name="head" />
+    <script is:inline>
+      // Apply the saved compact state before the header paints.
+      try {
+        const language = localStorage.getItem('atlas.baseLanguage');
+        if (['en', 'tr', 'de'].includes(language)) document.documentElement.setAttribute('data-language-chosen', '');
+      } catch { /* The full language picker remains available without storage. */ }
+    </script>
   </head>
-  <body>
+  <body data-site-page={pageKey}>
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
       <a class="brand" href="/" aria-label="glotworld home"><span class="brand-mark" aria-hidden="true">✧</span> glotworld<span class="brand-period">.</span></a>
-      <nav class="desktop-nav" aria-label="Main navigation">
-        <a href="/#world">The world</a><a href="/#how-to-play">How you learn</a><a href="/learn-german/">Field notes</a><a href="/#questions">FAQ</a>
-      </nav>
-      <a class="button button-small" href="/game/" data-play>Play now <svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12h15M13 5l7 7-7 7" /></svg></a>
-      <details class="mobile-menu"><summary aria-label="Open navigation"><span></span><span></span></summary><nav aria-label="Mobile navigation"><a href="/#world">The world</a><a href="/#how-to-play">How you learn</a><a href="/learn-german/">Field notes</a><a href="/#questions">FAQ</a></nav></details>
+      <SiteNavigation />
+      <LanguageSelector compact />
+      <a class="button button-small" href="/game/" data-play aria-label="Play now"><span class="header-play-label">Play now</span> <svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12h15M13 5l7 7-7 7" /></svg></a>
+      <details class="mobile-menu"><summary aria-label="Open navigation"><span></span><span></span></summary><SiteNavigation mobile /></details>
     </header>
+    <LanguageSelector />
+    <p class="language-status" role="status" aria-live="polite" data-language-status></p>
     <main id="main"><slot /></main>
     <footer class="site-footer">
-      <div class="footer-top"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">✧</span> glotworld.</a><p>A little wonder.<br />A whole new language.</p><nav aria-label="Footer"><a href="/game/" data-play>Enter the world <svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12h15M13 5l7 7-7 7" /></svg></a><a href="/learn-german/">Learn German</a><a href="/about/">About glotworld</a><a href="/#questions">Questions & answers</a></nav></div>
+      <div class="footer-top"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">✧</span> glotworld.</a><p>A little wonder.<br />A whole new language.</p><nav aria-label="Footer"><a href="/game/" data-play>Enter the world <svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12h15M13 5l7 7-7 7" /></svg></a><a href="/learn-german/">Learn German</a><a href="/#pricing">Pricing</a><a href="/about/">About glotworld</a><a href="/#questions">Questions & answers</a></nav></div>
       <div class="footer-bottom"><span>© {new Date().getUTCFullYear()} glotworld</span><span>An adventure in language. Made for curious minds.</span><a href="#main">Back to top ↑</a></div>
     </footer>
     <script>

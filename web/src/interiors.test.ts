@@ -59,8 +59,8 @@ describe('enterable learning spaces', () => {
       const pointNavigation = createMapNavigation(map.id, {agentRadius:0});
       const start = pixels(getMap(map.id).spawn, navigation);
       const entrances = buildingEntrances(map.id);
-      expect(entrances.slice(0, 4).map(entrance => entrance.interiorId)).toEqual(['cafe', 'bakery', 'supermarket', 'inn']);
-      expect(entrances).toHaveLength(getWorldScene(map.id).scenery.filter(item => ['house', 'archive', 'cafe', 'station', 'workshop', 'greenhouse'].includes(item.asset)).length);
+      expect(entrances.filter(entrance => !entrance.interiorId.startsWith('train-')).slice(0, 4).map(entrance => entrance.interiorId)).toEqual(['cafe', 'bakery', 'supermarket', 'inn']);
+      expect(entrances).toHaveLength(getWorldScene(map.id).scenery.filter(item => ['house', 'archive', 'cafe', 'station', 'workshop', 'greenhouse'].includes(item.asset)).length + (map.id === 'lindenhafen' ? 1 : 0));
       expect(new Set(entrances.map(entrance => entrance.id)).size).toBe(entrances.length);
       for (const entrance of entrances) {
         expect(entrance.id).toBe(`building:${entrance.interiorId}`);
@@ -88,7 +88,7 @@ describe('enterable learning spaces', () => {
   it('routes around solid furniture while leaving the central aisle open', () => {
     const aisle: Partial<Record<InteriorId, MapPoint>> = {
       cafe: { x: 500, y: 785 }, bakery: { x: 950, y: 785 }, supermarket: { x: 1250, y: 785 },
-      inn: { x: 780, y: 785 },
+      inn: { x: 780, y: 785 }, 'train-compartment': { x: 760, y: 600 },
     };
     for (const interior of interiors) {
       const navigation = createInteriorNavigation(interior.id);
@@ -169,7 +169,7 @@ describe('enterable learning spaces', () => {
     const exported = new Set(interiorExercises.map(exercise => exercise.id));
     expect(exported.size).toBe(interiorExercises.length);
     for (const interior of interiors) {
-      if (interior.id === 'inn') continue; // Home actions use review/story endpoints.
+      if (interior.id === 'inn' || interior.id.startsWith('train-')) continue; // Home actions use review/story endpoints.
       expect(interior.objects.length).toBe(4);
       for (const object of interior.objects) {
         expect(object.exerciseIds.length).toBe(3);
@@ -225,7 +225,7 @@ describe('authored interior artwork contract', () => {
       expect(new Uint8Array(rgba).some((value, index) => index % 4 === 3 && value > 100)).toBe(true);
     }
     for (const room of interiors) for (const prop of room.props) {
-      const art = stills.assets[prop.asset] ?? original.assets[prop.asset];
+      const art = readJson<SceneryAnimationManifest>('interior-train-stills.json').assets[prop.asset] ?? stills.assets[prop.asset] ?? original.assets[prop.asset];
       const height = prop.width * art.height / art.referenceWidth;
       const adultHeight = room.characterHeight ?? INTERIOR_CHARACTER_HEIGHT;
       if (['bakery-counter', 'checkout', 'pastry-case'].includes(prop.asset)) expect(height, `${prop.id} towers above people`).toBeLessThan(adultHeight * .9);
@@ -274,22 +274,23 @@ describe('authored interior artwork contract', () => {
   });
 
   it('resolves every placed prop to an available animated atlas and every room to a full painting', async () => {
-    const manifest = readJson<SceneryAnimationManifest>('interior-animations.json');
+    const manifest = structuredClone(readJson<SceneryAnimationManifest>('interior-animations.json'));
     expect(manifest.version).toBe(1);
     expect(manifest.framesPerAsset).toBe(4);
     expect(Object.keys(manifest.assets)).toHaveLength(30);
+    Object.assign(manifest.assets, readJson<SceneryAnimationManifest>('interior-train-stills.json').assets);
     const props = interiors.flatMap(interior => [...interior.props]);
     expect(props.length).toBeGreaterThan(Object.keys(manifest.assets).length);
     expect(new Set(props.map(prop => prop.id)).size).toBe(props.length);
     expect([...new Set(props.map(prop => prop.asset))].every(asset => asset in manifest.assets)).toBe(true);
     const sheets = [...new Set(props.map(prop => prop.sheet))];
-    expect(sheets).toHaveLength(5);
+    expect(sheets).toHaveLength(6);
     const atlases = new Map(sheets.map(sheet => [sheet, readJson<InteriorAtlas>(`${sheet}.json`)]));
     for (const prop of props) {
       const animation = manifest.assets[prop.asset];
       expect(animation, `missing authored animation for ${prop.id}`).toBeDefined();
       expect(animation.key).toBe(prop.sheet);
-      expect(animation.frames).toHaveLength(4);
+      expect(animation.frames).toHaveLength(prop.sheet === 'interior-train-furniture' ? 1 : 4);
       for (const frame of animation.frames) expect(atlases.get(prop.sheet)?.frames[frame], `${prop.id} missing ${frame}`).toBeDefined();
     }
     await Promise.all(interiors.map(async interior => {

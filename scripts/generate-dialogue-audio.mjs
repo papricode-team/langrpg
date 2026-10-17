@@ -41,7 +41,7 @@ const temp = await mkdtemp(resolve(tmpdir(), 'atlas-voices-'));
 try {
   const synthesize = async (list, out, cacheName) => {
     const file = resolve(temp, `${cacheName}.json`);
-    await writeFile(file, JSON.stringify(list.map(({ clipId, speaker, german }) => ({ clipId, speaker: cast[speaker], german }))));
+    await writeFile(file, JSON.stringify(list.map(({ clipId, speaker, german, rate }) => ({ clipId, speaker: cast[speaker], german, rate }))));
     await run(python, [resolve(root, 'scripts/tts/qwen_tts.py'), '--jobs', file, '--out', out, '--cache', resolve(root, `scripts/tts/cache/${cacheName}.json`), ...pass]);
   };
   await synthesize(jobs, dialogueDir, 'dialogue');
@@ -60,7 +60,7 @@ await writeFile(resolve(dialogueDir, 'manifest.json'), JSON.stringify({
 }, null, 2) + '\n');
 // Mark character-voiced exercise clips so the pronunciation generator (generate-audio.mjs) keeps them.
 const manifestPath = resolve(exerciseDir, 'manifest.json'), manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
-const byId = new Map(manifest.clips.map(clip => [clip.id, clip]));
+const byId = new Map(manifest.clips.filter(clip => !clip.id.startsWith('a0-') || exerciseJobs.some(job => job.clipId === clip.id)).map(clip => [clip.id, clip]));
 for (const job of exerciseJobs) byId.set(job.clipId, { id: job.clipId, text: job.german, path: `/audio/${job.clipId}.ogg`, voice: voice(job.speaker) });
 manifest.clips = [...byId.values()];
 await writeFile(manifestPath, JSON.stringify(manifest, null, 2) + '\n');

@@ -151,3 +151,13 @@ export function pacingReport({ syllabus, lexicon, demand, questOrder = syllabus.
     quests,
   };
 }
+
+/** A0 content limits; arrival remains an honest vocabulary report, never an unlock. */
+export function openingPacingViolations(report) {
+  const violations = [];
+  for (const quest of report.quests.filter(quest => quest.level === 'A0')) {
+    if (quest.newWordsAboveBudget > 0) violations.push(`${quest.questId}: ${quest.newWordsAboveBudget} words above the intake budget`);
+    if (quest.vocabularyReadyHour >= 4) violations.push(`${quest.questId}: vocabulary must be ready before hour 4`);
+  }
+  return violations;
+}

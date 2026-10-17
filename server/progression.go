@@ -3,6 +3,8 @@ package main
 import "fmt"
 
 // This is the authored clue chain, rather than map order or CEFR settings.
+var prologueQuestOrder = []string{"a0-ticket", "a0-name", "a0-wagen", "a0-tee", "a0-wo", "a0-langsam", "a0-morgen"}
+
 var storyQuestOrder = []string{
 	"a1-arrival", "a1-cafe", "a1-timetable", "a1-notice", "a1-shopping", "a1-room",
 	"a1-market", "a1-chalk", "a1-neighbour", "a1-pharmacy", "a1-directions", "a1-bench",
@@ -115,6 +117,16 @@ func routeLockedError(mapID string) error {
 }
 
 func requireQuestOrder(questID string, completed []string) error {
+	if contains(prologueQuestOrder, questID) {
+		for _, id := range prologueQuestOrder {
+			if id == questID {
+				return nil
+			}
+			if !contains(completed, id) {
+				return &APIError{409, fmt.Sprintf("follow the train conversation first (missing %s)", id)}
+			}
+		}
+	}
 	known := contains(storyQuestOrder, questID)
 	if known {
 		if missing := questPrerequisite(questID, completed); missing != "" {

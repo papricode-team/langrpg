@@ -1,4 +1,7 @@
 import './tokens.css';
+import { contentEntitlementKey } from './content-entitlements';
+import { currentPrologueQuest, storyQuestId, storyQuestComplete } from './prologue-progress';
+import { coachStep, type CoachState, type CoachStep } from './tutorial-coach';
 import {buildingRoomId} from './room-layout';
 import {roomKind} from './room-kind';
 import { animalAction, animalSpeciesFromId } from './animal-behavior';
@@ -13,14 +16,16 @@ import {loadPublishedWorld,sceneContentVersion,sceneDocument} from './scene-data
 import {applyWorldPatch} from './world-patch';
 import { avatarPortraitMarkup, bakeAvatarPortrait, observeAvatarPortraits, updateSelfPortraits } from './avatar-portrait';
 import { normalizeAvatar } from './character-recipe.mjs';
+import { loadProloguePhrases } from './minigames/prologue-phrases';
+import { mountSoundsBoard } from './prologue-sounds';
 import { mountOptionalPlacement } from './placement-ui';
 import { QuestController } from './quest-controller';
 import { createGlossLookup } from './learning-context';
-import { loadServerContent, loadQuestGraph, loadDialogueSentence, loadExercise, loadUnit, loadWords, loadRestoredWords, loadStoryContent, storyContentRemaining, loadContexts, loadNpcConversation, loadRegionContent, loadCinematic, hydrateNarratives, refreshBootstrap, runtimeReference, loadInterior, loadInteriorConversation, loadActivity, loadMiniGame, loadExpeditionEncounter, loadPlacement, invalidateContext, activeCourse, refreshQuestGraph } from './content-runtime';
+import { loadServerContent, loadQuestGraph, loadDialogueSentence, loadDialogueExercise, loadExercise, loadUnit, loadWords, loadRestoredWords, loadStoryContent, storyContentRemaining, loadContexts, loadNpcConversation, loadRegionContent, loadCinematic, hydrateNarratives, refreshBootstrap, runtimeReference, loadInterior, loadInteriorConversation, loadActivity, loadMiniGame, loadExpeditionEncounter, loadPlacement, invalidateContext, activeCourse, refreshQuestGraph } from './content-runtime';
 import { getSentence } from './content-api';
 import { mountCoursePlayer } from './course-player';
 import { questGraph, questGraphs } from './quest-graph';
-import { storyState } from './dialogue';
+import { personalized, storyState } from './dialogue';
 import type { QuestGraph } from './dialogue';
 import { optionalStoryPractice } from './story-panels';
 import { lanternRewards, lanternRewardsMarkup, titleLabel } from './lantern-rewards';
@@ -70,7 +75,7 @@ import { hudNavigationMarkup, hudChapterMarkup, minimapMarkup, updateMinimapPlay
 import { World } from './world';
 import type { Avatar, WorldPlayer, WorldPresentation } from './world';
 import { quests, npcs, vocabulary } from './content';
-import type { Quest, Exercise, Level } from './content';
+import type { Quest, Exercise, CourseLevel as Level } from './content';
 import { Api, emptyProgress } from './api';
 import { EditBridge } from './world-edit-mode';
 import { WorldEditOverlay } from './world-edit-overlay';
@@ -129,7 +134,7 @@ import { gameItemPool } from './minigames/pool';
 import { DialogSession, openAsyncDialog, trackDialogClose, type AsyncDialogHost } from './dialog-session';
 
 const uiCheckRequest = import.meta.env.DEV ? new URLSearchParams(location.search).get('ui-check') : null;
-const uiCheckSurface = uiCheckRequest && ['home','options','character','help','account','encounter','journal','activity','course','world'].includes(uiCheckRequest) ? uiCheckRequest : null;
+const uiCheckSurface = uiCheckRequest && ['home','options','character','help','account','encounter','journal','activity','course','world','prologue','prologue-dawn','sounds'].includes(uiCheckRequest) ? uiCheckRequest : null;
 
 type View = 'world' | MenuView;
 type CourseModule = typeof import('./course');
@@ -160,6 +165,19 @@ const activityInfo = [
 ];
 let mapId: MapId = 'lindenhafen';
 let interiorId: InteriorId | undefined;
+let prologueBooted = false;
+let pendingPrologue: string | undefined;
+let pendingPrologueRoom: {questId:string;room:InteriorId} | undefined;
+let lastPrologueQuest: string | undefined;
+/** The carriage door is a story object; it opens onto platform seven after the last beat. */
+const TRAIN_DOOR_ID = 'interior:prologue-exit';
+const prologueGraphs = new Map<string, QuestGraph>();
+let pendingPhraseCard: QuestGraph | undefined;
+const prologueGraphLoads = new Set<string>();
+/** Per-viewer tutorial facts (has walked, which beats were opened); losing them only repeats a hint. */
+const coachMemory: { moved: boolean; talked: string[] } = { moved: false, talked: [] };
+/** Where the player stood when the carriage loaded; walking a little way away counts as having walked. */
+let coachOrigin: { x: number; y: number } | undefined;
 let applyingWorldLocation = false;
 let pendingMap: MapId | undefined;
 let pendingDestination: { kind: 'quest' | 'follow'; questId: string } | undefined;
@@ -316,9 +334,11 @@ function cancelRun() { exerciseInputCleanup?.();exerciseInputCleanup=undefined;i
 let progressOwner: string | undefined;
 let bootstrapRefresh: Promise<void> | undefined;
 function entitlementKey(value: Progress): string {
-  return JSON.stringify([value.completedQuestIds, value.completedUnitIds, value.intake?.wordIds, value.story?.inspections, value.story?.choices, value.story?.inventory, value.story?.ending]);
+  // The opening heartbeat can restore words before the train room has loaded.
+  const train = !!interiorId?.startsWith('train-') || localStorage.getItem(`atlas.prologue.${api.selfId}`) === 'true' && !storyQuestComplete(value.completedQuestIds, 'a0-morgen');
+  return contentEntitlementKey(value, train);
 }
-function acceptProgress(value: Progress, owner?: string) {
+function acceptProgress(value: Progress, owner?: string, catalogueCurrent = false) {
   const previousEntitlements = entitlementKey(progress);
   if (owner && progressOwner !== owner) { attemptedCinematics.clear(); progressOwner = owner; progress = emptyProgress(); wordExposure.reset(); }
   const previous = progress;
@@ -328,8 +348,10 @@ function acceptProgress(value: Progress, owner?: string) {
       const gained = progress.xp - previous.xp;
       if (gained > 0) toast(t('+{count} XP', {count:gained}));
     }
-    if (started && activeCourse?.target === 'de' && previousEntitlements !== entitlementKey(progress)) {
+    if (started && !catalogueCurrent && activeCourse?.target === 'de' && previousEntitlements !== entitlementKey(progress)) {
       bootstrapRefresh ??= refreshBootstrap().then(async () => { await loadRestoredWords(progress); updateProgress(); if (view !== 'world') refreshLearningMenu(document.querySelector<HTMLElement>('#other-view')!,renderOther); }).catch(error => toast(error.message, true)).finally(() => { bootstrapRefresh = undefined; });
+    } else if (started && activeCourse?.target === 'de' && JSON.stringify(previous.intake?.wordIds) !== JSON.stringify(progress.intake?.wordIds)) {
+      void loadRestoredWords(progress).then(() => updateProgress()).catch(error => toast(error.message, true));
     }
   }
 }
@@ -406,7 +428,7 @@ function renderShell() {
     onInteriorInteract: showInteriorObject,
     onMapReady: id => { regionReady = true; onRegionReady(id); },
     onReady: () => { regionReady = true; screenFilterControls?.refreshSupport(); document.querySelectorAll<HTMLCanvasElement>('[data-avatar-preview]').forEach(canvas => world.renderAvatarPreview(canvas, profile.avatar)); onRegionReady(mapId); },
-    onMove: (x, y) => api.move(x, y),
+    onMove: (x, y) => { api.move(x, y); noteCoachMove(x, y); },
     onNearby: updateNearby,
     onBarkShown: bark => { if (bark.wordIds.length) wordExposure.record({wordIds:bark.wordIds}); },
     onCinematicLine: (speaker,german,clipId) => { if(!prefs.silentMode&&!prefs.muted)speak(german,speaker,clipId); },
@@ -436,14 +458,14 @@ function renderShell() {
   questController = new QuestController({
     api, progress: () => progress, playerName: () => profile.name,
     portrait: (id, expression) => portrait(id, '', expression), speak, stopSpeech, audioEnabled: () => !prefs.silentMode, setAudioEnabled: enabled => setSilentMode(!enabled, false),
-    loadGraph: loadQuestGraph, loadSentence: loadDialogueSentence, loadExercise,
+    loadGraph: loadQuestGraph, loadSentence: loadDialogueSentence, loadExercise: loadDialogueExercise,
     grammar: questId => grammarForQuest(questId,course?.courseGrammar),
     wasHinted: questId => progress.story?.flags[`hint:${questId}`]===true || localStorage.getItem(`atlas.sceneHinted.${api.selfId}.${questId}`)==='true',
-    onOpen: speaker => { dialogueOpen = true; document.querySelector('#game-shell')!.classList.add('dialogue-open'); world.setConversationTarget(speaker || undefined); syncWorldMode(); },
-    onClose: () => { dialogueOpen = false; document.querySelector('#game-shell')!.classList.remove('dialogue-open'); world.setConversationTarget(undefined); syncWorldMode(); document.querySelector<HTMLElement>('#world-container')!.focus(); if (pendingStoryBeat) queueMicrotask(() => void playPendingCinematic().catch(error => console.warn('The story scene could not load; it will be offered again.', error))); },
+    onOpen: speaker => { dialogueOpen = true; document.querySelector('#game-shell')!.classList.add('dialogue-open'); world.setConversationTarget(speaker || undefined); syncWorldMode(); renderCoach(); },
+    onClose: () => { dialogueOpen = false; document.querySelector('#game-shell')!.classList.remove('dialogue-open'); world.setConversationTarget(undefined); syncWorldMode(); renderCoach(); document.querySelector<HTMLElement>('#world-container')!.focus(); if (pendingPhraseCard) { const graph = pendingPhraseCard; pendingPhraseCard = undefined; queueMicrotask(() => showPhraseCard(graph)); } if (pendingStoryBeat) queueMicrotask(() => void playPendingCinematic().catch(error => console.warn('The story scene could not load; it will be offered again.', error))); },
     onProgress: value => { acceptProgress(value); updateProgress(); },
-    onInvestigate: graph => { investigationQuest = graph.questId; updateProgress(); const next = nextInvestigation(graph); if (next) { world.focusObject(investigationWorldId(next)); toast(t('Read the evidence, then return to the witness.')); } else { const q = quests.find(q => q.id === graph.questId)!; world.focusNpc(q.npcId); toast(t('The evidence is saved. Return to {name}.', { name: localizedName(npcs.find(npc => npc.id === q.npcId)!.name) })); } },
-    onComplete: (graph, xp, effects) => { investigationQuest = undefined; pendingStoryBeat = questCinematics[graph.questId]; updateProgress(); playCue(true); const clue = clueFor(graph.questId); toast(`${clue ? localized(clue.title) : t('Discovery saved')}${xp ? ` · +${xp} XP` : ''}${consequenceNote(effects)}`); suggestRoundAfter(quests.find(quest => quest.id === graph.questId)?.npcId); },
+    onInvestigate: graph => { if (graph.level === 'A0') { updateProgress(); if (prologueDoorFound(graph)) void startPrologue(graph.questId); return; } investigationQuest = graph.questId; updateProgress(); const next = nextInvestigation(graph); if (next) { world.focusObject(investigationWorldId(next)); toast(t('Read the evidence, then return to the witness.')); } else { const q = quests.find(q => q.id === graph.questId)!; world.focusNpc(q.npcId); toast(t('The evidence is saved. Return to {name}.', { name: localizedName(npcs.find(npc => npc.id === q.npcId)!.name) })); } },
+    onComplete: (graph, xp, effects) => { investigationQuest = undefined; pendingStoryBeat = questCinematics[graph.questId]; updateProgress(); playCue(true); const clue = clueFor(graph.questId); toast(`${clue ? localized(clue.title) : t('Discovery saved')}${xp ? ` · +${xp} XP` : ''}${consequenceNote(effects)}`); if (graph.level === 'A0') { lastPrologueQuest = graph.questId; pendingPhraseCard = graph; } else suggestRoundAfter(quests.find(quest => quest.id === graph.questId)?.npcId); },
     expose: exerciseId => { const graph=questGraphs.find(graph=>graph.gateExerciseId===exerciseId); if(graph)localStorage.setItem(`atlas.sceneHinted.${api.selfId}.${graph.questId}`,'true'); wordExposure.record({ exerciseId }); },
     games: npcId => hostedGames(npcId, miniGameById, miniGameReadiness(), gameDay()),
     onGame: id => void startMiniGame(id),
@@ -524,7 +546,7 @@ function syncLocation() {
   const shell = document.querySelector<HTMLElement>('#game-shell')!;
   if (room) shell.dataset.interior = room.id;
   else delete shell.dataset.interior;
-  showArrival(room?.name ?? region.name, room ? t('Inside {place}', { place: region.name }) : localized(region.subtitle));
+  showArrival(room?.name ?? region.name, room?.id.startsWith('train-') ? t('On the way to {place}', { place: region.name }) : room ? t('Inside {place}', { place: region.name }) : localized(region.subtitle));
   refreshHudMap();
   updateLocalHud();
   document.querySelector('#watch-region')!.textContent = room?.name ?? region.name;
@@ -538,6 +560,7 @@ function onInteriorChange(id?: InteriorId, doorId?:string) {
     return;
   }
   interiorId = id;
+  document.querySelector('#game-shell')!.classList.toggle('prologue-active', !!id?.startsWith('train-'));
   syncLocation(); updateNearby(); updateProgress(); updateConnection();
   document.querySelector('#quest-tracker')!.setAttribute('aria-label', id ? t('Learning in this building') : t('Next story objective'));
   document.dispatchEvent(new Event('atlas-controls-reset'));
@@ -546,6 +569,10 @@ function applyInterior(id?: InteriorId) {
   applyingWorldLocation = true;
   try { world.confirmInterior(id); }
   finally { applyingWorldLocation = false; }
+  if (pendingPrologueRoom && pendingPrologueRoom.room === id) {
+    const questId = pendingPrologueRoom.questId; pendingPrologueRoom = undefined;
+    void questController?.open(questId).catch(error => toast(error.message, true));
+  }
 }
 function guideToBuilding(id: InteriorId) {
   if (!buildingEntrances(mapId).some(entrance => entrance.interiorId === id)) return;
@@ -577,6 +604,16 @@ function interiorPracticeQueue(object: InteriorObjectSpec): Exercise[] {
   }));
 }
 async function showInteriorObject(id: string) {
+  if (interiorId?.startsWith('train-')) {
+    if (id === 'interior:prologue-sounds') { showPrologueSounds(); return; }
+    if (id === TRAIN_DOOR_ID) { leaveTrain(); return; }
+    const quest = nextPrologueQuest(); if (!quest) return;
+    const graph = await loadQuestGraph(quest.id); if (!graph) return;
+    if (id.startsWith('interior:prologue-conversation-')) { await startPrologue(quest.id); return; }
+    const artifact = graph.investigations.find(item => item.objectId === id || item.worldId === id);
+    if (artifact) await questController?.inspect(quest.id, artifact.objectId);
+    return;
+  }
   const current = dialogSession.begin();
   if (interiorId) { try { await loadInterior(interiorId); } catch (error) { if (current()) toast((error as Error).message, true); return; } }
   if (!current()) return;
@@ -683,7 +720,7 @@ async function practisePhrase(id: string) {
   openDialog('','quest-dialog');renderExercise();
 }
 function nextInvestigation(graph: QuestGraph) { return graph.investigations.find(item => !(progress.story?.inspections?.[graph.questId] ?? []).includes(item.objectId)); }
-function investigationWorldId(item: QuestGraph['investigations'][number]): string { return (item as typeof item & { worldId?: string }).worldId ?? item.objectId; }
+function investigationWorldId(item: QuestGraph['investigations'][number]): string { return item.worldId ?? item.objectId; }
 function updateProgress() {
   if (!quests.length || !started || activeCourse?.target !== 'de') return;
   const savedStory = storyState(progress.story);
@@ -706,6 +743,13 @@ function updateProgress() {
     if (['journal', 'quests', 'story', 'menu'].includes(view)) refreshLearningMenu(document.querySelector<HTMLElement>('#other-view')!,renderOther);
     return;
   }
+  if (interiorId?.startsWith('train-')) { renderCoach(); return; }
+  if (!interiorId && onPrologueRoute()) {
+    // A new player is on their way to the train; Otto's quest is not theirs yet.
+    world.setObjective(undefined);
+    document.querySelector('#quest-panel')!.innerHTML = storyBeacon({ attributes: 'data-action="prologue"', glyph: 'compass', label: t('Prologue'), text: t('Boarding the night train…'), quiet: true });
+    return;
+  }
   const q = currentQuest();
   const npc = npcs.find(n => n.id === q.npcId) ?? npcs[0];
   const done = completedAtLevel(level), total = quests.filter(x => x.level === level).length;
@@ -726,10 +770,10 @@ function updateProgress() {
   if (view === 'journal' || view === 'quests' || view === 'story' || view === 'menu') refreshLearningMenu(document.querySelector<HTMLElement>('#other-view')!,renderOther);
 }
 /** The next story step is the one golden action over the world; indoors it quietens to a way back out. */
-function storyBeacon(options: { attributes: string; glyph: string; label: string; text: string; bell?: number; quiet?: boolean; cracks?: number; chapter?: HudChapter }): string {
-  const { attributes, glyph, label, text, bell, quiet, cracks, chapter } = options;
+function storyBeacon(options: { attributes: string; glyph: string; label: string; text: string; bell?: number; quiet?: boolean; cracks?: number; chapter?: HudChapter; extraClass?: string }): string {
+  const { attributes, glyph, label, text, bell, quiet, cracks, chapter, extraClass } = options;
   const cracked = cracks ? ` cracked" title="${e(t('A name in town is lost. Say it again to heal the bell.'))}` : '';
-  return `<button class="story-beacon${quiet ? ' quiet' : ''}${chapter ? ' hud-chapter-card' : ''}" ${attributes}><span class="beacon-mark" aria-hidden="true">${quiet ? '' : '<span class="quest-spark"></span>'}${icon(glyph)}</span><span class="beacon-copy"><span class="beacon-label">${e(label)}</span><strong class="objective-text">${e(text)}</strong></span>${bell ? `<span class="objective-bell${cracked}" aria-label="${e(cracks ? t('The seventh bell, cracked by a lost name') : t('The seventh bell'))}">${icon('clock')}${bell}/7</span>` : ''}${quiet ? '' : icon('chevron', 'beacon-chevron')}${chapter ? hudChapterMarkup(chapter) : ''}</button>`;
+  return `<button class="story-beacon${quiet ? ' quiet' : ''}${chapter ? ' hud-chapter-card' : ''}${extraClass ? ` ${extraClass}` : ''}" ${attributes}><span class="beacon-mark" aria-hidden="true">${quiet ? '' : '<span class="quest-spark"></span>'}${icon(glyph)}</span><span class="beacon-copy"><span class="beacon-label">${e(label)}</span><strong class="objective-text">${e(text)}</strong></span>${bell ? `<span class="objective-bell${cracked}" aria-label="${e(cracks ? t('The seventh bell, cracked by a lost name') : t('The seventh bell'))}">${icon('clock')}${bell}/7</span>` : ''}${quiet ? '' : icon('chevron', 'beacon-chevron')}${chapter ? hudChapterMarkup(chapter) : ''}</button>`;
 }
 /** The player's own name pales on the ticket; a small chip offers to say it. */
 function updateFadingNameChip() {
@@ -742,9 +786,11 @@ function updateFadingNameChip() {
   chip.innerHTML = `${icon('lantern')}<span>${e(t('Your name is fading on the ticket. Say it.'))}</span>`;
 }
 function updatePlayerHud(title: string) {
-  const done = completedAtLevel(level), total = quests.filter(item => item.level === level).length || 1;
+  const prologue = !!interiorId?.startsWith('train-');
+  const chapterQuests = quests.filter(item => item.level === (prologue ? 'A0' : level));
+  const done = chapterQuests.filter(item => progress.completedQuestIds.includes(item.id)).length, total = chapterQuests.length || 1;
   document.querySelector('#profile-name')!.textContent = profile.name;
-  document.querySelector('#hud-level')!.textContent = `${activeCourse?.title ?? t('German')} · ${level}`;
+  document.querySelector('#hud-level')!.textContent = `${activeCourse?.title ?? t('German')} · ${prologue ? t('Prologue') : level}`;
   document.querySelector('#hud-title')!.textContent = title === titleLabel('Wanderer') ? t('Wanderer of the Atlas') : title;
   const due = dueItems(progress).length;
   document.querySelector<HTMLElement>('#hud-revisit')!.hidden = !due;
@@ -830,7 +876,7 @@ function syncWorldMode(): void {
     const input = worldCanInteract();
     const dialog = document.querySelector<HTMLDialogElement>('#dialog');
     const covered = !!dialog?.open && dialog.classList.contains('activity-dialog');
-    const presentation: WorldPresentation = uiCheckSurface ? 'hidden' : document.hidden || document.querySelector<HTMLDialogElement>('#account-dialog')!.open || started && accessBlocked(accessClock.snapshot(performance.now())) || view !== 'world' ? 'paused' : covered ? 'hidden' : 'live';
+    const presentation: WorldPresentation = uiCheckSurface && uiCheckSurface !== 'prologue' ? 'hidden' : document.hidden || document.querySelector<HTMLDialogElement>('#account-dialog')!.open || started && accessBlocked(accessClock.snapshot(performance.now())) || view !== 'world' ? 'paused' : covered ? 'hidden' : 'live';
     if (worldInput && !input) document.dispatchEvent(new Event('atlas-controls-reset'));
     worldInput = input;
     world.setInputEnabled(input);
@@ -915,7 +961,7 @@ const attemptedCinematics = new Set<string>();
  */
 async function playPendingCinematic(): Promise<boolean> {
   if (!regionReady || !worldCanInteract()) return false;
-  const arrival = mapId === 'lindenhafen' && !progress.completedQuestIds.includes('a1-arrival') && !progress.story?.flags['cinematic:arrival'] && !attemptedCinematics.has('arrival');
+  const arrival = !interiorId?.startsWith('train-') && mapId === 'lindenhafen' && !progress.completedQuestIds.includes('a1-arrival') && !progress.story?.flags['cinematic:arrival'] && !attemptedCinematics.has('arrival');
   const storyBeat = pendingStoryBeat;
   const kind = storyBeat ?? (arrival ? 'arrival' : pendingTravelBeat ? 'travel' : undefined);
   if (!kind) return false;
@@ -951,6 +997,15 @@ const loadedRegions = new Set<string>();
 const loadingRegions = new Set<string>();
 function onRegionReady(id: MapId) {
   if (!started || !mapConfirmed || id !== mapId || view !== 'world' || document.hidden || document.querySelector<HTMLDialogElement>('#account-dialog')!.open || document.querySelector<HTMLDialogElement>('#dialog')!.open) return;
+  // The train needs its own room and graph, not the town's encounters and routines.
+  // Load those when the player actually enters Lindenhafen.
+  if (pendingPrologue || !prologueBooted && localStorage.getItem(`atlas.prologue.${api.selfId}`) === 'true' && !storyQuestComplete(progress.completedQuestIds, 'a0-morgen')) {
+    if (cinematicActive || !worldCanInteract()) return;
+    const target = pendingPrologue; pendingPrologue = undefined; prologueBooted = true;
+    readCoachMemory();
+    void startPrologue(target, !target); return;
+  }
+  if (interiorId?.startsWith('train-')) return;
   if (!loadedRegions.has(id)) {
     if (!loadingRegions.has(id)) {
       loadingRegions.add(id);
@@ -1033,7 +1088,7 @@ function findObject(id: string): WorldObjectSpec | undefined { return maps.flatM
 /** Letters shown under a typed answer; they fade with unaided recalls and vanish once the learner has moved past the sentence's level. */
 function typedScaffold(ex: Exercise & { level?: Level; targetWordId?: string }): string {
   const level = ex.level ?? quests.find(quest => quest.exercises.some(exercise => exercise.id === ex.id))?.level ?? 'A1';
-  const questLevels = new Map<string, Level>(quests.map(quest => [quest.id, quest.level]));
+  const questLevels = new Map<string, import('./content').Level>(quests.map(quest => [quest.id, quest.level]));
   const recalls = Math.max(progress.items[ex.itemId]?.modeStats.production?.unaidedSuccesses ?? 0, ex.targetWordId ? progress.words[ex.targetWordId]?.evidence?.production?.unaidedSuccesses ?? 0 : 0);
   return ex.answer ? scaffoldText(ex.answer, scaffoldStage(level, learnerLevel(progress.completedQuestIds, questLevels), recalls)) : '';
 }
@@ -1170,10 +1225,10 @@ function lanternGameBoard(title:'Story games'|'Mini-games'|'Word games',include:
 /** What decides whether a round can open now: level, story, sound, writing, dusk and restored words. */
 function miniGameReadiness():ReadinessContext {
   return {
-    level,silent:prefs.silentMode,writingReady:writingReady(),hour:world.getWorldTime().hour,
+    level,silent:prefs.silentMode,writingReady:writingReady() || !!interiorId?.startsWith('train-') && progress.completedQuestIds.includes('a0-name'),hour:world.getWorldTime().hour,
     sceneFor:(game,gameLevel)=>game.questIds?.find(id=>quests.find(quest=>quest.id===id)?.level===gameLevel)??game.questIds?.[0],
     sceneAvailable:id=>questAvailable(id,progress),
-    pool:course?query=>gameItemPool(course!.courseLexicon,progress,query):undefined,
+    pool:course?query=>gameItemPool(course!.courseLexicon,progress,{...query,...(interiorId?.startsWith('train-') ? {fixedPool:prologueWordPool()} : {})}):undefined,
     fixedPool:id=>syllabus.quests.find(quest=>quest.questId===id)?.wordIds,
   };
 }
@@ -1217,17 +1272,19 @@ async function startMiniGame(id:string):Promise<void>{
     async()=>{
       const [courseModule,games,{createMiniGameHost}]=await Promise.all([loadCourse(),import('./minigames'),import('./minigames/host')]);
       const [game,authoredExercises]=await Promise.all([games.loadMiniGame(id),games.loadMiniGameExercises(id)]);
-      return {courseModule,game,authoredExercises,createMiniGameHost};
+      const phrases = interiorId?.startsWith('train-') && id === 'lantern-pairs' ? await loadProloguePhrases(quests,progress,loadExercise) : undefined;
+      return {courseModule,game,authoredExercises,createMiniGameHost,phrases};
     },
-    ({courseModule,game,authoredExercises,createMiniGameHost},dialog)=>{
+    ({courseModule,game,authoredExercises,createMiniGameHost,phrases},dialog)=>{
       dialog.innerHTML=`<button class="dialog-close" data-action="close-dialog" aria-label="${e(t('Close'))}">${icon('close')}</button><div id="minigame-root"></div>`;
-      const sceneExercises=quests.flatMap(quest=>quest.exercises.map(exercise=>({...exercise,level:quest.level,kind:'writing' as const,unitId:quest.id,wordIds:(exercise as Exercise&{wordIds?:string[]}).wordIds??courseModule.courseContextWordIds[exercise.id]??[]})));
+      const sceneExercises=quests.flatMap(quest=>quest.exercises.map(exercise=>({...exercise,level:quest.level === 'A0' ? 'A1' as const : quest.level,kind:'writing' as const,unitId:quest.id,wordIds:(exercise as Exercise&{wordIds?:string[]}).wordIds??courseModule.courseContextWordIds[exercise.id]??[]})));
       miniGameHost=createMiniGameHost({api,gameId:id,lexicon:courseModule.courseLexicon,exercises:[...courseModule.courseExercises,...sceneExercises,...authoredExercises],progress:()=>progress,
         onProgress:value=>{if(owner===api.selfId){acceptProgress(value);updateProgress();}},onEnd:summary=>{if(summary.attempts)toast(`${summary.correct} / ${summary.attempts} answers remembered.`);},
         playerName:profile.name,silent:prefs.silentMode,muted:prefs.muted,reducedMotion:prefs.worldMotion==='reduced'||prefs.worldMotion==='auto'&&matchMedia('(prefers-reduced-motion: reduce)').matches,narration:active=>world.setNarrationActive(active)});
       miniGameController=game;
-      const fixedPool=questId?syllabus.quests.find(quest=>quest.questId===questId)?.wordIds:undefined;
-      game.mount(document.querySelector<HTMLElement>('#minigame-root')!,miniGameHost,{level:gameLevel,currentLevel:level,seed:crypto.getRandomValues(new Uint32Array(1))[0],fixedPool,backdrop:['workbench','lost-hour'].includes(id)?'/assets/minigames/workbench.webp':['seed-packets','17-59'].includes(id)?getMap('waldruh').previewAsset:interiorId?getInterior(interiorId, mapId).asset:getMap(mapId).previewAsset});
+      const prologuePool = interiorId?.startsWith('train-') ? syllabus.quests.filter(q => q.level === 'A0' && (progress.completedQuestIds.includes(q.questId) || q.questId === lastPrologueQuest)).flatMap(q => q.wordIds) : undefined;
+      const fixedPool=prologuePool?.length ? [...new Set(prologuePool)] : questId?syllabus.quests.find(quest=>quest.questId===questId)?.wordIds:undefined;
+      game.mount(document.querySelector<HTMLElement>('#minigame-root')!,miniGameHost,{phrases,level:gameLevel,currentLevel:level,seed:crypto.getRandomValues(new Uint32Array(1))[0],fixedPool,prologue:!!interiorId?.startsWith('train-'),namePractice:interiorId?.startsWith('train-') && id === 'night-train',backdrop:['workbench','lost-hour'].includes(id)?'/assets/minigames/workbench.webp':['seed-packets','17-59'].includes(id)?getMap('waldruh').previewAsset:interiorId?getInterior(interiorId, mapId).asset:getMap(mapId).previewAsset});
       if(document.hidden||document.querySelector<HTMLDialogElement>('#account-dialog')!.open)game.pause();
     },
     (error,dialog)=>{toast((error as Error).message,true);dialog.close();});
@@ -1327,11 +1384,11 @@ function todaysWordsCard(): string {
   const words = todaysWords(progress).map(id => course!.lexemeById.get(id)).filter((word): word is CourseLexeme => !!word);
   if (!words.length) return '';
   const game = upcomingWordGame();
-  return `<section class="todays-words"><h3>${e(t('Today’s words'))}</h3><button class="primary-button" data-action="todays-words">${t('Practise today’s words')}</button>${game ? `<button class="outline-button" data-minigame="${e(game.id)}">${icon('lantern')} ${t('Play')} ${e(game.title)}</button><button class="text-button" data-view="activities">${t('More word games')}</button>` : ''}</section>`;
+  return `<button class="outline-button" data-action="prologue">${t('Prologue: the night train')}</button>${prologuePracticeStatus()}<section class="todays-words"><h3>${e(t('Today’s words'))}</h3><button class="primary-button" data-action="todays-words">${t('Practise today’s words')}</button>${game ? `<button class="outline-button" data-minigame="${e(game.id)}">${icon('lantern')} ${t('Play')} ${e(game.title)}</button><button class="text-button" data-view="activities">${t('More word games')}</button>` : ''}</section>`;
 }
 /** Word games take turns, so the journal offers a different one after each round. */
 function upcomingWordGame() {
-  const games = miniGameDefinitions.filter(isWordGame);
+  const games = miniGameDefinitions.filter(game => isWordGame(game) && (!interiorId?.startsWith('train-') || ['echo-bells', 'fog-window', 'lantern-pairs'].includes(game.id)));
   let last = '';
   try { last = localStorage.getItem('atlas.wordGame.last') ?? ''; } catch { /* Rotation is only a convenience. */ }
   return games[(games.findIndex(game => game.id === last) + 1) % games.length];
@@ -1514,7 +1571,7 @@ async function startPlacement() {
   try {
     const questions = await loadPlacement();
     if (!host.isConnected || !document.querySelector<HTMLDialogElement>('#dialog')!.open) return;
-    placementController = await mountOptionalPlacement(host, { api, progress, questions, speak, onClose: () => document.querySelector<HTMLDialogElement>('#dialog')!.close(), onComplete: (result, value) => { acceptProgress(value); courseLevel = result.level; localStorage.setItem('atlas.placement', JSON.stringify(result)); updateProgress(); } });
+    placementController = await mountOptionalPlacement(host, { api, progress, questions, speak, onClose: () => document.querySelector<HTMLDialogElement>('#dialog')!.close(), onPrologue: () => { document.querySelector<HTMLDialogElement>('#dialog')!.close(); void startPrologue(); }, onComplete: (result, value) => { acceptProgress(value); courseLevel = result.level; localStorage.setItem('atlas.placement', JSON.stringify(result)); updateProgress(); } });
     if (!host.isConnected) { placementController.destroy(); placementController = undefined; }
   } catch (error) { if (host.isConnected) host.innerHTML = `<p role="alert">${e((error as Error).message)}</p>`; }
 }
@@ -1545,9 +1602,137 @@ async function showNpc(id: string) {
   wordExposure.record({npcId:id});
   try { await loadNpcConversation(id, level, progress, lanternRewards(progress).title); questController?.greet(npc, level); } catch (error) { toast((error as Error).message, true); }
 }
+function prologueWordPool() { return [...new Set(syllabus.quests.filter(q => q.level === 'A0' && progress.completedQuestIds.includes(q.questId)).flatMap(q => q.wordIds))]; }
+function prologuePracticeStatus() {
+  const words=prologueWordPool(), remaining=words.filter(id=>!introducedSet().has(id)).length;
+  if (!words.length) return '';
+  return `<p>${e(t('{remaining} of {total} train words are still returning. Keep practising as you explore.',{remaining,total:words.length}))}</p><button class="text-button" data-action="todays-words">${e(t('Practise today’s words'))}</button>`;
+}
+function nextPrologueQuest() { return quests.find(q => q.level === 'A0' && !progress.completedQuestIds.includes(q.id)); }
+function showPrologueSounds(onClose?: () => void) {
+  openDialog('<div id="prologue-sounds"></div>', 'activity-dialog');
+  mountSoundsBoard(document.querySelector<HTMLElement>('#prologue-sounds')!, {silent:prefs.silentMode, speak:(text,clip)=>speak(text,'narrator',clip), onClose:()=>{document.querySelector<HTMLDialogElement>('#dialog')!.close();onClose?.();}});
+}
+/**
+ * Open a prologue beat. With `enterOnly` the player is placed in the carriage and walks to the
+ * conductor themselves: the tutorial teaches walking and talking before the first word.
+ */
+async function startPrologue(id?: string, enterOnly = false) {
+  if (!id && interiorId?.startsWith('train-') && storyQuestComplete(progress.completedQuestIds, 'a0-morgen')) { leaveTrain(); return; }
+  const quest = id ? quests.find(q=>q.id===id) : nextPrologueQuest() ?? quests.find(q=>q.id===storyQuestId('a0-ticket')); if (!quest) return;
+  if (!questAvailable(quest.id, progress)) return;
+  if (mapId !== 'lindenhafen') { pendingPrologue = quest.id; travelMap('lindenhafen'); return; }
+  try {
+    const graph = await loadQuestGraph(quest.id); if (!graph?.interiorId) return;
+    prologueGraphs.set(graph.questId, graph);
+    const room = graph.interiorId as InteriorId;
+    await loadInterior(room);
+    document.querySelector<HTMLDialogElement>('#dialog')!.close(); setView('world');
+    if (api.interiorId !== room) {
+      pendingPrologueRoom = enterOnly ? undefined : {questId:quest.id, room};
+      if (!api.joinInterior(room)) { pendingPrologueRoom = undefined; toast(t('The building is reconnecting. Please try again in a moment.'),true); }
+      return;
+    }
+    if (enterOnly) { updateProgress(); return; }
+    rememberCoach(quest.id);
+    await questController?.open(quest.id);
+  } catch(error) {toast((error as Error).message,true);}
+}
+/** Platform seven: the train door opens only once Brandt has said goodbye. */
+function leaveTrain() {
+  if (!storyQuestComplete(progress.completedQuestIds, 'a0-morgen')) { toast(t('The train is still moving. Brandt will open the door in Lindenhafen.')); return; }
+  world.leaveInterior(); startQuest(storyQuestId('a1-arrival'));
+}
+/** Once the player has found what Brandt pointed at, he finishes the scene from where he stands. */
+function prologueDoorFound(graph: QuestGraph) {
+  const cursor = progress.story?.nodes[graph.questId], seen = progress.story?.inspections[graph.questId] ?? [];
+  const stage = graph.nodes.find(node => node.id === cursor)?.stage ?? cursor;
+  return stage === 'choice' && !!graph.completionInvestigations?.length && graph.completionInvestigations.every(id => seen.includes(id));
+}
+function onPrologueRoute() {
+  try { return localStorage.getItem(`atlas.prologue.${api.selfId}`) === 'true' && !storyQuestComplete(progress.completedQuestIds, 'a0-morgen'); }
+  catch { return false; }
+}
+function readCoachMemory() {
+  try { Object.assign(coachMemory, { moved: false, talked: [] }, JSON.parse(localStorage.getItem(`atlas.coach.${api.selfId}`) ?? '{}')); }
+  catch { /* A blocked store only repeats the first hint. */ }
+}
+function saveCoachMemory() {
+  try { localStorage.setItem(`atlas.coach.${api.selfId}`, JSON.stringify(coachMemory)); } catch { /* Hints stay for this visit. */ }
+}
+function rememberCoach(beat: string) {
+  if (coachMemory.talked.includes(beat)) return;
+  coachMemory.talked.push(beat); saveCoachMemory();
+}
+function noteCoachMove(x: number, y: number) {
+  if (coachMemory.moved || !interiorId?.startsWith('train-')) return;
+  coachOrigin ??= { x, y };
+  if (Math.hypot(x - coachOrigin.x, y - coachOrigin.y) < .02) return;
+  coachMemory.moved = true; saveCoachMemory(); renderCoach();
+}
+function coachState(): CoachState {
+  const beat = currentPrologueQuest(progress.completedQuestIds);
+  const questId = beat === 'done' ? undefined : beat;
+  const graph = questId ? prologueGraphs.get(questId) : undefined;
+  // Until the beat's graph arrives the coach still knows where Brandt is; the graph adds what to look at.
+  if (questId && !graph && !prologueGraphLoads.has(questId)) {
+    prologueGraphLoads.add(questId);
+    void loadQuestGraph(questId).then(value => { if (value) { prologueGraphs.set(questId, value); renderCoach(); } }).catch(() => undefined);
+  }
+  const cursor = questId ? progress.story?.nodes[questId] ?? 'intro' : 'complete';
+  const stage = (graph?.nodes.find(node => node.id === cursor)?.stage ?? (['intro','gate','choice','complete'].includes(cursor) ? cursor : 'intro')) as CoachState['stage'];
+  const seen = questId ? progress.story?.inspections[questId] ?? [] : [];
+  const worldIdOf = (objectId: string) => { const item = graph?.investigations.find(entry => entry.objectId === objectId); return item?.worldId ?? `interior:${objectId}`; };
+  const pending = (ids: readonly string[]) => ids.filter(id => !seen.includes(id)).map(worldIdOf);
+  const required = graph?.investigations.map(item => item.objectId).filter(id => !graph.completionInvestigations?.includes(id) && !graph.optionalInvestigations?.includes(id)) ?? [];
+  return { beat, stage, lookFor: pending(required), findAfter: pending(graph?.completionInvestigations ?? []), moved: coachMemory.moved,
+    talked: coachMemory.talked.includes(beat), dialogueOpen: dialogueOpen || !!questController?.isOpen, touch: matchMedia('(pointer: coarse)').matches };
+}
+/** The coach replaces the story beacon on the train: one action, where to do it, and the beacon in the world. */
+function renderCoach() {
+  const tip = document.querySelector<HTMLElement>('#coach-tip');
+  if (!interiorId?.startsWith('train-')) { if (tip) tip.hidden = true; return; }
+  const state = coachState(), step: CoachStep | undefined = coachStep(state);
+  if (!state.dialogueOpen) world.setObjective(step?.target);
+  // The HUD steps aside for conversations; their one tip floats above the dialogue instead.
+  const host = tip ?? Object.assign(document.createElement('p'), { id: 'coach-tip', className: 'coach-tip' });
+  if (!tip) { host.setAttribute('role', 'status'); document.querySelector('#game-shell')?.append(host); }
+  host.hidden = !state.dialogueOpen || !step;
+  host.innerHTML = state.dialogueOpen && step ? `<strong>${e(step.title)}</strong> ${e(step.text)}` : '';
+  const chapter = quests.filter(item => item.level === 'A0'), done = chapter.filter(item => progress.completedQuestIds.includes(item.id)).length;
+  const label = `${t('Prologue')} · ${Math.min(done + 1, chapter.length)}/${chapter.length}${step ? ` · ${step.title}` : ''}`;
+  const panel = document.querySelector<HTMLElement>('#quest-panel')!;
+  panel.innerHTML = step ? `${storyBeacon({ attributes: `data-action="prologue-coach" data-coach="${e(step.id)}"`, glyph: step.id === 'walk' ? 'compass' : step.id === 'leave' ? 'arrow' : step.id === 'look' || step.id === 'follow' ? 'leaf' : 'flag', label, text: step.text, extraClass: 'coach' })}${prologuePracticeStatus()}` : prologuePracticeStatus();
+}
+/** The beacon walks the player there, so a lost player always has a way forward. */
+function followCoach() {
+  const step = coachStep(coachState());
+  if (!step) return;
+  if (step.id === 'leave') { world.focusObject(`exit:${interiorId}`); return; }
+  if (step.target?.startsWith('object:')) world.focusObject(step.target.slice(7));
+  else if (step.target) world.focusNpc(step.target);
+}
+/** What the player can now say, with audio, before the next beat. */
+function showPhraseCard(graph: QuestGraph) {
+  const phrases = graph.phrases ?? [];
+  const lines = graph.nodes.flatMap(node => node.lines);
+  const practice = graph.practiceGame ? miniGameById.get(graph.practiceGame) : undefined;
+  const rows = phrases.map((phrase, index) => {
+    const clip = lines.find(line => line.german === phrase.german && line.clipId)?.clipId ?? '';
+    const german = personalized(phrase.german, profile.name);
+    return `<li><button type="button" class="phrase-listen" data-phrase="${index}" data-clip="${e(clip)}" aria-label="${e(t('Listen to {phrase}', { phrase: german }))}">${icon('volume')}</button><span><strong lang="de">${e(german)}</strong><span>${e(personalized(localized(phrase), profile.name))}</span></span></li>`;
+  }).join('');
+  openDialog(`<div class="phrase-card"><span class="caption">${e(t('You can now say'))}</span><h2>${e(localized(quests.find(quest => quest.id === graph.questId)?.title ?? ''))}</h2><ul>${rows}</ul><div class="phrase-card-actions"><button class="primary-button" data-action="close-dialog">${e(t('Continue'))} ${icon('arrow')}</button>${practice ? `<button class="outline-button" data-minigame="${e(practice.id)}">${icon('lantern')} ${e(t('Practise: {game}', { game: practice.title }))}</button>` : ''}</div></div>`, 'phrase-card-dialog');
+  document.querySelectorAll<HTMLButtonElement>('.phrase-listen').forEach(button => button.addEventListener('click', () => {
+    const phrase = phrases[Number(button.dataset.phrase)];
+    if (phrase && !prefs.silentMode) speak(personalized(phrase.german, profile.name), 'schaffner', button.dataset.clip || undefined);
+  }));
+  renderCoach();
+}
 function startQuest(id: string) {
   const quest = quests.find(q => q.id === id); if (!quest) return;
   if (!questAvailable(id, progress)) { toast(questLockReason(id, progress)); return; }
+  if (quest.level === 'A0') { void startPrologue(quest.id); return; }
   const region = maps.find(map => map.level === quest.level)!;
   if (mapId !== region.id) { travelMap(region.id, { kind: 'follow', questId: id }); return; }
   document.querySelector<HTMLDialogElement>('#dialog')!.close(); setView('world');
@@ -1907,6 +2092,7 @@ function bindGlobalEvents() {
     if (target.dataset.expeditionTarget) { showExpeditionEncounter(target.dataset.expeditionTarget); return; }
     if (target.dataset.level) { const region = maps.find(map => map.level === target.dataset.level); if (region) travelMap(region.id); return; }
     if (target.dataset.travel) { const region = maps.find(map => map.id === target.dataset.travel); if (region) travelMap(region.id); return; }
+    if (target.dataset.followQuest && quests.find(q => q.id === target.dataset.followQuest)?.level === 'A0') { void startPrologue(target.dataset.followQuest); return; }
     if (target.dataset.followQuest) { const q = quests.find(item => item.id === target.dataset.followQuest); if (!q) return; if (!questAvailable(q.id, progress)) { toast(questLockReason(q.id, progress)); return; } travelMap(maps.find(map => map.level === q.level)!.id, { kind: 'follow', questId: q.id }); return; }
     if (target.dataset.waypoint) { document.querySelector<HTMLDialogElement>('#dialog')!.close(); setView('world'); if (interiorId) world.leaveInterior(); world.focusNpc(target.dataset.waypoint); return; }
     if (target.dataset.focusObject) { setView('world'); if (interiorId) world.leaveInterior(); world.focusObject(target.dataset.focusObject); return; }
@@ -1942,7 +2128,8 @@ function bindGlobalEvents() {
       case 'profile': showProfile(); break;
       case 'map': openWorldMap(); break;
       case 'talk': if (!world.interactNearest()) toast(t('Move closer to a character or a marked object.')); break;
-      case 'leave-interior': world.leaveInterior(); document.querySelector<HTMLElement>('#world-container')!.focus(); break;
+      case 'leave-interior': if (interiorId?.startsWith('train-')) leaveTrain(); else world.leaveInterior(); document.querySelector<HTMLElement>('#world-container')!.focus(); break;
+      case 'prologue-coach': followCoach(); break;
       case 'next-objective': if (view !== 'world') setView('world'); showNextObjective(); break;
       case 'act-intro': setView('world'); showActIntro(mapId); break;
       case 'act-begin': document.querySelector<HTMLDialogElement>('#dialog')!.close(); continueDestination(); break;
@@ -1957,6 +2144,8 @@ function bindGlobalEvents() {
       case 'next-exercise': if (run?.answered) { run.index++; renderExercise(); } break;
       case 'finish-run': void finishRun(); break;
       case 'review': void startAdaptiveReview(); break;
+      case 'prologue': void startPrologue(); break;
+      case 'prologue-sounds': showPrologueSounds(); break;
       case 'placement': void startPlacement(); break;
       case 'sleep': if (interiorId && roomKind(interiorId) === 'inn') { void api.request<{progress:Progress}>('/story/sleep',{id:crypto.randomUUID()}).then(result => { acceptProgress(result.progress); updateProgress(); document.querySelector<HTMLDialogElement>('#dialog')!.close(); toast(t('A new day. Your lantern keeps the promises you made.')); }).catch(error => toast(error.message, true)); } break;
     case 'todays-words': void startTodaysWords(); break;
@@ -2022,11 +2211,13 @@ async function enterGame(result: SessionResult): Promise<boolean> {
   // The builder updates in place. Repaint the world shell once the new adventure is saved.
   if (shellLanguage !== baseLanguage()) { window.location.reload(); return false; }
   started = true;
-  showFirstControls();
+  if (localStorage.getItem(`atlas.prologue.${result.player.id}`) !== 'true') showFirstControls();
+  readCoachMemory();
   account = result.account;
   updateWorldEditButton();
   document.querySelector<HTMLElement>('#admin-analytics-link')!.hidden = account.admin !== true;
-  acceptProgress(result.progress, result.player.id);
+  // loadServerContent already installed catalogue visibility for this snapshot.
+  acceptProgress(result.progress, result.player.id, true);
   profile = { name: result.player.name, avatar: result.player.avatar };
   localStorage.setItem('atlas.profile', JSON.stringify(profile));
 
@@ -2039,6 +2230,7 @@ async function enterGame(result: SessionResult): Promise<boolean> {
   updateProgress(); accessSession.updateHud();
   void sendHeartbeat(0);
   void loadCourse().catch(error => toast(error.message, true));
+  prologueBooted = false;
   const owner = result.player.id;
   void api.story().then(result => { if (api.selfId !== owner) return; storySaves = result.saves ?? []; acceptProgress(result.progress, owner); mechanicsUi?.setMechanics(result.mechanics); updateProgress(); }).catch(error => toast(error.message, true));
   accountReminder = new AccountReminder(result.player.id, localStorage);
@@ -2063,10 +2255,11 @@ async function openUiCheck(surface: string) {
   await preview.installUiContentPreview(profile.avatar);
   api.token='';
   api.request=async()=>{throw new Error(t('This preview does not save progress.'));};
+  api.joinInterior=()=>true;
   api.selfId='ui-check';
   const module=await loadCourse();
   const wordIds=surface==='encounter'?[]:(surface==='activity'?module.courseLexicon:module.courseLexicon.filter(word=>word.level==='A1').slice(0,24)).map(word=>word.id);
-  acceptProgress({...emptyProgress(),intake:{version:1,activeSeconds:600,creditSeconds:0,lastBeatAt:new Date().toISOString(),wordIds}},'ui-check');
+  acceptProgress({...emptyProgress(),...(surface === 'prologue-dawn' ? {completedQuestIds:['a0-ticket','a0-name','a0-wagen','a0-tee','a0-wo','a0-langsam'].map(storyQuestId)} : {}),intake:{version:1,activeSeconds:600,creditSeconds:0,lastBeatAt:new Date().toISOString(),wordIds}},'ui-check');
   started=true; connection='online';
   accessClock.update({phase:'paid',remainingSeconds:0,playedSeconds:600,registered:true,billingAvailable:false,plan:'lifetime'},performance.now());
   profile.name='Wanderer';
@@ -2080,8 +2273,16 @@ async function openUiCheck(surface: string) {
   else if(surface==='course')setView('course');
   else if(surface==='encounter'){interiorId='cafe';syncLocation();await showInteriorObject('interior:cafe:coffee');}
   else if(surface==='activity')await startActivity('cafe');
+  else if(surface==='sounds') { setView('world'); showPrologueSounds(); }
+  else if(surface==='prologue' || surface==='prologue-dawn') {
+    await loadInterior('train-compartment'); setView('world'); world.setPresentation('live');
+    const deadline=performance.now()+30000;
+    while(!world.isExploreReady() && performance.now()<deadline) await new Promise(resolve=>setTimeout(resolve,100));
+    if(!world.isExploreReady())throw new Error('Town preview did not become ready');
+    applyInterior('train-compartment');
+  }
   else setView('world');
-  world.setPresentation('hidden');
+  world.setPresentation(surface.startsWith('prologue') ? 'live' : 'hidden');
   document.querySelector<HTMLElement>('#world-container')!.style.background=`center / cover url('${getMap(mapId).previewAsset}')`;
   await Promise.all([...document.querySelectorAll<HTMLImageElement>('img[data-avatar-portrait]')].map(async image => {
     const encoded = image.dataset.avatarPortrait; if (!encoded) return;
@@ -2097,6 +2298,12 @@ async function openUiCheck(surface: string) {
       ]);
     } finally { if (timeout !== undefined) clearTimeout(timeout); }
   }));
+  if (surface.startsWith('prologue')) {
+    const room = 'train-compartment';
+    const deadline=performance.now()+30000;
+    while((world.getInteriorId() !== room || !world.isExploreReady()) && performance.now()<deadline) await new Promise(resolve=>setTimeout(resolve,100));
+    if (world.getInteriorId() !== room || !world.isExploreReady()) throw new Error('Train preview did not become ready');
+  }
   document.body.dataset.uiCheckReady=surface;
 }
 async function boot() {
@@ -2108,7 +2315,7 @@ async function boot() {
   renderShell();
   const stopPortraits = observeAvatarPortraits(document.body);
   window.addEventListener('beforeunload', stopPortraits, { once: true });
-  if (uiCheckSurface && ['home','options','character','help','account','encounter','journal','activity','course','world'].includes(uiCheckSurface)) { await openUiCheck(uiCheckSurface); return; }
+  if (uiCheckSurface && ['home','options','character','help','account','encounter','journal','activity','course','world','prologue','prologue-dawn','sounds'].includes(uiCheckSurface)) { await openUiCheck(uiCheckSurface); return; }
   api.onAccess = accessSession.apply;
   let refreshWorld:Promise<void>|undefined;
   const refreshPublishedWorld=():Promise<void>=>refreshWorld??=(async()=>{
@@ -2160,6 +2367,7 @@ async function boot() {
     }
     accessSession.syncActivity(); syncWorldMode();
     updateConnection();
+    if (value === 'online' && regionReady) queueMicrotask(() => onRegionReady(mapId));
   };
   api.onError = message => { if (pendingMap) { pendingMap = undefined; pendingDestination = undefined; pendingExpeditionGame = undefined; pendingTravelBeat = false; syncWorldMode(); } toast(message, true); };
   accessSession.showDialog(`<h2 id="account-title">${t('Opening your adventure…')}</h2><p role="status">${t('Checking for your saved character.')}</p>`);

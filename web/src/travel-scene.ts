@@ -30,9 +30,11 @@ export class TravelScene extends Phaser.Scene {
     this.painted = false; this.mapReady = false;
     this.game.events.on(WorldEvents.LoadProgress, this.handleProgress, this);
     this.game.events.on(WorldEvents.MapReady, this.lift, this);
+    this.game.events.on(WorldEvents.ExploreReady, this.handleExploreReady, this);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       this.game.events.off(WorldEvents.LoadProgress, this.handleProgress, this);
       this.game.events.off(WorldEvents.MapReady, this.lift, this);
+      this.game.events.off(WorldEvents.ExploreReady, this.handleExploreReady, this);
     });
   }
 
@@ -89,6 +91,12 @@ export class TravelScene extends Phaser.Scene {
     this.progress = Math.max(this.progress, Math.min(1, value));
     if (label) this.label = label;
     if (this.painted) { this.title.setText(this.label); this.layout(); }
+  }
+
+  private handleExploreReady(key: string): void {
+    // A restored room can sleep the town before its terrain ever paints. The
+    // room's first frame is sufficient; town readiness still waits for MapReady.
+    if (key === SceneKeys.Interior) this.lift();
   }
 
   private lift(): void {

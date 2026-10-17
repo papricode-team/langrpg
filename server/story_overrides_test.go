@@ -71,10 +71,15 @@ func TestAdminStoryListingFollowsThePlayOrder(t *testing.T) {
 		t.Fatalf("players must not read the admin story: %d", res.Code)
 	}
 	listing := readStoryListing(t, app, token)
-	if len(listing.Scenes) < 41 || listing.Scenes[0].QuestID != "a1-arrival" || listing.Scenes[1].QuestID != "a1-cafe" {
+	if len(listing.Scenes) < 48 || listing.Scenes[0].QuestID != "a0-ticket" || listing.Scenes[7].QuestID != "a1-arrival" || listing.Scenes[8].QuestID != "a1-cafe" {
 		t.Fatalf("scenes should follow the story order: %d scenes", len(listing.Scenes))
 	}
-	first := listing.Scenes[0]
+	for index, id := range prologueQuestOrder {
+		if listing.Scenes[index].QuestID != id {
+			t.Fatalf("prologue scene %d: %s", index, listing.Scenes[index].QuestID)
+		}
+	}
+	first := listing.Scenes[7]
 	if first.Title == "" || first.NPC != "otto" || len(first.Synopsis) == 0 || listing.NPCs["otto"].Name != "Otto" {
 		t.Fatalf("scene header: %+v", first)
 	}
@@ -100,7 +105,7 @@ func TestAdminStoryListingFollowsThePlayOrder(t *testing.T) {
 		t.Fatalf("choice effects should name flags: %v", decision.Choices[0].Effects)
 	}
 	conditional := false
-	for _, block := range listing.Scenes[1].Blocks {
+	for _, block := range listing.Scenes[8].Blocks {
 		for _, line := range block.Lines {
 			if line.Condition["flag"] == "platform-protected" {
 				conditional = true

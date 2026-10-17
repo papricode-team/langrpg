@@ -1,5 +1,1106 @@
 [
   {
+    "questId": "a0-ticket",
+    "level": "A0",
+    "start": "intro",
+    "gateExerciseId": "a0-ticket-exercise-1",
+    "evidenceItem": "a0-ticket-evidence",
+    "gatePrompt": "Brandt wants your ticket. Hand it over.",
+    "interiorId": "train-compartment",
+    "practiceGame": "echo-bells",
+    "allowedWords": [
+      "abend",
+      "bitte",
+      "danke",
+      "fahrkarte",
+      "gut",
+      "guten",
+      "hallo"
+    ],
+    "investigations": [
+      {
+        "objectId": "prologue-ticket",
+        "worldId": "interior:prologue-ticket",
+        "german": "Fahrkarte: Lindenhafen.",
+        "english": "Ticket: Lindenhafen. Below it, a name — so pale you can hardly read it."
+      }
+    ],
+    "objectives": [
+      {
+        "text": "Say hello to the conductor",
+        "location": "The night train",
+        "stage": "intro"
+      },
+      {
+        "text": "Find your ticket",
+        "location": "The night train",
+        "stage": "intro"
+      },
+      {
+        "text": "Hand him your ticket",
+        "location": "The night train",
+        "stage": "gate"
+      }
+    ],
+    "phrases": [
+      {
+        "german": "Hallo! Guten Abend!",
+        "english": "Hello! Good evening!"
+      },
+      {
+        "german": "Fahrkarte, bitte.",
+        "english": "Ticket, please."
+      },
+      {
+        "german": "Bitte.",
+        "english": "Here you are."
+      },
+      {
+        "german": "Danke!",
+        "english": "Thank you!"
+      },
+      {
+        "german": "Bitte!",
+        "english": "You’re welcome!"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a0-ticket-hallo",
+            "speaker": "schaffner",
+            "german": "Hallo! Guten Abend!",
+            "english": "Hello! Good evening!",
+            "clipId": "dialogue-a0-ticket-hallo",
+            "expression": "smile",
+            "reply": {
+              "exerciseId": "a0-ticket-exercise-7",
+              "correction": {
+                "id": "a0-ticket-hallo-again",
+                "speaker": "schaffner",
+                "german": "Hallo!",
+                "english": "Hello!",
+                "clipId": "dialogue-a0-ticket-hallo-again",
+                "expression": "smile"
+              }
+            }
+          },
+          {
+            "id": "a0-ticket-fahrkarte",
+            "speaker": "schaffner",
+            "german": "Fahrkarte, bitte.",
+            "english": "Ticket, please.",
+            "clipId": "dialogue-a0-ticket-fahrkarte"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a0-ticket-gate",
+            "speaker": "schaffner",
+            "german": "Fahrkarte, bitte.",
+            "english": "Ticket, please.",
+            "clipId": "dialogue-a0-ticket-gate"
+          }
+        ],
+        "gateExerciseId": "a0-ticket-exercise-1",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a0-ticket-danke",
+            "speaker": "schaffner",
+            "german": "Danke!",
+            "english": "Thank you!",
+            "clipId": "dialogue-a0-ticket-danke",
+            "expression": "smile"
+          }
+        ],
+        "choices": [
+          {
+            "id": "continue",
+            "german": "Bitte!",
+            "english": "You’re welcome!",
+            "next": "complete",
+            "effects": []
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a0-ticket-gut",
+            "speaker": "schaffner",
+            "german": "Gut. Guten Abend!",
+            "english": "Good. Good evening!",
+            "clipId": "dialogue-a0-ticket-gut",
+            "expression": "smile"
+          }
+        ],
+        "terminal": true
+      }
+    ]
+  },
+  {
+    "questId": "a0-name",
+    "level": "A0",
+    "start": "intro",
+    "gateExerciseId": "a0-name-exercise-1",
+    "evidenceItem": "a0-name-evidence",
+    "gatePrompt": "Tell Brandt your name.",
+    "interiorId": "train-compartment",
+    "practiceGame": "night-train",
+    "allowedWords": [
+      "bitte",
+      "danke",
+      "gut",
+      "heiße",
+      "heißen",
+      "hm",
+      "ich",
+      "ja",
+      "name",
+      "sie",
+      "wie"
+    ],
+    "investigations": [
+      {
+        "objectId": "prologue-name",
+        "worldId": "interior:prologue-ticket",
+        "german": "Name … gut!",
+        "english": "The name… good! The ink on your ticket is dark and clear again."
+      }
+    ],
+    "objectives": [
+      {
+        "text": "Talk to Brandt about the ticket",
+        "location": "The night train",
+        "stage": "intro"
+      },
+      {
+        "text": "Tell him your name",
+        "location": "The night train",
+        "stage": "gate"
+      }
+    ],
+    "phrases": [
+      {
+        "german": "Ich heiße Brandt.",
+        "english": "My name is Brandt."
+      },
+      {
+        "german": "Wie heißen Sie?",
+        "english": "What is your name?"
+      },
+      {
+        "german": "Ich heiße {name}.",
+        "english": "My name is {name}."
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a0-name-oh",
+            "speaker": "schaffner",
+            "german": "Hm … Name?",
+            "english": "Hmm… the name?",
+            "clipId": "dialogue-a0-name-oh",
+            "expression": "worried"
+          },
+          {
+            "id": "a0-name-brandt",
+            "speaker": "schaffner",
+            "german": "Ich heiße Brandt.",
+            "english": "My name is Brandt.",
+            "clipId": "dialogue-a0-name-brandt",
+            "expression": "smile"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a0-name-gate",
+            "speaker": "schaffner",
+            "german": "Wie heißen Sie?",
+            "english": "What is your name?",
+            "clipId": "dialogue-a0-name-gate"
+          }
+        ],
+        "gateExerciseId": "a0-name-exercise-1",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a0-name-name",
+            "speaker": "schaffner",
+            "german": "{name}! Ja! Gut!",
+            "english": "{name}! Yes! Good!",
+            "clipId": "",
+            "expression": "smile"
+          }
+        ],
+        "choices": [
+          {
+            "id": "continue",
+            "german": "Danke!",
+            "english": "Thank you!",
+            "next": "complete",
+            "effects": []
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a0-name-bitte",
+            "speaker": "schaffner",
+            "german": "Bitte, {name}.",
+            "english": "You’re welcome, {name}.",
+            "clipId": "",
+            "expression": "smile"
+          }
+        ],
+        "terminal": true
+      }
+    ],
+    "optionalInvestigations": [
+      "prologue-name"
+    ],
+    "gateKind": "name"
+  },
+  {
+    "questId": "a0-wagen",
+    "level": "A0",
+    "start": "intro",
+    "gateExerciseId": "a0-wagen-exercise-1",
+    "evidenceItem": "a0-wagen-evidence",
+    "gatePrompt": "Brandt asks which carriage you are in. Answer him.",
+    "interiorId": "train-compartment",
+    "practiceGame": "numbered-apples",
+    "allowedWords": [
+      "bitte",
+      "danke",
+      "drei",
+      "eins",
+      "fünf",
+      "gut",
+      "hier",
+      "ja",
+      "sechs",
+      "sieben",
+      "vier",
+      "wagen",
+      "zwei"
+    ],
+    "investigations": [
+      {
+        "objectId": "prologue-wagen",
+        "worldId": "interior:prologue-wagen",
+        "german": "Wagen eins … Wagen sieben.",
+        "english": "Carriage one… carriage seven. The track curves and you count seven glass carriages. Yours is the last."
+      }
+    ],
+    "objectives": [
+      {
+        "text": "Talk to Brandt by the fern",
+        "location": "The night train",
+        "stage": "intro"
+      },
+      {
+        "text": "Look out of the window",
+        "location": "The night train",
+        "stage": "intro"
+      },
+      {
+        "text": "Tell Brandt your carriage",
+        "location": "The night train",
+        "stage": "gate"
+      }
+    ],
+    "phrases": [
+      {
+        "german": "Eins … zwei … drei.",
+        "english": "One… two… three."
+      },
+      {
+        "german": "Vier, fünf, sechs, sieben!",
+        "english": "Four, five, six, seven!"
+      },
+      {
+        "german": "Wagen sieben. Hier!",
+        "english": "Carriage seven. Here!"
+      },
+      {
+        "german": "Ja! Wagen sieben.",
+        "english": "Yes! Carriage seven."
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a0-wagen-eins",
+            "speaker": "schaffner",
+            "german": "Eins … zwei … drei.",
+            "english": "One… two… three.",
+            "clipId": "dialogue-a0-wagen-eins"
+          },
+          {
+            "id": "a0-wagen-vier",
+            "speaker": "schaffner",
+            "german": "Vier, fünf, sechs, sieben!",
+            "english": "Four, five, six, seven!",
+            "clipId": "dialogue-a0-wagen-vier",
+            "expression": "smile"
+          },
+          {
+            "id": "a0-wagen-hier",
+            "speaker": "schaffner",
+            "german": "Wagen sieben. Hier!",
+            "english": "Carriage seven. Here!",
+            "clipId": "dialogue-a0-wagen-hier",
+            "expression": "smile"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a0-wagen-gate",
+            "speaker": "schaffner",
+            "german": "Wagen eins? Wagen drei?",
+            "english": "Carriage one? Carriage three?",
+            "clipId": "dialogue-a0-wagen-gate"
+          }
+        ],
+        "gateExerciseId": "a0-wagen-exercise-1",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a0-wagen-ja",
+            "speaker": "schaffner",
+            "german": "Ja! Wagen sieben.",
+            "english": "Yes! Carriage seven.",
+            "clipId": "dialogue-a0-wagen-ja",
+            "expression": "smile"
+          }
+        ],
+        "choices": [
+          {
+            "id": "continue",
+            "german": "Danke!",
+            "english": "Thank you!",
+            "next": "complete",
+            "effects": []
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a0-wagen-gut",
+            "speaker": "schaffner",
+            "german": "Gut! Bitte.",
+            "english": "Good! You’re welcome.",
+            "clipId": "dialogue-a0-wagen-gut",
+            "expression": "smile"
+          }
+        ],
+        "terminal": true
+      }
+    ]
+  },
+  {
+    "questId": "a0-tee",
+    "level": "A0",
+    "start": "intro",
+    "gateExerciseId": "a0-tee-exercise-1",
+    "evidenceItem": "a0-tee-evidence",
+    "gatePrompt": "Brandt offers coffee. You would rather not. Say no, politely.",
+    "interiorId": "train-compartment",
+    "practiceGame": "fog-window",
+    "allowedWords": [
+      "abend",
+      "bitte",
+      "danke",
+      "der",
+      "gut",
+      "guten",
+      "hallo",
+      "ja",
+      "kaffee",
+      "nein",
+      "tee"
+    ],
+    "investigations": [
+      {
+        "objectId": "prologue-tee",
+        "worldId": "interior:prologue-tee",
+        "german": "Tee. Kaffee.",
+        "english": "Tea. Coffee. A copper samovar hums on the counter."
+      }
+    ],
+    "objectives": [
+      {
+        "text": "Go to the counter",
+        "location": "The night train",
+        "stage": "intro"
+      },
+      {
+        "text": "Answer Brandt",
+        "location": "The night train",
+        "stage": "gate"
+      }
+    ],
+    "phrases": [
+      {
+        "german": "Kaffee?",
+        "english": "Coffee?"
+      },
+      {
+        "german": "Nein? Tee?",
+        "english": "No? Tea?"
+      },
+      {
+        "german": "Ja, bitte!",
+        "english": "Yes, please!"
+      },
+      {
+        "german": "Nein, danke.",
+        "english": "No, thank you."
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a0-tee-abend",
+            "speaker": "schaffner",
+            "german": "Guten Abend!",
+            "english": "Good evening!",
+            "clipId": "dialogue-a0-tee-abend",
+            "expression": "smile"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a0-tee-gate",
+            "speaker": "schaffner",
+            "german": "Kaffee?",
+            "english": "Coffee?",
+            "clipId": "dialogue-a0-tee-gate"
+          }
+        ],
+        "gateExerciseId": "a0-tee-exercise-1",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a0-tee-tee",
+            "speaker": "schaffner",
+            "german": "Nein? Tee?",
+            "english": "No? Tea?",
+            "clipId": "dialogue-a0-tee-tee"
+          }
+        ],
+        "choices": [
+          {
+            "id": "tea",
+            "german": "Ja, bitte!",
+            "english": "Yes, please!",
+            "next": "after-tea",
+            "effects": [
+              {
+                "flag": "prologue-tea"
+              }
+            ]
+          },
+          {
+            "id": "nothing",
+            "german": "Nein, danke.",
+            "english": "No, thank you.",
+            "next": "after-nothing",
+            "effects": []
+          }
+        ]
+      },
+      {
+        "id": "after-tea",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a0-tee-bitte",
+            "speaker": "schaffner",
+            "german": "Bitte. Der Tee.",
+            "english": "Here you are. The tea.",
+            "clipId": "dialogue-a0-tee-bitte",
+            "expression": "smile"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "after-nothing",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a0-tee-nein",
+            "speaker": "schaffner",
+            "german": "Nein? Gut!",
+            "english": "No? All right!",
+            "clipId": "dialogue-a0-tee-nein",
+            "expression": "smile"
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a0-tee-gut",
+            "speaker": "schaffner",
+            "german": "Gut. Danke!",
+            "english": "Good. Thank you!",
+            "clipId": "dialogue-a0-tee-gut",
+            "expression": "smile"
+          }
+        ],
+        "terminal": true
+      }
+    ],
+    "optionalInvestigations": [
+      "prologue-tee"
+    ],
+    "hideReplyMeaning": true
+  },
+  {
+    "questId": "a0-wo",
+    "level": "A0",
+    "start": "intro",
+    "gateExerciseId": "a0-wo-exercise-1",
+    "evidenceItem": "a0-wo-evidence",
+    "gatePrompt": "You need the washroom. Ask Brandt where it is.",
+    "interiorId": "train-compartment",
+    "practiceGame": "lantern-pairs",
+    "allowedWords": [
+      "besetzt",
+      "bitte",
+      "da",
+      "danke",
+      "der",
+      "die",
+      "gut",
+      "ha",
+      "heiße",
+      "ich",
+      "ist",
+      "ja",
+      "tee",
+      "toilette",
+      "wo"
+    ],
+    "investigations": [
+      {
+        "objectId": "prologue-wo",
+        "worldId": "interior:prologue-wo",
+        "german": "Toilette: besetzt.",
+        "english": "Toilet: occupied. Someone is in there. Never mind — now you know where it is."
+      }
+    ],
+    "objectives": [
+      {
+        "text": "Ask Brandt where the washroom is",
+        "location": "The night train",
+        "stage": "intro"
+      },
+      {
+        "text": "Go where he points",
+        "location": "The night train",
+        "stage": "gate"
+      }
+    ],
+    "phrases": [
+      {
+        "german": "Wo ist die Toilette?",
+        "english": "Where is the toilet?"
+      },
+      {
+        "german": "Die Toilette? Da!",
+        "english": "The toilet? Over there!"
+      },
+      {
+        "german": "Besetzt? Ha! Gut.",
+        "english": "Occupied? Ha! Fine."
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a0-wo-ja",
+            "speaker": "schaffner",
+            "german": "Ja? Bitte?",
+            "english": "Yes? Can I help?",
+            "clipId": "dialogue-a0-wo-ja"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a0-wo-gate",
+            "speaker": "schaffner",
+            "german": "Ja, {name}?",
+            "english": "Yes, {name}?",
+            "clipId": ""
+          }
+        ],
+        "gateExerciseId": "a0-wo-exercise-1",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a0-wo-da",
+            "speaker": "schaffner",
+            "german": "Die Toilette? Da!",
+            "english": "The toilet? Over there!",
+            "clipId": "dialogue-a0-wo-da"
+          }
+        ],
+        "choices": [
+          {
+            "id": "continue",
+            "german": "Danke!",
+            "english": "Thank you!",
+            "next": "complete",
+            "effects": []
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a0-wo-besetzt",
+            "speaker": "schaffner",
+            "german": "Besetzt? Ha! Gut.",
+            "english": "Occupied? Ha! Fine.",
+            "clipId": "dialogue-a0-wo-besetzt",
+            "expression": "smile"
+          }
+        ],
+        "terminal": true
+      }
+    ],
+    "completionInvestigations": [
+      "prologue-wo"
+    ],
+    "hideReplyMeaning": true
+  },
+  {
+    "questId": "a0-langsam",
+    "level": "A0",
+    "start": "intro",
+    "gateExerciseId": "a0-langsam-exercise-1",
+    "evidenceItem": "a0-langsam-evidence",
+    "gatePrompt": "That was far too fast. Tell Brandt.",
+    "interiorId": "train-compartment",
+    "practiceGame": "lantern-pairs",
+    "allowedWords": [
+      "abend",
+      "ah",
+      "bahnsteig",
+      "bitte",
+      "danke",
+      "einmal",
+      "gut",
+      "guten",
+      "ich",
+      "ja",
+      "langsam",
+      "nein",
+      "nicht",
+      "noch",
+      "sie",
+      "sieben",
+      "verstehe",
+      "verstehen"
+    ],
+    "investigations": [
+      {
+        "objectId": "prologue-langsam",
+        "worldId": "interior:prologue-wagen",
+        "german": "Lindenhafen? Nein, noch nicht.",
+        "english": "Lindenhafen? No, not yet. Only dark forest and the moon."
+      }
+    ],
+    "objectives": [
+      {
+        "text": "Listen to Brandt’s announcement",
+        "location": "The night train",
+        "stage": "intro"
+      },
+      {
+        "text": "Tell him you did not understand",
+        "location": "The night train",
+        "stage": "gate"
+      }
+    ],
+    "phrases": [
+      {
+        "german": "Verstehen Sie?",
+        "english": "Do you understand?"
+      },
+      {
+        "german": "Ich verstehe nicht.",
+        "english": "I don’t understand."
+      },
+      {
+        "german": "Ah! Langsam.",
+        "english": "Ah! Slowly."
+      },
+      {
+        "german": "Noch einmal, bitte.",
+        "english": "Once more, please."
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a0-langsam-fast",
+            "speaker": "schaffner",
+            "german": "Lindenhafen! Bahnsteig sieben!",
+            "english": "Lindenhafen! Platform seven!",
+            "clipId": "dialogue-a0-langsam-fast",
+            "rate": 1.35,
+            "hideMeaning": true
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a0-langsam-gate",
+            "speaker": "schaffner",
+            "german": "Verstehen Sie?",
+            "english": "Do you understand?",
+            "clipId": "dialogue-a0-langsam-gate"
+          }
+        ],
+        "gateExerciseId": "a0-langsam-exercise-1",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a0-langsam-langsam",
+            "speaker": "schaffner",
+            "german": "Ah! Langsam.",
+            "english": "Ah! Slowly.",
+            "clipId": "dialogue-a0-langsam-langsam",
+            "expression": "smile"
+          },
+          {
+            "id": "a0-langsam-slow",
+            "speaker": "schaffner",
+            "german": "Lindenhafen. Bahnsteig sieben.",
+            "english": "Lindenhafen. Platform seven.",
+            "clipId": "dialogue-a0-langsam-slow",
+            "rate": 0.8
+          }
+        ],
+        "choices": [
+          {
+            "id": "again",
+            "german": "Noch einmal, bitte.",
+            "english": "Once more, please.",
+            "next": "again",
+            "effects": []
+          },
+          {
+            "id": "continue",
+            "german": "Danke! Ich verstehe.",
+            "english": "Thank you! I understand.",
+            "next": "complete",
+            "effects": []
+          }
+        ]
+      },
+      {
+        "id": "again",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a0-langsam-again",
+            "speaker": "schaffner",
+            "german": "Lindenhafen … Bahnsteig … sieben.",
+            "english": "Lindenhafen… platform… seven.",
+            "clipId": "dialogue-a0-langsam-again",
+            "expression": "smile",
+            "rate": 0.7
+          }
+        ],
+        "next": "complete"
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a0-langsam-gut",
+            "speaker": "schaffner",
+            "german": "Gut! Danke!",
+            "english": "Good! Thank you!",
+            "clipId": "dialogue-a0-langsam-gut",
+            "expression": "smile"
+          }
+        ],
+        "terminal": true
+      }
+    ],
+    "optionalInvestigations": [
+      "prologue-langsam"
+    ],
+    "hideReplyMeaning": true
+  },
+  {
+    "questId": "a0-morgen",
+    "level": "A0",
+    "start": "intro",
+    "gateExerciseId": "a0-morgen-exercise-1",
+    "evidenceItem": "a0-morgen-evidence",
+    "gatePrompt": "This is your stop. Say goodbye to Brandt.",
+    "interiorId": "train-compartment",
+    "practiceGame": "scrambled-sign",
+    "allowedWords": [
+      "abend",
+      "auf",
+      "bahnsteig",
+      "bitte",
+      "danke",
+      "fahrkarte",
+      "guten",
+      "herr",
+      "ich",
+      "morgen",
+      "nein",
+      "nicht",
+      "sieben",
+      "so",
+      "verstehe",
+      "wiedersehen"
+    ],
+    "investigations": [
+      {
+        "objectId": "prologue-morgen",
+        "worldId": "interior:prologue-wagen",
+        "german": "Guten Morgen, Lindenhafen!",
+        "english": "Good morning, Lindenhafen! Roofs and a canal glitter in the sunrise."
+      }
+    ],
+    "objectives": [
+      {
+        "text": "Wake up and greet Brandt",
+        "location": "The night train",
+        "stage": "intro"
+      },
+      {
+        "text": "Say goodbye",
+        "location": "The night train",
+        "stage": "gate"
+      },
+      {
+        "text": "Step off the train",
+        "location": "The night train",
+        "stage": "choice"
+      }
+    ],
+    "phrases": [
+      {
+        "german": "Guten Morgen!",
+        "english": "Good morning!"
+      },
+      {
+        "german": "Lindenhafen! Bahnsteig sieben.",
+        "english": "Lindenhafen! Platform seven."
+      },
+      {
+        "german": "Auf Wiedersehen!",
+        "english": "Goodbye!"
+      },
+      {
+        "german": "Danke, Herr Brandt!",
+        "english": "Thank you, Mr Brandt!"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "intro",
+        "stage": "intro",
+        "lines": [
+          {
+            "id": "a0-morgen-morgen",
+            "speaker": "schaffner",
+            "german": "Guten Morgen!",
+            "english": "Good morning!",
+            "clipId": "dialogue-a0-morgen-morgen",
+            "expression": "smile",
+            "reply": {
+              "exerciseId": "a0-morgen-exercise-7",
+              "correction": {
+                "id": "a0-morgen-abend",
+                "speaker": "schaffner",
+                "german": "Abend? Nein! Morgen!",
+                "english": "Evening? No! Morning!",
+                "clipId": "dialogue-a0-morgen-abend",
+                "expression": "smile"
+              }
+            }
+          },
+          {
+            "id": "a0-morgen-bahnsteig",
+            "speaker": "schaffner",
+            "german": "Lindenhafen! Bahnsteig sieben.",
+            "english": "Lindenhafen! Platform seven.",
+            "clipId": "dialogue-a0-morgen-bahnsteig",
+            "expression": "smile"
+          },
+          {
+            "id": "a0-morgen-fahrkarte",
+            "speaker": "schaffner",
+            "german": "Fahrkarte. Bitte!",
+            "english": "Your ticket. Here you are!",
+            "clipId": "dialogue-a0-morgen-fahrkarte",
+            "expression": "smile"
+          }
+        ],
+        "next": "gate"
+      },
+      {
+        "id": "gate",
+        "stage": "gate",
+        "lines": [
+          {
+            "id": "a0-morgen-gate",
+            "speaker": "schaffner",
+            "german": "So, {name}!",
+            "english": "Well, {name}!",
+            "clipId": "",
+            "expression": "smile"
+          }
+        ],
+        "gateExerciseId": "a0-morgen-exercise-1",
+        "next": "choice"
+      },
+      {
+        "id": "choice",
+        "stage": "choice",
+        "lines": [
+          {
+            "id": "a0-morgen-wiedersehen",
+            "speaker": "schaffner",
+            "german": "Auf Wiedersehen!",
+            "english": "Goodbye!",
+            "clipId": "dialogue-a0-morgen-wiedersehen",
+            "expression": "smile"
+          }
+        ],
+        "choices": [
+          {
+            "id": "continue",
+            "german": "Danke, Herr Brandt!",
+            "english": "Thank you, Mr Brandt!",
+            "next": "complete",
+            "effects": []
+          }
+        ]
+      },
+      {
+        "id": "complete",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a0-morgen-bitte",
+            "speaker": "schaffner",
+            "german": "Bitte, {name}!",
+            "english": "You’re welcome, {name}!",
+            "clipId": "",
+            "expression": "smile"
+          }
+        ],
+        "terminal": true
+      }
+    ],
+    "optionalInvestigations": [
+      "prologue-morgen"
+    ],
+    "hideReplyMeaning": true
+  },
+  {
     "questId": "a1-arrival",
     "level": "A1",
     "start": "intro",
@@ -58,51 +1159,6 @@
             "clipId": "dialogue-a1-arrival-intro-1"
           },
           {
-            "id": "a1-arrival-intro-2",
-            "speaker": "otto",
-            "german": "Bahnsteig sieben ist seit zwölf Jahren zu.",
-            "english": "Platform seven has been closed for twelve years.",
-            "clipId": "dialogue-a1-arrival-intro-2"
-          },
-          {
-            "id": "a1-arrival-intro-3",
-            "speaker": "otto",
-            "german": "Seit zwölf Jahren kommt hier kein Zug.",
-            "english": "No train has stopped here in twelve years.",
-            "clipId": "dialogue-a1-arrival-intro-3"
-          },
-          {
-            "id": "a1-arrival-intro-4",
-            "speaker": "otto",
-            "german": "Aber ich mache jeden Morgen die Laterne an.",
-            "english": "But I still light the lantern every morning.",
-            "clipId": "dialogue-a1-arrival-intro-4",
-            "glosses": {
-              "laterne": "lantern"
-            }
-          },
-          {
-            "id": "a1-arrival-intro-5",
-            "speaker": "otto",
-            "german": "Ordnung ist Ordnung. Auch ohne Zug.",
-            "english": "Rules are rules. Train or no train.",
-            "clipId": "dialogue-a1-arrival-intro-5"
-          },
-          {
-            "id": "a1-arrival-intro-6",
-            "speaker": "otto",
-            "german": "Und heute kommt dein Zug. Pünktlich!",
-            "english": "And today your train comes in. On time!",
-            "clipId": "dialogue-a1-arrival-intro-6"
-          },
-          {
-            "id": "a1-arrival-intro-7",
-            "speaker": "otto",
-            "german": "Das gefällt mir nicht.",
-            "english": "I do not like that.",
-            "clipId": "dialogue-a1-arrival-intro-7"
-          },
-          {
             "id": "a1-arrival-intro-8",
             "speaker": "otto",
             "german": "Deine Fahrkarte, bitte.",
@@ -122,13 +1178,6 @@
             "german": "Sieh! Dein Name geht weg.",
             "english": "Look! Your name is fading.",
             "clipId": "dialogue-a1-arrival-intro-10"
-          },
-          {
-            "id": "a1-arrival-intro-11",
-            "speaker": "otto",
-            "german": "Hier in Lindenhafen gehen Namen weg.",
-            "english": "Here in Lindenhafen, names fade.",
-            "clipId": "dialogue-a1-arrival-intro-11"
           },
           {
             "id": "a1-arrival-intro-12",
@@ -406,18 +1455,35 @@
         "english": "Why do you light the lantern?",
         "lines": [
           {
-            "id": "a1-arrival-topic-lantern-0",
+            "id": "a1-arrival-intro-2",
             "speaker": "otto",
-            "german": "Das mache ich seit dreißig Jahren.",
-            "english": "I have done it for thirty years.",
-            "clipId": "dialogue-a1-arrival-topic-lantern-0"
+            "german": "Bahnsteig sieben ist seit zwölf Jahren zu.",
+            "english": "Platform seven has been closed for twelve years.",
+            "clipId": "dialogue-a1-arrival-intro-2"
           },
           {
-            "id": "a1-arrival-topic-lantern-1",
+            "id": "a1-arrival-intro-3",
             "speaker": "otto",
-            "german": "Ein Bahnsteig ohne Licht ist kein Bahnsteig.",
-            "english": "A platform without a light is not a platform.",
-            "clipId": "dialogue-a1-arrival-topic-lantern-1"
+            "german": "Seit zwölf Jahren kommt hier kein Zug.",
+            "english": "No train has stopped here in twelve years.",
+            "clipId": "dialogue-a1-arrival-intro-3"
+          },
+          {
+            "id": "a1-arrival-intro-4",
+            "speaker": "otto",
+            "german": "Aber ich mache jeden Morgen die Laterne an.",
+            "english": "But I still light the lantern every morning.",
+            "clipId": "dialogue-a1-arrival-intro-4",
+            "glosses": {
+              "laterne": "lantern"
+            }
+          },
+          {
+            "id": "a1-arrival-intro-5",
+            "speaker": "otto",
+            "german": "Ordnung ist Ordnung. Auch ohne Zug.",
+            "english": "Rules are rules. Train or no train.",
+            "clipId": "dialogue-a1-arrival-intro-5"
           }
         ]
       },

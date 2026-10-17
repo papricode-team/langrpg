@@ -1,4 +1,4 @@
-import type { Level } from './content';
+import type { Level, CourseLevel } from './content';
 
 export type StoryStage = 'intro' | 'gate' | 'choice' | 'complete';
 export type Faction = 'brassOffice' | 'lamplighters' | 'unwritten';
@@ -16,7 +16,7 @@ export interface StoryState {
   lanternStreak?: number;
   promise?: { day: number; title: string; target: number; correctAnswers: number; completed: boolean };
   expeditions?: Record<string, { selected: number; correct: boolean; attempts: number }>;
-  expeditionPlans?: Record<string, { level: Level; values: Record<string, number>; order: string[]; completed: boolean; attempts: number }>;
+  expeditionPlans?: Record<string, { level: CourseLevel; values: Record<string, number>; order: string[]; completed: boolean; attempts: number }>;
   ending?: string;
 }
 export interface DialogueCondition { flag?: string; withoutFlag?: string; item?: string; missingItem?: string; faction?: Faction; minimum?: number; ending?: string; anyOf?: DialogueCondition[]; }
@@ -26,6 +26,7 @@ export interface DialogueLine {
   sentenceId?: string;
   /** The authored cue needs runtime values and has no recorded spoken version. */
   audioRequires?: boolean;
+  rate?: number;
   speaker: string;
   /** Authored visual cue; never inferred from translated text. */
   expression?: 'neutral' | 'smile' | 'worried';
@@ -38,6 +39,8 @@ export interface DialogueLine {
   glosses?: Record<string, string>;
   variants?: { german: string; english: string; clipId: string }[];
   reply?: { exerciseId: string; correction: DialogueLine };
+  /** Starts with its meaning hidden even in the prologue, so the player meets a line they cannot follow yet. */
+  hideMeaning?: boolean;
 }
 export interface DialogueChoice { id: string; sentenceId?: string; german: string; english: string; next: string; effects: DialogueEffect[]; condition?: DialogueCondition; /** `english` already went through t() (interface labels such as “Continue”). */ localized?: boolean; }
 export interface DialogueNode { id: string; stage: StoryStage; lines: DialogueLine[]; next?: string; choices?: DialogueChoice[]; gateExerciseId?: string; terminal?: boolean; }
@@ -46,15 +49,28 @@ export interface DialogueTopic { id: string; sentenceId?: string; german: string
 export interface QuestGraph {
   questId: string; level: Level; start: string; gateExerciseId: string; evidenceItem: string;
   gatePrompt: string;
-  investigations: { objectId: string; /** The authored object slug when the API translated objectId to a content UUID; recorded clips are named after it. */ worldId?: string; german: string; english: string; lock?: { condition: DialogueCondition; reason: { german?: string; english: string } } }[];
+  investigations: { objectId: string; /** The authored object slug when the API translated objectId to a content UUID; recorded clips are named after it. */ worldId?: string; clipId?: string; german: string; english: string; lock?: { condition: DialogueCondition; reason: { german?: string; english: string } } }[];
   objectives: { text: string; location: string; stage: StoryStage }[];
   nodes: DialogueNode[];
   topics?: DialogueTopic[];
   introducedWords?: Record<string, string>;
+  /** Explicit surface forms permitted in a pre-A1 conversation. */
+  allowedWords?: string[];
+  completionInvestigations?: string[];
+  optionalInvestigations?: string[];
+  gateKind?: 'name';
+  interiorId?: string;
+  practiceGame?: string;
+  /** What the player can now say, shown on the card that closes a prologue beat. */
+  phrases?: { german: string; english: string }[];
+  /** Scaffold fade: reply options show German only; a tapped word still shows its meaning. */
+  hideReplyMeaning?: boolean;
 }
 /** Increase reading load gently within A1, rather than treating it as one difficulty. */
 /** Main story scenes grow from 8 to 12 words; everyday errands stay at 10. */
 export const beginnerTurnWordLimits: Readonly<Record<string, number>> = {
+  'a0-ticket': 4, 'a0-name': 4, 'a0-wagen': 4, 'a0-tee': 4,
+  'a0-wo': 4, 'a0-langsam': 4, 'a0-morgen': 4,
   'a1-arrival': 8, 'a1-cafe': 8, 'a1-market': 10, 'a1-station': 10,
   'a1-workshop': 12, 'a1-lost-parcel': 12, 'a1-timetable': 10, 'a1-room': 10,
   'a1-shopping': 10, 'a1-neighbour': 10, 'a1-pharmacy': 10, 'a1-directions': 10,
@@ -97,7 +113,7 @@ export function validateDialogue(graph: QuestGraph): string[] {
     for (const line of node.lines) {
       if (lineIds.has(line.id)) errors.push(`${graph.questId}: duplicate line ${line.id}`);
       lineIds.add(line.id);
-      if (!line.german.trim() || !line.english.trim() || !line.clipId) errors.push(`${graph.questId}: empty line ${line.id}`);
+      if (!line.german.trim() || !line.english.trim() || (!line.clipId && canVoiceDialogue(line.german))) errors.push(`${graph.questId}: empty line ${line.id}`);
       if (line.reply && (!line.reply.exerciseId || !line.reply.correction.german.trim() || !line.reply.correction.english.trim() || !line.reply.correction.clipId)) errors.push(`${graph.questId}: incomplete comprehension reply ${line.id}`);
       if (graph.level === 'A1' && line.german.split(/\s+/).length > 16) errors.push(`${graph.questId}: A1 line too long ${line.id}`);
       for (const variant of line.variants ?? []) {
@@ -116,7 +132,7 @@ export function validateDialogue(graph: QuestGraph): string[] {
     for (const line of topic.lines) {
       if (lineIds.has(line.id)) errors.push(`${graph.questId}: duplicate line ${line.id}`);
       lineIds.add(line.id);
-      if (!line.german.trim() || !line.english.trim() || !line.clipId) errors.push(`${graph.questId}: empty line ${line.id}`);
+      if (!line.german.trim() || !line.english.trim() || (!line.clipId && canVoiceDialogue(line.german))) errors.push(`${graph.questId}: empty line ${line.id}`);
       if (graph.level === 'A1' && line.german.split(/\s+/).length > 16) errors.push(`${graph.questId}: A1 line too long ${line.id}`);
     }
   }

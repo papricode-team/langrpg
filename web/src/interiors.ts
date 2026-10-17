@@ -11,7 +11,7 @@ import {roomKind, type RoomId} from './room-kind';
 import {buildingInteriors} from './building-interiors';
 
 export type InteriorId = RoomId;
-export type InteriorSheet = 'interior-cafe-objects' | 'interior-bakery-objects' | 'interior-supermarket-objects' | 'interior-decor' | 'interior-furniture';
+export type InteriorSheet = 'interior-cafe-objects' | 'interior-bakery-objects' | 'interior-supermarket-objects' | 'interior-decor' | 'interior-furniture' | 'interior-train-furniture';
 export type InteriorPolygon = readonly (readonly [number, number])[];
 export interface InteriorVocabulary {
   article: string;
@@ -29,6 +29,8 @@ export interface InteriorObjectSpec extends MapPosition {
   dialogue?: string;
   npcId?: string;
   activityId?: 'cafe' | 'market';
+  /** Prologue beats (authored quest ids) in which this story object can be used. */
+  prologueBeats?: readonly string[];
   /** Optional mini-game explicitly offered at this station. */
   minigame?: string;
   /** Opens a game whose content is loaded by the normal authenticated game flow. */
@@ -60,6 +62,8 @@ export interface InteriorNpcSpec extends MapPosition {
   role: string;
   /** Shared-clock visiting hours; room actions remain available overnight. */
   hours?: readonly [number, number];
+  /** Painting-pixel position per prologue beat (authored quest id, or `done`); the character walks there. */
+  prologueStations?: Readonly<Record<string, readonly [number, number]>>;
 }
 export interface InteriorSpec {
   layout?: RoomLayout;
@@ -75,6 +79,10 @@ export interface InteriorSpec {
   height: number;
   /** Visible adult height in painting pixels; defaults to the shop furniture scale. */
   characterHeight?: number;
+  /** A whole-room painting drawn under walking characters instead of the room kit. */
+  presentation?: 'painted';
+  /** The same painting relit for morning; the room crossfades to it when the story reaches dawn. */
+  dawnAsset?: string;
   spawn: MapPosition;
   exit: MapPosition;
   /** Architectural floor boundaries in painting pixels, independent of furniture. */
@@ -102,6 +110,7 @@ const footprint = (offsetX: number, offsetY: number, width: number, height: numb
 
 /** Focused everyday encounters stay available alongside the longer Atlas story. */
 export const interiors: readonly InteriorSpec[] = [
+{"id": "train-compartment", "name": "The night train", "germanName": "Wagen sieben", "subtitle": "Prologue", "description": "A glass carriage on the night train to Lindenhafen.", "icon": "cup", "asset": "/assets/interior-train-night.webp", "dawnAsset": "/assets/interior-train-dawn.webp", "presentation": "painted", "width": 1536, "height": 1024, "characterHeight": 150, "spawn": {"x": 0.2148, "y": 0.5859}, "exit": {"x": 0.8802, "y": 0.6836}, "floorAreas": [[[100, 458], [222, 458], [222, 410], [392, 410], [392, 458], [528, 458], [528, 398], [935, 398], [935, 432], [1440, 432], [1440, 728], [100, 728]]], "npcs": [{"id": "schaffner", "x": 0.3646, "y": 0.5078, "interactionId": "interior:prologue-conversation-train-compartment", "role": "Train conductor", "prologueStations": {"a0-ticket": [560, 520], "a0-name": [470, 500], "a0-wagen": [700, 470], "a0-tee": [1100, 478], "a0-wo": [1100, 478], "a0-langsam": [880, 560], "a0-morgen": [1250, 640], "done": [1250, 640]}}], "props": [{"id": "ticket-on-table", "sheet": "interior-train-furniture", "asset": "train-ticket-pale", "x": 306, "y": 352, "width": 64, "depth": 420, "interactive": "interior:prologue-ticket"}, {"id": "tea-on-counter", "sheet": "interior-train-furniture", "asset": "train-tea", "x": 1196, "y": 336, "width": 30, "depth": 440}], "objects": [{"id": "interior:prologue-conversation-train-compartment", "label": "Brandt", "germanName": "Hallo! Guten Abend!", "sessionTitle": "Prologue", "prompt": "Look closely.", "description": "Speak with the conductor.", "dialogue": "Hallo! Guten Abend!", "x": 0.3646, "y": 0.5078, "exerciseIds": [], "vocabulary": [], "npcId": "schaffner"}, {"id": "interior:prologue-ticket", "label": "Your ticket", "germanName": "Die Fahrkarte", "sessionTitle": "Prologue", "prompt": "Look closely.", "description": "Your ticket lies on the little table.", "dialogue": "Die Fahrkarte", "x": 0.1992, "y": 0.4199, "exerciseIds": [], "vocabulary": [], "prologueBeats": ["a0-ticket", "a0-name"]}, {"id": "interior:prologue-wagen", "label": "The window", "germanName": "Das Fenster", "sessionTitle": "Prologue", "prompt": "Look closely.", "description": "The track curves. You can see the carriages behind you.", "dialogue": "Das Fenster", "x": 0.3893, "y": 0.4199, "exerciseIds": [], "vocabulary": [], "prologueBeats": ["a0-wagen", "a0-langsam", "a0-morgen"]}, {"id": "interior:prologue-tee", "label": "The samovar", "germanName": "Der Samowar", "sessionTitle": "Prologue", "prompt": "Look closely.", "description": "A copper samovar hums on the counter.", "dialogue": "Der Samowar", "x": 0.6966, "y": 0.4375, "exerciseIds": [], "vocabulary": [], "prologueBeats": ["a0-tee"]}, {"id": "interior:prologue-wo", "label": "A narrow door", "germanName": "Die Toilette", "sessionTitle": "Prologue", "prompt": "Look closely.", "description": "A narrow walnut door with a round window.", "dialogue": "Die Toilette", "x": 0.4785, "y": 0.4082, "exerciseIds": [], "vocabulary": [], "prologueBeats": ["a0-wo"]}, {"id": "interior:prologue-sounds", "label": "The fogged window", "germanName": "Das Fenster", "sessionTitle": "Prologue", "prompt": "Look closely.", "description": "Letters appear in the fog on the glass.", "dialogue": "Das Fenster", "x": 0.1042, "y": 0.4648, "exerciseIds": [], "vocabulary": []}]},
   {
     id: 'cafe', name: 'Marta’s café', germanName: 'Das Café', subtitle: 'A warm cup, a little conversation', icon: 'cup',
     description: 'Coffee hisses, a sleepy clock ticks, and Marta remembers how you like your drink. Explore a cosy café and practise one small conversation at a time.',
@@ -338,7 +347,7 @@ export function getInterior(id: InteriorId, mapId?: string): InteriorSpec {
   const template = [...interiors, ...buildingInteriors].find(interior => interior.id === kind);
   if (!template) throw new Error(`Missing room layout ${kind}`);
   const spec = id === kind ? template : {...template, id, name: `${template.name} · ${id.slice(kind.length + 2).replaceAll('-', ' ')}`};
-  const layout = mapId ? sceneEntrances(getWorldScene(mapId)).find(e=>e.interiorId===buildingRoomRoot(id))?.owner.roomLayout : undefined;
+  const layout = mapId && spec.presentation !== 'painted' ? sceneEntrances(getWorldScene(mapId)).find(e=>e.interiorId===buildingRoomRoot(id))?.owner.roomLayout : undefined;
   const key = buildingRoomKey(id);
   if (key !== 'main') {
     const child = layout?.rooms?.find(r=>r.id===key);

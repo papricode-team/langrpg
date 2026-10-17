@@ -216,6 +216,10 @@ export abstract class ExploreScene extends Phaser.Scene {
   protected get indoor(): boolean { return false; }
   protected get indoorCharacterHeight(): number { return INTERIOR_CHARACTER_HEIGHT; }
   protected get indoorTint(): number { return interiorPeopleTint(this.regionId); }
+  /** The objective star floats just above a character's head. */
+  protected get npcMarkerY(): number { return this.indoor ? -(this.indoorCharacterHeight + 18) : -96; }
+  /** The player's avatar has finished loading and is drawn. */
+  get charactersReady(): boolean { return !!this.local?.figure.visible && !this.local.avatarPending; }
 
   /** Scenes restart on travel; reset everything the constructor would otherwise keep. */
   init(_data?: unknown): void {
@@ -851,7 +855,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     if (!this.marker) return;
     this.marker.setScale(1);
     for (const object of this.objects.values()) object.marker.setY(-8);
-    for (const npc of this.characters.values()) npc.marker?.setAlpha(1);
+    for (const npc of this.characters.values()) npc.marker?.setAlpha(1).setY(this.npcMarkerY);
     if (this.reducedMotion) return;
     this.markerTweens.push(this.tweens.add({ targets: this.marker, scale: 1.04, duration: 785, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' }));
     for (const object of this.objects.values()) {

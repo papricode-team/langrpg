@@ -194,6 +194,13 @@ func TestAdminWorldEndpointsAuthenticateBeforeReadingOrCompiling(t *testing.T) {
 func TestAdminWorldValidateThenSavePublishesDocumentAndStoryAuthority(t *testing.T) {
 	app, token := adminWorldTestApp(t, "")
 	before := cloneAdminWorld(t, app.editing.current)
+	var townRule StoryRule
+	for _, rule := range before.Investigations.Rules {
+		if rule.InteriorID == "" {
+			townRule = rule
+			break
+		}
+	}
 	sourceBefore, err := os.ReadFile(worldSeedPath)
 	if err != nil {
 		t.Fatal(err)
@@ -203,7 +210,7 @@ func TestAdminWorldValidateThenSavePublishesDocumentAndStoryAuthority(t *testing
 		npcs := scene["npcs"].([]any)
 		for _, value := range npcs {
 			npc := value.(map[string]any)
-			if npc["id"] == before.Investigations.Rules[0].NPCID {
+			if npc["id"] == townRule.NPCID {
 				npc["x"] = npc["x"].(float64) + 3
 			}
 		}
@@ -227,8 +234,8 @@ func TestAdminWorldValidateThenSavePublishesDocumentAndStoryAuthority(t *testing
 	if current.ContentVersion != app.world.ContentVersion() || !reflect.DeepEqual(current.WorldMaps.Maps, app.world.Maps()) {
 		t.Fatal("live map authority did not follow publication")
 	}
-	rule, ok := app.currentStoryRule(before.Investigations.Rules[0].QuestID)
-	if !ok || rule.NPC == before.Investigations.Rules[0].NPC {
+	rule, ok := app.currentStoryRule(townRule.QuestID)
+	if !ok || rule.NPC == townRule.NPC {
 		t.Fatal("published story evidence still uses bundled NPC positions")
 	}
 	stored, err := app.editing.load(context.Background())

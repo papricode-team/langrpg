@@ -14,6 +14,8 @@ const sitemap = await readFile(join(root, 'sitemap-0.xml'), 'utf8');
 const sitemapURLs = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
 const window = new Window({ settings: { disableJavaScriptEvaluation: true, disableCSSFileLoading: true, disableJavaScriptFileLoading: true } });
 const parser = new window.DOMParser();
+const languages = ['tr', 'de'];
+const sharedCopy = Object.fromEntries(await Promise.all(languages.map(async language => [language, JSON.parse(await readFile(`site/src/data/site-${language}.json`, 'utf8'))])));
 async function checkPublicAsset(value, route) {
   assert.ok(value.startsWith('/') && !value.startsWith('//'), `${route}: assets must be self-hosted (${value})`);
   const url = new URL(value, 'https://glotworld.com');
@@ -39,6 +41,24 @@ for (const file of htmlFiles) {
   assert.equal(canonical, `https://glotworld.com${route}`, `${route}: canonical mismatch`);
   assert.ok(!canonicals.has(canonical), `${route}: duplicate canonical`); canonicals.add(canonical);
   const title = doc.title, description = doc.querySelector('meta[name="description"]')?.getAttribute('content');
+  assert.equal(doc.querySelectorAll('[data-site-language-select]').length, 1, `${route}: needs the shared language dropdown`);
+  const pageKey = doc.body.dataset.sitePage;
+  const translatedSources = new Set([title, description]);
+  const walker = doc.createTreeWalker(doc.body, window.NodeFilter.SHOW_TEXT);
+  while (walker.nextNode()) {
+    const node = walker.currentNode;
+    if (node.parentElement?.closest('script, style, svg, [lang="de"]:not(html), [data-language-names], [data-language-status]')) continue;
+    const source = node.textContent.trim();
+    if (/\p{L}/u.test(source) && !/^© \d{4} glotworld$/.test(source)) translatedSources.add(source);
+  }
+  for (const element of doc.querySelectorAll('[aria-label], img[alt]')) {
+    for (const name of ['aria-label', 'alt']) { const source = element.getAttribute(name); if (source) translatedSources.add(source); }
+  }
+  for (const language of languages) {
+    const local = pageKey === 'index' ? {} : JSON.parse(await readFile(`site/src/data/pages/${language}/${pageKey}.json`, 'utf8'));
+    const copy = { ...sharedCopy[language], ...local };
+    for (const source of translatedSources) assert.ok(typeof copy[source] === 'string' && copy[source].trim(), `${route}: missing ${language} translation for ${source}`);
+  }
   assert.ok(title && !titles.has(title), `${route}: missing/duplicate title`); titles.add(title);
   assert.ok(description?.length >= 70 && description.length <= 190 && !descriptions.has(description), `${route}: missing, duplicate or oversized description`); descriptions.add(description);
   assert.equal(doc.querySelector('meta[property="og:url"]')?.getAttribute('content'), canonical);
@@ -104,4 +124,4 @@ for (const file of await files(join(root, 'images'))) assert.ok((await stat(file
 // Keep in step with scripts/record-site-gameplay.mjs.
 for (const file of await files(join(root, 'video'))) assert.ok((await stat(file)).size <= 1.5 * 1024 * 1024, `${file}: website video exceeds 1.5 MiB`);
 await window.happyDOM.close();
-console.log(`Website checks pass: ${pages.size - 1} indexable pages, unique metadata, structured data, crawlable guides, sitemap, internal links, image, video and JavaScript budgets.`);
+console.log(`Website checks pass: ${pages.size - 1} indexable pages, complete Turkish and German translations, unique metadata, structured data, crawlable guides, sitemap, internal links, image, video and JavaScript budgets.`);

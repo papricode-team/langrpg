@@ -7,7 +7,7 @@ export const publicLearningManifestPaths=[
   '/audio/minigames/loop-manifest.json','/assets/minigames/items-manifest.json',
 ];
 const publicLearningFields=new Set(['text','german','english','answer','acceptedAnswers','explanation','correctedAnswer','correctAnswer','answers','modelAnswer','sourceGerman','sourceText','translation','translations','meanings','glosses','words','lemma','article','articleForm','plural','surfaceForms','forms','example','prompt','hint']);
-const privateLearningJSON=/^(?:data\/(?:course(?:-[^/]+)?|dialogue-graphs|story-text|syllabus|expedition-learning(?:-runtime)?)\.json|data\/i18n\/(?:tr-course|tr-story)\.json|minigames\/(?:item-data|audio-data|story-scripts|loop-data)\.json)$/;
+const privateLearningJSON=/^(?:data\/(?:course(?:-[^/]+)?|dialogue-graphs|story-text|syllabus|expedition-learning(?:-runtime)?)\.json|data\/i18n\/(?:tr-course|tr-story)\.json|minigames\/(?:(?:train-)?item-data|audio-data|story-scripts|loop-data)\.json)$/;
 const retainedLearningModules=new Set(['content.ts','course.ts','quest-graph.ts','story.ts','story-panels.ts','learning-context.ts','npc-dialogue.ts','activity-engine.ts','activity-stories.ts','beginner-dialogue.ts','contextual-grammar.ts','expeditions.ts','expedition-games.ts','interiors.ts','interior-conversations.ts','word-detail.ts','story-glossary.ts','cinematic-content.ts','world-routines.ts','i18n-tr.ts','minigames/catalogue.ts','minigames/scripted-stories.ts','minigames/item-manifest.ts']);
 /** The character catalogue is presentation data that the server embeds and the client imports. */
 const publicServerJSON='server/character-kit.json';
@@ -114,7 +114,7 @@ export function contentRuntimePlugin(root) {
   const jsonPresentation=(path)=> {
     const value=JSON.parse(readFileSync(resolve(root,'web/src',path),'utf8'));
     return JSON.parse(JSON.stringify(value,(key,item)=> {
-      if(path.endsWith('item-data.json')&&['lemma','article','plural','level','topic','provenance','missing'].includes(key))return undefined;
+      if(path.endsWith('item-data.json')&&['lemma','article','plural','subject','english','level','topic','provenance','missing'].includes(key))return undefined;
       if(path.endsWith('audio-data.json')&&key==='text')return undefined;
       return typeof item==='string'&&key==='lexemeId'?identity(item):item;
     }));
@@ -164,7 +164,7 @@ export function contentRuntimePlugin(root) {
               changed=true;
               return ts.factory.createVariableStatement(undefined,ts.factory.createVariableDeclarationList([ts.factory.createVariableDeclaration(node.importClause.name,undefined,undefined,call('runtimeObject','miniGameAudio',literal({clips:[]})))],ts.NodeFlags.Const));
             }
-            if(/(?:^|\/)item-data\.json$/.test(path)&&node.importClause?.name) {
+            if(/(?:^|\/)(?:train-)?item-data\.json$/.test(path)&&node.importClause?.name) {
               changed=true;
               return ts.factory.createVariableStatement(undefined,ts.factory.createVariableDeclarationList([ts.factory.createVariableDeclaration(node.importClause.name,undefined,undefined,literal(jsonPresentation(resolve(dirname(id),node.moduleSpecifier.text))))],ts.NodeFlags.Const));
             }
@@ -274,7 +274,7 @@ export function contentRuntimePlugin(root) {
       return { code: `${helpers.length?`import {${helpers.join(',')}} from ${JSON.stringify(runtime)};\n`:''}${needsTargetLanguage&&!imported.has('targetLanguage')?`import {targetLanguage} from ${JSON.stringify(resolve(root,'web/src/i18n.ts'))};\n`:''}${printed}`, map: null };
     },
     generateBundle(_options, bundle) {
-      const forbidden = /\/(?:data\/(?:course(?:-(?:meta|lexicon|exercises-[a-z0-9]+))?|dialogue-graphs|story-text|syllabus|expedition-learning(?:-runtime)?|i18n\/(?:tr-story|tr-course))|minigames\/(?:story-scripts|loop-data|audio-data|item-data))\.json(?:\?|$)/;
+      const forbidden = /\/(?:data\/(?:course(?:-(?:meta|lexicon|exercises-[a-z0-9]+))?|dialogue-graphs|story-text|syllabus|expedition-learning(?:-runtime)?|i18n\/(?:tr-story|tr-course))|minigames\/(?:story-scripts|loop-data|audio-data|(?:train-)?item-data))\.json(?:\?|$)/;
       for (const output of Object.values(bundle)) if (output.type === 'chunk') {
         for (const module of Object.keys(output.modules)) {
           const path=module.split('?')[0].replaceAll('\\','/');
