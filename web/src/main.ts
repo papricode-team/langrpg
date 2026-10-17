@@ -2349,7 +2349,7 @@ async function openUiCheck(surface: string) {
 async function boot() {
   if (!uiCheckSurface) {
     try {await loadPublishedWorld();}
-    catch(error){document.querySelector('#app')!.innerHTML=`<p role="alert">${e(error instanceof Error?error.message:'The saved world could not be loaded.')}</p><a href="/">Reload the game</a>`;return;}
+    catch(error){document.querySelector('#app')!.innerHTML=`<p role="alert">${e(error instanceof Error?error.message:'The saved world could not be loaded.')}</p><a href="/game/">Reload the game</a>`;return;}
   }
   // Paint in the cached support language; the account's saved choice is applied once the session resumes.
   await setBaseLanguage(cachedBaseLanguage(), { persist: false });

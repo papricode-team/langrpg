@@ -38,3 +38,7 @@ server/*.test
 
 # Local copies of the world pulled from a server (npm run world:pull).
 .world/
+
+# Static Astro website
+site/dist/
+site/.astro/
