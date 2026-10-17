@@ -251,7 +251,6 @@ export class WorldScenery {
       const x=source.x+((left+right)/2-source.width*source.originX)*part.scale*direction;
       const sprite=this.scene.add.sprite(x,source.y,texture.key,frames[part.currentFrame]).setOrigin(.5,source.originY)
         .setScale(part.scale).setFlipX(source.flipX).setDepth(worldDepth(sampleDepth(x)));
-      if(part.foundationSurface)sprite.setBlendMode('MULTIPLY');
       result.push({...part,sprite,frames});
     }
     source.destroy();
@@ -272,7 +271,7 @@ export class WorldScenery {
       const name=`__contact:${part.currentFrame}:${start}:${end}`;
       if(!texture.has(name))texture.add(name,frame.sourceIndex,frame.cutX+start,frame.cutY,end-start,frame.cutHeight);
       const sprite=this.scene.add.sprite((left+right)/2,source.y,texture.key,name).setOrigin(.5,0)
-        .setDisplaySize(right-left,source.displayHeight).setDepth(wall.depth+(part.foundationGrowth ? .2 : .1)).setBlendMode(part.foundationGrowth?'NORMAL':'MULTIPLY');
+        .setDisplaySize(right-left,source.displayHeight).setDepth(wall.depth+(part.foundationGrowth ? .2 : .1));
       result.push({...part,sprite});
     }
     source.destroy();
@@ -324,7 +323,8 @@ export class WorldScenery {
       foundation?.setTint(ground);
       const emitter=spec.asset==='lamp'||spec.frame==='motion-lamp';
       const appliedTint=emitter?light:nightTint??tint;
-      for(const {sprite,next,foundationSurface,foundationGrowth} of parts){sprite.setTint(foundationGrowth?ground:foundationSurface?0xffffff:appliedTint);next?.setTint(appliedTint);}
+      // Grime is an overlay of the wall beneath it, so it takes the wall's light.
+      for(const {sprite,next,foundationGrowth} of parts){sprite.setTint(foundationGrowth?ground:appliedTint);next?.setTint(appliedTint);}
     }
   }
   update(time:number,view:SceneryView,characters:readonly OcclusionCharacter[]=[],seconds=0){

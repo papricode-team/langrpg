@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type * as Phaser from 'phaser';
-import { BuildingFoundation, foundationBounds, foundationPolygons, traceFoundationContact } from './world-foundations';
+import { BUILDING_SHADOW_DEPTH, BuildingFoundation, FOUNDATION_DEPTH, FOUNDATION_WEAR_DEPTH, foundationBounds, foundationPolygons, surfaceOverlay, traceFoundationContact } from './world-foundations';
+import { worldDepth } from './world-depth';
 import { foundationScene } from './test-support/foundation-scene';
 import type { PlacedScenerySpec } from './placed-scenery';
 
@@ -67,5 +68,34 @@ describe('building ground contact', () => {
     expect(width).toBeLessThanOrEqual(512);
     expect(height).toBeLessThanOrEqual(1024);
     expect(ground.images[0].scale).toBeGreaterThan(1);
+  });
+});
+
+describe('wall grime overlay', () => {
+  it('matches multiplying the stroke over the tinted wall, clipped to the wall', () => {
+    let seed = 7;
+    const random = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    const colour = [70, 59, 44] as const;
+    for (let sample = 0; sample < 200; sample++) {
+      const strokeAlpha = Math.round(random() * 255), wall = [0, 1, 2].map(() => Math.round(random() * 255)), tint = [0, 1, 2].map(() => .4 + random() * .6);
+      const stroke = new Uint8ClampedArray([...colour, strokeAlpha]);
+      surfaceOverlay(stroke, new Uint8ClampedArray([...wall, 255]));
+      const alpha = stroke[3] / 255;
+      for (let channel = 0; channel < 3; channel++) {
+        const under = wall[channel] * tint[channel] / 255, a = strokeAlpha / 255;
+        const multiplied = under * (1 - a + a * colour[channel] / 255);
+        const overlaid = stroke[channel] / 255 * tint[channel] * alpha + under * (1 - alpha);
+        // Two 8-bit stores (colour and alpha) bound the error to a few levels.
+        expect(Math.abs(overlaid - multiplied) * 255).toBeLessThan(2);
+      }
+    }
+    const outside = new Uint8ClampedArray([...colour, 200]);
+    surfaceOverlay(outside, new Uint8ClampedArray([90, 80, 70, 0]));
+    expect(outside[3]).toBe(0);
+  });
+  it('sorts ground marks in blend bands below every upright object', () => {
+    expect(FOUNDATION_DEPTH).toBeLessThan(FOUNDATION_WEAR_DEPTH);
+    expect(FOUNDATION_WEAR_DEPTH).toBeLessThan(BUILDING_SHADOW_DEPTH);
+    expect(BUILDING_SHADOW_DEPTH).toBeLessThan(worldDepth(0));
   });
 });
