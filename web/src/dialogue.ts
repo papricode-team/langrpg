@@ -26,6 +26,7 @@ export interface DialogueLine {
   sentenceId?: string;
   /** The authored cue needs runtime values and has no recorded spoken version. */
   audioRequires?: boolean;
+  rate?: number;
   speaker: string;
   /** Authored visual cue; never inferred from translated text. */
   expression?: 'neutral' | 'smile' | 'worried';
@@ -53,6 +54,8 @@ export interface QuestGraph {
   introducedWords?: Record<string, string>;
   /** Explicit surface forms permitted in a pre-A1 conversation. */
   allowedWords?: string[];
+  completionInvestigations?: string[];
+  optionalInvestigations?: string[];
   gateKind?: 'name';
   interiorId?: string;
   practiceGame?: string;
@@ -104,7 +107,7 @@ export function validateDialogue(graph: QuestGraph): string[] {
     for (const line of node.lines) {
       if (lineIds.has(line.id)) errors.push(`${graph.questId}: duplicate line ${line.id}`);
       lineIds.add(line.id);
-      if (!line.german.trim() || !line.english.trim() || !line.clipId) errors.push(`${graph.questId}: empty line ${line.id}`);
+      if (!line.german.trim() || !line.english.trim() || (!line.clipId && canVoiceDialogue(line.german))) errors.push(`${graph.questId}: empty line ${line.id}`);
       if (line.reply && (!line.reply.exerciseId || !line.reply.correction.german.trim() || !line.reply.correction.english.trim() || !line.reply.correction.clipId)) errors.push(`${graph.questId}: incomplete comprehension reply ${line.id}`);
       if (graph.level === 'A1' && line.german.split(/\s+/).length > 16) errors.push(`${graph.questId}: A1 line too long ${line.id}`);
       for (const variant of line.variants ?? []) {
@@ -123,7 +126,7 @@ export function validateDialogue(graph: QuestGraph): string[] {
     for (const line of topic.lines) {
       if (lineIds.has(line.id)) errors.push(`${graph.questId}: duplicate line ${line.id}`);
       lineIds.add(line.id);
-      if (!line.german.trim() || !line.english.trim() || !line.clipId) errors.push(`${graph.questId}: empty line ${line.id}`);
+      if (!line.german.trim() || !line.english.trim() || (!line.clipId && canVoiceDialogue(line.german))) errors.push(`${graph.questId}: empty line ${line.id}`);
       if (graph.level === 'A1' && line.german.split(/\s+/).length > 16) errors.push(`${graph.questId}: A1 line too long ${line.id}`);
     }
   }

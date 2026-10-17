@@ -1112,7 +1112,7 @@
           },
           {
             "id": "42700db2-798d-5a75-a36e-828f21e67475",
-            "name": "Otto’s colleague",
+            "name": "Brandt",
             "role": "Train conductor",
             "x": 0.5,
             "y": 0.65,
@@ -19151,7 +19151,7 @@
           "asset": "/assets/interior-train-compartment.webp",
           "width": 1536,
           "height": 1024,
-          "characterHeight": 440,
+          "characterHeight": 390,
           "spawn": {
             "x": 0.56,
             "y": 0.73
@@ -19187,8 +19187,8 @@
           "npcs": [
             {
               "id": "schaffner",
-              "x": 0.65,
-              "y": 0.61,
+              "x": 0.58,
+              "y": 0.76,
               "interactionId": "interior:prologue-conversation-train-compartment",
               "role": "Train conductor",
               "support": {}
@@ -19203,28 +19203,19 @@
               "y": 550,
               "width": 70,
               "interactive": "interior:prologue-name"
-            },
-            {
-              "id": "carriage-count",
-              "sheet": "interior-train-furniture",
-              "asset": "train-carriage",
-              "x": 620,
-              "y": 550,
-              "width": 65,
-              "interactive": "interior:prologue-wagen"
             }
           ],
           "objects": [
             {
               "id": "interior:prologue-ticket",
               "label": "A ticket in your hand",
-              "germanName": "Guten Abend.",
+              "germanName": "Fahrkarte. Lindenhafen.",
               "sessionTitle": "Prologue",
               "prompt": "Listen, look and choose.",
-              "description": "Good evening.",
-              "dialogue": "Guten Abend.",
-              "x": 0.45,
-              "y": 0.7,
+              "description": "Ticket. Lindenhafen.",
+              "dialogue": "Fahrkarte. Lindenhafen.",
+              "x": 0.36,
+              "y": 0.53,
               "exerciseIds": [
                 "ce59e242-abb6-51ca-9ebe-c5783f84a33b"
               ],
@@ -19234,13 +19225,13 @@
             {
               "id": "interior:prologue-name",
               "label": "Your name on the ticket",
-              "germanName": "Name.",
+              "germanName": "Fahrkarte. Lindenhafen.",
               "sessionTitle": "Prologue",
               "prompt": "Listen, look and choose.",
-              "description": "Name.",
-              "dialogue": "Name.",
-              "x": 0.45,
-              "y": 0.7,
+              "description": "Ticket. Lindenhafen.",
+              "dialogue": "Fahrkarte. Lindenhafen.",
+              "x": 0.36,
+              "y": 0.53,
               "exerciseIds": [
                 "1c37406d-8a5d-5b5e-bc58-2482cbe47044"
               ],
@@ -19250,13 +19241,13 @@
             {
               "id": "interior:prologue-wagen",
               "label": "Carriage seven",
-              "germanName": "eins, zwei, drei",
+              "germanName": "Wagen sieben.",
               "sessionTitle": "Prologue",
               "prompt": "Listen, look and choose.",
-              "description": "one, two, three",
-              "dialogue": "eins, zwei, drei",
-              "x": 0.85,
-              "y": 0.59,
+              "description": "Carriage seven.",
+              "dialogue": "Wagen sieben.",
+              "x": 0.72,
+              "y": 0.4,
               "exerciseIds": [
                 "88ea62a2-4e86-5586-a700-167e5b1964ad"
               ],
@@ -19266,13 +19257,13 @@
             {
               "id": "interior:prologue-langsam",
               "label": "Slower, please",
-              "germanName": "Ich verstehe nicht.",
+              "germanName": "Lindenhafen.",
               "sessionTitle": "Prologue",
               "prompt": "Listen, look and choose.",
-              "description": "I do not understand.",
-              "dialogue": "Ich verstehe nicht.",
-              "x": 0.7,
-              "y": 0.64,
+              "description": "Lindenhafen.",
+              "dialogue": "Lindenhafen.",
+              "x": 0.64,
+              "y": 0.3,
               "exerciseIds": [
                 "49d5e506-1482-5553-a2a3-89dc19cfc068"
               ],
@@ -19282,13 +19273,13 @@
             {
               "id": "interior:prologue-morgen",
               "label": "Morning",
-              "germanName": "Guten Morgen.",
+              "germanName": "Lindenhafen. Bahnsteig sieben.",
               "sessionTitle": "Prologue",
               "prompt": "Listen, look and choose.",
-              "description": "Good morning.",
-              "dialogue": "Guten Morgen.",
-              "x": 0.61,
-              "y": 0.64,
+              "description": "Lindenhafen. Platform seven.",
+              "dialogue": "Lindenhafen. Bahnsteig sieben.",
+              "x": 0.43,
+              "y": 0.34,
               "exerciseIds": [
                 "6c23769b-faee-5782-a1db-d8d8adc4da82"
               ],
@@ -19297,15 +19288,15 @@
             },
             {
               "id": "interior:prologue-conversation-train-compartment",
-              "label": "Otto’s colleague",
+              "label": "Brandt",
               "germanName": "Guten Abend.",
               "sessionTitle": "Prologue",
               "prompt": "Listen, look and choose.",
               "description": "Speak with the conductor.",
               "dialogue": "Guten Abend.",
               "npcId": "schaffner",
-              "x": 0.65,
-              "y": 0.61,
+              "x": 0.58,
+              "y": 0.76,
               "exerciseIds": [],
               "vocabulary": [],
               "support": {}
@@ -19325,10 +19316,7 @@
               "alpha": 0.15
             }
           ],
-          "perspective": {
-            "horizonY": 250,
-            "referenceY": 720
-          },
+          "presentation": "backdrop",
           "support": {}
         }
       }
@@ -19350,7 +19338,7 @@
           "asset": "/assets/interior-train-dining.webp",
           "width": 1536,
           "height": 1024,
-          "characterHeight": 440,
+          "characterHeight": 390,
           "spawn": {
             "x": 0.46,
             "y": 0.73
@@ -19390,8 +19378,8 @@
           "npcs": [
             {
               "id": "schaffner",
-              "x": 0.38,
-              "y": 0.55,
+              "x": 0.43,
+              "y": 0.74,
               "interactionId": "interior:prologue-conversation-train-dining",
               "role": "Train conductor",
               "support": {}
@@ -19404,8 +19392,7 @@
               "asset": "train-tea",
               "x": 790,
               "y": 407,
-              "width": 32,
-              "interactive": "interior:prologue-tee"
+              "width": 32
             },
             {
               "id": "train-exit-sign",
@@ -19414,20 +19401,20 @@
               "x": 485,
               "y": 180,
               "width": 95,
-              "interactive": "interior:prologue-wo"
+              "interactive": "interior:prologue-exit"
             }
           ],
           "objects": [
             {
               "id": "interior:prologue-tee",
               "label": "Tea in the dining car",
-              "germanName": "Tee?",
+              "germanName": "Tee. Kaffee.",
               "sessionTitle": "Prologue",
               "prompt": "Listen, look and choose.",
-              "description": "Tea?",
-              "dialogue": "Tee?",
-              "x": 0.43,
-              "y": 0.6,
+              "description": "Tea. Coffee.",
+              "dialogue": "Tee. Kaffee.",
+              "x": 0.23,
+              "y": 0.31,
               "exerciseIds": [
                 "1b9f605e-4629-5129-b26c-a3fd09f8cc0e"
               ],
@@ -19442,8 +19429,8 @@
               "prompt": "Listen, look and choose.",
               "description": "The toilet.",
               "dialogue": "Die Toilette.",
-              "x": 0.35,
-              "y": 0.46,
+              "x": 0.33,
+              "y": 0.42,
               "exerciseIds": [
                 "08e8cd66-0ce9-54a6-bc4d-94357c65ed3e"
               ],
@@ -19452,15 +19439,29 @@
             },
             {
               "id": "interior:prologue-conversation-train-dining",
-              "label": "Otto’s colleague",
+              "label": "Brandt",
               "germanName": "Guten Abend.",
               "sessionTitle": "Prologue",
               "prompt": "Listen, look and choose.",
               "description": "Speak with the conductor.",
               "dialogue": "Guten Abend.",
               "npcId": "schaffner",
-              "x": 0.38,
-              "y": 0.55,
+              "x": 0.43,
+              "y": 0.74,
+              "exerciseIds": [],
+              "vocabulary": [],
+              "support": {}
+            },
+            {
+              "id": "interior:prologue-exit",
+              "label": "The exit sign",
+              "germanName": "Der Ausgang.",
+              "sessionTitle": "Prologue",
+              "prompt": "Listen, look and choose.",
+              "description": "The exit.",
+              "dialogue": "Der Ausgang.",
+              "x": 0.315,
+              "y": 0.18,
               "exerciseIds": [],
               "vocabulary": [],
               "support": {}
@@ -19474,10 +19475,7 @@
               "alpha": 0.15
             }
           ],
-          "perspective": {
-            "horizonY": 180,
-            "referenceY": 720
-          },
+          "presentation": "backdrop",
           "support": {}
         }
       }

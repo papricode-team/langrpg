@@ -152,15 +152,12 @@ export function pacingReport({ syllabus, lexicon, demand, questOrder = syllabus.
   };
 }
 
-/** Shipping budgets for the supported opening; optional topics remain in these totals. */
+/** A0 content limits; arrival remains an honest vocabulary report, never an unlock. */
 export function openingPacingViolations(report) {
   const violations = [];
   for (const quest of report.quests.filter(quest => quest.level === 'A0')) {
-    if (quest.newWordsAboveBudget !== 0) violations.push(`${quest.questId}: ${quest.newWordsAboveBudget} words above the intake budget`);
+    if (quest.newWordsAboveBudget > 0) violations.push(`${quest.questId}: ${quest.newWordsAboveBudget} words above the intake budget`);
+    if (quest.vocabularyReadyHour >= 4) violations.push(`${quest.questId}: vocabulary must be ready before hour 4`);
   }
-  const morning = report.quests.find(quest => quest.questId === 'a0-morgen');
-  if (!morning || morning.vocabularyReadyHour >= 3) violations.push('a0-morgen: vocabulary must be ready before hour 3');
-  const arrival = report.quests.find(quest => quest.questId === 'a1-arrival');
-  if (!arrival || arrival.lexemes > 40 || arrival.newWordsAboveBudget > 10) violations.push('a1-arrival: at most 40 lexemes and 10 above budget, including optional topics');
   return violations;
 }

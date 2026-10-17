@@ -27,14 +27,13 @@ test('each block of ten mixes story words with high-frequency core words and exc
 });
 
 
-test('opening budgets retain individual intake and reject regressions in the full scene totals', () => {
+test('opening limits preserve intake and only enforce per-scene A0 measurements', () => {
   assert.deepEqual(syllabusDefaults,{wordsPerHour:10,openingWords:10,bankCap:15,storyShare:8,brake:{maxUnsettled:12,maxDue:20}});
-  const report={quests:[{questId:'a0-morgen',level:'A0',newWordsAboveBudget:0,vocabularyReadyHour:2.9},{questId:'a1-arrival',level:'A1',lexemes:40,newWordsAboveBudget:10,requiredPathLexemes:20}]};
+  const report={quests:[{questId:'a0-morgen',level:'A0',newWordsAboveBudget:0,vocabularyReadyHour:3.9},{questId:'a1-arrival',level:'A1',lexemes:93,newWordsAboveBudget:71,requiredPathLexemes:60}]};
   assert.deepEqual(openingPacingViolations(report),[]);
-  report.quests[0].vocabularyReadyHour=3;
+  report.quests[0].vocabularyReadyHour=4;
   report.quests[0].newWordsAboveBudget=1;
-  report.quests[1].lexemes=41;
-  assert.equal(openingPacingViolations(report).length,3);
-  report.quests[1].lexemes=40;report.quests[1].newWordsAboveBudget=11;
-  assert.ok(openingPacingViolations(report).some(message=>message.includes('including optional topics')));
+  assert.equal(openingPacingViolations(report).length,2);
+  report.quests[0].questId='a0-tee';
+  assert.equal(openingPacingViolations(report).length,2, 'the hour limit applies to every A0 scene');
 });

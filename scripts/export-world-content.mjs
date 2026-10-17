@@ -53,7 +53,7 @@ const rules = graphs.map(graph => {
       return { id: item.objectId, x: object.x, y: object.y };
     });
     const choices = graph.nodes.find(node => node.stage === 'choice').choices;
-    return {questId:graph.questId,mapId:map.id,npcId:quest.npcId,npc:{id:npc.id,x:npc.x,y:npc.y},interiorId:graph.interiorId,gateKind:graph.gateKind,gateExerciseId:graph.gateExerciseId,replyExerciseIds:[],choiceIds:choices.map(c=>c.id),choices:choices.map(c=>({id:c.id,effects:c.effects})),investigationObjectIds:objects.map(i=>i.id),objects};
+    return {questId:graph.questId,mapId:map.id,npcId:quest.npcId,npc:{id:npc.id,x:npc.x,y:npc.y},interiorId:graph.interiorId,gateKind:graph.gateKind,gateExerciseId:graph.gateExerciseId,replyExerciseIds:[],choiceIds:choices.map(c=>c.id),choices:choices.map(c=>({id:c.id,effects:c.effects})),investigationObjectIds:objects.map(i=>i.id),...(graph.completionInvestigations?.length?{completionInvestigationObjectIds:graph.completionInvestigations}:{}),...(graph.optionalInvestigations?.length?{optionalInvestigationObjectIds:graph.optionalInvestigations}:{}),objects};
   }
   const npc = map.npcs.find(npc => npc.id === quest.npcId);
   if (!npc) throw new Error(`Missing ${quest.npcId} in ${map.id}`);

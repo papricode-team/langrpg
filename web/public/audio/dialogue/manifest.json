@@ -30,37 +30,43 @@
   "clips": [
     {
       "id": "artifact-a0-langsam-prologue-langsam",
-      "text": "Ich verstehe nicht.",
+      "text": "Lindenhafen.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "artifact-a0-morgen-prologue-morgen",
-      "text": "Guten Morgen.",
+      "text": "Lindenhafen. Bahnsteig sieben.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "artifact-a0-name-prologue-name",
-      "text": "Name.",
+      "text": "Fahrkarte. Lindenhafen.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "artifact-a0-tee-prologue-tee",
-      "text": "Tee?",
+      "text": "Tee. Kaffee.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "artifact-a0-ticket-prologue-ticket",
-      "text": "Guten Abend.",
+      "text": "Fahrkarte. Lindenhafen.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "artifact-a0-wagen-prologue-wagen",
-      "text": "eins, zwei, drei",
+      "text": "Wagen sieben.",
+      "speaker": "schaffner",
+      "voice": "qwen3:schaffner"
+    },
+    {
+      "id": "artifact-a0-wo-prologue-exit",
+      "text": "Der Ausgang.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
@@ -72,7 +78,7 @@
     },
     {
       "id": "artifact-a1-arrival-lindenhafen-noticeboard",
-      "text": "Bahnsteig eins, zwei, drei, vier, fünf, sechs.",
+      "text": "Bahnsteig eins bis sechs. Kein Bahnsteig sieben.",
       "speaker": "Evidence",
       "voice": "qwen3:narrator"
     },
@@ -582,37 +588,37 @@
     },
     {
       "id": "dialogue-a0-langsam-0",
-      "text": "Ich verstehe nicht.",
+      "text": "Lindenhafen kommt!",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-langsam-1",
-      "text": "Langsam, bitte.",
-      "speaker": "schaffner",
-      "voice": "qwen3:schaffner"
-    },
-    {
-      "id": "dialogue-a0-langsam-2",
-      "text": "Noch einmal, bitte.",
+      "text": "Verstehen Sie?",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-langsam-choice",
-      "text": "Noch einmal, bitte.",
+      "text": "Lindenhafen kommt.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-langsam-complete",
-      "text": "Langsam, bitte.",
+      "text": "Gut.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-langsam-gate",
-      "text": "Ich verstehe nicht.",
+      "text": "Verstehen Sie?",
+      "speaker": "schaffner",
+      "voice": "qwen3:schaffner"
+    },
+    {
+      "id": "dialogue-a0-langsam-repeat",
+      "text": "Lindenhafen kommt. Gut?",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
@@ -624,97 +630,79 @@
     },
     {
       "id": "dialogue-a0-morgen-1",
-      "text": "Der Zug.",
+      "text": "Der Zug ist da.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-morgen-2",
-      "text": "Lindenhafen!",
-      "speaker": "schaffner",
-      "voice": "qwen3:schaffner"
-    },
-    {
-      "id": "dialogue-a0-morgen-3",
-      "text": "Auf Wiedersehen.",
+      "text": "Lindenhafen! Bahnsteig sieben.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-morgen-choice",
-      "text": "Auf Wiedersehen.",
+      "text": "Gut.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-morgen-complete",
-      "text": "Auf Wiedersehen.",
-      "speaker": "schaffner",
-      "voice": "qwen3:schaffner"
-    },
-    {
-      "id": "dialogue-a0-morgen-gate",
-      "text": "Guten Morgen.",
+      "text": "Bahnsteig sieben. Da.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-name-0",
-      "text": "Name?",
+      "text": "Der Name!",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
-      "id": "dialogue-a0-name-2",
-      "text": "Name.",
+      "id": "dialogue-a0-name-1",
+      "text": "Wie heißen Sie?",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
-      "id": "dialogue-a0-name-complete",
-      "text": "Name.",
+      "id": "dialogue-a0-name-choice-1",
+      "text": "Der Name bleibt.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-name-gate",
-      "text": "Name?",
+      "text": "Wie heißen Sie?",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-tee-0",
-      "text": "Tee?",
+      "text": "Guten Abend.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-tee-1",
-      "text": "Einen Tee, bitte.",
-      "speaker": "schaffner",
-      "voice": "qwen3:schaffner"
-    },
-    {
-      "id": "dialogue-a0-tee-3",
-      "text": "Nein, danke.",
+      "text": "Tee oder Kaffee?",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-tee-choice",
-      "text": "Einen Tee, bitte.",
+      "text": "Milch?",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-tee-complete",
-      "text": "Nein, danke.",
+      "text": "Bitte. Der Tee.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-tee-gate",
-      "text": "Tee?",
+      "text": "Tee oder Kaffee?",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
@@ -726,157 +714,187 @@
     },
     {
       "id": "dialogue-a0-ticket-1",
-      "text": "Fahrkarte, bitte.",
-      "speaker": "schaffner",
-      "voice": "qwen3:schaffner"
-    },
-    {
-      "id": "dialogue-a0-ticket-2",
-      "text": "Bitte.",
-      "speaker": "schaffner",
-      "voice": "qwen3:schaffner"
-    },
-    {
-      "id": "dialogue-a0-ticket-3",
-      "text": "Danke.",
-      "speaker": "schaffner",
-      "voice": "qwen3:schaffner"
-    },
-    {
-      "id": "dialogue-a0-ticket-4",
-      "text": "Die Fahrkarte.",
+      "text": "Die Fahrkarte, bitte.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-ticket-choice",
-      "text": "Bitte.",
+      "text": "Danke.",
+      "speaker": "schaffner",
+      "voice": "qwen3:schaffner"
+    },
+    {
+      "id": "dialogue-a0-ticket-choice-1",
+      "text": "Lindenhafen! Gut.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-ticket-complete",
-      "text": "Die Fahrkarte.",
+      "text": "Danke.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-ticket-gate",
-      "text": "Guten Abend.",
+      "text": "Die Fahrkarte, bitte.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-wagen-0",
-      "text": "eins, zwei, drei",
+      "text": "Eins. Zwei. Drei.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-wagen-1",
-      "text": "vier, fünf, sechs",
+      "text": "Vier. Fünf. Sechs.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-wagen-2",
-      "text": "sieben",
+      "text": "Sieben.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-wagen-3",
-      "text": "Wagen sieben.",
-      "speaker": "schaffner",
-      "voice": "qwen3:schaffner"
-    },
-    {
-      "id": "dialogue-a0-wagen-4",
-      "text": "Ein Wagen.",
+      "text": "Wagen sieben, bitte.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-wagen-choice",
-      "text": "sieben",
+      "text": "Ja. Wagen sieben.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-wagen-complete",
-      "text": "Ein Wagen.",
+      "text": "Gut.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-wagen-gate",
-      "text": "eins, zwei, drei",
+      "text": "Wagen sieben?",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-wo-0",
-      "text": "Wo ist …?",
-      "speaker": "schaffner",
-      "voice": "qwen3:schaffner"
-    },
-    {
-      "id": "dialogue-a0-wo-1",
-      "text": "Die Toilette.",
-      "speaker": "schaffner",
-      "voice": "qwen3:schaffner"
-    },
-    {
-      "id": "dialogue-a0-wo-2",
-      "text": "Hier.",
+      "text": "Ja?",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-wo-choice",
-      "text": "Wo ist …?",
+      "text": "Die Toilette? Da.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-wo-complete",
-      "text": "Die Toilette.",
+      "text": "Da: der Ausgang.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-wo-gate",
-      "text": "Wo ist …?",
+      "text": "Ja?",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
-      "id": "dialogue-a1-arrival-after-protect-1-prologue-trim",
-      "text": "Bitte. Bahnsteig sieben.",
+      "id": "dialogue-a1-arrival-after-protect-0",
+      "text": "Gut. Ich komme wieder. Mit Formular.",
+      "speaker": "inspector",
+      "voice": "qwen3:inspector"
+    },
+    {
+      "id": "dialogue-a1-arrival-after-protect-1",
+      "text": "Hier. Mein alter Schlüssel. Für Bahnsteig sieben.",
       "speaker": "otto",
       "voice": "qwen3:otto"
     },
     {
-      "id": "dialogue-a1-arrival-after-report-0-prologue-trim",
-      "text": "Danke. Bitte.",
+      "id": "dialogue-a1-arrival-after-protect-2",
+      "text": "Sag deinen Namen jeden Tag. Dann bleibt er.",
+      "speaker": "otto",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "dialogue-a1-arrival-after-report-0",
+      "text": "Danke. Jetzt ist alles in Ordnung.",
       "speaker": "inspector",
       "voice": "qwen3:inspector"
+    },
+    {
+      "id": "dialogue-a1-arrival-after-report-1",
+      "text": "Mein Buch für Sie. Dort steht alles.",
+      "speaker": "inspector",
+      "voice": "qwen3:inspector"
+    },
+    {
+      "id": "dialogue-a1-arrival-after-report-2",
+      "text": "Jetzt hat Voss deinen Namen. Sag ihn oft.",
+      "speaker": "otto",
+      "voice": "qwen3:otto"
     },
     {
       "id": "dialogue-a1-arrival-choice-0",
-      "text": "Langsam: Die Fahrkarte ist nicht gültig.",
+      "text": "Gern. Langsam: Ihre Fahrkarte ist nicht gültig.",
       "speaker": "inspector",
       "voice": "qwen3:inspector"
+    },
+    {
+      "id": "dialogue-a1-arrival-choice-1",
+      "text": "Bahnsteig sieben steht nicht im Plan.",
+      "speaker": "inspector",
+      "voice": "qwen3:inspector"
+    },
+    {
+      "id": "dialogue-a1-arrival-choice-2",
+      "text": "Der Zug war aber hier. Ich war da.",
+      "speaker": "otto",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "dialogue-a1-arrival-choice-3",
+      "text": "Der Plan ist richtig, Herr Otto. Immer.",
+      "speaker": "inspector",
+      "voice": "qwen3:inspector"
+    },
+    {
+      "id": "dialogue-a1-arrival-choice-4",
+      "text": "Ihr Plan, Herr Voss. Mein Bahnsteig.",
+      "speaker": "otto",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "dialogue-a1-arrival-choice-5",
+      "text": "Die Fahrkarte kommt in mein Buch. Bitte.",
+      "speaker": "inspector",
+      "voice": "qwen3:inspector"
+    },
+    {
+      "id": "dialogue-a1-arrival-choice-6",
+      "text": "Oder sie bleibt hier. Bei uns.",
+      "speaker": "otto",
+      "voice": "qwen3:otto"
     },
     {
       "id": "dialogue-a1-arrival-choice-7",
-      "text": "Die Fahrkarte, bitte?",
+      "text": "Wer bekommt Ihre Fahrkarte: Otto oder ich?",
       "speaker": "inspector",
       "voice": "qwen3:inspector"
     },
     {
-      "id": "dialogue-a1-arrival-complete-0-prologue-trim",
-      "text": "Marta ist hier.",
+      "id": "dialogue-a1-arrival-complete-0",
+      "text": "Du hast Hunger. Geh zu Marta ins Café.",
       "speaker": "otto",
       "voice": "qwen3:otto"
     },
@@ -894,19 +912,19 @@
     },
     {
       "id": "dialogue-a1-arrival-gate-1",
-      "text": "Fahrkarte-bitte-danke!",
+      "text": "Abgeben-bitte-danke!",
       "speaker": "inspector",
       "voice": "qwen3:inspector"
     },
     {
       "id": "dialogue-a1-arrival-gate-1-simple",
-      "text": "Fahrkarte, bitte. Danke.",
+      "text": "Abgeben, bitte. Danke.",
       "speaker": "inspector",
       "voice": "qwen3:inspector"
     },
     {
       "id": "dialogue-a1-arrival-greeting-correction",
-      "text": "Guten Morgen!",
+      "text": "Es ist Morgen. Guten Morgen!",
       "speaker": "otto",
       "voice": "qwen3:otto"
     },
@@ -917,22 +935,58 @@
       "voice": "qwen3:otto"
     },
     {
-      "id": "dialogue-a1-arrival-intro-11-prologue",
-      "text": "Namen bleiben hier nicht.",
+      "id": "dialogue-a1-arrival-intro-1",
+      "text": "Moment. Du kommst von Bahnsteig sieben?",
       "speaker": "otto",
       "voice": "qwen3:otto"
     },
     {
-      "id": "dialogue-a1-arrival-intro-12-prologue",
-      "text": "Sag deinen Namen laut.",
+      "id": "dialogue-a1-arrival-intro-10",
+      "text": "Sieh! Dein Name geht weg.",
+      "speaker": "otto",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "dialogue-a1-arrival-intro-12",
+      "text": "Sag deinen Namen laut. Dann bleibt er.",
+      "speaker": "otto",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "dialogue-a1-arrival-intro-13",
+      "text": "Gut. Siehst du? Er ist wieder schwarz.",
       "speaker": "otto",
       "voice": "qwen3:otto"
     },
     {
       "id": "dialogue-a1-arrival-intro-14",
-      "text": "Guten Morgen. Voss. Messingamt.",
+      "text": "Guten Morgen. Voss, vom Messingamt.",
       "speaker": "inspector",
       "voice": "qwen3:inspector"
+    },
+    {
+      "id": "dialogue-a1-arrival-intro-2",
+      "text": "Bahnsteig sieben ist seit zwölf Jahren zu.",
+      "speaker": "otto",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "dialogue-a1-arrival-intro-3",
+      "text": "Seit zwölf Jahren kommt hier kein Zug.",
+      "speaker": "otto",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "dialogue-a1-arrival-intro-4",
+      "text": "Aber ich mache jeden Morgen die Laterne an.",
+      "speaker": "otto",
+      "voice": "qwen3:otto"
+    },
+    {
+      "id": "dialogue-a1-arrival-intro-5",
+      "text": "Ordnung ist Ordnung. Auch ohne Zug.",
+      "speaker": "otto",
+      "voice": "qwen3:otto"
     },
     {
       "id": "dialogue-a1-arrival-intro-8",
@@ -941,32 +995,32 @@
       "voice": "qwen3:otto"
     },
     {
-      "id": "dialogue-a1-arrival-topic-lantern-0-paced",
-      "text": "Bahnsteig sieben: zwölf Jahre zu.",
+      "id": "dialogue-a1-arrival-topic-who-e-0",
+      "text": "Ich weiß es nicht. Nur E.",
       "speaker": "otto",
       "voice": "qwen3:otto"
     },
     {
-      "id": "dialogue-a1-arrival-topic-lantern-1-paced",
-      "text": "Zug? Nein. Die Laterne bleibt hier.",
+      "id": "dialogue-a1-arrival-topic-who-e-1",
+      "text": "E. kennt deinen Namen. Kennst du E.?",
       "speaker": "otto",
       "voice": "qwen3:otto"
     },
     {
-      "id": "dialogue-a1-arrival-topic-who-e-0-paced",
-      "text": "E.? Hier ist dein Name.",
+      "id": "dialogue-a1-arrival-topic-who-voss-0",
+      "text": "Voss ist vom Messingamt. Er hat ein Buch.",
       "speaker": "otto",
       "voice": "qwen3:otto"
     },
     {
-      "id": "dialogue-a1-arrival-topic-who-e-1-paced",
-      "text": "E. kennt deinen Namen.",
+      "id": "dialogue-a1-arrival-topic-who-voss-1",
+      "text": "Dort stehen alle Namen. Sagt er.",
       "speaker": "otto",
       "voice": "qwen3:otto"
     },
     {
-      "id": "dialogue-a1-arrival-topic-who-voss-0-paced",
-      "text": "Voss: Messingamt. Namen, Namen, Namen.",
+      "id": "dialogue-a1-arrival-topic-who-voss-2",
+      "text": "Er schreibt auch das Wetter auf. Jeden Tag.",
       "speaker": "otto",
       "voice": "qwen3:otto"
     },
@@ -8687,24 +8741,6 @@
       "voice": "qwen3:ruth"
     },
     {
-      "id": "greeting-schaffner-A1-0-160aa8e2",
-      "text": "Guten Abend.",
-      "speaker": "schaffner",
-      "voice": "qwen3:schaffner"
-    },
-    {
-      "id": "greeting-schaffner-A2-0-160aa8e2",
-      "text": "Guten Abend.",
-      "speaker": "schaffner",
-      "voice": "qwen3:schaffner"
-    },
-    {
-      "id": "greeting-schaffner-B1-0-160aa8e2",
-      "text": "Guten Abend.",
-      "speaker": "schaffner",
-      "voice": "qwen3:schaffner"
-    },
-    {
       "id": "prologue-sound-0",
       "text": "Ä.",
       "speaker": "narrator",
@@ -9111,30 +9147,6 @@
       "text": "Willkommen, Streckenhüter! Du verbindest unsere Städte.",
       "speaker": "ruth",
       "voice": "qwen3:ruth"
-    },
-    {
-      "id": "title-schaffner-atlas-keeper",
-      "text": "Willkommen, Atlashüter! Unsere Stimmen bleiben in deinem Atlas.",
-      "speaker": "schaffner",
-      "voice": "qwen3:schaffner"
-    },
-    {
-      "id": "title-schaffner-lamplighter",
-      "text": "Willkommen, Laternenhüter! Lindenhafen kennt deinen Namen.",
-      "speaker": "schaffner",
-      "voice": "qwen3:schaffner"
-    },
-    {
-      "id": "title-schaffner-lantern-bearer",
-      "text": "Hallo, Laternenträger! Deine erste Spur ist gerettet.",
-      "speaker": "schaffner",
-      "voice": "qwen3:schaffner"
-    },
-    {
-      "id": "title-schaffner-route-keeper",
-      "text": "Willkommen, Streckenhüter! Du verbindest unsere Städte.",
-      "speaker": "schaffner",
-      "voice": "qwen3:schaffner"
     }
   ]
 }

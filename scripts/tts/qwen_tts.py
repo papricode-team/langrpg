@@ -32,7 +32,7 @@ def sha(*parts):
     return h.hexdigest()[:16]
 
 
-def ffmpeg_to_opus(src_wav, dst_ogg, effect=None, bitrate="24k"):
+def ffmpeg_to_opus(src_wav, dst_ogg, effect=None, bitrate="24k", rate=1):
     """Trim silence, optional effect, loudnorm, mono 24 kHz Ogg Opus (24 kbps keeps speech clear within the audio budget)."""
     trim = ("silenceremove=start_periods=1:start_threshold=-50dB:start_silence=0.08,"
             "areverse,silenceremove=start_periods=1:start_threshold=-50dB:start_silence=0.15,areverse")
@@ -48,7 +48,7 @@ def ffmpeg_to_opus(src_wav, dst_ogg, effect=None, bitrate="24k"):
     elif effect:
         raise SystemExit(f"unknown effect {effect}")
     else:
-        cmd += ["-af", f"{trim},{norm}"]
+        cmd += ["-af", f"{trim},atempo={rate},{norm}"]
     cmd += ["-ac", "1", "-ar", str(SR), "-c:a", "libopus", "-b:a", bitrate, "-application", "voip", str(dst_ogg)]
     subprocess.run(cmd, check=True)
 
@@ -197,7 +197,7 @@ def main(argv=None):
     todo = []
     for j, v, effect in plan:
         clip = out / f"{j['clipId']}.ogg"
-        h = sha(j["text"], voice_hash(v, effect), a.temperature, a.bitrate)
+        h = sha(j["text"], voice_hash(v, effect), a.temperature, a.bitrate, *([j["rate"]] if j.get("rate") else []))
         redo = v in redesign or j["speaker"] in redesign
         if clip.exists() and cache.get(j["clipId"]) == h and not redo:
             continue
@@ -254,10 +254,10 @@ def main(argv=None):
         with tempfile.TemporaryDirectory() as td:
             wav = Path(td) / "raw.wav"
             write_wav(wav, audio, cm.sample_rate)
-            ffmpeg_to_opus(wav, clip, effect, a.bitrate)
+            ffmpeg_to_opus(wav, clip, effect, a.bitrate, j.get("rate", 1))
         el = time.time() - t0
         tot_audio += dur; tot_time += el
-        cache[j["clipId"]] = sha(j["text"], voice_hash(v, effect), a.temperature, a.bitrate)  # recomputed: reference may have just been designed
+        cache[j["clipId"]] = sha(j["text"], voice_hash(v, effect), a.temperature, a.bitrate, *([j["rate"]] if j.get("rate") else []))  # recomputed: reference may have just been designed
         cache_file.write_text(json.dumps(cache, indent=1, sort_keys=True))
         log(f"[{i}/{len(todo)}] {j['clipId']} ({j['speaker']}) {dur:.1f}s audio in {el:.1f}s (RTF {el/max(dur,1e-6):.2f})")
     log(f"done: {tot_audio:.0f}s audio in {tot_time:.0f}s (RTF {tot_time/max(tot_audio,1e-6):.2f})")

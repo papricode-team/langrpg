@@ -1,3 +1,4 @@
+import { storyQuestId, storyQuestComplete } from './prologue-progress';
 import { animalAction, animalSpeciesFromId } from './animal-behavior';
 import { mountSupportBanner } from './support-session';
 import { startAnalytics, trackAnalytics, browserAnalyticsEnabled, setBrowserAnalyticsEnabled } from './analytics-client';
@@ -739,7 +740,7 @@ function updateProgress() {
   }
   if (interiorId?.startsWith('train-')) {
     const next = nextPrologueQuest();
-    document.querySelector('#quest-panel')!.innerHTML = `<div class="prologue-actions"><span>${t('Prologue')}</span><button class="primary-button" data-action="prologue">${next ? e(localized(next.title)) : t('Arrive in Lindenhafen')}</button><button class="text-button" data-action="prologue-sounds">${t('Letters and sounds')}</button><button class="text-button" data-action="leave-interior">${t('Return to the town')}</button>${prologuePracticeStatus()}<details><summary>${t('Prologue: the night train')}</summary>${quests.filter(q=>q.level==='A0' && questAvailable(q.id,progress)).map(q=>`<button class="text-button" data-follow-quest="${e(q.id)}">${e(localized(q.title))}</button>`).join('')}</details></div>`;
+    document.querySelector('#quest-panel')!.innerHTML = `<div class="prologue-actions"><span>${t('Prologue')}</span><button class="primary-button" data-action="prologue">${next ? e(localized(next.title)) : t('Arrive in Lindenhafen')}</button><button class="text-button" data-action="prologue-sounds">${t('Letters and sounds')}</button><button class="text-button" data-action="leave-interior">${storyQuestComplete(progress.completedQuestIds, 'a0-morgen') ? t('Return to the town') : t('Other train room')}</button>${prologuePracticeStatus()}<details><summary>${t('Prologue: the night train')}</summary>${quests.filter(q=>q.level==='A0' && questAvailable(q.id,progress)).map(q=>`<button class="text-button" data-follow-quest="${e(q.id)}">${e(localized(q.title))}</button>`).join('')}</details></div>`;
     return;
   }
   const q = currentQuest();
@@ -966,7 +967,7 @@ function onRegionReady(id: MapId) {
   }
   if (cinematicActive) return;
   if (!worldCanInteract()) return;
-  if (pendingPrologue || !prologueBooted && localStorage.getItem(`atlas.prologue.${api.selfId}`) === 'true' && !progress.completedQuestIds.includes('a0-morgen')) {
+  if (pendingPrologue || !prologueBooted && localStorage.getItem(`atlas.prologue.${api.selfId}`) === 'true' && !storyQuestComplete(progress.completedQuestIds, 'a0-morgen')) {
     const target = pendingPrologue; pendingPrologue = undefined; prologueBooted = true;
     void startPrologue(target); return;
   }
@@ -1691,8 +1692,8 @@ function showPrologueSounds(onClose?: () => void) {
   mountSoundsBoard(document.querySelector<HTMLElement>('#prologue-sounds')!, {silent:silentMode, speak:(text,clip)=>speak(text,'narrator',clip), onClose:()=>{document.querySelector<HTMLDialogElement>('#dialog')!.close();onClose?.();}});
 }
 async function startPrologue(id?: string) {
-  if (!id && interiorId?.startsWith('train-') && progress.completedQuestIds.includes('a0-morgen')) { world.leaveInterior(); startQuest('a1-arrival'); return; }
-  const quest = id ? quests.find(q=>q.id===id) : nextPrologueQuest() ?? quests.find(q=>q.id==='a0-ticket'); if (!quest) return;
+  if (!id && interiorId?.startsWith('train-') && storyQuestComplete(progress.completedQuestIds, 'a0-morgen')) { world.leaveInterior(); startQuest(storyQuestId('a1-arrival')); return; }
+  const quest = id ? quests.find(q=>q.id===id) : nextPrologueQuest() ?? quests.find(q=>q.id===storyQuestId('a0-ticket')); if (!quest) return;
   if (!questAvailable(quest.id, progress)) return;
   if (mapId !== 'lindenhafen') { pendingPrologue = quest.id; travelMap('lindenhafen'); return; }
   if (!localStorage.getItem(`atlas.sounds.${api.selfId}`)) {
@@ -1708,13 +1709,16 @@ async function startPrologue(id?: string) {
       if (!api.joinInterior(room)) { pendingPrologueRoom = undefined; toast(t('The building is reconnecting. Please try again in a moment.'),true); }
       return;
     }
+    if (quest.id === storyQuestId('a0-wo') && !progress.story?.nodes[quest.id]) toast(t('You need the toilet. Ask the conductor.'));
     await questController?.open(quest.id);
   } catch(error) {toast((error as Error).message,true);}
 }
 async function continuePrologue(id: string) {
   const graph = await loadQuestGraph(id); if (!graph) return;
-  const evidence = graph.investigations.find(item=>!(progress.story?.inspections[id]??[]).includes(item.objectId));
-  if (evidence) await questController?.inspect(id,evidence.objectId);
+  const cursor = progress.story?.nodes[id] ?? 'intro';
+  const stage = graph.nodes.find(node => node.id === cursor)?.stage ?? cursor;
+  const evidence = graph.investigations.find(item=>!graph.optionalInvestigations?.includes(item.objectId) && (stage === 'choice' ? graph.completionInvestigations?.includes(item.objectId) : !graph.completionInvestigations?.includes(item.objectId)) && !(progress.story?.inspections[id]??[]).includes(item.objectId));
+  if (evidence) { world.setObjective(evidence.worldId ?? evidence.objectId); toast(t('Examine the evidence')); }
   else await questController?.open(id);
 }
 function startQuest(id: string) {
@@ -2116,7 +2120,7 @@ function bindGlobalEvents() {
       case 'profile': showProfile(); break;
       case 'map': openWorldMap(); break;
       case 'talk': if (!world.interactNearest()) toast(t('Move closer to a character or a marked object.')); break;
-      case 'leave-interior': world.leaveInterior(); document.querySelector<HTMLElement>('#world-container')!.focus(); break;
+      case 'leave-interior': if (interiorId?.startsWith('train-') && !storyQuestComplete(progress.completedQuestIds, 'a0-morgen')) { api.joinInterior(interiorId === 'train-compartment' ? 'train-dining' : 'train-compartment'); } else world.leaveInterior(); document.querySelector<HTMLElement>('#world-container')!.focus(); break;
       case 'next-objective': if (view !== 'world') setView('world'); showNextObjective(); break;
       case 'act-intro': setView('world'); showActIntro(mapId); break;
       case 'act-begin': document.querySelector<HTMLDialogElement>('#dialog')!.close(); continueDestination(); break;
@@ -2405,7 +2409,7 @@ async function openUiCheck(surface: string) {
   api.selfId='ui-check';
   const module=await loadCourse();
   const wordIds=surface==='encounter'?[]:(surface==='activity'?module.courseLexicon:module.courseLexicon.filter(word=>word.level==='A1').slice(0,24)).map(word=>word.id);
-  acceptProgress({...emptyProgress(),intake:{version:1,activeSeconds:600,creditSeconds:0,lastBeatAt:new Date().toISOString(),wordIds}},'ui-check');
+  acceptProgress({...emptyProgress(),...(surface === 'prologue-dining' ? {completedQuestIds:['a0-ticket','a0-name','a0-wagen'].map(storyQuestId)} : {}),intake:{version:1,activeSeconds:600,creditSeconds:0,lastBeatAt:new Date().toISOString(),wordIds}},'ui-check');
   started=true; connection='online';
   accessClock.update({phase:'paid',remainingSeconds:0,playedSeconds:600,registered:true,billingAvailable:false,plan:'lifetime'},performance.now());
   profile.name='Wanderer';

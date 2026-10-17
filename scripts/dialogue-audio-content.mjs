@@ -14,9 +14,9 @@ const artifacts=graphs.flatMap(graph=>graph.investigations.map(item=>({german:it
 const grammar=quests.flatMap(quest=>{const note=grammarForQuest(quest.id);return note?[{...note,speaker:quest.npcId}]:[];});
 const initial=emptyStory(),experienced=emptyStory();
 experienced.flags={'quest:b1-work':true,'quest:a2-archive':true};experienced.reputation={brassOffice:3,lamplighters:3,unwritten:3};
-const ambient=npcs.flatMap(npc=>['A1','A2','B1'].flatMap(level=>[initial,experienced].flatMap(state=>residentConversation(npc,level,state))));
+const ambient=npcs.filter(npc=>!npc.prologueOnly).flatMap(npc=>['A1','A2','B1'].flatMap(level=>[initial,experienced].flatMap(state=>residentConversation(npc,level,state))));
 const callbacks=ambientCallbackLines();
-const titles=npcs.flatMap(npc=>['Lantern Bearer','Lamplighter','Route Keeper','Atlas Keeper'].flatMap(title=>earnedTitleGreeting(npc,title)??[]));
+const titles=npcs.filter(npc=>!npc.prologueOnly).flatMap(npc=>['Lantern Bearer','Lamplighter','Route Keeper','Atlas Keeper'].flatMap(title=>earnedTitleGreeting(npc,title)??[]));
 const cinematics=cutsceneKinds.filter(kind=>kind!=='epilogue').flatMap(kind=>cinematicBeats(kind,'lindenhafen').map((beat,index)=>({...beat,speaker:beat.speaker.toLowerCase(),clipId:`cinematic-${kind}-${index}`})));
 cinematics.push(...endingIds.flatMap(ending=>['bell','epilogue'].flatMap(kind=>cinematicBeats(kind,'nebelstadt',ending).map(beat=>({...beat,speaker:beat.speaker.toLowerCase()})))));
 const corpus=new Map();for(const line of [...scenes,...artifacts,...grammar,...ambient,...callbacks,...titles,...cinematics]){

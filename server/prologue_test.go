@@ -111,3 +111,50 @@ func TestProloguePhrasePairsKeepIntakeAndSupportedEvidence(t *testing.T) {
 		}
 	}
 }
+
+func TestPrologueFindingDoorRequiresReplyAndInspection(t *testing.T) {
+	app := storyTestApp(t)
+	token, player := createSession(t, app, "Ada")
+	seedStoryProgress(t, app, token, []string{"a0-ticket", "a0-name", "a0-wagen", "a0-tee"})
+	rule, _ := storyRule("a0-wo")
+	player.InteriorID = rule.InteriorID
+	placeStoryPlayer(app, player, rule.MapID, rule.NPC)
+	inspect := map[string]string{"id": "wc-too-early", "questId": "a0-wo", "objectId": "prologue-wo"}
+	if r := request(app, "POST", "/api/story/inspect", token, inspect); r.Code != 409 {
+		t.Fatalf("door found before asking: %d %s", r.Code, r.Body.String())
+	}
+	if r := request(app, "POST", "/api/story/transition", token, StoryTransitionInput{ID: "wc-intro", QuestID: "a0-wo", NodeID: "intro"}); r.Code != 200 {
+		t.Fatalf("intro required future evidence: %d %s", r.Code, r.Body.String())
+	}
+	// Isolate the finding step; graded-gate proofs are tested by the shared story tests.
+	_, err := app.store.UpdateAccount(context.Background(), tokenHash(token), func(account *Account) error {
+		account.Progress.Story.Nodes["a0-wo"] = "choice"
+		account.Progress.Revision++
+		return nil
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	finish := StoryTransitionInput{ID: "wc-missing", QuestID: "a0-wo", NodeID: "choice", ChoiceID: "continue"}
+	if r := request(app, "POST", "/api/story/transition", token, finish); r.Code != 409 {
+		t.Fatalf("completed without finding door: %d %s", r.Code, r.Body.String())
+	}
+	inspect["id"] = "wc-found"
+	if r := request(app, "POST", "/api/story/inspect", token, inspect); r.Code != 200 {
+		t.Fatalf("door inspection: %d %s", r.Code, r.Body.String())
+	}
+	finish.ID = "wc-finish"
+	if r := request(app, "POST", "/api/story/transition", token, finish); r.Code != 200 {
+		t.Fatalf("found door did not finish: %d %s", r.Code, r.Body.String())
+	}
+}
+
+func TestPrologueGraphPreservesAuthoredInteriorHotspot(t *testing.T) {
+	app := contentTestApp(t)
+	token, _ := createSession(t, app, "Ada")
+	id := testContentID(t, app, "graph", "a0-ticket")
+	r := request(app, "GET", "/api/content/graphs/"+id, token, nil)
+	if r.Code != 200 || !strings.Contains(r.Body.String(), `"worldId":"interior:prologue-ticket"`) {
+		t.Fatalf("interior hotspot lost in public graph: %d %s", r.Code, r.Body.String())
+	}
+}

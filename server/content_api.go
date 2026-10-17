@@ -740,7 +740,9 @@ func (a *App) publicRecordForAccount(record contentstore.Record, account Account
 			id := stringValue(object["objectId"])
 			worldID := a.canonical.Translate(id, false)
 			if worldID != "" {
-				object["worldId"] = worldID
+				if stringValue(object["worldId"]) == "" {
+					object["worldId"] = worldID
+				}
 				object["objectId"] = a.canonical.Translate(worldID, true)
 			}
 		}

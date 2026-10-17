@@ -103,7 +103,7 @@ export class QuestController {
     this.node = nodeForStage(graph, stage); this.index = 0;
     this.options.onOpen(quests.find(q => q.id === questId)?.npcId ?? '');
     const repliesDone = graph.nodes.flatMap(node => node.lines).every(line => !line.reply || state.flags[`reply:${line.reply.exerciseId}`]);
-    if (!this.replay && stage === 'intro' && this.allInspected() && repliesDone) {
+    if (!this.replay && stage === 'intro' && graph.investigations.some(item => !graph.completionInvestigations?.includes(item.objectId) && !graph.optionalInvestigations?.includes(item.objectId)) && this.allInspected() && repliesDone) {
       await this.transition('intro');
       if (generation !== this.generation || this.graph !== graph) return;
       if (this.error) this.index = dialogueLines(this.node!,state).length-1;
@@ -140,7 +140,7 @@ export class QuestController {
     return (this.options.games?.(npcId) ?? []).slice(0, 2).map((game, index) => ({ id: `game:${game.id}`, german: lines[index], english: t('Play {game}', { game: game.title }), next: '', effects: [] }));
   }
   private allInspected() {
-    return this.graph!.investigations.every(item => (this.options.progress().story?.inspections?.[this.graph!.questId] ?? []).includes(item.objectId));
+    return this.graph!.investigations.filter(item => !this.graph!.completionInvestigations?.includes(item.objectId) && !this.graph!.optionalInvestigations?.includes(item.objectId)).every(item => (this.options.progress().story?.inspections?.[this.graph!.questId] ?? []).includes(item.objectId));
   }
   private hint() { this.hinted = true; if (this.graph && this.graph.gateKind !== 'name' && !this.replay) this.options.expose(this.graph.gateExerciseId); }
   private translationVisible(line: DialogueLine): boolean {
@@ -393,6 +393,9 @@ export class QuestController {
     const source = dialogueLines(this.node, storyState(this.options.progress().story))[this.index];
     if (!this.replay && source?.reply && !this.options.progress().story?.flags[`reply:${source.reply.exerciseId}`]) {
       await this.reply(id, source); return;
+    }
+    if (!this.replay && this.node.stage === 'choice' && this.graph.completionInvestigations?.some(objectId => !(this.options.progress().story?.inspections[this.graph!.questId] ?? []).includes(objectId))) {
+      const graph = this.graph; this.close(); this.options.onInvestigate(graph); return;
     }
     const choice = dialogueChoices(this.node, storyState(this.options.progress().story)).find(choice => choice.id === id); if (!choice) return;
     const graph = this.graph, generation = this.generation;

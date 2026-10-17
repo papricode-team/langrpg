@@ -5,7 +5,7 @@ import { worldPeriod } from './world-clock';
 const towns = ['lindenhafen', 'waldruh', 'nebelstadt'] as const;
 const names = [...towns.flatMap(id => [`music-${id}`,`music-${id}-night`]), ...towns.map(id => `ambience-${id}`), 'step-stone', 'step-wood', 'door', 'bell'];
 export function loadWorldAudio(scene: Phaser.Scene) {
-  for (const name of ['wheels','whistle','door','brakes','cup']) scene.load.audio(`world-train-${name}`, `/audio/ui/train-${name}.ogg`);
+  for (const name of ['wheels','whistle','door','brakes','cup','punch']) scene.load.audio(`world-train-${name}`, `/audio/ui/train-${name}.ogg`);
   for (const name of names) scene.load.audio(`world-${name}`, `/audio/world/${name}.ogg`);
 }
 interface Sound {
@@ -74,7 +74,7 @@ export class WorldAudio {
     this.stepDistance += distance;
     if (this.stepDistance >= 25) { this.stepDistance %= 25; this.effect(indoor ? 'step-wood' : 'step-stone', .11); }
   }
-  effect(name: 'step-stone' | 'step-wood' | 'door' | 'bell' | 'train-door' | 'train-cup' | 'train-brakes' | 'train-whistle', volume = .25) {
+  effect(name: 'step-stone' | 'step-wood' | 'door' | 'bell' | 'train-door' | 'train-cup' | 'train-brakes' | 'train-whistle' | 'train-punch', volume = .25) {
     const key = `world-${name}`;
     if (!this.quiet && this.visible && this.scene.cache.audio.exists(key)) this.scene.sound.play(key, { volume });
   }

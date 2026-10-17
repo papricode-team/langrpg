@@ -30,6 +30,7 @@ export interface Exercise {
 }
 export interface Quest {
   id: string;
+  worldId?: string;
   level: Level;
   title: string;
   subtitle: string;
@@ -43,6 +44,7 @@ export interface Quest {
   practiceExerciseIds?: string[];
 }
 export interface NPC {
+  prologueOnly?: boolean;
   id: string;
   name: string;
   role: string;

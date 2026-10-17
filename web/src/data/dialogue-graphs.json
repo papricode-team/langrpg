@@ -5,7 +5,7 @@
     "start": "intro",
     "gateExerciseId": "a0-ticket-exercise-1",
     "evidenceItem": "a0-ticket-evidence",
-    "gatePrompt": "Choose the reply you have just heard.",
+    "gatePrompt": "He is asking for your ticket. Hand it over.",
     "interiorId": "train-compartment",
     "practiceGame": "echo-bells",
     "allowedWords": [
@@ -14,13 +14,14 @@
       "danke",
       "die",
       "fahrkarte",
+      "gut",
       "guten"
     ],
     "investigations": [
       {
         "objectId": "prologue-ticket",
-        "german": "Guten Abend.",
-        "english": "Good evening.",
+        "german": "Fahrkarte. Lindenhafen.",
+        "english": "Ticket. Lindenhafen.",
         "worldId": "interior:prologue-ticket"
       }
     ],
@@ -46,30 +47,9 @@
           {
             "id": "a0-ticket-1",
             "speaker": "schaffner",
-            "german": "Fahrkarte, bitte.",
-            "english": "Ticket, please.",
+            "german": "Die Fahrkarte, bitte.",
+            "english": "The ticket, please.",
             "clipId": "dialogue-a0-ticket-1"
-          },
-          {
-            "id": "a0-ticket-2",
-            "speaker": "schaffner",
-            "german": "Bitte.",
-            "english": "Here you are.",
-            "clipId": "dialogue-a0-ticket-2"
-          },
-          {
-            "id": "a0-ticket-3",
-            "speaker": "schaffner",
-            "german": "Danke.",
-            "english": "Thank you.",
-            "clipId": "dialogue-a0-ticket-3"
-          },
-          {
-            "id": "a0-ticket-4",
-            "speaker": "schaffner",
-            "german": "Die Fahrkarte.",
-            "english": "The ticket.",
-            "clipId": "dialogue-a0-ticket-4"
           }
         ],
         "next": "gate"
@@ -81,8 +61,8 @@
           {
             "id": "a0-ticket-gate",
             "speaker": "schaffner",
-            "german": "Guten Abend.",
-            "english": "Good evening.",
+            "german": "Die Fahrkarte, bitte.",
+            "english": "The ticket, please.",
             "clipId": "dialogue-a0-ticket-gate"
           }
         ],
@@ -96,22 +76,25 @@
           {
             "id": "a0-ticket-choice",
             "speaker": "schaffner",
-            "german": "Bitte.",
-            "english": "Here you are.",
+            "german": "Danke.",
+            "english": "Thank you.",
             "clipId": "dialogue-a0-ticket-choice"
+          },
+          {
+            "id": "a0-ticket-choice-1",
+            "speaker": "schaffner",
+            "german": "Lindenhafen! Gut.",
+            "english": "Lindenhafen! Good.",
+            "clipId": "dialogue-a0-ticket-choice-1"
           }
         ],
         "choices": [
           {
             "id": "continue",
-            "german": "Bitte.",
-            "english": "Here you are.",
+            "german": "Danke.",
+            "english": "Thank you.",
             "next": "complete",
-            "effects": [
-              {
-                "flag": "a0-ticket-remembered"
-              }
-            ]
+            "effects": []
           }
         ]
       },
@@ -122,8 +105,8 @@
           {
             "id": "a0-ticket-complete",
             "speaker": "schaffner",
-            "german": "Die Fahrkarte.",
-            "english": "The ticket.",
+            "german": "Danke.",
+            "english": "Thank you.",
             "clipId": "dialogue-a0-ticket-complete"
           }
         ],
@@ -141,15 +124,23 @@
     "interiorId": "train-compartment",
     "practiceGame": "night-train",
     "allowedWords": [
+      "bleibt",
+      "danke",
+      "der",
+      "fahrkarte",
+      "gut",
       "heiße",
+      "heißen",
       "ich",
-      "name"
+      "name",
+      "sie",
+      "wie"
     ],
     "investigations": [
       {
         "objectId": "prologue-name",
-        "german": "Name.",
-        "english": "Name.",
+        "german": "Fahrkarte. Lindenhafen.",
+        "english": "Ticket. Lindenhafen. The name has faded.",
         "worldId": "interior:prologue-name"
       }
     ],
@@ -168,23 +159,16 @@
           {
             "id": "a0-name-0",
             "speaker": "schaffner",
-            "german": "Name?",
-            "english": "Your name?",
+            "german": "Der Name!",
+            "english": "The name!",
             "clipId": "dialogue-a0-name-0"
           },
           {
             "id": "a0-name-1",
             "speaker": "schaffner",
-            "german": "Ich heiße {name}.",
-            "english": "My name is {name}.",
+            "german": "Wie heißen Sie?",
+            "english": "What is your name?",
             "clipId": "dialogue-a0-name-1"
-          },
-          {
-            "id": "a0-name-2",
-            "speaker": "schaffner",
-            "german": "Name.",
-            "english": "Name.",
-            "clipId": "dialogue-a0-name-2"
           }
         ],
         "next": "gate"
@@ -196,8 +180,8 @@
           {
             "id": "a0-name-gate",
             "speaker": "schaffner",
-            "german": "Name?",
-            "english": "Your name?",
+            "german": "Wie heißen Sie?",
+            "english": "What is your name?",
             "clipId": "dialogue-a0-name-gate"
           }
         ],
@@ -211,22 +195,25 @@
           {
             "id": "a0-name-choice",
             "speaker": "schaffner",
-            "german": "Ich heiße {name}.",
-            "english": "My name is {name}.",
-            "clipId": "dialogue-a0-name-choice"
+            "german": "{name}. Gut.",
+            "english": "{name}. Good.",
+            "clipId": ""
+          },
+          {
+            "id": "a0-name-choice-1",
+            "speaker": "schaffner",
+            "german": "Der Name bleibt.",
+            "english": "The name stays.",
+            "clipId": "dialogue-a0-name-choice-1"
           }
         ],
         "choices": [
           {
             "id": "continue",
-            "german": "Ich heiße {name}.",
-            "english": "My name is {name}.",
+            "german": "Danke.",
+            "english": "Thank you.",
             "next": "complete",
-            "effects": [
-              {
-                "flag": "a0-name-remembered"
-              }
-            ]
+            "effects": []
           }
         ]
       },
@@ -237,9 +224,9 @@
           {
             "id": "a0-name-complete",
             "speaker": "schaffner",
-            "german": "Name.",
-            "english": "Name.",
-            "clipId": "dialogue-a0-name-complete"
+            "german": "Danke, {name}.",
+            "english": "Thank you, {name}.",
+            "clipId": ""
           }
         ],
         "terminal": true
@@ -253,14 +240,17 @@
     "start": "intro",
     "gateExerciseId": "a0-wagen-exercise-1",
     "evidenceItem": "a0-wagen-evidence",
-    "gatePrompt": "Choose the reply you have just heard.",
+    "gatePrompt": "Which carriage are you in? Look at the door.",
     "interiorId": "train-compartment",
     "practiceGame": "numbered-apples",
     "allowedWords": [
+      "bitte",
+      "danke",
       "drei",
-      "ein",
       "eins",
       "fünf",
+      "gut",
+      "ja",
       "sechs",
       "sieben",
       "vier",
@@ -270,8 +260,8 @@
     "investigations": [
       {
         "objectId": "prologue-wagen",
-        "german": "eins, zwei, drei",
-        "english": "one, two, three",
+        "german": "Wagen sieben.",
+        "english": "Carriage seven.",
         "worldId": "interior:prologue-wagen"
       }
     ],
@@ -290,37 +280,30 @@
           {
             "id": "a0-wagen-0",
             "speaker": "schaffner",
-            "german": "eins, zwei, drei",
-            "english": "one, two, three",
+            "german": "Eins. Zwei. Drei.",
+            "english": "One. Two. Three.",
             "clipId": "dialogue-a0-wagen-0"
           },
           {
             "id": "a0-wagen-1",
             "speaker": "schaffner",
-            "german": "vier, fünf, sechs",
-            "english": "four, five, six",
+            "german": "Vier. Fünf. Sechs.",
+            "english": "Four. Five. Six.",
             "clipId": "dialogue-a0-wagen-1"
           },
           {
             "id": "a0-wagen-2",
             "speaker": "schaffner",
-            "german": "sieben",
-            "english": "seven",
+            "german": "Sieben.",
+            "english": "Seven.",
             "clipId": "dialogue-a0-wagen-2"
           },
           {
             "id": "a0-wagen-3",
             "speaker": "schaffner",
-            "german": "Wagen sieben.",
-            "english": "Carriage seven.",
+            "german": "Wagen sieben, bitte.",
+            "english": "Carriage seven, please.",
             "clipId": "dialogue-a0-wagen-3"
-          },
-          {
-            "id": "a0-wagen-4",
-            "speaker": "schaffner",
-            "german": "Ein Wagen.",
-            "english": "A carriage.",
-            "clipId": "dialogue-a0-wagen-4"
           }
         ],
         "next": "gate"
@@ -332,8 +315,8 @@
           {
             "id": "a0-wagen-gate",
             "speaker": "schaffner",
-            "german": "eins, zwei, drei",
-            "english": "one, two, three",
+            "german": "Wagen sieben?",
+            "english": "Carriage seven?",
             "clipId": "dialogue-a0-wagen-gate"
           }
         ],
@@ -347,22 +330,18 @@
           {
             "id": "a0-wagen-choice",
             "speaker": "schaffner",
-            "german": "sieben",
-            "english": "seven",
+            "german": "Ja. Wagen sieben.",
+            "english": "Yes. Carriage seven.",
             "clipId": "dialogue-a0-wagen-choice"
           }
         ],
         "choices": [
           {
             "id": "continue",
-            "german": "sieben",
-            "english": "seven",
+            "german": "Danke.",
+            "english": "Thank you.",
             "next": "complete",
-            "effects": [
-              {
-                "flag": "a0-wagen-remembered"
-              }
-            ]
+            "effects": []
           }
         ]
       },
@@ -373,8 +352,8 @@
           {
             "id": "a0-wagen-complete",
             "speaker": "schaffner",
-            "german": "Ein Wagen.",
-            "english": "A carriage.",
+            "german": "Gut.",
+            "english": "Good.",
             "clipId": "dialogue-a0-wagen-complete"
           }
         ],
@@ -388,21 +367,28 @@
     "start": "intro",
     "gateExerciseId": "a0-tee-exercise-1",
     "evidenceItem": "a0-tee-evidence",
-    "gatePrompt": "Choose the reply you have just heard.",
+    "gatePrompt": "You would like tea. Order it.",
     "interiorId": "train-dining",
     "practiceGame": "echo-bells",
     "allowedWords": [
+      "abend",
       "bitte",
       "danke",
+      "der",
       "einen",
+      "guten",
+      "ja",
+      "kaffee",
+      "milch",
       "nein",
+      "oder",
       "tee"
     ],
     "investigations": [
       {
         "objectId": "prologue-tee",
-        "german": "Tee?",
-        "english": "Tea?",
+        "german": "Tee. Kaffee.",
+        "english": "Tea. Coffee.",
         "worldId": "interior:prologue-tee"
       }
     ],
@@ -421,23 +407,16 @@
           {
             "id": "a0-tee-0",
             "speaker": "schaffner",
-            "german": "Tee?",
-            "english": "Tea?",
+            "german": "Guten Abend.",
+            "english": "Good evening.",
             "clipId": "dialogue-a0-tee-0"
           },
           {
             "id": "a0-tee-1",
             "speaker": "schaffner",
-            "german": "Einen Tee, bitte.",
-            "english": "A tea, please.",
+            "german": "Tee oder Kaffee?",
+            "english": "Tea or coffee?",
             "clipId": "dialogue-a0-tee-1"
-          },
-          {
-            "id": "a0-tee-3",
-            "speaker": "schaffner",
-            "german": "Nein, danke.",
-            "english": "No, thank you.",
-            "clipId": "dialogue-a0-tee-3"
           }
         ],
         "next": "gate"
@@ -449,8 +428,8 @@
           {
             "id": "a0-tee-gate",
             "speaker": "schaffner",
-            "german": "Tee?",
-            "english": "Tea?",
+            "german": "Tee oder Kaffee?",
+            "english": "Tea or coffee?",
             "clipId": "dialogue-a0-tee-gate"
           }
         ],
@@ -464,22 +443,25 @@
           {
             "id": "a0-tee-choice",
             "speaker": "schaffner",
-            "german": "Einen Tee, bitte.",
-            "english": "A tea, please.",
+            "german": "Milch?",
+            "english": "Milk?",
             "clipId": "dialogue-a0-tee-choice"
           }
         ],
         "choices": [
           {
             "id": "continue",
-            "german": "Einen Tee, bitte.",
-            "english": "A tea, please.",
+            "german": "Ja, bitte.",
+            "english": "Yes, please.",
             "next": "complete",
-            "effects": [
-              {
-                "flag": "a0-tee-remembered"
-              }
-            ]
+            "effects": []
+          },
+          {
+            "id": "no-milk",
+            "german": "Nein, danke.",
+            "english": "No, thank you.",
+            "next": "complete",
+            "effects": []
           }
         ]
       },
@@ -490,8 +472,8 @@
           {
             "id": "a0-tee-complete",
             "speaker": "schaffner",
-            "german": "Nein, danke.",
-            "english": "No, thank you.",
+            "german": "Bitte. Der Tee.",
+            "english": "Here you are. The tea.",
             "clipId": "dialogue-a0-tee-complete"
           }
         ],
@@ -505,13 +487,18 @@
     "start": "intro",
     "gateExerciseId": "a0-wo-exercise-1",
     "evidenceItem": "a0-wo-evidence",
-    "gatePrompt": "Choose the reply you have just heard.",
+    "gatePrompt": "Ask where the toilet is.",
     "interiorId": "train-dining",
     "practiceGame": "lantern-pairs",
     "allowedWords": [
+      "ausgang",
+      "da",
+      "danke",
+      "der",
       "die",
-      "hier",
       "ist",
+      "ja",
+      "tee",
       "toilette",
       "wo"
     ],
@@ -521,11 +508,17 @@
         "german": "Die Toilette.",
         "english": "The toilet.",
         "worldId": "interior:prologue-wo"
+      },
+      {
+        "objectId": "prologue-exit",
+        "worldId": "interior:prologue-exit",
+        "german": "Der Ausgang.",
+        "english": "The exit."
       }
     ],
     "objectives": [
       {
-        "text": "Where is …?",
+        "text": "You need the toilet. Ask the conductor.",
         "location": "The night train",
         "stage": "intro"
       }
@@ -538,23 +531,9 @@
           {
             "id": "a0-wo-0",
             "speaker": "schaffner",
-            "german": "Wo ist …?",
-            "english": "Where is …?",
+            "german": "Ja?",
+            "english": "Yes?",
             "clipId": "dialogue-a0-wo-0"
-          },
-          {
-            "id": "a0-wo-1",
-            "speaker": "schaffner",
-            "german": "Die Toilette.",
-            "english": "The toilet.",
-            "clipId": "dialogue-a0-wo-1"
-          },
-          {
-            "id": "a0-wo-2",
-            "speaker": "schaffner",
-            "german": "Hier.",
-            "english": "Here.",
-            "clipId": "dialogue-a0-wo-2"
           }
         ],
         "next": "gate"
@@ -566,8 +545,8 @@
           {
             "id": "a0-wo-gate",
             "speaker": "schaffner",
-            "german": "Wo ist …?",
-            "english": "Where is …?",
+            "german": "Ja?",
+            "english": "Yes?",
             "clipId": "dialogue-a0-wo-gate"
           }
         ],
@@ -581,22 +560,18 @@
           {
             "id": "a0-wo-choice",
             "speaker": "schaffner",
-            "german": "Wo ist …?",
-            "english": "Where is …?",
+            "german": "Die Toilette? Da.",
+            "english": "The toilet? There.",
             "clipId": "dialogue-a0-wo-choice"
           }
         ],
         "choices": [
           {
             "id": "continue",
-            "german": "Wo ist …?",
-            "english": "Where is …?",
+            "german": "Danke.",
+            "english": "Thank you.",
             "next": "complete",
-            "effects": [
-              {
-                "flag": "a0-wo-remembered"
-              }
-            ]
+            "effects": []
           }
         ]
       },
@@ -607,13 +582,19 @@
           {
             "id": "a0-wo-complete",
             "speaker": "schaffner",
-            "german": "Die Toilette.",
-            "english": "The toilet.",
+            "german": "Da: der Ausgang.",
+            "english": "There: the exit.",
             "clipId": "dialogue-a0-wo-complete"
           }
         ],
         "terminal": true
       }
+    ],
+    "completionInvestigations": [
+      "prologue-wo"
+    ],
+    "optionalInvestigations": [
+      "prologue-exit"
     ]
   },
   {
@@ -622,23 +603,28 @@
     "start": "intro",
     "gateExerciseId": "a0-langsam-exercise-1",
     "evidenceItem": "a0-langsam-evidence",
-    "gatePrompt": "Choose the reply you have just heard.",
+    "gatePrompt": "You did not catch that. Say so.",
     "interiorId": "train-compartment",
     "practiceGame": "lantern-pairs",
     "allowedWords": [
       "bitte",
+      "danke",
       "einmal",
+      "gut",
       "ich",
-      "langsam",
+      "ja",
+      "kommt",
       "nicht",
       "noch",
-      "verstehe"
+      "sie",
+      "verstehe",
+      "verstehen"
     ],
     "investigations": [
       {
         "objectId": "prologue-langsam",
-        "german": "Ich verstehe nicht.",
-        "english": "I do not understand.",
+        "german": "Lindenhafen.",
+        "english": "Lindenhafen.",
         "worldId": "interior:prologue-langsam"
       }
     ],
@@ -657,23 +643,17 @@
           {
             "id": "a0-langsam-0",
             "speaker": "schaffner",
-            "german": "Ich verstehe nicht.",
-            "english": "I do not understand.",
-            "clipId": "dialogue-a0-langsam-0"
+            "german": "Lindenhafen kommt!",
+            "english": "Lindenhafen is coming up!",
+            "clipId": "dialogue-a0-langsam-0",
+            "rate": 1.35
           },
           {
             "id": "a0-langsam-1",
             "speaker": "schaffner",
-            "german": "Langsam, bitte.",
-            "english": "Slowly, please.",
+            "german": "Verstehen Sie?",
+            "english": "Do you understand?",
             "clipId": "dialogue-a0-langsam-1"
-          },
-          {
-            "id": "a0-langsam-2",
-            "speaker": "schaffner",
-            "german": "Noch einmal, bitte.",
-            "english": "Once again, please.",
-            "clipId": "dialogue-a0-langsam-2"
           }
         ],
         "next": "gate"
@@ -685,8 +665,8 @@
           {
             "id": "a0-langsam-gate",
             "speaker": "schaffner",
-            "german": "Ich verstehe nicht.",
-            "english": "I do not understand.",
+            "german": "Verstehen Sie?",
+            "english": "Do you understand?",
             "clipId": "dialogue-a0-langsam-gate"
           }
         ],
@@ -700,8 +680,8 @@
           {
             "id": "a0-langsam-choice",
             "speaker": "schaffner",
-            "german": "Noch einmal, bitte.",
-            "english": "Once again, please.",
+            "german": "Lindenhafen kommt.",
+            "english": "Lindenhafen is coming up.",
             "clipId": "dialogue-a0-langsam-choice"
           }
         ],
@@ -710,12 +690,15 @@
             "id": "continue",
             "german": "Noch einmal, bitte.",
             "english": "Once again, please.",
+            "next": "after-repeat",
+            "effects": []
+          },
+          {
+            "id": "thank-you",
+            "german": "Danke.",
+            "english": "Thank you.",
             "next": "complete",
-            "effects": [
-              {
-                "flag": "a0-langsam-remembered"
-              }
-            ]
+            "effects": []
           }
         ]
       },
@@ -726,12 +709,26 @@
           {
             "id": "a0-langsam-complete",
             "speaker": "schaffner",
-            "german": "Langsam, bitte.",
-            "english": "Slowly, please.",
+            "german": "Gut.",
+            "english": "Good.",
             "clipId": "dialogue-a0-langsam-complete"
           }
         ],
         "terminal": true
+      },
+      {
+        "id": "after-repeat",
+        "stage": "complete",
+        "lines": [
+          {
+            "id": "a0-langsam-repeat",
+            "speaker": "schaffner",
+            "german": "Lindenhafen kommt. Gut?",
+            "english": "Lindenhafen is coming up. All right?",
+            "clipId": "dialogue-a0-langsam-repeat"
+          }
+        ],
+        "next": "complete"
       }
     ]
   },
@@ -741,22 +738,28 @@
     "start": "intro",
     "gateExerciseId": "a0-morgen-exercise-1",
     "evidenceItem": "a0-morgen-evidence",
-    "gatePrompt": "Choose the reply you have just heard.",
+    "gatePrompt": "Say goodbye.",
     "interiorId": "train-compartment",
     "practiceGame": "scrambled-sign",
     "allowedWords": [
       "auf",
+      "bahnsteig",
+      "da",
+      "danke",
       "der",
+      "gut",
       "guten",
+      "ist",
       "morgen",
+      "sieben",
       "wiedersehen",
       "zug"
     ],
     "investigations": [
       {
         "objectId": "prologue-morgen",
-        "german": "Guten Morgen.",
-        "english": "Good morning.",
+        "german": "Lindenhafen. Bahnsteig sieben.",
+        "english": "Lindenhafen. Platform seven.",
         "worldId": "interior:prologue-morgen"
       }
     ],
@@ -782,23 +785,16 @@
           {
             "id": "a0-morgen-1",
             "speaker": "schaffner",
-            "german": "Der Zug.",
-            "english": "The train.",
+            "german": "Der Zug ist da.",
+            "english": "The train is here.",
             "clipId": "dialogue-a0-morgen-1"
           },
           {
             "id": "a0-morgen-2",
             "speaker": "schaffner",
-            "german": "Lindenhafen!",
-            "english": "Lindenhafen!",
+            "german": "Lindenhafen! Bahnsteig sieben.",
+            "english": "Lindenhafen! Platform seven.",
             "clipId": "dialogue-a0-morgen-2"
-          },
-          {
-            "id": "a0-morgen-3",
-            "speaker": "schaffner",
-            "german": "Auf Wiedersehen.",
-            "english": "Goodbye.",
-            "clipId": "dialogue-a0-morgen-3"
           }
         ],
         "next": "gate"
@@ -810,9 +806,9 @@
           {
             "id": "a0-morgen-gate",
             "speaker": "schaffner",
-            "german": "Guten Morgen.",
-            "english": "Good morning.",
-            "clipId": "dialogue-a0-morgen-gate"
+            "german": "Auf Wiedersehen, {name}.",
+            "english": "Goodbye, {name}.",
+            "clipId": ""
           }
         ],
         "gateExerciseId": "a0-morgen-exercise-1",
@@ -825,22 +821,18 @@
           {
             "id": "a0-morgen-choice",
             "speaker": "schaffner",
-            "german": "Auf Wiedersehen.",
-            "english": "Goodbye.",
+            "german": "Gut.",
+            "english": "Good.",
             "clipId": "dialogue-a0-morgen-choice"
           }
         ],
         "choices": [
           {
             "id": "continue",
-            "german": "Auf Wiedersehen.",
-            "english": "Goodbye.",
+            "german": "Danke.",
+            "english": "Thank you.",
             "next": "complete",
-            "effects": [
-              {
-                "flag": "a0-morgen-remembered"
-              }
-            ]
+            "effects": []
           }
         ]
       },
@@ -851,8 +843,8 @@
           {
             "id": "a0-morgen-complete",
             "speaker": "schaffner",
-            "german": "Auf Wiedersehen.",
-            "english": "Goodbye.",
+            "german": "Bahnsteig sieben. Da.",
+            "english": "Platform seven. There.",
             "clipId": "dialogue-a0-morgen-complete"
           }
         ],
@@ -905,11 +897,18 @@
               "correction": {
                 "id": "a1-arrival-greeting-correction",
                 "speaker": "otto",
-                "german": "Guten Morgen!",
-                "english": "Good morning!",
+                "german": "Es ist Morgen. Guten Morgen!",
+                "english": "It is morning. Good morning!",
                 "clipId": "dialogue-a1-arrival-greeting-correction"
               }
             }
+          },
+          {
+            "id": "a1-arrival-intro-1",
+            "speaker": "otto",
+            "german": "Moment. Du kommst von Bahnsteig sieben?",
+            "english": "Hang on. You came in on platform seven?",
+            "clipId": "dialogue-a1-arrival-intro-1"
           },
           {
             "id": "a1-arrival-intro-8",
@@ -919,31 +918,38 @@
             "clipId": "dialogue-a1-arrival-intro-8"
           },
           {
-            "id": "a1-arrival-intro-9-prologue",
+            "id": "a1-arrival-intro-9",
             "speaker": "otto",
-            "german": "Hier: {name}. Bahnsteig sieben. E.",
-            "english": "Here: {name}. Platform seven. E.",
-            "clipId": "dialogue-a1-arrival-intro-9-prologue"
+            "german": "Hier steht {name}. Bahnsteig sieben. Unten: E.",
+            "english": "It says {name}. Platform seven. At the bottom: E.",
+            "clipId": "dialogue-a1-arrival-intro-9"
           },
           {
-            "id": "a1-arrival-intro-11-prologue",
+            "id": "a1-arrival-intro-10",
             "speaker": "otto",
-            "german": "Namen bleiben hier nicht.",
-            "english": "Names do not stay here.",
-            "clipId": "dialogue-a1-arrival-intro-11-prologue"
+            "german": "Sieh! Dein Name geht weg.",
+            "english": "Look! Your name is fading.",
+            "clipId": "dialogue-a1-arrival-intro-10"
           },
           {
-            "id": "a1-arrival-intro-12-prologue",
+            "id": "a1-arrival-intro-12",
             "speaker": "otto",
-            "german": "Sag deinen Namen laut.",
-            "english": "Say your name aloud.",
-            "clipId": "dialogue-a1-arrival-intro-12-prologue"
+            "german": "Sag deinen Namen laut. Dann bleibt er.",
+            "english": "Say your name out loud. Then it stays.",
+            "clipId": "dialogue-a1-arrival-intro-12"
+          },
+          {
+            "id": "a1-arrival-intro-13",
+            "speaker": "otto",
+            "german": "Gut. Siehst du? Er ist wieder schwarz.",
+            "english": "Good. See? The ink is dark again.",
+            "clipId": "dialogue-a1-arrival-intro-13"
           },
           {
             "id": "a1-arrival-intro-14",
             "speaker": "inspector",
-            "german": "Guten Morgen. Voss. Messingamt.",
-            "english": "Good morning. Voss. The Brass Office.",
+            "german": "Guten Morgen. Voss, vom Messingamt.",
+            "english": "Good morning. Voss, from the Brass Office.",
             "clipId": "dialogue-a1-arrival-intro-14",
             "glosses": {
               "messingamt": "Brass Office"
@@ -973,13 +979,13 @@
           {
             "id": "a1-arrival-gate-1",
             "speaker": "inspector",
-            "german": "Fahrkarte-bitte-danke!",
-            "english": "Ticket-please-thank-you!",
+            "german": "Abgeben-bitte-danke!",
+            "english": "Hand-it-over-please-thank-you!",
             "clipId": "dialogue-a1-arrival-gate-1",
             "variants": [
               {
-                "german": "Fahrkarte, bitte. Danke.",
-                "english": "Ticket, please. Thank you.",
+                "german": "Abgeben, bitte. Danke.",
+                "english": "Hand it over, please. Thank you.",
                 "clipId": "dialogue-a1-arrival-gate-1-simple"
               }
             ]
@@ -995,15 +1001,58 @@
           {
             "id": "a1-arrival-choice-0",
             "speaker": "inspector",
-            "german": "Langsam: Die Fahrkarte ist nicht gültig.",
-            "english": "Slowly: the ticket is not valid.",
+            "german": "Gern. Langsam: Ihre Fahrkarte ist nicht gültig.",
+            "english": "Certainly. Slowly: your ticket is not valid.",
             "clipId": "dialogue-a1-arrival-choice-0"
+          },
+          {
+            "id": "a1-arrival-choice-1",
+            "speaker": "inspector",
+            "german": "Bahnsteig sieben steht nicht im Plan.",
+            "english": "Platform seven is not on the timetable.",
+            "clipId": "dialogue-a1-arrival-choice-1"
+          },
+          {
+            "id": "a1-arrival-choice-2",
+            "speaker": "otto",
+            "german": "Der Zug war aber hier. Ich war da.",
+            "english": "But the train was here. I was there.",
+            "clipId": "dialogue-a1-arrival-choice-2"
+          },
+          {
+            "id": "a1-arrival-choice-3",
+            "speaker": "inspector",
+            "german": "Der Plan ist richtig, Herr Otto. Immer.",
+            "english": "The timetable is right, Otto. Always.",
+            "clipId": "dialogue-a1-arrival-choice-3"
+          },
+          {
+            "id": "a1-arrival-choice-4",
+            "speaker": "otto",
+            "german": "Ihr Plan, Herr Voss. Mein Bahnsteig.",
+            "english": "Your timetable, Mr Voss. My platform.",
+            "clipId": "dialogue-a1-arrival-choice-4",
+            "addressedTo": "inspector"
+          },
+          {
+            "id": "a1-arrival-choice-5",
+            "speaker": "inspector",
+            "german": "Die Fahrkarte kommt in mein Buch. Bitte.",
+            "english": "The ticket goes into my ledger. Please.",
+            "clipId": "dialogue-a1-arrival-choice-5"
+          },
+          {
+            "id": "a1-arrival-choice-6",
+            "speaker": "otto",
+            "german": "Oder sie bleibt hier. Bei uns.",
+            "english": "Or it stays here. With us.",
+            "clipId": "dialogue-a1-arrival-choice-6"
           },
           {
             "id": "a1-arrival-choice-7",
             "speaker": "inspector",
-            "german": "Die Fahrkarte, bitte?",
-            "english": "The ticket, please?",
+            "german": "Wer bekommt Ihre Fahrkarte: Otto oder ich?",
+            "english": "Who gets your ticket: Otto or me?",
             "clipId": "dialogue-a1-arrival-choice-7"
           }
         ],
@@ -1054,11 +1103,25 @@
         "stage": "complete",
         "lines": [
           {
-            "id": "a1-arrival-after-report-0-prologue-trim",
+            "id": "a1-arrival-after-report-0",
             "speaker": "inspector",
-            "german": "Danke. Bitte.",
-            "english": "Thank you. Here you are.",
-            "clipId": "dialogue-a1-arrival-after-report-0-prologue-trim"
+            "german": "Danke. Jetzt ist alles in Ordnung.",
+            "english": "Thank you. Now everything is in order.",
+            "clipId": "dialogue-a1-arrival-after-report-0"
+          },
+          {
+            "id": "a1-arrival-after-report-1",
+            "speaker": "inspector",
+            "german": "Mein Buch für Sie. Dort steht alles.",
+            "english": "A copy of my ledger, for you. Everything is in it.",
+            "clipId": "dialogue-a1-arrival-after-report-1"
+          },
+          {
+            "id": "a1-arrival-after-report-2",
+            "speaker": "otto",
+            "german": "Jetzt hat Voss deinen Namen. Sag ihn oft.",
+            "english": "Now Voss has your name. Say it often.",
+            "clipId": "dialogue-a1-arrival-after-report-2"
           }
         ],
         "next": "complete"
@@ -1068,11 +1131,25 @@
         "stage": "complete",
         "lines": [
           {
-            "id": "a1-arrival-after-protect-1-prologue-trim",
+            "id": "a1-arrival-after-protect-0",
+            "speaker": "inspector",
+            "german": "Gut. Ich komme wieder. Mit Formular.",
+            "english": "Fine. I will be back. With a form.",
+            "clipId": "dialogue-a1-arrival-after-protect-0"
+          },
+          {
+            "id": "a1-arrival-after-protect-1",
             "speaker": "otto",
-            "german": "Bitte. Bahnsteig sieben.",
-            "english": "Here you are. Platform seven.",
-            "clipId": "dialogue-a1-arrival-after-protect-1-prologue-trim"
+            "german": "Hier. Mein alter Schlüssel. Für Bahnsteig sieben.",
+            "english": "Here. My old key. For platform seven.",
+            "clipId": "dialogue-a1-arrival-after-protect-1"
+          },
+          {
+            "id": "a1-arrival-after-protect-2",
+            "speaker": "otto",
+            "german": "Sag deinen Namen jeden Tag. Dann bleibt er.",
+            "english": "Say your name every day. Then it stays.",
+            "clipId": "dialogue-a1-arrival-after-protect-2"
           }
         ],
         "next": "complete"
@@ -1082,11 +1159,11 @@
         "stage": "complete",
         "lines": [
           {
-            "id": "a1-arrival-complete-0-prologue-trim",
+            "id": "a1-arrival-complete-0",
             "speaker": "otto",
-            "german": "Marta ist hier.",
-            "english": "Marta is here.",
-            "clipId": "dialogue-a1-arrival-complete-0-prologue-trim"
+            "german": "Du hast Hunger. Geh zu Marta ins Café.",
+            "english": "You are hungry. Go to Marta at the café.",
+            "clipId": "dialogue-a1-arrival-complete-0"
           }
         ],
         "terminal": true
@@ -1099,32 +1176,66 @@
         "english": "Who is Voss?",
         "lines": [
           {
-            "german": "Voss: Messingamt. Namen, Namen, Namen.",
-            "english": "Voss: the Brass Office. Names, names, names.",
-            "id": "a1-arrival-topic-who-voss-0-paced",
+            "id": "a1-arrival-topic-who-voss-0",
             "speaker": "otto",
-            "clipId": "dialogue-a1-arrival-topic-who-voss-0-paced"
+            "german": "Voss ist vom Messingamt. Er hat ein Buch.",
+            "english": "Voss is from the Brass Office. He keeps a ledger.",
+            "clipId": "dialogue-a1-arrival-topic-who-voss-0",
+            "glosses": {
+              "messingamt": "Brass Office"
+            }
+          },
+          {
+            "id": "a1-arrival-topic-who-voss-1",
+            "speaker": "otto",
+            "german": "Dort stehen alle Namen. Sagt er.",
+            "english": "Every name is in it. So he says.",
+            "clipId": "dialogue-a1-arrival-topic-who-voss-1"
+          },
+          {
+            "id": "a1-arrival-topic-who-voss-2",
+            "speaker": "otto",
+            "german": "Er schreibt auch das Wetter auf. Jeden Tag.",
+            "english": "He writes down the weather too. Every day.",
+            "clipId": "dialogue-a1-arrival-topic-who-voss-2"
           }
         ]
       },
       {
         "id": "lantern",
-        "german": "Warum die Laterne?",
-        "english": "Why the lantern?",
+        "german": "Warum machst du die Laterne an?",
+        "english": "Why do you light the lantern?",
         "lines": [
           {
-            "german": "Bahnsteig sieben: zwölf Jahre zu.",
-            "english": "Platform seven: closed for twelve years.",
-            "id": "a1-arrival-topic-lantern-0-paced",
+            "id": "a1-arrival-intro-2",
             "speaker": "otto",
-            "clipId": "dialogue-a1-arrival-topic-lantern-0-paced"
+            "german": "Bahnsteig sieben ist seit zwölf Jahren zu.",
+            "english": "Platform seven has been closed for twelve years.",
+            "clipId": "dialogue-a1-arrival-intro-2"
           },
           {
-            "german": "Zug? Nein. Die Laterne bleibt hier.",
-            "english": "A train? No. The lantern stays here.",
-            "id": "a1-arrival-topic-lantern-1-paced",
+            "id": "a1-arrival-intro-3",
             "speaker": "otto",
-            "clipId": "dialogue-a1-arrival-topic-lantern-1-paced"
+            "german": "Seit zwölf Jahren kommt hier kein Zug.",
+            "english": "No train has stopped here in twelve years.",
+            "clipId": "dialogue-a1-arrival-intro-3"
+          },
+          {
+            "id": "a1-arrival-intro-4",
+            "speaker": "otto",
+            "german": "Aber ich mache jeden Morgen die Laterne an.",
+            "english": "But I still light the lantern every morning.",
+            "clipId": "dialogue-a1-arrival-intro-4",
+            "glosses": {
+              "laterne": "lantern"
+            }
+          },
+          {
+            "id": "a1-arrival-intro-5",
+            "speaker": "otto",
+            "german": "Ordnung ist Ordnung. Auch ohne Zug.",
+            "english": "Rules are rules. Train or no train.",
+            "clipId": "dialogue-a1-arrival-intro-5"
           }
         ]
       },
@@ -1134,18 +1245,18 @@
         "english": "Who is E.?",
         "lines": [
           {
-            "german": "E.? Hier ist dein Name.",
-            "english": "E.? Here is your name.",
-            "id": "a1-arrival-topic-who-e-0-paced",
+            "id": "a1-arrival-topic-who-e-0",
             "speaker": "otto",
-            "clipId": "dialogue-a1-arrival-topic-who-e-0-paced"
+            "german": "Ich weiß es nicht. Nur E.",
+            "english": "I do not know. Just E.",
+            "clipId": "dialogue-a1-arrival-topic-who-e-0"
           },
           {
-            "german": "E. kennt deinen Namen.",
-            "english": "E. knows your name.",
-            "id": "a1-arrival-topic-who-e-1-paced",
+            "id": "a1-arrival-topic-who-e-1",
             "speaker": "otto",
-            "clipId": "dialogue-a1-arrival-topic-who-e-1-paced"
+            "german": "E. kennt deinen Namen. Kennst du E.?",
+            "english": "E. knows your name. Do you know E.?",
+            "clipId": "dialogue-a1-arrival-topic-who-e-1"
           }
         ]
       }
@@ -1153,13 +1264,13 @@
     "investigations": [
       {
         "objectId": "lindenhafen-platform-ticket",
-        "german": "Fahrkarte: {name}. Bahnsteig sieben. E.",
-        "english": "Ticket: {name}. Platform seven. E."
+        "german": "Fahrkarte: {name}. Bahnsteig sieben. Unten: E.",
+        "english": "Ticket: {name}. Platform seven. At the bottom: E."
       },
       {
         "objectId": "lindenhafen-noticeboard",
-        "german": "Bahnsteig eins, zwei, drei, vier, fünf, sechs.",
-        "english": "Platforms one, two, three, four, five, six."
+        "german": "Bahnsteig eins bis sechs. Kein Bahnsteig sieben.",
+        "english": "Platforms one to six. No platform seven."
       }
     ],
     "introducedWords": {

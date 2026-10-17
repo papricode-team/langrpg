@@ -12,8 +12,8 @@
 .prologue-sounds header { padding-right:60px; }
 @media (--phone) {
   #game-shell.prologue-active .quest-tracker { display:block; top:88px; right:12px; left:12px; width:auto; max-width:none; }
-  .prologue-actions { padding:8px 12px; gap:8px; }
-  .prologue-actions>span,.prologue-actions>details,.prologue-actions>[data-action="leave-interior"] { display:none; }
-  .prologue-actions>.primary-button { flex:1; min-width:0; }
-  .prologue-actions>[data-action="prologue-sounds"] { font-size:12px; }
+  .prologue-actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); padding:8px 12px; gap:8px; }
+  .prologue-actions>span,.prologue-actions>details { display:none; }
+  .prologue-actions>.primary-button { grid-column:1 / -1; min-width:0; white-space:normal; }
+  .prologue-actions>.text-button { font-size:12px; min-width:0; white-space:normal; }
 }

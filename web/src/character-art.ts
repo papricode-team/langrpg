@@ -4,12 +4,6 @@ export const NPC_ART = { key: 'town-characters', width: 256, height: 384, bodyHe
 export const PLAYER_ART = { source: 'wanderer-source', width: 192, height: 288, bodyHeight: 246, columns: 8, rows: 5, frameCount: 36, footY: 0.9, idle: 32 };
 export const INTERIOR_CHARACTER_HEIGHT = 132;
 
-/** Upright bodies on a painted perspective floor grow with distance below its horizon. */
-export function perspectiveBodyHeight(height: number, footY: number, perspective?: {horizonY: number; referenceY: number}): number {
-  if (!perspective || perspective.referenceY <= perspective.horizonY) return height;
-  return height * Math.max(.1, (footY - perspective.horizonY) / (perspective.referenceY - perspective.horizonY));
-}
-
 /** Indoor adults share one visible body height, independent of transparent canvas padding. */
 export function characterArtScale(bodyHeight: number, canvasHeight: number, indoors: boolean, indoorHeight = INTERIOR_CHARACTER_HEIGHT): number {
   return indoors ? indoorHeight / bodyHeight : 82 / canvasHeight;

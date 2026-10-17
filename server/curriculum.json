@@ -1983,13 +1983,13 @@
       "id": "a0-ticket-exercise-2",
       "itemId": "a0-ticket-item-2",
       "mode": "recognition",
-      "answer": "Fahrkarte, bitte.",
-      "explanation": "Ticket, please."
+      "answer": "Die Fahrkarte, bitte.",
+      "explanation": "The ticket, please."
     },
     {
       "id": "a0-ticket-exercise-3",
       "itemId": "a0-ticket-item-3",
-      "mode": "recognition",
+      "mode": "listening",
       "answer": "Bitte.",
       "explanation": "Here you are."
     },
@@ -2003,9 +2003,9 @@
     {
       "id": "a0-ticket-exercise-5",
       "itemId": "a0-ticket-item-5",
-      "mode": "recognition",
-      "answer": "Die Fahrkarte.",
-      "explanation": "The ticket."
+      "mode": "listening",
+      "answer": "Guten Abend.",
+      "explanation": "Good evening."
     },
     {
       "id": "a0-ticket-exercise-6",
@@ -2017,107 +2017,107 @@
     {
       "id": "a0-ticket-exercise-7",
       "itemId": "a0-ticket-item-7",
-      "mode": "recognition",
-      "answer": "Fahrkarte, bitte.",
-      "explanation": "Ticket, please."
+      "mode": "production",
+      "answer": "Guten Abend.",
+      "explanation": "Good evening."
     },
     {
       "id": "a0-name-exercise-1",
       "itemId": "a0-name-item-1",
       "mode": "production",
-      "answer": "Name.",
-      "explanation": "Name."
+      "answer": "Ich heiße {name}.",
+      "explanation": "My name is {name}."
     },
     {
       "id": "a0-name-exercise-2",
       "itemId": "a0-name-item-2",
       "mode": "recognition",
-      "answer": "Name.",
-      "explanation": "Name."
+      "answer": "Wie heißen Sie?",
+      "explanation": "What is your name?"
     },
     {
       "id": "a0-name-exercise-3",
       "itemId": "a0-name-item-3",
-      "mode": "recognition",
-      "answer": "Name.",
-      "explanation": "Name."
+      "mode": "listening",
+      "answer": "Der Name bleibt.",
+      "explanation": "The name stays."
     },
     {
       "id": "a0-name-exercise-4",
       "itemId": "a0-name-item-4",
       "mode": "recognition",
-      "answer": "Name?",
-      "explanation": "Name?"
+      "answer": "Der Name!",
+      "explanation": "The name!"
     },
     {
       "id": "a0-name-exercise-5",
       "itemId": "a0-name-item-5",
-      "mode": "recognition",
-      "answer": "Name.",
-      "explanation": "Name."
+      "mode": "listening",
+      "answer": "Wie heißen Sie?",
+      "explanation": "What is your name?"
     },
     {
       "id": "a0-name-exercise-6",
       "itemId": "a0-name-item-6",
       "mode": "recognition",
-      "answer": "Name.",
-      "explanation": "Name."
+      "answer": "Der Name bleibt.",
+      "explanation": "The name stays."
     },
     {
       "id": "a0-name-exercise-7",
       "itemId": "a0-name-item-7",
-      "mode": "recognition",
-      "answer": "Name?",
-      "explanation": "Name?"
+      "mode": "production",
+      "answer": "Der Name!",
+      "explanation": "The name!"
     },
     {
       "id": "a0-wagen-exercise-1",
       "itemId": "a0-wagen-item-1",
       "mode": "production",
-      "answer": "sieben",
-      "explanation": "seven"
+      "answer": "Sieben.",
+      "explanation": "Seven."
     },
     {
       "id": "a0-wagen-exercise-2",
       "itemId": "a0-wagen-item-2",
       "mode": "recognition",
-      "answer": "vier, fünf, sechs",
-      "explanation": "four, five, six"
+      "answer": "Wagen sieben.",
+      "explanation": "Carriage seven."
     },
     {
       "id": "a0-wagen-exercise-3",
       "itemId": "a0-wagen-item-3",
-      "mode": "recognition",
-      "answer": "sieben",
-      "explanation": "seven"
+      "mode": "listening",
+      "answer": "Sieben.",
+      "explanation": "Seven."
     },
     {
       "id": "a0-wagen-exercise-4",
       "itemId": "a0-wagen-item-4",
       "mode": "recognition",
-      "answer": "Wagen sieben.",
-      "explanation": "Carriage seven."
+      "answer": "Drei.",
+      "explanation": "Three."
     },
     {
       "id": "a0-wagen-exercise-5",
       "itemId": "a0-wagen-item-5",
-      "mode": "recognition",
-      "answer": "Ein Wagen.",
-      "explanation": "A carriage."
+      "mode": "listening",
+      "answer": "Wagen sieben, bitte.",
+      "explanation": "Carriage seven, please."
     },
     {
       "id": "a0-wagen-exercise-6",
       "itemId": "a0-wagen-item-6",
       "mode": "recognition",
-      "answer": "eins, zwei, drei",
-      "explanation": "one, two, three"
+      "answer": "Ja. Wagen sieben.",
+      "explanation": "Yes. Carriage seven."
     },
     {
       "id": "a0-wagen-exercise-7",
       "itemId": "a0-wagen-item-7",
-      "mode": "recognition",
-      "answer": "vier, fünf, sechs",
-      "explanation": "four, five, six"
+      "mode": "production",
+      "answer": "Wagen sieben.",
+      "explanation": "Carriage seven."
     },
     {
       "id": "a0-tee-exercise-1",
@@ -2136,9 +2136,9 @@
     {
       "id": "a0-tee-exercise-3",
       "itemId": "a0-tee-item-3",
-      "mode": "recognition",
-      "answer": "Einen Tee, bitte.",
-      "explanation": "A tea, please."
+      "mode": "listening",
+      "answer": "Tee oder Kaffee?",
+      "explanation": "Tea or coffee?"
     },
     {
       "id": "a0-tee-exercise-4",
@@ -2150,70 +2150,70 @@
     {
       "id": "a0-tee-exercise-5",
       "itemId": "a0-tee-item-5",
-      "mode": "recognition",
-      "answer": "Tee?",
-      "explanation": "Tea?"
+      "mode": "listening",
+      "answer": "Ja, bitte.",
+      "explanation": "Yes, please."
     },
     {
       "id": "a0-tee-exercise-6",
       "itemId": "a0-tee-item-6",
       "mode": "recognition",
-      "answer": "Einen Tee, bitte.",
-      "explanation": "A tea, please."
+      "answer": "Einen Kaffee, bitte.",
+      "explanation": "A coffee, please."
     },
     {
       "id": "a0-tee-exercise-7",
       "itemId": "a0-tee-item-7",
-      "mode": "recognition",
-      "answer": "Einen Tee, bitte.",
-      "explanation": "A tea, please."
+      "mode": "production",
+      "answer": "Ja, bitte.",
+      "explanation": "Yes, please."
     },
     {
       "id": "a0-wo-exercise-1",
       "itemId": "a0-wo-item-1",
       "mode": "production",
-      "answer": "Wo ist …?",
-      "explanation": "Where is …?"
+      "answer": "Wo ist die Toilette?",
+      "explanation": "Where is the toilet?"
     },
     {
       "id": "a0-wo-exercise-2",
       "itemId": "a0-wo-item-2",
       "mode": "recognition",
-      "answer": "Die Toilette.",
-      "explanation": "The toilet."
+      "answer": "Wo ist die Toilette?",
+      "explanation": "Where is the toilet?"
     },
     {
       "id": "a0-wo-exercise-3",
       "itemId": "a0-wo-item-3",
-      "mode": "recognition",
-      "answer": "Hier.",
-      "explanation": "Here."
+      "mode": "listening",
+      "answer": "Die Toilette.",
+      "explanation": "The toilet."
     },
     {
       "id": "a0-wo-exercise-4",
       "itemId": "a0-wo-item-4",
       "mode": "recognition",
-      "answer": "Hier.",
-      "explanation": "Here."
+      "answer": "Der Ausgang.",
+      "explanation": "The exit."
     },
     {
       "id": "a0-wo-exercise-5",
       "itemId": "a0-wo-item-5",
-      "mode": "recognition",
-      "answer": "Die Toilette.",
-      "explanation": "The toilet."
+      "mode": "listening",
+      "answer": "Die Toilette? Da.",
+      "explanation": "The toilet? There."
     },
     {
       "id": "a0-wo-exercise-6",
       "itemId": "a0-wo-item-6",
       "mode": "recognition",
-      "answer": "Wo ist …?",
-      "explanation": "Where is …?"
+      "answer": "Wo ist der Tee?",
+      "explanation": "Where is the tea?"
     },
     {
       "id": "a0-wo-exercise-7",
       "itemId": "a0-wo-item-7",
-      "mode": "recognition",
+      "mode": "production",
       "answer": "Die Toilette.",
       "explanation": "The toilet."
     },
@@ -2221,50 +2221,50 @@
       "id": "a0-langsam-exercise-1",
       "itemId": "a0-langsam-item-1",
       "mode": "production",
-      "answer": "Noch einmal, bitte.",
-      "explanation": "Once again, please."
+      "answer": "Ich verstehe nicht.",
+      "explanation": "I do not understand."
     },
     {
       "id": "a0-langsam-exercise-2",
       "itemId": "a0-langsam-item-2",
       "mode": "recognition",
-      "answer": "Langsam, bitte.",
-      "explanation": "Slowly, please."
+      "answer": "Ich verstehe nicht.",
+      "explanation": "I do not understand."
     },
     {
       "id": "a0-langsam-exercise-3",
       "itemId": "a0-langsam-item-3",
-      "mode": "recognition",
-      "answer": "Noch einmal, bitte.",
-      "explanation": "Once again, please."
+      "mode": "listening",
+      "answer": "Verstehen Sie?",
+      "explanation": "Do you understand?"
     },
     {
       "id": "a0-langsam-exercise-4",
       "itemId": "a0-langsam-item-4",
       "mode": "recognition",
-      "answer": "Langsam, bitte.",
-      "explanation": "Slowly, please."
+      "answer": "Noch einmal, bitte.",
+      "explanation": "Once again, please."
     },
     {
       "id": "a0-langsam-exercise-5",
       "itemId": "a0-langsam-item-5",
-      "mode": "recognition",
-      "answer": "Ich verstehe nicht.",
-      "explanation": "I do not understand."
+      "mode": "listening",
+      "answer": "Lindenhafen kommt!",
+      "explanation": "Lindenhafen is coming up!"
     },
     {
       "id": "a0-langsam-exercise-6",
       "itemId": "a0-langsam-item-6",
       "mode": "recognition",
-      "answer": "Langsam, bitte.",
-      "explanation": "Slowly, please."
+      "answer": "Lindenhafen kommt.",
+      "explanation": "Lindenhafen is coming up."
     },
     {
       "id": "a0-langsam-exercise-7",
       "itemId": "a0-langsam-item-7",
-      "mode": "recognition",
-      "answer": "Noch einmal, bitte.",
-      "explanation": "Once again, please."
+      "mode": "production",
+      "answer": "Verstehen Sie?",
+      "explanation": "Do you understand?"
     },
     {
       "id": "a0-morgen-exercise-1",
@@ -2277,15 +2277,15 @@
       "id": "a0-morgen-exercise-2",
       "itemId": "a0-morgen-item-2",
       "mode": "recognition",
-      "answer": "Der Zug.",
-      "explanation": "The train."
+      "answer": "Guten Morgen.",
+      "explanation": "Good morning."
     },
     {
       "id": "a0-morgen-exercise-3",
       "itemId": "a0-morgen-item-3",
-      "mode": "recognition",
-      "answer": "Guten Morgen.",
-      "explanation": "Good morning."
+      "mode": "listening",
+      "answer": "Der Zug ist da.",
+      "explanation": "The train is here."
     },
     {
       "id": "a0-morgen-exercise-4",
@@ -2297,21 +2297,21 @@
     {
       "id": "a0-morgen-exercise-5",
       "itemId": "a0-morgen-item-5",
-      "mode": "recognition",
-      "answer": "Guten Morgen.",
-      "explanation": "Good morning."
+      "mode": "listening",
+      "answer": "Bahnsteig sieben. Da.",
+      "explanation": "Platform seven. There."
     },
     {
       "id": "a0-morgen-exercise-6",
       "itemId": "a0-morgen-item-6",
       "mode": "recognition",
-      "answer": "Der Zug.",
-      "explanation": "The train."
+      "answer": "Gut.",
+      "explanation": "Good."
     },
     {
       "id": "a0-morgen-exercise-7",
       "itemId": "a0-morgen-item-7",
-      "mode": "recognition",
+      "mode": "production",
       "answer": "Guten Morgen.",
       "explanation": "Good morning."
     },

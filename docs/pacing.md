@@ -113,3 +113,10 @@ To change the pace, edit `syllabusDefaults` in `scripts/syllabus.mjs`, rebuild, 
 ## Limits
 
 Intake counts introduced words, not learned ones. The brake uses unaided recognition as the minimum evidence that a word has been met; retention is tracked separately by FSRS per modality. Names, numbers written as digits and story-only glosses are outside the budget. The rate and brake thresholds are design choices awaiting a learner study, not measured optima.
+
+
+## Prologue revision (2026-10-17)
+
+The seven A0 scenes retain individual number intake. Small approved cuts remove `das`, `hier`, the spoken `langsam` label, and `Gute Fahrt`; the normal-speed repetition remains audible. Morning vocabulary coverage is 3.8 hours, with zero new words above budget in every scene. The lexical audit separately excludes the seven numbers from the six-new limit while counting all seven toward the 25-total limit.
+
+Restored arrival measures 74 required-path lexemes and 93 including optional topics with the current conservative mapper. Both figures are reported, not capped. Voss’s fast line, slow repetition and both branches are unchanged from main. `a1-timetable`, `a1-cafe` and `a1-room` remain the next pacing worklist. Story access never waits for intake; the remaining vocabulary practice stays visible.

@@ -11,18 +11,20 @@ import (
 )
 
 type StoryRule struct {
-	InteriorID             string            `json:"interiorId,omitempty"`
-	GateKind               string            `json:"gateKind,omitempty"`
-	QuestID                string            `json:"questId"`
-	GateExerciseID         string            `json:"gateExerciseId"`
-	ReplyExerciseIDs       []string          `json:"replyExerciseIds"`
-	ChoiceIDs              []string          `json:"choiceIds"`
-	MapID                  string            `json:"mapId"`
-	NPCID                  string            `json:"npcId"`
-	NPC                    MapSpawn          `json:"npc"`
-	InvestigationObjectIDs []string          `json:"investigationObjectIds"`
-	Objects                []StoryObject     `json:"objects"`
-	Choices                []StoryChoiceRule `json:"choices"`
+	InteriorID                       string            `json:"interiorId,omitempty"`
+	GateKind                         string            `json:"gateKind,omitempty"`
+	QuestID                          string            `json:"questId"`
+	GateExerciseID                   string            `json:"gateExerciseId"`
+	ReplyExerciseIDs                 []string          `json:"replyExerciseIds"`
+	ChoiceIDs                        []string          `json:"choiceIds"`
+	MapID                            string            `json:"mapId"`
+	NPCID                            string            `json:"npcId"`
+	NPC                              MapSpawn          `json:"npc"`
+	CompletionInvestigationObjectIDs []string          `json:"completionInvestigationObjectIds,omitempty"`
+	OptionalInvestigationObjectIDs   []string          `json:"optionalInvestigationObjectIds,omitempty"`
+	InvestigationObjectIDs           []string          `json:"investigationObjectIds"`
+	Objects                          []StoryObject     `json:"objects"`
+	Choices                          []StoryChoiceRule `json:"choices"`
 	// Locked evidence opens only with the named key, ledger or trust.
 	Locks []StoryLock `json:"locks,omitempty"`
 }
@@ -389,6 +391,9 @@ func (a *App) transitionStory(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 			for _, id := range rule.InvestigationObjectIDs {
+				if contains(rule.CompletionInvestigationObjectIDs, id) || contains(rule.OptionalInvestigationObjectIDs, id) {
+					continue
+				}
 				if !contains(s.Inspections[input.QuestID], id) {
 					return Receipt{}, &APIError{409, "read every piece of evidence in this investigation first"}
 				}
@@ -411,6 +416,11 @@ func (a *App) transitionStory(w http.ResponseWriter, r *http.Request) {
 			}
 			s.Nodes[input.QuestID] = "choice"
 		case "choice":
+			for _, id := range rule.CompletionInvestigationObjectIDs {
+				if !contains(s.Inspections[input.QuestID], id) {
+					return Receipt{}, &APIError{409, "find the requested object before finishing this scene"}
+				}
+			}
 			for _, choice := range rule.Choices {
 				if choice.ID == input.ChoiceID && !choice.Condition.met(s) {
 					return Receipt{}, &APIError{409, "this choice needs the item or trust shown in the conversation"}
@@ -630,8 +640,11 @@ func (a *App) inspectStory(w http.ResponseWriter, r *http.Request) {
 		if err := a.requireQuestAccess(input.QuestID, &account.Progress); err != nil {
 			return Receipt{}, err
 		}
-		if contains(account.Progress.CompletedQuestIDs, input.QuestID) || storyNode(&account.Progress, input.QuestID) != "intro" {
+		if contains(account.Progress.CompletedQuestIDs, input.QuestID) || (storyNode(&account.Progress, input.QuestID) != "intro" && !(storyNode(&account.Progress, input.QuestID) == "choice" && (contains(rule.CompletionInvestigationObjectIDs, input.ObjectID) || contains(rule.OptionalInvestigationObjectIDs, input.ObjectID)))) {
 			return Receipt{}, &APIError{409, "this investigation has already moved on"}
+		}
+		if contains(rule.CompletionInvestigationObjectIDs, input.ObjectID) && storyNode(&account.Progress, input.QuestID) != "choice" {
+			return Receipt{}, &APIError{409, "ask for directions before finding this object"}
 		}
 		if !a.nearStoryRule(account, rule, target, storyEvidenceRange) {
 			return Receipt{}, &APIError{409, "walk to this piece of evidence first"}

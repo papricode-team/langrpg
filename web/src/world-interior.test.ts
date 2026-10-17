@@ -46,15 +46,17 @@ describe('stable interior rendering', () => {
     const {room,sprites}=fixture('train-compartment');
     const ticket=sprites.find(sprite=>sprite.frame==='train-ticket-pale')!;
     const fog=sprites.filter(sprite=>sprite.key==='interior-train-fog');
-    const dawn=sprites.find(sprite=>sprite.key==='dawn')!;
+    const dawn=sprites.filter(sprite=>sprite.key.startsWith('dawn-'));
+    expect(dawn).toHaveLength(getInterior('train-compartment').windowEffects!.length);
+    expect(dawn.map(light=>[light.x,light.y])).toEqual(getInterior('train-compartment').windowEffects!.map(window=>[window.x,window.y]));
     expect(fog).toHaveLength(4);
-    expect(dawn.visible).toBe(false);
+    expect(dawn.every(light=>!light.visible)).toBe(true);
     room.restoreTicket(true); room.setDawn(true); room.update(1,roomView);
-    expect(ticket.frame).toBe('train-ticket-dark'); expect(dawn.visible).toBe(true);
+    expect(ticket.frame).toBe('train-ticket-dark'); expect(dawn.every(light=>light.visible)).toBe(true);
     const frozen=fog.map(sprite=>[...pose(sprite),sprite.alpha]);
     room.setReducedMotion(true); room.update(10,roomView);
     expect(fog.map(sprite=>[...pose(sprite),sprite.alpha])).toEqual(frozen);
-    room.setVisible(false);expect(dawn.visible).toBe(false);
+    room.setVisible(false);expect(dawn.every(light=>!light.visible)).toBe(true);
     room.destroy();expect(fog.every(sprite=>sprite.destroyed)).toBe(true);
   });
   it.each(['cafe', 'bakery', 'supermarket', 'inn'] as const)('keeps %s furniture and its anchors identical throughout an idle cycle', id => {

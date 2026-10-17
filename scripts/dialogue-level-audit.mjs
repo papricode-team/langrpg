@@ -10,13 +10,13 @@ const normalize = word => word.normalize('NFC').toLowerCase();
 const tokens = text => text.replace(/\{[^}]+\}/g, '').match(/\p{L}+/gu) ?? [];
 const contractions = { am: ['an', 'dem'], im: ['in', 'dem'], ins: ['in', 'das'], ans: ['an', 'das'], zum: ['zu', 'dem'], zur: ['zu', 'der'], vom: ['von', 'dem'] };
 
-export function dialogueEntries(graph) {
+export function dialogueEntries(graph, gateTranslations = beginnerGateTranslations) {
   const entries = [];
   for (const node of graph.nodes) {
     for (const line of node.lines) {
       entries.push({ kind: 'line', lineId: line.id, german: line.german, english: line.english });
-      for (const [index, variant] of (line.variants ?? []).entries()) entries.push({ kind: 'variant', lineId: line.id, variant: index + 1, german: variant.german });
-      if (line.reply) entries.push({ kind: 'correction', lineId: line.reply.correction.id, german: line.reply.correction.german });
+      for (const [index, variant] of (line.variants ?? []).entries()) entries.push({ kind: 'variant', lineId: line.id, variant: index + 1, german: variant.german, english: variant.english });
+      if (line.reply) entries.push({ kind: 'correction', lineId: line.reply.correction.id, german: line.reply.correction.german, english: line.reply.correction.english });
     }
     for (const choice of node.choices ?? []) entries.push({ kind: 'choice', lineId: `${node.id}:${choice.id}`, german: choice.german });
   }
@@ -25,6 +25,10 @@ export function dialogueEntries(graph) {
     for (const line of topic.lines) entries.push({ kind: 'line', lineId: line.id, german: line.german });
   }
   for (const item of graph.investigations) entries.push({ kind: 'investigation', lineId: item.objectId, german: item.german });
+  if (graph.level === 'A0') {
+    const replies = graph.gateKind === 'name' ? [['Ich heiße {name}.', 'My name is {name}.']] : gateTranslations[graph.gateExerciseId] ?? [];
+    for (const [index, [german, english]] of replies.entries()) entries.push({kind:'gate-reply',lineId:`gate-reply:${index}`,german,english});
+  }
   return entries;
 }
 
@@ -66,11 +70,11 @@ export function auditDialogueCorpus({ graphs, lexicon, questOrder = graphs.map(g
   // A surname that is also a common word (Frau Berg, der Berg) is a name only after Frau or Herr.
   const names = new Set(properNames.flatMap(name => tokens(name).filter(token => !/^(?:Frau|Herr)\s/u.test(name) || !candidates(token).length)).map(normalize));
   const ordered = questOrder.map(id => graphs.find(graph => graph.questId === id)).filter(Boolean);
-  const errors = [], introductions = [], entries = [], introduced = new Map(), a0Seen = new Set(), a0Errors = [];
+  const errors = [], introductions = [], entries = [], introduced = new Map(), a0Seen = new Set(), a0Errors = [], a0Scenes = [];
   if (ordered.length !== graphs.length || new Set(questOrder).size !== questOrder.length) errors.push('Quest order must include every dialogue graph exactly once');
   for (const graph of ordered) {
     const intro = quests.find(quest => quest.id === graph.questId)?.story ?? [];
-    const graphEntries = [...dialogueEntries(graph), ...intro.map((sentence, index) => ({ kind: 'quest-intro', lineId: `story:${index}`, german: sentence.german }))], newWords = [];
+    const graphEntries = [...dialogueEntries(graph, gateTranslations), ...intro.map((sentence, index) => ({ kind: 'quest-intro', lineId: `story:${index}`, german: sentence.german }))], newWords = [];
     if (graph.level === 'A0') {
       const allowed = new Set((graph.allowedWords ?? []).map(normalize));
       const story = new Set(Object.keys(graph.introducedWords ?? {}).map(normalize));
@@ -88,14 +92,20 @@ export function auditDialogueCorpus({ graphs, lexicon, questOrder = graphs.map(g
 
         }
         for (const id of mapLexemes(entry.german.replace(/\{name\}/gu, ''))) {
-          const word = lexicon.find(word => word.id === id);
-          lexemes.add(word && /^(eins|zwei|drei|vier|fünf|sechs|sieben)$/u.test(normalize(word.lemma)) ? 'numbers-1-7' : id);
+          lexemes.add(id);
         }
         if (surfaces.length > 4) fail(`${entry.lineId}: exceeds the four-word turn limit`);
         const raw = {aboveLevelWords:[],unmappedWords:[],advancedGrammar:[],longSentences:0};
         entries.push({questId:graph.questId,...entry,level:'A0',...raw,resolutions:[],adjusted:{...raw,overlongTurn:surfaces.length > 4}});
       }
-      const fresh = [...lexemes].filter(id => !a0Seen.has(id));
+      const numberIds = new Set(lexicon.filter(word => /^(eins|zwei|drei|vier|fünf|sechs|sieben)$/u.test(normalize(word.lemma))).map(word => word.id));
+      const fresh = [...lexemes].filter(id => !a0Seen.has(id) && !numberIds.has(id));
+      const spoken = graphEntries.filter(entry => ['line','variant','correction'].includes(entry.kind));
+      const replies = graphEntries.filter(entry => entry.kind === 'gate-reply');
+      const novelReplies = replies.filter(reply => !spoken.some(line => normalize(line.german.trim()) === normalize(reply.german.trim())));
+      if (!novelReplies.length) fail('every gate reply is a spoken line; the player must answer');
+      if (spoken.some(line => line.english?.trim() === graph.gatePrompt.trim())) fail('gate prompt repeats a spoken line translation');
+      a0Scenes.push({questId:graph.questId,lexemes:lexemes.size,newLexemes:fresh.length,numbers:[...lexemes].filter(id=>numberIds.has(id)).map(id=>lexicon.find(word=>word.id===id).lemma),novelGateReplies:novelReplies.map(reply=>reply.german)});
       if (fresh.length > 6) fail(`${fresh.length} new lexemes; maximum is 6`);
       if (lexemes.size > 25) fail(`${lexemes.size} total lexemes; maximum is 25`);
       for (const id of lexemes) a0Seen.add(id);
@@ -185,7 +195,7 @@ export function auditDialogueCorpus({ graphs, lexicon, questOrder = graphs.map(g
   }
   return {
     entries, introductions,
-    a0Gate: {passed: a0Errors.length === 0, violations:a0Errors, checkedEntries:entries.filter(entry=>entry.level==='A0').length},
+    a0Gate: {scenes:a0Scenes,passed: a0Errors.length === 0, violations:a0Errors, checkedEntries:entries.filter(entry=>entry.level==='A0').length},
     rawSummary: summarizeInput(entries),
     adjustedSummary: summarizeInput(entries, true),
     actOneGate: { maxNewStoryWordsPerQuest: 2, maxUnapprovedAboveLevelWords: 0, maxUnresolvedWords: 0, maxAdvancedGrammarFlags: 0, maxWordsPerTurn: 16, questWordLimits: beginnerTurnWordLimits, checkedEntries: entries.filter(entry => entry.level === 'A1').length, passed: errors.length === 0, violations: errors },

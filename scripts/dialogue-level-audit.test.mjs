@@ -140,3 +140,20 @@ test('A0 requires approved vocabulary, short turns, translated gates and actual 
   assert.ok(auditDialogueCorpus({...options,graphs:[original],hasClip:()=>false}).a0Gate.violations.some(message=>message.includes('missing clip')));
   assert.ok(auditDialogueCorpus({...options,graphs:[original],gateTranslations:{},hasClip:()=>true}).a0Gate.violations.some(message=>message.includes('gate translations')));
 });
+
+test('A0 requires a player reply that is not a conductor line and a separate task prompt', () => {
+  const graph=structuredClone(graphs.find(g=>g.questId==='a0-ticket'));
+  const audit=()=>auditDialogueCorpus({...options,graphs:[graph],hasClip:()=>true});
+  graph.nodes[0].lines.push({id:'echo',speaker:'schaffner',german:'Bitte.',english:'Here you are.',clipId:'echo'});
+  assert.ok(audit().a0Gate.violations.some(message=>message.includes('reply')));
+  graph.nodes[0].lines.pop();graph.gatePrompt=graph.nodes[0].lines[0].english;
+  assert.ok(audit().a0Gate.violations.some(message=>message.includes('prompt')));
+});
+test('A0 reports seven individual numbers but excludes them from the six-new limit', () => {
+  const selected=graphs.filter(g=>g.level==='A0').slice(0,3);
+  const result=auditDialogueCorpus({...options,graphs:selected,hasClip:()=>true});
+  const wagen=result.a0Gate.scenes.find(g=>g.questId==='a0-wagen');
+  assert.equal(wagen.numbers.length,7);
+  assert.ok(wagen.lexemes>=7);
+  assert.ok(wagen.newLexemes<=6);
+});

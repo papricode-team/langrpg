@@ -54,7 +54,7 @@ describe('conversation scene lifecycle', () => {
     f.click('[data-dialogue-choice="Guten Morgen!"]');
     await vi.waitFor(() => expect(f.api.request).toHaveBeenCalled());
     expect(f.api.request.mock.calls[0]).toMatchObject(['/attempt', { mode: 'recognition', hinted: true }]);
-    await vi.waitFor(() => expect(document.querySelector('.dialogue-line')?.textContent).toContain('Deine Fahrkarte, bitte.'));
+    await vi.waitFor(() => expect(document.querySelector('.dialogue-line')?.textContent).toContain('Moment. Du kommst von Bahnsteig sieben?'));
     expect(document.querySelector('.dialogue-translation')).toBeNull();
     expect(document.querySelector('[data-dialogue-action="translate"]')?.getAttribute('aria-pressed')).toBe('false');
   });
@@ -350,7 +350,7 @@ describe('conversation scene lifecycle', () => {
     const f=fixture(); await f.controller.open('a1-arrival');
     expect(document.querySelector('dialog')).toBeNull();
     f.click('[data-dialogue-choice="Guten Morgen!"]');
-    await vi.waitFor(()=>expect(document.querySelector('.dialogue-line')!.textContent).toContain('Deine Fahrkarte, bitte.'));
+    await vi.waitFor(()=>expect(document.querySelector('.dialogue-line')!.textContent).toContain('Moment. Du kommst von Bahnsteig sieben?'));
     for(let step=0;step<40 && !f.options.onInvestigate.mock.calls.length;step++) press();
     expect(f.options.onInvestigate).toHaveBeenCalledWith(questGraphs.find(graph => graph.questId === 'a1-arrival')!);
     expect(f.api.storyTransition).not.toHaveBeenCalled();
@@ -368,7 +368,7 @@ describe('conversation scene lifecycle', () => {
     expect(document.querySelector('.dialogue-line')?.textContent).toBe('Deine Fahrkarte, bitte.');
     f.options.speak.mockClear(); f.options.stopSpeech.mockClear();
     press();
-    expect(document.querySelector('.dialogue-line')?.textContent).toBe('Hier: 4534Gokay. Bahnsteig sieben. E.');
+    expect(document.querySelector('.dialogue-line')?.textContent).toBe('Hier steht 4534Gokay. Bahnsteig sieben. Unten: E.');
     expect(f.options.speak).not.toHaveBeenCalled();
     expect(f.options.stopSpeech).toHaveBeenCalledOnce();
     expect(document.querySelector('[data-dialogue-action="audio"]')?.getAttribute('aria-pressed')).toBe('true');
@@ -463,7 +463,7 @@ describe('conversation scene lifecycle', () => {
     expect(f.api.storyTransition).not.toHaveBeenCalled();
     expect(f.options.onInvestigate).not.toHaveBeenCalled();
     f.click('[data-dialogue-choice="Guten Morgen!"]');
-    await vi.waitFor(()=>expect(document.querySelector('.dialogue-line')?.textContent).toContain('Deine Fahrkarte, bitte.'));
+    await vi.waitFor(()=>expect(document.querySelector('.dialogue-line')?.textContent).toContain('Moment. Du kommst von Bahnsteig sieben?'));
     expect(f.api.request.mock.calls[1]).toMatchObject(['/attempt',{answer:'Guten Morgen!',mode:'recognition',hinted:true,sceneAttempt:true}]);
   });
   it('clears a greeting correction before showing physical evidence', async () => {
@@ -552,7 +552,7 @@ describe('conversation scene lifecycle', () => {
     clock.mockReturnValue(9500); submit();
     await vi.waitFor(() => expect(f.api.request).toHaveBeenCalledTimes(2));
     expect(f.api.request.mock.calls[1]).toEqual(original);
-    if (mode === 'recognition') await vi.waitFor(() => expect(document.querySelector('.dialogue-line')?.textContent).toContain('Deine Fahrkarte, bitte.'));
+    if (mode === 'recognition') await vi.waitFor(() => expect(document.querySelector('.dialogue-line')?.textContent).toContain('Moment. Du kommst von Bahnsteig sieben?'));
     else await vi.waitFor(() => expect(f.progress.story!.nodes['a1-arrival']).toBe('choice'));
   });
   it('replays a completed scene without awarding items or submitting answers again', async () => {
@@ -715,7 +715,7 @@ describe('pre-A1 train support', () => {
   it('shows meanings, offers slow replay and never opens a keyboard for the ticket gate', async () => {
     const f = fixture('gate', 'a0-ticket');
     await f.controller.open('a0-ticket');
-    expect(document.querySelector('.dialogue-translation')?.textContent).toContain('Good evening');
+    expect(document.querySelector('.dialogue-translation')?.textContent).toContain('The ticket, please.');
     expect(f.options.speak).toHaveBeenCalled();
     expect(document.querySelector('input, textarea')).toBeNull();
     expect(document.querySelectorAll('[data-dialogue-choice]')).toHaveLength(2);

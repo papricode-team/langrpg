@@ -99,6 +99,18 @@ try {
       });
       if (!measurement.visibleText) failures.push(`${viewport.name}/${surface}: No visible text was measured.`);
       for (const issue of measurement.belowFloor) failures.push(`${viewport.name}/${surface}: ${issue.fontSize}px ${issue.tag}.${issue.className} "${issue.text}"`);
+      if (surface === 'prologue' || surface === 'prologue-dining') {
+        const backdrop = await page.evaluate(() => {
+          const scene = window.atlasGame?.scene.getScene('interior');
+          const controls = [...document.querySelectorAll('.prologue-actions > button')].map(button => {
+            const bounds = button.getBoundingClientRect();
+            return {text: button.textContent, inside: bounds.x >= 0 && bounds.right <= innerWidth && bounds.bottom <= innerHeight && button.scrollWidth <= button.clientWidth + 1};
+          });
+          return {player: !!scene?.local, navigation: !!scene?.navigation, backdrop: scene?.spec.presentation === 'backdrop', controls};
+        });
+        if (!backdrop.backdrop || backdrop.player || backdrop.navigation) failures.push(`${viewport.name}/${surface}: Train backdrop spawned a player or navigation.`);
+        for (const control of backdrop.controls) if (!control.inside) failures.push(`${viewport.name}/${surface}: Control overflows: ${control.text}`);
+      }
       const primarySelector = surface === 'home' ? '.journey-hero .primary-button' : surface === 'encounter' ? '.interior-primary' : surface === 'activity' ? '.activity-primary' : undefined;
       if (primarySelector) {
         const bounds = await page.locator(primarySelector).boundingBox();

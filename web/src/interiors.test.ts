@@ -67,6 +67,11 @@ describe('enterable learning spaces', () => {
 
   it('keeps room arrival, every conversation, every station, and the exit connected', () => {
     for (const interior of interiors) {
+      if (interior.presentation === 'backdrop') {
+        expect(interior.id.startsWith('train-')).toBe(true);
+        for (const point of [...interior.npcs,...interior.objects]) { expect(point.x).toBeGreaterThan(0); expect(point.x).toBeLessThan(1); expect(point.y).toBeGreaterThan(0); expect(point.y).toBeLessThan(1); }
+        continue;
+      }
       const navigation = createInteriorNavigation(interior.id);
       const pointNavigation = createInteriorNavigation(interior.id, {agentRadius:0});
       const start = pixels(interior.spawn, interior);
@@ -87,6 +92,11 @@ describe('enterable learning spaces', () => {
       inn: { x: 780, y: 785 }, 'train-compartment': { x: 845, y: 800 }, 'train-dining': { x: 845, y: 800 },
     };
     for (const interior of interiors) {
+      if (interior.presentation === 'backdrop') {
+        expect(interior.id.startsWith('train-')).toBe(true);
+        for (const point of [...interior.npcs,...interior.objects]) { expect(point.x).toBeGreaterThan(0); expect(point.x).toBeLessThan(1); expect(point.y).toBeGreaterThan(0); expect(point.y).toBeLessThan(1); }
+        continue;
+      }
       const navigation = createInteriorNavigation(interior.id);
       const start = pixels(interior.spawn);
       expectReachable(navigation, start, aisle[interior.id], `${interior.name} central aisle`);
