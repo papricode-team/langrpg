@@ -14,6 +14,19 @@ const sitemap = await readFile(join(root, 'sitemap-0.xml'), 'utf8');
 const sitemapURLs = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
 const window = new Window({ settings: { disableJavaScriptEvaluation: true, disableCSSFileLoading: true, disableJavaScriptFileLoading: true } });
 const parser = new window.DOMParser();
+async function checkPublicAsset(value, route) {
+  assert.ok(value.startsWith('/') && !value.startsWith('//'), `${route}: assets must be self-hosted (${value})`);
+  const url = new URL(value, 'https://glotworld.com');
+  assert.ok(!/^\/(?:assets|game|api)\//.test(url.pathname), `${route}: public pages must not load game assets (${value})`);
+  await stat(join(root, decodeURIComponent(url.pathname)));
+}
+async function checkCSS(css, route) {
+  for (const match of css.matchAll(/url\(\s*["']?([^"')\s]+)["']?\s*\)/g)) {
+    // Embedded decorative SVGs do not make network requests.
+    if (match[1].startsWith('data:image/')) continue;
+    await checkPublicAsset(match[1], route);
+  }
+}
 for (const file of htmlFiles) {
   const rel = relative('site/dist', file);
   const route = '/' + (rel === 'index.html' ? '' : rel.replace(/index\.html$/, ''));
@@ -48,13 +61,24 @@ for (const file of htmlFiles) {
   }
   for (const asset of doc.querySelectorAll('img[src], script[src], link[rel="stylesheet"]')) {
     const url = asset.getAttribute('src') || asset.getAttribute('href');
-    assert.ok(url.startsWith('/'), `${route}: assets must be self-hosted`);
-    await stat(join(root, url));
-    assert.ok(!url.startsWith('/assets/'), `${route}: public pages must not load game bundles`);
+    await checkPublicAsset(url, route);
+    if (asset.localName === 'link') await checkCSS(await readFile(join(root, new URL(url, 'https://glotworld.com').pathname), 'utf8'), route);
   }
+  // Gameplay video is decorative motion: muted, looped, inline, fetched only when played, with a poster.
+  for (const video of doc.querySelectorAll('video')) {
+    for (const attribute of ['muted', 'loop', 'playsinline', 'poster']) assert.ok(video.hasAttribute(attribute), `${route}: video needs ${attribute}`);
+    assert.equal(video.getAttribute('preload'), 'none', `${route}: video must not preload`);
+    assert.ok(!video.hasAttribute('autoplay'), `${route}: video starts from script so motion preferences apply`);
+    await checkPublicAsset(video.getAttribute('poster'), route);
+    const sources = [...video.querySelectorAll('source[src]')];
+    assert.deepEqual(sources.map(source => source.getAttribute('type')).sort(), ['video/mp4', 'video/webm'], `${route}: video needs WebM and MP4 sources`);
+    for (const source of sources) await checkPublicAsset(source.getAttribute('src'), route);
+  }
+  for (const style of doc.querySelectorAll('style')) await checkCSS(style.textContent, route);
+  for (const element of doc.querySelectorAll('[style]')) await checkCSS(element.getAttribute('style'), route);
   for (const element of doc.querySelectorAll('[srcset], [imagesrcset]')) {
     const candidates = element.getAttribute('srcset') || element.getAttribute('imagesrcset');
-    for (const candidate of candidates.split(',')) await stat(join(root, candidate.trim().split(/\s+/)[0]));
+    for (const candidate of candidates.split(',')) await checkPublicAsset(candidate.trim().split(/\s+/)[0], route);
   }
   // Inlined JS plus external JS should stay tiny: no framework/game runtime.
   let jsBytes = [...doc.querySelectorAll('script:not([type="application/ld+json"])')].reduce((sum, script) => sum + Buffer.byteLength(script.textContent), 0);
@@ -77,5 +101,7 @@ assert.ok(!sitemapURLs.some(url => /\/game|\/404|admin|reset-password/.test(url)
 assert.match(await readFile(join(root, 'robots.txt'), 'utf8'), /Sitemap: https:\/\/glotworld.com\/sitemap-index.xml/);
 assert.match(await readFile(join(root, 'game/index.html'), 'utf8'), /noindex, follow/);
 for (const file of await files(join(root, 'images'))) assert.ok((await stat(file)).size < 550 * 1024, `${file}: website image exceeds 550 KiB`);
+// Keep in step with scripts/record-site-gameplay.mjs.
+for (const file of await files(join(root, 'video'))) assert.ok((await stat(file)).size <= 1.5 * 1024 * 1024, `${file}: website video exceeds 1.5 MiB`);
 await window.happyDOM.close();
-console.log(`Website checks pass: ${pages.size - 1} indexable pages, unique metadata, structured data, crawlable guides, sitemap, internal links, image and JavaScript budgets.`);
+console.log(`Website checks pass: ${pages.size - 1} indexable pages, unique metadata, structured data, crawlable guides, sitemap, internal links, image, video and JavaScript budgets.`);

@@ -26,6 +26,38 @@ no text, no UI, no watermark. Original environment, no existing franchise charac
 
 ## Other website images
 
-Town images come from the existing `web/public/assets/*-preview.webp` game world
-art. The gameplay and café images are optimized copies of the repository's
+The gameplay and café images are optimized copies of the repository's
 `docs/screenshots/desktop.jpg` and `docs/screenshots/interiors/cafe.jpg` captures.
+Town cards use the campaign vistas documented below.
+
+## Dusk campaign art pass (2026-10-17)
+
+The second visual pass uses the original harbor as the palette and brushwork
+reference. All new masters were generated with the built-in imagegen tool;
+exact prompts are saved in matching `*-prompt.txt` files. These are original
+campaign illustrations, not screenshots or promises of exact in-game geometry.
+
+| Master | Public export | Use |
+| --- | --- | --- |
+| `lindenhafen-vista.png` | `lindenhafen.webp`, 720 × 600 | Harbor and railway act key art |
+| `waldruh-vista.png` | `waldruh.webp`, 720 × 600 | Forest and stopped-clock act key art |
+| `nebelstadt-vista.png` | `nebelstadt.webp`, 720 × 600 | Lighthouse and fading-sign act key art |
+| `hero-foreground.png` | `hero-foreground.avif` and `.webp` fallback, 1920 × 1080 | Transparent forest, railing and traveler layer |
+| `hero-sky.png` | `hero-sky.webp`, 1440 × 810 | Dusk sky and distant hills atmosphere |
+| `hero-town.png` | `hero-town.webp`, 1920 × 1080; `hero-town-960.webp`, 960 × 540 | Transparent town and canal atmosphere |
+| `fog.png` | `fog.webp`, 768 × 256 | Transparent drifting mist |
+| `brass-frame.png` | `brass-frame.webp`, 512 × 512 | Nine-slice brass and lantern-glass panel chrome; 128 px corners |
+| `brass-divider.png` | `brass-divider.webp`, 1024 × 128 | Lantern and brass section ornament |
+| `lantern-sparks.png` | `sparks.webp`, 1024 × 128 | Eight-frame transparent golden-mote sprite sheet |
+
+All transparent assets retain alpha. The original hero stays the preloaded LCP
+image; its atmospheric overlays are decorative CSS backgrounds. The sky and
+town plates are lazy decorative images that carry the scene through later
+sections without duplicating the traveler. The town key art replaces the
+obsolete tile-map preview exports.
+
+`node scripts/prepare-site-art.mjs` regenerates the optimized exports, then calls
+`prepare-site-sprites.mjs` for the actual game cast/animals and
+`prepare-site-sparks.mjs` for the generated spark animation. The art script
+asserts the unchanged 550 KiB limit for each image. Masters remain Git LFS files;
+only optimized assets enter `site/public/images/`.
