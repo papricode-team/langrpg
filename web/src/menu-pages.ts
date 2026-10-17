@@ -2,7 +2,7 @@ import { activityDiscoveries } from './activity-stories';
 import type { Progress } from './api';
 import { coastPage } from './coast-threads';
 import { npcs, quests, vocabulary } from './content';
-import type { Level, Quest } from './content';
+import type { CourseLevel as Level, Quest } from './content';
 import { expeditionGameStatus, expeditionNotebook } from './expedition-games';
 import { getExpedition, getExpeditionNpc } from './expeditions';
 import { localized, localizedName, lower, t, upper } from './i18n';
