@@ -1,4 +1,17 @@
 import { quests } from './content';
+import type { Progress } from './api';
+
+/** Start new stories on the train; saves already in town keep their place. */
+export function shouldStartPrologue(progress: Pick<Progress, 'completedQuestIds' | 'story'>): boolean {
+  if (storyQuestComplete(progress.completedQuestIds, 'a0-morgen')) return false;
+  if (progress.story?.flags['cinematic:arrival']) return false;
+  return !quests.some(quest => quest.level !== 'A0' && (
+    progress.completedQuestIds.includes(quest.id) ||
+    !!progress.story?.nodes[quest.id] ||
+    !!progress.story?.choices[quest.id] ||
+    !!progress.story?.inspections[quest.id]?.length
+  ));
+}
 
 /** Authored world names stay stable while authenticated content uses public UUIDs. */
 export function storyQuestId(worldId: string): string {

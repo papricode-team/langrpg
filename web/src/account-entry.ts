@@ -37,7 +37,6 @@ export interface AccountEntryHost {
 export class AccountEntry {
   /** The course chosen on the language screen. */
   target: 'de' | 'en' = sessionStorage.getItem('atlas.entryTarget') === 'en' ? 'en' : 'de';
-  private fromZero = false;
   private language: BaseLanguage | undefined;
   private languageSelection: BaseLanguage | undefined;
   private draft: { name: string; avatar: Avatar } | undefined;
@@ -51,7 +50,6 @@ export class AccountEntry {
     mountLanguageOnboarding(document.querySelector<HTMLDialogElement>('#account-dialog')!, {
       initialLanguage, initialLearningLanguage: this.target,
       onConfirm: languages => {
-        this.fromZero = languages.germanExperience === 'none';
         this.target = languages.learningLanguage; sessionStorage.setItem('atlas.entryTarget', this.target);
         this.language = this.languageSelection = languages.motherTongue;
         this.showName(restoreName);
@@ -122,7 +120,6 @@ export class AccountEntry {
         // Resuming a saved guest keeps its stored preference; apply the choice made on this screen.
         if (result.preferences.baseLanguage !== baseLanguage()) result = { ...result, preferences: await this.host.api.savePreferences({ baseLanguage: baseLanguage() }) };
         localStorage.setItem(`atlas.nameChosen.${result.player.id}`, 'true');
-        if (this.fromZero) localStorage.setItem(`atlas.prologue.${result.player.id}`, 'true');
         if (await this.host.enterGame(result)) document.querySelector<HTMLDialogElement>('#account-dialog')!.close();
       } catch (error) { this.host.access.showError(error); }
       finally {
@@ -198,7 +195,6 @@ export class AccountEntry {
       try {
         const result = await this.host.api.login(document.querySelector<HTMLInputElement>('#login-email')!.value.trim(), document.querySelector<HTMLInputElement>('#login-password')!.value);
         localStorage.setItem(`atlas.nameChosen.${result.player.id}`, 'true');
-        if (this.fromZero) localStorage.setItem(`atlas.prologue.${result.player.id}`, 'true');
         // Restart the UI so in-flight learning responses cannot cross account owners.
         location.reload();
       } catch (error) { this.host.access.showError(error); button.disabled = false; }
