@@ -684,7 +684,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     if (this.elapsed < this.nextSendAt) return;
     const x = this.local.x / this.worldWidth, y = this.local.y / this.worldHeight;
     if (Math.hypot((x - this.lastX) * this.worldWidth, (y - this.lastY) * this.worldHeight) <= 0.4) return;
-    this.nextSendAt = this.elapsed + 1 / 15;
+    this.nextSendAt = this.elapsed + 1 / 10; // the server batches movement every 100 ms
     this.lastX = x; this.lastY = y;
     emitWorld(this.game, WorldEvents.Move, x, y);
   }

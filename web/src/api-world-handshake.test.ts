@@ -184,4 +184,22 @@ describe('compiled world handshake', () => {
     expect(compatibleScene({width: 1536, height: 1024, coordinateVersion: 1}, 'lindenhafen', 'cafe')).toBe(false);
     expect(compatibleScene({width: 1536, height: 1024, coordinateVersion: 1, contentVersion: sceneVersion.contentVersion}, 'lindenhafen', 'cafe')).toBe(true);
   });
+
+  it('merges movement deltas into the roster and keeps its own sent position', () => {
+    const {api, socket, onPlayers, onClock} = fixture();
+    socket.receive({...packet(), players: [{id: 'self', mapId: 'lindenhafen', x: .25, y: .25}, {id: 'peer', mapId: 'lindenhafen', x: .5, y: .5}]});
+    onPlayers.mockClear();
+    api.move(.3, .3);
+    socket.receive({type: 'moves', mapId: 'lindenhafen', interiorId: '', moves: [['peer', .6, .4], ['ghost', .1, .1], ['self', 2, 0]]});
+    expect(onPlayers).toHaveBeenCalledExactlyOnceWith([
+      {id: 'self', mapId: 'lindenhafen', x: .3, y: .3}, {id: 'peer', mapId: 'lindenhafen', x: .6, y: .4}], 'self');
+    socket.receive({type: 'moves', mapId: 'lindenhafen', interiorId: '', moves: [['peer', .6, .4]]});
+    socket.receive({type: 'moves', mapId: 'lindenhafen', interiorId: 'cafe', moves: [['peer', .1, .1]]});
+    socket.receive({type: 'moves', mapId: 'waldruh', interiorId: '', moves: [['peer', .1, .1]]});
+    expect(onPlayers).toHaveBeenCalledOnce();
+    onClock.mockClear();
+    socket.receive({type: 'clock', clock: {hour: 9, day: 1, serverTime: '2026-10-11T12:01:00Z'}});
+    expect(onClock).toHaveBeenCalledOnce();
+    api.destroy();
+  });
 });

@@ -38,7 +38,7 @@ func TestWorldMovementPreservesPhysicalSpeedAcrossMapSizes(t *testing.T) {
 			version := definition.CoordinateVersion
 			start := MapSpawn{client.player.X, client.player.Y}
 			// A full second of actual client movement at its current 225 units/s,
-			// transmitted at 15 Hz, must survive authority in every direction.
+			// transmitted at 15 Hz (faster than today's 10 Hz), must survive authority in every direction.
 			for tick := 1; tick <= 15; tick++ {
 				distance := float64(tick) * 15
 				if err := world.moveInLocationVersioned(client, DefaultMapID, "", start.X+math.Cos(angle)*distance/bounds[0], start.Y+math.Sin(angle)*distance/bounds[1],
@@ -500,5 +500,76 @@ func TestStairsConnectBuildingFloors(t *testing.T) {
 	data, _ = json.Marshal(registry)
 	if _, err := ParseRegistry(data); err == nil {
 		t.Fatal("accepted door between floors")
+	}
+}
+
+func drainMessages(t *testing.T, client *worldClient) []map[string]json.RawMessage {
+	t.Helper()
+	var messages []map[string]json.RawMessage
+	for {
+		select {
+		case b := <-client.send:
+			var message map[string]json.RawMessage
+			if err := json.Unmarshal(b, &message); err != nil {
+				t.Fatal(err)
+			}
+			messages = append(messages, message)
+		default:
+			return messages
+		}
+	}
+}
+
+func TestMovementTickSendsOnlyChangedPositionsToTheSameRoom(t *testing.T) {
+	world, walker, definition := coordinateTestWorld(1536, 1024)
+	walker.send = make(chan []byte, 8)
+	watcher := &worldClient{player: Player{ID: "watcher", MapID: DefaultMapID}, send: make(chan []byte, 8), memory: &worldMemory{}}
+	indoors := &worldClient{player: Player{ID: "indoors", MapID: DefaultMapID, InteriorID: "cafe"}, send: make(chan []byte, 8), memory: &worldMemory{}}
+	world.clients["watcher"], world.clients["indoors"] = watcher, indoors
+
+	// An idle world sends nothing at all.
+	world.flushMovesLocked()
+	for _, client := range []*worldClient{walker, watcher, indoors} {
+		if messages := drainMessages(t, client); len(messages) != 0 {
+			t.Fatalf("idle tick sent %s %d messages", client.player.ID, len(messages))
+		}
+	}
+
+	version := definition.CoordinateVersion
+	walker.memory.movementCredit = worldMoveCreditLimit
+	if err := world.moveInLocationVersioned(walker, DefaultMapID, "", walker.player.X+10/1536.0, walker.player.Y, walker.memory.lastMove, &version); err != "" {
+		t.Fatal(err)
+	}
+	world.flushMovesLocked()
+	if messages := drainMessages(t, walker); len(messages) != 0 {
+		t.Fatalf("an accepted move was echoed to its sender: %v", messages)
+	}
+	if messages := drainMessages(t, indoors); len(messages) != 0 {
+		t.Fatalf("an outdoor move reached a room: %v", messages)
+	}
+	messages := drainMessages(t, watcher)
+	if len(messages) != 1 || string(messages[0]["type"]) != `"moves"` {
+		t.Fatalf("watcher received %v", messages)
+	}
+	var entries [][3]any
+	if err := json.Unmarshal(messages[0]["moves"], &entries); err != nil || len(entries) != 1 || entries[0][0] != "walker" || entries[0][1] != walker.player.X {
+		t.Fatalf("moves %s, %v", messages[0]["moves"], err)
+	}
+	world.flushMovesLocked()
+	if messages := drainMessages(t, watcher); len(messages) != 0 {
+		t.Fatalf("an unchanged position was sent again: %v", messages)
+	}
+
+	// A move the server shortens is corrected back to the sender.
+	walker.memory.movementCredit = 0
+	if err := world.moveInLocationVersioned(walker, DefaultMapID, "", 1, 1, walker.memory.lastMove, &version); err != "" {
+		t.Fatal(err)
+	}
+	world.flushMovesLocked()
+	if messages := drainMessages(t, walker); len(messages) != 1 || string(messages[0]["type"]) != `"moves"` {
+		t.Fatalf("shortened move was not corrected: %v", messages)
+	}
+	if messages := drainMessages(t, watcher); len(messages) != 0 {
+		t.Fatalf("a move without progress reached others: %v", messages)
 	}
 }
