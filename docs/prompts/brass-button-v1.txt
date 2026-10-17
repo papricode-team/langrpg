@@ -1,0 +1,13 @@
+Use case: stylized-concept
+Asset type: production transparent 2D game UI primary action button for glotworld, a cozy hand-painted European village story RPG.
+Primary request: A chunky, tactile, rounded-rectangle brass button plate, like a polished brass nameplate set into a darker bronze bezel. Convex face with a soft warm gradient from pale gold at the top to rich amber-brass at the bottom, a crisp bright highlight along the upper inner edge, a thin dark bronze outer rim, and two tiny engraved rivets at the far left and far right. The center of the face is clean and uniform so text can sit on it and the plate can stretch horizontally.
+Composition: 1024 x 320 canvas, straight-on orthographic, perfectly left-right symmetric. Button fills about 96 percent of width and 80 percent of height, vertically centered, corner radius about 60 pixels. Rivets sit within 70 pixels of each end.
+Materials: brass #c9a85e, pale gold #f0dca0, amber #a67c34, dark bronze rim #5b4520. Soft light from upper left, painterly, no photorealism, no pixel art.
+Constraints: no letters or words, no arrows, no icons, no background, no drop shadow outside the silhouette, no watermark. Genuine alpha transparency outside the button.
+
+Generated with Codex's built-in image generation tool, transparent background.
+Original: art/ui/brass-button-v1.png
+Runtime: web/public/assets/ui/brass-button-v1.webp (539 x 120), drawn as a three-slice border-image (slice 0 64, width 0 28px) on .dialogue-say.
+
+Runtime export (Node with sharp):
+await sharp('art/ui/brass-button-v1.png').trim().resize({height:120}).webp({quality:72,alphaQuality:90,effort:6}).toFile('web/public/assets/ui/brass-button-v1.webp');

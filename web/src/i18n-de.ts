@@ -37,7 +37,7 @@ export const germanUi: Record<string, string> = {
   'Choose an option': 'Wähle eine Möglichkeit', 'Next': 'Weiter', 'Words': 'Wörter',
   'Finish session': 'Übung beenden', 'Course complete': 'Kurs abgeschlossen',
   'Make your first attempt to unlock the answer.': 'Versuche es zuerst selbst, um die Antwort freizuschalten.',
-  'What did they say?': 'Was wurde gesagt?', 'Listen again': 'Noch einmal hören',
+  'What did they say?': 'Was wurde gesagt?', 'Listen again': 'Noch einmal hören', 'Your turn': 'Du bist dran',
   'Meaning of {word}': 'Bedeutung von {word}', 'Leave conversation': 'Gespräch verlassen',
   'A little help': 'Ein kleiner Hinweis', 'Saving…': 'Wird gespeichert…', 'Loading…': 'Wird geladen…',
   'Restored words': 'Wiederhergestellte Wörter', 'Learning routes': 'Lernpfade', 'Word atlas': 'Wörteratlas',

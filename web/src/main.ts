@@ -457,7 +457,6 @@ function renderShell() {
     games: npcId => hostedGames(npcId, miniGameById, miniGameReadiness(), gameDay()),
     onGame: id => void startMiniGame(id),
     onPractice: npcId => { const activity = activityInfo.find(item => item.npcId === npcId); if (activity) void startActivity(activity.id); else setView('journal'); },
-    onGrammarGuide: guideId => { courseLevel=guideId.split('-')[0].toUpperCase() as Level; courseTab='grammar'; setView('course'); void loadCourse().then(()=>{if(view!=='course')return;renderOther();document.querySelector<HTMLElement>(`[data-grammar-guide="${guideId}"]`)?.scrollIntoView({block:'start'});}).catch(error=>toast((error as Error).message,true)); },
   });
   world.setAudioPreferences({ silent: silentMode, muted });
   world.setAvatar(profile.avatar);
