@@ -25,9 +25,9 @@
   "tr": "Günaydın! Lindenhafen'e hoş geldin."
  },
  "dialogue:a1-arrival-greeting-correction": {
-  "de": "Es ist Morgen. Guten Morgen!",
-  "en": "It is morning. Good morning!",
-  "tr": "Şu an sabah. Günaydın!"
+  "de": "Guten Morgen!",
+  "en": "Good morning!",
+  "tr": "Günaydın!"
  },
  "dialogue:a1-arrival-intro-1": {
   "de": "Moment. Du kommst von Bahnsteig sieben?",
@@ -99,9 +99,9 @@
   "tr": "İyi. Gördün mü? Mürekkep yine koyu."
  },
  "dialogue:a1-arrival-intro-14": {
-  "de": "Guten Morgen. Voss, vom Messingamt.",
-  "en": "Good morning. Voss, from the Brass Office.",
-  "tr": "Günaydın. Ben Voss, Pirinç Daire'denim."
+  "de": "Guten Morgen. Voss. Messingamt.",
+  "en": "Good morning. Voss. The Brass Office.",
+  "tr": "Günaydın. Voss. Pirinç Dairesi."
  },
  "gloss:messingamt:Brass Office": {
   "en": "Brass Office",
@@ -118,19 +118,19 @@
   "tr": "Bilet geçersiz. Yedinci peron tarifede yok."
  },
  "dialogue:a1-arrival-gate-1": {
-  "de": "Abgeben-bitte-danke!",
-  "en": "Hand-it-over-please-thank-you!",
-  "tr": "Teslim-edin-lütfen-teşekkürler!"
+  "de": "Fahrkarte-bitte-danke!",
+  "en": "Ticket-please-thank-you!",
+  "tr": "Bilet-lütfen-teşekkürler!"
  },
  "dialogue:a1-arrival-gate-1:variant:0": {
-  "de": "Abgeben, bitte. Danke.",
-  "en": "Hand it over, please. Thank you.",
-  "tr": "Teslim edin, lütfen. Teşekkürler."
+  "de": "Fahrkarte, bitte. Danke.",
+  "en": "Ticket, please. Thank you.",
+  "tr": "Bilet, lütfen. Teşekkürler."
  },
  "dialogue:a1-arrival-choice-0": {
-  "de": "Gern. Langsam: Ihre Fahrkarte ist nicht gültig.",
-  "en": "Certainly. Slowly: your ticket is not valid.",
-  "tr": "Memnuniyetle. Yavaşça: Biletiniz geçerli değil."
+  "de": "Langsam: Die Fahrkarte ist nicht gültig.",
+  "en": "Slowly: the ticket is not valid.",
+  "tr": "Yavaşça: Bilet geçerli değil."
  },
  "dialogue:a1-arrival-choice-1": {
   "de": "Bahnsteig sieben steht nicht im Plan.",
@@ -163,9 +163,9 @@
   "tr": "Ya da burada kalır. Bizimle."
  },
  "dialogue:a1-arrival-choice-7": {
-  "de": "Wer bekommt Ihre Fahrkarte: Otto oder ich?",
-  "en": "Who gets your ticket: Otto or me?",
-  "tr": "Biletinizi kim alacak: Otto mu, ben mi?"
+  "de": "Die Fahrkarte, bitte?",
+  "en": "The ticket, please?",
+  "tr": "Bilet, lütfen?"
  },
  "choice:a1-arrival:report": {
   "de": "Bitte, Herr Voss. Hier ist die Fahrkarte.",
@@ -233,9 +233,9 @@
   "tr": "Havayı bile yazıyor. Her gün."
  },
  "topic:a1-arrival:lantern": {
-  "de": "Warum machst du die Laterne an?",
-  "en": "Why do you light the lantern?",
-  "tr": "Feneri neden yakıyorsun?"
+  "de": "Warum die Laterne?",
+  "en": "Why the lantern?",
+  "tr": "Neden fener?"
  },
  "dialogue:a1-arrival-topic-lantern-0": {
   "de": "Das mache ich seit dreißig Jahren.",
@@ -263,14 +263,14 @@
   "tr": "E. senin adını biliyor. Sen E.'yi tanıyor musun?"
  },
  "evidence:a1-arrival:lindenhafen-platform-ticket": {
-  "de": "Fahrkarte: {name}. Bahnsteig sieben. Unten: E.",
-  "en": "Ticket: {name}. Platform seven. At the bottom: E.",
-  "tr": "Bilet: {name}. Yedinci peron. Altta: E."
+  "de": "Fahrkarte: {name}. Bahnsteig sieben. E.",
+  "en": "Ticket: {name}. Platform seven. E.",
+  "tr": "Bilet: {name}. Yedinci peron. E."
  },
  "evidence:a1-arrival:lindenhafen-noticeboard": {
-  "de": "Bahnsteig eins bis sechs. Kein Bahnsteig sieben.",
-  "en": "Platforms one to six. No platform seven.",
-  "tr": "Bir'den altı'ya kadar peronlar. Yedinci peron yok."
+  "de": "Bahnsteig eins, zwei, drei, vier, fünf, sechs.",
+  "en": "Platforms one, two, three, four, five, six.",
+  "tr": "Birinci, ikinci, üçüncü, dördüncü, beşinci, altıncı peronlar."
  },
  "gate-prompt:a1-timetable": {
   "en": "Ask Otto when the train leaves.",
@@ -14958,9 +14958,9 @@
   "tr": "İyi akşamlar."
  },
  "dialogue:a0-name-0": {
-  "de": "Wie heißen Sie?",
-  "en": "What is your name?",
-  "tr": "Adınız nedir?"
+  "de": "Name?",
+  "en": "Your name?",
+  "tr": "Ad?"
  },
  "dialogue:a0-name-1": {
   "de": "Ich heiße {name}.",
@@ -14973,9 +14973,9 @@
   "tr": "Ad."
  },
  "dialogue:a0-name-gate": {
-  "de": "Wie heißen Sie?",
-  "en": "What is your name?",
-  "tr": "Adınız nedir?"
+  "de": "Name?",
+  "en": "Your name?",
+  "tr": "Ad?"
  },
  "dialogue:a0-name-choice": {
   "de": "Ich heiße {name}.",
@@ -15058,9 +15058,9 @@
   "tr": "bir, iki, üç"
  },
  "dialogue:a0-tee-0": {
-  "de": "Tee oder Kaffee?",
-  "en": "Tea or coffee?",
-  "tr": "Çay mı kahve mi?"
+  "de": "Tee?",
+  "en": "Tea?",
+  "tr": "Çay?"
  },
  "dialogue:a0-tee-1": {
   "de": "Einen Tee, bitte.",
@@ -15068,9 +15068,9 @@
   "tr": "Bir çay, lütfen."
  },
  "dialogue:a0-tee-2": {
-  "de": "Mit Milch?",
-  "en": "With milk?",
-  "tr": "Sütlü mü?"
+  "de": "Einen Tee, bitte.",
+  "en": "A tea, please.",
+  "tr": "Bir çay, lütfen."
  },
  "dialogue:a0-tee-3": {
   "de": "Nein, danke.",
@@ -15078,9 +15078,9 @@
   "tr": "Hayır, teşekkürler."
  },
  "dialogue:a0-tee-gate": {
-  "de": "Tee oder Kaffee?",
-  "en": "Tea or coffee?",
-  "tr": "Çay mı kahve mi?"
+  "de": "Tee?",
+  "en": "Tea?",
+  "tr": "Çay?"
  },
  "dialogue:a0-tee-choice": {
   "de": "Einen Tee, bitte.",
@@ -15093,9 +15093,9 @@
   "tr": "Hayır, teşekkürler."
  },
  "investigation:a0-tee:prologue-tee": {
-  "de": "Tee oder Kaffee?",
-  "en": "Tea or coffee?",
-  "tr": "Çay mı kahve mi?"
+  "de": "Tee?",
+  "en": "Tea?",
+  "tr": "Çay?"
  },
  "choice:a0-tee:continue": {
   "de": "Einen Tee, bitte.",
@@ -15108,9 +15108,9 @@
   "tr": "Bir çay, lütfen."
  },
  "beginner-gate:a0-tee-exercise-1:1": {
-  "de": "Tee oder Kaffee?",
-  "en": "Tea or coffee?",
-  "tr": "Çay mı kahve mi?"
+  "de": "Tee?",
+  "en": "Tea?",
+  "tr": "Çay?"
  },
  "dialogue:a0-wo-0": {
   "de": "Wo ist …?",
@@ -15128,14 +15128,14 @@
   "tr": "Burada."
  },
  "dialogue:a0-wo-3": {
-  "de": "Da.",
-  "en": "There.",
-  "tr": "Orada."
+  "de": "Hier.",
+  "en": "Here.",
+  "tr": "Burada."
  },
  "dialogue:a0-wo-4": {
-  "de": "Ausgang.",
-  "en": "Exit.",
-  "tr": "Çıkış."
+  "de": "Die Toilette.",
+  "en": "The toilet.",
+  "tr": "Tuvalet."
  },
  "dialogue:a0-wo-gate": {
   "de": "Wo ist …?",
@@ -15148,9 +15148,9 @@
   "tr": "Nerede?"
  },
  "dialogue:a0-wo-complete": {
-  "de": "Ausgang.",
-  "en": "Exit.",
-  "tr": "Çıkış."
+  "de": "Die Toilette.",
+  "en": "The toilet.",
+  "tr": "Tuvalet."
  },
  "investigation:a0-wo:prologue-wo": {
   "de": "Die Toilette.",
@@ -15188,9 +15188,9 @@
   "tr": "Bir kez daha, lütfen."
  },
  "dialogue:a0-langsam-3": {
-  "de": "Wie bitte?",
-  "en": "Pardon?",
-  "tr": "Efendim?"
+  "de": "Langsam, bitte.",
+  "en": "Slowly, please.",
+  "tr": "Yavaşça, lütfen."
  },
  "dialogue:a0-langsam-gate": {
   "de": "Ich verstehe nicht.",
@@ -15203,9 +15203,9 @@
   "tr": "Bir kez daha, lütfen."
  },
  "dialogue:a0-langsam-complete": {
-  "de": "Wie bitte?",
-  "en": "Pardon?",
-  "tr": "Efendim?"
+  "de": "Langsam, bitte.",
+  "en": "Slowly, please.",
+  "tr": "Yavaşça, lütfen."
  },
  "investigation:a0-langsam:prologue-langsam": {
   "de": "Ich verstehe nicht.",
@@ -15233,9 +15233,9 @@
   "tr": "Günaydın."
  },
  "dialogue:a0-morgen-1": {
-  "de": "Der Zug kommt.",
-  "en": "The train is coming.",
-  "tr": "Tren geliyor."
+  "de": "Der Zug.",
+  "en": "The train.",
+  "tr": "Tren."
  },
  "dialogue:a0-morgen-2": {
   "de": "Lindenhafen!",
@@ -15335,9 +15335,9 @@
   "tr": "Yemekli vagonda çay"
  },
  "evidence:a0-tee:prologue-tee": {
-  "de": "Tee oder Kaffee?",
-  "en": "Tea or coffee?",
-  "tr": "Çay mı kahve mi?"
+  "de": "Tee?",
+  "en": "Tea?",
+  "tr": "Çay?"
  },
  "gate-prompt:a0-wo": {
   "en": "Choose the reply you have just heard.",
@@ -15516,9 +15516,9 @@
   "tr": "Bir çay, lütfen."
  },
  "beginner:a0-tee-exercise-1:1": {
-  "de": "Tee oder Kaffee?",
-  "en": "Tea or coffee?",
-  "tr": "Çay mı kahve mi?"
+  "de": "Tee?",
+  "en": "Tea?",
+  "tr": "Çay?"
  },
  "beginner:a0-wo-exercise-1:0": {
   "de": "Wo ist …?",
@@ -15556,9 +15556,9 @@
   "tr": "Burada: {name}. Yedinci peron. E."
  },
  "dialogue:a1-arrival-intro-11-prologue": {
-  "de": "Hier gehen Namen weg.",
-  "en": "Here, names fade.",
-  "tr": "Burada adlar siliniyor."
+  "de": "Namen bleiben hier nicht.",
+  "en": "Names do not stay here.",
+  "tr": "Adlar burada kalmıyor."
  },
  "dialogue:a1-arrival-intro-12-prologue": {
   "de": "Sag deinen Namen laut.",
@@ -15591,9 +15591,9 @@
   "tr": "Bilet, lütfen."
  },
  "quest:a0-name:story:0": {
-  "de": "Wie heißen Sie?",
-  "en": "What is your name?",
-  "tr": "Adınız nedir?"
+  "de": "Name?",
+  "en": "Your name?",
+  "tr": "Ad?"
  },
  "quest:a0-name:story:1": {
   "de": "Ich heiße {name}.",
@@ -15601,9 +15601,9 @@
   "tr": "Benim adım {name}."
  },
  "quest:a0-tee:story:0": {
-  "de": "Tee oder Kaffee?",
-  "en": "Tea or coffee?",
-  "tr": "Çay mı kahve mi?"
+  "de": "Tee?",
+  "en": "Tea?",
+  "tr": "Çay?"
  },
  "quest:a0-tee:story:1": {
   "de": "Einen Tee, bitte.",
@@ -15636,19 +15636,19 @@
   "tr": "Günaydın."
  },
  "quest:a0-morgen:story:1": {
-  "de": "Der Zug kommt.",
-  "en": "The train is coming.",
-  "tr": "Tren geliyor."
+  "de": "Der Zug.",
+  "en": "The train.",
+  "tr": "Tren."
  },
  "quest:a0-wagen:story:0": {
   "de": "eins, zwei, drei.",
   "en": "one, two, three.",
-  "tr": "bir, iki, üç"
+  "tr": "bir, iki, üç."
  },
  "quest:a0-wagen:story:1": {
   "de": "vier, fünf, sechs.",
   "en": "four, five, six.",
-  "tr": "dört, beş, altı"
+  "tr": "dört, beş, altı."
  },
  "dialogue:a1-arrival-after-report-0-prologue-trim": {
   "de": "Danke. Bitte.",
@@ -15738,15 +15738,485 @@
   "tr": "Hayır, teşekkürler."
  },
  "item:a0-wo-evidence:title": {
-  "en": "Exit.",
-  "tr": "Çıkış."
+  "en": "The toilet.",
+  "tr": "Tuvalet."
  },
  "item:a0-langsam-evidence:title": {
-  "en": "Pardon?",
-  "tr": "Efendim?"
+  "en": "Slowly, please.",
+  "tr": "Yavaşça, lütfen."
  },
  "item:a0-morgen-evidence:title": {
   "en": "Goodbye.",
   "tr": "Hoşça kalın."
+ },
+ "paced:a0-ticket:prologue-ticket": {
+  "de": "Guten Abend.",
+  "en": "Good evening.",
+  "tr": "İyi akşamlar."
+ },
+ "paced:a0-ticket:a0-ticket-0": {
+  "de": "Guten Abend.",
+  "en": "Good evening.",
+  "tr": "İyi akşamlar."
+ },
+ "paced:a0-ticket:a0-ticket-1": {
+  "de": "Fahrkarte, bitte.",
+  "en": "Ticket, please.",
+  "tr": "Bilet, lütfen."
+ },
+ "paced:a0-ticket:a0-ticket-2": {
+  "de": "Bitte.",
+  "en": "Here you are.",
+  "tr": "Buyurun."
+ },
+ "paced:a0-ticket:a0-ticket-3": {
+  "de": "Danke.",
+  "en": "Thank you.",
+  "tr": "Teşekkürler."
+ },
+ "paced:a0-ticket:a0-ticket-4": {
+  "de": "Die Fahrkarte.",
+  "en": "The ticket.",
+  "tr": "Bilet."
+ },
+ "paced:a0-ticket:a0-ticket-gate": {
+  "de": "Guten Abend.",
+  "en": "Good evening.",
+  "tr": "İyi akşamlar."
+ },
+ "paced:a0-ticket:a0-ticket-choice": {
+  "de": "Bitte.",
+  "en": "Here you are.",
+  "tr": "Buyurun."
+ },
+ "paced:a0-ticket:continue": {
+  "de": "Bitte.",
+  "en": "Here you are.",
+  "tr": "Buyurun."
+ },
+ "paced:a0-ticket:a0-ticket-complete": {
+  "de": "Die Fahrkarte.",
+  "en": "The ticket.",
+  "tr": "Bilet."
+ },
+ "paced:a0-name:prologue-name": {
+  "de": "Name.",
+  "en": "Name.",
+  "tr": "Ad."
+ },
+ "paced:a0-name:a0-name-0": {
+  "de": "Name?",
+  "en": "Name?",
+  "tr": "Ad?"
+ },
+ "paced:a0-name:a0-name-1": {
+  "de": "Ich heiße {name}.",
+  "en": "My name is {name}.",
+  "tr": "Benim adım {name}."
+ },
+ "paced:a0-name:a0-name-2": {
+  "de": "Name.",
+  "en": "Name.",
+  "tr": "Ad."
+ },
+ "paced:a0-name:a0-name-gate": {
+  "de": "Name?",
+  "en": "Name?",
+  "tr": "Ad?"
+ },
+ "paced:a0-name:a0-name-choice": {
+  "de": "Ich heiße {name}.",
+  "en": "My name is {name}.",
+  "tr": "Benim adım {name}."
+ },
+ "paced:a0-name:continue": {
+  "de": "Ich heiße {name}.",
+  "en": "My name is {name}.",
+  "tr": "Benim adım {name}."
+ },
+ "paced:a0-name:a0-name-complete": {
+  "de": "Name.",
+  "en": "Name.",
+  "tr": "Ad."
+ },
+ "paced:a0-wagen:prologue-wagen": {
+  "de": "eins, zwei, drei",
+  "en": "one, two, three",
+  "tr": "bir, iki, üç"
+ },
+ "paced:a0-wagen:a0-wagen-0": {
+  "de": "eins, zwei, drei",
+  "en": "one, two, three",
+  "tr": "bir, iki, üç"
+ },
+ "paced:a0-wagen:a0-wagen-1": {
+  "de": "vier, fünf, sechs",
+  "en": "four, five, six",
+  "tr": "dört, beş, altı"
+ },
+ "paced:a0-wagen:a0-wagen-2": {
+  "de": "sieben",
+  "en": "seven",
+  "tr": "yedi"
+ },
+ "paced:a0-wagen:a0-wagen-3": {
+  "de": "Wagen sieben.",
+  "en": "Carriage seven.",
+  "tr": "Yedinci vagon."
+ },
+ "paced:a0-wagen:a0-wagen-4": {
+  "de": "Ein Wagen.",
+  "en": "A carriage.",
+  "tr": "Bir vagon."
+ },
+ "paced:a0-wagen:a0-wagen-gate": {
+  "de": "eins, zwei, drei",
+  "en": "one, two, three",
+  "tr": "bir, iki, üç"
+ },
+ "paced:a0-wagen:a0-wagen-choice": {
+  "de": "sieben",
+  "en": "seven",
+  "tr": "yedi"
+ },
+ "paced:a0-wagen:continue": {
+  "de": "sieben",
+  "en": "seven",
+  "tr": "yedi"
+ },
+ "paced:a0-wagen:a0-wagen-complete": {
+  "de": "Ein Wagen.",
+  "en": "A carriage.",
+  "tr": "Bir vagon."
+ },
+ "paced:a0-tee:prologue-tee": {
+  "de": "Tee?",
+  "en": "Tea?",
+  "tr": "Çay?"
+ },
+ "paced:a0-tee:a0-tee-0": {
+  "de": "Tee?",
+  "en": "Tea?",
+  "tr": "Çay?"
+ },
+ "paced:a0-tee:a0-tee-1": {
+  "de": "Einen Tee, bitte.",
+  "en": "A tea, please.",
+  "tr": "Bir çay, lütfen."
+ },
+ "paced:a0-tee:a0-tee-3": {
+  "de": "Nein, danke.",
+  "en": "No, thank you.",
+  "tr": "Hayır, teşekkürler."
+ },
+ "paced:a0-tee:a0-tee-gate": {
+  "de": "Tee?",
+  "en": "Tea?",
+  "tr": "Çay?"
+ },
+ "paced:a0-tee:a0-tee-choice": {
+  "de": "Einen Tee, bitte.",
+  "en": "A tea, please.",
+  "tr": "Bir çay, lütfen."
+ },
+ "paced:a0-tee:continue": {
+  "de": "Einen Tee, bitte.",
+  "en": "A tea, please.",
+  "tr": "Bir çay, lütfen."
+ },
+ "paced:a0-tee:a0-tee-complete": {
+  "de": "Nein, danke.",
+  "en": "No, thank you.",
+  "tr": "Hayır, teşekkürler."
+ },
+ "paced:a0-wo:prologue-wo": {
+  "de": "Die Toilette.",
+  "en": "The toilet.",
+  "tr": "Tuvalet."
+ },
+ "paced:a0-wo:a0-wo-0": {
+  "de": "Wo ist …?",
+  "en": "Where is …?",
+  "tr": "Nerede?"
+ },
+ "paced:a0-wo:a0-wo-1": {
+  "de": "Die Toilette.",
+  "en": "The toilet.",
+  "tr": "Tuvalet."
+ },
+ "paced:a0-wo:a0-wo-2": {
+  "de": "Hier.",
+  "en": "Here.",
+  "tr": "Burada."
+ },
+ "paced:a0-wo:a0-wo-gate": {
+  "de": "Wo ist …?",
+  "en": "Where is …?",
+  "tr": "Nerede?"
+ },
+ "paced:a0-wo:a0-wo-choice": {
+  "de": "Wo ist …?",
+  "en": "Where is …?",
+  "tr": "Nerede?"
+ },
+ "paced:a0-wo:continue": {
+  "de": "Wo ist …?",
+  "en": "Where is …?",
+  "tr": "Nerede?"
+ },
+ "paced:a0-wo:a0-wo-complete": {
+  "de": "Die Toilette.",
+  "en": "The toilet.",
+  "tr": "Tuvalet."
+ },
+ "paced:a0-langsam:prologue-langsam": {
+  "de": "Ich verstehe nicht.",
+  "en": "I do not understand.",
+  "tr": "Anlamıyorum."
+ },
+ "paced:a0-langsam:a0-langsam-0": {
+  "de": "Ich verstehe nicht.",
+  "en": "I do not understand.",
+  "tr": "Anlamıyorum."
+ },
+ "paced:a0-langsam:a0-langsam-1": {
+  "de": "Langsam, bitte.",
+  "en": "Slowly, please.",
+  "tr": "Yavaşça, lütfen."
+ },
+ "paced:a0-langsam:a0-langsam-2": {
+  "de": "Noch einmal, bitte.",
+  "en": "Once again, please.",
+  "tr": "Bir kez daha, lütfen."
+ },
+ "paced:a0-langsam:a0-langsam-gate": {
+  "de": "Ich verstehe nicht.",
+  "en": "I do not understand.",
+  "tr": "Anlamıyorum."
+ },
+ "paced:a0-langsam:a0-langsam-choice": {
+  "de": "Noch einmal, bitte.",
+  "en": "Once again, please.",
+  "tr": "Bir kez daha, lütfen."
+ },
+ "paced:a0-langsam:continue": {
+  "de": "Noch einmal, bitte.",
+  "en": "Once again, please.",
+  "tr": "Bir kez daha, lütfen."
+ },
+ "paced:a0-langsam:a0-langsam-complete": {
+  "de": "Langsam, bitte.",
+  "en": "Slowly, please.",
+  "tr": "Yavaşça, lütfen."
+ },
+ "paced:a0-morgen:prologue-morgen": {
+  "de": "Guten Morgen.",
+  "en": "Good morning.",
+  "tr": "Günaydın."
+ },
+ "paced:a0-morgen:a0-morgen-0": {
+  "de": "Guten Morgen.",
+  "en": "Good morning.",
+  "tr": "Günaydın."
+ },
+ "paced:a0-morgen:a0-morgen-1": {
+  "de": "Der Zug.",
+  "en": "The train.",
+  "tr": "Tren."
+ },
+ "paced:a0-morgen:a0-morgen-2": {
+  "de": "Lindenhafen!",
+  "en": "Lindenhafen!",
+  "tr": "Lindenhafen!"
+ },
+ "paced:a0-morgen:a0-morgen-3": {
+  "de": "Auf Wiedersehen.",
+  "en": "Goodbye.",
+  "tr": "Hoşça kalın."
+ },
+ "paced:a0-morgen:a0-morgen-gate": {
+  "de": "Guten Morgen.",
+  "en": "Good morning.",
+  "tr": "Günaydın."
+ },
+ "paced:a0-morgen:a0-morgen-choice": {
+  "de": "Auf Wiedersehen.",
+  "en": "Goodbye.",
+  "tr": "Hoşça kalın."
+ },
+ "paced:a0-morgen:continue": {
+  "de": "Auf Wiedersehen.",
+  "en": "Goodbye.",
+  "tr": "Hoşça kalın."
+ },
+ "paced:a0-morgen:a0-morgen-complete": {
+  "de": "Auf Wiedersehen.",
+  "en": "Goodbye.",
+  "tr": "Hoşça kalın."
+ },
+ "paced:a1-arrival:a1-arrival-intro-0": {
+  "de": "Guten Morgen! Willkommen in Lindenhafen.",
+  "en": "Good morning! Welcome to Lindenhafen.",
+  "tr": "Günaydın! Lindenhafen'e hoş geldin."
+ },
+ "paced:a1-arrival:a1-arrival-greeting-correction": {
+  "de": "Guten Morgen!",
+  "en": "Good morning!",
+  "tr": "Günaydın!"
+ },
+ "paced:a1-arrival:a1-arrival-intro-8": {
+  "de": "Deine Fahrkarte, bitte.",
+  "en": "Your ticket, please.",
+  "tr": "Biletin, lütfen."
+ },
+ "paced:a1-arrival:a1-arrival-intro-9-prologue": {
+  "de": "Hier: {name}. Bahnsteig sieben. E.",
+  "en": "Here: {name}. Platform seven. E.",
+  "tr": "Burada: {name}. Yedinci peron. E."
+ },
+ "paced:a1-arrival:a1-arrival-intro-11-prologue": {
+  "de": "Hier gehen Namen weg.",
+  "en": "Here, names fade.",
+  "tr": "Burada adlar siliniyor."
+ },
+ "paced:a1-arrival:a1-arrival-intro-12-prologue": {
+  "de": "Sag deinen Namen laut.",
+  "en": "Say your name aloud.",
+  "tr": "Adını yüksek sesle söyle."
+ },
+ "paced:a1-arrival:a1-arrival-intro-14": {
+  "de": "Guten Morgen. Voss. Messingamt.",
+  "en": "Good morning. Voss. The Brass Office.",
+  "tr": "Günaydın. Voss. Pirinç Dairesi."
+ },
+ "paced:a1-arrival:a1-arrival-gate-0": {
+  "de": "Fahrkarte-nicht-gültig-Bahnsteig-sieben-nicht-im-Plan!",
+  "en": "Ticket-not-valid-platform-seven-not-on-the-timetable!",
+  "tr": "Bilet-geçersiz-yedinci-peron-tarifede-yok!"
+ },
+ "paced:a1-arrival:Fahrkarte nicht gültig. Bahnsteig sieben nicht im Plan.": {
+  "de": "Fahrkarte nicht gültig. Bahnsteig sieben nicht im Plan.",
+  "en": "Ticket not valid. Platform seven not on the timetable.",
+  "tr": "Bilet geçersiz. Yedinci peron tarifede yok."
+ },
+ "paced:a1-arrival:a1-arrival-gate-1": {
+  "de": "Fahrkarte-bitte-danke!",
+  "en": "Ticket-please-thank-you!",
+  "tr": "Bilet-lütfen-teşekkürler!"
+ },
+ "paced:a1-arrival:Fahrkarte, bitte. Danke.": {
+  "de": "Fahrkarte, bitte. Danke.",
+  "en": "Ticket, please. Thank you.",
+  "tr": "Bilet, lütfen. Teşekkürler."
+ },
+ "paced:a1-arrival:a1-arrival-choice-0": {
+  "de": "Langsam: Die Fahrkarte ist nicht gültig.",
+  "en": "Slowly: the ticket is not valid.",
+  "tr": "Yavaşça: Bilet geçerli değil."
+ },
+ "paced:a1-arrival:a1-arrival-choice-7": {
+  "de": "Die Fahrkarte, bitte.",
+  "en": "The ticket, please.",
+  "tr": "Biletiniz, lütfen."
+ },
+ "paced:a1-arrival:report": {
+  "de": "Bitte, Herr Voss. Hier ist die Fahrkarte.",
+  "en": "Here you are, Mr Voss. Here is the ticket.",
+  "tr": "Buyurun, Voss Bey. İşte bilet."
+ },
+ "paced:a1-arrival:protect": {
+  "de": "Die Fahrkarte bleibt bei mir.",
+  "en": "The ticket stays with me.",
+  "tr": "Bilet bende kalıyor."
+ },
+ "paced:a1-arrival:a1-arrival-after-report-0-prologue-trim": {
+  "de": "Danke. Bitte.",
+  "en": "Thank you. Here you are.",
+  "tr": "Teşekkürler. Buyurun."
+ },
+ "paced:a1-arrival:a1-arrival-after-protect-1-prologue-trim": {
+  "de": "Bitte. Bahnsteig sieben.",
+  "en": "Here you are. Platform seven.",
+  "tr": "Buyurun. Yedinci peron."
+ },
+ "paced:a1-arrival:a1-arrival-complete-0-prologue-trim": {
+  "de": "Marta ist hier.",
+  "en": "Marta is here.",
+  "tr": "Marta burada."
+ },
+ "paced:a1-arrival:who-voss": {
+  "de": "Voss?",
+  "en": "Voss?",
+  "tr": "Voss?"
+ },
+ "paced:a1-arrival:a1-arrival-topic-who-voss-0-paced": {
+  "de": "Voss: Messingamt. Namen, Namen, Namen.",
+  "en": "Voss: the Brass Office. Names, names, names.",
+  "tr": "Voss: Pirinç Dairesi. Adlar, adlar, adlar."
+ },
+ "paced:a1-arrival:lantern": {
+  "de": "Die Laterne?",
+  "en": "The lantern?",
+  "tr": "Fener?"
+ },
+ "paced:a1-arrival:a1-arrival-topic-lantern-0-paced": {
+  "de": "Bahnsteig sieben: 12 Jahre zu.",
+  "en": "Platform seven: closed for twelve years.",
+  "tr": "Yedinci peron: on iki yıldır kapalı."
+ },
+ "paced:a1-arrival:a1-arrival-topic-lantern-1-paced": {
+  "de": "Kein Zug. Die Laterne bleibt hier.",
+  "en": "No train. The lantern stays here.",
+  "tr": "Tren yok. Fener burada kalıyor."
+ },
+ "paced:a1-arrival:who-e": {
+  "de": "E.?",
+  "en": "E.?",
+  "tr": "E.?"
+ },
+ "paced:a1-arrival:a1-arrival-topic-who-e-0-paced": {
+  "de": "E.? Hier ist dein Name.",
+  "en": "E.? Here is your name.",
+  "tr": "E.? Adın burada."
+ },
+ "paced:a1-arrival:a1-arrival-topic-who-e-1-paced": {
+  "de": "E. kennt deinen Namen.",
+  "en": "E. knows your name.",
+  "tr": "E. adını biliyor."
+ },
+ "paced:a1-arrival:lindenhafen-platform-ticket": {
+  "de": "Fahrkarte: {name}. Bahnsteig sieben. E.",
+  "en": "Ticket: {name}. Platform seven. E.",
+  "tr": "Bilet: {name}. Yedinci peron. E."
+ },
+ "paced:a1-arrival:lindenhafen-noticeboard": {
+  "de": "Bahnsteig eins, zwei, drei, vier, fünf, sechs.",
+  "en": "Platforms one, two, three, four, five, six.",
+  "tr": "Birinci, ikinci, üçüncü, dördüncü, beşinci, altıncı peronlar."
+ },
+ "dialogue:a1-arrival-topic-who-voss-0-paced": {
+  "de": "Voss: Messingamt. Namen, Namen, Namen.",
+  "en": "Voss: the Brass Office. Names, names, names.",
+  "tr": "Voss: Pirinç Dairesi. Adlar, adlar, adlar."
+ },
+ "dialogue:a1-arrival-topic-lantern-0-paced": {
+  "de": "Bahnsteig sieben: zwölf Jahre zu.",
+  "en": "Platform seven: closed for twelve years.",
+  "tr": "Yedinci peron: on iki yıldır kapalı."
+ },
+ "dialogue:a1-arrival-topic-lantern-1-paced": {
+  "de": "Zug? Nein. Die Laterne bleibt hier.",
+  "en": "A train? No. The lantern stays here.",
+  "tr": "Tren mi? Hayır. Fener burada kalıyor."
+ },
+ "dialogue:a1-arrival-topic-who-e-0-paced": {
+  "de": "E.? Hier ist dein Name.",
+  "en": "E.? Here is your name.",
+  "tr": "E.? Adın burada."
+ },
+ "dialogue:a1-arrival-topic-who-e-1-paced": {
+  "de": "E. kennt deinen Namen.",
+  "en": "E. knows your name.",
+  "tr": "E. adını biliyor."
  }
 }

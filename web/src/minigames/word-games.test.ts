@@ -82,6 +82,26 @@ describe('the ten word games submit real answers', () => {
     expect(submitted()[1]).toMatchObject({ lexemeId: word.lexemeId, answer: word.lemma, hinted: true });
     expect(german.classList.contains('is-matched')).toBe(true);
   });
+  it('prologue Lantern Pairs saves phrase matches as supported authored recognition in silent mode', async () => {
+    const phrases=[
+      {exerciseId:'slow',wordIds:['bitte'],german:'Langsam, bitte.',meaning:'Yavaşça, lütfen.'},
+      {exerciseId:'again',wordIds:['bitte'],german:'Noch einmal, bitte.',meaning:'Bir daha, lütfen.'},
+      {exerciseId:'tea',wordIds:['tee'],german:'Einen Tee, bitte.',meaning:'Bir çay, lütfen.'},
+    ];
+    const submit=vi.fn(async(result:RoundResult)=>({correct:phrases.find(phrase=>phrase.exerciseId===result.exerciseId)?.german===result.answer} as AttemptResult));
+    const {root,start,host}=setup('lantern-pairs',{submit,silent:true},{prologue:true,phrases});await start();
+    const german=root.querySelector<HTMLButtonElement>('[data-wg^="de:"]')!,target=phrases.find(phrase=>phrase.german===german.textContent)!;
+    german.click();[...root.querySelectorAll<HTMLButtonElement>('[data-wg^="en:"]')].find(tile=>tile.textContent!==target.meaning)!.click();await flush();
+    expect(submit.mock.calls[0][0]).toMatchObject({exerciseId:target.exerciseId,modality:'recognition',hinted:true});
+    expect(submit.mock.calls[0][0].answerKind).toBeUndefined();expect(german.disabled).toBe(false);
+    german.click();[...root.querySelectorAll<HTMLButtonElement>('[data-wg^="en:"]')].find(tile=>tile.textContent===target.meaning)!.click();await flush();
+    expect(submit.mock.calls[1][0].answer).toBe(target.german);expect(german.disabled).toBe(true);
+    expect(host.speakText).not.toHaveBeenCalled();expect(host.expose).not.toHaveBeenCalled();
+  });
+  it('prologue Lantern Pairs never falls back to individual words when phrases are unavailable',()=>{
+    const {root}=setup('lantern-pairs',{}, {prologue:true,phrases:[]});
+    expect(root.querySelector('[data-game-action="start"]')).toBeNull();expect(root.querySelector('[data-action="todays-words"]')).not.toBeNull();
+  });
   it('The Honest Mirror asks for the true meaning before a rejection counts', async () => {
     const { root, start, cue, submitted } = setup('honest-mirror'); await start();
     const word = cue(), proposal = root.querySelector('.word-mirror-glass strong')!.textContent!;

@@ -7,7 +7,7 @@
 import './register-content-loader.mjs';
 import { quests, npcs } from './content-source.mjs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { pacingReport, questVocabularyDemand } from './syllabus.mjs';
+import { pacingReport, questVocabularyDemand, openingPacingViolations } from './syllabus.mjs';
 
 const read = async path => JSON.parse(await readFile(new URL(path, import.meta.url), 'utf8'));
 const course = await read('../web/src/data/course.json');
@@ -30,3 +30,6 @@ const pad = (value, width) => String(value).padEnd(width);
 console.log(`${pad('scene', 20)}${pad('lvl', 5)}${pad('lexemes', 9)}${pad('new', 6)}${pad('story+unmapped', 16)}${pad('coverage after', 15)}${pad('hour', 7)}over budget`);
 for (const quest of report.quests) console.log(`${pad(quest.questId, 20)}${pad(quest.level, 5)}${pad(quest.lexemes, 9)}${pad(quest.newLexemes, 6)}${pad(quest.storyWords.length + quest.unmapped.length, 16)}${pad(`${quest.milestone} words`, 15)}${pad(quest.vocabularyReadyHour, 7)}${quest.newWordsAboveBudget}`);
 console.log(`\n${report.totals.lexemes} lexemes scheduled at ${report.budget.wordsPerHour}/hour (${report.budget.openingWords} at the start): ${report.totals.wordsAtTarget} words by hour ${report.totals.hourTarget}; the whole lexicon takes ${report.totals.hoursForWholeLexicon} hours. The authored story uses ${report.totals.storyLexemes} lexemes and optional intake covers its last scene at hour ${report.totals.storyVocabularyReadyByHour}.`);
+
+const openingErrors = openingPacingViolations(report);
+if (openingErrors.length) { console.error(openingErrors.join("\n")); process.exitCode = 1; }

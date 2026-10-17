@@ -78,3 +78,36 @@ func TestPrologueNamePracticeIsLocalSupportedAndIdempotent(t *testing.T) {
 		t.Fatal("duplicate name reward", r.Body.String())
 	}
 }
+
+func TestProloguePhrasePairsKeepIntakeAndSupportedEvidence(t *testing.T) {
+	app := storyTestApp(t)
+	token, _ := createSession(t, app, "Ada")
+	restoreVocabulary(t, app, token) // Initialize new-account intake before seeding story completion.
+	seedStoryProgress(t, app, token, []string{"a0-ticket", "a0-name", "a0-wagen", "a0-tee", "a0-wo", "a0-langsam"})
+	exercise := app.curriculum.Exercises["a0-langsam-exercise-2"]
+	if exercise.Mode != "recognition" || len(exerciseWords(exercise)) < 2 {
+		t.Fatal("phrase must remain an authored recognition exercise", exercise)
+	}
+	input := AttemptInput{ID: "phrase-locked", MiniGameID: "lantern-pairs", ExerciseID: exercise.ID, ItemID: exercise.ItemID, Mode: "recognition", Answer: exercise.Answer, Hinted: true}
+	if result := request(app, "POST", "/api/attempt", token, input); result.Code != 409 {
+		t.Fatalf("phrase bypassed intake: %d %s", result.Code, result.Body.String())
+	}
+	restoreVocabulary(t, app, token, exerciseWords(exercise)...)
+	input.ID, input.Answer = "phrase-wrong", "Einen Tee, bitte."
+	wrong := decodeAttempt(t, request(app, "POST", "/api/attempt", token, input))
+	if wrong.Correct {
+		t.Fatal("mismatched meaning counted as correct")
+	}
+	input.ID, input.Answer = "phrase-right", exercise.Answer
+	right := decodeAttempt(t, request(app, "POST", "/api/attempt", token, input))
+	if !right.Correct {
+		t.Fatal("authored phrase did not grade", right)
+	}
+	for _, word := range right.Progress.Words {
+		for _, stats := range word.ModeStats {
+			if stats.UnaidedSuccesses != 0 {
+				t.Fatal("supported phrase matching invented unaided vocabulary recall")
+			}
+		}
+	}
+}

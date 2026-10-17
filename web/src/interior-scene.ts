@@ -1,7 +1,7 @@
 import * as Phaser from 'phaser';
 import type { MapId } from './maps';
 import type { MapPoint, NavigationGrid } from './navigation';
-import { INTERIOR_CHARACTER_HEIGHT } from './character-art';
+import { INTERIOR_CHARACTER_HEIGHT, perspectiveBodyHeight } from './character-art';
 import { createInteriorNavigation, getInterior, interiorNpcAvailable, interiorObjectAvailable, type InteriorId, type InteriorSpec } from './interiors';
 import { WorldInterior } from './world-interior';
 import { worldDepth } from './world-depth';
@@ -50,6 +50,8 @@ export class InteriorScene extends ExploreScene {
   get interiorId(): InteriorId { return this.spec.id; }
   protected get indoor(): boolean { return true; }
   protected get indoorCharacterHeight(): number { return this.spec.characterHeight ?? INTERIOR_CHARACTER_HEIGHT; }
+
+  protected characterHeightAt(y: number): number { return perspectiveBodyHeight(this.indoorCharacterHeight, y, this.spec.perspective); }
 
   init(data: InteriorSceneData): void {
     super.init();

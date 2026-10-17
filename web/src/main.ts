@@ -11,6 +11,7 @@ import {loadPublishedWorld,sceneContentVersion,sceneDocument} from './scene-data
 import {applyWorldPatch} from './world-patch';
 import { avatarPortraitMarkup, bakeAvatarPortrait, observeAvatarPortraits, updateSelfPortraits } from './avatar-portrait';
 import { normalizeAvatar } from './character-recipe.mjs';
+import { loadProloguePhrases } from './minigames/prologue-phrases';
 import { mountSoundsBoard } from './prologue-sounds';
 import { mountOptionalPlacement } from './placement-ui';
 import { QuestController } from './quest-controller';
@@ -119,7 +120,7 @@ import { gameItemPool } from './minigames/pool';
 import { DialogSession, openAsyncDialog, trackDialogClose, type AsyncDialogHost } from './dialog-session';
 
 const uiCheckRequest = import.meta.env.DEV ? new URLSearchParams(location.search).get('ui-check') : null;
-const uiCheckSurface = uiCheckRequest && ['home','options','character','help','account','encounter','journal','activity','course','world','prologue','sounds'].includes(uiCheckRequest) ? uiCheckRequest : null;
+const uiCheckSurface = uiCheckRequest && ['home','options','character','help','account','encounter','journal','activity','course','world','prologue','prologue-dining','sounds'].includes(uiCheckRequest) ? uiCheckRequest : null;
 
 type View = 'world' | MenuView;
 type CourseModule = typeof import('./course');
@@ -738,7 +739,7 @@ function updateProgress() {
   }
   if (interiorId?.startsWith('train-')) {
     const next = nextPrologueQuest();
-    document.querySelector('#quest-panel')!.innerHTML = `<div class="prologue-actions"><span>${t('Prologue')}</span><button class="primary-button" data-action="prologue">${next ? e(localized(next.title)) : t('Arrive in Lindenhafen')}</button><button class="text-button" data-action="prologue-sounds">${t('Letters and sounds')}</button><button class="text-button" data-action="leave-interior">${t('Return to the town')}</button><details><summary>${t('Prologue: the night train')}</summary>${quests.filter(q=>q.level==='A0' && questAvailable(q.id,progress)).map(q=>`<button class="text-button" data-follow-quest="${e(q.id)}">${e(localized(q.title))}</button>`).join('')}</details></div>`;
+    document.querySelector('#quest-panel')!.innerHTML = `<div class="prologue-actions"><span>${t('Prologue')}</span><button class="primary-button" data-action="prologue">${next ? e(localized(next.title)) : t('Arrive in Lindenhafen')}</button><button class="text-button" data-action="prologue-sounds">${t('Letters and sounds')}</button><button class="text-button" data-action="leave-interior">${t('Return to the town')}</button>${prologuePracticeStatus()}<details><summary>${t('Prologue: the night train')}</summary>${quests.filter(q=>q.level==='A0' && questAvailable(q.id,progress)).map(q=>`<button class="text-button" data-follow-quest="${e(q.id)}">${e(localized(q.title))}</button>`).join('')}</details></div>`;
     return;
   }
   const q = currentQuest();
@@ -1233,9 +1234,10 @@ async function startMiniGame(id:string):Promise<void>{
     async()=>{
       const [courseModule,games,{createMiniGameHost}]=await Promise.all([loadCourse(),import('./minigames'),import('./minigames/host')]);
       const [game,authoredExercises]=await Promise.all([games.loadMiniGame(id),games.loadMiniGameExercises(id)]);
-      return {courseModule,game,authoredExercises,createMiniGameHost};
+      const phrases = interiorId?.startsWith('train-') && id === 'lantern-pairs' ? await loadProloguePhrases(quests,progress,loadExercise) : undefined;
+      return {courseModule,game,authoredExercises,createMiniGameHost,phrases};
     },
-    ({courseModule,game,authoredExercises,createMiniGameHost},dialog)=>{
+    ({courseModule,game,authoredExercises,createMiniGameHost,phrases},dialog)=>{
       dialog.innerHTML=`<button class="dialog-close" data-action="close-dialog" aria-label="${e(t('Close'))}">${icon('close')}</button><div id="minigame-root"></div>`;
       const sceneExercises=quests.flatMap(quest=>quest.exercises.map(exercise=>({...exercise,level:quest.level === 'A0' ? 'A1' as const : quest.level,kind:'writing' as const,unitId:quest.id,wordIds:(exercise as Exercise&{wordIds?:string[]}).wordIds??courseModule.courseContextWordIds[exercise.id]??[]})));
       miniGameHost=createMiniGameHost({api,gameId:id,lexicon:courseModule.courseLexicon,exercises:[...courseModule.courseExercises,...sceneExercises,...authoredExercises],progress:()=>progress,
@@ -1244,7 +1246,7 @@ async function startMiniGame(id:string):Promise<void>{
       miniGameController=game;
       const prologuePool = interiorId?.startsWith('train-') ? syllabus.quests.filter(q => q.level === 'A0' && (progress.completedQuestIds.includes(q.questId) || q.questId === lastPrologueQuest)).flatMap(q => q.wordIds) : undefined;
       const fixedPool=prologuePool?.length ? [...new Set(prologuePool)] : questId?syllabus.quests.find(quest=>quest.questId===questId)?.wordIds:undefined;
-      game.mount(document.querySelector<HTMLElement>('#minigame-root')!,miniGameHost,{level:gameLevel,currentLevel:level,seed:crypto.getRandomValues(new Uint32Array(1))[0],fixedPool,prologue:!!interiorId?.startsWith('train-'),namePractice:interiorId?.startsWith('train-') && id === 'night-train',backdrop:['workbench','lost-hour'].includes(id)?'/assets/minigames/workbench.webp':['seed-packets','17-59'].includes(id)?getMap('waldruh').previewAsset:interiorId?getInterior(interiorId).asset:getMap(mapId).previewAsset});
+      game.mount(document.querySelector<HTMLElement>('#minigame-root')!,miniGameHost,{phrases,level:gameLevel,currentLevel:level,seed:crypto.getRandomValues(new Uint32Array(1))[0],fixedPool,prologue:!!interiorId?.startsWith('train-'),namePractice:interiorId?.startsWith('train-') && id === 'night-train',backdrop:['workbench','lost-hour'].includes(id)?'/assets/minigames/workbench.webp':['seed-packets','17-59'].includes(id)?getMap('waldruh').previewAsset:interiorId?getInterior(interiorId).asset:getMap(mapId).previewAsset});
       if(document.hidden||document.querySelector<HTMLDialogElement>('#account-dialog')!.open)game.pause();
     },
     (error,dialog)=>{toast((error as Error).message,true);dialog.close();});
@@ -1344,7 +1346,7 @@ function todaysWordsCard(): string {
   const words = todaysWords(progress).map(id => course!.lexemeById.get(id)).filter((word): word is CourseLexeme => !!word);
   if (!words.length) return '';
   const game = upcomingWordGame();
-  return `<button class="outline-button" data-action="prologue">${t('Prologue: the night train')}</button><section class="todays-words"><h3>${e(t('Today’s words'))}</h3><button class="primary-button" data-action="todays-words">${t('Practise today’s words')}</button>${game ? `<button class="outline-button" data-minigame="${e(game.id)}">${icon('lantern')} ${t('Play')} ${e(game.title)}</button><button class="text-button" data-view="activities">${t('More word games')}</button>` : ''}</section>`;
+  return `<button class="outline-button" data-action="prologue">${t('Prologue: the night train')}</button>${prologuePracticeStatus()}<section class="todays-words"><h3>${e(t('Today’s words'))}</h3><button class="primary-button" data-action="todays-words">${t('Practise today’s words')}</button>${game ? `<button class="outline-button" data-minigame="${e(game.id)}">${icon('lantern')} ${t('Play')} ${e(game.title)}</button><button class="text-button" data-view="activities">${t('More word games')}</button>` : ''}</section>`;
 }
 /** Word games take turns, so the journal offers a different one after each round. */
 function upcomingWordGame() {
@@ -1675,7 +1677,13 @@ async function offerProloguePractice(preferred?: string) {
   try { await loadCourse(); } catch { return; }
   const context=miniGameReadiness();
   const game=[preferred,'echo-bells','lantern-pairs'].flatMap(id=>id && miniGameById.get(id) ? [miniGameById.get(id)!] : []).find(game=>!miniGameBlock(game,context));
+  if(preferred === 'lantern-pairs') { notifications?.notify(t('Try a round of {game}.',{game:miniGameById.get(preferred)!.title}),false,{label:t('Play'),minigame:preferred}); return; }
   if(game)notifications?.notify(t('Try a round of {game}.',{game:game.title}),false,{label:t('Play'),minigame:game.id});
+}
+function prologuePracticeStatus() {
+  const words=prologueWordPool(), remaining=words.filter(id=>!introducedSet().has(id)).length;
+  if (!words.length) return '';
+  return `<p>${e(t('{remaining} of {total} train words are still returning. Keep practising as you explore.',{remaining,total:words.length}))}</p><button class="text-button" data-action="todays-words">${e(t('Practise today’s words'))}</button>`;
 }
 function nextPrologueQuest() { return quests.find(q => q.level === 'A0' && !progress.completedQuestIds.includes(q.id)); }
 function showPrologueSounds(onClose?: () => void) {
@@ -2412,15 +2420,15 @@ async function openUiCheck(surface: string) {
   else if(surface==='encounter'){interiorId='cafe';syncLocation();await showInteriorObject('interior:cafe:coffee');}
   else if(surface==='activity')await startActivity('cafe');
   else if(surface==='sounds') { setView('world'); showPrologueSounds(); }
-  else if(surface==='prologue') {
-    await loadInterior('train-compartment'); setView('world'); world.setPresentation('live');
+  else if(surface==='prologue' || surface==='prologue-dining') {
+    await loadInterior(surface === 'prologue-dining' ? 'train-dining' : 'train-compartment'); setView('world'); world.setPresentation('live');
     const deadline=performance.now()+30000;
     while(!world.isExploreReady() && performance.now()<deadline) await new Promise(resolve=>setTimeout(resolve,100));
     if(!world.isExploreReady())throw new Error('Town preview did not become ready');
-    applyInterior('train-compartment');
+    applyInterior(surface === 'prologue-dining' ? 'train-dining' : 'train-compartment');
   }
   else setView('world');
-  world.setPresentation(surface === 'prologue' ? 'live' : 'hidden');
+  world.setPresentation(surface.startsWith('prologue') ? 'live' : 'hidden');
   document.querySelector<HTMLElement>('#world-container')!.style.background=`center / cover url('${getMap(mapId).previewAsset}')`;
   await Promise.all([...document.querySelectorAll<HTMLImageElement>('img[data-avatar-portrait]')].map(async image => {
     const encoded = image.dataset.avatarPortrait; if (!encoded) return;
@@ -2436,10 +2444,11 @@ async function openUiCheck(surface: string) {
       ]);
     } finally { if (timeout !== undefined) clearTimeout(timeout); }
   }));
-  if (surface === 'prologue') {
+  if (surface.startsWith('prologue')) {
+    const room = surface === 'prologue-dining' ? 'train-dining' : 'train-compartment';
     const deadline=performance.now()+30000;
-    while((world.getInteriorId() !== 'train-compartment' || !world.isExploreReady()) && performance.now()<deadline) await new Promise(resolve=>setTimeout(resolve,100));
-    if (world.getInteriorId() !== 'train-compartment' || !world.isExploreReady()) throw new Error('Train preview did not become ready');
+    while((world.getInteriorId() !== room || !world.isExploreReady()) && performance.now()<deadline) await new Promise(resolve=>setTimeout(resolve,100));
+    if (world.getInteriorId() !== room || !world.isExploreReady()) throw new Error('Train preview did not become ready');
   }
   document.body.dataset.uiCheckReady=surface;
 }
@@ -2453,7 +2462,7 @@ async function boot() {
   renderShell();
   const stopPortraits = observeAvatarPortraits(document.body);
   window.addEventListener('beforeunload', stopPortraits, { once: true });
-  if (uiCheckSurface && ['home','options','character','help','account','encounter','journal','activity','course','world','prologue','sounds'].includes(uiCheckSurface)) { await openUiCheck(uiCheckSurface); return; }
+  if (uiCheckSurface && ['home','options','character','help','account','encounter','journal','activity','course','world','prologue','prologue-dining','sounds'].includes(uiCheckSurface)) { await openUiCheck(uiCheckSurface); return; }
   api.onAccess = accessSession.apply;
   let refreshWorld:Promise<void>|undefined;
   const refreshPublishedWorld=():Promise<void>=>refreshWorld??=(async()=>{

@@ -8,7 +8,7 @@ const directory = process.env.ATLAS_UI_DIRECTORY ?? path.join(root, 'docs/screen
 const origin = process.env.ATLAS_UI_URL ?? 'http://127.0.0.1:5187';
 const surfaces = (process.env.ATLAS_UI_SURFACES ?? 'home,options,encounter,journal,activity').split(',');
 const viewports = [
-  { name: 'desktop', width: surfaces.some(surface=>['prologue','sounds'].includes(surface)) ? 1280 : 1440, height: surfaces.some(surface=>['prologue','sounds'].includes(surface)) ? 720 : 900 },
+  { name: 'desktop', width: surfaces.some(surface=>['prologue','prologue-dining','sounds'].includes(surface)) ? 1280 : 1440, height: surfaces.some(surface=>['prologue','prologue-dining','sounds'].includes(surface)) ? 720 : 900 },
   { name: 'phone', width: 390, height: 844 },
   { name: 'landscape', width: 844, height: 390 },
 ].filter(viewport => process.env.ATLAS_UI_VIEWPORT ? process.env.ATLAS_UI_VIEWPORT === viewport.name : viewport.name !== 'landscape');

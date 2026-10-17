@@ -233,7 +233,7 @@ export class World {
 
   // Inspection ---------------------------------------------------------------
 
-  isExploreReady(): boolean { return !!this.explore && !this.game.scene.isActive(SceneKeys.Travel); }
+  isExploreReady(): boolean { return !!this.explore?.charactersReady && !this.game.scene.isActive(SceneKeys.Travel); }
 
   getWorldStats(): WorldStats {
     const interior = this.activeKey === SceneKeys.Interior && this.interior?.ready ? this.interior : undefined;

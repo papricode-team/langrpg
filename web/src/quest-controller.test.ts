@@ -456,7 +456,7 @@ describe('conversation scene lifecycle', () => {
     f.click('[data-dialogue-action="translate"]');
     expect(document.querySelector('.dialogue-translation')).not.toBeNull();
     f.click('[data-dialogue-choice="Gute Nacht!"]');
-    await vi.waitFor(()=>expect(document.querySelector('.dialogue-line')?.textContent).toContain('Es ist Morgen'));
+    await vi.waitFor(()=>expect(document.querySelector('.dialogue-line')?.textContent).toContain('Guten Morgen!'));
     expect(document.querySelector('.dialogue-translation')).toBeNull();
     expect(document.querySelector('[data-dialogue-action="translate"]')?.getAttribute('aria-pressed')).toBe('false');
     expect(f.options.speak.mock.lastCall?.[1]).toBe('otto');
@@ -469,10 +469,10 @@ describe('conversation scene lifecycle', () => {
   it('clears a greeting correction before showing physical evidence', async () => {
     const f=fixture();f.api.request.mockResolvedValueOnce({attemptId:'wrong-greeting',correct:false,progress:f.progress});
     await f.controller.open('a1-arrival');f.click('[data-dialogue-choice="Gute Nacht!"]');
-    await vi.waitFor(()=>expect(document.querySelector('.dialogue-line')?.textContent).toContain('Es ist Morgen'));
+    await vi.waitFor(()=>expect(document.querySelector('.dialogue-line')?.textContent).toContain('Guten Morgen!'));
     f.controller.close();f.controller.inspect('a1-arrival','lindenhafen-platform-ticket');
     expect(document.querySelector('.dialogue-line')?.textContent).toContain('Fahrkarte');
-    expect(document.querySelector('.dialogue-line')?.textContent).not.toContain('Es ist Morgen');
+    expect(document.querySelector('.dialogue-line')?.textContent).not.toContain('Guten Morgen!');
   });
   it('does not let a pending old choice finish a newly opened conversation', async () => {
     const f=fixture('choice');let finish!:()=>void;

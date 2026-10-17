@@ -198,6 +198,8 @@ export abstract class ExploreScene extends Phaser.Scene {
   /** Bodies inside rooms use the room painting's adult height. */
   protected get indoor(): boolean { return false; }
   protected get indoorCharacterHeight(): number { return INTERIOR_CHARACTER_HEIGHT; }
+  protected characterHeightAt(_y: number): number { return this.indoorCharacterHeight; }
+  get charactersReady(): boolean { return !!this.local?.figure.visible && !this.local.avatarPending; }
 
   /** Scenes restart on travel; reset everything the constructor would otherwise keep. */
   init(_data?: unknown): void {
@@ -608,7 +610,7 @@ export abstract class ExploreScene extends Phaser.Scene {
   /** Keyboard, pad, stick and click-to-walk resolve into one step against the navigation grid. */
   private movePlayer(seconds: number): { dx: number; dy: number; vx: number; vy: number; moving: boolean; arrived?: string } {
     let vx = 0, vy = 0, arrived: string | undefined;
-    const speed = walkSpeedForHeight(this.indoor ? this.indoorCharacterHeight : MODULAR_ART.worldHeight);
+    const speed = walkSpeedForHeight(this.indoor ? this.characterHeightAt(this.local.y) : MODULAR_ART.worldHeight);
     const previousX = this.local.x, previousY = this.local.y;
     const keys = this.keys;
     const pad1 = this.input.gamepad?.pad1;
@@ -1061,7 +1063,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     const canvasHeight = animation?.height ?? art.height;
     const bodyHeight = animation ? canvasHeight - 6 : art.bodyHeight;
     const indoors = this.indoor;
-    const indoorHeight = this.indoorCharacterHeight;
+    const indoorHeight = this.characterHeightAt(character.y);
     const scale = ((character.componentCast || character.modularNpc || !character.npc && this.playerArtReady) && !indoors ? MODULAR_ART.worldHeight / bodyHeight : characterArtScale(bodyHeight, canvasHeight, indoors, indoorHeight)) * childScale(character.id);
     if (character.artScale === scale) return;
     character.artScale = scale;

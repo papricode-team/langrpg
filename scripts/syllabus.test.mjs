@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildSyllabus } from './syllabus.mjs';
+import { buildSyllabus, openingPacingViolations, syllabusDefaults } from './syllabus.mjs';
 
 test('each block of ten mixes story words with high-frequency core words and excludes names', () => {
   const lexicon = [
@@ -24,4 +24,17 @@ test('each block of ten mixes story words with high-frequency core words and exc
   assert.equal(syllabus.quests[0].milestone, 5);
   assert.ok(syllabus.quests[1].milestone > syllabus.quests[0].milestone);
   assert.throws(() => buildSyllabus({ graphs, lexicon, questOrder: ['first', 'second'], options: { storyShare: 9, wordsPerHour: 4 } }));
+});
+
+
+test('opening budgets retain individual intake and reject regressions in the full scene totals', () => {
+  assert.deepEqual(syllabusDefaults,{wordsPerHour:10,openingWords:10,bankCap:15,storyShare:8,brake:{maxUnsettled:12,maxDue:20}});
+  const report={quests:[{questId:'a0-morgen',level:'A0',newWordsAboveBudget:0,vocabularyReadyHour:2.9},{questId:'a1-arrival',level:'A1',lexemes:40,newWordsAboveBudget:10,requiredPathLexemes:20}]};
+  assert.deepEqual(openingPacingViolations(report),[]);
+  report.quests[0].vocabularyReadyHour=3;
+  report.quests[0].newWordsAboveBudget=1;
+  report.quests[1].lexemes=41;
+  assert.equal(openingPacingViolations(report).length,3);
+  report.quests[1].lexemes=40;report.quests[1].newWordsAboveBudget=11;
+  assert.ok(openingPacingViolations(report).some(message=>message.includes('including optional topics')));
 });

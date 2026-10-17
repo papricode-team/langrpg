@@ -48,7 +48,7 @@
     },
     {
       "id": "artifact-a0-tee-prologue-tee",
-      "text": "Tee oder Kaffee?",
+      "text": "Tee?",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
@@ -72,7 +72,7 @@
     },
     {
       "id": "artifact-a1-arrival-lindenhafen-noticeboard",
-      "text": "Bahnsteig eins bis sechs. Kein Bahnsteig sieben.",
+      "text": "Bahnsteig eins, zwei, drei, vier, fünf, sechs.",
       "speaker": "Evidence",
       "voice": "qwen3:narrator"
     },
@@ -599,12 +599,6 @@
       "voice": "qwen3:schaffner"
     },
     {
-      "id": "dialogue-a0-langsam-3",
-      "text": "Wie bitte?",
-      "speaker": "schaffner",
-      "voice": "qwen3:schaffner"
-    },
-    {
       "id": "dialogue-a0-langsam-choice",
       "text": "Noch einmal, bitte.",
       "speaker": "schaffner",
@@ -612,7 +606,7 @@
     },
     {
       "id": "dialogue-a0-langsam-complete",
-      "text": "Wie bitte?",
+      "text": "Langsam, bitte.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
@@ -630,7 +624,7 @@
     },
     {
       "id": "dialogue-a0-morgen-1",
-      "text": "Der Zug kommt.",
+      "text": "Der Zug.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
@@ -666,7 +660,7 @@
     },
     {
       "id": "dialogue-a0-name-0",
-      "text": "Wie heißen Sie?",
+      "text": "Name?",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
@@ -684,25 +678,19 @@
     },
     {
       "id": "dialogue-a0-name-gate",
-      "text": "Wie heißen Sie?",
+      "text": "Name?",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-tee-0",
-      "text": "Tee oder Kaffee?",
+      "text": "Tee?",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
     {
       "id": "dialogue-a0-tee-1",
       "text": "Einen Tee, bitte.",
-      "speaker": "schaffner",
-      "voice": "qwen3:schaffner"
-    },
-    {
-      "id": "dialogue-a0-tee-2",
-      "text": "Mit Milch?",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
@@ -726,7 +714,7 @@
     },
     {
       "id": "dialogue-a0-tee-gate",
-      "text": "Tee oder Kaffee?",
+      "text": "Tee?",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
@@ -845,18 +833,6 @@
       "voice": "qwen3:schaffner"
     },
     {
-      "id": "dialogue-a0-wo-3",
-      "text": "Da.",
-      "speaker": "schaffner",
-      "voice": "qwen3:schaffner"
-    },
-    {
-      "id": "dialogue-a0-wo-4",
-      "text": "Ausgang.",
-      "speaker": "schaffner",
-      "voice": "qwen3:schaffner"
-    },
-    {
       "id": "dialogue-a0-wo-choice",
       "text": "Wo ist …?",
       "speaker": "schaffner",
@@ -864,7 +840,7 @@
     },
     {
       "id": "dialogue-a0-wo-complete",
-      "text": "Ausgang.",
+      "text": "Die Toilette.",
       "speaker": "schaffner",
       "voice": "qwen3:schaffner"
     },
@@ -888,13 +864,13 @@
     },
     {
       "id": "dialogue-a1-arrival-choice-0",
-      "text": "Gern. Langsam: Ihre Fahrkarte ist nicht gültig.",
+      "text": "Langsam: Die Fahrkarte ist nicht gültig.",
       "speaker": "inspector",
       "voice": "qwen3:inspector"
     },
     {
       "id": "dialogue-a1-arrival-choice-7",
-      "text": "Wer bekommt Ihre Fahrkarte: Otto oder ich?",
+      "text": "Die Fahrkarte, bitte?",
       "speaker": "inspector",
       "voice": "qwen3:inspector"
     },
@@ -918,19 +894,19 @@
     },
     {
       "id": "dialogue-a1-arrival-gate-1",
-      "text": "Abgeben-bitte-danke!",
+      "text": "Fahrkarte-bitte-danke!",
       "speaker": "inspector",
       "voice": "qwen3:inspector"
     },
     {
       "id": "dialogue-a1-arrival-gate-1-simple",
-      "text": "Abgeben, bitte. Danke.",
+      "text": "Fahrkarte, bitte. Danke.",
       "speaker": "inspector",
       "voice": "qwen3:inspector"
     },
     {
       "id": "dialogue-a1-arrival-greeting-correction",
-      "text": "Es ist Morgen. Guten Morgen!",
+      "text": "Guten Morgen!",
       "speaker": "otto",
       "voice": "qwen3:otto"
     },
@@ -942,7 +918,7 @@
     },
     {
       "id": "dialogue-a1-arrival-intro-11-prologue",
-      "text": "Hier gehen Namen weg.",
+      "text": "Namen bleiben hier nicht.",
       "speaker": "otto",
       "voice": "qwen3:otto"
     },
@@ -954,33 +930,9 @@
     },
     {
       "id": "dialogue-a1-arrival-intro-14",
-      "text": "Guten Morgen. Voss, vom Messingamt.",
+      "text": "Guten Morgen. Voss. Messingamt.",
       "speaker": "inspector",
       "voice": "qwen3:inspector"
-    },
-    {
-      "id": "dialogue-a1-arrival-intro-2",
-      "text": "Bahnsteig sieben ist seit zwölf Jahren zu.",
-      "speaker": "otto",
-      "voice": "qwen3:otto"
-    },
-    {
-      "id": "dialogue-a1-arrival-intro-3",
-      "text": "Seit zwölf Jahren kommt hier kein Zug.",
-      "speaker": "otto",
-      "voice": "qwen3:otto"
-    },
-    {
-      "id": "dialogue-a1-arrival-intro-4",
-      "text": "Aber ich mache jeden Morgen die Laterne an.",
-      "speaker": "otto",
-      "voice": "qwen3:otto"
-    },
-    {
-      "id": "dialogue-a1-arrival-intro-5",
-      "text": "Ordnung ist Ordnung. Auch ohne Zug.",
-      "speaker": "otto",
-      "voice": "qwen3:otto"
     },
     {
       "id": "dialogue-a1-arrival-intro-8",
@@ -989,32 +941,32 @@
       "voice": "qwen3:otto"
     },
     {
-      "id": "dialogue-a1-arrival-topic-who-e-0",
-      "text": "Ich weiß es nicht. Nur E.",
+      "id": "dialogue-a1-arrival-topic-lantern-0-paced",
+      "text": "Bahnsteig sieben: zwölf Jahre zu.",
       "speaker": "otto",
       "voice": "qwen3:otto"
     },
     {
-      "id": "dialogue-a1-arrival-topic-who-e-1",
-      "text": "E. kennt deinen Namen. Kennst du E.?",
+      "id": "dialogue-a1-arrival-topic-lantern-1-paced",
+      "text": "Zug? Nein. Die Laterne bleibt hier.",
       "speaker": "otto",
       "voice": "qwen3:otto"
     },
     {
-      "id": "dialogue-a1-arrival-topic-who-voss-0",
-      "text": "Voss ist vom Messingamt. Er hat ein Buch.",
+      "id": "dialogue-a1-arrival-topic-who-e-0-paced",
+      "text": "E.? Hier ist dein Name.",
       "speaker": "otto",
       "voice": "qwen3:otto"
     },
     {
-      "id": "dialogue-a1-arrival-topic-who-voss-1",
-      "text": "Dort stehen alle Namen. Sagt er.",
+      "id": "dialogue-a1-arrival-topic-who-e-1-paced",
+      "text": "E. kennt deinen Namen.",
       "speaker": "otto",
       "voice": "qwen3:otto"
     },
     {
-      "id": "dialogue-a1-arrival-topic-who-voss-2",
-      "text": "Er schreibt auch das Wetter auf. Jeden Tag.",
+      "id": "dialogue-a1-arrival-topic-who-voss-0-paced",
+      "text": "Voss: Messingamt. Namen, Namen, Namen.",
       "speaker": "otto",
       "voice": "qwen3:otto"
     },

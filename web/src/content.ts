@@ -39,6 +39,8 @@ export interface Quest {
   objectives: string[];
   reward: number;
   exercises: Exercise[];
+  /** Authenticated recognition exercises for completed prologue phrase practice. */
+  practiceExerciseIds?: string[];
 }
 export interface NPC {
   id: string;

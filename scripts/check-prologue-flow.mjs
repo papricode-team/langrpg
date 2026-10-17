@@ -1,9 +1,11 @@
 /** Live integration check: use an isolated local API/Vite server, not unit-test fixtures. */
 import {chromium} from 'playwright';
-import {mkdir} from 'node:fs/promises';
+import {mkdir,readFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 const url=process.env.ATLAS_UI_URL??'http://127.0.0.1:5173';
 if(!['localhost','127.0.0.1','[::1]'].includes(new URL(url).hostname))throw Error('The prologue flow creates a guest; use a local test server.');
+const authored=JSON.parse(await readFile(new URL('../content/source.json',import.meta.url),'utf8'));
+const meanings=new Map(authored.quests.filter(quest=>quest.level==='A0').flatMap(quest=>quest.exercises.map(exercise=>[exercise.german,exercise.english])));
 const directory=resolve('output/ui-screenshots');await mkdir(directory,{recursive:true});
 const b=await chromium.launch({...(process.env.ATLAS_CHROMIUM_PATH?{executablePath:process.env.ATLAS_CHROMIUM_PATH}:{})}),p=await b.newPage({viewport:{width:1280,height:720}}),errors=[],attempts=[];
 p.on('response',r=>{if(r.status()===429&&new URL(r.url()).pathname.startsWith('/api/content/'))errors.push('Content read limited: '+new URL(r.url()).pathname)});
@@ -29,6 +31,18 @@ try{
    }
    console.log('Scene',index+1,'closed',completed,'XP',await p.locator('#xp-value').innerText());
    if(!completed)throw Error('Scene did not close '+index);
+   if(index===4){
+     await p.locator('[data-minigame="lantern-pairs"]').first().click();
+     await p.locator('[data-game-action="start"]').click();
+     const german=p.locator('[aria-label="German phrases"] [data-wg^="de:"]').first();
+     const phrase=await german.innerText(),meaning=meanings.get(phrase);
+     if(!meaning||!phrase.includes(' '))throw Error('Lantern Pairs did not offer a taught phrase.');
+     await german.click();await p.locator('[data-wg^="en:"]').filter({hasText:meaning}).click();
+     await p.waitForFunction(()=>!!document.querySelector('[aria-label="German phrases"] .is-matched'));
+     await p.screenshot({path:resolve(directory,'live-prologue-phrases.png')});
+     await p.locator('[data-action="close-dialog"]').click();
+     console.log('Phrase match saved:',phrase);
+   }
    if(index<6){await p.locator('[data-action="prologue"]').first().click();await p.waitForSelector('.dialogue-line',{timeout:15000});}
  }
  await p.locator('[data-action="prologue"]').first().click();
@@ -36,7 +50,9 @@ try{
  console.log('Arrival after prologue:',(await p.locator('body').innerText()).slice(-650));
  await p.locator('.dialogue-line').filter({hasText:'Guten Morgen! Willkommen in Lindenhafen.'}).waitFor();
  if(errors.length)throw Error(errors.join('\n'));
- if(attempts.length!==6||attempts.some(attempt=>attempt.mode!=='recognition'))throw Error('The prologue must submit six supported recognition replies and no lexical name attempt.');
- console.log('Errors',errors);console.log('Lexical attempt modes',attempts.map(a=>a.mode));
+ const submissions=attempts.flat(),story=submissions.filter(attempt=>!attempt.miniGameId),phrases=submissions.filter(attempt=>attempt.miniGameId==='lantern-pairs');
+ if(phrases.length!==1||!phrases[0].hinted||phrases[0].mode!=='recognition'||phrases[0].answerKind)throw Error('Phrase matching bypassed supported authored grading.');
+ if(story.length!==6||story.some(attempt=>attempt.mode!=='recognition'))throw Error('The prologue must submit six supported recognition replies and no lexical name attempt.');
+ console.log('Errors',errors);console.log('Lexical attempt modes',submissions.map(a=>a.mode));
  await p.screenshot({path:resolve(directory,'live-prologue-complete.png')});
 }catch(e){console.log('FLOW ERROR',e.message);console.log((await p.locator('body').innerText()).slice(-2300));console.log('Runtime errors',errors);await p.screenshot({path:resolve(directory,'live-prologue-debug.png')});process.exitCode=1;}finally{await b.close();}

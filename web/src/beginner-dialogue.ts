@@ -21,7 +21,7 @@ export function needsBeginnerStorySupport(progress: Progress): boolean {
 export const beginnerGateTranslations: Record<string, readonly (readonly [german: string, english: string, sentenceId?: string])[]> = {
   "a0-ticket-exercise-1": [["Bitte.", "Here you are."], ["Guten Abend.", "Good evening."]],
   "a0-wagen-exercise-1": [["sieben", "seven"], ["eins, zwei, drei", "one, two, three"]],
-  "a0-tee-exercise-1": [["Einen Tee, bitte.", "A tea, please."], ["Tee oder Kaffee?", "Tea or coffee?"]],
+  "a0-tee-exercise-1": [["Einen Tee, bitte.", "A tea, please."], ["Tee?", "Tea?"]],
   "a0-wo-exercise-1": [["Wo ist …?", "Where is …?"], ["Die Toilette.", "The toilet."]],
   "a0-langsam-exercise-1": [["Noch einmal, bitte.", "Once again, please."], ["Ich verstehe nicht.", "I do not understand."]],
   "a0-morgen-exercise-1": [["Auf Wiedersehen.", "Goodbye."], ["Guten Morgen.", "Good morning."]],
