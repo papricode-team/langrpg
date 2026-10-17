@@ -264,3 +264,241 @@ func TestRestoringARouteCannotOverfillTheUnlockedTown(t *testing.T) {
 		t.Fatal("restore bypassed town capacity or retained the locked room")
 	}
 }
+
+func TestBuildingInstancesUseTheirOwnEntranceAndSharedLayout(t *testing.T) {
+	registry := compiledRegistry(t)
+	definition := registry.Maps[DefaultMapID]
+	first, second := "home--west-house", "home--east-house"
+	definition.Entrances[first] = Entrance{ID: "west-house", OwnerID: "west-house", Approach: MapSpawn{.2, .3}, Return: MapSpawn{.2, .4}}
+	definition.Entrances[second] = Entrance{ID: "east-house", OwnerID: "east-house", Approach: MapSpawn{.6, .3}, Return: MapSpawn{.6, .4}}
+	registry.Maps[DefaultMapID] = definition
+	w := newTestWorld(t, 10, registry)
+	client := &worldClient{player: Player{ID: "visitor", MapID: DefaultMapID}, memory: &worldMemory{}, send: make(chan []byte, 256), cancel: func() {}}
+	w.clients[client.player.ID] = client
+	for _, id := range []string{first, second} {
+		if err := w.joinInterior(client, DefaultMapID, id, time.Now()); err != "" {
+			t.Fatal(err)
+		}
+		if client.player.InteriorID != id || (MapSpawn{client.player.X, client.player.Y}) != InteriorSpawn("home") {
+			t.Fatal("room identity or spawn was lost")
+		}
+		if err := w.joinInterior(client, DefaultMapID, "", time.Now()); err != "" {
+			t.Fatal(err)
+		}
+		if (MapSpawn{client.player.X, client.player.Y}) != definition.Entrances[id].Return {
+			t.Fatal("returned to a different building")
+		}
+	}
+	if err := w.joinInterior(client, DefaultMapID, "home--missing", time.Now()); err == "" {
+		t.Fatal("accepted an unpublished building")
+	}
+	for _, id := range []string{"home--", "unknown--house", "home--bad/house"} {
+		if KnownInterior(id) {
+			t.Fatalf("accepted malformed room %q", id)
+		}
+	}
+}
+
+func TestCustomRoomEntrancesControlArrivalAndRestoreFallback(t *testing.T) {
+	registry := compiledRegistry(t)
+	definition := registry.Maps[DefaultMapID]
+	first, second := "home--custom-west", "home--custom-east"
+	west, east := MapSpawn{.25, .7}, MapSpawn{.75, .6}
+	definition.Entrances[first] = Entrance{ID: "custom-west", OwnerID: "custom-west", Approach: MapSpawn{.2, .3}, Return: MapSpawn{.2, .4}, Spawn: &west}
+	definition.Entrances[second] = Entrance{ID: "custom-east", OwnerID: "custom-east", Approach: MapSpawn{.6, .3}, Return: MapSpawn{.6, .4}, Spawn: &east}
+	registry.Maps[DefaultMapID] = definition
+	data, err := json.Marshal(registry)
+	if err != nil {
+		t.Fatal(err)
+	}
+	parsed, err := ParseRegistry(data)
+	if err != nil {
+		t.Fatal(err)
+	}
+	w := newTestWorld(t, 10, parsed)
+	client := &worldClient{player: Player{ID: "custom-visitor", MapID: DefaultMapID}, memory: &worldMemory{}, send: make(chan []byte, 256), cancel: func() {}}
+	w.clients[client.player.ID] = client
+	for _, id := range []string{first, second} {
+		expected := *definition.Entrances[id].Spawn
+		if err := w.joinInterior(client, DefaultMapID, id, time.Now()); err != "" {
+			t.Fatal(err)
+		}
+		if (MapSpawn{client.player.X, client.player.Y}) != expected {
+			t.Fatalf("wrong room entrance: %+v", client.player)
+		}
+		room := w.LocationDefinition(DefaultMapID, id)
+		if restored := RestorePosition(MapSpawn{-1, -1}, LegacyFrame(), room); restored != expected {
+			t.Fatalf("restore used template spawn: %+v", restored)
+		}
+		if err := w.joinInterior(client, DefaultMapID, "", time.Now()); err != "" {
+			t.Fatal(err)
+		}
+		if (MapSpawn{client.player.X, client.player.Y}) != definition.Entrances[id].Return {
+			t.Fatal("custom entrance changed outdoor return")
+		}
+	}
+	moved := MapSpawn{.4, .5}
+	changed := definition.Entrances[first]
+	changed.Spawn = &moved
+	definition.Entrances[first] = changed
+	registry.ContentVersion = "custom-entrance-moved"
+	w.PublishContent(registry)
+	if err := w.joinInterior(client, DefaultMapID, first, time.Now()); err != "" {
+		t.Fatal(err)
+	}
+	if (MapSpawn{client.player.X, client.player.Y}) != moved {
+		t.Fatal("published entrance did not move")
+	}
+	invalid := MapSpawn{1.1, .5}
+	changed.Spawn = &invalid
+	definition.Entrances[first] = changed
+	data, err = json.Marshal(registry)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err = ParseRegistry(data); err == nil {
+		t.Fatal("accepted an entrance outside the room")
+	}
+}
+
+func TestConnectedRoomsTravelThroughPairedDoors(t *testing.T) {
+	registry := compiledRegistry(t)
+	definition := registry.Maps[DefaultMapID]
+	root, child := "home--connected", "home--connected::study"
+	a, b := MapSpawn{.4, .7}, MapSpawn{.6, .7}
+	definition.Entrances[root] = Entrance{ID: "connected", OwnerID: "connected", Spawn: &a, Return: MapSpawn{.2, .3}, Doors: map[string]RoomDoor{"study-door": {Target: child, Arrival: b}}}
+	definition.Entrances[child] = Entrance{ID: "connected", OwnerID: "connected", Building: root, Spawn: &a, Return: MapSpawn{.2, .3}, Doors: map[string]RoomDoor{"main-door": {Target: root, Arrival: a}}}
+	registry.Maps[DefaultMapID] = definition
+	data, _ := json.Marshal(registry)
+	parsed, err := ParseRegistry(data)
+	if err != nil {
+		t.Fatal(err)
+	}
+	w := newTestWorld(t, 10, parsed)
+	client := &worldClient{player: Player{ID: "room-visitor", MapID: DefaultMapID}, memory: &worldMemory{}, send: make(chan []byte, 256), cancel: func() {}}
+	w.clients[client.player.ID] = client
+	if err := w.joinInterior(client, DefaultMapID, child, time.Now()); err == "" {
+		t.Fatal("entered child directly from town")
+	}
+	if err := w.joinInterior(client, DefaultMapID, root, time.Now()); err != "" {
+		t.Fatal(err)
+	}
+	if err := w.joinInterior(client, DefaultMapID, child, time.Now(), "missing"); err == "" {
+		t.Fatal("accepted missing door")
+	}
+	if err := w.joinInterior(client, DefaultMapID, child, time.Now(), "study-door"); err != "" {
+		t.Fatal(err)
+	}
+	if client.player.InteriorID != child || (MapSpawn{client.player.X, client.player.Y}) != b {
+		t.Fatalf("wrong door arrival: %+v", client.player)
+	}
+	if !w.validInteriorLocked(DefaultMapID, child) {
+		t.Fatal("child cannot reconnect")
+	}
+	if err := w.joinInterior(client, DefaultMapID, root, time.Now(), "main-door"); err != "" {
+		t.Fatal(err)
+	}
+	if (MapSpawn{client.player.X, client.player.Y}) != a {
+		t.Fatal("wrong return door arrival")
+	}
+	if err := w.joinInterior(client, DefaultMapID, child, time.Now(), "study-door"); err != "" {
+		t.Fatal(err)
+	}
+	if err := w.joinInterior(client, DefaultMapID, "", time.Now()); err != "" {
+		t.Fatal(err)
+	}
+	if (MapSpawn{client.player.X, client.player.Y}) != definition.Entrances[root].Return {
+		t.Fatal("child exit lost building return")
+	}
+	if err := w.joinInterior(client, DefaultMapID, root, time.Now()); err != "" {
+		t.Fatal(err)
+	}
+	if err := w.joinInterior(client, DefaultMapID, child, time.Now(), "study-door"); err != "" {
+		t.Fatal(err)
+	}
+	// Publishing a deleted room returns its occupants to the surviving main room.
+	removed := registry
+	removed.ContentVersion = "removed-study"
+	removed.Maps = maps.Clone(registry.Maps)
+	updated := definition
+	updated.Entrances = maps.Clone(definition.Entrances)
+	delete(updated.Entrances, child)
+	rootEntry := updated.Entrances[root]
+	rootEntry.Doors = nil
+	updated.Entrances[root] = rootEntry
+	removed.Maps[DefaultMapID] = updated
+	w.PublishContent(removed)
+	if client.player.InteriorID != root || client.memory.interiorID != root || (MapSpawn{client.player.X, client.player.Y}) != a {
+		t.Fatal("deleted room left its occupant stranded")
+	}
+	broken := definition.Entrances[child]
+	broken.Building = "home--missing"
+	definition.Entrances[child] = broken
+	data, _ = json.Marshal(registry)
+	if _, err := ParseRegistry(data); err == nil {
+		t.Fatal("accepted orphan room")
+	}
+}
+
+func TestStairsConnectBuildingFloors(t *testing.T) {
+	registry := compiledRegistry(t)
+	definition := registry.Maps[DefaultMapID]
+	root := "home--floors"
+	spawn := MapSpawn{.5, .75}
+	main := Entrance{ID: "floors", OwnerID: "floors", Spawn: &spawn, Return: MapSpawn{.2, .3}, Doors: map[string]RoomDoor{}}
+	for _, floor := range []struct {
+		id    string
+		level int
+		x     float64
+	}{{"up", 1, .3}, {"down", -1, .7}} {
+		child := root + "::" + floor.id
+		main.Doors[floor.id] = RoomDoor{Kind: "stairs", Target: child, Arrival: MapSpawn{floor.x, .7}}
+		definition.Entrances[child] = Entrance{ID: "floors", OwnerID: "floors", Building: root, Level: floor.level, Spawn: &spawn, Return: main.Return, Doors: map[string]RoomDoor{"landing": {Kind: "stairs", Target: root, Arrival: spawn}}}
+	}
+	definition.Entrances[root] = main
+	registry.Maps[DefaultMapID] = definition
+	data, _ := json.Marshal(registry)
+	parsed, err := ParseRegistry(data)
+	if err != nil {
+		t.Fatal(err)
+	}
+	w := newTestWorld(t, 10, parsed)
+	client := &worldClient{player: Player{ID: "stair-visitor", MapID: DefaultMapID}, memory: &worldMemory{}, send: make(chan []byte, 256), cancel: func() {}}
+	w.clients[client.player.ID] = client
+	if err := w.joinInterior(client, DefaultMapID, root, time.Now()); err != "" {
+		t.Fatal(err)
+	}
+	for _, id := range []string{"up", "down"} {
+		child := root + "::" + id
+		if err := w.joinInterior(client, DefaultMapID, child, time.Now(), id); err != "" {
+			t.Fatal(err)
+		}
+		if (MapSpawn{client.player.X, client.player.Y}) != main.Doors[id].Arrival || !w.validInteriorLocked(DefaultMapID, child) {
+			t.Fatal("wrong stair landing or invalid reconnect room")
+		}
+		if err := w.joinInterior(client, DefaultMapID, root, time.Now(), "landing"); err != "" {
+			t.Fatal(err)
+		}
+		if (MapSpawn{client.player.X, client.player.Y}) != spawn {
+			t.Fatal("wrong return landing")
+		}
+	}
+	original := definition.Entrances[root+"::up"]
+	for _, level := range []int{0, 16, -16} {
+		invalid := original
+		invalid.Level = level
+		definition.Entrances[root+"::up"] = invalid
+		data, _ = json.Marshal(registry)
+		if _, err := ParseRegistry(data); err == nil {
+			t.Fatalf("accepted invalid stair floor %d", level)
+		}
+	}
+	definition.Entrances[root+"::up"] = original
+	broken := main.Doors["up"]
+	broken.Kind = "door"
+	main.Doors["up"] = broken
+	data, _ = json.Marshal(registry)
+	if _, err := ParseRegistry(data); err == nil {
+		t.Fatal("accepted door between floors")
+	}
+}

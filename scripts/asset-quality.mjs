@@ -210,7 +210,7 @@ export function assetQualityPlugin(root) {
   const seedPath = resolve(root, 'content/world-seed.json');
   return {
     name: 'asset-quality',
-    configResolved(config) { outDir = resolve(config.root, config.build.outDir); },
+    configResolved(config) { outDir = config.command === 'build' ? resolve(config.root, config.build.outDir) : undefined; },
     configureServer(server) {
       server.middlewares.use(async (request, response, next) => {
         const path = decodeURIComponent((request.url || '').split('?')[0]);

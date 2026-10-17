@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
-import { buildQualityTiers, qualityPlan, sceneryDensities } from './asset-quality.mjs';
+import { assetQualityPlugin, buildQualityTiers, qualityPlan, sceneryDensities } from './asset-quality.mjs';
 
 test('pixel-exact sources ship untouched and interface portraits are capped', () => {
   assert.equal(qualityPlan('character-kit/regular/body.webp', 2048, 2048), null);
@@ -49,4 +49,18 @@ test('a build writes lossy High in place, reduced tiers and a manifest of logica
     assert.ok((await stat(join(assets, 'town.webp'))).size < master.length);
     assert.equal((await stat(join(assets, 'character-kit/sheet.webp'))).size, master.length);
   } finally { await rm(dir, { recursive: true, force: true }); }
+});
+
+
+test('closing a development preview does not run production asset conversion', async () => {
+  const dir=await mkdtemp(join(tmpdir(),'asset-preview-'));
+  try {
+    const assets=join(dir,'dist','assets');await mkdir(assets,{recursive:true});
+    // Invalid image bytes make any attempt to process production files fail.
+    const sentinel=join(assets,'portrait.webp');await writeFile(sentinel,'production output remains untouched');
+    const plugin=assetQualityPlugin(dir);
+    plugin.configResolved({command:'serve',root:dir,build:{outDir:'dist'}});
+    await plugin.closeBundle();
+    assert.equal(await readFile(sentinel,'utf8'),'production output remains untouched');
+  }finally{await rm(dir,{recursive:true,force:true});}
 });

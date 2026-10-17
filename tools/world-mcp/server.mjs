@@ -11,16 +11,18 @@
  *   {"mcpServers": {"glotworld-world": {"command": "node", "args": ["tools/world-mcp/server.mjs"]}}}
  */
 import {createInterface} from 'node:readline';
-import {readFile, writeFile, mkdir} from 'node:fs/promises';
+import {readFile, writeFile, mkdir, rename, rm} from 'node:fs/promises';
+import {randomUUID} from 'node:crypto';
 import {dirname, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {worldClient, WorldAPIError} from '../../scripts/world-client.mjs';
 import {pullWorld, pushWorld} from '../../scripts/world-sync.mjs';
 import {scenePreviewPNG} from '../../scripts/world-preview.mjs';
-import {townViewPNG, closeWorldView} from '../../scripts/world-view.mjs';
+import {roomViewPNG, townViewPNG, closeWorldView} from '../../scripts/world-view.mjs';
 import {shapeGround} from '../../scripts/ground-shapes.mjs';
 import {compileSceneDocument, residentProblems, SceneCompileError} from '../../scripts/scene-compiler.mjs';
 import '../../scripts/register-content-loader.mjs';
+import {roomTools, createRoomHandlers} from './rooms.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const {parseWorldSceneDocument} = await import('../../web/src/scene-schema.ts');
@@ -39,7 +41,9 @@ scenery or anchor position is the foot point where it meets the ground. Kinds:
 - {kind:"place", map, item:{id, asset, frame?, x, y, width, flipX?}, activities?}: add scenery. Choose asset and frame
   from list_catalogue; width is the drawn width in world units (see its typicalWidth). ids are lowercase-with-dashes and unique
   in the town. activities are spots residents use: {id, ownerId: item.id, kind: seat|work|pickup|service|shelter|wait, offsetX, offsetY, capacity?}.
-- {kind:"update", map, id, frame?, width?, flipX?, collidable?, interior?: {kind: cafe|bakery|supermarket|inn} | null}.
+- {kind:"update", map, id, frame?, width?, flipX?, collidable?, interior?: {kind: cafe|bakery|supermarket|inn|library|workshop|station|greenhouse|home} | null}.
+- {kind:"room", map, id, layout, expected}: replace a building’s layout, or reset with layout:null. expected is
+  get_building’s fingerprint. Prefer edit_building and copy_building_layout for component, room and floor edits.
 - {kind:"remove", map, id}: refused while a resident's schedule uses the object's activity spots.
 - {kind:"residents", map, residents:[...]}: replace a town's residents and their daily schedules (see get_town).
 - {kind:"paint", map, material, radius, strength, points:[[x,y],...]}: one brush stroke of ground. The soft round
@@ -65,6 +69,7 @@ from the north-west to the south-east, so they cross water running from south-we
 materials. Check with view_town and audit_town, then push_world.`;
 
 const tools = [
+  ...roomTools,
   {name: 'world_status', description: 'List the towns with their size and contents, the world revision and who is editing what. Start here.',
     inputSchema: {type: 'object', properties: {}}},
   {name: 'get_town', description: 'Read one town as JSON. Choose sections to keep the answer small; region limits scenery, characters and evidence to an area.',
@@ -82,7 +87,7 @@ const tools = [
   {name: 'shape_ground', description: shapesGuide,
     inputSchema: {type: 'object', required: ['town', 'draft', 'base', 'shapes'], properties: {town: {type: 'string'}, draft: draftSchema, base: {type: 'string'},
       shapes: {type: 'array', items: {type: 'object'}}, patches: {type: 'array', items: {type: 'object'}}, features: {type: 'array', items: {type: 'object'}, description: 'Replace ground.features (bridges, inlays): {id, asset, x, y, width}; x, y is the top-left corner.'}}}},
-  {name: 'list_catalogue', description: 'Objects that can be placed in a town (asset, frame, label, rooms a building can host, typical drawn width in world units), the ground materials it can be painted with, and the bridge and inlay pieces for its ground.',
+  {name: 'list_catalogue', description: 'Objects that can be placed in a town (asset, frame, label, rooms a building can host, typical drawn width in world units), the ground materials it can be painted with, and the bridge and inlay pieces for its ground. Use list_room_catalogue for interior furniture and games.',
     inputSchema: {type: 'object', required: ['town'], properties: {town: {type: 'string'}, asset: {type: 'string', description: 'Only this kind, such as house, tree or bench.'}}}},
   {name: 'apply_edits', description: `Validate and publish edit operations to the live world, or apply them to a draft file.\n${editGuide}`,
     inputSchema: {type: 'object', required: ['ops'], properties: {ops: {type: 'array', minItems: 1, maxItems: 50, items: {type: 'object'}}, draft: draftSchema}}},
@@ -118,7 +123,11 @@ export function createWorldTools(client = worldClient()) {
   async function saveDraft(draft, document) {
     const value = draft.raw.format ? {...draft.raw, document} : document;
     await mkdir(dirname(draft.path), {recursive: true});
-    await writeFile(draft.path, `${JSON.stringify(value, null, 1)}\n`);
+    const temporary=`${draft.path}.${randomUUID()}.tmp`;
+    try {
+      await writeFile(temporary, `${JSON.stringify(value, null, 1)}\n`);
+      await rename(temporary,draft.path);
+    } finally {await rm(temporary,{force:true});}
   }
   async function town(name, draft) {
     const current = draft ? await readDraft(draft) : await world(), scene = current.document.maps[name];
@@ -150,7 +159,14 @@ export function createWorldTools(client = worldClient()) {
     return json({draft, applied: ops.length, warnings: problems.map(item => `${item.map}: ${item.message}`)});
   }
 
+  async function applyOperations({ops,draft}) {
+    if(draft)return applyToDraft(draft,ops);
+    const result=await client.applyOps(ops);cached=undefined;
+    return json({revision:result.revision,applied:result.applied.length,warnings:result.warnings.map(item=>`${item.map}: ${item.message}`)});
+  }
+
   const handlers = {
+    ...createRoomHandlers({town,json,applyOperations,viewRoom:roomViewPNG}),
     async world_status() {
       const current = await world(), status = await client.status();
       return json({revision: current.revision, contentVersion: current.contentVersion, server: client.origin, locks: status.locks,
@@ -212,12 +228,7 @@ export function createWorldTools(client = worldClient()) {
         materials: terrainMaterials.map(({id, name, group, blocked}) => ({id, name, group, blocksWalkers: blocked, usedHere: scene.ground.layers.includes(id)})),
         groundPieces: terrainFeatures.map(({id, name, category, worldWidth}) => ({asset: id, name, category, typicalWidth: worldWidth}))});
     },
-    async apply_edits({ops, draft}) {
-      if (draft) return applyToDraft(draft, ops);
-      const result = await client.applyOps(ops);
-      cached = undefined;
-      return json({revision: result.revision, applied: result.applied.length, warnings: result.warnings.map(item => `${item.map}: ${item.message}`)});
-    },
+    async apply_edits(args) { return applyOperations(args); },
     async list_edits({limit = 20, before = 0}) {
       return json((await client.edits({limit, before})).edits);
     },
@@ -233,12 +244,24 @@ export function createWorldTools(client = worldClient()) {
     },
   };
 
+  // Stdio callers may send simultaneous requests. Serialize draft mutations so the
+  // fingerprint is checked against the latest completed write, never a stale read.
+  const draftWrites=new Map();
+  const mutators=new Set(['apply_edits','shape_ground','edit_building','copy_building_layout']);
   return {
     tools,
     async call(name, args = {}) {
       const handler = handlers[name];
       if (!handler) return {isError: true, content: [{type: 'text', text: `Unknown tool ${name}.`}]};
-      try { return await handler(args); }
+      try {
+        if(args.draft && mutators.has(name)) {
+          const key=resolve(root,args.draft),previous=draftWrites.get(key) ?? Promise.resolve();
+          const pending=previous.catch(()=>{}).then(()=>handler(args));
+          draftWrites.set(key,pending);
+          try{return await pending;}finally{if(draftWrites.get(key)===pending)draftWrites.delete(key);}
+        }
+        return await handler(args);
+      }
       catch (error) {
         const problems = error instanceof WorldAPIError ? error.problems.map(item => `- ${item.map ? `${item.map}: ` : ''}${item.message}${item.objectIds?.length ? ` [${item.objectIds.join(', ')}]` : ''}`) : [];
         return {isError: true, content: [{type: 'text', text: [String(error.message ?? error), ...problems].join('\n')}]};
@@ -259,8 +282,8 @@ export function serveMCP(world, input = process.stdin, output = process.stdout) 
     if (id === undefined) return; // notifications need no answer
     try {
       if (method === 'initialize') send({id, result: {protocolVersion: params?.protocolVersion ?? '2025-06-18', capabilities: {tools: {}},
-        serverInfo: {name: 'glotworld-world', version: '1.0.0'},
-        instructions: 'Edit the glotworld towns. Read with world_status and get_town; render_town is a labelled plan for finding things, view_town shows how a town looks in game. Work on a draft: pull_world to a file, change it with shape_ground and apply_edits (draft), check it with view_town and audit_town, then push_world. apply_edits without a draft publishes straight to players.'}});
+        serverInfo: {name: 'glotworld-world', version: '1.1.0'},
+        instructions: 'Edit the glotworld towns. Read with world_status and get_town; render_town is a labelled plan for finding things, view_town shows how a town looks in game. Work on a draft: pull_world to a file, change it with shape_ground and apply_edits (draft), check it with view_town and audit_town, then push_world. For interiors use list_buildings, list_room_catalogue and get_building, then edit_building or copy_building_layout with the returned fingerprints. Inspect with render_room/view_room and audit_building. Mutation tools without a draft publish straight to players.'}});
       else if (method === 'ping') send({id, result: {}});
       else if (method === 'tools/list') send({id, result: {tools: world.tools}});
       else if (method === 'tools/call') send({id, result: await world.call(params?.name, params?.arguments)});
