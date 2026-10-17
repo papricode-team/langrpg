@@ -3,7 +3,7 @@ import type {PlacedScenerySpec} from './placed-scenery';
 import {sceneryPhase} from './placed-scenery';
 import type {ScenePolygon} from './scene-schema';
 import {foundationGround} from './foundation-dressing';
-import {FOUNDATION_DEPTH,type FoundationArtwork} from './world-foundations';
+import {FOUNDATION_DEPTH,FOUNDATION_WEAR_DEPTH,type FoundationArtwork} from './world-foundations';
 import {contactMaterial,paintSceneryContact} from './scenery-contact-paint';
 import {frameImageRect} from './texture-frame';
 import {fallbackSceneryContact,sceneryContactBounds,traceSceneryContact,type SceneryContactKind} from './scenery-contact-shape';
@@ -67,7 +67,7 @@ export class SceneryContact {
     const scale=spec.width/256,{x,y}=entry.bounds;
     const image=(name:string,blend:'MULTIPLY'|'NORMAL')=>scene.add.image(spec.x+x*scale,spec.y+y*scale,entry.key,name)
       .setOrigin(0).setScale(scale/entry.density).setDepth(FOUNDATION_DEPTH).setBlendMode(blend);
-    this.shadow=image('shadow','MULTIPLY');this.wear=image('wear','NORMAL');
+    this.shadow=image('shadow','MULTIPLY');this.wear=image('wear','NORMAL').setDepth(FOUNDATION_WEAR_DEPTH);
     if(entry.growth)this.growth=scene.add.sprite(spec.x+x*scale,spec.y+y*scale,entry.key,'growth').setOrigin(0).setScale(scale/entry.density).setBlendMode('NORMAL');
   }
   setVisible(visible:boolean){for(const image of [this.shadow,this.wear])if(image.visible!==visible)image.setVisible(visible);}

@@ -10,6 +10,32 @@ const REFERENCE_WIDTH = 256, MARGIN = 24;
 // Ground effects must stay below every wall strip and every character, including
 // someone behind a building. Sorting them at the building's feet paints over both.
 export const FOUNDATION_DEPTH = worldDepth(0, 'shadow');
+/**
+ * Ground marks sort in blend bands rather than per object, so every town draws them in three
+ * batches: contact shadows, then all wear, then building shadows. Each object keeps its own order.
+ */
+export const FOUNDATION_WEAR_DEPTH = FOUNDATION_DEPTH + .25;
+export const BUILDING_SHADOW_DEPTH = FOUNDATION_DEPTH + .5;
+/** Grime painted along a wall's base. */
+const SURFACE_COLOUR = [70, 59, 44] as const;
+
+/**
+ * Turns a grime stroke into a normal-blend overlay of the wall beneath it, in place.
+ *
+ * Multiplying an opaque wall W by colour S at alpha a gives W·(1−a+a·S). With b = a·(1−min S) the
+ * same pixel is P + W·(1−b) for a premultiplied P = W·a·(S−min S), so an overlay of colour
+ * W·(S−min S)/(1−min S) at alpha b matches the multiply. Tinted like the wall it stays exact, and
+ * unlike a multiply it batches with the wall strips around it. `stroke` and `wall` are RGBA rows of
+ * the same size; the stroke's alpha is clipped to the wall's.
+ */
+export function surfaceOverlay(stroke: Uint8ClampedArray, wall: Uint8ClampedArray, colour: readonly [number, number, number] = SURFACE_COLOUR): void {
+  const least = Math.min(...colour), range = 255 - least;
+  for (let index = 0; index < stroke.length; index += 4) {
+    const alpha = stroke[index + 3] * wall[index + 3] / 255;
+    for (let channel = 0; channel < 3; channel++) stroke[index + channel] = wall[index + channel] * (colour[channel] - least) / range;
+    stroke[index + 3] = alpha * range / 255;
+  }
+}
 export interface FoundationArtwork {
   frame: Phaser.Textures.Frame;
   referenceWidth: number;
@@ -165,16 +191,19 @@ export class BuildingFoundation {
           context.beginPath();
           line.forEach(([x,y], index) => index ? context.lineTo(x,y-1) : context.moveTo(x,y-1));
           for (const [width,alpha] of [[12,.035],[8,.06],[5,.09],[2,.13]]) {
-            context.lineWidth=width;context.strokeStyle=`rgba(70,59,44,${alpha})`;context.stroke();
+            context.lineWidth=width;context.strokeStyle=`rgba(${SURFACE_COLOUR.join(',')},${alpha})`;context.stroke();
           }
         }
-        // Clip only this atlas frame; destination-in must not erase the ground frames.
-        context.beginPath();context.rect(bounds.x,bounds.y,bounds.width,bounds.height);context.clip();
-        context.globalCompositeOperation='destination-in';
-        context.scale(spec.flipX?-1:1,1);
-        context.drawImage(frame.source.image as CanvasImageSource,...frameImageRect(frame),
-          -frame.width*artwork.originX*scale,-frame.height*artwork.originY*scale,frame.width*scale,frame.height*scale);
         context.restore();
+        // The wall beneath the stroke, in the same frame of reference.
+        const wall = document.createElement('canvas'); wall.width = width; wall.height = height;
+        const painting = wall.getContext('2d', { willReadFrequently: true })!;
+        painting.scale(density, density); painting.translate(-bounds.x, -bounds.y); painting.scale(spec.flipX?-1:1,1);
+        painting.drawImage(frame.source.image as CanvasImageSource,...frameImageRect(frame),
+          -frame.width*artwork.originX*scale,-frame.height*artwork.originY*scale,frame.width*scale,frame.height*scale);
+        const stroke = context.getImageData(0, height*2, width, height);
+        surfaceOverlay(stroke.data, painting.getImageData(0, 0, width, height).data);
+        context.putImageData(stroke, 0, height*2);
         texture.add('surface',0,0,height*2,width,height);
         context.save();
         context.translate(0,height*3);context.scale(density,density);context.translate(-bounds.x,-bounds.y);
@@ -191,10 +220,10 @@ export class BuildingFoundation {
     const scale = spec.width / REFERENCE_WIDTH, { x, y } = entry.bounds;
     const image = (frame: string) => scene.add.image(spec.x + x * scale, spec.y + y * scale, entry.key, frame)
       .setOrigin(0).setScale(scale / entry.density).setDepth(FOUNDATION_DEPTH).setBlendMode('MULTIPLY');
-    this.wear = image('wear').setBlendMode('NORMAL');
-    this.shadow = image('shadow');
+    this.wear = image('wear').setBlendMode('NORMAL').setDepth(FOUNDATION_WEAR_DEPTH);
+    this.shadow = image('shadow').setDepth(BUILDING_SHADOW_DEPTH);
     if (entry.surface) this.surface=scene.add.sprite(spec.x+x*scale,spec.y+y*scale,entry.key,'surface')
-      .setOrigin(0).setScale(scale/entry.density).setBlendMode('MULTIPLY');
+      .setOrigin(0).setScale(scale/entry.density).setBlendMode('NORMAL');
     if (entry.surface) this.growth=scene.add.sprite(spec.x+x*scale,spec.y+y*scale,entry.key,'growth')
       .setOrigin(0).setScale(scale/entry.density).setBlendMode('NORMAL');
   }

@@ -57,6 +57,12 @@ export class WorldScenery {
   private groundContactVisible=true;
   private groundContactOpacity=1;
   private reducedMotion=false;
+  /**
+   * Each cutout renders its sprite through an offscreen framebuffer, and a character behind a wall
+   * covers dozens of 8px strips. Mobile GPUs pay a full-screen store and load per switch, so lower
+   * quality tiers fade the strips instead, as Canvas does.
+   */
+  private cutouts=true;
   private motionTime=0;
   private opacity=1;
   private occluded=new Map<string,{depth:number;strength:number}>();
@@ -251,7 +257,6 @@ export class WorldScenery {
       const x=source.x+((left+right)/2-source.width*source.originX)*part.scale*direction;
       const sprite=this.scene.add.sprite(x,source.y,texture.key,frames[part.currentFrame]).setOrigin(.5,source.originY)
         .setScale(part.scale).setFlipX(source.flipX).setDepth(worldDepth(sampleDepth(x)));
-      if(part.foundationSurface)sprite.setBlendMode('MULTIPLY');
       result.push({...part,sprite,frames});
     }
     source.destroy();
@@ -272,7 +277,7 @@ export class WorldScenery {
       const name=`__contact:${part.currentFrame}:${start}:${end}`;
       if(!texture.has(name))texture.add(name,frame.sourceIndex,frame.cutX+start,frame.cutY,end-start,frame.cutHeight);
       const sprite=this.scene.add.sprite((left+right)/2,source.y,texture.key,name).setOrigin(.5,0)
-        .setDisplaySize(right-left,source.displayHeight).setDepth(wall.depth+(part.foundationGrowth ? .2 : .1)).setBlendMode(part.foundationGrowth?'NORMAL':'MULTIPLY');
+        .setDisplaySize(right-left,source.displayHeight).setDepth(wall.depth+(part.foundationGrowth ? .2 : .1));
       result.push({...part,sprite});
     }
     source.destroy();
@@ -296,6 +301,7 @@ export class WorldScenery {
     }
   }
   setReducedMotion(reduced:boolean){this.reducedMotion=reduced;}
+  setCutouts(enabled:boolean){this.cutouts=enabled;}
   /** QA comparison: keep lighting, architecture and navigation fixed. */
   setGroundContactVisible(visible:boolean){
     this.groundContactVisible=visible;
@@ -326,7 +332,8 @@ export class WorldScenery {
       foundation?.setTint(ground);
       const emitter=spec.asset==='lamp'||spec.frame==='motion-lamp';
       const appliedTint=emitter?light:nightTint??tint;
-      for(const {sprite,next,foundationSurface,foundationGrowth} of parts){sprite.setTint(foundationGrowth?ground:foundationSurface?0xffffff:appliedTint);next?.setTint(appliedTint);}
+      // Grime is an overlay of the wall beneath it, so it takes the wall's light.
+      for(const {sprite,next,foundationGrowth} of parts){sprite.setTint(foundationGrowth?ground:appliedTint);next?.setTint(appliedTint);}
     }
   }
   update(time:number,view:SceneryView,characters:readonly OcclusionCharacter[]=[],seconds=0){
@@ -360,19 +367,20 @@ export class WorldScenery {
         const partBounds=item.circles.length?part.sprite.getBounds():undefined;
         const circles=partBounds?item.circles.filter(circle=>part.sprite.depth>circle.depth&&circle.x+90>=partBounds.x&&circle.x-90<=partBounds.right
           &&circle.y+90>=partBounds.y&&circle.y-90<=partBounds.bottom):noCircles;
-        if(circles.length&&!part.cutout)part.cutout=this.createCutout?.(this.scene,part.sprite);
-        part.cutout?.configure(circles);
-        if(circles.length&&part.next&&!part.nextCutout)part.nextCutout=this.createCutout?.(this.scene,part.next);
-        part.nextCutout?.configure(circles);
-        // Canvas has no filter nodes. A bounded fade plus the silhouette keeps
-        // the character locatable there, while WebGL gets the local cutout.
+        const cutouts=this.cutouts?circles:noCircles;
+        if(cutouts.length&&!part.cutout)part.cutout=this.createCutout?.(this.scene,part.sprite);
+        part.cutout?.configure(cutouts);
+        if(cutouts.length&&part.next&&!part.nextCutout)part.nextCutout=this.createCutout?.(this.scene,part.next);
+        part.nextCutout?.configure(cutouts);
+        // Canvas and the lower quality tiers have no cutout. A bounded fade plus the
+        // silhouette keeps the character locatable there; High gets the local cutout.
         let strength=0;
         for(const circle of circles){
           strength=Math.max(strength,circle.strength);
           const previous=this.occluded.get(circle.id);
           this.occluded.set(circle.id,{depth:Math.max(previous?.depth??0,part.sprite.depth),strength:Math.max(previous?.strength??0,circle.strength)});
         }
-        const alpha=this.opacity*(part.cutout?1:1-.75*strength);
+        const alpha=this.opacity*(part.cutout&&this.cutouts?1:1-.75*strength);
         if(part.sprite.alpha!==alpha)part.sprite.setAlpha(alpha);
         if(part.detailMotion){
           const motion=sampleDetailMotion(part.detailMotion,part.phaseId,this.motionTime,this.reducedMotion);
