@@ -7,7 +7,7 @@ Constraints: isolated lantern only, genuine alpha transparency. No background, n
 
 Generated with the built-in image_gen tool, transparent_background=true.
 Original: art/ui/lantern-meter-v1.png
-Runtime: web/public/assets/ui/lantern-meter-v1.webp (128 x 256; alpha preserved).
+Runtime: web/public/assets/ui/lantern-meter-v1.webp (80 x 160; alpha preserved; twice the rendered resolution).
 
 Runtime export (Node with sharp):
-await sharp('art/ui/lantern-meter-v1.png').trim().resize({height:256}).webp({quality:90,alphaQuality:100}).toFile('web/public/assets/ui/lantern-meter-v1.webp');
+await sharp('art/ui/lantern-meter-v1.png').trim().resize({height:160}).webp({quality:50,alphaQuality:85,effort:6}).toFile('web/public/assets/ui/lantern-meter-v1.webp');

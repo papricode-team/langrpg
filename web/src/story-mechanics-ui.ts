@@ -72,7 +72,7 @@ export class StoryMechanicsUi {
     this.meter.setAttribute('aria-valuemin', '0');
     this.meter.setAttribute('aria-valuemax', '100');
     this.meter.setAttribute('aria-label', t('The lamp leans toward a fading name'));
-    this.meter.innerHTML = `<img class="lamp-meter-art" src="/assets/ui/lantern-meter-v1.webp" width="128" height="256" alt="" aria-hidden="true" draggable="false"/><span class="lamp-meter-readout" aria-hidden="true"><span class="lamp-meter-label">${e(t('Fading names'))}</span><span class="lamp-meter-bar"><span></span></span><span class="lamp-meter-scale"></span></span>`;
+    this.meter.innerHTML = `<img class="lamp-meter-art" src="/assets/ui/lantern-meter-v1.webp" width="80" height="160" alt="" aria-hidden="true" draggable="false"/><span class="lamp-meter-readout" aria-hidden="true"><span class="lamp-meter-label">${e(t('Fading names'))}</span><span class="lamp-meter-bar"><span></span></span><span class="lamp-meter-scale"></span></span>`;
     hud.append(this.meter);
     this.timer = setInterval(() => this.push(), 4000);
     this.lampTimer = setInterval(() => this.updateLamp(), 250);
