@@ -153,11 +153,8 @@
 .hud-local-heading>strong { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .hud-local-heading>span { color:var(--ui-brass-light); margin-left:auto; }
 .hud-local p { margin:10px 0 0; max-height:36px; overflow:hidden; color:var(--game-muted); font:400 var(--type-caption)/1.5 var(--font-body); }
-.hud-dock-area { position:absolute; left:50%; bottom:max(20px,env(safe-area-inset-bottom)); width:420px; transform:translateX(-50%); }
-.hud-key-hints { display:flex; justify-content:center; gap:7px; margin:0 0 22px; color:var(--ui-cream); text-shadow:0 1px 3px #10211f; font:400 var(--type-caption)/1.4 var(--font-body); white-space:nowrap; }
-.hud-key-hints kbd { font:inherit; }
-.hud-key-hints>span { color:var(--ui-brass-light); }
-.hud-dock { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); padding:4px 0; }
+.hud-dock-area { position:absolute; left:50%; bottom:max(20px,env(safe-area-inset-bottom)); width:120px; transform:translateX(-50%); }
+.hud-dock { display:grid; grid-template-columns:minmax(0,1fr); padding:4px 0; }
 .hud-dock .hud-dock-item {
   position:relative;
   inset:auto;
@@ -180,13 +177,10 @@
 }
 .hud-dock-item>span:not(.hud-dock-art) { max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .hud-dock-item .hud-dock-art { display:grid; place-items:center; height:24px; }
-.hud-dock-art>.icon { width:24px; height:24px; color:var(--ui-brass-light); }
 .hud-dock-item kbd { font:400 var(--type-caption)/1 var(--font-body); color:var(--game-muted); }
 .hud-dock .hud-dock-item>span { display:block; font:inherit; }
 .hud-dock .hud-dock-atlas>.hud-dock-art { position:absolute; bottom:40px; height:78px; width:78px; }
 .hud-dock-art img { width:100%; height:100%; }
-.hud-dock-item>i { position:absolute; top:0; right:18px; width:7px; height:7px; border-radius:50%; background:var(--ui-brass-light); }
-.hud-dock-item>i[hidden] { display:none; }
 .hud-revisit {
   position:absolute;
   right:max(24px,env(safe-area-inset-right));
@@ -245,8 +239,7 @@
   .quest-tracker { top:104px; left:12px; right:68px; width:auto; }
   .story-beacon,.story-beacon.hud-chapter-card { min-height:64px; border-width:10px 30px 10px 18px; border-image-width:18px 36px; gap:8px; }
   .hud-chapter-card .objective-text { font-size:var(--type-body); }
-  .hud-dock-area { width:calc(100% - 16px); bottom:max(8px,env(safe-area-inset-bottom)); }
-  .hud-key-hints { display:none; }
+  .hud-dock-area { width:104px; bottom:max(8px,env(safe-area-inset-bottom)); }
   .hud-dock { border-width:8px; border-image-width:16px; padding:6px 0; }
   .hud-dock .hud-dock-item { min-height:48px; gap:6px; }
   .hud-dock-item kbd { display:none; }
@@ -258,14 +251,14 @@
 }
 
 @media (--short-landscape) {
-  .hud-minimap,.hud-local,.hud-revisit,.hud-key-hints { display:none; }
+  .hud-minimap,.hud-local,.hud-revisit { display:none; }
   .player-hud { top:12px; height:72px; }
   .player-title { display:none; }
   .location-banner:not(.arriving) { visibility:hidden; }
   .game-shell[data-interior] .quest-tracker { top:12px; }
   .quest-tracker { top:12px; left:auto; right:16px; width:min(300px,40vw); }
   .hud-tools { top:96px; right:16px; flex-direction:row; }
-  .hud-dock-area { width:380px; bottom:8px; }
+  .hud-dock-area { width:104px; bottom:8px; }
   .hud-dock .hud-dock-item { min-height:48px; }
   .hud-dock-item kbd { display:none; }
   .hud-dock .hud-dock-atlas>.hud-dock-art { width:60px; height:60px; bottom:25px; }

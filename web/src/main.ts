@@ -745,7 +745,6 @@ function updateProgress() {
 
     world.setObjective(interiorId ? undefined : expedition.npcs.find(npc => !expeditionEncounterResult(npc.encounterId)?.correct)?.id);
     document.querySelector('#quest-panel')!.innerHTML = storyBeacon({ attributes: `data-expedition-game="${expedition.id}"`, glyph: status === 'completed' ? 'check' : 'compass', label: expedition.name, text: game.title });
-    document.querySelector<HTMLElement>('#review-dot')!.hidden = !dueItems(progress).length;
     if (['journal', 'quests', 'story', 'menu'].includes(view)) refreshLearningMenu(document.querySelector<HTMLElement>('#other-view')!,renderOther);
     return;
   }
@@ -772,7 +771,6 @@ function updateProgress() {
     ? storyBeacon({ attributes: 'data-action="leave-interior"', glyph: 'arrow', label: getMap(mapId).name, text: t('Leave {name}', { name: getInterior(interiorId, mapId).name }), quiet: true })
     : storyBeacon({ attributes: 'data-action="next-objective"', glyph: finished ? 'map' : 'flag', label: finished ? t('Chapter complete') : t('Follow the story'), text: objective, chapter: { chapter: `${t('Chapter {number}', { number: ['A1', 'A2', 'B1'].indexOf(q.level) + 1 })} · ${q.level}`, title: localized(q.title), summary: localized(q.objectives[0] ?? q.subtitle), done, total, reward: finished ? 0 : q.reward }, bell: savedStory.bell > 0 && savedStory.bell < 7 ? savedStory.bell : undefined, cracks: (savedStory as { inkWarnings?: number }).inkWarnings ?? 0 });
   updateFadingNameChip();
-  document.querySelector<HTMLElement>('#review-dot')!.hidden = !dueItems(progress).length;
   if (view === 'journal' || view === 'quests' || view === 'story' || view === 'menu') refreshLearningMenu(document.querySelector<HTMLElement>('#other-view')!,renderOther);
 }
 /** The next story step is the one golden action over the world; indoors it quietens to a way back out. */
