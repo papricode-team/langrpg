@@ -46,6 +46,9 @@ for(const item of manifest.materials){
 if(!process.argv.includes('--art-only')){
  const existing=only?JSON.parse(await readFile('web/src/data/terrain-materials.json','utf8')).materials:materials;
  const selected=new Map(materials.map(item=>[item.id,item]));
- await writeFile('web/src/data/terrain-materials.json',JSON.stringify({version:1,materials:existing.map(item=>selected.get(item.id)??item)},null,2)+'\n');
+ const updated=existing.map(item=>selected.get(item.id)??item);
+ // An isolated export can introduce new IDs as well as repaint existing ones.
+ for(const item of materials)if(!updated.some(existing=>existing.id===item.id))updated.push(item);
+ await writeFile('web/src/data/terrain-materials.json',JSON.stringify({version:1,materials:updated},null,2)+'\n');
 }
 console.log(`Exported ${materials.length} near-lossless periodic materials without mirroring or upscaling.`);

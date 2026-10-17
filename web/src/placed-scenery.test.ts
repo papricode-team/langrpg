@@ -84,9 +84,16 @@ describe('authored sprite worlds',()=>{
     }
     const trees=specs.filter(spec=>spec.asset==='tree');
     const treeFrames=[...new Set(trees.map(spec=>spec.frame??spec.asset))].sort();
-    // The summer town pass deliberately replaces the five autumn atlas trees
-    // with native HD linden and plane paintings; the other towns retain theirs.
-    if(map.id==='lindenhafen')expect(treeFrames).toEqual(['town-linden','town-plane']);
+    // Lindenhafen uses five native HD species; copper beech is a sparse warm accent.
+    // Other towns retain their existing atlas trees.
+    if(map.id==='lindenhafen'){
+      expect(treeFrames).toEqual(['town-beech','town-birch','town-chestnut','town-linden','town-plane']);
+      for(const tree of trees){
+        expect(tree.motion).toBe('still');
+        const nearest=trees.filter(other=>other.id!==tree.id).sort((a,b)=>Math.hypot(a.x-tree.x,a.y-tree.y)-Math.hypot(b.x-tree.x,b.y-tree.y))[0];
+        expect(nearest.frame).not.toBe(tree.frame);
+      }
+    }
     else expect(treeFrames.length).toBeGreaterThanOrEqual(5);
     expect(placedSceneryFootprints(map.id).length).toBeGreaterThan(30);
   });

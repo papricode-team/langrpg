@@ -542,6 +542,141 @@
       "motion": "still",
       "collidable": true,
       "promptFile": "art/source/terrain-objects/town-garden-statue-prompt.txt"
+    },
+    {
+      "id": "town-chestnut",
+      "name": "Horse chestnut in blossom",
+      "asset": "tree",
+      "worldWidth": 158.72,
+      "motion": "still",
+      "collidable": true,
+      "promptFile": "art/source/terrain-objects/town-chestnut-prompt.txt",
+      "geometry": {
+        "footprint": [
+          [
+            75,
+            -24
+          ],
+          [
+            53.033008588991066,
+            -2.786796564403577
+          ],
+          [
+            4.592425496802574e-15,
+            6
+          ],
+          [
+            -53.03300858899106,
+            -2.7867965644035735
+          ],
+          [
+            -75,
+            -23.999999999999996
+          ],
+          [
+            -53.03300858899107,
+            -45.21320343559643
+          ],
+          [
+            -1.3777276490407723e-14,
+            -54
+          ],
+          [
+            53.03300858899105,
+            -45.21320343559643
+          ]
+        ]
+      }
+    },
+    {
+      "id": "town-birch",
+      "name": "Silver birch",
+      "asset": "tree",
+      "worldWidth": 158.72,
+      "motion": "still",
+      "collidable": true,
+      "promptFile": "art/source/terrain-objects/town-birch-prompt.txt",
+      "geometry": {
+        "footprint": [
+          [
+            75,
+            -24
+          ],
+          [
+            53.033008588991066,
+            -2.786796564403577
+          ],
+          [
+            4.592425496802574e-15,
+            6
+          ],
+          [
+            -53.03300858899106,
+            -2.7867965644035735
+          ],
+          [
+            -75,
+            -23.999999999999996
+          ],
+          [
+            -53.03300858899107,
+            -45.21320343559643
+          ],
+          [
+            -1.3777276490407723e-14,
+            -54
+          ],
+          [
+            53.03300858899105,
+            -45.21320343559643
+          ]
+        ]
+      }
+    },
+    {
+      "id": "town-beech",
+      "name": "Copper beech",
+      "asset": "tree",
+      "worldWidth": 158.72,
+      "motion": "still",
+      "collidable": true,
+      "promptFile": "art/source/terrain-objects/town-beech-prompt.txt",
+      "geometry": {
+        "footprint": [
+          [
+            75,
+            -24
+          ],
+          [
+            53.033008588991066,
+            -2.786796564403577
+          ],
+          [
+            4.592425496802574e-15,
+            6
+          ],
+          [
+            -53.03300858899106,
+            -2.7867965644035735
+          ],
+          [
+            -75,
+            -23.999999999999996
+          ],
+          [
+            -53.03300858899107,
+            -45.21320343559643
+          ],
+          [
+            -1.3777276490407723e-14,
+            -54
+          ],
+          [
+            53.03300858899105,
+            -45.21320343559643
+          ]
+        ]
+      }
     }
   ]
 }

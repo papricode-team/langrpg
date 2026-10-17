@@ -5,9 +5,12 @@ import {readFile,writeFile,mkdir,access} from 'node:fs/promises';
 import {WEBP_QUALITY} from './webp-quality.mjs';
 const source='art/source/terrain-objects',output='web/public/assets/terrain-objects';
 const requests=JSON.parse(await readFile(`${source}/requests.json`,'utf8'));
+const only=process.argv.find(arg=>arg.startsWith('--only='))?.slice(7).split(',');
+if(only?.some(id=>!requests.objects.some(item=>item.id===id)))throw new Error('Unknown selected terrain object.');
 await mkdir(output,{recursive:true});
 const objects=[];
 for(const request of requests.objects){
+ if(only&&!only.includes(request.id))continue;
  const input=`${source}/${request.id}.png`;
  try{await access(input);}catch{continue;}
  const {data,info}=await sharp(input).ensureAlpha().raw().toBuffer({resolveWithObject:true});
@@ -34,5 +37,11 @@ for(const request of requests.objects){
   source:`${request.id}.png`,prompt:request.promptFile??`docs/prompts/terrain-objects/${request.id}.txt`});
 }
 // Do not rewrite shared catalogue files during an isolated art pass.
-if(!process.argv.includes('--art-only'))await writeFile('web/src/data/terrain-objects.json',JSON.stringify({version:1,generator:'built-in image_gen',objects},null,2)+'\n');
-console.log(`Exported ${objects.length}/${requests.objects.length} native-resolution transparent objects.`);
+if(!process.argv.includes('--art-only')){
+ const existing=only?JSON.parse(await readFile('web/src/data/terrain-objects.json','utf8')).objects:objects;
+ const selected=new Map(objects.map(item=>[item.id,item]));
+ const updated=existing.map(item=>selected.get(item.id)??item);
+ for(const item of objects)if(!updated.some(existing=>existing.id===item.id))updated.push(item);
+ await writeFile('web/src/data/terrain-objects.json',JSON.stringify({version:1,generator:'built-in image_gen',objects:updated},null,2)+'\n');
+}
+console.log(`Exported ${objects.length}/${only?.length??requests.objects.length} native-resolution transparent objects.`);

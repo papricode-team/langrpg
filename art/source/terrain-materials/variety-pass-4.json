@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-17",
+  "generator": "built-in image_gen",
+  "generationDirectory": "01a14b02-caeb-79f3-8a50-6a3c2afcd362",
+  "references": [
+    "docs/style/references/target-art-direction.webp",
+    "art/source/terrain-materials/limestone.png",
+    "art/source/terrain-materials/cobble.png"
+  ],
+  "selected": [
+    {
+      "id": "town-fan-cobble",
+      "generatedFile": "exec-7aaf11bb-3e5c-409d-a404-3e43b3b82921.png",
+      "master": "town-fan-cobble.png",
+      "exactPrompt": "town-fan-cobble-prompt.txt",
+      "processing": "Selected native pixels retained without resampling; runtime exported by family prepare script."
+    },
+    {
+      "id": "town-herringbone",
+      "generatedFile": "exec-205a6845-5559-4d3c-bc7b-4b9238b2e0ab.png",
+      "master": "town-herringbone.png",
+      "exactPrompt": "town-herringbone-prompt.txt",
+      "processing": "Selected native pixels retained without resampling; runtime exported by family prepare script."
+    }
+  ]
+}

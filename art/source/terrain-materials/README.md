@@ -24,3 +24,21 @@ thumbnails. Without `--art-only`, a filtered export updates only the selected
 catalogue entries. `check-terrain-materials.mjs --report=<path>` can write a
 pass-specific seam report. Neither filtering nor report selection changes the
 zero-difference seam requirement or the 2 MB runtime budget.
+
+## Lindenhafen variety pass (2026-10-17)
+
+`town-fan-cobble` and `town-herringbone` are native 1254 × 1254 built-in
+ImageGen paintings with exact sibling `*-prompt.txt` files. `variety-pass-4.json`
+records selected generations and attached references. Both use a 144-world-unit
+repeat, with individual stones at walking scale. Export only these IDs with:
+
+```sh
+node scripts/prepare-terrain-materials.mjs --only=town-fan-cobble,town-herringbone
+```
+
+`variety-layout.json` retains the paving-zone shapes. The associated
+`scripts/prepare-terrain-variety.mjs --before <original-seed.json>` applies those
+shapes with `shapeGround`, then redistributes only the old paving total. It
+preserves every meadow, moss and canal sample and every feature. The two old
+Lindenhafen slots `cobble` and `town-cobble` are replaced, keeping the six-layer
+limit. Their shared catalogue entries and assets remain available to other towns.

@@ -1,0 +1,20 @@
+{
+  "description": "Lindenhafen paving-only zoning. shapeGround produces the three-way paving mask; redistribute only the old cobble + town-cobble + limestone total with integer remainder to the strongest mask. Preserve meadow, moss, deep-water and all ground features byte-for-byte.",
+  "base": "town-fan-cobble",
+  "shapes": [
+    {"material":"town-herringbone","rect":[65,180,1240,335],"radius":35},
+    {"material":"town-herringbone","rect":[50,450,225,785],"radius":35},
+    {"material":"town-herringbone","rect":[500,450,780,655],"radius":50},
+    {"material":"town-herringbone","rect":[985,450,1200,825],"radius":40},
+    {"material":"town-herringbone","rect":[60,900,735,1175],"radius":55},
+    {"material":"town-herringbone","rect":[160,1180,700,1410],"radius":55},
+    {"material":"town-herringbone","rect":[1500,330,2220,540],"radius":50},
+    {"material":"town-herringbone","rect":[1420,760,2285,985],"radius":50},
+    {"material":"town-herringbone","rect":[1520,1120,2180,1385],"radius":55},
+    {"material":"town-herringbone","rect":[1970,1360,2275,1520],"radius":40},
+    {"material":"limestone","circle":[860,675],"radius":188},
+    {"material":"limestone","rect":[245,530,470,690],"radius":35},
+    {"material":"limestone","rect":[1710,405,1965,515],"radius":30},
+    {"material":"limestone","rect":[1760,1200,1990,1350],"radius":35}
+  ]
+}

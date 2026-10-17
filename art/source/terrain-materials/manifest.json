@@ -278,6 +278,28 @@
         "material": "canal-masonry",
         "height": 34
       }
+    },
+    {
+      "id": "town-fan-cobble",
+      "name": "Lindenhafen fan cobbles",
+      "group": "Paving",
+      "color": "#c5ad87",
+      "worldSize": 144,
+      "source": "town-fan-cobble.png",
+      "prompt": "Use case: style-transfer\nAsset type: one seamless opaque square ground texture for glotworld.\nInput images: image 1 is the approved town painting for style/palette; image 2 existing limestone and image 3 cobble are material painting references to reinterpret.\nPrimary request: paint warm granite Bogenpflaster: small squared setts in interlocking repeating fan/arc courses, about two complete fans across the tile, softly curving concentric joints, mostly warm buff and grey-beige with sparse subdued terracotta repairs. Warm Lindenhafen palette: cream sandstone #e9d7a6, warm buff granite, muted clay #b16c4d, olive-brown narrow joints. Fine visible painterly brushwork, worn chipped edges, subtle natural colour variation, no outlines or photographic texture. Straight-down orthographic texture, uniform stone scale, fills all edges, designed to repeat seamlessly on both axes. Soft upper-left light on EACH small stone, lower-right joint occlusion, no whole-image gradient, cast shadows or vignette. A 144-world-unit repeat represents twice a 72-unit adult's height; about 12 small stone widths across, believable paving scale. Native square image at least 1024 pixels each side. No objects, foliage, grass, buildings, people, text or border.",
+      "promptFile": "art/source/terrain-materials/town-fan-cobble-prompt.txt",
+      "generatedFile": "exec-7aaf11bb-3e5c-409d-a404-3e43b3b82921.png"
+    },
+    {
+      "id": "town-herringbone",
+      "name": "Lindenhafen herringbone brick",
+      "group": "Paving",
+      "color": "#bc9677",
+      "worldSize": 144,
+      "source": "town-herringbone.png",
+      "prompt": "Use case: style-transfer\nAsset type: one seamless opaque square ground texture for glotworld.\nInput images: image 1 is the approved town painting for style/palette; image 2 existing limestone and image 3 cobble are material painting references to reinterpret.\nPrimary request: paint weathered herringbone brick courtyard paving: small narrow 2:1 fired-clay bricks laid in a precise continuous diagonal herringbone weave, muted dusty terracotta, warm taupe and cream worn tops, low contrast, no orange saturation. Warm Lindenhafen palette: cream sandstone #e9d7a6, warm buff granite, muted clay #b16c4d, olive-brown narrow joints. Fine visible painterly brushwork, worn chipped edges, subtle natural colour variation, no outlines or photographic texture. Straight-down orthographic texture, uniform stone scale, fills all edges, designed to repeat seamlessly on both axes. Soft upper-left light on EACH small stone, lower-right joint occlusion, no whole-image gradient, cast shadows or vignette. A 144-world-unit repeat represents twice a 72-unit adult's height; about 12 small stone widths across, believable paving scale. Native square image at least 1024 pixels each side. No objects, foliage, grass, buildings, people, text or border.",
+      "promptFile": "art/source/terrain-materials/town-herringbone-prompt.txt",
+      "generatedFile": "exec-205a6845-5559-4d3c-bc7b-4b9238b2e0ab.png"
     }
   ],
   "styleReview": "style-review.json"

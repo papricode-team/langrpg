@@ -8,6 +8,11 @@ import {roomKind} from './room-kind';
 export interface RoomFloor {polygon: InteriorPolygon; material: 'timber' | 'limestone' | 'slate';}
 export interface RoomWall {from: readonly [number, number]; to: readonly [number, number]; height: number; window: boolean;}
 export interface RoomKit {floors: RoomFloor[]; walls: RoomWall[]; fixtures: {kind: 'bed' | 'desk' | 'lamp'; x: number; y: number; width: number; height: number}[];}
+export interface RoomWindow {x: number; bottom: number; width: number; height: number; floorY: number;}
+export interface RoomLamp {x: number; y: number; floorX: number; floorY: number; radius: number;}
+export interface RoomLighting {windows: RoomWindow[]; lamps: RoomLamp[];}
+export const ROOM_LIGHT_LAYERS = ['shade', 'windows', 'lamps'] as const;
+export type RoomLightLayer = typeof ROOM_LIGHT_LAYERS[number];
 export const roomMaterials = ['timber', 'limestone', 'slate', 'canal-masonry'] as const;
 
 /** The same floor polygons drive walking and assembly: no separate painted collision outline. */
@@ -50,10 +55,86 @@ export function roomKit(spec: InteriorSpec): RoomKit {
   // One small painted lamp sits against a back wall, outside the walking route.
   // Authored lamps keep their own positions; the inn already has one.
   if (!fixtures.some(fixture => fixture.kind === 'lamp')) {
-    const wall = walls.find(wall => wall.window);
+    const wall = walls.find(wall => wall.window) ?? walls.find(wall => wall.height > 12);
     if (wall) fixtures.push({kind:'lamp', x:wall.from[0]+24, y:wall.from[1]-50, width:32, height:54});
   }
   return {floors, walls, fixtures};
+}
+
+/** Match the actual window exception and atlas dimensions, never collision-box heights. */
+export function roomWindows(spec: InteriorSpec, kit = roomKit(spec)): RoomWindow[] {
+  return kit.walls.filter(wall => wall.window).map(wall => ({
+    x: roomKind(spec.id) === 'inn' && !spec.layout?.floors ? 1000 : (wall.from[0] + wall.to[0]) / 2,
+    bottom: (wall.from[1] + wall.to[1]) / 2 - 20,
+    width: 120, height: 120 * furnitureFrames.window.height / furnitureFrames.window.width,
+    floorY: (wall.from[1] + wall.to[1]) / 2,
+  }));
+}
+
+/** One compiled plan serves canvas pools, halos and character sampling, including edited rooms. */
+export function roomLighting(spec: InteriorSpec, kit = roomKit(spec)): RoomLighting {
+  const lamps = kit.fixtures.filter(fixture => fixture.kind === 'lamp').map(fixture => {
+    const height = fixture.width * furnitureFrames.lamp.height / furnitureFrames.lamp.width;
+    const bottom = fixture.y + fixture.height;
+    return {x: fixture.x + fixture.width * .60, y: bottom - height * .79,
+      floorX: fixture.x + fixture.width * .60 + 24, floorY: bottom + 38,
+      radius: Math.max(140, fixture.width * 2.1)};
+  });
+  // Table candles (and authored sconces with a flame detail) use the same emitter contract.
+  for (const prop of spec.props) for (const effect of prop.effects ?? []) if (effect.asset === 'flame') {
+    lamps.push({x: prop.x + effect.x, y: prop.y + effect.y,
+      floorX: prop.x + 22, floorY: prop.y + 24, radius: Math.max(110, prop.width * 2.5)});
+  }
+  return {windows: roomWindows(spec, kit), lamps};
+}
+
+/** Low-resolution transparent overlays. Baked once, clipped to the walkable floor union. */
+export function paintRoomLightLayer(context: CanvasRenderingContext2D, spec: InteriorSpec, layer: RoomLightLayer,
+  lighting = roomLighting(spec)): void {
+  context.save();
+  context.beginPath();
+  for (const polygon of spec.floorAreas) {
+    polygon.forEach(([x, y], index) => index ? context.lineTo(x, y) : context.moveTo(x, y));
+    context.closePath();
+  }
+  context.clip();
+  if (layer === 'shade') {
+    const gradient = context.createRadialGradient(spec.width * .50, spec.height * .53, 60,
+      spec.width * .50, spec.height * .53, spec.width * .60);
+    gradient.addColorStop(0, '#3e453900');
+    gradient.addColorStop(.45, '#3e453912');
+    gradient.addColorStop(1, '#26382fd0');
+    context.fillStyle = gradient; context.fillRect(0, 0, spec.width, spec.height);
+  } else if (layer === 'windows') {
+    for (const window of lighting.windows) {
+      // Upper-left sunlight travels down/right. Feathering is baked, never a runtime blur.
+      context.save();
+      const gradient = context.createLinearGradient(window.x, window.floorY, window.x + 100, window.floorY + 290);
+      gradient.addColorStop(0, '#fff0c7d9'); gradient.addColorStop(.48, '#ffe2a46e'); gradient.addColorStop(1, '#edce8a00');
+      context.fillStyle = gradient;
+      context.shadowColor = '#ffe4ac80'; context.shadowBlur = 12;
+      context.beginPath();
+      context.moveTo(window.x - 51, window.floorY - 4); context.lineTo(window.x + 51, window.floorY - 4);
+      context.lineTo(window.x + 220, window.floorY + 290); context.lineTo(window.x + 25, window.floorY + 290);
+      context.closePath(); context.fill();
+      // Soft mullion gaps stop the shaft reading as one flat oval.
+      context.globalCompositeOperation = 'destination-out'; context.shadowBlur = 7;
+      context.fillStyle = '#00000038';
+      context.beginPath(); context.moveTo(window.x - 3, window.floorY); context.lineTo(window.x + 4, window.floorY);
+      context.lineTo(window.x + 135, window.floorY + 285); context.lineTo(window.x + 119, window.floorY + 285);
+      context.closePath(); context.fill(); context.restore();
+    }
+  } else {
+    for (const lamp of lighting.lamps) {
+      context.save(); context.translate(lamp.floorX, lamp.floorY); context.scale(1, .48);
+      const gradient = context.createRadialGradient(0, 0, 0, 0, 0, lamp.radius);
+      gradient.addColorStop(0, '#ffdfa5e6'); gradient.addColorStop(.25, '#ffd08bb3');
+      gradient.addColorStop(.65, '#eab26740'); gradient.addColorStop(1, '#dfa55800');
+      context.fillStyle = gradient; context.fillRect(-lamp.radius, -lamp.radius, lamp.radius * 2, lamp.radius * 2);
+      context.restore();
+    }
+  }
+  context.restore();
 }
 
 /** Canvas assembly is shared by Phaser and the standalone room preview. */
@@ -94,7 +175,8 @@ export function paintRoomKit(context: CanvasRenderingContext2D, spec: InteriorSp
     context.beginPath(); context.moveTo(x, y - wall.height); context.lineTo(endX, endY - wall.height);
     context.strokeStyle = '#e2d8b7'; context.lineWidth = 6; context.stroke();
     if (wall.window) {
-      drawFixture('window', roomKind(spec.id) === 'inn' && !spec.layout?.floors ? 940 : (x + endX) / 2 - 60, (y + endY) / 2 - 20, 120);
+      const window = roomWindows(spec, { ...kit, walls: [wall] })[0];
+      drawFixture('window', window.x - window.width / 2, window.bottom, window.width);
     }
   }
 

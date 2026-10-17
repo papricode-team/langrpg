@@ -217,7 +217,7 @@ describe('palette', () => {
     const choices = paletteChoices('waldruh'), groups = catalogueGroups(choices);
     expect(groups.flatMap(group => group.choices)).toEqual(choices);
     const trees = groups.find(group => group.asset === 'tree')!.choices;
-    expect(trees.map(choice => choice.frame)).toEqual(['town-linden', 'town-plane', 'tree', 'tree-1', 'tree-2', 'tree-3', 'tree-4']);
+    expect(trees.map(choice => choice.frame)).toEqual(['town-beech', 'town-birch', 'town-chestnut', 'town-linden', 'town-plane', 'tree', 'tree-1', 'tree-2', 'tree-3', 'tree-4']);
     expect(new Set(trees.map(variantLabel)).size).toBe(trees.length);
     const item = newPlacement(town(), trees.find(choice=>choice.frame==='tree-1')!, {x: 500, y: 500});
     expect(item.variant).toBe(true);

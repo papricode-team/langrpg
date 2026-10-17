@@ -52,6 +52,7 @@ export class InteriorScene extends ExploreScene {
   protected readonly objectPrefix = 'interior' as const;
   spec: InteriorSpec = getInterior('cafe');
   private mapId: MapId = 'lindenhafen';
+  private roomBaseTint = interiorPeopleTint('lindenhafen', 'cafe');
   private room?: WorldInterior;
   private propTargets: Phaser.GameObjects.Zone[] = [];
   private instant = false;
@@ -67,7 +68,18 @@ export class InteriorScene extends ExploreScene {
   get worldHeight(): number { return this.spec.height; }
   get interiorId(): InteriorId { return this.spec.id; }
   protected get indoor(): boolean { return true; }
-  protected get indoorTint(): number { return interiorPeopleTint(this.mapId, roomKind(this.spec.id)); }
+  protected get indoorTint(): number { return this.roomBaseTint; }
+  protected setCharacterAmbient(character: Character, tint: number): void {
+    if (this.spec.presentation === 'painted') { super.setCharacterAmbient(character, tint); return; }
+    this.lightCharacter(character, this.clock.advance(0).hour);
+  }
+
+  private lightCharacter(character: Character, hour: number): void {
+    const tint = this.room?.peopleTint(this.indoorTint, character.x, character.y, hour) ?? this.indoorTint;
+    character.ambientTint = tint;
+    if (character.figure.tintTopLeft !== tint) character.figure.setTint(tint);
+  }
+
   protected get indoorCharacterHeight(): number { return this.spec.characterHeight ?? INTERIOR_CHARACTER_HEIGHT; }
   /** The prologue carriage: one painted room whose story objects follow the beats. */
   get train(): boolean { return this.spec.presentation === 'painted' && this.spec.id.startsWith('train-'); }
@@ -78,6 +90,7 @@ export class InteriorScene extends ExploreScene {
     super.init();
     this.spec = getInterior(data.id, data.mapId);
     this.mapId = data.mapId;
+    this.roomBaseTint = interiorPeopleTint(this.mapId, roomKind(this.spec.id));
     this.regionId = data.mapId;
     this.instant = !!data.instant;
     this.stairTransition = !!data.stairs;
@@ -285,7 +298,13 @@ export class InteriorScene extends ExploreScene {
         if (storyQuestComplete(completed, quest) && !this.completedSounds.has(quest)) { this.completedSounds.add(quest); this.audio?.effect(sound, .15); }
       }
     }
-    this.room?.update(this.decorativeElapsed, this.cameras.main.worldView, this.clock.advance(0).hour);
+    const hour = this.clock.advance(0).hour;
+    this.room?.update(this.decorativeElapsed, this.cameras.main.worldView, hour);
+    if (this.spec.presentation !== 'painted') {
+      this.lightCharacter(this.local, hour);
+      for (const character of this.characters.values()) this.lightCharacter(character, hour);
+      for (const peer of this.peers.values()) this.lightCharacter(peer, hour);
+    }
   }
 
   setReducedMotion(reduced: boolean): void {

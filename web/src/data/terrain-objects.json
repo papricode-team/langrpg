@@ -1252,6 +1252,183 @@
       },
       "source": "town-garden-statue.png",
       "prompt": "art/source/terrain-objects/town-garden-statue-prompt.txt"
+    },
+    {
+      "id": "town-chestnut",
+      "name": "Horse chestnut in blossom",
+      "role": "tree",
+      "worldWidth": 158.72,
+      "motion": "still",
+      "collidable": true,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.981658692185008,
+      "asset": "/assets/terrain-objects/town-chestnut.webp",
+      "thumbnail": "/assets/terrain-objects/town-chestnut-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -598,
+          "top": -1217,
+          "right": 603,
+          "bottom": 0
+        },
+        "footprint": [
+          [
+            75,
+            -24
+          ],
+          [
+            53.033008588991066,
+            -2.786796564403577
+          ],
+          [
+            4.592425496802574e-15,
+            6
+          ],
+          [
+            -53.03300858899106,
+            -2.7867965644035735
+          ],
+          [
+            -75,
+            -23.999999999999996
+          ],
+          [
+            -53.03300858899107,
+            -45.21320343559643
+          ],
+          [
+            -1.3777276490407723e-14,
+            -54
+          ],
+          [
+            53.03300858899105,
+            -45.21320343559643
+          ]
+        ]
+      },
+      "source": "town-chestnut.png",
+      "prompt": "art/source/terrain-objects/town-chestnut-prompt.txt"
+    },
+    {
+      "id": "town-birch",
+      "name": "Silver birch",
+      "role": "tree",
+      "worldWidth": 158.72,
+      "motion": "still",
+      "collidable": true,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.9824561403508771,
+      "asset": "/assets/terrain-objects/town-birch.webp",
+      "thumbnail": "/assets/terrain-objects/town-birch-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -562,
+          "top": -1205,
+          "right": 563,
+          "bottom": 0
+        },
+        "footprint": [
+          [
+            75,
+            -24
+          ],
+          [
+            53.033008588991066,
+            -2.786796564403577
+          ],
+          [
+            4.592425496802574e-15,
+            6
+          ],
+          [
+            -53.03300858899106,
+            -2.7867965644035735
+          ],
+          [
+            -75,
+            -23.999999999999996
+          ],
+          [
+            -53.03300858899107,
+            -45.21320343559643
+          ],
+          [
+            -1.3777276490407723e-14,
+            -54
+          ],
+          [
+            53.03300858899105,
+            -45.21320343559643
+          ]
+        ]
+      },
+      "source": "town-birch.png",
+      "prompt": "art/source/terrain-objects/town-birch-prompt.txt"
+    },
+    {
+      "id": "town-beech",
+      "name": "Copper beech",
+      "role": "tree",
+      "worldWidth": 158.72,
+      "motion": "still",
+      "collidable": true,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.981658692185008,
+      "asset": "/assets/terrain-objects/town-beech.webp",
+      "thumbnail": "/assets/terrain-objects/town-beech-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -596,
+          "top": -1216,
+          "right": 608,
+          "bottom": 0
+        },
+        "footprint": [
+          [
+            75,
+            -24
+          ],
+          [
+            53.033008588991066,
+            -2.786796564403577
+          ],
+          [
+            4.592425496802574e-15,
+            6
+          ],
+          [
+            -53.03300858899106,
+            -2.7867965644035735
+          ],
+          [
+            -75,
+            -23.999999999999996
+          ],
+          [
+            -53.03300858899107,
+            -45.21320343559643
+          ],
+          [
+            -1.3777276490407723e-14,
+            -54
+          ],
+          [
+            53.03300858899105,
+            -45.21320343559643
+          ]
+        ]
+      },
+      "source": "town-beech.png",
+      "prompt": "art/source/terrain-objects/town-beech-prompt.txt"
     }
   ]
 }

@@ -14,7 +14,8 @@ describe('isolated authoring transport',()=>{
    return Response.json({document:sceneDocument,revision:'draft',contentVersion:'new',locks:[]});
   });
   const session=new WorldEditSession(()=> 'draft',()=>sceneDocument,transport);
-  await session.commit([{kind:'paint',map:'lindenhafen',material:'cobble',radius:40,strength:1,points:[[400,400]]}]);
+  // Lindenhafen's six slots now use fan cobble in place of the old cobble layer.
+  await session.commit([{kind:'paint',map:'lindenhafen',material:'town-fan-cobble',radius:40,strength:1,points:[[400,400]]}]);
   expect(session.canUndo).toBe(true);await session.undo();expect(session.canUndo).toBe(false);
   await session.status('lindenhafen');await session.loadWorld();await session.validate(sceneDocument);await session.replaceWorld(sceneDocument,'draft');
   expect(transport).toHaveBeenCalledTimes(6);expect(network).not.toHaveBeenCalled();

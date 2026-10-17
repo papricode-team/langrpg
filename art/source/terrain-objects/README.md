@@ -30,3 +30,22 @@ and completely clear alpha boundaries, then draws the current seed offline.
 It accepts `--before <world.json>` for a composition comparison and identity,
 other-town, bridge and canal-weight invariants. Evidence and limitations are in
 `docs/visual-pass/town-2.md`. Existing LFS patterns already cover every new master.
+
+## Lindenhafen variety pass (2026-10-17)
+
+`town-chestnut`, `town-birch` and `town-beech` add horse chestnut candle blossoms,
+silver birch bark and a restrained copper-beech accent. All are native
+1254 × 1254 transparent built-in ImageGen paintings, with exact sibling
+`*-prompt.txt` files and selected references recorded in `variety-pass-4.json`.
+They use the linden's 158.72 world width and exact trunk-only footprint. Native
+root-bottom alpha determines their standing pivot, as for the existing trees.
+Each catalogue request and all 43 seed trees explicitly use `motion: still`.
+Export only the additions with:
+
+```sh
+node scripts/prepare-terrain-objects.mjs --only=town-chestnut,town-birch,town-beech
+```
+
+The renderer currently gives the `tree` role a small sway even when `motion`
+is `still`; see `docs/visual-pass/variety-4.md` for that out-of-scope integration
+issue. No animated frames or procedural detail sway were added to these assets.

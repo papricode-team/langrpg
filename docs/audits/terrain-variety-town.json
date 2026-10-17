@@ -1,0 +1,6 @@
+{
+  "town": "lindenhafen",
+  "source": "content/world-seed.json",
+  "checks": "auditScene + sceneWarnings + compileSceneDocument (audit_town logic)",
+  "problems": []
+}

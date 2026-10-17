@@ -1,3 +1,4 @@
+import type { RoomLighting } from './room-kit';
 import type { MapId } from './maps';
 import { nightIntensity, worldPeriod, type WorldPeriod } from './world-clock';
 import { hasRegionPeople } from './world-map-assets';
@@ -12,8 +13,12 @@ export function worldAmbient(mapId: MapId, period: WorldPeriod): Readonly<WorldA
   return { ...daylight, scenery: mix(daylight.scenery, foundationPalette(mapId).bounce, .04) };
 }
 
-const mix = (a: number, b: number, ratio: number) => [16, 8, 0].reduce((result, shift) =>
-  result | Math.round((a >> shift & 255) * (1 - ratio) + (b >> shift & 255) * ratio) << shift, 0);
+const mix = (a: number, b: number, ratio: number): number => {
+  const red = Math.round((a >> 16 & 255) * (1 - ratio) + (b >> 16 & 255) * ratio);
+  const green = Math.round((a >> 8 & 255) * (1 - ratio) + (b >> 8 & 255) * ratio);
+  const blue = Math.round((a & 255) * (1 - ratio) + (b & 255) * ratio);
+  return red << 16 | green << 8 | blue;
+};
 /** Continuous dawn, golden hour and blue hour, on top of authored night art. */
 export function timeAmbient(mapId: MapId, hour: number, period: WorldPeriod = worldPeriod(hour)): Readonly<WorldAmbient> {
   const h = ((hour % 24) + 24) % 24;
@@ -32,6 +37,21 @@ export function timeAmbient(mapId: MapId, hour: number, period: WorldPeriod = wo
 
 /** Warm reflected timber/parchment light, even when the outside town is in moonlight. */
 export function interiorPeopleTint(town: string, room = ''): number {
-  if (['station', 'supermarket', 'greenhouse'].includes(room)) return 0xfff5e5;
+  if (room === 'station' || room === 'supermarket' || room === 'greenhouse') return 0xfff5e5;
   return town === 'nebelstadt' ? 0xfff3df : town === 'waldruh' ? 0xffedcf : 0xfff0d9;
+}
+
+/** Painted prologue rooms never use these exposure/tint helpers. */
+export const interiorSurfaceTint = (hour: number): number => mix(0xfff8e9, 0x8593ae, nightIntensity(hour));
+
+/** Allocation-free proximity sample; feet sample a softly extended elliptical pool. */
+export function interiorLitPeopleTint(base: number, lighting: RoomLighting, x: number, y: number, hour: number): number {
+  const night = nightIntensity(hour);
+  let warmth = 0;
+  for (const lamp of lighting.lamps) {
+    const dx = (x - lamp.floorX) / lamp.radius, dy = (y - lamp.floorY) / (lamp.radius * .70);
+    const falloff = Math.max(0, 1 - Math.hypot(dx, dy));
+    warmth = Math.max(warmth, falloff * falloff);
+  }
+  return mix(mix(base, 0xa8b7d2, night * .70), 0xffd598, warmth * (.65 + night * .30));
 }

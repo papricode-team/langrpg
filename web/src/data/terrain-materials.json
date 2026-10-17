@@ -401,6 +401,36 @@
         "height": 34
       },
       "walled": true
+    },
+    {
+      "id": "town-fan-cobble",
+      "name": "Lindenhafen fan cobbles",
+      "group": "Paving",
+      "color": "#c5ad87",
+      "blocked": false,
+      "asset": "/assets/terrain-materials/town-fan-cobble.webp",
+      "thumbnail": "/assets/terrain-materials/town-fan-cobble-thumb.webp",
+      "width": 1152,
+      "height": 1152,
+      "sourceWidth": 1254,
+      "sourceHeight": 1254,
+      "worldSize": 144,
+      "repeat": "periodic-overlap"
+    },
+    {
+      "id": "town-herringbone",
+      "name": "Lindenhafen herringbone brick",
+      "group": "Paving",
+      "color": "#bc9677",
+      "blocked": false,
+      "asset": "/assets/terrain-materials/town-herringbone.webp",
+      "thumbnail": "/assets/terrain-materials/town-herringbone-thumb.webp",
+      "width": 1152,
+      "height": 1152,
+      "sourceWidth": 1254,
+      "sourceHeight": 1254,
+      "worldSize": 144,
+      "repeat": "periodic-overlap"
     }
   ]
 }

@@ -11,6 +11,8 @@ const args = process.argv.slice(2);
 for (const map of args.length ? args : Object.keys(sceneDocument.maps)) {
   const scene = sceneDocument.maps[map];
   if (!scene) throw Error(`Unknown scene ${map}`);
+  // Painted-ground towns are captured by the real renderer; composing props on a flat backdrop would show a stale town.
+  if (scene.ground) { console.log(`${map}: preview comes from scripts/capture-town-previews.mjs`); continue; }
   // Keep cards bounded, while preserving the world's aspect ratio and anchors.
   const cardScale = Math.min(1, 1536 / scene.width, 1024 / scene.height);
   const canvasWidth = Math.round(scene.width * cardScale), canvasHeight = Math.round(scene.height * cardScale);

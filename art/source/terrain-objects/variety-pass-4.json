@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-17",
+  "generator": "built-in image_gen",
+  "generationDirectory": "01a14b02-caeb-79f3-8a50-6a3c2afcd362",
+  "references": [
+    "docs/style/references/target-art-direction.webp",
+    "art/source/terrain-objects/town-linden.png",
+    "art/source/terrain-objects/town-plane.png"
+  ],
+  "selected": [
+    {
+      "id": "town-chestnut",
+      "generatedFile": "exec-af48312a-4590-4d9f-ac75-ae0aee177b0a.png",
+      "master": "town-chestnut.png",
+      "exactPrompt": "town-chestnut-prompt.txt",
+      "processing": "Selected native pixels retained without resampling; runtime exported by family prepare script."
+    },
+    {
+      "id": "town-birch",
+      "generatedFile": "exec-bbed93ff-586a-4c21-8d2b-ced0984d157c.png",
+      "master": "town-birch.png",
+      "exactPrompt": "town-birch-prompt.txt",
+      "processing": "Selected native pixels retained without resampling; runtime exported by family prepare script."
+    },
+    {
+      "id": "town-beech",
+      "generatedFile": "exec-e2468142-1c29-4720-83d8-24d48f2aefd2.png",
+      "master": "town-beech.png",
+      "exactPrompt": "town-beech-prompt.txt",
+      "processing": "Selected native pixels retained without resampling; runtime exported by family prepare script."
+    }
+  ]
+}

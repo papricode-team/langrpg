@@ -9,6 +9,8 @@ const paintedPalette:Record<string,{color:string;name?:string}>={
   'brick':{color:'#b16c4d'},
   'slate':{color:'#687e82'},
   'town-cobble':{name:'Lindenhafen sandstone cobbles',color:'#c3ad84'},
+  'town-fan-cobble':{color:'#c5ad87'},
+  'town-herringbone':{color:'#bc9677'},
   'canal-masonry':{color:'#c9b087'},
   'canal-water':{color:'#637f83'},
   'banked-water':{color:'#637f83'},

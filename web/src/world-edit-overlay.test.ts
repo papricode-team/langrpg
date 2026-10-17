@@ -22,9 +22,9 @@ describe('object catalogue and selected versions', () => {
     button('add').click();
     expect(button('add').getAttribute('aria-expanded')).toBe('true');
     group().value = 'tree'; group().dispatchEvent(new Event('change', {bubbles: true}));
-    // Summer linden/plane cutouts join the five legacy atlas trees in every town.
+    // Five native HD species join the five legacy atlas trees in every town.
     expect([...document.querySelectorAll<HTMLElement>('[data-edit="place"]')].map(button=>button.dataset.frame)).toEqual([
-      'town-linden','town-plane','tree','tree-1','tree-2','tree-3','tree-4',
+      'town-beech','town-birch','town-chestnut','town-linden','town-plane','tree','tree-1','tree-2','tree-3','tree-4',
     ]);
     expect(button('place', 'tree-2').textContent?.trim()).toBe('Tree 2');
     button('place', 'tree-2').click();
@@ -60,6 +60,10 @@ describe('object catalogue and selected versions', () => {
       button('place',frame).click();
       expect(controller.startPlacing.mock.lastCall![0].frame).toBe(frame);
       expect(controller.startPlacing.mock.results.at(-1)!.value).toMatchObject({asset:'tree',frame,motion:'tree'});
+    }
+    for(const frame of ['town-beech','town-birch','town-chestnut']){
+      button('place',frame).click();
+      expect(controller.startPlacing.mock.results.at(-1)!.value).toMatchObject({asset:'tree',frame,motion:'still'});
     }
   });
   it('keeps the catalogue available in the docked map editor', () => {
