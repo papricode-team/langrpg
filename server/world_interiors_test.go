@@ -53,11 +53,7 @@ func TestSharedInteriorPresenceMovementExitAndReconnect(t *testing.T) {
 			writeWorld(t, ctx, two, map[string]any{"type": "move", "mapId": DefaultMapID, "interiorId": room, "x": spawn.X - .02, "y": spawn.Y})
 			var moved MapSpawn
 			for moved == (MapSpawn{}) {
-				packet := readWorld(t, ctx, one, "players")
-				players = nil
-				if err := json.Unmarshal(packet["players"], &players); err != nil {
-					t.Fatal(err)
-				}
+				players = readMoves(t, ctx, one)
 				for _, p := range players {
 					if p.ID == playerB.ID && p.InteriorID == room && p.X < spawn.X {
 						if p.InteriorID != room || math.Hypot(p.X-spawn.X, p.Y-spawn.Y) > .021 {
