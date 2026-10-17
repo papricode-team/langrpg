@@ -1,6 +1,9 @@
 # glotworld
 
-Website: [glotworld.com](https://glotworld.com).
+Website: [glotworld.com](https://glotworld.com). Play: [glotworld.com/game/](https://glotworld.com/game/).
+
+The public landing page and German-learning guides are built with Astro in `site/`.
+See [Website and SEO](docs/website.md) for development, content authoring and deployment.
 
 A German-learning story adventure across three painted towns, with multiplayer presence. Investigate a vanishing railway in Lindenhafen, a missing hour in Waldruh, and a lighthouse erasing names in Nebelstadt. Meet the Brass Office inspector, follow Elise’s letter and decide who should care for the restored Atlas. Ten optional coastal expeditions open after the three-act story.
 

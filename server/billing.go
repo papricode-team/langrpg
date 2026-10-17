@@ -204,7 +204,7 @@ func (a *App) createCheckout(ctx context.Context, accountID, plan, product strin
 	}
 	input := map[string]any{
 		"product_id": product, "request_id": requestID, "units": 1,
-		"success_url": a.billing.PublicURL + "/?billing=success",
+		"success_url": a.billing.PublicURL + "/game/?billing=success",
 		"metadata":    map[string]string{"account_id": accountID, "billing_reference": reserved.Billing.Reference},
 	}
 	// Game signup does not verify the email, so a first checkout lets the payer
