@@ -21,7 +21,7 @@ record painted paving, stairs and bridges while excluding water and cliff faces;
 their exports preserve exact pixels and vector authoring remains in scene data.
 The compiler enforces scale, native resolution, chunk density, door ownership
 and sampled reachability. Scenery and characters use integer depth bands;
-occluding scenery provides a soft cutout and player silhouette. The navigation
+occluding scenery lightens as a whole under a shimmering player silhouette. The navigation
 overlay exposes polygons, footprints, nodes and routes for review.
 
 Gameplay terrain contains ground, water, bridges, stairs and retaining walls;
