@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import type * as Phaser from 'phaser';
 import { depthAt, worldDepth, isCharacterOccluded, updateOcclusion } from './world-depth';
-import { WorldScenery, type SceneryOcclusionFactory } from './world-scenery';
+import { OCCLUDER_FADE, WorldScenery } from './world-scenery';
 import { getSceneryGeometry } from './scene-schema';
 import { sceneryFootprints, type PlacedScenerySpec } from './placed-scenery';
 import { NavigationGrid } from './navigation';
@@ -95,26 +95,21 @@ function fixture(period:'day'|'night'='day',inheritSortLine=false,asset:PlacedSc
   const scene={cache:{json:{get:()=>({assets:{[asset]:{key:texture.key,frames:[asset],fps:0,width:reference,height:reference,referenceWidth:reference,originX:.5,originY:1,
     sortLine:period==='night'?[[-reference/2,-reference*.8],[reference/2,-reference*.6]]:canonical.sortLine}}})}},
     textures:{exists:()=>true,get:()=>texture,createCanvas:ground.createCanvas,remove:ground.remove},add:{image:ground.image,sprite:(x:number,y:number,key:string,name:string)=>{const sprite=new Sprite(x,y,key,name);sprites.push(sprite);return sprite;}}} as unknown as Phaser.Scene;
-  const configured:number[]=[];
-  const factory=((_scene:Phaser.Scene,_sprite:Phaser.GameObjects.Sprite)=>({configure:(circles:readonly unknown[])=>{configured.push(circles.length);}})) as unknown as SceneryOcclusionFactory;
   const placement={id:'test-wall',asset,frame:detailFrame,x:100,y:200,width:100,sortLine:inheritSortLine?undefined:[[-reference/2,-reference*.4],[reference/2,0]] as const};
-  return{scenery:new WorldScenery(scene,'lindenhafen',period,[placement],factory),sprites,frames,ground,placement,configured};
+  return{scenery:new WorldScenery(scene,'lindenhafen',period,[placement]),sprites,frames,ground,placement};
 }
 
 describe('segmented scenery rendering', () => {
-  it('cuts walls out around a hidden character only while cutouts are enabled',()=>{
+  it('lightens a whole covered building evenly and sorts the silhouette above it',()=>{
     const view={x:-1000,y:-1000,right:1000,bottom:1000};
-    const behind=[{id:'self',x:100,y:190,depth:-1e9,height:72}];
-    const {scenery,sprites,configured}=fixture('day',false,'house');
-    scenery.update(0,view,behind,.5);
-    expect(configured.some(count=>count>0)).toBe(true);
-    expect(sprites.filter(sprite=>!sprite.destroyed).every(sprite=>sprite.alpha===1)).toBe(true);
-    configured.length=0;
-    scenery.setCutouts(false);
-    scenery.update(0,view,behind,.5);
-    expect(configured.every(count=>count===0)).toBe(true);
-    expect(sprites.some(sprite=>!sprite.destroyed&&sprite.alpha<1)).toBe(true);
-    expect(scenery.occlusionFor('self')?.strength).toBe(1);
+    const {scenery,sprites}=fixture('day',false,'house');
+    scenery.update(0,view,[{id:'self',x:100,y:190,depth:-1e9,height:72}],.5);
+    const walls=sprites.filter(sprite=>!sprite.destroyed&&sprite.visible);
+    expect(new Set(walls.map(sprite=>sprite.alpha))).toEqual(new Set([1-OCCLUDER_FADE]));
+    expect(scenery.occlusionFor('self')).toEqual({depth:Math.max(...walls.map(sprite=>sprite.depth)),strength:1});
+    scenery.update(0,view,[],1);
+    expect(walls.every(sprite=>sprite.alpha===1)).toBe(true);
+    expect(scenery.occlusionFor('self')).toBeUndefined();
     scenery.destroy();
   });
   it('renders an open platform canopy without inventing a solid building foundation',()=>{
@@ -178,7 +173,8 @@ describe('segmented scenery rendering', () => {
     expect(ground.images.every(image=>image.alpha===.4)).toBe(true);
     scenery.setGroundContactAlpha(.25);
     expect(ground.images.every(image=>image.alpha===.1)).toBe(true);
-    expect(sprites.filter(sprite=>!sprite.destroyed).every(sprite=>sprite.alpha===.4)).toBe(true);
+    // The character behind it lightens the building as a whole.
+    for(const sprite of sprites.filter(sprite=>!sprite.destroyed))expect(sprite.alpha).toBeCloseTo(.4*(1-OCCLUDER_FADE));
     scenery.setAlpha(.8);
     expect(ground.images.every(image=>image.alpha===.2)).toBe(true);
     scenery.setGroundContactAlpha(1);
