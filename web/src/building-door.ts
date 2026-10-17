@@ -35,8 +35,10 @@ export class BuildingDoorEffect {
   private glow: Phaser.GameObjects.Image;
   private sparks: Phaser.GameObjects.Graphics;
   private strength = 0;
+  private geometry: BuildingDoorGeometry;
 
-  constructor(scene: Phaser.Scene, private geometry: BuildingDoorGeometry) {
+  constructor(scene: Phaser.Scene, geometry: BuildingDoorGeometry) {
+    this.geometry = geometry;
     if (!scene.textures.exists(glowKey)) {
       const texture = scene.textures.createCanvas(glowKey, 128, 128)!;
       const context = texture.context, gradient = context.createRadialGradient(64, 64, 0, 64, 64, 64);

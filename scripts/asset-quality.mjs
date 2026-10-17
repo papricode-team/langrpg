@@ -53,6 +53,11 @@ export function qualityPlan(rel, width, height, density) {
     const scale = Math.min(1, cap.max[0] / width, cap.max[1] / height);
     return { high: fit([width, height], scale), reduced: {} };
   }
+  // The four room fixtures share a large sheet. Keep Low cells at 336 × 224
+  // while retaining the normal Medium and full-resolution High variants.
+  if (rel === 'room-kit-furniture.webp') return {
+    high: [width, height], reduced: {low: fit([width, height], 7 / 16), medium: fit([width, height], QUALITY_TIERS.medium)},
+  };
   // Animal sheets pack 128px cells with ~76px figures; halving the whole atlas
   // would reduce each animal below its displayed size even on the low tier.
   const reduced = !rel.startsWith('animals/') && Math.min(width, height) >= MIN_REDUCED_SIDE

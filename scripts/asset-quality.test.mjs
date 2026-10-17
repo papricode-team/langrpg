@@ -32,6 +32,7 @@ test('pixel-exact sources ship untouched and interface portraits are capped', ()
 });
 
 test('world art gets reduced tiers that keep its aspect ratio', () => {
+  assert.deepEqual(qualityPlan('room-kit-furniture.webp', 1536, 1024), { high: [1536, 1024], reduced: { low: [672, 448], medium: [1152, 768] } });
   assert.deepEqual(qualityPlan('character-cast/ada.webp', 1904, 906), { high: [1904, 906], reduced: { low: [952, 453], medium: [1428, 680] } });
   assert.deepEqual(qualityPlan('animals/dog.webp', 1024, 1152), { high: [1024, 1152], reduced: {} });
   assert.deepEqual(qualityPlan('minigames/icon.webp', 128, 128), { high: [128, 128], reduced: {} });
