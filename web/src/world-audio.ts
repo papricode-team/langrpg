@@ -5,6 +5,7 @@ import { worldPeriod } from './world-clock';
 const towns = ['lindenhafen', 'waldruh', 'nebelstadt'] as const;
 const names = [...towns.flatMap(id => [`music-${id}`,`music-${id}-night`]), ...towns.map(id => `ambience-${id}`), 'step-stone', 'step-wood', 'door', 'bell'];
 export function loadWorldAudio(scene: Phaser.Scene) {
+  for (const name of ['wheels','whistle','door','brakes','cup','punch']) scene.load.audio(`world-train-${name}`, `/audio/ui/train-${name}.ogg`);
   for (const name of names) scene.load.audio(`world-${name}`, `/audio/world/${name}.ogg`);
 }
 interface Sound {
@@ -29,6 +30,9 @@ export class WorldAudio {
   private narration = false;
   private stepDistance = 0;
   private night=false;
+  private train=false;
+  setInterior(id?:string) { const train=!!id?.startsWith('train-'); if(train!==this.train){this.train=train;this.refresh();} }
+  private ambienceKey(){return this.train?'world-train-wheels':`world-ambience-${this.region}`;}
   constructor(private scene: AudioHost) {}
   setRegion(id: MapId) {
     this.region = towns.includes(id as typeof towns[number]) ? id : 'nebelstadt';
@@ -43,14 +47,14 @@ export class WorldAudio {
   setHour(hour:number){const night=worldPeriod(hour)==='night';if(this.night!==night){this.night=night;this.refresh();}}
   private refresh() {
     for (const [key, layer] of this.layers) {
-      const active = [this.musicKey(),`world-ambience-${this.region}`].includes(key) && this.visible && !this.quiet;
+      const active = [this.musicKey(),this.ambienceKey()].includes(key) && this.visible && !this.quiet;
       layer.target = active ? (key.includes('music') ? (this.narration ? .055 : .18) : .12) : 0;
       if (active && !layer.sound.isPlaying) layer.sound.play();
       if (!this.visible || this.quiet) { layer.volume = 0; layer.sound.setVolume(0); layer.sound.stop(); }
     }
     if (!this.region || this.quiet || !this.visible) return;
     for (const kind of ['music', 'ambience']) {
-      const key = kind==='music'?this.musicKey():`world-ambience-${this.region}`;
+      const key = kind==='music'?this.musicKey():this.ambienceKey();
       if (this.layers.has(key) || !this.scene.cache.audio.exists(key)) continue;
       const sound = this.scene.sound.add(key, { loop: true, volume: 0 }) as unknown as Sound;
       this.layers.set(key, { sound, volume: 0, target: kind === 'music' ? (this.narration ? .055 : .18) : .12 });
@@ -70,7 +74,7 @@ export class WorldAudio {
     this.stepDistance += distance;
     if (this.stepDistance >= 25) { this.stepDistance %= 25; this.effect(indoor ? 'step-wood' : 'step-stone', .11); }
   }
-  effect(name: 'step-stone' | 'step-wood' | 'door' | 'bell', volume = .25) {
+  effect(name: 'step-stone' | 'step-wood' | 'door' | 'bell' | 'train-door' | 'train-cup' | 'train-brakes' | 'train-whistle' | 'train-punch', volume = .25) {
     const key = `world-${name}`;
     if (!this.quiet && this.visible && this.scene.cache.audio.exists(key)) this.scene.sound.play(key, { volume });
   }

@@ -11,7 +11,7 @@ interface PlacementOptions {
   api:Pick<Api,'request'>; progress:Progress;
   questions:readonly PlacementQuestion[];
   onComplete:(result:PlacementResult,progress:Progress)=>void;
-  onClose:()=>void; speak:(text:string)=>void;
+  onClose:()=>void; onPrologue?:()=>void; speak:(text:string)=>void;
 }
 export function placementCTAMarkup():string {
   return `<button type="button" class="outline-button" data-action="placement">${e(t('Find my comfortable German level'))}</button>`;
@@ -34,7 +34,7 @@ export async function mountOptionalPlacement(host:HTMLElement,options:PlacementO
   const render=()=>{
     if(disposed)return;
     const exercise:PlacementExercise=localizedExercise(queue[index]),turn=options.questions[index].turn;
-    host.innerHTML=`<section class="placement-panel" aria-label="${e(t('Optional German placement'))}"><header><button type="button" class="text-button" data-placement="close" ${busy?'disabled':''}>${e(t('Leave'))}</button></header><h2>${e(t('Find your practice starting point'))}</h2><p>${e(t('A few short conversations, usually about two minutes. You can leave at any time.'))}</p><blockquote class="placement-dialogue"><strong>${e(turn.speaker)}</strong><p lang="${e(targetLanguage())}">${renderTranslatedSentence(turn,'',hinted)}</p><button type="button" class="text-button" data-placement="hear">${e(t('Hear this line'))}</button></blockquote><h3>${e(exercise.prompt)}</h3>${exercise.mode==='type'?`<form data-placement-form><label for="placement-answer">${e(t('Your German answer'))}</label><input id="placement-answer" name="answer" lang="de" autocomplete="off" spellcheck="false" maxlength="240" ${busy||answered?'disabled':''}/><button type="submit" class="primary-button" ${busy||answered?'disabled':''}>${e(busy?t('Saving…'):pending?t('Retry this save'):t('Check answer'))}</button></form>`:`<div class="placement-options">${(exercise.options??[]).map(option=>`<button type="button" class="outline-button" data-placement="answer" data-answer="${e(option)}" ${busy||answered?'disabled':''}>${e(option)}</button>`).join('')}</div>`}<div class="placement-feedback" role="status">${e(feedback)}</div>${answered?`<button type="button" class="primary-button" data-placement="next">${e(t('Continue'))}</button>`:`<button type="button" class="text-button" data-placement="hint" ${busy?'disabled':''}>${e(t('A little help'))}</button>${hinted?`<p>${e(exercise.hint)}</p>`:''}`}</section>`;
+    host.innerHTML=`<section class="placement-panel" aria-label="${e(t('Optional German placement'))}"><header><button type="button" class="text-button" data-placement="close" ${busy?'disabled':''}>${e(t('Leave'))}</button></header><h2>${e(t('Find your practice starting point'))}</h2><p>${e(t('A few short conversations, usually about two minutes. You can leave at any time.'))}</p><blockquote class="placement-dialogue"><strong>${e(turn.speaker)}</strong><p lang="${e(targetLanguage())}">${renderTranslatedSentence(turn,'',hinted)}</p><button type="button" class="text-button" data-placement="hear">${e(t('Hear this line'))}</button></blockquote><h3>${e(exercise.prompt)}</h3>${exercise.mode==='type'?`<form data-placement-form><label for="placement-answer">${e(t('Your German answer'))}</label><input id="placement-answer" name="answer" lang="de" autocomplete="off" spellcheck="false" maxlength="240" ${busy||answered?'disabled':''}/><button type="submit" class="primary-button" ${busy||answered?'disabled':''}>${e(busy?t('Saving…'):pending?t('Retry this save'):t('Check answer'))}</button></form>`:`<div class="placement-options">${(exercise.options??[]).map(option=>`<button type="button" class="outline-button" data-placement="answer" data-answer="${e(option)}" ${busy||answered?'disabled':''}>${e(option)}</button>`).join('')}</div>`}<div class="placement-feedback" role="status">${e(feedback)}</div>${results.length === 2 && results.every(result=>!result.correct) && options.onPrologue ? `<aside><p>${e(t('Start with greetings, sounds and your own name.'))}</p><button type="button" class="primary-button" data-placement="prologue">${e(t('Start from zero'))}</button></aside>` : ''}${answered?`<button type="button" class="primary-button" data-placement="next">${e(t('Continue'))}</button>`:`<button type="button" class="text-button" data-placement="hint" ${busy?'disabled':''}>${e(t('A little help'))}</button>${hinted?`<p>${e(exercise.hint)}</p>`:''}`}</section>`;
     if(exercise.mode==='type'&&!busy&&!answered)host.querySelector<HTMLInputElement>('input')?.focus();
   };
   const submit=async(answer:string)=>{
@@ -44,7 +44,7 @@ export async function mountOptionalPlacement(host:HTMLElement,options:PlacementO
     const attempt=pending;busy=true;render();
     try {
       const result=await options.api.request<{correct:boolean;reason?:string}>('/attempt',{...attempt,itemId:exercise.itemId,exerciseId:exercise.id,mode:modeFor(exercise),level:exercise.level,preview:true});
-      results.push({level:exercise.level,correct:result.correct,hinted:attempt.hinted});
+      results.push({level:exercise.level === 'A0' ? 'A1' : exercise.level,correct:result.correct,hinted:attempt.hinted});
       pending=undefined;answered=true;feedback=result.correct?t('This helps us choose useful practice.'):attemptFeedback(exercise,attempt.answer,result.reason)||t('We will choose more support for this kind of phrase.');
     } catch(error) {feedback=`${error instanceof Error?error.message:t('The answer could not be saved.')} ${t('Retry keeps this same answer.')}`;}
     finally {busy=false;render();}
@@ -53,6 +53,7 @@ export async function mountOptionalPlacement(host:HTMLElement,options:PlacementO
     if(event.target instanceof Element&&event.target.closest('[data-sentence-word-index]')){hinted=true;return;}
     const button=(event.target as Element).closest<HTMLButtonElement>('[data-placement]');if(!button)return;
     switch(button.dataset.placement) {
+      case 'prologue':if(!busy && options.onPrologue){disposed=true;options.onPrologue();}break;
       case 'close':if(!busy){disposed=true;options.onClose();}break;
       case 'hint':if(!busy&&!answered){hinted=true;render();}break;
       case 'hear':options.speak(options.questions[index].turn.german);break;

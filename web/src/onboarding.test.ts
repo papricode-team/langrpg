@@ -54,7 +54,9 @@ describe('two-step language onboarding', () => {
     expect(onConfirm).not.toHaveBeenCalled();
     expect(document.activeElement?.id).toBe('account-title');
     click('#confirm-languages');
-    expect(onConfirm).toHaveBeenCalledWith({ motherTongue: 'en', learningLanguage: 'de' });
+    expect(onConfirm).not.toHaveBeenCalled();
+    click('[data-experience="none"]');
+    expect(onConfirm).toHaveBeenCalledWith({ motherTongue: 'en', learningLanguage: 'de', germanExperience: 'none' });
     document.body.innerHTML = onboardingStepsMarkup(2);
     expect(document.querySelector('[aria-current="step"]')?.textContent).toBe('2Character');
   });
@@ -69,7 +71,8 @@ describe('two-step language onboarding', () => {
     expect(document.body.textContent).toContain('Ana dilin Türkçe ve Almanca öğrenmek istiyorsun. Doğru mu?');
     expect(onConfirm).not.toHaveBeenCalled();
     click('#confirm-languages');
-    expect(onConfirm).toHaveBeenCalledWith({ motherTongue: 'tr', learningLanguage: 'de' });
+    click('[data-experience="little"]');
+    expect(onConfirm).toHaveBeenCalledWith({ motherTongue: 'tr', learningLanguage: 'de', germanExperience: 'little' });
   });
 
   it('retains selections when going back and asks again after changing the mother tongue', async () => {
@@ -81,7 +84,9 @@ describe('two-step language onboarding', () => {
     expect(document.body.textContent).toContain('Your mother tongue is English, and you want to learn German. Is that right?');
     expect(onConfirm).not.toHaveBeenCalled();
     click('#confirm-languages');
-    expect(onConfirm).toHaveBeenCalledWith({ motherTongue: 'en', learningLanguage: 'de' });
+    expect(onConfirm).not.toHaveBeenCalled();
+    click('[data-experience="none"]');
+    expect(onConfirm).toHaveBeenCalledWith({ motherTongue: 'en', learningLanguage: 'de', germanExperience: 'none' });
   });
 
   it('keeps language selection open if the selected translation cannot load', async () => {

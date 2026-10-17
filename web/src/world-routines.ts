@@ -1,4 +1,4 @@
-import type { Level } from './content';
+import type { CourseLevel as Level } from './content';
 import type { MapId } from './maps';
 import type { Progress } from './api';
 import type { CourseLexeme } from './course';

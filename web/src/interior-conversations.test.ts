@@ -12,7 +12,7 @@ afterEach(async () => { await setBaseLanguage('en', { persist: false }); install
 
 describe('authored interior conversations', () => {
   it('covers every shop station and the inn welcome without replacing rest or evidence actions', () => {
-    const stations = interiors.flatMap(room => room.objects.filter(object => room.id !== 'inn' || object.id === 'interior:inn:welcome').map(object => object.id));
+    const stations = interiors.filter(room => !room.id.startsWith('train-')).flatMap(room => room.objects.filter(object => room.id !== 'inn' || object.id === 'interior:inn:welcome').map(object => object.id));
     expect(interiorConversations.map(conversation => conversation.objectId).sort()).toEqual(stations.sort());
     expect(interiorConversationFor('interior:inn:bed')).toBeUndefined();
     expect(createInteriorConversationState('unknown')).toBeUndefined();

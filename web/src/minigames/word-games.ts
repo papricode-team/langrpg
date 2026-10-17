@@ -1,11 +1,12 @@
 import { escapeHtml as e } from '../icons';
+import {t} from '../i18n';
 import { seededShuffle } from '../game-shuffle';
 import { scaffoldStage, scaffoldText } from '../typing-scaffold';
 import { distractors } from './pool';
 import { RoundQueue, responseLimit } from './rounds';
 import { miniGameDefinitions } from './catalogue';
 import { isWordGame } from './word-game-mechanics';
-import type { GameItem, MiniGame, MiniGameDefinition, MiniGameHost, MiniGameOptions, Modality, RoundResult, RoundSummary } from './types';
+import type { GameItem, PhrasePair, MiniGame, MiniGameDefinition, MiniGameHost, MiniGameOptions, Modality, RoundResult, RoundSummary } from './types';
 import { basketTopics, isLetterWord, mechanicPool, minimumPool, poolModality } from './game-pools';
 import './word-games.css';
 
@@ -82,6 +83,9 @@ export class WordMemoryGame implements MiniGame {
   private summary!: RoundSummary; private chain = 0; private seen = new Set<string>(); private count = 0;
   private elapsed = 0; private previous = 0; private raf = 0; private shownSeconds = -1;
   private running = false; private paused = false; private manualPaused = false; private destroyed = false; private saving = false;
+  private namePractised = false;
+  private phraseQueue: PhrasePair[] = [];
+  private get phraseMode() { return this.mechanic === 'pairs' && this.opts.prologue; }
   private generation = 0; private timers = new Set<ReturnType<typeof setTimeout>>();
   private patience?: { limit: number; used: number; done: () => void };
   constructor(private definition: MiniGameDefinition) { this.id = definition.id; this.title = definition.title; this.host = definition.host; this.modalities = definition.modalities; this.levels = definition.levels; }
@@ -93,19 +97,20 @@ export class WordMemoryGame implements MiniGame {
   private get modality(): Modality { return poolModality(this.definition, this.silent); }
 
   mount(root: HTMLElement, host: MiniGameHost, opts: MiniGameOptions) {
-    this.root = root; this.services = host; this.opts = opts;
+    this.root = root; this.services = host; this.opts = opts; this.namePractised = false;
     this.summary = { gameId: this.id, attempts: 0, correct: 0, hinted: 0, activeMs: 0, longestChain: 0 };
     const pool = mechanicPool(this.definition, query => host.pool(query), { level: opts.level, silent: host.silent, seed: opts.seed, fixedPool: opts.fixedPool });
+    this.phraseQueue = opts.phrases ? seededShuffle(opts.phrases, opts.seed) : [];
     this.pool = pool; this.queue = new RoundQueue(pool, this.definition.rounds);
     root.innerHTML = `<section class="minigame word-game" data-game-mechanic="${e(this.mechanic)}" style="--minigame-art:url('${e(opts.backdrop ?? '/assets/lindenhafen-preview.webp')}')"><header class="minigame-heading"><div><h2>${e(this.title)}</h2><p class="word-game-host">${e(this.host)}</p></div><div class="minigame-score"><span data-game-score>0 / 0</span><time data-game-time>${this.definition.seconds}s</time></div></header><div class="minigame-lanterns" aria-hidden="true">${Array.from({ length: 12 }, () => '<i></i>').join('')}</div><div class="minigame-play"></div><p class="minigame-feedback" role="status" aria-live="polite"></p><footer class="minigame-footer"><span>${['anagram','fuse'].includes(this.mechanic) ? 'Type letters · Backspace' : this.mechanic === 'train' ? 'Type · Enter' : '1–6 · ← → · Enter'}</span><button type="button" data-game-action="pause">Pause</button><button type="button" data-game-action="finish">Finish round</button></footer></section>`;
     const minimum = minimumPool(this.definition, this.silent);
-    if (this.pool.length < minimum) {
+    if (this.phraseMode ? this.phraseQueue.length < 2 : this.pool.length < minimum) {
       const pictures = this.definition.sprites ? ' This game uses painted objects, so it needs restored nouns with pictures.' : '';
       this.play.innerHTML = `<div class="minigame-intro"><h3>These words are still returning.</h3><p>Restore more words in the town, then return for this game. Only familiar words enter the pool.${pictures}</p><button type="button" class="primary-button" data-action="todays-words">Practise today’s words</button>${nextWordGame(this.id) ? `<button type="button" class="outline-button" data-minigame="${e(nextWordGame(this.id))}">Try another word game</button>` : ''}</div>`;
       this.root.querySelector<HTMLElement>('.minigame-footer')!.hidden = true; return;
     }
     const listening = this.modality === 'listening' ? ' · listen first' : this.mechanic === 'bells' ? ' · silent mode: each word appears for a moment' : '';
-    this.play.innerHTML = `<div class="minigame-intro"><span class="minigame-seal word-game-seal" aria-hidden="true"></span><h3>${e(this.definition.instruction)}</h3><p>${this.definition.seconds} seconds · ${this.pool.length} restored words${listening} · every answer saved</p><button type="button" class="primary-button" data-game-action="start">Begin</button><p class="minigame-best">${e(this.bestLabel())}</p></div>`;
+    this.play.innerHTML = `<div class="minigame-intro"><span class="minigame-seal word-game-seal" aria-hidden="true"></span><h3>${e(this.phraseMode ? t('Match each German phrase to its meaning.') : this.definition.instruction)}</h3><p>${this.definition.seconds} seconds · ${this.phraseMode ? `${this.phraseQueue.length} familiar phrases` : `${this.pool.length} restored words`}${listening} · every answer saved</p><button type="button" class="primary-button" data-game-action="start">Begin</button><p class="minigame-best">${e(this.bestLabel())}</p></div>`;
     root.addEventListener('click', this.click); root.addEventListener('submit', this.submitForm); root.addEventListener('pointerdown', this.pointerDown); root.addEventListener('pointerup', this.pointerUp);
     document.addEventListener('keydown', this.keydown);
     this.unbind = host.input.bind(root);
@@ -177,10 +182,10 @@ export class WordMemoryGame implements MiniGame {
   private next() {
     if (this.destroyed || !this.running) return;
     this.round?.destroy?.(); this.round = undefined; this.patience = undefined; this.handlers.clear(); this.awaitingRetry = false;
-    if (this.elapsed >= this.definition.seconds * 1000 || !this.queue.remaining) { this.finish(); return; }
+    if (this.elapsed >= this.definition.seconds * 1000 || !(this.phraseMode ? this.phraseQueue.length : this.queue.remaining)) { this.finish(); return; }
     this.count++; this.generation++; this.feedback.textContent = ''; this.feedback.classList.remove('is-miss');
     const build = { pairs: this.pairs, mirror: this.mirror, anagram: this.anagram, baskets: this.baskets, leaves: this.leaves, loom: this.loom, fuse: this.fuse, fog: this.fog, bells: this.bells, train: this.train } as Record<string, () => Round | undefined>;
-    this.round = build[this.mechanic]?.call(this);
+    this.round = this.phraseMode ? this.phrasePairs() : build[this.mechanic]?.call(this);
     if (!this.round) this.finish();
   }
   private wait(limit: number, done: () => void) { this.patience = { limit, used: 0, done }; }
@@ -221,6 +226,42 @@ export class WordMemoryGame implements MiniGame {
   }
   private advance(ms = 700) { const generation = this.generation; this.later(() => { if (generation === this.generation && !this.paused) this.next(); else if (generation === this.generation) this.resumeNext = true; }, ms); }
   private resumeNext = false;
+
+  /** A phrase match is supported recognition of its authored exercise, never a lexical answer. */
+  private phrasePairs(): Round | undefined {
+    const left = this.phraseQueue.splice(0, this.phraseQueue.length === 4 ? 2 : 3); if (!left.length) return;
+    if (left.length === 1) { const other=this.opts.phrases?.find(phrase=>phrase.exerciseId!==left[0].exerciseId); if(other)left.push(other); }
+    const right = seededShuffle(left, this.opts.seed + this.count), matched = new Set<string>();
+    let shownAt = this.elapsed;
+    let german: number | undefined, meaning: number | undefined;
+    this.play.innerHTML = `<div class="word-pairs"><div class="word-pairs-column" role="group" aria-label="German phrases">${left.map((phrase,index)=>`<button type="button" class="word-tile" lang="de" data-game-option="${index}" data-wg="de:${index}">${e(phrase.german)}</button>`).join('')}</div><div class="word-pairs-rope" aria-hidden="true"></div><div class="word-pairs-column" role="group" aria-label="Meanings">${right.map((phrase,index)=>`<button type="button" class="word-tile word-tile-meaning" data-game-key="meaning" data-wg="en:${index}">${e(phrase.meaning)}</button>`).join('')}</div></div>`;
+    const select = (side: 'de' | 'en', index: number) => {
+      if (side === 'de') german = index; else meaning = index;
+      this.play.querySelectorAll('[data-wg^="de:"]').forEach((tile,i)=>tile.classList.toggle('is-selected',i===german));
+      this.play.querySelectorAll('[data-wg^="en:"]').forEach((tile,i)=>tile.classList.toggle('is-selected',i===meaning));
+      if (german === undefined || meaning === undefined) return;
+      const [g,m] = [german,meaning], target = left[g], chosen = right[m]; german = meaning = undefined;
+      void this.grade([{exerciseId:target.exerciseId,lexemeId:target.wordIds[0],modality:'recognition',hinted:true,responseMs:Math.round(this.elapsed-shownAt),answer:chosen.german}],[],`${target.german} · ${target.meaning}`).then(marks=>{
+        if (!marks) return;
+        shownAt = this.elapsed;
+        this.play.querySelectorAll('.is-selected').forEach(tile=>tile.classList.remove('is-selected'));
+        if (marks[0]) {
+          matched.add(target.exerciseId);
+          for (const selector of [`[data-wg="de:${g}"]`,`[data-wg="en:${m}"]`]) {
+            const tile=this.play.querySelector<HTMLButtonElement>(selector)!; tile.disabled=true; tile.classList.add('is-matched');
+          }
+          if (matched.size===left.length) this.advance(600);
+          else this.play.querySelector<HTMLButtonElement>('[data-wg^="de:"]:not(:disabled)')?.focus();
+        } else {
+          if (!this.phraseQueue.some(phrase=>phrase.exerciseId===target.exerciseId)) this.phraseQueue.splice(2,0,target);
+          if (!this.silent) void this.services.speakText(target.german,target.audio).catch(()=>{});
+        }
+      });
+    };
+    this.on('de',value=>select('de',Number(value))); this.on('en',value=>select('en',Number(value)));
+    this.play.querySelector<HTMLButtonElement>('[data-wg="de:0"]')?.focus();
+    return {};
+  }
 
   // ——— 1. Lantern Pairs: tie each German word to its meaning on a shared board ———
   private pairs(): Round | undefined {
@@ -403,8 +444,14 @@ export class WordMemoryGame implements MiniGame {
   private fog(): Round | undefined {
     const [entry] = this.take(1, item => !!item.sprite); if (!entry) return;
     const item = entry.item, options = this.choicesFor(item, this.opts.level === 'A1' ? 3 : 4), limit = responseLimit(item, false) + 2000;
+    if (this.opts.prologue) {
+      this.play.innerHTML = `<div class="word-fog"><div class="word-fog-window" style="--clear:0"><div class="word-fog-picture" lang="de">${e(display(item))}</div><span class="word-fog-mist" aria-hidden="true"></span></div><div class="minigame-options" role="group" aria-label="${e(t('Choose the reply you have just heard.'))}">${options.map((_,index)=>`<button type="button" class="minigame-object" data-game-option="${index}" data-wg="fog:${index}"><kbd>${index+1}</kbd></button>`).join('')}</div>${this.patienceBar()}</div>`;
+      options.forEach((option,index)=>this.play.querySelector(`[data-wg="fog:${index}"]`)!.prepend(this.services.sprites.render(option.sprite!, option.english,96)));
+      if (!this.silent) void this.services.speak(item);
+    } else {
     this.play.innerHTML = `<div class="word-fog"><div class="word-fog-window" style="--clear:0"><div class="word-fog-picture"></div><span class="word-fog-mist" aria-hidden="true"></span></div><div class="minigame-options" role="group" aria-label="What is behind the fog?">${options.map((option, index) => `<button type="button" class="minigame-object" data-game-option="${index}" data-wg="fog:${index}" lang="de"><span class="minigame-object-label">${e(display(option))}</span><kbd>${index + 1}</kbd></button>`).join('')}</div>${this.patienceBar()}</div>`;
     this.play.querySelector('.word-fog-picture')!.append(this.services.sprites.render(item.sprite!, 'An object in the fog', 180));
+    }
     const finish = (answer: string) => { this.play.querySelector<HTMLElement>('.word-fog-window')!.style.setProperty('--clear', '1'); void this.grade([this.result(entry, answer)], [item]).then(marks => { if (marks) this.advance(marks[0] ? 650 : 1500); }); };
     this.on('fog', value => finish(options[Number(value)].lemma));
     this.wait(limit, () => finish('__timeout__'));
@@ -438,6 +485,13 @@ export class WordMemoryGame implements MiniGame {
 
   // ——— 10. Night Train: write the German word before the train leaves the platform ———
   private train(): Round | undefined {
+    if (this.opts.namePractice && !this.namePractised) {
+      this.play.innerHTML = `<div class="word-train"><div class="word-train-track" aria-hidden="true"><span class="word-train-engine"><span class="word-train-car"></span></span></div><p>${e(t('Write only your player name. You can say it aloud too.'))}</p><p>${e(this.services.playerName)}</p><form class="minigame-recall"><label for="word-train-name">Ich heiße</label><input id="word-train-name" autocomplete="off" spellcheck="false"/><button class="primary-button" type="submit">${e(t('Continue'))}</button></form></div>`;
+      const input=this.play.querySelector<HTMLInputElement>('#word-train-name')!;
+      this.on('form',()=>{if(input.value.trim().normalize('NFC')!==this.services.playerName.normalize('NFC')){this.feedback.textContent=t('Write your player name: {name}',{name:this.services.playerName});return;}this.namePractised=true;this.next();});
+      input.focus(); return {};
+    }
+
     const [entry] = this.take(1); if (!entry) return;
     const item = entry.item, stage = scaffoldStage(item.level, this.opts.currentLevel ?? this.opts.level, item.recalls.production);
     const scaffolded = stage !== 'edges' && stage !== 'none' || entry.retry, limit = responseLimit(item, true) + 4000;

@@ -13,6 +13,9 @@ func TestSilentQuestsFinishWithoutListeningEvidence(t *testing.T) {
 		t.Fatal(err)
 	}
 	for _, quest := range curriculum.Quests {
+		if contains(prologueQuestOrder, quest.ID) {
+			continue
+		} // A0 uses choices in both sound modes, with no listening-only requirement.
 		t.Run(quest.ID, func(t *testing.T) {
 			app := testApp(t)
 			app.curriculum = curriculum

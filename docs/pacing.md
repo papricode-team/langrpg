@@ -36,46 +36,64 @@ Constants live in the syllabus file (`wordsPerHour`, `openingWords`, `bankCap`, 
 
 ## What the current story needs
 
-The authored scenes contain more vocabulary than one hour of optional intake provides. The audit (`npm run pacing`, 2026-10-13, after the Act I rebuild to 18 scenes) counts "above budget" as new lexemes plus glossed story words and unmapped words, minus one hour of intake (10). It measures the earliest hour at which that intake could cover every lexeme in a scene, assuming the practice and review brakes never engage. These are vocabulary coverage measurements, not story unlock times; every next scene is available immediately:
+The authored scenes contain more vocabulary than one hour of optional intake provides. The audit (`npm run pacing`, 2026-10-17, including the seven-scene A0 prologue) counts "above budget" as new lexemes plus glossed story words and unmapped words, minus one hour of intake (10). It measures the earliest hour at which that intake could cover every lexeme in a scene, assuming the practice and review brakes never engage. These are vocabulary coverage measurements, not story unlock times; every next scene is available immediately:
 
 | Scene | Lexemes | New | Story and unmapped words | Vocabulary coverage | Intake hour | Above budget |
 | --- | --- | --- | --- | --- | --- | --- |
-| a1-arrival | 100 | 100 | 7 | 122 words | 11.2 | 97 |
-| a1-timetable | 94 | 35 | 3 | 153 words | 14.3 | 28 |
-| a1-cafe | 87 | 36 | 5 | 188 words | 17.8 | 31 |
-| a1-room | 98 | 26 | 2 | 217 words | 20.7 | 18 |
-| a1-shopping | 82 | 13 | 6 | 233 words | 22.3 | 9 |
-| a1-market | 93 | 6 | 5 | 241 words | 23.1 | 1 |
-| a1-neighbour | 91 | 15 | 5 | 256 words | 24.6 | 10 |
-| a1-pharmacy | 79 | 10 | 3 | 265 words | 25.5 | 3 |
-| a1-directions | 83 | 12 | 5 | 275 words | 26.5 | 7 |
-| a1-station | 104 | 14 | 5 | 288 words | 27.8 | 9 |
-| a1-weather | 80 | 10 | 4 | 301 words | 29.1 | 4 |
-| a1-workshop | 100 | 9 | 5 | 312 words | 30.2 | 4 |
-| a1-bike | 79 | 8 | 3 | 322 words | 31.2 | 1 |
-| a1-phone | 92 | 13 | 6 | 336 words | 32.6 | 9 |
-| a1-invitation | 89 | 8 | 5 | 346 words | 33.6 | 3 |
-| a1-lost-found | 83 | 7 | 4 | 355 words | 34.5 | 1 |
-| a1-lost-parcel | 97 | 5 | 8 | 362 words | 35.2 | 3 |
-| a1-departure | 81 | 6 | 4 | 368 words | 35.8 | 0 |
-| a2-apartment | 211 | 90 | 32 | 472 words | 46.2 | 112 |
-| a2-evening-plans | 201 | 53 | 39 | 532 words | 52.2 | 82 |
-| a2-rail-trip | 183 | 40 | 47 | 575 words | 56.5 | 77 |
-| a2-broken-clock | 208 | 60 | 44 | 645 words | 63.5 | 94 |
-| a2-clinic | 212 | 49 | 45 | 703 words | 69.3 | 84 |
-| a2-archive | 203 | 31 | 34 | 736 words | 72.6 | 55 |
-| b1-witness | 185 | 36 | 43 | 782 words | 77.2 | 69 |
-| b1-new-route | 194 | 29 | 32 | 813 words | 80.3 | 51 |
-| b1-work | 193 | 27 | 47 | 842 words | 83.2 | 64 |
-| b1-council | 205 | 28 | 30 | 873 words | 86.3 | 48 |
-| b1-storm | 183 | 25 | 32 | 902 words | 89.2 | 47 |
-| b1-atlas | 240 | 22 | 45 | 926 words | 91.6 | 57 |
+| a0-ticket | 6 | 6 | 0 | 6 words | 0 | 0 |
+| a0-name | 3 | 3 | 0 | 11 words | 0.1 | 0 |
+| a0-wagen | 9 | 9 | 0 | 22 words | 1.2 | 0 |
+| a0-tee | 5 | 2 | 0 | 24 words | 1.4 | 0 |
+| a0-wo | 5 | 4 | 0 | 27 words | 1.7 | 0 |
+| a0-langsam | 7 | 5 | 0 | 33 words | 2.3 | 0 |
+| a0-morgen | 6 | 4 | 0 | 37 words | 2.7 | 0 |
+| a1-arrival | 36 | 16 | 3 | 57 words | 4.7 | 9 |
+| a1-cafe | 93 | 75 | 5 | 143 words | 13.3 | 70 |
+| a1-timetable | 92 | 35 | 3 | 174 words | 16.4 | 28 |
+| a1-notice | 66 | 13 | 8 | 187 words | 17.7 | 11 |
+| a1-shopping | 84 | 17 | 6 | 207 words | 19.7 | 13 |
+| a1-room | 99 | 18 | 1 | 228 words | 21.8 | 9 |
+| a1-market | 96 | 9 | 5 | 241 words | 23.1 | 4 |
+| a1-chalk | 74 | 6 | 7 | 246 words | 23.6 | 3 |
+| a1-neighbour | 94 | 16 | 8 | 263 words | 25.3 | 14 |
+| a1-pharmacy | 81 | 10 | 3 | 273 words | 26.3 | 3 |
+| a1-directions | 84 | 10 | 5 | 282 words | 27.2 | 5 |
+| a1-bench | 95 | 9 | 8 | 288 words | 27.8 | 7 |
+| a1-station | 105 | 15 | 5 | 304 words | 29.4 | 10 |
+| a1-phone | 95 | 10 | 6 | 316 words | 30.6 | 6 |
+| a1-weather | 84 | 9 | 4 | 327 words | 31.7 | 3 |
+| a1-workshop | 100 | 10 | 6 | 341 words | 33.1 | 6 |
+| a1-office-window | 92 | 9 | 6 | 346 words | 33.6 | 5 |
+| a1-bike | 78 | 6 | 3 | 354 words | 34.4 | 0 |
+| a1-lost-found | 88 | 8 | 4 | 363 words | 35.3 | 2 |
+| a1-invitation | 93 | 6 | 7 | 371 words | 36.1 | 3 |
+| a1-lost-parcel | 102 | 6 | 9 | 376 words | 36.6 | 5 |
+| a1-departure | 87 | 6 | 4 | 383 words | 37.3 | 0 |
+| a2-apartment | 167 | 66 | 20 | 457 words | 44.7 | 76 |
+| a2-upstairs | 147 | 33 | 18 | 496 words | 48.6 | 41 |
+| a2-evening-plans | 154 | 29 | 17 | 526 words | 51.6 | 36 |
+| a2-ink-seller | 119 | 30 | 18 | 563 words | 55.3 | 38 |
+| a2-rail-trip | 152 | 38 | 22 | 605 words | 59.5 | 50 |
+| a2-forest-rails | 123 | 13 | 18 | 622 words | 61.2 | 21 |
+| a2-broken-clock | 181 | 46 | 23 | 675 words | 66.5 | 59 |
+| a2-clinic | 173 | 33 | 30 | 713 words | 70.3 | 53 |
+| a2-cellar | 128 | 15 | 22 | 727 words | 71.7 | 27 |
+| a2-archive | 180 | 28 | 35 | 756 words | 74.6 | 53 |
+| b1-witness | 143 | 22 | 32 | 784 words | 77.4 | 44 |
+| b1-record-room | 134 | 14 | 25 | 801 words | 79.1 | 29 |
+| b1-new-route | 164 | 17 | 27 | 818 words | 80.8 | 34 |
+| b1-signalman | 109 | 8 | 17 | 827 words | 81.7 | 15 |
+| b1-work | 180 | 18 | 35 | 848 words | 83.8 | 43 |
+| b1-council | 198 | 19 | 29 | 871 words | 86.1 | 38 |
+| b1-temptation | 134 | 11 | 12 | 884 words | 87.4 | 13 |
+| b1-storm | 165 | 22 | 32 | 908 words | 89.8 | 44 |
+| b1-atlas | 253 | 25 | 45 | 937 words | 92.7 | 60 |
 
-The 3,283-lexeme course schedule at 10 words an hour reaches 2,010 words by hour 200; the authored story uses 823 lexemes and optional intake covers its last scene (`b1-atlas`) at hour 91.6, and Act I's last scene at hour 35.8. The full table, including glossed story words and words the lexicon cannot place, is in `docs/audits/pacing.json`.
+The 3,283-lexeme course schedule at 10 words an hour reaches 2,010 words by hour 200; the authored story uses 839 lexemes and optional intake covers its last scene (`b1-atlas`) at hour 92.7, and Act I's last scene at hour 37.3. The full table, including glossed story words and words the lexicon cannot place, is in `docs/audits/pacing.json`.
 
 Content rewrites can reduce learning load while keeping the story continuously playable:
 
-- **Each scene introduces at most 10 new lexemes** beyond what earlier scenes and routes established (`newWordsAboveBudget` in the audit is zero). Only `a1-departure` meets that today. After the rebuild, `a1-market` (6 new), `a1-workshop` (9), `a1-bike` (8), `a1-invitation` (8), `a1-lost-found` (7) and `a1-lost-parcel` (5) are close (1 to 4 above budget); the largest overruns are `a1-arrival` (100 new), `a1-cafe` (36), `a1-timetable` (35) and `a1-room` (26), and Acts II and III have not been re-paced. The first scene must work with the 10 opening words, which means a first conversation of greetings, the player's name and one request.
+- **The opening now has enforced pacing targets.** All seven A0 scenes have zero words above budget. Their combined vocabulary is 33 lexemes, with `a0-morgen` covered by optional intake at hour 2.7. Arrival includes 36 lexemes across every branch, including optional questions and evidence, and is 9 words above budget. The audit fails if any A0 scene exceeds its budget, morning reaches hour 3, or arrival exceeds 40 lexemes or 10 words above budget. Later scenes still need pacing work; these opening checks do not exempt their content from existing audits.
 - **Offer optional everyday life between scenes** (routes, interiors, review and barks), while allowing the player to continue the story immediately. Vocabulary pacing must never become a mandatory wait or practice requirement for the next conversation.
 - **Story-only words glossed in the graph** (`introducedWords`) stay at two per scene, as the dialogue audit already enforces; unmapped words in the audit either become lexicon entries or are rewritten.
 
@@ -95,3 +113,10 @@ To change the pace, edit `syllabusDefaults` in `scripts/syllabus.mjs`, rebuild, 
 ## Limits
 
 Intake counts introduced words, not learned ones. The brake uses unaided recognition as the minimum evidence that a word has been met; retention is tracked separately by FSRS per modality. Names, numbers written as digits and story-only glosses are outside the budget. The rate and brake thresholds are design choices awaiting a learner study, not measured optima.
+
+
+## Prologue revision (2026-10-17)
+
+The seven A0 scenes retain individual number intake. Small approved cuts remove `das`, `hier`, the spoken `langsam` label, and `Gute Fahrt`; the normal-speed repetition remains audible. Morning vocabulary coverage is 3.8 hours, with zero new words above budget in every scene. The lexical audit separately excludes the seven numbers from the six-new limit while counting all seven toward the 25-total limit.
+
+Restored arrival measures 74 required-path lexemes and 93 including optional topics with the current conservative mapper. Both figures are reported, not capped. Voss’s fast line, slow repetition and both branches are unchanged from main. `a1-timetable`, `a1-cafe` and `a1-room` remain the next pacing worklist. Story access never waits for intake; the remaining vocabulary practice stays visible.

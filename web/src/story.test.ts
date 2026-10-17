@@ -36,8 +36,8 @@ describe('German story narrative', () => {
       expect(actFor(act.mapId)).toBe(act);
       expect(storyClues.filter(clue => quests.some(quest => quest.id === clue.questId && quest.level === act.level))).toHaveLength(quests.filter(quest => quest.level === act.level).length);
     }
-    expect(storyClues.map(clue => clue.questId)).toEqual(quests.map(quest => quest.id));
-    for (const quest of quests) expect(clueFor(quest.id)?.text.length).toBeGreaterThan(0);
+    expect(storyClues.map(clue => clue.questId)).toEqual(quests.filter(quest => quest.level !== 'A0').map(quest => quest.id));
+    for (const quest of quests.filter(quest => quest.level !== 'A0')) expect(clueFor(quest.id)?.text.length).toBeGreaterThan(0);
     expect(discoveredClues(['a1-cafe', 'b1-council']).map(clue => clue.questId)).toEqual(['a1-cafe', 'b1-council']);
     expect(discoveredClues([])).toEqual([]);
   });

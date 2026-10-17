@@ -201,6 +201,10 @@ export abstract class ExploreScene extends Phaser.Scene {
   /** Bodies inside rooms use the room painting's adult height. */
   protected get indoor(): boolean { return false; }
   protected get indoorCharacterHeight(): number { return INTERIOR_CHARACTER_HEIGHT; }
+  /** The player's avatar has finished loading and is drawn. */
+  /** The objective star floats just above a character's head. */
+  protected get npcMarkerY(): number { return this.indoor ? -(this.indoorCharacterHeight + 18) : -96; }
+  get charactersReady(): boolean { return !!this.local?.figure.visible && !this.local.avatarPending; }
 
   /** Scenes restart on travel; reset everything the constructor would otherwise keep. */
   init(_data?: unknown): void {
@@ -708,7 +712,7 @@ export abstract class ExploreScene extends Phaser.Scene {
       npc.name.setScale(labelScale).setVisible(show);
       npc.role?.setScale(labelScale).setVisible(show && !this.mobileCamera);
       npc.hint?.setScale(labelScale).setVisible(show);
-      npc.marker?.setVisible(!this.watching && !this.indoor && this.objective === npc.id && !show);
+      npc.marker?.setVisible(!this.watching && this.objective === npc.id && !show);
       this.afterCharacter(npc);
     }
   }
@@ -790,7 +794,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     if (!this.marker) return;
     this.marker.setScale(1);
     for (const object of this.objects.values()) object.marker.setY(-8);
-    for (const npc of this.characters.values()) npc.marker?.setY(-96);
+    for (const npc of this.characters.values()) npc.marker?.setY(this.npcMarkerY);
     if (this.reducedMotion) return;
     this.markerTweens.push(this.tweens.add({ targets: this.marker, scale: 1.04, duration: 785, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' }));
     for (const object of this.objects.values()) {
@@ -908,7 +912,7 @@ export abstract class ExploreScene extends Phaser.Scene {
       configure?.(character);
       character.halo = this.add.ellipse(0, 2, 37, 17, 0xf5dda0, 0.08).setStrokeStyle(1, 0xf3d286, 0.6).setVisible(false);
       character.root.addAt(character.halo, 1);
-      character.marker = this.add.text(0, -96, '✦', { resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '17px', color: '#ffe3a3', stroke: '#68563c', strokeThickness: 2 }).setOrigin(.5).setVisible(false);
+      character.marker = this.add.text(0, this.npcMarkerY, '✦', { resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '17px', color: '#ffe3a3', stroke: '#68563c', strokeThickness: 2 }).setOrigin(.5).setVisible(false);
       character.hint = this.add.text(0, 30, this.mobileCamera ? 'SPRECHEN' : 'SPRECHEN · E', { resolution: this.density, fontFamily: 'Arial, sans-serif', fontSize: '10px', fontStyle: 'bold', color: '#fff2cf', backgroundColor: '#263e36', padding: { x: 7, y: 4 } }).setOrigin(.5).setVisible(false);
       character.root.add([character.marker, character.hint]);
       const animation = character.walkingAnimation ?? character.idleAnimation;

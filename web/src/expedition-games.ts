@@ -1,4 +1,4 @@
-import type { Level } from './content';
+import type { CourseLevel as Level } from './content';
 import { escapeHtml as e, icon } from './icons';
 import { seededShuffle } from './game-shuffle.ts';
 import { MiniGameInput } from './minigames/input';

@@ -1,6 +1,97 @@
 {
   "quests": [
     {
+      "id": "a0-ticket",
+      "reward": 20,
+      "requiredItemIds": [
+        "a0-ticket-item-1",
+        "a0-ticket-item-2",
+        "a0-ticket-item-3",
+        "a0-ticket-item-4",
+        "a0-ticket-item-5",
+        "a0-ticket-item-6",
+        "a0-ticket-item-7"
+      ]
+    },
+    {
+      "id": "a0-name",
+      "reward": 20,
+      "requiredItemIds": [
+        "a0-name-item-1",
+        "a0-name-item-2",
+        "a0-name-item-3",
+        "a0-name-item-4",
+        "a0-name-item-5",
+        "a0-name-item-6",
+        "a0-name-item-7"
+      ]
+    },
+    {
+      "id": "a0-wagen",
+      "reward": 20,
+      "requiredItemIds": [
+        "a0-wagen-item-1",
+        "a0-wagen-item-2",
+        "a0-wagen-item-3",
+        "a0-wagen-item-4",
+        "a0-wagen-item-5",
+        "a0-wagen-item-6",
+        "a0-wagen-item-7"
+      ]
+    },
+    {
+      "id": "a0-tee",
+      "reward": 20,
+      "requiredItemIds": [
+        "a0-tee-item-1",
+        "a0-tee-item-2",
+        "a0-tee-item-3",
+        "a0-tee-item-4",
+        "a0-tee-item-5",
+        "a0-tee-item-6",
+        "a0-tee-item-7"
+      ]
+    },
+    {
+      "id": "a0-wo",
+      "reward": 20,
+      "requiredItemIds": [
+        "a0-wo-item-1",
+        "a0-wo-item-2",
+        "a0-wo-item-3",
+        "a0-wo-item-4",
+        "a0-wo-item-5",
+        "a0-wo-item-6",
+        "a0-wo-item-7"
+      ]
+    },
+    {
+      "id": "a0-langsam",
+      "reward": 20,
+      "requiredItemIds": [
+        "a0-langsam-item-1",
+        "a0-langsam-item-2",
+        "a0-langsam-item-3",
+        "a0-langsam-item-4",
+        "a0-langsam-item-5",
+        "a0-langsam-item-6",
+        "a0-langsam-item-7"
+      ]
+    },
+    {
+      "id": "a0-morgen",
+      "reward": 20,
+      "requiredItemIds": [
+        "a0-morgen-item-1",
+        "a0-morgen-item-2",
+        "a0-morgen-item-3",
+        "a0-morgen-item-4",
+        "a0-morgen-item-5",
+        "a0-morgen-item-6",
+        "a0-morgen-item-7"
+      ]
+    },
+    {
       "id": "a1-arrival",
       "reward": 40,
       "requiredItemIds": [
@@ -535,6 +626,202 @@
     }
   ],
   "items": [
+    {
+      "id": "a0-ticket-item-1",
+      "level": "A0"
+    },
+    {
+      "id": "a0-ticket-item-2",
+      "level": "A0"
+    },
+    {
+      "id": "a0-ticket-item-3",
+      "level": "A0"
+    },
+    {
+      "id": "a0-ticket-item-4",
+      "level": "A0"
+    },
+    {
+      "id": "a0-ticket-item-5",
+      "level": "A0"
+    },
+    {
+      "id": "a0-ticket-item-6",
+      "level": "A0"
+    },
+    {
+      "id": "a0-ticket-item-7",
+      "level": "A0"
+    },
+    {
+      "id": "a0-name-item-1",
+      "level": "A0"
+    },
+    {
+      "id": "a0-name-item-2",
+      "level": "A0"
+    },
+    {
+      "id": "a0-name-item-3",
+      "level": "A0"
+    },
+    {
+      "id": "a0-name-item-4",
+      "level": "A0"
+    },
+    {
+      "id": "a0-name-item-5",
+      "level": "A0"
+    },
+    {
+      "id": "a0-name-item-6",
+      "level": "A0"
+    },
+    {
+      "id": "a0-name-item-7",
+      "level": "A0"
+    },
+    {
+      "id": "a0-wagen-item-1",
+      "level": "A0"
+    },
+    {
+      "id": "a0-wagen-item-2",
+      "level": "A0"
+    },
+    {
+      "id": "a0-wagen-item-3",
+      "level": "A0"
+    },
+    {
+      "id": "a0-wagen-item-4",
+      "level": "A0"
+    },
+    {
+      "id": "a0-wagen-item-5",
+      "level": "A0"
+    },
+    {
+      "id": "a0-wagen-item-6",
+      "level": "A0"
+    },
+    {
+      "id": "a0-wagen-item-7",
+      "level": "A0"
+    },
+    {
+      "id": "a0-tee-item-1",
+      "level": "A0"
+    },
+    {
+      "id": "a0-tee-item-2",
+      "level": "A0"
+    },
+    {
+      "id": "a0-tee-item-3",
+      "level": "A0"
+    },
+    {
+      "id": "a0-tee-item-4",
+      "level": "A0"
+    },
+    {
+      "id": "a0-tee-item-5",
+      "level": "A0"
+    },
+    {
+      "id": "a0-tee-item-6",
+      "level": "A0"
+    },
+    {
+      "id": "a0-tee-item-7",
+      "level": "A0"
+    },
+    {
+      "id": "a0-wo-item-1",
+      "level": "A0"
+    },
+    {
+      "id": "a0-wo-item-2",
+      "level": "A0"
+    },
+    {
+      "id": "a0-wo-item-3",
+      "level": "A0"
+    },
+    {
+      "id": "a0-wo-item-4",
+      "level": "A0"
+    },
+    {
+      "id": "a0-wo-item-5",
+      "level": "A0"
+    },
+    {
+      "id": "a0-wo-item-6",
+      "level": "A0"
+    },
+    {
+      "id": "a0-wo-item-7",
+      "level": "A0"
+    },
+    {
+      "id": "a0-langsam-item-1",
+      "level": "A0"
+    },
+    {
+      "id": "a0-langsam-item-2",
+      "level": "A0"
+    },
+    {
+      "id": "a0-langsam-item-3",
+      "level": "A0"
+    },
+    {
+      "id": "a0-langsam-item-4",
+      "level": "A0"
+    },
+    {
+      "id": "a0-langsam-item-5",
+      "level": "A0"
+    },
+    {
+      "id": "a0-langsam-item-6",
+      "level": "A0"
+    },
+    {
+      "id": "a0-langsam-item-7",
+      "level": "A0"
+    },
+    {
+      "id": "a0-morgen-item-1",
+      "level": "A0"
+    },
+    {
+      "id": "a0-morgen-item-2",
+      "level": "A0"
+    },
+    {
+      "id": "a0-morgen-item-3",
+      "level": "A0"
+    },
+    {
+      "id": "a0-morgen-item-4",
+      "level": "A0"
+    },
+    {
+      "id": "a0-morgen-item-5",
+      "level": "A0"
+    },
+    {
+      "id": "a0-morgen-item-6",
+      "level": "A0"
+    },
+    {
+      "id": "a0-morgen-item-7",
+      "level": "A0"
+    },
     {
       "id": "a1-arrival-item-1",
       "level": "A1"
@@ -1685,6 +1972,349 @@
     }
   ],
   "exercises": [
+    {
+      "id": "a0-ticket-exercise-1",
+      "itemId": "a0-ticket-item-1",
+      "mode": "production",
+      "answer": "Bitte.",
+      "explanation": "Here you are."
+    },
+    {
+      "id": "a0-ticket-exercise-2",
+      "itemId": "a0-ticket-item-2",
+      "mode": "recognition",
+      "answer": "Hallo! Guten Abend!",
+      "explanation": "Hello! Good evening!"
+    },
+    {
+      "id": "a0-ticket-exercise-3",
+      "itemId": "a0-ticket-item-3",
+      "mode": "listening",
+      "answer": "Hallo! Guten Abend!",
+      "explanation": "Hello! Good evening!"
+    },
+    {
+      "id": "a0-ticket-exercise-4",
+      "itemId": "a0-ticket-item-4",
+      "mode": "recognition",
+      "answer": "Fahrkarte, bitte.",
+      "explanation": "Ticket, please."
+    },
+    {
+      "id": "a0-ticket-exercise-5",
+      "itemId": "a0-ticket-item-5",
+      "mode": "listening",
+      "answer": "Fahrkarte, bitte.",
+      "explanation": "Ticket, please."
+    },
+    {
+      "id": "a0-ticket-exercise-6",
+      "itemId": "a0-ticket-item-6",
+      "mode": "recognition",
+      "answer": "Bitte.",
+      "explanation": "Here you are."
+    },
+    {
+      "id": "a0-ticket-exercise-7",
+      "itemId": "a0-ticket-item-7",
+      "mode": "recognition",
+      "answer": "Hallo!",
+      "explanation": "Hello!"
+    },
+    {
+      "id": "a0-name-exercise-1",
+      "itemId": "a0-name-item-1",
+      "mode": "production",
+      "answer": "Ich heiße {name}.",
+      "explanation": "My name is {name}."
+    },
+    {
+      "id": "a0-name-exercise-2",
+      "itemId": "a0-name-item-2",
+      "mode": "recognition",
+      "answer": "Ich heiße Brandt.",
+      "explanation": "My name is Brandt."
+    },
+    {
+      "id": "a0-name-exercise-3",
+      "itemId": "a0-name-item-3",
+      "mode": "listening",
+      "answer": "Ich heiße Brandt.",
+      "explanation": "My name is Brandt."
+    },
+    {
+      "id": "a0-name-exercise-4",
+      "itemId": "a0-name-item-4",
+      "mode": "recognition",
+      "answer": "Wie heißen Sie?",
+      "explanation": "What is your name?"
+    },
+    {
+      "id": "a0-name-exercise-5",
+      "itemId": "a0-name-item-5",
+      "mode": "listening",
+      "answer": "Wie heißen Sie?",
+      "explanation": "What is your name?"
+    },
+    {
+      "id": "a0-name-exercise-6",
+      "itemId": "a0-name-item-6",
+      "mode": "recognition",
+      "answer": "Ich heiße Brandt.",
+      "explanation": "My name is Brandt."
+    },
+    {
+      "id": "a0-name-exercise-7",
+      "itemId": "a0-name-item-7",
+      "mode": "listening",
+      "answer": "Ich heiße Brandt.",
+      "explanation": "My name is Brandt."
+    },
+    {
+      "id": "a0-wagen-exercise-1",
+      "itemId": "a0-wagen-item-1",
+      "mode": "production",
+      "answer": "Sieben.",
+      "explanation": "Seven."
+    },
+    {
+      "id": "a0-wagen-exercise-2",
+      "itemId": "a0-wagen-item-2",
+      "mode": "recognition",
+      "answer": "Vier, fünf, sechs, sieben!",
+      "explanation": "Four, five, six, seven!"
+    },
+    {
+      "id": "a0-wagen-exercise-3",
+      "itemId": "a0-wagen-item-3",
+      "mode": "listening",
+      "answer": "Vier, fünf, sechs, sieben!",
+      "explanation": "Four, five, six, seven!"
+    },
+    {
+      "id": "a0-wagen-exercise-4",
+      "itemId": "a0-wagen-item-4",
+      "mode": "recognition",
+      "answer": "Wagen sieben. Hier!",
+      "explanation": "Carriage seven. Here!"
+    },
+    {
+      "id": "a0-wagen-exercise-5",
+      "itemId": "a0-wagen-item-5",
+      "mode": "listening",
+      "answer": "Wagen sieben. Hier!",
+      "explanation": "Carriage seven. Here!"
+    },
+    {
+      "id": "a0-wagen-exercise-6",
+      "itemId": "a0-wagen-item-6",
+      "mode": "recognition",
+      "answer": "Ja! Wagen sieben.",
+      "explanation": "Yes! Carriage seven."
+    },
+    {
+      "id": "a0-wagen-exercise-7",
+      "itemId": "a0-wagen-item-7",
+      "mode": "listening",
+      "answer": "Ja! Wagen sieben.",
+      "explanation": "Yes! Carriage seven."
+    },
+    {
+      "id": "a0-tee-exercise-1",
+      "itemId": "a0-tee-item-1",
+      "mode": "production",
+      "answer": "Nein, danke.",
+      "explanation": "No, thank you."
+    },
+    {
+      "id": "a0-tee-exercise-2",
+      "itemId": "a0-tee-item-2",
+      "mode": "recognition",
+      "answer": "Kaffee?",
+      "explanation": "Coffee?"
+    },
+    {
+      "id": "a0-tee-exercise-3",
+      "itemId": "a0-tee-item-3",
+      "mode": "listening",
+      "answer": "Kaffee?",
+      "explanation": "Coffee?"
+    },
+    {
+      "id": "a0-tee-exercise-4",
+      "itemId": "a0-tee-item-4",
+      "mode": "recognition",
+      "answer": "Nein? Tee?",
+      "explanation": "No? Tea?"
+    },
+    {
+      "id": "a0-tee-exercise-5",
+      "itemId": "a0-tee-item-5",
+      "mode": "listening",
+      "answer": "Nein? Tee?",
+      "explanation": "No? Tea?"
+    },
+    {
+      "id": "a0-tee-exercise-6",
+      "itemId": "a0-tee-item-6",
+      "mode": "recognition",
+      "answer": "Ja, bitte!",
+      "explanation": "Yes, please!"
+    },
+    {
+      "id": "a0-tee-exercise-7",
+      "itemId": "a0-tee-item-7",
+      "mode": "listening",
+      "answer": "Ja, bitte!",
+      "explanation": "Yes, please!"
+    },
+    {
+      "id": "a0-wo-exercise-1",
+      "itemId": "a0-wo-item-1",
+      "mode": "production",
+      "answer": "Wo ist die Toilette?",
+      "explanation": "Where is the toilet?"
+    },
+    {
+      "id": "a0-wo-exercise-2",
+      "itemId": "a0-wo-item-2",
+      "mode": "recognition",
+      "answer": "Wo ist die Toilette?",
+      "explanation": "Where is the toilet?"
+    },
+    {
+      "id": "a0-wo-exercise-3",
+      "itemId": "a0-wo-item-3",
+      "mode": "listening",
+      "answer": "Wo ist die Toilette?",
+      "explanation": "Where is the toilet?"
+    },
+    {
+      "id": "a0-wo-exercise-4",
+      "itemId": "a0-wo-item-4",
+      "mode": "recognition",
+      "answer": "Die Toilette? Da!",
+      "explanation": "The toilet? Over there!"
+    },
+    {
+      "id": "a0-wo-exercise-5",
+      "itemId": "a0-wo-item-5",
+      "mode": "listening",
+      "answer": "Die Toilette? Da!",
+      "explanation": "The toilet? Over there!"
+    },
+    {
+      "id": "a0-wo-exercise-6",
+      "itemId": "a0-wo-item-6",
+      "mode": "recognition",
+      "answer": "Besetzt? Ha! Gut.",
+      "explanation": "Occupied? Ha! Fine."
+    },
+    {
+      "id": "a0-wo-exercise-7",
+      "itemId": "a0-wo-item-7",
+      "mode": "listening",
+      "answer": "Besetzt? Ha! Gut.",
+      "explanation": "Occupied? Ha! Fine."
+    },
+    {
+      "id": "a0-langsam-exercise-1",
+      "itemId": "a0-langsam-item-1",
+      "mode": "production",
+      "answer": "Ich verstehe nicht.",
+      "explanation": "I don’t understand."
+    },
+    {
+      "id": "a0-langsam-exercise-2",
+      "itemId": "a0-langsam-item-2",
+      "mode": "recognition",
+      "answer": "Verstehen Sie?",
+      "explanation": "Do you understand?"
+    },
+    {
+      "id": "a0-langsam-exercise-3",
+      "itemId": "a0-langsam-item-3",
+      "mode": "listening",
+      "answer": "Verstehen Sie?",
+      "explanation": "Do you understand?"
+    },
+    {
+      "id": "a0-langsam-exercise-4",
+      "itemId": "a0-langsam-item-4",
+      "mode": "recognition",
+      "answer": "Ich verstehe nicht.",
+      "explanation": "I don’t understand."
+    },
+    {
+      "id": "a0-langsam-exercise-5",
+      "itemId": "a0-langsam-item-5",
+      "mode": "listening",
+      "answer": "Ich verstehe nicht.",
+      "explanation": "I don’t understand."
+    },
+    {
+      "id": "a0-langsam-exercise-6",
+      "itemId": "a0-langsam-item-6",
+      "mode": "recognition",
+      "answer": "Ah! Langsam.",
+      "explanation": "Ah! Slowly."
+    },
+    {
+      "id": "a0-langsam-exercise-7",
+      "itemId": "a0-langsam-item-7",
+      "mode": "listening",
+      "answer": "Ah! Langsam.",
+      "explanation": "Ah! Slowly."
+    },
+    {
+      "id": "a0-morgen-exercise-1",
+      "itemId": "a0-morgen-item-1",
+      "mode": "production",
+      "answer": "Auf Wiedersehen!",
+      "explanation": "Goodbye!"
+    },
+    {
+      "id": "a0-morgen-exercise-2",
+      "itemId": "a0-morgen-item-2",
+      "mode": "recognition",
+      "answer": "Guten Morgen!",
+      "explanation": "Good morning!"
+    },
+    {
+      "id": "a0-morgen-exercise-3",
+      "itemId": "a0-morgen-item-3",
+      "mode": "listening",
+      "answer": "Guten Morgen!",
+      "explanation": "Good morning!"
+    },
+    {
+      "id": "a0-morgen-exercise-4",
+      "itemId": "a0-morgen-item-4",
+      "mode": "recognition",
+      "answer": "Lindenhafen! Bahnsteig sieben.",
+      "explanation": "Lindenhafen! Platform seven."
+    },
+    {
+      "id": "a0-morgen-exercise-5",
+      "itemId": "a0-morgen-item-5",
+      "mode": "listening",
+      "answer": "Lindenhafen! Bahnsteig sieben.",
+      "explanation": "Lindenhafen! Platform seven."
+    },
+    {
+      "id": "a0-morgen-exercise-6",
+      "itemId": "a0-morgen-item-6",
+      "mode": "recognition",
+      "answer": "Auf Wiedersehen!",
+      "explanation": "Goodbye!"
+    },
+    {
+      "id": "a0-morgen-exercise-7",
+      "itemId": "a0-morgen-item-7",
+      "mode": "recognition",
+      "answer": "Guten Morgen!",
+      "explanation": "Good morning!"
+    },
     {
       "id": "a1-arrival-exercise-1",
       "itemId": "a1-arrival-item-1",

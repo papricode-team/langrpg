@@ -231,6 +231,39 @@
           "height": 723
         }
       }
+    },
+    {
+      "id": "schaffner",
+      "source": "art/source/character-portraits/schaffner/expressions.png",
+      "sourceSha256": "c618e425439f0fbec5006166d4a46a74d71e80c29cde022b3cb30678b67f5f81",
+      "prompt": "art/source/character-portraits/schaffner/prompt.txt",
+      "promptSha256": "d7bdb5063f890d247ff2909380881cdaa656b895184ef5501e26fef665efe62d",
+      "nativeRepaint": true,
+      "review": {
+        "approved": true,
+        "date": "2026-10-17",
+        "notes": "Visually checked all three equal cells against Otto: bright brushwork, warm colour, distinct consistent identity and uniform."
+      },
+      "crops": {
+        "neutral": {
+          "left": 0,
+          "top": 0,
+          "width": 724,
+          "height": 724
+        },
+        "smile": {
+          "left": 724,
+          "top": 0,
+          "width": 724,
+          "height": 724
+        },
+        "worried": {
+          "left": 1448,
+          "top": 0,
+          "width": 724,
+          "height": 724
+        }
+      }
     }
   ]
 }

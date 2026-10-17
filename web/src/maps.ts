@@ -1,4 +1,4 @@
-import type { Level } from './content';
+import type { CourseLevel as Level } from './content';
 import type { ExpeditionId } from './expeditions';
 import { applyAuthoredMapPlacements } from './map-authoring';
 

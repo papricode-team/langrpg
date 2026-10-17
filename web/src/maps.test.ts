@@ -34,7 +34,7 @@ describe('painted region definitions', () => {
     for (const map of maps) {
       expect(map.objects.length).toBeGreaterThanOrEqual(4);
       const expedition = getExpedition(map.id);
-      const travelling = npcs.filter(npc => !localCast[npc.id] && (npc.id !== 'elise' || map.id === 'nebelstadt'));
+      const travelling = npcs.filter(npc => npc.id !== 'schaffner' && !localCast[npc.id] && (npc.id !== 'elise' || map.id === 'nebelstadt'));
       const local = expedition ? [] : npcs.filter(npc => localCast[npc.id]?.includes(map.id as StoryMapId));
       expect(new Set(map.npcs.map(npc => npc.id))).toEqual(new Set((expedition?.npcs ?? [...travelling, ...local]).map(npc => npc.id)));
       for (const object of map.objects) {

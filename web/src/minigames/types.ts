@@ -46,7 +46,8 @@ export interface MiniGameHost {
   exercises: ReadonlyMap<string, Exercise>;
   playerName: string; playerId?:string; silent: boolean; reducedMotion: boolean;
 }
-export interface MiniGameOptions { level: CourseLevel; currentLevel?:CourseLevel; seed: number; fixedPool?: string[]; backdrop?: string; }
+export interface PhrasePair { exerciseId: string; wordIds: string[]; german: string; meaning: string; audio?: string; }
+export interface MiniGameOptions { phrases?: PhrasePair[]; level: CourseLevel; currentLevel?:CourseLevel; seed: number; fixedPool?: string[]; backdrop?: string; namePractice?: boolean; prologue?: boolean; }
 export interface MiniGame {
   id: string; title: string; host: string;
   modalities: Modality[]; levels: CourseLevel[];

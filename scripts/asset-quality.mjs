@@ -70,10 +70,12 @@ export function defaultCacheDir() {
   return process.env.ASSET_QUALITY_CACHE || join(homedir(), '.cache', 'glotworld-asset-quality');
 }
 
-/** Keep archived low-resolution authoring exports out of the active HD release. */
+/** Keep the archived kit and prototype authoring layers out of the active HD release. */
 export async function pruneLegacyCharacterKit(assetsDir, catalogue) {
   if (catalogue.assetBase !== '/assets/character-kit-hd/') return;
-  await rm(join(assetsDir, 'character-kit'), {recursive:true, force:true});
+  for (const directory of ['character-kit', 'player-layers']) {
+    await rm(join(assetsDir, directory), {recursive:true, force:true});
+  }
 }
 
 /** One cached lossy encode of `buffer` at `size`. */

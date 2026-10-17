@@ -21,8 +21,8 @@ test('cast input signature includes rendering rules as well as resolved componen
 
 test('inventory includes main, regional, route and activity identities without collisions',async()=>{
   const actors=await castInventory();assert.equal(new Set(actors.map(a=>a.id)).size,actors.length);
-  assert.equal(actors.filter(a=>a.mapId===null).length,17);
-  for(const id of ['marta','elise','saffroncourt-resident-7','nebelstadt-resident-sailor','waldruh-yard-courier'])assert.ok(actors.some(a=>a.id===id),id);
+  assert.equal(actors.filter(a=>a.mapId===null).length,18);
+  for(const id of ['marta','elise','schaffner','saffroncourt-resident-7','nebelstadt-resident-sailor','waldruh-yard-courier'])assert.ok(actors.some(a=>a.id===id),id);
   const first=actors[0],entry={id:first.id,name:first.name,mapId:first.mapId,status:'candidate',reference:'reference.txt'};
   assert.equal(validateCastEntries([entry],actors).length,actors.length-1);
   assert.throws(()=>validateCastEntries([entry,entry],actors),/duplicate/);

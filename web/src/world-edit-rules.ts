@@ -49,7 +49,7 @@ const soften = (value: WorldProblem): WorldProblem => value.severity === 'error'
 export const problem = (code: WorldProblemCode, map: string, message: string, objectIds: string[] = [], point?: ScenePoint, severity: WorldProblem['severity'] = 'error'): WorldProblem =>
   ({code, map, message, objectIds, ...(point ? {point: {x: Math.round(point.x), y: Math.round(point.y)}} : {}), severity});
 
-export const roomNames: Readonly<Record<SceneInteriorKind, string>> = {cafe: 'café', bakery: 'bakery', supermarket: 'supermarket', inn: 'inn', library: 'reading room', workshop: 'workshop', station: 'station', greenhouse: 'greenhouse', home: 'home'};
+export const roomNames: Readonly<Record<SceneInteriorKind, string>> = {'train-compartment': 'night train', cafe: 'café', bakery: 'bakery', supermarket: 'supermarket', inn: 'inn', library: 'reading room', workshop: 'workshop', station: 'station', greenhouse: 'greenhouse', home: 'home'};
 const assetNames: Readonly<Record<string, string>> = {
   archive: 'archive', cafe: 'café building', station: 'station', workshop: 'workshop', house: 'house', tree: 'tree', cypress: 'cypress',
   lamp: 'lamp', stall: 'market stall', fountain: 'fountain', arch: 'arch', greenhouse: 'greenhouse', boat: 'boat', bench: 'bench',
@@ -79,7 +79,7 @@ export const townName = (mapId: string): string => capital(words(mapId));
 
 /** Rooms are buildable on any building whose painting has a door. */
 export function roomOptions(mapId: string, item: {asset: string; frame?: string}): readonly SceneInteriorKind[] {
-  return sceneryHasDoor(mapId, item) ? sceneInteriorIds : [];
+  return sceneryHasDoor(mapId, item) ? sceneInteriorIds.filter(id => !id.startsWith('train-')) : [];
 }
 
 const SOURCE_DENSITY_MIN = 2.5;

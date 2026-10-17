@@ -48,7 +48,7 @@ export function parseRoomLayout(value: unknown, child = false): RoomLayout {
   const fail = (message: string): never => { throw new Error(`Room layout: ${message}`); };
   const record = (v: unknown): v is Record<string, unknown> => !!v && typeof v === 'object' && !Array.isArray(v);
   const number = (v: unknown, min: number, max: number): v is number => typeof v === 'number' && Number.isFinite(v) && v >= min && v <= max;
-  if (!record(value) || value.version !== 1 || !roomKinds.includes(value.kind as RoomKind)) return fail('choose a room template.');
+  if (!record(value) || value.version !== 1 || !roomKinds.some(kind => kind === value.kind)) return fail('choose a room template.');
   if (value.level !== undefined && (!number(value.level,-15,15) || !Number.isInteger(value.level) || !child && value.level!==0)) return fail('use whole-number floors from −15 to 15; the main room stays on the ground floor.');
   if (child && value.rooms !== undefined) return fail('rooms cannot contain nested room lists.');
   let rooms: BuildingRoom[] | undefined;

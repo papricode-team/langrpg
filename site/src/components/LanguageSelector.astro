@@ -1,0 +1,27 @@
+---
+interface Props { compact?: boolean; }
+const { compact = false } = Astro.props;
+// Keep these public website choices aligned with web/src/i18n.ts.
+const languages = [
+  { code: 'en', name: 'English', flag: '🇬🇧' },
+  { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
+  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+];
+---
+{compact ? <div class="language-menu" data-language-menu>
+  <span class="language-menu-current" data-language-current data-language-names aria-hidden="true">🇬🇧 EN</span>
+  <select aria-label="Website language" data-site-language-select data-language-names>
+    {languages.map(language => <option value={language.code} lang={language.code}>{language.flag} {language.name}</option>)}
+  </select>
+</div> : <section class="language-bar" aria-labelledby="language-label" data-language-selector>
+  <div class="container language-bar-inner">
+    <p id="language-label">Choose your language</p>
+    <div class="language-options" role="group" aria-labelledby="language-label" data-language-names>
+      {languages.map(language => <button type="button" data-site-language={language.code} aria-pressed={language.code === 'en'} lang={language.code}><span class="language-flag" aria-hidden="true">{language.flag}</span><span>{language.name}</span><span class="language-check" aria-hidden="true">✓</span></button>)}
+    </div>
+  </div>
+</section>}
+<script>
+  import { mountLanguageSelector } from '../scripts/site-language';
+  mountLanguageSelector();
+</script>

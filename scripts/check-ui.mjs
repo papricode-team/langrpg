@@ -8,7 +8,7 @@ const directory = process.env.ATLAS_UI_DIRECTORY ?? path.join(root, 'docs/screen
 const origin = process.env.ATLAS_UI_URL ?? 'http://127.0.0.1:5187';
 const surfaces = (process.env.ATLAS_UI_SURFACES ?? 'home,options,encounter,journal,activity').split(',');
 const viewports = [
-  { name: 'desktop', width: 1440, height: 900 },
+  { name: 'desktop', width: surfaces.some(surface=>['prologue','prologue-dawn','sounds'].includes(surface)) ? 1280 : 1440, height: surfaces.some(surface=>['prologue','prologue-dawn','sounds'].includes(surface)) ? 720 : 900 },
   { name: 'phone', width: 390, height: 844 },
   { name: 'landscape', width: 844, height: 390 },
 ].filter(viewport => process.env.ATLAS_UI_VIEWPORT ? process.env.ATLAS_UI_VIEWPORT === viewport.name : viewport.name !== 'landscape');
@@ -99,6 +99,17 @@ try {
       });
       if (!measurement.visibleText) failures.push(`${viewport.name}/${surface}: No visible text was measured.`);
       for (const issue of measurement.belowFloor) failures.push(`${viewport.name}/${surface}: ${issue.fontSize}px ${issue.tag}.${issue.className} "${issue.text}"`);
+      if (surface === 'prologue' || surface === 'prologue-dawn') {
+        // The carriage is a walkable room, and its coach must fit on screen.
+        const carriage = await page.evaluate(() => {
+          const scene = window.atlasGame?.scene.getScene('interior');
+          const coach = document.querySelector('.story-beacon.coach')?.getBoundingClientRect();
+          return {player: !!scene?.local, navigation: !!scene?.navigation, painted: scene?.spec.presentation === 'painted',
+            coach: !!coach && coach.x >= 0 && coach.right <= innerWidth && coach.bottom <= innerHeight};
+        });
+        if (!carriage.painted || !carriage.player || !carriage.navigation) failures.push(`${viewport.name}/${surface}: The carriage is not a walkable painted room.`);
+        if (!carriage.coach) failures.push(`${viewport.name}/${surface}: The tutorial coach is missing or off screen.`);
+      }
       const primarySelector = surface === 'home' ? '.journey-hero .primary-button' : surface === 'encounter' ? '.interior-primary' : surface === 'activity' ? '.activity-primary' : undefined;
       if (primarySelector) {
         const bounds = await page.locator(primarySelector).boundingBox();

@@ -17,3 +17,5 @@ counter, café table/chairs, pastry display, grocery checkout, oven, and scales.
 Its companion prompt records the human-scale proportions. The still exporter
 uses inspected row boundaries and native alpha, keeping countertop goods small
 and floor pivots aligned with the room geometry.
+
+`train-carriage-night.png` is the prologue's walkable room: one top-down glass carriage in the café's camera, with the compartment, washroom door, dining counter and carriage door baked into the band behind the aisle. `train-carriage-dawn.png` is a pixel-aligned image edit of the same frame relit for morning; the room crossfades to it in the last beat. Both were generated with Codex image generation from the prompts beside them. `node scripts/prepare-prologue-art.mjs` exports them.

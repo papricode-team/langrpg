@@ -157,7 +157,7 @@ export class RetrievalGame implements MiniGame {
       if(!expected){this.next();return;}
     }else{
       choices=distractors(item,this.pool,this.opts.seed+this.count,optionCount(item,modality)).map(other=>({label:modality==='recognition'&&!other.sprite?other.english:other.lemma,answer:other.lemma,sprite:other.sprite,kind:'lexeme'}));
-      if(mechanic==='catch')choices=choices.map(choice=>({...choice,label:String(displayNumbers[choice.label]??choice.label),sprite:itemSpriteFor('apfel-noun')}));
+      if(mechanic==='catch')choices=choices.map(choice=>({...choice,label:String(displayNumbers[choice.label]??choice.label),sprite:itemSpriteFor(this.opts.prologue?'wagen-noun':'apfel-noun')}));
     }
     if(['tray','workbench'].includes(mechanic)&&!production){
       const second=this.pool[(this.pool.indexOf(item)+1)%this.pool.length];current.order=[item,second];
