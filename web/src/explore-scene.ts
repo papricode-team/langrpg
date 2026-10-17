@@ -1,3 +1,4 @@
+import { BuildingDoorEffect, type BuildingDoorGeometry } from './building-door';
 import * as Phaser from 'phaser';
 import { npcs } from './content';
 import type { NavigationGrid, MapPoint } from './navigation';
@@ -88,11 +89,13 @@ export interface WorldPortal {
   x: number;
   y: number;
   root: Phaser.GameObjects.Container;
-  halo: Phaser.GameObjects.Ellipse;
+  halo?: Phaser.GameObjects.Ellipse;
   label: Phaser.GameObjects.Text;
-  glyph: Phaser.GameObjects.Text;
+  glyph?: Phaser.GameObjects.Text;
   hit: Phaser.GameObjects.Zone;
   hovered: boolean;
+  door?: BuildingDoorGeometry;
+  effect?: BuildingDoorEffect;
 }
 
 export interface ResidentGait { moving: boolean; distance: number; velocityX: number; velocityY: number; facingLeft?: boolean }
@@ -594,7 +597,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     this.tickClock(seconds);
     this.updateScene(seconds);
     this.updateObjects(this.elapsed);
-    this.updatePortals();
+    this.updatePortals(seconds);
     if (this.watching && !this.reducedMotion) this.tourTime += seconds;
     this.refreshNearby();
     const lead = 1 - Math.exp(-2.5 * seconds);
@@ -734,21 +737,26 @@ export abstract class ExploreScene extends Phaser.Scene {
     return state;
   }
 
-  private updatePortals(): void {
+  private updatePortals(seconds: number): void {
     const view = this.cameras.main.worldView, scale = Math.min(2, this.density) / this.cameras.main.zoom;
     for (const portal of this.portals.values()) {
-      const visible = portal.x >= view.x - 100 && portal.x <= view.right + 100 && portal.y >= view.y - 100 && portal.y <= view.bottom + 100;
+      const bounds = portal.door?.hit;
+      const visible = bounds
+        ? portal.x + bounds.x + bounds.width / 2 >= view.x && portal.x + bounds.x - bounds.width / 2 <= view.right
+          && portal.y + bounds.y + bounds.height / 2 >= view.y && portal.y + bounds.y - bounds.height / 2 <= view.bottom
+        : portal.x >= view.x - 100 && portal.x <= view.right + 100 && portal.y >= view.y - 100 && portal.y <= view.bottom + 100;
       portal.root.setVisible(visible && !this.terrainOnly);
-      const near = this.controlsEnabled && Math.hypot(portal.x - this.local.x, portal.y - this.local.y) < INTERACTION_DISTANCE;
-      const lit = near || portal.hovered;
-      // The halo breathes through a tween while lit; the state only decides whether it is lit.
-      if (portal.halo.getData('lit') !== lit) {
+      const near = Math.hypot(portal.x - this.local.x, portal.y - this.local.y) < INTERACTION_DISTANCE;
+      const lit = this.controlsEnabled && !this.editing && (near || portal.hovered && this.input.isOver);
+      portal.effect?.update(lit && visible && !this.terrainOnly, seconds, this.decorativeElapsed, this.reducedMotion);
+      // Interior exits retain their existing marker; outdoor rooms light their painted door.
+      if (portal.halo && portal.halo.getData('lit') !== lit) {
         portal.halo.setData('lit', lit);
         this.tweens.killTweensOf(portal.halo);
         portal.halo.setAlpha(lit ? .42 : .12);
         if (lit && !this.reducedMotion) this.tweens.add({ targets: portal.halo, alpha: .5, duration: 1050, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
       }
-      portal.glyph.setVisible(lit);
+      portal.glyph?.setVisible(lit);
       portal.label.setVisible(lit && !this.conversationTarget);
       portal.label.setScale(scale);
     }
@@ -821,7 +829,7 @@ export abstract class ExploreScene extends Phaser.Scene {
       actor?.name.setResolution(density); actor?.role?.setResolution(density); actor?.hint?.setResolution(density); actor?.marker?.setResolution(density);
     }
     for (const object of this.objects.values()) object.label.setResolution(density);
-    for (const portal of this.portals.values()) { portal.label.setResolution(density); portal.glyph.setResolution(density); }
+    for (const portal of this.portals.values()) { portal.label.setResolution(density); portal.glyph?.setResolution(density); }
   }
   protected mobileCameraChanged(): void {}
   protected actors(): Character[] { return [this.local, ...this.characters.values(), ...this.peers.values()]; }
@@ -878,7 +886,10 @@ export abstract class ExploreScene extends Phaser.Scene {
       hit?.setTo((frameWidth - width) / 2, top, width, frameHeight * footY - top);
     }
     for (const object of this.objects.values()) { const size = Math.max(52, 44 / this.fitZoom); object.hit.setSize(size, size, true); }
-    for (const portal of this.portals.values()) { const size = Math.max(76, 44 / this.fitZoom); portal.hit.setSize(size, size, true); }
+    for (const portal of this.portals.values()) {
+      const size = Math.max(76, 44 / this.fitZoom);
+      portal.hit.setSize(portal.door?.hit.width ?? size, portal.door?.hit.height ?? size, true);
+    }
   }
 
   // Content -----------------------------------------------------------------
@@ -947,18 +958,20 @@ export abstract class ExploreScene extends Phaser.Scene {
     });
   }
 
-  protected createPortal(id: string, x: number, y: number, label: string, sign?: Phaser.GameObjects.Image, exit = false): void {
-    const halo = this.add.ellipse(0, 6, 44, 16, 0xffd996, .24);
-    const mat = this.add.rectangle(0, 7, 38, 11, 0x685442, .8).setStrokeStyle(1, 0xe4c185, .5);
-    const glyph = this.add.text(0, -29, exit ? 'Exit' : label.split(' · ')[0], {
+  protected createPortal(id: string, x: number, y: number, label: string, door?: BuildingDoorGeometry, exit = false): void {
+    const effect = door ? new BuildingDoorEffect(this, door) : undefined;
+    const halo = exit ? this.add.ellipse(0, 6, 44, 16, 0xffd996, .24) : undefined;
+    const mat = exit ? this.add.rectangle(0, 7, 38, 11, 0x685442, .8).setStrokeStyle(1, 0xe4c185, .5) : undefined;
+    const glyph = exit ? this.add.text(0, -29, 'Exit', {
       resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '9px', color: '#fff1cd', backgroundColor: '#594a36', padding: { x: 5, y: 3 },
-    }).setOrigin(.5);
-    const name = this.add.text(0, exit ? 24 : -50, label, {
+    }).setOrigin(.5).setVisible(false) : undefined;
+    const name = this.add.text(0, exit ? 24 : -(door?.height ?? 34) - 16, label, {
       resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '14px', color: '#fff1cf', stroke: '#283c35', strokeThickness: 4,
-    }).setOrigin(.5);
-    const hit = this.add.zone(0, -14, 76, 76).setInteractive({ useHandCursor: true });
-    const root = this.add.container(x, y, [mat, halo, ...(sign ? [sign] : []), glyph, name, hit]).setDepth(worldDepth(y, 'label'));
-    const portal: WorldPortal = { id, x, y, root, halo, label: name, glyph, hit, hovered: false };
+    }).setOrigin(.5).setVisible(false);
+    const hit = this.add.zone(door?.hit.x ?? 0, door?.hit.y ?? -14, door?.hit.width ?? 76, door?.hit.height ?? 76).setInteractive({ useHandCursor: true });
+    const root = this.add.container(x, y, [...(mat && halo ? [mat, halo] : []), ...(effect ? [effect.root] : []), ...(glyph ? [glyph] : []), name, hit])
+      .setDepth(worldDepth(door?.depth ?? y, 'label'));
+    const portal: WorldPortal = { id, x, y, root, halo, label: name, glyph, hit, hovered: false, door, effect };
     this.bindHover(hit, portal, () => this.approachInteraction(id));
     this.portals.set(id, portal);
   }
