@@ -113,6 +113,7 @@ import { loadExerciseExample, renderCourseExample } from './course-examples';
 import { miniGameDefinitions, miniGameById } from './minigames/catalogue';
 import type { MiniGame } from './minigames/types';
 import './minigames/minigames.css';
+import './ui-kit.css';
 import { MiniGameInput } from './minigames/input';
 import { isWordGame } from './minigames/word-game-mechanics';
 import { hostedGames, miniGameBlock, miniGameBlockLabel, miniGameBlockMessage, miniGameLevel, suggestedGame, type ReadinessContext } from './minigames/availability';

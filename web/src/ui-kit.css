@@ -1,0 +1,269 @@
+/* The painted interface kit: every frame, plate and button below is a Codex painting from
+   art/ui, exported to web/public/assets/ui with the slice values noted in docs/prompts. Each
+   rule keeps a flat colour under the art so text stays readable if an image fails to load. */
+:root {
+  --ui-texture:url('/assets/ui/panel-texture-v1.webp');
+  --ui-panel:#16302a;
+  --ui-brass:#c4a567;
+  --ui-brass-light:#e8d39b;
+  --ui-ink:#2a2112;
+  --ui-parchment:#efe2bf;
+  --ui-cream:#f6ead0;
+}
+
+/* Brass for the main action, enamel for the rest. */
+:is(.menu-layer,.dialog,.notification-card) .primary-button {
+  min-height:52px;
+  padding:6px 10px;
+  border:solid transparent;
+  border-width:0 26px;
+  border-radius:0;
+  border-image:url('/assets/ui/brass-button-v1.webp') 0 64 fill / 0 26px / 0 stretch;
+  background:#c9a85e padding-box;
+  box-shadow:none;
+  color:#2b1f08;
+  font-weight:700;
+  text-shadow:0 1px 0 #f7e6b0b3;
+  filter:drop-shadow(0 4px 6px #02090799);
+}
+
+:is(.menu-layer,.dialog,.notification-card) .primary-button:hover:not(:disabled) {
+  box-shadow:none;
+  filter:drop-shadow(0 4px 6px #02090799) drop-shadow(0 0 12px #f0d49a88) brightness(1.07);
+}
+
+:is(.menu-layer,.dialog,.notification-card) .primary-button:active:not(:disabled) {
+  transform:translateY(1px);
+  filter:drop-shadow(0 2px 3px #02090799) brightness(.96);
+}
+
+:is(.menu-layer,.dialog,.notification-card) .primary-button:disabled {
+  filter:grayscale(.55) brightness(.75);
+}
+
+:is(.menu-layer,.dialog,.notification-card) .primary-button:focus-visible {
+  box-shadow:var(--focus-ring);
+}
+
+:is(.menu-layer,.dialog:not(.interior-dialog),.notification-card) .outline-button {
+  min-height:48px;
+  padding:6px 8px;
+  border:solid transparent;
+  border-width:0 24px;
+  border-radius:0;
+  border-image:url('/assets/ui/enamel-button-v1.webp') 0 62 fill / 0 24px / 0 stretch;
+  background:#1d4a3c padding-box;
+  color:var(--ui-brass-light);
+  font-weight:600;
+  text-shadow:0 1px 0 #0b1a16;
+  filter:drop-shadow(0 3px 5px #02090780);
+}
+
+:is(.menu-layer,.dialog:not(.interior-dialog),.notification-card) .outline-button:hover:not(:disabled) {
+  color:#fff3d0;
+  filter:drop-shadow(0 3px 5px #02090780) drop-shadow(0 0 10px #f0d49a55) brightness(1.12);
+}
+
+/* Round brass bezels for close, help and audio. */
+#menu-layer .menu-close,
+.dialog .dialog-close,
+.menu-layer .icon-button,
+.world-dialogue :is(.dialogue-close,.dialogue-audio) {
+  border:0;
+  border-radius:50%;
+  background:#1d4a3c url('/assets/ui/round-button-v1.webp') center / 100% 100% no-repeat;
+  color:var(--ui-brass-light);
+  box-shadow:0 3px 8px #02090799;
+  filter:none;
+  transition:filter .15s ease,transform .15s ease;
+}
+
+#menu-layer .menu-close:hover,
+.dialog .dialog-close:hover,
+.menu-layer .icon-button:hover,
+.world-dialogue :is(.dialogue-close,.dialogue-audio):hover {
+  color:#fff3d0;
+  filter:brightness(1.12) drop-shadow(0 0 8px #f0d49a66);
+}
+
+.world-dialogue .dialogue-audio[aria-pressed="false"] {
+  color:#9fb3a3;
+  filter:saturate(.4);
+}
+
+/* Section frames: a slim brass molding on the tooled-leather panel. */
+#menu-layer :is(.course-picker,.journey-hero,.journey-town,.lexeme,.route-unit,.option-rows,.region-card-copy,.activity-entry,.quest-log-entry),
+.notification-card {
+  border:solid transparent;
+  border-width:10px;
+  border-radius:0;
+  border-image:url('/assets/ui/card-frame-v1.webp') 40 / 20px / 0 stretch;
+  background:var(--ui-panel) var(--ui-texture) center / 256px padding-box;
+  box-shadow:none;
+}
+
+#menu-layer :is(.lexeme,.route-unit,.activity-entry,.quest-log-entry) {
+  transition:filter .15s ease,transform .15s ease;
+}
+
+#menu-layer :is(.lexeme,.route-unit,.activity-entry,.quest-log-entry):hover {
+  filter:brightness(1.1) drop-shadow(0 0 10px #f0d49a33);
+}
+
+/* Readable callouts sit on parchment with brass corner caps. */
+#menu-layer .todays-words,
+.dialog.interior-dialog {
+  border:solid transparent;
+  border-width:12px;
+  border-radius:0;
+  border-image:url('/assets/ui/parchment-card-v1.webp') 40 fill / 20px / 0 stretch;
+  background:var(--ui-parchment) padding-box;
+  color:var(--ui-ink);
+  box-shadow:none;
+  filter:drop-shadow(0 10px 18px #02090799);
+}
+
+/* Page and dialog titles rest on a brass divider with an emerald centre. */
+#menu-layer .options-heading,
+#menu-layer .learning-page-header {
+  border-bottom:14px solid transparent;
+}
+
+#menu-layer :is(.options-heading,.learning-page-header) {
+  padding-bottom:6px;
+  border-image:url('/assets/ui/divider-v1.webp') 0 0 25 0 / 0 0 14px 0 / 0 stretch;
+  background:none;
+  box-shadow:none;
+}
+
+:is(#menu-layer .options-heading,#menu-layer .learning-page-header,.dialog:not(.interior-dialog)) h2 {
+  color:var(--ui-cream);
+  text-shadow:0 2px 0 #0b1a16,0 0 18px #e8c77333;
+}
+
+/* The ornate frame used by the conversation panel also frames dark dialogs and activities. */
+.dialog[open]:not(.interior-dialog):not(#menu-layer) {
+  border:20px solid transparent;
+  border-radius:0;
+  border-image:url('/assets/ui/dialogue-frame-v1.webp') 112 fill / 56px / 0 stretch;
+  background:var(--ui-panel) var(--ui-texture) center / 256px padding-box;
+  box-shadow:none;
+  filter:drop-shadow(0 24px 50px #020907cc);
+}
+
+.dialog[open]:not(.interior-dialog):not(#menu-layer)::before {
+  content:none;
+}
+
+@media (--phone) {
+  .dialog[open]:not(.interior-dialog):not(#menu-layer) {
+    border-width:14px;
+    border-image-width:40px;
+  }
+  #menu-layer :is(.course-picker,.journey-hero,.journey-town,.lexeme,.route-unit,.option-rows,.region-card-copy,.activity-entry,.quest-log-entry) {
+    border-width:8px;
+    border-image-width:16px;
+  }
+}
+
+/* Painted controls keep their art when focused and take a lit brass ring instead. */
+#menu-layer :is(.menu-page.selected,.menu-tab.active,.menu-close,.icon-button,.primary-button,.outline-button,.lexeme,.route-unit,.route-tabs button,.route-levels button):focus-visible,
+#menu-layer[data-input='pad'] :is(.menu-page.selected,.menu-tab.active,.menu-close,.icon-button,.primary-button,.outline-button,.lexeme,.route-unit,.route-tabs button,.route-levels button):focus {
+  outline:2px solid #f6dc9f;
+  outline-offset:3px;
+  box-shadow:none;
+}
+
+/* Level and view switches: enamel chips, the chosen one on a brass tab plate. */
+#menu-layer :is(.route-levels,.route-tabs) button {
+  min-height:44px;
+  padding:6px 6px;
+  border:solid transparent;
+  border-width:0 20px;
+  border-image:url('/assets/ui/enamel-button-v1.webp') 0 62 fill / 0 20px / 0 stretch;
+  background:#1d4a3c padding-box;
+  color:var(--ui-brass-light);
+  font-weight:600;
+  text-shadow:0 1px 0 #0b1a16;
+}
+
+#menu-layer :is(.route-levels,.route-tabs) button.selected {
+  border-width:0 26px;
+  border-image:url('/assets/ui/tab-plate-v1.webp') 0 56 fill / 0 26px / 0 stretch;
+  background:none;
+  color:#2b1f08;
+  text-shadow:0 1px 0 #f7e6b0b3;
+}
+
+/* Text fields are inset into the leather. */
+#menu-layer :is(.route-search,.course-picker select,input[type=text],input[type=search],input:not([type])) {
+  border:1px solid #8a6d36;
+  border-radius:6px;
+  background-color:#0b1c17;
+  box-shadow:inset 0 2px 6px #000a,0 1px 0 #c4a56733;
+}
+
+/* Activities keep their own boards; their actions share the kit's buttons. */
+#dialog.activity-dialog .activity-primary {
+  min-height:52px;
+  border:solid transparent;
+  border-width:0 26px;
+  border-radius:0;
+  border-image:url('/assets/ui/brass-button-v1.webp') 0 64 fill / 0 26px / 0 stretch;
+  background:#c9a85e padding-box;
+  color:#2b1f08;
+  font-weight:700;
+  text-shadow:0 1px 0 #f7e6b0b3;
+  box-shadow:none;
+  filter:drop-shadow(0 4px 6px #02090799);
+}
+
+#dialog.activity-dialog .activity-primary:hover:not(:disabled) {
+  filter:drop-shadow(0 4px 6px #02090799) drop-shadow(0 0 12px #f0d49a88) brightness(1.07);
+}
+
+#dialog.activity-dialog :is(.activity-guide-toggle,.activity-pause,.dialog-close) {
+  border:0;
+  border-radius:50%;
+  background:#1d4a3c url('/assets/ui/round-button-v1.webp') center / 100% 100% no-repeat;
+  color:var(--ui-brass-light);
+}
+
+/* Touch controls: a brass bezel under the thumb and an enamel plate for talking. */
+.joystick {
+  border:0;
+  background:url('/assets/ui/round-button-v1.webp') center / 100% 100% no-repeat;
+  box-shadow:0 4px 12px #02090799;
+  opacity:.92;
+}
+
+.joystick :is(.joystick-ring,.joystick-axis) {
+  display:none;
+}
+
+.joystick-knob {
+  border:2px solid var(--ui-brass);
+  background:radial-gradient(circle at 40% 30%,#3d7a62,#163a2e 70%);
+  box-shadow:0 3px 10px #020907b3,inset 0 1px 0 #e8d39b80;
+}
+
+.talk-button {
+  border:10px solid transparent;
+  border-radius:0;
+  border-image:url('/assets/ui/card-frame-v1.webp') 40 / 20px / 0 stretch;
+  background:var(--ui-panel) var(--ui-texture) center / 256px padding-box;
+  box-shadow:none;
+  filter:drop-shadow(0 6px 10px #020907b3);
+}
+
+@media (--phone) {
+  #menu-layer .todays-words {
+    flex-wrap:wrap;
+  }
+}
+
+#menu-layer .route-search input {
+  border:0;
+  background:none;
+  box-shadow:none;
+}

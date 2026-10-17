@@ -1,0 +1,13 @@
+Use case: stylized-concept
+Asset type: production 2D game UI art for glotworld, a cozy hand-painted European village story RPG with a premium, Blizzard/Hearthstone-quality painted interface in aged brass, deep forest-green enamel and warm ivory parchment.
+Primary request: A nine-slice parchment card for readable content (word cards, NPC conversation cards). Warm ivory parchment with faint fibres, softly darkened aged edges, held by a thin brass rim with four small brass corner caps (simple rounded triangular corner protectors with one tiny rivet each).
+Composition: 768 x 768, straight-on, perfectly symmetric, all corners identical, corner caps within 64 pixels of each corner, straight edges uniform so they stretch, interior flat parchment with no stains in the middle.
+Materials: softly worn warm brass #c4a567, pale gold highlights #e8d39b, dark bronze #5b4520, deep forest green #16332d to #0f241e, emerald #2f7a5a, ivory parchment #efe2bf. Soft light from upper left, rich hand-painted edge highlights and gentle wear, no photorealism, no pixel art.
+Constraints: no letters, no words, no numbers, no watermark, no characters, no drop shadow outside the silhouette. Everything outside the object must be genuine alpha transparency.
+
+Generated with Codex's built-in image generation tool, transparent background.
+Original: art/ui/parchment-card-v1.png
+Runtime: web/public/assets/ui/parchment-card-v1.webp, drawn as a border-image (slice 40 fill, width 20px, on parchment callouts and the interior dialog).
+
+Runtime export (Node with sharp):
+await sharp(await sharp('art/ui/parchment-card-v1.png').trim().toBuffer()).resize({width:384}).webp({quality:72,alphaQuality:90,effort:6}).toFile('web/public/assets/ui/parchment-card-v1.webp');

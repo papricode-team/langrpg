@@ -231,12 +231,13 @@
 
 #menu-layer .course-picker [role=status]:empty { display:none; }
 
-/* Nine-slice SVG artwork gives every menu control the same painted focus effect.
+/* Nine-slice SVG artwork gives every unpainted menu control the same focus effect; painted
+   controls keep their art and take the brass ring from ui-kit.css.
    Border-image widths do not change layout or replace a control's background.
    Native radios and checkboxes keep the shared ring because they do not paint border images. */
-#menu-layer :is(button,input:where(:not([type=radio],[type=checkbox])),select,textarea,summary,a[href]):focus-visible,
-#menu-layer[data-input='keys'] :is(button,input:where(:not([type=radio],[type=checkbox])),select,textarea,summary,a[href]):focus-visible,
-#menu-layer[data-input='pad'] :is(button,input:where(:not([type=radio],[type=checkbox])),select,textarea,summary,a[href]):focus {
+#menu-layer :is(button,input:where(:not([type=radio],[type=checkbox])),select,textarea,summary,a[href]):not(:where(.menu-page.selected,.menu-tab.active,.menu-close,.icon-button,.primary-button,.outline-button,.lexeme,.route-unit,.route-tabs button,.route-levels button)):focus-visible,
+#menu-layer[data-input='keys'] :is(button,input:where(:not([type=radio],[type=checkbox])),select,textarea,summary,a[href]):not(:where(.menu-page.selected,.menu-tab.active,.menu-close,.icon-button,.primary-button,.outline-button,.lexeme,.route-unit,.route-tabs button,.route-levels button)):focus-visible,
+#menu-layer[data-input='pad'] :is(button,input:where(:not([type=radio],[type=checkbox])),select,textarea,summary,a[href]):not(:where(.menu-page.selected,.menu-tab.active,.menu-close,.icon-button,.primary-button,.outline-button,.lexeme,.route-unit,.route-tabs button,.route-levels button)):focus {
   outline:none;
   box-shadow:none;
   border-image:url('/assets/ui/menu-focus.svg') 16 fill / 16px / 3px stretch;

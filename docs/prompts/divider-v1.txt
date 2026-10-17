@@ -1,0 +1,13 @@
+Use case: stylized-concept
+Asset type: production 2D game UI art for glotworld, a cozy hand-painted European village story RPG with a premium, Blizzard/Hearthstone-quality painted interface in aged brass, deep forest-green enamel and warm ivory parchment.
+Primary request: An ornamental heading divider: a fine horizontal brass line that thickens toward a central flourish, the flourish being a small brass diamond with an emerald gem flanked by two tiny leaf scrolls. The line tapers to points at both ends.
+Composition: 1536 x 128, straight-on, perfectly left-right symmetric, vertically centred, spanning the full width. Very slim: the line itself is about 6 pixels thick; the central flourish about 90 pixels tall and 260 pixels wide.
+Materials: softly worn warm brass #c4a567, pale gold highlights #e8d39b, dark bronze #5b4520, deep forest green #16332d to #0f241e, emerald #2f7a5a, ivory parchment #efe2bf. Soft light from upper left, rich hand-painted edge highlights and gentle wear, no photorealism, no pixel art.
+Constraints: no letters, no words, no numbers, no watermark, no characters, no drop shadow outside the silhouette. Everything outside the object must be genuine alpha transparency.
+
+Generated with Codex's built-in image generation tool, transparent background.
+Original: art/ui/divider-v1.png
+Runtime: web/public/assets/ui/divider-v1.webp, drawn as a border-image (bottom slice 25, width 14px, under page headings).
+
+Runtime export (Node with sharp):
+await sharp(await sharp('art/ui/divider-v1.png').trim().toBuffer()).resize({width:768}).webp({quality:72,alphaQuality:90,effort:6}).toFile('web/public/assets/ui/divider-v1.webp');
