@@ -38,7 +38,7 @@ The JSON and PostgreSQL stores commit account changes, audit records, and sessio
 
 ## Run locally
 
-Install Go 1.26 or newer and Node.js 24 or newer. Run `npm install` from the repository root to install the world validator's dependencies, then start Go from this directory:
+Install Go 1.27.2 or newer and Node.js 24 or newer (Node.js 26 is used by `.nvmrc` and Docker). Run `npm ci` from the repository root to install the world validator's dependencies, then start Go from this directory:
 
 ```sh
 go run .
