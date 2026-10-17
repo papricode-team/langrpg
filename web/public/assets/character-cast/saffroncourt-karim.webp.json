@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b08059\",\"#b4ad9a\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#754c30\"],[\"bottom.primary\",\"#434745\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#65432e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#b6c7ae\"],[\"top.secondary\",\"#b6c7ae\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b08059\",\"#b4ad9a\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#754c30\"],[\"bottom.primary\",\"#434745\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#65432e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#b6c7ae\"],[\"top.secondary\",\"#b6c7ae\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "956c4a34074fbbe43bc067c027eec86372558fc3ba0f788ca5550bbe17d0d196",
-  "atlasSha256": "8238bdc5f9d49166601e1c9cdba2e8e067c5ee2eeb2b352802ea6b59769b456d",
-  "textureBytes": 14098752,
-  "atlas": "web/public/assets/character-cast/saffroncourt-karim.atlas.json"
+  "sha256": "0f7a431e8e4281ba2428fc80d1a91b991b7266cd9a8236ac2e989c59791bfe5e",
+  "atlasSha256": "80c7052b67de4993831ce0569c76143b4746958029c6ce129e04f5c388f6ac14",
+  "textureBytes": 13387332,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/saffroncourt-karim.webp",
+      "sha256": "0f7a431e8e4281ba2428fc80d1a91b991b7266cd9a8236ac2e989c59791bfe5e",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/saffroncourt-karim.1.webp",
+      "sha256": "ce298c51ebcd2e26c8d71c81d868ec6f67d708ef38dc12fd7afb1cab8495844a",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/saffroncourt-karim.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

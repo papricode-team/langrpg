@@ -1,5 +1,7 @@
+import { worldGrade, type WorldGrade } from './world-grade';
+import { graphicsQualityTier } from './texture-quality';
 import * as Phaser from 'phaser';
-import { normalizeScreenFilterSettings, screenFilterActive, type ScreenFilterSettings } from './screen-filter-settings';
+import { normalizeScreenFilterSettings, type ScreenFilterSettings } from './screen-filter-settings';
 
 const FILTER_NODE = 'LanternScreenFilter';
 
@@ -16,6 +18,9 @@ uniform float uGrain;
 uniform float uWarmth;
 uniform float uVignette;
 uniform float uPixelSize;
+uniform vec3 uLift;
+uniform vec3 uHighlights;
+uniform float uWorldVignette;
 varying vec2 outTexCoord;
 
 vec4 sampleWorld(vec2 uv) {
@@ -43,40 +48,51 @@ void main() {
         color += sampleWorld(uv + vec2(-d.x, d.y)) * 0.0625;
     }
 
+    // Palette finish before optional player treatments; no extra texture reads.
+    float luminance = dot(color.rgb, vec3(0.2126, 0.7152, 0.0722));
+    color.rgb += uLift * (1.0 - luminance) * color.a;
+    color.rgb += uHighlights * smoothstep(0.35, 0.9, luminance) * color.a;
     color.rgb *= vec3(1.0 + 0.08 * uWarmth, 1.0 + 0.015 * uWarmth, 1.0 - 0.09 * uWarmth);
 
-    // Static screen-space scanlines and a faint phosphor mask; no flashing.
-    float line = 0.5 + 0.5 * cos(mod(screen.y, 3.0) * 2.0943951);
-    color.rgb *= 1.0 - line * uScanlines * 0.5;
-    float column = mod(floor(screen.x), 3.0);
-    vec3 mask = vec3(column < 1.0 ? 1.0 : 0.0, column >= 1.0 && column < 2.0 ? 1.0 : 0.0, column >= 2.0 ? 1.0 : 0.0);
-    color.rgb *= vec3(1.0) - (vec3(1.0) - mask) * uScanlines * 0.12;
-    color.rgb *= 1.0 + uScanlines * 0.12;
+    if (uScanlines > 0.001) {
+        // Static screen-space scanlines and a faint phosphor mask; no flashing.
+        float line = 0.5 + 0.5 * cos(mod(screen.y, 3.0) * 2.0943951);
+        color.rgb *= 1.0 - line * uScanlines * 0.5;
+        float column = mod(floor(screen.x), 3.0);
+        vec3 mask = vec3(column < 1.0 ? 1.0 : 0.0, column >= 1.0 && column < 2.0 ? 1.0 : 0.0, column >= 2.0 ? 1.0 : 0.0);
+        color.rgb *= vec3(1.0) - (vec3(1.0) - mask) * uScanlines * 0.12;
+        color.rgb *= 1.0 + uScanlines * 0.12;
 
-    // Keep hash inputs small enough for mobile mediump fragment precision.
-    vec2 noiseCell = mod(floor(screen), 128.0);
-    vec3 noiseHash = fract(vec3(noiseCell.xyx) * vec3(0.1031, 0.1030, 0.0973));
-    noiseHash = fract(noiseHash + dot(noiseHash, noiseHash.yzx + 3.17));
-    float noise = fract((noiseHash.x + noiseHash.y) * noiseHash.z * 13.0) - 0.5;
-    color.rgb += noise * uGrain * 0.065 * color.a;
+    }
+
+    if (uGrain > 0.001) {
+        // Keep hash inputs small enough for mobile mediump fragment precision.
+        vec2 noiseCell = mod(floor(screen), 128.0);
+        vec3 noiseHash = fract(vec3(noiseCell.xyx) * vec3(0.1031, 0.1030, 0.0973));
+        noiseHash = fract(noiseHash + dot(noiseHash, noiseHash.yzx + 3.17));
+        float noise = fract((noiseHash.x + noiseHash.y) * noiseHash.z * 13.0) - 0.5;
+        color.rgb += noise * uGrain * 0.065 * color.a;
+    }
     float edgeShade = smoothstep(0.18, 0.72, length(outTexCoord - 0.5));
-    color.rgb *= 1.0 - edgeShade * uVignette * 0.28;
+    color.rgb *= 1.0 - edgeShade * (uWorldVignette + uVignette * 0.28);
     gl_FragColor = vec4(clamp(color.rgb, 0.0, color.a), color.a);
 }
 `;
 
 export class ScreenFilterController extends Phaser.Filters.Controller {
   settings = normalizeScreenFilterSettings(undefined);
+  grade: WorldGrade = worldGrade('lindenhafen', 12);
 
   constructor(camera: Phaser.Cameras.Scene2D.Camera) {
     super(camera, FILTER_NODE);
-    this.active = false;
+    this.active = true;
   }
 
   configure(settings: ScreenFilterSettings): void {
     this.settings = normalizeScreenFilterSettings(settings);
-    this.active = screenFilterActive(this.settings);
+    this.active = true;
   }
+  setGrade(grade: WorldGrade): void { this.grade = grade; }
 }
 
 class ScreenFilterNode extends Phaser.Renderer.WebGL.RenderNodes.BaseFilterShader {
@@ -88,7 +104,11 @@ class ScreenFilterNode extends Phaser.Renderer.WebGL.RenderNodes.BaseFilterShade
     const settings = controller.settings;
     const program = this.programManager;
     program.setUniform('uResolution', [drawingContext.width, drawingContext.height]);
-    program.setUniform('uSoftness', settings.softness / 100);
+    // Low skips the optional nine-tap blur; the grade remains a single sample.
+    program.setUniform('uSoftness', graphicsQualityTier() === 'low' ? 0 : settings.softness / 100);
+    program.setUniform('uLift', controller.grade.lift);
+    program.setUniform('uHighlights', controller.grade.highlights);
+    program.setUniform('uWorldVignette', controller.grade.vignette);
     program.setUniform('uScanlines', settings.scanlines / 100);
     program.setUniform('uGrain', settings.grain / 100);
     program.setUniform('uWarmth', settings.warmth / 100);

@@ -4,23 +4,34 @@
   "recipe": "art/source/character-kit/cast/waldruh-resident-shopper.json",
   "recipeSha256": "89d3d94970cc0fd9d4b54da148ad26149ff121c954facb6053cb69f5d435cbaf",
   "atlas": "web/public/assets/character-cast/waldruh-resident-shopper.webp",
-  "atlasSha256": "37c9fed14bf7d2cc5fc061254c7ea8221cdd8253c76c505abff1278686f2da9a",
+  "atlasSha256": "6f688d05a480628c27a831a25ac395a79a1212d2efe3a9eefc4389833f862da5",
   "geometry": "web/public/assets/character-cast/waldruh-resident-shopper.atlas.json",
-  "geometrySha256": "68ea08375693c48d525e9e73095a505505bdffce9aa845a88843e26d11c30028",
-  "textureBytes": 14774032,
+  "geometrySha256": "0b42c51f3cefd681d78dc4be088cd52ed60a1b836e7318d24a6839ca00d52e1c",
+  "textureBytes": 14202456,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/waldruh-resident-shopper.webp",
+      "sha256": "6f688d05a480628c27a831a25ac395a79a1212d2efe3a9eefc4389833f862da5",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/waldruh-resident-shopper.1.webp",
+      "sha256": "f7cb05d71e33aeb05f2bcc9e8aedf0ada85d1a94fce1812c8589bfc05412b57d",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "55596746c51b69d4528e20c2675c7d28fb79ae638e4181b63010a43003f5afba",
-  "proof": "art/proofs/character-cast/waldruh-resident-shopper.png",
-  "proofSha256": "e7008dda0c8100edb1f4b3392045c71d3b31b4a5b871c05666c63fa294ab7722",
-  "editorSha256": "77728fedfb2da3464810b9bbc6cc58d7caa9769411d7c251523eada8ead67ac6",
+  "sourceComponentsSha256": "8457ef2d425694eb141624ddab4e247865864aedd1e0a7dcc0f8ff59aa8efe2f",
+  "proof": "art/proofs/character-cast-painted/waldruh-resident-shopper.png",
+  "proofSha256": "eb05d828170dd94e03f480e8d5ba524af45246a3869bbd0bdae452573a7ed8f5",
+  "editorSha256": "2e2cad9226c5f98686991559eb377602c8606e50d751c009dbedaa2b57b31ea9",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "55596746c51b69d4528e20c2675c7d28fb79ae638e4181b63010a43003f5afba"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

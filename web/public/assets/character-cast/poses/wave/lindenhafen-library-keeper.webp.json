@@ -34,7 +34,7 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#ecc4a2\",\"#d7ae61\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"waves\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#797197\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#797197\"],[\"outer.secondary\",\"#797197\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]:pose:wave",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#ecc4a2\",\"#d7ae61\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"waves\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#797197\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#797197\"],[\"outer.secondary\",\"#797197\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]:pose:wave",
   "poseSet": "wave",
   "preview": false,
   "frames": 36,
@@ -42,8 +42,24 @@
     384,
     576
   ],
-  "sha256": "2c3859a79b9a7a45e8cfe36ebea6688feae4ef1cdd44c8f4158196913390fdc3",
-  "atlasSha256": "2a4c1679ae3187ba2124de85e5a00cabec6f35f4efc2a71a163d4331ea687c80",
-  "textureBytes": 10811136,
-  "atlas": "web/public/assets/character-cast/poses/wave/lindenhafen-library-keeper.atlas.json"
+  "sha256": "121eb4a5678c4bf3e13e05966fdb841ff272a1ed2e29f9cae9e123886f52dfc0",
+  "atlasSha256": "0002c0ba5e0b0f1ac41d8b70a85c1711c149c5cdb797da716d132e8729a96793",
+  "textureBytes": 14044076,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/poses/wave/lindenhafen-library-keeper.webp",
+      "sha256": "121eb4a5678c4bf3e13e05966fdb841ff272a1ed2e29f9cae9e123886f52dfc0",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/poses/wave/lindenhafen-library-keeper.1.webp",
+      "sha256": "c26bf10e2c3ff927b7fa698705a56e342d8e74935a7d9ad6fc806f8d962ce380",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/poses/wave/lindenhafen-library-keeper.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

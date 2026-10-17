@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#c9a17d\",\"#a19684\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#454847\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#6e5034\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#33495e\"],[\"outer.secondary\",\"#33495e\"],[\"top.primary\",\"#909691\"],[\"top.secondary\",\"#909691\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#c9a17d\",\"#a19684\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#454847\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#6e5034\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#33495e\"],[\"outer.secondary\",\"#33495e\"],[\"top.primary\",\"#909691\"],[\"top.secondary\",\"#909691\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "bba687719a740883f4aac1e4e7a0b7f11fdaf658e26199aa3f8031d52ea9543c",
-  "atlasSha256": "7122479871a986c38070ecd6555e7fe4fce5af17e515d82b38bad2bcccfe9a33",
-  "textureBytes": 14490960,
-  "atlas": "web/public/assets/character-cast/seoulsteps-jisoo.atlas.json"
+  "sha256": "4c3c6304c48384547935c3137c41311de3d13d11841b706634d49f5b6afe08fe",
+  "atlasSha256": "0f10d2934eeafa2b740686e3d4175eefd695d4ed15a5c49ea890cad547423fd7",
+  "textureBytes": 14183232,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/seoulsteps-jisoo.webp",
+      "sha256": "4c3c6304c48384547935c3137c41311de3d13d11841b706634d49f5b6afe08fe",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/seoulsteps-jisoo.1.webp",
+      "sha256": "af4682d4c5988436e78c350577ae2b90b8dbc7eb641d0e5aa792f5fae9838687",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/seoulsteps-jisoo.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

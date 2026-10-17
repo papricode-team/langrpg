@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#bd916e\",\"#646461\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"pixie\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#4c4941\"],[\"bottom.primary\",\"#2e4159\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#797a77\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#c57f35\"],[\"outer.secondary\",\"#c57f35\"],[\"top.primary\",\"#80a9bd\"],[\"top.secondary\",\"#80a9bd\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#bd916e\",\"#646461\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"pixie\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#4c4941\"],[\"bottom.primary\",\"#2e4159\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#797a77\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#c57f35\"],[\"outer.secondary\",\"#c57f35\"],[\"top.primary\",\"#80a9bd\"],[\"top.secondary\",\"#80a9bd\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "5fa7fa5862dbb183796f0d064cc8d174a68e24e57b1df5d34a7357da7f5f7f1a",
-  "atlasSha256": "37e358e9ffe6582f7ad859512a6b19adca2de94e1b8e7037565d3fee5da2a22a",
-  "textureBytes": 14546736,
-  "atlas": "web/public/assets/character-cast/rainmarket-sora.atlas.json"
+  "sha256": "e03297e43bc63316624215c5f3a26055c1295b4be3957f03430ad5e6f8a09041",
+  "atlasSha256": "d034a3192de139f0a3bf30d5e6387fd3c4cda78789983f4d4ad290f2953a2b6a",
+  "textureBytes": 13757636,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/rainmarket-sora.webp",
+      "sha256": "e03297e43bc63316624215c5f3a26055c1295b4be3957f03430ad5e6f8a09041",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/rainmarket-sora.1.webp",
+      "sha256": "66170059effbf2cffcf03154f939d91ef2938a3f7579de9b437883c1a9722bf2",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/rainmarket-sora.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

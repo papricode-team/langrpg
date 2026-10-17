@@ -3,11 +3,13 @@ import test from 'node:test';
 import { resolveUiMedia, uiLayout, uiLayoutPlugin, uiMedia } from './ui-layout.mjs';
 
 test('layout predicates preserve the exact inclusive boundaries and their complements', () => {
-  assert.deepEqual(uiLayout, { phone: 600, tablet: 1000, landscapeShort: 520 });
+  assert.deepEqual(uiLayout, { phone: 600, tablet: 1000, laptop: 1279, landscapeShort: 520, desktopShort: 800 });
   assert.equal(uiMedia['--phone'], '(max-width: 600px)');
   assert.equal(uiMedia['--above-phone'], '(min-width: 601px)');
   assert.equal(uiMedia['--tablet'], '(max-width: 1000px)');
   assert.equal(uiMedia['--desktop'], '(min-width: 1001px)');
+  assert.equal(uiMedia['--laptop'], '(max-width: 1279px)');
+  assert.equal(uiMedia['--short-desktop'], '(max-height: 800px)');
   assert.equal(uiMedia['--above-short'], '(min-height: 521px)');
   assert.ok(Object.isFrozen(uiLayout));
 });

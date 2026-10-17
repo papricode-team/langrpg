@@ -31,15 +31,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#e2b896\",\"#4a4038\",[[\"bag\",\"satchel\"],[\"bottom\",\"skirt-long\"],[\"eyewear\",\"square\"],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#6b4a33\"],[\"bottom.primary\",\"#4f565e\"],[\"eyewear.primary\",\"#3a3633\"],[\"footwear.primary\",\"#2f2b28\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#5d6670\"],[\"outer.secondary\",\"#4a525b\"],[\"top.primary\",\"#e8e4da\"],[\"top.secondary\",\"#b9b3a6\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#e2b896\",\"#4a4038\",[[\"bag\",\"satchel\"],[\"bottom\",\"skirt-long\"],[\"eyewear\",\"square\"],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#6b4a33\"],[\"bottom.primary\",\"#4f565e\"],[\"eyewear.primary\",\"#3a3633\"],[\"footwear.primary\",\"#2f2b28\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#5d6670\"],[\"outer.secondary\",\"#4a525b\"],[\"top.primary\",\"#e8e4da\"],[\"top.secondary\",\"#b9b3a6\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "a18fed1c7759a16d95779fb1a9a3ba97409c9ab5ea9469aeed93b3a92e79fb9e",
-  "atlasSha256": "8721da861476d774161704091c2031dbf0f6186712ee22eed1c88820f5869b7d",
-  "textureBytes": 14829480,
-  "atlas": "web/public/assets/character-cast/kessler.atlas.json"
+  "sha256": "636d2b9894f8464db28286af967e7161cc3cc641cfce215a0993478be36cea54",
+  "atlasSha256": "1960ded9ed0bc265ca5eb30e5b4b95a4dd6364b652f93a0f6919769c7a50734a",
+  "textureBytes": 14750896,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/kessler.webp",
+      "sha256": "636d2b9894f8464db28286af967e7161cc3cc641cfce215a0993478be36cea54",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/kessler.1.webp",
+      "sha256": "3d6e7e8de1df5ccbd08dd19a2b06747c4a85d83c6aad2b0d94cf5d90f36f61dc",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/kessler.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

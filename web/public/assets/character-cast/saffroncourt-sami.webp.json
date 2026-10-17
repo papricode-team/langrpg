@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#c69e75\",\"#25221f\",[[\"bag\",\"backpack\"],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",\"freckles\"],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#3c5558\"],[\"bottom.primary\",\"#c5b99c\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#747472\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#398b98\"],[\"top.secondary\",\"#398b98\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#c69e75\",\"#25221f\",[[\"bag\",\"backpack\"],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",\"freckles\"],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#3c5558\"],[\"bottom.primary\",\"#c5b99c\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#747472\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#398b98\"],[\"top.secondary\",\"#398b98\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "13a503f23b5968ef649f45992ce3b20a8c1e6712e7d390e5a12cb858b3f6af46",
-  "atlasSha256": "22c75a491d2f7412a861207a6ae75ad499d962b9dcdfbcfaf88b158da1344359",
-  "textureBytes": 13978440,
-  "atlas": "web/public/assets/character-cast/saffroncourt-sami.atlas.json"
+  "sha256": "9336347841b116e493d5999419e22845cc2025d7e08d3769b953f1e502d97025",
+  "atlasSha256": "38eaded829494ad7494f5df466f2461a27abb8ebe711ad05804c9059a56415fd",
+  "textureBytes": 14103360,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/saffroncourt-sami.webp",
+      "sha256": "9336347841b116e493d5999419e22845cc2025d7e08d3769b953f1e502d97025",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/saffroncourt-sami.1.webp",
+      "sha256": "6af9ef36077f0242fa63553d84fe6c23e6a37fa93fc4288b84969a2a6012dd0a",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/saffroncourt-sami.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

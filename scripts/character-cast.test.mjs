@@ -125,7 +125,7 @@ test('native cast bakes reject unsafe ids before accessing a source path',async(
 test('unchanged cast reuse verifies every page hash and byte limit, retained editor pixels and missing artifacts',async()=>{
   const root=await mkdtemp(resolve(tmpdir(),'character-cast-reuse-')),hash=bytes=>createHash('sha256').update(bytes).digest('hex');
   try{
-    const prefix='web/public/assets/character-cast/reuse-test',proof='art/proofs/character-cast/reuse-test';
+    const prefix='web/public/assets/character-cast/reuse-test',proof='art/proofs/character-cast-painted/reuse-test';
     const report={id:'reuse-test',poseSet:'walk',recipe:'art/source/character-kit/cast/reuse-test.json',atlas:prefix+'.webp',geometry:prefix+'.atlas.json',proof:proof+'.png',multiAtlas:true};
     const data=new Map([[report.recipe,Buffer.from('{}')],[report.atlas,Buffer.from('page-zero')],[prefix+'.1.webp',Buffer.from('page-one')],[report.geometry,Buffer.from('{}')],[report.proof,Buffer.from('review')],[proof+'.webp',Buffer.from('native-editor')]]);
     for(const [path,bytes]of data){await mkdir(dirname(resolve(root,path)),{recursive:true});await writeFile(resolve(root,path),bytes);}

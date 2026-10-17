@@ -28,15 +28,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#c18b60\",\"#7d7468\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"full-beard\"],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",\"beanie\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#4f4a3c\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#3b2c22\"],[\"headwear.primary\",\"#2f4c5c\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#a4513a\"],[\"top.secondary\",\"#88402d\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#c18b60\",\"#7d7468\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"full-beard\"],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",\"beanie\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#4f4a3c\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#3b2c22\"],[\"headwear.primary\",\"#2f4c5c\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#a4513a\"],[\"top.secondary\",\"#88402d\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "163faea8a37bc745eccd99701c7fb75577c32062d8cc4a6207ea2e4ebdd0c00a",
-  "atlasSha256": "3d3ed1091b8f3d127df9ae8d5b4231c2de64a7f377ab3c54705e9a7434c4ee01",
-  "textureBytes": 14189736,
-  "atlas": "web/public/assets/character-cast/jakob.atlas.json"
+  "sha256": "d537681f5c4828ca427e14a30fc04e5ecedd208817dd959f4fd8358643205f62",
+  "atlasSha256": "0bf208cd63381b84ad5d9ae815d04442860a4fe7f914e6e6bf88d6b0ee78d7a0",
+  "textureBytes": 14430336,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/jakob.webp",
+      "sha256": "d537681f5c4828ca427e14a30fc04e5ecedd208817dd959f4fd8358643205f62",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/jakob.1.webp",
+      "sha256": "d308500e6c2ed0bacccf3cdf2f76a97075005bad55b3f6d4875c7f1b1919c51b",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/jakob.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

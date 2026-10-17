@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#6d4831\",\"#241d16\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#383b33\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#655c49\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#c27359\"],[\"top.secondary\",\"#c27359\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#6d4831\",\"#241d16\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#383b33\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#655c49\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#c27359\"],[\"top.secondary\",\"#c27359\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "3f4485c913e84cce179bfe79e3dc0ef57add2d15d73a59a2c2c7af69ea235299",
-  "atlasSha256": "21d8a3d8fb563814299bfe38d97dad6bcf79d82ba78a1c9bf057b312b46f75e9",
-  "textureBytes": 14654612,
-  "atlas": "web/public/assets/character-cast/kigalights-patrick.atlas.json"
+  "sha256": "ead51f96ec788a8bb79b2f1c6ec9e41b56fffdbf18c5c0cbde07691b123d0030",
+  "atlasSha256": "375cad532bf0617b2eb599a16729f1ecd7635f0d931e49da3bea2dbfdff1fb83",
+  "textureBytes": 14715168,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/kigalights-patrick.webp",
+      "sha256": "ead51f96ec788a8bb79b2f1c6ec9e41b56fffdbf18c5c0cbde07691b123d0030",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/kigalights-patrick.1.webp",
+      "sha256": "875503128643e60fce4a86c356fd3913c5d63f9305efa389a04c24a8870d184a",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/kigalights-patrick.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

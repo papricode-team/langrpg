@@ -4,23 +4,34 @@
   "recipe": "art/source/character-kit/cast/lindenhafen-ferry-attendant.json",
   "recipeSha256": "7ab7011f8c14f352b705aabab6ab11db103ad1efaaac874602f6d0280554674a",
   "atlas": "web/public/assets/character-cast/poses/wave/lindenhafen-ferry-attendant.webp",
-  "atlasSha256": "f6b5192657a9953c8600a2890a47d329a772ca6eb488e1d668d69f5b79a68709",
+  "atlasSha256": "7ef4cce6ab4bf1042f17a111ba8fb5a9a885d62f4bdf14295144de889d590195",
   "geometry": "web/public/assets/character-cast/poses/wave/lindenhafen-ferry-attendant.atlas.json",
-  "geometrySha256": "2a4c1679ae3187ba2124de85e5a00cabec6f35f4efc2a71a163d4331ea687c80",
-  "textureBytes": 10811136,
+  "geometrySha256": "52138a516a0639123926f7ec9050038eb1a9c674eb8384a11eda365bb5bfbf5f",
+  "textureBytes": 14044076,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/poses/wave/lindenhafen-ferry-attendant.webp",
+      "sha256": "7ef4cce6ab4bf1042f17a111ba8fb5a9a885d62f4bdf14295144de889d590195",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/poses/wave/lindenhafen-ferry-attendant.1.webp",
+      "sha256": "55a8719ea8b6d2705fca1d5fcb947ec49184ccd0b99ace8c0b13257036c93e7f",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "3298d0c85c5dda3e7e159c3b229b06a674e4e7d4b26d1a9cdfb4386df13f0e0c",
-  "proof": "art/proofs/character-cast/poses/wave/lindenhafen-ferry-attendant.png",
-  "proofSha256": "610d6a9a31411dc3bbc5ded55a5844e750aa3cb169559020fd9ae874ac6b6240",
-  "editorSha256": "388c97353b5d8fd0d545a5e304c39b909378e7d88d360243fc7f784e660ec0e8",
+  "sourceComponentsSha256": "c51adef08808150d2ac63f5e61002866d1664c051d2a542aaa4b54485a041983",
+  "proof": "art/proofs/character-cast-painted/poses/wave/lindenhafen-ferry-attendant.png",
+  "proofSha256": "c85589585f6256fd27c18bb5a6ba0b23b8438ec41e6b6d56621f94aa033cb4fe",
+  "editorSha256": "6c182c2527b2911163f27ae56b8ba6861b79a55424dab9e31d2779a23fc40593",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "3298d0c85c5dda3e7e159c3b229b06a674e4e7d4b26d1a9cdfb4386df13f0e0c"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

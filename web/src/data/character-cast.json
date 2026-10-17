@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "assetVersion": "4c9d233bf71007a9",
+  "assetVersion": "e80b2c9758205a2f",
   "cell": [
     384,
     576
@@ -14,13 +14,13 @@
       "recipe": {
         "v": 2,
         "build": "regular",
-        "skin": "#d6a07d",
-        "hair": "#62412f",
+        "skin": "#c7976b",
+        "hair": "#33251f",
         "parts": {
           "face": "soft",
           "markings": null,
           "facial-hair": null,
-          "hair": "bun",
+          "hair": "curls",
           "headwear": null,
           "top": "blouse",
           "outer": "apron",
@@ -33,37 +33,38 @@
         },
         "colors": {
           "bag.primary": "#694731",
-          "bottom.primary": "#82634a",
+          "bottom.primary": "#734b37",
           "eyewear.primary": "#48372e",
           "footwear.primary": "#48372e",
           "headwear.primary": "#354d70",
           "headwear.secondary": "#c99167",
           "neck.primary": "#854a5b",
-          "outer.primary": "#75855f",
-          "outer.secondary": "#657448",
-          "top.primary": "#e8d9bd",
-          "top.secondary": "#a88e67"
+          "outer.primary": "#63713e",
+          "outer.secondary": "#4c5a32",
+          "top.primary": "#fff2d6",
+          "top.secondary": "#d8b982"
         }
       },
       "key": "character-cast-marta",
       "image": "/assets/character-cast/marta.webp",
       "atlas": "/assets/character-cast/marta.atlas.json",
-      "atlasSha256": "59d2f6b7372e997d07bac7893e2f38464e085fa3130e33704072faae76a673ac",
-      "sha256": "ba1c5a32a528f0204aa1ea197238f7e0b70163e5f45c266cd3fde6790f2f0108",
-      "recipeSha256": "75b5290e40cec1e20bd9c6017894ead34a654d7e6c4ea0c4228c7f2487904fa3",
-      "textureBytes": 14859288,
+      "atlasSha256": "75c0fb24d301d1553520b2616ecc125f462c924d3deec600193753fba17bdc45",
+      "sha256": "ba0a3dbc1d96d3a1ae6825ff6ea860475792b3256ffba86d82422ca06033eddb",
+      "recipeSha256": "b543a8c64dd83ce64385646d0cd32498b89c603626918389873cb4f39d9e857b",
+      "textureBytes": 14340384,
+      "multiAtlas": true,
       "native": {
         "key": "character-cast-marta-native",
         "image": "/assets/character-cast/native/marta.webp",
         "atlas": "/assets/character-cast/native/marta.atlas.json",
-        "sha256": "77e0083fa669dd19581ffbeb3ed98383ba215ce4377743cb9f09ce03244b4f8c",
-        "atlasSha256": "6a70104e4ef8843915279bda02f417b4b4f5906dc1d19b87ed0d87fa9077841d",
-        "recipeSha256": "75b5290e40cec1e20bd9c6017894ead34a654d7e6c4ea0c4228c7f2487904fa3",
+        "sha256": "c881e38a11ca3c43635bd838995119301666eee1ae1269b0d7c722243acf69d4",
+        "atlasSha256": "2f280129a795599df270cbd8b22c1869f52c276ccf3bb5833ab2dcd992874547",
+        "recipeSha256": "b543a8c64dd83ce64385646d0cd32498b89c603626918389873cb4f39d9e857b",
         "cell": [
           512,
           768
         ],
-        "textureBytes": 28297400,
+        "textureBytes": 28303632,
         "multiAtlas": true
       }
     },
@@ -96,36 +97,23 @@
           "bottom.primary": "#343b48",
           "eyewear.primary": "#48372e",
           "footwear.primary": "#48372e",
-          "headwear.primary": "#354d70",
-          "headwear.secondary": "#c99167",
-          "neck.primary": "#943f3f",
-          "outer.primary": "#354d70",
-          "outer.secondary": "#c99167",
-          "top.primary": "#e8d9bd",
+          "headwear.primary": "#263e57",
+          "headwear.secondary": "#d7b56b",
+          "neck.primary": "#a44139",
+          "outer.primary": "#263e57",
+          "outer.secondary": "#d7b56b",
+          "top.primary": "#fff3dd",
           "top.secondary": "#a88e67"
         }
       },
       "key": "character-cast-otto",
       "image": "/assets/character-cast/otto.webp",
       "atlas": "/assets/character-cast/otto.atlas.json",
-      "atlasSha256": "41c1461b18f069f40716788cc3bef254e3a7d8b2062f28a887db9af978ada153",
-      "sha256": "44f90257965d325a5856cddc120f7687747d5f39c7eee481b406b0d034ea6222",
-      "recipeSha256": "cea289d6171431834e0a8a8b3de80a02c0579c0db0d0acbbeabec1f096ba9c48",
-      "textureBytes": 14294940,
-      "native": {
-        "key": "character-cast-otto-native",
-        "image": "/assets/character-cast/native/otto.webp",
-        "atlas": "/assets/character-cast/native/otto.atlas.json",
-        "sha256": "063521454586eef36bb5fcc683ea8a09748764080cec6e3a16c01df3930f9e1c",
-        "atlasSha256": "bfbf0b41dac112102dbabc32c46f83c408dd353d88f8e32c448551eeaf35e4c0",
-        "recipeSha256": "cea289d6171431834e0a8a8b3de80a02c0579c0db0d0acbbeabec1f096ba9c48",
-        "cell": [
-          512,
-          768
-        ],
-        "textureBytes": 27370544,
-        "multiAtlas": true
-      }
+      "atlasSha256": "d8e3f5748bd7f622f8d598e013330c456e7bab48e1dc7509953ed9b8aad1dbf7",
+      "sha256": "04e6f65cd3734556506235ff3c244d2b591644cf571107c47ad59e971a63a55b",
+      "recipeSha256": "5da77cab362b5ef1ba12fb6def38ad4c0e5f8a1ea87047cb9542d2fe3a6a7505",
+      "textureBytes": 14434924,
+      "multiAtlas": true
     },
     {
       "id": "lina",
@@ -135,10 +123,10 @@
         "v": 2,
         "build": "regular",
         "skin": "#c18b60",
-        "hair": "#a75532",
+        "hair": "#b65a2c",
         "parts": {
           "face": "round",
-          "markings": null,
+          "markings": "freckles",
           "facial-hair": null,
           "hair": "curls",
           "headwear": null,
@@ -158,28 +146,28 @@
           "footwear.primary": "#48372e",
           "headwear.primary": "#354d70",
           "headwear.secondary": "#c99167",
-          "neck.primary": "#c39b46",
-          "outer.primary": "#4e729a",
-          "outer.secondary": "#324f75",
-          "top.primary": "#d4c7aa",
+          "neck.primary": "#dcae3e",
+          "outer.primary": "#436d96",
+          "outer.secondary": "#2e4d71",
+          "top.primary": "#f2e1bd",
           "top.secondary": "#a88e67"
         }
       },
       "key": "character-cast-lina",
       "image": "/assets/character-cast/lina.webp",
       "atlas": "/assets/character-cast/lina.atlas.json",
-      "atlasSha256": "bab48d94e21a9424846eeee3a7b35bdc94d65f48015c99c9ed5ebef3d2075645",
-      "sha256": "5d7620521559ebb8e7bcde4b206078434ad2415bb5319548090701d84d71e9ed",
-      "recipeSha256": "710ae1a494b536fa6e9f961b0e34a5f90f96950bb659461bab659537987d7505",
+      "atlasSha256": "60d0e50dfd4c2075c9b78ae220b887b9b179cba5a6108bdf6aa7896b9f721eec",
+      "sha256": "a7ffb91ea95278513571b01603902e9a1f5ff7f441e82531a9182d9fec16df74",
+      "recipeSha256": "dc9345904e06236f0d4a2c25a36f01ea909a955382636beec54bd8094b897cf4",
       "textureBytes": 14038736,
       "multiAtlas": true,
       "native": {
         "key": "character-cast-lina-native",
         "image": "/assets/character-cast/native/lina.webp",
         "atlas": "/assets/character-cast/native/lina.atlas.json",
-        "sha256": "4f6c35657d97ba63ac0de4bcecd17ca06ba645ef4b28f3d80d4d7af47dd8d7d7",
-        "atlasSha256": "d6baee4553950aabe4b90c9dadadfe2fbd6095ed9e64f854335ae59ef2b0bfe0",
-        "recipeSha256": "710ae1a494b536fa6e9f961b0e34a5f90f96950bb659461bab659537987d7505",
+        "sha256": "86bb31e86d48b8b9890c4801e6de048663d5cb73146b4ee36ecaa5626e48fdf2",
+        "atlasSha256": "09b1a00a88f636b8f4f0d667b8825665c2b975f441b1c0726e802d901bcbafbc",
+        "recipeSha256": "dc9345904e06236f0d4a2c25a36f01ea909a955382636beec54bd8094b897cf4",
         "cell": [
           512,
           768
@@ -196,14 +184,14 @@
         "v": 2,
         "build": "regular",
         "skin": "#c18b60",
-        "hair": "#62412f",
+        "hair": "#483023",
         "parts": {
           "face": "angular",
           "markings": null,
-          "facial-hair": "goatee",
+          "facial-hair": "short-beard",
           "hair": "crop",
           "headwear": null,
-          "top": "henley",
+          "top": "shirt",
           "outer": null,
           "bottom": "cargo",
           "footwear": "boots",
@@ -214,7 +202,7 @@
         },
         "colors": {
           "bag.primary": "#694731",
-          "bottom.primary": "#5b6b48",
+          "bottom.primary": "#665f3d",
           "eyewear.primary": "#48372e",
           "footwear.primary": "#48372e",
           "headwear.primary": "#354d70",
@@ -222,29 +210,30 @@
           "neck.primary": "#854a5b",
           "outer.primary": "#326a65",
           "outer.secondary": "#2a4436",
-          "top.primary": "#86434e",
-          "top.secondary": "#ad825b"
+          "top.primary": "#963e43",
+          "top.secondary": "#bc8f59"
         }
       },
       "key": "character-cast-emil",
       "image": "/assets/character-cast/emil.webp",
       "atlas": "/assets/character-cast/emil.atlas.json",
-      "atlasSha256": "e8300993fbe797280cc8fae256cd9acd09381b34aba86f579de48e196050a097",
-      "sha256": "801bee9cc8d247ce7b2f9736fea7c504f798f02076ab50a9c843322edd94722a",
-      "recipeSha256": "4ae2614e87603fdde78a3cdb596f04373bd426d89b8738a76111c02501880c9d",
-      "textureBytes": 14447400,
+      "atlasSha256": "4be8d1b866d931ba105578f2e6722f91bb9800281d163ce7641232013f961d00",
+      "sha256": "55589943ecc65739a2322b47875076a236fadfb5d19fd5717650f74bf5f14487",
+      "recipeSha256": "d257bfe760788138af315ebef510d82f17c572e818e5ec82c2b72b6d005cacc4",
+      "textureBytes": 14183232,
+      "multiAtlas": true,
       "native": {
         "key": "character-cast-emil-native",
         "image": "/assets/character-cast/native/emil.webp",
         "atlas": "/assets/character-cast/native/emil.atlas.json",
-        "sha256": "edc0f27b0e76232b251cc494751e4fac4b9fa30ca5e60f3804566b6c8fe435b0",
-        "atlasSha256": "61a4189daffb7667b3651ccc1ff358d95047330d32fcc34e6a05a1ab39a16542",
-        "recipeSha256": "4ae2614e87603fdde78a3cdb596f04373bd426d89b8738a76111c02501880c9d",
+        "sha256": "40ec0a39d50066c9c99f0639e866b93794d2026d8b9cf394868f4ae14b28a9fd",
+        "atlasSha256": "4fc33859763ef4745559a1d4d2de8be47316307bc49ffb00f2151f392340bc6a",
+        "recipeSha256": "d257bfe760788138af315ebef510d82f17c572e818e5ec82c2b72b6d005cacc4",
         "cell": [
           512,
           768
         ],
-        "textureBytes": 27219420,
+        "textureBytes": 27305388,
         "multiAtlas": true
       }
     },
@@ -256,7 +245,7 @@
         "v": 2,
         "build": "regular",
         "skin": "#d6a07d",
-        "hair": "#d0c9b9",
+        "hair": "#d1cfc5",
         "parts": {
           "face": "mature",
           "markings": null,
@@ -267,47 +256,33 @@
           "outer": "cardigan",
           "bottom": "skirt-long",
           "footwear": "shoes",
-          "eyewear": "round",
-          "neck": null,
+          "eyewear": "square",
+          "neck": "kerchief",
           "bag": null,
           "held": null
         },
         "colors": {
           "bag.primary": "#694731",
-          "bottom.primary": "#35405b",
+          "bottom.primary": "#4b3a47",
           "eyewear.primary": "#48372e",
           "footwear.primary": "#48372e",
           "headwear.primary": "#354d70",
           "headwear.secondary": "#c99167",
-          "neck.primary": "#854a5b",
-          "outer.primary": "#75556e",
-          "outer.secondary": "#997b91",
-          "top.primary": "#e8d9bd",
+          "neck.primary": "#94758b",
+          "outer.primary": "#66334f",
+          "outer.secondary": "#93687e",
+          "top.primary": "#fff0d4",
           "top.secondary": "#a88e67"
         }
       },
       "key": "character-cast-ada",
       "image": "/assets/character-cast/ada.webp",
       "atlas": "/assets/character-cast/ada.atlas.json",
-      "atlasSha256": "2dc2ef1bf0dcb7d80934a4ee07a553a1294b99fab6f0c0820079eb53e90c81eb",
-      "sha256": "a213460e82a893eaac4b54b968f12019f5da09437dfc441b581a1f5a69f12e63",
-      "recipeSha256": "6b709556ad32ab3d7dfe05610cc5d913bfcf3a8f71e0347ab18c22ba7f8b611d",
+      "atlasSha256": "79693207b31b46cf95dd39fa3060ab57a5c997be8eec24cf024c35434e0096a0",
+      "sha256": "b901490cab3530cfcc3369694d2f4bb68f87fc6e47891d2cae1c6057d20979b0",
+      "recipeSha256": "3cd730a8870983c81180b36b8badd6e15c2ec730d35089abb0a51ef8269bfbc1",
       "textureBytes": 14318424,
-      "multiAtlas": true,
-      "native": {
-        "key": "character-cast-ada-native",
-        "image": "/assets/character-cast/native/ada.webp",
-        "atlas": "/assets/character-cast/native/ada.atlas.json",
-        "sha256": "ce918b4a525358e7f4324be9c13b18617e2dd032f6eaae40ae9621b735a3d639",
-        "atlasSha256": "e0ae4953324c7a6f9a9866872f1fd6e06144131f00e968a94ac9916685f7acfd",
-        "recipeSha256": "6b709556ad32ab3d7dfe05610cc5d913bfcf3a8f71e0347ab18c22ba7f8b611d",
-        "cell": [
-          512,
-          768
-        ],
-        "textureBytes": 28028160,
-        "multiAtlas": true
-      }
+      "multiAtlas": true
     },
     {
       "id": "fritz",
@@ -317,7 +292,7 @@
         "v": 2,
         "build": "regular",
         "skin": "#d6a07d",
-        "hair": "#a75532",
+        "hair": "#ad592f",
         "parts": {
           "face": "round",
           "markings": null,
@@ -329,7 +304,7 @@
           "bottom": "straight",
           "footwear": "shoes",
           "eyewear": null,
-          "neck": null,
+          "neck": "kerchief",
           "bag": null,
           "held": null
         },
@@ -340,27 +315,28 @@
           "footwear.primary": "#48372e",
           "headwear.primary": "#354d70",
           "headwear.secondary": "#c99167",
-          "neck.primary": "#854a5b",
-          "outer.primary": "#4f714b",
-          "outer.secondary": "#d2b177",
-          "top.primary": "#e8d9bd",
+          "neck.primary": "#974841",
+          "outer.primary": "#3e5b36",
+          "outer.secondary": "#b79a58",
+          "top.primary": "#fff0d6",
           "top.secondary": "#a88e67"
         }
       },
       "key": "character-cast-fritz",
       "image": "/assets/character-cast/fritz.webp",
       "atlas": "/assets/character-cast/fritz.atlas.json",
-      "atlasSha256": "0cf98a173e0bbbc2dbcc8bfe120c6ad82d93732cd2c5aade124f7236b7311b51",
-      "sha256": "e140a49f92121229e8dbf4bd6e1f9c9de8e2eb873961a146fe33934c0bfe486c",
-      "recipeSha256": "e04a638a346e979fcd8b864c3108f86a73d0ce20260ee122ace4b48bf5c76b52",
-      "textureBytes": 13920648,
+      "atlasSha256": "8a17145ecd060524f682c1b7f6ca80ef8936a979aa5ef2e37f126f3830447f2f",
+      "sha256": "300261733f8d89b6b1207543e18fd9b97c7a5f408cfdc75be0f23e67efcd63b2",
+      "recipeSha256": "725e710a93138ba0c57d1c91eee2f20012c04c3f233fedca7b116f294e065e58",
+      "textureBytes": 14063556,
+      "multiAtlas": true,
       "native": {
         "key": "character-cast-fritz-native",
         "image": "/assets/character-cast/native/fritz.webp",
         "atlas": "/assets/character-cast/native/fritz.atlas.json",
-        "sha256": "935bc13d8150b05d1c5bee923838bbb359cf648b7dd8c07cead0d2503e06fdc0",
-        "atlasSha256": "9955a547e4cbf449bfc40b8ada6d3080a4b46345cba9649aacb64c4df0ca0f8c",
-        "recipeSha256": "e04a638a346e979fcd8b864c3108f86a73d0ce20260ee122ace4b48bf5c76b52",
+        "sha256": "523148b42e2ed051e8d9bbc478d1aab8129a65599f81b26d8802f605f0fbb747",
+        "atlasSha256": "1644804b077539ca47a3c1f36836a47b5f11e1da9f3fc9602796513cbb7ec4d2",
+        "recipeSha256": "725e710a93138ba0c57d1c91eee2f20012c04c3f233fedca7b116f294e065e58",
         "cell": [
           512,
           768
@@ -380,7 +356,7 @@
         "hair": "#302b2d",
         "parts": {
           "face": "almond",
-          "markings": null,
+          "markings": "freckles",
           "facial-hair": null,
           "hair": "curls",
           "headwear": null,
@@ -395,7 +371,7 @@
         },
         "colors": {
           "bag.primary": "#694731",
-          "bottom.primary": "#596847",
+          "bottom.primary": "#79644a",
           "eyewear.primary": "#48372e",
           "footwear.primary": "#48372e",
           "headwear.primary": "#354d70",
@@ -403,24 +379,25 @@
           "neck.primary": "#854a5b",
           "outer.primary": "#326a65",
           "outer.secondary": "#2a4436",
-          "top.primary": "#7c9474",
-          "top.secondary": "#795c87"
+          "top.primary": "#9da37a",
+          "top.secondary": "#9676a1"
         }
       },
       "key": "character-cast-greta",
       "image": "/assets/character-cast/greta.webp",
       "atlas": "/assets/character-cast/greta.atlas.json",
-      "atlasSha256": "e696ba8aeac5d6362846fc607d66bd46d9299bfb6904a7eb5c5fb8c9a5df0938",
-      "sha256": "d54314eecaeeea8b3942e0a3b123168b94c21fbaefcac84356cfcfbf45ae6b0f",
-      "recipeSha256": "c19bf865092ea9e4a6aebc8f66854758cd054d657df47c0f8d69d1d8df95c606",
-      "textureBytes": 14293692,
+      "atlasSha256": "38e1c42edc24b58e7845bf3836c767dc9a40ac11c991ed689a7704e5d348b893",
+      "sha256": "7d4c3f59bc6eee0df518d1140b554a0fcdcd8e4c515330e9cfcd958a16d4143d",
+      "recipeSha256": "8a2f18d6c4d0ba9f0f6683791e5c9dc544e8aa1850e19b197a38db3a2cdf8f4c",
+      "textureBytes": 14340384,
+      "multiAtlas": true,
       "native": {
         "key": "character-cast-greta-native",
         "image": "/assets/character-cast/native/greta.webp",
         "atlas": "/assets/character-cast/native/greta.atlas.json",
-        "sha256": "f716a903b2d1c9e7c9e7a4d52ea579715a5aeb1221a53667eec3fb82d55a504a",
-        "atlasSha256": "56466369a48310cc09959a206b4fe901472c22c921f04d35eadf092b557eb87b",
-        "recipeSha256": "c19bf865092ea9e4a6aebc8f66854758cd054d657df47c0f8d69d1d8df95c606",
+        "sha256": "4f2abfccf31e86f4b0197fbef969f0ee86bf4e6f3b0573c6e73b6973df3b7aee",
+        "atlasSha256": "efd56a2499e0101e60349369057988d3a958850cacf82f2d74d21f2f6b281d9f",
+        "recipeSha256": "8a2f18d6c4d0ba9f0f6683791e5c9dc544e8aa1850e19b197a38db3a2cdf8f4c",
         "cell": [
           512,
           768
@@ -437,7 +414,7 @@
         "v": 2,
         "build": "regular",
         "skin": "#d6a07d",
-        "hair": "#b3afa6",
+        "hair": "#c5c3b9",
         "parts": {
           "face": "mature",
           "markings": null,
@@ -460,34 +437,21 @@
           "footwear.primary": "#48372e",
           "headwear.primary": "#354d70",
           "headwear.secondary": "#c99167",
-          "neck.primary": "#7c3635",
-          "outer.primary": "#403933",
-          "outer.secondary": "#b49453",
-          "top.primary": "#b49453",
+          "neck.primary": "#943d3b",
+          "outer.primary": "#443d38",
+          "outer.secondary": "#bda15f",
+          "top.primary": "#d4a34e",
           "top.secondary": "#a88e67"
         }
       },
       "key": "character-cast-inspector",
       "image": "/assets/character-cast/inspector.webp",
       "atlas": "/assets/character-cast/inspector.atlas.json",
-      "atlasSha256": "cd8e345df996ad1bacda43f69ee8d11f07807a9f9318a74712b8397d24899164",
-      "sha256": "803e3034339720f32ddb3d950007c1a311cbd78a71531deaa69a16910cd8d15b",
-      "recipeSha256": "ced212e40651654c80add12160c40ebb7bea734929370a260bd61b433a0697f9",
-      "textureBytes": 14014560,
-      "native": {
-        "key": "character-cast-inspector-native",
-        "image": "/assets/character-cast/native/inspector.webp",
-        "atlas": "/assets/character-cast/native/inspector.atlas.json",
-        "sha256": "3698f3974a7c9629f5feac2a736e9d9511c8439ec15e24ff33d5f538eabc42d9",
-        "atlasSha256": "ecf0fc427439eb9100c0830d6d3d452268ad7b45c231d50c3594c3e62e497f59",
-        "recipeSha256": "ced212e40651654c80add12160c40ebb7bea734929370a260bd61b433a0697f9",
-        "cell": [
-          512,
-          768
-        ],
-        "textureBytes": 27199152,
-        "multiAtlas": true
-      }
+      "atlasSha256": "83f8b2b711e433e40097390fc8e3a49059d8412d3f8f9d099820ba9bc5889af7",
+      "sha256": "da5c029154f3f268c12bb5cf5730e70008c8e5946342e4e927cf806ae9694e1e",
+      "recipeSha256": "9a56634e6958efd0a9225c4f81384399750eb162e2a459039ac02e0817588a3c",
+      "textureBytes": 14114232,
+      "multiAtlas": true
     },
     {
       "id": "elise",
@@ -496,20 +460,20 @@
       "recipe": {
         "v": 2,
         "build": "regular",
-        "skin": "#bb825a",
-        "hair": "#c8c5bf",
+        "skin": "#c79972",
+        "hair": "#d0cbc4",
         "parts": {
           "face": "mature",
           "markings": null,
           "facial-hair": null,
-          "hair": "bun",
+          "hair": "bob",
           "headwear": null,
           "top": "shirt",
           "outer": "trench",
           "bottom": "straight",
           "footwear": "tall-boots",
           "eyewear": "round",
-          "neck": null,
+          "neck": "kerchief",
           "bag": "satchel",
           "held": "lantern"
         },
@@ -520,35 +484,21 @@
           "footwear.primary": "#48372e",
           "headwear.primary": "#354d70",
           "headwear.secondary": "#c99167",
-          "neck.primary": "#854a5b",
-          "outer.primary": "#596d86",
-          "outer.secondary": "#9ba8b8",
-          "top.primary": "#d5c8ac",
+          "neck.primary": "#91433d",
+          "outer.primary": "#526d86",
+          "outer.secondary": "#a68c5d",
+          "top.primary": "#fff0d6",
           "top.secondary": "#a88e67"
         }
       },
       "key": "character-cast-elise",
       "image": "/assets/character-cast/elise.webp",
       "atlas": "/assets/character-cast/elise.atlas.json",
-      "atlasSha256": "68ac6b9d53cf7fb4c1095c188e9f1ad61f6fa5c80a1b25ee8d4a9b57ef583590",
-      "sha256": "3458fa60441d0c412e5a4d0ce0620e527d2416f5180a575765e8ea52f8d0dfda",
-      "recipeSha256": "8808caa49ed38c568bbffba5ec5038d76bd863d5fd3bac02f553e80762d24bb9",
-      "textureBytes": 14680688,
-      "multiAtlas": true,
-      "native": {
-        "key": "character-cast-elise-native",
-        "image": "/assets/character-cast/native/elise.webp",
-        "atlas": "/assets/character-cast/native/elise.atlas.json",
-        "sha256": "e4fa5e216bd4a79f325f60874fc204d405715cd376d256206ceedd713352968a",
-        "atlasSha256": "d2cb5194eacb771de541a4c4fd178d83b0df6234f1a8280cc83425e10134d30c",
-        "recipeSha256": "8808caa49ed38c568bbffba5ec5038d76bd863d5fd3bac02f553e80762d24bb9",
-        "cell": [
-          512,
-          768
-        ],
-        "textureBytes": 29892736,
-        "multiAtlas": true
-      }
+      "atlasSha256": "3d6ac932e11245a3a785f49881acb9aad0d1f7f3e605c36fae09142a1f051cdb",
+      "sha256": "4a6114fbeedbe092d9cda9b807634d3786183562a5a99db3336c3b0cb0144a92",
+      "recipeSha256": "1c55b18195ba4634ec30a8e39d96cbc623bbaf456b1995d274f2c4003a5880f0",
+      "textureBytes": 14453344,
+      "multiAtlas": true
     },
     {
       "id": "lindenhafen-resident-courier",
@@ -591,10 +541,11 @@
       "key": "character-cast-lindenhafen-resident-courier",
       "image": "/assets/character-cast/lindenhafen-resident-courier.webp",
       "atlas": "/assets/character-cast/lindenhafen-resident-courier.atlas.json",
-      "atlasSha256": "417ac3a6239edb9775cc8fa8adb8bff892507586bdab45df109572e1520851ab",
-      "sha256": "c9a2dec16e1bc2a10e3564af6cf3f06b6aaf9ba009cee4096add3c4513c6ef3b",
+      "atlasSha256": "9e47f35f8eb3f62eaf496a7520ad9130e790a5b166db272af17bf60fa5cf42e6",
+      "sha256": "d8bc2157d55deba94203e6c7c833e0c72395e0448f16a9226af52ae6a37413b9",
       "recipeSha256": "af93dee531a0abb07b66d65d6a9eed926251ffb0255190b6cc8c56f949bac7f5",
-      "textureBytes": 14488032
+      "textureBytes": 14580844,
+      "multiAtlas": true
     },
     {
       "id": "lindenhafen-resident-reader",
@@ -637,10 +588,11 @@
       "key": "character-cast-lindenhafen-resident-reader",
       "image": "/assets/character-cast/lindenhafen-resident-reader.webp",
       "atlas": "/assets/character-cast/lindenhafen-resident-reader.atlas.json",
-      "atlasSha256": "6105f089eacf4162bce4ebb8a23c7507af69cbe67154f152381c662fd3eec417",
-      "sha256": "4fb704e5a6a3c619340a8f80c987b5a2472f945636f40572b48428f18787ebb8",
+      "atlasSha256": "feb99026dede96196f61bc039ba3e85763848bedbce319836d0eade3c56d443e",
+      "sha256": "e4051044b4ba068ec9e6f5796c5b469c266ae674762a780f3dc2e5b666c683aa",
       "recipeSha256": "8658e2cf95be2527fb656a5eb79f9659d35d35eb8113bb174c327e88c94e7015",
-      "textureBytes": 13935096
+      "textureBytes": 14085252,
+      "multiAtlas": true
     },
     {
       "id": "lindenhafen-resident-gardener",
@@ -683,10 +635,11 @@
       "key": "character-cast-lindenhafen-resident-gardener",
       "image": "/assets/character-cast/lindenhafen-resident-gardener.webp",
       "atlas": "/assets/character-cast/lindenhafen-resident-gardener.atlas.json",
-      "atlasSha256": "d8113d98991c06f879d6ece8e9839e60c19188d6d6bbc19d03d6ca976e0d917e",
-      "sha256": "5cae5006eac3921d65c1448c853a962c28813ea46994bec0b9dabbb175336e0a",
+      "atlasSha256": "898f641f959d0f60cd847fa16fb76e3e80425a96cfe62dd44e16a823f9ef61e4",
+      "sha256": "cf0550b82b77cc67d97062c3b2b647133c4abda3a3e79f2265378295fb6083a3",
       "recipeSha256": "2e19307303df11e23658badd4142e1d02f377a83f8e300a4dd754612b5d69d42",
-      "textureBytes": 14612780
+      "textureBytes": 13955760,
+      "multiAtlas": true
     },
     {
       "id": "waldruh-resident-guest",
@@ -729,10 +682,11 @@
       "key": "character-cast-waldruh-resident-guest",
       "image": "/assets/character-cast/waldruh-resident-guest.webp",
       "atlas": "/assets/character-cast/waldruh-resident-guest.atlas.json",
-      "atlasSha256": "4e87ed4911c1cd7a0a6d09ebd105a27ad0cdb463159c729bc693ff71f71cc0d7",
-      "sha256": "b0824ce862c9ca945958227349b45d8c28aef40225ce76f2ef0aa526c1f975a6",
+      "atlasSha256": "58923796b028ac91882b867494bac0e7f9e4a4e8366c9d4d76a2858ec0a8bffc",
+      "sha256": "cb7975378ad6676bd3c06a6bea01a7c4b7b3018c1a5eb5d83a35704e068a1013",
       "recipeSha256": "6cbc64c3aada0818cab7ef27c383d07bd85b01f261bbe8dd4cfbcbb508b72f94",
-      "textureBytes": 14471280
+      "textureBytes": 14378520,
+      "multiAtlas": true
     },
     {
       "id": "waldruh-resident-commuter",
@@ -775,10 +729,11 @@
       "key": "character-cast-waldruh-resident-commuter",
       "image": "/assets/character-cast/waldruh-resident-commuter.webp",
       "atlas": "/assets/character-cast/waldruh-resident-commuter.atlas.json",
-      "atlasSha256": "610e73cface6634e10ae84b11fb8ab091f747aad6805d8462a409a06c97ec4e7",
-      "sha256": "92253e276637afe7c432a585e20269a3768fa358ae6f8e825f1af7c8c0d8c890",
+      "atlasSha256": "bb3d053f9937120840fb7e69c82fb7b56ee83fa1bdedce31fc232b6262167d67",
+      "sha256": "3a7955840c4d0823c1c57d8b0beeef15fb6a2eb92ebd99426a6997eba5cabbb2",
       "recipeSha256": "6a838c2ac96d0855d80f41af676f8722ca359e8446097956a40a887382d11582",
-      "textureBytes": 14007336
+      "textureBytes": 14132316,
+      "multiAtlas": true
     },
     {
       "id": "waldruh-resident-shopper",
@@ -821,10 +776,11 @@
       "key": "character-cast-waldruh-resident-shopper",
       "image": "/assets/character-cast/waldruh-resident-shopper.webp",
       "atlas": "/assets/character-cast/waldruh-resident-shopper.atlas.json",
-      "atlasSha256": "68ea08375693c48d525e9e73095a505505bdffce9aa845a88843e26d11c30028",
-      "sha256": "37c9fed14bf7d2cc5fc061254c7ea8221cdd8253c76c505abff1278686f2da9a",
+      "atlasSha256": "0b42c51f3cefd681d78dc4be088cd52ed60a1b836e7318d24a6839ca00d52e1c",
+      "sha256": "6f688d05a480628c27a831a25ac395a79a1212d2efe3a9eefc4389833f862da5",
       "recipeSha256": "89d3d94970cc0fd9d4b54da148ad26149ff121c954facb6053cb69f5d435cbaf",
-      "textureBytes": 14774032
+      "textureBytes": 14202456,
+      "multiAtlas": true
     },
     {
       "id": "nebelstadt-resident-archivist",
@@ -867,8 +823,8 @@
       "key": "character-cast-nebelstadt-resident-archivist",
       "image": "/assets/character-cast/nebelstadt-resident-archivist.webp",
       "atlas": "/assets/character-cast/nebelstadt-resident-archivist.atlas.json",
-      "atlasSha256": "e784eae25dd931493edeee4c691c5273f54ab3d80c2c392b118dc91efb1bb96c",
-      "sha256": "94679bb5c274b3aa193d46515120ed989a03a4a44d67d50439fe03a9a1aa4354",
+      "atlasSha256": "0db767905e8ffe284ef861399b2d2be5d63ec1bbb180173d4c9f6e42ee934c2a",
+      "sha256": "8edb93d7348b6a1c0042d759d8aa2e4476758d1bc22dccaa6e6782faff0d574a",
       "recipeSha256": "eaa350d6821f0439296492d03e73ae86456b446660d3c5571466a4db6286b3ab",
       "textureBytes": 14318424,
       "multiAtlas": true
@@ -914,10 +870,11 @@
       "key": "character-cast-nebelstadt-resident-sailor",
       "image": "/assets/character-cast/nebelstadt-resident-sailor.webp",
       "atlas": "/assets/character-cast/nebelstadt-resident-sailor.atlas.json",
-      "atlasSha256": "7a71f4f2a0c417795c837ff0d322588d965aa4fd3c83b683f6285a3dec304430",
-      "sha256": "4bdbff39ff33115cd82bd9d3fce32390574fdea47f61850715048c8debf8fc20",
+      "atlasSha256": "3f9931edbb9fb2922c88992e8b438627ab42f4c4900d221ee5fd788b696dc403",
+      "sha256": "59e8d80c88c5cb31dc9de1d7d6268a0082039c9b3376621acfc2c4984904e205",
       "recipeSha256": "4512c28d4ed8da181f5a1e34031ed0153f45ccc93f1dc7f2ea59fb44a6ddfc6f",
-      "textureBytes": 14197024
+      "textureBytes": 14434008,
+      "multiAtlas": true
     },
     {
       "id": "nebelstadt-resident-port-worker",
@@ -960,10 +917,11 @@
       "key": "character-cast-nebelstadt-resident-port-worker",
       "image": "/assets/character-cast/nebelstadt-resident-port-worker.webp",
       "atlas": "/assets/character-cast/nebelstadt-resident-port-worker.atlas.json",
-      "atlasSha256": "09831fcac6da9bba797682e5dca11809aa78896907a712734c336b0917023e41",
-      "sha256": "01f0d01e4a43d5e6c63222f0c18014890617d9b387a87f8f97ebb42365339d4d",
+      "atlasSha256": "a6be00c62dd95ad50e5007e7858792fd09fd83de0edda62f0e790a203ce8b7de",
+      "sha256": "55f71bbaadf8f902c2c1af89e4833961049bf8d6c28cd2e5fdfccd0b0307b6e8",
       "recipeSha256": "21b397e3eeca5d0ae574c1497aacca64eb4d3e40558a88dfd200f1d52ecc4627",
-      "textureBytes": 14200428
+      "textureBytes": 13810076,
+      "multiAtlas": true
     },
     {
       "id": "lindenhafen-parcel-courier",
@@ -1006,10 +964,11 @@
       "key": "character-cast-lindenhafen-parcel-courier",
       "image": "/assets/character-cast/lindenhafen-parcel-courier.webp",
       "atlas": "/assets/character-cast/lindenhafen-parcel-courier.atlas.json",
-      "atlasSha256": "65e5e6dee35a7cad4940b03d897fab0843a4c8b1140a183d52e6e1ed33493db1",
-      "sha256": "b9f08762963b0996d72a37a8ecce490c6fccb3184bfa2a4d70fb36b7c3b57f7a",
+      "atlasSha256": "eb8fdd2f6db5aa39414a4c5bf461e971b92d0a5f75451e4588a9c0e76a2ec3df",
+      "sha256": "371f167a4bef8a1a1fa435877e2a2d5e08139b18674bb20def5b205e5a888944",
       "recipeSha256": "7ab7011f8c14f352b705aabab6ab11db103ad1efaaac874602f6d0280554674a",
-      "textureBytes": 14953040
+      "textureBytes": 14227608,
+      "multiAtlas": true
     },
     {
       "id": "lindenhafen-parcel-vendor",
@@ -1052,10 +1011,11 @@
       "key": "character-cast-lindenhafen-parcel-vendor",
       "image": "/assets/character-cast/lindenhafen-parcel-vendor.webp",
       "atlas": "/assets/character-cast/lindenhafen-parcel-vendor.atlas.json",
-      "atlasSha256": "65e5e6dee35a7cad4940b03d897fab0843a4c8b1140a183d52e6e1ed33493db1",
-      "sha256": "84b7dfd1d499e4d05eed63fe9b3bc34b0f4fa88bdb82424583ec78655faea5b0",
+      "atlasSha256": "3b753b4cab9048c6281bc6f4cb7bf57d72cd202564ae20e5ea002751ee84d873",
+      "sha256": "5e7e3dc31b218ec75c818f95930586875196d19affd2691bf1782625c050958d",
       "recipeSha256": "abbb3763bc8ac69a5d863d1aca98a33d5e7bb77e448d937a56accd8e02a5c144",
-      "textureBytes": 14953040
+      "textureBytes": 14227608,
+      "multiAtlas": true
     },
     {
       "id": "lindenhafen-promenade-reader",
@@ -1098,10 +1058,11 @@
       "key": "character-cast-lindenhafen-promenade-reader",
       "image": "/assets/character-cast/lindenhafen-promenade-reader.webp",
       "atlas": "/assets/character-cast/lindenhafen-promenade-reader.atlas.json",
-      "atlasSha256": "65e5e6dee35a7cad4940b03d897fab0843a4c8b1140a183d52e6e1ed33493db1",
-      "sha256": "70b23131f79c4782f5fef47e232d08429fd7a0d49d3c3dcd5bdafef2562d60ad",
+      "atlasSha256": "456a143d8e4ced31df58a77a0b54927dbbd1c42543327b539a5aa9a4756f2897",
+      "sha256": "9157b4b09d8ce73de0035074d261c8d0faf5bcde2ace2f4e45193bd7bfa3b852",
       "recipeSha256": "2b0cf00914368e66ae70caf117bf9d8f21af6987e91f10a464529ba667d1b7cc",
-      "textureBytes": 14953040
+      "textureBytes": 14227608,
+      "multiAtlas": true
     },
     {
       "id": "lindenhafen-garden-keeper",
@@ -1144,10 +1105,11 @@
       "key": "character-cast-lindenhafen-garden-keeper",
       "image": "/assets/character-cast/lindenhafen-garden-keeper.webp",
       "atlas": "/assets/character-cast/lindenhafen-garden-keeper.atlas.json",
-      "atlasSha256": "65e5e6dee35a7cad4940b03d897fab0843a4c8b1140a183d52e6e1ed33493db1",
-      "sha256": "ef27139965d12703cb165ba5c949470d05564deca65cf6257865d47b03fbbbf2",
+      "atlasSha256": "73ce4e285d2c7ca6620745e7c7da74c6413522f04118277b619ab04254b6442a",
+      "sha256": "67d1e8d9fb62880c253933f28929e239cfd0a72104456965946cffd2620b5bf8",
       "recipeSha256": "707ff6320ce9dad23c754784750a24a928f0b0204f3866254040f0b1f2986320",
-      "textureBytes": 14953040
+      "textureBytes": 14227608,
+      "multiAtlas": true
     },
     {
       "id": "lindenhafen-harbor-repairer",
@@ -1190,10 +1152,11 @@
       "key": "character-cast-lindenhafen-harbor-repairer",
       "image": "/assets/character-cast/lindenhafen-harbor-repairer.webp",
       "atlas": "/assets/character-cast/lindenhafen-harbor-repairer.atlas.json",
-      "atlasSha256": "65e5e6dee35a7cad4940b03d897fab0843a4c8b1140a183d52e6e1ed33493db1",
-      "sha256": "84b7dfd1d499e4d05eed63fe9b3bc34b0f4fa88bdb82424583ec78655faea5b0",
+      "atlasSha256": "36d66b9c466b53f1d803adccf26ff6c6c59de6f9ca3ccb7fc49614dc6bc01cb6",
+      "sha256": "5e7e3dc31b218ec75c818f95930586875196d19affd2691bf1782625c050958d",
       "recipeSha256": "abbb3763bc8ac69a5d863d1aca98a33d5e7bb77e448d937a56accd8e02a5c144",
-      "textureBytes": 14953040
+      "textureBytes": 14227608,
+      "multiAtlas": true
     },
     {
       "id": "lindenhafen-quay-reader",
@@ -1236,10 +1199,11 @@
       "key": "character-cast-lindenhafen-quay-reader",
       "image": "/assets/character-cast/lindenhafen-quay-reader.webp",
       "atlas": "/assets/character-cast/lindenhafen-quay-reader.atlas.json",
-      "atlasSha256": "65e5e6dee35a7cad4940b03d897fab0843a4c8b1140a183d52e6e1ed33493db1",
-      "sha256": "b9f08762963b0996d72a37a8ecce490c6fccb3184bfa2a4d70fb36b7c3b57f7a",
+      "atlasSha256": "7436fb09cb4e3d63ab3a547e89870843d5b9df48823ebc0dab197c2ca7122b7e",
+      "sha256": "371f167a4bef8a1a1fa435877e2a2d5e08139b18674bb20def5b205e5a888944",
       "recipeSha256": "7ab7011f8c14f352b705aabab6ab11db103ad1efaaac874602f6d0280554674a",
-      "textureBytes": 14953040
+      "textureBytes": 14227608,
+      "multiAtlas": true
     },
     {
       "id": "lindenhafen-library-keeper",
@@ -1282,19 +1246,21 @@
       "key": "character-cast-lindenhafen-library-keeper",
       "image": "/assets/character-cast/lindenhafen-library-keeper.webp",
       "atlas": "/assets/character-cast/lindenhafen-library-keeper.atlas.json",
-      "atlasSha256": "65e5e6dee35a7cad4940b03d897fab0843a4c8b1140a183d52e6e1ed33493db1",
-      "sha256": "70b23131f79c4782f5fef47e232d08429fd7a0d49d3c3dcd5bdafef2562d60ad",
+      "atlasSha256": "d127d2bf912c07fd04512e9c8593421cdbe7c15b0f2297401f69a3321686aaef",
+      "sha256": "9157b4b09d8ce73de0035074d261c8d0faf5bcde2ace2f4e45193bd7bfa3b852",
       "recipeSha256": "2b0cf00914368e66ae70caf117bf9d8f21af6987e91f10a464529ba667d1b7cc",
-      "textureBytes": 14953040,
+      "textureBytes": 14227608,
+      "multiAtlas": true,
       "poses": {
         "wave": {
           "key": "character-cast-lindenhafen-library-keeper-wave",
           "image": "/assets/character-cast/poses/wave/lindenhafen-library-keeper.webp",
           "atlas": "/assets/character-cast/poses/wave/lindenhafen-library-keeper.atlas.json",
-          "atlasSha256": "2a4c1679ae3187ba2124de85e5a00cabec6f35f4efc2a71a163d4331ea687c80",
-          "sha256": "2c3859a79b9a7a45e8cfe36ebea6688feae4ef1cdd44c8f4158196913390fdc3",
+          "atlasSha256": "0002c0ba5e0b0f1ac41d8b70a85c1711c149c5cdb797da716d132e8729a96793",
+          "sha256": "121eb4a5678c4bf3e13e05966fdb841ff272a1ed2e29f9cae9e123886f52dfc0",
           "recipeSha256": "2b0cf00914368e66ae70caf117bf9d8f21af6987e91f10a464529ba667d1b7cc",
-          "textureBytes": 10811136,
+          "textureBytes": 14044076,
+          "multiAtlas": true,
           "frameDurations": [
             650,
             160,
@@ -1350,10 +1316,11 @@
       "key": "character-cast-lindenhafen-orchard-keeper",
       "image": "/assets/character-cast/lindenhafen-orchard-keeper.webp",
       "atlas": "/assets/character-cast/lindenhafen-orchard-keeper.atlas.json",
-      "atlasSha256": "65e5e6dee35a7cad4940b03d897fab0843a4c8b1140a183d52e6e1ed33493db1",
-      "sha256": "ef27139965d12703cb165ba5c949470d05564deca65cf6257865d47b03fbbbf2",
+      "atlasSha256": "d72de79d4c878d4fbad112ad6327fa82a28dda3b7a4ba7bf785450cfb7d5ddcb",
+      "sha256": "67d1e8d9fb62880c253933f28929e239cfd0a72104456965946cffd2620b5bf8",
       "recipeSha256": "707ff6320ce9dad23c754784750a24a928f0b0204f3866254040f0b1f2986320",
-      "textureBytes": 14953040
+      "textureBytes": 14227608,
+      "multiAtlas": true
     },
     {
       "id": "lindenhafen-ferry-attendant",
@@ -1396,19 +1363,21 @@
       "key": "character-cast-lindenhafen-ferry-attendant",
       "image": "/assets/character-cast/lindenhafen-ferry-attendant.webp",
       "atlas": "/assets/character-cast/lindenhafen-ferry-attendant.atlas.json",
-      "atlasSha256": "65e5e6dee35a7cad4940b03d897fab0843a4c8b1140a183d52e6e1ed33493db1",
-      "sha256": "b9f08762963b0996d72a37a8ecce490c6fccb3184bfa2a4d70fb36b7c3b57f7a",
+      "atlasSha256": "ba485f0b14cc828afa4226b887da146e70927d010b30f33bac1f2727cfc55f3b",
+      "sha256": "371f167a4bef8a1a1fa435877e2a2d5e08139b18674bb20def5b205e5a888944",
       "recipeSha256": "7ab7011f8c14f352b705aabab6ab11db103ad1efaaac874602f6d0280554674a",
-      "textureBytes": 14953040,
+      "textureBytes": 14227608,
+      "multiAtlas": true,
       "poses": {
         "wave": {
           "key": "character-cast-lindenhafen-ferry-attendant-wave",
           "image": "/assets/character-cast/poses/wave/lindenhafen-ferry-attendant.webp",
           "atlas": "/assets/character-cast/poses/wave/lindenhafen-ferry-attendant.atlas.json",
-          "atlasSha256": "2a4c1679ae3187ba2124de85e5a00cabec6f35f4efc2a71a163d4331ea687c80",
-          "sha256": "f6b5192657a9953c8600a2890a47d329a772ca6eb488e1d668d69f5b79a68709",
+          "atlasSha256": "52138a516a0639123926f7ec9050038eb1a9c674eb8384a11eda365bb5bfbf5f",
+          "sha256": "7ef4cce6ab4bf1042f17a111ba8fb5a9a885d62f4bdf14295144de889d590195",
           "recipeSha256": "7ab7011f8c14f352b705aabab6ab11db103ad1efaaac874602f6d0280554674a",
-          "textureBytes": 10811136,
+          "textureBytes": 14044076,
+          "multiAtlas": true,
           "frameDurations": [
             650,
             160,
@@ -1464,10 +1433,11 @@
       "key": "character-cast-lindenhafen-island-reader",
       "image": "/assets/character-cast/lindenhafen-island-reader.webp",
       "atlas": "/assets/character-cast/lindenhafen-island-reader.atlas.json",
-      "atlasSha256": "65e5e6dee35a7cad4940b03d897fab0843a4c8b1140a183d52e6e1ed33493db1",
-      "sha256": "70b23131f79c4782f5fef47e232d08429fd7a0d49d3c3dcd5bdafef2562d60ad",
+      "atlasSha256": "3f37a0a4c61cae0c4030411e45c728821d7dc0f042137ae4f4ef7695f4be67b6",
+      "sha256": "9157b4b09d8ce73de0035074d261c8d0faf5bcde2ace2f4e45193bd7bfa3b852",
       "recipeSha256": "2b0cf00914368e66ae70caf117bf9d8f21af6987e91f10a464529ba667d1b7cc",
-      "textureBytes": 14953040
+      "textureBytes": 14227608,
+      "multiAtlas": true
     },
     {
       "id": "lindenhafen-riverside-vendor",
@@ -1510,19 +1480,21 @@
       "key": "character-cast-lindenhafen-riverside-vendor",
       "image": "/assets/character-cast/lindenhafen-riverside-vendor.webp",
       "atlas": "/assets/character-cast/lindenhafen-riverside-vendor.atlas.json",
-      "atlasSha256": "65e5e6dee35a7cad4940b03d897fab0843a4c8b1140a183d52e6e1ed33493db1",
-      "sha256": "84b7dfd1d499e4d05eed63fe9b3bc34b0f4fa88bdb82424583ec78655faea5b0",
+      "atlasSha256": "7417736cbc95c46a0f02a8e28ff90d0ee04c4e0e1f736715e4eda11177a94368",
+      "sha256": "5e7e3dc31b218ec75c818f95930586875196d19affd2691bf1782625c050958d",
       "recipeSha256": "abbb3763bc8ac69a5d863d1aca98a33d5e7bb77e448d937a56accd8e02a5c144",
-      "textureBytes": 14953040,
+      "textureBytes": 14227608,
+      "multiAtlas": true,
       "poses": {
         "wave": {
           "key": "character-cast-lindenhafen-riverside-vendor-wave",
           "image": "/assets/character-cast/poses/wave/lindenhafen-riverside-vendor.webp",
           "atlas": "/assets/character-cast/poses/wave/lindenhafen-riverside-vendor.atlas.json",
-          "atlasSha256": "2a4c1679ae3187ba2124de85e5a00cabec6f35f4efc2a71a163d4331ea687c80",
-          "sha256": "660d6e4ca4457a7d2d55657c6e6137404b82b752f34c3cd1f7831812e686683e",
+          "atlasSha256": "5f21df152f05304c30956694f182c887f3381d4a8ff36782979a904823e5c340",
+          "sha256": "cc8b80a51c739a70ea041bc44435aeace1a01a7cd3c860f6405a74d73c777d39",
           "recipeSha256": "abbb3763bc8ac69a5d863d1aca98a33d5e7bb77e448d937a56accd8e02a5c144",
-          "textureBytes": 10811136,
+          "textureBytes": 14044076,
+          "multiAtlas": true,
           "frameDurations": [
             650,
             160,
@@ -1578,10 +1550,11 @@
       "key": "character-cast-lindenhafen-workyard-keeper",
       "image": "/assets/character-cast/lindenhafen-workyard-keeper.webp",
       "atlas": "/assets/character-cast/lindenhafen-workyard-keeper.atlas.json",
-      "atlasSha256": "65e5e6dee35a7cad4940b03d897fab0843a4c8b1140a183d52e6e1ed33493db1",
-      "sha256": "ef27139965d12703cb165ba5c949470d05564deca65cf6257865d47b03fbbbf2",
+      "atlasSha256": "56c09b2873fb0ad8b987e0aa528da443104ff87e5a7fc60019b18c6af72d0843",
+      "sha256": "67d1e8d9fb62880c253933f28929e239cfd0a72104456965946cffd2620b5bf8",
       "recipeSha256": "707ff6320ce9dad23c754784750a24a928f0b0204f3866254040f0b1f2986320",
-      "textureBytes": 14953040
+      "textureBytes": 14227608,
+      "multiAtlas": true
     },
     {
       "id": "waldruh-supply-keeper",
@@ -1624,19 +1597,21 @@
       "key": "character-cast-waldruh-supply-keeper",
       "image": "/assets/character-cast/waldruh-supply-keeper.webp",
       "atlas": "/assets/character-cast/waldruh-supply-keeper.atlas.json",
-      "atlasSha256": "65e5e6dee35a7cad4940b03d897fab0843a4c8b1140a183d52e6e1ed33493db1",
-      "sha256": "84b7dfd1d499e4d05eed63fe9b3bc34b0f4fa88bdb82424583ec78655faea5b0",
+      "atlasSha256": "19d858356f18c033fffda3f17e64d1058d60be5060f959369f63f7c34dd5f43f",
+      "sha256": "5e7e3dc31b218ec75c818f95930586875196d19affd2691bf1782625c050958d",
       "recipeSha256": "abbb3763bc8ac69a5d863d1aca98a33d5e7bb77e448d937a56accd8e02a5c144",
-      "textureBytes": 14953040,
+      "textureBytes": 14227608,
+      "multiAtlas": true,
       "poses": {
         "wave": {
           "key": "character-cast-waldruh-supply-keeper-wave",
           "image": "/assets/character-cast/poses/wave/waldruh-supply-keeper.webp",
           "atlas": "/assets/character-cast/poses/wave/waldruh-supply-keeper.atlas.json",
-          "atlasSha256": "2a4c1679ae3187ba2124de85e5a00cabec6f35f4efc2a71a163d4331ea687c80",
-          "sha256": "660d6e4ca4457a7d2d55657c6e6137404b82b752f34c3cd1f7831812e686683e",
+          "atlasSha256": "a05dbf49337e2fb73494bfba802584a8f5a80a28d25693e13403b630afd15719",
+          "sha256": "cc8b80a51c739a70ea041bc44435aeace1a01a7cd3c860f6405a74d73c777d39",
           "recipeSha256": "abbb3763bc8ac69a5d863d1aca98a33d5e7bb77e448d937a56accd8e02a5c144",
-          "textureBytes": 10811136,
+          "textureBytes": 14044076,
+          "multiAtlas": true,
           "frameDurations": [
             650,
             160,
@@ -1692,10 +1667,11 @@
       "key": "character-cast-waldruh-yard-courier",
       "image": "/assets/character-cast/waldruh-yard-courier.webp",
       "atlas": "/assets/character-cast/waldruh-yard-courier.atlas.json",
-      "atlasSha256": "65e5e6dee35a7cad4940b03d897fab0843a4c8b1140a183d52e6e1ed33493db1",
-      "sha256": "b9f08762963b0996d72a37a8ecce490c6fccb3184bfa2a4d70fb36b7c3b57f7a",
+      "atlasSha256": "b6b5424390fdcc5521180ea3b3051a163280a4a54af2a991f0ffde4f5e3585cf",
+      "sha256": "371f167a4bef8a1a1fa435877e2a2d5e08139b18674bb20def5b205e5a888944",
       "recipeSha256": "7ab7011f8c14f352b705aabab6ab11db103ad1efaaac874602f6d0280554674a",
-      "textureBytes": 14953040
+      "textureBytes": 14227608,
+      "multiAtlas": true
     },
     {
       "id": "saffroncourt-salma",
@@ -1738,10 +1714,11 @@
       "key": "character-cast-saffroncourt-salma",
       "image": "/assets/character-cast/saffroncourt-salma.webp",
       "atlas": "/assets/character-cast/saffroncourt-salma.atlas.json",
-      "atlasSha256": "30bd59c044323df572aad12883f6be5a06977a1bd4fc6ffca96ffe9855e58df6",
-      "sha256": "7da25c327bcde789b206f27c535bf36e988429926ac20bbaf28172a159f3b7cb",
+      "atlasSha256": "6000eaa11158f1a48b514f3a6d95edd28a1c3679186d15b116ca76ba77ffb687",
+      "sha256": "81ed9ec955ce96c28aff21ebc5bf6278a82fda2ad7be14b7316424056bbd1e7d",
       "recipeSha256": "9cbfa27cd26a49bc004f45eaa237a5948bea2af99651a5a57c0cddf1921273ab",
-      "textureBytes": 14915612
+      "textureBytes": 14454192,
+      "multiAtlas": true
     },
     {
       "id": "saffroncourt-youssef",
@@ -1784,10 +1761,11 @@
       "key": "character-cast-saffroncourt-youssef",
       "image": "/assets/character-cast/saffroncourt-youssef.webp",
       "atlas": "/assets/character-cast/saffroncourt-youssef.atlas.json",
-      "atlasSha256": "413116153e36aec0a8e55b7172a094b5b9b8f2f96e0f00296370d3f6b2098da2",
-      "sha256": "f60f83fa92f99d4c7bbc97c14affc7402896412237cec7f177909b197e8e3eb3",
+      "atlasSha256": "dffdd74a1486d8c2186185e910bf2f83116afa16d8b27bfd2351ef6a5274711c",
+      "sha256": "8ea39b4aa4511dbf81f7a9cfc9af043015086e9733383beb46b7589bfdf2109a",
       "recipeSha256": "f06280122debd2495cf72d65cfca535721f5bf42aa40d2db1b5c87297dc5c189",
-      "textureBytes": 14698076
+      "textureBytes": 14755076,
+      "multiAtlas": true
     },
     {
       "id": "saffroncourt-amina",
@@ -1830,10 +1808,11 @@
       "key": "character-cast-saffroncourt-amina",
       "image": "/assets/character-cast/saffroncourt-amina.webp",
       "atlas": "/assets/character-cast/saffroncourt-amina.atlas.json",
-      "atlasSha256": "a6b2f323bdc36a51c3537879acb304a6aea198de45e1010ce8e17bb3d0977411",
-      "sha256": "ecca73b003ad02fee681893d631329172e39c21cba08ddc0b7247f162f25c1e9",
+      "atlasSha256": "3dba975dce8593dd403155183b69832dc518522cfc814b74f8145867cf9fb80d",
+      "sha256": "a859a184a63e015875902d5d4016927340dd766fee023da6e7b716823b1ae147",
       "recipeSha256": "f379b03568e16c6d2d17a1f55678e79f50c5824e6260647b81139ed9de73b2ab",
-      "textureBytes": 14717120
+      "textureBytes": 14050840,
+      "multiAtlas": true
     },
     {
       "id": "saffroncourt-idriss",
@@ -1876,10 +1855,11 @@
       "key": "character-cast-saffroncourt-idriss",
       "image": "/assets/character-cast/saffroncourt-idriss.webp",
       "atlas": "/assets/character-cast/saffroncourt-idriss.atlas.json",
-      "atlasSha256": "0e99ee0542783f44978507dc829755b8e0f7aac1e4898bce57e23bd9bb69937a",
-      "sha256": "2fdc3e8387bd95fb76d69de5a80d938e21855f751bed84c45e0c44f6d45f6383",
+      "atlasSha256": "7742fec291dd13315cfe132f61381ffe56b3de26ca424c618847ef5d1535e293",
+      "sha256": "fb455b3628cd9a2562eff3611c70569d3b48234c1a8a27a9c301ac80cab01095",
       "recipeSha256": "d7ef5c6752ad015dcc738afc3de09a2b50433119fe68e06477eb7d027fa7dfc0",
-      "textureBytes": 14939272
+      "textureBytes": 13639700,
+      "multiAtlas": true
     },
     {
       "id": "saffroncourt-leila",
@@ -1922,10 +1902,11 @@
       "key": "character-cast-saffroncourt-leila",
       "image": "/assets/character-cast/saffroncourt-leila.webp",
       "atlas": "/assets/character-cast/saffroncourt-leila.atlas.json",
-      "atlasSha256": "fa7183de92e5688ea51aff6c938f9dc6ac519aa8d848c99f810e0bc1cfbaae93",
-      "sha256": "5994e529fce43d3fd2171cb520bd561d1b7dcfc09257de6750e998a806387b3c",
+      "atlasSha256": "4919d05322b7203fe785574354e326f37bf0a4853814d4fe0ceead8028497be3",
+      "sha256": "2dbb24a0a587b1b7073578df1ce33176d8f08778aa3bc90f9711c6979c2efac8",
       "recipeSha256": "5f18f51be95b3692777115cc282273424f4cf00216a2dde1c3e7d173e35c239d",
-      "textureBytes": 14654612
+      "textureBytes": 14726052,
+      "multiAtlas": true
     },
     {
       "id": "saffroncourt-karim",
@@ -1968,10 +1949,11 @@
       "key": "character-cast-saffroncourt-karim",
       "image": "/assets/character-cast/saffroncourt-karim.webp",
       "atlas": "/assets/character-cast/saffroncourt-karim.atlas.json",
-      "atlasSha256": "8238bdc5f9d49166601e1c9cdba2e8e067c5ee2eeb2b352802ea6b59769b456d",
-      "sha256": "956c4a34074fbbe43bc067c027eec86372558fc3ba0f788ca5550bbe17d0d196",
+      "atlasSha256": "80c7052b67de4993831ce0569c76143b4746958029c6ce129e04f5c388f6ac14",
+      "sha256": "0f7a431e8e4281ba2428fc80d1a91b991b7266cd9a8236ac2e989c59791bfe5e",
       "recipeSha256": "818b69323c52300ea5273fbfc38e6314ff904969075dfb381416521f4275d93c",
-      "textureBytes": 14098752
+      "textureBytes": 13387332,
+      "multiAtlas": true
     },
     {
       "id": "saffroncourt-nour",
@@ -2014,8 +1996,8 @@
       "key": "character-cast-saffroncourt-nour",
       "image": "/assets/character-cast/saffroncourt-nour.webp",
       "atlas": "/assets/character-cast/saffroncourt-nour.atlas.json",
-      "atlasSha256": "aef497cdbf5e40f7561cae4592c359d61264429ce87b0c3c14e4f865e361b745",
-      "sha256": "ba93d748d6240d9aeac32cf044b3e9bb61563a2ba9f5f5b2e9fea29ad030859c",
+      "atlasSha256": "3f40eff391ab13b3c014249384c610261e4f1723e33ce22aa3c70e1657eb28ce",
+      "sha256": "c8f6d24bdcd16d296fc363cc3148de4195454fb5c2253cb440edcf00ce5e6715",
       "recipeSha256": "03f45892c63cbe6ab4acd8ef13aaf5896a5405c6465127070e40778c68ca3f4e",
       "textureBytes": 14351292,
       "multiAtlas": true
@@ -2061,10 +2043,11 @@
       "key": "character-cast-saffroncourt-sami",
       "image": "/assets/character-cast/saffroncourt-sami.webp",
       "atlas": "/assets/character-cast/saffroncourt-sami.atlas.json",
-      "atlasSha256": "22c75a491d2f7412a861207a6ae75ad499d962b9dcdfbcfaf88b158da1344359",
-      "sha256": "13a503f23b5968ef649f45992ce3b20a8c1e6712e7d390e5a12cb858b3f6af46",
+      "atlasSha256": "38eaded829494ad7494f5df466f2461a27abb8ebe711ad05804c9059a56415fd",
+      "sha256": "9336347841b116e493d5999419e22845cc2025d7e08d3769b953f1e502d97025",
       "recipeSha256": "0ef51e33be9aeae58604ee234c034a2caaef66cb9d539aafec9f7d1997bbeec0",
-      "textureBytes": 13978440
+      "textureBytes": 14103360,
+      "multiAtlas": true
     },
     {
       "id": "saffroncourt-resident-0",
@@ -2107,10 +2090,11 @@
       "key": "character-cast-saffroncourt-resident-0",
       "image": "/assets/character-cast/saffroncourt-resident-0.webp",
       "atlas": "/assets/character-cast/saffroncourt-resident-0.atlas.json",
-      "atlasSha256": "f3dd37d13353e6bfd5f4fb3bd28ff43942d193bc16f83db685d6267197d1b1ca",
-      "sha256": "18919853665a648e4ebd316136e2c55baa95221371145a993aaecc239a851cc6",
+      "atlasSha256": "e0b25d3640b5eeeb33148c22d14cd6adf6f3efab3cd865a717dd369f85f82e28",
+      "sha256": "bcbb19bf6b5f25a76022fff7022955f75c21115f4e56b6d76c4e40a889ed61cb",
       "recipeSha256": "c2f7b2ae2317881a01829deb5f093ad64222db92f5394ac048568e5a457ee41c",
-      "textureBytes": 14726160
+      "textureBytes": 13832128,
+      "multiAtlas": true
     },
     {
       "id": "saffroncourt-resident-1",
@@ -2153,10 +2137,11 @@
       "key": "character-cast-saffroncourt-resident-1",
       "image": "/assets/character-cast/saffroncourt-resident-1.webp",
       "atlas": "/assets/character-cast/saffroncourt-resident-1.atlas.json",
-      "atlasSha256": "5c4fb3fc12bfc15388a6deadaeaa775db45fff84b151878ad0527466a03ef6c5",
-      "sha256": "840e0fac6a68211784bd7ea662441a15fb18d353e66c6b48d3bb985007a577b0",
+      "atlasSha256": "5f52b2fdeee53bbc3bc61f110cc7c931e05e7614ee093396e1ba0bd81dc16c28",
+      "sha256": "cf53a423bc86f1fb9e3d87b827bc03f582bbff2d8ca896a342e35b2687931cec",
       "recipeSha256": "96a7469891b878212ea7b3e0a1ab3a9a243fba67ec85a9d4d634e27c18119ec4",
-      "textureBytes": 13891752
+      "textureBytes": 14031000,
+      "multiAtlas": true
     },
     {
       "id": "saffroncourt-resident-2",
@@ -2199,10 +2184,11 @@
       "key": "character-cast-saffroncourt-resident-2",
       "image": "/assets/character-cast/saffroncourt-resident-2.webp",
       "atlas": "/assets/character-cast/saffroncourt-resident-2.atlas.json",
-      "atlasSha256": "0c4b56206c36c6c0112d12c7d36fc8e9bd3f6b28c09ea477f641e517bdba5dea",
-      "sha256": "eafd1ec0ebed69dcd8d68d7dd9be7884153e83777024c5e28d810fe6f40f364b",
+      "atlasSha256": "9ac061a4f69df51bdff451a2460d4e30a22a32d58a21bcfc42239d2e5cc26c79",
+      "sha256": "7205ea22de4d173cbfdaa8f0810d6238b867f8ffcc6d96bb43e5695b40ea31fd",
       "recipeSha256": "bfed1100fb89edda2fc7e3567f203d94f2f48795c863367ad6617001b7485e63",
-      "textureBytes": 14402364
+      "textureBytes": 14493812,
+      "multiAtlas": true
     },
     {
       "id": "saffroncourt-resident-3",
@@ -2245,10 +2231,11 @@
       "key": "character-cast-saffroncourt-resident-3",
       "image": "/assets/character-cast/saffroncourt-resident-3.webp",
       "atlas": "/assets/character-cast/saffroncourt-resident-3.atlas.json",
-      "atlasSha256": "0cb93a2825ea28c4d0481ad180d92d69d184ac4f6f29d0079f92972edb743602",
-      "sha256": "f4ff70dedbb5ae58a48bd865321e447df136c4c5ed6b5189b1d70138ecc70394",
+      "atlasSha256": "6ace36dc2fcd505a5b4b2d84d1d20428288f0519345a60e8b0813a6d6a3346ed",
+      "sha256": "4221af2a867d73cbf9e98b678738c6a40fdb82cf8ecd0f099806f6cd717e71c7",
       "recipeSha256": "2f7864e6b9c0e9a61bf4902aed631196918c4782a6d4d197159a19e2d39310ee",
-      "textureBytes": 14654612
+      "textureBytes": 14707912,
+      "multiAtlas": true
     },
     {
       "id": "saffroncourt-resident-4",
@@ -2291,10 +2278,11 @@
       "key": "character-cast-saffroncourt-resident-4",
       "image": "/assets/character-cast/saffroncourt-resident-4.webp",
       "atlas": "/assets/character-cast/saffroncourt-resident-4.atlas.json",
-      "atlasSha256": "7e5f028e16d6e3fd3d4b50bc04766002cba8fa6570e61c12e79f8cc0a31a682e",
-      "sha256": "32aab2175948ab593f277c29ed2943c6f23424979e2a86d681fe04bbc0e3d974",
+      "atlasSha256": "c86a67a9565402f7ccd6a27f3f59b3f8d1de6c5c77582fc42318e72954f363ea",
+      "sha256": "5a19c57424866ad8bd4b0fb00ccd5bbad3966e381848e7166c4c16cf96cc4fca",
       "recipeSha256": "8a7178d43557e66549b48f62335d8bd59484b7b5145f0ef7656bde8a77002b5e",
-      "textureBytes": 14072916
+      "textureBytes": 13816080,
+      "multiAtlas": true
     },
     {
       "id": "saffroncourt-resident-5",
@@ -2337,10 +2325,11 @@
       "key": "character-cast-saffroncourt-resident-5",
       "image": "/assets/character-cast/saffroncourt-resident-5.webp",
       "atlas": "/assets/character-cast/saffroncourt-resident-5.atlas.json",
-      "atlasSha256": "697f120feada42b9594db0f300bafa2ce23ddba8e693634f91389e04e413101f",
-      "sha256": "1c88e43d10b145217f5ba005556ef9e3b2dfd99e3562983ba9f5d3096b1d8219",
+      "atlasSha256": "00e9ee5472e5865f0c6c57cdb09162455300dad272e87e6b0674c4a9f5dda658",
+      "sha256": "d72a745ff6f8416f04673c145c099df3eecf2ea938341ca47c9a152c9522d50f",
       "recipeSha256": "0e6a835b8d13378032d43061e7c82c62d29704eb90e584db74780ec97950bcd3",
-      "textureBytes": 14236488
+      "textureBytes": 13842532,
+      "multiAtlas": true
     },
     {
       "id": "saffroncourt-resident-6",
@@ -2383,10 +2372,11 @@
       "key": "character-cast-saffroncourt-resident-6",
       "image": "/assets/character-cast/saffroncourt-resident-6.webp",
       "atlas": "/assets/character-cast/saffroncourt-resident-6.atlas.json",
-      "atlasSha256": "489479cb9fa944994c897455a0f3a3b18e7918b64f78364a0c69e8b49563577a",
-      "sha256": "5fdec675ed6a0f4b8daee74397e023d4ffe0b0822db22def401cf01424d8e7ee",
+      "atlasSha256": "bd32bcc84b6673ded65f3df51a3253b9b2af16cc9e2c593dec76292248597e50",
+      "sha256": "10edb6b6c71e2a78923d65c0c791db98d0472faf561ca2d3f228b55a39efb794",
       "recipeSha256": "790a7bdeacd26d1379af66483397c30dcbee9ef3d8d7c6ad2e217ddf6798d9ed",
-      "textureBytes": 14736960
+      "textureBytes": 14028504,
+      "multiAtlas": true
     },
     {
       "id": "saffroncourt-resident-7",
@@ -2429,10 +2419,11 @@
       "key": "character-cast-saffroncourt-resident-7",
       "image": "/assets/character-cast/saffroncourt-resident-7.webp",
       "atlas": "/assets/character-cast/saffroncourt-resident-7.atlas.json",
-      "atlasSha256": "7035afff1d68dcc7c47a25fd10e41afdc41d2ea689bb56eaab70c34a70e50f1b",
-      "sha256": "d67309b6582838e9d4a03f9d7a7be7771c5ffcb4557c54ec1e5d2532b5906f94",
+      "atlasSha256": "3ec9bfd180935e25829ad38041caed116a69bbc31fed025eea4bfdb5c089d4b1",
+      "sha256": "696d0c422a3e9c5b06a87cf934bb7220b7654205cdc2a895e50dadb8ee6122dc",
       "recipeSha256": "53faca2940f09b726a0178c7451488419a22b7abf2155e40a2f29b35949791cb",
-      "textureBytes": 14370696
+      "textureBytes": 13136180,
+      "multiAtlas": true
     },
     {
       "id": "rainmarket-haru",
@@ -2475,10 +2466,11 @@
       "key": "character-cast-rainmarket-haru",
       "image": "/assets/character-cast/rainmarket-haru.webp",
       "atlas": "/assets/character-cast/rainmarket-haru.atlas.json",
-      "atlasSha256": "6faccdc18ec5914d477d71122927b4fa05eaa790c7f107ed168209a14beb0e29",
-      "sha256": "311d38ef897d51a8b7acb1e6d77dcba03c4ce48dd2e9e24e7e533ef71f58eab4",
+      "atlasSha256": "6c17e4fda7a72f44a95c585e7cfab9762bc2ab5eefe48900609ec678fe47485d",
+      "sha256": "3560363746dee15e20609870a05dbd741e1f94c65e970fbfaff99ffe4616971d",
       "recipeSha256": "f02bc54692007187d955c851b3993ea3aa9207f2cab078c72a13c6c36abea959",
-      "textureBytes": 14786520
+      "textureBytes": 14514056,
+      "multiAtlas": true
     },
     {
       "id": "rainmarket-aiko",
@@ -2521,10 +2513,11 @@
       "key": "character-cast-rainmarket-aiko",
       "image": "/assets/character-cast/rainmarket-aiko.webp",
       "atlas": "/assets/character-cast/rainmarket-aiko.atlas.json",
-      "atlasSha256": "95d5c47bcf8a493cdd1e89c6be83f1909c571d626d4c72429c42bab1f4c0d6a2",
-      "sha256": "a6cf9afd08dc43e873a910e50e767341f56b7a805168157ab07482360b2d26da",
+      "atlasSha256": "e8ed54ad15e0d750cf1a720cf949c9c823f95cbdfe929271bf4223a16d64d08f",
+      "sha256": "2d3c4136feac6ed222e2b00056b0885a3cf469f9ff51a1968531c2abde6b195e",
       "recipeSha256": "bcbe300d6990ba0fa41bc50f35c5bd11292948ddddc69f572c76d64d5c81bf5c",
-      "textureBytes": 14389320
+      "textureBytes": 14525784,
+      "multiAtlas": true
     },
     {
       "id": "rainmarket-jun",
@@ -2567,10 +2560,11 @@
       "key": "character-cast-rainmarket-jun",
       "image": "/assets/character-cast/rainmarket-jun.webp",
       "atlas": "/assets/character-cast/rainmarket-jun.atlas.json",
-      "atlasSha256": "02fa7174ca75343cbe0d878a20ebd6836904dc5686f3fa8bf14ac98e041cf48c",
-      "sha256": "9dcd5a1c019a82ef611c2fe01e0c8db158e8ca5fb86d944ec80849271d2a7e15",
+      "atlasSha256": "9cea9f83594703cc50416acfb2f5e328c777f61eaf00168a067e0096eedb32ab",
+      "sha256": "744a849a26b8c1fb2dc17c2a96b7feab2c63dfef29465e9bf79fac80f3e42cac",
       "recipeSha256": "c276f587836e235b2e6b3671897ff8e903cc09ac573d922b195fa980b0ea90fe",
-      "textureBytes": 14825804
+      "textureBytes": 14428084,
+      "multiAtlas": true
     },
     {
       "id": "rainmarket-mei",
@@ -2613,10 +2607,11 @@
       "key": "character-cast-rainmarket-mei",
       "image": "/assets/character-cast/rainmarket-mei.webp",
       "atlas": "/assets/character-cast/rainmarket-mei.atlas.json",
-      "atlasSha256": "81e1c4f98a37527f6d1894bf6303b9669fabaf055f8ffd2a6288cfdb606a0dcb",
-      "sha256": "ce23aa6a3af54ad9d0f63a029891987103c27d79c798488e87a8defd05ce4b16",
+      "atlasSha256": "62a08afc119d989a30f1d49ec62527930efae25fcc136efe8861ee861d28c67a",
+      "sha256": "94ec2be805d034ab8453cb071d3aa118f619f3fc9615a00fcd7a83f112f5a5eb",
       "recipeSha256": "595a92cab2b6582622f2fcdc1f0991ced89116534af0211d37693b8b41db98cf",
-      "textureBytes": 14835892
+      "textureBytes": 14553808,
+      "multiAtlas": true
     },
     {
       "id": "rainmarket-ren",
@@ -2659,10 +2654,11 @@
       "key": "character-cast-rainmarket-ren",
       "image": "/assets/character-cast/rainmarket-ren.webp",
       "atlas": "/assets/character-cast/rainmarket-ren.atlas.json",
-      "atlasSha256": "23e67a64bb9d160f7c316d2c7e33783149815aa16077d29a88f2742ef8dd6f20",
-      "sha256": "b444708d56ef62e60ec69662792699f9c40415ae2553310f6ee6b1f550726272",
+      "atlasSha256": "7b7ada65832bf0d2e6a4436253622ad2a7cfa3007c5e3a64eeb37c356fdf1a56",
+      "sha256": "19e55b48f06567535372e99c3ac4121f019d378cd36863919ff0fdcecaa98207",
       "recipeSha256": "bd933a4ed00cddaed854e79aba366546b510eefab485e94f35f8020256ec153a",
-      "textureBytes": 14707184
+      "textureBytes": 14394828,
+      "multiAtlas": true
     },
     {
       "id": "rainmarket-sora",
@@ -2705,10 +2701,11 @@
       "key": "character-cast-rainmarket-sora",
       "image": "/assets/character-cast/rainmarket-sora.webp",
       "atlas": "/assets/character-cast/rainmarket-sora.atlas.json",
-      "atlasSha256": "37e358e9ffe6582f7ad859512a6b19adca2de94e1b8e7037565d3fee5da2a22a",
-      "sha256": "5fa7fa5862dbb183796f0d064cc8d174a68e24e57b1df5d34a7357da7f5f7f1a",
+      "atlasSha256": "d034a3192de139f0a3bf30d5e6387fd3c4cda78789983f4d4ad290f2953a2b6a",
+      "sha256": "e03297e43bc63316624215c5f3a26055c1295b4be3957f03430ad5e6f8a09041",
       "recipeSha256": "97fa729cebc9e73e9d5a3acb21dda8443506978602c79dd8a9bd8169b232077e",
-      "textureBytes": 14546736
+      "textureBytes": 13757636,
+      "multiAtlas": true
     },
     {
       "id": "rainmarket-ken",
@@ -2751,10 +2748,11 @@
       "key": "character-cast-rainmarket-ken",
       "image": "/assets/character-cast/rainmarket-ken.webp",
       "atlas": "/assets/character-cast/rainmarket-ken.atlas.json",
-      "atlasSha256": "d69bca4be1b04664b25873ccc046c86bd7e2ab8e59d245d5bb46be7d9c746e03",
-      "sha256": "952e01ca80a546b441045542f26346cfc83b09ee5ed7973f6e7856b97ac3e53e",
+      "atlasSha256": "b56f4715416a33c199230f4703d83195e7c7315c9f8eef71d3c21cb7a39dfff9",
+      "sha256": "8548a2e5cbc9a7b11a6ac80d37b28630b20708bfe7cbb3ffa00455fd16044add",
       "recipeSha256": "265d48954c9a64b639344d61a6b34bc13bffceb825310ac72b5c9c9bc017dcdb",
-      "textureBytes": 14178780
+      "textureBytes": 14445984,
+      "multiAtlas": true
     },
     {
       "id": "rainmarket-yui",
@@ -2797,10 +2795,11 @@
       "key": "character-cast-rainmarket-yui",
       "image": "/assets/character-cast/rainmarket-yui.webp",
       "atlas": "/assets/character-cast/rainmarket-yui.atlas.json",
-      "atlasSha256": "cbd3408b0fd79b199ce3e115f6ecd378b5af64c6c2fc28fc3f8d3f2bf71491f6",
-      "sha256": "4b17cf5d9ff85258e4bb6f39f21317e4c2ac9fd95efaa0ea0db7699fede29fa5",
+      "atlasSha256": "0d735f29e90226e2e629941fd8bc4e60c963614a7ee7bf5398f9eff2d07b3d57",
+      "sha256": "957c1ac453763afe314f0e1c63077ea630ad4425f5ee55caf215c1df3414e808",
       "recipeSha256": "b67173d5aa18b37b33bb3db2d04a14317e71e6a6c3ac511af2e629bb31b7765a",
-      "textureBytes": 14452848
+      "textureBytes": 14558956,
+      "multiAtlas": true
     },
     {
       "id": "rainmarket-resident-0",
@@ -2843,10 +2842,11 @@
       "key": "character-cast-rainmarket-resident-0",
       "image": "/assets/character-cast/rainmarket-resident-0.webp",
       "atlas": "/assets/character-cast/rainmarket-resident-0.atlas.json",
-      "atlasSha256": "9213eb36b8de4dd1b47aefe62972f0b56726fc0096b946bfff819d4a3648c388",
-      "sha256": "f33282803792aa178b8c57cb92ece090ebd66c4e936014f10f1cb59964b47c9d",
+      "atlasSha256": "faf2bd500e442697753d74005046ee81eea74ffe3f0f2f7a33d7602efad30732",
+      "sha256": "ca9d6c5d33ae3727a5851bd1b3fbe3e814fdb58ab10b6bb529c334fa9d0a2d6e",
       "recipeSha256": "c1ad335b2f2f88087d6eda9ffee1538b1a8afbebe23ab87c947ff2279dd1b7d4",
-      "textureBytes": 14727052
+      "textureBytes": 14707912,
+      "multiAtlas": true
     },
     {
       "id": "rainmarket-resident-1",
@@ -2889,8 +2889,8 @@
       "key": "character-cast-rainmarket-resident-1",
       "image": "/assets/character-cast/rainmarket-resident-1.webp",
       "atlas": "/assets/character-cast/rainmarket-resident-1.atlas.json",
-      "atlasSha256": "db0d18f4c90b281d4271b460814167d19e9c36d4bbdfa241a3c9901e681c3c56",
-      "sha256": "d0336a34250aad6117dcdb3e870be82aff19ddecf4ff8084c22708b0edb1cb91",
+      "atlasSha256": "b97caf778bdfdbab280724dffa73cb9aa768ab68fbe3dbae1a7b0c46d3474f28",
+      "sha256": "32516aee5b502830da81c5af194e2f011e8823fceac10a90e2ee860d21725952",
       "recipeSha256": "353a60e18f1ba575caad5ba51a48943759b4910bee1f880819f545b76fbb02c3",
       "textureBytes": 14103372,
       "multiAtlas": true
@@ -2936,10 +2936,11 @@
       "key": "character-cast-rainmarket-resident-2",
       "image": "/assets/character-cast/rainmarket-resident-2.webp",
       "atlas": "/assets/character-cast/rainmarket-resident-2.atlas.json",
-      "atlasSha256": "4f8e118996a6592227754af7b791ac0a5f459a030c29a406a46df59b1095ed9c",
-      "sha256": "1c9b6304053b5a404e5edc376ca3bea8451e17281e148a4905e666fe44a1bc59",
+      "atlasSha256": "d8a7e4495292990e26d237ae3351e3f28c26dca193e3e92cfd5b8d6d854c0aaf",
+      "sha256": "f2bfc09f8ec8e92a36a03087da254238a4abfd4c16cf75fca8d0bc6e2663e2c8",
       "recipeSha256": "b8bcab64d528512d816ca1f4cc674868b3bfb5fefa0e266405b57ef28fb0bb02",
-      "textureBytes": 14708980
+      "textureBytes": 14318424,
+      "multiAtlas": true
     },
     {
       "id": "rainmarket-resident-3",
@@ -2982,10 +2983,11 @@
       "key": "character-cast-rainmarket-resident-3",
       "image": "/assets/character-cast/rainmarket-resident-3.webp",
       "atlas": "/assets/character-cast/rainmarket-resident-3.atlas.json",
-      "atlasSha256": "697f120feada42b9594db0f300bafa2ce23ddba8e693634f91389e04e413101f",
-      "sha256": "a2d70d8b65330f36d71f9d5d4938a4078a2ce5b473c3687909405fc76352ffbf",
+      "atlasSha256": "116f4faa5ba5e6bf5fcef0a73776009acc312a99d9ee0a33adc905ce399511ab",
+      "sha256": "c2acdab5ca791d79d064547aea9e17b54646b19db420833569dda3c044e11c7d",
       "recipeSha256": "5b043c3c91d94e0690bfa815f480608b9b98c294ac7449473f5e83ebdbbd8b3d",
-      "textureBytes": 14236488
+      "textureBytes": 13842532,
+      "multiAtlas": true
     },
     {
       "id": "rainmarket-resident-4",
@@ -3028,10 +3030,11 @@
       "key": "character-cast-rainmarket-resident-4",
       "image": "/assets/character-cast/rainmarket-resident-4.webp",
       "atlas": "/assets/character-cast/rainmarket-resident-4.atlas.json",
-      "atlasSha256": "60582818133ebb1040815f1e5aa8d30a6757846151f655fcf843d91dd9a5d470",
-      "sha256": "cc0bc02d0669fafc4396c4f0a85c426b52d798abbbe2cf01db6feec4ec47d7ac",
+      "atlasSha256": "1d442dab9797b63457c3bd9d5b10157c264e8d3f0a347874034181eb6d64b468",
+      "sha256": "3e2d79b1336274585eb5783bc8f084470b3152957bf4b6cd309c846d1d73f555",
       "recipeSha256": "c5f712c08108c69eab71d6866a1ccdea241ea760f78b72ad7712c0e71f5c629d",
-      "textureBytes": 14570808
+      "textureBytes": 14087952,
+      "multiAtlas": true
     },
     {
       "id": "rainmarket-resident-5",
@@ -3074,10 +3077,11 @@
       "key": "character-cast-rainmarket-resident-5",
       "image": "/assets/character-cast/rainmarket-resident-5.webp",
       "atlas": "/assets/character-cast/rainmarket-resident-5.atlas.json",
-      "atlasSha256": "7035afff1d68dcc7c47a25fd10e41afdc41d2ea689bb56eaab70c34a70e50f1b",
-      "sha256": "5564858b084d6faae6a11650ae7340b33cfe1d777bbf2dc26bd2c49b72cf97d4",
+      "atlasSha256": "96e01efcde9b6a9929395a5d7ac28240b8e288a5fe1ab59fea05abbfe15161fd",
+      "sha256": "bcbdd3bd0c2a80d96189f6f328d30ff0599d63417e2e5a22a33f2b9e690e9719",
       "recipeSha256": "5e4973731112af3a33551fb7d3df988b5fad0fd690db149d1d23c765c7c47473",
-      "textureBytes": 14370696
+      "textureBytes": 13136180,
+      "multiAtlas": true
     },
     {
       "id": "rainmarket-resident-6",
@@ -3120,10 +3124,11 @@
       "key": "character-cast-rainmarket-resident-6",
       "image": "/assets/character-cast/rainmarket-resident-6.webp",
       "atlas": "/assets/character-cast/rainmarket-resident-6.atlas.json",
-      "atlasSha256": "dae1173282bafb25575164b305fbcabf80e0e3ec51984b98a2baa871f818ff49",
-      "sha256": "da04ddef28033579d9f6237f6122ee9529b719090f68f8790699579ec8e76c57",
+      "atlasSha256": "2a53ed4bc45a16ac397cdc87fd34461325ff25e4bf53bdae2f4fe619b3df3353",
+      "sha256": "64053ad350bc17ee42aa4981a6e20485d9bcafdf14d77d2b3b6b4a688d61bb00",
       "recipeSha256": "4b9515132d1b7ef9208e411501d28bebb9c5057c5e3bc017d63420cb689e83b6",
-      "textureBytes": 14759576
+      "textureBytes": 13999512,
+      "multiAtlas": true
     },
     {
       "id": "rainmarket-resident-7",
@@ -3166,10 +3171,11 @@
       "key": "character-cast-rainmarket-resident-7",
       "image": "/assets/character-cast/rainmarket-resident-7.webp",
       "atlas": "/assets/character-cast/rainmarket-resident-7.atlas.json",
-      "atlasSha256": "7df97404fc0fd20570f000ae5d5f7101e3fc510ae007c28a9a14df563c8873d8",
-      "sha256": "1d546ed6cc713025db1f56076bc7a4de3f34ddd3a7d4bd267d0a08885b7c1658",
+      "atlasSha256": "3bca64c1ef46856bd8dca4ee39772c26e10534c644135a3d0bf9a9e9f02e3a75",
+      "sha256": "0ce68c6e9dbdfb51fda0197840cc5dc4ac1f3fd7955557078d584d06670200ab",
       "recipeSha256": "f6f69598c615e769b4821137badc0e65f8cb8945cf6cf7af84a4bc5f01bd76eb",
-      "textureBytes": 13884528
+      "textureBytes": 14027352,
+      "multiAtlas": true
     },
     {
       "id": "windplain-sarnai",
@@ -3212,10 +3218,11 @@
       "key": "character-cast-windplain-sarnai",
       "image": "/assets/character-cast/windplain-sarnai.webp",
       "atlas": "/assets/character-cast/windplain-sarnai.atlas.json",
-      "atlasSha256": "2ea3d77323e81097b24fd84b2fa0ae64944183c995eda5c008deb800295f535e",
-      "sha256": "98678b835a35aae090d55e2b67ac85d6e1818bcc2b6a35831e526a2f27053460",
+      "atlasSha256": "e7abcfd29e9adb666d7706a957d3ab5e13e3d13cff0493a6f1a621045eb0a8fd",
+      "sha256": "e046c0b25514ffc8fb66e45d2c9d5e5afad8cbbb8a7bbddad939e4f13d6022e7",
       "recipeSha256": "81a974116a8a4dde9e3ee35d0adbc2551887e52a0eef5801ee91e61fb3472242",
-      "textureBytes": 13869620
+      "textureBytes": 13915280,
+      "multiAtlas": true
     },
     {
       "id": "windplain-bat",
@@ -3258,10 +3265,11 @@
       "key": "character-cast-windplain-bat",
       "image": "/assets/character-cast/windplain-bat.webp",
       "atlas": "/assets/character-cast/windplain-bat.atlas.json",
-      "atlasSha256": "54d18f3e2c1c668e8a296e69a5792e47d8d0d8b93cddadbde5f9dbdf1476a2b4",
-      "sha256": "1f7c9c790eebdaf6a2eb791cd65153909283c28419389661fa17c3afc9fe2bcd",
+      "atlasSha256": "6e61b9c99d2d80f8cab5e82827617d1545ef6acd3806c99a3e62751c490a05e1",
+      "sha256": "31a74595ecaba65515dd3c578fa9003f6bc0d23cfa9f1ac429dd7be784f5c456",
       "recipeSha256": "22f38c1fd2b56d742e2646b7ef7942036f7a11e9b09df3e53da0b2604286fdcc",
-      "textureBytes": 14490960
+      "textureBytes": 14183196,
+      "multiAtlas": true
     },
     {
       "id": "windplain-tuya",
@@ -3304,8 +3312,8 @@
       "key": "character-cast-windplain-tuya",
       "image": "/assets/character-cast/windplain-tuya.webp",
       "atlas": "/assets/character-cast/windplain-tuya.atlas.json",
-      "atlasSha256": "929969d104dbbdeea2e7e65ce13cfa48b7c932bdaf699a3219d12634a397abeb",
-      "sha256": "46fd70dd0424a24337d86abbb925b769199ef3c72980cbc5369c7195dd4e27cc",
+      "atlasSha256": "de1e5b39cf9d96af82eadf8f43f0456b932c79547bc9918ce20ff8a7d53fca68",
+      "sha256": "c03f62a0f7d900815092064c9197f890905d195d2bec93674c5fbde54d535564",
       "recipeSha256": "4e4cb4ab1284167677c873908f28a5f7652ee99700cbf0fbbb9d29cf40448eeb",
       "textureBytes": 14061656,
       "multiAtlas": true
@@ -3351,10 +3359,11 @@
       "key": "character-cast-windplain-erdene",
       "image": "/assets/character-cast/windplain-erdene.webp",
       "atlas": "/assets/character-cast/windplain-erdene.atlas.json",
-      "atlasSha256": "2ca551db31c431b77da56e6c7c20a89d1d2e02096248dc37e7ac7828b80ebc55",
-      "sha256": "3d17efb3f5734761c2597185aae1213694dfff31dc64e9477439adf3ad6fd8c2",
+      "atlasSha256": "1cb1b5d58dc199340fe5dcd26acbf5a47cea6303da8014ce9ec9d1f37b196eb3",
+      "sha256": "82c46d8770eb6e1264837d478d14362af04751d22612db6ed7d7c65357f5f2f4",
       "recipeSha256": "48b3665bab50cb31c7c15f3f9afedded5dbbf340dd5533e26d0ef65e7cbe05ab",
-      "textureBytes": 14908128
+      "textureBytes": 14439040,
+      "multiAtlas": true
     },
     {
       "id": "windplain-nomin",
@@ -3397,10 +3406,11 @@
       "key": "character-cast-windplain-nomin",
       "image": "/assets/character-cast/windplain-nomin.webp",
       "atlas": "/assets/character-cast/windplain-nomin.atlas.json",
-      "atlasSha256": "965ac79cc3f9520b8988471943f7793b81dab34c9620e654f7470bee9e2460ee",
-      "sha256": "ce59e51d7cf2b96b3a8b19a4ee60a434c7e371ca15d97b209645a7789bc7fed8",
+      "atlasSha256": "1199027edfebf4040c3fded6e9aa0cbb4a2d4fe45d906ade0f34e3b95490b315",
+      "sha256": "54e0c4a608e20d7ee042d3012817bba81fe006e71b8877ed4b2e0a36024b16ec",
       "recipeSha256": "2794fc783401405b26eb105fbb4e15b9ef2d11c350b2a9a423834b4ff576bc7a",
-      "textureBytes": 14498944
+      "textureBytes": 13742076,
+      "multiAtlas": true
     },
     {
       "id": "windplain-munkh",
@@ -3443,10 +3453,11 @@
       "key": "character-cast-windplain-munkh",
       "image": "/assets/character-cast/windplain-munkh.webp",
       "atlas": "/assets/character-cast/windplain-munkh.atlas.json",
-      "atlasSha256": "7122479871a986c38070ecd6555e7fe4fce5af17e515d82b38bad2bcccfe9a33",
-      "sha256": "e71c6a9e6f451f2d9a6b363fd8706cf44cabf0def9e4661e3bda4b22cc8bf0a0",
+      "atlasSha256": "adc140678ceb1acae7bdd511d892cf24076d21785f6948192167f7a7fd5f16c8",
+      "sha256": "91b4c55735f2eff5722692e2daaec3cf630292d6a49ed7337c01bc87a334ccbc",
       "recipeSha256": "83b4df6abe9ddd81055cdccaae2521d2c130ae54eec8dda178a26f6b6aff6c26",
-      "textureBytes": 14490960
+      "textureBytes": 14183232,
+      "multiAtlas": true
     },
     {
       "id": "windplain-oyun",
@@ -3489,8 +3500,8 @@
       "key": "character-cast-windplain-oyun",
       "image": "/assets/character-cast/windplain-oyun.webp",
       "atlas": "/assets/character-cast/windplain-oyun.atlas.json",
-      "atlasSha256": "c5e03fa1c500a2b203ee5063e6c61ce868aa6e555ae4c4e83c19c9abf42b4007",
-      "sha256": "a55f2e131aa793c11dc086297fd899bb168875599094164cf0531f6684580111",
+      "atlasSha256": "cea17904fc4decfd830d34ce0ddc3746825bc3171e9f26b35f9561bc823ae08c",
+      "sha256": "b966268aa8e0c952b6ecab89c88a8b127257f02ac4d7ac2796b25f3dcac804ad",
       "recipeSha256": "c5c9f4fd562b995c0be83968c1d0c3596704259004e16eb24afb94083d77f88c",
       "textureBytes": 14750896,
       "multiAtlas": true
@@ -3536,8 +3547,8 @@
       "key": "character-cast-windplain-ariun",
       "image": "/assets/character-cast/windplain-ariun.webp",
       "atlas": "/assets/character-cast/windplain-ariun.atlas.json",
-      "atlasSha256": "04cb8169b894ece8365184a508924cde0b24f9b7751754f0147b15025d8630c0",
-      "sha256": "fc00b81bbd5ca7c14e37d4e8553c8471b52bdafe2515fcd13bcab2c19904e9f7",
+      "atlasSha256": "8d97976a0ae617abe544994fc4a2e3fd89c3604c4cd81c5f4f6b1039661bc368",
+      "sha256": "d93a2ad773123a1263b66388d6ad212851d624f28758308986172971e85c58bf",
       "recipeSha256": "6324e742d0d52ef9ed73e1dc798193a0b8ff8e59042697752f2e87814624a87d",
       "textureBytes": 14691316,
       "multiAtlas": true
@@ -3583,10 +3594,11 @@
       "key": "character-cast-windplain-resident-0",
       "image": "/assets/character-cast/windplain-resident-0.webp",
       "atlas": "/assets/character-cast/windplain-resident-0.atlas.json",
-      "atlasSha256": "c12aed45556814c508ae2514f9a56fce1c405bc7e187616cf8cbf27f98aefd2f",
-      "sha256": "4028c68bd6873eb804e68ec3edc115bc2d36734ff24ccb1a5dce26a5035a48db",
+      "atlasSha256": "f52ae90cc91ae393de2c173413a5cd7b4054894dc13042380e7fe40c1083572c",
+      "sha256": "9bc25bad945be8f84150cc53dc1ee2843738c1df7d3e4b78eda99c19b6077f25",
       "recipeSha256": "03fc051576ece14865a6c2b04395ba638bd284b05987c2392ea1fea15faeef71",
-      "textureBytes": 14640124
+      "textureBytes": 14671632,
+      "multiAtlas": true
     },
     {
       "id": "windplain-resident-1",
@@ -3629,10 +3641,11 @@
       "key": "character-cast-windplain-resident-1",
       "image": "/assets/character-cast/windplain-resident-1.webp",
       "atlas": "/assets/character-cast/windplain-resident-1.atlas.json",
-      "atlasSha256": "fffbdd572fd73f7e120350ba8d47fd33faffdaabc1c60e26eae711fb75872bb8",
-      "sha256": "79e5236927279c7869cbe000e565258715e2e3a5ffcc8436c1bf62661806f201",
+      "atlasSha256": "242c199889b9cc9813b907be740013f1f4482753a627bc424c8038f1eb92087e",
+      "sha256": "db167e5ac9eb8f8c0ee18f5a778e08d7322f1207fc8b204e4135aa72729681a3",
       "recipeSha256": "4c11f2c6500d3f80e529b0ba18e4ee7210839544bce1ae0614a005f0f4771058",
-      "textureBytes": 13874976
+      "textureBytes": 14356032,
+      "multiAtlas": true
     },
     {
       "id": "windplain-resident-2",
@@ -3675,10 +3688,11 @@
       "key": "character-cast-windplain-resident-2",
       "image": "/assets/character-cast/windplain-resident-2.webp",
       "atlas": "/assets/character-cast/windplain-resident-2.atlas.json",
-      "atlasSha256": "107ae01a98cf1ec592e797201d24fffea8a628ed8bea4dba7385b264bea45220",
-      "sha256": "2c690325cf7fa8227a087a6100dc2066aa78b8c02c9f1e611e4a40b46f8eba3f",
+      "atlasSha256": "c47a3813c09edaf96d867db81381c8bda9dfcff8128de9022fb006806eeff2f5",
+      "sha256": "26e6db1d40239f15842b71043fda116a6c405c71984a2a7836b62d871093e729",
       "recipeSha256": "cec6a703a6ed5940822f9b0b0b174a2a1b2cc663bab15c1c88798106e03494a0",
-      "textureBytes": 14467740
+      "textureBytes": 13788384,
+      "multiAtlas": true
     },
     {
       "id": "windplain-resident-3",
@@ -3721,10 +3735,11 @@
       "key": "character-cast-windplain-resident-3",
       "image": "/assets/character-cast/windplain-resident-3.webp",
       "atlas": "/assets/character-cast/windplain-resident-3.atlas.json",
-      "atlasSha256": "a9d847df987bd0f0231fbdb59735f52edfbc6931782a4999014f71fe36c7b46a",
-      "sha256": "08f18b6ddd8f6c336d3813e1c4d6072ba80223abb2852b60207047bf2b8f1809",
+      "atlasSha256": "042f3360f32cb8fd8dc4f7f6cabec3c797678190440389b5d4a366b342b01ab3",
+      "sha256": "d062987678bc2742c3e9583c596aa7a0796f3c9eafc9b7f01e029d73f361fc04",
       "recipeSha256": "f6d0a6a5a1de82508a87cbcc5cbcae9fba6b9700da0fb01b5c90ff9f07ac1478",
-      "textureBytes": 13729080
+      "textureBytes": 13917496,
+      "multiAtlas": true
     },
     {
       "id": "windplain-resident-4",
@@ -3767,8 +3782,8 @@
       "key": "character-cast-windplain-resident-4",
       "image": "/assets/character-cast/windplain-resident-4.webp",
       "atlas": "/assets/character-cast/windplain-resident-4.atlas.json",
-      "atlasSha256": "4bdd347daf508b3208fec75d2c4de908d832774e9e2ba8265f67d01eb5347a8d",
-      "sha256": "d8460bf8ad9048e7ee27490e20ecbfdcf5f47db394b58e3d169362e2aa8691bd",
+      "atlasSha256": "7175348fddd2f33d4f6bc3c18d71cd262ebd071b5a52b4365bdcb1896c38c89c",
+      "sha256": "bf7f2790152b51f091e643eaecc09159fd8552b13f65031ac07cb44314c80614",
       "recipeSha256": "a2a0741e78baa710f08a21ecab08dea45ad7d83ad43654693d153a989cf05e19",
       "textureBytes": 14637088,
       "multiAtlas": true
@@ -3814,10 +3829,11 @@
       "key": "character-cast-windplain-resident-5",
       "image": "/assets/character-cast/windplain-resident-5.webp",
       "atlas": "/assets/character-cast/windplain-resident-5.atlas.json",
-      "atlasSha256": "45003c00c7227b2f62e6f27d38f2d1df37d533e0ad57b7e84df8b13112878203",
-      "sha256": "19c7cf00953ab4d89c405583b2c8cb1392013cf2638863b6a3c0330aaa43bfed",
+      "atlasSha256": "d129651e79f3957991f857249ce154cdee6d96eee722c4c5e42acbc339aeaad1",
+      "sha256": "170b0ab74052945c20139006e64b9f5ea899b6450c1eabd40b96c32d4975043a",
       "recipeSha256": "ecfd455530481a39282cffc0f5e166bef33cbba6929ee360b1feeb12adfe6df0",
-      "textureBytes": 14461920
+      "textureBytes": 14150436,
+      "multiAtlas": true
     },
     {
       "id": "windplain-resident-6",
@@ -3860,10 +3876,11 @@
       "key": "character-cast-windplain-resident-6",
       "image": "/assets/character-cast/windplain-resident-6.webp",
       "atlas": "/assets/character-cast/windplain-resident-6.atlas.json",
-      "atlasSha256": "a5c5e2a3d34736d3f4b50e0f3eff7cfa3cedc0e4133958d92f0309f9ce4fafdd",
-      "sha256": "61edaaf26dd13a97b8366ea91ae35d329b1d80deebeda4f5080b6b75acd3748c",
+      "atlasSha256": "d290689f8c022b15cf7deffc054a291948c06cab777119376907da4de856de6c",
+      "sha256": "ec20ecda0d6cdda17e280c1b3203fc15b39a0bbd5a7f742d6286f6d170588ffa",
       "recipeSha256": "70ffc9392a63dccf18cda9dbba9966566bf21d08932a10031ab11ec830d4a4a3",
-      "textureBytes": 14634304
+      "textureBytes": 14361816,
+      "multiAtlas": true
     },
     {
       "id": "windplain-resident-7",
@@ -3906,8 +3923,8 @@
       "key": "character-cast-windplain-resident-7",
       "image": "/assets/character-cast/windplain-resident-7.webp",
       "atlas": "/assets/character-cast/windplain-resident-7.atlas.json",
-      "atlasSha256": "03f612640156305922e088a976995584b0c03763fb1927ed2a4d715e13a8c05b",
-      "sha256": "c2812cfa944940676ed6050fd9762c74df76e8317c2277253ab3e502bac440b6",
+      "atlasSha256": "7d4f789509da19fd494a1a276d51b68cef08baa1b5ee41b806177668399f33b3",
+      "sha256": "fdc24ded7d236fa514dd85f404c5a62be43e8ef7bd302e877ded9ad79d003054",
       "recipeSha256": "549807180490282b0b993d0a4f45da3945aec44789fd5a9c7adda130c907a361",
       "textureBytes": 14323984,
       "multiAtlas": true
@@ -3953,8 +3970,8 @@
       "key": "character-cast-riverweave-linh",
       "image": "/assets/character-cast/riverweave-linh.webp",
       "atlas": "/assets/character-cast/riverweave-linh.atlas.json",
-      "atlasSha256": "82501aa98e12e4bf552b95b14509833e534505eb2eb3bdfa4f9ec628da82d479",
-      "sha256": "f5d2963649dd491ada81dd02f095859b301f6d8d0f2daeea25127cabe8ed53a3",
+      "atlasSha256": "546a9683b81699eced48fcd65c8f41fb077781a306d15248e72c4cb920154274",
+      "sha256": "6c358c3edb05486158b6632483768a3c1d432c150fb0a888f6f2c5997bd2e26d",
       "recipeSha256": "c26a5ae83d620f824cb65f5fdee6c1ee644c3c11336e667ab0edbe9b1f2d4f5a",
       "textureBytes": 14070684,
       "multiAtlas": true
@@ -4000,10 +4017,11 @@
       "key": "character-cast-riverweave-mai",
       "image": "/assets/character-cast/riverweave-mai.webp",
       "atlas": "/assets/character-cast/riverweave-mai.atlas.json",
-      "atlasSha256": "e896c8346c034d87a0351aecd41c9785bc16ccfdff49a74660ab326dc03a431a",
-      "sha256": "31f5cf03743fab7a31544cea2da840bcb1b4c45d58967ee1deaa108b6b474f9c",
+      "atlasSha256": "c8d7e3f9d615b24b248d78344259d1da7849f3910eb15bc8310fea4bba805272",
+      "sha256": "3921542a868e1f2907f7cee8d333ad601b398945354ebeea73bf51a0236241b0",
       "recipeSha256": "1a106204477824c5c77f70813e672e157835716aee7d84c66456c565381110e5",
-      "textureBytes": 14629472
+      "textureBytes": 14189820,
+      "multiAtlas": true
     },
     {
       "id": "riverweave-phuc",
@@ -4046,10 +4064,11 @@
       "key": "character-cast-riverweave-phuc",
       "image": "/assets/character-cast/riverweave-phuc.webp",
       "atlas": "/assets/character-cast/riverweave-phuc.atlas.json",
-      "atlasSha256": "b38a4ef67504b6256592e7a44a7cae3d872e3635f1e2028437772115b3a73e47",
-      "sha256": "c0854c6c5996cf4aeb45e92b334423935a897e66d7bf3a6bce94518ca3b108eb",
+      "atlasSha256": "645c5d0f3932433d8e7a56a47c10c24b5150a599321cb6ff301e197e10cb6637",
+      "sha256": "5450d643839abb1b5643c2f9fe5888e9e07640d45215d3c24bbbf0f39aad48ef",
       "recipeSha256": "83ebe9716ec15d0179612f5d169d3c38fbe5240b231650ed80b0af34b948a1fd",
-      "textureBytes": 13698404
+      "textureBytes": 13994036,
+      "multiAtlas": true
     },
     {
       "id": "riverweave-bao",
@@ -4092,10 +4111,11 @@
       "key": "character-cast-riverweave-bao",
       "image": "/assets/character-cast/riverweave-bao.webp",
       "atlas": "/assets/character-cast/riverweave-bao.atlas.json",
-      "atlasSha256": "d2c34fa41c101fbeebf2e12a4ee845101679d64ad1e19ec766c9e7798bd261c0",
-      "sha256": "c968c0cc86d95b6e47e1dfe43ed20e9e0ae185e05e5e0d9149e320d52ec9d54f",
+      "atlasSha256": "c34130ea187b0ef5d7e8f0bd7672f869db6d233c97bf32c15d7a1579d22b6d97",
+      "sha256": "17ee1110603390beaa246bfab18a2eef66dcd3e6349d323d70720426f0ecec14",
       "recipeSha256": "9b440044275ee47b38b4b19f715105a58608f925f8a3cf5439fb379588a7cff2",
-      "textureBytes": 14908128
+      "textureBytes": 14442828,
+      "multiAtlas": true
     },
     {
       "id": "riverweave-trang",
@@ -4138,10 +4158,11 @@
       "key": "character-cast-riverweave-trang",
       "image": "/assets/character-cast/riverweave-trang.webp",
       "atlas": "/assets/character-cast/riverweave-trang.atlas.json",
-      "atlasSha256": "50975a6b21a2de3299f113a4ab458bff804a993afb5266796fa1923776b658b7",
-      "sha256": "b66acf191fbebf024e137215a64c8ca4dd3d51179babd53f2e7a5cf4052e4392",
+      "atlasSha256": "2264148e0a19a2b797972b97f77c8f61294a33b47416c2abad95f365f5239def",
+      "sha256": "b8324062a5f39c75f0cec4009b4723210c25df08f5f3b1eb37eaefd21059df70",
       "recipeSha256": "38e75c3c57dede419bdaa87020bd66ce915fc2405f9f4e896a50a3f9c55ad012",
-      "textureBytes": 14678032
+      "textureBytes": 14445704,
+      "multiAtlas": true
     },
     {
       "id": "riverweave-huy",
@@ -4184,10 +4205,11 @@
       "key": "character-cast-riverweave-huy",
       "image": "/assets/character-cast/riverweave-huy.webp",
       "atlas": "/assets/character-cast/riverweave-huy.atlas.json",
-      "atlasSha256": "256263218922036fc019502045b9e8b05d459d9a0ec3f20f24fd6c704f6dd124",
-      "sha256": "9014d6665c4e97133e4765115739cfcc8c7819a2cb0b93b364474b47b3e8b853",
+      "atlasSha256": "48fb64d5790796f013926f1ec74f250276c9e1597746156be899b71edd9c9565",
+      "sha256": "a323edfea142990fb343ea768068661266ed0935560feeb195183b894611654c",
       "recipeSha256": "2dc131c44ca4f6164d7d3c1f9ceba0b8773d779749305347622aa2298e2113ff",
-      "textureBytes": 13884528
+      "textureBytes": 14038200,
+      "multiAtlas": true
     },
     {
       "id": "riverweave-chi",
@@ -4230,8 +4252,8 @@
       "key": "character-cast-riverweave-chi",
       "image": "/assets/character-cast/riverweave-chi.webp",
       "atlas": "/assets/character-cast/riverweave-chi.atlas.json",
-      "atlasSha256": "dc3687f1536859c456d291a6403f10b840809e4ae829b54631f2cfc5fb1f6c47",
-      "sha256": "774f34f5b596dfaa8631eaf24e2037a16da57b9b7c90e23f8a014e20783f5115",
+      "atlasSha256": "0ed865a88561999d2f04ceef403fcec209b53e17545cdb5aee3a086758e4f03a",
+      "sha256": "7948617c9cd4da279bcade21e2901383d7a58f9c7671a2ea26a58e3f861d25f2",
       "recipeSha256": "34833bee2d2c635bfa2e2d7519a8da95592c7dd311916c6f64dbe5d30628cb4e",
       "textureBytes": 14014008,
       "multiAtlas": true
@@ -4277,10 +4299,11 @@
       "key": "character-cast-riverweave-an",
       "image": "/assets/character-cast/riverweave-an.webp",
       "atlas": "/assets/character-cast/riverweave-an.atlas.json",
-      "atlasSha256": "37e358e9ffe6582f7ad859512a6b19adca2de94e1b8e7037565d3fee5da2a22a",
-      "sha256": "669d0a69da5ceaf5fe2c5c7469250957d4e94e363d4a855ed15c9f9c67c4a58a",
+      "atlasSha256": "051541c1a3e1d91ec0f0b882105562e590e011b56ea5ef4fb8731fb78b9ae1a1",
+      "sha256": "d0785590326b421cf7860fe529a021e7d15ba51aa266527760a06ae9c1e9f989",
       "recipeSha256": "d99b570d4a28f342ec78094a689bb63ceb9e0e9c48c983b321ec3255f7842473",
-      "textureBytes": 14546736
+      "textureBytes": 13757636,
+      "multiAtlas": true
     },
     {
       "id": "riverweave-resident-0",
@@ -4323,8 +4346,8 @@
       "key": "character-cast-riverweave-resident-0",
       "image": "/assets/character-cast/riverweave-resident-0.webp",
       "atlas": "/assets/character-cast/riverweave-resident-0.atlas.json",
-      "atlasSha256": "041a011cf1512af02f81fe4b409d03f90fd9ea3c29bd1342e0d50f239543f183",
-      "sha256": "14837c9053123caa1b3d405da4ae52610d8d08b7cf890531454f59141b9a7ccf",
+      "atlasSha256": "5e760451c9fdfbf24209d10de6985b9c8300f934fdb7ab0ab3e1b3fefb840c2e",
+      "sha256": "3354f00fd15136ef417e524e4cfb1ecd7b80abec15efb7df0ed5a3f100f1da81",
       "recipeSha256": "a5e6ab6b24577f6772f0d160f69a258d900c5a72c52605ec0e382fbe7783d054",
       "textureBytes": 13860524,
       "multiAtlas": true
@@ -4370,10 +4393,11 @@
       "key": "character-cast-riverweave-resident-1",
       "image": "/assets/character-cast/riverweave-resident-1.webp",
       "atlas": "/assets/character-cast/riverweave-resident-1.atlas.json",
-      "atlasSha256": "7539ea69da360a0d123e46bd20bab2c95ed7076e0a61e443784771ec943a0864",
-      "sha256": "330a6e587b55a17e198fdff1bb9b62bf6b9e11942c1e65d905486c7b54b3f58c",
+      "atlasSha256": "bca7fe80e833a7773e98c64d8d6c9a1950cb62ee5fe2d26c5ad6896a44ac4e5f",
+      "sha256": "e78fedf91a97a09ccf6040403494acc87d8eedded76ce72c7ebc250d730d345b",
       "recipeSha256": "f372253aded0ed49675ed5e1fc396771bb2a4af44b59e16c2fedcf1028ff002c",
-      "textureBytes": 14266496
+      "textureBytes": 14275088,
+      "multiAtlas": true
     },
     {
       "id": "riverweave-resident-2",
@@ -4416,8 +4440,8 @@
       "key": "character-cast-riverweave-resident-2",
       "image": "/assets/character-cast/riverweave-resident-2.webp",
       "atlas": "/assets/character-cast/riverweave-resident-2.atlas.json",
-      "atlasSha256": "c4f86bb3cd4a9fa29f01a939d1a6082bcc802f3255d343c77ee3dc4907f939be",
-      "sha256": "48f8c1e9863cbbdf5a7a001affe7b2cec3b9ff5cf673b92efa22cc8a5e82d979",
+      "atlasSha256": "9844456e75890a53e5dbceb1d8ae08762a532012931fdb4a16c0f0c2897ada7c",
+      "sha256": "2ea993974b77032b7f76351bdf37dfc8c2d78a13868954305801401935d13556",
       "recipeSha256": "ed45505eef2bb8006d848e214a61003515797e81b730b06204eb9f6dd78a3168",
       "textureBytes": 14773456,
       "multiAtlas": true
@@ -4463,10 +4487,11 @@
       "key": "character-cast-riverweave-resident-3",
       "image": "/assets/character-cast/riverweave-resident-3.webp",
       "atlas": "/assets/character-cast/riverweave-resident-3.atlas.json",
-      "atlasSha256": "f9938ba73fe03067f0365f133e2880de92a9abbae45d77071b28499486f731a0",
-      "sha256": "142a068f47b5bc719b9c742f3f00d8fa30b1faa1c2ed2e8f9dff3305a0e074cf",
+      "atlasSha256": "057d9370151c1f01ec8d776317771307026a1206ad7b6a30b1b95d06ffaa1952",
+      "sha256": "db742f6ea39949bdda6ad80f737b0aa23f8e96e19750304c23e14eff70213c28",
       "recipeSha256": "4df75a0274c1391a1f7fd7fd0acbcc679190740855cf4df139f85df812289412",
-      "textureBytes": 13714704
+      "textureBytes": 13899516,
+      "multiAtlas": true
     },
     {
       "id": "riverweave-resident-4",
@@ -4509,10 +4534,11 @@
       "key": "character-cast-riverweave-resident-4",
       "image": "/assets/character-cast/riverweave-resident-4.webp",
       "atlas": "/assets/character-cast/riverweave-resident-4.atlas.json",
-      "atlasSha256": "331771453687fad75c9dcbc24507f68cbc96376e7032340371b7cebc046ce2c9",
-      "sha256": "f5247faa4fbf62397b8feafe463c10ac7112b96d61902a452947decd7af68e39",
+      "atlasSha256": "44bb65887f4aeb08b0bc145a50fb1fa352f8055e6ed0662d316bd8c19b3f3c38",
+      "sha256": "0b995c5bd5a3f7af493e6a726318272faadee163a34d51250ba1bef5de5acb68",
       "recipeSha256": "bd5e149722323129a3b18b94be9b8113689687f0dad771b87d76d323ace4527f",
-      "textureBytes": 14605152
+      "textureBytes": 14387184,
+      "multiAtlas": true
     },
     {
       "id": "riverweave-resident-5",
@@ -4555,10 +4581,11 @@
       "key": "character-cast-riverweave-resident-5",
       "image": "/assets/character-cast/riverweave-resident-5.webp",
       "atlas": "/assets/character-cast/riverweave-resident-5.atlas.json",
-      "atlasSha256": "dc916474a6a54cfb130b533328ae9a7d097edbdd1f10c7920371271bdfb38555",
-      "sha256": "11604fa138ca5e6f8e43768bea8a9d6c6439c41fc294e6661d2f86c3613931fb",
+      "atlasSha256": "086541150de43e314e5d007a31b3f4c7aa0d78ad5f47b6e7161229371bbfa48f",
+      "sha256": "415a68d0716bd3ef5269410879979d30c980da73254647f26b2699b1bb18e8bc",
       "recipeSha256": "414d2eb278d6e52cdd19179ef18db44202105397b330d7c517d7e77536cbfb11",
-      "textureBytes": 13927872
+      "textureBytes": 14059920,
+      "multiAtlas": true
     },
     {
       "id": "riverweave-resident-6",
@@ -4601,10 +4628,11 @@
       "key": "character-cast-riverweave-resident-6",
       "image": "/assets/character-cast/riverweave-resident-6.webp",
       "atlas": "/assets/character-cast/riverweave-resident-6.atlas.json",
-      "atlasSha256": "ad81ba2bacdf82d9228c302b7fddda14b30e6f00c31546a9048234d360e88e95",
-      "sha256": "018fa0d1a5ccc7c4b8634b3f70345fd2bc21073639a17d1a79cfe7513b0145fc",
+      "atlasSha256": "35ce5a2198437eea9eaae8ab9ff249f9afa98f9334310dddb2811272dcc91c80",
+      "sha256": "01644c30059d34cc67ff9d7fc30d7c9e799c9aebd7a8d2ae2df493f12b5a5508",
       "recipeSha256": "864c338cda855f3e7af7397a0d592987448c3eb8992b30c58e008192ef8636bb",
-      "textureBytes": 14236272
+      "textureBytes": 13852536,
+      "multiAtlas": true
     },
     {
       "id": "riverweave-resident-7",
@@ -4647,10 +4675,11 @@
       "key": "character-cast-riverweave-resident-7",
       "image": "/assets/character-cast/riverweave-resident-7.webp",
       "atlas": "/assets/character-cast/riverweave-resident-7.atlas.json",
-      "atlasSha256": "9da817e80f65c6bf5859dadb2c9d720f68779bacce61e766cbd129c382f600c8",
-      "sha256": "4f095090d9ecdc2e8b22ffba0dec9dc357666d4e151cb6a49aafecf80fc64155",
+      "atlasSha256": "995a1bcc2da9a5b08e8ed68b67fdb76fc1895eca99af3a747592c079be4adb6c",
+      "sha256": "285ed53770ace0427e7cff0342a2cf785af8d94d363a761e79f5d05373c24d56",
       "recipeSha256": "15e7b6f130a2233aab9ba3d6e6c7571787caf65bc62834f94446ed0dc615e7a5",
-      "textureBytes": 13714704
+      "textureBytes": 13935476,
+      "multiAtlas": true
     },
     {
       "id": "terracielo-rosa",
@@ -4693,10 +4722,11 @@
       "key": "character-cast-terracielo-rosa",
       "image": "/assets/character-cast/terracielo-rosa.webp",
       "atlas": "/assets/character-cast/terracielo-rosa.atlas.json",
-      "atlasSha256": "59a8dfb6f80b2c91a4ec5a4a311b81f59a7d77fef7ef35c9796b46275e75b32d",
-      "sha256": "ab19399fc53c0da2e0e2694bc7f78a6b48b0e06b04c770896cc15f8cc4bcc04d",
+      "atlasSha256": "f290118635cf60f0113bdfae5a6e0ebbfe80b31d6553d6c5524c564c1f62fa5c",
+      "sha256": "20e9b622ee0b71e48289f3986d0014a8b16d84016a31dd9ce1b95788b06745fe",
       "recipeSha256": "508e5465a12049b30b7b3384c22100dcfb5973fa2d4c434e49f1e2b036869cd7",
-      "textureBytes": 14100660
+      "textureBytes": 14226600,
+      "multiAtlas": true
     },
     {
       "id": "terracielo-mateo",
@@ -4739,10 +4769,11 @@
       "key": "character-cast-terracielo-mateo",
       "image": "/assets/character-cast/terracielo-mateo.webp",
       "atlas": "/assets/character-cast/terracielo-mateo.atlas.json",
-      "atlasSha256": "e5ac8217da2f62a473067b09f3615f3110f6fc53ac97bcd990d228e457ddaff4",
-      "sha256": "0f206379aad6b900ab284fe6d9e26f863f3bcba53be860e026c616e926b8b014",
+      "atlasSha256": "ca19ed8505721dce758b150d409442cf25710507877080abada855382c2b3fba",
+      "sha256": "1348b618be7c680fbf4410960b5181d9b1e2146d9d10ae128682ac63ae89dbd0",
       "recipeSha256": "3ad90ec94ca230e154681dd72f5d4976a745829c1f09f24a2cc1d2aa28f11198",
-      "textureBytes": 14490960
+      "textureBytes": 14190500,
+      "multiAtlas": true
     },
     {
       "id": "terracielo-ana",
@@ -4785,10 +4816,11 @@
       "key": "character-cast-terracielo-ana",
       "image": "/assets/character-cast/terracielo-ana.webp",
       "atlas": "/assets/character-cast/terracielo-ana.atlas.json",
-      "atlasSha256": "c94f6a027bf86da6921f74930ac1b9d04f9ca5abf693a918e8675b6b0a466b6f",
-      "sha256": "acc81a1d3916d84d15ea933f2507ee5b1f3613d22e2d8ba1b67819c5f92df7bd",
+      "atlasSha256": "68f6dbc030b56a0408996f03a9e40acbe6f660802d2ed6f56f584c7e72192bfc",
+      "sha256": "4badc5534d36787162ae47143a6db6d000c25eb4717503126daf8fed78bfcd17",
       "recipeSha256": "c7a08d189c492f05c6b8e74992fc26bccedbf5274c63c3c2cdd99ddc2e24f098",
-      "textureBytes": 14627016
+      "textureBytes": 14354480,
+      "multiAtlas": true
     },
     {
       "id": "terracielo-pilar",
@@ -4831,10 +4863,11 @@
       "key": "character-cast-terracielo-pilar",
       "image": "/assets/character-cast/terracielo-pilar.webp",
       "atlas": "/assets/character-cast/terracielo-pilar.atlas.json",
-      "atlasSha256": "fe0bf9a2b5d47ba97deb2e84cb4c04e931654f546adf8d45d05d83933be62a63",
-      "sha256": "81131133b369a265515579c8fae18a6671484ab571dc4f04461c2879723cc82d",
+      "atlasSha256": "083b2bbb9e42546846addf84e2f3a06fa52656470d5d6330d6c5378e2bc97059",
+      "sha256": "9642679c4a2385f4e4293d3b5a3ec9fbe9af0200557b71fca04fe17539d225fc",
       "recipeSha256": "7b127f26d50b14418205b933af2206064d2c03987fa71bd5986bb1f890b219b8",
-      "textureBytes": 14946588
+      "textureBytes": 13643388,
+      "multiAtlas": true
     },
     {
       "id": "terracielo-diego",
@@ -4877,10 +4910,11 @@
       "key": "character-cast-terracielo-diego",
       "image": "/assets/character-cast/terracielo-diego.webp",
       "atlas": "/assets/character-cast/terracielo-diego.atlas.json",
-      "atlasSha256": "425f24d8afbfd6e8d65a77123fb17e87947e0ce096ea9394d3419da447f0cf09",
-      "sha256": "3085a307e126925d96a4fb3f1fb22788a828748cd126b25de54ced73bb1961f6",
+      "atlasSha256": "735feefd2c0089ee9f952d0a4f58b5d51ac3681fa2edaa8243a3dc951ea0f7ac",
+      "sha256": "610272f54eabdebf9d7492b5c671f80039ccaa28f2ed7b7e55012f4762376296",
       "recipeSha256": "e9aec43173a4f4afffa6a4093d47931433105ed05de6e6a915fcce5045fc1916",
-      "textureBytes": 14654612
+      "textureBytes": 14726052,
+      "multiAtlas": true
     },
     {
       "id": "terracielo-elena",
@@ -4923,8 +4957,8 @@
       "key": "character-cast-terracielo-elena",
       "image": "/assets/character-cast/terracielo-elena.webp",
       "atlas": "/assets/character-cast/terracielo-elena.atlas.json",
-      "atlasSha256": "e4ae583583ab7f821ba42dcafb8f8fcff1fe6cfe6bd6912eb7a35f7dab2e6592",
-      "sha256": "dec54c2ddfb915dc5861516e7a239d4d16d5981851ca7e789431435f4ee14dac",
+      "atlasSha256": "8c4bb2380b59dc4ba4bbf933b4c597d67a2eb14f4eb8e320dd4428130260d198",
+      "sha256": "98476028f713e9a6bfbe2d60abbc0b0f881a38cb80379472758a47398a71c1fa",
       "recipeSha256": "de442bead59e65b7db85ab5f9837e49ad3460605314a6dc698bded15ebfe2486",
       "textureBytes": 14233840,
       "multiAtlas": true
@@ -4970,10 +5004,11 @@
       "key": "character-cast-terracielo-tomas",
       "image": "/assets/character-cast/terracielo-tomas.webp",
       "atlas": "/assets/character-cast/terracielo-tomas.atlas.json",
-      "atlasSha256": "0ec14b73a324df6677cafc55b0bda09abda4c2976934b155e5f984db887f5685",
-      "sha256": "3b3e3b4c653ee69484a77fb43757a2c47b312793c33068f87d068357ce5cb998",
+      "atlasSha256": "c71ac355bbf7a08c02380b5cf650fca303e0307b3c2ec2b62e1bf1ef59e4af52",
+      "sha256": "f139e3862bf115dd9ada7b92224e32a04dfefd1048c0feeecd6dccc12be300c1",
       "recipeSha256": "c7f34fd22bb8bc6d0f0f6643ac0f030ac42cd779acef542588a3e8ededba69ef",
-      "textureBytes": 14490960
+      "textureBytes": 14186884,
+      "multiAtlas": true
     },
     {
       "id": "terracielo-luz",
@@ -5016,10 +5051,11 @@
       "key": "character-cast-terracielo-luz",
       "image": "/assets/character-cast/terracielo-luz.webp",
       "atlas": "/assets/character-cast/terracielo-luz.atlas.json",
-      "atlasSha256": "123f5787f453e4a4101adf978e93d80c0c212f6ab01fff137ab1ec733c8964ab",
-      "sha256": "6b59926fdfe760beffda8ac5c2184525af06811c22933269c93c2768ff061286",
+      "atlasSha256": "9bfd833c992dc8936e960789b015ba3ca4a61c29879040040278819190c2cb3a",
+      "sha256": "296c2669e746e43aad355fe859bba74d9e97c760db9a8f4f119360b1eeccc391",
       "recipeSha256": "6026dbb721be255e8484d19cfaa695cad4eb7dd5665715a8d3d977031fc34bf8",
-      "textureBytes": 14672840
+      "textureBytes": 13952400,
+      "multiAtlas": true
     },
     {
       "id": "terracielo-resident-0",
@@ -5062,10 +5098,11 @@
       "key": "character-cast-terracielo-resident-0",
       "image": "/assets/character-cast/terracielo-resident-0.webp",
       "atlas": "/assets/character-cast/terracielo-resident-0.atlas.json",
-      "atlasSha256": "349f390b088d0e65db4928eaf0a848794539c8b7bdcae80d3020e2ae160550e9",
-      "sha256": "0122d42d3c833304bf6ee34d0290ebe9879472465a5ae83d9de90d7bd1ffbb75",
+      "atlasSha256": "1bbd64176ce6ba147dafdb3bc1fa1fd4d691290a2f0e01e04a5ffb481eb2920d",
+      "sha256": "8e315f4334beb860f20a4dc7f357b53b03a936ab637a03618fea634e2ce75ecc",
       "recipeSha256": "dc9946c025852b08cf292c7861ca0551fcf5f026dae098f9b3669be23e87c86a",
-      "textureBytes": 15216264
+      "textureBytes": 14739904,
+      "multiAtlas": true
     },
     {
       "id": "terracielo-resident-1",
@@ -5108,10 +5145,11 @@
       "key": "character-cast-terracielo-resident-1",
       "image": "/assets/character-cast/terracielo-resident-1.webp",
       "atlas": "/assets/character-cast/terracielo-resident-1.atlas.json",
-      "atlasSha256": "19e4c7165a45d2242a79ce400842904b225501d4fa5172114596e4c05c89e28c",
-      "sha256": "2e5cb12071800a5bb31d0dc6e870b0d9778e84e2c327c143ced4db571de6e4b8",
+      "atlasSha256": "19e0cd8a5c538a6bcb7eb241fe5fd05587ca47ff64f2c982521d4f445a5213f2",
+      "sha256": "8bbc9704ee7ab1d0819edf07dad8604e7863c0646a1a3819f48213bd814cb8a8",
       "recipeSha256": "2b35113cde0df2bb0c33996649f8ff207b6015c389045f4a40040b3b8541155f",
-      "textureBytes": 14193216
+      "textureBytes": 13810020,
+      "multiAtlas": true
     },
     {
       "id": "terracielo-resident-2",
@@ -5154,10 +5192,11 @@
       "key": "character-cast-terracielo-resident-2",
       "image": "/assets/character-cast/terracielo-resident-2.webp",
       "atlas": "/assets/character-cast/terracielo-resident-2.atlas.json",
-      "atlasSha256": "1813dc963f81db5bf812867366d54413f8134c7b2d2d50a215235f0b41bbcfcf",
-      "sha256": "24e508df833cbbbb32a039ae0e8a991d66d1154c912546f2cdd996c512e5c14a",
+      "atlasSha256": "3eca6dd48e10339166ebadf7106336af5f655bfa978785163f9df3329ee16b65",
+      "sha256": "3cfa573fee6d1c934826f1cd29ea2e1d350732253cd7234b7db7581f85767e75",
       "recipeSha256": "7b054bda5539172b7b5f78a4d0a0ba70a374d3c66656205cacb752a12561bcb7",
-      "textureBytes": 14402364
+      "textureBytes": 14497436,
+      "multiAtlas": true
     },
     {
       "id": "terracielo-resident-3",
@@ -5200,10 +5239,11 @@
       "key": "character-cast-terracielo-resident-3",
       "image": "/assets/character-cast/terracielo-resident-3.webp",
       "atlas": "/assets/character-cast/terracielo-resident-3.atlas.json",
-      "atlasSha256": "d66bd8dac27a49efb61b5d5c5edf5a1ec2389d9d877102b505fd51abf1379f2b",
-      "sha256": "e29542a170ced71ab3aafaee61d15640332ca8d7d632a0833040d0782ae15d1d",
+      "atlasSha256": "58c7b359d9759018799cc5bfd61261eba961a90ab043202ef2d9e03beace68da",
+      "sha256": "f73a982563e145a9e6ff0d6aeb41ba4915885e15c1b903adbca452fdf474c8a4",
       "recipeSha256": "2878f0427e1ef640aec52ae564ea2404fbb4ccf2708b4d92317752a4ac7392ab",
-      "textureBytes": 13729080
+      "textureBytes": 13924704,
+      "multiAtlas": true
     },
     {
       "id": "terracielo-resident-4",
@@ -5246,8 +5286,8 @@
       "key": "character-cast-terracielo-resident-4",
       "image": "/assets/character-cast/terracielo-resident-4.webp",
       "atlas": "/assets/character-cast/terracielo-resident-4.atlas.json",
-      "atlasSha256": "ce59fdf770e0a576ddfe43c7044e419d1900e1ecd4ed44ed8287d665b1381c24",
-      "sha256": "91961458e0e94ed0c3ac413553e86ae652c15019779fce303cfeb53c87b3d266",
+      "atlasSha256": "b1d6c3d534811405a58307148cab9be006570c4854d711af48fda517e405fa57",
+      "sha256": "e29471ac67e9ef0fd4bd6a6574d12e00e9e64e9ae6d81a963dd40f776547894c",
       "recipeSha256": "ae4d460acdb4e803b4c11e3c03355afae68b60b316bb182232d56c12bf9bbf6a",
       "textureBytes": 14609060,
       "multiAtlas": true
@@ -5293,10 +5333,11 @@
       "key": "character-cast-terracielo-resident-5",
       "image": "/assets/character-cast/terracielo-resident-5.webp",
       "atlas": "/assets/character-cast/terracielo-resident-5.atlas.json",
-      "atlasSha256": "c33834e1c1b507c2dddd8a29cd45ed719d51ece5bdcafb78702748a26060c1a9",
-      "sha256": "5dc90e97f3d0779db9f8c6ad4e316f6a2849bb58d8cc82874950f80d0b37923a",
+      "atlasSha256": "8afd5f494eddbf6b35c1e5b0ce1a94926a9b1f3fc98bae0f86542483ed285f01",
+      "sha256": "1d32ef153d257f22936662249310f17ff06d465c0229615ca9caa4735b015b7b",
       "recipeSha256": "e9c4f1db17e5bc90b6ee46f1c79d24881ca86ca4e20380ae809dfbb1ff7cc47f",
-      "textureBytes": 14734296
+      "textureBytes": 14776844,
+      "multiAtlas": true
     },
     {
       "id": "terracielo-resident-6",
@@ -5339,8 +5380,8 @@
       "key": "character-cast-terracielo-resident-6",
       "image": "/assets/character-cast/terracielo-resident-6.webp",
       "atlas": "/assets/character-cast/terracielo-resident-6.atlas.json",
-      "atlasSha256": "5852fce8b61fa128887bbb7ea259fee8a57256251790bea2cc379ed73af91909",
-      "sha256": "ba7d5d7bd773c477a348325459d9e8171c58f5089393f99677bce83f852c2854",
+      "atlasSha256": "f98bb27d53bda45d8432ead88302ce551521ca49c8f8a5f3ed19f7622b810b74",
+      "sha256": "724fa0791a2daba299bcb04c4b39dee5f22e4476c6fee66e5e8a202723efbb14",
       "recipeSha256": "c3129f445b79bedc225d1bc00a5b90d48fb86b3f3ea4c3141c9cebf787f40b74",
       "textureBytes": 14233840,
       "multiAtlas": true
@@ -5386,10 +5427,11 @@
       "key": "character-cast-terracielo-resident-7",
       "image": "/assets/character-cast/terracielo-resident-7.webp",
       "atlas": "/assets/character-cast/terracielo-resident-7.atlas.json",
-      "atlasSha256": "a01ff6e6a4d484790918879f7728b839bd986cc0c550249a0ac379deea8e5971",
-      "sha256": "4b8b0dc78f71941f689952077e5fc75f773daf389b4a2359657b4e31b2862082",
+      "atlasSha256": "fddb8fd945365a5d684baea381e27e33c34d09803b23eda2a7f427ac38ea6603",
+      "sha256": "7d23cb869b3b8b5e7ffeb10c5802c8076451cc3958568d9a353b9b0d17dc15e7",
       "recipeSha256": "5970d9fb499bd97d78f5ce44ecb57b918ce91d90be05e0e57266dd82708661b0",
-      "textureBytes": 13721892
+      "textureBytes": 13910312,
+      "multiAtlas": true
     },
     {
       "id": "sunpatch-ines",
@@ -5432,10 +5474,11 @@
       "key": "character-cast-sunpatch-ines",
       "image": "/assets/character-cast/sunpatch-ines.webp",
       "atlas": "/assets/character-cast/sunpatch-ines.atlas.json",
-      "atlasSha256": "c75be366dd0676d0f523aa682ea0ef538fcf1726c746a8c23708f609534bbc9a",
-      "sha256": "ba6698d3228de70476f4abff6b0e360e3b65e7a9c8ac99bc3d6ec02eef968956",
+      "atlasSha256": "67b8e6f1fc618eabe3ad04c0d4fec70f6ef413491c239ac0ef69a2582ff2b636",
+      "sha256": "72cd0cbf431ca05a5c80bc25120de400d740bd741ee7af089d02187f18adb119",
       "recipeSha256": "d8044b7fae2ef28f6cd38dcdfe1ac344e6a7e85e3013928080894735b215b9d2",
-      "textureBytes": 14953040
+      "textureBytes": 14201952,
+      "multiAtlas": true
     },
     {
       "id": "sunpatch-pablo",
@@ -5478,10 +5521,11 @@
       "key": "character-cast-sunpatch-pablo",
       "image": "/assets/character-cast/sunpatch-pablo.webp",
       "atlas": "/assets/character-cast/sunpatch-pablo.atlas.json",
-      "atlasSha256": "3930d42034230867910656ffe5d75ca7b01bc99dca82426ea1f9f74a0d79c80a",
-      "sha256": "399c505e447c7d2635d714768f31cd07000301fc14846fc3dd26fe50288b4b22",
+      "atlasSha256": "ab88893fd04aa8978b2e95fc45e43a406a38abf2bd9b31235b917720729205c6",
+      "sha256": "8a422b58d9cb7a3c6ed0678b6b56e6b22974ffa75a1a394c1b748b3fe82be2ad",
       "recipeSha256": "0f6705fd0c2c6c3be8e7a3861f38914aa5d0d3b29561cd184cb025b53dba4f47",
-      "textureBytes": 14618392
+      "textureBytes": 14657120,
+      "multiAtlas": true
     },
     {
       "id": "sunpatch-carmen",
@@ -5524,10 +5568,11 @@
       "key": "character-cast-sunpatch-carmen",
       "image": "/assets/character-cast/sunpatch-carmen.webp",
       "atlas": "/assets/character-cast/sunpatch-carmen.atlas.json",
-      "atlasSha256": "00ab4c8474e5b27170b75883b0ae7251ecba61270edfc0ebd9af55cc2a128bac",
-      "sha256": "9e9c6e04d50a76b15ee4ae07671043979f7bac0a86204f8b082972f27230b9cb",
+      "atlasSha256": "2b600201135a2c5e4bffc3e6590f5223a6d36b757660fc5e353def7dbbf308e6",
+      "sha256": "59e183ef968722978ee11047f1b56b47082ec9b4d2b710fa6b2a558157fd4170",
       "recipeSha256": "e3dea55425d6ddfdda7c7bb4101b187db89a2f66668415809c0ea0bce09e9772",
-      "textureBytes": 15072776
+      "textureBytes": 14476376,
+      "multiAtlas": true
     },
     {
       "id": "sunpatch-nico",
@@ -5570,10 +5615,11 @@
       "key": "character-cast-sunpatch-nico",
       "image": "/assets/character-cast/sunpatch-nico.webp",
       "atlas": "/assets/character-cast/sunpatch-nico.atlas.json",
-      "atlasSha256": "43be9492670700d744d3167bddc261573cb35fe264a8317afdb6713d2b15fe1d",
-      "sha256": "5885b6bbb8a56c898cb2e9d453a908bc368caa032d4dc33e459abab2ce2ed59e",
+      "atlasSha256": "45c42e1258bb5e0d657127989d411af593e9a1796f04440c2260557b4fea7edc",
+      "sha256": "db1b49d44a03d5184c39b790d1608bdfe1753ab6263150505146fe931721c490",
       "recipeSha256": "5b1d28799f2115a5f082c61a1aa0f78ad9ad87d60c88dae1a37d923a4b85755a",
-      "textureBytes": 14810836
+      "textureBytes": 14413068,
+      "multiAtlas": true
     },
     {
       "id": "sunpatch-alma",
@@ -5616,10 +5662,11 @@
       "key": "character-cast-sunpatch-alma",
       "image": "/assets/character-cast/sunpatch-alma.webp",
       "atlas": "/assets/character-cast/sunpatch-alma.atlas.json",
-      "atlasSha256": "8ff0f6dec24ea60e64d3dc700579c377a93a5cf539ad421279be0b7886f71651",
-      "sha256": "f4dab302121f04ecb07d87b4ecf4a553605f5c7a1fc37a50ec0fe39da659725a",
+      "atlasSha256": "a7643b935361f73b7821a7787abfa38dc2c99224cea1d9e191e7dc666911ceb5",
+      "sha256": "70cd79510d9f9dc80b57f2c496fef29bd17cc560a4513c8ad5a6b5053aa06bcd",
       "recipeSha256": "214fb6caf5ce1f06f05f00a112f0a254afe7b0d007c8c9aee681a8d09d4501a1",
-      "textureBytes": 14380728
+      "textureBytes": 14468484,
+      "multiAtlas": true
     },
     {
       "id": "sunpatch-diego",
@@ -5662,10 +5709,11 @@
       "key": "character-cast-sunpatch-diego",
       "image": "/assets/character-cast/sunpatch-diego.webp",
       "atlas": "/assets/character-cast/sunpatch-diego.atlas.json",
-      "atlasSha256": "413116153e36aec0a8e55b7172a094b5b9b8f2f96e0f00296370d3f6b2098da2",
-      "sha256": "dcf562480f0e20d781cacf6d77f9bec50469e2734032c7d2740f2b94edd1cdc8",
+      "atlasSha256": "7c95137131023f6413a60a16e77612d7a0830d4066d251ea8471421e39608bb0",
+      "sha256": "03cec45c0d197a45d86a1fb65886463e55c3aaeb186d81aa1b86b4880e07448a",
       "recipeSha256": "c2ec6ab31ac20a5c0ebb44b9013360524077ef07100a1801178abbb5af7c6cac",
-      "textureBytes": 14698076
+      "textureBytes": 14755076,
+      "multiAtlas": true
     },
     {
       "id": "sunpatch-luz",
@@ -5708,10 +5756,11 @@
       "key": "character-cast-sunpatch-luz",
       "image": "/assets/character-cast/sunpatch-luz.webp",
       "atlas": "/assets/character-cast/sunpatch-luz.atlas.json",
-      "atlasSha256": "7088733de3f50bd95c6b8a739551f7492914b7c4a23174634e734af8c64b8b08",
-      "sha256": "30825aac1b4d8f3fe696bd32e65a60a5a4c6a271d4b32c27eaa147b46e896103",
+      "atlasSha256": "0e29496bc03fdf39e331b0409cd30577fa09548f09f8c9020fcb27fe89360c50",
+      "sha256": "e7cce64e6a8d5827d5d501f4ddd29e7115777e805bab7fd771fd4d6cc77bcb10",
       "recipeSha256": "a17b9a4d76baea3440504bf034118eb3d7d2c997b53b27689d8585ee74cf792c",
-      "textureBytes": 14839220
+      "textureBytes": 13800584,
+      "multiAtlas": true
     },
     {
       "id": "sunpatch-valeria",
@@ -5754,10 +5803,11 @@
       "key": "character-cast-sunpatch-valeria",
       "image": "/assets/character-cast/sunpatch-valeria.webp",
       "atlas": "/assets/character-cast/sunpatch-valeria.atlas.json",
-      "atlasSha256": "4f8e118996a6592227754af7b791ac0a5f459a030c29a406a46df59b1095ed9c",
-      "sha256": "41c9c2ad2460b8bcf7221683ce65c0d4e738a6290764e3fb44121eaba7b5edfc",
+      "atlasSha256": "8bb878daad955e88e7412756ec79f1d9dbe0cf946e40b1ae5a3cfec1ab7da738",
+      "sha256": "66ede569b4bbbe68a4cc29d78e34759fdc097bb97763d001a3a87d436c551cd9",
       "recipeSha256": "52ee628d2a5214e4229f07923437d7677347bc63666c3d0d271fae8e841e26e1",
-      "textureBytes": 14708980
+      "textureBytes": 14318424,
+      "multiAtlas": true
     },
     {
       "id": "sunpatch-resident-0",
@@ -5800,10 +5850,11 @@
       "key": "character-cast-sunpatch-resident-0",
       "image": "/assets/character-cast/sunpatch-resident-0.webp",
       "atlas": "/assets/character-cast/sunpatch-resident-0.atlas.json",
-      "atlasSha256": "9213eb36b8de4dd1b47aefe62972f0b56726fc0096b946bfff819d4a3648c388",
-      "sha256": "8b6e70bba0ad13140d760b37f43b116bb907e117f12c2eb8ab363c5743f1ad91",
+      "atlasSha256": "b2e8bca92fe6a737db6d93eb3753b98f5be3970bd17d31fc188b4a1b26126943",
+      "sha256": "24b6332c426a6365193374297478b2b61cbbe285a2748df2267398617b22e0f3",
       "recipeSha256": "e06f7b84650b2d6a9a9c1e9a09c707386564a0edec72b02efca60dd4f772c06a",
-      "textureBytes": 14727052
+      "textureBytes": 14707912,
+      "multiAtlas": true
     },
     {
       "id": "sunpatch-resident-1",
@@ -5846,10 +5897,11 @@
       "key": "character-cast-sunpatch-resident-1",
       "image": "/assets/character-cast/sunpatch-resident-1.webp",
       "atlas": "/assets/character-cast/sunpatch-resident-1.atlas.json",
-      "atlasSha256": "4509ceeda3ff750d0c654bec1de606af241e88bf03f228d6473cdca0884d510e",
-      "sha256": "f375c5a744d0f6eabc9d8184bd3f88efdb1965099d1866de85ac0d2007d4eafd",
+      "atlasSha256": "26d27a371dab3762914f1da7f16de0cb15c1ddfe066d238283ec1bd2cf4d01f2",
+      "sha256": "13584fb28d2aa6de5251f98756296722fca632a1f8cf3b1dc81f85e0b13cf7dd",
       "recipeSha256": "f75f78a6e19b06699ef471290a1b253e226222c86730a483b30fca7fcde3c418",
-      "textureBytes": 14691280
+      "textureBytes": 13863548,
+      "multiAtlas": true
     },
     {
       "id": "sunpatch-resident-2",
@@ -5892,10 +5944,11 @@
       "key": "character-cast-sunpatch-resident-2",
       "image": "/assets/character-cast/sunpatch-resident-2.webp",
       "atlas": "/assets/character-cast/sunpatch-resident-2.atlas.json",
-      "atlasSha256": "7f5b9cba276a7fb932f943856ab39655e9d45b9138c4ddfc7541ad5c8444b20b",
-      "sha256": "656c162fd007187469d1fff9236a536bef1d8815f27171e4c7846119895bc9d5",
+      "atlasSha256": "bbee4a9526665ac2a39d4b10e95a881be6a0a565c7cfd5ccce54c1a66add9d7e",
+      "sha256": "1a15855d17452c72d233f70c44d5a8c57e2243708b916c22e132104b74bbaef9",
       "recipeSha256": "06cc1bd8a10fad75d8078e09e3f193901816bf940f2c3cda9d7d8d8e68b2a846",
-      "textureBytes": 14634304
+      "textureBytes": 14361816,
+      "multiAtlas": true
     },
     {
       "id": "sunpatch-resident-3",
@@ -5938,10 +5991,11 @@
       "key": "character-cast-sunpatch-resident-3",
       "image": "/assets/character-cast/sunpatch-resident-3.webp",
       "atlas": "/assets/character-cast/sunpatch-resident-3.atlas.json",
-      "atlasSha256": "f9938ba73fe03067f0365f133e2880de92a9abbae45d77071b28499486f731a0",
-      "sha256": "368cba251f9db3dcd3200fdde8f7697c757e97706fbc2372b2eba0ac0fd633f8",
+      "atlasSha256": "6071e9e4a3602c22c37fba825cef99b138f9c78302c55623cf814e36d43ba6d2",
+      "sha256": "dd36523689768a29a4c3a0db37381eaf00b610e5e7495b38ba3cd0a142dd74d2",
       "recipeSha256": "1beee960b179bf67254fc23194b54b32bc3d6d8db9d2fd5b4a3c13fdfdf9c1e1",
-      "textureBytes": 13714704
+      "textureBytes": 13899516,
+      "multiAtlas": true
     },
     {
       "id": "sunpatch-resident-4",
@@ -5984,8 +6038,8 @@
       "key": "character-cast-sunpatch-resident-4",
       "image": "/assets/character-cast/sunpatch-resident-4.webp",
       "atlas": "/assets/character-cast/sunpatch-resident-4.atlas.json",
-      "atlasSha256": "2ff4cad5fa5cb38c8ac276a97a7006a06a4e55cbcdb440e32a3a54b30add19ca",
-      "sha256": "08b0162cc797fad2efb5f48644c86fd52d0e7a54957b1c4be1ddfc32a3a51b1c",
+      "atlasSha256": "f6feec66a653b7467347a3e469f4db37c0a85c3c95ed6ca7cd217d4ea2e28619",
+      "sha256": "2c3f2c6c81146997956f238b51384b2067ad7efa28177215c3d7fdd1b95578b9",
       "recipeSha256": "1e584fade7393ab4bb633b20841dc12818c261e69b63168da9f944903caa27c9",
       "textureBytes": 14773456,
       "multiAtlas": true
@@ -6031,10 +6085,11 @@
       "key": "character-cast-sunpatch-resident-5",
       "image": "/assets/character-cast/sunpatch-resident-5.webp",
       "atlas": "/assets/character-cast/sunpatch-resident-5.atlas.json",
-      "atlasSha256": "1c38bf69c62078733d9178bc9876425a8c15e6686e07a1e1893a6c8e51ab3c09",
-      "sha256": "39973c56480cf0c2035f58b6014c0ce645905607bdd51d35b24b4b2f574e2d4c",
+      "atlasSha256": "d6731941965b9009c664440c0ffea4d1f0e247e35b4f7f3e57b87a72b05023a1",
+      "sha256": "90ddfd8416f99f765b3b8fcc8d913aa43f0f8b9df345d60ac5a9845fdfd0776c",
       "recipeSha256": "da062392967a42ba5e7ab31ec981d0c429adaa8b74b6484defb680dcfad889dc",
-      "textureBytes": 14681752
+      "textureBytes": 14431996,
+      "multiAtlas": true
     },
     {
       "id": "sunpatch-resident-6",
@@ -6077,10 +6132,11 @@
       "key": "character-cast-sunpatch-resident-6",
       "image": "/assets/character-cast/sunpatch-resident-6.webp",
       "atlas": "/assets/character-cast/sunpatch-resident-6.atlas.json",
-      "atlasSha256": "01d916780841d624da34795575786172ceb5186d408e40dd1744397de2c52823",
-      "sha256": "1da3187791784da397f5b357631f2f90ef0c9f86453e526e26cfcf7cd80c01bf",
+      "atlasSha256": "fad8dc8958afe06209c0187041a1fcf73c956f6b8cb4a04ed592237f3412e038",
+      "sha256": "e8014309a2a4be6e02b63f20954188a2361a3b650a1da52d16ca39193661073f",
       "recipeSha256": "9d82b0ee51345c61ed3a32254f278293185dccc2086d2da0c1f89615e297efa9",
-      "textureBytes": 14532240
+      "textureBytes": 13779344,
+      "multiAtlas": true
     },
     {
       "id": "sunpatch-resident-7",
@@ -6123,8 +6179,8 @@
       "key": "character-cast-sunpatch-resident-7",
       "image": "/assets/character-cast/sunpatch-resident-7.webp",
       "atlas": "/assets/character-cast/sunpatch-resident-7.atlas.json",
-      "atlasSha256": "e1746aec7171778f2360b3e6b6fa113df30ae646eb0afae12af99956aaa91529",
-      "sha256": "bf6c00aa3c44fb283c7eca4d6e9bab9a8799b5d52ecea74a7124d9c409007943",
+      "atlasSha256": "d35f3e221b402fd5a0ad07fac3a4373a81aa93de19ad6cd1226c4d3875aa07a1",
+      "sha256": "8b3c3696ba1b6d3abf1a9384e0a019c6ef6a6db99e3733192b7f6e82576aac65",
       "recipeSha256": "8d96b4012127608372efcebbbc3aa4025dfb58bfe9d536ea635435f0350ca560",
       "textureBytes": 14331104,
       "multiAtlas": true
@@ -6170,10 +6226,11 @@
       "key": "character-cast-kigalights-aline",
       "image": "/assets/character-cast/kigalights-aline.webp",
       "atlas": "/assets/character-cast/kigalights-aline.atlas.json",
-      "atlasSha256": "78bcfdfb8531c674a6378a701f9bedf4a33083944113778c00ee9ff728661161",
-      "sha256": "62275b19d61643dca1033bca5e5b742dbea73b815378d215ea54f48c2896be89",
+      "atlasSha256": "af3090072caf666399a866469cab4a670e5906688add20ea830a19a8d969a88b",
+      "sha256": "f297174038b0e339c3d8dda70e0e72f997add6942ab582dcdfe59cc299a16187",
       "recipeSha256": "0713336127cfe6c0f748272be642744879579945e9e7d7f0e9b28fc9bc57f4d7",
-      "textureBytes": 14880556
+      "textureBytes": 14579936,
+      "multiAtlas": true
     },
     {
       "id": "kigalights-eric",
@@ -6216,10 +6273,11 @@
       "key": "character-cast-kigalights-eric",
       "image": "/assets/character-cast/kigalights-eric.webp",
       "atlas": "/assets/character-cast/kigalights-eric.atlas.json",
-      "atlasSha256": "bf97d6c1a486567925fa2d57be1012bdbd155b808e07c18ae101c9c3bd41e574",
-      "sha256": "8e8d8e8bbc218734a3ff057f0e73d30239eedb4894d09eed35a016a2205356eb",
+      "atlasSha256": "c2935fddd9ead5da11c0a95e43c3cdc7148d815fddd8531caedc1267c8ff8c35",
+      "sha256": "af2f0998887e8879e3708e6476001f5de600b1d280a0c77b20ae432a7685f6f8",
       "recipeSha256": "f7622c42f950d7cbd0a65375b3bf2943d4af9d4579a787ec56d36097292c504f",
-      "textureBytes": 14525664
+      "textureBytes": 14198728,
+      "multiAtlas": true
     },
     {
       "id": "kigalights-chantal",
@@ -6262,10 +6320,11 @@
       "key": "character-cast-kigalights-chantal",
       "image": "/assets/character-cast/kigalights-chantal.webp",
       "atlas": "/assets/character-cast/kigalights-chantal.atlas.json",
-      "atlasSha256": "cd99f555c324c18c92ad33af2788c1d370f6335f258d3fdd6ea613b6a7929a69",
-      "sha256": "a0c4e80850945aa9b5af829a775881b227b79c985cf7ae0d2056107f7813bca9",
+      "atlasSha256": "589d426671327ec6e1403323e42d8960cdfc35bf396af800696d8e22152c1204",
+      "sha256": "9856fb63784c7d01497fc95f5b72da7cc36e70659f4a49c6f20f0fe882ef03d8",
       "recipeSha256": "c8e906536d9de999f7711f3a3d03aa0c81e21512dcf7d30c0030b7db8b9bb234",
-      "textureBytes": 14415560
+      "textureBytes": 14189680,
+      "multiAtlas": true
     },
     {
       "id": "kigalights-patrick",
@@ -6308,10 +6367,11 @@
       "key": "character-cast-kigalights-patrick",
       "image": "/assets/character-cast/kigalights-patrick.webp",
       "atlas": "/assets/character-cast/kigalights-patrick.atlas.json",
-      "atlasSha256": "21d8a3d8fb563814299bfe38d97dad6bcf79d82ba78a1c9bf057b312b46f75e9",
-      "sha256": "3f4485c913e84cce179bfe79e3dc0ef57add2d15d73a59a2c2c7af69ea235299",
+      "atlasSha256": "375cad532bf0617b2eb599a16729f1ecd7635f0d931e49da3bea2dbfdff1fb83",
+      "sha256": "ead51f96ec788a8bb79b2f1c6ec9e41b56fffdbf18c5c0cbde07691b123d0030",
       "recipeSha256": "10c8445b2d03c272e558e5004a042c4f9a31cf286ca2faf2de27bbe164d139f3",
-      "textureBytes": 14654612
+      "textureBytes": 14715168,
+      "multiAtlas": true
     },
     {
       "id": "kigalights-grace",
@@ -6354,10 +6414,11 @@
       "key": "character-cast-kigalights-grace",
       "image": "/assets/character-cast/kigalights-grace.webp",
       "atlas": "/assets/character-cast/kigalights-grace.atlas.json",
-      "atlasSha256": "5cd5e8631199160905ba9ae65b6898331cda4a37616b7b28599f070ba8bdc688",
-      "sha256": "e61e8f1aa2cc5ee019e6cc4396bca9874b18b046ef2ae5cabefef2bc3741c74e",
+      "atlasSha256": "61717c00defcc1faac092d63196029936fe6b6cbb623f9e70ba56a268e10da4f",
+      "sha256": "38c89e75a1725720e9062bb4212461454a1fbbc1751cd36f8fde97440150c18f",
       "recipeSha256": "a3f29e575098aac9d58c7829e2c273875835c2c0258e20bf9106f876fe37b215",
-      "textureBytes": 14691280
+      "textureBytes": 13859960,
+      "multiAtlas": true
     },
     {
       "id": "kigalights-samuel",
@@ -6400,10 +6461,11 @@
       "key": "character-cast-kigalights-samuel",
       "image": "/assets/character-cast/kigalights-samuel.webp",
       "atlas": "/assets/character-cast/kigalights-samuel.atlas.json",
-      "atlasSha256": "0586674349ab41868dc56c65e78a8e15ff381ab1b1a3965768225d2790f4ce89",
-      "sha256": "9b3a2bc23492c576bde7150b2d282fcfbbfa8fc21b3ec095b8a5b240bee26ea3",
+      "atlasSha256": "e78a8c962d279f4290b259c90afa7c07ea1e031a667f3ec8736be5e08456df8d",
+      "sha256": "828c6aba536c0a7ab5b1fa73b767b9f960a41809cf8b11a40135374e64d3b558",
       "recipeSha256": "9a3d2b68c90af44cfb8e70eb612f6acf62c32a74677aa99d40755e85b27ec382",
-      "textureBytes": 14062932
+      "textureBytes": 13362216,
+      "multiAtlas": true
     },
     {
       "id": "kigalights-diane",
@@ -6446,10 +6508,11 @@
       "key": "character-cast-kigalights-diane",
       "image": "/assets/character-cast/kigalights-diane.webp",
       "atlas": "/assets/character-cast/kigalights-diane.atlas.json",
-      "atlasSha256": "cfefe8e1458b01f0af05f3c06f54971d5edef1ceff76113e00c4c47ac3397570",
-      "sha256": "3df781061b6756668b776873a202cb3b3422420860b51e121d72350db3a18834",
+      "atlasSha256": "78bd5e507979b6429e6af54bccacc141857b2106f0458394bd07747ce8ea057c",
+      "sha256": "9eb24c92ed3b0e6480fdad0041f088718a1d6fe0707877cbdc3c22bca5bd6052",
       "recipeSha256": "7d156ef0b354d50aa19749aac807e4c970079c5a4b7eca97c4e8936bf620d564",
-      "textureBytes": 14387940
+      "textureBytes": 14490220,
+      "multiAtlas": true
     },
     {
       "id": "kigalights-josiane",
@@ -6492,10 +6555,11 @@
       "key": "character-cast-kigalights-josiane",
       "image": "/assets/character-cast/kigalights-josiane.webp",
       "atlas": "/assets/character-cast/kigalights-josiane.atlas.json",
-      "atlasSha256": "9b0ac54c2174e52940a123f2c19ccf17e9968bb1262f1a3c777a20fbf8db10c8",
-      "sha256": "edd22426fba5b2e066fa78498e1a645423ef29d4f7a788af24a407db25edf62e",
+      "atlasSha256": "fd1d62fa22e82f6c1618848eda3bce707a2c3cc915ef1c5eae6e2f87baf9f43d",
+      "sha256": "680e6f0cc32702a4fc11d483f0bbde0e6052b4af0d9aab2065d2aa7eca7e28ca",
       "recipeSha256": "14fcc340c75fcdc02d74537121e21664b6e4fe1f2b1b97616ee7e7ae16703215",
-      "textureBytes": 14839836
+      "textureBytes": 13738860,
+      "multiAtlas": true
     },
     {
       "id": "kigalights-resident-0",
@@ -6538,10 +6602,11 @@
       "key": "character-cast-kigalights-resident-0",
       "image": "/assets/character-cast/kigalights-resident-0.webp",
       "atlas": "/assets/character-cast/kigalights-resident-0.atlas.json",
-      "atlasSha256": "0a2af634ee691b6d28c2856639a1c8fe2b60f26ae9903654df0e7c6a6dbcfcf7",
-      "sha256": "ba1cefb2ffd7ce869be5bf540d16c921cb8676fd8264b3d0b225d656a2d8e3a6",
+      "atlasSha256": "2288544f5aac75427d80010cd3e7ae2b04fa32cfa5770725392fc4b1909cb489",
+      "sha256": "441b8165ddacd242f620a159734b67627249bdc7408392e887665b6a8674c65e",
       "recipeSha256": "58872faecf47ecdb16388ace6e7c5f01af4fb91edef0af4f182ab67aeb1f515e",
-      "textureBytes": 14438424
+      "textureBytes": 14529964,
+      "multiAtlas": true
     },
     {
       "id": "kigalights-resident-1",
@@ -6584,10 +6649,11 @@
       "key": "character-cast-kigalights-resident-1",
       "image": "/assets/character-cast/kigalights-resident-1.webp",
       "atlas": "/assets/character-cast/kigalights-resident-1.atlas.json",
-      "atlasSha256": "4509ceeda3ff750d0c654bec1de606af241e88bf03f228d6473cdca0884d510e",
-      "sha256": "acc3dc8994eaaf5d7e7203cfc1ff6ff68b13bf2a40f0acfc3bed3b80fcaa11d4",
+      "atlasSha256": "f800348a8115f023a42467e3de0278386d4c8bfdc8f93243f63152e9316debcf",
+      "sha256": "79992917aaf7e132965ca965228468edfafdeef2fea2d7879e468dd2f64ade02",
       "recipeSha256": "8719242cfe11d3d6a92b066431413e3809944ea8731a8cc7910fe4a5ea717e6b",
-      "textureBytes": 14691280
+      "textureBytes": 13863548,
+      "multiAtlas": true
     },
     {
       "id": "kigalights-resident-2",
@@ -6630,10 +6696,11 @@
       "key": "character-cast-kigalights-resident-2",
       "image": "/assets/character-cast/kigalights-resident-2.webp",
       "atlas": "/assets/character-cast/kigalights-resident-2.atlas.json",
-      "atlasSha256": "10ebb1ec11897450f064db879af4aacb86a1bf3854a22a2d3f4bf4087c0c5dfc",
-      "sha256": "f6f42d1bfe026885451f113d621799230ee81853620468609f3c62729fa9c13b",
+      "atlasSha256": "9f97a75bf61630218d72befd3705d711b6a2a280a848790f01c5274c01236aaa",
+      "sha256": "2087144e98da39e558e6b088752750b4f754d96093a0e95d721746ea84eb412c",
       "recipeSha256": "eef0bc88f82b8b9f0e0372d305f0b9f427e3da9c0b40fc2a39700802c282d2a6",
-      "textureBytes": 14307552
+      "textureBytes": 14333112,
+      "multiAtlas": true
     },
     {
       "id": "kigalights-resident-3",
@@ -6676,10 +6743,11 @@
       "key": "character-cast-kigalights-resident-3",
       "image": "/assets/character-cast/kigalights-resident-3.webp",
       "atlas": "/assets/character-cast/kigalights-resident-3.atlas.json",
-      "atlasSha256": "e103f46369de985959786a6b08337b41ffaf66b7888ad19086ad2f579b51cae2",
-      "sha256": "a1c5a01d38cc60c0cf7edf13eeeaf7c3683c5bdefe302fab83e8c3661e6c14cb",
+      "atlasSha256": "2925ce6974792278f744beb479cf61126b10d75d4218ca7d1931735994d86b02",
+      "sha256": "c6c1dcfef329d27ac1b3c7aa98d889bed6ba056cbf44edd353f8dba9ef8a2276",
       "recipeSha256": "90ae9666734a0676d8982d80e7ed83cb374000a9f29e1c7c9a6f6b6a4c80d715",
-      "textureBytes": 13800960
+      "textureBytes": 13993156,
+      "multiAtlas": true
     },
     {
       "id": "kigalights-resident-4",
@@ -6722,10 +6790,11 @@
       "key": "character-cast-kigalights-resident-4",
       "image": "/assets/character-cast/kigalights-resident-4.webp",
       "atlas": "/assets/character-cast/kigalights-resident-4.atlas.json",
-      "atlasSha256": "cca8dd3d2d62521e8bd782913b0d86f355973a6daac5638e797a2f229284400b",
-      "sha256": "2aea516e659a250d427681537e53c581a2ac1b01c468ccc6e69cd1f57b3dadc9",
+      "atlasSha256": "21b31f80113e3399b590e6896f960ae0595065a69b13098c796050449bf36502",
+      "sha256": "76bc0fa7c1b06dfbb9380ee5f154e6e2d74fff5c33b6af3c1da2d5b1c7e291c4",
       "recipeSha256": "6983391080bcc79df4df0ca30bf5e2cd6a8eb1674f0aa9ab1ef0c717552475f1",
-      "textureBytes": 14430048
+      "textureBytes": 14802240,
+      "multiAtlas": true
     },
     {
       "id": "kigalights-resident-5",
@@ -6768,10 +6837,11 @@
       "key": "character-cast-kigalights-resident-5",
       "image": "/assets/character-cast/kigalights-resident-5.webp",
       "atlas": "/assets/character-cast/kigalights-resident-5.atlas.json",
-      "atlasSha256": "23237557720418edbdd01f42c6d35e369cee705a01bfd0ad05e776f887694a29",
-      "sha256": "2e80fa0c4418563c27a1496d6c03a2830123769dd7024de6b200e5b14c6e2b94",
+      "atlasSha256": "a5342c2e7e1bb2e7f99db20812de383f455bec2f184f81246d3bdd081ce1f230",
+      "sha256": "a8cc7e0b50d16c57ddd3cf387ace65486f3afe804e7854c3ee01e3dc1b81455d",
       "recipeSha256": "d943fb4846c5b8323fba071706d283fc360b74d429b407987a994c9e089a257b",
-      "textureBytes": 14625636
+      "textureBytes": 14660748,
+      "multiAtlas": true
     },
     {
       "id": "kigalights-resident-6",
@@ -6814,10 +6884,11 @@
       "key": "character-cast-kigalights-resident-6",
       "image": "/assets/character-cast/kigalights-resident-6.webp",
       "atlas": "/assets/character-cast/kigalights-resident-6.atlas.json",
-      "atlasSha256": "379c6b30a608a1a79843475d7535fe6415cff7649c861621a05548ca31a05fdf",
-      "sha256": "3027154c01d85041830844e923d06173de9fa32b4006ebb05293ca7c18e9edc9",
+      "atlasSha256": "f2602192f07d13cf5ba23abb443db4b3892702566ca7dd38f70e9692a1731878",
+      "sha256": "b40d3a5d321cb4dfb944c02be91cf64fd89aaac96441f88e81309ab8948c540b",
       "recipeSha256": "e62d0df81df8cf23876b562255a6f8cfa2e4f7cb973c404731a7d03e44d6ced2",
-      "textureBytes": 14880556
+      "textureBytes": 14594832,
+      "multiAtlas": true
     },
     {
       "id": "kigalights-resident-7",
@@ -6860,10 +6931,11 @@
       "key": "character-cast-kigalights-resident-7",
       "image": "/assets/character-cast/kigalights-resident-7.webp",
       "atlas": "/assets/character-cast/kigalights-resident-7.atlas.json",
-      "atlasSha256": "3f4f778a16bf2129099552a7d838399e482c7044153344ec1199039fed736e02",
-      "sha256": "d283aadb5d35b2c29da71c0c6dbcba7cc196695edff230cd30cbe5240bff5ab7",
+      "atlasSha256": "6b7fb698202084bf4ec6100d7a22d1691edfda8b633b7936c775a23b85f71faa",
+      "sha256": "860ce2db398197dbef12da8d6f99517f82c8debacb17fb4fabfcfc7f434476fe",
       "recipeSha256": "8ed485dc8366baff2c95691ec124417d7054f942caf9d4e408ce14ead429205c",
-      "textureBytes": 14113080
+      "textureBytes": 13369400,
+      "multiAtlas": true
     },
     {
       "id": "cedarbay-meera",
@@ -6906,10 +6978,11 @@
       "key": "character-cast-cedarbay-meera",
       "image": "/assets/character-cast/cedarbay-meera.webp",
       "atlas": "/assets/character-cast/cedarbay-meera.atlas.json",
-      "atlasSha256": "8e1c5ac4b8e010a6456beb81900a845f7954f53842b4bd5a1869d3dd8a103031",
-      "sha256": "e1fb3e3c1671b44d0a33195c93e45e377d192c3b16a2d7be7d34cfa04e6e751c",
+      "atlasSha256": "bc08d217b8374bc9541dc86e29e9fdd0131d2c2487901ee1ce377e1391f53cef",
+      "sha256": "01efab8927ec52c526feced12416cee67d95374f13762b4bc7aa845ec29be99b",
       "recipeSha256": "9d7cbea9143acfb13de07862ef6ece2d8487665097570e1608caa3cfe80475cb",
-      "textureBytes": 14079972
+      "textureBytes": 14093416,
+      "multiAtlas": true
     },
     {
       "id": "cedarbay-ravi",
@@ -6952,10 +7025,11 @@
       "key": "character-cast-cedarbay-ravi",
       "image": "/assets/character-cast/cedarbay-ravi.webp",
       "atlas": "/assets/character-cast/cedarbay-ravi.atlas.json",
-      "atlasSha256": "7088733de3f50bd95c6b8a739551f7492914b7c4a23174634e734af8c64b8b08",
-      "sha256": "0fbd0bf17872c3ee22fb44fb00d7e9391c70b8b91d31aa743db515fe59ff8911",
+      "atlasSha256": "21ec291214f04476980b60613fc3260f698dcc86e6487704993b8f2662e4ff1a",
+      "sha256": "feeb6bef4d9eda1c6426e3262b53f26830c9b3d52bb81e328c8fa16cbf55e175",
       "recipeSha256": "a1e51dc615faaf9114f83da2309a18ee684eef873e2b8ca4a8b44e005e6d2b5e",
-      "textureBytes": 14839220
+      "textureBytes": 13800584,
+      "multiAtlas": true
     },
     {
       "id": "cedarbay-anjali",
@@ -6998,10 +7072,11 @@
       "key": "character-cast-cedarbay-anjali",
       "image": "/assets/character-cast/cedarbay-anjali.webp",
       "atlas": "/assets/character-cast/cedarbay-anjali.atlas.json",
-      "atlasSha256": "9dcee846ba62b908e892bbfe22d613d01800a5e7e6cc09d4dc851ba161bca1db",
-      "sha256": "5126f44618ca481e8857ccbcaac4c0a1aa8130e8ee97a8f150812b7d6da380ba",
+      "atlasSha256": "01ea2426290e3a6fc30b1e04d7b0d0387e98b2397e4920901e9ed8ea1a5558d7",
+      "sha256": "eb5239805ec06aa11b3d44c95e9d97b570fae12d789573e303e57472d3fe7f22",
       "recipeSha256": "61ac4d0e9895a5195c4476063f2f10dd9fee3ce71a923725ce7cc6fd075d1351",
-      "textureBytes": 15023840
+      "textureBytes": 14327152,
+      "multiAtlas": true
     },
     {
       "id": "cedarbay-arun",
@@ -7044,10 +7119,11 @@
       "key": "character-cast-cedarbay-arun",
       "image": "/assets/character-cast/cedarbay-arun.webp",
       "atlas": "/assets/character-cast/cedarbay-arun.atlas.json",
-      "atlasSha256": "a1793e591ffb50fdd33448192d506c6ead7935e849a97b55893a8261d570d278",
-      "sha256": "aef83322a6ebc3ebb8519075b021bfbd533fad25d8fc71594f8e9367a64ee246",
+      "atlasSha256": "791c3bd4ddac8ed3b6e933b31db19c5fce12269160c0d6e980f8d4361c7416f0",
+      "sha256": "7ca7c6bf9a53fb137eda0f8998e89b67dbaf0a7bc404857388a1dccc32e822e3",
       "recipeSha256": "5af5a3bf17c1ec720761477486a728579bba2f51b9ae423282fdfd1580e2364e",
-      "textureBytes": 14286100
+      "textureBytes": 14001312,
+      "multiAtlas": true
     },
     {
       "id": "cedarbay-dev",
@@ -7090,10 +7166,11 @@
       "key": "character-cast-cedarbay-dev",
       "image": "/assets/character-cast/cedarbay-dev.webp",
       "atlas": "/assets/character-cast/cedarbay-dev.atlas.json",
-      "atlasSha256": "0cf98a173e0bbbc2dbcc8bfe120c6ad82d93732cd2c5aade124f7236b7311b51",
-      "sha256": "343057652e22416f4ab8868b1f19f81dd31cef45820364071ee7eaa5431d6c76",
+      "atlasSha256": "8f3118745f69ad9d94d84116d7bab4afc73f8292f19435ec56b95b7ff4f5c2ae",
+      "sha256": "4e5e9bb42472ad6067d91e8000951713ece3bbd2f21a42eff92627543dd7e683",
       "recipeSha256": "4ec33fa64d20282b98fabe3b7dbd80c64127de00be718afc007414cb3edbd987",
-      "textureBytes": 13920648
+      "textureBytes": 14063556,
+      "multiAtlas": true
     },
     {
       "id": "cedarbay-latha",
@@ -7136,10 +7213,11 @@
       "key": "character-cast-cedarbay-latha",
       "image": "/assets/character-cast/cedarbay-latha.webp",
       "atlas": "/assets/character-cast/cedarbay-latha.atlas.json",
-      "atlasSha256": "57408115a4414c0562acdef14b8dc6d15783ae33616d7cc79240be244ce221f2",
-      "sha256": "e0a34819035ab1e6029b5762461bcd1065c2d00379f33b73dc7794ff5f1adee0",
+      "atlasSha256": "cd04e8e11824c02b3ce2cbd0653ec109dd679491ee87661fbb0bca1699b38205",
+      "sha256": "8903b3105d17d97a35e45d8ee053063c16b42cc922c15de2734a48ec6c71a890",
       "recipeSha256": "c99f97df09f78720ce00032399e36601b143d0832be6dd328b342094b4412c2c",
-      "textureBytes": 14917776
+      "textureBytes": 14583552,
+      "multiAtlas": true
     },
     {
       "id": "cedarbay-farah",
@@ -7182,8 +7260,8 @@
       "key": "character-cast-cedarbay-farah",
       "image": "/assets/character-cast/cedarbay-farah.webp",
       "atlas": "/assets/character-cast/cedarbay-farah.atlas.json",
-      "atlasSha256": "73d22606a95e4b1364793458d9a2399a8c57aa9a79878e17973bf28a9392ef59",
-      "sha256": "7f728f50df5048a69a3f0515d132e077da38bd178a819dd1ee2ade86651a884b",
+      "atlasSha256": "7087c0c537a6e0a47cfd65f99f4b34823655d8f18aa36a83f3542b2c6c1bb729",
+      "sha256": "753a64f705ff1d100c7bb6af03b5a7cb1c0171029ff78551436f12f0b66d3b83",
       "recipeSha256": "8dc5dc27c023af52e107cbf52e233af3a91426b1aed2a7c9cdbd14f005f2f3ad",
       "textureBytes": 14532188,
       "multiAtlas": true
@@ -7229,10 +7307,11 @@
       "key": "character-cast-cedarbay-nila",
       "image": "/assets/character-cast/cedarbay-nila.webp",
       "atlas": "/assets/character-cast/cedarbay-nila.atlas.json",
-      "atlasSha256": "3a77d724b50d2c61c92e5b157f4917e76f3a9ca31a0a0e2a7205dd20a33c9d51",
-      "sha256": "11eb6a951dd4707e4fb64982dc417b6e12d1191e94e8ebe73bbb5dd31365c171",
+      "atlasSha256": "3c5a8376a3e22334e3d1306b09aff92ec019feef996246f144b2a30bb66c1b25",
+      "sha256": "361539a674fb9c76a69f7e7742cf08f4ece0dbddd2a24936dabc426cf3b6c064",
       "recipeSha256": "5d4f193600af1bbb86ea80f8e65ba93ca103baac5e273b097e053b366f6cba14",
-      "textureBytes": 14665612
+      "textureBytes": 13945152,
+      "multiAtlas": true
     },
     {
       "id": "cedarbay-resident-0",
@@ -7275,10 +7354,11 @@
       "key": "character-cast-cedarbay-resident-0",
       "image": "/assets/character-cast/cedarbay-resident-0.webp",
       "atlas": "/assets/character-cast/cedarbay-resident-0.atlas.json",
-      "atlasSha256": "b5f6565283abe9162e82a5670456605121856930ed999b4d8eb7948585d8f6a9",
-      "sha256": "8ea5294f8b4c952f87d3dbcea4279cf890b7666f38d3a1bcd37189ca7ac805be",
+      "atlasSha256": "ceb5407fb37d37aaed58ff91695e03f21aa3f912ba51144295c8855e2ca3a3c4",
+      "sha256": "280f83923edafa7afda11c1af1fd5db23694c3b009b2f77512eb4f2e77eea456",
       "recipeSha256": "8ac0d0800e5c12355c91c6f5eb80c3dc5af7539496acdb466dae2b5132638b23",
-      "textureBytes": 14496944
+      "textureBytes": 13657604,
+      "multiAtlas": true
     },
     {
       "id": "cedarbay-resident-1",
@@ -7321,10 +7401,11 @@
       "key": "character-cast-cedarbay-resident-1",
       "image": "/assets/character-cast/cedarbay-resident-1.webp",
       "atlas": "/assets/character-cast/cedarbay-resident-1.atlas.json",
-      "atlasSha256": "e24ad3b38747c497fbb2ad9359667b189a51818176eaabd40189f578cee4d8a2",
-      "sha256": "08a847abe89752cef041fa6fa4c1bac3317f3d27bf9f3b6e3238bfbe3790446f",
+      "atlasSha256": "4c310d96044714462ddafa5a2dc1e58bdfbeb8792596b3101c2904e98d8c01a0",
+      "sha256": "70bf45a25359a471bc7ced6003d594f17842eb219a84d1ac37b0a12118255e36",
       "recipeSha256": "5de2dc4e0a30dbcca947e42777c9751e65803aef7cf9dc82f2ff3ea3ac09077b",
-      "textureBytes": 13971216
+      "textureBytes": 14103372,
+      "multiAtlas": true
     },
     {
       "id": "cedarbay-resident-2",
@@ -7367,10 +7448,11 @@
       "key": "character-cast-cedarbay-resident-2",
       "image": "/assets/character-cast/cedarbay-resident-2.webp",
       "atlas": "/assets/character-cast/cedarbay-resident-2.atlas.json",
-      "atlasSha256": "986b3dae2615a1bba530719b03d0256334ab6456883169892cfe525ea19fd562",
-      "sha256": "10eb011f86cf36e98718e7e7a2683b67c184785f529ce8f4b67007933544d6b3",
+      "atlasSha256": "f1ef03523481fdce0e0bb69e65752c2012310c772cc4d76663bac841afb0ef3c",
+      "sha256": "9333fb2e79f4916ce0235cecb7ff3011a87062d45d90bd981187f58aea15feaf",
       "recipeSha256": "ed7ed5e1e47dbb883ff2416f99c811e87af6fced8b56dffe9c7b28a7f7fc0157",
-      "textureBytes": 14597864
+      "textureBytes": 14332528,
+      "multiAtlas": true
     },
     {
       "id": "cedarbay-resident-3",
@@ -7413,10 +7495,11 @@
       "key": "character-cast-cedarbay-resident-3",
       "image": "/assets/character-cast/cedarbay-resident-3.webp",
       "atlas": "/assets/character-cast/cedarbay-resident-3.atlas.json",
-      "atlasSha256": "23237557720418edbdd01f42c6d35e369cee705a01bfd0ad05e776f887694a29",
-      "sha256": "2ce0e95b0720a3c769a64ee56a4fdf41a24aba67a6b6f600b694014d61f7e60a",
+      "atlasSha256": "7b79a9372c0e8b5013c2fea5b53894d3de56e757adf38c8945932381df966c33",
+      "sha256": "0cd493e98152bd390b74e2e3e2bba489aa9b1923bfd1bbde042de76720ca5374",
       "recipeSha256": "cab2484ff85574d5e1fbd16b228af596e99b4bbc72929032e1e5aa3285acec29",
-      "textureBytes": 14625636
+      "textureBytes": 14660748,
+      "multiAtlas": true
     },
     {
       "id": "cedarbay-resident-4",
@@ -7459,10 +7542,11 @@
       "key": "character-cast-cedarbay-resident-4",
       "image": "/assets/character-cast/cedarbay-resident-4.webp",
       "atlas": "/assets/character-cast/cedarbay-resident-4.atlas.json",
-      "atlasSha256": "5be3aa49ed79be83534399ce70775f3e63450660886aef4c106723d28b4ab96d",
-      "sha256": "609f00a3715fd57024829367c9723a1e4180d3e43b617d47880481c52ea4ea32",
+      "atlasSha256": "0e3d52c7ca9d69e36281e9524ee16e7a9ae7c7a23b1b7ee4a8707633d0560799",
+      "sha256": "a7e0e8235f7e6b042a41d728032019f835f35636c0c21b15d89aeb043f21b7f5",
       "recipeSha256": "f2b9cb9533111b74983629af7130c5be346842868b9ef870aa751a9be268de7a",
-      "textureBytes": 15023840
+      "textureBytes": 14356848,
+      "multiAtlas": true
     },
     {
       "id": "cedarbay-resident-5",
@@ -7505,10 +7589,11 @@
       "key": "character-cast-cedarbay-resident-5",
       "image": "/assets/character-cast/cedarbay-resident-5.webp",
       "atlas": "/assets/character-cast/cedarbay-resident-5.atlas.json",
-      "atlasSha256": "f9938ba73fe03067f0365f133e2880de92a9abbae45d77071b28499486f731a0",
-      "sha256": "521d193b25a1b5a3a6761684f3575d636cb142b1076a82a5c2874a26059e7c6e",
+      "atlasSha256": "a950a2bbeff9b3ed89fa64e96ab595f12493c4a6c687a626c161075549c4c722",
+      "sha256": "71d19998f8c4f00668120a98f7f5feefcc0cd93f2ad54943a1eb08ade4723bbb",
       "recipeSha256": "c4a1ad8e4239383f47b0e7427451c3657f0ddeccff91bbe6460168c21be64f57",
-      "textureBytes": 13714704
+      "textureBytes": 13899516,
+      "multiAtlas": true
     },
     {
       "id": "cedarbay-resident-6",
@@ -7551,10 +7636,11 @@
       "key": "character-cast-cedarbay-resident-6",
       "image": "/assets/character-cast/cedarbay-resident-6.webp",
       "atlas": "/assets/character-cast/cedarbay-resident-6.atlas.json",
-      "atlasSha256": "136cdb96da17ebd7c4f5eaef999064b4634438844b84e70234b6ec1aedeb8240",
-      "sha256": "3fcf3b5671ab95a09a4e9705f18ccbb085422723d4439a64a62e3e8e7a08d9ca",
+      "atlasSha256": "b35e877b42d995aa5b1b516ac158d36c652cae2bf752fe85e793754194ec3688",
+      "sha256": "a393ce5d692b5c92aeb21e2617bea9263f28d74e35f37aed6ae1e2ba7b233613",
       "recipeSha256": "ba73dac99524620dae7bbd1e83e0b749be1dbfab6caf7568e3b939b1a14f42e9",
-      "textureBytes": 14640124
+      "textureBytes": 14744192,
+      "multiAtlas": true
     },
     {
       "id": "cedarbay-resident-7",
@@ -7597,8 +7683,8 @@
       "key": "character-cast-cedarbay-resident-7",
       "image": "/assets/character-cast/cedarbay-resident-7.webp",
       "atlas": "/assets/character-cast/cedarbay-resident-7.atlas.json",
-      "atlasSha256": "29e71644b35121c54c8fb03457f2c158f5fb133781ea26efebf88d9ebee553f3",
-      "sha256": "a15e98c5d02fbb369db7bb5a90c4eab83965b59d6259728322cd0c0b75313c7c",
+      "atlasSha256": "4bbda76ac12c576d93bbba00299ddfdaa63924aa10c51d7bd07e81a48d946c1a",
+      "sha256": "9a4989ab07ae62bf0b1231b13e0a1559db5f266d67fde2d82dc0714be6e0fa1c",
       "recipeSha256": "c54355fcd3e5657416ddba8054402effed0e3a81fca14c59ce042c78de9aca3b",
       "textureBytes": 14445464,
       "multiAtlas": true
@@ -7644,10 +7730,11 @@
       "key": "character-cast-seoulsteps-minji",
       "image": "/assets/character-cast/seoulsteps-minji.webp",
       "atlas": "/assets/character-cast/seoulsteps-minji.atlas.json",
-      "atlasSha256": "81e1c4f98a37527f6d1894bf6303b9669fabaf055f8ffd2a6288cfdb606a0dcb",
-      "sha256": "53382ad12126cd8c2412b420fea47d6b2d03d8a5eebb19f1c2ca386db50c423d",
+      "atlasSha256": "43d7721bce93818c079ab34727c4ff10deb7c55dc22e109ecb576500a65bb6d9",
+      "sha256": "90463f548890db213b63633623c82827118f15e59eb757df18e0747fdbb79c33",
       "recipeSha256": "15ce721e1faa628dabd4e4f95f9dc77e8a302258406ceb0309f85bf6224f86ca",
-      "textureBytes": 14835892
+      "textureBytes": 14553808,
+      "multiAtlas": true
     },
     {
       "id": "seoulsteps-jisoo",
@@ -7690,10 +7777,11 @@
       "key": "character-cast-seoulsteps-jisoo",
       "image": "/assets/character-cast/seoulsteps-jisoo.webp",
       "atlas": "/assets/character-cast/seoulsteps-jisoo.atlas.json",
-      "atlasSha256": "7122479871a986c38070ecd6555e7fe4fce5af17e515d82b38bad2bcccfe9a33",
-      "sha256": "bba687719a740883f4aac1e4e7a0b7f11fdaf658e26199aa3f8031d52ea9543c",
+      "atlasSha256": "0f10d2934eeafa2b740686e3d4175eefd695d4ed15a5c49ea890cad547423fd7",
+      "sha256": "4c3c6304c48384547935c3137c41311de3d13d11841b706634d49f5b6afe08fe",
       "recipeSha256": "aa2a57926b3d61bbfceeef03dee86b9fd6c0dea696ea246b8dfa02b39a358dbb",
-      "textureBytes": 14490960
+      "textureBytes": 14183232,
+      "multiAtlas": true
     },
     {
       "id": "seoulsteps-hana",
@@ -7736,10 +7824,11 @@
       "key": "character-cast-seoulsteps-hana",
       "image": "/assets/character-cast/seoulsteps-hana.webp",
       "atlas": "/assets/character-cast/seoulsteps-hana.atlas.json",
-      "atlasSha256": "8721da861476d774161704091c2031dbf0f6186712ee22eed1c88820f5869b7d",
-      "sha256": "84727cb7a2e6b76d0887726f4aab607b9c7e2ea041089b26c6e7ad87cfad536f",
+      "atlasSha256": "16c22030411a3abea0c4011af498a7975eaf67f129df913836df809559fd2060",
+      "sha256": "e2b92443622be793d96f22aa2f2ff7cb2d5b71eef1bb324e653472ec2032d3f2",
       "recipeSha256": "1f94b304c886b376d1380dbc4b60a4a021e5533c1b46dec6d8ad5cc1aea41c72",
-      "textureBytes": 14829480
+      "textureBytes": 14750896,
+      "multiAtlas": true
     },
     {
       "id": "seoulsteps-soo",
@@ -7782,10 +7871,11 @@
       "key": "character-cast-seoulsteps-soo",
       "image": "/assets/character-cast/seoulsteps-soo.webp",
       "atlas": "/assets/character-cast/seoulsteps-soo.atlas.json",
-      "atlasSha256": "9d1961882e25fd33e507bc8ff5a5124b72376d42e9a075c11d40b83c1668ed85",
-      "sha256": "c0920e3d7e359bfc9f1227b49d1db6c0f0d23ae22a01e81f20369dde5b3734ee",
+      "atlasSha256": "76dc2723f93f2006d5b786ef43a6c91eef5e75ee1c5ed7a3673675a45fc0fe3e",
+      "sha256": "bc7abc117c53082272a3823e0b36ba7eb094ae980d1c6cb8aeb29c12f85d26f9",
       "recipeSha256": "3e3df688c322b000d5b8e680dd432e78c79e9784ef5663648b7635b36a6e453e",
-      "textureBytes": 13963992
+      "textureBytes": 14085252,
+      "multiAtlas": true
     },
     {
       "id": "seoulsteps-eun",
@@ -7828,10 +7918,11 @@
       "key": "character-cast-seoulsteps-eun",
       "image": "/assets/character-cast/seoulsteps-eun.webp",
       "atlas": "/assets/character-cast/seoulsteps-eun.atlas.json",
-      "atlasSha256": "0ef877aeb720bdc706b4db6bc870f1860a951c76661e35bc154d17610ea51732",
-      "sha256": "3e86b4445c27dbfe81e84d9d649d9b3b6c95c8352d43d847ca6800b2f4dda5bb",
+      "atlasSha256": "4bb0ca8f9c489bfd6df542982cbf699105821b3cd443e6e547989ca70d26f766",
+      "sha256": "253849c70215af840bb7c9a063159220fd1dc5dc0db390050759e71086866d9d",
       "recipeSha256": "fcedf6a3509eb2f07b22b744342866ac89da683ddb9f433008a4c575df8e03ea",
-      "textureBytes": 14651156
+      "textureBytes": 13959648,
+      "multiAtlas": true
     },
     {
       "id": "seoulsteps-dae",
@@ -7874,10 +7965,11 @@
       "key": "character-cast-seoulsteps-dae",
       "image": "/assets/character-cast/seoulsteps-dae.webp",
       "atlas": "/assets/character-cast/seoulsteps-dae.atlas.json",
-      "atlasSha256": "f06dd1bc44a61829967f849c84c57a2210a93a136047e524a54a69761f932372",
-      "sha256": "4b6ab0bb8e00abfa009ebf140dcb6d1585b036ad36c81b06defc2bad39a00dd9",
+      "atlasSha256": "3d00ebde124968f91dcaa52d0334a34082377f4eee5af82d57921d7d68413eea",
+      "sha256": "2efb4716705ed8ad2a6df6365be4c7374f9dda4c3d9d361ef63ef08b483b1ba2",
       "recipeSha256": "c9e98b0b28801bf6fff297a100009ffde9119823c23590e2aa294632110ceebb",
-      "textureBytes": 13927872
+      "textureBytes": 14067168,
+      "multiAtlas": true
     },
     {
       "id": "seoulsteps-joon",
@@ -7920,10 +8012,11 @@
       "key": "character-cast-seoulsteps-joon",
       "image": "/assets/character-cast/seoulsteps-joon.webp",
       "atlas": "/assets/character-cast/seoulsteps-joon.atlas.json",
-      "atlasSha256": "eb74e2346b5afb15acc27c9fd9c6958686da62258b632b40b5b9f5b4dceac430",
-      "sha256": "7a52de317d34431729d3dfc20c132d628a10658c128600192f22010dde6966c0",
+      "atlasSha256": "898e6e50654a2917bf4311d6251c9e65879b6e01020b294effeb5f32ef0857c8",
+      "sha256": "b1294a05d5f05653880540d03f0ad829084ab7b753c4a1cd463fdbda686c1148",
       "recipeSha256": "6621db5e45147711318a9a4de7be6804cddefb5e7266a29b74d14de4267372c0",
-      "textureBytes": 14007336
+      "textureBytes": 14125068,
+      "multiAtlas": true
     },
     {
       "id": "seoulsteps-yuna",
@@ -7966,8 +8059,8 @@
       "key": "character-cast-seoulsteps-yuna",
       "image": "/assets/character-cast/seoulsteps-yuna.webp",
       "atlas": "/assets/character-cast/seoulsteps-yuna.atlas.json",
-      "atlasSha256": "2b8b57e337982cd85e821347e9228d5ffee77506b3e49393e01d453f1e17129a",
-      "sha256": "a107d79c153abdda83d0e2dd838f80dd22668288f81c55172c016cfeb067c942",
+      "atlasSha256": "f4caa33bde5f6ab0628fedf3690da800ee918d5253cda67ff06803d1aef7a439",
+      "sha256": "eb8bac116587baaf5fe6a0c81f86fea8898870fe83b7bd83476b6e71c29a7285",
       "recipeSha256": "243fc89262ece5509555041e3dcec4ea8ee5e4334e9941de4491c31316bb1354",
       "textureBytes": 14592704,
       "multiAtlas": true
@@ -8013,8 +8106,8 @@
       "key": "character-cast-seoulsteps-resident-0",
       "image": "/assets/character-cast/seoulsteps-resident-0.webp",
       "atlas": "/assets/character-cast/seoulsteps-resident-0.atlas.json",
-      "atlasSha256": "f22fe6e49af8242feed41b76df9a00d3c467796cac47f9d632f64e1aa20311da",
-      "sha256": "7049b4cca877cff6dc2fb7acc2e0c3eb860e6067c730a9ce93c1f9aca411908d",
+      "atlasSha256": "8928de2a38727e8cc2e2ec5b22c2e281b58ab4a449d49f795f01246cc3bac7d3",
+      "sha256": "afabce1529895621494207b42dc6c73cafcf781327094067cba062e5b0474cf9",
       "recipeSha256": "cf6aa5dfe73890ed1eb88adae539614414b0b690a7e1cc59c2da595786152148",
       "textureBytes": 14068368,
       "multiAtlas": true
@@ -8060,10 +8153,11 @@
       "key": "character-cast-seoulsteps-resident-1",
       "image": "/assets/character-cast/seoulsteps-resident-1.webp",
       "atlas": "/assets/character-cast/seoulsteps-resident-1.atlas.json",
-      "atlasSha256": "3f4f778a16bf2129099552a7d838399e482c7044153344ec1199039fed736e02",
-      "sha256": "6468a0dc2e4ad6cfe2c9a06104a802f740b4f7bf452311374bbfbd66d701e1a8",
+      "atlasSha256": "dc8825458175f06d02d9199c042cd143358953c4aa039bf1838e2d142dfa308e",
+      "sha256": "29afcb6f88df742791104438bf4091b44c1a1f94f22a0f90007b809bc0e94d59",
       "recipeSha256": "b2c6ae4b0c630bfe9c84c6f5ee19a4477d0f45dfdcb14b6ba231703856872a55",
-      "textureBytes": 14113080
+      "textureBytes": 13369400,
+      "multiAtlas": true
     },
     {
       "id": "seoulsteps-resident-2",
@@ -8106,10 +8200,11 @@
       "key": "character-cast-seoulsteps-resident-2",
       "image": "/assets/character-cast/seoulsteps-resident-2.webp",
       "atlas": "/assets/character-cast/seoulsteps-resident-2.atlas.json",
-      "atlasSha256": "13aab378e09b2576dc0ae9bb95fe6216a321dd945be16eca8ffb9155d9ebde35",
-      "sha256": "f48a6c158754f3f35ebab67864f1019c64089cd0fcdbe63da930d3bf1f68797a",
+      "atlasSha256": "efdbcd1c4c2160015db9861662d388ed5d6cb2787c02b7d34b0e1359e4b64c88",
+      "sha256": "889cfa6a10c89622caa53a77d3c25bdc252417724d19395f9aa6c1cefe362779",
       "recipeSha256": "4b8072f17b641508813516b5a6d15078d1dca627cfa62ba07e82ebc34c1bb17d",
-      "textureBytes": 14635824
+      "textureBytes": 14105932,
+      "multiAtlas": true
     },
     {
       "id": "seoulsteps-resident-3",
@@ -8152,10 +8247,11 @@
       "key": "character-cast-seoulsteps-resident-3",
       "image": "/assets/character-cast/seoulsteps-resident-3.webp",
       "atlas": "/assets/character-cast/seoulsteps-resident-3.atlas.json",
-      "atlasSha256": "c60062d8bb8a0f0a89ebaf662ee10eac8cf8bfe45e8c57f3effd6c44d9117ef0",
-      "sha256": "847cdbd0ba2e190d4eb45cade9e252cf97bb5975eb919eb16009c56707708c34",
+      "atlasSha256": "51c74690dfe3d664876d4dde4522cd98ea6d8ad0379c45c1a315a38fc6dbe9ab",
+      "sha256": "f56c23ce3a02f1fe4d9021fe42044571dc89acc9ebe13707b0cb81d68d9a0f52",
       "recipeSha256": "5f2b99e1a12486a83de890378391d0016bdfe9cec153d0dce5d08ae6c02800e8",
-      "textureBytes": 13800960
+      "textureBytes": 14000356,
+      "multiAtlas": true
     },
     {
       "id": "seoulsteps-resident-4",
@@ -8198,8 +8294,8 @@
       "key": "character-cast-seoulsteps-resident-4",
       "image": "/assets/character-cast/seoulsteps-resident-4.webp",
       "atlas": "/assets/character-cast/seoulsteps-resident-4.atlas.json",
-      "atlasSha256": "cf333e9d8d8aa673a7c4543b8ed1ed8f2530643482aae212de7dbf82dbf3160d",
-      "sha256": "71279d0ca8543d463f587018b470415dd13a7d624e71611aaf7447b71a93fc71",
+      "atlasSha256": "4effec3073587ce4fb7f46c9f41795a40f2f13aafe6a6942c7a3e0e95a0822b4",
+      "sha256": "e53cec8fb415a607fb860f447499ef485109655ce031a2d9ccaf032c76e23161",
       "recipeSha256": "feba03a0e1eec2c646c75f9e8688d886d508a4eb7424a0189c8541b512f87576",
       "textureBytes": 14080752,
       "multiAtlas": true
@@ -8245,10 +8341,11 @@
       "key": "character-cast-seoulsteps-resident-5",
       "image": "/assets/character-cast/seoulsteps-resident-5.webp",
       "atlas": "/assets/character-cast/seoulsteps-resident-5.atlas.json",
-      "atlasSha256": "297a0ef7232607a9e36cf043b4830243c6c5d273a4794b76f44a9d223c290f41",
-      "sha256": "150a601ed37add2835c5a857ab09096de4471720b249fa131fdf0f7343e87a02",
+      "atlasSha256": "9ae74ee467117027b8eec971504fff0da6012e6f455457a6671bdbe81a1103a8",
+      "sha256": "200d33474be0b432088a2946ee19f06fc61ed0379e995af203e36070a3e703d6",
       "recipeSha256": "6224de288a5d103052002ebb92233ba18aa30f370fccf89d87d1a0e9e48365f7",
-      "textureBytes": 13891752
+      "textureBytes": 14030976,
+      "multiAtlas": true
     },
     {
       "id": "seoulsteps-resident-6",
@@ -8291,10 +8388,11 @@
       "key": "character-cast-seoulsteps-resident-6",
       "image": "/assets/character-cast/seoulsteps-resident-6.webp",
       "atlas": "/assets/character-cast/seoulsteps-resident-6.atlas.json",
-      "atlasSha256": "b1dca91f9b3c2b4b8ffef114eb844b9e00f5d581eb53e46984af9ca9f7e0fd0f",
-      "sha256": "29998f382370ffc92847055baf7159c600a55b4c5b5a2878797d0cec9c224d88",
+      "atlasSha256": "51e0f7840d876ef61f8d65a2701136536a9cda825da7bc0937259df767ee2776",
+      "sha256": "915ad4f4fe2ea38d4a900dfeaa94d8389c08bb3eeac86f1553cc091c06af26c1",
       "recipeSha256": "6685cb18d255b2be4f080d79dd315b22118a458e8630e735340d03aa9de2363d",
-      "textureBytes": 14546736
+      "textureBytes": 13761284,
+      "multiAtlas": true
     },
     {
       "id": "seoulsteps-resident-7",
@@ -8337,8 +8435,8 @@
       "key": "character-cast-seoulsteps-resident-7",
       "image": "/assets/character-cast/seoulsteps-resident-7.webp",
       "atlas": "/assets/character-cast/seoulsteps-resident-7.atlas.json",
-      "atlasSha256": "b34f586c0b77e46022f693abd226aaebdae005f6c6e3d2510e72304b9352b44d",
-      "sha256": "126eb34c79ea1dd8c8e8487ba382a253ecca2774dfc86b2d4ceed24e978f1af1",
+      "atlasSha256": "8e009c4b22f048942137cfa7f26c0a2f68806daf29cba604e4a13978beac0d26",
+      "sha256": "6bf24f35dad02f995aea8afceb7880e00d0324ee340b7600d970fccad83ba54c",
       "recipeSha256": "760a507d351477fafbf8580d1000541363ce28c642ce8ea448a03369088086f4",
       "textureBytes": 14726052,
       "multiAtlas": true
@@ -8384,10 +8482,11 @@
       "key": "character-cast-dunegarden-maryam",
       "image": "/assets/character-cast/dunegarden-maryam.webp",
       "atlas": "/assets/character-cast/dunegarden-maryam.atlas.json",
-      "atlasSha256": "8f7739bf80d53b3fa3b3583988a57216e0e51c87d63140d70e6dec17bd8b55ba",
-      "sha256": "e027c3924135e5446dec33ce032ad52460d58d0a5f38da5b7edd038a7d81ba9f",
+      "atlasSha256": "9af6262048b32e71dc8329f0c3185f0553cc6bc77a9981e431bfde7fe53d996d",
+      "sha256": "6a7459d4a51e2d2acbd3c0e05c27958039c3d7ace01f6910e04f0d257a3856c7",
       "recipeSha256": "8722dfec8ee6f3e63040d5c34d119fbedb1e4484023ab054b7ee2738ecfe10ff",
-      "textureBytes": 14051232
+      "textureBytes": 13805212,
+      "multiAtlas": true
     },
     {
       "id": "dunegarden-salim",
@@ -8430,10 +8529,11 @@
       "key": "character-cast-dunegarden-salim",
       "image": "/assets/character-cast/dunegarden-salim.webp",
       "atlas": "/assets/character-cast/dunegarden-salim.atlas.json",
-      "atlasSha256": "9179c58010761e691af2937b7b839a378c1edb8e25030fbb76c92226e43a7c36",
-      "sha256": "239f9a09ab3d241f7d346012ff79001a376be9f5a538ce92f64252a38208995f",
+      "atlasSha256": "728f7980733dd31ec7f5fd5d12056158de95544446ad7821a7ef341f7178c9ed",
+      "sha256": "42d2446c3c007f2d005a6248866a9b539c21d2852eab28a5f75d7aafdf1eb166",
       "recipeSha256": "5a61497992942a679cb436904c33b02b4f766efd4f979146b16c1c63ee84f7f2",
-      "textureBytes": 14503788
+      "textureBytes": 14187808,
+      "multiAtlas": true
     },
     {
       "id": "dunegarden-huda",
@@ -8476,10 +8576,11 @@
       "key": "character-cast-dunegarden-huda",
       "image": "/assets/character-cast/dunegarden-huda.webp",
       "atlas": "/assets/character-cast/dunegarden-huda.atlas.json",
-      "atlasSha256": "d079e98b75ec80f541430fe90fb9cceadcd8a75a3f77cb9d7010230d0661c07d",
-      "sha256": "3c140902dba24143ff3b82060f5633b9c929a548c3792e81da304cc2a56e442c",
+      "atlasSha256": "69621fc7d3295e4680beb5139e5a2430455bb9c4bcae75a62585a4ec27694922",
+      "sha256": "24d3e4e4b611b4e8de1443dc5dbbce6357deb097e119f5dccb35696ca952c2f5",
       "recipeSha256": "910abcacfa26232834814eff07c7688afc3ee4560961b15d81253491461edca4",
-      "textureBytes": 14807664
+      "textureBytes": 14499240,
+      "multiAtlas": true
     },
     {
       "id": "dunegarden-khalid",
@@ -8522,10 +8623,11 @@
       "key": "character-cast-dunegarden-khalid",
       "image": "/assets/character-cast/dunegarden-khalid.webp",
       "atlas": "/assets/character-cast/dunegarden-khalid.atlas.json",
-      "atlasSha256": "5bcfaf7ed28363ff82f04d8d37a212596b62e31c8a6a92dfc7abd972b82a0221",
-      "sha256": "deae63a21bd6806e7910e08ccb76720e716f0a3af8ce820dc6ed6585bc945b3f",
+      "atlasSha256": "18d97300e89dc3cbd0fe76d84d602c773b557c6f662a7b9a49c50467abb014ab",
+      "sha256": "ca57244008821b91f52f3801d666d903d05a36c88041d6c4ad1f06a596ff677f",
       "recipeSha256": "5515a93db886e78cc6a93baa8be0328744acfd1d92a8bb7b105a81b866ec3900",
-      "textureBytes": 13986180
+      "textureBytes": 14524936,
+      "multiAtlas": true
     },
     {
       "id": "dunegarden-saif",
@@ -8568,10 +8670,11 @@
       "key": "character-cast-dunegarden-saif",
       "image": "/assets/character-cast/dunegarden-saif.webp",
       "atlas": "/assets/character-cast/dunegarden-saif.atlas.json",
-      "atlasSha256": "7088733de3f50bd95c6b8a739551f7492914b7c4a23174634e734af8c64b8b08",
-      "sha256": "edeeacad75ccf1faecfece4332eeb27222643c097cf1e1d343b8c4d62b9c9088",
+      "atlasSha256": "d77bd5264c02bfb20bcb29a43469337fda346c3559131f576575c6de3b42d7f5",
+      "sha256": "1808bacee2c42b54f1c55c4dc48c295c8fc458d647adbad7d6a898ff4f409753",
       "recipeSha256": "aaf6c44fde987c4490fb6f966d68caa9b91f4d740ecee696ec49ccca4a987f11",
-      "textureBytes": 14839220
+      "textureBytes": 13800584,
+      "multiAtlas": true
     },
     {
       "id": "dunegarden-noura",
@@ -8614,10 +8717,11 @@
       "key": "character-cast-dunegarden-noura",
       "image": "/assets/character-cast/dunegarden-noura.webp",
       "atlas": "/assets/character-cast/dunegarden-noura.atlas.json",
-      "atlasSha256": "d5ac31a4a41bc01cc89d00e65f1eccd161c984340e120b91316d985da16400a6",
-      "sha256": "94df0179f3ee1b5956f74660d877a7f51c5fc5de4061d6b418941560315e437a",
+      "atlasSha256": "ef0cb735a0ea403d8c596e0c2630efc6b6180f35dc54e17ca51b3823c2176d05",
+      "sha256": "387151f046e213d99dbd0c2ed69ccbf93f5f3ae357941879f27281fbe61f0f5f",
       "recipeSha256": "851476248d8d1c7fb2183f4178dca70c49184807e06a626bbaaa0fbb633a6847",
-      "textureBytes": 14044004
+      "textureBytes": 13812684,
+      "multiAtlas": true
     },
     {
       "id": "dunegarden-aisha",
@@ -8660,10 +8764,11 @@
       "key": "character-cast-dunegarden-aisha",
       "image": "/assets/character-cast/dunegarden-aisha.webp",
       "atlas": "/assets/character-cast/dunegarden-aisha.atlas.json",
-      "atlasSha256": "5bcfaf7ed28363ff82f04d8d37a212596b62e31c8a6a92dfc7abd972b82a0221",
-      "sha256": "f53c3ecd37493b60b057017ad4ac52f6a91aa92be2d77b277de16d0494271884",
+      "atlasSha256": "017ca1d72bd6891abf09741f713b2358c8e2b2204c1a12e8a30a7b7e10572b03",
+      "sha256": "d3aa8273dcf527f616ff0652328a3675dbd22268e57218f2bba89c1a10993177",
       "recipeSha256": "e5d7351591219d8c203d392acb13068cd2636bc29dd26f61d3438d1763dfd5b7",
-      "textureBytes": 13986180
+      "textureBytes": 14524936,
+      "multiAtlas": true
     },
     {
       "id": "dunegarden-hamad",
@@ -8706,10 +8811,11 @@
       "key": "character-cast-dunegarden-hamad",
       "image": "/assets/character-cast/dunegarden-hamad.webp",
       "atlas": "/assets/character-cast/dunegarden-hamad.atlas.json",
-      "atlasSha256": "7122479871a986c38070ecd6555e7fe4fce5af17e515d82b38bad2bcccfe9a33",
-      "sha256": "625fb407d1a84477c9cc98f9aacb118af57344265b81d1f13d122fd684f28fbd",
+      "atlasSha256": "f275b90e413a9441728a7dfc3b74f63efd8641fc0bf6ce13036db5b31d9c904c",
+      "sha256": "90e565c7315d32525e5f3f483136337e703af892d6e5dec8ae62d5130f4bbd7f",
       "recipeSha256": "5deeff2eec7cbc30ac3b78d2a34bf434dad8969e2d85f60f1a718948ba44446d",
-      "textureBytes": 14490960
+      "textureBytes": 14183232,
+      "multiAtlas": true
     },
     {
       "id": "dunegarden-resident-0",
@@ -8752,10 +8858,11 @@
       "key": "character-cast-dunegarden-resident-0",
       "image": "/assets/character-cast/dunegarden-resident-0.webp",
       "atlas": "/assets/character-cast/dunegarden-resident-0.atlas.json",
-      "atlasSha256": "ccf9b577dd9605788b0dbdc9e42bb955aa3f978e98373c0b442eba28c19f8530",
-      "sha256": "289b85f80b1a6d68fa3ed0607b57f83f6b9012ce95d2e5399d4e8759f2e02b41",
+      "atlasSha256": "d2b11d2b309890d3bbc2770b2b0948da3fc4a155191acd19fd991ae04b797d75",
+      "sha256": "74d6e9d41640f5ec55e07eaaa5d62649d39f97f5d80c6130edb22333f55a2ea7",
       "recipeSha256": "3838eab207402a4ce9e5deeb85eb2df0db11a01ec87e7ae4b80d5078d4c07231",
-      "textureBytes": 14051232
+      "textureBytes": 13834140,
+      "multiAtlas": true
     },
     {
       "id": "dunegarden-resident-1",
@@ -8798,10 +8905,11 @@
       "key": "character-cast-dunegarden-resident-1",
       "image": "/assets/character-cast/dunegarden-resident-1.webp",
       "atlas": "/assets/character-cast/dunegarden-resident-1.atlas.json",
-      "atlasSha256": "d079e98b75ec80f541430fe90fb9cceadcd8a75a3f77cb9d7010230d0661c07d",
-      "sha256": "0c9770ce0ab41c1b02581c5a947e9b87e112f4ff21f6a29c260885238d186a3e",
+      "atlasSha256": "e1cc0ff817fb06416b4b29ea43655141b7bdb9fce70ba953e2ad6d5439d472fb",
+      "sha256": "0e905feaf0632b570a1fda6d8c17a413d2f598f7d391b780b2aa153a1fc43a20",
       "recipeSha256": "4895af236ed9fb03c6584113cef83efe28fac6102da4635631ec4f86a22bd8f4",
-      "textureBytes": 14807664
+      "textureBytes": 14499240,
+      "multiAtlas": true
     },
     {
       "id": "dunegarden-resident-2",
@@ -8844,8 +8952,8 @@
       "key": "character-cast-dunegarden-resident-2",
       "image": "/assets/character-cast/dunegarden-resident-2.webp",
       "atlas": "/assets/character-cast/dunegarden-resident-2.atlas.json",
-      "atlasSha256": "8e600ec628e9931d1e8ad226a5711ea3fe1f14f36bd984697a4f57ceec0afd1a",
-      "sha256": "e713365598e5728d46d746e208a4b2c90a64961bcd6be3614fd6e8595ea29747",
+      "atlasSha256": "afb672a9c04ac56edadc16e19f9179869ca3c73daa990b5521d5912ae6902b60",
+      "sha256": "3a77ded8c78f61320bf863af14b0855e992de58cc90390d2934b0c2a1846a646",
       "recipeSha256": "d810ec561edd77fcd6d00c5b90fdcb4b8f9a35a953a7fc7ced10c09f984f195e",
       "textureBytes": 13874556,
       "multiAtlas": true
@@ -8891,10 +8999,11 @@
       "key": "character-cast-dunegarden-resident-3",
       "image": "/assets/character-cast/dunegarden-resident-3.webp",
       "atlas": "/assets/character-cast/dunegarden-resident-3.atlas.json",
-      "atlasSha256": "f1ba7f1ffae9399d7a8bf8fe0a7081a0968aface6c8c017080a88bef60b95fb1",
-      "sha256": "9d40bbfe63781acfc5ed3b7e507f64740d297c3d050137e957d4b9da3f78b85f",
+      "atlasSha256": "aa4c23a7700c5c0833cb799f6afbf86e3bd89081093f16a6c1631921bf540ef8",
+      "sha256": "aafd1e7e466fac9f214f5ea90e6dfb757e8bb04a7f0bdaefcc0e2534c5b2efcf",
       "recipeSha256": "da831522b6a4695c8aa5fd8b7fb8cf992e531d0ec2578c7467a2ed55d22fd003",
-      "textureBytes": 14084424
+      "textureBytes": 13358628,
+      "multiAtlas": true
     },
     {
       "id": "dunegarden-resident-4",
@@ -8937,10 +9046,11 @@
       "key": "character-cast-dunegarden-resident-4",
       "image": "/assets/character-cast/dunegarden-resident-4.webp",
       "atlas": "/assets/character-cast/dunegarden-resident-4.atlas.json",
-      "atlasSha256": "8c8d04dcc43b878b22ff14a0c01019201f35ddb36deb985e0d597463ad5773a5",
-      "sha256": "438227a59fbf01839086bc12959e188f570efaeb43a7e89867d8e665139519ab",
+      "atlasSha256": "a2987acf9816adb77452bd2d3a47c7a05c1c6a45bcd4acd51348d00cae0a1a14",
+      "sha256": "a69d94ef0214577a41568048460b1f1bfc28ebc9f2b7312daeba7b472cae6d72",
       "recipeSha256": "459b8758c93916a19c1f332fe0e8da4d719f28762d25453f333a59816d3e2844",
-      "textureBytes": 13993408
+      "textureBytes": 13798140,
+      "multiAtlas": true
     },
     {
       "id": "dunegarden-resident-5",
@@ -8983,10 +9093,11 @@
       "key": "character-cast-dunegarden-resident-5",
       "image": "/assets/character-cast/dunegarden-resident-5.webp",
       "atlas": "/assets/character-cast/dunegarden-resident-5.atlas.json",
-      "atlasSha256": "27b662acfbaed149d43f4cb09e1a910c5340048550e97e82ece0591d523fdb8e",
-      "sha256": "40dbb7c7f4362a0571d2a0a98ec6dc4e680bbe7d156d4e98048b0099980c2d81",
+      "atlasSha256": "999eea6400e2c9a83fdf72dc990e6c42fc240af0b0743d02f6cec65e2fbd4357",
+      "sha256": "4cfff1a985ee488855f516dc217935618cbe5b83c12ef15600291dc69d0d602c",
       "recipeSha256": "11c14099a402070b86d823e35960560767be41e15240105c87d4be330e101e16",
-      "textureBytes": 13721892
+      "textureBytes": 13906716,
+      "multiAtlas": true
     },
     {
       "id": "dunegarden-resident-6",
@@ -9029,10 +9140,11 @@
       "key": "character-cast-dunegarden-resident-6",
       "image": "/assets/character-cast/dunegarden-resident-6.webp",
       "atlas": "/assets/character-cast/dunegarden-resident-6.atlas.json",
-      "atlasSha256": "bde74ce1fe8242b26ad589d5691c0e86480e70918f0034b4acc043c2f100118b",
-      "sha256": "5a27dd35690cd788197f0e40e1a39a957f924394a537dbe6cc70d0a50ea15bbb",
+      "atlasSha256": "9a741fbbfd05be82f328a76a9c68516d273543c323efd0c23976b9f3084ff24e",
+      "sha256": "35289ec93c3286fa5b1aadf5ad8cca6b1e54532ff5e8c683d81b7acfc1659746",
       "recipeSha256": "0da8945a7423c3751adf85c2e1aadca96c1e37551afab0ce5b0948dd456a51d4",
-      "textureBytes": 13669428
+      "textureBytes": 14164464,
+      "multiAtlas": true
     },
     {
       "id": "dunegarden-resident-7",
@@ -9075,10 +9187,11 @@
       "key": "character-cast-dunegarden-resident-7",
       "image": "/assets/character-cast/dunegarden-resident-7.webp",
       "atlas": "/assets/character-cast/dunegarden-resident-7.atlas.json",
-      "atlasSha256": "5c4fb3fc12bfc15388a6deadaeaa775db45fff84b151878ad0527466a03ef6c5",
-      "sha256": "c2df74cda374fc26cca5d8d52ad349e171051aec8cafb5af8e38f4fb171ca234",
+      "atlasSha256": "55fbbb6ec24fa73965f480d2ba824ef62ec9aacc06e955b36971914769c5f02f",
+      "sha256": "f85d7025ee39da633ea51988c69563ce67f75ce9ffe3607bbf90fabe1b5cf7e1",
       "recipeSha256": "5aea4e6efc09a2319a1bbae8a0783a13d005e8d8b07a8cf62506c565f54adbdb",
-      "textureBytes": 13891752
+      "textureBytes": 14031000,
+      "multiAtlas": true
     },
     {
       "id": "kessler",
@@ -9118,24 +9231,11 @@
       "key": "character-cast-kessler",
       "image": "/assets/character-cast/kessler.webp",
       "atlas": "/assets/character-cast/kessler.atlas.json",
-      "atlasSha256": "8721da861476d774161704091c2031dbf0f6186712ee22eed1c88820f5869b7d",
-      "sha256": "a18fed1c7759a16d95779fb1a9a3ba97409c9ab5ea9469aeed93b3a92e79fb9e",
+      "atlasSha256": "1960ded9ed0bc265ca5eb30e5b4b95a4dd6364b652f93a0f6919769c7a50734a",
+      "sha256": "636d2b9894f8464db28286af967e7161cc3cc641cfce215a0993478be36cea54",
       "recipeSha256": "4819d63ad0dd436c7ad0e48b8c8cb29ba9702b23cbe1fe48cd2d105fa485e9c9",
-      "textureBytes": 14829480,
-      "native": {
-        "key": "character-cast-kessler-native",
-        "image": "/assets/character-cast/native/kessler.webp",
-        "atlas": "/assets/character-cast/native/kessler.atlas.json",
-        "sha256": "15ab3cff03116047c99ed950d6800b21705e01f146b3db1af97b427c97b748f2",
-        "atlasSha256": "ff88216c8be15b89a52bd643ae7982c31fbc5f8d255d3b643353995285de084d",
-        "recipeSha256": "4819d63ad0dd436c7ad0e48b8c8cb29ba9702b23cbe1fe48cd2d105fa485e9c9",
-        "cell": [
-          512,
-          768
-        ],
-        "textureBytes": 28297400,
-        "multiAtlas": true
-      }
+      "textureBytes": 14750896,
+      "multiAtlas": true
     },
     {
       "id": "pip",
@@ -9171,24 +9271,11 @@
       "key": "character-cast-pip",
       "image": "/assets/character-cast/pip.webp",
       "atlas": "/assets/character-cast/pip.atlas.json",
-      "atlasSha256": "6904bad6df33344417400bb2e04e66b5c5823811f9249fcd2ee135324e8c4641",
-      "sha256": "33d4931f2a0a565350be505fc22c1760506a0c03d4e5266b47e774f68d7380f5",
+      "atlasSha256": "46367b70e0145f49f27d083360de4b1099833ef03880eeae3cf4644256b1540e",
+      "sha256": "8d5c0f0cce717f2a0bf2741ad3092b7b7c5e07c16abd1f7f5de7a0372565dd84",
       "recipeSha256": "35daa018e6fac0de7f2a8a8c2baedf868eb2be76690a8a31451eef6c4be0cd3b",
-      "textureBytes": 14734720,
-      "native": {
-        "key": "character-cast-pip-native",
-        "image": "/assets/character-cast/native/pip.webp",
-        "atlas": "/assets/character-cast/native/pip.atlas.json",
-        "sha256": "054088b81fabfac354e6613b8734d69ac47b97dbd3591d9a98a603505c4dd14b",
-        "atlasSha256": "6b3d6b98bfda78fd9759da0fa107194f3d98927d0f30030f865c4d421ea3c099",
-        "recipeSha256": "35daa018e6fac0de7f2a8a8c2baedf868eb2be76690a8a31451eef6c4be0cd3b",
-        "cell": [
-          512,
-          768
-        ],
-        "textureBytes": 28709232,
-        "multiAtlas": true
-      }
+      "textureBytes": 13951184,
+      "multiAtlas": true
     },
     {
       "id": "berg",
@@ -9228,25 +9315,11 @@
       "key": "character-cast-berg",
       "image": "/assets/character-cast/berg.webp",
       "atlas": "/assets/character-cast/berg.atlas.json",
-      "atlasSha256": "dc46e872b583728bf64e6f5dec2fc7979c9822b22038b808c9190d984aaca0b0",
-      "sha256": "56ac6d7020ef8de4d11fd925ec2d9648495888c74d268b4a4edfa559a35b2ca5",
+      "atlasSha256": "961726ffb0a4d835111c1b06bd6d0a75a477119c37202c58981be39f160de090",
+      "sha256": "6cf634b2a1ecce0b663da1173d25a4e0bef52b38188a3b98d67e5fffd019bf31",
       "recipeSha256": "70a9819d302c02a56ba15f440f5e8c9760e9d301cd1e8c65230b2a0c93afa67e",
       "textureBytes": 14739904,
-      "multiAtlas": true,
-      "native": {
-        "key": "character-cast-berg-native",
-        "image": "/assets/character-cast/native/berg.webp",
-        "atlas": "/assets/character-cast/native/berg.atlas.json",
-        "sha256": "352b331d79440080977c338675366d0b79737aaa5f2f01ea8fdbe1126058dde9",
-        "atlasSha256": "267a121bdb271a8b6c12bd639016ddec56880eb3e8ec8a65e2acd49ffa1bfd57",
-        "recipeSha256": "70a9819d302c02a56ba15f440f5e8c9760e9d301cd1e8c65230b2a0c93afa67e",
-        "cell": [
-          512,
-          768
-        ],
-        "textureBytes": 28578928,
-        "multiAtlas": true
-      }
+      "multiAtlas": true
     },
     {
       "id": "hilde",
@@ -9284,24 +9357,11 @@
       "key": "character-cast-hilde",
       "image": "/assets/character-cast/hilde.webp",
       "atlas": "/assets/character-cast/hilde.atlas.json",
-      "atlasSha256": "d1d21be76d2d523632fd9cf490a5ec60c11a2adbe38115553c9f7b9c1ff1c61f",
-      "sha256": "bc185a8829dc85de23117030c43c5a57ae066b060e171ac98dbd57671a4e381b",
+      "atlasSha256": "40ffb7ea6257dbe2a3f7b74f8359b1179fd97678066160209beab35b32635c81",
+      "sha256": "cb1275e477c6ef7762ff424f8e3e86c0e2420ed21c5b07b1b1c07e9d18f71c7f",
       "recipeSha256": "fe24811fbf62020c50b2f7cf207cb6bf5b11c64aefe6c3d0277dca67415280d7",
-      "textureBytes": 14821224,
-      "native": {
-        "key": "character-cast-hilde-native",
-        "image": "/assets/character-cast/native/hilde.webp",
-        "atlas": "/assets/character-cast/native/hilde.atlas.json",
-        "sha256": "5be81ee7ab209dbd8caeae9b51882257ec7c404f6a62ae9ab7ab40877a7d6fd5",
-        "atlasSha256": "24fade1531fb073a2964ac55fd1bf476fac04fa1951fe1bb879e4b414c37735c",
-        "recipeSha256": "fe24811fbf62020c50b2f7cf207cb6bf5b11c64aefe6c3d0277dca67415280d7",
-        "cell": [
-          512,
-          768
-        ],
-        "textureBytes": 29107564,
-        "multiAtlas": true
-      }
+      "textureBytes": 14070368,
+      "multiAtlas": true
     },
     {
       "id": "falk",
@@ -9342,24 +9402,11 @@
       "key": "character-cast-falk",
       "image": "/assets/character-cast/falk.webp",
       "atlas": "/assets/character-cast/falk.atlas.json",
-      "atlasSha256": "743d0cc72281bb47980f8a0d0dfa16f19a8fb3aaab61f7013ede732916210a03",
-      "sha256": "60c9b418896967cd3465f00fd1c0eebac86b1dd02cc38a1c6fadf5aca9c9cadd",
+      "atlasSha256": "5d572c3eb65dce89624b14cc10eb579ecc73dfe39c7cecf1f36d39a3acd48850",
+      "sha256": "e966994576e253b32d39cabe6314c2e89bc0c77bff2c361c6e3c2b1fe729a6df",
       "recipeSha256": "9c6b932e25b0abe70cfb1bdd872dd9271b87ec80098f026da22cea7beb37b09a",
-      "textureBytes": 14173128,
-      "native": {
-        "key": "character-cast-falk-native",
-        "image": "/assets/character-cast/native/falk.webp",
-        "atlas": "/assets/character-cast/native/falk.atlas.json",
-        "sha256": "d43e0d9c02790058b8f1e6d363314c39fea919497c7258386b48fc6656af5367",
-        "atlasSha256": "3ad385061adfa4c906e1959d6d6a52eebd1e6f61066b32041ddebfa4ad2b1bd3",
-        "recipeSha256": "9c6b932e25b0abe70cfb1bdd872dd9271b87ec80098f026da22cea7beb37b09a",
-        "cell": [
-          512,
-          768
-        ],
-        "textureBytes": 29035552,
-        "multiAtlas": true
-      }
+      "textureBytes": 13871936,
+      "multiAtlas": true
     },
     {
       "id": "jakob",
@@ -9396,24 +9443,11 @@
       "key": "character-cast-jakob",
       "image": "/assets/character-cast/jakob.webp",
       "atlas": "/assets/character-cast/jakob.atlas.json",
-      "atlasSha256": "3d3ed1091b8f3d127df9ae8d5b4231c2de64a7f377ab3c54705e9a7434c4ee01",
-      "sha256": "163faea8a37bc745eccd99701c7fb75577c32062d8cc4a6207ea2e4ebdd0c00a",
+      "atlasSha256": "0bf208cd63381b84ad5d9ae815d04442860a4fe7f914e6e6bf88d6b0ee78d7a0",
+      "sha256": "d537681f5c4828ca427e14a30fc04e5ecedd208817dd959f4fd8358643205f62",
       "recipeSha256": "a533db99913ea5201ec69eee9a46861396ce30365b2685845b6f7e7664cef5d5",
-      "textureBytes": 14189736,
-      "native": {
-        "key": "character-cast-jakob-native",
-        "image": "/assets/character-cast/native/jakob.webp",
-        "atlas": "/assets/character-cast/native/jakob.atlas.json",
-        "sha256": "72817fcae13dd92c9c7edd337b328193f9cfa62a870ed5c173c9d578f09d223a",
-        "atlasSha256": "c654b5709cc1d62841e095e9a5998d1fad3dd6afa99ea056d847ebe549ccacba",
-        "recipeSha256": "a533db99913ea5201ec69eee9a46861396ce30365b2685845b6f7e7664cef5d5",
-        "cell": [
-          512,
-          768
-        ],
-        "textureBytes": 28776368,
-        "multiAtlas": true
-      }
+      "textureBytes": 14430336,
+      "multiAtlas": true
     },
     {
       "id": "ruth",
@@ -9450,24 +9484,11 @@
       "key": "character-cast-ruth",
       "image": "/assets/character-cast/ruth.webp",
       "atlas": "/assets/character-cast/ruth.atlas.json",
-      "atlasSha256": "93c147b6cbd0d8c496b32c9d32e1286d015e9dcd55cf47f6dfa0cd30525b2a63",
-      "sha256": "912d6a6befe66d37ec345be9f240b7ce5cca0e6aded74ed30d1accff058466ec",
+      "atlasSha256": "056ed10f3ac94a8bf01f2aa3d1e9ba9ead6241bb9d4c37a9c4c9e21f9127201d",
+      "sha256": "9001d2601cb8f6ffe95f3b71818537789621a824521daff22d679b343c034b28",
       "recipeSha256": "887c22ac9eb0c54a8fbf9b6cb5fc42f544e31a95557f57aea1041be72c63985c",
-      "textureBytes": 14853804,
-      "native": {
-        "key": "character-cast-ruth-native",
-        "image": "/assets/character-cast/native/ruth.webp",
-        "atlas": "/assets/character-cast/native/ruth.atlas.json",
-        "sha256": "0cfc1250fa2fbf364922df65e32a2ed9511a37b038862bca7915c0c3e0f518e8",
-        "atlasSha256": "a3c5e345bf52e57c73c896ef9a0176014b2356b3f5a07216a1d309e3852a8998",
-        "recipeSha256": "887c22ac9eb0c54a8fbf9b6cb5fc42f544e31a95557f57aea1041be72c63985c",
-        "cell": [
-          512,
-          768
-        ],
-        "textureBytes": 28060828,
-        "multiAtlas": true
-      }
+      "textureBytes": 14459760,
+      "multiAtlas": true
     },
     {
       "id": "jonas",
@@ -9506,24 +9527,11 @@
       "key": "character-cast-jonas",
       "image": "/assets/character-cast/jonas.webp",
       "atlas": "/assets/character-cast/jonas.atlas.json",
-      "atlasSha256": "cf215e046790cd3817d8c0e55f4c61f7ac0d7098287a0e1b58d94a569fd232ec",
-      "sha256": "2a7ee0445dc312c14333325fe8647c6af87af361fbcfcbe9f360c9a07bd5459d",
+      "atlasSha256": "2a4aeb95e7ca883c3a0135a4a060f5ee7d9cda97ea504737461921e4147683aa",
+      "sha256": "90af0407bbc1dd98316d7e2faa4638e8315334ffffcc7726f369836b11da32d2",
       "recipeSha256": "89bd91641c12dd292d11c861b7f061d225ed63d08ba92f084b72091189500cb7",
-      "textureBytes": 14532956,
-      "native": {
-        "key": "character-cast-jonas-native",
-        "image": "/assets/character-cast/native/jonas.webp",
-        "atlas": "/assets/character-cast/native/jonas.atlas.json",
-        "sha256": "fe051e5c846140eb855a45196ba7bf931f31240d4e775fc7bcd6605665991668",
-        "atlasSha256": "f827cc12037b9e4479511d602eceb972a620d10822d0e37752e6cd0820dcbc86",
-        "recipeSha256": "89bd91641c12dd292d11c861b7f061d225ed63d08ba92f084b72091189500cb7",
-        "cell": [
-          512,
-          768
-        ],
-        "textureBytes": 27869096,
-        "multiAtlas": true
-      }
+      "textureBytes": 14209776,
+      "multiAtlas": true
     },
     {
       "id": "schaffner",
@@ -9566,16 +9574,17 @@
       "key": "character-cast-schaffner",
       "image": "/assets/character-cast/schaffner.webp",
       "atlas": "/assets/character-cast/schaffner.atlas.json",
-      "atlasSha256": "41c1461b18f069f40716788cc3bef254e3a7d8b2062f28a887db9af978ada153",
-      "sha256": "d8f2c645ebfacbc458809b4fddd8350a434c059fa0f23a285a1081bad61fbdae",
+      "atlasSha256": "6cbc0ba6bf92e74aea42bf982c13de08995b6b6278abff6dc7de62e4979794ea",
+      "sha256": "864c58c1a864bae779e636fbfc80fb2b29ba5c56143618e39bae39b146321b00",
       "recipeSha256": "e43faca37792ae2bcd830bbf3a731f8b8168691d913da0363bcd5f14433bb93f",
-      "textureBytes": 14294940,
+      "textureBytes": 14434924,
+      "multiAtlas": true,
       "native": {
         "key": "character-cast-schaffner-native",
         "image": "/assets/character-cast/native/schaffner.webp",
         "atlas": "/assets/character-cast/native/schaffner.atlas.json",
-        "sha256": "9fdcf9d7298be55c982505790fa1f7d1d8650d98bc73171955aabce7f1373632",
-        "atlasSha256": "b939cb0263b3eef8076f00728636e8d42eb2bb1315d800e3d30d544e63b17e10",
+        "sha256": "2a21b7aa7dfd3ecf312796c14af00d1ca918f6d60ed5d69fa76745fa71cdbf27",
+        "atlasSha256": "22458ca48ac66a40cb3451823a030cd9fdd89b2cc6b95ee0092b70312bc57f2d",
         "recipeSha256": "e43faca37792ae2bcd830bbf3a731f8b8168691d913da0363bcd5f14433bb93f",
         "cell": [
           512,
@@ -9586,5 +9595,5 @@
       }
     }
   ],
-  "versionHash": "a560b71954379233"
+  "versionHash": "1196799957d2d087"
 }

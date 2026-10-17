@@ -1,0 +1,13 @@
+Tool: built-in image_gen
+Transparent background: true
+Style references (attached in order):
+docs/style/references/target-art-direction.webp
+art/ui/round-button-v1.png
+art/ui/nameplate-v1.png
+art/ui/parchment-card-v1.png
+web/public/assets/lindenhafen-props.webp
+
+Exact prompt:
+Asset for glotworld painted RPG interaction prompt, chosen direction A from our concept exploration: delicate antique brass with warm ivory enamel/parchment, quiet fine brushwork and upper-left warm light. Attached references in order are (1) target town painting for delicacy and scale, (2) round HUD button for painted brass material, (3) nameplate for craft details, (4) parchment card for ivory, (5) town prop paintings for brushwork. Use those as style references, not edit targets. This sits above a small person's head and must read crisply at only 24 CSS pixels tall. Front-on UI sprite, NOT perspective or a scene. Restrained, simple, no dark wooden plank, no heavy cast shadow. GENUINE transparent RGBA background with clean alpha edge, no baked checkerboard or backdrop. NO text, letters, numbers, glyph-like scratches or watermark.
+Produce ONE standalone perfectly round blank brass KEYCAP medallion, centred with transparent margin. Simple narrow hand-painted antique brass bevel, tiny restrained green inset rim, large flat warm ivory enamel centre (about 75% diameter) reserved for a live-rendered single key letter. Smooth silhouette, no stars, spikes, cardinal points, dots, rivets or decorative flourishes. Broad clean centre, subtly worn brass but not grubby. Large high-resolution master; each border remains clear when reduced. No other pieces.
+

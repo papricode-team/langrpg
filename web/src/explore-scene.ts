@@ -1,3 +1,9 @@
+import { storyLabelAlpha } from './world-labels';
+import { WORLD_UI } from './world-ui';
+import { interactionPromptAlpha, interactionPromptDepth, interactionPromptLayout, interactionPromptVariant, PROMPT_FONT_SIZE } from './world-prompt';
+import { worldGrade } from './world-grade';
+import { interiorPeopleTint } from './world-lighting';
+import { WORLD_TITLE_FONT, WORLD_LABEL_FONT, refreshWorldFonts } from './world-fonts';
 import { BuildingDoorEffect, type BuildingDoorGeometry } from './building-door';
 import * as Phaser from 'phaser';
 import { npcs } from './content';
@@ -35,8 +41,14 @@ export interface Character {
   name: Phaser.GameObjects.Text;
   role?: Phaser.GameObjects.Text;
   marker?: Phaser.GameObjects.Text;
-  halo?: Phaser.GameObjects.Ellipse;
-  hint?: Phaser.GameObjects.Text;
+  halo?: Phaser.GameObjects.Image;
+  prompt?: {
+    root: Phaser.GameObjects.Container;
+    tab: Phaser.GameObjects.Image;
+    icon: Phaser.GameObjects.Image;
+    verb: Phaser.GameObjects.Text;
+    key: Phaser.GameObjects.Text;
+  };
   x: number;
   y: number;
   targetX: number;
@@ -75,7 +87,7 @@ export interface WorldObject {
   x: number;
   y: number;
   root: Phaser.GameObjects.Container;
-  halo: Phaser.GameObjects.Ellipse;
+  halo: Phaser.GameObjects.Image;
   marker: Phaser.GameObjects.Image;
   label: Phaser.GameObjects.Text;
   hit: Phaser.GameObjects.Zone;
@@ -89,7 +101,7 @@ export interface WorldPortal {
   x: number;
   y: number;
   root: Phaser.GameObjects.Container;
-  halo?: Phaser.GameObjects.Ellipse;
+  halo?: Phaser.GameObjects.Image;
   label: Phaser.GameObjects.Text;
   glyph?: Phaser.GameObjects.Text;
   hit: Phaser.GameObjects.Zone;
@@ -103,6 +115,8 @@ export interface ResidentGait { moving: boolean; distance: number; velocityX: nu
 /** Pip is twelve: the shared adult mannequin is drawn smaller for him. */
 export const childScale = (id: string): number => id === 'pip' ? .8 : 1;
 export const INTERACTION_DISTANCE = 140;
+/** World-unit footprint of the painted ring under an interactable object. */
+const OBJECT_HALO = { width: 36, height: 17 } as const;
 export const DEFAULT_AVATAR: Avatar = { hair: '#4d3229', skin: '#dfad85', outfit: '#497d75' };
 export const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
 export const avatarKey = (avatar: Avatar) => avatarTextureKey(normalizeAvatar(avatar));
@@ -201,9 +215,10 @@ export abstract class ExploreScene extends Phaser.Scene {
   /** Bodies inside rooms use the room painting's adult height. */
   protected get indoor(): boolean { return false; }
   protected get indoorCharacterHeight(): number { return INTERIOR_CHARACTER_HEIGHT; }
-  /** The player's avatar has finished loading and is drawn. */
+  protected get indoorTint(): number { return interiorPeopleTint(this.regionId); }
   /** The objective star floats just above a character's head. */
   protected get npcMarkerY(): number { return this.indoor ? -(this.indoorCharacterHeight + 18) : -96; }
+  /** The player's avatar has finished loading and is drawn. */
   get charactersReady(): boolean { return !!this.local?.figure.visible && !this.local.avatarPending; }
 
   /** Scenes restart on travel; reset everything the constructor would otherwise keep. */
@@ -219,10 +234,11 @@ export abstract class ExploreScene extends Phaser.Scene {
     this.nextSendAt = 0; this.lastClockLabel = ''; this.labelDensity = 0; this.frameClock = undefined;
     this.padMove = { x: 0, y: 0, interact: false }; this.cameraRig = new CameraRig();
     this.controlsEnabled = false; this.editing = false; this.mobileCamera = false;
-    this.conversationTarget = undefined; this.cinematicTarget = undefined; this.keys = undefined;
+    this.conversationTarget = undefined; this.cinematicTarget = undefined; this.keys = undefined; this.screenFilter = undefined;
   }
 
   create(): void {
+    refreshWorldFonts(this);
     const registry = this.registry;
     this.clock = readWorld(registry, 'clock');
     this.audio = readWorld(registry, 'audio');
@@ -243,16 +259,16 @@ export abstract class ExploreScene extends Phaser.Scene {
     this.playerArtReady = true;
     this.screenFilter = createScreenFilter(this);
     this.screenFilter?.configure(readWorld(registry, 'screenFilter'));
+    this.screenFilter?.setGrade(worldGrade(this.regionId, this.clock.advance(0).hour, this.indoor));
     this.marker = this.add.container(0, 0, [
-      this.add.ellipse(0, 0, 37, 18).setStrokeStyle(1.5, 0xf5e4ac, 0.8),
-      this.add.ellipse(0, 0, 6, 3, 0xf5e4ac, 0.8),
+      this.add.image(0, 0, WORLD_UI.ring).setDisplaySize(42, 19).setAlpha(.8),
     ]).setDepth(1).setVisible(false);
     const spawn = this.spawnPoint();
     this.navigation.prepareReachability(spawn);
     this.local = this.createCharacter('self', 'You', spawn.x, spawn.y, readWorld(registry, 'avatar') ?? DEFAULT_AVATAR);
     this.local.facing = this.spawnFacing();
     this.local.name.setColor('#fff2ca');
-    this.local.root.addAt(this.add.ellipse(0, 1, 31, 15).setStrokeStyle(1, 0xf6dd9a, 0.55), 1);
+    this.local.root.addAt(this.add.image(0, 2, WORLD_UI.ring).setDisplaySize(34, 16).setAlpha(.5), 1);
     this.bindInput();
     this.cameras.main.setBounds(0, 0, this.worldWidth, this.worldHeight);
     this.buildScene();
@@ -356,6 +372,11 @@ export abstract class ExploreScene extends Phaser.Scene {
     this.input?.keyboard?.resetKeys();
     this.cancelRoute();
     this.setNearby(undefined);
+    this.hideCharacterPrompts();
+  }
+
+  private hideCharacterPrompts(): void {
+    for (const npc of this.characters.values()) npc.prompt?.root.setAlpha(0).setVisible(false);
   }
 
   interactNearest(): boolean {
@@ -422,13 +443,16 @@ export abstract class ExploreScene extends Phaser.Scene {
 
   setStoryState(state: WorldStoryState): void {
     this.storyState = state;
-    for (const npc of this.characters.values()) if (!this.characterRevealed(npc)) npc.root.setVisible(false);
+    for (const npc of this.characters.values()) if (!this.characterRevealed(npc)) {
+      npc.root.setVisible(false); npc.prompt?.root.setAlpha(0).setVisible(false);
+    }
     this.refreshNearby();
   }
 
   protected applyConversationTarget(id: string | undefined): void {
     const npc = id ? this.characters.get(id) : undefined;
     this.conversationTarget = npc && this.characterRevealed(npc) ? id : undefined;
+    if (this.conversationTarget) this.hideCharacterPrompts();
     if (npc && this.local && this.characterRevealed(npc)) this.faceCharacters(this.local, npc);
   }
 
@@ -456,7 +480,10 @@ export abstract class ExploreScene extends Phaser.Scene {
   setTerrainOnly(terrainOnly: boolean): void {
     this.terrainOnly = terrainOnly;
     this.local?.root.setVisible(!terrainOnly && !this.watching);
-    for (const character of this.characters.values()) character.root.setVisible(!terrainOnly && this.characterRevealed(character));
+    for (const character of this.characters.values()) {
+      character.root.setVisible(!terrainOnly && this.characterRevealed(character));
+      if (terrainOnly) character.prompt?.root.setAlpha(0).setVisible(false);
+    }
     for (const character of this.peers.values()) character.root.setVisible(!terrainOnly);
   }
 
@@ -595,6 +622,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     if (!this.ready || this.suspended) return;
     this.sendPosition();
     const labelScale = this.labelScale;
+    this.positionCharacterLabels(this.local);
     this.local.name.setScale(labelScale).setVisible(this.controlsEnabled && !this.conversationTarget && !this.cinematicTarget);
     this.updateCharacters(seconds);
     this.updatePeers(seconds);
@@ -704,17 +732,44 @@ export abstract class ExploreScene extends Phaser.Scene {
       const visible = npc.x >= view.x - 100 && npc.x <= view.right + 100 && npc.y >= view.y - 110 && npc.y <= view.bottom + 100;
       const revealed = this.characterRevealed(npc);
       npc.root.setVisible(visible && revealed && !this.terrainOnly);
-      if (!visible || !revealed) continue;
+      if (!visible || !revealed) {
+        npc.prompt?.root.setAlpha(0).setVisible(false);
+        continue;
+      }
       this.animateCharacter(npc, step.x, step.y, this.elapsed + npc.phase);
       const near = this.controlsEnabled && Math.hypot(npc.x - this.local.x, npc.y - this.local.y) < INTERACTION_DISTANCE;
       const show = this.controlsEnabled && (near || !!npc.hovered);
       npc.halo?.setVisible(show).setAlpha(near ? 1 : .65);
-      npc.name.setScale(labelScale).setVisible(show);
-      npc.role?.setScale(labelScale).setVisible(show && !this.mobileCamera);
-      npc.hint?.setScale(labelScale).setVisible(show);
-      npc.marker?.setVisible(!this.watching && this.objective === npc.id && !show);
+      const alpha = storyLabelAlpha(Math.hypot(npc.x - this.local.x, npc.y - this.local.y) / labelScale, show);
+      const labelled = this.controlsEnabled && !this.watching && !this.conversationTarget;
+      this.positionCharacterLabels(npc);
+      npc.name.setScale(labelScale).setAlpha(alpha).setVisible(labelled);
+      npc.role?.setScale(labelScale).setAlpha(alpha).setVisible(labelled);
+      this.updateCharacterPrompt(npc, seconds);
+      npc.marker?.setScale(labelScale).setVisible(!this.watching && this.objective === npc.id && !this.conversationTarget);
       this.afterCharacter(npc);
     }
+  }
+
+  private updateCharacterPrompt(npc: Character, seconds: number): void {
+    const prompt = npc.prompt;
+    if (!prompt) return;
+    const allowed = this.controlsEnabled && !this.editing && !this.watching && !this.terrainOnly && !this.conversationTarget && !this.cinematicTarget;
+    const focused = this.nearbyInteraction === (npc.interactionId ?? npc.id) || !!npc.hovered;
+    const alpha = allowed ? interactionPromptAlpha(prompt.root.alpha, focused, seconds, this.reducedMotion) : 0;
+    prompt.root.setAlpha(alpha).setVisible(alpha > 0);
+    if (!alpha) return;
+    const scale = this.labelScale;
+    const layout = interactionPromptLayout(prompt.verb.width, npc.figure.width * npc.artScale / scale);
+    // Bottom edge clears the full name canvas, including its outline, by 4 CSS px.
+    prompt.root.setScale(scale).setPosition(npc.x, npc.y + npc.name.y - (npc.name.height / 2 + 4 + layout.height / 2) * scale);
+    prompt.tab.setPosition(layout.tabX, layout.tabY).setDisplaySize(layout.tabWidth, layout.tabHeight);
+    prompt.verb.setPosition(layout.tabX, layout.tabY);
+    const keyCode = this.keys?.interact?.keyCode ?? 69;
+    const variant = interactionPromptVariant(this.mobileCamera, keyCode >= 65 && keyCode <= 90 ? String.fromCharCode(keyCode) : 'E');
+    if (prompt.icon.texture.key !== variant.texture) prompt.icon.setTexture(variant.texture);
+    prompt.icon.setPosition(layout.keyX, layout.keyY).setDisplaySize(layout.keySize, layout.keySize);
+    prompt.key.setText(variant.key).setPosition(layout.keyX, layout.keyY).setVisible(!!variant.key);
   }
 
   private updatePeers(seconds: number): void {
@@ -723,6 +778,7 @@ export abstract class ExploreScene extends Phaser.Scene {
       const dx = (peer.targetX - peer.x) * interpolation, dy = (peer.targetY - peer.y) * interpolation;
       peer.x += dx; peer.y += dy;
       this.animateCharacter(peer, dx, dy, this.elapsed + peer.phase);
+      this.positionCharacterLabels(peer);
       peer.name.setScale(labelScale).setVisible(this.controlsEnabled && (Math.hypot(peer.x - this.local.x, peer.y - this.local.y) < 180 || !!peer.hovered));
     }
   }
@@ -736,6 +792,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     const label = state.label + state.period + state.mode;
     if (label !== this.lastClockLabel) {
       this.lastClockLabel = label;
+      this.screenFilter?.setGrade(worldGrade(this.regionId, state.hour, this.indoor));
       emitWorld(this.game, WorldEvents.Time, state);
     }
     return state;
@@ -760,8 +817,10 @@ export abstract class ExploreScene extends Phaser.Scene {
         portal.halo.setAlpha(lit ? .42 : .12);
         if (lit && !this.reducedMotion) this.tweens.add({ targets: portal.halo, alpha: .5, duration: 1050, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
       }
-      portal.glyph?.setVisible(lit);
-      portal.label.setVisible(lit && !this.conversationTarget);
+      portal.glyph?.setScale(scale).setVisible(lit);
+      // Only the door E would open names itself, so it never stacks on a nearby character's name.
+      const named = this.controlsEnabled && !this.editing && (this.nearbyInteraction === portal.id || portal.hovered && this.input.isOver);
+      portal.label.setVisible(named && visible && !this.terrainOnly && !this.conversationTarget);
       portal.label.setScale(scale);
     }
   }
@@ -780,7 +839,9 @@ export abstract class ExploreScene extends Phaser.Scene {
       const active = Math.max(objective ? .6 : 0, Math.max(0, object.activatedUntil - time) / 4);
       object.label.setVisible(highlighted && (!this.indoor || object.hovered || nearestId === object.interactionId));
       object.label.setScale(scale);
-      object.halo.setAlpha(highlighted ? .9 : .32 + active * .5).setScale(this.reducedMotion ? 1 : 1 + active * Math.sin(time * 8) * .15);
+      // The halo is a painted texture sized by display size; a bare setScale would draw it at native size.
+      const pulse = this.reducedMotion ? 1 : 1 + active * Math.sin(time * 8) * .15;
+      object.halo.setAlpha(highlighted ? .9 : .32 + active * .5).setDisplaySize(OBJECT_HALO.width * pulse, OBJECT_HALO.height * pulse);
       // The idle bob and glow run as tweens on the marker's container; state adds emphasis.
       object.marker.setAlpha(highlighted ? .95 : .58 + active * .3);
       object.marker.setScale(.65 + active * .4);
@@ -794,14 +855,14 @@ export abstract class ExploreScene extends Phaser.Scene {
     if (!this.marker) return;
     this.marker.setScale(1);
     for (const object of this.objects.values()) object.marker.setY(-8);
-    for (const npc of this.characters.values()) npc.marker?.setY(this.npcMarkerY);
+    for (const npc of this.characters.values()) npc.marker?.setAlpha(1).setY(this.npcMarkerY);
     if (this.reducedMotion) return;
     this.markerTweens.push(this.tweens.add({ targets: this.marker, scale: 1.04, duration: 785, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' }));
     for (const object of this.objects.values()) {
       this.markerTweens.push(this.tweens.add({ targets: object.marker, y: -6.5, duration: 1570, yoyo: true, repeat: -1, ease: 'Sine.easeInOut', delay: (object.x / 170 % 3.14) * 500 }));
     }
     for (const npc of this.characters.values()) {
-      if (npc.marker) this.markerTweens.push(this.tweens.add({ targets: npc.marker, y: -94.5, duration: 1570, yoyo: true, repeat: -1, ease: 'Sine.easeInOut', delay: npc.phase * 250 }));
+      if (npc.marker) this.markerTweens.push(this.tweens.add({ targets: npc.marker, alpha: .55, duration: 1570, yoyo: true, repeat: -1, ease: 'Sine.easeInOut', delay: npc.phase * 250 }));
     }
   }
 
@@ -816,7 +877,6 @@ export abstract class ExploreScene extends Phaser.Scene {
     const previousMobile = this.mobileCamera;
     this.mobileCamera = explorationZoom(width, height, density).mobile;
     if (previousMobile !== this.mobileCamera) {
-      for (const npc of this.characters.values()) npc.hint?.setText(this.mobileCamera ? 'SPRECHEN' : 'SPRECHEN · E');
       this.mobileCameraChanged();
     }
     // Setting a text's resolution re-rasterises it, so only a real density change touches the labels.
@@ -830,7 +890,7 @@ export abstract class ExploreScene extends Phaser.Scene {
   }
   protected applyLabelDensity(density: number): void {
     for (const actor of this.actors()) {
-      actor?.name.setResolution(density); actor?.role?.setResolution(density); actor?.hint?.setResolution(density); actor?.marker?.setResolution(density);
+      actor?.name.setResolution(density); actor?.role?.setResolution(density); actor?.prompt?.verb.setResolution(density); actor?.prompt?.key.setResolution(density); actor?.marker?.setResolution(density);
     }
     for (const object of this.objects.values()) object.label.setResolution(density);
     for (const portal of this.portals.values()) { portal.label.setResolution(density); portal.glyph?.setResolution(density); }
@@ -885,14 +945,14 @@ export abstract class ExploreScene extends Phaser.Scene {
       const frameWidth = animation?.width ?? art.width;
       const frameHeight = animation?.height ?? art.height;
       const footY = animation?.originY ?? art.footY;
-      const width = Math.max(frameWidth + art.width / NPC_ART.width * 80, 44 / (npc.artScale * this.fitZoom));
+      const width = Math.max(frameWidth + art.width / NPC_ART.width * 80, 44 * this.density / (npc.artScale * this.fitZoom));
       const top = art.width / NPC_ART.width * 12;
       hit?.setTo((frameWidth - width) / 2, top, width, frameHeight * footY - top);
     }
-    for (const object of this.objects.values()) { const size = Math.max(52, 44 / this.fitZoom); object.hit.setSize(size, size, true); }
+    for (const object of this.objects.values()) { const size = Math.max(52, 44 * this.density / this.fitZoom); object.hit.setSize(size, size, true); }
     for (const portal of this.portals.values()) {
-      const size = Math.max(76, 44 / this.fitZoom);
-      portal.hit.setSize(portal.door?.hit.width ?? size, portal.door?.hit.height ?? size, true);
+      const size = Math.max(76, 44 * this.density / this.fitZoom);
+      portal.hit.setSize(Math.max(portal.door?.hit.width ?? 0, size), Math.max(portal.door?.hit.height ?? 0, size), true);
     }
   }
 
@@ -910,11 +970,17 @@ export abstract class ExploreScene extends Phaser.Scene {
       const avatar = npc.id === 'inspector' ? { hair: '#68656a', skin: '#d6a07d', outfit: '#80612e', hairstyle: 'bald', pants: '#383438' } : npc.id === 'elise' ? { hair: '#c8c5bf', skin: '#bb825a', outfit: '#596d86' } : DEFAULT_AVATAR;
       const character = this.createCharacter(npc.id, npc.name, x, y, localNpc?.avatar ?? avatar, npc.role.split('·')[0].trim(), special ? -1 : localNpc ? localNpc.artVariant : index, localNpc?.artVariant);
       configure?.(character);
-      character.halo = this.add.ellipse(0, 2, 37, 17, 0xf5dda0, 0.08).setStrokeStyle(1, 0xf3d286, 0.6).setVisible(false);
+      character.halo = this.add.image(0, 2, WORLD_UI.ring).setDisplaySize(37, 17).setVisible(false);
       character.root.addAt(character.halo, 1);
-      character.marker = this.add.text(0, this.npcMarkerY, '✦', { resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '17px', color: '#ffe3a3', stroke: '#68563c', strokeThickness: 2 }).setOrigin(.5).setVisible(false);
-      character.hint = this.add.text(0, 30, this.mobileCamera ? 'SPRECHEN' : 'SPRECHEN · E', { resolution: this.density, fontFamily: 'Arial, sans-serif', fontSize: '10px', fontStyle: 'bold', color: '#fff2cf', backgroundColor: '#263e36', padding: { x: 7, y: 4 } }).setOrigin(.5).setVisible(false);
-      character.root.add([character.marker, character.hint]);
+      character.marker = this.add.text(0, -96, '◇', { resolution: this.density, fontFamily: WORLD_TITLE_FONT, fontSize: '17px', color: '#ffe3a3', stroke: '#68563c', strokeThickness: 2 }).setOrigin(.5).setVisible(false);
+      character.root.add(character.marker);
+      const tab = this.add.image(0, 0, WORLD_UI.promptTab);
+      const icon = this.add.image(0, 0, WORLD_UI.promptKeycap);
+      const verb = this.add.text(0, 0, 'Sprechen', { resolution: this.density, fontFamily: WORLD_LABEL_FONT, fontSize: `${PROMPT_FONT_SIZE}px`, color: '#302b21', padding: { y: 2 } }).setOrigin(.5);
+      const key = this.add.text(0, 0, 'E', { resolution: this.density, fontFamily: WORLD_LABEL_FONT, fontSize: `${PROMPT_FONT_SIZE}px`, fontStyle: 'bold', color: '#302b21', padding: { y: 2 } }).setOrigin(.5);
+      const promptRoot = this.add.container(x, y, [tab, icon, verb, key]).setDepth(interactionPromptDepth(this.worldHeight)).setAlpha(0).setVisible(false);
+      character.prompt = { root: promptRoot, tab, icon, verb, key };
+      character.root.once(Phaser.GameObjects.Events.DESTROY, () => promptRoot.destroy());
       const animation = character.walkingAnimation ?? character.idleAnimation;
       const hitArt = character.nativePixels ? NATIVE_MODULAR_ART : character.componentCast ? CAST_ART : character.modularNpc ? MODULAR_ART : NPC_ART;
       const hitPadding = hitArt.width / NPC_ART.width * 40, hitTop = hitArt.width / NPC_ART.width * 12;
@@ -939,10 +1005,10 @@ export abstract class ExploreScene extends Phaser.Scene {
   protected createMapObjects(specs: readonly WorldObjectSpec[], prefix: 'object' | 'interior' = 'object'): void {
     for (const spec of specs) {
       const x = spec.x * this.worldWidth, y = spec.y * this.worldHeight;
-      const halo = this.add.ellipse(0, 0, 36, 17, 0xeecf8a, .06).setStrokeStyle(1, 0xf5d896, .35);
+      const halo = this.add.image(0, 0, WORLD_UI.ring).setDisplaySize(OBJECT_HALO.width, OBJECT_HALO.height).setAlpha(.4);
       const marker = this.add.image(0, -8, 'discovery').setScale(.8).setAlpha(.7);
-      const label = this.add.text(0, -35, spec.label, { resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '13px', color: '#fff0d0', stroke: '#283b36', strokeThickness: 4 }).setOrigin(.5).setVisible(false);
-      const hit = this.add.zone(0, -7, Math.max(52, 44 / this.fitZoom), Math.max(52, 44 / this.fitZoom)).setInteractive({ useHandCursor: true });
+      const label = this.add.text(0, -35, spec.label, { resolution: this.density, fontFamily: WORLD_TITLE_FONT, fontSize: '13px', color: '#fff0d0', stroke: '#283b36', strokeThickness: 4 }).setOrigin(.5).setVisible(false);
+      const hit = this.add.zone(0, -7, Math.max(52, 44 * this.density / this.fitZoom), Math.max(52, 44 * this.density / this.fitZoom)).setInteractive({ useHandCursor: true });
       const root = this.add.container(x, y, [halo, marker, label, hit]).setDepth(worldDepth(y, 'shadow'));
       const object: WorldObject = { spec, x, y, root, halo, marker, label, hit, hovered: false, activatedUntil: 0,
         interactionId: spec.id.startsWith(`${prefix}:`) ? spec.id : `${prefix}:${spec.id}` };
@@ -964,17 +1030,18 @@ export abstract class ExploreScene extends Phaser.Scene {
 
   protected createPortal(id: string, x: number, y: number, label: string, door?: BuildingDoorGeometry, exit = false): void {
     const effect = door ? new BuildingDoorEffect(this, door) : undefined;
-    const halo = exit ? this.add.ellipse(0, 6, 44, 16, 0xffd996, .24) : undefined;
-    const mat = exit ? this.add.rectangle(0, 7, 38, 11, 0x685442, .8).setStrokeStyle(1, 0xe4c185, .5) : undefined;
+    const halo = this.add.image(0, 6, WORLD_UI.threshold).setDisplaySize(68, 26).setAlpha(exit ? .24 : .12);
     const glyph = exit ? this.add.text(0, -29, 'Exit', {
-      resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '9px', color: '#fff1cd', backgroundColor: '#594a36', padding: { x: 5, y: 3 },
+      resolution: this.density, fontFamily: WORLD_TITLE_FONT, fontSize: '12px', color: '#fff1cd', backgroundColor: '#594a36', padding: { x: 5, y: 3 },
     }).setOrigin(.5).setVisible(false) : undefined;
-    const name = this.add.text(0, exit ? 24 : -(door?.height ?? 34) - 16, label, {
-      resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '14px', color: '#fff1cf', stroke: '#283c35', strokeThickness: 4,
-    }).setOrigin(.5).setVisible(false);
+    // The name floats on the label layer so the building's own roof cannot cover it; it dies with the portal root.
+    const name = this.add.text(x, y + (exit ? 24 : -(door?.height ?? 34) - 16), label, {
+      resolution: this.density, fontFamily: WORLD_TITLE_FONT, fontSize: '14px', color: '#fff1cf', stroke: '#283c35', strokeThickness: 4,
+    }).setOrigin(.5).setVisible(false).setDepth(worldDepth(this.worldHeight + 100, 'label'));
     const hit = this.add.zone(door?.hit.x ?? 0, door?.hit.y ?? -14, door?.hit.width ?? 76, door?.hit.height ?? 76).setInteractive({ useHandCursor: true });
-    const root = this.add.container(x, y, [...(mat && halo ? [mat, halo] : []), ...(effect ? [effect.root] : []), ...(glyph ? [glyph] : []), name, hit])
+    const root = this.add.container(x, y, [...(halo ? [halo] : []), ...(effect ? [effect.root] : []), ...(glyph ? [glyph] : []), hit])
       .setDepth(worldDepth(door?.depth ?? y, 'label'));
+    root.once(Phaser.GameObjects.Events.DESTROY, () => name.destroy());
     const portal: WorldPortal = { id, x, y, root, halo, label: name, glyph, hit, hovered: false, door, effect };
     this.bindHover(hit, portal, () => this.approachInteraction(id));
     this.portals.set(id, portal);
@@ -1085,7 +1152,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     character.breathe = 1;
     character.layers.forEach(layer => layer.setScale(scale, scale));
     const groundScale = indoorHeight / INTERIOR_CHARACTER_HEIGHT;
-    character.shadow.setDisplaySize(indoors ? 43 * groundScale : 31, indoors ? 17 * groundScale : 12);
+    character.shadow.setDisplaySize(indoors ? 54 * groundScale : 39, indoors ? 23 * groundScale : 17);
     character.name.setY(indoors ? -indoorHeight - 12 : -79);
   }
 
@@ -1130,7 +1197,16 @@ export abstract class ExploreScene extends Phaser.Scene {
   /** Regional paintings take the period's people tint; layered avatars keep their own colours. */
   protected setCharacterAmbient(character: Character, tint: number): void {
     character.ambientTint = tint;
-    if (character.componentCast || character.modularNpc || !character.npc || character.localArtVariant !== undefined) character.figure.setTint(this.indoor ? 0xffffff : tint);
+    if (character.componentCast || character.modularNpc || !character.npc || character.localArtVariant !== undefined) character.figure.setTint(this.indoor ? this.indoorTint : tint);
+  }
+
+  protected positionCharacterLabels(character: Character): void {
+    const art = character.nativePixels ? NATIVE_MODULAR_ART : character.componentCast ? CAST_ART : character.modularNpc ? MODULAR_ART : NPC_ART;
+    const head = art.bodyHeight * character.artScale;
+    character.name.setY(-head - 12 * this.labelScale);
+    character.role?.setY(13 * this.labelScale);
+    // The objective diamond sits beside the name, leaving the prompt row clear.
+    character.marker?.setPosition(-(character.name.width / 2 + 12) * this.labelScale, character.name.y);
   }
 
   protected createCharacter(id: string, name: string, x: number, y: number, avatar: Avatar, role?: string, npcFrame = -1, localArtVariant?: number): Character {
@@ -1139,7 +1215,7 @@ export abstract class ExploreScene extends Phaser.Scene {
     const baked=castAsset&&this.textures.exists(castAsset.key)?castAsset:undefined;
     const npc = !!candidate || npcFrame >= 0 || localArtVariant !== undefined;
     const modularNpc = npc && !baked;
-    const shadow = this.add.image(0, 2, 'character-shadow').setDisplaySize(31, 12);
+    const shadow = this.add.image(6, 4, 'character-shadow').setDisplaySize(39, 17);
     const frame = 0;
     const nativePixels=this.indoor;
     const art = nativePixels ? NATIVE_MODULAR_ART : baked ? CAST_ART : MODULAR_ART;
@@ -1148,11 +1224,11 @@ export abstract class ExploreScene extends Phaser.Scene {
     // available; indoor entry can reuse the town's frames immediately.
     const layers = [this.add.sprite(0, 0, baked?.key ?? '__WHITE', baked ? frame : undefined).setOrigin(.5, art.footY).setScale(artScale)];
     const figure = layers[0];
-    const nameText = this.add.text(0, -79, name, { resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '13px', color: '#fff6e2', stroke: '#25362d', strokeThickness: 3 }).setOrigin(0.5).setVisible(!npc);
+    const nameText = this.add.text(0, -79, name, { resolution: this.density, fontFamily: WORLD_TITLE_FONT, fontSize: '13px', color: '#ffffff', stroke: '#25362d', strokeThickness: 3 }).setOrigin(0.5).setVisible(!npc);
     const root = this.add.container(x, y, [shadow, ...layers, nameText]).setDepth(worldDepth(y, 'character'));
     let roleText: Phaser.GameObjects.Text | undefined;
     if (role) {
-      roleText = this.add.text(0, 13, role, { resolution: this.density, fontFamily: 'Arial, sans-serif', fontSize: '9px', color: '#f4e6c2', stroke: '#263a31', strokeThickness: 2 }).setOrigin(0.5).setVisible(false);
+      roleText = this.add.text(0, 13, role, { resolution: this.density, fontFamily: WORLD_LABEL_FONT, fontSize: '12px', color: '#fff4dc', stroke: '#1f2c25', strokeThickness: 3 }).setOrigin(0.5).setVisible(false);
       root.add(roleText);
     }
     const character: Character = { id, root, figure, layers, shadow, name: nameText, role: roleText, x, y, targetX: x, targetY: y, phase: Math.random() * 6.28, facing: 0, walkDistance: 0, frame, npc, artScale, breathe: 1, avatar: candidate?.recipe ?? avatar, localArtVariant, componentCast:!!baked, modularNpc, nativePixels };

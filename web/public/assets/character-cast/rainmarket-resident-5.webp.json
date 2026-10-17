@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#cfad89\",\"#b0ab9e\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"beanie\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#3d5342\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#715139\"],[\"headwear.primary\",\"#7c4b52\"],[\"headwear.secondary\",\"#7c4b52\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#304159\"],[\"outer.secondary\",\"#304159\"],[\"top.primary\",\"#e0d5bc\"],[\"top.secondary\",\"#e0d5bc\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#cfad89\",\"#b0ab9e\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"beanie\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#3d5342\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#715139\"],[\"headwear.primary\",\"#7c4b52\"],[\"headwear.secondary\",\"#7c4b52\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#304159\"],[\"outer.secondary\",\"#304159\"],[\"top.primary\",\"#e0d5bc\"],[\"top.secondary\",\"#e0d5bc\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "5564858b084d6faae6a11650ae7340b33cfe1d777bbf2dc26bd2c49b72cf97d4",
-  "atlasSha256": "7035afff1d68dcc7c47a25fd10e41afdc41d2ea689bb56eaab70c34a70e50f1b",
-  "textureBytes": 14370696,
-  "atlas": "web/public/assets/character-cast/rainmarket-resident-5.atlas.json"
+  "sha256": "bcbdd3bd0c2a80d96189f6f328d30ff0599d63417e2e5a22a33f2b9e690e9719",
+  "atlasSha256": "96e01efcde9b6a9929395a5d7ac28240b8e288a5fe1ab59fea05abbfe15161fd",
+  "textureBytes": 13136180,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/rainmarket-resident-5.webp",
+      "sha256": "bcbdd3bd0c2a80d96189f6f328d30ff0599d63417e2e5a22a33f2b9e690e9719",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/rainmarket-resident-5.1.webp",
+      "sha256": "46cb79d8779929e8b486b1901bf9bd6b996061e04d94f5ba50f3f2126e7b9108",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/rainmarket-resident-5.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

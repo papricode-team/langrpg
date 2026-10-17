@@ -27,15 +27,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#c18b60\",\"#a75532\",[[\"bag\",null],[\"bottom\",\"shorts\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"curls\"],[\"headwear\",null],[\"held\",null],[\"markings\",\"freckles\"],[\"neck\",null],[\"outer\",null],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#4e6a8a\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#5b3f2a\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#d9a441\"],[\"top.secondary\",\"#b58331\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#c18b60\",\"#a75532\",[[\"bag\",null],[\"bottom\",\"shorts\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"curls\"],[\"headwear\",null],[\"held\",null],[\"markings\",\"freckles\"],[\"neck\",null],[\"outer\",null],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#4e6a8a\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#5b3f2a\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#d9a441\"],[\"top.secondary\",\"#b58331\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "33d4931f2a0a565350be505fc22c1760506a0c03d4e5266b47e774f68d7380f5",
-  "atlasSha256": "6904bad6df33344417400bb2e04e66b5c5823811f9249fcd2ee135324e8c4641",
-  "textureBytes": 14734720,
-  "atlas": "web/public/assets/character-cast/pip.atlas.json"
+  "sha256": "8d5c0f0cce717f2a0bf2741ad3092b7b7c5e07c16abd1f7f5de7a0372565dd84",
+  "atlasSha256": "46367b70e0145f49f27d083360de4b1099833ef03880eeae3cf4644256b1540e",
+  "textureBytes": 13951184,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/pip.webp",
+      "sha256": "8d5c0f0cce717f2a0bf2741ad3092b7b7c5e07c16abd1f7f5de7a0372565dd84",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/pip.1.webp",
+      "sha256": "14d4ccffd49542fcc2b680797d2120b736ad7226d428c3efb087475946c965ec",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/pip.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

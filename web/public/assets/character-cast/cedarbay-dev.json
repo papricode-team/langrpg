@@ -4,23 +4,34 @@
   "recipe": "art/source/character-kit/cast/cedarbay-dev.json",
   "recipeSha256": "4ec33fa64d20282b98fabe3b7dbd80c64127de00be718afc007414cb3edbd987",
   "atlas": "web/public/assets/character-cast/cedarbay-dev.webp",
-  "atlasSha256": "343057652e22416f4ab8868b1f19f81dd31cef45820364071ee7eaa5431d6c76",
+  "atlasSha256": "4e5e9bb42472ad6067d91e8000951713ece3bbd2f21a42eff92627543dd7e683",
   "geometry": "web/public/assets/character-cast/cedarbay-dev.atlas.json",
-  "geometrySha256": "0cf98a173e0bbbc2dbcc8bfe120c6ad82d93732cd2c5aade124f7236b7311b51",
-  "textureBytes": 13920648,
+  "geometrySha256": "8f3118745f69ad9d94d84116d7bab4afc73f8292f19435ec56b95b7ff4f5c2ae",
+  "textureBytes": 14063556,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/cedarbay-dev.webp",
+      "sha256": "4e5e9bb42472ad6067d91e8000951713ece3bbd2f21a42eff92627543dd7e683",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/cedarbay-dev.1.webp",
+      "sha256": "3ff625576f6e35f2d28e5551a760396104f95dd438d6aaf95ee46c6043bd8f9f",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "5c1a979abcc5ec5ab1b1ebcc1de4795c49f201f295020e626787c176e026da63",
-  "proof": "art/proofs/character-cast/cedarbay-dev.png",
-  "proofSha256": "dab7d1b077bff9bcfe2631a2514c857260d7926fc1a659aaf1c69c9f81b72610",
-  "editorSha256": "393337550352bf4b124061aabe2534cb95ad474ebe5a1f8ece45a30367e6c79f",
+  "sourceComponentsSha256": "3b6f32a769260ce712eeee2eecd669ad2ef6af7c217108d7c0865db235b347a3",
+  "proof": "art/proofs/character-cast-painted/cedarbay-dev.png",
+  "proofSha256": "9c7579aa23e2787b58c24f2e2cd18bec4e11a825d577d96a108c19755c158410",
+  "editorSha256": "d14ad5626ab1f3ef1ddcc51e9925e6e54bf475e63dd44d399ac40249744b6a31",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "5c1a979abcc5ec5ab1b1ebcc1de4795c49f201f295020e626787c176e026da63"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

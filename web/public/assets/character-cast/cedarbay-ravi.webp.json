@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#996b47\",\"#282018\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"boots\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#344868\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#3a352a\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#344868\"],[\"top.secondary\",\"#344868\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#996b47\",\"#282018\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"boots\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#344868\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#3a352a\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#344868\"],[\"top.secondary\",\"#344868\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "0fbd0bf17872c3ee22fb44fb00d7e9391c70b8b91d31aa743db515fe59ff8911",
-  "atlasSha256": "7088733de3f50bd95c6b8a739551f7492914b7c4a23174634e734af8c64b8b08",
-  "textureBytes": 14839220,
-  "atlas": "web/public/assets/character-cast/cedarbay-ravi.atlas.json"
+  "sha256": "feeb6bef4d9eda1c6426e3262b53f26830c9b3d52bb81e328c8fa16cbf55e175",
+  "atlasSha256": "21ec291214f04476980b60613fc3260f698dcc86e6487704993b8f2662e4ff1a",
+  "textureBytes": 13800584,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/cedarbay-ravi.webp",
+      "sha256": "feeb6bef4d9eda1c6426e3262b53f26830c9b3d52bb81e328c8fa16cbf55e175",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/cedarbay-ravi.1.webp",
+      "sha256": "31e21d28d25f313492d80811702ce5acf515037b685321bd3dbffdf03313ab05",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/cedarbay-ravi.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

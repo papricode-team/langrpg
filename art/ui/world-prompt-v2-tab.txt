@@ -1,0 +1,13 @@
+Tool: built-in image_gen
+Transparent background: true
+Style references (attached in order):
+docs/style/references/target-art-direction.webp
+art/ui/round-button-v1.png
+art/ui/nameplate-v1.png
+art/ui/parchment-card-v1.png
+web/public/assets/lindenhafen-props.webp
+
+Exact prompt:
+Asset for glotworld painted RPG interaction prompt, chosen direction A from our concept exploration: delicate antique brass with warm ivory enamel/parchment, quiet fine brushwork and upper-left warm light. Attached references in order are (1) target town painting for delicacy and scale, (2) round HUD button for painted brass material, (3) nameplate for craft details, (4) parchment card for ivory, (5) town prop paintings for brushwork. Use those as style references, not edit targets. This sits above a small person's head and must read crisply at only 24 CSS pixels tall. Front-on UI sprite, NOT perspective or a scene. Restrained, simple, no dark wooden plank, no heavy cast shadow. GENUINE transparent RGBA background with clean alpha edge, no baked checkerboard or backdrop. NO text, letters, numbers, glyph-like scratches or watermark.
+Produce ONE short HORIZONTAL PARCHMENT LABEL TAB, centred with transparent margin, approximate width-to-height ratio 3.2:1. Softly rounded corners, warm pale cream parchment with very subtle fine fibres, a SINGLE extremely thin antique brass edging with a hint of dark olive at its inner seam. The vast centre is blank and quiet for one short dark live-rendered word, with at least 85% of width and 65% of height usable. No attached keycap, no hole, tail, curls, screws, green corner panels, roll ends or embellishments. Smooth compact silhouette that can be stretched horizontally a little without visible distortion. Final tab will render 64 by 22 CSS pixels; keep the edging delicate.
+

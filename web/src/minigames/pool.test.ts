@@ -3,7 +3,7 @@ import { emptyProgress, type Progress, type WordMemory, type WordEvidence } from
 import type { CourseLexeme } from '../course';
 import { distractors, gameItemPool } from './pool';
 
-vi.mock('./item-manifest', () => ({ itemSpriteFor: (id: string) => id === 'picture' ? 'painted-picture' : undefined }));
+vi.mock('./item-manifest', () => ({ itemSpriteFor: (id: string) => id === 'picture' ? 'painted-picture' : undefined, hasItemSprite: (id: string) => id === 'picture' }));
 
 const word = (id: string, extra: Partial<CourseLexeme> = {}): CourseLexeme => ({ id, lemma: id, english: id, level: 'A1', pos: 'noun', article: 'der', topic: 'food', sourceId: 'test', sourceUrl: 'test', ...extra });
 const progress = (ids: string[]): Progress => ({ ...emptyProgress(), intake: { version: 1, activeSeconds: 0, creditSeconds: 0, lastBeatAt: '', wordIds: ids } });

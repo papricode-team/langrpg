@@ -19,7 +19,10 @@ export function newPlacement(scene: WorldScene, choice: PaletteChoice, point: {x
   if (choice.frame !== choice.asset) item.frame = choice.frame;
   if (usesVariationAtlas(choice.frame)) item.variant = true;
   const detail=terrainObject(choice.frame);
-  if(detail){item.collidable=detail.collidable;item.motion=detail.motion==='sway'?'tree':detail.motion==='bob'?'boat':detail.motion==='still'?'still':'lamp';}
+  if(detail){
+    item.collidable=detail.collidable;
+    if(detail.motion)item.motion=detail.motion==='sway'?'tree':detail.motion==='bob'?'boat':detail.motion==='still'?'still':'lamp';
+  }
   return item;
 }
 

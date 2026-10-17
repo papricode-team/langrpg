@@ -1,0 +1,154 @@
+{
+  "date": "2026-10-17",
+  "generator": "built-in image_gen",
+  "review": "docs/visual-style-review.md",
+  "styleReferences": [
+    "web/public/assets/lindenhafen-day-building-cafe.webp"
+  ],
+  "selected": [
+    {
+      "id": "town-cobble",
+      "master": "art/source/terrain-materials/town-cobble.png",
+      "prompt": "art/source/terrain-materials/town-cobble-style-prompt.txt",
+      "generatedFile": "exec-e6e98355-6a99-4a6f-8496-29b039ad4e23.png"
+    },
+    {
+      "id": "canal-masonry",
+      "master": "art/source/terrain-materials/canal-masonry.png",
+      "prompt": "art/source/terrain-materials/canal-masonry-style-prompt.txt",
+      "generatedFile": "exec-2493dcab-4a40-4b07-8d4b-fd4e5a3ee998.png"
+    },
+    {
+      "id": "canal-water",
+      "master": "art/source/terrain-materials/canal-water.png",
+      "prompt": "art/source/terrain-materials/canal-water-style-prompt.txt",
+      "generatedFile": "exec-bdbd116f-7d45-4182-9189-bf3234dbe3f0.png"
+    },
+    {
+      "id": "deep-water",
+      "master": "art/source/terrain-materials/deep-water.png",
+      "prompt": "art/source/terrain-materials/deep-water-style-prompt.txt",
+      "generatedFile": "exec-9327aae6-ea1a-44fc-9995-b90996b65736.png"
+    },
+    {
+      "id": "meadow",
+      "master": "art/source/terrain-materials/meadow.png",
+      "prompt": "art/source/terrain-materials/meadow-style-prompt.txt",
+      "generatedFile": "exec-9f8eefc0-5f3e-4570-8bb1-47b88cc54c9b.png"
+    },
+    {
+      "id": "cobble",
+      "master": "art/source/terrain-materials/cobble.png",
+      "prompt": "art/source/terrain-materials/cobble-style-prompt.txt",
+      "generatedFile": "exec-680ee2bc-d86b-4ec6-8b4a-c01b60154dc9.png"
+    },
+    {
+      "id": "brick",
+      "master": "art/source/terrain-materials/brick.png",
+      "prompt": "art/source/terrain-materials/brick-style-prompt.txt",
+      "generatedFile": "exec-279f7c61-d923-468e-bc13-8961080e055e.png"
+    },
+    {
+      "id": "limestone",
+      "master": "art/source/terrain-materials/limestone.png",
+      "prompt": "art/source/terrain-materials/limestone-style-prompt.txt",
+      "generatedFile": "exec-10d111c8-2220-49e9-9f79-d747ca0146eb.png"
+    },
+    {
+      "id": "slate",
+      "master": "art/source/terrain-materials/slate.png",
+      "prompt": "art/source/terrain-materials/slate-style-prompt.txt",
+      "generatedFile": "exec-5ec2f299-cf7c-4171-9104-cdfb955f2543.png"
+    },
+    {
+      "id": "canal-grass",
+      "master": "art/source/terrain-materials/canal-grass.png",
+      "prompt": "art/source/terrain-materials/canal-grass-style-prompt.txt",
+      "generatedFile": "exec-c39cd18f-a44d-4abb-bbe0-5d4cd2864737.png"
+    },
+    {
+      "id": "dry-grass",
+      "master": "art/source/terrain-materials/dry-grass.png",
+      "prompt": "art/source/terrain-materials/dry-grass-style-prompt.txt",
+      "generatedFile": "exec-408ea520-a93f-4d4b-8de0-bedf75172519.png"
+    },
+    {
+      "id": "forest-floor",
+      "master": "art/source/terrain-materials/forest-floor.png",
+      "prompt": "art/source/terrain-materials/forest-floor-style-prompt.txt",
+      "generatedFile": "exec-1c012372-d240-47aa-9501-8aa881152ec1.png"
+    },
+    {
+      "id": "moss",
+      "master": "art/source/terrain-materials/moss.png",
+      "prompt": "art/source/terrain-materials/moss-style-prompt.txt",
+      "generatedFile": "exec-90f550fa-08e6-4de6-88c7-434eac89215f.png"
+    },
+    {
+      "id": "earth",
+      "master": "art/source/terrain-materials/earth.png",
+      "prompt": "art/source/terrain-materials/earth-style-prompt.txt",
+      "generatedFile": "exec-3d455731-7ee9-4fea-8511-62291dfe325c.png"
+    },
+    {
+      "id": "mud",
+      "master": "art/source/terrain-materials/mud.png",
+      "prompt": "art/source/terrain-materials/mud-style-prompt.txt",
+      "generatedFile": "exec-f141cec6-d1ba-4373-9c90-a73bcfe7acb8.png"
+    },
+    {
+      "id": "gravel",
+      "master": "art/source/terrain-materials/gravel.png",
+      "prompt": "art/source/terrain-materials/gravel-style-prompt.txt",
+      "generatedFile": "exec-627b1ac9-a6ff-434f-b016-33a34cd89c3f.png"
+    },
+    {
+      "id": "sand",
+      "master": "art/source/terrain-materials/sand.png",
+      "prompt": "art/source/terrain-materials/sand-style-prompt.txt",
+      "generatedFile": "exec-6cca3ba5-af32-41ae-a413-83aad0e7ba24.png"
+    },
+    {
+      "id": "timber",
+      "master": "art/source/terrain-materials/timber.png",
+      "prompt": "art/source/terrain-materials/timber-style-prompt.txt",
+      "generatedFile": "exec-89af598c-983e-4ee4-8df9-45f80e66272d.png"
+    },
+    {
+      "id": "rock",
+      "master": "art/source/terrain-materials/rock.png",
+      "prompt": "art/source/terrain-materials/rock-style-prompt.txt",
+      "generatedFile": "exec-e62275e6-880c-48a2-8c28-b448f1bf9822.png"
+    },
+    {
+      "id": "shallow-water",
+      "master": "art/source/terrain-materials/shallow-water.png",
+      "prompt": "art/source/terrain-materials/shallow-water-style-prompt.txt",
+      "generatedFile": "exec-5773b2a8-9146-4f7c-ba64-c6cdff0a549e.png"
+    },
+    {
+      "id": "marsh",
+      "master": "art/source/terrain-materials/marsh.png",
+      "prompt": "art/source/terrain-materials/marsh-style-prompt.txt",
+      "generatedFile": "exec-83f2a635-a5f8-4481-82a0-52d6f90cbeb6.png"
+    },
+    {
+      "id": "snow",
+      "master": "art/source/terrain-materials/snow.png",
+      "prompt": "art/source/terrain-materials/snow-style-prompt.txt",
+      "generatedFile": "exec-6f624c87-dd27-43f7-9147-7b7cf604c477.png"
+    },
+    {
+      "id": "ice",
+      "master": "art/source/terrain-materials/ice.png",
+      "prompt": "art/source/terrain-materials/ice-style-prompt.txt",
+      "generatedFile": "exec-3f40652a-775d-4989-bbae-ddf4261f2d4c.png"
+    },
+    {
+      "id": "farmland",
+      "master": "art/source/terrain-materials/farmland.png",
+      "prompt": "art/source/terrain-materials/farmland-style-prompt.txt",
+      "generatedFile": "exec-5b8d453c-6e4e-46f9-991d-bbce2c3824e4.png"
+    }
+  ]
+}

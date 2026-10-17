@@ -34,30 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#c18b60\",\"#d0c9b9\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",\"round\"],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bob\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"cardigan\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#797197\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#797197\"],[\"outer.secondary\",\"#797197\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#c18b60\",\"#d0c9b9\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",\"round\"],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bob\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"cardigan\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#797197\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#797197\"],[\"outer.secondary\",\"#797197\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "94679bb5c274b3aa193d46515120ed989a03a4a44d67d50439fe03a9a1aa4354",
-  "atlasSha256": "e784eae25dd931493edeee4c691c5273f54ab3d80c2c392b118dc91efb1bb96c",
+  "sha256": "8edb93d7348b6a1c0042d759d8aa2e4476758d1bc22dccaa6e6782faff0d574a",
+  "atlasSha256": "0db767905e8ffe284ef861399b2d2be5d63ec1bbb180173d4c9f6e42ee934c2a",
   "textureBytes": 14318424,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/nebelstadt-resident-archivist.webp",
-      "sha256": "94679bb5c274b3aa193d46515120ed989a03a4a44d67d50439fe03a9a1aa4354",
+      "sha256": "8edb93d7348b6a1c0042d759d8aa2e4476758d1bc22dccaa6e6782faff0d574a",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/nebelstadt-resident-archivist.1.webp",
-      "sha256": "6e86874b2442d645343992f8db95ba7887d4ffd1073ecaf6cb02611f8c35b7ba",
+      "sha256": "cb26940b068b835abe21b56aa425860be03cb53e6b4575ff60f00131ed0ec3b7",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/nebelstadt-resident-archivist.atlas.json"
+  "atlas": "web/public/assets/character-cast/nebelstadt-resident-archivist.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

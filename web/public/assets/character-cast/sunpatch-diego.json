@@ -4,23 +4,34 @@
   "recipe": "art/source/character-kit/cast/sunpatch-diego.json",
   "recipeSha256": "c2ec6ab31ac20a5c0ebb44b9013360524077ef07100a1801178abbb5af7c6cac",
   "atlas": "web/public/assets/character-cast/sunpatch-diego.webp",
-  "atlasSha256": "dcf562480f0e20d781cacf6d77f9bec50469e2734032c7d2740f2b94edd1cdc8",
+  "atlasSha256": "03cec45c0d197a45d86a1fb65886463e55c3aaeb186d81aa1b86b4880e07448a",
   "geometry": "web/public/assets/character-cast/sunpatch-diego.atlas.json",
-  "geometrySha256": "413116153e36aec0a8e55b7172a094b5b9b8f2f96e0f00296370d3f6b2098da2",
-  "textureBytes": 14698076,
+  "geometrySha256": "7c95137131023f6413a60a16e77612d7a0830d4066d251ea8471421e39608bb0",
+  "textureBytes": 14755076,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/sunpatch-diego.webp",
+      "sha256": "03cec45c0d197a45d86a1fb65886463e55c3aaeb186d81aa1b86b4880e07448a",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/sunpatch-diego.1.webp",
+      "sha256": "e366c74d2590f6fcbea9634861d924931a6d78d0d3b1f870f9108420925db2a1",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "fd03c4b3f0b6eaca99fa73b0726e52de11a204590f8ea02e2feccc3edaf83461",
-  "proof": "art/proofs/character-cast/sunpatch-diego.png",
-  "proofSha256": "7b606cf90462f9d60b8c87b3faaf8d042901972d8fa9553bb2a808188f077935",
-  "editorSha256": "da8c924555a34293d076b0874b18123d66bdc84ad67938627ac86206c64ba282",
+  "sourceComponentsSha256": "ac27468ac1f5b6852b1cb7c8d3c02f29c8193556c3fe176febb769e632120677",
+  "proof": "art/proofs/character-cast-painted/sunpatch-diego.png",
+  "proofSha256": "e870165ed4c3b298ea84bd7c0b247c4ad41e68327b90a257641112886042b120",
+  "editorSha256": "3df561766e7a9eecd9c998048edab18d034f235eb1a6704bb3246bd81aa6c3c1",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "fd03c4b3f0b6eaca99fa73b0726e52de11a204590f8ea02e2feccc3edaf83461"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

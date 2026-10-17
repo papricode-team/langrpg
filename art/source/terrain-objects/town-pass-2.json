@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-17",
+  "generator": "built-in image_gen",
+  "direction": "docs/style/art-direction.md",
+  "references": [
+    "docs/style/references/target-art-direction.webp",
+    "web/public/assets/lindenhafen-day-building-cafe.webp",
+    "web/public/assets/lindenhafen-props.webp",
+    "web/public/assets/interior-cafe-room.webp"
+  ],
+  "selected": [
+    {
+      "id": "town-linden",
+      "master": "art/source/terrain-objects/town-linden.png",
+      "prompt": "art/source/terrain-objects/town-linden-prompt.txt",
+      "generatedFile": "exec-0a0fde18-4a6b-4caa-9714-ad645a0739ee.png"
+    },
+    {
+      "id": "town-plane",
+      "master": "art/source/terrain-objects/town-plane.png",
+      "prompt": "art/source/terrain-objects/town-plane-prompt.txt",
+      "generatedFile": "exec-37651e26-9f58-49e1-b9b2-e230c517a341.png"
+    },
+    {
+      "id": "town-boxwood",
+      "master": "art/source/terrain-objects/town-boxwood.png",
+      "prompt": "art/source/terrain-objects/town-boxwood-prompt.txt",
+      "generatedFile": "exec-c7fa3342-d3d3-4f18-97a3-a02140c954bc.png"
+    },
+    {
+      "id": "town-hedge",
+      "master": "art/source/terrain-objects/town-hedge.png",
+      "prompt": "art/source/terrain-objects/town-hedge-prompt.txt",
+      "generatedFile": "exec-1ec9448a-5ab7-434e-87e1-38c11dc6031e.png"
+    },
+    {
+      "id": "town-ivy",
+      "master": "art/source/terrain-objects/town-ivy.png",
+      "prompt": "art/source/terrain-objects/town-ivy-prompt.txt",
+      "generatedFile": "exec-bb11ed8b-212e-490e-a695-73322c169a5b.png"
+    },
+    {
+      "id": "town-radial-cobble",
+      "master": "art/source/terrain-objects/town-radial-cobble.png",
+      "prompt": "art/source/terrain-objects/town-radial-cobble-prompt.txt",
+      "generatedFile": "exec-eeb85cf1-250d-4e95-899a-b333e88127d2.png"
+    },
+    {
+      "id": "town-garden-statue",
+      "master": "art/source/terrain-objects/town-garden-statue.png",
+      "prompt": "art/source/terrain-objects/town-garden-statue-prompt.txt",
+      "generatedFile": "exec-25c5dd7c-bf30-4040-a4b0-e4ab0c671bc6.png"
+    }
+  ],
+  "discarded": [
+    {
+      "id": "town-ivy",
+      "generatedFile": "exec-314c3d3d-b243-4925-a36b-c1b43f798b84.png",
+      "reason": "Top leaf touched the canvas edge; regenerated with transparent gutters."
+    }
+  ]
+}

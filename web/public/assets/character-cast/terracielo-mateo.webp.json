@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b48b61\",\"#302720\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",\"headband\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#3d3c3a\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#44382b\"],[\"headwear.primary\",\"#953b39\"],[\"headwear.secondary\",\"#953b39\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#3c5e87\"],[\"outer.secondary\",\"#3c5e87\"],[\"top.primary\",\"#e0d3b4\"],[\"top.secondary\",\"#e0d3b4\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b48b61\",\"#302720\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",\"headband\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#3d3c3a\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#44382b\"],[\"headwear.primary\",\"#953b39\"],[\"headwear.secondary\",\"#953b39\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#3c5e87\"],[\"outer.secondary\",\"#3c5e87\"],[\"top.primary\",\"#e0d3b4\"],[\"top.secondary\",\"#e0d3b4\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "0f206379aad6b900ab284fe6d9e26f863f3bcba53be860e026c616e926b8b014",
-  "atlasSha256": "e5ac8217da2f62a473067b09f3615f3110f6fc53ac97bcd990d228e457ddaff4",
-  "textureBytes": 14490960,
-  "atlas": "web/public/assets/character-cast/terracielo-mateo.atlas.json"
+  "sha256": "1348b618be7c680fbf4410960b5181d9b1e2146d9d10ae128682ac63ae89dbd0",
+  "atlasSha256": "ca19ed8505721dce758b150d409442cf25710507877080abada855382c2b3fba",
+  "textureBytes": 14190500,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/terracielo-mateo.webp",
+      "sha256": "1348b618be7c680fbf4410960b5181d9b1e2146d9d10ae128682ac63ae89dbd0",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/terracielo-mateo.1.webp",
+      "sha256": "037f308d51f4224bb9b50995c57dfce06bd79e39a69a1c63b69d77776cdb6b32",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/terracielo-mateo.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

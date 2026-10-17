@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b78b62\",\"#30271f\",[[\"bag\",\"backpack\"],[\"bottom\",\"slim\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#324353\"],[\"bottom.primary\",\"#3d3b37\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#e0d6bf\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#689dc1\"],[\"outer.secondary\",\"#689dc1\"],[\"top.primary\",\"#e1d8c1\"],[\"top.secondary\",\"#e1d8c1\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b78b62\",\"#30271f\",[[\"bag\",\"backpack\"],[\"bottom\",\"slim\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#324353\"],[\"bottom.primary\",\"#3d3b37\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#e0d6bf\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#689dc1\"],[\"outer.secondary\",\"#689dc1\"],[\"top.primary\",\"#e1d8c1\"],[\"top.secondary\",\"#e1d8c1\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "dcf562480f0e20d781cacf6d77f9bec50469e2734032c7d2740f2b94edd1cdc8",
-  "atlasSha256": "413116153e36aec0a8e55b7172a094b5b9b8f2f96e0f00296370d3f6b2098da2",
-  "textureBytes": 14698076,
-  "atlas": "web/public/assets/character-cast/sunpatch-diego.atlas.json"
+  "sha256": "03cec45c0d197a45d86a1fb65886463e55c3aaeb186d81aa1b86b4880e07448a",
+  "atlasSha256": "7c95137131023f6413a60a16e77612d7a0830d4066d251ea8471421e39608bb0",
+  "textureBytes": 14755076,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/sunpatch-diego.webp",
+      "sha256": "03cec45c0d197a45d86a1fb65886463e55c3aaeb186d81aa1b86b4880e07448a",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/sunpatch-diego.1.webp",
+      "sha256": "e366c74d2590f6fcbea9634861d924931a6d78d0d3b1f870f9108420925db2a1",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/sunpatch-diego.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

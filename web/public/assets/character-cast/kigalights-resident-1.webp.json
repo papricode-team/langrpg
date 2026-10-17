@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#664530\",\"#aaa18b\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",\"square\"],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"buzz\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"henley\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#3e6448\"],[\"eyewear.primary\",\"#96886b\"],[\"footwear.primary\",\"#715238\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#e0ceaa\"],[\"top.secondary\",\"#e0ceaa\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#664530\",\"#aaa18b\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",\"square\"],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"buzz\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"henley\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#3e6448\"],[\"eyewear.primary\",\"#96886b\"],[\"footwear.primary\",\"#715238\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#e0ceaa\"],[\"top.secondary\",\"#e0ceaa\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "acc3dc8994eaaf5d7e7203cfc1ff6ff68b13bf2a40f0acfc3bed3b80fcaa11d4",
-  "atlasSha256": "4509ceeda3ff750d0c654bec1de606af241e88bf03f228d6473cdca0884d510e",
-  "textureBytes": 14691280,
-  "atlas": "web/public/assets/character-cast/kigalights-resident-1.atlas.json"
+  "sha256": "79992917aaf7e132965ca965228468edfafdeef2fea2d7879e468dd2f64ade02",
+  "atlasSha256": "f800348a8115f023a42467e3de0278386d4c8bfdc8f93243f63152e9316debcf",
+  "textureBytes": 13863548,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/kigalights-resident-1.webp",
+      "sha256": "79992917aaf7e132965ca965228468edfafdeef2fea2d7879e468dd2f64ade02",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/kigalights-resident-1.1.webp",
+      "sha256": "10c916c86ada5cbb5c47cc16635189d5c310c34d50c637139bdee66760746ec0",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/kigalights-resident-1.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

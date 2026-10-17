@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#d9b493\",\"#34271f\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#8d693f\"],[\"bottom.primary\",\"#526d87\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#dccfb5\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#859272\"],[\"top.secondary\",\"#859272\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#d9b493\",\"#34271f\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#8d693f\"],[\"bottom.primary\",\"#526d87\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#dccfb5\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#859272\"],[\"top.secondary\",\"#859272\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "53382ad12126cd8c2412b420fea47d6b2d03d8a5eebb19f1c2ca386db50c423d",
-  "atlasSha256": "81e1c4f98a37527f6d1894bf6303b9669fabaf055f8ffd2a6288cfdb606a0dcb",
-  "textureBytes": 14835892,
-  "atlas": "web/public/assets/character-cast/seoulsteps-minji.atlas.json"
+  "sha256": "90463f548890db213b63633623c82827118f15e59eb757df18e0747fdbb79c33",
+  "atlasSha256": "43d7721bce93818c079ab34727c4ff10deb7c55dc22e109ecb576500a65bb6d9",
+  "textureBytes": 14553808,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/seoulsteps-minji.webp",
+      "sha256": "90463f548890db213b63633623c82827118f15e59eb757df18e0747fdbb79c33",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/seoulsteps-minji.1.webp",
+      "sha256": "7de436045c95aef5d93963860b6680f03e8e7ae393a4b6e5501a655d7cfcf6da",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/seoulsteps-minji.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

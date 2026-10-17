@@ -34,30 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#a97c54\",\"#30261b\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",\"cardigan\"],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#794763\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#d1c6ad\"],[\"headwear.primary\",\"#b67c80\"],[\"headwear.secondary\",\"#b67c80\"],[\"neck.primary\",\"#b67c80\"],[\"outer.primary\",\"#ded4b6\"],[\"outer.secondary\",\"#ded4b6\"],[\"top.primary\",\"#713e60\"],[\"top.secondary\",\"#713e60\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#a97c54\",\"#30261b\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",\"cardigan\"],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#794763\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#d1c6ad\"],[\"headwear.primary\",\"#b67c80\"],[\"headwear.secondary\",\"#b67c80\"],[\"neck.primary\",\"#b67c80\"],[\"outer.primary\",\"#ded4b6\"],[\"outer.secondary\",\"#ded4b6\"],[\"top.primary\",\"#713e60\"],[\"top.secondary\",\"#713e60\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "7f728f50df5048a69a3f0515d132e077da38bd178a819dd1ee2ade86651a884b",
-  "atlasSha256": "73d22606a95e4b1364793458d9a2399a8c57aa9a79878e17973bf28a9392ef59",
+  "sha256": "753a64f705ff1d100c7bb6af03b5a7cb1c0171029ff78551436f12f0b66d3b83",
+  "atlasSha256": "7087c0c537a6e0a47cfd65f99f4b34823655d8f18aa36a83f3542b2c6c1bb729",
   "textureBytes": 14532188,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/cedarbay-farah.webp",
-      "sha256": "7f728f50df5048a69a3f0515d132e077da38bd178a819dd1ee2ade86651a884b",
+      "sha256": "753a64f705ff1d100c7bb6af03b5a7cb1c0171029ff78551436f12f0b66d3b83",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/cedarbay-farah.1.webp",
-      "sha256": "d77539b7144c80527f486cbae8b01ae65d79018cc4eed2ec69239014a7cf4d42",
+      "sha256": "0c467eff27b674a125a96ac89e103d62f41fe85a06eaa1d5ecda8a61ff5c90b4",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/cedarbay-farah.atlas.json"
+  "atlas": "web/public/assets/character-cast/cedarbay-farah.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

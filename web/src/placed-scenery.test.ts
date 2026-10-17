@@ -5,9 +5,13 @@ import { getPlacedScenery,sceneryAssets,placedSceneryFootprints,sceneryFootprint
 import { isBuildingScenery,sceneryAnimationTextureKeys,sceneryBlend,sampleSceneryFrame,sampleTreeSway,type SceneryAnimation,type SceneryAnimationManifest } from './scenery-animation';
 import { WorldScenery } from './world-scenery';
 import { foundationScene } from './test-support/foundation-scene';
-import { terrainObject } from './terrain-objects';
+import { terrainObject,terrainObjectKey } from './terrain-objects';
 const artifacts=import.meta.glob(['../public/assets/*animation*.json','../public/assets/*building*.json','../public/assets/*props*.json','../public/assets/story-quality*.json'],{eager:true,import:'default'});
 const readAsset=(name:string): any=>artifacts[`../public/assets/${name}`];
+const isStaticCutout=(spec:PlacedScenerySpec)=>{
+  const detail=terrainObject(spec.frame);
+  return !!detail&&spec.asset!=='tree'&&spec.asset!=='cypress'&&(spec.motion==='still'||!detail.motion||detail.motion==='still');
+};
 
 describe('painted asset footprints', () => {
   const placement: PlacedScenerySpec = {id:'side-wall',asset:'house',frame:'house-2',x:200,y:300,width:100};
@@ -79,7 +83,11 @@ describe('authored sprite worlds',()=>{
       }
     }
     const trees=specs.filter(spec=>spec.asset==='tree');
-    expect(new Set(trees.map(spec=>spec.frame??spec.asset)).size).toBeGreaterThanOrEqual(5);
+    const treeFrames=[...new Set(trees.map(spec=>spec.frame??spec.asset))].sort();
+    // The summer town pass deliberately replaces the five autumn atlas trees
+    // with native HD linden and plane paintings; the other towns retain theirs.
+    if(map.id==='lindenhafen')expect(treeFrames).toEqual(['town-linden','town-plane']);
+    else expect(treeFrames.length).toBeGreaterThanOrEqual(5);
     expect(placedSceneryFootprints(map.id).length).toBeGreaterThan(30);
   });
   for(const map of maps)it(`${map.name} has night architecture and stable high resolution props for ambient lighting`,()=>{
@@ -114,6 +122,8 @@ function mockScene(layered=true,options:{highResolution?:boolean;staticBuildings
   const assets:Record<string,SceneryAnimation>={};
   for(const spec of specs){
     const name=spec.frame??spec.asset;
+    // Registered cutouts load separately and never inherit a town atlas sequence.
+    if(terrainObject(name))continue;
     assets[name]={key:'painted',frames:Array.from({length:6},(_,i)=>`${name}-${i}`),fps:4,width:200,height:250,referenceWidth:200,originX:.4,originY:.95};
     if(layered&&isBuildingScenery(name)){
       assets[name].base={key:'bases',frame:name};
@@ -163,14 +173,22 @@ describe('ground contact coverage across towns',()=>{
 
 it('keeps tree and cypress silhouettes stable with one gently swaying sprite, including still scenery and fades',()=>{
   const view={x:0,y:0,right:getMap('lindenhafen').width,bottom:getMap('lindenhafen').height+100};
+  const placements:readonly PlacedScenerySpec[]=[...getPlacedScenery('lindenhafen'),
+    {id:'legacy-still-tree',asset:'tree',frame:'tree-2',x:0,y:0,width:100,motion:'still'},
+    {id:'legacy-still-cypress',asset:'cypress',x:0,y:0,width:60,motion:'still'},
+    {id:'summer-still-tree',asset:'tree',frame:'town-linden',x:0,y:0,width:100,motion:'still'},
+  ];
   for(const period of ['day','night'] as const){
-    const mock=mockScene(),scenery=new WorldScenery(mock.scene,'lindenhafen',period,mock.placements);
+    const mock=mockScene(true,{placements}),scenery=new WorldScenery(mock.scene,'lindenhafen',period,mock.placements);
     const specs=mock.placements.filter(spec=>spec.asset==='tree'||spec.asset==='cypress');
     const trees=specs.map(spec=>{
       const trees=mock.sprites.filter(sprite=>sprite.x===spec.x&&sprite.y===spec.y);
       expect(trees).toHaveLength(1);
       const tree=trees[0];
-      expect(tree.frame).toBe(`${spec.frame??spec.asset}-0`);
+      const detail=terrainObject(spec.frame);
+      expect(tree.frame).toBe(detail?'__BASE':`${spec.frame??spec.asset}-0`);
+      expect(tree.key).toBe(detail?terrainObjectKey('lindenhafen',detail.id):'painted');
+      expect(tree.setOrigin.mock.calls).toEqual([detail?[detail.originX,detail.originY]:[.4,.95]]);
       return {spec,tree,original:{x:tree.x,y:tree.y,frame:tree.frame,originX:tree.originX,originY:tree.originY},rotations:[] as number[]};
     });
     for(let time=0;time<20;time+=.5){
@@ -222,7 +240,20 @@ it('bounds tree motion and its speed across instances, with quieter nights and s
 
 it('changes painted sprite frames, keeps foundations upright, freezes, culls and cleans up',()=>{
   const mock=mockScene(),scenery=new WorldScenery(mock.scene,'lindenhafen','day',mock.placements);
-  expect(scenery.animatedObjectCount).toBe(scenery.objectCount);
+  const staticCutouts=mock.placements.filter(isStaticCutout);
+  expect(staticCutouts.length).toBeGreaterThan(0);
+  expect(scenery.animatedObjectCount).toBe(scenery.objectCount-staticCutouts.length);
+  const cutoutSprites=mock.placements.flatMap(spec=>{
+    const detail=terrainObject(spec.frame);
+    if(!detail)return [];
+    const sprites=mock.sprites.filter(sprite=>sprite.x===spec.x&&sprite.y===spec.y);
+    expect(sprites,`${spec.id}: one registered cutout`).toHaveLength(1);
+    const sprite=sprites[0];
+    expect(sprite.key).toBe(terrainObjectKey('lindenhafen',detail.id));
+    expect(sprite.frame).toBe('__BASE');
+    expect(sprite.setOrigin.mock.calls).toEqual([[detail.originX,detail.originY]]);
+    return [sprite];
+  });
   const view={x:0,y:0,right:getMap('lindenhafen').width,bottom:getMap('lindenhafen').height+100};
   scenery.update(.32,view);
   const first=mock.sprites.map(sprite=>sprite.frame);
@@ -235,9 +266,9 @@ it('changes painted sprite frames, keeps foundations upright, freezes, culls and
   expect(mock.sprites.map(sprite=>sprite.frame)).not.toEqual(frozen);
   for(const sprite of mock.sprites){
     expect(sprite.setScale).toHaveBeenCalledTimes(1);expect(sprite.setScale.mock.calls[0][0]).toBeGreaterThan(0);
-    // Detail-library props keep their own registered origin.
-    if(!sprite.frame.startsWith('detail-')&&sprite.frame!=='__BASE')expect(sprite.setOrigin.mock.calls[0]).toEqual(sprite.key==='details'?[.5,.5]:[.4,.95]);
+    if(!cutoutSprites.includes(sprite))expect(sprite.setOrigin.mock.calls[0]).toEqual(sprite.key==='details'?[.5,.5]:[.4,.95]);
   }
+  expect(cutoutSprites.every(sprite=>sprite.frame==='__BASE'&&sprite.setFrame.mock.calls.length===0)).toBe(true);
   const bases=mock.sprites.filter(sprite=>sprite.key!=='details'&&!sprite.blend);
   expect(bases.every((sprite,i)=>sprite.x===mock.placements[i].x&&sprite.y===mock.placements[i].y)).toBe(true);
   expect(mock.raw.textures.createCanvas.mock.calls.every(([key])=>/^(foundation|scenery-contact)-/.test(String(key)))).toBe(true);
@@ -292,7 +323,8 @@ it('keeps one high resolution static sprite per building throughout animation, f
   expect(bases).toHaveLength(buildingSpecs.length);
   expect(bases.every(sprite=>!sprite.blend)).toBe(true);
   expect(mock.sprites.some(sprite=>sprite.key==='details')).toBe(false);
-  expect(scenery.animatedObjectCount).toBe(scenery.objectCount-buildingSpecs.length);
+  const staticCutouts=mock.placements.filter(isStaticCutout);
+  expect(scenery.animatedObjectCount).toBe(scenery.objectCount-buildingSpecs.length-staticCutouts.length);
   const initial=bases.map(sprite=>sprite.frame),view={x:0,y:0,right:getMap('lindenhafen').width,bottom:getMap('lindenhafen').height+100};
   for(const time of [0,.2,1,7,30,400])scenery.update(time,view);
   scenery.setAlpha(.35);

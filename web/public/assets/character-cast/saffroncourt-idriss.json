@@ -4,23 +4,34 @@
   "recipe": "art/source/character-kit/cast/saffroncourt-idriss.json",
   "recipeSha256": "d7ef5c6752ad015dcc738afc3de09a2b50433119fe68e06477eb7d027fa7dfc0",
   "atlas": "web/public/assets/character-cast/saffroncourt-idriss.webp",
-  "atlasSha256": "2fdc3e8387bd95fb76d69de5a80d938e21855f751bed84c45e0c44f6d45f6383",
+  "atlasSha256": "fb455b3628cd9a2562eff3611c70569d3b48234c1a8a27a9c301ac80cab01095",
   "geometry": "web/public/assets/character-cast/saffroncourt-idriss.atlas.json",
-  "geometrySha256": "0e99ee0542783f44978507dc829755b8e0f7aac1e4898bce57e23bd9bb69937a",
-  "textureBytes": 14939272,
+  "geometrySha256": "7742fec291dd13315cfe132f61381ffe56b3de26ca424c618847ef5d1535e293",
+  "textureBytes": 13639700,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/saffroncourt-idriss.webp",
+      "sha256": "fb455b3628cd9a2562eff3611c70569d3b48234c1a8a27a9c301ac80cab01095",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/saffroncourt-idriss.1.webp",
+      "sha256": "15f3ccbeda33817b4022fc1fce1417976d3972b9fe4f1285b1d6f947defc2b4f",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "7b6747347c63eb93fba22d7e1f93e92f239e2b52e3ce4fcd955f0338594b510c",
-  "proof": "art/proofs/character-cast/saffroncourt-idriss.png",
-  "proofSha256": "7b523d4b0c12a6f931494599dae30ded9ae361526329a9257dcf12815cd20d0c",
-  "editorSha256": "a904267b2fcac7b7e79a4e149fcebfe79349de171e91cf4c7bbf053a56ec18e3",
+  "sourceComponentsSha256": "d6c030bb50ca0c8168424a709207f35ad18bfcdbf68b2ec92ee3014c0c1e91b2",
+  "proof": "art/proofs/character-cast-painted/saffroncourt-idriss.png",
+  "proofSha256": "0bf8bf3cffd5c5217876079f44d1163cbea0db0def1caad2da9e084d75d9a298",
+  "editorSha256": "1ba6e7143a614ef579f4eded2bd95967ebbc5f8e46d4564f160731d8147737a1",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "7b6747347c63eb93fba22d7e1f93e92f239e2b52e3ce4fcd955f0338594b510c"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

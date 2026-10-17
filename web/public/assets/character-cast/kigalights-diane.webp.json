@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#81563b\",\"#2a221a\",[[\"bag\",\"backpack\"],[\"bottom\",\"slim\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"braids\"],[\"headwear\",\"headband\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#3c5b4d\"],[\"bottom.primary\",\"#344d72\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#ded5be\"],[\"headwear.primary\",\"#3c5e8d\"],[\"headwear.secondary\",\"#3c5e8d\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#9bc7ac\"],[\"top.secondary\",\"#9bc7ac\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#81563b\",\"#2a221a\",[[\"bag\",\"backpack\"],[\"bottom\",\"slim\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"braids\"],[\"headwear\",\"headband\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#3c5b4d\"],[\"bottom.primary\",\"#344d72\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#ded5be\"],[\"headwear.primary\",\"#3c5e8d\"],[\"headwear.secondary\",\"#3c5e8d\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#9bc7ac\"],[\"top.secondary\",\"#9bc7ac\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "3df781061b6756668b776873a202cb3b3422420860b51e121d72350db3a18834",
-  "atlasSha256": "cfefe8e1458b01f0af05f3c06f54971d5edef1ceff76113e00c4c47ac3397570",
-  "textureBytes": 14387940,
-  "atlas": "web/public/assets/character-cast/kigalights-diane.atlas.json"
+  "sha256": "9eb24c92ed3b0e6480fdad0041f088718a1d6fe0707877cbdc3c22bca5bd6052",
+  "atlasSha256": "78bd5e507979b6429e6af54bccacc141857b2106f0458394bd07747ce8ea057c",
+  "textureBytes": 14490220,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/kigalights-diane.webp",
+      "sha256": "9eb24c92ed3b0e6480fdad0041f088718a1d6fe0707877cbdc3c22bca5bd6052",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/kigalights-diane.1.webp",
+      "sha256": "679fce37b1f2372df03fa7e56ea8a2c4c2cae3661ea7151b2ece5f36183de098",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/kigalights-diane.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

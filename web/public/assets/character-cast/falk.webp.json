@@ -32,15 +32,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#e2b896\",\"#2f2a28\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"shoes\"],[\"hair\",\"crop\"],[\"headwear\",\"brimmed\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#7a5431\"],[\"bottom.primary\",\"#3a3a44\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#2a2522\"],[\"headwear.primary\",\"#2b2b33\"],[\"headwear.secondary\",\"#8c7448\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#3f5f8a\"],[\"outer.secondary\",\"#2f4a6e\"],[\"top.primary\",\"#f2efe6\"],[\"top.secondary\",\"#cfc8b8\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#e2b896\",\"#2f2a28\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"shoes\"],[\"hair\",\"crop\"],[\"headwear\",\"brimmed\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#7a5431\"],[\"bottom.primary\",\"#3a3a44\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#2a2522\"],[\"headwear.primary\",\"#2b2b33\"],[\"headwear.secondary\",\"#8c7448\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#3f5f8a\"],[\"outer.secondary\",\"#2f4a6e\"],[\"top.primary\",\"#f2efe6\"],[\"top.secondary\",\"#cfc8b8\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "60c9b418896967cd3465f00fd1c0eebac86b1dd02cc38a1c6fadf5aca9c9cadd",
-  "atlasSha256": "743d0cc72281bb47980f8a0d0dfa16f19a8fb3aaab61f7013ede732916210a03",
-  "textureBytes": 14173128,
-  "atlas": "web/public/assets/character-cast/falk.atlas.json"
+  "sha256": "e966994576e253b32d39cabe6314c2e89bc0c77bff2c361c6e3c2b1fe729a6df",
+  "atlasSha256": "5d572c3eb65dce89624b14cc10eb579ecc73dfe39c7cecf1f36d39a3acd48850",
+  "textureBytes": 13871936,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/falk.webp",
+      "sha256": "e966994576e253b32d39cabe6314c2e89bc0c77bff2c361c6e3c2b1fe729a6df",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/falk.1.webp",
+      "sha256": "3bc9b8898585ef8b747c10adf0eddb904a4fefa4d71f4800a6e6a0217fef6a02",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/falk.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

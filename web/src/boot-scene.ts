@@ -1,3 +1,5 @@
+import { loadWorldFonts } from './world-fonts';
+import { loadWorldUi, waitForWorldUi } from './world-ui';
 import * as Phaser from 'phaser';
 import { castActorsForMap, castAssets, castAssetUrl, castAtlasUrl } from './character-cast';
 import { loadWorldAudio } from './world-audio';
@@ -18,6 +20,7 @@ export class BootScene extends Phaser.Scene {
   preload(): void {
     this.load.on(Phaser.Loader.Events.PROGRESS, (value: number) => emitWorld(this.game, WorldEvents.LoadProgress, value * .5, getMap(readWorld(this.registry, 'mapId')).name));
     loadWorldAudio(this);
+    loadWorldUi(this.load);
     this.load.image('greenhouse-train', '/assets/story-cast/greenhouse-train.webp');
     for (const actor of castActorsForMap(null)) for (const asset of castAssets(actor)) {
       if(asset.multiAtlas)this.load.multiatlas(asset.key,castAtlasUrl(asset),'/assets/character-cast/');
@@ -25,7 +28,11 @@ export class BootScene extends Phaser.Scene {
     }
   }
 
-  create(): void {
+  async create(): Promise<void> {
+    let alive = true;
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => { alive = false; });
+    await Promise.all([loadWorldFonts(), waitForWorldUi(this.textures)]);
+    if (!alive || !this.sys.isActive()) return;
     this.scene.start(SceneKeys.World, { mapId: readWorld(this.registry, 'mapId') });
   }
 }

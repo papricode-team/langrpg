@@ -4,23 +4,34 @@
   "recipe": "art/source/character-kit/cast/terracielo-pilar.json",
   "recipeSha256": "7b127f26d50b14418205b933af2206064d2c03987fa71bd5986bb1f890b219b8",
   "atlas": "web/public/assets/character-cast/terracielo-pilar.webp",
-  "atlasSha256": "81131133b369a265515579c8fae18a6671484ab571dc4f04461c2879723cc82d",
+  "atlasSha256": "9642679c4a2385f4e4293d3b5a3ec9fbe9af0200557b71fca04fe17539d225fc",
   "geometry": "web/public/assets/character-cast/terracielo-pilar.atlas.json",
-  "geometrySha256": "fe0bf9a2b5d47ba97deb2e84cb4c04e931654f546adf8d45d05d83933be62a63",
-  "textureBytes": 14946588,
+  "geometrySha256": "083b2bbb9e42546846addf84e2f3a06fa52656470d5d6330d6c5378e2bc97059",
+  "textureBytes": 13643388,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/terracielo-pilar.webp",
+      "sha256": "9642679c4a2385f4e4293d3b5a3ec9fbe9af0200557b71fca04fe17539d225fc",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/terracielo-pilar.1.webp",
+      "sha256": "c4c7bd6eff816ebae22798d1d1fbd27dd12799874af91f250fdc126d385776d1",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "8b724ffd17a8b60f45110dabb6bf35a7e45aa9e8e9a58ccae2ae15ea1fd3b8f0",
-  "proof": "art/proofs/character-cast/terracielo-pilar.png",
-  "proofSha256": "eb6d824ee37b35b0ee5dc640c44fead38ea597271d9e2059360d4e57b9c496f3",
-  "editorSha256": "fb0565e69c2cd0878f6f1c3b3e28f882abeeae4e8c0faf0cb50f2fd78d2c1d0a",
+  "sourceComponentsSha256": "788ee350d7e2fc163a012cf9c2c5dde301f5cfc59165d5b8f6ceeb65056454c6",
+  "proof": "art/proofs/character-cast-painted/terracielo-pilar.png",
+  "proofSha256": "73488dd5819ccf60ae7c5b1916b31de5be48f9f7399f0cb6ae13472635033d3b",
+  "editorSha256": "43d60c0e961c2c50c57f0ba7cc071213395d90bf36442c827567da8d1ed9fa2d",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "8b724ffd17a8b60f45110dabb6bf35a7e45aa9e8e9a58ccae2ae15ea1fd3b8f0"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

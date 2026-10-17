@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#caa17c\",\"#272522\",[[\"bag\",\"backpack\"],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"braids\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"raincoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#7ebbaa\"],[\"bottom.primary\",\"#d1c5a7\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#a5413a\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#79508b\"],[\"outer.secondary\",\"#79508b\"],[\"top.primary\",\"#dfd8c7\"],[\"top.secondary\",\"#dfd8c7\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#caa17c\",\"#272522\",[[\"bag\",\"backpack\"],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"braids\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"raincoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#7ebbaa\"],[\"bottom.primary\",\"#d1c5a7\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#a5413a\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#79508b\"],[\"outer.secondary\",\"#79508b\"],[\"top.primary\",\"#dfd8c7\"],[\"top.secondary\",\"#dfd8c7\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "4b17cf5d9ff85258e4bb6f39f21317e4c2ac9fd95efaa0ea0db7699fede29fa5",
-  "atlasSha256": "cbd3408b0fd79b199ce3e115f6ecd378b5af64c6c2fc28fc3f8d3f2bf71491f6",
-  "textureBytes": 14452848,
-  "atlas": "web/public/assets/character-cast/rainmarket-yui.atlas.json"
+  "sha256": "957c1ac453763afe314f0e1c63077ea630ad4425f5ee55caf215c1df3414e808",
+  "atlasSha256": "0d735f29e90226e2e629941fd8bc4e60c963614a7ee7bf5398f9eff2d07b3d57",
+  "textureBytes": 14558956,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/rainmarket-yui.webp",
+      "sha256": "957c1ac453763afe314f0e1c63077ea630ad4425f5ee55caf215c1df3414e808",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/rainmarket-yui.1.webp",
+      "sha256": "3dd71a689b057241ecf20ccfa396f75adbe965d9593c141eb11cfc92d8e4c937",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/rainmarket-yui.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

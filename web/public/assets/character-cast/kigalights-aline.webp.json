@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#795036\",\"#2b2119\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#3e6c93\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#ded3b9\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#3e6c93\"],[\"top.secondary\",\"#3e6c93\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#795036\",\"#2b2119\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#3e6c93\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#ded3b9\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#3e6c93\"],[\"top.secondary\",\"#3e6c93\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "62275b19d61643dca1033bca5e5b742dbea73b815378d215ea54f48c2896be89",
-  "atlasSha256": "78bcfdfb8531c674a6378a701f9bedf4a33083944113778c00ee9ff728661161",
-  "textureBytes": 14880556,
-  "atlas": "web/public/assets/character-cast/kigalights-aline.atlas.json"
+  "sha256": "f297174038b0e339c3d8dda70e0e72f997add6942ab582dcdfe59cc299a16187",
+  "atlasSha256": "af3090072caf666399a866469cab4a670e5906688add20ea830a19a8d969a88b",
+  "textureBytes": 14579936,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/kigalights-aline.webp",
+      "sha256": "f297174038b0e339c3d8dda70e0e72f997add6942ab582dcdfe59cc299a16187",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/kigalights-aline.1.webp",
+      "sha256": "d0ef0ed96f69c8fee7cb6c72e79b3b740c1894dc7903548ec8c45a34ccda7a16",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/kigalights-aline.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b0835c\",\"#71695e\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#375988\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#703a3c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#795d3d\"],[\"outer.secondary\",\"#795d3d\"],[\"top.primary\",\"#e9dfca\"],[\"top.secondary\",\"#e9dfca\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b0835c\",\"#71695e\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#375988\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#703a3c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#795d3d\"],[\"outer.secondary\",\"#795d3d\"],[\"top.primary\",\"#e9dfca\"],[\"top.secondary\",\"#e9dfca\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "61edaaf26dd13a97b8366ea91ae35d329b1d80deebeda4f5080b6b75acd3748c",
-  "atlasSha256": "a5c5e2a3d34736d3f4b50e0f3eff7cfa3cedc0e4133958d92f0309f9ce4fafdd",
-  "textureBytes": 14634304,
-  "atlas": "web/public/assets/character-cast/windplain-resident-6.atlas.json"
+  "sha256": "ec20ecda0d6cdda17e280c1b3203fc15b39a0bbd5a7f742d6286f6d170588ffa",
+  "atlasSha256": "d290689f8c022b15cf7deffc054a291948c06cab777119376907da4de856de6c",
+  "textureBytes": 14361816,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/windplain-resident-6.webp",
+      "sha256": "ec20ecda0d6cdda17e280c1b3203fc15b39a0bbd5a7f742d6286f6d170588ffa",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/windplain-resident-6.1.webp",
+      "sha256": "2fe46206eae0c7a207013db3eb43c214fec1231c7bba572fb6289448dbbd3f7e",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/windplain-resident-6.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

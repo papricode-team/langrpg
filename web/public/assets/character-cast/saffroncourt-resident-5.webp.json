@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#8d5c3d\",\"#29221c\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"buzz\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#335e9e\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#292b29\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#e2d4b6\"],[\"top.secondary\",\"#e2d4b6\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#8d5c3d\",\"#29221c\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"buzz\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#335e9e\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#292b29\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#e2d4b6\"],[\"top.secondary\",\"#e2d4b6\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "1c88e43d10b145217f5ba005556ef9e3b2dfd99e3562983ba9f5d3096b1d8219",
-  "atlasSha256": "697f120feada42b9594db0f300bafa2ce23ddba8e693634f91389e04e413101f",
-  "textureBytes": 14236488,
-  "atlas": "web/public/assets/character-cast/saffroncourt-resident-5.atlas.json"
+  "sha256": "d72a745ff6f8416f04673c145c099df3eecf2ea938341ca47c9a152c9522d50f",
+  "atlasSha256": "00e9ee5472e5865f0c6c57cdb09162455300dad272e87e6b0674c4a9f5dda658",
+  "textureBytes": 13842532,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/saffroncourt-resident-5.webp",
+      "sha256": "d72a745ff6f8416f04673c145c099df3eecf2ea938341ca47c9a152c9522d50f",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/saffroncourt-resident-5.1.webp",
+      "sha256": "29f7a29e8d9a39bad11e691f0a54e0f9c854e5a09033889076e27fefee00ac19",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/saffroncourt-resident-5.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

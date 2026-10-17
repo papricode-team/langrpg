@@ -34,30 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#a87451\",\"#612c2c\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",\"square\"],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"flats\"],[\"hair\",\"curls\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#293d5b\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#2b6e68\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#6a3d60\"],[\"outer.secondary\",\"#6a3d60\"],[\"top.primary\",\"#c79639\"],[\"top.secondary\",\"#c79639\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#a87451\",\"#612c2c\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",\"square\"],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"flats\"],[\"hair\",\"curls\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#293d5b\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#2b6e68\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#6a3d60\"],[\"outer.secondary\",\"#6a3d60\"],[\"top.primary\",\"#c79639\"],[\"top.secondary\",\"#c79639\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "ba93d748d6240d9aeac32cf044b3e9bb61563a2ba9f5f5b2e9fea29ad030859c",
-  "atlasSha256": "aef497cdbf5e40f7561cae4592c359d61264429ce87b0c3c14e4f865e361b745",
+  "sha256": "c8f6d24bdcd16d296fc363cc3148de4195454fb5c2253cb440edcf00ce5e6715",
+  "atlasSha256": "3f40eff391ab13b3c014249384c610261e4f1723e33ce22aa3c70e1657eb28ce",
   "textureBytes": 14351292,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/saffroncourt-nour.webp",
-      "sha256": "ba93d748d6240d9aeac32cf044b3e9bb61563a2ba9f5f5b2e9fea29ad030859c",
+      "sha256": "c8f6d24bdcd16d296fc363cc3148de4195454fb5c2253cb440edcf00ce5e6715",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/saffroncourt-nour.1.webp",
-      "sha256": "5b637fc7155769243bf924900d23a71e148b248bba3ba4d8c8c7d1792940cdea",
+      "sha256": "82380bc01b071cc0987639227c9be9637a0a31cde8ce91452d2a46bfeac44e40",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/saffroncourt-nour.atlas.json"
+  "atlas": "web/public/assets/character-cast/saffroncourt-nour.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

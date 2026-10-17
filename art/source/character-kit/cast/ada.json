@@ -2,7 +2,7 @@
   "v": 2,
   "build": "regular",
   "skin": "#d6a07d",
-  "hair": "#d0c9b9",
+  "hair": "#d1cfc5",
   "parts": {
     "face": "mature",
     "markings": null,
@@ -13,22 +13,22 @@
     "outer": "cardigan",
     "bottom": "skirt-long",
     "footwear": "shoes",
-    "eyewear": "round",
-    "neck": null,
+    "eyewear": "square",
+    "neck": "kerchief",
     "bag": null,
     "held": null
   },
   "colors": {
     "bag.primary": "#694731",
-    "bottom.primary": "#35405b",
+    "bottom.primary": "#4b3a47",
     "eyewear.primary": "#48372e",
     "footwear.primary": "#48372e",
     "headwear.primary": "#354d70",
     "headwear.secondary": "#c99167",
-    "neck.primary": "#854a5b",
-    "outer.primary": "#75556e",
-    "outer.secondary": "#997b91",
-    "top.primary": "#e8d9bd",
+    "neck.primary": "#94758b",
+    "outer.primary": "#66334f",
+    "outer.secondary": "#93687e",
+    "top.primary": "#fff0d4",
     "top.secondary": "#a88e67"
   }
 }

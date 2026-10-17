@@ -107,5 +107,5 @@ export function avatarTextureKey(recipe, catalogue = compiled) {
   const normalized = normalizeAvatar(recipe, catalogue);
   const parts = Object.entries(normalized.parts).sort(([a], [b]) => a.localeCompare(b));
   const colors = Object.entries(normalized.colors).sort(([a], [b]) => a.localeCompare(b));
-  return `avatar-v2:${catalogue.assetVersion}:${JSON.stringify([normalized.build, normalized.skin, normalized.hair, parts, colors])}${catalogue.poseSet && catalogue.poseSet !== 'walk' ? `:pose:${catalogue.poseSet}` : ''}${catalogue.expression ? `:expression:${catalogue.expression}` : ''}`;
+  return `avatar-v2:paint-1:${catalogue.assetVersion}:${JSON.stringify([normalized.build, normalized.skin, normalized.hair, parts, colors])}${catalogue.poseSet && catalogue.poseSet !== 'walk' ? `:pose:${catalogue.poseSet}` : ''}${catalogue.expression ? `:expression:${catalogue.expression}` : ''}`;
 }

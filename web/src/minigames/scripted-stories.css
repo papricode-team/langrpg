@@ -10,7 +10,7 @@
   color:#f4e8ca;
   border:2px solid #b7955e;
   border-radius:16px;
-  background:linear-gradient(#102b28e8,#102b28f3),var(--story-backdrop) center/cover;
+  background:linear-gradient(#102b2875,#102b28bd),var(--story-backdrop) center/cover;
   overflow:hidden;
   font: var(--type-body) 'DM Sans',sans-serif
 }
@@ -751,3 +751,17 @@
   animation:none!important;
   transition:none!important
 }
+
+.story-noun-gallery img { width:36px; height:36px; object-fit:contain }
+.story-board-row .story-noun-gallery { grid-column:1/-1 }
+.story-clock-slot .minigame-painted-mark,.story-bed .minigame-painted-mark { width:24px; height:24px }
+.story-game h2,.story-intro,.story-request { text-shadow:0 2px 5px #102b28 }
+
+.story-seal {
+  border:0;
+  border-radius:0;
+  background:url('/assets/minigames/sprites/prop-correct-seal.webp') center/contain no-repeat;
+  text-shadow:0 2px 3px #102b28
+}
+
+.story-seal { width:74px; height:74px; display:inline-grid; place-items:center; margin:0 auto }

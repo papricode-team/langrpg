@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b98c5f\",\"#33251b\",[[\"bag\",null],[\"bottom\",null],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",null],[\"top\",\"dress-long\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#484236\"],[\"headwear.primary\",\"#305c62\"],[\"headwear.secondary\",\"#305c62\"],[\"neck.primary\",\"#305c62\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#305c62\"],[\"top.secondary\",\"#305c62\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b98c5f\",\"#33251b\",[[\"bag\",null],[\"bottom\",null],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",null],[\"top\",\"dress-long\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#484236\"],[\"headwear.primary\",\"#305c62\"],[\"headwear.secondary\",\"#305c62\"],[\"neck.primary\",\"#305c62\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#305c62\"],[\"top.secondary\",\"#305c62\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "e027c3924135e5446dec33ce032ad52460d58d0a5f38da5b7edd038a7d81ba9f",
-  "atlasSha256": "8f7739bf80d53b3fa3b3583988a57216e0e51c87d63140d70e6dec17bd8b55ba",
-  "textureBytes": 14051232,
-  "atlas": "web/public/assets/character-cast/dunegarden-maryam.atlas.json"
+  "sha256": "6a7459d4a51e2d2acbd3c0e05c27958039c3d7ace01f6910e04f0d257a3856c7",
+  "atlasSha256": "9af6262048b32e71dc8329f0c3185f0553cc6bc77a9981e431bfde7fe53d996d",
+  "textureBytes": 13805212,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/dunegarden-maryam.webp",
+      "sha256": "6a7459d4a51e2d2acbd3c0e05c27958039c3d7ace01f6910e04f0d257a3856c7",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/dunegarden-maryam.1.webp",
+      "sha256": "5d736a4a36f86dbe7b6f07a0e2f5fb9b33bf9fb7a6584d21d41a5640dc800769",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/dunegarden-maryam.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

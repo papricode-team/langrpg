@@ -3,6 +3,8 @@ import {afterEach,describe,expect,it,vi} from 'vitest';
 import {WorldEditOverlay} from './world-edit-overlay';
 import type {EditBridge,EditState} from './world-edit-mode';
 import {paletteChoices} from './world-edit-catalogue';
+import {newPlacement} from './world-edit-palette';
+import {getWorldScene} from './scene-data';
 
 const palette = paletteChoices('waldruh');
 const initial = (): EditState => ({map: 'waldruh', busy: false, canUndo: false, palette, thumbnails: {}});
@@ -20,7 +22,10 @@ describe('object catalogue and selected versions', () => {
     button('add').click();
     expect(button('add').getAttribute('aria-expanded')).toBe('true');
     group().value = 'tree'; group().dispatchEvent(new Event('change', {bubbles: true}));
-    expect(document.querySelectorAll('[data-edit="place"]')).toHaveLength(5);
+    // Summer linden/plane cutouts join the five legacy atlas trees in every town.
+    expect([...document.querySelectorAll<HTMLElement>('[data-edit="place"]')].map(button=>button.dataset.frame)).toEqual([
+      'town-linden','town-plane','tree','tree-1','tree-2','tree-3','tree-4',
+    ]);
     expect(button('place', 'tree-2').textContent?.trim()).toBe('Tree 2');
     button('place', 'tree-2').click();
     const choice = palette.find(choice => choice.frame === 'tree-2')!;
@@ -45,6 +50,17 @@ describe('object catalogue and selected versions', () => {
     expect(button('variant', 'tree-3').disabled).toBe(true);
     overlay.state(state); expect(button('variant', 'tree-3').disabled).toBe(false);
     expect(document.querySelector('[data-edit="variant"][data-frame="house-1"]')).toBeNull();
+  });
+  it('places summer cutout trees with the tree role motion', () => {
+    const controller = {deselect:vi.fn(),startPlacing: vi.fn((choice: typeof palette[number]) => newPlacement(getWorldScene('waldruh'),choice,{x:300,y:400}))};
+    overlay = new WorldEditOverlay(); overlay.bridge = {controller} as unknown as EditBridge;
+    overlay.state(initial()); button('add').click();
+    group().value = 'tree'; group().dispatchEvent(new Event('change', {bubbles: true}));
+    for(const frame of ['town-linden','town-plane']){
+      button('place',frame).click();
+      expect(controller.startPlacing.mock.lastCall![0].frame).toBe(frame);
+      expect(controller.startPlacing.mock.results.at(-1)!.value).toMatchObject({asset:'tree',frame,motion:'tree'});
+    }
   });
   it('keeps the catalogue available in the docked map editor', () => {
     const mount = document.createElement('div'); document.body.append(mount);

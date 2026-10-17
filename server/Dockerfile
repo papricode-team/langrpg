@@ -1,4 +1,4 @@
-FROM node:24-alpine AS frontend
+FROM node:26-alpine AS frontend
 WORKDIR /app
 COPY package.json package-lock.json ./
 COPY web/package.json web/package.json
@@ -21,8 +21,10 @@ RUN --mount=type=cache,target=/root/.cache/glotworld-asset-quality npm run build
 # Keep the validator's dependency closure without bundling the build toolchain.
 # @img contains sharp's platform-specific native libraries selected by npm ci.
 RUN mkdir -p /runtime/node_modules && cp -a node_modules/sharp node_modules/typescript node_modules/@img node_modules/detect-libc node_modules/semver node_modules/polygon-clipping node_modules/earcut node_modules/robust-predicates node_modules/splaytree /runtime/node_modules/
+# The TypeScript 6 API compatibility package delegates to this JavaScript compiler.
+RUN mkdir -p /runtime/node_modules/@typescript && cp -a node_modules/@typescript/old /runtime/node_modules/@typescript/
 
-FROM golang:1.26-alpine AS build
+FROM golang:1.27-alpine AS build
 WORKDIR /src
 COPY server/go.mod server/go.sum ./
 RUN go mod download
@@ -30,7 +32,7 @@ COPY server/ ./
 RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/world .
 RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/import-content ./cmd/import-content
 
-FROM node:24-alpine
+FROM node:26-alpine
 RUN apk add --no-cache ca-certificates && addgroup -S game && adduser -S game -G game
 WORKDIR /app
 COPY --from=build /out/world /app/world

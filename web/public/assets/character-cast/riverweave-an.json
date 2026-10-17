@@ -4,23 +4,34 @@
   "recipe": "art/source/character-kit/cast/riverweave-an.json",
   "recipeSha256": "d99b570d4a28f342ec78094a689bb63ceb9e0e9c48c983b321ec3255f7842473",
   "atlas": "web/public/assets/character-cast/riverweave-an.webp",
-  "atlasSha256": "669d0a69da5ceaf5fe2c5c7469250957d4e94e363d4a855ed15c9f9c67c4a58a",
+  "atlasSha256": "d0785590326b421cf7860fe529a021e7d15ba51aa266527760a06ae9c1e9f989",
   "geometry": "web/public/assets/character-cast/riverweave-an.atlas.json",
-  "geometrySha256": "37e358e9ffe6582f7ad859512a6b19adca2de94e1b8e7037565d3fee5da2a22a",
-  "textureBytes": 14546736,
+  "geometrySha256": "051541c1a3e1d91ec0f0b882105562e590e011b56ea5ef4fb8731fb78b9ae1a1",
+  "textureBytes": 13757636,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/riverweave-an.webp",
+      "sha256": "d0785590326b421cf7860fe529a021e7d15ba51aa266527760a06ae9c1e9f989",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/riverweave-an.1.webp",
+      "sha256": "ddf39f9dfe5bd68ebc274b4ade143f50a128c1b9f703c6a751b9fc4843776eb0",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "97a2a7c18730cecf878cebc3446127f36de5497bf37b5922faa4591423ae71dd",
-  "proof": "art/proofs/character-cast/riverweave-an.png",
-  "proofSha256": "7555edad257aafcddb8daf02f0f6433ac89462b2e308b22c1c6c958043a013b6",
-  "editorSha256": "26687e4197b0f4d982c7ce1ee1c3730f0359ba279ac28766cb186168c27a01a7",
+  "sourceComponentsSha256": "4cb3e2573d6fba334cfbc474b7e37259b4dba1918b107232782a490647d81461",
+  "proof": "art/proofs/character-cast-painted/riverweave-an.png",
+  "proofSha256": "ebaa8b51d36871cf4a216afaec88d01ec01ab1badb807edf105d0625938b5d55",
+  "editorSha256": "6a28899cbdf49bb11447f0467401e8fe86195cd397e06b8a82268e9895beba9c",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "97a2a7c18730cecf878cebc3446127f36de5497bf37b5922faa4591423ae71dd"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

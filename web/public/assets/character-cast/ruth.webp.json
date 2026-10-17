@@ -28,15 +28,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#c18b60\",\"#a75532\",[[\"bag\",null],[\"bottom\",null],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"flats\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"dress-day\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#4a3b30\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#f3efe5\"],[\"outer.secondary\",\"#d9d2c2\"],[\"top.primary\",\"#6f8f6a\"],[\"top.secondary\",\"#5a7656\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#c18b60\",\"#a75532\",[[\"bag\",null],[\"bottom\",null],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"flats\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"dress-day\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#4a3b30\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#f3efe5\"],[\"outer.secondary\",\"#d9d2c2\"],[\"top.primary\",\"#6f8f6a\"],[\"top.secondary\",\"#5a7656\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "912d6a6befe66d37ec345be9f240b7ce5cca0e6aded74ed30d1accff058466ec",
-  "atlasSha256": "93c147b6cbd0d8c496b32c9d32e1286d015e9dcd55cf47f6dfa0cd30525b2a63",
-  "textureBytes": 14853804,
-  "atlas": "web/public/assets/character-cast/ruth.atlas.json"
+  "sha256": "9001d2601cb8f6ffe95f3b71818537789621a824521daff22d679b343c034b28",
+  "atlasSha256": "056ed10f3ac94a8bf01f2aa3d1e9ba9ead6241bb9d4c37a9c4c9e21f9127201d",
+  "textureBytes": 14459760,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/ruth.webp",
+      "sha256": "9001d2601cb8f6ffe95f3b71818537789621a824521daff22d679b343c034b28",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/ruth.1.webp",
+      "sha256": "dc797877d9196ebe5d9946efa0318785b4297408bd20bdac021b4124ad613ea6",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/ruth.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

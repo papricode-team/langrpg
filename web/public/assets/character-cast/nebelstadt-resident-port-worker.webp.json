@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#744c38\",\"#302b2d\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"buzz\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"henley\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#a55c50\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#a55c50\"],[\"outer.secondary\",\"#a55c50\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#744c38\",\"#302b2d\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"buzz\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"henley\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#a55c50\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#a55c50\"],[\"outer.secondary\",\"#a55c50\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "01f0d01e4a43d5e6c63222f0c18014890617d9b387a87f8f97ebb42365339d4d",
-  "atlasSha256": "09831fcac6da9bba797682e5dca11809aa78896907a712734c336b0917023e41",
-  "textureBytes": 14200428,
-  "atlas": "web/public/assets/character-cast/nebelstadt-resident-port-worker.atlas.json"
+  "sha256": "55f71bbaadf8f902c2c1af89e4833961049bf8d6c28cd2e5fdfccd0b0307b6e8",
+  "atlasSha256": "a6be00c62dd95ad50e5007e7858792fd09fd83de0edda62f0e790a203ce8b7de",
+  "textureBytes": 13810076,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/nebelstadt-resident-port-worker.webp",
+      "sha256": "55f71bbaadf8f902c2c1af89e4833961049bf8d6c28cd2e5fdfccd0b0307b6e8",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/nebelstadt-resident-port-worker.1.webp",
+      "sha256": "cfd2c6e4392be445e40e52c3a379b2331c70a99a8ebe2f3768703115d41b2e20",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/nebelstadt-resident-port-worker.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

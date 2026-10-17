@@ -217,12 +217,12 @@ describe('palette', () => {
     const choices = paletteChoices('waldruh'), groups = catalogueGroups(choices);
     expect(groups.flatMap(group => group.choices)).toEqual(choices);
     const trees = groups.find(group => group.asset === 'tree')!.choices;
-    expect(trees.map(choice => choice.frame)).toEqual(['tree', 'tree-1', 'tree-2', 'tree-3', 'tree-4']);
+    expect(trees.map(choice => choice.frame)).toEqual(['town-linden', 'town-plane', 'tree', 'tree-1', 'tree-2', 'tree-3', 'tree-4']);
     expect(new Set(trees.map(variantLabel)).size).toBe(trees.length);
-    const item = newPlacement(town(), trees[1], {x: 500, y: 500});
+    const item = newPlacement(town(), trees.find(choice=>choice.frame==='tree-1')!, {x: 500, y: 500});
     expect(item.variant).toBe(true);
     expect(variantChoices(choices, item)).toEqual(trees);
-    const original = newPlacement(town(), trees[0], item);
+    const original = newPlacement(town(), trees.find(choice=>choice.frame==='tree')!, item);
     expect(original.frame).toBeUndefined();
     expect(original.variant).toBeUndefined();
   });

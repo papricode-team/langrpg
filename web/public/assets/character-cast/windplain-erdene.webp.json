@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#cda47c\",\"#302a23\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#393b3a\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#5e533c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#c2932d\"],[\"outer.secondary\",\"#c2932d\"],[\"top.primary\",\"#424640\"],[\"top.secondary\",\"#424640\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#cda47c\",\"#302a23\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#393b3a\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#5e533c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#c2932d\"],[\"outer.secondary\",\"#c2932d\"],[\"top.primary\",\"#424640\"],[\"top.secondary\",\"#424640\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "3d17efb3f5734761c2597185aae1213694dfff31dc64e9477439adf3ad6fd8c2",
-  "atlasSha256": "2ca551db31c431b77da56e6c7c20a89d1d2e02096248dc37e7ac7828b80ebc55",
-  "textureBytes": 14908128,
-  "atlas": "web/public/assets/character-cast/windplain-erdene.atlas.json"
+  "sha256": "82c46d8770eb6e1264837d478d14362af04751d22612db6ed7d7c65357f5f2f4",
+  "atlasSha256": "1cb1b5d58dc199340fe5dcd26acbf5a47cea6303da8014ce9ec9d1f37b196eb3",
+  "textureBytes": 14439040,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/windplain-erdene.webp",
+      "sha256": "82c46d8770eb6e1264837d478d14362af04751d22612db6ed7d7c65357f5f2f4",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/windplain-erdene.1.webp",
+      "sha256": "2a42a2554c839206f64b88ddc2b0db36c510da581ec45cdc7e5181a194d7e960",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/windplain-erdene.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

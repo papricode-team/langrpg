@@ -39,7 +39,7 @@
 }
 
 .game-menu-button>span {
-  font: var(--type-body) 'Fraunces',serif;
+  font: var(--type-body) var(--font-display);
 }
 
 .game-menu-button>i {
@@ -136,7 +136,7 @@
 
 .camp-options strong {
   display:block;
-  font: var(--type-title) 'Fraunces',serif;
+  font: var(--type-title) var(--font-display);
   color:#ead9ae;
 }
 
@@ -227,7 +227,7 @@
 
 .quest-log-copy strong {
   display:block;
-  font: var(--type-title) 'Fraunces',serif;
+  font: var(--type-title) var(--font-display);
   color:#f0e0b9;
   margin:5px 0 7px;
 }
@@ -304,7 +304,7 @@
   flex:none;
   border:1px solid #c0a165;
   color:#d7ba7e;
-  font: var(--type-title) 'Fraunces',serif;
+  font: var(--type-title) var(--font-display);
 }
 
 .story-act header>div {
@@ -329,7 +329,7 @@
 }
 
 .clue-pages {
-  background:linear-gradient(110deg,#e8dec3,#f0e6ce);
+  background:linear-gradient(110deg,var(--parchment),var(--parchment-light));
   color:#2d4232;
   border:1px solid #c4b278;
   box-shadow:0 4px 12px #0820162e;
@@ -355,7 +355,7 @@
 
 .clue-page h4 {
   margin:0 0 8px;
-  font: var(--type-title) 'Fraunces',serif;
+  font: var(--type-title) var(--font-display);
   color:#294231;
 }
 
@@ -386,7 +386,7 @@
   border-left:2px solid #d5b474;
   background:#122b21;
   color:#ddd0a8;
-  font: var(--type-body)/1.6 'Fraunces',serif;
+  font: var(--type-body)/1.6 var(--font-display);
 }
 
 .story-acts+.primary-button,.field-notes+.primary-button {
@@ -644,7 +644,7 @@
   padding:16px 19px;
   border-left:2px solid #b5a06b;
   background:#acb59424;
-  font: var(--type-body)/1.7 'Fraunces',serif;
+  font: var(--type-body)/1.7 var(--font-display);
   color:#47603e;
 }
 

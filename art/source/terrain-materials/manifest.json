@@ -6,11 +6,12 @@
       "id": "meadow",
       "name": "Meadow grass",
       "group": "Ground",
-      "color": "#718347",
+      "color": "#5f7d4a",
       "detail": "Dense short temperate meadow grass, olive and sage green blades, tiny clover and restrained irregular earthy patches. No flowers or large tufts.",
-      "prompt": "Use case: stylized-concept\nAsset type: high-resolution seamless repeatable ground material for a hand-painted 2.5D European village adventure game.\nPrimary request: Generate one 2048 x 2048 pixel square production texture of Meadow grass. Dense short temperate meadow grass, olive and sage green blades, tiny clover and restrained irregular earthy patches. No flowers or large tufts.\nStyle: finely detailed painterly realism, warm storybook European RPG artwork, natural tactile materials, harmonious muted colour, crisp fine detail, no pixel art.\nComposition: orthographic straight-down ground plane filling the entire square, constant material scale across image. Texture only, no perspective vanishing point, no scene, no horizon, no border. Seamless all four edges, repeating edge details match opposite edge, no obvious central motif, no vignette, even ambient daylight without directional shadows. The image represents a 512 by 512 world-unit patch, about seven adult character heights across.\nConstraints: no roads embedded in ground, no buildings, no vegetation taller than ground cover, no props, no people, no letters, no labels, no grid lines, no watermark. Material must extend to all four exact image edges. Native high-resolution 2048x2048.",
+      "prompt": "Use case: style-transfer\nAsset type: seamless repeatable painted ground material for glotworld.\nInput images: image 1 is the meadow texture EDIT TARGET; image 2 is approved town target for deep leafy green colour; image 3 cafe and image 4 props are painterly finish references; image 5 interior is materials finish only.\nPrimary request: repaint the existing meadow grass texture to a DEEPER, LESS YELLOW summer leaf-green palette centered around #5f7d4a. Replace every lime/chartreuse/gold blade highlight with restrained desaturated sage green. Dark green #3e5b3f in shadow, mid green #5f7d4a dominant, sparse cream-green #8b9d70 tips. Preserve the fine dense short grass and small clover, tiny warm brown earth patches, same small material scale, square dimensions and finely hand-painted finish. This must read deep green rather than yellow. No flowers or tall plants.\nComposition: straight-down opaque texture fills entire square edge to edge, seamless repeating in both directions, uniform ambient daylight, no directional gradient or vignette, no central motif. No perspective scene.\nConstraints: no objects, roads, buildings, labels, borders, people or text. Retain at least the original native resolution, no transparency.\n",
       "source": "meadow.png",
-      "generatedFile": "exec-9c0bb1dc-0284-41e0-9bfb-d1fb1e716faa.png"
+      "generatedFile": "exec-9f8eefc0-5f3e-4570-8bb1-47b88cc54c9b.png",
+      "promptFile": "art/source/terrain-materials/meadow-style-prompt.txt"
     },
     {
       "id": "dry-grass",
@@ -94,6 +95,7 @@
     },
     {
       "id": "limestone",
+      "worldSize": 128,
       "name": "Limestone plaza",
       "group": "Paving",
       "color": "#c8bf9e",
@@ -229,13 +231,13 @@
       "id": "canal-grass",
       "name": "Cool canal undergrowth",
       "group": "Ground",
-      "color": "#183b39",
+      "color": "#5f7d4a",
       "blocked": false,
-      "prompt": "Use case: stylized-concept. Create a seamless repeating square high-resolution ground texture matching ONLY the dark blue-green low grassy undergrowth seen between the bakery and stone roads in the reference screenshot. Match the elevated three-quarter orthographic game camera: tiny fine overlapping grass blades, creeping miniature leaves, soft dark moss, sparse tiny pebbles, all seen obliquely and foreshortened. Cool muted dark teal green and navy shadows with restrained desaturated sage highlights. Dense fine texture, not huge isolated leaves, not bright lime green, not brown autumn forest litter. Uniform ground across full canvas, no horizon, no roads, no water, no buildings, no props, no large plants, no edges or central feature, no directional light gradient, no vignette. Same painterly intricacy as the game's environment. Tile seamlessly on BOTH axes with edge-to-edge continuation. Opaque texture fills every pixel. Highest available native resolution, 2048x2048 requested.",
-      "generatedFile": "exec-3c260e5d-1ca4-4984-8475-803b66200af4.png",
+      "prompt": "Use case: style-transfer\nAsset type: seamless repeatable painted canal-garden ground material for glotworld.\nInput images: image 1 is canal grass texture EDIT TARGET; image 2 approved town for deep leaf green; image 3 cafe and image 4 prop sheet for fine painterly finish; image 5 interior for material finish only.\nPrimary request: recolour this canal grass/miniature clover ground texture toward DEEP LEAF GREEN #5f7d4a. The current grass is too yellow. Replace all yellow/lime/gold plant highlights with muted cool sage green. Predominant middle leaf green #5f7d4a, darker #3e5b3f moss and olive-brown tiny exposed earth between leaves. Keep restrained tiny pale pebbles, fine low grass, clover, original leaf size and dense irregular pattern. No flowers or tall plants.\nComposition: straight-down texture filling the square entirely, seamless in both axes. Opaque full canvas. Uniform ambient daylight, no lighting gradient or vignette. Preserve square native resolution and finely hand-painted details.\nConstraints: no roads, people, buildings, props, lettering, labels, borders, large leaves or background scene. Must read green rather than gold.\n",
+      "generatedFile": "exec-c39cd18f-a44d-4abb-bbe0-5d4cd2864737.png",
       "worldSize": 384,
       "source": "canal-grass.png",
-      "promptFile": "docs/prompts/terrain-materials/canal-grass.txt"
+      "promptFile": "art/source/terrain-materials/canal-grass-style-prompt.txt"
     },
     {
       "id": "town-cobble",
@@ -277,5 +279,6 @@
         "height": 34
       }
     }
-  ]
+  ],
+  "styleReview": "style-review.json"
 }

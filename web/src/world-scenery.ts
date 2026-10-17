@@ -1,3 +1,4 @@
+import { WorldCastShadow } from './world-cast-shadow';
 import type * as Phaser from 'phaser';
 import type { MapId } from './maps';
 import type { WorldPeriod } from './world-clock';
@@ -38,6 +39,7 @@ interface SceneryLayer {
   visible?:boolean;
   nightTint?:number;
   foundation?:BuildingFoundation|SceneryContact;
+  castShadow?:WorldCastShadow;
 }
 /** How much a building in front of the player lightens; it stays clearly solid. */
 export const OCCLUDER_FADE=.3;
@@ -119,6 +121,10 @@ export class WorldScenery {
           .setOrigin(.5,.5).setScale(detailScale).setDepth(sprite.depth).setFlipX(spec.flipX??false);
         parts.push({sprite:detail,scale:detailScale,animation:overlay,currentFrame:detailFrame,phaseId});
       }
+      const castsShadow = building || tree || spec.asset === 'stall' || /tree|cypress|stall|canopy/.test(name) && detail?.layer !== 'ground';
+      // A lightweight descriptor preserves the original frame before wall strips destroy its sprite.
+      const castShadow = castsShadow ? new WorldCastShadow(scene, {frame:sprite.frame,texture:sprite.texture,
+        originX:sprite.originX,originY:sprite.originY,flipX:sprite.flipX,scaleX:sprite.scaleX,x:sprite.x,y:sprite.y}) : undefined;
       const contactArtwork={frame,referenceWidth:spec.width/scale,originX:sprite.originX,originY:sprite.originY};
       const contactKind=sceneryContactKind(spec),groundAt=(x:number,y:number)=>foundationGround(mapId,x,y,this.terrain);
       const foundation=building&&(!detail||detail.collidable)?new BuildingFoundation(scene,mapId,spec,authoredGeometry??animation,contactArtwork,groundAt)
@@ -140,14 +146,14 @@ export class WorldScenery {
         part.nextFrame=part.currentFrame;
       }
       const originX=spec.flipX?1-sprite.originX:sprite.originX;
-      this.layers.push({spec,parts:renderedParts,foundation,width:frame.width*scale,height:frame.height*scale,depthAt:x=>worldDepth(spec.depth??sampleDepth(x)),circles:noCircles,nightTint:animation?.nightTint,
+      this.layers.push({spec,parts:renderedParts,foundation,castShadow,width:frame.width*scale,height:frame.height*scale,depthAt:x=>worldDepth(spec.depth??sampleDepth(x)),circles:noCircles,nightTint:animation?.nightTint,
         bounds:{x:spec.x-frame.width*scale*originX,right:spec.x+frame.width*scale*(1-originX),y:spec.y-frame.height*scale*sprite.originY,bottom:spec.y+frame.height*scale*(1-sprite.originY)}});
     }
     return true;
   }
   private destroyLayer(layer:SceneryLayer):void{
     for(const {sprite,next} of layer.parts){sprite.destroy();next?.destroy();}
-    layer.foundation?.destroy();
+    layer.foundation?.destroy();layer.castShadow?.destroy();
   }
   /**
    * Bring the sprites in line with edited placements: rebuild objects that
@@ -282,6 +288,7 @@ export class WorldScenery {
     if(!visible)for(const item of this.layers){
       item.visible=false;item.circles=noCircles;
       item.foundation?.setVisible(false);
+      item.castShadow?.update(item.spec.x,item.spec.y,false,0,this.period==='night');
       for(const {sprite,next} of item.parts){sprite.setVisible(false);next?.setVisible(false);}
     }
   }
@@ -292,17 +299,19 @@ export class WorldScenery {
     for(const item of this.layers){
       const shown=visible&&this.visible&&item.visible!==false;
       item.foundation?.setVisible(shown);
+      item.castShadow?.update(item.spec.x,item.spec.y,shown&&item.visible===true,this.opacity*this.groundContactOpacity,this.period==='night');
       for(const part of item.parts)if(part.foundationSurface)part.sprite.setVisible(shown);
     }
   }
   /** Multiply ground layers crossfade reciprocally while old wall art stays opaque. */
   setGroundContactAlpha(alpha:number){
     this.groundContactOpacity=alpha;
-    for(const item of this.layers)item.foundation?.setAlpha(alpha*this.opacity);
+    for(const item of this.layers){item.foundation?.setAlpha(alpha*this.opacity);item.castShadow?.update(item.spec.x,item.spec.y,this.visible&&this.groundContactVisible&&item.visible===true,alpha*this.opacity,this.period==='night');}
   }
   setAlpha(alpha:number){
     this.opacity=alpha;
-    for(const {parts,foundation} of this.layers){
+    for(const {parts,foundation,castShadow,spec,visible} of this.layers){
+      castShadow?.update(spec.x,spec.y,this.visible&&this.groundContactVisible&&visible===true,alpha*this.groundContactOpacity,this.period==='night');
       foundation?.setAlpha(alpha*this.groundContactOpacity);
       for(const {sprite,next} of parts){sprite.setAlpha(alpha);next?.setAlpha(0);}
     }
@@ -327,6 +336,10 @@ export class WorldScenery {
       const offset=this.previews.get(spec.id),x=spec.x+(offset?.dx??0),y=spec.y+(offset?.dy??0);
       const visible=this.visible&&x+width*.7>=view.x&&x-width*.7<=view.right
         &&y+height*.12>=view.y&&y-height*1.1<=view.bottom;
+      // A long cast can enter the viewport while its building is outside it.
+      const shadowVisible=this.visible&&x+width+height*.7>=view.x&&x-width<=view.right
+        &&y+height*.5>=view.y&&y-height*.2<=view.bottom;
+      item.castShadow?.update(x,y,shadowVisible&&this.groundContactVisible,this.opacity*this.groundContactOpacity,this.period==='night');
       if(!visible&&item.visible===false)continue;
       item.visible=visible;
       item.foundation?.setVisible(visible&&this.groundContactVisible);

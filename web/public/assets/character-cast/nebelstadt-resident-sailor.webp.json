@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#ecc4a2\",\"#62412f\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",\"beanie\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#477e77\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#477e77\"],[\"outer.secondary\",\"#477e77\"],[\"top.primary\",\"#477e77\"],[\"top.secondary\",\"#a88e67\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#ecc4a2\",\"#62412f\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",\"beanie\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#477e77\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#477e77\"],[\"outer.secondary\",\"#477e77\"],[\"top.primary\",\"#477e77\"],[\"top.secondary\",\"#a88e67\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "4bdbff39ff33115cd82bd9d3fce32390574fdea47f61850715048c8debf8fc20",
-  "atlasSha256": "7a71f4f2a0c417795c837ff0d322588d965aa4fd3c83b683f6285a3dec304430",
-  "textureBytes": 14197024,
-  "atlas": "web/public/assets/character-cast/nebelstadt-resident-sailor.atlas.json"
+  "sha256": "59e8d80c88c5cb31dc9de1d7d6268a0082039c9b3376621acfc2c4984904e205",
+  "atlasSha256": "3f9931edbb9fb2922c88992e8b438627ab42f4c4900d221ee5fd788b696dc403",
+  "textureBytes": 14434008,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/nebelstadt-resident-sailor.webp",
+      "sha256": "59e8d80c88c5cb31dc9de1d7d6268a0082039c9b3376621acfc2c4984904e205",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/nebelstadt-resident-sailor.1.webp",
+      "sha256": "25e1b352a4787bfdbe2ba3be6b7cfcac6a18c90156f7d9c9e3f43b4d6642253d",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/nebelstadt-resident-sailor.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

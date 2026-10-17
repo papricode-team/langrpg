@@ -9,6 +9,8 @@ import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {WEBP_QUALITY} from './webp-quality.mjs';
 const source='art/source/terrain-materials',output='web/public/assets/terrain-materials';
 const manifest=JSON.parse(await readFile(`${source}/manifest.json`,'utf8'));
+const only=process.argv.find(arg=>arg.startsWith('--only='))?.slice(7).split(',');
+if(only?.some(id=>!manifest.materials.some(item=>item.id===id)))throw new Error('Unknown selected terrain material.');
 await mkdir(output,{recursive:true});
 const smooth=value=>value*value*(3-2*value);
 /** Wrap overlapping texels with smooth periodic weights; no mirroring or enlargement. */
@@ -29,6 +31,7 @@ export function periodicTexture(data,width,height,channels){
 }
 const materials=[];
 for(const item of manifest.materials){
+ if(only&&!only.includes(item.id))continue;
  const outputName=item.outputName??item.id;
  const input=`${source}/${item.source??`${item.id}.png`}`,{data,info}=await sharp(input).removeAlpha().raw().toBuffer({resolveWithObject:true});
  if(info.width<1024||info.height<1024)throw new Error(`${item.id}: source is not high resolution`);
@@ -39,5 +42,10 @@ for(const item of manifest.materials){
   asset:`/assets/terrain-materials/${outputName}.webp`,thumbnail:`/assets/terrain-materials/${outputName}-thumb.webp`,
   width:periodic.width,height:periodic.height,sourceWidth:info.width,sourceHeight:info.height,worldSize:item.worldSize??256,repeat:'periodic-overlap',...(item.edge?{edge:item.edge}:{})});
 }
-await writeFile('web/src/data/terrain-materials.json',JSON.stringify({version:1,materials},null,2)+'\n');
+// Asset-only passes can run alongside catalogue work without writing outside this family.
+if(!process.argv.includes('--art-only')){
+ const existing=only?JSON.parse(await readFile('web/src/data/terrain-materials.json','utf8')).materials:materials;
+ const selected=new Map(materials.map(item=>[item.id,item]));
+ await writeFile('web/src/data/terrain-materials.json',JSON.stringify({version:1,materials:existing.map(item=>selected.get(item.id)??item)},null,2)+'\n');
+}
 console.log(`Exported ${materials.length} near-lossless periodic materials without mirroring or upscaling.`);

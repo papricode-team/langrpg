@@ -4,23 +4,34 @@
   "recipe": "art/source/character-kit/cast/rainmarket-resident-2.json",
   "recipeSha256": "b8bcab64d528512d816ca1f4cc674868b3bfb5fefa0e266405b57ef28fb0bb02",
   "atlas": "web/public/assets/character-cast/rainmarket-resident-2.webp",
-  "atlasSha256": "1c9b6304053b5a404e5edc376ca3bea8451e17281e148a4905e666fe44a1bc59",
+  "atlasSha256": "f2bfc09f8ec8e92a36a03087da254238a4abfd4c16cf75fca8d0bc6e2663e2c8",
   "geometry": "web/public/assets/character-cast/rainmarket-resident-2.atlas.json",
-  "geometrySha256": "4f8e118996a6592227754af7b791ac0a5f459a030c29a406a46df59b1095ed9c",
-  "textureBytes": 14708980,
+  "geometrySha256": "d8a7e4495292990e26d237ae3351e3f28c26dca193e3e92cfd5b8d6d854c0aaf",
+  "textureBytes": 14318424,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/rainmarket-resident-2.webp",
+      "sha256": "f2bfc09f8ec8e92a36a03087da254238a4abfd4c16cf75fca8d0bc6e2663e2c8",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/rainmarket-resident-2.1.webp",
+      "sha256": "98256d23d7ddab1e78365781e8a730c1ff8587ff54217c9656b0cfc2ce7e8095",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "97a5097f0e7ce84565f0c52c27b899816f7f8f31570a48c2a2bb80dcc11150bd",
-  "proof": "art/proofs/character-cast/rainmarket-resident-2.png",
-  "proofSha256": "bff285b27fde167c2967feb4a44c6bae96aa0ece2ce13b8d2c25830987816c82",
-  "editorSha256": "8585b20ab6c8f38fd2f5b262d304e36c56ba02162aa8a332cf4395e9d1396c3f",
+  "sourceComponentsSha256": "48325e764cc516439949830b01d5727066ba6507e0dc46b225cfd815068c23fc",
+  "proof": "art/proofs/character-cast-painted/rainmarket-resident-2.png",
+  "proofSha256": "47df7cb796284a733ff7a89bbf6a501e83f2af56f5e38252c2d69828baf9686d",
+  "editorSha256": "4808b703db4dc249c58f4ae9a846220e43705ee9666a5c361cdd8e2ae0cf8274",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "97a5097f0e7ce84565f0c52c27b899816f7f8f31570a48c2a2bb80dcc11150bd"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

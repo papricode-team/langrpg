@@ -4,23 +4,34 @@
   "recipe": "art/source/character-kit/cast/lindenhafen-parcel-courier.json",
   "recipeSha256": "7ab7011f8c14f352b705aabab6ab11db103ad1efaaac874602f6d0280554674a",
   "atlas": "web/public/assets/character-cast/lindenhafen-parcel-courier.webp",
-  "atlasSha256": "b9f08762963b0996d72a37a8ecce490c6fccb3184bfa2a4d70fb36b7c3b57f7a",
+  "atlasSha256": "371f167a4bef8a1a1fa435877e2a2d5e08139b18674bb20def5b205e5a888944",
   "geometry": "web/public/assets/character-cast/lindenhafen-parcel-courier.atlas.json",
-  "geometrySha256": "65e5e6dee35a7cad4940b03d897fab0843a4c8b1140a183d52e6e1ed33493db1",
-  "textureBytes": 14953040,
+  "geometrySha256": "eb8fdd2f6db5aa39414a4c5bf461e971b92d0a5f75451e4588a9c0e76a2ec3df",
+  "textureBytes": 14227608,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/lindenhafen-parcel-courier.webp",
+      "sha256": "371f167a4bef8a1a1fa435877e2a2d5e08139b18674bb20def5b205e5a888944",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/lindenhafen-parcel-courier.1.webp",
+      "sha256": "508ae3b5a4631e8ea0b6e78be8c3439a2f2b02a90b57c2d27544a4e6b671e8b2",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "e2237ae308641b38b5a3a150ac752e113f97fe097eb9aa3d09f66aa3da9f9faa",
-  "proof": "art/proofs/character-cast/lindenhafen-parcel-courier.png",
-  "proofSha256": "21e3c7cccda0ddfcb0f592cea80a7c60332ceab3c164301297d2fa579270580d",
-  "editorSha256": "d17309df45e8b3d438fc9dea0a4e7263ba75f6ca844371106a048906d682fd1e",
+  "sourceComponentsSha256": "9c2989b0074fe075b251bae269e201a67c2091618e0ef88b0728d59353b6cb72",
+  "proof": "art/proofs/character-cast-painted/lindenhafen-parcel-courier.png",
+  "proofSha256": "fca1b309dbd5614854871a9497c813888509fe19b2ce695aaf9dfbda42004f1e",
+  "editorSha256": "271e4c795ca9830d4af4607442a4269673d0079982185a9f0e9a1d774b5cd710",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "e2237ae308641b38b5a3a150ac752e113f97fe097eb9aa3d09f66aa3da9f9faa"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

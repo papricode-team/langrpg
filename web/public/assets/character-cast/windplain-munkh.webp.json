@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#a97b55\",\"#333029\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#636c43\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#2e322a\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#d67e35\"],[\"outer.secondary\",\"#adb4a0\"],[\"top.primary\",\"#e1d4b9\"],[\"top.secondary\",\"#e1d4b9\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#a97b55\",\"#333029\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#636c43\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#2e322a\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#d67e35\"],[\"outer.secondary\",\"#adb4a0\"],[\"top.primary\",\"#e1d4b9\"],[\"top.secondary\",\"#e1d4b9\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "e71c6a9e6f451f2d9a6b363fd8706cf44cabf0def9e4661e3bda4b22cc8bf0a0",
-  "atlasSha256": "7122479871a986c38070ecd6555e7fe4fce5af17e515d82b38bad2bcccfe9a33",
-  "textureBytes": 14490960,
-  "atlas": "web/public/assets/character-cast/windplain-munkh.atlas.json"
+  "sha256": "91b4c55735f2eff5722692e2daaec3cf630292d6a49ed7337c01bc87a334ccbc",
+  "atlasSha256": "adc140678ceb1acae7bdd511d892cf24076d21785f6948192167f7a7fd5f16c8",
+  "textureBytes": 14183232,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/windplain-munkh.webp",
+      "sha256": "91b4c55735f2eff5722692e2daaec3cf630292d6a49ed7337c01bc87a334ccbc",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/windplain-munkh.1.webp",
+      "sha256": "80bd26264a5e9431a6c12c8cc253ac321f1858d0320589cf2653394b8e0b345b",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/windplain-munkh.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

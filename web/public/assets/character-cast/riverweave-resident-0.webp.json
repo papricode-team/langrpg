@@ -34,30 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#d1ac84\",\"#302822\",[[\"bag\",\"satchel\"],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"sandals\"],[\"hair\",\"braids\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#91b7a2\"],[\"bottom.primary\",\"#dcd1b6\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#7c3a3e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#a18bac\"],[\"top.secondary\",\"#a18bac\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#d1ac84\",\"#302822\",[[\"bag\",\"satchel\"],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"sandals\"],[\"hair\",\"braids\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#91b7a2\"],[\"bottom.primary\",\"#dcd1b6\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#7c3a3e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#a18bac\"],[\"top.secondary\",\"#a18bac\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "14837c9053123caa1b3d405da4ae52610d8d08b7cf890531454f59141b9a7ccf",
-  "atlasSha256": "041a011cf1512af02f81fe4b409d03f90fd9ea3c29bd1342e0d50f239543f183",
+  "sha256": "3354f00fd15136ef417e524e4cfb1ecd7b80abec15efb7df0ed5a3f100f1da81",
+  "atlasSha256": "5e760451c9fdfbf24209d10de6985b9c8300f934fdb7ab0ab3e1b3fefb840c2e",
   "textureBytes": 13860524,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/riverweave-resident-0.webp",
-      "sha256": "14837c9053123caa1b3d405da4ae52610d8d08b7cf890531454f59141b9a7ccf",
+      "sha256": "3354f00fd15136ef417e524e4cfb1ecd7b80abec15efb7df0ed5a3f100f1da81",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/riverweave-resident-0.1.webp",
-      "sha256": "d706a63544ef66c9c5c0a118ae2a9be90422b8b8c0ae4d851f7e09386c23b623",
+      "sha256": "2193547f8dcf2766568b9aa7e04ea5359dd9bdecfcfd8ee76b6c1a2e4815f1fc",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/riverweave-resident-0.atlas.json"
+  "atlas": "web/public/assets/character-cast/riverweave-resident-0.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

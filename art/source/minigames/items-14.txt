@@ -1,0 +1,28 @@
+Use case: stylized-concept
+Asset type: transparent painterly game item sprite sheet
+Primary request: Paint 16 distinct isolated object sprites for glotworld near-isometric RPG in an exact 4 by 4 regular grid. Canvas 2048 by 2048 pixels. Each cell is 512 by 512 pixels; one named subject per cell, read left to right then top to bottom.
+Style/medium: detailed hand-painted storybook gouache and oil, softly textured materials, warm brass, cream ceramics, muted forest green, matching the existing café and supermarket interior object sheets. Three-quarter view, consistent top-left warm lighting.
+Scene/backdrop: genuinely transparent alpha, no painted backdrop.
+Composition: one complete object centred in each cell, maximum object extent 380 pixels, generous transparent margins of at least 60 pixels, no overlap between cells, no cast shadows outside the object. Keep small details legible at 128 pixels.
+Subjects in row-major order:
+1. one folded cream map card showing painted paths without text
+2. one cream addressed envelope with a small house emblem and illegible ink
+3. one miniature warm sandstone railway station with a green roof
+4. one broken brass cog beside a small wrench, repair motif
+5. two connected brass railway track sections, connection motif
+6. one glass medical thermometer beside a folded cloth, fever motif
+7. one red painted wooden wheel with brass hub
+8. one open small wooden keepsake box holding a sepia photograph, memory motif
+9. one carved wooden sign bearing a simple painted golden sun symbol, no letters
+10. one seated fully clothed adult patient with cream blanket, miniature painted figure
+11. one coil of red cord laid out as a single straight line across cream paper
+12. one small open wooden toolbox with hammer and wrench
+13. one forest green wax seal embossed with a golden linden leaf, approval motif, no check mark
+14. one muted terracotta wax seal with a gently dented centre and small fallen leaf, retry motif, no cross
+15. one small brass gramophone horn on a wooden base
+16. one closed cream linen drawstring pouch with a small brass sun clasp
+Constraints: exactly 16 objects, correct subject ordering, no labels, no legible text, no grid lines, no watermark, no emoji, no vector line icons. Transparent background; retain native alpha. Each silhouette must be identifiable without a written label.
+
+Reference image is style reference only. Preserve real transparent alpha, all complete silhouettes, keep exactly ordered four columns by four rows, each object inside its own cell.
+Tool: built-in image_gen; transparent_background: true.
+Reference: web/public/assets/minigames/items.webp.

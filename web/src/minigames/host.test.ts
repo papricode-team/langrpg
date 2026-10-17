@@ -4,7 +4,7 @@ import { emptyProgress, type Api, type Progress } from '../api';
 import { AttemptBatcher, createMiniGameHost, type HostOptions } from './host';
 import type { GameItem, RoundResult } from './types';
 
-vi.mock('./item-manifest', () => ({ itemSpriteFor: () => undefined }));
+vi.mock('./item-manifest', () => ({ itemSpriteFor: () => undefined, hasItemSprite: () => false }));
 vi.mock('./sprite-library', () => ({ SpriteLibrary: class {} }));
 
 function options(request: ReturnType<typeof vi.fn>): HostOptions {

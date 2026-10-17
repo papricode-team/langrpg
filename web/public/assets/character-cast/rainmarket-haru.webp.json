@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#d1aa82\",\"#a9a392\",[[\"bag\",null],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#343537\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#303134\"],[\"headwear.primary\",\"#50576a\"],[\"headwear.secondary\",\"#50576a\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#3a4d6b\"],[\"outer.secondary\",\"#3a4d6b\"],[\"top.primary\",\"#e6dfce\"],[\"top.secondary\",\"#e6dfce\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#d1aa82\",\"#a9a392\",[[\"bag\",null],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#343537\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#303134\"],[\"headwear.primary\",\"#50576a\"],[\"headwear.secondary\",\"#50576a\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#3a4d6b\"],[\"outer.secondary\",\"#3a4d6b\"],[\"top.primary\",\"#e6dfce\"],[\"top.secondary\",\"#e6dfce\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "311d38ef897d51a8b7acb1e6d77dcba03c4ce48dd2e9e24e7e533ef71f58eab4",
-  "atlasSha256": "6faccdc18ec5914d477d71122927b4fa05eaa790c7f107ed168209a14beb0e29",
-  "textureBytes": 14786520,
-  "atlas": "web/public/assets/character-cast/rainmarket-haru.atlas.json"
+  "sha256": "3560363746dee15e20609870a05dbd741e1f94c65e970fbfaff99ffe4616971d",
+  "atlasSha256": "6c17e4fda7a72f44a95c585e7cfab9762bc2ab5eefe48900609ec678fe47485d",
+  "textureBytes": 14514056,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/rainmarket-haru.webp",
+      "sha256": "3560363746dee15e20609870a05dbd741e1f94c65e970fbfaff99ffe4616971d",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/rainmarket-haru.1.webp",
+      "sha256": "54519e7cc3c39dc65d425ec898876291e9127aa6f0d55a7f3de8c2c07605c848",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/rainmarket-haru.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

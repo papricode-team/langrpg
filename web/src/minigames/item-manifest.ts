@@ -5,7 +5,7 @@ import sceneArt from './scene-art-data.json';
 export const ITEM_ATLAS_KEY = 'minigame-items';
 export interface ItemSpriteEntry {
   name: string; lexemeId?: string; lemma?: string; article?: string; plural?: string; level?: string;
-  topic?: string; domain?: string; subject: string; kind: string;
+  topic?: string; domain?: string; pictureable?: boolean; subject: string; kind: string;
   sheet: string; source: string; url: string;
   atlasFrame: { x: number; y: number; w: number; h: number }; atlasKey?: string;
 }
@@ -16,7 +16,11 @@ export const missingItemArt = manifest.missing;
 const lexemeFrames = new Map(Object.values(itemSpriteManifest).filter(entry => entry.lexemeId).map(entry => [entry.lexemeId!, entry.name]));
 /** A missing noun stays out of picture retrievals; a semantically similar icon is not a substitute. */
 export function itemSpriteFor(lexemeId: string): string | undefined { return lexemeFrames.get(lexemeId); }
-export function hasItemSprite(lexemeId: string): boolean { return lexemeFrames.has(lexemeId); }
+/** Decorative motifs for abstract story nouns must not become picture-only quiz answers. */
+export function hasItemSprite(lexemeId: string): boolean {
+  const frame = lexemeFrames.get(lexemeId);
+  return Boolean(frame && itemSpriteManifest[frame].pictureable !== false);
+}
 export const itemSpriteLexemeIds = [...lexemeFrames.keys()];
 
 function normalizeItemLabel(label: string): string {

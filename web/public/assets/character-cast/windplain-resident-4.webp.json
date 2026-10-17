@@ -34,30 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#bb916c\",\"#292724\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",\"square\"],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"pixie\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"trench\"],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#6e634b\"],[\"bottom.primary\",\"#b3943b\"],[\"eyewear.primary\",\"#9e9e94\"],[\"footwear.primary\",\"#32495c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#745164\"],[\"outer.secondary\",\"#745164\"],[\"top.primary\",\"#504c43\"],[\"top.secondary\",\"#504c43\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#bb916c\",\"#292724\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",\"square\"],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"pixie\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"trench\"],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#6e634b\"],[\"bottom.primary\",\"#b3943b\"],[\"eyewear.primary\",\"#9e9e94\"],[\"footwear.primary\",\"#32495c\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#745164\"],[\"outer.secondary\",\"#745164\"],[\"top.primary\",\"#504c43\"],[\"top.secondary\",\"#504c43\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "d8460bf8ad9048e7ee27490e20ecbfdcf5f47db394b58e3d169362e2aa8691bd",
-  "atlasSha256": "4bdd347daf508b3208fec75d2c4de908d832774e9e2ba8265f67d01eb5347a8d",
+  "sha256": "bf7f2790152b51f091e643eaecc09159fd8552b13f65031ac07cb44314c80614",
+  "atlasSha256": "7175348fddd2f33d4f6bc3c18d71cd262ebd071b5a52b4365bdcb1896c38c89c",
   "textureBytes": 14637088,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/windplain-resident-4.webp",
-      "sha256": "d8460bf8ad9048e7ee27490e20ecbfdcf5f47db394b58e3d169362e2aa8691bd",
+      "sha256": "bf7f2790152b51f091e643eaecc09159fd8552b13f65031ac07cb44314c80614",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/windplain-resident-4.1.webp",
-      "sha256": "534f2c2ad8bd230caa233c632213de3ca50257b5caa275133f597b5e1ca5f6c9",
+      "sha256": "db24bcf4fba258d79076a553f401cc73cbeb2eb5e8fd770e4ed9108cb65ebae8",
       "firstFrame": 18,
       "frameCount": 18
     }
   ],
-  "atlas": "web/public/assets/character-cast/windplain-resident-4.atlas.json"
+  "atlas": "web/public/assets/character-cast/windplain-resident-4.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

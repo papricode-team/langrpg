@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#bf9369\",\"#2b2620\",[[\"bag\",null],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#565e49\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#675e4a\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#b79237\"],[\"outer.secondary\",\"#b79237\"],[\"top.primary\",\"#e4d9bd\"],[\"top.secondary\",\"#e4d9bd\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#bf9369\",\"#2b2620\",[[\"bag\",null],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#565e49\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#675e4a\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#b79237\"],[\"outer.secondary\",\"#b79237\"],[\"top.primary\",\"#e4d9bd\"],[\"top.secondary\",\"#e4d9bd\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "399c505e447c7d2635d714768f31cd07000301fc14846fc3dd26fe50288b4b22",
-  "atlasSha256": "3930d42034230867910656ffe5d75ca7b01bc99dca82426ea1f9f74a0d79c80a",
-  "textureBytes": 14618392,
-  "atlas": "web/public/assets/character-cast/sunpatch-pablo.atlas.json"
+  "sha256": "8a422b58d9cb7a3c6ed0678b6b56e6b22974ffa75a1a394c1b748b3fe82be2ad",
+  "atlasSha256": "ab88893fd04aa8978b2e95fc45e43a406a38abf2bd9b31235b917720729205c6",
+  "textureBytes": 14657120,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/sunpatch-pablo.webp",
+      "sha256": "8a422b58d9cb7a3c6ed0678b6b56e6b22974ffa75a1a394c1b748b3fe82be2ad",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/sunpatch-pablo.1.webp",
+      "sha256": "b66f74583929beb6a5858a68bd4cffcb465d12b672eb7d435cfc08639a287285",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/sunpatch-pablo.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

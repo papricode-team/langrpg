@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/riverweave-resident-2.json",
   "recipeSha256": "ed45505eef2bb8006d848e214a61003515797e81b730b06204eb9f6dd78a3168",
   "atlas": "web/public/assets/character-cast/riverweave-resident-2.webp",
-  "atlasSha256": "48f8c1e9863cbbdf5a7a001affe7b2cec3b9ff5cf673b92efa22cc8a5e82d979",
+  "atlasSha256": "2ea993974b77032b7f76351bdf37dfc8c2d78a13868954305801401935d13556",
   "geometry": "web/public/assets/character-cast/riverweave-resident-2.atlas.json",
-  "geometrySha256": "c4f86bb3cd4a9fa29f01a939d1a6082bcc802f3255d343c77ee3dc4907f939be",
+  "geometrySha256": "9844456e75890a53e5dbceb1d8ae08762a532012931fdb4a16c0f0c2897ada7c",
   "textureBytes": 14773456,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/riverweave-resident-2.webp",
-      "sha256": "48f8c1e9863cbbdf5a7a001affe7b2cec3b9ff5cf673b92efa22cc8a5e82d979",
+      "sha256": "2ea993974b77032b7f76351bdf37dfc8c2d78a13868954305801401935d13556",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/riverweave-resident-2.1.webp",
-      "sha256": "2235fe8efdb49e051066bc8af522846068ad260eb2cb6fcb2cc89b04c8a75adb",
+      "sha256": "8472e1a0c7bfa91f3afc77021f899eed5ccd45a9dd06b98f064ee755724e0acc",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,15 +27,11 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "eab122e63374012d5a99e06b1a4d50dee66c0dcbf2f39f1ffd2ebdf9ec6e5268",
-  "proof": "art/proofs/character-cast/riverweave-resident-2.png",
-  "proofSha256": "020e71483ccff826550f0d9c2d0d0614c5c2ac28d671c2b18af3e3a9c20029a8",
-  "editorSha256": "1dcf44658ac36fcc5999869f1434103c558401c7a985f792a10929f46b89c16d",
+  "sourceComponentsSha256": "933c65ad5b02362add3625a7b4485dc685fa8d5c9960a29dce15b5de93cec001",
+  "proof": "art/proofs/character-cast-painted/riverweave-resident-2.png",
+  "proofSha256": "699089cb27be179d93d6940a7a322e39034495f74793187e9ebde57a14b37e43",
+  "editorSha256": "fa6fa608025f8d40e933c4aec63fbc43cc671beeaaf473f1b15ce03e42e753cb",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "eab122e63374012d5a99e06b1a4d50dee66c0dcbf2f39f1ffd2ebdf9ec6e5268"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

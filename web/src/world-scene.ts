@@ -1,3 +1,5 @@
+import { HELD_ITEM_FRAMES, WORLD_UI, fadeWorldOut } from './world-ui';
+import { WORLD_TITLE_FONT, refreshWorldFonts } from './world-fonts';
 import { animalReach } from './animal-behavior';
 import { WorldAnimals } from './world-animals';
 import * as Phaser from 'phaser';
@@ -69,7 +71,7 @@ interface LegacyResident {
 }
 interface ActivityResident {
   character: Character;
-  prop: Phaser.GameObjects.Graphics;
+  prop: Phaser.GameObjects.Image;
   actionFigure?: Phaser.GameObjects.Image;
   speech?: Phaser.GameObjects.Text;
   propKind?: string;
@@ -104,6 +106,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
   private deliveryMarkers: Phaser.GameObjects.Container[] = [];
   private barkDirector = new WorldBarkDirector();
   private bark?: Phaser.GameObjects.Text;
+  private barkPaper?: Phaser.GameObjects.Image;
   private barkUntil = 0;
   private barkSpeaker?: Character;
   private readonly routineWalks = new WeakMap<Character, NpcRoutineWalk>();
@@ -114,6 +117,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
   private navigationOverlayAt = -Infinity;
   private readonly navigationDebug = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('nav') === '1';
   private entranceTransition?: Phaser.Tweens.Tween;
+  private entranceFade?: Phaser.Time.TimerEvent;
   private enteringInterior = false;
   private mapAnnounced = false;
   private regionAssets = new WorldMapAssets(this);
@@ -144,9 +148,9 @@ export class WorldScene extends ExploreScene implements EditSurface {
     this.storyMarks = undefined; this.mechanicsObjects = [];
     this.observedResidentId = readWorld(this.registry, 'observedResident');
     this.weatherPreview = readWorld(this.registry, 'weatherPreview') ?? 'regional';
-    this.deliveryMarkers = []; this.bark = undefined; this.barkSpeaker = undefined; this.barkUntil = 0;
+    this.deliveryMarkers = []; this.bark = undefined; this.barkPaper = undefined; this.barkSpeaker = undefined; this.barkUntil = 0;
     this.silhouette = undefined; this.silhouetteLayers = []; this.navigationOverlay = undefined; this.navigationOverlayAt = -Infinity;
-    this.entranceTransition = undefined; this.enteringInterior = false; this.mapAnnounced = false;
+    this.entranceTransition = undefined; this.entranceFade = undefined; this.enteringInterior = false; this.mapAnnounced = false;
     // Bark timing is measured against this run's elapsed time, which init() just reset.
     this.barkDirector.reset(); this.learning = { lexicon: [], progress: { words: {} } };
     // Loader requests belong to one scene run; a restart abandons the previous batch.
@@ -176,11 +180,17 @@ export class WorldScene extends ExploreScene implements EditSurface {
 
   create(): void {
     super.create();
+    refreshWorldFonts(this);
     const booted = this.registry.get('worldBooted') === true;
     this.registry.set('worldBooted', true);
     // Scene emitters outlive a restart; listeners added here are removed at shutdown.
     this.events.on(Phaser.Scenes.Events.WAKE, this.handleWake, this);
-    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.events.off(Phaser.Scenes.Events.WAKE, this.handleWake, this));
+    // A room that opens on arrival sleeps the town, freezing the announce timer; the room is the painted view then.
+    this.events.on(Phaser.Scenes.Events.SLEEP, this.announceMap, this);
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      this.events.off(Phaser.Scenes.Events.WAKE, this.handleWake, this);
+      this.events.off(Phaser.Scenes.Events.SLEEP, this.announceMap, this);
+    });
     this.time.delayedCall(TERRAIN_WAIT_MS, () => this.announceMap());
     if (!booted) emitWorld(this.game, WorldEvents.Ready);
   }
@@ -407,9 +417,12 @@ export class WorldScene extends ExploreScene implements EditSurface {
     this.refreshControls();
     this.entranceTransition = this.tweens.add({ targets: this.local, x: entrance.x * this.worldWidth, y: entrance.y * this.worldHeight, duration: 250, ease: 'Sine.easeIn',
       onComplete: () => {
-        this.entranceTransition = undefined; this.enteringInterior = false; this.local.root.setAlpha(1);
-        this.refreshControls();
-        this.openInterior(id);
+        this.entranceTransition = undefined;
+        this.entranceFade = fadeWorldOut(this, this.reducedMotion, () => {
+          this.entranceFade = undefined;
+          this.enteringInterior = false; this.local.root.setAlpha(1);
+          this.openInterior(id);
+        });
       } });
   }
 
@@ -432,8 +445,11 @@ export class WorldScene extends ExploreScene implements EditSurface {
 
   /** A cancelled walk-in must not leave the player halfway inside a wall. */
   cancelEntrance(): void {
-    if (!this.entranceTransition) return;
-    this.entranceTransition.stop(); this.entranceTransition = undefined; this.enteringInterior = false;
+    if (!this.entranceTransition && !this.entranceFade) return;
+    this.entranceTransition?.stop(); this.entranceTransition = undefined;
+    this.entranceFade?.remove(); this.entranceFade = undefined;
+    this.cameras.main.resetFX();
+    this.enteringInterior = false;
     this.local.root.setAlpha(1);
     const point = this.navigation.closestPoint(this.local.x, this.local.y);
     this.local.x = this.local.targetX = point.x; this.local.y = this.local.targetY = point.y;
@@ -523,7 +539,9 @@ export class WorldScene extends ExploreScene implements EditSurface {
       requiredNpcId: this.objective, conversationActive: !!this.conversationTarget || !!this.cinematicTarget || this.watching || !this.controlsEnabled,
       lexicon: this.learning.lexicon, progress: this.learning.progress, introduced: this.learning.introduced, lineAllowed: this.learning.lineAllowed });
     if (!bark) return;
-    this.bark ??= this.add.text(0, 0, '', { resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '14px', color: '#fff3d5', backgroundColor: '#20352d', padding: { x: 9, y: 6 }, wordWrap: { width: 270 }, align: 'center' }).setOrigin(.5, 1);
+    // Barks sit on the painted parchment of the ink tags, not a flat box; an empty line never shows its plate.
+    this.barkPaper ??= this.add.image(0, 0, WORLD_UI.ink).setOrigin(.5, 1);
+    this.bark ??= this.add.text(0, 0, '', { resolution: this.density, fontFamily: WORLD_TITLE_FONT, fontSize: '14px', color: '#3a2f20', padding: { x: 22, y: 9 }, wordWrap: { width: 250 }, align: 'center' }).setOrigin(.5, 1);
     this.bark.setText(bark.german); this.barkSpeaker = character; this.barkUntil = this.elapsed + 5;
     emitWorld(this.game, WorldEvents.Bark, bark);
   }
@@ -535,9 +553,12 @@ export class WorldScene extends ExploreScene implements EditSurface {
     if (this.bark && this.barkSpeaker) {
       const halfWidth = this.bark.width * this.density / (2 * this.cameras.main.zoom);
       const barkX = clamp(this.barkSpeaker.x, view.x + halfWidth + 4, view.right - halfWidth - 4);
-      this.bark.setVisible(!this.conversationTarget && !this.cinematicTarget && this.elapsed < this.barkUntil && !this.terrainOnly)
-        .setPosition(barkX, this.barkSpeaker.y - 92).setScale(this.labelScale);
+      const shown = !this.conversationTarget && !this.cinematicTarget && this.elapsed < this.barkUntil && !this.terrainOnly && this.bark.text.trim() !== '';
+      this.bark.setVisible(shown).setPosition(barkX, this.barkSpeaker.y - 92).setScale(this.labelScale);
+      this.barkPaper?.setVisible(shown).setPosition(barkX, this.barkSpeaker.y - 92 + 4 * this.labelScale)
+        .setDisplaySize((this.bark.width + 16) * this.labelScale, (this.bark.height + 10) * this.labelScale);
       setDepthIfChanged(this.bark, worldDepth(this.worldHeight + 100, 'label'));
+      if (this.barkPaper) setDepthIfChanged(this.barkPaper, worldDepth(this.worldHeight + 100, 'label') - .5);
     }
     const time = this.frameClock ?? this.clock.advance(0);
     this.updateWorldTime(time);
@@ -684,12 +705,12 @@ export class WorldScene extends ExploreScene implements EditSurface {
         ? Math.ceil((this.decorativeElapsed + motion.phaseSeconds) / motion.cycleSeconds) * motion.cycleSeconds - motion.phaseSeconds
         : this.decorativeElapsed);
       const position = sampleResidentMotion(motion, routineElapsed);
-      const character = this.createCharacter(motion.id, motion.name, position.x, position.y, motion.avatar, undefined, motion.artVariant ?? -1, motion.artVariant);
+      const character = this.createCharacter(motion.id, motion.name, position.x, position.y, motion.avatar, 'Resident', motion.artVariant ?? -1, motion.artVariant);
       this.animateCharacter(character, 0, 0, this.elapsed, {
         moving: position.moving, distance: residentWalkDistance(motion, routineElapsed),
         velocityX: position.velocityX, velocityY: position.velocityY, facingLeft: residentFacingLeft(motion, routineElapsed),
       });
-      character.name.setColor('#ddd6b5').setVisible(false);
+      character.name.setColor('#ffffff').setVisible(false);
       character.root.setVisible(!homeReached && !this.terrainOnly);
       this.residents.push({ character, motion, sample: position, routineElapsed, homeReached });
     }
@@ -712,11 +733,11 @@ export class WorldScene extends ExploreScene implements EditSurface {
   private createActivityResidents(): void {
     if (!this.activityWorld) return;
     for (const { spec } of this.activityWorld.residents) {
-      const character = this.createCharacter(spec.id, spec.name, spec.home.x, spec.home.y, spec.avatar, undefined, spec.artVariant ?? -1, spec.artVariant);
+      const character = this.createCharacter(spec.id, spec.name, spec.home.x, spec.home.y, spec.avatar, 'Resident', spec.artVariant ?? -1, spec.artVariant);
       const key = spec.actionArt ? residentActionKey(this.mapSpec.id, spec.actionArt) : undefined;
       const actionFigure = key && this.textures.exists(key) ? this.add.image(0, 0, key, 'idle').setOrigin(.5, RESIDENT_ACTION_ART.footY).setScale(MODULAR_ART.worldHeight / RESIDENT_ACTION_ART.bodyHeight).setVisible(false) : undefined;
       if (actionFigure) character.root.add(actionFigure);
-      const prop = this.add.graphics(); character.root.add(prop); character.name.setColor('#ddd6b5');
+      const prop = this.add.image(0, -32, 'world-held-items', HELD_ITEM_FRAMES.parcel).setDisplaySize(27, 27).setVisible(false); character.root.add(prop); character.name.setColor('#ffffff');
       this.activityResidents.push({ character, prop, actionFigure });
     }
     this.updateActivityResidents();
@@ -754,6 +775,8 @@ export class WorldScene extends ExploreScene implements EditSurface {
         velocityX: position.velocityX, velocityY: position.velocityY, facingLeft: residentFacingLeft(motion, sampleTime),
       });
       // Passing locals have no quest markers or player labels to crowd the map.
+      this.positionCharacterLabels(character);
+      character.role?.setScale(this.labelScale).setVisible(this.controlsEnabled && !resident.homeReached && Math.hypot(character.x - this.local.x, character.y - this.local.y) < 100);
       character.name.setScale(this.labelScale).setVisible(!resident.homeReached && !position.moving && this.controlsEnabled
         && Math.hypot(character.x - this.local.x, character.y - this.local.y) < 100);
     }
@@ -804,16 +827,17 @@ export class WorldScene extends ExploreScene implements EditSurface {
       const seatedOffset=pose||componentPose&&poseSet==='seated'?residentSeatedOffset(sample,this.reducedMotion):0;
       if(componentPose)character.figure!.setPosition(0,seatedOffset);
       if(pose)resident.actionFigure!.setFrame(pose.frame).setPosition(0,seatedOffset).setFlipX(sample.facingLeft??character.facing===3).setTint(peopleTint());
-      character.shadow.setPosition(0,2+seatedOffset);
-      character.name.setY(((pose||componentPose&&poseSet==='seated')&&sample.seatedOffsetY!==undefined?-62:-79)+seatedOffset);
+      character.shadow.setPosition(6,4+seatedOffset);
       const visible = !this.terrainOnly && sample.phase !== 'home' && sample.x >= view.x - 90 && sample.x <= view.right + 90 && sample.y >= view.y - 100 && sample.y <= view.bottom + 100;
       character.root.setVisible(visible);
+      this.positionCharacterLabels(character);
+      if (pose || componentPose && poseSet==='seated') character.name.setY(character.name.y + 17 + seatedOffset);
+      character.role?.setScale(this.labelScale).setVisible(!sample.exchange && this.controlsEnabled && Math.hypot(character.x - this.local.x, character.y - this.local.y) < 100);
       character.name.setScale(this.labelScale).setVisible(!sample.exchange && sample.phase === 'act' && (character.id === this.observedResidentId || this.controlsEnabled && Math.hypot(character.x - this.local.x, character.y - this.local.y) < 100));
       if (resident.propKind !== sample.heldObject) {
-        resident.propKind = sample.heldObject; const prop = resident.prop; prop.clear();
-        if (sample.heldObject === 'parcel') prop.fillStyle(0x745031).fillRect(-9, -39, 18, 14).fillStyle(0xcda36e).fillRect(-8, -38, 16, 11).fillStyle(0xf0d5a0).fillRect(-1, -38, 3, 11);
-        else if (sample.heldObject === 'book') prop.fillStyle(0x324c51).fillRect(-10, -37, 20, 12).fillStyle(0xf0e2bd).fillRect(-8, -36, 7, 9).fillRect(1, -36, 7, 9);
-        else if (sample.heldObject === 'tool') prop.fillStyle(0x916b41).fillRect(-2, -41, 4, 18).fillStyle(0xaab6b0).fillRect(-7, -43, 14, 5);
+        resident.propKind = sample.heldObject;
+        const frame = sample.heldObject && HELD_ITEM_FRAMES[sample.heldObject];
+        if (frame) resident.prop.setFrame(frame).setTint(peopleTint());
       }
       resident.prop.setVisible(!!sample.heldObject && pose?.bakedObject !== sample.heldObject);
       const exchange = sample.exchange;
@@ -821,7 +845,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
         && (this.controlsEnabled && Math.hypot(character.x - this.local.x, character.y - this.local.y) < 230 || character.id === this.observedResidentId || exchange.partnerId === this.observedResidentId)
         && (!this.learning.lineAllowed || this.learning.lineAllowed(exchange.german));
       if (speaking) {
-        if (!resident.speech) { resident.speech = this.add.text(0, -106, '', { resolution: this.density, fontFamily: 'Georgia, serif', fontSize: '14px', color: '#fff3d5', backgroundColor: '#20352d', padding: { x: 9, y: 6 }, wordWrap: { width: 190 }, align: 'center' }).setOrigin(.5, 1); character.root.add(resident.speech); }
+        if (!resident.speech) { resident.speech = this.add.text(0, -106, '', { resolution: this.density, fontFamily: WORLD_TITLE_FONT, fontSize: '14px', color: '#fff3d5', backgroundColor: '#20352d', padding: { x: 9, y: 6 }, wordWrap: { width: 190 }, align: 'center' }).setOrigin(.5, 1); character.root.add(resident.speech); }
         resident.speech.setText(exchange.german).setScale(this.labelScale);
         character.name.setVisible(false);
       }

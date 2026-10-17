@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#ecc4a2\",\"#d7ae61\",[[\"bag\",\"tote\"],[\"bottom\",\"wide\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"flats\"],[\"hair\",\"waves\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"cardigan\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#797197\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#797197\"],[\"outer.secondary\",\"#797197\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#ecc4a2\",\"#d7ae61\",[[\"bag\",\"tote\"],[\"bottom\",\"wide\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"flats\"],[\"hair\",\"waves\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"cardigan\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#797197\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#797197\"],[\"outer.secondary\",\"#797197\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "b0824ce862c9ca945958227349b45d8c28aef40225ce76f2ef0aa526c1f975a6",
-  "atlasSha256": "4e87ed4911c1cd7a0a6d09ebd105a27ad0cdb463159c729bc693ff71f71cc0d7",
-  "textureBytes": 14471280,
-  "atlas": "web/public/assets/character-cast/waldruh-resident-guest.atlas.json"
+  "sha256": "cb7975378ad6676bd3c06a6bea01a7c4b7b3018c1a5eb5d83a35704e068a1013",
+  "atlasSha256": "58923796b028ac91882b867494bac0e7f9e4a4e8366c9d4d76a2858ec0a8bffc",
+  "textureBytes": 14378520,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/waldruh-resident-guest.webp",
+      "sha256": "cb7975378ad6676bd3c06a6bea01a7c4b7b3018c1a5eb5d83a35704e068a1013",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/waldruh-resident-guest.1.webp",
+      "sha256": "3eab3913f58182b9c2fea154009eead8ae86e5f5c7c01a6c15073d1bc75e225d",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/waldruh-resident-guest.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

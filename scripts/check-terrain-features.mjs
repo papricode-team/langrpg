@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 import sharp from 'sharp';
-import {readFile,writeFile} from 'node:fs/promises';
+import {readFile,writeFile,stat} from 'node:fs/promises';
 import './register-content-loader.mjs';
 import {terrainFeatures,featureSurfaces} from '../web/src/terrain-features.ts';
 import {scenePolygonProblem} from '../web/src/scene-schema.ts';
 const report=[];
 for(const art of terrainFeatures){
+ if((await stat(`web/public${art.asset}`)).size>=2_000_000)throw Error(`${art.id}: runtime feature exceeds 2 MB`);
  const input=`art/source/terrain-features/${art.id}.png`,native=await sharp(input).metadata();
  const {data,info}=await sharp(`web/public${art.asset}`).ensureAlpha().raw().toBuffer({resolveWithObject:true});
  if(info.width!==native.width||info.height!==native.height||info.width!==art.width||info.height!==art.height||Math.min(info.width,info.height)<1024)throw Error(`${art.id}: native HD dimensions changed`);

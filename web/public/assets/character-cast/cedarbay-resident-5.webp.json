@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#956d46\",\"#3a2a1e\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"buzz\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#30342d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#34362d\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#d7bc64\"],[\"outer.secondary\",\"#d7bc64\"],[\"top.primary\",\"#813e47\"],[\"top.secondary\",\"#813e47\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#956d46\",\"#3a2a1e\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"buzz\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#30342d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#34362d\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#d7bc64\"],[\"outer.secondary\",\"#d7bc64\"],[\"top.primary\",\"#813e47\"],[\"top.secondary\",\"#813e47\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "521d193b25a1b5a3a6761684f3575d636cb142b1076a82a5c2874a26059e7c6e",
-  "atlasSha256": "f9938ba73fe03067f0365f133e2880de92a9abbae45d77071b28499486f731a0",
-  "textureBytes": 13714704,
-  "atlas": "web/public/assets/character-cast/cedarbay-resident-5.atlas.json"
+  "sha256": "71d19998f8c4f00668120a98f7f5feefcc0cd93f2ad54943a1eb08ade4723bbb",
+  "atlasSha256": "a950a2bbeff9b3ed89fa64e96ab595f12493c4a6c687a626c161075549c4c722",
+  "textureBytes": 13899516,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/cedarbay-resident-5.webp",
+      "sha256": "71d19998f8c4f00668120a98f7f5feefcc0cd93f2ad54943a1eb08ade4723bbb",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/cedarbay-resident-5.1.webp",
+      "sha256": "9a67c9e54f7775448ed6df2da6cedce819c8fad2d2bbd091e35333076bd30041",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/cedarbay-resident-5.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

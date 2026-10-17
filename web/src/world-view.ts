@@ -1,3 +1,5 @@
+import { createScreenFilter } from './screen-filters';
+import { worldGrade } from './world-grade';
 /**
  * Draws one town region with the play renderers and nothing else: the painted ground, its features and the
  * scenery, as a player sees them. Tools screenshot it to check world edits (`tools/world-mcp`, `world:view`).
@@ -44,6 +46,7 @@ class WorldViewScene extends Phaser.Scene {
     await new Promise<void>(resolve => new WorldAnimationAssets(this).load(mapId, period, () => resolve()));
     // The ground takes the hour's ambient light, as in play: noon by day, late evening by night.
     const hour = number('hour', period === 'night' ? 22 : 12);
+    createScreenFilter(this)?.setGrade(worldGrade(mapId, hour));
     const terrain = new GroundTerrain(this, town, period).setDepth(-1e6).setTint(timeAmbient(mapId, hour, period).terrain);
     new WorldScenery(this, mapId, period);
     // Materials, features and object art load after construction; report ready once nothing is pending.
@@ -61,7 +64,7 @@ async function start(): Promise<void> {
   const town = getWorldScene(params.get('town') ?? 'lindenhafen');
   const width = number('width', town.width), height = number('height', town.height), scale = number('scale', 1);
   new Phaser.Game({type: Phaser.WEBGL, parent: 'view', width: Math.round(width * scale), height: Math.round(height * scale),
-    backgroundColor: '#000000', banner: false, audio: {noAudio: true}, scene: [WorldViewScene]});
+    backgroundColor: '#000000', banner: false, render: {antialias: true, roundPixels: false, mipmapFilter: 'LINEAR_MIPMAP_LINEAR'}, audio: {noAudio: true}, scene: [WorldViewScene]});
 }
 
 start().catch(error => { status.error = error instanceof Error ? error.message : String(error); });

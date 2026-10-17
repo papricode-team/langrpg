@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b68a60\",\"#30251d\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",\"round\"],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bob\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#9cae45\"],[\"bottom.primary\",\"#344d70\"],[\"eyewear.primary\",\"#386295\"],[\"footwear.primary\",\"#d9cfb6\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#b09bb9\"],[\"top.secondary\",\"#b09bb9\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b68a60\",\"#30251d\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",\"round\"],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bob\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#9cae45\"],[\"bottom.primary\",\"#344d70\"],[\"eyewear.primary\",\"#386295\"],[\"footwear.primary\",\"#d9cfb6\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#b09bb9\"],[\"top.secondary\",\"#b09bb9\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "11eb6a951dd4707e4fb64982dc417b6e12d1191e94e8ebe73bbb5dd31365c171",
-  "atlasSha256": "3a77d724b50d2c61c92e5b157f4917e76f3a9ca31a0a0e2a7205dd20a33c9d51",
-  "textureBytes": 14665612,
-  "atlas": "web/public/assets/character-cast/cedarbay-nila.atlas.json"
+  "sha256": "361539a674fb9c76a69f7e7742cf08f4ece0dbddd2a24936dabc426cf3b6c064",
+  "atlasSha256": "3c5a8376a3e22334e3d1306b09aff92ec019feef996246f144b2a30bb66c1b25",
+  "textureBytes": 13945152,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/cedarbay-nila.webp",
+      "sha256": "361539a674fb9c76a69f7e7742cf08f4ece0dbddd2a24936dabc426cf3b6c064",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/cedarbay-nila.1.webp",
+      "sha256": "199f66efc19cb49a16c711a8959fe8a860a71dbee3d5791b2c538918cfca14e7",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/cedarbay-nila.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

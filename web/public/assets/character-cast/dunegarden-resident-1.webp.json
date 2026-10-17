@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#90653f\",\"#302318\",[[\"bag\",\"satchel\"],[\"bottom\",null],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"sandals\"],[\"hair\",null],[\"headwear\",\"beanie\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"dress-long\"]],[[\"bag.primary\",\"#634c31\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#775231\"],[\"headwear.primary\",\"#6f939f\"],[\"headwear.secondary\",\"#6f939f\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#c7cac5\"],[\"top.secondary\",\"#c7cac5\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#90653f\",\"#302318\",[[\"bag\",\"satchel\"],[\"bottom\",null],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"sandals\"],[\"hair\",null],[\"headwear\",\"beanie\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"dress-long\"]],[[\"bag.primary\",\"#634c31\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#775231\"],[\"headwear.primary\",\"#6f939f\"],[\"headwear.secondary\",\"#6f939f\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#c7cac5\"],[\"top.secondary\",\"#c7cac5\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "0c9770ce0ab41c1b02581c5a947e9b87e112f4ff21f6a29c260885238d186a3e",
-  "atlasSha256": "d079e98b75ec80f541430fe90fb9cceadcd8a75a3f77cb9d7010230d0661c07d",
-  "textureBytes": 14807664,
-  "atlas": "web/public/assets/character-cast/dunegarden-resident-1.atlas.json"
+  "sha256": "0e905feaf0632b570a1fda6d8c17a413d2f598f7d391b780b2aa153a1fc43a20",
+  "atlasSha256": "e1cc0ff817fb06416b4b29ea43655141b7bdb9fce70ba953e2ad6d5439d472fb",
+  "textureBytes": 14499240,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/dunegarden-resident-1.webp",
+      "sha256": "0e905feaf0632b570a1fda6d8c17a413d2f598f7d391b780b2aa153a1fc43a20",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/dunegarden-resident-1.1.webp",
+      "sha256": "27e48071397b61471a586c2bb310e0034361a1081a8ce98c9a61ac879c5facbf",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/dunegarden-resident-1.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

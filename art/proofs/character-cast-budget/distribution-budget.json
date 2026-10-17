@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-17",
+  "before": {
+    "groups": {
+      "character-cast": 123092836,
+      "character-kit-hd": 91752794,
+      "character-portraits": 310816,
+      "player-portraits": 2316762
+    },
+    "characterBytes": 217473208
+  },
+  "after": {
+    "groups": {
+      "character-cast": {
+        "high": 88771460,
+        "low": 43102186,
+        "medium": 72468090
+      },
+      "character-kit-hd": {
+        "high": 91752794,
+        "low": 38751586,
+        "medium": 73277608
+      },
+      "character-portraits": {
+        "high": 310816,
+        "low": 310816,
+        "medium": 310816
+      },
+      "player-portraits": {
+        "high": 2316762,
+        "low": 2316762,
+        "medium": 2316762
+      }
+    },
+    "characterBytes": 183151832,
+    "largestImageBytes": 1051356
+  },
+  "encoder": {
+    "nearLossless": true,
+    "quality": 20,
+    "alphaQuality": 100,
+    "effort": 6,
+    "encodingId": "near-lossless-20-v1"
+  },
+  "manifest": {
+    "path": "art/source/character-kit/cast/runtime-manifest.json",
+    "sha256": "a2a5eff85bac541ff2eb1fa518f000648a029302ec0d03e2679ecf3d1ddedd86",
+    "actors": 201,
+    "nativeActors": [
+      "marta",
+      "lina",
+      "emil",
+      "fritz",
+      "greta",
+      "schaffner"
+    ],
+    "pages": 422,
+    "unreferenced": []
+  },
+  "checks": {
+    "nodeTests": 100,
+    "vitestTests": 61,
+    "vitestFiles": 7,
+    "webCheck": "passed",
+    "productionBuild": "passed",
+    "budgets": "Budgets pass: JavaScript 1.65 MiB largest / 3.74 MiB total; art 241.66 MiB at High (66.99 base + 174.67 characters), Medium 184.31 MiB, Low 109.19 MiB; audio 43.31 MiB. All 1517 dialogue audio clips present and current."
+  },
+  "notes": [
+    "No budget, timeout or pre-existing test was loosened. The new encoding test deliberately uses alpha error bound 8/255 for the visually reviewed quality20 setting.",
+    "Lossless editor proofs and component/compositor pixel tests remain exact.",
+    "Twelve outdoor-only native variants were removed based on authored indoor usage; all walking identities remain.",
+    "Low/Medium budgets measure all shipped art, not only character art."
+  ],
+  "interimQuality40Failure": {
+    "output": "Quality tier budget exceeded: low 118652334, medium 200680928",
+    "cause": "Passing the character High budget alone did not meet all-art Low/Medium limits.",
+    "fix": "Remove unused outdoor native room variants and select separately reviewed quality20 export."
+  }
+}

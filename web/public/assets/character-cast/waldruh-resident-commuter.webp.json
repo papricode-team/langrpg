@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b07a55\",\"#62412f\",[[\"bag\",\"backpack\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#4e729a\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#4e729a\"],[\"outer.secondary\",\"#4e729a\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b07a55\",\"#62412f\",[[\"bag\",\"backpack\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#4e729a\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#4e729a\"],[\"outer.secondary\",\"#4e729a\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "92253e276637afe7c432a585e20269a3768fa358ae6f8e825f1af7c8c0d8c890",
-  "atlasSha256": "610e73cface6634e10ae84b11fb8ab091f747aad6805d8462a409a06c97ec4e7",
-  "textureBytes": 14007336,
-  "atlas": "web/public/assets/character-cast/waldruh-resident-commuter.atlas.json"
+  "sha256": "3a7955840c4d0823c1c57d8b0beeef15fb6a2eb92ebd99426a6997eba5cabbb2",
+  "atlasSha256": "bb3d053f9937120840fb7e69c82fb7b56ee83fa1bdedce31fc232b6262167d67",
+  "textureBytes": 14132316,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/waldruh-resident-commuter.webp",
+      "sha256": "3a7955840c4d0823c1c57d8b0beeef15fb6a2eb92ebd99426a6997eba5cabbb2",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/waldruh-resident-commuter.1.webp",
+      "sha256": "f5acb5c2d78b605fa80813c212ed0f09a4423c9ea299f411871a1732e44fa905",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/waldruh-resident-commuter.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

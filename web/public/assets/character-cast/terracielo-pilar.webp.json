@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b68d60\",\"#a59881\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",null],[\"headwear\",\"brimmed\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#5e5545\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#4d4333\"],[\"headwear.primary\",\"#917449\"],[\"headwear.secondary\",\"#917449\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#c9b08a\"],[\"top.secondary\",\"#c9b08a\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b68d60\",\"#a59881\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",null],[\"headwear\",\"brimmed\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#5e5545\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#4d4333\"],[\"headwear.primary\",\"#917449\"],[\"headwear.secondary\",\"#917449\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#c9b08a\"],[\"top.secondary\",\"#c9b08a\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "81131133b369a265515579c8fae18a6671484ab571dc4f04461c2879723cc82d",
-  "atlasSha256": "fe0bf9a2b5d47ba97deb2e84cb4c04e931654f546adf8d45d05d83933be62a63",
-  "textureBytes": 14946588,
-  "atlas": "web/public/assets/character-cast/terracielo-pilar.atlas.json"
+  "sha256": "9642679c4a2385f4e4293d3b5a3ec9fbe9af0200557b71fca04fe17539d225fc",
+  "atlasSha256": "083b2bbb9e42546846addf84e2f3a06fa52656470d5d6330d6c5378e2bc97059",
+  "textureBytes": 13643388,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/terracielo-pilar.webp",
+      "sha256": "9642679c4a2385f4e4293d3b5a3ec9fbe9af0200557b71fca04fe17539d225fc",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/terracielo-pilar.1.webp",
+      "sha256": "c4c7bd6eff816ebae22798d1d1fbd27dd12799874af91f250fdc126d385776d1",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/terracielo-pilar.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

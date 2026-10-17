@@ -6,7 +6,7 @@
     "hair": "#302b2d",
     "parts": {
       "face": "almond",
-      "markings": null,
+      "markings": "freckles",
       "facial-hair": null,
       "hair": "curls",
       "headwear": null,
@@ -21,7 +21,7 @@
     },
     "colors": {
       "bag.primary": "#694731",
-      "bottom.primary": "#596847",
+      "bottom.primary": "#79644a",
       "eyewear.primary": "#48372e",
       "footwear.primary": "#48372e",
       "headwear.primary": "#354d70",
@@ -29,20 +29,36 @@
       "neck.primary": "#854a5b",
       "outer.primary": "#326a65",
       "outer.secondary": "#2a4436",
-      "top.primary": "#7c9474",
-      "top.secondary": "#795c87"
+      "top.primary": "#9da37a",
+      "top.secondary": "#9676a1"
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#bc855b\",\"#302b2d\",[[\"bag\",\"tote\"],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"almond\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"curls\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#596847\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#7c9474\"],[\"top.secondary\",\"#795c87\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#bc855b\",\"#302b2d\",[[\"bag\",\"tote\"],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"almond\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"curls\"],[\"headwear\",null],[\"held\",null],[\"markings\",\"freckles\"],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#79644a\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#9da37a\"],[\"top.secondary\",\"#9676a1\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "d54314eecaeeea8b3942e0a3b123168b94c21fbaefcac84356cfcfbf45ae6b0f",
-  "atlasSha256": "e696ba8aeac5d6362846fc607d66bd46d9299bfb6904a7eb5c5fb8c9a5df0938",
-  "textureBytes": 14293692,
-  "atlas": "web/public/assets/character-cast/greta.atlas.json"
+  "sha256": "7d4c3f59bc6eee0df518d1140b554a0fcdcd8e4c515330e9cfcd958a16d4143d",
+  "atlasSha256": "38e1c42edc24b58e7845bf3836c767dc9a40ac11c991ed689a7704e5d348b893",
+  "textureBytes": 14340384,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/greta.webp",
+      "sha256": "7d4c3f59bc6eee0df518d1140b554a0fcdcd8e4c515330e9cfcd958a16d4143d",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/greta.1.webp",
+      "sha256": "3d36c0716969f73276211d017234ca796303a2d316970de5515e01fea6b2f106",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/greta.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

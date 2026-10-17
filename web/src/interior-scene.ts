@@ -1,3 +1,6 @@
+import { interiorPeopleTint } from './world-lighting';
+import { roomKind } from './room-kind';
+import { fadeWorldOut, loadWorldUi, waitForWorldUi } from './world-ui';
 import { currentPrologueBeat, storyQuestComplete } from './prologue-progress';
 import {buildingRoomId, buildingRoomRoot} from './room-layout';
 import * as Phaser from 'phaser';
@@ -64,6 +67,7 @@ export class InteriorScene extends ExploreScene {
   get worldHeight(): number { return this.spec.height; }
   get interiorId(): InteriorId { return this.spec.id; }
   protected get indoor(): boolean { return true; }
+  protected get indoorTint(): number { return interiorPeopleTint(this.mapId, roomKind(this.spec.id)); }
   protected get indoorCharacterHeight(): number { return this.spec.characterHeight ?? INTERIOR_CHARACTER_HEIGHT; }
   /** The prologue carriage: one painted room whose story objects follow the beats. */
   get train(): boolean { return this.spec.presentation === 'painted' && this.spec.id.startsWith('train-'); }
@@ -87,6 +91,7 @@ export class InteriorScene extends ExploreScene {
   preload(): void {
     this.load.on(Phaser.Loader.Events.PROGRESS, (value: number) => emitWorld(this.game, WorldEvents.LoadProgress, value, this.spec.name));
     loadInteriorAssets(this.load, this.spec);
+    loadWorldUi(this.load);
     const nativeKeys:string[]=[];
     for(const person of this.spec.npcs){
       const native=castActor(person.id)?.native;
@@ -98,7 +103,11 @@ export class InteriorScene extends ExploreScene {
     this.events.once(Phaser.Scenes.Events.SHUTDOWN,()=>{for(const key of nativeKeys)if(this.textures.exists(key))this.textures.remove(key);});
   }
 
-  create(): void {
+  async create(): Promise<void> {
+    let alive = true;
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => { alive = false; });
+    await waitForWorldUi(this.textures);
+    if (!alive || !this.sys.isActive()) return;
     super.create();
     // The town stays on screen while the room loads; it sleeps once the room can draw.
     this.scene.sleep(SceneKeys.World);
@@ -182,9 +191,11 @@ export class InteriorScene extends ExploreScene {
     if(this.leaving)return;
     this.leaving=true;this.suspended=true;this.clearControls();
     const target=buildingRoomId(this.spec.id,door.targetRoom) as InteriorId;
-    writeWorld(this.registry,'interiorId',target);
-    this.scene.restart({id:target,mapId:this.mapId,stairs:door.kind==='stairs'});
-    emitWorld(this.game,WorldEvents.InteriorChange,target,door.id);
+    fadeWorldOut(this, this.reducedMotion, () => {
+      writeWorld(this.registry,'interiorId',target);
+      this.scene.restart({id:target,mapId:this.mapId,stairs:door.kind==='stairs'});
+      emitWorld(this.game,WorldEvents.InteriorChange,target,door.id);
+    });
   }
 
   /** Hand the frame back to the town, which places the player at this room's door. */
@@ -193,11 +204,13 @@ export class InteriorScene extends ExploreScene {
     this.leaving = true;
     this.suspended = true;
     this.clearControls();
-    writeWorld(this.registry, 'interiorId', undefined);
-    const town = this.scene.get(SceneKeys.World) as WorldScene;
-    town.resumeFromInterior({ returnFrom: buildingRoomRoot(this.spec.id) as InteriorId, instant });
-    this.scene.stop();
-    emitWorld(this.game, WorldEvents.InteriorChange, undefined);
+    fadeWorldOut(this, instant || this.reducedMotion, () => {
+      writeWorld(this.registry, 'interiorId', undefined);
+      const town = this.scene.get(SceneKeys.World) as WorldScene;
+      town.resumeFromInterior({ returnFrom: buildingRoomRoot(this.spec.id) as InteriorId, instant });
+      this.scene.stop();
+      emitWorld(this.game, WorldEvents.InteriorChange, undefined);
+    });
   }
 
   protected characterRevealed(character: Character): boolean {
@@ -272,7 +285,7 @@ export class InteriorScene extends ExploreScene {
         if (storyQuestComplete(completed, quest) && !this.completedSounds.has(quest)) { this.completedSounds.add(quest); this.audio?.effect(sound, .15); }
       }
     }
-    this.room?.update(this.decorativeElapsed, this.cameras.main.worldView);
+    this.room?.update(this.decorativeElapsed, this.cameras.main.worldView, this.clock.advance(0).hour);
   }
 
   setReducedMotion(reduced: boolean): void {

@@ -4,52 +4,34 @@
   "recipe": "art/source/character-kit/cast/kessler.json",
   "recipeSha256": "4819d63ad0dd436c7ad0e48b8c8cb29ba9702b23cbe1fe48cd2d105fa485e9c9",
   "atlas": "web/public/assets/character-cast/kessler.webp",
-  "atlasSha256": "a18fed1c7759a16d95779fb1a9a3ba97409c9ab5ea9469aeed93b3a92e79fb9e",
+  "atlasSha256": "636d2b9894f8464db28286af967e7161cc3cc641cfce215a0993478be36cea54",
   "geometry": "web/public/assets/character-cast/kessler.atlas.json",
-  "geometrySha256": "8721da861476d774161704091c2031dbf0f6186712ee22eed1c88820f5869b7d",
-  "textureBytes": 14829480,
+  "geometrySha256": "1960ded9ed0bc265ca5eb30e5b4b95a4dd6364b652f93a0f6919769c7a50734a",
+  "textureBytes": 14750896,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/kessler.webp",
+      "sha256": "636d2b9894f8464db28286af967e7161cc3cc641cfce215a0993478be36cea54",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/kessler.1.webp",
+      "sha256": "3d6e7e8de1df5ccbd08dd19a2b06747c4a85d83c6aad2b0d94cf5d90f36f61dc",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "1aba320f98fa6ccd2b84f8d28182b8a84c19cb7f0538e6259c0369f7e36885ce",
-  "proof": "art/proofs/character-cast/kessler.png",
-  "proofSha256": "d23adb4a465f29b41ddacce0e7ceeaf57a5e5de5a8e1415c32df48bfd7f690cf",
-  "editorSha256": "801d1708ecdd42de8abe7593469fd61d8ffb85663ad627f43617d8e58667ea80",
+  "sourceComponentsSha256": "33540d8311a54e85c38af48a260384ae5921f0eb527d6367ba5a76786e6bd79b",
+  "proof": "art/proofs/character-cast-painted/kessler.png",
+  "proofSha256": "49af7428ecc8820f8122fa9ccf302b25c585ace57a449778d605d7857e71d88b",
+  "editorSha256": "812a34ad31445c457d1341dac10ddb08f5fdeda399d0d0d4d918bc0d1a05a0af",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "native": {
-    "key": "character-cast-kessler-native",
-    "image": "web/public/assets/character-cast/native/kessler.webp",
-    "atlas": "web/public/assets/character-cast/native/kessler.atlas.json",
-    "sha256": "15ab3cff03116047c99ed950d6800b21705e01f146b3db1af97b427c97b748f2",
-    "atlasSha256": "ff88216c8be15b89a52bd643ae7982c31fbc5f8d255d3b643353995285de084d",
-    "textureBytes": 28297400,
-    "multiAtlas": true,
-    "images": [
-      {
-        "path": "web/public/assets/character-cast/native/kessler.webp",
-        "sha256": "15ab3cff03116047c99ed950d6800b21705e01f146b3db1af97b427c97b748f2",
-        "firstFrame": 0,
-        "frameCount": 18
-      },
-      {
-        "path": "web/public/assets/character-cast/native/kessler.1.webp",
-        "sha256": "d5441a3fc56d0c7169e122327b300917864757ff352b55d242bca51f84d12c56",
-        "firstFrame": 18,
-        "frameCount": 18
-      }
-    ],
-    "cell": [
-      512,
-      768
-    ],
-    "source": "art/proofs/character-cast/kessler.webp",
-    "sourceSha256": "801d1708ecdd42de8abe7593469fd61d8ffb85663ad627f43617d8e58667ea80"
-  },
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "1aba320f98fa6ccd2b84f8d28182b8a84c19cb7f0538e6259c0369f7e36885ce"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

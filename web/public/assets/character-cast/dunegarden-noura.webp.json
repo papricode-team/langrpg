@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b88e61\",\"#30251b\",[[\"bag\",\"tote\"],[\"bottom\",\"straight\"],[\"eyewear\",\"square\"],[\"face\",\"oval\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",\"trench\"],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#b6984e\"],[\"bottom.primary\",\"#d1b1b3\"],[\"eyewear.primary\",\"#3d3b30\"],[\"footwear.primary\",\"#d8cbb2\"],[\"headwear.primary\",\"#a08eb4\"],[\"headwear.secondary\",\"#a08eb4\"],[\"neck.primary\",\"#a08eb4\"],[\"outer.primary\",\"#454d51\"],[\"outer.secondary\",\"#454d51\"],[\"top.primary\",\"#d9b6b9\"],[\"top.secondary\",\"#d9b6b9\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b88e61\",\"#30251b\",[[\"bag\",\"tote\"],[\"bottom\",\"straight\"],[\"eyewear\",\"square\"],[\"face\",\"oval\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",\"trench\"],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#b6984e\"],[\"bottom.primary\",\"#d1b1b3\"],[\"eyewear.primary\",\"#3d3b30\"],[\"footwear.primary\",\"#d8cbb2\"],[\"headwear.primary\",\"#a08eb4\"],[\"headwear.secondary\",\"#a08eb4\"],[\"neck.primary\",\"#a08eb4\"],[\"outer.primary\",\"#454d51\"],[\"outer.secondary\",\"#454d51\"],[\"top.primary\",\"#d9b6b9\"],[\"top.secondary\",\"#d9b6b9\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "94df0179f3ee1b5956f74660d877a7f51c5fc5de4061d6b418941560315e437a",
-  "atlasSha256": "d5ac31a4a41bc01cc89d00e65f1eccd161c984340e120b91316d985da16400a6",
-  "textureBytes": 14044004,
-  "atlas": "web/public/assets/character-cast/dunegarden-noura.atlas.json"
+  "sha256": "387151f046e213d99dbd0c2ed69ccbf93f5f3ae357941879f27281fbe61f0f5f",
+  "atlasSha256": "ef0cb735a0ea403d8c596e0c2630efc6b6180f35dc54e17ca51b3823c2176d05",
+  "textureBytes": 13812684,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/dunegarden-noura.webp",
+      "sha256": "387151f046e213d99dbd0c2ed69ccbf93f5f3ae357941879f27281fbe61f0f5f",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/dunegarden-noura.1.webp",
+      "sha256": "a4ef4b0b1f6e1a5bf62de31a8e9540ac46b606e23fd067581fc9e8fc2884539e",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/dunegarden-noura.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

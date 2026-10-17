@@ -4,23 +4,34 @@
   "recipe": "art/source/character-kit/cast/windplain-erdene.json",
   "recipeSha256": "48b3665bab50cb31c7c15f3f9afedded5dbbf340dd5533e26d0ef65e7cbe05ab",
   "atlas": "web/public/assets/character-cast/windplain-erdene.webp",
-  "atlasSha256": "3d17efb3f5734761c2597185aae1213694dfff31dc64e9477439adf3ad6fd8c2",
+  "atlasSha256": "82c46d8770eb6e1264837d478d14362af04751d22612db6ed7d7c65357f5f2f4",
   "geometry": "web/public/assets/character-cast/windplain-erdene.atlas.json",
-  "geometrySha256": "2ca551db31c431b77da56e6c7c20a89d1d2e02096248dc37e7ac7828b80ebc55",
-  "textureBytes": 14908128,
+  "geometrySha256": "1cb1b5d58dc199340fe5dcd26acbf5a47cea6303da8014ce9ec9d1f37b196eb3",
+  "textureBytes": 14439040,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/windplain-erdene.webp",
+      "sha256": "82c46d8770eb6e1264837d478d14362af04751d22612db6ed7d7c65357f5f2f4",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/windplain-erdene.1.webp",
+      "sha256": "2a42a2554c839206f64b88ddc2b0db36c510da581ec45cdc7e5181a194d7e960",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "818439dafed2ca695d1c96b28589ec77fe62a4c6ccccd75c79720a8126a763bb",
-  "proof": "art/proofs/character-cast/windplain-erdene.png",
-  "proofSha256": "837a087b02b6d7e38e7b0d9e13e32915eee7ad819e8e48baeb85bc625a8a587b",
-  "editorSha256": "019a7c104a01835232df8069e8303fd39be685907be3f4f04f241540fc4f3f25",
+  "sourceComponentsSha256": "36dfe49bb7d6d5ca626101d84100fe2462a2875c6aa276728c528b8238e7c1f0",
+  "proof": "art/proofs/character-cast-painted/windplain-erdene.png",
+  "proofSha256": "14f1e269b6228673115441028a70fb20a3de994cc42516f632df8aeb9861a0eb",
+  "editorSha256": "8c1b9e4967f6bb4b64b730452094e59ecb1b315fbe591d586620b43e967cfd77",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "818439dafed2ca695d1c96b28589ec77fe62a4c6ccccd75c79720a8126a763bb"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

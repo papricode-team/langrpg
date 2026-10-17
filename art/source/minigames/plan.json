@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "nounCount": 181,
-  "propCount": 27,
+  "nounCount": 199,
+  "propCount": 31,
   "styleReferences": [
     "art/source/interiors/interior-cafe-objects.png",
     "art/source/interiors/interior-supermarket-objects.png"
@@ -2411,6 +2411,276 @@
         }
       ],
       "prompt": "Use case: stylized-concept\nAsset type: transparent painterly game item sprite sheet\nPrimary request: Paint 16 distinct isolated object sprites for glotworld near-isometric RPG in an exact 4 by 4 regular grid. Canvas 2048 by 2048 pixels. Each cell is 512 by 512 pixels; one named subject per cell, read left to right then top to bottom.\nStyle/medium: detailed hand-painted storybook gouache and oil, softly textured materials, warm brass, cream ceramics, muted forest green, matching the existing café and supermarket interior object sheets. Three-quarter view, consistent top-left warm lighting.\nScene/backdrop: genuinely transparent alpha, no painted backdrop.\nComposition: one complete object centred in each cell, maximum object extent 380 pixels, generous transparent margins of at least 60 pixels, no overlap between cells, no cast shadows outside the object. Keep small details legible at 128 pixels.\nSubjects in row-major order:\n1. one thick raw red cut of meat with a white fat edge, lying on a plain small plate\n2. one quirky brass desk lamp with two short articulated brass legs, side view, left leg forward and right leg back\n3. the same quirky brass walking desk lamp, side view, legs together beneath its body\n4. the same quirky brass walking desk lamp, side view, right leg forward and left leg back\n5. the same quirky brass walking desk lamp, side view, both legs bent in a small jaunty step\n6. one brass-framed station flip-board cell, blank dark green face fully closed, front view\n7. the same brass-framed station flip-board cell, dark green upper flap tilted outward by twenty degrees\n8. the same brass-framed station flip-board cell, dark green upper flap tilted outward by forty degrees\n9. the same brass-framed station flip-board cell, dark green upper flap tilted outward by sixty degrees\n10. the same brass-framed station flip-board cell, dark green upper flap horizontal at ninety degrees\n11. the same brass-framed station flip-board cell, upper flap rotating downward past horizontal\n12. the same brass-framed station flip-board cell, upper flap almost against lower dark green half\n13. the same brass-framed station flip-board cell, upper flap completing its rotation downward\n14. the same brass-framed station flip-board cell, blank dark green face closed again after its flip\n15. one red-handled brass lever on a small square brass base\n16. one blue electrical plug and socket connector joined by a short blue wire\nConstraints: exactly 16 objects, correct subject ordering, no labels, no legible text, no grid lines, no watermark, no emoji, no vector line icons. Transparent background; retain native alpha. Each silhouette must be identifiable without a written label."
+    },
+    {
+      "id": "items-14",
+      "columns": 4,
+      "rows": 4,
+      "frames": [
+        {
+          "name": "item-karte-noun",
+          "lexemeId": "karte-noun",
+          "lemma": "Karte",
+          "article": "die",
+          "plural": "Karten",
+          "level": "A1",
+          "topic": "travel",
+          "domain": "story",
+          "subject": "one folded cream map card showing painted paths without text",
+          "kind": "noun",
+          "pictureable": true
+        },
+        {
+          "name": "item-adresse-noun",
+          "lexemeId": "adresse-noun",
+          "lemma": "Adresse",
+          "article": "die",
+          "plural": "Adressen",
+          "level": "A1",
+          "topic": "everyday",
+          "domain": "story",
+          "subject": "one cream addressed envelope with a small house emblem and illegible ink",
+          "kind": "noun",
+          "pictureable": false
+        },
+        {
+          "name": "item-bahnhof-noun",
+          "lexemeId": "bahnhof-noun",
+          "lemma": "Bahnhof",
+          "article": "der",
+          "plural": "Bahnhöfe",
+          "level": "A1",
+          "topic": "travel",
+          "domain": "story",
+          "subject": "one miniature warm sandstone railway station with a green roof",
+          "kind": "noun",
+          "pictureable": true
+        },
+        {
+          "name": "item-reparatur-noun",
+          "lexemeId": "reparatur-noun",
+          "lemma": "Reparatur",
+          "article": "die",
+          "plural": "Reparaturen",
+          "level": "A1",
+          "topic": "home",
+          "domain": "story",
+          "subject": "one broken brass cog beside a small wrench, repair motif",
+          "kind": "noun",
+          "pictureable": false
+        },
+        {
+          "name": "item-anschluss-noun",
+          "lexemeId": "anschluss-noun",
+          "lemma": "Anschluss",
+          "article": "der",
+          "plural": "Anschlüsse",
+          "level": "A1",
+          "topic": "everyday",
+          "domain": "story",
+          "subject": "two connected brass railway track sections, connection motif",
+          "kind": "noun",
+          "pictureable": false
+        },
+        {
+          "name": "item-fieber-noun",
+          "lexemeId": "fieber-noun",
+          "lemma": "Fieber",
+          "article": "das",
+          "plural": "Fieber",
+          "level": "A1",
+          "topic": "health",
+          "domain": "story",
+          "subject": "one glass medical thermometer beside a folded cloth, fever motif",
+          "kind": "noun",
+          "pictureable": false
+        },
+        {
+          "name": "item-rad-noun",
+          "lexemeId": "rad-noun",
+          "lemma": "Rad",
+          "article": "das",
+          "plural": "Räder",
+          "level": "A2",
+          "topic": "home",
+          "domain": "story",
+          "subject": "one red painted wooden wheel with brass hub",
+          "kind": "noun",
+          "pictureable": true
+        },
+        {
+          "name": "item-erinnerung-noun",
+          "lexemeId": "erinnerung-noun",
+          "lemma": "Erinnerung",
+          "article": "die",
+          "plural": "Erinnerungen",
+          "level": "B1",
+          "topic": "everyday",
+          "domain": "story",
+          "subject": "one open small wooden keepsake box holding a sepia photograph, memory motif",
+          "kind": "noun",
+          "pictureable": false
+        },
+        {
+          "name": "item-zeichen-noun",
+          "lexemeId": "zeichen-noun",
+          "lemma": "Zeichen",
+          "article": "das",
+          "plural": "Zeichen",
+          "level": "B1",
+          "topic": "everyday",
+          "domain": "story",
+          "subject": "one carved wooden sign bearing a simple painted golden sun symbol, no letters",
+          "kind": "noun",
+          "pictureable": false
+        },
+        {
+          "name": "item-patient-noun",
+          "lexemeId": "patient-noun",
+          "lemma": "Patient",
+          "article": "der",
+          "plural": "Patienten",
+          "level": "B1",
+          "topic": "health",
+          "domain": "story",
+          "subject": "one seated fully clothed adult patient with cream blanket, miniature painted figure",
+          "kind": "noun",
+          "pictureable": true
+        },
+        {
+          "name": "item-linie-noun",
+          "lexemeId": "linie-noun",
+          "lemma": "Linie",
+          "article": "die",
+          "plural": "Linien",
+          "level": "B1",
+          "topic": "everyday",
+          "domain": "story",
+          "subject": "one coil of red cord laid out as a single straight line across cream paper",
+          "kind": "noun",
+          "pictureable": false
+        },
+        {
+          "name": "item-werkzeug-noun",
+          "lexemeId": "werkzeug-noun",
+          "lemma": "Werkzeug",
+          "article": "das",
+          "plural": "Werkzeuge",
+          "level": "B1",
+          "topic": "home",
+          "domain": "story",
+          "subject": "one small open wooden toolbox with hammer and wrench",
+          "kind": "noun",
+          "pictureable": true
+        },
+        {
+          "name": "prop-correct-seal",
+          "subject": "one forest green wax seal embossed with a golden linden leaf, approval motif, no check mark",
+          "kind": "prop"
+        },
+        {
+          "name": "prop-miss-seal",
+          "subject": "one muted terracotta wax seal with a gently dented centre and small fallen leaf, retry motif, no cross",
+          "kind": "prop"
+        },
+        {
+          "name": "prop-listening-horn",
+          "subject": "one small brass gramophone horn on a wooden base",
+          "kind": "prop"
+        },
+        {
+          "name": "prop-placeholder",
+          "subject": "one closed cream linen drawstring pouch with a small brass sun clasp",
+          "kind": "prop"
+        }
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: transparent painterly game item sprite sheet\nPrimary request: Paint 16 distinct isolated object sprites for glotworld near-isometric RPG in an exact 4 by 4 regular grid. Canvas 2048 by 2048 pixels. Each cell is 512 by 512 pixels; one named subject per cell, read left to right then top to bottom.\nStyle/medium: detailed hand-painted storybook gouache and oil, softly textured materials, warm brass, cream ceramics, muted forest green, matching the existing café and supermarket interior object sheets. Three-quarter view, consistent top-left warm lighting.\nScene/backdrop: genuinely transparent alpha, no painted backdrop.\nComposition: one complete object centred in each cell, maximum object extent 380 pixels, generous transparent margins of at least 60 pixels, no overlap between cells, no cast shadows outside the object. Keep small details legible at 128 pixels.\nSubjects in row-major order:\n1. one folded cream map card showing painted paths without text\n2. one cream addressed envelope with a small house emblem and illegible ink\n3. one miniature warm sandstone railway station with a green roof\n4. one broken brass cog beside a small wrench, repair motif\n5. two connected brass railway track sections, connection motif\n6. one glass medical thermometer beside a folded cloth, fever motif\n7. one red painted wooden wheel with brass hub\n8. one open small wooden keepsake box holding a sepia photograph, memory motif\n9. one carved wooden sign bearing a simple painted golden sun symbol, no letters\n10. one seated fully clothed adult patient with cream blanket, miniature painted figure\n11. one coil of red cord laid out as a single straight line across cream paper\n12. one small open wooden toolbox with hammer and wrench\n13. one forest green wax seal embossed with a golden linden leaf, approval motif, no check mark\n14. one muted terracotta wax seal with a gently dented centre and small fallen leaf, retry motif, no cross\n15. one small brass gramophone horn on a wooden base\n16. one closed cream linen drawstring pouch with a small brass sun clasp\nConstraints: exactly 16 objects, correct subject ordering, no labels, no legible text, no grid lines, no watermark, no emoji, no vector line icons. Transparent background; retain native alpha. Each silhouette must be identifiable without a written label."
+    },
+    {
+      "id": "items-15",
+      "columns": 4,
+      "rows": 4,
+      "frames": [
+        {
+          "name": "item-tuete-noun",
+          "lexemeId": "tuete-noun",
+          "lemma": "Tüte",
+          "article": "die",
+          "plural": "Tüten",
+          "level": "B1",
+          "topic": "home",
+          "domain": "story",
+          "subject": "one upright plain brown paper bag",
+          "kind": "noun",
+          "pictureable": true
+        },
+        {
+          "name": "item-reihenfolge-noun",
+          "lexemeId": "reihenfolge-noun",
+          "lemma": "Reihenfolge",
+          "article": "die",
+          "plural": "Reihenfolgen",
+          "level": "B1",
+          "topic": "society",
+          "domain": "story",
+          "subject": "three wooden beads of increasing size on a cord, sequence motif",
+          "kind": "noun",
+          "pictureable": false
+        },
+        {
+          "name": "item-anleitung-noun",
+          "lexemeId": "anleitung-noun",
+          "lemma": "Anleitung",
+          "article": "die",
+          "plural": "Anleitungen",
+          "level": "B1",
+          "topic": "everyday",
+          "domain": "story",
+          "subject": "one open cream instruction booklet showing simple lamp assembly pictures without text",
+          "kind": "noun",
+          "pictureable": true
+        },
+        {
+          "name": "item-rat-noun",
+          "lexemeId": "rat-noun",
+          "lemma": "Rat",
+          "article": "der",
+          "plural": "Räte",
+          "level": "B1",
+          "topic": "everyday",
+          "domain": "story",
+          "subject": "one miniature semicircle of seven wooden council chairs",
+          "kind": "noun",
+          "pictureable": false
+        },
+        {
+          "name": "item-bericht-noun",
+          "lexemeId": "bericht-noun",
+          "lemma": "Bericht",
+          "article": "der",
+          "plural": "Berichte",
+          "level": "B1",
+          "topic": "work",
+          "domain": "story",
+          "subject": "one cream report folio with illegible ink and a brass paper clip",
+          "kind": "noun",
+          "pictureable": false
+        },
+        {
+          "name": "item-muehle-noun",
+          "lexemeId": "muehle-noun",
+          "lemma": "Mühle",
+          "article": "die",
+          "plural": "Mühlen",
+          "level": "A2",
+          "topic": "everyday",
+          "domain": "story",
+          "subject": "one miniature warm sandstone watermill with wooden wheel",
+          "kind": "noun",
+          "pictureable": true
+        }
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: transparent painterly game item sprite sheet\nPrimary request: Paint 6 distinct isolated object sprites for glotworld near-isometric RPG in an exact 4 by 4 regular grid. Canvas 2048 by 2048 pixels. Each cell is 512 by 512 pixels; one named subject per cell, read left to right then top to bottom.\nStyle/medium: detailed hand-painted storybook gouache and oil, softly textured materials, warm brass, cream ceramics, muted forest green, matching the existing café and supermarket interior object sheets. Three-quarter view, consistent top-left warm lighting.\nScene/backdrop: genuinely transparent alpha, no painted backdrop.\nComposition: one complete object centred in each cell, maximum object extent 380 pixels, generous transparent margins of at least 60 pixels, no overlap between cells, no cast shadows outside the object. Keep small details legible at 128 pixels.\nSubjects in row-major order:\n1. one upright plain brown paper bag\n2. three wooden beads of increasing size on a cord, sequence motif\n3. one open cream instruction booklet showing simple lamp assembly pictures without text\n4. one miniature semicircle of seven wooden council chairs\n5. one cream report folio with illegible ink and a brass paper clip\n6. one miniature warm sandstone watermill with wooden wheel\nConstraints: exactly 6 objects, correct subject ordering, no labels, no legible text, no grid lines, no watermark, no emoji, no vector line icons. Transparent background; retain native alpha. Each silhouette must be identifiable without a written label."
     }
   ]
 }

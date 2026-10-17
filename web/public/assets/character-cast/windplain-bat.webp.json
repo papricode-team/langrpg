@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b38b68\",\"#262724\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"henley\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#3b666b\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#50483a\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#3b757b\"],[\"outer.secondary\",\"#97afa5\"],[\"top.primary\",\"#393c35\"],[\"top.secondary\",\"#393c35\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b38b68\",\"#262724\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"henley\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#3b666b\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#50483a\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#3b757b\"],[\"outer.secondary\",\"#97afa5\"],[\"top.primary\",\"#393c35\"],[\"top.secondary\",\"#393c35\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "1f7c9c790eebdaf6a2eb791cd65153909283c28419389661fa17c3afc9fe2bcd",
-  "atlasSha256": "54d18f3e2c1c668e8a296e69a5792e47d8d0d8b93cddadbde5f9dbdf1476a2b4",
-  "textureBytes": 14490960,
-  "atlas": "web/public/assets/character-cast/windplain-bat.atlas.json"
+  "sha256": "31a74595ecaba65515dd3c578fa9003f6bc0d23cfa9f1ac429dd7be784f5c456",
+  "atlasSha256": "6e61b9c99d2d80f8cab5e82827617d1545ef6acd3806c99a3e62751c490a05e1",
+  "textureBytes": 14183196,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/windplain-bat.webp",
+      "sha256": "31a74595ecaba65515dd3c578fa9003f6bc0d23cfa9f1ac429dd7be784f5c456",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/windplain-bat.1.webp",
+      "sha256": "ed54a4bdcb8f56a68df6d5e64652ed6b16dc8da45f9c8820d6cb8fd4059bcbf3",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/windplain-bat.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

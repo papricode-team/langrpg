@@ -5,7 +5,7 @@
       "id": "meadow",
       "name": "Meadow grass",
       "group": "Ground",
-      "color": "#718347",
+      "color": "#5f7d4a",
       "blocked": false,
       "asset": "/assets/terrain-materials/meadow.webp",
       "thumbnail": "/assets/terrain-materials/meadow-thumb.webp",
@@ -148,7 +148,7 @@
       "height": 1152,
       "sourceWidth": 1254,
       "sourceHeight": 1254,
-      "worldSize": 256,
+      "worldSize": 128,
       "repeat": "periodic-overlap"
     },
     {
@@ -337,7 +337,7 @@
       "id": "canal-grass",
       "name": "Cool canal undergrowth",
       "group": "Ground",
-      "color": "#183b39",
+      "color": "#5f7d4a",
       "blocked": false,
       "asset": "/assets/terrain-materials/canal-grass.webp",
       "thumbnail": "/assets/terrain-materials/canal-grass-thumb.webp",

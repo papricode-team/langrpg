@@ -32,7 +32,9 @@ The UI content budget and screenshot checks are documented in [UI guidelines](do
 
 ## Run locally
 
-Requirements: **Go 1.26+** and **Node.js 24+**. The world editors use a Node worker to check edits; Docker includes the runtime and its dependencies.
+Requirements: **Go 1.27.2+** and **Node.js 24+** (Node.js 26 is used by `.nvmrc` and Docker). The world editors use a Node worker to check edits; Docker includes the runtime and its dependencies.
+
+Type checks use native TypeScript 7 through the `@typescript/native` npm alias. The `typescript` alias provides the TypeScript 6 compiler API required by ESLint, Astro and the content transforms; keep both packages when updating dependencies.
 
 From the repository root:
 

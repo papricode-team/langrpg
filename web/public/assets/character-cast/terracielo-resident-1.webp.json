@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#ac8257\",\"#2f2920\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"boots\"],[\"hair\",\"buzz\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",\"scarf\"],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#616b44\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#803f38\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#3b6682\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#daccac\"],[\"top.secondary\",\"#daccac\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#ac8257\",\"#2f2920\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"boots\"],[\"hair\",\"buzz\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",\"scarf\"],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#616b44\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#803f38\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#3b6682\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#daccac\"],[\"top.secondary\",\"#daccac\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "2e5cb12071800a5bb31d0dc6e870b0d9778e84e2c327c143ced4db571de6e4b8",
-  "atlasSha256": "19e4c7165a45d2242a79ce400842904b225501d4fa5172114596e4c05c89e28c",
-  "textureBytes": 14193216,
-  "atlas": "web/public/assets/character-cast/terracielo-resident-1.atlas.json"
+  "sha256": "8bbc9704ee7ab1d0819edf07dad8604e7863c0646a1a3819f48213bd814cb8a8",
+  "atlasSha256": "19e0cd8a5c538a6bcb7eb241fe5fd05587ca47ff64f2c982521d4f445a5213f2",
+  "textureBytes": 13810020,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/terracielo-resident-1.webp",
+      "sha256": "8bbc9704ee7ab1d0819edf07dad8604e7863c0646a1a3819f48213bd814cb8a8",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/terracielo-resident-1.1.webp",
+      "sha256": "94f6c9cf2b97ae51877846ba7658e9b5a0d8c2a37875850df164852944f0fff3",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/terracielo-resident-1.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

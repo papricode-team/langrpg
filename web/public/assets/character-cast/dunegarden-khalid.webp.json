@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b6895e\",\"#30251b\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#9b4b33\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#6e4a2c\"],[\"headwear.primary\",\"#9a4e36\"],[\"headwear.secondary\",\"#9a4e36\"],[\"neck.primary\",\"#9a4e36\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#a55b3b\"],[\"top.secondary\",\"#a55b3b\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b6895e\",\"#30251b\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#9b4b33\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#6e4a2c\"],[\"headwear.primary\",\"#9a4e36\"],[\"headwear.secondary\",\"#9a4e36\"],[\"neck.primary\",\"#9a4e36\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#a55b3b\"],[\"top.secondary\",\"#a55b3b\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "deae63a21bd6806e7910e08ccb76720e716f0a3af8ce820dc6ed6585bc945b3f",
-  "atlasSha256": "5bcfaf7ed28363ff82f04d8d37a212596b62e31c8a6a92dfc7abd972b82a0221",
-  "textureBytes": 13986180,
-  "atlas": "web/public/assets/character-cast/dunegarden-khalid.atlas.json"
+  "sha256": "ca57244008821b91f52f3801d666d903d05a36c88041d6c4ad1f06a596ff677f",
+  "atlasSha256": "18d97300e89dc3cbd0fe76d84d602c773b557c6f662a7b9a49c50467abb014ab",
+  "textureBytes": 14524936,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/dunegarden-khalid.webp",
+      "sha256": "ca57244008821b91f52f3801d666d903d05a36c88041d6c4ad1f06a596ff677f",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/dunegarden-khalid.1.webp",
+      "sha256": "e34325992885e4befb6cf87ce8f668d0ea9de25a567e7f0484b157e308145afa",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/dunegarden-khalid.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

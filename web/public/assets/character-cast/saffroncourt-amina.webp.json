@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#bc8b66\",\"#a19b8a\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",\"round\"],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#3e7172\"],[\"eyewear.primary\",\"#72542d\"],[\"footwear.primary\",\"#5a4231\"],[\"headwear.primary\",\"#4b7772\"],[\"headwear.secondary\",\"#4b7772\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#e9dfc8\"],[\"top.secondary\",\"#e9dfc8\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#bc8b66\",\"#a19b8a\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",\"round\"],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#3e7172\"],[\"eyewear.primary\",\"#72542d\"],[\"footwear.primary\",\"#5a4231\"],[\"headwear.primary\",\"#4b7772\"],[\"headwear.secondary\",\"#4b7772\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#e9dfc8\"],[\"top.secondary\",\"#e9dfc8\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "ecca73b003ad02fee681893d631329172e39c21cba08ddc0b7247f162f25c1e9",
-  "atlasSha256": "a6b2f323bdc36a51c3537879acb304a6aea198de45e1010ce8e17bb3d0977411",
-  "textureBytes": 14717120,
-  "atlas": "web/public/assets/character-cast/saffroncourt-amina.atlas.json"
+  "sha256": "a859a184a63e015875902d5d4016927340dd766fee023da6e7b716823b1ae147",
+  "atlasSha256": "3dba975dce8593dd403155183b69832dc518522cfc814b74f8145867cf9fb80d",
+  "textureBytes": 14050840,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/saffroncourt-amina.webp",
+      "sha256": "a859a184a63e015875902d5d4016927340dd766fee023da6e7b716823b1ae147",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/saffroncourt-amina.1.webp",
+      "sha256": "e0e9c2da6b888e51c3d1142c17281966fc90c2bfc4007dbcde675d5658ada865",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/saffroncourt-amina.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

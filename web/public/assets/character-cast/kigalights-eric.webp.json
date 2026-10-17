@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#68452f\",\"#27211a\",[[\"bag\",null],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"boots\"],[\"hair\",null],[\"headwear\",\"cap\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#4a4a3e\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#675039\"],[\"headwear.primary\",\"#686d4c\"],[\"headwear.secondary\",\"#686d4c\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#405f45\"],[\"outer.secondary\",\"#405f45\"],[\"top.primary\",\"#c9b28b\"],[\"top.secondary\",\"#c9b28b\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#68452f\",\"#27211a\",[[\"bag\",null],[\"bottom\",\"cropped\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"boots\"],[\"hair\",null],[\"headwear\",\"cap\"],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#4a4a3e\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#675039\"],[\"headwear.primary\",\"#686d4c\"],[\"headwear.secondary\",\"#686d4c\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#405f45\"],[\"outer.secondary\",\"#405f45\"],[\"top.primary\",\"#c9b28b\"],[\"top.secondary\",\"#c9b28b\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "8e8d8e8bbc218734a3ff057f0e73d30239eedb4894d09eed35a016a2205356eb",
-  "atlasSha256": "bf97d6c1a486567925fa2d57be1012bdbd155b808e07c18ae101c9c3bd41e574",
-  "textureBytes": 14525664,
-  "atlas": "web/public/assets/character-cast/kigalights-eric.atlas.json"
+  "sha256": "af2f0998887e8879e3708e6476001f5de600b1d280a0c77b20ae432a7685f6f8",
+  "atlasSha256": "c2935fddd9ead5da11c0a95e43c3cdc7148d815fddd8531caedc1267c8ff8c35",
+  "textureBytes": 14198728,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/kigalights-eric.webp",
+      "sha256": "af2f0998887e8879e3708e6476001f5de600b1d280a0c77b20ae432a7685f6f8",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/kigalights-eric.1.webp",
+      "sha256": "23daddc4c94bd94d968ce2ac73882b7dea7b9e43589542cf5cf3a610f374ee7f",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/kigalights-eric.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

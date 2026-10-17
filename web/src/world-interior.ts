@@ -1,3 +1,7 @@
+import { createAtmosphereTextures } from './world-atmosphere';
+import { graphicsQualityTier } from './quality-state';
+import { roomRenderDensity } from './world-grade';
+import { nightIntensity } from './world-clock';
 import {roomKind} from './room-kind';
 import type * as Phaser from 'phaser';
 import type { InteriorSpec } from './interiors';
@@ -28,7 +32,7 @@ interface InteriorEffect {
   phase: number;
 }
 
-function inView(sprite: Phaser.GameObjects.Sprite, width: number, height: number, view: SceneryView): boolean {
+function inView(sprite: Phaser.GameObjects.Image | Phaser.GameObjects.Sprite, width: number, height: number, view: SceneryView): boolean {
   return sprite.x + width * (1 - sprite.originX) >= view.x && sprite.x - width * sprite.originX <= view.right
     && sprite.y + height * (1 - sprite.originY) >= view.y && sprite.y - height * sprite.originY <= view.bottom;
 }
@@ -44,6 +48,9 @@ export class WorldInterior {
   private visible = true;
   private reducedMotion = false;
   private motionTime = 0;
+  private refreshDensity = () => {};
+  private releaseBackground = () => {};
+  private lights: {sprite: Phaser.GameObjects.Image; width: number; height: number; window: boolean}[] = [];
   private dawn?: Phaser.GameObjects.Image;
   private dawnActive = false;
   private teaServed = false;
@@ -58,18 +65,52 @@ export class WorldInterior {
       if (spec.dawnAsset && scene.textures.exists(dawnKey)) this.dawn = scene.add.image(0, 0, dawnKey).setOrigin(0).setDisplaySize(spec.width, spec.height).setDepth(-999).setAlpha(0);
     } else {
     const backgroundKey = `room-kit-${spec.layout ? spec.id : roomKind(spec.id)}`;
-    const signature = roomLayoutFingerprint(spec.layout)+(Object.keys(spec.stairDirections ?? {}).length?JSON.stringify(spec.stairDirections):'');
-    if (scene.textures.exists(backgroundKey) && (scene.textures.get(backgroundKey).customData as {layout?:string}).layout !== signature) scene.textures.remove(backgroundKey);
-    if (!scene.textures.exists(backgroundKey)) {
-      const texture = scene.textures.createCanvas(backgroundKey, spec.width, spec.height)!;
-      paintRoomKit(texture.context, spec, id => {
-        const key = id === 'room-kit-furniture' ? id : terrainMaterialKey(id);
-        return scene.textures.exists(key) ? scene.textures.get(key).getSourceImage() as HTMLImageElement : undefined;
-      });
-      texture.customData = {layout:signature};
-      texture.refresh();
+    const renderer = scene.game?.renderer as Phaser.Renderer.WebGL.WebGLRenderer | undefined;
+    const maxSize = renderer?.gl ? renderer.gl.getParameter(renderer.gl.MAX_TEXTURE_SIZE) as number : 4096;
+    let density = roomRenderDensity(spec.width, spec.height, graphicsQualityTier(), maxSize);
+    const paintBackground = (density: number) => {
+      const signature = `${density}:` + roomLayoutFingerprint(spec.layout)+(Object.keys(spec.stairDirections ?? {}).length?JSON.stringify(spec.stairDirections):'');
+      if (scene.textures.exists(backgroundKey) && (scene.textures.get(backgroundKey).customData as {layout?:string}).layout !== signature) scene.textures.remove(backgroundKey);
+      if (!scene.textures.exists(backgroundKey)) {
+        const texture = scene.textures.createCanvas(backgroundKey, Math.floor(spec.width * density), Math.floor(spec.height * density))!;
+        texture.context.save();
+        texture.context.scale(density, density);
+        paintRoomKit(texture.context, spec, id => {
+          const key = id === 'room-kit-furniture' ? id : terrainMaterialKey(id);
+          return scene.textures.exists(key) ? scene.textures.get(key).getSourceImage() as HTMLImageElement : undefined;
+        });
+        texture.context.restore();
+        texture.customData = {layout:signature};
+        texture.refresh();
+      }
+    };
+    paintBackground(density);
+    this.releaseBackground = () => { if (scene.textures.exists(backgroundKey)) scene.textures.remove(backgroundKey); };
+    const kitBackground = scene.add.image(0, 0, backgroundKey).setOrigin(0).setDisplaySize(spec.width, spec.height).setDepth(-1000);
+    this.background = kitBackground;
+    this.refreshDensity = () => {
+      const next = roomRenderDensity(spec.width, spec.height, graphicsQualityTier(), maxSize);
+      if (next === density) return;
+      density = next;
+      paintBackground(density);
+      kitBackground.setTexture(backgroundKey).setDisplaySize(spec.width, spec.height);
+    };
+    createAtmosphereTextures(scene);
+    const kit = roomKit(spec);
+    const light = (x: number, y: number, width: number, height: number, window: boolean, halo = false) => {
+      const sprite = scene.add.image(x, y, halo ? 'atmo-glow' : 'atmo-pool')
+        .setDisplaySize(width, height).setDepth(halo ? worldDepth(y, 'label') : -999).setAlpha(0);
+      this.lights.push({sprite, width, height, window});
+    };
+    for (const wall of kit.walls) if (wall.window) {
+      const x = (wall.from[0] + wall.to[0]) / 2, y = (wall.from[1] + wall.to[1]) / 2;
+      light(x + 52, y + 76, 280, 160, true);
     }
-    this.background = scene.add.image(0, 0, backgroundKey).setOrigin(0).setDisplaySize(spec.width, spec.height).setDepth(-1000);
+    for (const fixture of kit.fixtures) if (fixture.kind === 'lamp') {
+      const x = fixture.x + fixture.width / 2, y = fixture.y + fixture.height * .25;
+      light(x, y, 125, 125, false, true);
+      light(x + 24, fixture.y + fixture.height, 170, 65, false);
+    }
     // Tall fixtures sort against people by their feet, just like the existing furniture atlas.
     if (scene.textures.exists('room-kit-furniture')) for (const fixture of roomKit(spec).fixtures) {
       const frame = furnitureFrames[fixture.kind], texture = scene.textures.get('room-kit-furniture');
@@ -129,13 +170,20 @@ export class WorldInterior {
   setVisible(visible: boolean): void {
     this.visible = visible;
     this.background.setVisible(visible);
+    if (!visible) for (const light of this.lights) light.sprite.setVisible(false);
     this.dawn?.setVisible(visible);
     if (!visible) for (const layer of this.layers) layer.sprite.setVisible(false);
     if (!visible) for (const effect of this.effects) for (const sprite of effect.sprites) sprite.setVisible(false);
   }
 
-  update(seconds: number, view: SceneryView): void {
+  update(seconds: number, view: SceneryView, hour = 12): void {
+    this.refreshDensity();
     if (!this.reducedMotion) this.motionTime = seconds;
+    const night = nightIntensity(hour);
+    for (const light of this.lights) {
+      light.sprite.setVisible(this.visible && inView(light.sprite, light.width, light.height, view))
+        .setAlpha(light.window ? .15 * (1 - night) + .025 : .07 + night * .035);
+    }
     for (const layer of this.layers) {
       layer.sprite.setVisible(this.visible && (layer.story !== 'tea' || this.teaServed) && inView(layer.sprite, layer.width, layer.height, view));
     }
@@ -154,7 +202,12 @@ export class WorldInterior {
   }
 
   destroy(): void {
+    this.refreshDensity = () => {};
     this.background.destroy();
+    this.releaseBackground();
+    this.releaseBackground = () => {};
+    for (const light of this.lights) light.sprite.destroy();
+    this.lights = [];
     this.dawn?.destroy();
     for (const layer of this.layers) layer.sprite.destroy();
     for (const effect of this.effects) for (const sprite of effect.sprites) sprite.destroy();

@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#956d44\",\"#30251b\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#514632\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#51432e\"],[\"headwear.primary\",\"#dfd0ae\"],[\"headwear.secondary\",\"#dfd0ae\"],[\"neck.primary\",\"#dfd0ae\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#3f674b\"],[\"top.secondary\",\"#3f674b\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#956d44\",\"#30251b\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",null],[\"headwear\",\"turban\"],[\"held\",null],[\"markings\",null],[\"neck\",\"cowl\"],[\"outer\",null],[\"top\",\"tunic\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#514632\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#51432e\"],[\"headwear.primary\",\"#dfd0ae\"],[\"headwear.secondary\",\"#dfd0ae\"],[\"neck.primary\",\"#dfd0ae\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#3f674b\"],[\"top.secondary\",\"#3f674b\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "f53c3ecd37493b60b057017ad4ac52f6a91aa92be2d77b277de16d0494271884",
-  "atlasSha256": "5bcfaf7ed28363ff82f04d8d37a212596b62e31c8a6a92dfc7abd972b82a0221",
-  "textureBytes": 13986180,
-  "atlas": "web/public/assets/character-cast/dunegarden-aisha.atlas.json"
+  "sha256": "d3aa8273dcf527f616ff0652328a3675dbd22268e57218f2bba89c1a10993177",
+  "atlasSha256": "017ca1d72bd6891abf09741f713b2358c8e2b2204c1a12e8a30a7b7e10572b03",
+  "textureBytes": 14524936,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/dunegarden-aisha.webp",
+      "sha256": "d3aa8273dcf527f616ff0652328a3675dbd22268e57218f2bba89c1a10993177",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/dunegarden-aisha.1.webp",
+      "sha256": "67e9a6ee728dfdf0556713592d6ae03446807343fbbd81db539ee8dba6fe6a9f",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/dunegarden-aisha.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

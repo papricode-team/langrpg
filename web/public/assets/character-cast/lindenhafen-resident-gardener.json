@@ -4,23 +4,34 @@
   "recipe": "art/source/character-kit/cast/lindenhafen-resident-gardener.json",
   "recipeSha256": "2e19307303df11e23658badd4142e1d02f377a83f8e300a4dd754612b5d69d42",
   "atlas": "web/public/assets/character-cast/lindenhafen-resident-gardener.webp",
-  "atlasSha256": "5cae5006eac3921d65c1448c853a962c28813ea46994bec0b9dabbb175336e0a",
+  "atlasSha256": "cf0550b82b77cc67d97062c3b2b647133c4abda3a3e79f2265378295fb6083a3",
   "geometry": "web/public/assets/character-cast/lindenhafen-resident-gardener.atlas.json",
-  "geometrySha256": "d8113d98991c06f879d6ece8e9839e60c19188d6d6bbc19d03d6ca976e0d917e",
-  "textureBytes": 14612780,
+  "geometrySha256": "898f641f959d0f60cd847fa16fb76e3e80425a96cfe62dd44e16a823f9ef61e4",
+  "textureBytes": 13955760,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/lindenhafen-resident-gardener.webp",
+      "sha256": "cf0550b82b77cc67d97062c3b2b647133c4abda3a3e79f2265378295fb6083a3",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/lindenhafen-resident-gardener.1.webp",
+      "sha256": "523129d3521d8a2c7e08a5f1f5524649027ce773a59c3ecbcd8883a90d071a23",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "a5fb41a7cf796ef2b40b444f7927b04f60166399a742baf61b01409ced88c922",
-  "proof": "art/proofs/character-cast/lindenhafen-resident-gardener.png",
-  "proofSha256": "9f491f1246868e57d148d5f5b275259cefc995aa463dc41783fda315197f964f",
-  "editorSha256": "8b7bb1c0c06a993e20f6d6f65b47e9f16f7adbc3b6470089715cf685cfb0ab26",
+  "sourceComponentsSha256": "b0d9f67c335995e0b1263b7b6588ddfecb1ae8c361ebd5aad35572ff735138da",
+  "proof": "art/proofs/character-cast-painted/lindenhafen-resident-gardener.png",
+  "proofSha256": "1536121f04854d7445f476e2a570061d3d354b8fa42d6f8b6454733510797dcc",
+  "editorSha256": "ce8cc755c590abc6270fbad9d6708c0af9d6c8d2f0def249abd93095f9be3bf5",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "a5fb41a7cf796ef2b40b444f7927b04f60166399a742baf61b01409ced88c922"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#a67d54\",\"#302822\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#2f7774\"],[\"bottom.primary\",\"#414444\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#d1c4a1\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#a24633\"],[\"outer.secondary\",\"#a24633\"],[\"top.primary\",\"#e0d3b5\"],[\"top.secondary\",\"#e0d3b5\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#a67d54\",\"#302822\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"coils\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#2f7774\"],[\"bottom.primary\",\"#414444\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#d1c4a1\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#a24633\"],[\"outer.secondary\",\"#a24633\"],[\"top.primary\",\"#e0d3b5\"],[\"top.secondary\",\"#e0d3b5\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "3085a307e126925d96a4fb3f1fb22788a828748cd126b25de54ced73bb1961f6",
-  "atlasSha256": "425f24d8afbfd6e8d65a77123fb17e87947e0ce096ea9394d3419da447f0cf09",
-  "textureBytes": 14654612,
-  "atlas": "web/public/assets/character-cast/terracielo-diego.atlas.json"
+  "sha256": "610272f54eabdebf9d7492b5c671f80039ccaa28f2ed7b7e55012f4762376296",
+  "atlasSha256": "735feefd2c0089ee9f952d0a4f58b5d51ac3681fa2edaa8243a3dc951ea0f7ac",
+  "textureBytes": 14726052,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/terracielo-diego.webp",
+      "sha256": "610272f54eabdebf9d7492b5c671f80039ccaa28f2ed7b7e55012f4762376296",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/terracielo-diego.1.webp",
+      "sha256": "18af964bd17b2be94bd01efc93d9e87a28066eada2736dcb5323f8322ffb98e8",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/terracielo-diego.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b1885b\",\"#2e241b\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#626745\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#644d31\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#9f6746\"],[\"outer.secondary\",\"#9f6746\"],[\"top.primary\",\"#e0ccaa\"],[\"top.secondary\",\"#e0ccaa\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b1885b\",\"#2e241b\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#626745\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#644d31\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#9f6746\"],[\"outer.secondary\",\"#9f6746\"],[\"top.primary\",\"#e0ccaa\"],[\"top.secondary\",\"#e0ccaa\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "625fb407d1a84477c9cc98f9aacb118af57344265b81d1f13d122fd684f28fbd",
-  "atlasSha256": "7122479871a986c38070ecd6555e7fe4fce5af17e515d82b38bad2bcccfe9a33",
-  "textureBytes": 14490960,
-  "atlas": "web/public/assets/character-cast/dunegarden-hamad.atlas.json"
+  "sha256": "90e565c7315d32525e5f3f483136337e703af892d6e5dec8ae62d5130f4bbd7f",
+  "atlasSha256": "f275b90e413a9441728a7dfc3b74f63efd8641fc0bf6ce13036db5b31d9c904c",
+  "textureBytes": 14183232,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/dunegarden-hamad.webp",
+      "sha256": "90e565c7315d32525e5f3f483136337e703af892d6e5dec8ae62d5130f4bbd7f",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/dunegarden-hamad.1.webp",
+      "sha256": "e57b7e157e023d37a0320bfd0f880d1722e408ffc296bed9c8669e8b347a7b59",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/dunegarden-hamad.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

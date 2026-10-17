@@ -2,7 +2,7 @@ import type { Progress } from '../api';
 import type { CourseLexeme } from '../course';
 import { introducedWords } from '../intake';
 import { seededShuffle } from '../game-shuffle';
-import { itemSpriteFor } from './item-manifest';
+import { itemSpriteFor, hasItemSprite } from './item-manifest';
 import type { GameItem, PoolQuery } from './types';
 
 const levels = ['A1','A2','B1'];
@@ -12,7 +12,7 @@ export function gameItemPool(lexicon: readonly CourseLexeme[], progress: Progres
   const items = lexicon.filter(word => restored.has(word.id) && (!fixed || fixed.has(word.id))
     && (!query.topics?.length || query.topics.includes(word.topic))
     && (!query.level || levels.indexOf(word.level) <= levels.indexOf(query.level))
-    && (!query.nouns || word.pos === 'noun') && (!query.sprites || !!itemSpriteFor(word.id))).map(word => {
+    && (!query.nouns || word.pos === 'noun') && (!query.sprites || hasItemSprite(word.id))).map(word => {
     const memory = progress.words[word.id], item = progress.items[`word-${word.id}`];
     const modalities = ['recognition','listening','production'] as const;
     const evidence = (mode: typeof modalities[number]) => memory?.evidence?.[mode];

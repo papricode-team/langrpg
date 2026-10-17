@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#c4a17d\",\"#7f7768\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#3e4139\"],[\"bottom.primary\",\"#795c3e\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#715034\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#c4ad86\"],[\"outer.secondary\",\"#c4ad86\"],[\"top.primary\",\"#4d7895\"],[\"top.secondary\",\"#4d7895\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#c4a17d\",\"#7f7768\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#3e4139\"],[\"bottom.primary\",\"#795c3e\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#715034\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#c4ad86\"],[\"outer.secondary\",\"#c4ad86\"],[\"top.primary\",\"#4d7895\"],[\"top.secondary\",\"#4d7895\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "4b6ab0bb8e00abfa009ebf140dcb6d1585b036ad36c81b06defc2bad39a00dd9",
-  "atlasSha256": "f06dd1bc44a61829967f849c84c57a2210a93a136047e524a54a69761f932372",
-  "textureBytes": 13927872,
-  "atlas": "web/public/assets/character-cast/seoulsteps-dae.atlas.json"
+  "sha256": "2efb4716705ed8ad2a6df6365be4c7374f9dda4c3d9d361ef63ef08b483b1ba2",
+  "atlasSha256": "3d00ebde124968f91dcaa52d0334a34082377f4eee5af82d57921d7d68413eea",
+  "textureBytes": 14067168,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/seoulsteps-dae.webp",
+      "sha256": "2efb4716705ed8ad2a6df6365be4c7374f9dda4c3d9d361ef63ef08b483b1ba2",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/seoulsteps-dae.1.webp",
+      "sha256": "ca20926011926ee62512456712fae024b063f3dd40f768d2e468c62770f748d7",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/seoulsteps-dae.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#c18b60\",\"#62412f\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#4e729a\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#4e729a\"],[\"outer.secondary\",\"#4e729a\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#c18b60\",\"#62412f\",[[\"bag\",\"satchel\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"ponytail\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"travel\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#4e729a\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#4e729a\"],[\"outer.secondary\",\"#4e729a\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "c9a2dec16e1bc2a10e3564af6cf3f06b6aaf9ba009cee4096add3c4513c6ef3b",
-  "atlasSha256": "417ac3a6239edb9775cc8fa8adb8bff892507586bdab45df109572e1520851ab",
-  "textureBytes": 14488032,
-  "atlas": "web/public/assets/character-cast/lindenhafen-resident-courier.atlas.json"
+  "sha256": "d8bc2157d55deba94203e6c7c833e0c72395e0448f16a9226af52ae6a37413b9",
+  "atlasSha256": "9e47f35f8eb3f62eaf496a7520ad9130e790a5b166db272af17bf60fa5cf42e6",
+  "textureBytes": 14580844,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/lindenhafen-resident-courier.webp",
+      "sha256": "d8bc2157d55deba94203e6c7c833e0c72395e0448f16a9226af52ae6a37413b9",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/lindenhafen-resident-courier.1.webp",
+      "sha256": "d50ce484c35e92eacb2c4c871765e810653ee59fd9838b442b29aec39c8cf730",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/lindenhafen-resident-courier.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

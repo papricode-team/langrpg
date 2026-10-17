@@ -7,7 +7,7 @@ import {sceneryFootprints} from './placed-scenery';
 import {sizeRange} from './world-edit-rules';
 describe('small terrain scenery',()=>{
  it('makes every native HD cutout placeable in every town with its intended physical base',()=>{
-  expect(terrainObjects).toHaveLength(22);
+  expect(terrainObjects).toHaveLength(29);
   for(const map of ['lindenhafen','waldruh','nebelstadt'])for(const object of terrainObjects){
    const choices=paletteChoices(map).filter(choice=>choice.frame===object.id);expect(choices).toHaveLength(1);
    const choice=choices[0];
@@ -16,6 +16,18 @@ describe('small terrain scenery',()=>{
    expect(Math.min(object.width,object.height)).toBeGreaterThanOrEqual(1024);
    expect(sceneryFootprints([item],getSceneryGeometryMap(map)).length).toBe(object.collidable?1:0);
   }
+ });
+ it('offers summer planting with trunk-only tree bases and walkable fountain paving',()=>{
+  for(const id of ['town-linden','town-plane']){
+   const object=terrainObject(id)!;
+   expect(object.role).toBe('tree');expect(object.collidable).toBe(true);
+   expect(object.geometry.footprint!.every(([x,y])=>Math.abs(x)<100&&Math.abs(y)<60)).toBe(true);
+  }
+  for(const id of ['town-boxwood','town-hedge','town-ivy','town-garden-statue'])expect(terrainObject(id)!.collidable).toBe(true);
+  const paving=terrainObject('town-radial-cobble')!;
+  expect(paving.layer).toBe('ground');expect(paving.originY).toBe(.5);
+  expect(paving.collidable).toBe(false);expect(paving.geometry.footprint).toEqual([]);
+  expect(paving.geometry.visualBounds!.top).toBeLessThan(0);expect(paving.geometry.visualBounds!.bottom).toBeGreaterThan(0);
  });
  it('offers distinct station buildings, rolling stock and repeatable walkable rails',()=>{
   const choices=paletteChoices('lindenhafen');

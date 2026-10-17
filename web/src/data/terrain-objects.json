@@ -208,9 +208,9 @@
         "referenceWidth": 1254,
         "visualBounds": {
           "left": -594,
-          "top": -784,
+          "top": -784.0000000000001,
           "right": 595,
-          "bottom": 0
+          "bottom": -1.1368683772161603e-13
         },
         "footprint": []
       },
@@ -889,6 +889,369 @@
       },
       "source": "railway-rails.png",
       "prompt": "docs/prompts/terrain-objects/railway-rails.txt"
+    },
+    {
+      "id": "town-linden",
+      "name": "Summer linden",
+      "role": "tree",
+      "worldWidth": 158.72,
+      "collidable": true,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.9744816586921851,
+      "asset": "/assets/terrain-objects/town-linden.webp",
+      "thumbnail": "/assets/terrain-objects/town-linden-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -559,
+          "top": -1178,
+          "right": 576,
+          "bottom": 0
+        },
+        "footprint": [
+          [
+            75,
+            -24
+          ],
+          [
+            53.033008588991066,
+            -2.786796564403577
+          ],
+          [
+            4.592425496802574e-15,
+            6
+          ],
+          [
+            -53.03300858899106,
+            -2.7867965644035735
+          ],
+          [
+            -75,
+            -23.999999999999996
+          ],
+          [
+            -53.03300858899107,
+            -45.21320343559643
+          ],
+          [
+            -1.3777276490407723e-14,
+            -54
+          ],
+          [
+            53.03300858899105,
+            -45.21320343559643
+          ]
+        ]
+      },
+      "source": "town-linden.png",
+      "prompt": "art/source/terrain-objects/town-linden-prompt.txt"
+    },
+    {
+      "id": "town-plane",
+      "name": "Summer plane",
+      "role": "tree",
+      "worldWidth": 158.72,
+      "collidable": true,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.9800637958532695,
+      "asset": "/assets/terrain-objects/town-plane.webp",
+      "thumbnail": "/assets/terrain-objects/town-plane-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -607,
+          "top": -1208,
+          "right": 614,
+          "bottom": 0
+        },
+        "footprint": [
+          [
+            75,
+            -24
+          ],
+          [
+            53.033008588991066,
+            -2.786796564403577
+          ],
+          [
+            4.592425496802574e-15,
+            6
+          ],
+          [
+            -53.03300858899106,
+            -2.7867965644035735
+          ],
+          [
+            -75,
+            -23.999999999999996
+          ],
+          [
+            -53.03300858899107,
+            -45.21320343559643
+          ],
+          [
+            -1.3777276490407723e-14,
+            -54
+          ],
+          [
+            53.03300858899105,
+            -45.21320343559643
+          ]
+        ]
+      },
+      "source": "town-plane.png",
+      "prompt": "art/source/terrain-objects/town-plane-prompt.txt"
+    },
+    {
+      "id": "town-boxwood",
+      "name": "Clipped box topiary",
+      "role": "planter",
+      "worldWidth": 52,
+      "motion": "sway",
+      "collidable": true,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.9712918660287081,
+      "asset": "/assets/terrain-objects/town-boxwood.webp",
+      "thumbnail": "/assets/terrain-objects/town-boxwood-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -336,
+          "top": -1173,
+          "right": 346,
+          "bottom": 0
+        },
+        "footprint": [
+          [
+            275.88,
+            -50.160000000000004
+          ],
+          [
+            195.07661879374476,
+            11.909833252555138
+          ],
+          [
+            1.6892777947438592e-14,
+            37.62000000000001
+          ],
+          [
+            -195.0766187937447,
+            11.909833252555153
+          ],
+          [
+            -275.88,
+            -50.15999999999999
+          ],
+          [
+            -195.07661879374479,
+            -112.22983325255515
+          ],
+          [
+            -5.067833384231577e-14,
+            -137.94000000000003
+          ],
+          [
+            195.07661879374467,
+            -112.22983325255517
+          ]
+        ]
+      },
+      "source": "town-boxwood.png",
+      "prompt": "art/source/terrain-objects/town-boxwood-prompt.txt"
+    },
+    {
+      "id": "town-hedge",
+      "name": "Rose hedge on garden wall",
+      "role": "planter",
+      "worldWidth": 130,
+      "motion": "still",
+      "collidable": true,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.937799043062201,
+      "asset": "/assets/terrain-objects/town-hedge.webp",
+      "thumbnail": "/assets/terrain-objects/town-hedge-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -571,
+          "top": -958,
+          "right": 592,
+          "bottom": 0
+        },
+        "footprint": [
+          [
+            -560,
+            -600
+          ],
+          [
+            510,
+            -45
+          ],
+          [
+            560,
+            -100
+          ],
+          [
+            -515,
+            -655
+          ]
+        ]
+      },
+      "source": "town-hedge.png",
+      "prompt": "art/source/terrain-objects/town-hedge-prompt.txt"
+    },
+    {
+      "id": "town-ivy",
+      "name": "Climbing ivy trellis",
+      "role": "planter",
+      "worldWidth": 52,
+      "motion": "sway",
+      "collidable": true,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.9027113237639554,
+      "asset": "/assets/terrain-objects/town-ivy.webp",
+      "thumbnail": "/assets/terrain-objects/town-ivy-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -200,
+          "top": -1023,
+          "right": 251,
+          "bottom": 0
+        },
+        "footprint": [
+          [
+            275.88,
+            -50.160000000000004
+          ],
+          [
+            195.07661879374476,
+            11.909833252555138
+          ],
+          [
+            1.6892777947438592e-14,
+            37.62000000000001
+          ],
+          [
+            -195.0766187937447,
+            11.909833252555153
+          ],
+          [
+            -275.88,
+            -50.15999999999999
+          ],
+          [
+            -195.07661879374479,
+            -112.22983325255515
+          ],
+          [
+            -5.067833384231577e-14,
+            -137.94000000000003
+          ],
+          [
+            195.07661879374467,
+            -112.22983325255517
+          ]
+        ]
+      },
+      "source": "town-ivy.png",
+      "prompt": "art/source/terrain-objects/town-ivy-prompt.txt"
+    },
+    {
+      "id": "town-radial-cobble",
+      "name": "Radial fountain paving",
+      "role": "planter",
+      "worldWidth": 256,
+      "motion": "still",
+      "collidable": false,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.5,
+      "asset": "/assets/terrain-objects/town-radial-cobble.webp",
+      "thumbnail": "/assets/terrain-objects/town-radial-cobble-thumb.webp",
+      "layer": "ground",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -601,
+          "top": -385,
+          "right": 603,
+          "bottom": 434
+        },
+        "footprint": []
+      },
+      "source": "town-radial-cobble.png",
+      "prompt": "art/source/terrain-objects/town-radial-cobble-prompt.txt"
+    },
+    {
+      "id": "town-garden-statue",
+      "name": "Botanist garden statue",
+      "role": "planter",
+      "worldWidth": 65,
+      "motion": "still",
+      "collidable": true,
+      "width": 1254,
+      "height": 1254,
+      "originX": 0.5,
+      "originY": 0.9752791068580542,
+      "asset": "/assets/terrain-objects/town-garden-statue.webp",
+      "thumbnail": "/assets/terrain-objects/town-garden-statue-thumb.webp",
+      "geometry": {
+        "referenceWidth": 1254,
+        "visualBounds": {
+          "left": -216,
+          "top": -1174,
+          "right": 272,
+          "bottom": 0
+        },
+        "footprint": [
+          [
+            275.88,
+            -50.160000000000004
+          ],
+          [
+            195.07661879374476,
+            11.909833252555138
+          ],
+          [
+            1.6892777947438592e-14,
+            37.62000000000001
+          ],
+          [
+            -195.0766187937447,
+            11.909833252555153
+          ],
+          [
+            -275.88,
+            -50.15999999999999
+          ],
+          [
+            -195.07661879374479,
+            -112.22983325255515
+          ],
+          [
+            -5.067833384231577e-14,
+            -137.94000000000003
+          ],
+          [
+            195.07661879374467,
+            -112.22983325255517
+          ]
+        ]
+      },
+      "source": "town-garden-statue.png",
+      "prompt": "art/source/terrain-objects/town-garden-statue-prompt.txt"
     }
   ]
 }

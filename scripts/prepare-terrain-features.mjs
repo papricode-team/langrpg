@@ -20,5 +20,6 @@ for(const request of requests){
    outline,surfaces:[...(g.raised?[{material:g.material??'slate',blocked:true,polygon:outline}]:[]),{material,blocked:false,polygon:normalize(g.deck??g.outline)}],
    source:`${request.id}.png`,prompt:`docs/prompts/terrain-features/${request.id}.txt`});
 }
-await writeFile('web/src/data/terrain-features.json',JSON.stringify({version:1,generator:'built-in image_gen',features},null,2)+'\n');
+// Asset-only passes retain the published placements and traced navigation catalogue.
+if(!process.argv.includes('--art-only'))await writeFile('web/src/data/terrain-features.json',JSON.stringify({version:1,generator:'built-in image_gen',features},null,2)+'\n');
 console.log(`Exported ${features.length} independent painted terrain pieces at native resolution.`);

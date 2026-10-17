@@ -34,7 +34,7 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#ecc4a2\",\"#302b2d\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"waves\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#75855f\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#75855f\"],[\"outer.secondary\",\"#75855f\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]:pose:wave",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#ecc4a2\",\"#302b2d\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"soft\"],[\"facial-hair\",null],[\"footwear\",\"boots\"],[\"hair\",\"waves\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"blouse\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#44464d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#75855f\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#75855f\"],[\"outer.secondary\",\"#75855f\"],[\"top.primary\",\"#e8d9bd\"],[\"top.secondary\",\"#a88e67\"]]]:pose:wave",
   "poseSet": "wave",
   "preview": false,
   "frames": 36,
@@ -42,8 +42,24 @@
     384,
     576
   ],
-  "sha256": "660d6e4ca4457a7d2d55657c6e6137404b82b752f34c3cd1f7831812e686683e",
-  "atlasSha256": "2a4c1679ae3187ba2124de85e5a00cabec6f35f4efc2a71a163d4331ea687c80",
-  "textureBytes": 10811136,
-  "atlas": "web/public/assets/character-cast/poses/wave/waldruh-supply-keeper.atlas.json"
+  "sha256": "cc8b80a51c739a70ea041bc44435aeace1a01a7cd3c860f6405a74d73c777d39",
+  "atlasSha256": "a05dbf49337e2fb73494bfba802584a8f5a80a28d25693e13403b630afd15719",
+  "textureBytes": 14044076,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/poses/wave/waldruh-supply-keeper.webp",
+      "sha256": "cc8b80a51c739a70ea041bc44435aeace1a01a7cd3c860f6405a74d73c777d39",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/poses/wave/waldruh-supply-keeper.1.webp",
+      "sha256": "fb03571d3126f92dfa05e60efcaf62fe70576977fbd3c485fc76889614689704",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/poses/wave/waldruh-supply-keeper.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

@@ -4,23 +4,34 @@
   "recipe": "art/source/character-kit/cast/kigalights-chantal.json",
   "recipeSha256": "c8e906536d9de999f7711f3a3d03aa0c81e21512dcf7d30c0030b7db8b9bb234",
   "atlas": "web/public/assets/character-cast/kigalights-chantal.webp",
-  "atlasSha256": "a0c4e80850945aa9b5af829a775881b227b79c985cf7ae0d2056107f7813bca9",
+  "atlasSha256": "9856fb63784c7d01497fc95f5b72da7cc36e70659f4a49c6f20f0fe882ef03d8",
   "geometry": "web/public/assets/character-cast/kigalights-chantal.atlas.json",
-  "geometrySha256": "cd99f555c324c18c92ad33af2788c1d370f6335f258d3fdd6ea613b6a7929a69",
-  "textureBytes": 14415560,
+  "geometrySha256": "589d426671327ec6e1403323e42d8960cdfc35bf396af800696d8e22152c1204",
+  "textureBytes": 14189680,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/kigalights-chantal.webp",
+      "sha256": "9856fb63784c7d01497fc95f5b72da7cc36e70659f4a49c6f20f0fe882ef03d8",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/kigalights-chantal.1.webp",
+      "sha256": "8270fe0ace4811f51aae022edcf5c800427b3d597789cf1ca4ca52550c528ae3",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "2aff9480ac33c85eca821293cfdf0d80945e508a6cfd3190e3e08c4cca3bb568",
-  "proof": "art/proofs/character-cast/kigalights-chantal.png",
-  "proofSha256": "af798f02140fd378b4b9d0d0717bad15584afc50816a75fbb3c8f29decab835c",
-  "editorSha256": "a7fbe8bebf0852fb7d25300e0f54d407c4f0559d7f125660de8a74434baca65b",
+  "sourceComponentsSha256": "377a2e68ccea11cc8d433681cb7a5bded0863b7847ff6dad37994e47aa746514",
+  "proof": "art/proofs/character-cast-painted/kigalights-chantal.png",
+  "proofSha256": "47f8ce98bedb65f09e7a765e19e8e30187775f10d7fc2d39d25e329204bd3eba",
+  "editorSha256": "16a6bd51ff31c842230931ffa14f009a5fe2c373b9ce76248fb16f3f375ee0a6",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "2aff9480ac33c85eca821293cfdf0d80945e508a6cfd3190e3e08c4cca3bb568"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

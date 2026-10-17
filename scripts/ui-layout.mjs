@@ -1,10 +1,12 @@
 /** Shared layout predicates, expanded before Vite parses application CSS. */
-export const uiLayout = Object.freeze({ phone: 600, tablet: 1000, landscapeShort: 520 });
+export const uiLayout = Object.freeze({ phone: 600, tablet: 1000, laptop: 1279, landscapeShort: 520, desktopShort: 800 });
 export const uiMedia = Object.freeze({
   '--phone': `(max-width: ${uiLayout.phone}px)`,
   '--above-phone': `(min-width: ${uiLayout.phone + 1}px)`,
   '--tablet': `(max-width: ${uiLayout.tablet}px)`,
   '--desktop': `(min-width: ${uiLayout.tablet + 1}px)`,
+  '--laptop': `(max-width: ${uiLayout.laptop}px)`,
+  '--short-desktop': `(max-height: ${uiLayout.desktopShort}px)`,
   '--short-landscape': `((max-height: ${uiLayout.landscapeShort}px) and (orientation: landscape))`,
   '--above-short': `(min-height: ${uiLayout.landscapeShort + 1}px)`,
 });

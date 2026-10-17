@@ -1,0 +1,26 @@
+Deterministic offline composite, not generated scene art or a live screenshot.
+
+Recipe: node scripts/proof-world-prompt-v2.mjs
+Exporter: node scripts/prepare-world-prompt-v2.mjs
+
+Inputs:
+- web/public/assets/lindenhafen.webp, crop (420,280,552,410)
+- web/public/assets/character-cast/marta.atlas.json, frame 0 and its runtime WebP page
+- web/public/assets/character-cast/otto.atlas.json, frame 0 and its runtime WebP page
+- web/public/assets/ui/world-prompt-v2-{keycap,tab,touch}.webp
+- web/src/world-prompt.ts (actual runtime layout helper, transpiled offline)
+- installed @fontsource/dm-sans 400/700 and @fontsource/fraunces 400 WOFF outlines
+
+Output: 1200x720 PNG, one output image pixel equals one CSS pixel. Render at 2x
+then downsample with Sharp. Left: nominal 80 CSS px adult body, keyboard variant.
+Right: nominal 60 CSS px phone adult body, stacked touch variant. Atlas trim,
+source cell and foot origin .9 preserve in-game character registration. Otto's
+component-kit figure stands in for the player and is labelled Alex, 40 CSS px
+directly below Marta; it is drawn after her body but before the label-layer prompt.
+Name canvas height is represented as 22 px, with the actual helper's 4 px gap.
+Objective diamond is a simple vector outline because the offline Fraunces parser
+has no fallback glyph. Text in this proof is live-composited font outlines; all
+three runtime sprite centres remain blank. A compact 72 px desktop adult case
+also appears at bottom right. The phone stack retains a full 24 px touch icon.
+Enlarged runtime alpha samples sit
+over both cream stone and town-shadow swatches below the two scene crops.

@@ -1,0 +1,291 @@
+/* Target composition, using the existing painted brass, parchment and leather kit. */
+.hud-painted-panel {
+  border:10px solid transparent;
+  border-radius:0;
+  border-image:url('/assets/ui/card-frame-v1.webp') 40 / 20px / 0 stretch;
+  background:var(--ui-panel) var(--ui-texture) center / 256px padding-box;
+  color:var(--ui-cream);
+  filter:drop-shadow(0 4px 8px #02090780);
+}
+
+.player-hud {
+  gap:30px;
+  height:100px;
+  max-width:320px;
+  padding-right:24px;
+}
+
+.player-details { min-width:0; max-width:210px; gap:2px; }
+.player-name { font-size:20px; line-height:1.1; }
+.player-title {
+  color:var(--ui-brass-light);
+  font:500 var(--type-caption)/1.1 var(--font-body);
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.player-meta { gap:8px; }
+#hud-level { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.xp-badge { flex:none; }
+.player-progress { height:3px; }
+.location-banner { top:max(40px,env(safe-area-inset-top)); padding-block:18px 22px; padding-inline:0; }
+.location-title::before,.location-title::after { display:none; }
+.hud-compass-ribbon {
+  position:absolute;
+  top:-24px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:20px;
+  color:var(--ui-cream);
+  text-shadow:0 1px 3px #10211f;
+  font:500 var(--type-caption)/1.3 var(--font-body);
+}
+.hud-compass-ribbon b { font-weight:600; letter-spacing:6px; }
+.location-title { font-size:clamp(17px,2.2vw,28px); max-width:100%; overflow:hidden; text-overflow:ellipsis; }
+.location-subtitle { letter-spacing:.5px; text-transform:none; }
+
+.hud-tools {
+  position:absolute;
+  top:max(16px,env(safe-area-inset-top));
+  right:max(24px,env(safe-area-inset-right));
+  display:flex;
+  gap:6px;
+}
+.hud-round {
+  display:grid;
+  place-items:center;
+  flex:none;
+  width:44px;
+  height:44px;
+  padding:11px;
+  border:0;
+  border-radius:50%;
+  background:#1d4a3c url('/assets/ui/round-button-v1.webp') center / 100% 100% no-repeat;
+  color:var(--ui-brass-light);
+  font:600 18px/1 var(--font-display);
+}
+.hud-round .icon { width:20px; height:20px; }
+.hud-round:hover,.hud-dock-item:hover { filter:brightness(1.15); }
+.hud-round[aria-pressed='false'] { color:var(--game-muted); }
+.hud-minimap {
+  position:absolute;
+  top:72px;
+  right:max(26px,env(safe-area-inset-right));
+  width:168px;
+  height:168px;
+  pointer-events:auto;
+}
+.hud-minimap[hidden] { display:none; }
+.hud-minimap-window {
+  position:absolute;
+  inset:14%;
+  border-radius:50%;
+  overflow:hidden;
+  background:var(--ui-panel);
+}
+.hud-minimap-painting { width:100%; height:100%; object-fit:cover; filter:saturate(.7) brightness(.85); }
+.hud-minimap-bezel { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+.hud-minimap-north {
+  position:absolute;
+  top:0;
+  left:50%;
+  transform:translate(-50%,-35%);
+  color:var(--ui-cream);
+  font:600 var(--type-caption)/1 var(--font-display);
+  text-shadow:0 1px 3px #10211f;
+}
+.hud-minimap-compass { position:absolute; right:-6px; bottom:-4px; }
+.hud-map-npc,.hud-map-player {
+  position:absolute;
+  width:6px;
+  height:6px;
+  transform:translate(-50%,-50%);
+  border:1px solid #273d32;
+  border-radius:50%;
+  background:var(--ui-cream);
+  box-shadow:0 1px 3px #10211f;
+}
+.hud-map-player { width:10px; height:10px; border:2px solid var(--ui-cream); background:#e6b953; z-index:1; }
+.hud-map-player[hidden] { display:none; }
+.hud-map-npc:hover { background:#e6b953; scale:1.5; }
+
+.game-shell[data-interior] .quest-tracker { top:84px; }
+.quest-tracker { top:260px; right:max(24px,env(safe-area-inset-right)); width:264px; max-height:calc(100dvh - 370px); overflow:auto; scrollbar-width:thin; }
+.story-beacon.hud-chapter-card {
+  display:grid;
+  grid-template-columns:28px minmax(0,1fr) auto;
+  gap:12px 8px;
+  padding:14px 10px;
+  border:10px solid transparent;
+  border-image:url('/assets/ui/card-frame-v1.webp') 40 / 20px / 0 stretch;
+  background:var(--ui-panel) var(--ui-texture) center / 256px padding-box;
+  color:var(--ui-cream);
+  animation:none;
+}
+.hud-chapter-card::before { content:none; }
+.hud-chapter-card .beacon-mark { width:28px; height:28px; grid-row:2; }
+.hud-chapter-card .beacon-copy { grid-row:2; grid-column:2/-1; }
+.hud-chapter-card .beacon-copy>.beacon-label { display:none; }
+.hud-chapter-card .objective-text { color:var(--ui-cream); font:600 14px/1.4 var(--font-body); white-space:normal; }
+.hud-chapter-card>.beacon-chevron { display:none; }
+.hud-chapter-heading { grid-column:1/-1; grid-row:1; display:grid; gap:10px; padding-bottom:14px; border-bottom:1px solid var(--game-line); }
+.hud-chapter-heading>.beacon-label { color:var(--ui-brass-light); font-size:var(--type-caption); letter-spacing:1px; }
+.hud-chapter-heading>strong { overflow-wrap:anywhere; font:600 20px/1.25 var(--font-display); }
+.hud-chapter-summary { grid-column:2/-1; grid-row:3; color:var(--game-muted); font:400 var(--type-caption)/1.5 var(--font-body); }
+.hud-chapter-progress { grid-column:1/-1; grid-row:4; display:flex; justify-content:space-between; gap:8px; color:var(--ui-brass-light); font:400 var(--type-caption)/1.4 var(--font-body); }
+.hud-chapter-progress>span:last-child { flex:none; }
+.hud-chapter-continue { grid-column:1/-1; grid-row:5; display:flex; align-items:center; justify-content:space-between; gap:8px; color:var(--ui-brass-light); font:600 14px/1.4 var(--font-body); }
+.hud-chapter-continue>.icon { width:20px; height:20px; }
+.hud-chapter-card>.objective-bell { grid-column:1/-1; grid-row:6; justify-self:start; }
+
+.hud-local {
+  position:absolute;
+  left:max(24px,env(safe-area-inset-left));
+  bottom:max(24px,env(safe-area-inset-bottom));
+  width:264px;
+  padding:8px 10px;
+}
+.hud-local-heading { display:flex; align-items:center; gap:8px; font:500 var(--type-caption)/1.4 var(--font-body); }
+.hud-local-heading>.icon { width:16px; height:16px; color:var(--ui-brass-light); flex:none; }
+.hud-local-heading>strong { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.hud-local-heading>span { color:var(--ui-brass-light); margin-left:auto; }
+.hud-local p { margin:10px 0 0; max-height:36px; overflow:hidden; color:var(--game-muted); font:400 var(--type-caption)/1.5 var(--font-body); }
+.hud-dock-area { position:absolute; left:50%; bottom:max(20px,env(safe-area-inset-bottom)); width:420px; transform:translateX(-50%); }
+.hud-key-hints { display:flex; justify-content:center; gap:7px; margin:0 0 22px; color:var(--ui-cream); text-shadow:0 1px 3px #10211f; font:400 var(--type-caption)/1.4 var(--font-body); white-space:nowrap; }
+.hud-key-hints kbd { font:inherit; }
+.hud-key-hints>span { color:var(--ui-brass-light); }
+.hud-dock { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); padding:4px 0; }
+.hud-dock .hud-dock-item {
+  position:relative;
+  inset:auto;
+  display:grid;
+  align-content:end;
+  justify-items:center;
+  gap:4px;
+  width:auto;
+  min-width:0;
+  min-height:64px;
+  height:auto;
+  padding:0 2px;
+  border:0;
+  border-radius:0;
+  background:none;
+  color:var(--ui-cream);
+  box-shadow:none;
+  transform:none;
+  font:500 var(--type-caption)/1.3 var(--font-body);
+}
+.hud-dock-item>span:not(.hud-dock-art) { max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.hud-dock-item .hud-dock-art { display:grid; place-items:center; height:24px; }
+.hud-dock-art>.icon { width:24px; height:24px; color:var(--ui-brass-light); }
+.hud-dock-item kbd { font:400 var(--type-caption)/1 var(--font-body); color:var(--game-muted); }
+.hud-dock .hud-dock-item>span { display:block; font:inherit; }
+.hud-dock .hud-dock-atlas>.hud-dock-art { position:absolute; bottom:40px; height:78px; width:78px; }
+.hud-dock-art img { width:100%; height:100%; }
+.hud-dock-item>i { position:absolute; top:0; right:18px; width:7px; height:7px; border-radius:50%; background:var(--ui-brass-light); }
+.hud-dock-item>i[hidden] { display:none; }
+.hud-revisit {
+  position:absolute;
+  right:max(24px,env(safe-area-inset-right));
+  bottom:max(24px,env(safe-area-inset-bottom));
+  display:flex;
+  align-items:center;
+  gap:8px;
+  width:264px;
+  min-height:54px;
+  padding:8px;
+  text-align:left;
+  font:500 var(--type-caption)/1.4 var(--font-body);
+}
+.hud-revisit[hidden] { display:none; }
+.hud-revisit>.icon { width:18px; height:18px; flex:none; color:var(--ui-brass-light); }
+.hud-revisit>.icon:last-child { margin-left:auto; }
+.admin-world-controls { top:160px; left:max(24px,env(safe-area-inset-left)); right:auto; }
+.access-hud { top:128px; }
+.game-hud .lamp-meter { left:max(24px,env(safe-area-inset-left)); right:auto; bottom:136px; }
+:is(.dialogue-open,.cinematic-open) :is(.hud-tools,.hud-minimap,.hud-local,.hud-dock-area,.hud-revisit,.quest-tracker,.lamp-meter) { visibility:hidden; opacity:0; }
+.game-hud :is(.hud-round,.hud-dock-item,.hud-revisit):focus-visible { outline:none; box-shadow:none; }
+
+/* Mid-size desktops keep the chapter card to its title, objective and action so it never walls off the play area. */
+@media (--laptop), (--short-desktop) {
+  .quest-tracker { width:236px; }
+  .story-beacon.hud-chapter-card { gap:8px; padding:10px 8px; }
+  .hud-chapter-heading { gap:6px; padding-bottom:8px; }
+  .hud-chapter-heading>strong { font-size:17px; }
+  .hud-chapter-card :is(.hud-chapter-summary,.hud-chapter-progress) { display:none; }
+}
+
+@media (--tablet), (--short-landscape) {
+  .hud-minimap,.hud-local,.hud-revisit { display:none; }
+  .hud-tools { top:max(20px,env(safe-area-inset-top)); }
+  .quest-tracker { top:124px; width:300px; max-height:none; overflow:visible; }
+  .access-hud { top:220px; }
+  .admin-world-controls { top:280px; }
+  .story-beacon.hud-chapter-card { display:flex; min-height:84px; gap:12px; padding:4px 4px 4px 0; border-width:12px 48px 12px 26px; border-image:url('/assets/ui/objective-plaque-v1.webp') 48 110 fill / 24px 55px / 0 stretch; background:var(--ui-parchment) padding-box; }
+  .hud-chapter-card :is(.hud-chapter-heading,.hud-chapter-summary,.hud-chapter-progress,.hud-chapter-continue) { display:none; }
+  .hud-chapter-card .beacon-copy>.beacon-label { display:block; }
+  .hud-chapter-card .objective-text { color:var(--ui-ink); font:600 17px/1.3 var(--font-display); }
+  .hud-chapter-card>.beacon-chevron { display:block; }
+  .hud-chapter-card>.objective-bell { background:var(--ui-panel); }
+}
+
+@media (--phone) {
+  .player-hud { top:max(10px,env(safe-area-inset-top)); left:10px; height:84px; width:calc(100% - 76px); max-width:340px; gap:26px; padding-right:20px; }
+  .player-name { font-size:var(--type-body); }
+  .player-details { gap:2px; }
+  .player-title { display:none; }
+  .player-meta { gap:6px; }
+  .xp-badge { padding-inline:5px; }
+  .hud-tools { top:max(14px,env(safe-area-inset-top)); right:10px; flex-direction:column; gap:4px; }
+  .hud-tools .hud-round { width:44px; height:44px; }
+  .game-shell[data-interior] .quest-tracker { top:104px; }
+  .quest-tracker { top:104px; left:12px; right:68px; width:auto; }
+  .story-beacon,.story-beacon.hud-chapter-card { min-height:64px; border-width:10px 30px 10px 18px; border-image-width:18px 36px; gap:8px; }
+  .hud-chapter-card .objective-text { font-size:var(--type-body); }
+  .hud-dock-area { width:calc(100% - 16px); bottom:max(8px,env(safe-area-inset-bottom)); }
+  .hud-key-hints { display:none; }
+  .hud-dock { border-width:8px; border-image-width:16px; padding:6px 0; }
+  .hud-dock .hud-dock-item { min-height:48px; gap:6px; }
+  .hud-dock-item kbd { display:none; }
+  .hud-dock .hud-dock-atlas>.hud-dock-art { width:60px; height:60px; bottom:23px; }
+  .touch-controls { bottom:100px; }
+  .access-hud { top:180px; left:12px; max-width:calc(100vw - 80px); }
+  .admin-world-controls { top:230px; left:12px; }
+  .game-hud .lamp-meter { top:220px; right:12px; left:auto; bottom:auto; }
+}
+
+@media (--short-landscape) {
+  .hud-minimap,.hud-local,.hud-revisit,.hud-key-hints { display:none; }
+  .player-hud { top:12px; height:72px; }
+  .player-title { display:none; }
+  .location-banner:not(.arriving) { visibility:hidden; }
+  .game-shell[data-interior] .quest-tracker { top:12px; }
+  .quest-tracker { top:12px; left:auto; right:16px; width:min(300px,40vw); }
+  .hud-tools { top:96px; right:16px; flex-direction:row; }
+  .hud-dock-area { width:380px; bottom:8px; }
+  .hud-dock .hud-dock-item { min-height:48px; }
+  .hud-dock-item kbd { display:none; }
+  .hud-dock .hud-dock-atlas>.hud-dock-art { width:60px; height:60px; bottom:25px; }
+  .touch-controls { bottom:104px; }
+  .access-hud { top:90px; left:16px; }
+  .game-hud .lamp-meter { left:16px; right:auto; top:auto; bottom:130px; }
+}
+
+@media (forced-colors:active) {
+  .game-hud :is(.hud-round,.hud-dock-item,.hud-revisit,.player-medallion,.story-beacon):focus-visible { outline:2px solid Highlight; outline-offset:3px; }
+  .hud-painted-panel,.story-beacon.hud-chapter-card { border:1px solid CanvasText; }
+  .hud-map-player { forced-color-adjust:none; }
+}
+
+/* Narrow landscape keeps the two header plates apart without reducing text below the floor. */
+@media (--short-landscape) and (--phone) {
+  .player-hud { max-width:calc(60vw - 44px); }
+  .story-beacon,.story-beacon.hud-chapter-card { min-height:56px; padding:4px; border-width:8px; border-image-width:16px; gap:0; }
+  .story-beacon :is(.beacon-label,.beacon-mark,.beacon-chevron,.objective-bell) { display:none; }
+  .story-beacon .beacon-copy>.beacon-label { display:none; }
+  .story-beacon .objective-text { white-space:normal; overflow-wrap:anywhere; }
+  .game-hud .lamp-meter { display:none; }
+}

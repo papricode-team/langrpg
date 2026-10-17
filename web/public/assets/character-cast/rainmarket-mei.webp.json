@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#d5ac84\",\"#423026\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#7f9bb0\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#dad3c1\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#3e7984\"],[\"top.secondary\",\"#3e7984\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#d5ac84\",\"#423026\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#7f9bb0\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#dad3c1\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#3e7984\"],[\"top.secondary\",\"#3e7984\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "ce23aa6a3af54ad9d0f63a029891987103c27d79c798488e87a8defd05ce4b16",
-  "atlasSha256": "81e1c4f98a37527f6d1894bf6303b9669fabaf055f8ffd2a6288cfdb606a0dcb",
-  "textureBytes": 14835892,
-  "atlas": "web/public/assets/character-cast/rainmarket-mei.atlas.json"
+  "sha256": "94ec2be805d034ab8453cb071d3aa118f619f3fc9615a00fcd7a83f112f5a5eb",
+  "atlasSha256": "62a08afc119d989a30f1d49ec62527930efae25fcc136efe8861ee861d28c67a",
+  "textureBytes": 14553808,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/rainmarket-mei.webp",
+      "sha256": "94ec2be805d034ab8453cb071d3aa118f619f3fc9615a00fcd7a83f112f5a5eb",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/rainmarket-mei.1.webp",
+      "sha256": "429eb5df1d3394f41c0c9eca2837c6fc735822fb6d5971c27e2fe80dd0ed0f7a",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/rainmarket-mei.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

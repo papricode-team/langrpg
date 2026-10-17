@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-17",
+  "generator": "built-in image_gen",
+  "review": "docs/visual-style-review.md",
+  "styleReferences": [
+    "web/public/assets/lindenhafen-day-building-cafe.webp",
+    "art/source/terrain-features/quay-straight.png"
+  ],
+  "selected": [
+    {
+      "id": "detail-grass-tuft",
+      "master": "art/source/terrain-objects/detail-grass-tuft.png",
+      "prompt": "art/source/terrain-objects/detail-grass-tuft-style-prompt.txt",
+      "generatedFile": "exec-bc6c953a-6ec5-46d4-9329-47d4a0bc9c11.png"
+    },
+    {
+      "id": "detail-wildflowers",
+      "master": "art/source/terrain-objects/detail-wildflowers.png",
+      "prompt": "art/source/terrain-objects/detail-wildflowers-style-prompt.txt",
+      "generatedFile": "exec-988425a2-a4b6-47fc-92e7-03f4d96e398c.png"
+    }
+  ]
+}

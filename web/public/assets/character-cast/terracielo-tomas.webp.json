@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b58e61\",\"#b5ad97\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#805c37\"],[\"bottom.primary\",\"#773e45\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#76583b\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#3d5b41\"],[\"outer.secondary\",\"#3d5b41\"],[\"top.primary\",\"#89a8b7\"],[\"top.secondary\",\"#89a8b7\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b58e61\",\"#b5ad97\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"straight\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",\"moustache\"],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"waistcoat\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#805c37\"],[\"bottom.primary\",\"#773e45\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#76583b\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#3d5b41\"],[\"outer.secondary\",\"#3d5b41\"],[\"top.primary\",\"#89a8b7\"],[\"top.secondary\",\"#89a8b7\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "3b3e3b4c653ee69484a77fb43757a2c47b312793c33068f87d068357ce5cb998",
-  "atlasSha256": "0ec14b73a324df6677cafc55b0bda09abda4c2976934b155e5f984db887f5685",
-  "textureBytes": 14490960,
-  "atlas": "web/public/assets/character-cast/terracielo-tomas.atlas.json"
+  "sha256": "f139e3862bf115dd9ada7b92224e32a04dfefd1048c0feeecd6dccc12be300c1",
+  "atlasSha256": "c71ac355bbf7a08c02380b5cf650fca303e0307b3c2ec2b62e1bf1ef59e4af52",
+  "textureBytes": 14186884,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/terracielo-tomas.webp",
+      "sha256": "f139e3862bf115dd9ada7b92224e32a04dfefd1048c0feeecd6dccc12be300c1",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/terracielo-tomas.1.webp",
+      "sha256": "92e1f9b02ef8bfb5c8cbfbe9b2b8f31a6108b7e200a1813cb5ec364b2d19fb54",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/terracielo-tomas.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

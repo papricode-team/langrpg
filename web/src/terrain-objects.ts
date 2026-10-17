@@ -3,7 +3,7 @@ import type {SceneScenery,SceneryGeometry} from './scene-schema';
 import type * as Phaser from 'phaser';
 export type DetailMotion='still'|'sway'|'bob'|'glow'|'flicker';
 export interface TerrainObject {
- id:string;name:string;role:SceneScenery['asset'];worldWidth:number;motion:DetailMotion;collidable:boolean;
+ id:string;name:string;role:SceneScenery['asset'];worldWidth:number;motion?:DetailMotion;collidable:boolean;
  width:number;height:number;originX:number;originY:number;asset:string;thumbnail:string;geometry:SceneryGeometry;
  layer?:'ground';
 }
@@ -26,8 +26,8 @@ export function ensureTerrainObject(scene:Phaser.Scene,map:string,detail:Terrain
  if(!scene.load.isLoading())scene.load.start();
 }
 /** Low-amplitude motion around the physical foot pivot; no texture churn or random frame work. */
-export function sampleDetailMotion(motion:DetailMotion,id:string,time:number,reduced=false):{angle:number;y:number;alpha:number}{
- const still={angle:0,y:0,alpha:1};if(reduced||motion==='still')return still;
+export function sampleDetailMotion(motion:DetailMotion|undefined,id:string,time:number,reduced=false):{angle:number;y:number;alpha:number}{
+ const still={angle:0,y:0,alpha:1};if(reduced||!motion||motion==='still')return still;
  let hash=2166136261;for(let i=0;i<id.length;i++)hash=Math.imul(hash^id.charCodeAt(i),16777619);
  const phase=(hash>>>0)/4294967296*Math.PI*2;
  if(motion==='sway')return {...still,angle:Math.sin(time*1.2+phase)*.018+Math.sin(time*.41+phase)*.006};

@@ -3,14 +3,14 @@
     "v": 2,
     "build": "regular",
     "skin": "#c18b60",
-    "hair": "#62412f",
+    "hair": "#483023",
     "parts": {
       "face": "angular",
       "markings": null,
-      "facial-hair": "goatee",
+      "facial-hair": "short-beard",
       "hair": "crop",
       "headwear": null,
-      "top": "henley",
+      "top": "shirt",
       "outer": null,
       "bottom": "cargo",
       "footwear": "boots",
@@ -21,7 +21,7 @@
     },
     "colors": {
       "bag.primary": "#694731",
-      "bottom.primary": "#5b6b48",
+      "bottom.primary": "#665f3d",
       "eyewear.primary": "#48372e",
       "footwear.primary": "#48372e",
       "headwear.primary": "#354d70",
@@ -29,20 +29,36 @@
       "neck.primary": "#854a5b",
       "outer.primary": "#326a65",
       "outer.secondary": "#2a4436",
-      "top.primary": "#86434e",
-      "top.secondary": "#ad825b"
+      "top.primary": "#963e43",
+      "top.secondary": "#bc8f59"
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#c18b60\",\"#62412f\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"goatee\"],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"henley\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#5b6b48\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#86434e\"],[\"top.secondary\",\"#ad825b\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#c18b60\",\"#483023\",[[\"bag\",\"belt-pouch\"],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"angular\"],[\"facial-hair\",\"short-beard\"],[\"footwear\",\"boots\"],[\"hair\",\"crop\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#665f3d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#48372e\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#963e43\"],[\"top.secondary\",\"#bc8f59\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "801bee9cc8d247ce7b2f9736fea7c504f798f02076ab50a9c843322edd94722a",
-  "atlasSha256": "e8300993fbe797280cc8fae256cd9acd09381b34aba86f579de48e196050a097",
-  "textureBytes": 14447400,
-  "atlas": "web/public/assets/character-cast/emil.atlas.json"
+  "sha256": "55589943ecc65739a2322b47875076a236fadfb5d19fd5717650f74bf5f14487",
+  "atlasSha256": "4be8d1b866d931ba105578f2e6722f91bb9800281d163ce7641232013f961d00",
+  "textureBytes": 14183232,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/emil.webp",
+      "sha256": "55589943ecc65739a2322b47875076a236fadfb5d19fd5717650f74bf5f14487",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/emil.1.webp",
+      "sha256": "732469fcc6c4f00aaf5de3529dfd1b45c5057e03c81b9dee7d90a8e10aec377a",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/emil.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

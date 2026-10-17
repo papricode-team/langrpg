@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#cea57f\",\"#2c2520\",[[\"bag\",\"satchel\"],[\"bottom\",\"skirt-long\"],[\"eyewear\",\"round\"],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bob\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#344f71\"],[\"bottom.primary\",\"#34465f\"],[\"eyewear.primary\",\"#b05c52\"],[\"footwear.primary\",\"#42526b\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#b4a0c4\"],[\"outer.secondary\",\"#b4a0c4\"],[\"top.primary\",\"#e3dccb\"],[\"top.secondary\",\"#e3dccb\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#cea57f\",\"#2c2520\",[[\"bag\",\"satchel\"],[\"bottom\",\"skirt-long\"],[\"eyewear\",\"round\"],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bob\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"blazer\"],[\"top\",\"tee\"]],[[\"bag.primary\",\"#344f71\"],[\"bottom.primary\",\"#34465f\"],[\"eyewear.primary\",\"#b05c52\"],[\"footwear.primary\",\"#42526b\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#b4a0c4\"],[\"outer.secondary\",\"#b4a0c4\"],[\"top.primary\",\"#e3dccb\"],[\"top.secondary\",\"#e3dccb\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "41c9c2ad2460b8bcf7221683ce65c0d4e738a6290764e3fb44121eaba7b5edfc",
-  "atlasSha256": "4f8e118996a6592227754af7b791ac0a5f459a030c29a406a46df59b1095ed9c",
-  "textureBytes": 14708980,
-  "atlas": "web/public/assets/character-cast/sunpatch-valeria.atlas.json"
+  "sha256": "66ede569b4bbbe68a4cc29d78e34759fdc097bb97763d001a3a87d436c551cd9",
+  "atlasSha256": "8bb878daad955e88e7412756ec79f1d9dbe0cf946e40b1ae5a3cfec1ab7da738",
+  "textureBytes": 14318424,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/sunpatch-valeria.webp",
+      "sha256": "66ede569b4bbbe68a4cc29d78e34759fdc097bb97763d001a3a87d436c551cd9",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/sunpatch-valeria.1.webp",
+      "sha256": "e16a39ae4b66dd9060a0266d5c9b4e99fc34924e5de358d43eaeb77028b44bbe",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/sunpatch-valeria.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

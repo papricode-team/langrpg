@@ -2,40 +2,55 @@
   "id": "greta",
   "poseSet": "walk",
   "recipe": "art/source/character-kit/cast/greta.json",
-  "recipeSha256": "c19bf865092ea9e4a6aebc8f66854758cd054d657df47c0f8d69d1d8df95c606",
+  "recipeSha256": "8a2f18d6c4d0ba9f0f6683791e5c9dc544e8aa1850e19b197a38db3a2cdf8f4c",
   "atlas": "web/public/assets/character-cast/greta.webp",
-  "atlasSha256": "d54314eecaeeea8b3942e0a3b123168b94c21fbaefcac84356cfcfbf45ae6b0f",
+  "atlasSha256": "7d4c3f59bc6eee0df518d1140b554a0fcdcd8e4c515330e9cfcd958a16d4143d",
   "geometry": "web/public/assets/character-cast/greta.atlas.json",
-  "geometrySha256": "e696ba8aeac5d6362846fc607d66bd46d9299bfb6904a7eb5c5fb8c9a5df0938",
-  "textureBytes": 14293692,
+  "geometrySha256": "38e1c42edc24b58e7845bf3836c767dc9a40ac11c991ed689a7704e5d348b893",
+  "textureBytes": 14340384,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/greta.webp",
+      "sha256": "7d4c3f59bc6eee0df518d1140b554a0fcdcd8e4c515330e9cfcd958a16d4143d",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/greta.1.webp",
+      "sha256": "3d36c0716969f73276211d017234ca796303a2d316970de5515e01fea6b2f106",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "dee84541e3817edcb4f5be835f498c60d7e5f2c427171beca56e3ccdbf0c534c",
-  "proof": "art/proofs/character-cast/greta.png",
-  "proofSha256": "cc9f91da44810458fb3ede5965b0f9513c2a6adc50552bd0dd00849793cd0f87",
-  "editorSha256": "8dec5fcb9126b8c7d5a8a5dea87afb270970f4c99d2e6a058a081cea0236c34f",
+  "sourceComponentsSha256": "2fabbc3e9396f9a3ecd3060659ecab410feda2f8f86e9ac53306762c6577ad92",
+  "proof": "art/proofs/character-cast-painted/greta.png",
+  "proofSha256": "f32b9b7aa199339b5c67f9bcd0c5765866a32cff7c76602fd377bbb4b59c75e5",
+  "editorSha256": "a85d745563b8de697390259ac56d024b349f69be91f7145242fc572c395cf586",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-greta-native",
     "image": "web/public/assets/character-cast/native/greta.webp",
     "atlas": "web/public/assets/character-cast/native/greta.atlas.json",
-    "sha256": "f716a903b2d1c9e7c9e7a4d52ea579715a5aeb1221a53667eec3fb82d55a504a",
-    "atlasSha256": "56466369a48310cc09959a206b4fe901472c22c921f04d35eadf092b557eb87b",
+    "sha256": "4f2abfccf31e86f4b0197fbef969f0ee86bf4e6f3b0573c6e73b6973df3b7aee",
+    "atlasSha256": "efd56a2499e0101e60349369057988d3a958850cacf82f2d74d21f2f6b281d9f",
     "textureBytes": 28303632,
     "multiAtlas": true,
     "images": [
       {
         "path": "web/public/assets/character-cast/native/greta.webp",
-        "sha256": "f716a903b2d1c9e7c9e7a4d52ea579715a5aeb1221a53667eec3fb82d55a504a",
+        "sha256": "4f2abfccf31e86f4b0197fbef969f0ee86bf4e6f3b0573c6e73b6973df3b7aee",
         "firstFrame": 0,
         "frameCount": 18
       },
       {
         "path": "web/public/assets/character-cast/native/greta.1.webp",
-        "sha256": "2d5de1d6a88e7921a2e7eb586bee9abba8c952c4720614a152cf317af87cace6",
+        "sha256": "f8cfca5092bff3d2e1ad840dc7870089e0d4c967ad73e6d24da34ef45c656374",
         "firstFrame": 18,
         "frameCount": 18
       }
@@ -44,12 +59,9 @@
       512,
       768
     ],
-    "source": "art/proofs/character-cast/greta.webp",
-    "sourceSha256": "8dec5fcb9126b8c7d5a8a5dea87afb270970f4c99d2e6a058a081cea0236c34f"
+    "source": "art/proofs/character-cast-painted/greta.webp",
+    "sourceSha256": "a85d745563b8de697390259ac56d024b349f69be91f7145242fc572c395cf586",
+    "encodingId": "near-lossless-20-v1"
   },
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "dee84541e3817edcb4f5be835f498c60d7e5f2c427171beca56e3ccdbf0c534c"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

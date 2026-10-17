@@ -4,23 +4,34 @@
   "recipe": "art/source/character-kit/cast/seoulsteps-soo.json",
   "recipeSha256": "3e3df688c322b000d5b8e680dd432e78c79e9784ef5663648b7635b36a6e453e",
   "atlas": "web/public/assets/character-cast/seoulsteps-soo.webp",
-  "atlasSha256": "c0920e3d7e359bfc9f1227b49d1db6c0f0d23ae22a01e81f20369dde5b3734ee",
+  "atlasSha256": "bc7abc117c53082272a3823e0b36ba7eb094ae980d1c6cb8aeb29c12f85d26f9",
   "geometry": "web/public/assets/character-cast/seoulsteps-soo.atlas.json",
-  "geometrySha256": "9d1961882e25fd33e507bc8ff5a5124b72376d42e9a075c11d40b83c1668ed85",
-  "textureBytes": 13963992,
+  "geometrySha256": "76dc2723f93f2006d5b786ef43a6c91eef5e75ee1c5ed7a3673675a45fc0fe3e",
+  "textureBytes": 14085252,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/seoulsteps-soo.webp",
+      "sha256": "bc7abc117c53082272a3823e0b36ba7eb094ae980d1c6cb8aeb29c12f85d26f9",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/seoulsteps-soo.1.webp",
+      "sha256": "f6c83c8635378490ca4e216d7364a43485d79d237a7d20809118afed2967414c",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "2f498c7d36356e5134488e8f2b22223bf662e662808f687322ee9ec84b3cc1c6",
-  "proof": "art/proofs/character-cast/seoulsteps-soo.png",
-  "proofSha256": "6f3e1f6c94e19307d3a767e850fa1c01166bd7bbbe378c0b9bd3000d6e82ceba",
-  "editorSha256": "2f4418a208704e3b75a159db40d10da1937431d2adde04efc5a97fd228f73cef",
+  "sourceComponentsSha256": "1e036491fec06ea1a0a80d1adc35ed9361fe1c66314c1e2f64a4ee3cc62cf1d6",
+  "proof": "art/proofs/character-cast-painted/seoulsteps-soo.png",
+  "proofSha256": "8d26141908d446e9b54b712df4513a8d187ba2daaf2a9293e916374bc771ec60",
+  "editorSha256": "b6c24a0376f71b1586ce857890593738f49fcdd2ed499853728998f181733e4f",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "2f498c7d36356e5134488e8f2b22223bf662e662808f687322ee9ec84b3cc1c6"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

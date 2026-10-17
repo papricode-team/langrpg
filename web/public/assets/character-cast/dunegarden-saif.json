@@ -4,23 +4,34 @@
   "recipe": "art/source/character-kit/cast/dunegarden-saif.json",
   "recipeSha256": "aaf6c44fde987c4490fb6f966d68caa9b91f4d740ecee696ec49ccca4a987f11",
   "atlas": "web/public/assets/character-cast/dunegarden-saif.webp",
-  "atlasSha256": "edeeacad75ccf1faecfece4332eeb27222643c097cf1e1d343b8c4d62b9c9088",
+  "atlasSha256": "1808bacee2c42b54f1c55c4dc48c295c8fc458d647adbad7d6a898ff4f409753",
   "geometry": "web/public/assets/character-cast/dunegarden-saif.atlas.json",
-  "geometrySha256": "7088733de3f50bd95c6b8a739551f7492914b7c4a23174634e734af8c64b8b08",
-  "textureBytes": 14839220,
+  "geometrySha256": "d77bd5264c02bfb20bcb29a43469337fda346c3559131f576575c6de3b42d7f5",
+  "textureBytes": 13800584,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/dunegarden-saif.webp",
+      "sha256": "1808bacee2c42b54f1c55c4dc48c295c8fc458d647adbad7d6a898ff4f409753",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/dunegarden-saif.1.webp",
+      "sha256": "1d3521f6664ab7937642ebbf2e66c2715f7804bd234a529d498065361d456055",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
   "cell": [
     384,
     576
   ],
-  "sourceComponentsSha256": "71657222dfcf1f545948c860a4203b404697b6208947cede7f5686595bf7e01d",
-  "proof": "art/proofs/character-cast/dunegarden-saif.png",
-  "proofSha256": "21264d069b04b8cbe0dc20c3623fdf0378183c7b0b4bc3c6915a25dece90e340",
-  "editorSha256": "f59dac63a066a343bdcb3139ad0816b136d283007b51cf05ab560353b10c0a88",
+  "sourceComponentsSha256": "469e5f8dff3e2630379f7bb68e10b53416cc8a3ebe140023f997125e87e1e2c1",
+  "proof": "art/proofs/character-cast-painted/dunegarden-saif.png",
+  "proofSha256": "a6cb5349cd2f659fb11f024432a0318fbe6f34b9a8000105f16e0826fcf71e91",
+  "editorSha256": "4daeac74b8aeda16569b642b776f301f37faf3fbd8ac151230ce2dd5019f01af",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "71657222dfcf1f545948c860a4203b404697b6208947cede7f5686595bf7e01d"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

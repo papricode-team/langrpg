@@ -4,21 +4,21 @@
   "recipe": "art/source/character-kit/cast/seoulsteps-yuna.json",
   "recipeSha256": "243fc89262ece5509555041e3dcec4ea8ee5e4334e9941de4491c31316bb1354",
   "atlas": "web/public/assets/character-cast/seoulsteps-yuna.webp",
-  "atlasSha256": "a107d79c153abdda83d0e2dd838f80dd22668288f81c55172c016cfeb067c942",
+  "atlasSha256": "eb8bac116587baaf5fe6a0c81f86fea8898870fe83b7bd83476b6e71c29a7285",
   "geometry": "web/public/assets/character-cast/seoulsteps-yuna.atlas.json",
-  "geometrySha256": "2b8b57e337982cd85e821347e9228d5ffee77506b3e49393e01d453f1e17129a",
+  "geometrySha256": "f4caa33bde5f6ab0628fedf3690da800ee918d5253cda67ff06803d1aef7a439",
   "textureBytes": 14592704,
   "multiAtlas": true,
   "images": [
     {
       "path": "web/public/assets/character-cast/seoulsteps-yuna.webp",
-      "sha256": "a107d79c153abdda83d0e2dd838f80dd22668288f81c55172c016cfeb067c942",
+      "sha256": "eb8bac116587baaf5fe6a0c81f86fea8898870fe83b7bd83476b6e71c29a7285",
       "firstFrame": 0,
       "frameCount": 18
     },
     {
       "path": "web/public/assets/character-cast/seoulsteps-yuna.1.webp",
-      "sha256": "4d816e0ec1aed4bbb7fce5c6ab06e98a4c24a278396e28ebdd4415ce092db7c6",
+      "sha256": "1d0d14be8bb09a0b8d099fe08d180d41f4c911c4c2cea1609ef70690dbf73082",
       "firstFrame": 18,
       "frameCount": 18
     }
@@ -27,15 +27,11 @@
     384,
     576
   ],
-  "sourceComponentsSha256": "6ec28a32a03b6015f2df5cf8d98a69b6b19b6fe87eff1f1c2f0b4fdb354aa1a4",
-  "proof": "art/proofs/character-cast/seoulsteps-yuna.png",
-  "proofSha256": "07ac123a9edb3ed131e217af8ca6e8529fd36add7862b428dd391701fe3391d0",
-  "editorSha256": "f605f932d3d6ddc2ab8c07ef3a18410934fcdce7bc8a952303a83f8da68a816d",
+  "sourceComponentsSha256": "29de41ef2207db529e5fd3be09c64ae90f6f84cdcff738a27b0d657ac7d8c752",
+  "proof": "art/proofs/character-cast-painted/seoulsteps-yuna.png",
+  "proofSha256": "42c2bedcae6f723f8dbd6d96b216633ecaea842c77634417e5df18c370f1513c",
+  "editorSha256": "a206da4b9a4140b4257efca90b7350ee12c71a462428731daf21a96ed11d0902",
   "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
-  "componentRevisionRebind": {
-    "from": "16c07b05d127d438",
-    "to": "e80b2c9758205a2f",
-    "unchangedResolvedInputsSha256": "6ec28a32a03b6015f2df5cf8d98a69b6b19b6fe87eff1f1c2f0b4fdb354aa1a4"
-  }
+  "encodingId": "near-lossless-20-v1"
 }

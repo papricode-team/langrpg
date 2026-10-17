@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#6e4a33\",\"#8e8676\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"afro\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#b6a57d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#78573a\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#8c669a\"],[\"top.secondary\",\"#8c669a\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#6e4a33\",\"#8e8676\",[[\"bag\",null],[\"bottom\",\"cargo\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"afro\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#b6a57d\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#78573a\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#8c669a\"],[\"top.secondary\",\"#8c669a\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "edd22426fba5b2e066fa78498e1a645423ef29d4f7a788af24a407db25edf62e",
-  "atlasSha256": "9b0ac54c2174e52940a123f2c19ccf17e9968bb1262f1a3c777a20fbf8db10c8",
-  "textureBytes": 14839836,
-  "atlas": "web/public/assets/character-cast/kigalights-josiane.atlas.json"
+  "sha256": "680e6f0cc32702a4fc11d483f0bbde0e6052b4af0d9aab2065d2aa7eca7e28ca",
+  "atlasSha256": "fd1d62fa22e82f6c1618848eda3bce707a2c3cc915ef1c5eae6e2f87baf9f43d",
+  "textureBytes": 13738860,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/kigalights-josiane.webp",
+      "sha256": "680e6f0cc32702a4fc11d483f0bbde0e6052b4af0d9aab2065d2aa7eca7e28ca",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/kigalights-josiane.1.webp",
+      "sha256": "a5f88006cc6056b5fee0c7e0a84193fa0759c06dbce54a59248851104726268f",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/kigalights-josiane.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

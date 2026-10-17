@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b3865c\",\"#6f6352\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"braids\"],[\"headwear\",\"headband\"],[\"held\",null],[\"markings\",null],[\"neck\",\"kerchief\"],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#34333a\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#41372c\"],[\"headwear.primary\",\"#974039\"],[\"headwear.secondary\",\"#974039\"],[\"neck.primary\",\"#ddd1b2\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#9c3837\"],[\"top.secondary\",\"#9c3837\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b3865c\",\"#6f6352\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"mature\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"braids\"],[\"headwear\",\"headband\"],[\"held\",null],[\"markings\",null],[\"neck\",\"kerchief\"],[\"outer\",null],[\"top\",\"sweater\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#34333a\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#41372c\"],[\"headwear.primary\",\"#974039\"],[\"headwear.secondary\",\"#974039\"],[\"neck.primary\",\"#ddd1b2\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#9c3837\"],[\"top.secondary\",\"#9c3837\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "ab19399fc53c0da2e0e2694bc7f78a6b48b0e06b04c770896cc15f8cc4bcc04d",
-  "atlasSha256": "59a8dfb6f80b2c91a4ec5a4a311b81f59a7d77fef7ef35c9796b46275e75b32d",
-  "textureBytes": 14100660,
-  "atlas": "web/public/assets/character-cast/terracielo-rosa.atlas.json"
+  "sha256": "20e9b622ee0b71e48289f3986d0014a8b16d84016a31dd9ce1b95788b06745fe",
+  "atlasSha256": "f290118635cf60f0113bdfae5a6e0ebbfe80b31d6553d6c5524c564c1f62fa5c",
+  "textureBytes": 14226600,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/terracielo-rosa.webp",
+      "sha256": "20e9b622ee0b71e48289f3986d0014a8b16d84016a31dd9ce1b95788b06745fe",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/terracielo-rosa.1.webp",
+      "sha256": "a70d62c70ad9319f840593decfd8d30b72b6d1d4fddfd2a71e187095f3e18570",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/terracielo-rosa.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

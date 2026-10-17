@@ -1,3 +1,5 @@
+import { minigameBackdrop } from './stages';
+import { paintedMark, paintedFeedback } from './painted-ui';
 import { escapeHtml as e } from '../icons';
 import { seededShuffle } from '../game-shuffle';
 import { scaffoldStage, scaffoldText } from '../typing-scaffold';
@@ -57,7 +59,7 @@ export class RetrievalGame implements MiniGame {
     this.summary={gameId:this.id,attempts:0,correct:0,hinted:0,activeMs:0,longestChain:0};
     this.pool=mechanicPool(this.definition,query=>host.pool(query),{level:opts.level,silent:host.silent,seed:opts.seed,fixedPool:opts.fixedPool});
     this.queue=new RoundQueue(this.pool,this.definition.rounds);
-    root.innerHTML=`<section class="minigame" data-game-mechanic="${e(this.definition.mechanic)}" style="--minigame-art:url('${e(opts.backdrop??'/assets/lindenhafen-preview.webp')}')"><div class="minigame-canvas" aria-hidden="true"></div><header class="minigame-heading"><div><h2>${e(this.title)}</h2></div><div class="minigame-score"><span data-game-score>0 / 0</span><time data-game-time>${this.definition.seconds}s</time></div></header><div class="minigame-lanterns" aria-hidden="true">${Array.from({length:12},()=>'<i></i>').join('')}</div><div class="minigame-play"></div><p class="minigame-feedback" role="status" aria-live="polite"></p><footer class="minigame-footer"><span>1–6 · ← → · Enter</span><button type="button" data-game-action="pause">Pause</button><button type="button" data-game-action="finish">Finish round</button></footer></section>`;
+    root.innerHTML=`<section class="minigame" data-game-mechanic="${e(this.definition.mechanic)}" style="--minigame-art:url('${e(minigameBackdrop(this.definition.mechanic))}')"><div class="minigame-canvas" aria-hidden="true"></div><header class="minigame-heading"><div><h2>${e(this.title)}</h2></div><div class="minigame-score"><span data-game-score>0 / 0</span><time data-game-time>${this.definition.seconds}s</time></div></header><div class="minigame-lanterns" aria-hidden="true">${Array.from({length:12},()=>'<i></i>').join('')}</div><div class="minigame-play"></div><p class="minigame-feedback" role="status" aria-live="polite"></p><footer class="minigame-footer"><span>1–6 · ← → · Enter</span><button type="button" data-game-action="pause">Pause</button><button type="button" data-game-action="finish">Finish round</button></footer></section>`;
     const needsSound=soundRequired(this.definition,host.silent);
     if(this.pool.length<minimumPool(this.definition,host.silent) || needsSound){
       // Silent mode only explains a game that cannot be played without sound; a small pool is a different reason.
@@ -91,7 +93,7 @@ export class RetrievalGame implements MiniGame {
     else if(action==='clear-tiles'){if(this.current){this.current.selections=[];this.renderSelections();this.play.querySelectorAll<HTMLButtonElement>('[data-game-option]').forEach(button=>button.disabled=false);}}
     else if(action==='mark-loop'){
       const position=this.services.audio.positionMs?.(),clip=loopData.clips.find(clip=>clip.exerciseId===this.current?.exercise?.id);
-      if(position!==undefined&&clip){const repeat=clip.coughPositionsMs[1];const matched=position>=repeat-300&&position<=repeat+clip.coughDurationMs+300;this.feedback.textContent=matched?'✓ The cough repeats here. Restore the sentence between the two coughs.':'Keep listening for the same cough at the end of the loop.';if(matched)this.services.audio.sfx('stamp');}
+      if(position!==undefined&&clip){const repeat=clip.coughPositionsMs[1];const matched=position>=repeat-300&&position<=repeat+clip.coughDurationMs+300;this.feedback.textContent=matched?'The cough repeats here. Restore the sentence between the two coughs.':'Keep listening for the same cough at the end of the loop.';if(matched)this.services.audio.sfx('stamp');}
       else if(position!==undefined)this.feedback.textContent=`Loop marker · ${(position/1000).toFixed(1)}s`;
       else this.feedback.textContent='Replay the recording to mark its loop.';
     }
@@ -193,20 +195,21 @@ export class RetrievalGame implements MiniGame {
     const current=this.current!;const mechanic=this.definition.mechanic;
     const rule=['stamp','sort','archive'].includes(mechanic)&&!current.exercise?current.choices[0]?.kind:'';
     const showWord=current.modality==='recognition'||!!rule;
-    let cue=showWord?`<h3 class="minigame-cue" lang="de">${e(current.exercise?.german??current.item.lemma)}</h3>`:'<div class="minigame-listening-cue" aria-label="Listen to the German audio">♪</div>';
+    let cue=showWord?`<h3 class="minigame-cue" lang="de">${e(current.exercise?.german??current.item.lemma)}</h3>`:`<div class="minigame-listening-cue">${paintedMark('listening')}</div>`;
     if(current.order&&current.modality==='recognition')cue=`<h3 class="minigame-cue minigame-sentence-cue" lang="de">${current.order.map((item,index)=>e(`${current.numbers?.[index]?.lemma??''} · ${item.article??''} ${item.articleForm??item.lemma}`)).join(' + ')}</h3>`;
     if(current.board&&current.modality==='recognition')cue=`<h3 class="minigame-cue minigame-sentence-cue" lang="de">${current.board.targets.map(target=>e(`${current.board!.fields.find(field=>field.id===target.field)!.label}: ${[...target.options].find(([,item])=>item===target.item)?.[0]}`)).join(' · ')}</h3>`;
-    if(current.exercise)cue=`<p class="minigame-story-prompt">${e(current.exercise.prompt)}</p>${current.modality==='recognition'?`<h3 class="minigame-cue minigame-sentence-cue" lang="de">${e(current.exercise.german)}</h3>`:current.modality==='listening'?'<div class="minigame-listening-cue">♪</div>':''}`;
+    if(current.exercise)cue=`<p class="minigame-story-prompt">${e(current.exercise.prompt)}</p>${current.modality==='recognition'?`<h3 class="minigame-cue minigame-sentence-cue" lang="de">${e(current.exercise.german)}</h3>`:current.modality==='listening'?`<div class="minigame-listening-cue">${paintedMark('listening')}</div>`:''}`;
     if(rule)cue+=`<p class="minigame-rule">${rule==='article'?'der · die · das':rule==='plural'?'Plural':'A · B · C'}</p>`;
     if(current.production){
       const stage=scaffoldStage(current.item.level,this.opts.currentLevel??this.opts.level,current.item.recalls.production);
       if(stage!=='edges'&&stage!=='none')current.hinted=true;
       const sprite=current.item.sprite?'<div class="minigame-prompt-picture"></div>':'';
       const ink=mechanic==='ink'?`${current.item.sprite?'<div class="minigame-prompt-picture"></div>':current.context?'':`<p class="minigame-context">${e(current.item.english)}</p>`}<div class="minigame-ink ${current.previewInk?'':'fading'}" lang="de">${e(current.context?.before??'')}${[...(current.context?.printed??current.item.lemma)].map((letter,i)=>`<span style="--glyph:${i}">${e(current.previewInk?letter:'_')}</span>`).join('')}${e(current.context?.after??'')}</div>`:'';
-      cue=current.exercise?`<p class="minigame-story-prompt">${e(current.exercise.prompt)}</p>`:ink||sprite||(mechanic==='tape'?'<div class="minigame-listening-cue">◉</div>':`<p class="minigame-context">${e(current.item.english)}</p>`);
+      cue=current.exercise?`<p class="minigame-story-prompt">${e(current.exercise.prompt)}</p>`:ink||sprite||(mechanic==='tape'?`<div class="minigame-listening-cue">${paintedMark('listening')}</div>`:`<p class="minigame-context">${e(current.item.english)}</p>`);
       if(mechanic==='tape')void this.speak(false);
       if(!current.exercise)cue+=`<p class="minigame-scaffold" lang="de">${e(scaffoldText(current.item.lemma,stage))}</p>`;
     }
+    if(rule&&current.item.sprite)cue+='<div class="minigame-prompt-picture"></div>';
     if(current.freeName)cue=`<div class="minigame-receipt"><span class="caption">MORGEN · MARTAS KESSEL</span><h3>${e(this.services.playerName.slice(0,-1)+'?')}</h3><p>Correct your name on the receipt.</p></div>`;
     if(mechanic==='sequence')cue=`<div class="minigame-hour-slots">${Array.from({length:12},(_,index)=>`<span class="${index===((this.count-1)%12)?'is-current':''}">23:${String(index*5).padStart(2,'0')}</span>`).join('')}</div>${cue}<div class="minigame-dropzone" data-game-drop>Restore this five-minute slot</div>`;
     if(mechanic==='garden')cue=`<div class="minigame-garden-beds" aria-hidden="true">${Array.from({length:12},(_,index)=>`<i class="${index<this.summary.correct?'is-growing':''}"></i>`).join('')}</div>${cue}`;
@@ -219,7 +222,7 @@ export class RetrievalGame implements MiniGame {
     const objects=current.board||mechanic==='catch'?'<div data-game-surface></div>':!current.production||sentence?`<div class="minigame-options minigame-options-${mechanic}" role="group" aria-label="Choose your answer">${current.choices.map((choice,index)=>`<button type="button" draggable="${!!current.order||sentence||mechanic==='sequence'}" data-game-option="${index}" class="minigame-object" aria-label="Option ${index+1}"><span class="minigame-object-art"></span><span class="minigame-object-label" lang="de">${e(current.modality==='recognition'&&this.definition.sprites?'':choice.sprite&&!rule?'':choice.label)}</span><kbd>${index+1}</kbd></button>`).join('')}</div>`:'';
     this.play.innerHTML=`<div class="minigame-round">${cue}${controls}${form}${tray}${objects}<div class="minigame-patience"><i></i></div></div>`;this.shownPatience='';
     if(current.production&&!sentence){this.play.querySelector('form')?.insertAdjacentHTML('beforeend',`<button type="button" data-game-action="keyboard">Letter keys</button><div class="minigame-letter-keys" hidden role="group" aria-label="German letter keys">${[...'abcdefghijklmnopqrstuvwxyzäöüß','space','shift','backspace'].map(key=>`<button type="button" data-game-key="${key}" ${key==='shift'?'aria-pressed="false"':''}>${key==='space'?'␣':key==='shift'?'⇧':key==='backspace'?'⌫':key}</button>`).join('')}</div>`);}
-    if(current.production&&current.item.sprite){this.play.querySelector('.minigame-prompt-picture')?.append(this.services.sprites.render(current.item.sprite,'Word to recall',136));}
+    if(current.item.sprite){this.play.querySelector('.minigame-prompt-picture')?.append(this.services.sprites.render(current.item.sprite,'Word to recall',136));}
     this.play.querySelectorAll<HTMLButtonElement>('[data-game-option]').forEach((button,index)=>{
       const choice=current.choices[index];
       if(choice.sprite&&!rule){button.querySelector('.minigame-object-art')!.append(this.services.sprites.render(choice.sprite,`Option ${index+1}`,104));}
@@ -293,7 +296,7 @@ export class RetrievalGame implements MiniGame {
     const answer=current.exercise?.mode==='sentence'&&this.definition.mechanic!=='tape'?current.selections.map(choice=>choice.answer).join(' '):this.play.querySelector<HTMLInputElement>('input')?.value.trim();
     if(!answer)return;
     if(current.freeName){
-      if(answer.normalize('NFC').toLocaleLowerCase('de')===this.services.playerName.normalize('NFC').toLocaleLowerCase('de')){this.services.audio.sfx('chime');this.feedback.textContent=`✓ ${this.services.playerName}`;this.advanceTimer=setTimeout(()=>this.finish(),650);}
+      if(answer.normalize('NFC').toLocaleLowerCase('de')===this.services.playerName.normalize('NFC').toLocaleLowerCase('de')){this.services.audio.sfx('chime');paintedFeedback(this.feedback,this.services.playerName,true);this.advanceTimer=setTimeout(()=>this.finish(),650);}
       else this.feedback.textContent=`${this.services.playerName} · the kettle’s names are free alphabet practice.`;
       return;
     }
@@ -351,7 +354,7 @@ export class RetrievalGame implements MiniGame {
       this.feedback.classList.toggle('is-miss',!correct);
       if(current.exercise&&grades[0]?.correctedAnswer)current.exercise.answer=grades[0].correctedAnswer;
       const correction=current.board?current.board.targets.map(target=>`${current.board!.fields.find(field=>field.id===target.field)!.label}: ${[...target.options].find(([,item])=>item===target.item)?.[0]}`).join(' · '):current.exercise?.answer??`${current.item.article??''} ${current.item.articleForm??current.item.lemma}${correct?'':` · ${current.item.english}`}`;
-      this.feedback.textContent=correct?`✓ ${correction}`:`${correction} · returns in two turns`;
+      paintedFeedback(this.feedback,correct?correction:`${correction} · returns in two turns`,correct);
       if(!correct)void(current.board?this.services.speakText(correction):current.exercise?this.services.speakText(current.exercise.german,(current.exercise as Exercise&{audio?:{path?:string};audioPath?:string}).audio?.path??(current.exercise as Exercise&{audioPath?:string}).audioPath):this.services.speak(current.item)).catch(()=>{});
       this.pending=undefined;
       this.advanceTimer=setTimeout(()=>{this.advanceTimer=undefined;if(!this.paused)this.next();},correct?650:1600);

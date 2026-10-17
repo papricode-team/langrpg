@@ -1,0 +1,40 @@
+{
+  "tool": "Built-in image_gen",
+  "size": [
+    724,
+    724
+  ],
+  "framing": "Square head and shoulders; CSS cover, centered",
+  "actors": [
+    {
+      "id": "inspector",
+      "source": "art/source/story-cast/inspector-portrait-painted.png",
+      "sourceSha256": "19a568ab373fb0bef3db9e7a8169d13df5a55bc0003aa5c2b4e79c8ff5c3517f",
+      "crop": {
+        "left": 190,
+        "top": 0,
+        "width": 900,
+        "height": 900
+      },
+      "prompt": "art/source/story-cast/inspector-portrait-painted.txt",
+      "promptSha256": "bfeccd363e76a7983cd2fc8038af6ea2447894f77e057bf46afea5aeead4a57c",
+      "image": "/assets/story-cast/inspector-portrait.webp",
+      "sha256": "f5539783c247bf23ce6feb6a750ed02854892cd5e79155655fe3d6a4543b11e8"
+    },
+    {
+      "id": "elise",
+      "source": "art/source/story-cast/elise-portrait-painted.png",
+      "sourceSha256": "63f274d9c3e3c95697b68d5568b60de04ea3774338e53b3e473358546e963107",
+      "crop": {
+        "left": 100,
+        "top": 0,
+        "width": 1050,
+        "height": 1050
+      },
+      "prompt": "art/source/story-cast/elise-portrait-painted.txt",
+      "promptSha256": "194bffe63fe6c3c6fe97c346b97a7de3ceb994996f3aeec9d52b43859dcca16e",
+      "image": "/assets/story-cast/elise-portrait.webp",
+      "sha256": "cddc6a95e34e4a7d8463a73713dee263e37ab2f3575875bc8938aa8c84a452c1"
+    }
+  ]
+}

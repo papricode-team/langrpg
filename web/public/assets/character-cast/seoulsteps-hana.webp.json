@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#d4ae8b\",\"#684331\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#696b4e\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#40372d\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#ded0ae\"],[\"outer.secondary\",\"#ded0ae\"],[\"top.primary\",\"#e7d9bd\"],[\"top.secondary\",\"#e7d9bd\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#d4ae8b\",\"#684331\",[[\"bag\",null],[\"bottom\",\"skirt-long\"],[\"eyewear\",null],[\"face\",\"round\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"bun\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",\"apron\"],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#696b4e\"],[\"eyewear.primary\",\"#48372e\"],[\"footwear.primary\",\"#40372d\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#ded0ae\"],[\"outer.secondary\",\"#ded0ae\"],[\"top.primary\",\"#e7d9bd\"],[\"top.secondary\",\"#e7d9bd\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "84727cb7a2e6b76d0887726f4aab607b9c7e2ea041089b26c6e7ad87cfad536f",
-  "atlasSha256": "8721da861476d774161704091c2031dbf0f6186712ee22eed1c88820f5869b7d",
-  "textureBytes": 14829480,
-  "atlas": "web/public/assets/character-cast/seoulsteps-hana.atlas.json"
+  "sha256": "e2b92443622be793d96f22aa2f2ff7cb2d5b71eef1bb324e653472ec2032d3f2",
+  "atlasSha256": "16c22030411a3abea0c4011af498a7975eaf67f129df913836df809559fd2060",
+  "textureBytes": 14750896,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/seoulsteps-hana.webp",
+      "sha256": "e2b92443622be793d96f22aa2f2ff7cb2d5b71eef1bb324e653472ec2032d3f2",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/seoulsteps-hana.1.webp",
+      "sha256": "aeaec39a521de7badc96719265263d253ad3d30b99bf88369c00cc9f7a36344c",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/seoulsteps-hana.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }

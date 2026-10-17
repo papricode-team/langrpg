@@ -34,15 +34,31 @@
     }
   },
   "assetVersion": "e80b2c9758205a2f",
-  "recipeKey": "avatar-v2:e80b2c9758205a2f:[\"regular\",\"#b2855b\",\"#2d2921\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",\"square\"],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"buzz\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#365b92\"],[\"eyewear.primary\",\"#30332e\"],[\"footwear.primary\",\"#75543a\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#e5d9ba\"],[\"top.secondary\",\"#e5d9ba\"]]]",
+  "recipeKey": "avatar-v2:paint-1:e80b2c9758205a2f:[\"regular\",\"#b2855b\",\"#2d2921\",[[\"bag\",null],[\"bottom\",\"straight\"],[\"eyewear\",\"square\"],[\"face\",\"angular\"],[\"facial-hair\",null],[\"footwear\",\"shoes\"],[\"hair\",\"buzz\"],[\"headwear\",null],[\"held\",null],[\"markings\",null],[\"neck\",null],[\"outer\",null],[\"top\",\"shirt\"]],[[\"bag.primary\",\"#694731\"],[\"bottom.primary\",\"#365b92\"],[\"eyewear.primary\",\"#30332e\"],[\"footwear.primary\",\"#75543a\"],[\"headwear.primary\",\"#354d70\"],[\"headwear.secondary\",\"#c99167\"],[\"neck.primary\",\"#854a5b\"],[\"outer.primary\",\"#326a65\"],[\"outer.secondary\",\"#2a4436\"],[\"top.primary\",\"#e5d9ba\"],[\"top.secondary\",\"#e5d9ba\"]]]",
   "preview": false,
   "frames": 36,
   "cell": [
     384,
     576
   ],
-  "sha256": "142a068f47b5bc719b9c742f3f00d8fa30b1faa1c2ed2e8f9dff3305a0e074cf",
-  "atlasSha256": "f9938ba73fe03067f0365f133e2880de92a9abbae45d77071b28499486f731a0",
-  "textureBytes": 13714704,
-  "atlas": "web/public/assets/character-cast/riverweave-resident-3.atlas.json"
+  "sha256": "db742f6ea39949bdda6ad80f737b0aa23f8e96e19750304c23e14eff70213c28",
+  "atlasSha256": "057d9370151c1f01ec8d776317771307026a1206ad7b6a30b1b95d06ffaa1952",
+  "textureBytes": 13899516,
+  "multiAtlas": true,
+  "images": [
+    {
+      "path": "web/public/assets/character-cast/riverweave-resident-3.webp",
+      "sha256": "db742f6ea39949bdda6ad80f737b0aa23f8e96e19750304c23e14eff70213c28",
+      "firstFrame": 0,
+      "frameCount": 18
+    },
+    {
+      "path": "web/public/assets/character-cast/riverweave-resident-3.1.webp",
+      "sha256": "6f34780ff59df99d0f073f010cc3f7b9b01934cb0ab9ea1bb153f73af4ef48c1",
+      "firstFrame": 18,
+      "frameCount": 18
+    }
+  ],
+  "atlas": "web/public/assets/character-cast/riverweave-resident-3.atlas.json",
+  "encodingId": "near-lossless-20-v1"
 }
