@@ -15,6 +15,7 @@ import { createWorldResidents, sampleResidentMotion, sampleResidentSchedule } fr
 import { residentFacingLeft, residentWalkDistance } from './resident-animation';
 import { WorldScenery } from './world-scenery';
 import { createSceneryOcclusion } from './scenery-occlusion';
+import { graphicsQualityTier } from './quality-state';
 import { setDepthIfChanged, worldDepth, type OcclusionCharacter } from './world-depth';
 import { GroundTerrain } from './ground-terrain';
 import { getWorldScene } from './scene-data';
@@ -546,7 +547,10 @@ export class WorldScene extends ExploreScene implements EditSurface {
     this.animals?.update(seconds, this.navigation, this.local, view, time.hour, this.labelScale, this.density,
       timeAmbient(this.mapSpec.id, time.hour, this.period).people, this.reducedMotion, this.terrainOnly,
       this.controlsEnabled && !this.watching && !this.editing, this.pendingInteraction);
-    this.scenery?.update(this.decorativeElapsed, view, this.occlusionCharacters(), seconds);
+    // Only High can afford a cutout per covered wall strip; below it the player alone fades the walls.
+    const cutouts = graphicsQualityTier() === 'high';
+    this.scenery?.setCutouts(cutouts);
+    this.scenery?.update(this.decorativeElapsed, view, this.occlusionCharacters(!cutouts), seconds);
     this.updateSilhouette();
     this.updateNavigationOverlay();
     this.editController?.update();
@@ -861,7 +865,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
   }
 
   /** Rebuilt every frame into reused records, in the same order as actors(); the scenery copies what it keeps. */
-  private occlusionCharacters(): OcclusionCharacter[] {
+  private occlusionCharacters(playerOnly = false): OcclusionCharacter[] {
     const list = this.occlusionList, pool = this.occlusionPool;
     list.length = 0;
     const add = (character: Character | undefined) => {
@@ -871,6 +875,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
       list.push(entry);
     };
     add(this.local);
+    if (playerOnly) return list;
     for (const character of this.characters.values()) add(character);
     for (const character of this.peers.values()) add(character);
     for (const resident of this.residents) add(resident.character);

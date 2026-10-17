@@ -7,6 +7,7 @@ export type CutsceneOutcome='played'|'skipped';
 import { baseLanguage, localizedName, translatedText } from './i18n';
 import { getWorldScene } from './scene-data';
 import { stageBeats, stationStage } from './cinematic-staging';
+import { readWorld } from './world-state';
 
 /** A real transparent Phaser scene above the live world; keyboard/click skippable. */
 export class CutsceneScene extends Phaser.Scene {
@@ -26,7 +27,7 @@ export class CutsceneScene extends Phaser.Scene {
   create(data: {kind:CutsceneKind;mapId:MapId;ending?:string;reduced?:boolean;complete:()=>void}) {
     this.beats = stageBeats(data.kind,cinematicBeats(data.kind,data.mapId,data.ending),stationStage(getWorldScene(data.mapId))); this.index = 0; this.finish = data.complete;
     this.kind=data.kind; this.reduced=!!data.reduced;
-    const {width,height} = this.scale, density = Math.min(2, window.devicePixelRatio || 1);
+    const {width,height} = this.scale, density = readWorld(this.registry, 'density') ?? 1;
     if(!this.reduced&&['arrival','travel'].includes(data.kind)&&this.textures.exists('greenhouse-train')){
       const train=this.add.image(-width*.4,height*.52,'greenhouse-train').setDisplaySize(width*.92,width*.92*1024/1536);
       this.tweens.add({targets:train,x:width*1.4,duration:data.kind==='arrival'?6000:3000,ease:'Sine.easeInOut'});

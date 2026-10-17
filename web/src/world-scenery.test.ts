@@ -95,12 +95,28 @@ function fixture(period:'day'|'night'='day',inheritSortLine=false,asset:PlacedSc
   const scene={cache:{json:{get:()=>({assets:{[asset]:{key:texture.key,frames:[asset],fps:0,width:reference,height:reference,referenceWidth:reference,originX:.5,originY:1,
     sortLine:period==='night'?[[-reference/2,-reference*.8],[reference/2,-reference*.6]]:canonical.sortLine}}})}},
     textures:{exists:()=>true,get:()=>texture,createCanvas:ground.createCanvas,remove:ground.remove},add:{image:ground.image,sprite:(x:number,y:number,key:string,name:string)=>{const sprite=new Sprite(x,y,key,name);sprites.push(sprite);return sprite;}}} as unknown as Phaser.Scene;
-  const factory=((_scene:Phaser.Scene,_sprite:Phaser.GameObjects.Sprite)=>({configure:()=>undefined})) as unknown as SceneryOcclusionFactory;
+  const configured:number[]=[];
+  const factory=((_scene:Phaser.Scene,_sprite:Phaser.GameObjects.Sprite)=>({configure:(circles:readonly unknown[])=>{configured.push(circles.length);}})) as unknown as SceneryOcclusionFactory;
   const placement={id:'test-wall',asset,frame:detailFrame,x:100,y:200,width:100,sortLine:inheritSortLine?undefined:[[-reference/2,-reference*.4],[reference/2,0]] as const};
-  return{scenery:new WorldScenery(scene,'lindenhafen',period,[placement],factory),sprites,frames,ground,placement};
+  return{scenery:new WorldScenery(scene,'lindenhafen',period,[placement],factory),sprites,frames,ground,placement,configured};
 }
 
 describe('segmented scenery rendering', () => {
+  it('cuts walls out around a hidden character only while cutouts are enabled',()=>{
+    const view={x:-1000,y:-1000,right:1000,bottom:1000};
+    const behind=[{id:'self',x:100,y:190,depth:-1e9,height:72}];
+    const {scenery,sprites,configured}=fixture('day',false,'house');
+    scenery.update(0,view,behind,.5);
+    expect(configured.some(count=>count>0)).toBe(true);
+    expect(sprites.filter(sprite=>!sprite.destroyed).every(sprite=>sprite.alpha===1)).toBe(true);
+    configured.length=0;
+    scenery.setCutouts(false);
+    scenery.update(0,view,behind,.5);
+    expect(configured.every(count=>count===0)).toBe(true);
+    expect(sprites.some(sprite=>!sprite.destroyed&&sprite.alpha<1)).toBe(true);
+    expect(scenery.occlusionFor('self')?.strength).toBe(1);
+    scenery.destroy();
+  });
   it('renders an open platform canopy without inventing a solid building foundation',()=>{
     const {scenery,sprites,ground}=fixture('day',true,'station','station-platform-canopy');
     expect(sprites.length).toBeGreaterThan(0);
