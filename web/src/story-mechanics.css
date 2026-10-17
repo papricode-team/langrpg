@@ -123,9 +123,11 @@
   bottom:96px;
   display:flex;
   align-items:center;
-  width:184px;
+  width:max-content;
+  min-width:208px;
+  max-width:calc(100vw - 32px);
   height:60px;
-  padding:9px 15px 9px 61px;
+  padding:9px 39px 9px 61px;
   border:1px solid color-mix(in srgb, var(--brass) 60.0%, transparent);
   border-radius:10px 16px 16px 10px;
   color:#fff1cd;
@@ -146,6 +148,44 @@
   background:radial-gradient(ellipse,#ffc46b55,transparent 68%);
   opacity:var(--lamp);
   transition:opacity .25s linear;
+}
+
+.lamp-meter-help {
+  position:absolute;
+  inset:0;
+  padding:0;
+  border:0;
+  border-radius:inherit;
+  color:var(--brass-light);
+  background:transparent;
+  cursor:help;
+  pointer-events:auto;
+}
+
+.lamp-meter-help>span {
+  position:absolute;
+  top:9px;
+  right:9px;
+  display:grid;
+  place-items:center;
+  width:20px;
+  height:20px;
+  border:1px solid currentColor;
+  border-radius:50%;
+  font:600 14px/1 var(--font-body);
+}
+
+.lamp-meter-help:is(:hover,:focus-visible) {
+  background:#fff1cd0d;
+}
+
+.lamp-meter-help:focus-visible {
+  outline:2px solid var(--brass-light);
+  outline-offset:3px;
+}
+
+.lamp-help-dialog li+li {
+  margin-top:12px;
 }
 
 .lamp-meter-art {
