@@ -58,6 +58,16 @@ describe('the authored activity catalog',()=>{
     try { expect(exerciseForScenario(scene)).toBe(exercise); expect(exerciseForScenario(scene).answer).toBe(''); }
     finally { if (previous) courseExerciseById.set(exercise.id, previous); else courseExerciseById.delete(exercise.id); }
   });
+  it('submits a non-empty board answer when the public client has no answer key', () => {
+    const scene = activityScenarios.find(scene => scene.id === 'delivery-a1-straight-to-otto')!;
+    const previous = courseExerciseById.get(scene.exerciseId)!;
+    courseExerciseById.set(scene.exerciseId, { ...previous, answer: '' });
+    try {
+      const result = evaluateActivity(scene, solve(scene));
+      expect(result.valid).toBe(true);
+      expect(result.answer.trim()).not.toBe('');
+    } finally { courseExerciseById.set(scene.exerciseId, previous); }
+  });
   it('has twelve scenes for each playable mechanic, four per level, with valid canonical targets',()=>{
     expect(activityDefinitions.map(definition=>definition.id)).toEqual(['cafe','market','detective','delivery']);
     expect(activityScenarios).toHaveLength(48);

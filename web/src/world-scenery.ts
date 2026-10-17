@@ -7,7 +7,6 @@ import { getPlacedScenery, sceneryTextureFor, sceneryTextureKey, type PlacedScen
 import { isBuildingScenery,sampleSceneryFrame,sampleTreeSway,sceneryBlend,sceneryAnimationManifestKey,type SceneryAnimation,type SceneryAnimationManifest } from './scenery-animation';
 import { getSceneryGeometry } from './scene-schema';
 import { createDepthSampler, worldDepth, isCharacterOccluded, updateOcclusion, type DepthGeometry, type OcclusionCharacter, type OcclusionCircle, type WorldBounds } from './world-depth';
-import type { SceneryOcclusionController } from './scenery-occlusion';
 import { BuildingFoundation } from './world-foundations';
 import { SceneryContact } from './world-scenery-contact';
 import { sceneryContactKind } from './scenery-contact-shape';
@@ -26,8 +25,6 @@ interface AnimatedSprite {
   nextFrame?:string;
   phaseId:string;
   frames?:Readonly<Record<string,string>>;
-  cutout?:SceneryOcclusionController;
-  nextCutout?:SceneryOcclusionController;
   foundationSurface?:boolean;
   foundationGrowth?:boolean;
 }
@@ -44,12 +41,13 @@ interface SceneryLayer {
   foundation?:BuildingFoundation|SceneryContact;
   castShadow?:WorldCastShadow;
 }
+/** How much a building in front of the player lightens; it stays clearly solid. */
+export const OCCLUDER_FADE=.3;
 const noCircles:readonly OcclusionCircle[]=[];
 /** Shared "nobody behind this" result. Never pushed to: a match replaces it with a fresh array first. */
 const noCovered:OcclusionCharacter[]=[];
 export interface SceneryView { x:number;y:number;right:number;bottom:number; }
 export interface LampLight { x:number;y:number;footY:number;width:number; }
-export type SceneryOcclusionFactory=(scene:Phaser.Scene,sprite:Phaser.GameObjects.Sprite)=>SceneryOcclusionController|undefined;
 /** Trees gently sway one stable painting; other scenery uses authored frames. */
 export class WorldScenery {
   private layers:SceneryLayer[]=[];
@@ -57,12 +55,6 @@ export class WorldScenery {
   private groundContactVisible=true;
   private groundContactOpacity=1;
   private reducedMotion=false;
-  /**
-   * Each cutout renders its sprite through an offscreen framebuffer, and a character behind a wall
-   * covers dozens of 8px strips. Mobile GPUs pay a full-screen store and load per switch, so lower
-   * quality tiers fade the strips instead, as Canvas does.
-   */
-  private cutouts=true;
   private motionTime=0;
   private opacity=1;
   private occluded=new Map<string,{depth:number;strength:number}>();
@@ -72,7 +64,7 @@ export class WorldScenery {
   private destroyed=false;
   private loadingDetails=new Set<string>();
   private terrainStamp='';
-  constructor(private scene:Phaser.Scene,private mapId:MapId,private period:WorldPeriod='day',private placements:readonly PlacedScenerySpec[]=getPlacedScenery(mapId),private createCutout?:SceneryOcclusionFactory,private terrain:Ground|undefined=sceneDocument.maps[mapId]?.ground){
+  constructor(private scene:Phaser.Scene,private mapId:MapId,private period:WorldPeriod='day',private placements:readonly PlacedScenerySpec[]=getPlacedScenery(mapId),private terrain:Ground|undefined=sceneDocument.maps[mapId]?.ground){
     this.terrainStamp=groundFingerprint(terrain);
     this.manifest=scene.cache.json.get(sceneryAnimationManifestKey(mapId,period)) as SceneryAnimationManifest|undefined;
     for(const spec of placements)this.addLayer(spec);
@@ -160,7 +152,7 @@ export class WorldScenery {
     return true;
   }
   private destroyLayer(layer:SceneryLayer):void{
-    for(const {sprite,next,cutout,nextCutout} of layer.parts){cutout?.configure([]);nextCutout?.configure([]);sprite.destroy();next?.destroy();}
+    for(const {sprite,next} of layer.parts){sprite.destroy();next?.destroy();}
     layer.foundation?.destroy();layer.castShadow?.destroy();
   }
   /**
@@ -301,7 +293,6 @@ export class WorldScenery {
     }
   }
   setReducedMotion(reduced:boolean){this.reducedMotion=reduced;}
-  setCutouts(enabled:boolean){this.cutouts=enabled;}
   /** QA comparison: keep lighting, architecture and navigation fixed. */
   setGroundContactVisible(visible:boolean){
     this.groundContactVisible=visible;
@@ -359,28 +350,22 @@ export class WorldScenery {
         covered.push(character);
       }
       item.circles=visible&&(covered.length||item.circles.length)?updateOcclusion(item.circles,covered,seconds,this.reducedMotion):noCircles;
+      // The whole covered object lightens evenly, so no strip edge shows; the
+      // player's silhouette drawn above it keeps them locatable.
+      let strength=0,top=-Infinity;
+      // The silhouette sorts just above the highest strip, so it clears the whole object.
+      if(visible&&item.circles.length)for(const part of parts)top=Math.max(top,part.sprite.depth);
+      if(visible)for(const circle of item.circles){
+        strength=Math.max(strength,circle.strength);
+        const previous=this.occluded.get(circle.id);
+        this.occluded.set(circle.id,{depth:Math.max(previous?.depth??0,top),strength:Math.max(previous?.strength??0,circle.strength)});
+      }
+      const alpha=this.opacity*(1-OCCLUDER_FADE*strength);
       for(const part of parts){
         const partVisible=visible&&(!part.foundationSurface||this.groundContactVisible);
         if(part.sprite.visible!==partVisible)part.sprite.setVisible(partVisible);
         if(part.next&&part.next.visible!==visible)part.next.setVisible(visible);
         if(!visible)continue;
-        const partBounds=item.circles.length?part.sprite.getBounds():undefined;
-        const circles=partBounds?item.circles.filter(circle=>part.sprite.depth>circle.depth&&circle.x+90>=partBounds.x&&circle.x-90<=partBounds.right
-          &&circle.y+90>=partBounds.y&&circle.y-90<=partBounds.bottom):noCircles;
-        const cutouts=this.cutouts?circles:noCircles;
-        if(cutouts.length&&!part.cutout)part.cutout=this.createCutout?.(this.scene,part.sprite);
-        part.cutout?.configure(cutouts);
-        if(cutouts.length&&part.next&&!part.nextCutout)part.nextCutout=this.createCutout?.(this.scene,part.next);
-        part.nextCutout?.configure(cutouts);
-        // Canvas and the lower quality tiers have no cutout. A bounded fade plus the
-        // silhouette keeps the character locatable there; High gets the local cutout.
-        let strength=0;
-        for(const circle of circles){
-          strength=Math.max(strength,circle.strength);
-          const previous=this.occluded.get(circle.id);
-          this.occluded.set(circle.id,{depth:Math.max(previous?.depth??0,part.sprite.depth),strength:Math.max(previous?.strength??0,circle.strength)});
-        }
-        const alpha=this.opacity*(part.cutout&&this.cutouts?1:1-.75*strength);
         if(part.sprite.alpha!==alpha)part.sprite.setAlpha(alpha);
         if(part.detailMotion){
           const motion=sampleDetailMotion(part.detailMotion,part.phaseId,this.motionTime,this.reducedMotion);

@@ -16,8 +16,6 @@ import { characterFrame, MODULAR_ART } from './avatar-options';
 import { createWorldResidents, sampleResidentMotion, sampleResidentSchedule } from './world-life';
 import { residentFacingLeft, residentWalkDistance } from './resident-animation';
 import { WorldScenery } from './world-scenery';
-import { createSceneryOcclusion } from './scenery-occlusion';
-import { graphicsQualityTier } from './quality-state';
 import { setDepthIfChanged, worldDepth, type OcclusionCharacter } from './world-depth';
 import { GroundTerrain } from './ground-terrain';
 import { getWorldScene } from './scene-data';
@@ -210,7 +208,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
     this.background = new GroundTerrain(this, getWorldScene(map.id), this.period).setTint(worldAmbient(map.id, this.period).terrain);
     this.background.update(this.cameras.main.worldView, this.cameras.main.zoom);
     this.mapAnimationsReady = this.animationAssets.ready(map.id, this.period);
-    this.scenery = new WorldScenery(this, map.id, this.period, undefined, createSceneryOcclusion);
+    this.scenery = new WorldScenery(this, map.id, this.period);
     this.scenery.setReducedMotion(this.reducedMotion);
     this.createMapCharacters(map);
     this.createMapObjects(map.objects);
@@ -568,10 +566,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
     this.animals?.update(seconds, this.navigation, this.local, view, time.hour, this.labelScale, this.density,
       timeAmbient(this.mapSpec.id, time.hour, this.period).people, this.reducedMotion, this.terrainOnly,
       this.controlsEnabled && !this.watching && !this.editing, this.pendingInteraction);
-    // Only High can afford a cutout per covered wall strip; below it the player alone fades the walls.
-    const cutouts = graphicsQualityTier() === 'high';
-    this.scenery?.setCutouts(cutouts);
-    this.scenery?.update(this.decorativeElapsed, view, this.occlusionCharacters(!cutouts), seconds);
+    this.scenery?.update(this.decorativeElapsed, view, this.occlusionCharacters(), seconds);
     this.updateSilhouette();
     this.updateNavigationOverlay();
     this.editController?.update();
@@ -655,7 +650,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
     const previous = this.period, oldScenery = this.scenery, oldBackground = this.background;
     this.period = period;
     this.background = terrain;
-    this.scenery = new WorldScenery(this, this.mapSpec.id, period, undefined, createSceneryOcclusion);
+    this.scenery = new WorldScenery(this, this.mapSpec.id, period);
     this.mapAnimationsReady = true;
     this.atmosphere?.setLampLights(this.scenery.lampLights);
     this.scenery.setReducedMotion(this.reducedMotion);
@@ -888,8 +883,12 @@ export class WorldScene extends ExploreScene implements EditSurface {
     for (const resident of this.activityResidents) resident.speech?.setResolution(density);
   }
 
-  /** Rebuilt every frame into reused records, in the same order as actors(); the scenery copies what it keeps. */
-  private occlusionCharacters(playerOnly = false): OcclusionCharacter[] {
+  /**
+   * Rebuilt every frame into a reused record; the scenery copies what it keeps. Only the player opens
+   * walls, as in most top-down games: others walk behind buildings, and every covered strip shares one
+   * reveal window, so a second character's window would also open walls in front of the player.
+   */
+  private occlusionCharacters(): OcclusionCharacter[] {
     const list = this.occlusionList, pool = this.occlusionPool;
     list.length = 0;
     const add = (character: Character | undefined) => {
@@ -899,11 +898,6 @@ export class WorldScene extends ExploreScene implements EditSurface {
       list.push(entry);
     };
     add(this.local);
-    if (playerOnly) return list;
-    for (const character of this.characters.values()) add(character);
-    for (const character of this.peers.values()) add(character);
-    for (const resident of this.residents) add(resident.character);
-    for (const resident of this.activityResidents) add(resident.character);
     return list;
   }
 
@@ -919,7 +913,9 @@ export class WorldScene extends ExploreScene implements EditSurface {
         .setScale(source.scaleX, source.scaleY).setRotation(source.rotation).setFlip(source.flipX, source.flipY)
         .setTint(0x1b2a33).setTintMode(Phaser.TintModes.FILL).setBlendMode(Phaser.BlendModes.NORMAL).setVisible(source.visible);
     });
-    this.silhouette.setPosition(this.local.x, this.local.y).setAlpha(.55 * occlusion.strength * this.local.root.alpha).setVisible(true);
+    // A slow shimmer reads as "you, behind this" without cutting into the painting.
+    const shimmer = this.reducedMotion ? .6 : .6 + .14 * Math.sin(this.elapsed * Math.PI * 1.8);
+    this.silhouette.setPosition(this.local.x, this.local.y).setAlpha(shimmer * occlusion.strength * this.local.root.alpha).setVisible(true);
     setDepthIfChanged(this.silhouette, occlusion.depth + 2);
   }
 
