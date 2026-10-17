@@ -1,3 +1,4 @@
+import { contentEntitlementKey } from './content-entitlements';
 import { storyQuestId, storyQuestComplete } from './prologue-progress';
 import {buildingRoomId} from './room-layout';
 import {roomKind} from './room-kind';
@@ -308,13 +309,7 @@ let attemptBusy = false;
 function cancelRun() { exerciseInputCleanup?.();exerciseInputCleanup=undefined;if(exerciseChoiceTimer){clearTimeout(exerciseChoiceTimer);exerciseChoiceTimer=undefined;}pendingExerciseChoice=undefined;run?.reviewAttempt?.cancel(); run = undefined; }
 let progressOwner: string | undefined;
 let bootstrapRefresh: Promise<void> | undefined;
-function entitlementKey(value: Progress): string {
-  // Train evidence changes the current graph, whose reads are authorized live.
-  // Only completing a scene unlocks new catalogue content. Refreshing both the
-  // inspection and completion can exhaust bootstrap's six-reads/minute budget.
-  const storyEntitlements = interiorId?.startsWith('train-') ? [] : [value.story?.inspections, value.story?.choices, value.story?.inventory, value.story?.ending];
-  return JSON.stringify([value.completedQuestIds, value.completedUnitIds, value.intake?.wordIds, ...storyEntitlements]);
-}
+function entitlementKey(value: Progress): string { return contentEntitlementKey(value, !!interiorId?.startsWith('train-')); }
 function acceptProgress(value: Progress, owner?: string) {
   const previousEntitlements = entitlementKey(progress);
   if (owner && progressOwner !== owner) { attemptedCinematics.clear(); progressOwner = owner; progress = emptyProgress(); exposedContexts.clear(); }
@@ -327,6 +322,8 @@ function acceptProgress(value: Progress, owner?: string) {
     }
     if (started && activeCourse?.target === 'de' && previousEntitlements !== entitlementKey(progress)) {
       bootstrapRefresh ??= refreshBootstrap().then(async () => { await loadRestoredWords(progress); updateProgress(); if (view !== 'world') refreshLearningMenu(document.querySelector<HTMLElement>('#other-view')!,renderOther); }).catch(error => toast(error.message, true)).finally(() => { bootstrapRefresh = undefined; });
+    } else if (started && activeCourse?.target === 'de' && JSON.stringify(previous.intake?.wordIds) !== JSON.stringify(progress.intake?.wordIds)) {
+      void loadRestoredWords(progress).then(() => updateProgress()).catch(error => toast(error.message, true));
     }
   }
 }
@@ -1725,7 +1722,11 @@ async function continuePrologue(id: string) {
   const cursor = progress.story?.nodes[id] ?? 'intro';
   const stage = graph.nodes.find(node => node.id === cursor)?.stage ?? cursor;
   const evidence = graph.investigations.find(item=>!graph.optionalInvestigations?.includes(item.objectId) && (stage === 'choice' ? graph.completionInvestigations?.includes(item.objectId) : !graph.completionInvestigations?.includes(item.objectId)) && !(progress.story?.inspections[id]??[]).includes(item.objectId));
-  if (evidence) { world.setObjective(evidence.worldId ?? evidence.objectId); toast(t('Examine the evidence')); }
+  if (evidence && stage === 'intro') {
+    // Looking closer is the player's explicit action. Keep the artifact in the
+    // dialogue flow; it is recorded only when the player continues from it.
+    await questController?.inspect(id, evidence.objectId);
+  } else if (evidence) { world.setObjective(evidence.worldId ?? evidence.objectId); toast(t('Examine the evidence')); }
   else await questController?.open(id);
 }
 function startQuest(id: string) {

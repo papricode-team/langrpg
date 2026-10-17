@@ -12,6 +12,7 @@ const b=await chromium.launch({...(process.env.ATLAS_CHROMIUM_PATH?{executablePa
 p.on('response',async r=>{if(r.url().endsWith('/api/attempt')){const data=await r.json();if(data.correct===false)console.log('Attempt not accepted',r.status(),{correct:data.correct,reason:data.reason,error:data.error,answer:data.correctedAnswer});}});
 p.on('response',r=>{if(r.status()===429&&new URL(r.url()).pathname.startsWith('/api/content/'))errors.push('Content read limited: '+new URL(r.url()).pathname)});
 p.on('pageerror',e=>errors.push(e.stack));p.on('request',r=>{if(r.url().endsWith('/api/attempt'))attempts.push(r.postDataJSON())});
+let ticketOpenedDirectly=false;
 try{
  await p.goto(url);await p.locator('#language-entry-form [type="submit"]').click();await p.locator('#confirm-languages').click();await p.locator('[data-experience="none"]').click();await p.locator('#entry-name').fill('Ava');await p.locator('#name-entry-form [type="submit"]').click();
  await p.waitForSelector('.prologue-sounds',{timeout:45000});if(await p.locator('[data-placement]').count())throw Error('Placement appeared on the zero-German route.');console.log('No placement before sounds: true');await p.locator('[data-sound="close"]').click();
@@ -29,7 +30,16 @@ try{
        if(!selected){ const storyReply=index===3?'Ja, bitte.':index===5?'Noch einmal, bitte.':null; if(storyReply) selected=await choice.evaluateAll((es,text)=>es.find(e=>e.getAttribute('aria-label')===`Say it: ${text}`)?.dataset.dialogueChoice,storyReply); }
        if(!selected)throw Error('Unexpected choices '+JSON.stringify(ids));await p.locator('[data-dialogue-choice]').filter({hasNot:p.locator('[disabled]')}).evaluateAll((es,id)=>es.find(e=>e.dataset.dialogueChoice===id)?.click(),selected);continue;
      }
-     const next=p.locator('[data-dialogue-action="next"]:not([disabled])');if(await next.isVisible()){await next.click({timeout:1500}).catch(()=>{});continue;}
+     const next=p.locator('[data-dialogue-action="next"]:not([disabled])');if(await next.isVisible()){
+       const lookingCloser=index===0 && (await next.innerText()).includes('Look closer');
+       await next.click({timeout:1500});
+       if(lookingCloser){
+         await p.locator('.investigation-artifact .dialogue-line').waitFor({timeout:5000});
+         ticketOpenedDirectly=true;
+         console.log('Ticket opens directly from Look closer: true');
+       }
+       continue;
+     }
      if(!await p.locator('.dialogue-line').isVisible() && Number(await p.locator('#xp-value').textContent()) < (index+1)*20) {
        const point = await p.evaluate(async id => {
          const {SceneKeys}=await import('/src/world-state.ts');
@@ -52,6 +62,7 @@ try{
    }
    console.log('Scene',index+1,'closed',completed,'XP',await p.locator('#xp-value').innerText());
    if(!completed)throw Error('Scene did not close '+index);
+   if(index===0&&!ticketOpenedDirectly)throw Error('The ticket request did not open its inspection directly.');
    if(index===4){
      await p.locator('[data-minigame="lantern-pairs"]').first().click();
      await p.locator('[data-game-action="start"]').click();

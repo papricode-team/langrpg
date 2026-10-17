@@ -2,7 +2,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { QuestController } from './quest-controller';
 import { emptyProgress, type Progress } from './api';
-import { emptyStory, type DialogueLine } from './dialogue';
+import { emptyStory, type DialogueLine, type QuestGraph } from './dialogue';
 import { questGraphs } from './quest-graph';
 import { npcs, quests } from './content';
 import { answerMatches } from './learning';
@@ -41,6 +41,29 @@ const press = () => (document.querySelector<HTMLButtonElement>('[data-dialogue-a
 const until = (selector: string, limit = 80) => { for (let step = 0; step < limit && !document.querySelector(selector); step++) press(); expect(document.querySelector(selector), selector).not.toBeNull(); };
 
 describe('conversation scene lifecycle', () => {
+  it('keeps the A0 ticket inspection between the request and the player reply', async () => {
+    const f = fixture('intro', 'a0-ticket', true);
+    f.options.onInvestigate.mockImplementation((graph: QuestGraph) => {
+      const evidence = graph.investigations.find(item => !(f.progress.story?.inspections[graph.questId] ?? []).includes(item.objectId));
+      if (evidence) void f.controller.inspect(graph.questId, evidence.objectId);
+      else void f.controller.open(graph.questId);
+    });
+    await f.controller.open('a0-ticket');
+    press();
+    expect(document.querySelector('.dialogue-line')?.textContent).toContain('Die Fahrkarte, bitte.');
+    expect(document.querySelector('[data-dialogue-action="next"]')?.textContent).toContain('Look closer');
+    press();
+    await vi.waitFor(() => expect(document.querySelector('.investigation-artifact .dialogue-line')?.textContent).toContain('Fahrkarte. Lindenhafen.'));
+    expect(f.api.inspectStory).not.toHaveBeenCalled();
+    expect(f.api.storyTransition).not.toHaveBeenCalled();
+    expect(document.querySelector('[data-dialogue-action="next"]')?.textContent).toContain('Continue');
+    press();
+    await vi.waitFor(() => expect(document.querySelector('[data-dialogue-choice="Bitte."]')).not.toBeNull());
+    expect(f.api.inspectStory).toHaveBeenCalledTimes(1);
+    expect(f.api.storyTransition).toHaveBeenCalledWith(expect.objectContaining({questId:'a0-ticket', nodeId:'intro'}));
+    expect(document.querySelector('.dialogue-choice-prompt')?.textContent).toContain('He is asking for your ticket. Hand it over.');
+    expect(f.api.request).not.toHaveBeenCalled();
+  });
   it('starts A1 with supported greeting choices and reveals meanings only on request', async () => {
     const f = fixture('intro', 'a1-arrival', true);
     await f.controller.open('a1-arrival');
