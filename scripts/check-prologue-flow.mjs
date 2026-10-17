@@ -21,7 +21,7 @@ const interact=(id,x,y)=>p.evaluate(({id,x,y})=>{
   scene.triggerInteraction(id);
 },{id,x,y});
 try{
-  await p.goto(url);await p.locator('#language-entry-form [type="submit"]').click();await p.locator('#confirm-languages').click();await p.locator('[data-experience="none"]').click();await p.locator('#entry-name').fill('Ava');await p.locator('#name-entry-form [type="submit"]').click();
+  await p.goto(url);await p.locator('#language-entry-form [type="submit"]').click();await p.locator('#confirm-languages').click();await p.locator('#entry-name').fill('Ava');await p.locator('#name-entry-form [type="submit"]').click();
   await p.waitForSelector('.story-beacon.coach',{timeout:60000});
   if(await p.locator('[data-placement], .prologue-sounds').count())throw Error('Placement or the sounds board interrupted the first scene.');
   const first=await p.locator('.story-beacon.coach').getAttribute('data-coach');

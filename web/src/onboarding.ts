@@ -2,7 +2,7 @@ import { baseLanguageNames, isBaseLanguage, setBaseLanguage, t, type BaseLanguag
 import { escapeHtml as e, icon } from './icons';
 import { brandMarkup } from './branding';
 
-export interface OnboardingLanguages { motherTongue: BaseLanguage; learningLanguage: 'de' | 'en'; germanExperience?: 'none' | 'little' | 'yes'; }
+export interface OnboardingLanguages { motherTongue: BaseLanguage; learningLanguage: 'de' | 'en'; }
 export function onboardingStepsMarkup(step: 1 | 2): string {
   return `<ol class="onboarding-steps" aria-label="${e(t('Onboarding progress'))}"><li ${step === 1 ? 'aria-current="step"' : ''}><span>1</span>${t('Languages')}</li><li ${step === 2 ? 'aria-current="step"' : ''}><span>2</span>${t('Character')}</li></ol>`;
 }
@@ -35,13 +35,8 @@ export function mountLanguageOnboarding(host: HTMLElement, options: {
   }
   function confirmLanguages() {
     host.innerHTML = `${heading()}<h2 id="account-title" tabindex="-1">${t('Is this the right language pair?')}</h2><p>${e(t('Your mother tongue is {language}, and you want to learn {target}. Is that right?', { language: baseLanguageNames[languages.motherTongue], target: t(languages.learningLanguage === 'de' ? 'German' : 'English') }))}</p><div class="onboarding-language-pair">${onboardingLanguageSummary(languages.motherTongue,languages.learningLanguage)}</div><div class="onboarding-confirm-actions"><button class="primary-button" type="button" id="confirm-languages">${t('Yes, build my character')} ${icon('arrow')}</button><button class="outline-button" type="button" id="change-languages">${t('Change languages')}</button></div>`;
-    host.querySelector<HTMLButtonElement>('#confirm-languages')!.onclick = () => languages.learningLanguage === 'de' ? chooseExperience() : options.onConfirm(languages);
+    host.querySelector<HTMLButtonElement>('#confirm-languages')!.onclick = () => options.onConfirm(languages);
     host.querySelector<HTMLButtonElement>('#change-languages')!.onclick = selectLanguages; focusHeading();
-  }
-  function chooseExperience() {
-    host.innerHTML = `${heading()}<h2 id="account-title" tabindex="-1">${t('Have you learned any German before?')}</h2><div class="onboarding-confirm-actions">${([['none','No, none'],['little','A little'],['yes','Yes']] as const).map(([value,label])=>`<button class="outline-button" type="button" data-experience="${value}">${t(label)}</button>`).join('')}</div>`;
-    host.querySelectorAll<HTMLButtonElement>('[data-experience]').forEach(button => { button.onclick = () => options.onConfirm({...languages, germanExperience:button.dataset.experience as OnboardingLanguages['germanExperience']}); });
-    focusHeading();
   }
   selectLanguages();
 }
