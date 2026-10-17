@@ -50,8 +50,12 @@ test: `prod_6AQXBsKXG0L85hP4UMZipq`. All three plans include tax.
 
 The paywall reads each plan's price from Creem (`GET /v1/products`, cached for
 an hour, retried after a minute when a read fails) through
-`GET /api/billing/offers`, so prices are changed in Creem only. If a price
-cannot be read the plan is still offered and the checkout page shows the price.
+`GET /api/billing/offers`. If a price cannot be read the plan is still offered
+and the checkout page shows the price. The static landing page advertises the
+live monthly and lifetime prices in `site/src/pages/index.astro`, including its
+FAQ; update those amounts and the translated copy in `site/src/data/site-*.json`
+alongside this table when changing prices in Creem.
+The sandbox-only yearly plan is not advertised on the landing page.
 
 Each purchase records its plan when the checkout is created. Changing a
 product ID later (a new price, a recreated product) never revokes what
