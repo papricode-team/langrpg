@@ -1,3 +1,4 @@
+import { buildingDoorGeometry, type BuildingDoorGeometry } from './building-door';
 import { npcs, quests, type Exercise } from './content';
 import type { MapId, MapPosition } from './maps';
 import { NavigationGrid, PLAYER_RADIUS, type NavigationOptions } from './navigation';
@@ -81,6 +82,7 @@ export interface BuildingEntrance extends MapPosition {
   label: string;
   description: string;
   returnPoint: MapPosition;
+  door?: BuildingDoorGeometry;
 }
 
 const position = (x: number, y: number): MapPosition => ({ x: x / 1536, y: y / 1024 });
@@ -354,7 +356,7 @@ export function buildingEntrances(mapId: MapId): readonly BuildingEntrance[] {
   return sceneEntrances(scene).map(entrance => {
     const interior=getInterior(entrance.interiorId), point=sceneEntrancePoint(scene,entrance), back=sceneEntrancePoint(scene,entrance,true);
     return {id:`building:${interior.id}` as const,interiorId:interior.id,label:interior.germanName,description:interior.description,
-      x:point.x/scene.width,y:point.y/scene.height,returnPoint:{x:back.x/scene.width,y:back.y/scene.height}};
+      door:buildingDoorGeometry(scene,entrance.owner),x:point.x/scene.width,y:point.y/scene.height,returnPoint:{x:back.x/scene.width,y:back.y/scene.height}};
   });
 }
 
