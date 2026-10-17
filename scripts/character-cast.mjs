@@ -264,7 +264,8 @@ export async function buildCast({root=ROOT}={}) {
   const manifest={version:1,assetVersion:characterCatalogue.assetVersion,cell:characterCatalogue.format.runtimeCell,frames:36,actors};
   manifest.versionHash=hash(JSON.stringify(manifest)).slice(0,16);
   await mkdir(resolve(root,SOURCE),{recursive:true});
-  await writeFile(resolve(root,SOURCE,'runtime-manifest.json'),JSON.stringify(manifest,null,2)+'\n');
+  // The runtime manifest ships with the app build; art/source is outside the Docker context.
+  await writeFile(resolve(root,'web/src/data/character-cast.json'),JSON.stringify(manifest,null,2)+'\n');
   return {approved:actors.length,expected:(await castInventory()).length,missing,candidates:source.entries.filter(e=>e.status!=='approved').map(e=>e.id)};
 }
 

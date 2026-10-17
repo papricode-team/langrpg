@@ -46,11 +46,11 @@ test('cast actions require their own current pose artifacts and visual approval'
     await mkdir(resolve(root,'web/src/data'),{recursive:true});
     const save=()=>writeFile(resolve(root,catalogue),JSON.stringify({version:1,entries:[entry]}));await save();
     assert.equal((await buildCast({root})).approved,1);
-    const manifest=JSON.parse(await readFile(resolve(root,'art/source/character-kit/cast/runtime-manifest.json'),'utf8'));
+    const manifest=JSON.parse(await readFile(resolve(root,'web/src/data/character-cast.json'),'utf8'));
     assert.equal(manifest.actors[0].poses.wave.key,`character-cast-${entry.id}-wave`);
     assert.equal(manifest.actors[0].poses.wave.frameDurations.length,9);
     entry.poses.wave.status='candidate';await save();await buildCast({root});
-    assert.equal(JSON.parse(await readFile(resolve(root,'art/source/character-kit/cast/runtime-manifest.json'),'utf8')).actors[0].poses,undefined);
+    assert.equal(JSON.parse(await readFile(resolve(root,'web/src/data/character-cast.json'),'utf8')).actors[0].poses,undefined);
     entry.poses.wave.status='approved';entry.poses.wave.review=entry.review;await save();
     await assert.rejects(buildCast({root}),/Unreviewed cast.*wave/);
     entry.poses.wave.review=source.entries.find(e=>e.id===entry.id).poses.wave.review;await save();
@@ -68,7 +68,7 @@ test('cast actions require their own current pose artifacts and visual approval'
 test('every authored world identity has an approved recipe and compiled walking atlas',async()=>{
   const inventory=await castInventory();
   const source=JSON.parse(await readFile('art/source/character-kit/cast/catalogue.json','utf8'));
-  const compiled=JSON.parse(await readFile('art/source/character-kit/cast/runtime-manifest.json','utf8'));
+  const compiled=JSON.parse(await readFile('web/src/data/character-cast.json','utf8'));
   assert.deepEqual(validateCastEntries(source.entries,inventory),[]);
   assert.ok(source.entries.every(entry=>entry.status==='approved'&&entry.review?.proofSha256));
   assert.deepEqual(compiled.actors.map(a=>a.id).sort(),inventory.map(a=>a.id).sort());

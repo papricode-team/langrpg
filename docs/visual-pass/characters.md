@@ -49,8 +49,8 @@ No scene/CSS/shadow code changed. Live world QA, production build and full verif
 remain with the integrating agent; no repository-wide generator or git mutation ran.
 
 Integration: the owned generated manifest is now
-`art/source/character-kit/cast/runtime-manifest.json`; the builder, loader and tests
-use it. The integrator may remove unused `web/src/data/character-cast.json`.
+`web/src/data/character-cast.json` (inside the Docker build context); the builder, loader and tests
+use it.
 Outside this agent's ownership, `web/src/character-compositor.d.mts` should document
 optional `material?: string` and `luminanceReference?: number` for `combineMaterials`.
 
@@ -87,6 +87,6 @@ are in `art/proofs/character-cast-budget/`. The requested Node suite passes
 all pass. The build uses a writable temporary quality cache; the existing
 `assemble-site.mjs` restores `/game/` before checking distribution budgets.
 
-Builder, loader and tests use `art/source/character-kit/cast/runtime-manifest.json`.
+Builder, loader and tests use `web/src/data/character-cast.json`; `art/source` is outside the Docker build context, so runtime data must not live there.
 A dormant compact-JSON target in `web/vite.config.ts` still names the historical
 manifest; it is outside the assigned files and does not load it.
