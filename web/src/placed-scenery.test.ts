@@ -160,7 +160,9 @@ describe('ground contact coverage across towns',()=>{
     const scenery=new WorldScenery(mock.scene,map.id,period,mock.placements);
     const buildings=mock.placements.filter(spec=>isBuildingScenery(spec.asset)||isBuildingScenery(spec.frame??spec.asset));
     expect(buildings.length).toBeGreaterThan(10);
-    expect(mock.ground.images).toHaveLength(mock.placements.length*2);
+    // Railway pieces stand on their own painted platform and rails, so they take no ground shadow or wear.
+    const grounded=mock.placements.filter(spec=>spec.asset!=='train'&&spec.asset!=='rails');
+    expect(mock.ground.images).toHaveLength(grounded.length*2);
     expect(mock.ground.images.filter(image=>image.frame==='shadow').every(image=>image.blendMode==='MULTIPLY')).toBe(true);
     expect(mock.ground.images.filter(image=>image.frame==='wear').every(image=>image.blendMode==='NORMAL')).toBe(true);
     scenery.destroy();

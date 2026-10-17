@@ -33,7 +33,8 @@ describe('Lindenhafen navigation', () => {
   });
 
   it('blocks water, building foundations, market counters, and fountain rims', () => {
-    const obstacles = [[1346,520], [650,540], [1840,380], [1025,708], [860,684]];
+    // The station is rebuilt from pieces; its ticket hall foundation sits at 1980,410.
+    const obstacles = [[1346,520], [650,540], [1980,410], [1025,708], [860,684]];
     for (const [x, y] of obstacles) expect(navigation.isWalkable(x, y)).toBe(false);
   });
 
