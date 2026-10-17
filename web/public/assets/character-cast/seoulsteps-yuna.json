@@ -31,6 +31,11 @@
   "proof": "art/proofs/character-cast/seoulsteps-yuna.png",
   "proofSha256": "07ac123a9edb3ed131e217af8ca6e8529fd36add7862b428dd391701fe3391d0",
   "editorSha256": "f605f932d3d6ddc2ab8c07ef3a18410934fcdce7bc8a952303a83f8da68a816d",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "6ec28a32a03b6015f2df5cf8d98a69b6b19b6fe87eff1f1c2f0b4fdb354aa1a4"
+  }
 }

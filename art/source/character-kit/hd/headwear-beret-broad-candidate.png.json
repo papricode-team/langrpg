@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-beret-broad-page-0-candidate-2.png",
+      "sha256": "a4430412caea96f8422a5e3baac02554a18540ae20ee16c000a421ac34b5b179"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-beret-broad-page-0-candidate-2.txt",
+      "sha256": "cabdfb6e3653b8c20b1be663cd7face631d4576e6d9a75a47393e14a2c28ef1c"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-beret-broad-page-1-candidate-1.png",
+      "sha256": "c1210c0cbc83bb6b86291cbd2e195092dad04e0143ded048b62de382a8eda182"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-beret-broad-page-1-candidate-1.txt",
+      "sha256": "bfb98aef3850d0763630540cbc959bc7a6ca988ebcc395a1d6d9242e1aba8d3c"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-beret-broad-page-2-candidate-1.png",
+      "sha256": "094d247dbc89eea28b1c0a09e4c0ef277b5f40871d26994029bc3d7f3fca028e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-beret-broad-page-2-candidate-1.txt",
+      "sha256": "bfb98aef3850d0763630540cbc959bc7a6ca988ebcc395a1d6d9242e1aba8d3c"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-beret-broad-page-3-candidate-1.png",
+      "sha256": "a5f5cc2d0f6e36792b371f99c809bc1ed21f032b39b5206136d02a47e54d2ab9"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-beret-broad-page-3-candidate-1.txt",
+      "sha256": "bfb98aef3850d0763630540cbc959bc7a6ca988ebcc395a1d6d9242e1aba8d3c"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "34091607e6fab62eae64c586687bd34a5d8deefd79f90e513ee2fefdfeb7994a"
+}

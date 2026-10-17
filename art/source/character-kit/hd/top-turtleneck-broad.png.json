@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "002586ca03ca775196ed133617ef94ddcdd3d27d118d468e382577b07274850b",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "464b8ef39fd416b7d6d49acbd3d4db79ea700ad00be3e543e6e5ec4a97be2c99",
+  "promptSha256": "60a5212c5a81a678e6ad2e383da03c31a3775b56191090cc21a110c478f622c8",
+  "generationPromptSha256": "c619573639325edc663c111c1d9169810a62101310e2d64e0b1c5c4974776ae0",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "ea3a8807e3343701cf5437b6b48371cde2430c3ff6be04187e0c43eac10198c7",
+  "candidate": "art/source/character-kit/hd/top-turtleneck-broad-candidate.png",
+  "lockedSha256": "d1a56ee69c64552fbdc3174a82d177a091dd704238bff96dd93d4a975d129a00"
+}

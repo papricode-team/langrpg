@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "fe5b4211c38e56134656a951b8664e988e1879e5f8a037764923f02f99c99851",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "85b294c3a8b9a6527807718ea7ae631bc0d894174b6d34b37a03a3ce87a42b13",
+  "promptSha256": "b4e42358f17eeede716d8329511816d4b9363b7eaf26f7586162f383ab0bfe5f",
+  "generationPromptSha256": "ddeea4291e6f1c4d1f9002ec8d1d0559ed601d9580ba082e2f525913df368aa7",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "b587dfc412c7fc5a71960af51b3cf87ce1fd868304051a0852f29d81a653ec49",
+  "candidate": "art/source/character-kit/hd/headwear-beret-slim-candidate.png",
+  "lockedSha256": "decd4bd550e63c9c8c800c83b51311d087459d135946c40769608f4e6962c4c6"
+}

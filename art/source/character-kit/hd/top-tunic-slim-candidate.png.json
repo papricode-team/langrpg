@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/top-tunic-slim-page-0-candidate-1.png",
+      "sha256": "8d4ecda3cbe68daee35ac82d285f074b5c3d290b94988294676046d3b2222174"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-tunic-slim-page-0-candidate-1.txt",
+      "sha256": "197df014863fa6521f68cbf3956fb940e445426b970de798c2e08fb0cb651692"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-0.json",
+      "sha256": "a6c84addbfd340ec426f28ea82ae85b2cc2b70137b1516da583c89ea1fd9c3c8"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-tunic-slim-page-1-candidate-1.png",
+      "sha256": "d03509715b092440f2a1ae7126865428b79c6a4cf36a33789be838aa75f81a6b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-tunic-slim-page-1-candidate-1.txt",
+      "sha256": "197df014863fa6521f68cbf3956fb940e445426b970de798c2e08fb0cb651692"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-1.json",
+      "sha256": "200f02d5272755448caa8ff37144a13da72062cdd95a20c1a7ff61ef7ff62814"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-tunic-slim-page-2-candidate-1.png",
+      "sha256": "3894283bb35140b4e9a65dfe2955c0aec761d4722e7525d62efb76071313ba86"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-tunic-slim-page-2-candidate-1.txt",
+      "sha256": "197df014863fa6521f68cbf3956fb940e445426b970de798c2e08fb0cb651692"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-2.json",
+      "sha256": "30efcafbe9d7830013cf5b7b68ce9c0f1f7e02a3753d8c70007005f678193dd2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-tunic-slim-page-3-candidate-1.png",
+      "sha256": "e1aa7acbc30af3655f86b1448a2f015fd3d47bb0c6afcaec88c0bba2d9eade12"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-tunic-slim-page-3-candidate-1.txt",
+      "sha256": "197df014863fa6521f68cbf3956fb940e445426b970de798c2e08fb0cb651692"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-3.json",
+      "sha256": "c3b47bcc3acbc328ad2378c245359a6a3c2b8edd6d4ac6fd90495f1b180f8485"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-tunic-slim-page-4-candidate-1.png",
+      "sha256": "e9c2e9d73d2e8961bfc1fe9c1e3f68da4c9b3fbab4f5be8f1efae848b643be6a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-tunic-slim-page-4-candidate-1.txt",
+      "sha256": "197df014863fa6521f68cbf3956fb940e445426b970de798c2e08fb0cb651692"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-4.json",
+      "sha256": "3e12d382498d7598725fce3e44099a593cbd15caa44e9c7bc572e3931559e2ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-tunic-slim-page-5-candidate-1.png",
+      "sha256": "a92ce323105c1e11781c40d114c363d6db782c238a5725ee3cadaf933dd5f614"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-tunic-slim-page-5-candidate-1.txt",
+      "sha256": "197df014863fa6521f68cbf3956fb940e445426b970de798c2e08fb0cb651692"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-5.json",
+      "sha256": "9801f02cbaa07933d6c115805b6442f6e7adf1db9ca8bd68a1185df134371b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-tunic-slim-page-6-candidate-1.png",
+      "sha256": "15deb53b418cff445f99a63250207273e1e2202e026b77a2172ddd020bf37dce"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-tunic-slim-page-6-candidate-1.txt",
+      "sha256": "197df014863fa6521f68cbf3956fb940e445426b970de798c2e08fb0cb651692"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-6.json",
+      "sha256": "b376d6ff991750e64f8e4e02d1eee9baecab7f17b23cfca6d0d24ea933096ab6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-tunic-slim-page-7-candidate-1.png",
+      "sha256": "211bb7b66420b9a65fb2671e6d2b07acca4193c33cb2d22f1e69e64ace8734cd"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-tunic-slim-page-7-candidate-1.txt",
+      "sha256": "197df014863fa6521f68cbf3956fb940e445426b970de798c2e08fb0cb651692"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-7.json",
+      "sha256": "54b515875467084c2615401a4aa41788ff7ea91081d871208308ecdfda0f48d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-tunic-slim-page-8-candidate-1.png",
+      "sha256": "9b9fe05d9427f15e3b535e9dcdb35cbb7989d2534cc689fab14e9426eabe1900"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-tunic-slim-page-8-candidate-1.txt",
+      "sha256": "197df014863fa6521f68cbf3956fb940e445426b970de798c2e08fb0cb651692"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-8.json",
+      "sha256": "a907bceabc2de3865bb70e4f875dcc255387929f55bac0e8f698706c5c1bcdb1"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "9b5ee95337eab2df23da1a6ca9cae353827e0963558020de0309dd0dc211e006"
+}

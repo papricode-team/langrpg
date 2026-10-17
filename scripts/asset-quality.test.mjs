@@ -5,7 +5,22 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
-import { assetQualityPlugin, buildQualityTiers, qualityPlan, sceneryDensities } from './asset-quality.mjs';
+import { assetQualityPlugin, buildQualityTiers, qualityPlan, sceneryDensities, pruneLegacyCharacterKit } from './asset-quality.mjs';
+
+test('HD distribution excludes the archived kit while retaining active editor and runtime art', async () => {
+  const dir=await mkdtemp(join(tmpdir(),'character-distribution-'));
+  try {
+    for(const name of ['character-kit','character-kit-hd']) {
+      await mkdir(join(dir,name));
+      for(const kind of ['editor','runtime'])await writeFile(join(dir,name,kind+'.webp'),kind);
+    }
+    await pruneLegacyCharacterKit(dir,{assetBase:'/assets/character-kit/'});
+    assert.equal(await readFile(join(dir,'character-kit','runtime.webp'),'utf8'),'runtime');
+    await pruneLegacyCharacterKit(dir,{assetBase:'/assets/character-kit-hd/'});
+    await assert.rejects(stat(join(dir,'character-kit')), {code:'ENOENT'});
+    for(const kind of ['editor','runtime'])assert.equal(await readFile(join(dir,'character-kit-hd',kind+'.webp'),'utf8'),kind);
+  } finally { await rm(dir,{recursive:true,force:true}); }
+});
 
 test('pixel-exact sources ship untouched and interface portraits are capped', () => {
   assert.equal(qualityPlan('character-kit/regular/body.webp', 2048, 2048), null);

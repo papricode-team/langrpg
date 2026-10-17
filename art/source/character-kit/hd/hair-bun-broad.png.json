@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "837d40c61c77d89506c3b96cfd584e9759e609e51cc43202c66122a7eb6ce5c2",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "7aaf52b0d7bc99f52ffd5599149cd0d28c54f5da0719bb4927c7e7b4c5788433",
+  "promptSha256": "c3599c66562a172c7985f84493d8460cecbf646e4a683b163ac78c86a88ea8be",
+  "generationPromptSha256": "121dc473a6fd4d404f255c5a772a0eb35ce27a5e16789558b65750f86eaa18b5",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "22f3123e57444c472a5b0104c4477351ede43b4a476957406cb32a6df5ead611",
+  "candidate": "art/source/character-kit/hd/hair-bun-broad-candidate.png",
+  "lockedSha256": "48eb38f96b32c2faa21593815e35bd0b4bf61bc393ad67a4bcb9f6b5014f50e8"
+}

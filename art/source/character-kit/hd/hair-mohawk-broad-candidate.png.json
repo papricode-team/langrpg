@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-mohawk-broad-page-0-candidate-1.png",
+      "sha256": "eea042e135da5a42d4516c1bc5b312e21cbbfd4258ffebfa2e187885b1840182"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-mohawk-broad-page-0-candidate-1.txt",
+      "sha256": "c9199bb29c8e7ce82b13eaa5950c8c5085edd4ec476c909951915d17f1c3fa22"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-mohawk-broad-page-1-candidate-1.png",
+      "sha256": "7c47afc9e9b573f444523b5f176687e5a09c09d38dabdcff71db96b092bf0cd4"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-mohawk-broad-page-1-candidate-1.txt",
+      "sha256": "c2f47a7fd0c13af32e1cb0b2c151e0b14755a00cc4a576e0ae188158125f7994"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-mohawk-broad-page-2-candidate-1.png",
+      "sha256": "0cf46a3175d646f47093b64c7d2549ffccf1fd7d287e4783b3f4e9fbd9d99128"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-mohawk-broad-page-2-candidate-1.txt",
+      "sha256": "91f87a91d06c21ee9ec4ad44d930656015ddcb546436df5ee114e683a786c07d"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-mohawk-broad-page-3-candidate-1.png",
+      "sha256": "9a159a1b4af1f819ecc126e1be7e5ed310d641ee9f416a5d88b70defb0c2e91b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-mohawk-broad-page-3-candidate-1.txt",
+      "sha256": "064e30d5bcf74c37a81af11364ab8bfc20019183672aae65e3cb3d0e8b9ae6dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "3ba917ef44b00e76191a2be1d49ce4a889dfa88247bdd40850e9c402ecf65102"
+}

@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-bucket-slim-page-0-candidate-2.png",
+      "sha256": "81c49ff641b3951357164387b403726249f7e59f2db0e4d6c7b780fca2e830bf"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-bucket-slim-page-0-candidate-2.txt",
+      "sha256": "f9a140d59d1b6d77349e97f1efe986982387b197707e3c8d7c956ea061bf806c"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-0.json",
+      "sha256": "9207c077e0be3b69b427bf2fef3c5c6ec2cba6cd90360ea2f21dee3997475f8b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-bucket-slim-page-1-candidate-2.png",
+      "sha256": "d8a7ec1c5d2a61e228611fd1a17501fb94a2b5c03fe727dbe3b1859659bfea58"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-bucket-slim-page-1-candidate-2.txt",
+      "sha256": "08d4fc7f2dd88fe107dbba9ffad81dbee15e60e7799a77f02234210a70cf484e"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-1.json",
+      "sha256": "f25ab7ae6f2211a6dcf84a772de156dca1aea4c9a1667b243da9303f7f1651ae"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-bucket-slim-page-2-candidate-1.png",
+      "sha256": "d1b1867320de97bf750708c5a37d15e260ff9715b6fbb27f0582a52b66de7923"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-bucket-slim-page-2-candidate-1.txt",
+      "sha256": "31798d8d8b7d6a517fa26f48b3ac58a109047ddf97fe34daaa575637a00cdb05"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-2.json",
+      "sha256": "114454392f0cfb9ed7f499b8732bbd8ea3acae965a2db03ac0e20f8ab4e31746"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-bucket-slim-page-3-candidate-1.png",
+      "sha256": "4e246960648c24c3b23fae7a713a31ce6a307fdf08472f80a69eb127327b9c9b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-bucket-slim-page-3-candidate-1.txt",
+      "sha256": "31798d8d8b7d6a517fa26f48b3ac58a109047ddf97fe34daaa575637a00cdb05"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-3.json",
+      "sha256": "9aef7f92c4a053f1ceb57baa15a3a3771a2c646922f5b26f7f9c0ac68ec0b4bd"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "c545de7baa189b1e2a881bf7f82b864de4f8290adfa255f31f2d164c43902d29"
+}

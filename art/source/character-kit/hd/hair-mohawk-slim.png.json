@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "101d304ee528f2c6a509de7c63c113893f3fd4e30aaeb2bd3f620dcfeb7c6c69",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "7aaf52b0d7bc99f52ffd5599149cd0d28c54f5da0719bb4927c7e7b4c5788433",
+  "promptSha256": "36f756afd8e91d5a9227842926e24312f97d8c731a15cfd421ca53274cb63aff",
+  "generationPromptSha256": "c4cefaa6c8b18d02dccb961743ff3c8c61f6ec0bc767a2b53ee149b83c74ee19",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "5deecdbe48f5280289e9c0d85929e37928aadd4dc8465acc4bbecb699b5fd1ab",
+  "candidate": "art/source/character-kit/hd/hair-mohawk-slim-candidate.png",
+  "lockedSha256": "ab925160fe102ce40d66badae07cbf1247c70115997ee29f767e9be961e9934d"
+}

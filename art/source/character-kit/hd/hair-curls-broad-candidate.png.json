@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-curls-broad-page-0-candidate-1.png",
+      "sha256": "135cab475a5e36eefcfce1b81c5cd824932c2cc1dac9d71d2c2f890e79a5b686"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-curls-broad-page-0-candidate-1.txt",
+      "sha256": "70cd7248688907388fc26fba43cd866515cc2e2af2dedadccaae9a3182fb96b7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-curls-broad-page-1-candidate-1.png",
+      "sha256": "e66e9bbd06571986d9b883eb03799eb09b7c024becea9209a3a051a869274156"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-curls-broad-page-1-candidate-1.txt",
+      "sha256": "70cd7248688907388fc26fba43cd866515cc2e2af2dedadccaae9a3182fb96b7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-curls-broad-page-2-candidate-1.png",
+      "sha256": "513f6a26d18342689351be987a4d7f0461cc7bff07684b27724c1e451884a554"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-curls-broad-page-2-candidate-1.txt",
+      "sha256": "70cd7248688907388fc26fba43cd866515cc2e2af2dedadccaae9a3182fb96b7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-curls-broad-page-3-candidate-1.png",
+      "sha256": "e16acf94692bb3cdc67a3c65b3f932e9192b78b2ae7d5320902b6dce4265ea5d"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-curls-broad-page-3-candidate-1.txt",
+      "sha256": "70cd7248688907388fc26fba43cd866515cc2e2af2dedadccaae9a3182fb96b7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "7c695e7a3ca1687e47ac92b357f01598392ad4921695e8488d9f0f24e66858e2"
+}

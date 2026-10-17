@@ -11,7 +11,7 @@ import { beginnerGateChoices, beginnerReplyMeaning, needsBeginnerStorySupport } 
 
 
 export interface QuestControllerOptions {
-  api: Pick<Api, 'request' | 'storyTransition' | 'inspectStory'>;
+  api: Pick<Api, 'request' | 'storyTransition' | 'inspectStory'> & Partial<Pick<Api, 'story'>>;
   loadGraph?(questId: string): Promise<QuestGraph | undefined>;
   loadSentence?(line: DialogueLine): Promise<DialogueLine>;
   loadExercise?(exerciseId: string): Promise<Exercise>;
@@ -390,10 +390,31 @@ export class QuestController {
     const graph = this.graph, generation = this.generation;
     if (!this.replay) {
       const before = this.options.progress().xp;
-      await this.transition('choice', { choiceId: id }); if (generation !== this.generation || this.error || this.graph !== graph) return;
-      this.options.onComplete(graph, this.options.progress().xp - before, choice.effects);
+      await this.transition('choice', { choiceId: id }); if (generation !== this.generation || this.graph !== graph) return;
+      // A choice the server already saved (a lost response, or a retry under a new action ID) is
+      // rejected as complete; resync and finish the scene with the choice the server recorded.
+      const saved = this.error ? await this.savedChoice(graph.questId) : id;
+      if (generation !== this.generation || this.graph !== graph || saved === undefined) return;
+      const recorded = dialogueChoices(this.node!, storyState(this.options.progress().story)).find(item => item.id === saved) ?? choice;
+      this.options.onComplete(graph, this.options.progress().xp - before, recorded.effects);
+      this.node = graph.nodes.find(node => node.id === recorded.next)!; this.index = 0; this.translated = false; this.error = ''; this.render(true);
+      return;
     }
     this.node = this.graph.nodes.find(node => node.id === choice.next)!; this.index = 0; this.translated = false; this.error = ''; this.render(true);
+  }
+  /** The choice the server saved for a completed scene, after refreshing progress; undefined while the scene is open. */
+  private async savedChoice(questId: string): Promise<string | undefined> {
+    if (!this.options.api.story) return undefined;
+    const generation = this.generation; this.busy = true; this.render();
+    try {
+      const result = await this.options.api.story();
+      if (generation !== this.generation) return undefined;
+      this.options.onProgress(result.progress);
+    } catch { return undefined; }
+    finally { if (generation === this.generation) { this.busy = false; this.render(); } }
+    if (!this.options.progress().completedQuestIds.includes(questId)) return undefined;
+    this.pending = undefined;
+    return this.options.progress().story?.choices[questId] ?? '';
   }
   private async reply(answer: string, source: DialogueLine) {
     const graph = this.graph!, exercise = this.exercise(source.reply!.exerciseId);

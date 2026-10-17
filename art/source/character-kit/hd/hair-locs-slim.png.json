@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "candidateSha256": "a4ddb44a705f1b6d8e11ce8fdfe0b3358161faa3be17245da82608d4975fb15b",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "58e849238e8230a54a86b15959cc6dc65ccf2535146587380d0c021a89a77ff1",
+  "promptSha256": "5460dfcb7d2f63297d123c7e4a2ddc0e485bac18ad763a4e2e64583038750d43",
+  "generationPromptSha256": "6843109a520574be0e2205fa6b46fde63199e22caad6810de8fe98820d2e997f",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 360,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailMaxChroma": 0.15
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "left": 2
+    },
+    "regionReason": "The left-facing head hides the connection of the far loc ends below the chin. All 36 native head crops reviewed."
+  },
+  "preparationSha256": "f760b44f5085edc1e6ce1ddb35cdb7fe3201ab6dcff653767af2cfac24fe8251",
+  "candidate": "art/source/character-kit/hd/hair-locs-slim-candidate.png",
+  "lockedSha256": "a0319bd6ed62c4cc96d1c303abf20ec634dcb2f4f89078f5c7157aea98b69805"
+}

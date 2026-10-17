@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/dunegarden-aisha.png",
   "proofSha256": "d017e307dd8e9af134cc2f0be732f58a4c97f69ed5b19ab68d44265b39cab07e",
   "editorSha256": "e22f2264aa9b3bf55241b74968dc7c24ce62d2f1fbe0cc2981f22bf3ba4e6cca",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "cdb2f50ea0130c56b089f19578215b5ce28f1e076bfd626ab28835e759391029"
+  }
 }

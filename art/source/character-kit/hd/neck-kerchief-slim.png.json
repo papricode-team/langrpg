@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "candidateSha256": "574edf9b5a7cf8f1a7f404da9a889d28b494f27855aff9b47d38971822da7613",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "2aa2b30428afc35ec2a1d87971a5ee6e8ac4376100ce3b789bba5947dc283eb4",
+  "promptSha256": "aa64e1cf3ad1bcb533e2917948696ccb202a4a9397244624073b71e46d33ec56",
+  "generationPromptSha256": "02489baee1cb83c8ec30fd5bb22826b039f714545d9ebf7f9616853f22191702",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailReach": 2,
+    "detailMaterial": "primary"
+  },
+  "preparationSha256": "210039f588587c556af93758d4fe3215748523237457d92796e21cb4d8678b1f",
+  "candidate": "art/source/character-kit/hd/neck-kerchief-slim-candidate.png",
+  "lockedSha256": "e484a9da8ac17d00821d41653ef7d1622a8a9834a2a2526b5ebb0e194022ca43"
+}

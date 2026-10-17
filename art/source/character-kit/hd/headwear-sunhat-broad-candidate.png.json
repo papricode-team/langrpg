@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-sunhat-broad-page-0-candidate-2.png",
+      "sha256": "e47e0873fee748be3eca48fb4a705c7fab079eae3881de2d29cc21662c19aa8e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-sunhat-broad-page-0-candidate-2.txt",
+      "sha256": "9bbf22220c313152bd70a0552f910629104b312d119e7085abf904f139186b88"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-sunhat-broad-page-1-candidate-1.png",
+      "sha256": "ca160fec4e4857d7e5b2a770491f4b80f4cda9b0bd5d421ac204e6949fabab0e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-sunhat-broad-page-1-candidate-1.txt",
+      "sha256": "80ab86f2188cfcafb6ab6b93d566e0ae86dbddfd91fdac06e393f6c9c7766d31"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-sunhat-broad-page-2-candidate-2.png",
+      "sha256": "b3a9e299bb4a78ee2171f90a7c329544accf614c7ff26952d48456d55702e7b1"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-sunhat-broad-page-2-candidate-2.txt",
+      "sha256": "68ec10ce6129cd6e43fe872e000380503cb604f74bedcc3d6b85f64dfccd5ab1"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-sunhat-broad-page-3-candidate-2.png",
+      "sha256": "e9ad4105c375732c0287f98a340a8222191cb280a4765b8d456c942ff8292179"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-sunhat-broad-page-3-candidate-2.txt",
+      "sha256": "394f327774d90c1754c7fc0c9c357447cb1cf38c7569dea04df6002072b18183"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "cf757b306abeb34ac27010191c64d9085abcd83d6b0b631386a7c8320d53b37a"
+}

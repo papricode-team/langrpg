@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-straight-broad-page-0-candidate-1.png",
+      "sha256": "1ab5496e18ec315d63a635fc3af6a193ac214a16b1f54d0a64e5cfd33627ff30"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-straight-broad-page-0-candidate-1.txt",
+      "sha256": "cfe1b052010c87d8cb5f292af52549886335a09a6dcfce4638017b40aa39d667"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-straight-broad-page-1-candidate-1.png",
+      "sha256": "53b4c60dfbfe2ded6d048d26106a3db520f62546719f86d6717d8c9b6551a207"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-straight-broad-page-1-candidate-1.txt",
+      "sha256": "cfe1b052010c87d8cb5f292af52549886335a09a6dcfce4638017b40aa39d667"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-straight-broad-page-2-candidate-1.png",
+      "sha256": "c412df1fc2c8e837577b4452daa89847afea26ae24e349c635d0aaf97c56f06b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-straight-broad-page-2-candidate-1.txt",
+      "sha256": "cfe1b052010c87d8cb5f292af52549886335a09a6dcfce4638017b40aa39d667"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-straight-broad-page-3-candidate-1.png",
+      "sha256": "cfb6a94aed56f73caf3c4a81bf55652b8968bd1a316461ea6377f0b898033b76"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-straight-broad-page-3-candidate-1.txt",
+      "sha256": "cfe1b052010c87d8cb5f292af52549886335a09a6dcfce4638017b40aa39d667"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "ef85181363ee63d0d5dab7463a92784f147bb715224984ac623879fb4da2f603"
+}

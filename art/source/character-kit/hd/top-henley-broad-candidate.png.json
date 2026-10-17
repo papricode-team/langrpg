@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/top-henley-broad-page-0-candidate-1.png",
+      "sha256": "b71b9f1039270eba95cf11b04f43110634ed6d3898deefd1b09a1148e95bb1c8"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-henley-broad-page-0-candidate-1.txt",
+      "sha256": "69cc63a3119a72a51f1ea19d46beb9bfb247afea0d78c92ff8ca7147ba68b951"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-0.json",
+      "sha256": "d4c597d609eaced853a49300a3c916edad44486d2083661e2e1f72015c5fb832"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-henley-broad-page-1-candidate-1.png",
+      "sha256": "f576faaad9ea3c2009409f9433331cf0ed80d1daede6870310000c3831094227"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-henley-broad-page-1-candidate-1.txt",
+      "sha256": "69cc63a3119a72a51f1ea19d46beb9bfb247afea0d78c92ff8ca7147ba68b951"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-1.json",
+      "sha256": "597ae57a47283b3583f871d7ecfb79f8eb0d069ec363f819db5347b622c0eec5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-henley-broad-page-2-candidate-1.png",
+      "sha256": "a992df50dfceff8b4d0f2ae1e2e57cda84d6f43db6b032c8ba180ab8dfbc569a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-henley-broad-page-2-candidate-1.txt",
+      "sha256": "69cc63a3119a72a51f1ea19d46beb9bfb247afea0d78c92ff8ca7147ba68b951"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-2.json",
+      "sha256": "3822b1501237a22f8d5952fa86901bb95b3a7ca3e1637d7063b13b8b5a890e21"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-henley-broad-page-3-candidate-1.png",
+      "sha256": "f9989adbd679a658af47908a4dbcb1c7e815c903968d54538c5270f056c80bd0"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-henley-broad-page-3-candidate-1.txt",
+      "sha256": "69cc63a3119a72a51f1ea19d46beb9bfb247afea0d78c92ff8ca7147ba68b951"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-3.json",
+      "sha256": "09412f0261449be2e3d6bacbb0fb474dfa77e215dc568cef97a5387d7eceba7e"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-henley-broad-page-4-candidate-1.png",
+      "sha256": "9840758e567540b2e0cdb9492f28530809d48a1574fcbef07d4e44f4a49dd485"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-henley-broad-page-4-candidate-1.txt",
+      "sha256": "69cc63a3119a72a51f1ea19d46beb9bfb247afea0d78c92ff8ca7147ba68b951"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-4.json",
+      "sha256": "5252f9b6b506aeba7aa6b065493407dc63e3afa72771694c1fc3d3f025c359a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-henley-broad-page-5-candidate-2.png",
+      "sha256": "282ea257a298ec0cc92d7709a8860ae7e8bbbe5df95a2fc9d6895b4426d085b1"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-henley-broad-page-5-candidate-2.txt",
+      "sha256": "4d393e871857676505f9e7797ced9b744d33b9e606bac3aa8704cdab36c36f30"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-5.json",
+      "sha256": "72beb8597382255bf7cfde12b003f50107cce66fee1e4d12ba961c28edfdb6dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-henley-broad-page-6-candidate-1.png",
+      "sha256": "c0328438f27edfe320cb1d6c41bceaa3e9283153f2d2731fc14de9b8d74d3c76"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-henley-broad-page-6-candidate-1.txt",
+      "sha256": "69cc63a3119a72a51f1ea19d46beb9bfb247afea0d78c92ff8ca7147ba68b951"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-6.json",
+      "sha256": "369c87b8e1c6db5e23506f6c9c049b8866e3b95c4a57ebb3e5fdb50cff738546"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-henley-broad-page-7-candidate-1.png",
+      "sha256": "685fb316c3071481529a686befcd468a8b077d271a6623790f1a25ec437ccd18"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-henley-broad-page-7-candidate-1.txt",
+      "sha256": "69cc63a3119a72a51f1ea19d46beb9bfb247afea0d78c92ff8ca7147ba68b951"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-7.json",
+      "sha256": "594be292ae2bb672b79bc0f64091efc6184647dc4159416c469120e9794ae6a2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-henley-broad-page-8-candidate-1.png",
+      "sha256": "cdc6668ccdd8032ade5588a0348dc3b7ad388f8ecf59e3364199519605381542"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-henley-broad-page-8-candidate-1.txt",
+      "sha256": "69cc63a3119a72a51f1ea19d46beb9bfb247afea0d78c92ff8ca7147ba68b951"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-8.json",
+      "sha256": "59b98d4a2e80d5eda70982582ea13bff1711eca74a22fd82e4b3ed6ef6f68734"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "dc8228a1cef3a5aec74308fa59d1313504afa1c7dd8ca040349c17013bcd5e14"
+}

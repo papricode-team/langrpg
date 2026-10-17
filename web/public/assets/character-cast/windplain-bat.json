@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/windplain-bat.png",
   "proofSha256": "e52b90119d8c0807fce8f41fdb6d3a6858c807b62f0e1deb06ce4ec7fca2a366",
   "editorSha256": "1aef1da02c897a0eb0fc3d84364fae00cc08c217fe78d393c1f26dad32db3f7a",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "b0de5fa377f19f55bb1f1a053112a45f2e8835833b43e4a47ca8d1a9c0b82148"
+  }
 }

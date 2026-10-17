@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cropped-broad-page-0-candidate-1.png",
+      "sha256": "d0057aa2634c2069f52ed7beb543b518cdb213357165ce87c69bdd749619abea"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cropped-broad-page-0-candidate-1.txt",
+      "sha256": "6ad25857dd855df5bd3dc8384e7331b5cf41efe8697a7f063c1bcadde6353038"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-0.json",
+      "sha256": "081ac1e8ce12a0772254093462119cc244ba2297ae4b20e4c697960ab371c3a4"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cropped-broad-page-1-candidate-1.png",
+      "sha256": "a0b98c3a10c376818109a9d7404feab7ee25ebe5804952fa675752870774d180"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cropped-broad-page-1-candidate-1.txt",
+      "sha256": "6ad25857dd855df5bd3dc8384e7331b5cf41efe8697a7f063c1bcadde6353038"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-1.json",
+      "sha256": "6c709f3a0d3218c7782deceb16dcdf546cfa0621785fbf74d41c2597fc796da4"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cropped-broad-page-2-candidate-1.png",
+      "sha256": "13763bea0219491db462e15affa6a6964244867035e673532d28dde9583ac713"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cropped-broad-page-2-candidate-1.txt",
+      "sha256": "6ad25857dd855df5bd3dc8384e7331b5cf41efe8697a7f063c1bcadde6353038"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-2.json",
+      "sha256": "f63b3d1d376a06d233ff5ad4687d96752e1153682f60672398ba0d4b92be0b89"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cropped-broad-page-3-candidate-1.png",
+      "sha256": "abe9e4a44e9b0ab8507dd0d8e5ea3b742211ae93b1a41ff1e06f6442a9d31fe6"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cropped-broad-page-3-candidate-1.txt",
+      "sha256": "6ad25857dd855df5bd3dc8384e7331b5cf41efe8697a7f063c1bcadde6353038"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-3.json",
+      "sha256": "3b46fffa1465a306aa00e010971ca6315af366f178587e983bf8b2e31897e97b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cropped-broad-page-4-candidate-1.png",
+      "sha256": "805b5a1ffadd13f5f89a09aa86c0eef4ecfae36d3926afe7f2d657bd4f354a28"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cropped-broad-page-4-candidate-1.txt",
+      "sha256": "6ad25857dd855df5bd3dc8384e7331b5cf41efe8697a7f063c1bcadde6353038"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-4.json",
+      "sha256": "684241bf10acc2a2d152cdc5d1ea4fc486a14f3c3ea02592e2a6b3a5c685c5be"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cropped-broad-page-5-candidate-1.png",
+      "sha256": "f72aef24d7d0ad2f4339795ad2014d872d8155d902a84a44eb070a4a1dd488ef"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cropped-broad-page-5-candidate-1.txt",
+      "sha256": "6ad25857dd855df5bd3dc8384e7331b5cf41efe8697a7f063c1bcadde6353038"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-5.json",
+      "sha256": "4aceb63188de2b8ab6ff2f340339316e17998395c2eb23742bec567d1d778330"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "5083829aa00c80a764c3ed7d3a4fd21537877d52c5abda63dcafd9d1d1b36f40"
+}

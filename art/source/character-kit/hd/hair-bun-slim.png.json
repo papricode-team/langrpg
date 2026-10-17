@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "fc35212aef270e425d720343e5e3bc086b8f4812bb81384c38f0c4e33794581c",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "7aaf52b0d7bc99f52ffd5599149cd0d28c54f5da0719bb4927c7e7b4c5788433",
+  "promptSha256": "c3599c66562a172c7985f84493d8460cecbf646e4a683b163ac78c86a88ea8be",
+  "generationPromptSha256": "ee1b929f3998c802fd1e893b987d2a1121d5edf46b453eac71192960bc498332",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "c942de02415a0553d44e75f3ccaa6530c6b4455dba7118baa8d839ad7c54f167",
+  "candidate": "art/source/character-kit/hd/hair-bun-slim-candidate.png",
+  "lockedSha256": "ef361310810ef3949c43f0d35f0389b5f7b36c0fb11d902c126e5b2bb7f4f622"
+}

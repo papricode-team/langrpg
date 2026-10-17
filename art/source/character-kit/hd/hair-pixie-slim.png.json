@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "4b20ba003430c52c4cf953a5959333cbf51e373101e06bdafcb6fd17535af0d8",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "7aaf52b0d7bc99f52ffd5599149cd0d28c54f5da0719bb4927c7e7b4c5788433",
+  "promptSha256": "e9be143490b69caf0353298f02e0cc04bb23de9367446a87e11e98b8cae603f3",
+  "generationPromptSha256": "d2995793d952201313423b8907e897ef83e9ca9583968996994092154cb9eb29",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "eed69c04be7ffc5ae58a1c1bcc508bdd85dbcb088d2c95a413a2d713377dba33",
+  "candidate": "art/source/character-kit/hd/hair-pixie-slim-candidate.png",
+  "lockedSha256": "ea6c200ad4ff0c7f859c3acde76ea8904464fcdf3a4f409e09dc08c529b494ba"
+}

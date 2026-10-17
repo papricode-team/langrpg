@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "candidateSha256": "eba0c6e6f61c06c13341a5c2f4b20cc6d1bf0f8fd8691244bb41210601f786d4",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "03867268a10d009076079052cae4e5e087a4fb994fa7852967d9a61b9bc6c187",
+  "promptSha256": "f1b810b78dc1dfb8d6d017473776e2f1b4b09068aa70539c8863194502b5c6e2",
+  "generationPromptSha256": "33a9bb1c0f7f336699db737c6eb91c7e6671362ec400bb0af3e25db90c56b212",
+  "materials": [
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "primary",
+      "secondary",
+      "skin"
+    ],
+    "maxSpeckPixels": 96,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32,
+      "includeEnclosed": true
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "left": 2
+    },
+    "regionReason": "The holding arm or torso occludes the connection between visible segments of the lantern handle and casing."
+  },
+  "preparationSha256": "1403dc8a0420a003a7d73b20f010bbedf921aa2531c32c2d0c42a8f1e4578d12",
+  "candidate": "art/source/character-kit/hd/held-lantern-slim-candidate.png",
+  "lockedSha256": "4419b80ce4da428cb92d7f5fb27dedcae2e06f9efe0eb9ade068b40aab7b27bd"
+}

@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "candidateSha256": "22363b914c182beb00a6f2b1c514d333f034f62181bd80665fe0fe2add312d3a",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "58e849238e8230a54a86b15959cc6dc65ccf2535146587380d0c021a89a77ff1",
+  "promptSha256": "41a50672a46c2d53b0dfab71b8ad5072c6f2de60b4aa39c2f6920673336dad16",
+  "generationPromptSha256": "9d70acdafbd5dfde917c415fa78d1ca59598eb6e33e1f8f4c0ed5ad42aa92302",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "down": 3
+    },
+    "regionReason": "The head occludes the connection between the crown and the two visible tail edges."
+  },
+  "preparationSha256": "1f4918c1bee6725f43860b02a209ce329e7390d95059fdba4e0ea37a430d9710",
+  "candidate": "art/source/character-kit/hd/hair-ponytail-broad-candidate.png",
+  "lockedSha256": "91cafd7d0a58fe2334c0a7c343a2b96c859665b6fea6cadf7a359f484c11c17e"
+}

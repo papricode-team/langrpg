@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "candidateSha256": "8fa0dd54628268477a9ba5012f774d2bfe6c4c5bbf3c8e0f3eea181dbf422c6e",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "45421bbdb988635efaee1248786985cb50d050673922c94f40ea1450b8b3ec3f",
+  "promptSha256": "90809828b283ebf9537d8f10aa7cb995a3d1269f8a51872ab31510db117078d4",
+  "generationPromptSha256": "92a55cfef6da7dc12f3c4b9fb9fa4f32c6ab62f56b3f4ebd1f3b492fd46e40b7",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "detailMaterial": "primary"
+  },
+  "validation": {
+    "maxRegions": 2,
+    "regionReason": "The moustache and beard can form separate hair regions; both must touch the head.",
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Facial hair is visible from the front and profiles, never on the back of the head."
+  },
+  "preparationSha256": "0197cb7cc397a5759341e16b9e3a02a24d1c5ec5d2458e17ff9ff5c64a33c4b4",
+  "candidate": "art/source/character-kit/hd/facial-hair-short-beard-slim-candidate.png",
+  "lockedSha256": "d57b912f71d7d6f50ffa5fadf056185b976f6da4059ffe1457c84fe861f7ae1f"
+}

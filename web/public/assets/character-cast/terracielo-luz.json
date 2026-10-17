@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/terracielo-luz.png",
   "proofSha256": "59215fcf5bd0a780193651f79733897f1c3e5c20a6af7702452538a7596dcef3",
   "editorSha256": "7eee005a9d55663a25c4215a75ff5e1d79b30797e6150b1a478571ba602b921f",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "b0fff83ef5baf57fb961fedda7bf76d1b7cff6adadf4f41afb3d6ed5156a2147"
+  }
 }

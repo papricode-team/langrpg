@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/windplain-sarnai.png",
   "proofSha256": "e729dc72266ba9d85a8b897cf635883562058c535fd41353700cdff40a8ce9b6",
   "editorSha256": "58e0ce71bc06b5a6b3d53f0bc68f06b715e9e07c9fd955d6f0aa74aeaf5d3a6a",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "b18167da25f33e13e71e8ff8468f0cf631955bdd002bbb99f34cc20ecb544d24"
+  }
 }

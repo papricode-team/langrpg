@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "candidateSha256": "fbb13c97fe6c431a7e437576bc6ee114fedb2ca0cf02c196835cfe567a3b2929",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "7aaf52b0d7bc99f52ffd5599149cd0d28c54f5da0719bb4927c7e7b4c5788433",
+  "promptSha256": "441b6290e92eb058ccde7e89b03755b8610df682f7b1fc220514a653194e979e",
+  "generationPromptSha256": "c7d015557d7d6bc8960345cc47453a0c73845b0773f7d714fe638ed38666e279",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 360,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32,
+      "includeEnclosed": true
+    },
+    "detailMaterial": "primary"
+  },
+  "preparationSha256": "3ef6eb56b096788ad154d8ade3b989221b7607a6088e3984f491523bc6fd498d",
+  "candidate": "art/source/character-kit/hd/hair-afro-broad-candidate.png",
+  "lockedSha256": "ce78ba580d8a1774e1e4f5b623c80c7880452319d023f553b649bc8f38c5f23e"
+}

@@ -422,6 +422,20 @@ describe('conversation scene lifecycle', () => {
     await vi.waitFor(()=>expect(f.options.onComplete).toHaveBeenCalled());
     expect(f.progress.completedQuestIds).toContain('a1-arrival');
   });
+  it('finishes a scene the server already completed instead of repeating the choice', async () => {
+    const f=fixture('choice');
+    const completed=Object.assign(new Error('this discovery is complete; revisit it in your journal'),{status:409});
+    f.api.storyTransition.mockImplementationOnce(async()=>{f.progress.completedQuestIds.push('a1-arrival');f.progress.story!.nodes['a1-arrival']='complete';f.progress.story!.choices['a1-arrival']='protect';throw completed;});
+    const story=vi.fn(async()=>({story:f.progress.story!,progress:{...f.progress,revision:f.progress.revision+1}}));
+    (f.api as unknown as {story:typeof story}).story=story;
+    await f.controller.open('a1-arrival');until('[data-dialogue-choice="protect"]');
+    const other=[...document.querySelectorAll<HTMLButtonElement>('[data-dialogue-choice]')].find(button=>button.dataset.dialogueChoice!=='protect')!;
+    other.click();
+    await vi.waitFor(()=>expect(f.options.onComplete).toHaveBeenCalledTimes(1));
+    expect(story).toHaveBeenCalledTimes(1);
+    expect(document.querySelector('.dialogue-feedback')?.textContent ?? '').not.toContain('complete');
+    expect(document.querySelector('[data-dialogue-choice="protect"]')).toBeNull();
+  });
   it('keeps the investigation stage when its transition is temporarily rejected', async () => {
     const f=fixture();f.progress.story!.inspections['a1-arrival']=questGraphs[0].investigations.map(item=>item.objectId);
     f.progress.story!.flags['reply:a1-arrival-exercise-1']=true;

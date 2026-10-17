@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cloak-broad-page-0-candidate-1.png",
+      "sha256": "b441ab07a45189a4d0793a1af137ceba12a32c101e94b03d75f63bed6d50d494"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cloak-broad-page-0-candidate-1.txt",
+      "sha256": "f118dd984cd69926e268851ca22e87e353502b694eb9fc073c06e784267f3ce1"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-0.json",
+      "sha256": "d4c597d609eaced853a49300a3c916edad44486d2083661e2e1f72015c5fb832"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cloak-broad-page-1-candidate-1.png",
+      "sha256": "9830f7f181b74cbbb6104ea1a12ba4d0b6290b043c2ec31d1ee10bc3d0e115f9"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cloak-broad-page-1-candidate-1.txt",
+      "sha256": "f118dd984cd69926e268851ca22e87e353502b694eb9fc073c06e784267f3ce1"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-1.json",
+      "sha256": "597ae57a47283b3583f871d7ecfb79f8eb0d069ec363f819db5347b622c0eec5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cloak-broad-page-2-candidate-1.png",
+      "sha256": "ef6b18daf53037dc9ef65f8e71f4174c968f1ac9148b3df2278a4644e06de298"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cloak-broad-page-2-candidate-1.txt",
+      "sha256": "0ce25f9d7788dc3a52bc21229e1a3eaca4b052e062483150dd980ba25c976699"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-2.json",
+      "sha256": "3822b1501237a22f8d5952fa86901bb95b3a7ca3e1637d7063b13b8b5a890e21"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cloak-broad-page-3-candidate-1.png",
+      "sha256": "fa2a3acc73318f76947761fd84288da29d61b433ca27f6b6d1bf0e7c4d451c22"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cloak-broad-page-3-candidate-1.txt",
+      "sha256": "cbe60b37a96306461d8ff3e9d1537d5afc6c1b8f508a76007e0a92cb0380364b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-3.json",
+      "sha256": "09412f0261449be2e3d6bacbb0fb474dfa77e215dc568cef97a5387d7eceba7e"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cloak-broad-page-4-candidate-1.png",
+      "sha256": "01999867a54174e96bd8210102904c1ee24e3772d4258abc09dec64306bf9525"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cloak-broad-page-4-candidate-1.txt",
+      "sha256": "0ff1440cad4f61fc75a1a012b0b50723c88303bcaa11868c6dfe30b0f166a160"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-4.json",
+      "sha256": "5252f9b6b506aeba7aa6b065493407dc63e3afa72771694c1fc3d3f025c359a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cloak-broad-page-5-candidate-1.png",
+      "sha256": "3d3d5ee1e1d9655f53c7b7443177ce9c25b53fadd0969bb5601aff514b05c841"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cloak-broad-page-5-candidate-1.txt",
+      "sha256": "41f1444a4b9d3963c3c04ce2eb0e8f63d8fd94b835a1bd705da7f3b7c2149e65"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-5.json",
+      "sha256": "72beb8597382255bf7cfde12b003f50107cce66fee1e4d12ba961c28edfdb6dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cloak-broad-page-6-candidate-1.png",
+      "sha256": "097458fc681d947c33bf0e2b6d5ec2af7d4342df0596235653977a9b7eae16a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cloak-broad-page-6-candidate-1.txt",
+      "sha256": "a1bba43289597cdb4973c27f4a2ce05c990551b1b185760218d36337a0a0924f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-6.json",
+      "sha256": "369c87b8e1c6db5e23506f6c9c049b8866e3b95c4a57ebb3e5fdb50cff738546"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cloak-broad-page-7-candidate-1.png",
+      "sha256": "42d1b6f4fe6962f48ab039aa18921daa4d4ff8c0a2bf7fc2f7f19bb7b6562efb"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cloak-broad-page-7-candidate-1.txt",
+      "sha256": "8dcd68ec017c3270ef1f50dfbccfa94aabf3efcc923f1ecdc714bc8d84d9d327"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-7.json",
+      "sha256": "594be292ae2bb672b79bc0f64091efc6184647dc4159416c469120e9794ae6a2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cloak-broad-page-8-candidate-1.png",
+      "sha256": "a42f31ac2fdeb8261844efbfdf5cdbaa6de05961f7ed5b53b34fca297678eac5"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cloak-broad-page-8-candidate-1.txt",
+      "sha256": "8dcd68ec017c3270ef1f50dfbccfa94aabf3efcc923f1ecdc714bc8d84d9d327"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-8.json",
+      "sha256": "59b98d4a2e80d5eda70982582ea13bff1711eca74a22fd82e4b3ed6ef6f68734"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "f7bf538e8662c43d9b5fa60d8bdbf46e13bfcff45fe973d85bef6e5d47b6df52"
+}

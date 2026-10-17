@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-belt-pouch-slim-page-0-candidate-2.png",
+      "sha256": "ccfc1561fbc65d8959d727465809fbcdbd359058a4a23a71b4a724b47d944454"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-belt-pouch-slim-page-0-candidate-2.txt",
+      "sha256": "97c5e8ece1accaa4e030f3f744e261d58ca0277b63f65fe9c0592457522de0eb"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-0.json",
+      "sha256": "a6c84addbfd340ec426f28ea82ae85b2cc2b70137b1516da583c89ea1fd9c3c8"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-belt-pouch-slim-page-1-candidate-2.png",
+      "sha256": "e5e68417a8a3b70db0ded11e75b48b528bc96d0f3368e9732a4c2c58df5ac362"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-belt-pouch-slim-page-1-candidate-2.txt",
+      "sha256": "97c5e8ece1accaa4e030f3f744e261d58ca0277b63f65fe9c0592457522de0eb"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-1.json",
+      "sha256": "200f02d5272755448caa8ff37144a13da72062cdd95a20c1a7ff61ef7ff62814"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-belt-pouch-slim-page-2-candidate-2.png",
+      "sha256": "e8fddec08469bb537ead8248ae82807d932ca627afd69984bdc6a63e594d8a70"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-belt-pouch-slim-page-2-candidate-2.txt",
+      "sha256": "74908ef06247b6d8568e73b10436e17d05ccab054ed254063690ee9450a9c6d8"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-2.json",
+      "sha256": "30efcafbe9d7830013cf5b7b68ce9c0f1f7e02a3753d8c70007005f678193dd2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-belt-pouch-slim-page-3-candidate-2.png",
+      "sha256": "59a9e3af1231da413e1585a1689f9286d6a509eb575627276040656e5aa7bc00"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-belt-pouch-slim-page-3-candidate-2.txt",
+      "sha256": "70b5b61d79dd2667f667f418f57c756390281217cfa0fbf782827c80f38fb6f4"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-3.json",
+      "sha256": "c3b47bcc3acbc328ad2378c245359a6a3c2b8edd6d4ac6fd90495f1b180f8485"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-belt-pouch-slim-page-4-candidate-2.png",
+      "sha256": "08b3e38519754f35f95470cdd3dfd23fb62897e20b29158a9cf5fcc9e1111d67"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-belt-pouch-slim-page-4-candidate-2.txt",
+      "sha256": "38cb8e9673e0cbd8f65010de473df184151f1a64f5421b2e5d7aa22c52ebf291"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-4.json",
+      "sha256": "3e12d382498d7598725fce3e44099a593cbd15caa44e9c7bc572e3931559e2ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-belt-pouch-slim-page-5-candidate-2.png",
+      "sha256": "3996e723c1ec1c9971bff8ad35b6f42fc77ea397f47b0597f7450d1d67af263e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-belt-pouch-slim-page-5-candidate-2.txt",
+      "sha256": "c0f950e52a06e00ea01cd73c8622913ef2da3ad3ca46dd8b4e05bcd67198a28b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-5.json",
+      "sha256": "9801f02cbaa07933d6c115805b6442f6e7adf1db9ca8bd68a1185df134371b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-belt-pouch-slim-page-6-candidate-1.png",
+      "sha256": "419e7d1e52fe205b17850024ccba84c917b28e48a228b98cd0d6968bf9e4e198"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-belt-pouch-slim-page-6-candidate-1.txt",
+      "sha256": "267220ea745adde16563262083d092e555bb4ef36946da729fd2f07e90bcef9a"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-6.json",
+      "sha256": "b376d6ff991750e64f8e4e02d1eee9baecab7f17b23cfca6d0d24ea933096ab6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-belt-pouch-slim-page-7-candidate-1.png",
+      "sha256": "d78d570a4157a2653019b01ec58ffb5c543dcc9a2827bfd924ca84bf89610c08"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-belt-pouch-slim-page-7-candidate-1.txt",
+      "sha256": "388e80bca692ad9142767f406b7dfbd6b27ce7e1ecfbae0472388f06ba19ee5f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-7.json",
+      "sha256": "54b515875467084c2615401a4aa41788ff7ea91081d871208308ecdfda0f48d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-belt-pouch-slim-page-8-candidate-1.png",
+      "sha256": "d6905f6e9e71fdf426dc0a9bfdd927908b7b89a090a8d9b5fcff1478c7439932"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-belt-pouch-slim-page-8-candidate-1.txt",
+      "sha256": "388e80bca692ad9142767f406b7dfbd6b27ce7e1ecfbae0472388f06ba19ee5f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-8.json",
+      "sha256": "a907bceabc2de3865bb70e4f875dcc255387929f55bac0e8f698706c5c1bcdb1"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "2b47d9a9db9d6616d675e93f12b146032a9ac68f77a14525f6ba3fe43bf8460a"
+}

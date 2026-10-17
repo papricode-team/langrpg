@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/kigalights-patrick.png",
   "proofSha256": "9b1d3c20d420e666a8d4d827ca9542fc044fd4d37b37234066c404e6fb168d80",
   "editorSha256": "98b88e89eac50a55cf6d878863fbdf7a1307fff770203903db14e8e55d9f3dde",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "8e602799cdf2aefe7586aab06a48dac78309383d797fd5f54603a186829d4c09"
+  }
 }

@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-afro-broad-page-0-candidate-1.png",
+      "sha256": "4564761daf537f6f9de7e69b40a39180d3e1590edce167a817de49cc32923a6f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-afro-broad-page-0-candidate-1.txt",
+      "sha256": "c7d015557d7d6bc8960345cc47453a0c73845b0773f7d714fe638ed38666e279"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-afro-broad-page-1-candidate-1.png",
+      "sha256": "4b4592b8da7f0e94246a0196636f5905051b29309765219164b651ce345b1171"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-afro-broad-page-1-candidate-1.txt",
+      "sha256": "c558569c322854438ba52084e2256acaaa9314db7bba3943183620c203840c26"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-afro-broad-page-2-candidate-1.png",
+      "sha256": "f2040d3107d9bc6ac7c5db54de311d0ee1e7148b65fc3077516623547f48d147"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-afro-broad-page-2-candidate-1.txt",
+      "sha256": "7a17d05fbf7abaf54b7a703b12302569d18003fa0bd13627ade6395b5a3f1faf"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-afro-broad-page-3-candidate-1.png",
+      "sha256": "112ba516da95181fec66cb8f8dfc59ca476e0a56b3992c8d0340e9c63bb77fd0"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-afro-broad-page-3-candidate-1.txt",
+      "sha256": "55d650c7d04763e826c07c3f860425d6d1e34512a328ec7c233ee3dd9f5504b5"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "fbb13c97fe6c431a7e437576bc6ee114fedb2ca0cf02c196835cfe567a3b2929"
+}

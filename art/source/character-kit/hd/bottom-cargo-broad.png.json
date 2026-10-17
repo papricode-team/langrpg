@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "candidateSha256": "407b0921fa25163024a78a314641a6a0334813849535441523bf6363b317f14c",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "e56500d17476dff80706c680a721d61936318b490ea01701ac08f9c2fa0bc222",
+  "promptSha256": "98ca468ea8a04060360a017a69223865b312683f5747b7b0ee66612e5d0be419",
+  "generationPromptSha256": "31783fe6914cd0ae4bab20dcdf05ac310606ada32a2b253b7b56716b4f0f5349",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 3,
+      "left": 2
+    },
+    "regionReason": "The foreground hand separates the rear hip fabric in both profile views. A crossed foot also separates the rear ankle cuff in right frame 16. Each region touches the mannequin."
+  },
+  "preparationSha256": "fbfde55598ed314b52afd2a574c303d07e405194a14a0b2bb1edcafaea6c2eba",
+  "candidate": "art/source/character-kit/hd/bottom-cargo-broad-candidate.png",
+  "lockedSha256": "015a5373525b2d8216111d6cc573d55c1733af5dfe4678683a3fe47b4e477239"
+}

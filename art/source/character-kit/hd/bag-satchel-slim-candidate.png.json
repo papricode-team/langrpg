@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-satchel-slim-page-0-candidate-2.png",
+      "sha256": "6734998d93f521af984ddb47ccf346031a0e6bc33ca83b33e3a435eda99ebfb6"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-satchel-slim-page-0-candidate-2.txt",
+      "sha256": "71851bed4b8a69e04697b3af9e3199f3b55ada4c35527b382bcc0978654acc49"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-0.json",
+      "sha256": "a6c84addbfd340ec426f28ea82ae85b2cc2b70137b1516da583c89ea1fd9c3c8"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-satchel-slim-page-1-candidate-2.png",
+      "sha256": "c5dddcea98e29c0a3cfd8ebdb45329fe13f0d75ffa4fc706200efaa1b5fea5ca"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-satchel-slim-page-1-candidate-2.txt",
+      "sha256": "71851bed4b8a69e04697b3af9e3199f3b55ada4c35527b382bcc0978654acc49"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-1.json",
+      "sha256": "200f02d5272755448caa8ff37144a13da72062cdd95a20c1a7ff61ef7ff62814"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-satchel-slim-page-2-candidate-2.png",
+      "sha256": "5d1c75da4214fdb214ae97a9726b9586d2fa442a51651a3e7581d49e82aca833"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-satchel-slim-page-2-candidate-2.txt",
+      "sha256": "37f02cc695fdbc224a90cdf566c6a5d91fec945a41d3f8b4cc912f28ba1bc3f2"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-2.json",
+      "sha256": "30efcafbe9d7830013cf5b7b68ce9c0f1f7e02a3753d8c70007005f678193dd2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-satchel-slim-page-3-candidate-2.png",
+      "sha256": "2566abe1f2acd676a89fd7b507c91d5a2c483482d4aa2761d8423a948eaa38e4"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-satchel-slim-page-3-candidate-2.txt",
+      "sha256": "a9a76109318e053e704916145f5f0858b0b643ade66111976abe8855f13edc42"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-3.json",
+      "sha256": "c3b47bcc3acbc328ad2378c245359a6a3c2b8edd6d4ac6fd90495f1b180f8485"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-satchel-slim-page-4-candidate-2.png",
+      "sha256": "b5a450aac6a01b52fcd78a363a1b359843ab2a52e82c5ec7786098d14ab8762c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-satchel-slim-page-4-candidate-2.txt",
+      "sha256": "e4be9d36734f2f014ddd4a58bdfbb60e9c3c213056a74b69b1e9e09282519c24"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-4.json",
+      "sha256": "3e12d382498d7598725fce3e44099a593cbd15caa44e9c7bc572e3931559e2ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-satchel-slim-page-5-candidate-2.png",
+      "sha256": "188785e6bd19aa20d7fb303427954aa472ee3ea760868bac6ae69dea3130eaea"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-satchel-slim-page-5-candidate-2.txt",
+      "sha256": "50aec3b7b2c99a627767e869d730ef5822e87dc5ca243af4476882e0d2e7fa4b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-5.json",
+      "sha256": "9801f02cbaa07933d6c115805b6442f6e7adf1db9ca8bd68a1185df134371b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-satchel-slim-page-6-candidate-2.png",
+      "sha256": "66eafea84dc6e40b3b0a5078f1718443a3eabbd43c7ac06eedda9a648bef792e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-satchel-slim-page-6-candidate-2.txt",
+      "sha256": "417a05bddd5d82ad646e13579ab5f58ba42dafa5d54e7da99760617b3ff172f3"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-6.json",
+      "sha256": "b376d6ff991750e64f8e4e02d1eee9baecab7f17b23cfca6d0d24ea933096ab6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-satchel-slim-page-7-candidate-2.png",
+      "sha256": "d279d8ceb5dc8598ca02fa4ff9be9b38d957465964739b1d4159cf2c57701ef3"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-satchel-slim-page-7-candidate-2.txt",
+      "sha256": "7cb7fb93b8fad39b8045ab7ab87fb9ff49f7af67056bde5d18c7e0ed69e52b68"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-7.json",
+      "sha256": "54b515875467084c2615401a4aa41788ff7ea91081d871208308ecdfda0f48d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-satchel-slim-page-8-candidate-2.png",
+      "sha256": "0e227a8214b8565b5002d2cf340475562d08a6f18a48df8b8a0433254fc35834"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-satchel-slim-page-8-candidate-2.txt",
+      "sha256": "7cb7fb93b8fad39b8045ab7ab87fb9ff49f7af67056bde5d18c7e0ed69e52b68"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-8.json",
+      "sha256": "a907bceabc2de3865bb70e4f875dcc255387929f55bac0e8f698706c5c1bcdb1"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "0504a6a985be16b1a9628ed851332751b27e680d0c4de7f14c5a5b7bcd60f741"
+}

@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/facial-hair-goatee-broad-page-0-candidate-1.png",
+      "sha256": "3b047cdb3e349930e0183bd313a35cb5e942ac46857558eb42890ac0d99d2241"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/facial-hair-goatee-broad-page-0-candidate-1.txt",
+      "sha256": "5f5351c33c87847a88918fb7b8222a2fa8caa598e96f93fba3530436be41ac1e"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/facial-hair-goatee-broad-page-1-candidate-1.png",
+      "sha256": "97811038ba46285c3f21e11a7d48fba720788ab1efebd150b7f13934962f59e6"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/facial-hair-goatee-broad-page-1-candidate-1.txt",
+      "sha256": "5f5351c33c87847a88918fb7b8222a2fa8caa598e96f93fba3530436be41ac1e"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/facial-hair-goatee-broad-page-2-candidate-1.png",
+      "sha256": "0da39244d67cc6e632dacf381530029c22c1ede959ea5e370ccd1338d81b295a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/facial-hair-goatee-broad-page-2-candidate-1.txt",
+      "sha256": "5f5351c33c87847a88918fb7b8222a2fa8caa598e96f93fba3530436be41ac1e"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/facial-hair-goatee-broad-page-3-candidate-1.png",
+      "sha256": "86318fe08e84934cd8dc4f7002b6d74ca01cea5ec1ea4134cd1defa07ac38f23"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/facial-hair-goatee-broad-page-3-candidate-1.txt",
+      "sha256": "5f5351c33c87847a88918fb7b8222a2fa8caa598e96f93fba3530436be41ac1e"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "a177a3d3a9770238ac11fb3ab245150d347940ed6af02a38521e46d5e9083079"
+}

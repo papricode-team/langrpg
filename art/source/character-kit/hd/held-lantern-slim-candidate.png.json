@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/held-lantern-slim-page-0-candidate-2.png",
+      "sha256": "7aac7c939af38d9a39e4322fe2bf02dc21330c7462932f192713e15863f3af96"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/held-lantern-slim-page-0-candidate-2.txt",
+      "sha256": "33a9bb1c0f7f336699db737c6eb91c7e6671362ec400bb0af3e25db90c56b212"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-0.json",
+      "sha256": "a6c84addbfd340ec426f28ea82ae85b2cc2b70137b1516da583c89ea1fd9c3c8"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/held-lantern-slim-page-1-candidate-2.png",
+      "sha256": "0683f0dd9450cbd31ef3a476f583e90c7e41fbe165d5cd626661458bc44cbf9b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/held-lantern-slim-page-1-candidate-2.txt",
+      "sha256": "33a9bb1c0f7f336699db737c6eb91c7e6671362ec400bb0af3e25db90c56b212"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-1.json",
+      "sha256": "200f02d5272755448caa8ff37144a13da72062cdd95a20c1a7ff61ef7ff62814"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/held-lantern-slim-page-2-candidate-3.png",
+      "sha256": "361e17f83ab2e5a97bd9d81cb03a425779950c5ec955648a1cdc9f1b854bbf55"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/held-lantern-slim-page-2-candidate-3.txt",
+      "sha256": "b599104e0c4aae69c25cf1df54b9e0b1f43c3ad59a7384eb547a371eb429add3"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-2.json",
+      "sha256": "30efcafbe9d7830013cf5b7b68ce9c0f1f7e02a3753d8c70007005f678193dd2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/held-lantern-slim-page-3-candidate-2.png",
+      "sha256": "2d1c154a2491bbbe27ce5329d1562a677b6c27c41f3c7e2cec721b00b8f642df"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/held-lantern-slim-page-3-candidate-2.txt",
+      "sha256": "865e7e6e92d5453ddf45466cc4658b673b471118eb4678206b32513912c1359b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-3.json",
+      "sha256": "c3b47bcc3acbc328ad2378c245359a6a3c2b8edd6d4ac6fd90495f1b180f8485"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/held-lantern-slim-page-4-candidate-3.png",
+      "sha256": "e7a819c80d11d919e0d05fc0ab54e0279f13e0f89ef4baafbb6434a0811b4911"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/held-lantern-slim-page-4-candidate-3.txt",
+      "sha256": "d0e17973eac28e3d90fb233e42fc119ae4462ba38e69d79e9a77238e1c5f97c9"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-4.json",
+      "sha256": "3e12d382498d7598725fce3e44099a593cbd15caa44e9c7bc572e3931559e2ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/held-lantern-slim-page-5-candidate-5.png",
+      "sha256": "231cdf26f41076270a853886d208085da1236963d30b9428decccf1f9b0f14ea"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/held-lantern-slim-page-5-candidate-5.txt",
+      "sha256": "8af9b453297521b7f0937ab15ac6c61b50928e69ba6ecfad24fe1ef4b4d53853"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-5.json",
+      "sha256": "9801f02cbaa07933d6c115805b6442f6e7adf1db9ca8bd68a1185df134371b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/held-lantern-slim-page-6-candidate-4.png",
+      "sha256": "0107aa5870697f641456f24f33c40dd07b089b674857cd63e01aaef49fc942ec"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/held-lantern-slim-page-6-candidate-4.txt",
+      "sha256": "5d5ad28703986476f597038b4f98422ae893baa104c078cc7c2bb1ed2659b209"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-6.json",
+      "sha256": "b376d6ff991750e64f8e4e02d1eee9baecab7f17b23cfca6d0d24ea933096ab6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/held-lantern-slim-page-7-candidate-2.png",
+      "sha256": "9e454bc8525f38853b3c1005e4708ea59b081351d9f419932a757a611ae334ca"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/held-lantern-slim-page-7-candidate-2.txt",
+      "sha256": "fd61bd4d39c1ae87036159398ea3a45665096710193e6b018553ec51536d1f2b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-7.json",
+      "sha256": "54b515875467084c2615401a4aa41788ff7ea91081d871208308ecdfda0f48d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/held-lantern-slim-page-8-candidate-2.png",
+      "sha256": "4e58b6ddaea9808a6d31f2e6f3f820cd4032bbff226110ee74eac14404126328"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/held-lantern-slim-page-8-candidate-2.txt",
+      "sha256": "fd61bd4d39c1ae87036159398ea3a45665096710193e6b018553ec51536d1f2b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-8.json",
+      "sha256": "a907bceabc2de3865bb70e4f875dcc255387929f55bac0e8f698706c5c1bcdb1"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "eba0c6e6f61c06c13341a5c2f4b20cc6d1bf0f8fd8691244bb41210601f786d4"
+}

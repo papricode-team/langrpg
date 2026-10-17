@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/held-lantern-broad-page-0-candidate-1.png",
+      "sha256": "989c70c595014b20bdeb88e1fbe595e8876d8bd4f33625291949b6fc1a657fe3"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/held-lantern-broad-page-0-candidate-1.txt",
+      "sha256": "891554b19e90f887f696d54dac43134e8cbfeb770590b98af438e3ff9f10a6fa"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-0.json",
+      "sha256": "d4c597d609eaced853a49300a3c916edad44486d2083661e2e1f72015c5fb832"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/held-lantern-broad-page-1-candidate-1.png",
+      "sha256": "cdb857c5feaefecb6e2481e9224254612bd3e403b6118091e24eb8047560dd03"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/held-lantern-broad-page-1-candidate-1.txt",
+      "sha256": "891554b19e90f887f696d54dac43134e8cbfeb770590b98af438e3ff9f10a6fa"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-1.json",
+      "sha256": "597ae57a47283b3583f871d7ecfb79f8eb0d069ec363f819db5347b622c0eec5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/held-lantern-broad-page-2-candidate-1.png",
+      "sha256": "e8729ad8aca421c32a956353d058a9c08e027080393d60b41d401be035cd5797"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/held-lantern-broad-page-2-candidate-1.txt",
+      "sha256": "cf1a3083247d6f06a0abf25fc6797a8b3306a14d79abcb5c8ddb03841189cfb4"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-2.json",
+      "sha256": "3822b1501237a22f8d5952fa86901bb95b3a7ca3e1637d7063b13b8b5a890e21"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/held-lantern-broad-page-3-candidate-1.png",
+      "sha256": "15b579008a81a344d47bd412b9ac508f8f5f9b2ab9427c8992bbb59cef75c639"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/held-lantern-broad-page-3-candidate-1.txt",
+      "sha256": "457b1c585e874b43c99bdedfb45734e392ce8a143b106e4a3e3ec3e9b45bf773"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-3.json",
+      "sha256": "09412f0261449be2e3d6bacbb0fb474dfa77e215dc568cef97a5387d7eceba7e"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/held-lantern-broad-page-4-candidate-1.png",
+      "sha256": "add714c9d338d9f95285253173b5c5c9c43fc735535fb38f99829e914cede189"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/held-lantern-broad-page-4-candidate-1.txt",
+      "sha256": "1b2a7b1da98e1839a3066379d5a422772eb4c80c9290bdae1f9b868d5c2ec983"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-4.json",
+      "sha256": "5252f9b6b506aeba7aa6b065493407dc63e3afa72771694c1fc3d3f025c359a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/held-lantern-broad-page-5-candidate-3.png",
+      "sha256": "996fe16552a1dba8bee7c54b25dc3b63447c32947d557eb6947d8a58cffa2e2a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/held-lantern-broad-page-5-candidate-3.txt",
+      "sha256": "8af9b453297521b7f0937ab15ac6c61b50928e69ba6ecfad24fe1ef4b4d53853"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-5.json",
+      "sha256": "72beb8597382255bf7cfde12b003f50107cce66fee1e4d12ba961c28edfdb6dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/held-lantern-broad-page-6-candidate-1.png",
+      "sha256": "aee3a00c93d8e7c2b99a2a9a11f68ce369d6124406238f6de0a06722e615bc87"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/held-lantern-broad-page-6-candidate-1.txt",
+      "sha256": "7461c271d2929060afb4756eecca59f1c46806e95cb826f7ad333edac0696dda"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-6.json",
+      "sha256": "369c87b8e1c6db5e23506f6c9c049b8866e3b95c4a57ebb3e5fdb50cff738546"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/held-lantern-broad-page-7-candidate-1.png",
+      "sha256": "fe41695e700c60cc7dad6d9ed94ef4a6c40a2d8ba9f1934acf30dd235b4c0283"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/held-lantern-broad-page-7-candidate-1.txt",
+      "sha256": "d4fbe19cb80de1b4dec7fac0abb27b65cd59b6dc62d04de3f73fa92b2bf98cf9"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-7.json",
+      "sha256": "594be292ae2bb672b79bc0f64091efc6184647dc4159416c469120e9794ae6a2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/held-lantern-broad-page-8-candidate-1.png",
+      "sha256": "4d04b769f9eb0f3ba5afa18ebc1b0aef7ccedf19c808f869232dbd4a1b39caa5"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/held-lantern-broad-page-8-candidate-1.txt",
+      "sha256": "d4fbe19cb80de1b4dec7fac0abb27b65cd59b6dc62d04de3f73fa92b2bf98cf9"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-8.json",
+      "sha256": "59b98d4a2e80d5eda70982582ea13bff1711eca74a22fd82e4b3ed6ef6f68734"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "ad24131ecfe17d2cf6601d1299506ed2addd9aca79a86d6126a34443dd193db6"
+}

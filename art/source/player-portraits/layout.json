@@ -619,6 +619,882 @@
       "slot": "face",
       "build": "regular",
       "visible": true
+    },
+    {
+      "id": "top-sweater-slim",
+      "slot": "top",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "top-sweater-broad",
+      "slot": "top",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "top-henley-slim",
+      "slot": "top",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "top-sleeveless-slim",
+      "slot": "top",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "face-oval-slim",
+      "slot": "face",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "face-angular-slim",
+      "slot": "face",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "face-almond-slim",
+      "slot": "face",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "face-mature-slim",
+      "slot": "face",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "markings-freckles-slim",
+      "slot": "markings",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "markings-blush-slim",
+      "slot": "markings",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "hair-curls-slim",
+      "slot": "hair",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "hair-ponytail-slim",
+      "slot": "hair",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "hair-braids-slim",
+      "slot": "hair",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "hair-locs-slim",
+      "slot": "hair",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "top-dress-day-slim",
+      "slot": "top",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "top-tunic-slim",
+      "slot": "top",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "top-turtleneck-slim",
+      "slot": "top",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "top-dress-long-slim",
+      "slot": "top",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "top-dress-long-broad",
+      "slot": "top",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "top-dress-pinafore-broad",
+      "slot": "top",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "top-sleeveless-broad",
+      "slot": "top",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "top-blouse-broad",
+      "slot": "top",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "top-turtleneck-broad",
+      "slot": "top",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "hair-crop-slim",
+      "slot": "hair",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "hair-pixie-slim",
+      "slot": "hair",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "hair-straight-slim",
+      "slot": "hair",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "hair-bun-slim",
+      "slot": "hair",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "hair-afro-slim",
+      "slot": "hair",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "hair-mohawk-slim",
+      "slot": "hair",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "hair-crop-broad",
+      "slot": "hair",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "hair-pixie-broad",
+      "slot": "hair",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "hair-buzz-broad",
+      "slot": "hair",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "hair-bob-broad",
+      "slot": "hair",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "face-round-slim",
+      "slot": "face",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "headwear-beret-slim",
+      "slot": "headwear",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "hair-buzz-slim",
+      "slot": "hair",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "hair-coils-slim",
+      "slot": "hair",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "headwear-beanie-slim",
+      "slot": "headwear",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "bottom-cropped-broad",
+      "slot": "bottom",
+      "build": "broad",
+      "visible": false
+    },
+    {
+      "id": "bottom-skirt-long-broad",
+      "slot": "bottom",
+      "build": "broad",
+      "visible": false
+    },
+    {
+      "id": "footwear-clogs-broad",
+      "slot": "footwear",
+      "build": "broad",
+      "visible": false
+    },
+    {
+      "id": "footwear-tall-boots-broad",
+      "slot": "footwear",
+      "build": "broad",
+      "visible": false
+    },
+    {
+      "id": "bottom-skirt-long-slim",
+      "slot": "bottom",
+      "build": "slim",
+      "visible": false
+    },
+    {
+      "id": "footwear-clogs-slim",
+      "slot": "footwear",
+      "build": "slim",
+      "visible": false
+    },
+    {
+      "id": "footwear-shoes-broad",
+      "slot": "footwear",
+      "build": "broad",
+      "visible": false
+    },
+    {
+      "id": "footwear-sandals-slim",
+      "slot": "footwear",
+      "build": "slim",
+      "visible": false
+    },
+    {
+      "id": "bottom-cropped-slim",
+      "slot": "bottom",
+      "build": "slim",
+      "visible": false
+    },
+    {
+      "id": "bottom-wide-slim",
+      "slot": "bottom",
+      "build": "slim",
+      "visible": false
+    },
+    {
+      "id": "bottom-cargo-slim",
+      "slot": "bottom",
+      "build": "slim",
+      "visible": false
+    },
+    {
+      "id": "footwear-shoes-slim",
+      "slot": "footwear",
+      "build": "slim",
+      "visible": false
+    },
+    {
+      "id": "footwear-flats-slim",
+      "slot": "footwear",
+      "build": "slim",
+      "visible": false
+    },
+    {
+      "id": "footwear-tall-boots-slim",
+      "slot": "footwear",
+      "build": "slim",
+      "visible": false
+    },
+    {
+      "id": "bottom-shorts-broad",
+      "slot": "bottom",
+      "build": "broad",
+      "visible": false
+    },
+    {
+      "id": "bottom-wide-broad",
+      "slot": "bottom",
+      "build": "broad",
+      "visible": false
+    },
+    {
+      "id": "bottom-cargo-broad",
+      "slot": "bottom",
+      "build": "broad",
+      "visible": false
+    },
+    {
+      "id": "footwear-flats-broad",
+      "slot": "footwear",
+      "build": "broad",
+      "visible": false
+    },
+    {
+      "id": "hair-straight-broad",
+      "slot": "hair",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "hair-braids-broad",
+      "slot": "hair",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "hair-locs-broad",
+      "slot": "hair",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "hair-bun-broad",
+      "slot": "hair",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "headwear-cap-broad",
+      "slot": "headwear",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "headwear-beanie-broad",
+      "slot": "headwear",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "headwear-brimmed-broad",
+      "slot": "headwear",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "markings-freckles-broad",
+      "slot": "markings",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "markings-blush-broad",
+      "slot": "markings",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "hair-afro-broad",
+      "slot": "hair",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "hair-coils-broad",
+      "slot": "hair",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "hair-mohawk-broad",
+      "slot": "hair",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "facial-hair-goatee-broad",
+      "slot": "facial-hair",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "facial-hair-moustache-broad",
+      "slot": "facial-hair",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "facial-hair-short-beard-slim",
+      "slot": "facial-hair",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "facial-hair-full-beard-slim",
+      "slot": "facial-hair",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "neck-scarf-slim",
+      "slot": "neck",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "neck-cowl-slim",
+      "slot": "neck",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "bottom-shorts-slim",
+      "slot": "bottom",
+      "build": "slim",
+      "visible": false
+    },
+    {
+      "id": "footwear-sandals-broad",
+      "slot": "footwear",
+      "build": "broad",
+      "visible": false
+    },
+    {
+      "id": "outer-raincoat-broad",
+      "slot": "outer",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "top-dress-pinafore-slim",
+      "slot": "top",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "top-tunic-broad",
+      "slot": "top",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "face-oval-broad",
+      "slot": "face",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "face-angular-broad",
+      "slot": "face",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "face-round-broad",
+      "slot": "face",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "face-almond-broad",
+      "slot": "face",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "face-mature-broad",
+      "slot": "face",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "neck-scarf-broad",
+      "slot": "neck",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "neck-kerchief-broad",
+      "slot": "neck",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "neck-cowl-broad",
+      "slot": "neck",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "headwear-brimmed-slim",
+      "slot": "headwear",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "bottom-slim-slim",
+      "slot": "bottom",
+      "build": "slim",
+      "visible": false
+    },
+    {
+      "id": "bag-tote-slim",
+      "slot": "bag",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "bag-belt-pouch-slim",
+      "slot": "bag",
+      "build": "slim",
+      "visible": false
+    },
+    {
+      "id": "bag-satchel-slim",
+      "slot": "bag",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "headwear-cap-slim",
+      "slot": "headwear",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "headwear-sunhat-slim",
+      "slot": "headwear",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "headwear-turban-slim",
+      "slot": "headwear",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "headwear-headband-slim",
+      "slot": "headwear",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "neck-kerchief-slim",
+      "slot": "neck",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "hair-curls-broad",
+      "slot": "hair",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "hair-ponytail-broad",
+      "slot": "hair",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "hair-bob-slim",
+      "slot": "hair",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "facial-hair-full-beard-broad",
+      "slot": "facial-hair",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "bottom-slim-broad",
+      "slot": "bottom",
+      "build": "broad",
+      "visible": false
+    },
+    {
+      "id": "headwear-bucket-slim",
+      "slot": "headwear",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "headwear-beret-broad",
+      "slot": "headwear",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "headwear-sunhat-broad",
+      "slot": "headwear",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "headwear-bucket-broad",
+      "slot": "headwear",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "headwear-turban-broad",
+      "slot": "headwear",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "headwear-headband-broad",
+      "slot": "headwear",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "facial-hair-moustache-slim",
+      "slot": "facial-hair",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "facial-hair-goatee-slim",
+      "slot": "facial-hair",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "facial-hair-short-beard-broad",
+      "slot": "facial-hair",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "top-blouse-slim",
+      "slot": "top",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "outer-cardigan-slim",
+      "slot": "outer",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "outer-raincoat-slim",
+      "slot": "outer",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "outer-trench-slim",
+      "slot": "outer",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "outer-trench-broad",
+      "slot": "outer",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "outer-cloak-broad",
+      "slot": "outer",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "outer-blazer-broad",
+      "slot": "outer",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "top-henley-broad",
+      "slot": "top",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "top-dress-day-broad",
+      "slot": "top",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "eyewear-round-slim",
+      "slot": "eyewear",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "eyewear-square-slim",
+      "slot": "eyewear",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "eyewear-cat-eye-slim",
+      "slot": "eyewear",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "eyewear-sunglasses-slim",
+      "slot": "eyewear",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "eyewear-round-broad",
+      "slot": "eyewear",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "eyewear-square-broad",
+      "slot": "eyewear",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "eyewear-cat-eye-broad",
+      "slot": "eyewear",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "eyewear-sunglasses-broad",
+      "slot": "eyewear",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "markings-beauty-mark-slim",
+      "slot": "markings",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "bag-backpack-slim",
+      "slot": "bag",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "bag-backpack-broad",
+      "slot": "bag",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "bag-satchel-broad",
+      "slot": "bag",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "bag-tote-broad",
+      "slot": "bag",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "bag-belt-pouch-broad",
+      "slot": "bag",
+      "build": "broad",
+      "visible": false
+    },
+    {
+      "id": "markings-beauty-mark-broad",
+      "slot": "markings",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "outer-waistcoat-slim",
+      "slot": "outer",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "outer-waistcoat-broad",
+      "slot": "outer",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "outer-blazer-slim",
+      "slot": "outer",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "outer-cardigan-broad",
+      "slot": "outer",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "top-dress-wrap-broad",
+      "slot": "top",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "top-dress-wrap-slim",
+      "slot": "top",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "outer-apron-broad",
+      "slot": "outer",
+      "build": "broad",
+      "visible": true
+    },
+    {
+      "id": "outer-apron-slim",
+      "slot": "outer",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "outer-cloak-slim",
+      "slot": "outer",
+      "build": "slim",
+      "visible": true
+    },
+    {
+      "id": "held-lantern-slim",
+      "slot": "held",
+      "build": "slim",
+      "visible": false
+    },
+    {
+      "id": "held-lantern-broad",
+      "slot": "held",
+      "build": "broad",
+      "visible": false
     }
   ],
   "pages": [
@@ -1608,6 +2484,1814 @@
             "detail"
           ],
           "expression": "neutral"
+        }
+      ]
+    },
+    {
+      "id": "wardrobe-tops-0",
+      "reference": "art/source/player-portraits/references/wardrobe-tops-0.png",
+      "cell": 384,
+      "columns": 3,
+      "rows": 3,
+      "parts": [
+        {
+          "id": "top-sweater-slim",
+          "label": "Knit sweater",
+          "slot": "top",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "top-sweater-broad",
+          "label": "Knit sweater",
+          "slot": "top",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "top-henley-slim",
+          "label": "Henley shirt",
+          "slot": "top",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "top-sleeveless-slim",
+          "label": "Sleeveless top",
+          "slot": "top",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        }
+      ]
+    },
+    {
+      "id": "wardrobe-heads-0",
+      "reference": "art/source/player-portraits/references/wardrobe-heads-0.png",
+      "cell": 384,
+      "columns": 3,
+      "rows": 3,
+      "parts": [
+        {
+          "id": "face-oval-slim",
+          "label": "Default face",
+          "slot": "face",
+          "build": "slim",
+          "materials": [
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "face-angular-slim",
+          "label": "Angular features",
+          "slot": "face",
+          "build": "slim",
+          "materials": [
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "face-almond-slim",
+          "label": "Almond eyes",
+          "slot": "face",
+          "build": "slim",
+          "materials": [
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "face-mature-slim",
+          "label": "Mature features",
+          "slot": "face",
+          "build": "slim",
+          "materials": [
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "markings-freckles-slim",
+          "label": "Freckles",
+          "slot": "markings",
+          "build": "slim",
+          "materials": [
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "markings-blush-slim",
+          "label": "Blush",
+          "slot": "markings",
+          "build": "slim",
+          "materials": [
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "hair-curls-slim",
+          "label": "Loose curls",
+          "slot": "hair",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "hair-ponytail-slim",
+          "label": "Ponytail",
+          "slot": "hair",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "hair-braids-slim",
+          "label": "Twin braids",
+          "slot": "hair",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        }
+      ]
+    },
+    {
+      "id": "wardrobe-mixed-0",
+      "reference": "art/source/player-portraits/references/wardrobe-mixed-0.png",
+      "cell": 384,
+      "columns": 3,
+      "rows": 3,
+      "parts": [
+        {
+          "id": "hair-locs-slim",
+          "label": "Shoulder-length locs",
+          "slot": "hair",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.45
+          }
+        },
+        {
+          "id": "top-dress-day-slim",
+          "label": "Day dress",
+          "slot": "top",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.3333333333333333,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.45
+          }
+        },
+        {
+          "id": "top-tunic-slim",
+          "label": "Woven tunic",
+          "slot": "top",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.6666666666666666,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.45
+          }
+        },
+        {
+          "id": "top-turtleneck-slim",
+          "label": "Turtleneck",
+          "slot": "top",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0,
+            "top": 0.6666666666666666,
+            "width": 0.3333333333333333,
+            "height": 0.3333333333333333
+          }
+        }
+      ]
+    },
+    {
+      "id": "wardrobe-tops-1",
+      "reference": "art/source/player-portraits/references/wardrobe-tops-1.png",
+      "cell": 384,
+      "columns": 3,
+      "rows": 3,
+      "parts": [
+        {
+          "id": "top-dress-long-slim",
+          "label": "Long-sleeve long dress",
+          "slot": "top",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.36
+          }
+        },
+        {
+          "id": "top-dress-long-broad",
+          "label": "Long-sleeve long dress",
+          "slot": "top",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.3333333333333333,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.36
+          }
+        },
+        {
+          "id": "top-dress-pinafore-broad",
+          "label": "Pinafore dress",
+          "slot": "top",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.6666666666666666,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.36
+          }
+        },
+        {
+          "id": "top-sleeveless-broad",
+          "label": "Sleeveless top",
+          "slot": "top",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0,
+            "top": 0.36,
+            "width": 0.3333333333333333,
+            "height": 0.34
+          }
+        },
+        {
+          "id": "top-blouse-broad",
+          "label": "Gathered blouse",
+          "slot": "top",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.3333333333333333,
+            "top": 0.36,
+            "width": 0.3333333333333333,
+            "height": 0.34
+          }
+        },
+        {
+          "id": "top-turtleneck-broad",
+          "label": "Turtleneck",
+          "slot": "top",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.6666666666666666,
+            "top": 0.36,
+            "width": 0.3333333333333333,
+            "height": 0.34
+          }
+        }
+      ]
+    },
+    {
+      "id": "wardrobe-heads-1",
+      "reference": "art/source/player-portraits/references/wardrobe-heads-1.png",
+      "cell": 384,
+      "columns": 3,
+      "rows": 3,
+      "parts": [
+        {
+          "id": "hair-crop-slim",
+          "label": "Textured crop",
+          "slot": "hair",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "hair-pixie-slim",
+          "label": "Pixie cut",
+          "slot": "hair",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "hair-straight-slim",
+          "label": "Long straight hair",
+          "slot": "hair",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "hair-bun-slim",
+          "label": "High bun",
+          "slot": "hair",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "hair-afro-slim",
+          "label": "Afro",
+          "slot": "hair",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "hair-mohawk-slim",
+          "label": "Mohawk",
+          "slot": "hair",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "hair-crop-broad",
+          "label": "Textured crop",
+          "slot": "hair",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "hair-pixie-broad",
+          "label": "Pixie cut",
+          "slot": "hair",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "hair-buzz-broad",
+          "label": "Buzz cut",
+          "slot": "hair",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        }
+      ]
+    },
+    {
+      "id": "wardrobe-heads-2",
+      "reference": "art/source/player-portraits/references/wardrobe-heads-2.png",
+      "cell": 384,
+      "columns": 3,
+      "rows": 3,
+      "parts": [
+        {
+          "id": "hair-bob-broad",
+          "label": "Chin-length bob",
+          "slot": "hair",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.4
+          }
+        },
+        {
+          "id": "face-round-slim",
+          "label": "Round features",
+          "slot": "face",
+          "build": "slim",
+          "materials": [
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.3333333333333333,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.4
+          }
+        },
+        {
+          "id": "headwear-beret-slim",
+          "label": "Beret",
+          "slot": "headwear",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.6666666666666666,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.4
+          }
+        }
+      ]
+    },
+    {
+      "id": "wardrobe-heads-3",
+      "reference": "art/source/player-portraits/references/wardrobe-heads-3.png",
+      "cell": 384,
+      "columns": 3,
+      "rows": 3,
+      "parts": [
+        {
+          "id": "hair-buzz-slim",
+          "label": "Buzz cut",
+          "slot": "hair",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "hair-coils-slim",
+          "label": "Short coils",
+          "slot": "hair",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "headwear-beanie-slim",
+          "label": "Knit beanie",
+          "slot": "headwear",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral"
+        }
+      ]
+    },
+    {
+      "id": "wardrobe-heads-4",
+      "reference": "art/source/player-portraits/references/wardrobe-heads-4.png",
+      "cell": 384,
+      "columns": 3,
+      "rows": 3,
+      "parts": [
+        {
+          "id": "hair-straight-broad",
+          "label": "Long straight hair",
+          "slot": "hair",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.37
+          }
+        },
+        {
+          "id": "hair-braids-broad",
+          "label": "Twin braids",
+          "slot": "hair",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.3333333333333333,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.37
+          }
+        },
+        {
+          "id": "hair-locs-broad",
+          "label": "Shoulder-length locs",
+          "slot": "hair",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.6666666666666666,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.37
+          }
+        },
+        {
+          "id": "hair-bun-broad",
+          "label": "High bun",
+          "slot": "hair",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0,
+            "top": 0.37,
+            "width": 0.3333333333333333,
+            "height": 0.29666666666666663
+          }
+        },
+        {
+          "id": "headwear-cap-broad",
+          "label": "Soft cap",
+          "slot": "headwear",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "secondary",
+            "skin",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.3333333333333333,
+            "top": 0.37,
+            "width": 0.3333333333333333,
+            "height": 0.29666666666666663
+          }
+        },
+        {
+          "id": "headwear-beanie-broad",
+          "label": "Knit beanie",
+          "slot": "headwear",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.6666666666666666,
+            "top": 0.37,
+            "width": 0.3333333333333333,
+            "height": 0.29666666666666663
+          }
+        },
+        {
+          "id": "headwear-brimmed-broad",
+          "label": "Felt walking hat",
+          "slot": "headwear",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0,
+            "top": 0.6666666666666666,
+            "width": 0.39,
+            "height": 0.3333333333333333
+          }
+        },
+        {
+          "id": "markings-freckles-broad",
+          "label": "Freckles",
+          "slot": "markings",
+          "build": "broad",
+          "materials": [
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "markings-blush-broad",
+          "label": "Blush",
+          "slot": "markings",
+          "build": "broad",
+          "materials": [
+            "detail"
+          ],
+          "expression": "neutral"
+        }
+      ]
+    },
+    {
+      "id": "wardrobe-heads-5",
+      "reference": "art/source/player-portraits/references/wardrobe-heads-5.png",
+      "cell": 384,
+      "columns": 3,
+      "rows": 3,
+      "parts": [
+        {
+          "id": "hair-afro-broad",
+          "label": "Afro",
+          "slot": "hair",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "hair-coils-broad",
+          "label": "Short coils",
+          "slot": "hair",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "hair-mohawk-broad",
+          "label": "Mohawk",
+          "slot": "hair",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "facial-hair-goatee-broad",
+          "label": "Goatee",
+          "slot": "facial-hair",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "facial-hair-moustache-broad",
+          "label": "Moustache",
+          "slot": "facial-hair",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "facial-hair-short-beard-slim",
+          "label": "Short beard",
+          "slot": "facial-hair",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "facial-hair-full-beard-slim",
+          "label": "Full beard",
+          "slot": "facial-hair",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "neck-scarf-slim",
+          "label": "Wool scarf",
+          "slot": "neck",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "neck-cowl-slim",
+          "label": "Loop scarf",
+          "slot": "neck",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        }
+      ]
+    },
+    {
+      "id": "wardrobe-tops-2",
+      "reference": "art/source/player-portraits/references/wardrobe-tops-2.png",
+      "cell": 384,
+      "columns": 3,
+      "rows": 3,
+      "parts": [
+        {
+          "id": "outer-raincoat-broad",
+          "label": "Raincoat",
+          "slot": "outer",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.35
+          }
+        },
+        {
+          "id": "top-dress-pinafore-slim",
+          "label": "Pinafore dress",
+          "slot": "top",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.3333333333333333,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.35
+          }
+        },
+        {
+          "id": "top-tunic-broad",
+          "label": "Woven tunic",
+          "slot": "top",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.6666666666666666,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "id": "wardrobe-heads-6",
+      "reference": "art/source/player-portraits/references/wardrobe-heads-6.png",
+      "cell": 384,
+      "columns": 3,
+      "rows": 3,
+      "parts": [
+        {
+          "id": "face-oval-broad",
+          "label": "Default face",
+          "slot": "face",
+          "build": "broad",
+          "materials": [
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "face-angular-broad",
+          "label": "Angular features",
+          "slot": "face",
+          "build": "broad",
+          "materials": [
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "face-round-broad",
+          "label": "Round features",
+          "slot": "face",
+          "build": "broad",
+          "materials": [
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "face-almond-broad",
+          "label": "Almond eyes",
+          "slot": "face",
+          "build": "broad",
+          "materials": [
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "face-mature-broad",
+          "label": "Mature features",
+          "slot": "face",
+          "build": "broad",
+          "materials": [
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "neck-scarf-broad",
+          "label": "Wool scarf",
+          "slot": "neck",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "neck-kerchief-broad",
+          "label": "Neckerchief",
+          "slot": "neck",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "neck-cowl-broad",
+          "label": "Loop scarf",
+          "slot": "neck",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "headwear-brimmed-slim",
+          "label": "Felt walking hat",
+          "slot": "headwear",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.64,
+            "top": 0.6666666666666666,
+            "width": 0.36,
+            "height": 0.3333333333333333
+          }
+        }
+      ]
+    },
+    {
+      "id": "wardrobe-lower-4",
+      "reference": "art/source/player-portraits/references/wardrobe-lower-4.png",
+      "cell": 384,
+      "columns": 3,
+      "rows": 3,
+      "parts": [
+        {
+          "id": "bag-tote-slim",
+          "label": "Shoulder tote",
+          "slot": "bag",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "bag-satchel-slim",
+          "label": "Crossbody satchel",
+          "slot": "bag",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        }
+      ]
+    },
+    {
+      "id": "wardrobe-heads-7",
+      "reference": "art/source/player-portraits/references/wardrobe-heads-7.png",
+      "cell": 384,
+      "columns": 3,
+      "rows": 3,
+      "parts": [
+        {
+          "id": "headwear-cap-slim",
+          "label": "Soft cap",
+          "slot": "headwear",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "secondary",
+            "skin",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0,
+            "top": 0,
+            "width": 0.27,
+            "height": 0.3333333333333333
+          }
+        },
+        {
+          "id": "headwear-sunhat-slim",
+          "label": "Wide sunhat",
+          "slot": "headwear",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.27,
+            "top": 0,
+            "width": 0.45,
+            "height": 0.3333333333333333
+          }
+        },
+        {
+          "id": "headwear-turban-slim",
+          "label": "Wrapped turban",
+          "slot": "headwear",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.72,
+            "top": 0,
+            "width": 0.28,
+            "height": 0.3333333333333333
+          }
+        },
+        {
+          "id": "headwear-headband-slim",
+          "label": "Woven headband",
+          "slot": "headwear",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "neck-kerchief-slim",
+          "label": "Neckerchief",
+          "slot": "neck",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "hair-curls-broad",
+          "label": "Loose curls",
+          "slot": "hair",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.65,
+            "top": 0.3333333333333333,
+            "width": 0.35,
+            "height": 0.3333333333333333
+          }
+        },
+        {
+          "id": "hair-ponytail-broad",
+          "label": "Ponytail",
+          "slot": "hair",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "hair-bob-slim",
+          "label": "Chin-length bob",
+          "slot": "hair",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "facial-hair-full-beard-broad",
+          "label": "Full beard",
+          "slot": "facial-hair",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        }
+      ]
+    },
+    {
+      "id": "wardrobe-heads-8",
+      "reference": "art/source/player-portraits/references/wardrobe-heads-8.png",
+      "cell": 384,
+      "columns": 3,
+      "rows": 3,
+      "parts": [
+        {
+          "id": "headwear-bucket-slim",
+          "label": "Bucket hat",
+          "slot": "headwear",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "headwear-beret-broad",
+          "label": "Beret",
+          "slot": "headwear",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "headwear-sunhat-broad",
+          "label": "Wide sunhat",
+          "slot": "headwear",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.61,
+            "top": 0,
+            "width": 0.39,
+            "height": 0.3333333333333333
+          }
+        },
+        {
+          "id": "headwear-bucket-broad",
+          "label": "Bucket hat",
+          "slot": "headwear",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "headwear-turban-broad",
+          "label": "Wrapped turban",
+          "slot": "headwear",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "headwear-headband-broad",
+          "label": "Woven headband",
+          "slot": "headwear",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "facial-hair-moustache-slim",
+          "label": "Moustache",
+          "slot": "facial-hair",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "facial-hair-goatee-slim",
+          "label": "Goatee",
+          "slot": "facial-hair",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "facial-hair-short-beard-broad",
+          "label": "Short beard",
+          "slot": "facial-hair",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        }
+      ]
+    },
+    {
+      "id": "wardrobe-tops-3",
+      "reference": "art/source/player-portraits/references/wardrobe-tops-3.png",
+      "cell": 384,
+      "columns": 3,
+      "rows": 3,
+      "parts": [
+        {
+          "id": "top-blouse-slim",
+          "label": "Gathered blouse",
+          "slot": "top",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.36
+          }
+        },
+        {
+          "id": "outer-cardigan-slim",
+          "label": "Open cardigan",
+          "slot": "outer",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.3333333333333333,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.36
+          }
+        },
+        {
+          "id": "outer-raincoat-slim",
+          "label": "Raincoat",
+          "slot": "outer",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.6666666666666666,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.36
+          }
+        },
+        {
+          "id": "outer-trench-slim",
+          "label": "Belted trench coat",
+          "slot": "outer",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0,
+            "top": 0.45,
+            "width": 0.3333333333333333,
+            "height": 0.24
+          }
+        },
+        {
+          "id": "outer-trench-broad",
+          "label": "Belted trench coat",
+          "slot": "outer",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.34,
+            "top": 0.45,
+            "width": 0.32,
+            "height": 0.24
+          }
+        },
+        {
+          "id": "outer-cloak-broad",
+          "label": "Travel cloak",
+          "slot": "outer",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.68,
+            "top": 0.45,
+            "width": 0.32,
+            "height": 0.24
+          }
+        },
+        {
+          "id": "outer-blazer-broad",
+          "label": "Tailored blazer",
+          "slot": "outer",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0,
+            "top": 0.75,
+            "width": 0.3333333333333333,
+            "height": 0.25
+          }
+        },
+        {
+          "id": "top-henley-broad",
+          "label": "Henley shirt",
+          "slot": "top",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.34,
+            "top": 0.75,
+            "width": 0.32,
+            "height": 0.25
+          }
+        },
+        {
+          "id": "top-dress-day-broad",
+          "label": "Day dress",
+          "slot": "top",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.68,
+            "top": 0.75,
+            "width": 0.32,
+            "height": 0.25
+          }
+        }
+      ]
+    },
+    {
+      "id": "wardrobe-eyewear-0",
+      "reference": "art/source/player-portraits/references/wardrobe-eyewear-0.png",
+      "cell": 384,
+      "columns": 3,
+      "rows": 3,
+      "parts": [
+        {
+          "id": "eyewear-round-slim",
+          "label": "Round glasses",
+          "slot": "eyewear",
+          "build": "slim",
+          "materials": [
+            "primary"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "eyewear-square-slim",
+          "label": "Square glasses",
+          "slot": "eyewear",
+          "build": "slim",
+          "materials": [
+            "primary"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "eyewear-cat-eye-slim",
+          "label": "Cat-eye glasses",
+          "slot": "eyewear",
+          "build": "slim",
+          "materials": [
+            "primary"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "eyewear-sunglasses-slim",
+          "label": "Sunglasses",
+          "slot": "eyewear",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "eyewear-round-broad",
+          "label": "Round glasses",
+          "slot": "eyewear",
+          "build": "broad",
+          "materials": [
+            "primary"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "eyewear-square-broad",
+          "label": "Square glasses",
+          "slot": "eyewear",
+          "build": "broad",
+          "materials": [
+            "primary"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "eyewear-cat-eye-broad",
+          "label": "Cat-eye glasses",
+          "slot": "eyewear",
+          "build": "broad",
+          "materials": [
+            "primary"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "eyewear-sunglasses-broad",
+          "label": "Sunglasses",
+          "slot": "eyewear",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral"
+        },
+        {
+          "id": "markings-beauty-mark-slim",
+          "label": "Beauty mark",
+          "slot": "markings",
+          "build": "slim",
+          "materials": [
+            "detail"
+          ],
+          "expression": "neutral"
+        }
+      ]
+    },
+    {
+      "id": "wardrobe-accessories-0",
+      "reference": "art/source/player-portraits/references/wardrobe-accessories-0.png",
+      "cell": 384,
+      "columns": 3,
+      "rows": 3,
+      "parts": [
+        {
+          "id": "bag-backpack-slim",
+          "label": "Small backpack",
+          "slot": "bag",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.36
+          }
+        },
+        {
+          "id": "bag-backpack-broad",
+          "label": "Small backpack",
+          "slot": "bag",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.3333333333333333,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.36
+          }
+        },
+        {
+          "id": "bag-satchel-broad",
+          "label": "Crossbody satchel",
+          "slot": "bag",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.6666666666666666,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.36
+          }
+        },
+        {
+          "id": "bag-tote-broad",
+          "label": "Shoulder tote",
+          "slot": "bag",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0,
+            "top": 0.48,
+            "width": 0.3333333333333333,
+            "height": 0.22
+          }
+        },
+        {
+          "id": "markings-beauty-mark-broad",
+          "label": "Beauty mark",
+          "slot": "markings",
+          "build": "broad",
+          "materials": [
+            "detail"
+          ],
+          "expression": "neutral"
+        }
+      ]
+    },
+    {
+      "id": "wardrobe-tops-4",
+      "reference": "art/source/player-portraits/references/wardrobe-tops-4.png",
+      "cell": 384,
+      "columns": 3,
+      "rows": 3,
+      "parts": [
+        {
+          "id": "outer-waistcoat-slim",
+          "label": "Waistcoat",
+          "slot": "outer",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.37
+          }
+        },
+        {
+          "id": "outer-waistcoat-broad",
+          "label": "Waistcoat",
+          "slot": "outer",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.3333333333333333,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.37
+          }
+        },
+        {
+          "id": "outer-blazer-slim",
+          "label": "Tailored blazer",
+          "slot": "outer",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.6666666666666666,
+            "top": 0,
+            "width": 0.3333333333333333,
+            "height": 0.37
+          }
+        },
+        {
+          "id": "outer-cardigan-broad",
+          "label": "Open cardigan",
+          "slot": "outer",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0,
+            "top": 0.45,
+            "width": 0.3333333333333333,
+            "height": 0.24
+          }
+        },
+        {
+          "id": "top-dress-wrap-broad",
+          "label": "Wrap dress",
+          "slot": "top",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.3333333333333333,
+            "top": 0.45,
+            "width": 0.3333333333333333,
+            "height": 0.24
+          }
+        },
+        {
+          "id": "top-dress-wrap-slim",
+          "label": "Wrap dress",
+          "slot": "top",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.68,
+            "top": 0.45,
+            "width": 0.32,
+            "height": 0.24
+          }
+        },
+        {
+          "id": "outer-apron-broad",
+          "label": "Work apron",
+          "slot": "outer",
+          "build": "broad",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0,
+            "top": 0.7,
+            "width": 0.3333333333333333,
+            "height": 0.3
+          }
+        },
+        {
+          "id": "outer-apron-slim",
+          "label": "Work apron",
+          "slot": "outer",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.3333333333333333,
+            "top": 0.7,
+            "width": 0.3333333333333333,
+            "height": 0.3
+          }
+        },
+        {
+          "id": "outer-cloak-slim",
+          "label": "Travel cloak",
+          "slot": "outer",
+          "build": "slim",
+          "materials": [
+            "primary",
+            "secondary",
+            "detail"
+          ],
+          "expression": "neutral",
+          "sourceCrop": {
+            "left": 0.6666666666666666,
+            "top": 0.7,
+            "width": 0.3333333333333333,
+            "height": 0.3
+          }
         }
       ]
     }

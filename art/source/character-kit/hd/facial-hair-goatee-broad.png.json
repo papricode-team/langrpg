@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "candidateSha256": "a177a3d3a9770238ac11fb3ab245150d347940ed6af02a38521e46d5e9083079",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "45421bbdb988635efaee1248786985cb50d050673922c94f40ea1450b8b3ec3f",
+  "promptSha256": "f5adf07a7313327034c07dbfb54254ae8cf2f82e5d6f568910cde9d8b6015589",
+  "generationPromptSha256": "5f5351c33c87847a88918fb7b8222a2fa8caa598e96f93fba3530436be41ac1e",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "maxSpeckPixels": 32,
+    "detailEnclosedBy": "primary"
+  },
+  "validation": {
+    "maxRegions": 2,
+    "regionReason": "The moustache and beard can form separate hair regions; both must touch the head.",
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Facial hair is visible from the front and profiles, never on the back of the head."
+  },
+  "preparationSha256": "e0dd0596d48a6a940db77fb7a4b783c1fe8172d17256632cccce374ae541cf11",
+  "candidate": "art/source/character-kit/hd/facial-hair-goatee-broad-candidate.png",
+  "lockedSha256": "9cca741e91380f46f167c5b7afa4f72cfae5909a428e20efcccbf2af14e78999"
+}

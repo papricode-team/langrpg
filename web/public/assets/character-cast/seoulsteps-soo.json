@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/seoulsteps-soo.png",
   "proofSha256": "6f3e1f6c94e19307d3a767e850fa1c01166bd7bbbe378c0b9bd3000d6e82ceba",
   "editorSha256": "2f4418a208704e3b75a159db40d10da1937431d2adde04efc5a97fd228f73cef",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "2f498c7d36356e5134488e8f2b22223bf662e662808f687322ee9ec84b3cc1c6"
+  }
 }

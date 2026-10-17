@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "candidateSha256": "8286e612b82aecf04dc002df01451a501a421f3bf7903d4554e35f53b5607655",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "45421bbdb988635efaee1248786985cb50d050673922c94f40ea1450b8b3ec3f",
+  "promptSha256": "a51933bda513b8fe5ee8f216d2e096d667f4a1823cd7e421a06a7f7a84e8a64c",
+  "generationPromptSha256": "eb6b7088c0dd2408e57d42406c37ae1e28d32c3c247dae196352b0f7a8766df0",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "detailMaterial": "primary"
+  },
+  "validation": {
+    "maxRegions": 2,
+    "regionReason": "The moustache and beard can form separate hair regions; both must touch the head.",
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Facial hair is visible from the front and profiles, never on the back of the head."
+  },
+  "preparationSha256": "8c3d17145f5eb4163e9811841e30d7f14ff27bb4ac66d24c2eec9db07574282b",
+  "candidate": "art/source/character-kit/hd/facial-hair-full-beard-broad-candidate.png",
+  "lockedSha256": "258fc31043617d8d95622e5e95de0f6a9b6ef43f8bc8e1e9ab8ecea24120a5db"
+}

@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "candidateSha256": "fdc832aa26e5afe1d76d3679beb41db84d29baae732212d8814235f664795935",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "464b8ef39fd416b7d6d49acbd3d4db79ea700ad00be3e543e6e5ec4a97be2c99",
+  "promptSha256": "b9d9d51b6d5a9a1a2b3584b4635a0dc5bb37ef9fbfdb8d7887f7fd7516c7b6de",
+  "generationPromptSha256": "2d2ab32abb75c38f8a6330da589dff199a39d4dc8133890d175e71b9d2427675",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 2,
+      "left": 2
+    },
+    "regionReason": "The foreground bare arm occludes the connection between torso fabric and a visible rear-hem section in profile views."
+  },
+  "preparationSha256": "4eff054c32521058a445df8d5117bebe4da7b0046ebe1bb52fd5176d434ae8c9",
+  "candidate": "art/source/character-kit/hd/top-sleeveless-broad-candidate.png",
+  "lockedSha256": "0efdb64c0e1c4edcd5105b4b86af8b37b24faa193ea08b1405c1f0fed35feca9"
+}

@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "eed71452cbd57f50b91082920a75a1f6403945417ac06955e071bb6d398291c2",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "7aaf52b0d7bc99f52ffd5599149cd0d28c54f5da0719bb4927c7e7b4c5788433",
+  "promptSha256": "119e292209f370e5b50c54e41a88dc4fae0d72443855a9e835d0f03f6efd6a3f",
+  "generationPromptSha256": "caba714bac7d49e36794089f62324be07e60ec1c743f3a63626105746acbaed4",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "detailEnclosedBy": "primary"
+  },
+  "preparationSha256": "3f894963d4252b50ba89b65fc3fc466257b33c998b8d4b2202348739d67c1d20",
+  "candidate": "art/source/character-kit/hd/hair-crop-slim-candidate.png",
+  "lockedSha256": "75baa8a7e975442c5cac6310ce07736feadedd93abd7be95e25280d48d53e81b"
+}

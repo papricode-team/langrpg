@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "candidateSha256": "0504a6a985be16b1a9628ed851332751b27e680d0c4de7f14c5a5b7bcd60f741",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "c0382c1435b89296a17e0e1afc62f27045f8f5b87700599789e681ce0ff9aa1c",
+  "promptSha256": "b6ce541f832cf781b223a110d29b0909742a38b2be721f667cc8013942feffec",
+  "generationPromptSha256": "95b0431e477fe0ef45533ff9feceb455e50de92cf19188ccf40d5cca0146badc",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailReach": 2,
+    "detailMaterial": "primary"
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 3,
+      "left": 3
+    },
+    "regionReason": "Profile arms occlude the diagonal strap and hip bag, leaving the substantial bag plus visible strap sections on either side of the arm. Front and rear paint remain connected."
+  },
+  "preparationSha256": "fa8ad696879c496e3bd1c1c5beed1343d0e324f6e41ae7ca04e6090db5762b9c",
+  "candidate": "art/source/character-kit/hd/bag-satchel-slim-candidate.png",
+  "lockedSha256": "ac133acd81d43ec28ea109ed639b4b2c13789c28262a960490af2521a56a3d44"
+}

@@ -16,7 +16,7 @@
   "proof": "art/proofs/character-cast/emil.png",
   "proofSha256": "9e23a2314f5bbd98fd3381b3fb14b2dc62c7ddbdc2088c5f6df21278fa4908a6",
   "editorSha256": "3598f43a124ccc7e77184cf77fe417736e64a4e0a85f90ae3b9d470838e99331",
-  "assetVersion": "4c9d233bf71007a9",
+  "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-emil-native",
@@ -46,5 +46,10 @@
     ],
     "source": "art/proofs/character-cast/emil.webp",
     "sourceSha256": "3598f43a124ccc7e77184cf77fe417736e64a4e0a85f90ae3b9d470838e99331"
+  },
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "f0eba764df26ab74ba70142e59677b3641c1dd5036d9c7fbb2d87eabcb1ebc7c"
   }
 }

@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "candidateSha256": "523fc9ee196b56e34703a99e31fba4129a53b353fba0929f05ffee4c32c36f77",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "7aaf52b0d7bc99f52ffd5599149cd0d28c54f5da0719bb4927c7e7b4c5788433",
+  "promptSha256": "e61784fcd973d3013efc0c2d8ed4274371c8dbdb63eef47a3b27764f31a36080",
+  "generationPromptSha256": "93ef1f242a30b9d441cf5a9c6995e789ab9016033e8344ccc33a25126096c2d1",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "detailEnclosedBy": "primary",
+    "detailMaterial": "primary"
+  },
+  "preparationSha256": "31314761e8dda5422f5ad9ff0814f6862f5faac6249cad7e8c759106d7a5ad66",
+  "candidate": "art/source/character-kit/hd/hair-buzz-slim-candidate.png",
+  "lockedSha256": "78cae7a36e27c5c8095a1a9616c679f744f5d37b424c159d5d264b1f1d4de39e"
+}

@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "2fa76c4d3d8cf5414cfa14cbcf73a34b3fcf4d5a110cb5de01a091e27da78b0f",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "464b8ef39fd416b7d6d49acbd3d4db79ea700ad00be3e543e6e5ec4a97be2c99",
+  "promptSha256": "c9c6ed3963c15794ebab6850b809bbc63f18eada3605bbd9b7fcf498cc3a13ca",
+  "generationPromptSha256": "b6f1b025fcd744cfe1f7d2660a78f42cfa439f488a255aa5e9d3bc5b1dc3e29b",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "8da742200aca00a932a6b8aeabe056441ae5ce7e46396c893a1be2523bef64db",
+  "candidate": "art/source/character-kit/hd/top-sweater-slim-candidate.png",
+  "lockedSha256": "8af0253e1169255724c4ddba2883a644754ade3706f632f17d93d6c99ae3ded3"
+}

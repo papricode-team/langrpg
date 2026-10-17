@@ -16,7 +16,7 @@
   "proof": "art/proofs/character-cast/jonas.png",
   "proofSha256": "4c3bff713ea9273e484854ee56dcbca1d688a2434784a01853ec75c29e4c65ff",
   "editorSha256": "5a8c46e3399db202534054807427d2e3270c1bde91f0026d34ed105b1a05c00d",
-  "assetVersion": "4c9d233bf71007a9",
+  "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-jonas-native",
@@ -46,5 +46,10 @@
     ],
     "source": "art/proofs/character-cast/jonas.webp",
     "sourceSha256": "5a8c46e3399db202534054807427d2e3270c1bde91f0026d34ed105b1a05c00d"
+  },
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "cb99fcaa3fdc41a4415a13ad1cef91b2e82f32df805221096f846d3d8990404b"
   }
 }

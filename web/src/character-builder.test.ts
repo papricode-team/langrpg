@@ -86,14 +86,15 @@ describe('component builder', () => {
     for(const build of ['slim','broad','regular']) {
       click('[data-tab="Body"]'); click(`[data-slot="body"][data-option="${build}"]`);
       expect(value().build).toBe(build);
-      expect(value().parts).toMatchObject({hair:'waves',top:'tee',bottom:'skirt',footwear:'boots',headwear:null});
+      expect(value().parts).toMatchObject({hair:'waves',top:'tee',bottom:'skirt',footwear:'boots',headwear:'cap'});
       expect(value().colors['bottom.primary']).toBe('#b07b41');
       expect(recipeErrors(value())).toEqual([]);
       expect(resolveRecipe(value()).layers.every(layer=>layer.build===build)).toBe(true);
       click('[data-tab="Top"]');
       expect([...document.querySelectorAll<HTMLElement>('[data-slot="top"]')].map(tile=>tile.dataset.option)).toEqual(characterCatalogue.components.filter(part=>part.slot==='top'&&part.build===build).map(part=>part.optionId));
       click('[data-tab="Head"]');
-      if(build!=='regular') expect(document.querySelectorAll('[data-slot="headwear"]')).toHaveLength(1);
+      expect([...document.querySelectorAll<HTMLElement>('[data-slot="headwear"]')].map(tile=>tile.dataset.option)).toEqual(['',...characterCatalogue.components.filter(part=>part.slot==='headwear'&&part.build===build).map(part=>part.optionId)]);
+      expect(document.querySelector('[data-slot="headwear"][data-option="cap"]')?.getAttribute('aria-pressed')).toBe('true');
     }
     value.applyPreset('Willow');
     expect(value().build).toBe('regular');

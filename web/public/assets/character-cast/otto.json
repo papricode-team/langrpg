@@ -16,7 +16,7 @@
   "proof": "art/proofs/character-cast/otto.png",
   "proofSha256": "3ae1a22f76bc9ee800ebf3c9dc2e70100359fc28941ffa3731e508d3e93adcb3",
   "editorSha256": "be1f3285d402d1ffedcff749461904339d4492c36b608332f9b202991c3e5f64",
-  "assetVersion": "4c9d233bf71007a9",
+  "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-otto-native",
@@ -46,5 +46,10 @@
     ],
     "source": "art/proofs/character-cast/otto.webp",
     "sourceSha256": "be1f3285d402d1ffedcff749461904339d4492c36b608332f9b202991c3e5f64"
+  },
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "e78d4c224c7c9a0cb14bdd1bf8565bf9d36a917f96708a78e0af5244cbf9da31"
   }
 }

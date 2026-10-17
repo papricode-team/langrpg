@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "candidateSha256": "2e8a12c436f1fa842a09ce66991e5d44af17e3f1f9340267f0565f1565494571",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "2c3b86d1afa9758cc10f086f6bb7e4b6767e933f34c07a584ad726a9f6353b5f",
+  "promptSha256": "ea92f37d5d55945047ee76475fb443da08283edaeec21f4a68435dec593e8d9e",
+  "generationPromptSha256": "19299dc62f8047dedbb055565d78126acfe31f4fb4b57e01a8fdfb323c7d30dd",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 128,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegions": 2,
+    "regionReason": "A pair of shoes has two separate visible regions when the feet are apart. Every region must touch its mannequin foot."
+  },
+  "preparationSha256": "74317596e7ee919bf7fe88df1767e94f0a53098ca4beed06ff4c640d24e24688",
+  "candidate": "art/source/character-kit/hd/footwear-flats-slim-candidate.png",
+  "lockedSha256": "dbe4c029a8307709c7a94cf9fed4ba542bf7ecea3dc3ca97a130c1a4d067d38d"
+}

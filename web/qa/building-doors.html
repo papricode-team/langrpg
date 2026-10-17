@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Building door effects</title>
+<style>body{margin:0;background:#263b32;color:#fff1cf;font:14px system-ui}header{padding:16px}button,a{margin-right:14px;color:inherit}button{background:#3c5848;border:1px solid #789886;padding:6px 12px}canvas{display:block;max-width:100%}</style></head>
+<body><header>Hover a building or <button id="near">approach all doors</button><button id="far">step away</button><button id="motion">toggle reduced motion</button><a href="?map=lindenhafen">Lindenhafen</a><a href="?map=waldruh">Waldruh</a><a href="?map=nebelstadt">Nebelstadt</a><span id="status"></span></header><div id="game"></div>
+<script type="module">
+import * as Phaser from 'phaser';
+import { ExploreScene } from '../src/explore-scene.ts';
+import { sceneEntrancePoint } from '../src/scene-schema.ts';
+import { buildingDoorGeometry } from '../src/building-door.ts';
+import { worldDepth, depthAt } from '../src/world-depth.ts';
+import { getSceneryGeometry } from '../src/scene-schema.ts';
+
+if (import.meta.env.DEV) {
+  const params = new URLSearchParams(location.search), map = params.get('map') || 'lindenhafen';
+  const focus = params.get('focus');
+  const world = {id: map}, manifest = await fetch(`/assets/${map}-day-animations.json`).then(response => response.json());
+  // Nebelstadt's café occupies a bakery facade, as in the authored town.
+  const cafeFrame = getSceneryGeometry(map, {asset:'cafe'})?.door ? 'cafe' : 'house-bakery';
+  const owners = [cafeFrame, 'house-bakery', 'house-grocery', 'house-inn'].map((frame, i) => ({id:frame, frame, asset:frame === 'cafe' ? 'cafe' : 'house', interior:{kind:['cafe','bakery','supermarket','inn'][i]}, x:180+i*360, y:510, width:330, flipX:params.has('mirror')}));
+  class DoorScene extends ExploreScene {
+    init() {}
+    preload() {
+      const queued = new Set();
+      for (const owner of owners) {
+        const asset = manifest.assets[owner.frame ?? owner.asset], key = asset.base?.key ?? asset.key;
+        if (!queued.has(key)) this.load.atlas(key, `/assets/${key}.webp`, `/assets/${key}.json`);
+        queued.add(key);
+      }
+    }
+    create() {
+      this.controlsEnabled = true; this.fitZoom = 1; this.density = 1;
+      this.local = {x: -1000, y: -1000}; this.allNear = !!focus;
+      for (const owner of owners) {
+        const asset = manifest.assets[owner.frame ?? owner.asset], geometry = getSceneryGeometry(map, owner);
+        const sill = sceneEntrancePoint(world, owner);
+        this.add.image(owner.x, owner.y, asset.base?.key ?? asset.key, asset.base?.frame ?? asset.frames[0])
+          .setOrigin(asset.base?.originX ?? asset.originX, asset.base?.originY ?? asset.originY)
+          .setScale(owner.width / (asset.base?.referenceWidth ?? asset.referenceWidth)).setFlipX(!!owner.flipX)
+          .setDepth(worldDepth(depthAt(owner, sill.x, geometry)));
+        this.createPortal(`building:${owner.interior.kind}`, sill.x, sill.y, owner.interior.kind, buildingDoorGeometry(world, owner));
+      }
+      this.resizeHitTargets();
+      const focused = this.portals.get(`building:${focus}`);
+      if (focused) {
+        this.cameras.main.setZoom(3).centerOn(focused.x, focused.y - focused.door.height / 2);
+        document.querySelector('#status').textContent = 'Active effect: mint glow and sparkles around the doorway';
+      }
+      document.querySelector('#near').onclick = () => { this.allNear = true; };
+      document.querySelector('#far').onclick = () => { this.allNear = false; this.local = {x:-1000,y:-1000}; };
+      document.querySelector('#motion').onclick = () => { this.reducedMotion = !this.reducedMotion; };
+      window.doorQA = this;
+    }
+    approachInteraction(id) { this.clicked = id; document.querySelector('#status').textContent = `Approaching ${id}`; }
+    update(_time, delta) {
+      if (!this.local) return;
+      const seconds = Math.min(delta, 50) / 1000;
+      if (!this.reducedMotion) this.decorativeElapsed += seconds;
+      if (this.allNear) {
+        for (const portal of this.portals.values()) portal.effect.update(true, seconds, this.decorativeElapsed, this.reducedMotion);
+      } else this.updatePortals(seconds);
+    }
+  }
+  new Phaser.Game({type:Phaser.WEBGL,parent:'game',width:focus ? 720 : 1440,height:focus ? 640 : 600,backgroundColor:'#344b3d',scene:[DoorScene],render:{antialias:true},banner:false});
+}
+</script></body></html>

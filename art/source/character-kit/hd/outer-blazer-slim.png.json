@@ -1,0 +1,40 @@
+{
+  "version": 2,
+  "candidateSha256": "c709f6080ca77e23ba16a58f10234bd46bf8dd2c1aa71d543e6543ff42286c0e",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "4ef45c8a348f1d891f8ae9abff1a0e8fd3c2d795e67295bea841975bceb0c2da",
+  "promptSha256": "6d783c51e3dbc3e69e79fd0aed0e5b57d093394b8f6d0b016141f87d704d5499",
+  "generationPromptSha256": "8c6453b9f7dd050284ee8d5cc3d196d4e46308b658ee76608e73d9a1f6b46022",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 64,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailMaterial": "primary"
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "down": 2,
+      "left": 3,
+      "right": 3
+    },
+    "regionReason": "The torso occludes far lapel and far hem, leaving separate visible fabric regions in profile.",
+    "materialCountByFacing": [
+      "secondary"
+    ],
+    "materialReason": "Rear views show the small collar or cuffs only; front views include the long open-edge trim or lapels."
+  },
+  "preparationSha256": "5671f71bdcfb49785ccf3c513761e7f8e9d02487ef53146c0b2a145406d62fa6",
+  "candidate": "art/source/character-kit/hd/outer-blazer-slim-candidate.png",
+  "lockedSha256": "27aec91102b25cd985cb5f68add0c4e2365b452a47878ada9197c4ea6a6c851d"
+}

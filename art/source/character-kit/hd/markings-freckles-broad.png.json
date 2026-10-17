@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "candidateSha256": "bf784fd6fb6155a587df6d4aec507181e19069ca023e0f4b4a77b4b4c1bfc581",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "8595802074193aac6016f30c69ecb089c04b849a66dfc84375a325ec6485151f",
+  "promptSha256": "cae8d5d095704593987956d9cbc5bc3cd9cca77cb44bc10ba010cb0f7d3e03e6",
+  "generationPromptSha256": "545cc2d922955a59a32d169b11f17d80f641da6a192c49969983c5de81f49d93",
+  "materials": [
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "primary",
+      "secondary",
+      "skin"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "minBaseAlpha": 240,
+    "detailInk": {
+      "color": "#60351f",
+      "tolerance": 12
+    }
+  },
+  "validation": {
+    "maxRegions": 12,
+    "regionReason": "Up to twelve separate small freckle dots painted over the cheeks and bridge of the nose; every dot must remain attached to the face silhouette.",
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Cheek markings are visible on the front and both profiles, never on the back of the head."
+  },
+  "preparationSha256": "115f7154706d507b85b7054ba76b575a77dc27fc55d4114245cb0d02fcf35340",
+  "candidate": "art/source/character-kit/hd/markings-freckles-broad-candidate.png",
+  "lockedSha256": "243062f3cefdd913f07ffe6c699e721cd8997b7ec3020427b04c5cacd277aa3b"
+}

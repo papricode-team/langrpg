@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-flats-broad-page-0-candidate-1.png",
+      "sha256": "b49479baa0242b5918bdc81423140da11819e7a9e67b3b1ace74f7a845e86985"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-flats-broad-page-0-candidate-1.txt",
+      "sha256": "96e660dd580369e04d11c50a6d5c63fa52a2bd56b32ac08d0c2c2e201e6acff8"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-0.json",
+      "sha256": "081ac1e8ce12a0772254093462119cc244ba2297ae4b20e4c697960ab371c3a4"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-flats-broad-page-1-candidate-1.png",
+      "sha256": "cfefaba9e12cbe96816806e7fba1182320cb0f4d6556b8e468bdaff8ff55b9a2"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-flats-broad-page-1-candidate-1.txt",
+      "sha256": "96e660dd580369e04d11c50a6d5c63fa52a2bd56b32ac08d0c2c2e201e6acff8"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-1.json",
+      "sha256": "6c709f3a0d3218c7782deceb16dcdf546cfa0621785fbf74d41c2597fc796da4"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-flats-broad-page-2-candidate-1.png",
+      "sha256": "96a727ea955e54d877ffa60b6f60f9fe2a107c7a9ebc801eb392b2e5ab43b980"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-flats-broad-page-2-candidate-1.txt",
+      "sha256": "96e660dd580369e04d11c50a6d5c63fa52a2bd56b32ac08d0c2c2e201e6acff8"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-2.json",
+      "sha256": "f63b3d1d376a06d233ff5ad4687d96752e1153682f60672398ba0d4b92be0b89"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-flats-broad-page-3-candidate-1.png",
+      "sha256": "8c3e1d63640a95cdee871d02be724e4893fbd0515d7b84a2d235479a2d9e2890"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-flats-broad-page-3-candidate-1.txt",
+      "sha256": "96e660dd580369e04d11c50a6d5c63fa52a2bd56b32ac08d0c2c2e201e6acff8"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-3.json",
+      "sha256": "3b46fffa1465a306aa00e010971ca6315af366f178587e983bf8b2e31897e97b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-flats-broad-page-4-candidate-1.png",
+      "sha256": "1e229b23dfae2e9e21144cb56c0bfa7bcb4474dfcc2211586d2d31bd1da6fd83"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-flats-broad-page-4-candidate-1.txt",
+      "sha256": "96e660dd580369e04d11c50a6d5c63fa52a2bd56b32ac08d0c2c2e201e6acff8"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-4.json",
+      "sha256": "684241bf10acc2a2d152cdc5d1ea4fc486a14f3c3ea02592e2a6b3a5c685c5be"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-flats-broad-page-5-candidate-1.png",
+      "sha256": "26220d6474d3f4d771ac03c2f7ef09d8835a03d88fdc8e60125316979f194c0a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-flats-broad-page-5-candidate-1.txt",
+      "sha256": "96e660dd580369e04d11c50a6d5c63fa52a2bd56b32ac08d0c2c2e201e6acff8"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-5.json",
+      "sha256": "4aceb63188de2b8ab6ff2f340339316e17998395c2eb23742bec567d1d778330"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "6c055ae1c8f968d71db724c4095904872a325c3beabfb96cc8e5f65993832233"
+}

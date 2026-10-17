@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "5997a75874b9771c68a69fb3bd6e56c3a8bf80cc06edf766f3fa9fc26c92ece1",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "85b294c3a8b9a6527807718ea7ae631bc0d894174b6d34b37a03a3ce87a42b13",
+  "promptSha256": "78471f2673e8590d9498cfa3019044417c6e5b5e295f844dc38d9bfd121965b4",
+  "generationPromptSha256": "9e65696d92e346a22d72ccbee77501056afaecdd7afd63837627399f3f268f69",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "1b00cb267c4e9af6f7ce77a402a1beaff4ac894613ef323fa16fc59aa16c35d7",
+  "candidate": "art/source/character-kit/hd/headwear-turban-slim-candidate.png",
+  "lockedSha256": "560400cf6151a954f7bc40b3286f49ae838071baf82911405f43bdedc1457a64"
+}

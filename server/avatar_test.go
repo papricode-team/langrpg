@@ -114,16 +114,17 @@ func TestV2AvatarSurvivesUpdateAndRestart(t *testing.T) {
 	}
 }
 
-func TestV2BuildWardrobesPersistAndRejectForeignOptions(t *testing.T) {
+func TestV2BuildWardrobesPersistAndRejectInvalidOptions(t *testing.T) {
 	app := testApp(t)
 	base := avatar.Normalize(Avatar{Hair: "#48372e", Skin: "#d6a07d"})
 	for _, build := range []string{"slim", "broad"} {
 		t.Run(build, func(t *testing.T) {
 			base.Build = build
 			recipe := avatar.Normalize(base)
-			tee, skirt, waves, travel := "tee", "skirt", "waves", "travel"
+			tee, skirt, waves, travel, cap := "tee", "skirt", "waves", "travel", "cap"
 			recipe.Parts["top"], recipe.Parts["bottom"] = &tee, &skirt
 			recipe.Parts["hair"], recipe.Parts["outer"] = &waves, &travel
+			recipe.Parts["headwear"] = &cap
 			recipe.Colors["bottom.primary"] = "#b07b41"
 			response := request(app, "POST", "/api/session", "", map[string]any{"name": "Willow", "avatar": recipe})
 			if response.Code != http.StatusCreated {
@@ -149,15 +150,15 @@ func TestV2BuildWardrobesPersistAndRejectForeignOptions(t *testing.T) {
 			if !sameAvatar(session.Player.Avatar, recipe) {
 				t.Fatal("resume lost build wardrobe")
 			}
-			cap := "cap"
-			recipe.Parts["headwear"] = &cap
+			// A real option from another slot is still invalid as headwear.
+			recipe.Parts["headwear"] = &tee
 			data, err := json.Marshal(recipe)
 			if err != nil {
 				t.Fatal(err)
 			}
 			var decoded Avatar
 			if err := json.Unmarshal(data, &decoded); err == nil {
-				t.Fatal("regular-only cap accepted on extra build")
+				t.Fatal("top option accepted as headwear")
 			}
 		})
 	}

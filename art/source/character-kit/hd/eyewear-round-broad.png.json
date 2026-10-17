@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "candidateSha256": "a29fb205bcb4387dcf423c0766b258b1e7ee76ec0f16f649aceabb24c860d382",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "344d37f6b5e11edc6eba0422752bec1ec602d032c6b1594a9abd21d0d701bcf9",
+  "promptSha256": "3e880b076386eceaf90669cf2ecb2d86a7f96b01f24d2f37003b4d6f52f3a20a",
+  "generationPromptSha256": "782a406f2fc71e302356c40a97cc68837077c255ec1afd64db7267345a9e9d0b",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "anchorMaterial": "primary",
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "maxSpeckPixels": 32
+  },
+  "validation": {
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Glasses frames and lenses are visible from the front and profiles; their arms are occluded by the head from behind.",
+    "maxRegionsByFacing": {
+      "right": 2,
+      "left": 2
+    },
+    "regionReason": "The ear or temple occludes the join between the visible lens frame and the end of the glasses arm in profile."
+  },
+  "preparationSha256": "081e104a0799aa02c27787ea7797de8125a53ca60acb1f341972237dcfa93b65",
+  "candidate": "art/source/character-kit/hd/eyewear-round-broad-candidate.png",
+  "lockedSha256": "7f646346b1a5d4be423ae86dfc9adfbe62465d7edd0182c617485879f9574f66"
+}

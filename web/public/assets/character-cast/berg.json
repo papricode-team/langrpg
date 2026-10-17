@@ -31,7 +31,7 @@
   "proof": "art/proofs/character-cast/berg.png",
   "proofSha256": "4e092bb31247c3beb4c2597f6a9e2a71ac9bc2fde3307fa3e6c19fc660f8731f",
   "editorSha256": "3b90c7778028921ee5e672630f9ad525a27faacf6581ca14de5b65bcbc9788ed",
-  "assetVersion": "4c9d233bf71007a9",
+  "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-berg-native",
@@ -61,5 +61,10 @@
     ],
     "source": "art/proofs/character-cast/berg.webp",
     "sourceSha256": "3b90c7778028921ee5e672630f9ad525a27faacf6581ca14de5b65bcbc9788ed"
+  },
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "681838dbd210eb75bd29d8aa34ece0ee64dfdae5ba96f2bae2f4f8d7d0e0dcef"
   }
 }

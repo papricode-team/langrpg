@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/riverweave-huy.png",
   "proofSha256": "2e644d097624bec2bd51d04ceed5bf6a385b04fe86b3afd246c068332c57d9f5",
   "editorSha256": "62a59b8bfc8c1ec8574da586eb7adeef28416f2bce1009cba59f1fc311c1f34f",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "1b36673add38fc4277ba1ae257dc516cf427af2f8fbe58e1dda81c2b76eefe91"
+  }
 }

@@ -17,6 +17,12 @@ output/
 # Reproducible character edit boards; masks are authored in masks.json.
 art/source/character-kit/kits/
 
+# Regenerable wardrobe workbench state; approved catalogues retain the sources.
+art/source/character-kit/hd/wardrobe-catalogue.json
+art/source/character-kit/hd/wardrobe-candidates.json
+art/source/character-kit/hd/wardrobe-jobs.json
+art/source/player-portraits/wardrobe-layout.json
+
 .runtime/
 art/source/terrain-hd/*-reference.png
 art/source/terrain-detail/*-reference.png

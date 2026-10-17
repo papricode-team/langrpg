@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/markings-beauty-mark-slim-page-0-candidate-3.png",
+      "sha256": "2efe2015f1eb1c943fb9adc616f6ca0b3410fb07d973bfd1f40d19c9f5accb4b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/markings-beauty-mark-slim-page-0-candidate-3.txt",
+      "sha256": "e19909db9d8afc9afa8ef83b385cd294df33b2901655e711a01a9512c7c41307"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-0.json",
+      "sha256": "9207c077e0be3b69b427bf2fef3c5c6ec2cba6cd90360ea2f21dee3997475f8b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/markings-beauty-mark-slim-page-1-candidate-3.png",
+      "sha256": "788e876bed52cd6645733f7bcb8fef005da4daaac332fd9769354e8ebf014ae1"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/markings-beauty-mark-slim-page-1-candidate-3.txt",
+      "sha256": "2f2bc296fd67adf854130a9d12e0c4708d2c3c8443d6d2e8025be035752accdd"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-1.json",
+      "sha256": "f25ab7ae6f2211a6dcf84a772de156dca1aea4c9a1667b243da9303f7f1651ae"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/markings-beauty-mark-slim-page-2-candidate-1.png",
+      "sha256": "a4bb68f6468405e9a004936f9c74417f395ad8f496dde59dee30f19d33d15e07"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/markings-beauty-mark-slim-page-2-candidate-1.txt",
+      "sha256": "7c2886853ea57129574150b5b2b9ffdb9c6f1ad558275a2656b60d0b62dea2f1"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-2.json",
+      "sha256": "114454392f0cfb9ed7f499b8732bbd8ea3acae965a2db03ac0e20f8ab4e31746"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/markings-beauty-mark-slim-page-3-candidate-3.png",
+      "sha256": "87f0cc0a1d14a32fbca24941c3b3bac0d06a1238eaa8fdc90bd742c0c8d2501c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/markings-beauty-mark-slim-page-3-candidate-3.txt",
+      "sha256": "b80253f1bca5daa20793425b39ffea8a99a3739dc94b6c6dbbd671078bb462b8"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-3.json",
+      "sha256": "9aef7f92c4a053f1ceb57baa15a3a3771a2c646922f5b26f7f9c0ac68ec0b4bd"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "9fdd600c2ac0a512d31dab8cbbe617519627c426d855176019fdd5e148e17d2e"
+}

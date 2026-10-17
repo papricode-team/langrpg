@@ -1,0 +1,6 @@
+Prompt version 1. Use case: precise-object-edit.
+Edit target: base.png. Supporting input: mask-face-bw.png (white is editable).
+Preserve the exact 1536×1024 canvas, all 36 figures in their original 9×4 cells, and the source transparency. Rows: down, right, up, left. Each row: standing then eight walking poses. Do not move, scale, crop, flip or redraw the figures. Keep painterly shading and upper-left lighting. No text, grid lines, shadows on the background, or additional objects.
+Edit only the facial features inside the head; keep the head silhouette and ears unchanged. Everything outside the mask must stay unchanged.
+ Natural-colour detail is allowed only where explicitly described.
+Paint subtle neutral default facial features only: dark brown eyes and eyebrows, a small nose accent and closed relaxed mouth. Keep the exact head outline and position, cyan skin, bald scalp and every walking pose. Profiles show only the visible eye. Back-facing heads must have no facial features. No cosmetics, facial hair, jewellery or skin-colour patches.

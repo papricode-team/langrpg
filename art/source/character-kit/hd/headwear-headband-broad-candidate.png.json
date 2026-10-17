@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-headband-broad-page-0-candidate-2.png",
+      "sha256": "c7a34c7610fd3f4babf712d0e28dca4b8aa7321fae22a539a84daa6cbf00f860"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-headband-broad-page-0-candidate-2.txt",
+      "sha256": "abb0344e311ac62d980e5f8dc0c88ae8fdc7e3241ad9cb3251f4cf6732f3598a"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-headband-broad-page-1-candidate-1.png",
+      "sha256": "431c48ac880206e9d89379e2224626d84d73ca40335ad37970bea950be951c2a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-headband-broad-page-1-candidate-1.txt",
+      "sha256": "f04c06135203b3cc480d869a1af05a0c54919eb11459a2322d9d620e627e8fe1"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-headband-broad-page-2-candidate-1.png",
+      "sha256": "f0a98352c05c5c630743798e39081dd722094e81f0a960d49dd39d8db598307f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-headband-broad-page-2-candidate-1.txt",
+      "sha256": "b88a04d93dd3427ecbb525ccc62161b7af5717f8d96645f31f0c93f909884880"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-headband-broad-page-3-candidate-1.png",
+      "sha256": "ed178314c4f8619faf8fcafebe8fe0fae2ac48b31b69862b32f35e9174e48523"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-headband-broad-page-3-candidate-1.txt",
+      "sha256": "75b0f3ea0425605f9a8a29e6f1e2c5f798bbf07fd7b054799652a09bdd04be17"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "dc17a4aa21de29948b831c3aaf82af0991a1669a16d1c6b49d466e297c719aca"
+}
