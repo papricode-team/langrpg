@@ -31,7 +31,7 @@
   "proof": "art/proofs/character-cast/ada.png",
   "proofSha256": "cc4f3e5b7f1bcfff254ee1779573b4905ca67dd299d6c11f9df678206608113f",
   "editorSha256": "75ea94924117f7a5eae8f5b979e5b787b199f29b8f1551a1d263ac01125ac8ed",
-  "assetVersion": "4c9d233bf71007a9",
+  "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-ada-native",
@@ -61,5 +61,10 @@
     ],
     "source": "art/proofs/character-cast/ada.webp",
     "sourceSha256": "75ea94924117f7a5eae8f5b979e5b787b199f29b8f1551a1d263ac01125ac8ed"
+  },
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "a5b45fc2a340e7281d0d72d572f747c7b49e8f989f9d6b01a2d44d054f9fbb83"
   }
 }

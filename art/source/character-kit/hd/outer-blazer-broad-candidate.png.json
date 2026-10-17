@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-blazer-broad-page-0-candidate-1.png",
+      "sha256": "d27cbe136e0332a1f8e5f87abb38b975c0c26707bd50bc2e2fae2ea9a6094bf2"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-blazer-broad-page-0-candidate-1.txt",
+      "sha256": "1a3506dc08e1c9b85d82b0c764e25c7b10c23697ba131f0e38b30c8ac95bc291"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-0.json",
+      "sha256": "d4c597d609eaced853a49300a3c916edad44486d2083661e2e1f72015c5fb832"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-blazer-broad-page-1-candidate-1.png",
+      "sha256": "5f3c89975a5400cb9e99716f0b8ac1006003b2f001dd50468f2864dde079dea6"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-blazer-broad-page-1-candidate-1.txt",
+      "sha256": "1a3506dc08e1c9b85d82b0c764e25c7b10c23697ba131f0e38b30c8ac95bc291"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-1.json",
+      "sha256": "597ae57a47283b3583f871d7ecfb79f8eb0d069ec363f819db5347b622c0eec5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-blazer-broad-page-2-candidate-1.png",
+      "sha256": "8c3994963c6bfe07a7c06c57791968628ba6576f80cada90152517ab4ed8a9f6"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-blazer-broad-page-2-candidate-1.txt",
+      "sha256": "c138ba17f0f5fb400fd94bda42cb79f69782850eb2c226e0ece533403c1492e3"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-2.json",
+      "sha256": "3822b1501237a22f8d5952fa86901bb95b3a7ca3e1637d7063b13b8b5a890e21"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-blazer-broad-page-3-candidate-1.png",
+      "sha256": "c9ca2f2bb01395221bc5549ab03230221628f8bac65677a49865f0a72024c19d"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-blazer-broad-page-3-candidate-1.txt",
+      "sha256": "0826b8918ea6ba8f5637bf14a9ec162cde36bf886d663eca1fe7ec75e64ffe7b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-3.json",
+      "sha256": "09412f0261449be2e3d6bacbb0fb474dfa77e215dc568cef97a5387d7eceba7e"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-blazer-broad-page-4-candidate-2.png",
+      "sha256": "8e99be1197260fac24cb15c94c6e26e9e83fb086c12688dbe3e13a0613042b9d"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-blazer-broad-page-4-candidate-2.txt",
+      "sha256": "ebaf92976686d1403c6bf7a752c2bd58b6d9cf6b3bb0dbf9fd12be1f57b1f45f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-4.json",
+      "sha256": "5252f9b6b506aeba7aa6b065493407dc63e3afa72771694c1fc3d3f025c359a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-blazer-broad-page-5-candidate-1.png",
+      "sha256": "3368a9f189a2c08583d081404d3df1a7cc52c5315216d6f58fea7bc8d54a2a2f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-blazer-broad-page-5-candidate-1.txt",
+      "sha256": "79a6cc07f9a998c7742dd3d78bf76eb6cfb241508fa6c6cab473574a57ccd657"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-5.json",
+      "sha256": "72beb8597382255bf7cfde12b003f50107cce66fee1e4d12ba961c28edfdb6dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-blazer-broad-page-6-candidate-1.png",
+      "sha256": "4d1aca30e1dcca0239dc8f08bbfa637933907a03b618be2ddf10b8320df279ac"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-blazer-broad-page-6-candidate-1.txt",
+      "sha256": "d53fadffb82adf633c0631f68335170acabd9e0cbf07c8c10e391db3997e66ec"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-6.json",
+      "sha256": "369c87b8e1c6db5e23506f6c9c049b8866e3b95c4a57ebb3e5fdb50cff738546"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-blazer-broad-page-7-candidate-1.png",
+      "sha256": "bbe700a6ee643a18410e32f2eca3ce91b6d300729c351b4fe5a5c4fd0c052b05"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-blazer-broad-page-7-candidate-1.txt",
+      "sha256": "9b0f00af40aecd0a093771d9b4e2cedaf7d23c62d14bb5ae3d2c3433d5e025b7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-7.json",
+      "sha256": "594be292ae2bb672b79bc0f64091efc6184647dc4159416c469120e9794ae6a2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-blazer-broad-page-8-candidate-1.png",
+      "sha256": "249ae1aaea42ce8be38ba29509227c85550131829bd9e376024fc2a914f83fc6"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-blazer-broad-page-8-candidate-1.txt",
+      "sha256": "9b0f00af40aecd0a093771d9b4e2cedaf7d23c62d14bb5ae3d2c3433d5e025b7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-8.json",
+      "sha256": "59b98d4a2e80d5eda70982582ea13bff1711eca74a22fd82e4b3ed6ef6f68734"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "4eb1e5d5e5c8f22e8d5473ad2119534ae66298b464401df9006ac01021ef32ea"
+}

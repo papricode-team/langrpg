@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-ponytail-broad-page-0-candidate-1.png",
+      "sha256": "64191087e70853ac0b01b0b0ffb7ca80ae6dd95eb4d3fe5e7e34aeefb4963abe"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-ponytail-broad-page-0-candidate-1.txt",
+      "sha256": "9d70acdafbd5dfde917c415fa78d1ca59598eb6e33e1f8f4c0ed5ad42aa92302"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-ponytail-broad-page-1-candidate-1.png",
+      "sha256": "db399f87ea86f2fa5c29442367832b7e3e1e7926be9761e357b0554919675cd8"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-ponytail-broad-page-1-candidate-1.txt",
+      "sha256": "9d70acdafbd5dfde917c415fa78d1ca59598eb6e33e1f8f4c0ed5ad42aa92302"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-ponytail-broad-page-2-candidate-1.png",
+      "sha256": "19ec05c771a8e45cffa5245307e624759fb50077c0dc8e19b2a79103e6ad6b34"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-ponytail-broad-page-2-candidate-1.txt",
+      "sha256": "9d70acdafbd5dfde917c415fa78d1ca59598eb6e33e1f8f4c0ed5ad42aa92302"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-ponytail-broad-page-3-candidate-1.png",
+      "sha256": "59d75869fb830a3c0af000e8696f0859bc0c1985ceadcbfeaad1e0fe982bbe22"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-ponytail-broad-page-3-candidate-1.txt",
+      "sha256": "9d70acdafbd5dfde917c415fa78d1ca59598eb6e33e1f8f4c0ed5ad42aa92302"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "22363b914c182beb00a6f2b1c514d333f034f62181bd80665fe0fe2add312d3a"
+}

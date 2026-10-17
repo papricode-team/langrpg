@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "f9432d20ca16f4dbc8d3c922523f95903ece559288ccd837c9b6acb82949841f",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "85b294c3a8b9a6527807718ea7ae631bc0d894174b6d34b37a03a3ce87a42b13",
+  "promptSha256": "b08c8043481faaa163d79b7a7cff5ee0a39ccfac1197e577d1217a59fcda894f",
+  "generationPromptSha256": "5bef5b06f8e51fe8869c99d4dd6774d3747b57566db6f333ccc2eb9ccec1906a",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "bb07acc9300aa56476be1d9178afc41fe0a260bce7e0f0790ce8a04398efaf51",
+  "candidate": "art/source/character-kit/hd/headwear-brimmed-slim-candidate.png",
+  "lockedSha256": "a96b13b455489083316d07b5fef5d532f4bf05a847e1c7d627e626bde5685c31"
+}

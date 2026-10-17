@@ -15,6 +15,9 @@ const {NavigationGrid,PLAYER_RADIUS} = await import('../web/src/navigation.ts');
 const {terrainObjects,terrainObject}=await import('../web/src/terrain-objects.ts');
 const {sceneNavigationGeometry} = await import('../web/src/scene-navigation.ts');
 const {maps: contentMaps} = await import('../web/src/maps.ts');
+const {getInterior} = await import('../web/src/interiors.ts');
+const {buildingRooms,buildingRoomId}=await import('../web/src/room-layout.ts');
+const {roomLayoutProblems} = await import('../web/src/room-layout-validation.ts');
 const {auditScene,SceneReach,problem} = await import('../web/src/world-edit-rules.ts');
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -34,9 +37,23 @@ export function compileRegistry(document) {
     width: scene.width, height: scene.height,
     spawn: {x: scene.spawn.x / scene.width, y: scene.spawn.y / scene.height},
     coordinateVersion: scene.coordinateVersion,
-    entrances: Object.fromEntries(sceneEntrances(scene).map(entrance => {
+    entrances: Object.fromEntries(sceneEntrances(scene).flatMap(entrance => {
+      const layout = entrance.interiorId.startsWith('train-') ? undefined : entrance.owner.roomLayout;
+      if (layout) {
+        const problems = roomLayoutProblems(getInterior(layout.kind), layout);
+        if (problems.length) throw new SceneCompileError(problems.map(message=>problem('invalid',scene.id,message,[entrance.ownerId])));
+      }
       const approach = sceneEntrancePoint(scene, entrance), back = sceneEntrancePoint(scene, entrance, true);
-      return [entrance.interiorId, {id: entrance.id, ownerId: entrance.ownerId, approach: {x: approach.x / scene.width, y: approach.y / scene.height}, return: {x: back.x / scene.width, y: back.y / scene.height}}];
+      const rooms=layout ? buildingRooms(layout) : [{id:'main',layout:undefined}];
+      return rooms.map(room=>[buildingRoomId(entrance.interiorId,room.id), {id:entrance.id,ownerId:entrance.ownerId,
+        ...(room.id!=='main'?{building:entrance.interiorId}:{}),
+        ...(room.layout?.level!==undefined?{level:room.layout.level}:{}),
+        ...(room.layout?.spawn ? {spawn:{x:room.layout.spawn.x/1536,y:room.layout.spawn.y/1024}} : {}),
+        ...(room.layout?.links?.length ? {doors:Object.fromEntries(room.layout.links.map(door=>{
+          const destination=rooms.find(r=>r.id===door.targetRoom).layout.links.find(d=>d.id===door.targetDoor);
+          return [door.id,{...(door.kind?{kind:door.kind}:{}),target:buildingRoomId(entrance.interiorId,door.targetRoom),arrival:{x:destination.x/1536,y:destination.y/1024}}];
+        }))} : {}),
+        approach:{x:approach.x/scene.width,y:approach.y/scene.height},return:{x:back.x/scene.width,y:back.y/scene.height}}]);
     })),
     ...(scene.legacyOffset ? {legacyOffset: scene.legacyOffset} : {}),
   };

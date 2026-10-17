@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "candidateSha256": "eaabdbd2f365acc56cf1449e0543d3a5e84a740fc8cfd34c2740708d7b749e87",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "c0382c1435b89296a17e0e1afc62f27045f8f5b87700599789e681ce0ff9aa1c",
+  "promptSha256": "2b93dc6015d252b4683183504832d36cb8da3e50c0baedf7df1683f61afcb4c1",
+  "generationPromptSha256": "09bb9d30b97dd780dde3cfab0d4564afa6c813ffcb4d81ef365dda21886b953e",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailReach": 2,
+    "detailMaterial": "primary"
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 3,
+      "left": 2,
+      "down": 3
+    },
+    "regionReason": "The chest harness and two lower strap ends are separated by torso occlusion. In profile the near arm interrupts the strap."
+  },
+  "preparationSha256": "06fa6167c08fe0c78d672d398ad7e9d78ef242d5624e4d083e8f522cb973373a",
+  "candidate": "art/source/character-kit/hd/bag-backpack-broad-candidate.png",
+  "lockedSha256": "3e035bddc11174d956920a4394d111521248e92299fdb800002b211f2fd757e8"
+}

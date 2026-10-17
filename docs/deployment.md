@@ -1,8 +1,9 @@
 # Deploy with Dokploy
 
 `compose.yaml` runs two services: the Go application (`server`) and PostgreSQL 18
-(`db`). The application image builds the Vite frontend and includes its compiled
-files. Go serves the game, `/api/` and WebSockets directly on **port 8080**.
+(`db`). The application image builds the Astro public website and Vite game and includes
+their compiled files. Go serves the website at `/`, the game at `/game/`, `/api/`
+and WebSockets directly on **port 8080**. See [Website and SEO](website.md).
 Both services share the project-scoped `app` network. No service publishes a
 host port; Dokploy routes the public domain directly to Go. Run one application
 instance: world presence and positions are in memory.
@@ -186,7 +187,8 @@ curl https://glotworld.com/api/health
 
 Container logs rotate at 10 MB, retaining three files per service. Go runs as a
 non-root user and serves precompressed frontend bundles, supports audio byte
-ranges, and returns the app shell for browser routes. Unknown API routes and
+ranges, and returns the game shell only for `/game/` browser routes. Public pages are
+static HTML with canonical redirects; unknown public pages, API routes and
 missing assets return 404. API responses are never cached, and the app shell is
 revalidated after deployment. The server does not log request URLs or WebSocket
 session credentials.

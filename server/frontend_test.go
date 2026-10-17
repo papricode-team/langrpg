@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"compress/gzip"
 	"io"
+	"net/http"
 	"net/http/httptest"
 	"os"
 	"path/filepath"
@@ -16,7 +17,10 @@ func TestFrontendAndAPIShareServer(t *testing.T) {
 	if err := os.Mkdir(filepath.Join(directory, "assets"), 0755); err != nil {
 		t.Fatal(err)
 	}
-	for name, content := range map[string]string{"index.html": "<html>Game</html>", "assets/app.js": "console.log('game');", "assets/waldruh-terrain.webp": "terrain", "assets/waldruh-night-animations.json": "{}", ".secret": "private"} {
+	for name, content := range map[string]string{"index.html": "<html>Landing</html>", "game/index.html": "<html>Game</html>", "learn-german/index.html": "<html>Guides</html>", "404.html": "<html>Lost path</html>", "admin.html": "Admin", "reset-password.html": "Reset", "_astro/site.abc.css": "body{}", "video/gameplay.webm": "webm", "video/gameplay.mp4": "mp4", "assets/app.js": "console.log('game');", "assets/waldruh-terrain.webp": "terrain", "assets/waldruh-night-animations.json": "{}", ".secret": "private"} {
+		if err := os.MkdirAll(filepath.Dir(filepath.Join(directory, name)), 0755); err != nil {
+			t.Fatal(err)
+		}
 		if err := os.WriteFile(filepath.Join(directory, name), []byte(content), 0644); err != nil {
 			t.Fatal(err)
 		}
@@ -32,9 +36,19 @@ func TestFrontendAndAPIShareServer(t *testing.T) {
 		status       int
 		content      string
 	}{
-		{"GET", "/", 200, "<html>Game</html>"},
-		{"GET", "/index.html", 200, "<html>Game</html>"},
-		{"GET", "/course/station", 200, "<html>Game</html>"},
+		{"GET", "/", 200, "<html>Landing</html>"},
+		{"HEAD", "/", 200, ""},
+		{"GET", "/index.html", 308, ""},
+		{"GET", "/game", 308, ""},
+		{"GET", "/game/", 200, "<html>Game</html>"},
+		{"GET", "/game/story", 200, "<html>Game</html>"},
+		{"GET", "/game/missing.js", 404, ""},
+		{"GET", "/learn-german", 308, ""},
+		{"GET", "/learn-german/", 200, "<html>Guides</html>"},
+		{"GET", "/learn-german/index.html", 308, ""},
+		{"GET", "/course/station", 404, "Lost path"},
+		{"HEAD", "/missing-page", 404, ""},
+		{"GET", "/learn-german/missing/", 404, "Lost path"},
 		{"GET", "/assets/app.js", 200, "console.log('game');"},
 		{"HEAD", "/assets/app.js", 200, ""},
 		{"GET", "/assets/missing.js", 404, ""},
@@ -70,6 +84,47 @@ func TestFrontendAndAPIShareServer(t *testing.T) {
 	}
 	if got := request(app, "GET", "/assets/app.js", "", nil).Header().Get("Cache-Control"); got != "public, max-age=604800" {
 		t.Fatalf("bundle cache: %s", got)
+	}
+	for _, test := range []struct{ from, to string }{
+		{"/game?ref=friend", "/game/?ref=friend"},
+		{"/learn-german?utm_source=mail", "/learn-german/?utm_source=mail"},
+		{"/learn-german/index.html", "/learn-german/"},
+		{"/index.html", "/"},
+		{"/?ref=friend&utm_source=invite", "/game/?ref=friend&utm_source=invite"},
+		{"/?billing=success", "/game/?billing=success"},
+	} {
+		if got := request(app, "GET", test.from, "", nil).Header().Get("Location"); got != test.to {
+			t.Errorf("redirect %s: got %q, want %q", test.from, got, test.to)
+		}
+	}
+	for _, route := range []string{"/game/", "/game/story", "/admin.html", "/reset-password.html", "/missing-page"} {
+		if got := request(app, "GET", route, "", nil).Header().Get("X-Robots-Tag"); got != "noindex, follow" {
+			t.Errorf("indexing policy for %s: %q", route, got)
+		}
+	}
+	if got := request(app, "GET", "/learn-german/", "", nil).Header().Get("Cache-Control"); got != "no-cache" {
+		t.Errorf("public page should revalidate: %q", got)
+	}
+	for route, contentType := range map[string]string{"/video/gameplay.webm": "video/webm", "/video/gameplay.mp4": "video/mp4"} {
+		response := request(app, "GET", route, "", nil)
+		if got := response.Header().Get("Content-Type"); got != contentType {
+			t.Errorf("%s content type: %q", route, got)
+		}
+		// Re-recorded loops replace the file in place, so they revalidate like named artwork.
+		if got := response.Header().Get("Cache-Control"); got != "no-cache" {
+			t.Errorf("%s cache: %q", route, got)
+		}
+	}
+	// Safari fetches video in byte ranges.
+	rangeRequest := httptest.NewRequest("GET", "/video/gameplay.mp4", nil)
+	rangeRequest.Header.Set("Range", "bytes=0-1")
+	ranged := httptest.NewRecorder()
+	app.Handler().ServeHTTP(ranged, rangeRequest)
+	if ranged.Code != http.StatusPartialContent || ranged.Body.String() != "mp" {
+		t.Errorf("video range request: %d %q", ranged.Code, ranged.Body.String())
+	}
+	if got := request(app, "GET", "/_astro/site.abc.css", "", nil).Header().Get("Cache-Control"); got != "public, max-age=31536000, immutable" {
+		t.Errorf("fingerprinted asset cache: %q", got)
 	}
 	if _, err = newFrontendHandler(t.TempDir()); err == nil {
 		t.Fatal("missing build did not fail initialization")

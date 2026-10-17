@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-apron-broad-page-0-candidate-1.png",
+      "sha256": "062ff79d7de1d9467a15a290218f01723557567043d24917cbcb206fdbb50744"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-apron-broad-page-0-candidate-1.txt",
+      "sha256": "4bc82bbc897df8f7026e905287edd10dfef04b9443a39aca16d7acb1a7f0656a"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-0.json",
+      "sha256": "d4c597d609eaced853a49300a3c916edad44486d2083661e2e1f72015c5fb832"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-apron-broad-page-1-candidate-1.png",
+      "sha256": "b1aebbe9970d475c3a9a29c378c33f06bc3c95f0342031efc327dec2c76512f4"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-apron-broad-page-1-candidate-1.txt",
+      "sha256": "4bc82bbc897df8f7026e905287edd10dfef04b9443a39aca16d7acb1a7f0656a"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-1.json",
+      "sha256": "597ae57a47283b3583f871d7ecfb79f8eb0d069ec363f819db5347b622c0eec5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-apron-broad-page-2-candidate-2.png",
+      "sha256": "f09692c6eea01cb4c7b8fb8fe3547b232a1abff6e57b8bc49678d84d04d9daa8"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-apron-broad-page-2-candidate-2.txt",
+      "sha256": "07c86d426a1ce8f1bdf19ff274b5a972f442b0c963ce6b2e70ec3d5960fcd7bf"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-2.json",
+      "sha256": "3822b1501237a22f8d5952fa86901bb95b3a7ca3e1637d7063b13b8b5a890e21"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-apron-broad-page-3-candidate-1.png",
+      "sha256": "bd066df0a852b87658b800a86fbf187b3cf90b87a41961299da53b9bf718c2f3"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-apron-broad-page-3-candidate-1.txt",
+      "sha256": "5baa2a84d92623a32e6422a5bdf5693dcf9399c8b0a902c2cc328c8a3cd80a19"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-3.json",
+      "sha256": "09412f0261449be2e3d6bacbb0fb474dfa77e215dc568cef97a5387d7eceba7e"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-apron-broad-page-4-candidate-1.png",
+      "sha256": "5f90439d4899693fd64cf2ce86e5178b693a3f57c832677f5022bb2df102f652"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-apron-broad-page-4-candidate-1.txt",
+      "sha256": "ef51e525fd1e4cb781df1ef3e39e0f09f50c88cd573583dfe1f631649a090edc"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-4.json",
+      "sha256": "5252f9b6b506aeba7aa6b065493407dc63e3afa72771694c1fc3d3f025c359a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-apron-broad-page-5-candidate-1.png",
+      "sha256": "2fcab69dfd2359fc4e1989c245cfd529803e9f19dc012ced5dab5a9b359ef2ea"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-apron-broad-page-5-candidate-1.txt",
+      "sha256": "e379de18c5a288d0c6ab29ef99ccbc508fc8c4270267fc44c452fedf4c135d57"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-5.json",
+      "sha256": "72beb8597382255bf7cfde12b003f50107cce66fee1e4d12ba961c28edfdb6dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-apron-broad-page-6-candidate-1.png",
+      "sha256": "9e80047ef4cc4b936026de4546f8c07e9c1fc26a8b98e1f2b9de991b720ded40"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-apron-broad-page-6-candidate-1.txt",
+      "sha256": "7fe545d124076754032091ff44a144a78c81e95789df9ee34fae1ddc67d16ab4"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-6.json",
+      "sha256": "369c87b8e1c6db5e23506f6c9c049b8866e3b95c4a57ebb3e5fdb50cff738546"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-apron-broad-page-7-candidate-2.png",
+      "sha256": "19fd3eb30ef0417c31509d5ec3a9ba415710283906caa13b63573a8d24554740"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-apron-broad-page-7-candidate-2.txt",
+      "sha256": "1f4b18faa152830fb0f77d8339a5972726fdce0296cde1fb0d92012ab0fe708f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-7.json",
+      "sha256": "594be292ae2bb672b79bc0f64091efc6184647dc4159416c469120e9794ae6a2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-apron-broad-page-8-candidate-2.png",
+      "sha256": "05053907147f8bbbdb3db128c8f9a4abcac8a6c18337b8af66db52dbce107016"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-apron-broad-page-8-candidate-2.txt",
+      "sha256": "1f4b18faa152830fb0f77d8339a5972726fdce0296cde1fb0d92012ab0fe708f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-8.json",
+      "sha256": "59b98d4a2e80d5eda70982582ea13bff1711eca74a22fd82e4b3ed6ef6f68734"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "f736dcf54e768909f15ccf0415ca78212c9c84294ea70196e946716455549ba6"
+}

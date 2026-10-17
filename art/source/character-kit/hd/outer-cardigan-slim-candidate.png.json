@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cardigan-slim-page-0-candidate-1.png",
+      "sha256": "b3498583278b2c4111b6aa492e263e597d785ecf1f988351db193da2d3113686"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cardigan-slim-page-0-candidate-1.txt",
+      "sha256": "af5c14bdc8fa31d1d1d03d7cf80a665c66d5290ede6330be6f6b570fce243b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-0.json",
+      "sha256": "a6c84addbfd340ec426f28ea82ae85b2cc2b70137b1516da583c89ea1fd9c3c8"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cardigan-slim-page-1-candidate-1.png",
+      "sha256": "e45dd2fc0e472f962c46b36f3cf63a4d0824be5679701c5e3575f39e592a387c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cardigan-slim-page-1-candidate-1.txt",
+      "sha256": "af5c14bdc8fa31d1d1d03d7cf80a665c66d5290ede6330be6f6b570fce243b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-1.json",
+      "sha256": "200f02d5272755448caa8ff37144a13da72062cdd95a20c1a7ff61ef7ff62814"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cardigan-slim-page-2-candidate-1.png",
+      "sha256": "ec81dd81de2f09f1ad18123f350b8f6ee3e5825869b1fdcc7c563b79ea86f3a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cardigan-slim-page-2-candidate-1.txt",
+      "sha256": "af5c14bdc8fa31d1d1d03d7cf80a665c66d5290ede6330be6f6b570fce243b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-2.json",
+      "sha256": "30efcafbe9d7830013cf5b7b68ce9c0f1f7e02a3753d8c70007005f678193dd2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cardigan-slim-page-3-candidate-1.png",
+      "sha256": "32c3036c61aab17194c0c464fb8168d8cbd4a818a7d04616263f9961642d60b0"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cardigan-slim-page-3-candidate-1.txt",
+      "sha256": "af5c14bdc8fa31d1d1d03d7cf80a665c66d5290ede6330be6f6b570fce243b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-3.json",
+      "sha256": "c3b47bcc3acbc328ad2378c245359a6a3c2b8edd6d4ac6fd90495f1b180f8485"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cardigan-slim-page-4-candidate-1.png",
+      "sha256": "e025c40b62977350a75731ff9a136ec949e3c10752ad7f50f75b2f6cf7919fb6"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cardigan-slim-page-4-candidate-1.txt",
+      "sha256": "af5c14bdc8fa31d1d1d03d7cf80a665c66d5290ede6330be6f6b570fce243b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-4.json",
+      "sha256": "3e12d382498d7598725fce3e44099a593cbd15caa44e9c7bc572e3931559e2ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cardigan-slim-page-5-candidate-2.png",
+      "sha256": "5e735dfa86633bd5b0e963feefd97a76b15e2dcdea34d89fd7dc5a3bcd8282ea"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cardigan-slim-page-5-candidate-2.txt",
+      "sha256": "9a56046b360b78dc83759a236c19e7741a7b38748946d297313134de3e1a5038"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-5.json",
+      "sha256": "9801f02cbaa07933d6c115805b6442f6e7adf1db9ca8bd68a1185df134371b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cardigan-slim-page-6-candidate-1.png",
+      "sha256": "039fd2e7b06cff412ffcf97a9c43ed06f463a0cebfa02c50de04d897fcb40c71"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cardigan-slim-page-6-candidate-1.txt",
+      "sha256": "af5c14bdc8fa31d1d1d03d7cf80a665c66d5290ede6330be6f6b570fce243b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-6.json",
+      "sha256": "b376d6ff991750e64f8e4e02d1eee9baecab7f17b23cfca6d0d24ea933096ab6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cardigan-slim-page-7-candidate-1.png",
+      "sha256": "4c4608601253faa2e400da25c30e0b1d2ce58db56c7475469f35b5ed7ceb7a33"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cardigan-slim-page-7-candidate-1.txt",
+      "sha256": "af5c14bdc8fa31d1d1d03d7cf80a665c66d5290ede6330be6f6b570fce243b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-7.json",
+      "sha256": "54b515875467084c2615401a4aa41788ff7ea91081d871208308ecdfda0f48d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cardigan-slim-page-8-candidate-1.png",
+      "sha256": "bf0394197e07e3010b8ec153b6325c899b703e08539efe306312be115c694445"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cardigan-slim-page-8-candidate-1.txt",
+      "sha256": "af5c14bdc8fa31d1d1d03d7cf80a665c66d5290ede6330be6f6b570fce243b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-8.json",
+      "sha256": "a907bceabc2de3865bb70e4f875dcc255387929f55bac0e8f698706c5c1bcdb1"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "b050754a613bb33900102dd5289313d5f10f737f86e8a8a45f8dd228e135fcce"
+}

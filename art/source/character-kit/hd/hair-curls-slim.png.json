@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "candidateSha256": "acdd50310d86e8dbf5d3d6ebbb0d37ea21afaaa8795f83f57bb7eeb846d9c19a",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "58e849238e8230a54a86b15959cc6dc65ccf2535146587380d0c021a89a77ff1",
+  "promptSha256": "5214f703e540d6eff3925b7f4294cfcf48b9e433bb6fc2b5aed178b3249cde40",
+  "generationPromptSha256": "0571cb7b9dc59dbea22ce875692eca1dd393a69089ca41b50aa885f7fe039f74",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 360,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailMaxChroma": 0.15
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 2,
+      "left": 2
+    },
+    "regionReason": "In profile the head and neck occlude the far curls, leaving a separate curl edge below the chin. All 36 native head crops reviewed."
+  },
+  "preparationSha256": "cc6ab645775928651f67c18abdcc50178509738cbb3d49c69a62675abc3cc5cc",
+  "candidate": "art/source/character-kit/hd/hair-curls-slim-candidate.png",
+  "lockedSha256": "5fce24628a920c80b394a03b338bb003a042bc42bb882c912af5d65fcacce852"
+}

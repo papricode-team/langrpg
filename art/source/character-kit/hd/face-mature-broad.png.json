@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "candidateSha256": "43805fa4cfe016cafce0490b9a6ba5e30bb12141d57604bf36d53c4d9571641d",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "8595802074193aac6016f30c69ecb089c04b849a66dfc84375a325ec6485151f",
+  "promptSha256": "037073b01a1038d25b340d79827cb0caa911763be439754361ac623ec63d96bf",
+  "generationPromptSha256": "17d1e0902618a8600beed630610749fa60ef2057c8a566e55ab2222688d77713",
+  "materials": [
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "primary",
+      "secondary",
+      "skin"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "minBaseAlpha": 240,
+    "maxSpeckPixels": 12
+  },
+  "validation": {
+    "maxRegions": 8,
+    "regionReason": "Eyes, brows, nose and mouth are separate facial marks; every mark must remain attached to the head.",
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Facial features are invisible on the back of the head; all nine rear-facing frames must contain no feature paint."
+  },
+  "preparationSha256": "d8cb484ab0fa3e0534bddf5a4e3bf3dff93b97229c1eb7d2697fb67910c592b4",
+  "candidate": "art/source/character-kit/hd/face-mature-broad-candidate.png",
+  "lockedSha256": "506e5dab00413dbbf7be2fb452157dc3605016a47ea4deeea37feec41e10fc1f"
+}

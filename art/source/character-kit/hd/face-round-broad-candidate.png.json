@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/face-round-broad-page-0-candidate-1.png",
+      "sha256": "6ff3e1713ad01799f32d9477514ad4190fc89de413378b985116633386633ed8"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-round-broad-page-0-candidate-1.txt",
+      "sha256": "0e56fcc5436e1876f558bc3002f968ec93e220175d4cdffbc2286c3f3decabd7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/face-round-broad-page-1-candidate-2.png",
+      "sha256": "2b8585db1c74dacd62014f8bac272e62ce735361dc05f3c221961038d1db2cda"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-round-broad-page-1-candidate-2.txt",
+      "sha256": "e5e6df47bf32be9475eeed9422c82a5bf45fed0b86907ea3257dc94cb74bc772"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/face-round-broad-page-2-candidate-1.png",
+      "sha256": "5a9f6e98cd46c5022f874b276e68a05e8ba295a89b4e96367e4829a72a14e8eb"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-round-broad-page-2-candidate-1.txt",
+      "sha256": "0e56fcc5436e1876f558bc3002f968ec93e220175d4cdffbc2286c3f3decabd7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/face-round-broad-page-3-candidate-1.png",
+      "sha256": "95a9c19fc5c40a7e4d44ffcfba2b1168b2a814c7c04de1b9ffff22eeb83e0a3a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-round-broad-page-3-candidate-1.txt",
+      "sha256": "0e56fcc5436e1876f558bc3002f968ec93e220175d4cdffbc2286c3f3decabd7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "ed88ae5940f2f8032c2dac133ab6abbf24dc1b85b76097a3bba5572c62efce29"
+}

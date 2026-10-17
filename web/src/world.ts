@@ -1,3 +1,6 @@
+import {buildingRoomRoot} from './room-layout';
+import {getWorldScene} from './scene-data';
+import {sceneEntrances} from './scene-schema';
 import * as Phaser from 'phaser';
 import type { MapPoint } from './navigation';
 import { getMap, type MapId } from './maps';
@@ -8,7 +11,7 @@ import { canvasSize } from './world-camera';
 import { WorldAudio } from './world-audio';
 import { CutsceneScene, type CutsceneKind, type CutsceneOutcome } from './cutscene';
 import { WorldClock, type WorldTimeOptions, type WorldTimeState, type WorldPeriod } from './world-clock';
-import type { InteriorId } from './interiors';
+import {getInterior, type InteriorId} from './interiors';
 import type { ActivityResidentSample } from './resident-activities';
 import type { WorldWeatherMode } from './world-weather';
 import type { RoutineLexeme, WorldBark } from './world-routines';
@@ -38,7 +41,7 @@ export interface WorldOptions {
   onNearby?: (id: string | undefined) => void;
   onObject?: (id: string) => void;
   onMapReady?: (id: MapId) => void;
-  onInteriorChange?: (id: InteriorId | undefined) => void;
+  onInteriorChange?: (id: InteriorId | undefined, doorId?:string) => void;
   onInteriorInteract?: (id: string) => void;
   onBarkShown?: (bark: WorldBark) => void;
   onCinematicLine?: (speaker: string, german: string, clipId: string) => void;
@@ -135,7 +138,7 @@ export class World {
     events.on(WorldEvents.InteriorInteract, (id: string) => options.onInteriorInteract?.(id));
     events.on(WorldEvents.Bark, (bark: WorldBark) => options.onBarkShown?.(bark));
     events.on(WorldEvents.Time, (state: WorldTimeState) => options.onTimeChange?.(state));
-    events.on(WorldEvents.InteriorChange, (id: InteriorId | undefined) => { this.audio.setInterior(id); options.onInteriorChange?.(id); });
+    events.on(WorldEvents.InteriorChange, (id: InteriorId | undefined, doorId?:string) => { this.audio.setInterior(id); options.onInteriorChange?.(id,doorId); });
     events.on(WorldEvents.ExploreReady, (key: string) => {
       if (key === SceneKeys.World && this.world?.ready) this.townRestarting = false;
       this.flush(); this.applyPresentation();
@@ -295,6 +298,18 @@ export class World {
     // The town scene sleeps while a room is open; it still needs the edit.
     const scene = this.game.scene.getScene(SceneKeys.World);
     if (scene instanceof WorldScene && (scene.sys.isActive() || scene.sys.isSleeping())) scene.applyWorldEdits(ops);
+    const interior = this.interior, mapId = readWorld(this.game.registry, 'mapId');
+    const owner = interior?.sys.isActive() ? sceneEntrances(getWorldScene(mapId)).find(e=>e.interiorId===buildingRoomRoot(interior.interiorId))?.ownerId : undefined;
+    if (interior?.sys.isActive() && ops.some(op=>op.map===mapId && op.kind==='room' && op.id===owner)) {
+      const root=buildingRoomRoot(interior.interiorId) as InteriorId;
+      const exists=interior.interiorId===root || getInterior(root,mapId).layout?.rooms?.some(r=>`${root}::${r.id}`===interior.interiorId);
+      if(exists)interior.scene.restart({id:interior.interiorId,mapId,instant:true});
+      else {
+        this.set('interiorId',root);
+        interior.scene.restart({id:root,mapId,instant:true});
+        this.game.events.emit(WorldEvents.InteriorChange,root);
+      }
+    }
   }
 
   /** Switch after the server acknowledges travel; snapshots restore saved positions. */

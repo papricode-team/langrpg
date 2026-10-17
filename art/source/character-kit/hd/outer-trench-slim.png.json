@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "candidateSha256": "8c7f9860f48e6669457170535a881600244da4e5afedf18b0852a2817c8687a6",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "84a775130c78e0db3e444a3e83dc6c7818cfafdd83f15060585a09d8c26b8432",
+  "promptSha256": "437d7e5f25268d298a9b88133345b50808a50a7ba76e3b53fe266f20338917e7",
+  "generationPromptSha256": "88d496d0e77c1966ba376e54b74bc6fe81c8a25ee8e439111ad48a22f72ccc55",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 96,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32,
+      "includeEnclosed": true
+    },
+    "detailMaxChroma": 0.15,
+    "detailMaterial": "primary"
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "right": 2,
+      "down": 2,
+      "up": 2
+    },
+    "regionReason": "Belt buckle and rear collar can form separate regions inside the garment silhouette; side cuff is separated by the wrist tab."
+  },
+  "preparationSha256": "bdb0be3b2739c359349397b640e0caaa1f7fcf6f21974b099a9181b7216d1862",
+  "candidate": "art/source/character-kit/hd/outer-trench-slim-candidate.png",
+  "lockedSha256": "5916b1bb203238854831e69681590b05861ed7c0bcbf340fd389fe7236731a4b"
+}

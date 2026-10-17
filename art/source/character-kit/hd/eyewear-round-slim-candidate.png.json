@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-round-slim-page-0-candidate-2.png",
+      "sha256": "df65f15ee05e4b054a001e66694d5f2a4d77714027eb0b3b5dd8dca93437acfe"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-round-slim-page-0-candidate-2.txt",
+      "sha256": "85f81f0518332123852d63c3e79a0ff4dcbb28c7a650176878c6ec949e7fd0a7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-0.json",
+      "sha256": "9207c077e0be3b69b427bf2fef3c5c6ec2cba6cd90360ea2f21dee3997475f8b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-round-slim-page-1-candidate-1.png",
+      "sha256": "35a1ccf34713bfbb05170c95b96e9300efcd2944d3aff5ce7aa60e595ee8b779"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-round-slim-page-1-candidate-1.txt",
+      "sha256": "b2969a76f3f134fd54bf6ab1826585bb57323e0dfc53075b998345623a0cc7b5"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-1.json",
+      "sha256": "f25ab7ae6f2211a6dcf84a772de156dca1aea4c9a1667b243da9303f7f1651ae"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-round-slim-page-2-candidate-1.png",
+      "sha256": "ef5ace421c97cada90dd940636d7539d5402383b2e4f1b1b8f5820a9e35e8706"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-round-slim-page-2-candidate-1.txt",
+      "sha256": "b2969a76f3f134fd54bf6ab1826585bb57323e0dfc53075b998345623a0cc7b5"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-2.json",
+      "sha256": "114454392f0cfb9ed7f499b8732bbd8ea3acae965a2db03ac0e20f8ab4e31746"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-round-slim-page-3-candidate-1.png",
+      "sha256": "0535abdcffd49ce8a85c9bb7f1e94dbf380f9c8dab9afaa529e9680dcccec21f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-round-slim-page-3-candidate-1.txt",
+      "sha256": "b2969a76f3f134fd54bf6ab1826585bb57323e0dfc53075b998345623a0cc7b5"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-3.json",
+      "sha256": "9aef7f92c4a053f1ceb57baa15a3a3771a2c646922f5b26f7f9c0ac68ec0b4bd"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "035c0bb6e869a425374aacdef967dd162d93769c288cc28abed6a1f662186eb6"
+}

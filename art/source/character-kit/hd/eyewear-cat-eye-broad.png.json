@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "candidateSha256": "5254693fea5b2ce8438179d35136e7aa431c3b31e62c72f57584840a4022a397",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "344d37f6b5e11edc6eba0422752bec1ec602d032c6b1594a9abd21d0d701bcf9",
+  "promptSha256": "7fd90155b3257ccbf3046d5c2cb04819e65a8feabecc7d9128afbca9bf4002ef",
+  "generationPromptSha256": "1a796a15a47943fbc0067abf30441a98ba9a6d4dad0f33fa295f361bc2654360",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "anchorMaterial": "primary",
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "maxSpeckPixels": 32
+  },
+  "validation": {
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Glasses frames and lenses are visible from the front and profiles; their arms are occluded by the head from behind.",
+    "maxRegionsByFacing": {
+      "right": 2,
+      "left": 2
+    },
+    "regionReason": "The ear hides the connection between the visible lens frame and the glasses arm end in profile."
+  },
+  "preparationSha256": "77174c093f39e4047af3d2b94a5892ecf9bbb04124fd540cfa77efaa3b21257f",
+  "candidate": "art/source/character-kit/hd/eyewear-cat-eye-broad-candidate.png",
+  "lockedSha256": "a13d1b3c5affc70dbdd380b487d3a4c61c69c6909a7318f016c1e8c74abded09"
+}

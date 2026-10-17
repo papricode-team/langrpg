@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-cat-eye-slim-page-0-candidate-1.png",
+      "sha256": "ac72205a394410f229ec8fa140f2917d42dd025fa3bb5c50c884048bff3ad5d7"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-cat-eye-slim-page-0-candidate-1.txt",
+      "sha256": "5940189c88f337efd0fd9c08e0893f5be33df773f962ccdf361e348096227eb0"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-0.json",
+      "sha256": "9207c077e0be3b69b427bf2fef3c5c6ec2cba6cd90360ea2f21dee3997475f8b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-cat-eye-slim-page-1-candidate-1.png",
+      "sha256": "61d9d445b3255184185aa2713dd586791e0f2a3c8cb02cb313d323bec2e87fd0"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-cat-eye-slim-page-1-candidate-1.txt",
+      "sha256": "5940189c88f337efd0fd9c08e0893f5be33df773f962ccdf361e348096227eb0"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-1.json",
+      "sha256": "f25ab7ae6f2211a6dcf84a772de156dca1aea4c9a1667b243da9303f7f1651ae"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-cat-eye-slim-page-2-candidate-1.png",
+      "sha256": "3b9d60e9a1853b4471b3d43b814ebc7351bdeebbe9b64219c6370cebd19964ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-cat-eye-slim-page-2-candidate-1.txt",
+      "sha256": "5940189c88f337efd0fd9c08e0893f5be33df773f962ccdf361e348096227eb0"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-2.json",
+      "sha256": "114454392f0cfb9ed7f499b8732bbd8ea3acae965a2db03ac0e20f8ab4e31746"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/eyewear-cat-eye-slim-page-3-candidate-1.png",
+      "sha256": "fe81a59e6ab32225c5db21fa7403de5e99340687e31a3ef8daf9d22cd348d99e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/eyewear-cat-eye-slim-page-3-candidate-1.txt",
+      "sha256": "5940189c88f337efd0fd9c08e0893f5be33df773f962ccdf361e348096227eb0"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-3.json",
+      "sha256": "9aef7f92c4a053f1ceb57baa15a3a3771a2c646922f5b26f7f9c0ac68ec0b4bd"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "158a7c459dc85fc278638eac98097c0be3ebeb0b396500d5182aaf0116d19aec"
+}

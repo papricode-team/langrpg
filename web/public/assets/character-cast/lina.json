@@ -31,7 +31,7 @@
   "proof": "art/proofs/character-cast/lina.png",
   "proofSha256": "b7d3e090ce7cf5f03a7d92e5b90307a2a5286cdb7102573c06b64711783cde46",
   "editorSha256": "0f638aa023fd3610d4a0b7e2f306cb4dbca881d698a38458bcfc241eeb9a528e",
-  "assetVersion": "4c9d233bf71007a9",
+  "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-lina-native",
@@ -61,5 +61,10 @@
     ],
     "source": "art/proofs/character-cast/lina.webp",
     "sourceSha256": "0f638aa023fd3610d4a0b7e2f306cb4dbca881d698a38458bcfc241eeb9a528e"
+  },
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "652478fbfff87e579fd74f7da6bfabfc9ed8ed8b2068afdd720f2ad528894bbd"
   }
 }

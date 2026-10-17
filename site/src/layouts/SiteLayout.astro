@@ -1,0 +1,89 @@
+---
+import '@fontsource/dm-sans/latin-400.css';
+import '@fontsource/dm-sans/latin-600.css';
+import '@fontsource/fraunces/latin-400.css';
+import '@fontsource/fraunces/latin-700.css';
+import '../styles/site.css';
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  imageAlt?: string;
+  noindex?: boolean;
+  schema?: Record<string, unknown>[];
+}
+const { title, description, image = '/images/glotworld-social.jpg', imageAlt = image === '/images/glotworld-social.jpg' ? 'An illustrated harbor town in the world of glotworld' : title, noindex = false, schema = [] } = Astro.props;
+const canonical = new URL(Astro.url.pathname === '/404/' ? '/404.html' : Astro.url.pathname, Astro.site).href;
+const root = Astro.site!.href;
+const graph = [
+  { '@type': 'Organization', '@id': `${root}#organization`, name: 'glotworld', url: root, logo: `${root}favicon.svg` },
+  { '@type': 'WebSite', '@id': `${root}#website`, name: 'glotworld', url: root, inLanguage: 'en', publisher: { '@id': `${root}#organization` } },
+  { '@type': 'WebPage', '@id': `${canonical}#page`, url: canonical, name: title, description, inLanguage: 'en', isPartOf: { '@id': `${root}#website` } },
+  ...schema,
+];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#102d2c" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content={Astro.url.pathname.split('/').filter(Boolean).length > 1 ? 'article' : 'website'} />
+    <meta property="og:site_name" content="glotworld" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(image, Astro.site).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image:alt" content={imageAlt} />
+    <meta name="twitter:image" content={new URL(image, Astro.site).href} />
+    <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c')} />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="glotworld home"><span class="brand-mark" aria-hidden="true">✧</span> glotworld<span class="brand-period">.</span></a>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="/#world">The world</a><a href="/#how-to-play">How you learn</a><a href="/learn-german/">Field notes</a><a href="/#questions">FAQ</a>
+      </nav>
+      <a class="button button-small" href="/game/" data-play>Play now <svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12h15M13 5l7 7-7 7" /></svg></a>
+      <details class="mobile-menu"><summary aria-label="Open navigation"><span></span><span></span></summary><nav aria-label="Mobile navigation"><a href="/#world">The world</a><a href="/#how-to-play">How you learn</a><a href="/learn-german/">Field notes</a><a href="/#questions">FAQ</a></nav></details>
+    </header>
+    <main id="main"><slot /></main>
+    <footer class="site-footer">
+      <div class="footer-top"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">✧</span> glotworld.</a><p>A little wonder.<br />A whole new language.</p><nav aria-label="Footer"><a href="/game/" data-play>Enter the world <svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12h15M13 5l7 7-7 7" /></svg></a><a href="/learn-german/">Learn German</a><a href="/about/">About glotworld</a><a href="/#questions">Questions & answers</a></nav></div>
+      <div class="footer-bottom"><span>© {new Date().getUTCFullYear()} glotworld</span><span>An adventure in language. Made for curious minds.</span><a href="#main">Back to top ↑</a></div>
+    </footer>
+    <script>
+      // Carry invite and campaign attribution into the game without creating a
+      // session or loading the game engine on a public marketing page.
+      const allowed = ['ref', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+      const current = new URLSearchParams(location.search);
+      const carried = new URLSearchParams();
+      try {
+        const saved = new URLSearchParams(sessionStorage.getItem('glotworld-acquisition') || '');
+        for (const key of allowed) {
+          const value = current.get(key) || saved.get(key);
+          if (value) carried.set(key, value.slice(0, 256));
+        }
+        if (carried.size) sessionStorage.setItem('glotworld-acquisition', carried.toString());
+      } catch {
+        for (const key of allowed) { const value = current.get(key); if (value) carried.set(key, value.slice(0, 256)); }
+      }
+      if (carried.size) document.querySelectorAll<HTMLAnchorElement>('a[data-play]').forEach(link => { link.href = `/game/?${carried}`; });
+      document.querySelectorAll('.mobile-menu a').forEach(link => link.addEventListener('click', () => document.querySelector('.mobile-menu')?.removeAttribute('open')));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Room layout editor</title><style>body{background:#20342e;color:#fff;font:16px system-ui;padding:24px}button,select{font:inherit;padding:10px;margin:8px}</style></head><body><h1>Room layout editor</h1><label>Template <select id="template"></select></label><button id="edit">Edit room</button><p id="result">Local preview. Saves stay in this tab.</p><script type="module">
+import {openRoomEditor} from '../src/admin-room-editor';
+import {getInterior} from '../src/interiors';
+import {roomKinds} from '../src/room-kind';
+const picker=document.querySelector('select'),saved=new Map();
+for(const kind of roomKinds)picker.add(new Option(kind,kind));
+picker.value=new URLSearchParams(location.search).get('room')||'home';
+function edit(){const kind=picker.value;openRoomEditor(getInterior(kind),saved.get(kind),layout=>{saved.set(kind,layout);document.querySelector('#result').textContent=`Saved ${kind}: ${layout.walls.length} walls, ${layout.doors.length} doors, ${layout.furniture.length} furniture, ${layout.games.length} added games.`;window.savedRoom=layout;return true;},`Canal house · ${kind}`);}
+if(import.meta.env.DEV){document.querySelector('#edit').onclick=edit;edit();}
+</script></body></html>

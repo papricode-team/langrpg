@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "candidateSha256": "2ea784ab3b81698d6f473ea74e602987e2442eea7ddb8c098653343ec35039cf",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "e56500d17476dff80706c680a721d61936318b490ea01701ac08f9c2fa0bc222",
+  "promptSha256": "4dcc8d67132fb6bd116b48470efced34792cb4546eb5131623e2effdd0cab7aa",
+  "generationPromptSha256": "bbcbe4a1242f3e42d4f903eed47ff9a7f774390f24b523a71ba108a0788e3d06",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "left": 2
+    },
+    "regionReason": "The foreground hand occludes the connection to a narrow visible hip patch in the permitted profile facing. Both regions touch the mannequin."
+  },
+  "preparationSha256": "390d9617bfc2de86ae5dbc7a15d3c47f70177fc23e1f9fb41003aae533955cfe",
+  "candidate": "art/source/character-kit/hd/bottom-shorts-broad-candidate.png",
+  "lockedSha256": "3978946d3438ae37cca31bf3f3093302754d62af751b399a3eee42049b72f8d6"
+}

@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-bob-slim-page-0-candidate-1.png",
+      "sha256": "f4597458f8507022ae14b265d35bbeec5572c5eab8bd4199e9205aad22056347"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-bob-slim-page-0-candidate-1.txt",
+      "sha256": "fd08b07a6502ace7b1e5996f72485cd37a53807f1b0f4a0f8644d0a37d4beb6e"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-0.json",
+      "sha256": "9207c077e0be3b69b427bf2fef3c5c6ec2cba6cd90360ea2f21dee3997475f8b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-bob-slim-page-1-candidate-1.png",
+      "sha256": "fe18306bfa8d057a3985d49735a451b21aaefdfe15cf6d0081d361dcd28469f9"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-bob-slim-page-1-candidate-1.txt",
+      "sha256": "fd08b07a6502ace7b1e5996f72485cd37a53807f1b0f4a0f8644d0a37d4beb6e"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-1.json",
+      "sha256": "f25ab7ae6f2211a6dcf84a772de156dca1aea4c9a1667b243da9303f7f1651ae"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-bob-slim-page-2-candidate-2.png",
+      "sha256": "81f1c1d35aee129bdc755bfd439fc01d88794a7aed9143f483ea220539bff0df"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-bob-slim-page-2-candidate-2.txt",
+      "sha256": "9f2cf72cd07e7d99fe0793190a927d2831c6a092e0de17eb31ab46c8404d2205"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-2.json",
+      "sha256": "114454392f0cfb9ed7f499b8732bbd8ea3acae965a2db03ac0e20f8ab4e31746"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-bob-slim-page-3-candidate-1.png",
+      "sha256": "b3963a631cb3ecb5b567ab53b6269b2e2260fef6fcf6423d9e454b028cd6b70f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-bob-slim-page-3-candidate-1.txt",
+      "sha256": "fd08b07a6502ace7b1e5996f72485cd37a53807f1b0f4a0f8644d0a37d4beb6e"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-3.json",
+      "sha256": "9aef7f92c4a053f1ceb57baa15a3a3771a2c646922f5b26f7f9c0ac68ec0b4bd"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "be9223cd0c3e69250bc3f8cac63b328a9848fe1264de32f072c6ee61ad99748a"
+}

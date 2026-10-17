@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/top-henley-slim-page-0-candidate-1.png",
+      "sha256": "ff4d6ceb69fbe4f1ab9ddba51b440b941b68869f2e3287d3f700b5903bc3cf14"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-henley-slim-page-0-candidate-1.txt",
+      "sha256": "5dedc40522aa78eddc14fdf88b8a499d9c76b5d66479f99ab92e2646e333de2b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-0.json",
+      "sha256": "a6c84addbfd340ec426f28ea82ae85b2cc2b70137b1516da583c89ea1fd9c3c8"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-henley-slim-page-1-candidate-1.png",
+      "sha256": "ef8077151ccd04f9a13dce39bee1391c8746f72901cae0b8f3940219e73631bc"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-henley-slim-page-1-candidate-1.txt",
+      "sha256": "5dedc40522aa78eddc14fdf88b8a499d9c76b5d66479f99ab92e2646e333de2b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-1.json",
+      "sha256": "200f02d5272755448caa8ff37144a13da72062cdd95a20c1a7ff61ef7ff62814"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-henley-slim-page-2-candidate-1.png",
+      "sha256": "5e47c71fe05b8d427e9091856c1340f06a528b2861cae2d9c9c2e17a4ebd48eb"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-henley-slim-page-2-candidate-1.txt",
+      "sha256": "5dedc40522aa78eddc14fdf88b8a499d9c76b5d66479f99ab92e2646e333de2b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-2.json",
+      "sha256": "30efcafbe9d7830013cf5b7b68ce9c0f1f7e02a3753d8c70007005f678193dd2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-henley-slim-page-3-candidate-1.png",
+      "sha256": "03000930e3d7753ea662f6dbd74a2e8c92c46b2a874bc367dbd53f8e27154cf6"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-henley-slim-page-3-candidate-1.txt",
+      "sha256": "5dedc40522aa78eddc14fdf88b8a499d9c76b5d66479f99ab92e2646e333de2b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-3.json",
+      "sha256": "c3b47bcc3acbc328ad2378c245359a6a3c2b8edd6d4ac6fd90495f1b180f8485"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-henley-slim-page-4-candidate-1.png",
+      "sha256": "19ac7fb80b685f9cc2178519e241bd68474030984f65e13cc7508b1afa455f1b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-henley-slim-page-4-candidate-1.txt",
+      "sha256": "5dedc40522aa78eddc14fdf88b8a499d9c76b5d66479f99ab92e2646e333de2b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-4.json",
+      "sha256": "3e12d382498d7598725fce3e44099a593cbd15caa44e9c7bc572e3931559e2ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-henley-slim-page-5-candidate-1.png",
+      "sha256": "5032c5c68669b3d3f3ac5642c0db99374faf29562f6f7042a35f1d3f2baaa866"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-henley-slim-page-5-candidate-1.txt",
+      "sha256": "5dedc40522aa78eddc14fdf88b8a499d9c76b5d66479f99ab92e2646e333de2b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-5.json",
+      "sha256": "9801f02cbaa07933d6c115805b6442f6e7adf1db9ca8bd68a1185df134371b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-henley-slim-page-6-candidate-1.png",
+      "sha256": "5d503f5dbf633f2ddccb997b1401243aea87f315eb945f991e231380dddea0b5"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-henley-slim-page-6-candidate-1.txt",
+      "sha256": "5dedc40522aa78eddc14fdf88b8a499d9c76b5d66479f99ab92e2646e333de2b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-6.json",
+      "sha256": "b376d6ff991750e64f8e4e02d1eee9baecab7f17b23cfca6d0d24ea933096ab6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-henley-slim-page-7-candidate-1.png",
+      "sha256": "a4bb2adf201bca6b04400cee8ab29dbd00f1fc5407a41bb3ce672c4df9b948e5"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-henley-slim-page-7-candidate-1.txt",
+      "sha256": "5dedc40522aa78eddc14fdf88b8a499d9c76b5d66479f99ab92e2646e333de2b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-7.json",
+      "sha256": "54b515875467084c2615401a4aa41788ff7ea91081d871208308ecdfda0f48d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-henley-slim-page-8-candidate-1.png",
+      "sha256": "d91042e6c2f5ff814cdbbc6ec5cc4e5312fb6f684c1fa2bff36e341ae5377918"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-henley-slim-page-8-candidate-1.txt",
+      "sha256": "5dedc40522aa78eddc14fdf88b8a499d9c76b5d66479f99ab92e2646e333de2b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-8.json",
+      "sha256": "a907bceabc2de3865bb70e4f875dcc255387929f55bac0e8f698706c5c1bcdb1"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "6eb2947265a799d04ba11dc55d8f5890e5fe2de7e749730f76160aba9228b279"
+}

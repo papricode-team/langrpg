@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "f42bfa0a132e5abd84005b4ad3c2b0b127008107f93b0234f3bd016958a60ffc",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "968c40b89d96b2edc132cf850cb9ff745e492a0dcb56baae774f3ade329c41d0",
+  "promptSha256": "6ff06b3584f78ecd0b7ae8c71abc05a3b7c375fb017aa64ff228812c7e53e9db",
+  "generationPromptSha256": "33efb6217ac04771e81b9eaf27a59efa01ab8f41efac3c5fa51b7c249172718b",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "95cfe5d80be146b5040e1ce3b7d1d6c6ab279a2064ecaf7a20b5a4af64724115",
+  "candidate": "art/source/character-kit/hd/top-dress-long-slim-candidate.png",
+  "lockedSha256": "be56606e65e3926629ac4374a52d95a4b5487eb4ed17408d9a7d4c15b6617880"
+}

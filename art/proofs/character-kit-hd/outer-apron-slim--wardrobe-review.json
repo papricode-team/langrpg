@@ -1,0 +1,1085 @@
+{
+  "id": "outer-apron-slim",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "primary": 34632,
+        "secondary": 2864,
+        "detail": 563
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1908
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "primary": 33825,
+        "secondary": 2940,
+        "detail": 836
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2635
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "primary": 32063,
+        "secondary": 2820,
+        "detail": 994
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2312
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "primary": 32460,
+        "secondary": 2857,
+        "detail": 976
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1533
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "primary": 35257,
+        "secondary": 3545,
+        "detail": 847
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3901
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "primary": 32241,
+        "secondary": 3555,
+        "detail": 1067
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2264
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "primary": 31172,
+        "secondary": 3317,
+        "detail": 1142
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1884
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "primary": 30801,
+        "secondary": 3286,
+        "detail": 1145
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1944
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "primary": 36791,
+        "secondary": 2605,
+        "detail": 1399
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3177
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "primary": 18746,
+        "secondary": 1648,
+        "detail": 1086
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 1791
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "primary": 19450,
+        "secondary": 1741,
+        "detail": 1676
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 4808
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "primary": 14036,
+        "secondary": 1486,
+        "detail": 1727
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 5210
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "primary": 22298,
+        "secondary": 3214,
+        "detail": 1133
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2671
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "primary": 27026,
+        "secondary": 3400,
+        "detail": 1298
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 6798
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "primary": 25927,
+        "secondary": 3385,
+        "detail": 1374
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 7015
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "primary": 28410,
+        "secondary": 3780,
+        "detail": 1009
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 7145
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "primary": 23957,
+        "secondary": 1731,
+        "detail": 1305
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 4322
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "primary": 23806,
+        "secondary": 1928,
+        "detail": 1449
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 6583
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "primary": 0,
+        "secondary": 2610,
+        "detail": 1119
+      },
+      "regions": 4,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 85
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "primary": 0,
+        "secondary": 2683,
+        "detail": 1071
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 52
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "primary": 6327,
+        "secondary": 3074,
+        "detail": 913
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 4029
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "primary": 6260,
+        "secondary": 3065,
+        "detail": 1378
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3618
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "primary": 6735,
+        "secondary": 3061,
+        "detail": 870
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 4489
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "primary": 6462,
+        "secondary": 3030,
+        "detail": 1064
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3455
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "primary": 0,
+        "secondary": 3116,
+        "detail": 402
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 160
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "primary": 0,
+        "secondary": 3133,
+        "detail": 386
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 169
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "primary": 0,
+        "secondary": 3152,
+        "detail": 354
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 166
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "primary": 24210,
+        "secondary": 1753,
+        "detail": 976
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3544
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "primary": 31978,
+        "secondary": 2804,
+        "detail": 927
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 4622
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "primary": 26643,
+        "secondary": 2890,
+        "detail": 1267
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 5043
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "primary": 23667,
+        "secondary": 2614,
+        "detail": 1197
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2462
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "primary": 7560,
+        "secondary": 2920,
+        "detail": 945
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 3097
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "primary": 26212,
+        "secondary": 2594,
+        "detail": 860
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 5073
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "primary": 25942,
+        "secondary": 2581,
+        "detail": 894
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 5691
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "primary": 8519,
+        "secondary": 2644,
+        "detail": 871
+      },
+      "regions": 3,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 2994
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "primary": 26469,
+        "secondary": 2582,
+        "detail": 1018
+      },
+      "regions": 2,
+      "detached": 0,
+      "coverage": 0,
+      "outsideSilhouette": 5511
+    }
+  ],
+  "errors": [],
+  "nativeProofs": [
+    {
+      "image": "art/proofs/character-kit-hd/outer-apron-slim--wardrobe-review.native-0.png",
+      "imageSha256": "440bf5799a78daae6e223c12feba5988c39e2795a1f2f3df91fd4e89645aeaa1",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-apron-slim--wardrobe-review.native-1.png",
+      "imageSha256": "d2668cedda3c8d96e40013b27dd0ed90c44d6a9f7da339b9e9121d7c74734823",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-apron-slim--wardrobe-review.native-2.png",
+      "imageSha256": "2e318539a52d84379f1c2677d03fe2dd36477d9586c1e6a07e273ffb80fc2fb3",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-apron-slim--wardrobe-review.native-3.png",
+      "imageSha256": "cc85ad20f74dd363f75e6d747acc7edcd74a65200cb0fc98fa5d3742714847a2",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-apron-slim--wardrobe-review.native-4.png",
+      "imageSha256": "6953fac2fec96c3e2f619fd6718eda263c31fad8fc7c61411a2a06fdb8c5b436",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-apron-slim--wardrobe-review.native-5.png",
+      "imageSha256": "60ba2784fa0bb558c331b19141897c9faae26db3d2b811f83145c574fe97ceb2",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-apron-slim--wardrobe-review.native-6.png",
+      "imageSha256": "2093dc72dbe2cf23bae691f46942f90d624f699cacde373cae275cd5d34f92eb",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-apron-slim--wardrobe-review.native-7.png",
+      "imageSha256": "281216ac6703c3e1569db3ac9f40c938bb9d5bfa14230bc1d8a66c7c3c86d5a2",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-apron-slim--wardrobe-review.native-8.png",
+      "imageSha256": "232b5c209537c6f72c925d258a434c874bd1c60ca92309a568c2a58110909562",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-apron-slim--wardrobe-review.native-9.png",
+      "imageSha256": "1cea15b86ac321867846738088c47131af62b8c95b2ac3e6b255c508f3caa3a8",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-apron-slim--wardrobe-review.native-10.png",
+      "imageSha256": "94770281cc8e74f1aa2dac2252a057d661f33e8d5dc3b60ea4854908f7fcb494",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-apron-slim--wardrobe-review.native-11.png",
+      "imageSha256": "936c338c4c3fa89d07719f5172a2474cbfbd7e359cf59fc295b61ac6aaa78d30",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-apron-slim--wardrobe-review.native-12.png",
+      "imageSha256": "2dd4e7598be72d2410d10a4b1f89827c4ae5ff2e44101fee488e19976a5d0f9f",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-apron-slim--wardrobe-review.native-13.png",
+      "imageSha256": "d40e4e0399f79af4250e6c8ef803ee4c20c82a80cc8cb250ba2e42b76911f15d",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-apron-slim--wardrobe-review.native-14.png",
+      "imageSha256": "50743a22125016546f908509238eae43182e00ccda690f9211eeab8607d80edb",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-apron-slim--wardrobe-review.native-15.png",
+      "imageSha256": "ae1e4f34aadfeda1f8eb5ffb25c9c986537c0a365d0b6b47df801ad0b56f73f9",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-apron-slim--wardrobe-review.native-16.png",
+      "imageSha256": "037a0a8e9d0c24d8b635f224b2f9b580187eb28b3943b944ccf5c8c5b846a4c5",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/outer-apron-slim--wardrobe-review.native-17.png",
+      "imageSha256": "f0bec03f5085d869504041c0529044773070fcb67a0665a68db78921022de6a7",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "outer-apron-slim",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "face-soft-slim",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "hair-waves-slim",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "top-shirt-slim",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "bottom-straight-slim",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "footwear-boots-slim",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "base · warm",
+    "base · cool",
+    "existing outfit · warm",
+    "existing outfit · cool"
+  ],
+  "with": [
+    "face-soft-slim",
+    "hair-waves-slim",
+    "top-shirt-slim",
+    "bottom-straight-slim",
+    "footwear-boots-slim"
+  ],
+  "sources": {
+    "outer-apron-slim": {
+      "path": "art/source/character-kit/hd/outer-apron-slim.png",
+      "sha256": "de3ff85ff77bfb55af8be480c464d949c70bdf62680810c2b44c3e1732175f84"
+    },
+    "face-soft-slim": {
+      "path": "art/source/character-kit/hd/face-soft-slim.png",
+      "sha256": "d8abb211ca904c903739a72bb36145117485707a79dcc7d9eb6b0e9536d9f681"
+    },
+    "hair-waves-slim": {
+      "path": "art/source/character-kit/hd/hair-waves-slim.png",
+      "sha256": "dadc11687efc2874985e799a5ef95eee0cd2f8f16b7a8210f1728e15fad5ea3b"
+    },
+    "top-shirt-slim": {
+      "path": "art/source/character-kit/hd/top-shirt-slim.png",
+      "sha256": "6a1045d2857a25ed90b1399f512b49c11884c4f9f0b8a6d4c25edcaf5dd680d7"
+    },
+    "bottom-straight-slim": {
+      "path": "art/source/character-kit/hd/bottom-straight-slim.png",
+      "sha256": "5c4d04323280a9782940f7fbf8ddf3bcb7cb3b288b4b5daa19230837c3fe6a9a"
+    },
+    "footwear-boots-slim": {
+      "path": "art/source/character-kit/hd/footwear-boots-slim.png",
+      "sha256": "0561da3fda8a80f1e9ca239a549705e5017707d16d6e8ab1970d0ffebccd1150"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "outer-apron-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "outer-apron-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "outer-apron-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "outer-apron-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "outer-apron-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "outer-apron-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "outer-apron-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "outer-apron-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "outer-apron-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "outer-apron-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "outer-apron-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "outer-apron-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "outer-apron-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "outer-apron-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "outer-apron-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "outer-apron-slim",
+        "hair-waves-slim"
+      ],
+      "hidden": []
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

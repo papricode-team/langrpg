@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "55c2fc6fdc4617529a01f35ea35e50ff0bc1267e7eaf017711cca6de90b0f4d4",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "85b294c3a8b9a6527807718ea7ae631bc0d894174b6d34b37a03a3ce87a42b13",
+  "promptSha256": "285a5007e36034e104d37e8db67282774e2f1a0805c058bb1545637a0121ed20",
+  "generationPromptSha256": "9b8502b8bf704ca39a6982498bbdbb482647c4ec95fe2d241a9f357234f12c57",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "269563af2f17908b8862d1edae15a4c8ae6888e9eb829ec8c2ebfe7422e5f5d1",
+  "candidate": "art/source/character-kit/hd/headwear-beanie-broad-candidate.png",
+  "lockedSha256": "1cc90ca9b1219ddd62678f362820fff82fc57db999c515f4bcb11ed8889f7abb"
+}

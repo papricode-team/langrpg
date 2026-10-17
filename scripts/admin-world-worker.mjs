@@ -24,6 +24,7 @@ import {compileAdminWorld} from './admin-world-compiler.mjs';
 import {compileRegistry, compileStoryRules, missingStoryAnchors, residentProblems, sceneContentVersion} from './scene-compiler.mjs';
 const {parseWorldSceneDocument, getSceneryGeometryMap} = await import('../web/src/scene-schema.ts');
 const {withoutDefaultCollision} = await import('../web/src/placed-scenery.ts');
+const {findStation, stationArrival} = await import('../web/src/station-train-position.ts');
 const {applyEditOps, parseEditOps} = await import('../web/src/world-edit-ops.ts');
 const {placementProblems, newWarnings, SceneReach, WorldEditError, problem} = await import('../web/src/world-edit-rules.ts');
 
@@ -125,10 +126,31 @@ function reconcile(request) {
     const objects = scene.objects.map(({collision, ...anchor}) => collision?.polygons.length ? {...anchor, collision} : anchor);
     if (scenery.some((item, i) => item !== scene.scenery[i]) || objects.some((item, i) => item.collision !== scene.objects[i].collision)) added.push(`${scene.id}/collision`);
     scene.scenery = scenery; scene.objects = objects;
+    if (arriveAtStation(scene)) added.push(`${scene.id}/spawn`);
   }
   const changedMaps = upgraded ? Object.keys(parsed.maps) : [...new Set(added.map(entry => entry.split('/')[0]))];
   return {ok: true, added, bundle: {document: parsed, changedMaps, worldMaps: compileRegistry(parsed),
     investigations: compileStoryRules(parsed, authoredRules, {strict: false}), contentVersion: sceneContentVersion(parsed), diagnostics: []}};
+}
+
+/**
+ * Players come to town by train, so they appear on the station forecourt. A
+ * spawn away from the station (or left behind when it moved) is brought to
+ * it; one already on the forecourt keeps its authored spot, and a station
+ * walled off from the spawn's ground keeps the spawn where it is.
+ */
+function arriveAtStation(scene) {
+  const station = scene.kind !== 'interior' ? findStation(scene.scenery) : undefined;
+  if (!station) return false;
+  const target = stationArrival(station), radius = station.width * .6;
+  if (Math.hypot(scene.spawn.x - target.x, scene.spawn.y - target.y) <= radius) return false;
+  const {grid} = SceneReach.build(scene, false);
+  if (!grid.isWalkable(scene.spawn.x, scene.spawn.y)) return false;
+  const point = grid.closestPoint(target.x, target.y, scene.spawn);
+  const spot = {x: Math.round(point.x), y: Math.round(point.y)};
+  if (!grid.isWalkable(spot.x, spot.y) || Math.hypot(spot.x - target.x, spot.y - target.y) > radius) return false;
+  scene.spawn = spot;
+  return true;
 }
 
 /** Build every town's grids ahead of the first edit. */

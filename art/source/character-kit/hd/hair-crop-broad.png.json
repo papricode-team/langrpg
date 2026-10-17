@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "fb062a939c7b0c839190779ec18cf627124fa190d383765d770cddcb31d011bc",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "7aaf52b0d7bc99f52ffd5599149cd0d28c54f5da0719bb4927c7e7b4c5788433",
+  "promptSha256": "119e292209f370e5b50c54e41a88dc4fae0d72443855a9e835d0f03f6efd6a3f",
+  "generationPromptSha256": "57ad98ccdbd4e05e5435af2ac56016b2ce4fa079f4db0078e79631c6aa036029",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "detailEnclosedBy": "primary"
+  },
+  "preparationSha256": "9b1c4b0936356b5bae219af1aedfd6e705dc0028ef4c1b13f656b18a6f9dad4b",
+  "candidate": "art/source/character-kit/hd/hair-crop-broad-candidate.png",
+  "lockedSha256": "b69e537848a70c6566c4ef84ad8a0b5fc19baf90e53cd92d75405aa295187b0f"
+}

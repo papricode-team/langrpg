@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-satchel-broad-page-0-candidate-1.png",
+      "sha256": "935ddbbce6b70ac553bb7c6c59a61218a9b660455047397ca3ce5e293c569616"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-satchel-broad-page-0-candidate-1.txt",
+      "sha256": "bd62ea9cf45bdb4f7ac417772b2a6216b48735b6a983ea2ab34751994f51c65d"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-0.json",
+      "sha256": "d4c597d609eaced853a49300a3c916edad44486d2083661e2e1f72015c5fb832"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-satchel-broad-page-1-candidate-1.png",
+      "sha256": "48e15a9bd6be3e3534e20d6fa8dfede802b76bb01150df93a3b4efb9e3bfd616"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-satchel-broad-page-1-candidate-1.txt",
+      "sha256": "bd62ea9cf45bdb4f7ac417772b2a6216b48735b6a983ea2ab34751994f51c65d"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-1.json",
+      "sha256": "597ae57a47283b3583f871d7ecfb79f8eb0d069ec363f819db5347b622c0eec5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-satchel-broad-page-2-candidate-1.png",
+      "sha256": "77cbd90eccf30d0f429d848a79ce59611009a1d4b78dc276b61f72e9b266e909"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-satchel-broad-page-2-candidate-1.txt",
+      "sha256": "f68f0342ff6171f5cc8853812e94b1eaf9e8bc57ef421abfc8ab9997d11fc077"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-2.json",
+      "sha256": "3822b1501237a22f8d5952fa86901bb95b3a7ca3e1637d7063b13b8b5a890e21"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-satchel-broad-page-3-candidate-1.png",
+      "sha256": "b1f64d9371cadd1cf4ac9034474d01f8fafb658d7b52b3e3cd3786f4ae4ecfeb"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-satchel-broad-page-3-candidate-1.txt",
+      "sha256": "0b254f91b30dce89982ee6a2ac856c9d1e9eee03c1a68c7b2fc673a6664dfede"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-3.json",
+      "sha256": "09412f0261449be2e3d6bacbb0fb474dfa77e215dc568cef97a5387d7eceba7e"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-satchel-broad-page-4-candidate-1.png",
+      "sha256": "48bc1dd528c171f06918a2dc24fef52814bd29a2e2c5a62eb19548333f9a2cbb"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-satchel-broad-page-4-candidate-1.txt",
+      "sha256": "9193f9d204fddc2c77581e8d1a9ef2a538db27e0b5e33b3cc1de1d91a3a19f9a"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-4.json",
+      "sha256": "5252f9b6b506aeba7aa6b065493407dc63e3afa72771694c1fc3d3f025c359a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-satchel-broad-page-5-candidate-1.png",
+      "sha256": "8ee250bb1daed3c73d3de84bac7b5aae8daedddcb801f07a004f33476858a30a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-satchel-broad-page-5-candidate-1.txt",
+      "sha256": "d36b044ab67e0d6245d09474002b809b70728350e7818f0e668725c13d86b348"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-5.json",
+      "sha256": "72beb8597382255bf7cfde12b003f50107cce66fee1e4d12ba961c28edfdb6dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-satchel-broad-page-6-candidate-1.png",
+      "sha256": "14b8c58dc9308ec2af479cfe3620077e8d4c5a50bd2dd0488eb28e7bcc0657ed"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-satchel-broad-page-6-candidate-1.txt",
+      "sha256": "5862b131a50e51101c6ff435c5ec6ace24d9d20785ebe340def97de817de26d3"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-6.json",
+      "sha256": "369c87b8e1c6db5e23506f6c9c049b8866e3b95c4a57ebb3e5fdb50cff738546"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-satchel-broad-page-7-candidate-1.png",
+      "sha256": "3b7b01f39d609ff926d2502dc3c2cf32f4d5bf6401548b379293c36c99f979c2"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-satchel-broad-page-7-candidate-1.txt",
+      "sha256": "cde6fd8e4a4fa9d214c281f2eebc0a1e15bc5bedf5056be003ceeeb554950772"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-7.json",
+      "sha256": "594be292ae2bb672b79bc0f64091efc6184647dc4159416c469120e9794ae6a2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-satchel-broad-page-8-candidate-1.png",
+      "sha256": "94a9ca7d91f34ed7b4513086272a41b6c1995e3adabe10d8aa1560b66a003698"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-satchel-broad-page-8-candidate-1.txt",
+      "sha256": "cde6fd8e4a4fa9d214c281f2eebc0a1e15bc5bedf5056be003ceeeb554950772"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-8.json",
+      "sha256": "59b98d4a2e80d5eda70982582ea13bff1711eca74a22fd82e4b3ed6ef6f68734"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "76f4ca939af1fe2fec397569468e5ac77e4fa059e45429c335a1ad2bb5566b23"
+}

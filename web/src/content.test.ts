@@ -111,7 +111,11 @@ describe('canonical language content', () => {
         expect(serverExercise!.itemId).toBe(exercise.itemId);
         expect(serverExercise!.mode).toBe(modeFor(exercise));
         expect(serverExercise!.answer).toBe(exercise.answer);
-        expect(serverExercise!.acceptedAnswers ?? []).toEqual(exercise.acceptedAnswers ?? []);
+        // Authored literal answers come first; an answerPattern adds its expansions after them
+        // (scripts/legacy-server-sync.test.mjs checks the exact expansion).
+        const accepted = serverExercise!.acceptedAnswers ?? [];
+        expect(accepted.slice(0, exercise.acceptedAnswers?.length ?? 0)).toEqual(exercise.acceptedAnswers ?? []);
+        if (!exercise.answerPattern) expect(accepted).toEqual(exercise.acceptedAnswers ?? []);
         expect(manifest.items.find(item => item.id === exercise.itemId)?.level).toBe(quest.level);
       }
     }

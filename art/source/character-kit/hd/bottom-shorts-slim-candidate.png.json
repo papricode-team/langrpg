@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-shorts-slim-page-0-candidate-1.png",
+      "sha256": "a5e7d4c644a0bbb568ddde97ebf25077a5fd5aabe3a783ab4eb337453f1b3d84"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-shorts-slim-page-0-candidate-1.txt",
+      "sha256": "70e502d56a32398ef34ec75b4f8156faa7ce58c45fce00f192ba4cc8b0d801f7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-0.json",
+      "sha256": "20014db774338283b835bae4a718ed4bc1a4f0d2d20f8f318ce7c52ca501f232"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-shorts-slim-page-1-candidate-1.png",
+      "sha256": "9a4bb70728b357955ad529fc74e028f45508321f07bb2dc9683d79bc4b0b3d8b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-shorts-slim-page-1-candidate-1.txt",
+      "sha256": "70e502d56a32398ef34ec75b4f8156faa7ce58c45fce00f192ba4cc8b0d801f7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-1.json",
+      "sha256": "6fe4f1dc4b750a67e1335eb0702e00c0b6543a66ed5a764c0a8b69a10710c3d7"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-shorts-slim-page-2-candidate-1.png",
+      "sha256": "e1f9d163390b05eb0010381eea7085e1e15b7a6e490f6471d216f7ac92df528c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-shorts-slim-page-2-candidate-1.txt",
+      "sha256": "70e502d56a32398ef34ec75b4f8156faa7ce58c45fce00f192ba4cc8b0d801f7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-2.json",
+      "sha256": "9aa1849174bbb1a10d345c50c1b53b2fb63737f6cc9074252e27b772921da15d"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-shorts-slim-page-3-candidate-1.png",
+      "sha256": "ff542c596dce3b9970c66c8a343732b61f9287de627a5a9a5c4771768eb586f3"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-shorts-slim-page-3-candidate-1.txt",
+      "sha256": "70e502d56a32398ef34ec75b4f8156faa7ce58c45fce00f192ba4cc8b0d801f7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-3.json",
+      "sha256": "181335a5e008fbe12d8c36da80a45ea6712b8b560e5f87858d1186a6b60e2f39"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-shorts-slim-page-4-candidate-1.png",
+      "sha256": "160770741c44b611fb8ed3327b11f30263633da2e3cd4a8c85222c381f760d76"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-shorts-slim-page-4-candidate-1.txt",
+      "sha256": "70e502d56a32398ef34ec75b4f8156faa7ce58c45fce00f192ba4cc8b0d801f7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-4.json",
+      "sha256": "747e7e354d5a379b8e1a41670dddb775d1a7d7379105b6abf73fa7f2d59ff3c0"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-shorts-slim-page-5-candidate-1.png",
+      "sha256": "8143f3fc8850f6d81f44d5fd7dba821496402af2c974c569082bd8ec7478b190"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-shorts-slim-page-5-candidate-1.txt",
+      "sha256": "70e502d56a32398ef34ec75b4f8156faa7ce58c45fce00f192ba4cc8b0d801f7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-5.json",
+      "sha256": "b326219e6c771fcade0ddd91b7f690ea11c878cd82e65370054da0269488316f"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "39fbde0a7a49f1163a7d513d2b9a9d746f9c61f69a26043d824341f657f3c704"
+}

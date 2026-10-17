@@ -14,7 +14,6 @@ import { characterFrame, MODULAR_ART } from './avatar-options';
 import { createWorldResidents, sampleResidentMotion, sampleResidentSchedule } from './world-life';
 import { residentFacingLeft, residentWalkDistance } from './resident-animation';
 import { WorldScenery } from './world-scenery';
-import { sceneryTextureKey } from './placed-scenery';
 import { createSceneryOcclusion } from './scenery-occlusion';
 import { setDepthIfChanged, worldDepth, type OcclusionCharacter } from './world-depth';
 import { GroundTerrain } from './ground-terrain';
@@ -204,11 +203,7 @@ export class WorldScene extends ExploreScene implements EditSurface {
     this.scenery.setReducedMotion(this.reducedMotion);
     this.createMapCharacters(map);
     this.createMapObjects(map.objects);
-    for (const entrance of buildingEntrances(map.id)) {
-      const signKey = sceneryTextureKey(map.id);
-      const sign = this.textures.exists(signKey) && this.textures.get(signKey).has('sign') ? this.add.image(0, -21, signKey, 'sign').setDisplaySize(38, 46) : undefined;
-      this.createPortal(entrance.id, entrance.x * this.worldWidth, entrance.y * this.worldHeight, entrance.label, sign);
-    }
+    this.syncPortals();
     this.createResidents();
     this.animals = new WorldAnimals(this, map.id, this.navigation, this.spawnPoint(),
       (hit, target, activate) => this.bindHover(hit, target, activate), id => this.approachInteraction(id));
@@ -330,18 +325,11 @@ export class WorldScene extends ExploreScene implements EditSurface {
   }
 
   private syncPortals(): void {
-    const wanted = new Map(buildingEntrances(this.mapSpec.id).map(entrance => [entrance.id as string, entrance]));
-    for (const [id, portal] of [...this.portals]) {
-      const entrance = wanted.get(id);
-      if (!entrance) { portal.root.destroy(); this.portals.delete(id); continue; }
-      wanted.delete(id);
-      portal.x = entrance.x * this.worldWidth; portal.y = entrance.y * this.worldHeight;
-      portal.root.setPosition(portal.x, portal.y).setDepth(worldDepth(portal.y, 'label'));
-    }
-    for (const entrance of wanted.values()) {
-      const signKey = sceneryTextureKey(this.mapSpec.id);
-      const sign = this.textures.exists(signKey) && this.textures.get(signKey).has('sign') ? this.add.image(0, -21, signKey, 'sign').setDisplaySize(38, 46) : undefined;
-      this.createPortal(entrance.id, entrance.x * this.worldWidth, entrance.y * this.worldHeight, entrance.label, sign);
+    // Rebuild after edits so room reassignment, resizing and mirroring also update the effect and hit area.
+    for (const portal of this.portals.values()) portal.root.destroy();
+    this.portals.clear();
+    for (const entrance of buildingEntrances(this.mapSpec.id)) {
+      this.createPortal(entrance.id, entrance.x * this.worldWidth, entrance.y * this.worldHeight, entrance.label, entrance.door);
     }
     this.resizeHitTargets();
   }

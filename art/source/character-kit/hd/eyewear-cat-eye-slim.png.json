@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "candidateSha256": "158a7c459dc85fc278638eac98097c0be3ebeb0b396500d5182aaf0116d19aec",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "344d37f6b5e11edc6eba0422752bec1ec602d032c6b1594a9abd21d0d701bcf9",
+  "promptSha256": "7fd90155b3257ccbf3046d5c2cb04819e65a8feabecc7d9128afbca9bf4002ef",
+  "generationPromptSha256": "5940189c88f337efd0fd9c08e0893f5be33df773f962ccdf361e348096227eb0",
+  "materials": [
+    "primary"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "anchorMaterial": "primary",
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "maxSpeckPixels": 32
+  },
+  "validation": {
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Glasses frames and lenses are visible from the front and profiles; their arms are occluded by the head from behind.",
+    "maxRegionsByFacing": {
+      "right": 2,
+      "left": 2
+    },
+    "regionReason": "The ear or temple occludes the join between the visible lens frame and the end of the glasses arm in profile."
+  },
+  "preparationSha256": "a8c60995634f86e8d7ccba5793cc6ac9589c4408cd1cc51f14dfdedc285a97a4",
+  "candidate": "art/source/character-kit/hd/eyewear-cat-eye-slim-candidate.png",
+  "lockedSha256": "685222389d37c14d6b0b86c70ddc05331040b6da48b507f38ff16c6136d544c0"
+}

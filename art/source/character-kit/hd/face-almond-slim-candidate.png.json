@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/face-almond-slim-page-0-candidate-1.png",
+      "sha256": "5ad19f25ce5042dba86ba3ac6021acffff87294c89928699740e07489b663983"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-almond-slim-page-0-candidate-1.txt",
+      "sha256": "bf34aac60a8da23c44f5b8b40f4e9669325700cc468f5741117d3c0c827a5c51"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-0.json",
+      "sha256": "9207c077e0be3b69b427bf2fef3c5c6ec2cba6cd90360ea2f21dee3997475f8b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/face-almond-slim-page-1-candidate-1.png",
+      "sha256": "263ef10d9a5e0a55207828ccf22134bd704e56adee8f00ef77423207fc225dcb"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-almond-slim-page-1-candidate-1.txt",
+      "sha256": "bf34aac60a8da23c44f5b8b40f4e9669325700cc468f5741117d3c0c827a5c51"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-1.json",
+      "sha256": "f25ab7ae6f2211a6dcf84a772de156dca1aea4c9a1667b243da9303f7f1651ae"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/face-almond-slim-page-2-candidate-1.png",
+      "sha256": "cc8bf153650b8882ac6342ff92b3f4e67357cc77a85c4dd7502ba832b1eb5f1c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-almond-slim-page-2-candidate-1.txt",
+      "sha256": "bf34aac60a8da23c44f5b8b40f4e9669325700cc468f5741117d3c0c827a5c51"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-2.json",
+      "sha256": "114454392f0cfb9ed7f499b8732bbd8ea3acae965a2db03ac0e20f8ab4e31746"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/face-almond-slim-page-3-candidate-1.png",
+      "sha256": "db575db1af7b57bb2089133bcedc23f02e903dd4dea1ae85bc2497ea656bfb1e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/face-almond-slim-page-3-candidate-1.txt",
+      "sha256": "bf34aac60a8da23c44f5b8b40f4e9669325700cc468f5741117d3c0c827a5c51"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-3.json",
+      "sha256": "9aef7f92c4a053f1ceb57baa15a3a3771a2c646922f5b26f7f9c0ac68ec0b4bd"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "70a505dd538e6ba980321fe5081ac310b865b6ed1d19e927a5a85e3014f5da68"
+}

@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "candidateSha256": "5083829aa00c80a764c3ed7d3a4fd21537877d52c5abda63dcafd9d1d1b36f40",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "e56500d17476dff80706c680a721d61936318b490ea01701ac08f9c2fa0bc222",
+  "promptSha256": "541c8023207e74d1d563d826b8e82dbe2b058ce1b488c82bf6353838ec5169e0",
+  "generationPromptSha256": "6ad25857dd855df5bd3dc8384e7331b5cf41efe8697a7f063c1bcadde6353038",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 64,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "left": 2,
+      "right": 2
+    },
+    "regionReason": "Foreground hands separate the rear hip fabric in right walking and left idle views; both visible fabric regions touch the mannequin."
+  },
+  "preparationSha256": "a37cc47340023efe0be652c6a9cecea170524e568ad3ace105b0a67f201b4699",
+  "candidate": "art/source/character-kit/hd/bottom-cropped-broad-candidate.png",
+  "lockedSha256": "b15c9081b62f2cf3bbe3df807fb05115010d20719556750150f1a7b20be221c0"
+}

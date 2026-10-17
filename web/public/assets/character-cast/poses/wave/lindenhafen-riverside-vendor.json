@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/poses/wave/lindenhafen-riverside-vendor.png",
   "proofSha256": "41613ef9fcf9a51ba0283abdc86bc514eb7ae47495ab28e92312b95a3060b518",
   "editorSha256": "8e38d6506a27d21abd8959b10ff117284cf219173feb680806d5bd12a8659cae",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "61367a505c3fd858d2d2a9d1f5261bf5c372a325002d93d564453085edb4ac9c"
+  }
 }

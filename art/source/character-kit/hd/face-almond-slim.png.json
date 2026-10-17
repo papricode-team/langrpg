@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "candidateSha256": "70a505dd538e6ba980321fe5081ac310b865b6ed1d19e927a5a85e3014f5da68",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "8595802074193aac6016f30c69ecb089c04b849a66dfc84375a325ec6485151f",
+  "promptSha256": "d13f98da491e159bc02787f4de0bbd692d26d7e869e22ce2b41bdb5cb06a8c1e",
+  "generationPromptSha256": "bf34aac60a8da23c44f5b8b40f4e9669325700cc468f5741117d3c0c827a5c51",
+  "materials": [
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "primary",
+      "secondary",
+      "skin"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "minBaseAlpha": 240,
+    "maxSpeckPixels": 12
+  },
+  "validation": {
+    "maxRegions": 8,
+    "regionReason": "Eyes, brows, nose and mouth are separate facial marks; every mark must remain attached to the head.",
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Facial features are invisible on the back of the head; all nine rear-facing frames must contain no feature paint."
+  },
+  "preparationSha256": "3b9c77ac5887fd9c4f7b4a3ec26902983045a8c3d278df043204ae4d561acb06",
+  "candidate": "art/source/character-kit/hd/face-almond-slim-candidate.png",
+  "lockedSha256": "d04d3c39eda61f7abc1c5536375065d621569ad0f6309f117faa956db307fa5c"
+}

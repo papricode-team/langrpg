@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-bun-slim-page-0-candidate-1.png",
+      "sha256": "29ff4c87fed0f6b149ef3bb16ee10fdc3454bb5fc148a97171d30a426804a326"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-bun-slim-page-0-candidate-1.txt",
+      "sha256": "ee1b929f3998c802fd1e893b987d2a1121d5edf46b453eac71192960bc498332"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-0.json",
+      "sha256": "9207c077e0be3b69b427bf2fef3c5c6ec2cba6cd90360ea2f21dee3997475f8b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-bun-slim-page-1-candidate-1.png",
+      "sha256": "20d224f6ecdef12b38e98e119d9606739cfdce1aaf7e8456d33aff15b62f74f4"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-bun-slim-page-1-candidate-1.txt",
+      "sha256": "ee1b929f3998c802fd1e893b987d2a1121d5edf46b453eac71192960bc498332"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-1.json",
+      "sha256": "f25ab7ae6f2211a6dcf84a772de156dca1aea4c9a1667b243da9303f7f1651ae"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-bun-slim-page-2-candidate-1.png",
+      "sha256": "5daeb1f5613f331623d7c85aff78f200460a4e531ef4511018e0f2215ea82619"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-bun-slim-page-2-candidate-1.txt",
+      "sha256": "ee1b929f3998c802fd1e893b987d2a1121d5edf46b453eac71192960bc498332"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-2.json",
+      "sha256": "114454392f0cfb9ed7f499b8732bbd8ea3acae965a2db03ac0e20f8ab4e31746"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-bun-slim-page-3-candidate-1.png",
+      "sha256": "b8c7fe917cf812ea3b108f819a926df3894f767bf0d097f3015353e17e31a8d7"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-bun-slim-page-3-candidate-1.txt",
+      "sha256": "ee1b929f3998c802fd1e893b987d2a1121d5edf46b453eac71192960bc498332"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-3.json",
+      "sha256": "9aef7f92c4a053f1ceb57baa15a3a3771a2c646922f5b26f7f9c0ac68ec0b4bd"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "fc35212aef270e425d720343e5e3bc086b8f4812bb81384c38f0c4e33794581c"
+}

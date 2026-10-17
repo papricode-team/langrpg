@@ -74,6 +74,9 @@ func worldBarrier(t *testing.T, ctx context.Context, conn *websocket.Conn, mapID
 			}
 			return
 		}
+		if packet.Type == "clock" {
+			continue
+		}
 		if packet.Type == "chat" {
 			t.Fatal("retired chat broadcast was delivered")
 		}
@@ -197,9 +200,8 @@ func TestMapSwitchRejectsInvalidAndStaleMovement(t *testing.T) {
 	}
 	writeWorld(t, ctx, conn, map[string]any{"type": "move", "mapId": id, "coordinateVersion": compiledWorldMaps.Maps[id].CoordinateVersion, "x": 1, "y": 1})
 	for {
-		packet := readWorld(t, ctx, conn, "players")
-		var moved []Player
-		_ = json.Unmarshal(packet["players"], &moved)
+		// The server shortened this move, so the mover hears its own position.
+		moved := readMoves(t, ctx, conn)
 		if len(moved) != 1 {
 			t.Fatalf("presence %+v", moved)
 		}
@@ -227,9 +229,7 @@ func TestMapReconnectRestoresPosition(t *testing.T) {
 	writeWorld(t, ctx, one, map[string]any{"type": "move", "mapId": "waldruh", "coordinateVersion": compiledWorldMaps.Maps["waldruh"].CoordinateVersion, "x": 1, "y": 1})
 	var expected MapSpawn
 	for {
-		packet := readWorld(t, ctx, one, "players")
-		var players []Player
-		_ = json.Unmarshal(packet["players"], &players)
+		players := readMoves(t, ctx, one)
 		expected = MapSpawn{X: players[0].X, Y: players[0].Y}
 		if expected != spawn {
 			break

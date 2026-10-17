@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-locs-broad-page-0-candidate-1.png",
+      "sha256": "9430bfd28cd86915c102996a92fbcbff11d65ec635b2d8898f518011aef26a1a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-locs-broad-page-0-candidate-1.txt",
+      "sha256": "97212cd7f07e4269b56ebcdcb11e9fbcaabea963abd1eb097d3fc6fa625517d8"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-locs-broad-page-1-candidate-1.png",
+      "sha256": "a8a82f2534721479e83ab3f02ec8739bbcb20b3fa740f6cd9d9bc4e209874990"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-locs-broad-page-1-candidate-1.txt",
+      "sha256": "97212cd7f07e4269b56ebcdcb11e9fbcaabea963abd1eb097d3fc6fa625517d8"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-locs-broad-page-2-candidate-1.png",
+      "sha256": "16b55241e30a356f84498dd2753fde05d204f8f9de017694f139c50964a01693"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-locs-broad-page-2-candidate-1.txt",
+      "sha256": "97212cd7f07e4269b56ebcdcb11e9fbcaabea963abd1eb097d3fc6fa625517d8"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-locs-broad-page-3-candidate-1.png",
+      "sha256": "a4aa87124e7137bb2c9c4b5f7a41691ebc2d77b7dcbba18814f35ae1081de67b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-locs-broad-page-3-candidate-1.txt",
+      "sha256": "97212cd7f07e4269b56ebcdcb11e9fbcaabea963abd1eb097d3fc6fa625517d8"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "5a3284a969e576f72a2b0b5ebbbed82d9a669c070df649b421f620aa7589bcff"
+}

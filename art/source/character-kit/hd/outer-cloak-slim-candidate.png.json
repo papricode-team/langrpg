@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cloak-slim-page-0-candidate-1.png",
+      "sha256": "8b89065cd217d202cd8a0b5e46aa803a211b5108ede1ce281f899cd0bfcd5054"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cloak-slim-page-0-candidate-1.txt",
+      "sha256": "73875bf8445c3458a614b63f46824c64449e6dfe23d2474031cc4047cd24b702"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-0.json",
+      "sha256": "a6c84addbfd340ec426f28ea82ae85b2cc2b70137b1516da583c89ea1fd9c3c8"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cloak-slim-page-1-candidate-1.png",
+      "sha256": "8c692c2cd1ebf50cf2e8c4a1c007839b245776b170bc12d25f2c14091c585925"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cloak-slim-page-1-candidate-1.txt",
+      "sha256": "73875bf8445c3458a614b63f46824c64449e6dfe23d2474031cc4047cd24b702"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-1.json",
+      "sha256": "200f02d5272755448caa8ff37144a13da72062cdd95a20c1a7ff61ef7ff62814"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cloak-slim-page-2-candidate-1.png",
+      "sha256": "568e641fc2acf56f2e841481716d7aeaab7b5014da38a6e23f2f076166ae13ca"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cloak-slim-page-2-candidate-1.txt",
+      "sha256": "73875bf8445c3458a614b63f46824c64449e6dfe23d2474031cc4047cd24b702"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-2.json",
+      "sha256": "30efcafbe9d7830013cf5b7b68ce9c0f1f7e02a3753d8c70007005f678193dd2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cloak-slim-page-3-candidate-1.png",
+      "sha256": "aa1d5531bba1fad40fadeb8f0b94d5157af570c03bd455fec3064b55eff7d8a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cloak-slim-page-3-candidate-1.txt",
+      "sha256": "73875bf8445c3458a614b63f46824c64449e6dfe23d2474031cc4047cd24b702"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-3.json",
+      "sha256": "c3b47bcc3acbc328ad2378c245359a6a3c2b8edd6d4ac6fd90495f1b180f8485"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cloak-slim-page-4-candidate-1.png",
+      "sha256": "5cd2b152fec09a9946e7b56e0d78162e6a4440e5702e66ac4f5e7b5ec01133f0"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cloak-slim-page-4-candidate-1.txt",
+      "sha256": "73875bf8445c3458a614b63f46824c64449e6dfe23d2474031cc4047cd24b702"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-4.json",
+      "sha256": "3e12d382498d7598725fce3e44099a593cbd15caa44e9c7bc572e3931559e2ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cloak-slim-page-5-candidate-2.png",
+      "sha256": "f06ed3dfb6392b3e9a7f9a9b87c358da3902824f51ae9c09be4cba406a96e81d"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cloak-slim-page-5-candidate-2.txt",
+      "sha256": "c5313cd40d8cd4a7659c61916e1986e86375a348874c5025f55b3fb68d50518e"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-5.json",
+      "sha256": "9801f02cbaa07933d6c115805b6442f6e7adf1db9ca8bd68a1185df134371b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cloak-slim-page-6-candidate-1.png",
+      "sha256": "7a381d46e7c63b421ffa6beceb35052a2481dc68964915d28e78786bc640311e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cloak-slim-page-6-candidate-1.txt",
+      "sha256": "73875bf8445c3458a614b63f46824c64449e6dfe23d2474031cc4047cd24b702"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-6.json",
+      "sha256": "b376d6ff991750e64f8e4e02d1eee9baecab7f17b23cfca6d0d24ea933096ab6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cloak-slim-page-7-candidate-3.png",
+      "sha256": "76d6bf554a496c3d2eb1ef39779dcf667894f764ca3f08a2601b7cabdb86cb57"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cloak-slim-page-7-candidate-3.txt",
+      "sha256": "704680923597dc2f91bd8f0da5244056503491df97e2ac27e9a610f1e563711f"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-7.json",
+      "sha256": "54b515875467084c2615401a4aa41788ff7ea91081d871208308ecdfda0f48d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-cloak-slim-page-8-candidate-1.png",
+      "sha256": "00ba52e4f1d2763877290bf175294378beb45b92c71f2aa04b2409eb84233f9b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-cloak-slim-page-8-candidate-1.txt",
+      "sha256": "73875bf8445c3458a614b63f46824c64449e6dfe23d2474031cc4047cd24b702"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-8.json",
+      "sha256": "a907bceabc2de3865bb70e4f875dcc255387929f55bac0e8f698706c5c1bcdb1"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "080d72547708bdcf2daab9c778e16a428de6a1646bc8bce0efaa18008af816fd"
+}

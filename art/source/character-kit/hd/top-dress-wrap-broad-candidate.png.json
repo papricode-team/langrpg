@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-wrap-broad-page-0-candidate-1.png",
+      "sha256": "f8badd28d89dea47f17b32660e2113693f4a8b8d99dbd6b9781fbbcd16d365f3"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-wrap-broad-page-0-candidate-1.txt",
+      "sha256": "3aa0404352d823cfaa00028a57385aef2acaf22ed56b05e602247f0bb8860e90"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-0.json",
+      "sha256": "d4c597d609eaced853a49300a3c916edad44486d2083661e2e1f72015c5fb832"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-wrap-broad-page-1-candidate-1.png",
+      "sha256": "fb7d0de5bd4a0d9d9291e7b7fd9937ff6f20b5e93be10ec31db10a016c992ed5"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-wrap-broad-page-1-candidate-1.txt",
+      "sha256": "3aa0404352d823cfaa00028a57385aef2acaf22ed56b05e602247f0bb8860e90"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-1.json",
+      "sha256": "597ae57a47283b3583f871d7ecfb79f8eb0d069ec363f819db5347b622c0eec5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-wrap-broad-page-2-candidate-1.png",
+      "sha256": "32407497c71feb8f1fb676133dbc3279bf07d2d188bfdca15a1b095da713cc09"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-wrap-broad-page-2-candidate-1.txt",
+      "sha256": "3aa0404352d823cfaa00028a57385aef2acaf22ed56b05e602247f0bb8860e90"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-2.json",
+      "sha256": "3822b1501237a22f8d5952fa86901bb95b3a7ca3e1637d7063b13b8b5a890e21"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-wrap-broad-page-3-candidate-1.png",
+      "sha256": "d1e4aad10354a2312de1d17d5563091cfae03b44b1a2ed6fdf6dce98dab733b5"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-wrap-broad-page-3-candidate-1.txt",
+      "sha256": "3aa0404352d823cfaa00028a57385aef2acaf22ed56b05e602247f0bb8860e90"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-3.json",
+      "sha256": "09412f0261449be2e3d6bacbb0fb474dfa77e215dc568cef97a5387d7eceba7e"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-wrap-broad-page-4-candidate-2.png",
+      "sha256": "c04fea6d0dcae1dffcd6022a9e7684db93d9dd61611d78f71175142019161fd0"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-wrap-broad-page-4-candidate-2.txt",
+      "sha256": "d137a42cce7026681a95371f6ea4cec63716d188022425f032b4fe234e6997d3"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-4.json",
+      "sha256": "5252f9b6b506aeba7aa6b065493407dc63e3afa72771694c1fc3d3f025c359a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-wrap-broad-page-5-candidate-1.png",
+      "sha256": "a816e2c505122453cd944db692b195223648b56ecbb0a4f5b39ac390c5a33b62"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-wrap-broad-page-5-candidate-1.txt",
+      "sha256": "3aa0404352d823cfaa00028a57385aef2acaf22ed56b05e602247f0bb8860e90"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-5.json",
+      "sha256": "72beb8597382255bf7cfde12b003f50107cce66fee1e4d12ba961c28edfdb6dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-wrap-broad-page-6-candidate-1.png",
+      "sha256": "a575b44fb1154924e3a860bfc36adb811adeb902bf987341bb6f397f36553e78"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-wrap-broad-page-6-candidate-1.txt",
+      "sha256": "3aa0404352d823cfaa00028a57385aef2acaf22ed56b05e602247f0bb8860e90"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-6.json",
+      "sha256": "369c87b8e1c6db5e23506f6c9c049b8866e3b95c4a57ebb3e5fdb50cff738546"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-wrap-broad-page-7-candidate-1.png",
+      "sha256": "750edc52c5d2469a02883635dbacaa038e8f3dd61d03448f7e8ee617ee5e7f1b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-wrap-broad-page-7-candidate-1.txt",
+      "sha256": "3aa0404352d823cfaa00028a57385aef2acaf22ed56b05e602247f0bb8860e90"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-7.json",
+      "sha256": "594be292ae2bb672b79bc0f64091efc6184647dc4159416c469120e9794ae6a2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-wrap-broad-page-8-candidate-1.png",
+      "sha256": "3f3d89340eb7415e4ec8c9d9d8e8e4ca7e58d8206c07a7478b3575002f40fd80"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-wrap-broad-page-8-candidate-1.txt",
+      "sha256": "3aa0404352d823cfaa00028a57385aef2acaf22ed56b05e602247f0bb8860e90"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-8.json",
+      "sha256": "59b98d4a2e80d5eda70982582ea13bff1711eca74a22fd82e4b3ed6ef6f68734"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "41a3393da763af3d56cc32cffbb3b9a153048995f1ec607a9bbaf032792e4ed4"
+}

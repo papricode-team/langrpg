@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-day-broad-page-0-candidate-2.png",
+      "sha256": "22c341aae0d21bc3b6f53270408a150fff25df31b4a9a4b502b74179cb1d13db"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-day-broad-page-0-candidate-2.txt",
+      "sha256": "9a08c3980d8f85e266cf753e2bbce90b38c8a9e48d3e529cbd7e4cef0188df66"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-0.json",
+      "sha256": "d4c597d609eaced853a49300a3c916edad44486d2083661e2e1f72015c5fb832"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-day-broad-page-1-candidate-2.png",
+      "sha256": "118828e164e30e5713b0085b2035ada21b5909461006b8c0203704263fec5418"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-day-broad-page-1-candidate-2.txt",
+      "sha256": "9a08c3980d8f85e266cf753e2bbce90b38c8a9e48d3e529cbd7e4cef0188df66"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-1.json",
+      "sha256": "597ae57a47283b3583f871d7ecfb79f8eb0d069ec363f819db5347b622c0eec5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-day-broad-page-2-candidate-2.png",
+      "sha256": "65c3f1bfaa74e82559cc1782b9af07efc7c48f92f2beee4658334a17186003fe"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-day-broad-page-2-candidate-2.txt",
+      "sha256": "cd6a415d844d3d98f43366942789c63b0318b9458810140eb4b7814ee2ebce2a"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-2.json",
+      "sha256": "3822b1501237a22f8d5952fa86901bb95b3a7ca3e1637d7063b13b8b5a890e21"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-day-broad-page-3-candidate-2.png",
+      "sha256": "d76e15f6eb433c2e356fa6871b76b39d89314d6b52a01d734bb9bf96320218da"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-day-broad-page-3-candidate-2.txt",
+      "sha256": "01deaaaafca49fbf49a035d702ea0f33bfcd4e3b076a5503e741d1f5a2fe47be"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-3.json",
+      "sha256": "09412f0261449be2e3d6bacbb0fb474dfa77e215dc568cef97a5387d7eceba7e"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-day-broad-page-4-candidate-2.png",
+      "sha256": "ea1f4cd4d0cb3297ba16ce75fcb39efcfdb2be103a8432916676ee79270a7be8"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-day-broad-page-4-candidate-2.txt",
+      "sha256": "b177cdb058603183c21e6cefd168465e751b83e9c174b57377f76247f4de0e36"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-4.json",
+      "sha256": "5252f9b6b506aeba7aa6b065493407dc63e3afa72771694c1fc3d3f025c359a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-day-broad-page-5-candidate-2.png",
+      "sha256": "d4400cf60db261309e8b611fa76ebf92fded6d45e27dde8714558b26722c3443"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-day-broad-page-5-candidate-2.txt",
+      "sha256": "d5328ed75ce9c9beceab653fef0b00b8d91a12f917477a3798dec53db025f2a9"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-5.json",
+      "sha256": "72beb8597382255bf7cfde12b003f50107cce66fee1e4d12ba961c28edfdb6dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-day-broad-page-6-candidate-2.png",
+      "sha256": "2b397673b55bd04a968e2732fd302431a01e14695fa29599e23ab114f48d7dac"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-day-broad-page-6-candidate-2.txt",
+      "sha256": "ba15050a983ca5efa5e062c79598d411fc46805c4d89a1490ed43cfdb16597f7"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-6.json",
+      "sha256": "369c87b8e1c6db5e23506f6c9c049b8866e3b95c4a57ebb3e5fdb50cff738546"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-day-broad-page-7-candidate-2.png",
+      "sha256": "0eda5ebb46e8f3882c00d7662d36bdc01fe5fd8201eea18cba18352c3cd8ecbd"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-day-broad-page-7-candidate-2.txt",
+      "sha256": "1d9339e4893ebab3ef03f545628229d6cdf315dbdbd979c3b94fb2a962f23759"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-7.json",
+      "sha256": "594be292ae2bb672b79bc0f64091efc6184647dc4159416c469120e9794ae6a2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-dress-day-broad-page-8-candidate-2.png",
+      "sha256": "6bfbaa0dc3e609e46f756b86866425af27696ae750e3aac7279fb11b134f387d"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-dress-day-broad-page-8-candidate-2.txt",
+      "sha256": "1d9339e4893ebab3ef03f545628229d6cdf315dbdbd979c3b94fb2a962f23759"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-8.json",
+      "sha256": "59b98d4a2e80d5eda70982582ea13bff1711eca74a22fd82e4b3ed6ef6f68734"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "2efbe89303bc1ea3421a6b7839208ae5896fd23382e3c5ed4d4d4dc63420242c"
+}

@@ -1,10 +1,16 @@
+import {applyRoomLayout, additionalRoomTemplate} from './room-layout-runtime';
+import {roomLevelName, buildingRoomRoot, buildingRoomKey, type RoomLayout} from './room-layout';
+import { buildingDoorGeometry, type BuildingDoorGeometry } from './building-door';
 import { npcs, quests, type Exercise } from './content';
 import type { MapId, MapPosition } from './maps';
 import { NavigationGrid, PLAYER_RADIUS, type NavigationOptions } from './navigation';
 import {getWorldScene} from './scene-data';
-import {sceneEntrancePoint, sceneEntrances, type SceneInteriorKind} from './scene-schema';
+import {sceneEntrancePoint, sceneEntrances} from './scene-schema';
 
-export type InteriorId = SceneInteriorKind;
+import {roomKind, type RoomId} from './room-kind';
+import {buildingInteriors} from './building-interiors';
+
+export type InteriorId = RoomId;
 export type InteriorSheet = 'interior-cafe-objects' | 'interior-bakery-objects' | 'interior-supermarket-objects' | 'interior-decor' | 'interior-furniture' | 'interior-train-furniture';
 export type InteriorPolygon = readonly (readonly [number, number])[];
 export interface InteriorVocabulary {
@@ -25,6 +31,8 @@ export interface InteriorObjectSpec extends MapPosition {
   activityId?: 'cafe' | 'market';
   /** Optional mini-game explicitly offered at this station. */
   minigame?: string;
+  /** Opens a game whose content is loaded by the normal authenticated game flow. */
+  gameOnly?: boolean;
   exerciseIds: string[];
   vocabulary: InteriorVocabulary[];
 }
@@ -54,6 +62,8 @@ export interface InteriorNpcSpec extends MapPosition {
   hours?: readonly [number, number];
 }
 export interface InteriorSpec {
+  layout?: RoomLayout;
+  stairDirections?: Record<string,'up'|'down'>;
   id: InteriorId;
   name: string;
   germanName: string;
@@ -85,6 +95,7 @@ export interface BuildingEntrance extends MapPosition {
   label: string;
   description: string;
   returnPoint: MapPosition;
+  door?: BuildingDoorGeometry;
 }
 
 const position = (x: number, y: number): MapPosition => ({ x: x / 1536, y: y / 1024 });
@@ -319,7 +330,7 @@ export const interiors: readonly InteriorSpec[] = [
       { id: 'inn-tea-cup', sheet: 'interior-cafe-objects', asset: 'cup', x: 1170, y: 608, width: 17, depth: 697 },
     ],
     objects: [
-      { id: 'interior:inn:welcome', label: 'Greta · ein warmer Tee', germanName: 'Ein Besuch von Greta', sessionTitle: 'A friendly welcome', npcId: 'greta', dialogue: npcs.find(npc => npc.id === 'greta')!.greeting, prompt: 'Say hello and ask for a warm drink.', description: 'Greta visits between 07:00 and 21:00 with tea. Your room is quiet overnight; your lamp, desk and bed are always ready.', ...position(1040, 745), exerciseIds: ['a1-arrival-exercise-1', 'a1-cafe-exercise-3', 'a1-cafe-exercise-7'], vocabulary: [vocabulary('der', 'Tee', 'die Tees', 'tea'), vocabulary('die', 'Tasse', 'die Tassen', 'cup'), vocabulary('das', 'Zimmer', 'die Zimmer', 'room')] },
+      { id: 'interior:inn:welcome', label: 'Greta · ein warmer Tee', germanName: 'Ein Besuch von Greta', sessionTitle: 'A friendly welcome', npcId: 'greta', dialogue: npcs.find(npc => npc.id === 'greta')?.greeting ?? '', prompt: 'Say hello and ask for a warm drink.', description: 'Greta visits between 07:00 and 21:00 with tea. Your room is quiet overnight; your lamp, desk and bed are always ready.', ...position(1040, 745), exerciseIds: ['a1-arrival-exercise-1', 'a1-cafe-exercise-3', 'a1-cafe-exercise-7'], vocabulary: [vocabulary('der', 'Tee', 'die Tees', 'tea'), vocabulary('die', 'Tasse', 'die Tassen', 'cup'), vocabulary('das', 'Zimmer', 'die Zimmer', 'room')] },
       { id: 'interior:inn:bed', label: 'Das Bett', germanName: 'Das Bett', sessionTitle: 'Begin tomorrow', prompt: 'Rest here when your day is done.', description: 'Schlaf gut. Deine Beweise und deine Wörter bleiben im Atlas.', ...position(610, 570), minigame: 're-ink', exerciseIds: ['a1-arrival-exercise-6'], vocabulary: [vocabulary('das','Bett','Betten','bed')] },
       { id: 'interior:inn:review', label: 'Die Abendlampe', germanName: 'Die Abendlampe', sessionTitle: 'An evening review', prompt: 'Keep one small promise to your words.', description: 'Die Lampe wartet. Ein paar Wörter für heute, dann kannst du schlafen.', ...position(810, 470), exerciseIds: ['a1-cafe-exercise-6'], vocabulary: [vocabulary('die','Lampe','Lampen','lamp')] },
       { id: 'interior:inn:evidence', label: 'Dein Schreibtisch', germanName: 'Der Schreibtisch', sessionTitle: 'Connect the evidence', prompt: 'Lay out your letters and clues.', description: 'Hier liegen deine Briefe. Jeder Brief zeigt einen Weg. Wer hilft dir morgen?', ...position(1030, 490), exerciseIds: ['a1-arrival-exercise-6'], vocabulary: [vocabulary('der','Brief','Briefe','letter')] },
@@ -327,12 +338,24 @@ export const interiors: readonly InteriorSpec[] = [
   },
 ];
 
-export function getInterior(id: InteriorId): InteriorSpec {
-  return interiors.find(interior => interior.id === id) ?? interiors[0];
+export function getInterior(id: InteriorId, mapId?: string): InteriorSpec {
+  const kind = roomKind(id);
+  const template = [...interiors, ...buildingInteriors].find(interior => interior.id === kind);
+  if (!template) throw new Error(`Missing room layout ${kind}`);
+  const spec = id === kind ? template : {...template, id, name: `${template.name} · ${id.slice(kind.length + 2).replaceAll('-', ' ')}`};
+  const layout = mapId && spec.presentation !== 'backdrop' ? sceneEntrances(getWorldScene(mapId)).find(e=>e.interiorId===buildingRoomRoot(id))?.owner.roomLayout : undefined;
+  const key = buildingRoomKey(id);
+  if (key !== 'main') {
+    const child = layout?.rooms?.find(r=>r.id===key);
+    if (!child) throw new Error(`Unknown room ${id}`);
+    return applyRoomLayout({...additionalRoomTemplate(spec),name:child.layout.level?`${child.name} · ${roomLevelName(child.layout.level)}`:child.name},child.layout,layout);
+  }
+  return layout ? applyRoomLayout(spec, layout) : spec;
 }
 
-export function getInteriorObject(id: string): InteriorObjectSpec | undefined {
-  return interiors.flatMap(interior => [...interior.objects]).find(object => object.id === id);
+export function getInteriorObject(id: string, roomId?: InteriorId, mapId?: string): InteriorObjectSpec | undefined {
+  if (roomId) return getInterior(roomId, mapId).objects.find(object=>object.id===id);
+  return [...interiors, ...buildingInteriors].flatMap(interior => [...interior.objects]).find(object => object.id === id);
 }
 
 /** Visiting actors and their conversation station share the same hours. */
@@ -357,17 +380,17 @@ export const interiorExercises: Exercise[] = quests.flatMap(quest => quest.exerc
 export function buildingEntrances(mapId: MapId): readonly BuildingEntrance[] {
   const scene=getWorldScene(mapId);
   return sceneEntrances(scene).map(entrance => {
-    const interior=getInterior(entrance.interiorId), point=sceneEntrancePoint(scene,entrance), back=sceneEntrancePoint(scene,entrance,true);
-    return {id:`building:${interior.id}` as const,interiorId:interior.id,label:interior.germanName,description:interior.description,
-      x:point.x/scene.width,y:point.y/scene.height,returnPoint:{x:back.x/scene.width,y:back.y/scene.height}};
+    const interior=getInterior(entrance.interiorId, mapId), point=sceneEntrancePoint(scene,entrance), back=sceneEntrancePoint(scene,entrance,true);
+    return {id:`building:${interior.id}` as const,interiorId:interior.id,label:interior.germanName || interior.name,description:interior.description,
+      door:buildingDoorGeometry(scene,entrance.owner),x:point.x/scene.width,y:point.y/scene.height,returnPoint:{x:back.x/scene.width,y:back.y/scene.height}};
   });
 }
 
 /** Match each distinct building footprint and its partition doorways. */
-export function createInteriorNavigation(id: InteriorId, options: NavigationOptions = {}): NavigationGrid {
+export function createInteriorNavigation(id: InteriorId, options: NavigationOptions = {}, mapId?: string): NavigationGrid {
   const rectangle = (x: number, y: number, width: number, height: number): readonly (readonly [number, number])[] =>
     [[x, y], [x + width, y], [x + width, y + height], [x, y + height]];
-  const interior = getInterior(id);
+  const interior = getInterior(id, mapId);
   const obstacles = interior.props.flatMap(prop => prop.collision ? [rectangle(prop.x + prop.collision.offsetX, prop.y + prop.collision.offsetY, prop.collision.width, prop.collision.height)] : []);
   return new NavigationGrid(interior.floorAreas, [...(interior.barriers ?? []), ...obstacles], interior, {agentRadius:PLAYER_RADIUS,...options});
 }

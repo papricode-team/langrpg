@@ -2,6 +2,7 @@ import type { Progress } from './api';
 import type { Exercise } from './content';
 import { baseLanguage, localizedExercise, t } from './i18n.ts'; // explicit extension: Node tooling also loads this module without a resolver
 import { seededShuffle } from './game-shuffle.ts';
+import germanRules from './data/grading-equivalents-de.json';
 
 export function normalizedAnswer(answer: string): string {
   return normalizedCaseAnswer(answer).toLocaleLowerCase('de');
@@ -11,9 +12,47 @@ const normalizedCaseAnswer = (value: string): string => value.normalize('NFC').t
 export function answerMatches(exercise: Exercise & { caseSensitive?: boolean }, answer: string): boolean {
   const acceptable = [exercise.answer, ...((exercise as Exercise & { acceptedAnswers?: string[] }).acceptedAnswers ?? [])];
   const production = exercise.mode === 'type' || exercise.mode === 'sentence';
-  const normalize = exercise.caseSensitive && !production ? normalizedCaseAnswer : normalizedAnswer;
-  return acceptable.some(value => !(production && exercise.caseSensitive && formalAddressChanged(answer, value)) &&
-    (normalize(value) === normalize(answer) || (production && productionAnswerMatches(normalize(answer), normalize(value)))));
+  if (!production) {
+    const normalize = exercise.caseSensitive ? normalizedCaseAnswer : normalizedAnswer;
+    return acceptable.some(value => normalize(value) === normalize(answer));
+  }
+  return acceptable.some(value => {
+    const phrases = normalizedAnswer(value).split(' ').length > 1;
+    const actual = productionForm(answer, phrases), expected = productionForm(value, phrases);
+    return !(exercise.caseSensitive && formalAddressChanged(actual, expected)) &&
+      (actual.toLocaleLowerCase('de') === expected.toLocaleLowerCase('de') || productionAnswerMatches(actual.toLocaleLowerCase('de'), expected.toLocaleLowerCase('de')));
+  });
+}
+
+const ignoreInner = new Set(Array.from(germanRules.ignoreInner));
+const trimInner = (word: string): string => {
+  const letters = Array.from(word);
+  let start = 0, end = letters.length;
+  while (start < end && ignoreInner.has(letters[start])) start++;
+  while (end > start && ignoreInner.has(letters[end - 1])) end--;
+  return letters.slice(start, end).join('');
+};
+const foldWord = (word: string): string => umlautKeyboardForm(word.toLocaleLowerCase('de'));
+let phraseTable: {match: string[]; canonical: string[]}[] | undefined;
+const equivalentPhrases = () => phraseTable ??= germanRules.equivalents
+  .flatMap(group => group.map(member => ({match: foldWord(member).split(' '), canonical: group[0].split(' ')})))
+  .sort((a, b) => b.match.length - a.match.length);
+
+/**
+ * Mirror of productionForm in server/content_runtime.go for the German course: punctuation at word edges is
+ * dropped and, for accepted forms of two or more words, equivalent spellings become their canonical member.
+ * Case is kept, so formal Sie can still be checked afterwards.
+ */
+function productionForm(value: string, phrases: boolean): string {
+  const words = normalizedCaseAnswer(value).split(' ').map(trimInner).filter(Boolean);
+  if (!phrases) return words.join(' ');
+  const out: string[] = [];
+  for (let i = 0; i < words.length;) {
+    const hit = equivalentPhrases().find(({match}) => i + match.length <= words.length && match.every((word, k) => foldWord(words[i + k]) === word));
+    if (hit) { out.push(...hit.canonical); i += hit.match.length; }
+    else out.push(words[i++]);
+  }
+  return out.join(' ');
 }
 
 const umlautKeyboardForm = (value: string): string => value.replace(/[äöüÄÖÜßẞ]/g, letter => ({ä:'ae',ö:'oe',ü:'ue',Ä:'Ae',Ö:'Oe',Ü:'Ue',ß:'ss',ẞ:'SS'}[letter]!));

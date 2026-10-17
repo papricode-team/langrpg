@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "3ba917ef44b00e76191a2be1d49ce4a889dfa88247bdd40850e9c402ecf65102",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "7aaf52b0d7bc99f52ffd5599149cd0d28c54f5da0719bb4927c7e7b4c5788433",
+  "promptSha256": "36f756afd8e91d5a9227842926e24312f97d8c731a15cfd421ca53274cb63aff",
+  "generationPromptSha256": "c9199bb29c8e7ce82b13eaa5950c8c5085edd4ec476c909951915d17f1c3fa22",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "877e03a5378296c418b88db02157d071c855c823a09affeb633e4bc2784e239c",
+  "candidate": "art/source/character-kit/hd/hair-mohawk-broad-candidate.png",
+  "lockedSha256": "95dc53570cdad1a88a6a5afdbc8d7eb2ce77c97185a5e4339e8ba2a767695cc5"
+}

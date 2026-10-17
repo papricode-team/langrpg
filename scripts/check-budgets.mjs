@@ -10,7 +10,7 @@ const largest = Math.max(...sizes.map(item => item.size));
 const total = sizes.reduce((sum,item) => sum + item.size,0);
 // Learning records are served by the API. Browser JavaScript contains the engine,
 // presentation and interface strings, with a hard startup and aggregate ceiling.
-const startupHTML = await readFile(resolve(root, 'index.html'), 'utf8');
+const startupHTML = await readFile(resolve(root, 'game/index.html'), 'utf8');
 const startupPaths = new Set([...startupHTML.matchAll(/<script\b[^>]*\bsrc\s*=\s*["']([^"']+)["'][^>]*>/gi)].map(([,source]) => resolve(root, source.replace(/^\//, '').split(/[?#]/, 1)[0])));
 const mainChunks = sizes.filter(item => startupPaths.has(item.path));
 if (!mainChunks.length || mainChunks.length !== startupPaths.size) throw new Error('Unable to identify the startup JavaScript chunk');
@@ -35,13 +35,15 @@ const artTotal=artSizes.reduce((sum,item)=>sum+item.size,0);
 const characterPrefixes=['character-kit','character-kit-hd','character-cast','character-portraits','player-portraits'].map(name=>resolve(root,'assets',name)+'/');
 const characterArt=artSizes.filter(item=>characterPrefixes.some(prefix=>item.path.startsWith(prefix)));
 const characterArtTotal=characterArt.reduce((sum,item)=>sum+item.size,0);
-if(characterArtTotal>180*1024*1024)throw new Error(`Character distribution art budget exceeded: ${characterArtTotal}`);
+// Full slim/broad parity adds 146 native wardrobe components and their portraits.
+// The archived low-resolution kit is omitted from production by asset-quality.
+if(characterArtTotal>200*1024*1024)throw new Error(`Character distribution art budget exceeded: ${characterArtTotal}`);
 const baseArt=artSizes.filter(item=>!characterPrefixes.some(prefix=>item.path.startsWith(prefix)));
 const baseArtTotal=baseArt.reduce((sum,item)=>sum+item.size,0);
 // Towns share the tiled ground materials; keep individual downloads bounded at 2 MiB and stream one destination.
 if(baseArtTotal>72*1024*1024)throw new Error(`Base distribution art budget exceeded: ${baseArtTotal}`);
 const lowTotal=tierTotal('low'),mediumTotal=tierTotal('medium');
-if(lowTotal>110*1024*1024||mediumTotal>180*1024*1024)throw new Error(`Quality tier budget exceeded: low ${lowTotal}, medium ${mediumTotal}`);
+if(lowTotal>110*1024*1024||mediumTotal>190*1024*1024)throw new Error(`Quality tier budget exceeded: low ${lowTotal}, medium ${mediumTotal}`);
 for(const town of ['lindenhafen','waldruh','nebelstadt']){
   const townBytes=baseArt.filter(item=>item.path.split('/').at(-1).startsWith(town)).reduce((sum,item)=>sum+item.size,0);
   if(townBytes>36*1024*1024)throw new Error(`Region art budget exceeded: ${town}`);

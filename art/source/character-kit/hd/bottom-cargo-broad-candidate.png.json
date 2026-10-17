@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cargo-broad-page-0-candidate-1.png",
+      "sha256": "b271cdf29bfd0808a4b6df984bcb0a18887d5ac2b1cc6112bf1261fdf6cf7a0e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cargo-broad-page-0-candidate-1.txt",
+      "sha256": "31783fe6914cd0ae4bab20dcdf05ac310606ada32a2b253b7b56716b4f0f5349"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-0.json",
+      "sha256": "081ac1e8ce12a0772254093462119cc244ba2297ae4b20e4c697960ab371c3a4"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cargo-broad-page-1-candidate-1.png",
+      "sha256": "28f9bca9589fce9523dfdca63e0fbfa95158deceab77ba91a8eb4e816a701c58"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cargo-broad-page-1-candidate-1.txt",
+      "sha256": "31783fe6914cd0ae4bab20dcdf05ac310606ada32a2b253b7b56716b4f0f5349"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-1.json",
+      "sha256": "6c709f3a0d3218c7782deceb16dcdf546cfa0621785fbf74d41c2597fc796da4"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cargo-broad-page-2-candidate-1.png",
+      "sha256": "2e62055bd9810105c102eb064dec18ae4228bd12e5f1c95ca92acac4d72abbcd"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cargo-broad-page-2-candidate-1.txt",
+      "sha256": "31783fe6914cd0ae4bab20dcdf05ac310606ada32a2b253b7b56716b4f0f5349"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-2.json",
+      "sha256": "f63b3d1d376a06d233ff5ad4687d96752e1153682f60672398ba0d4b92be0b89"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cargo-broad-page-3-candidate-1.png",
+      "sha256": "d1e47ce1bad82ecf197f4ab95d03583a0e4732072f6ee985db479d348264bb73"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cargo-broad-page-3-candidate-1.txt",
+      "sha256": "31783fe6914cd0ae4bab20dcdf05ac310606ada32a2b253b7b56716b4f0f5349"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-3.json",
+      "sha256": "3b46fffa1465a306aa00e010971ca6315af366f178587e983bf8b2e31897e97b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cargo-broad-page-4-candidate-1.png",
+      "sha256": "8e68b13bbb0c72842940f8be78ce466268b7d4176ff9d7bc96f10373f304b15a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cargo-broad-page-4-candidate-1.txt",
+      "sha256": "31783fe6914cd0ae4bab20dcdf05ac310606ada32a2b253b7b56716b4f0f5349"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-4.json",
+      "sha256": "684241bf10acc2a2d152cdc5d1ea4fc486a14f3c3ea02592e2a6b3a5c685c5be"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-cargo-broad-page-5-candidate-1.png",
+      "sha256": "5e7877de6f1a907d82f85c1a8649f81c92ec87e474d25f8a891e65c8722f33d8"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-cargo-broad-page-5-candidate-1.txt",
+      "sha256": "31783fe6914cd0ae4bab20dcdf05ac310606ada32a2b253b7b56716b4f0f5349"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-5.json",
+      "sha256": "4aceb63188de2b8ab6ff2f340339316e17998395c2eb23742bec567d1d778330"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "407b0921fa25163024a78a314641a6a0334813849535441523bf6363b317f14c"
+}

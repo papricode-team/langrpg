@@ -31,6 +31,11 @@
   "proof": "art/proofs/character-cast/terracielo-elena.png",
   "proofSha256": "55b7cc7bbebf23446dd8cb9c240cd4017cf90c1e3e66bcc99077920e34c84e77",
   "editorSha256": "c967c0355cb52d6a90a1afcd2d80a4ae60581708e4422af12e5384c038dae81a",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "d673c74809ddd2aa5250de3d60d53e0a41fabdd2a1a0fa67ccbc341f49bb3e54"
+  }
 }

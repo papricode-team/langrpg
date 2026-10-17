@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "be9223cd0c3e69250bc3f8cac63b328a9848fe1264de32f072c6ee61ad99748a",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "7aaf52b0d7bc99f52ffd5599149cd0d28c54f5da0719bb4927c7e7b4c5788433",
+  "promptSha256": "b05a5c020e1793cacc64fd8a3c89c6714fd529851cff5c70aec43e0e98d9e20f",
+  "generationPromptSha256": "fd08b07a6502ace7b1e5996f72485cd37a53807f1b0f4a0f8644d0a37d4beb6e",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "detailEnclosedBy": "primary"
+  },
+  "preparationSha256": "5525c784a6677eac3818d5b4321f34966101d1986658c80ede2a482185ca2bc1",
+  "candidate": "art/source/character-kit/hd/hair-bob-slim-candidate.png",
+  "lockedSha256": "3bbd19afc65937d9e7535990c6def9654055699fd7ebbdd360eaa25a172be85d"
+}

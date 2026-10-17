@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/rainmarket-resident-2.png",
   "proofSha256": "bff285b27fde167c2967feb4a44c6bae96aa0ece2ce13b8d2c25830987816c82",
   "editorSha256": "8585b20ab6c8f38fd2f5b262d304e36c56ba02162aa8a332cf4395e9d1396c3f",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "97a5097f0e7ce84565f0c52c27b899816f7f8f31570a48c2a2bb80dcc11150bd"
+  }
 }

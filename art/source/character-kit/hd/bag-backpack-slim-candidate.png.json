@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-backpack-slim-page-0-candidate-2.png",
+      "sha256": "27726d99ed5bad626a7a24685fecea59d142bda3ac88c55a9af1798cfc66652c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-backpack-slim-page-0-candidate-2.txt",
+      "sha256": "d7a7e29b5f19de0aa276b60219fb8d6e9e3e3441c66b482c329d01bf891363e4"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-0.json",
+      "sha256": "a6c84addbfd340ec426f28ea82ae85b2cc2b70137b1516da583c89ea1fd9c3c8"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-backpack-slim-page-1-candidate-2.png",
+      "sha256": "ca33c15338de1f7fbf08f32498d7d7055ccfde5bce91b9d5eaad34e8de5a3092"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-backpack-slim-page-1-candidate-2.txt",
+      "sha256": "d7a7e29b5f19de0aa276b60219fb8d6e9e3e3441c66b482c329d01bf891363e4"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-1.json",
+      "sha256": "200f02d5272755448caa8ff37144a13da72062cdd95a20c1a7ff61ef7ff62814"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-backpack-slim-page-2-candidate-2.png",
+      "sha256": "de94fc651bb15525d9e7a6e4f83ced5bb3a5ae808a85bbc49c9ba00824df3e63"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-backpack-slim-page-2-candidate-2.txt",
+      "sha256": "490f9338baa7e86fc7086d55c5d63f48b5228c54aa7f7c5d80ce6b1fc12d1f71"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-2.json",
+      "sha256": "30efcafbe9d7830013cf5b7b68ce9c0f1f7e02a3753d8c70007005f678193dd2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-backpack-slim-page-3-candidate-2.png",
+      "sha256": "eb7c618133f71d28c7d206e544dddbb7a6f6ec3d861cd71e186b9fb5e2028fdc"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-backpack-slim-page-3-candidate-2.txt",
+      "sha256": "6e25f47f491f243981b1939931705af5cb4344920557820acebf974b590f622d"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-3.json",
+      "sha256": "c3b47bcc3acbc328ad2378c245359a6a3c2b8edd6d4ac6fd90495f1b180f8485"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-backpack-slim-page-4-candidate-2.png",
+      "sha256": "187261a0a5e3f8b6fb5ea8510a93803d9522bfc7a160b99e7e3d321030a65757"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-backpack-slim-page-4-candidate-2.txt",
+      "sha256": "b9d29597d0a6c8718ca65f54a1e1dff6004e18fe0be5834199ce6849e84f8117"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-4.json",
+      "sha256": "3e12d382498d7598725fce3e44099a593cbd15caa44e9c7bc572e3931559e2ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-backpack-slim-page-5-candidate-2.png",
+      "sha256": "c1e60bb727b8d38dc21ad54f7ed62abb41758b3c8bffc6d3cd4b2e2e63150e35"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-backpack-slim-page-5-candidate-2.txt",
+      "sha256": "621af312740f60f19a9d17f51ccab6b4d070e6843515bd2c175a25add786e9da"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-5.json",
+      "sha256": "9801f02cbaa07933d6c115805b6442f6e7adf1db9ca8bd68a1185df134371b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-backpack-slim-page-6-candidate-2.png",
+      "sha256": "3d5b4cb104dc378e81ee5b535994cd0a32a4a8ddecc589cc7c5c5a6e27a02d05"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-backpack-slim-page-6-candidate-2.txt",
+      "sha256": "3126e45bc898057617acf7aeeae0dd020a71597c07c0b014672d9fddb957421e"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-6.json",
+      "sha256": "b376d6ff991750e64f8e4e02d1eee9baecab7f17b23cfca6d0d24ea933096ab6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-backpack-slim-page-7-candidate-2.png",
+      "sha256": "dcb2579905885c846ad0a61c4a4a2c3428b115dd40a05b68618448cc93a45d26"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-backpack-slim-page-7-candidate-2.txt",
+      "sha256": "bf9d32e0e40edc0927fc17b8f3f7cca013be7f536e8bc31647a888800d700fdf"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-7.json",
+      "sha256": "54b515875467084c2615401a4aa41788ff7ea91081d871208308ecdfda0f48d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bag-backpack-slim-page-8-candidate-2.png",
+      "sha256": "88a53acf80a19df895c91e1e3bd1339b1560608ebf82cfdd8a06d44cb0957339"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bag-backpack-slim-page-8-candidate-2.txt",
+      "sha256": "bf9d32e0e40edc0927fc17b8f3f7cca013be7f536e8bc31647a888800d700fdf"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-8.json",
+      "sha256": "a907bceabc2de3865bb70e4f875dcc255387929f55bac0e8f698706c5c1bcdb1"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "26d22fbb98a708276a0facb4a4869967fab442cce5e4c6f496e55dfa780ba3f7"
+}

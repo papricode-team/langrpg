@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/kigalights-resident-2.png",
   "proofSha256": "ee4bc6aa2ba7da3d44b3fb89d464378541660280ea42c3d9345b446adc07531d",
   "editorSha256": "56d63962bf07f186da4ebd602c17b97aed3e965c6a0dd78ca8d5e39e0d1bb225",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "c29e73575653e126223cfc3fb7fa68b79af37f26022dda2b060253c6fed758d8"
+  }
 }

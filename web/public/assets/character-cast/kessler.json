@@ -16,7 +16,7 @@
   "proof": "art/proofs/character-cast/kessler.png",
   "proofSha256": "d23adb4a465f29b41ddacce0e7ceeaf57a5e5de5a8e1415c32df48bfd7f690cf",
   "editorSha256": "801d1708ecdd42de8abe7593469fd61d8ffb85663ad627f43617d8e58667ea80",
-  "assetVersion": "4c9d233bf71007a9",
+  "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-kessler-native",
@@ -46,5 +46,10 @@
     ],
     "source": "art/proofs/character-cast/kessler.webp",
     "sourceSha256": "801d1708ecdd42de8abe7593469fd61d8ffb85663ad627f43617d8e58667ea80"
+  },
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "1aba320f98fa6ccd2b84f8d28182b8a84c19cb7f0538e6259c0369f7e36885ce"
   }
 }

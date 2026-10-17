@@ -1,0 +1,1137 @@
+{
+  "id": "headwear-cap-slim",
+  "valid": true,
+  "protectedDrift": 0,
+  "frames": [
+    {
+      "index": 0,
+      "direction": 0,
+      "column": 0,
+      "counts": {
+        "primary": 2438,
+        "secondary": 2031,
+        "skin": 153,
+        "detail": 178
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0015425576874313245,
+      "outsideSilhouette": 720
+    },
+    {
+      "index": 1,
+      "direction": 0,
+      "column": 1,
+      "counts": {
+        "primary": 2447,
+        "secondary": 2059,
+        "skin": 149,
+        "detail": 177
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.001578610381295123,
+      "outsideSilhouette": 1039
+    },
+    {
+      "index": 2,
+      "direction": 0,
+      "column": 2,
+      "counts": {
+        "primary": 2452,
+        "secondary": 2045,
+        "skin": 137,
+        "detail": 192
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.001461955919813933,
+      "outsideSilhouette": 982
+    },
+    {
+      "index": 3,
+      "direction": 0,
+      "column": 3,
+      "counts": {
+        "primary": 2491,
+        "secondary": 2054,
+        "skin": 145,
+        "detail": 187
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.001541459762394988,
+      "outsideSilhouette": 1033
+    },
+    {
+      "index": 4,
+      "direction": 0,
+      "column": 4,
+      "counts": {
+        "primary": 2505,
+        "secondary": 2050,
+        "skin": 142,
+        "detail": 181
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0014999946043359556,
+      "outsideSilhouette": 1068
+    },
+    {
+      "index": 5,
+      "direction": 0,
+      "column": 5,
+      "counts": {
+        "primary": 2485,
+        "secondary": 2039,
+        "skin": 141,
+        "detail": 193
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0014318010550113038,
+      "outsideSilhouette": 1134
+    },
+    {
+      "index": 6,
+      "direction": 0,
+      "column": 6,
+      "counts": {
+        "primary": 2484,
+        "secondary": 2048,
+        "skin": 138,
+        "detail": 193
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.001430041709549862,
+      "outsideSilhouette": 1055
+    },
+    {
+      "index": 7,
+      "direction": 0,
+      "column": 7,
+      "counts": {
+        "primary": 2492,
+        "secondary": 2056,
+        "skin": 136,
+        "detail": 200
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0014514905268250844,
+      "outsideSilhouette": 1057
+    },
+    {
+      "index": 8,
+      "direction": 0,
+      "column": 8,
+      "counts": {
+        "primary": 2496,
+        "secondary": 2037,
+        "skin": 136,
+        "detail": 191
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0013910125722052327,
+      "outsideSilhouette": 934
+    },
+    {
+      "index": 9,
+      "direction": 1,
+      "column": 0,
+      "counts": {
+        "primary": 3781,
+        "secondary": 1488,
+        "skin": 142,
+        "detail": 186
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0018431613485143596,
+      "outsideSilhouette": 493
+    },
+    {
+      "index": 10,
+      "direction": 1,
+      "column": 1,
+      "counts": {
+        "primary": 3912,
+        "secondary": 1505,
+        "skin": 157,
+        "detail": 179
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0015314533199371812,
+      "outsideSilhouette": 549
+    },
+    {
+      "index": 11,
+      "direction": 1,
+      "column": 2,
+      "counts": {
+        "primary": 3831,
+        "secondary": 1509,
+        "skin": 153,
+        "detail": 185
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0016333723766642667,
+      "outsideSilhouette": 497
+    },
+    {
+      "index": 12,
+      "direction": 1,
+      "column": 3,
+      "counts": {
+        "primary": 3739,
+        "secondary": 1386,
+        "skin": 142,
+        "detail": 170
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.001848453240734628,
+      "outsideSilhouette": 540
+    },
+    {
+      "index": 13,
+      "direction": 1,
+      "column": 4,
+      "counts": {
+        "primary": 3736,
+        "secondary": 1387,
+        "skin": 136,
+        "detail": 166
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0013871040124023419,
+      "outsideSilhouette": 564
+    },
+    {
+      "index": 14,
+      "direction": 1,
+      "column": 5,
+      "counts": {
+        "primary": 3755,
+        "secondary": 1405,
+        "skin": 142,
+        "detail": 171
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0014325491303821475,
+      "outsideSilhouette": 533
+    },
+    {
+      "index": 15,
+      "direction": 1,
+      "column": 6,
+      "counts": {
+        "primary": 3750,
+        "secondary": 1412,
+        "skin": 141,
+        "detail": 194
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0015294696017916643,
+      "outsideSilhouette": 752
+    },
+    {
+      "index": 16,
+      "direction": 1,
+      "column": 7,
+      "counts": {
+        "primary": 3746,
+        "secondary": 1383,
+        "skin": 136,
+        "detail": 186
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0017212357460164784,
+      "outsideSilhouette": 466
+    },
+    {
+      "index": 17,
+      "direction": 1,
+      "column": 8,
+      "counts": {
+        "primary": 3765,
+        "secondary": 1395,
+        "skin": 132,
+        "detail": 183
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0013833867823681066,
+      "outsideSilhouette": 674
+    },
+    {
+      "index": 18,
+      "direction": 2,
+      "column": 0,
+      "counts": {
+        "primary": 4854,
+        "secondary": 1396,
+        "skin": 96,
+        "detail": 225
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0009233704034418378,
+      "outsideSilhouette": 548
+    },
+    {
+      "index": 19,
+      "direction": 2,
+      "column": 1,
+      "counts": {
+        "primary": 5037,
+        "secondary": 1458,
+        "skin": 96,
+        "detail": 199
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0009397659488173788,
+      "outsideSilhouette": 753
+    },
+    {
+      "index": 20,
+      "direction": 2,
+      "column": 2,
+      "counts": {
+        "primary": 4938,
+        "secondary": 1437,
+        "skin": 111,
+        "detail": 206
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0010667449598747308,
+      "outsideSilhouette": 633
+    },
+    {
+      "index": 21,
+      "direction": 2,
+      "column": 3,
+      "counts": {
+        "primary": 4842,
+        "secondary": 1406,
+        "skin": 103,
+        "detail": 184
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0009362759147797841,
+      "outsideSilhouette": 510
+    },
+    {
+      "index": 22,
+      "direction": 2,
+      "column": 4,
+      "counts": {
+        "primary": 4927,
+        "secondary": 1423,
+        "skin": 108,
+        "detail": 211
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0009931434901354114,
+      "outsideSilhouette": 382
+    },
+    {
+      "index": 23,
+      "direction": 2,
+      "column": 5,
+      "counts": {
+        "primary": 4787,
+        "secondary": 1395,
+        "skin": 101,
+        "detail": 209
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0009320103180132176,
+      "outsideSilhouette": 455
+    },
+    {
+      "index": 24,
+      "direction": 2,
+      "column": 6,
+      "counts": {
+        "primary": 4656,
+        "secondary": 1368,
+        "skin": 101,
+        "detail": 185
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0010054742486872974,
+      "outsideSilhouette": 562
+    },
+    {
+      "index": 25,
+      "direction": 2,
+      "column": 7,
+      "counts": {
+        "primary": 4611,
+        "secondary": 1330,
+        "skin": 93,
+        "detail": 207
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0009200283085633404,
+      "outsideSilhouette": 477
+    },
+    {
+      "index": 26,
+      "direction": 2,
+      "column": 8,
+      "counts": {
+        "primary": 4624,
+        "secondary": 1336,
+        "skin": 97,
+        "detail": 184
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0009792242928385391,
+      "outsideSilhouette": 395
+    },
+    {
+      "index": 27,
+      "direction": 3,
+      "column": 0,
+      "counts": {
+        "primary": 4370,
+        "secondary": 1511,
+        "skin": 132,
+        "detail": 223
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0016743244295615606,
+      "outsideSilhouette": 515
+    },
+    {
+      "index": 28,
+      "direction": 3,
+      "column": 1,
+      "counts": {
+        "primary": 4217,
+        "secondary": 1488,
+        "skin": 128,
+        "detail": 202
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0012136386223768204,
+      "outsideSilhouette": 562
+    },
+    {
+      "index": 29,
+      "direction": 3,
+      "column": 2,
+      "counts": {
+        "primary": 4279,
+        "secondary": 1465,
+        "skin": 122,
+        "detail": 221
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0012437555249470633,
+      "outsideSilhouette": 459
+    },
+    {
+      "index": 30,
+      "direction": 3,
+      "column": 3,
+      "counts": {
+        "primary": 4348,
+        "secondary": 1491,
+        "skin": 135,
+        "detail": 218
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0015579843725842322,
+      "outsideSilhouette": 869
+    },
+    {
+      "index": 31,
+      "direction": 3,
+      "column": 4,
+      "counts": {
+        "primary": 4349,
+        "secondary": 1528,
+        "skin": 134,
+        "detail": 206
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0012905936730896212,
+      "outsideSilhouette": 1058
+    },
+    {
+      "index": 32,
+      "direction": 3,
+      "column": 5,
+      "counts": {
+        "primary": 4236,
+        "secondary": 1493,
+        "skin": 116,
+        "detail": 221
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0011487134409461403,
+      "outsideSilhouette": 912
+    },
+    {
+      "index": 33,
+      "direction": 3,
+      "column": 6,
+      "counts": {
+        "primary": 4218,
+        "secondary": 1523,
+        "skin": 136,
+        "detail": 208
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0013662637940094588,
+      "outsideSilhouette": 1158
+    },
+    {
+      "index": 34,
+      "direction": 3,
+      "column": 7,
+      "counts": {
+        "primary": 4189,
+        "secondary": 1446,
+        "skin": 116,
+        "detail": 235
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0013493650755403484,
+      "outsideSilhouette": 980
+    },
+    {
+      "index": 35,
+      "direction": 3,
+      "column": 8,
+      "counts": {
+        "primary": 4052,
+        "secondary": 1454,
+        "skin": 130,
+        "detail": 203
+      },
+      "regions": 1,
+      "detached": 0,
+      "coverage": 0.0012752778283840408,
+      "outsideSilhouette": 785
+    }
+  ],
+  "errors": [],
+  "nativeProofs": [
+    {
+      "image": "art/proofs/character-kit-hd/headwear-cap-slim--wardrobe-review.native-0.png",
+      "imageSha256": "2df7985d512b053f99dafefa844fdbec8f4b0d3b620acb75fbe5a8f899972e93",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-cap-slim--wardrobe-review.native-1.png",
+      "imageSha256": "ef25aa2f469094624fc4bac8b7c8a67ee70d55f0bf19e4fa037cc32847e6a4cc",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-cap-slim--wardrobe-review.native-2.png",
+      "imageSha256": "2913e614313ec178308c39d8ed3eb3e74262c3e06b45f6732e04c1bfe3f4ba9e",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-cap-slim--wardrobe-review.native-3.png",
+      "imageSha256": "901ce628f696bf239fc6a658246cf7c80e89da03c9ac74ac520086110ea991ff",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-cap-slim--wardrobe-review.native-4.png",
+      "imageSha256": "9b6fa7ebac040984b5ebcd26d12d238c849c3ea8811aadc7c6c43640ca6fffaa",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-cap-slim--wardrobe-review.native-5.png",
+      "imageSha256": "6bd00521b3741b78f07a80f93aacec6132417792914216ccd72b83c676498530",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-cap-slim--wardrobe-review.native-6.png",
+      "imageSha256": "7a4ece631ccb680df545520ff52baa93603302e0f8051a291083ded6aa51cbd1",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-cap-slim--wardrobe-review.native-7.png",
+      "imageSha256": "63db448164c4924f4b31c437ee8d0e624f75e6d0a9b040f9eaaa2d5475e77dfe",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-cap-slim--wardrobe-review.native-8.png",
+      "imageSha256": "2957950fc5b9ac69f7e23ca3fe64c6bb12d25687fb35b0a4c76b21984d7aba96",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 0,
+      "palette": "warm",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-cap-slim--wardrobe-review.native-9.png",
+      "imageSha256": "9ce53f9235a660de0e8ee8aedf6b6f4cad64188335d96cf33d668ac37518bfe3",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-cap-slim--wardrobe-review.native-10.png",
+      "imageSha256": "eb121600b7626c812f9763746ea0c5cde81f5b27ef02b1c74b072785813ae073",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-cap-slim--wardrobe-review.native-11.png",
+      "imageSha256": "2a6da6f2b3b9c0174fd8f86948a5d9feaa40a64c10d97789582ae4cdd05f9b78",
+      "frames": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-cap-slim--wardrobe-review.native-12.png",
+      "imageSha256": "4db2be590ffeeea419fcd801548407d0258d26d6a0c7299a5a4bcb444af59715",
+      "frames": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-cap-slim--wardrobe-review.native-13.png",
+      "imageSha256": "67f7f1e9bee3a02a009ded38675410efe5aa0497d69f4f45cb345853ce3b283c",
+      "frames": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-cap-slim--wardrobe-review.native-14.png",
+      "imageSha256": "5c34ecb41bf8c3a346941bbb6f08cc6b3c1500cff4559b13bb5cee67080e7acf",
+      "frames": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-cap-slim--wardrobe-review.native-15.png",
+      "imageSha256": "32b21f033dc734053c191b64fe980ce61c8f88d326fd6cfbe0a56479255fc1a8",
+      "frames": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-cap-slim--wardrobe-review.native-16.png",
+      "imageSha256": "5bb691d91a31ef147c859f5de30d4e55443e8a60d4be2debda0088361ba26a39",
+      "frames": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    },
+    {
+      "image": "art/proofs/character-kit-hd/headwear-cap-slim--wardrobe-review.native-17.png",
+      "imageSha256": "738ee40180eb517a8848db88b0f62078cbc1bdd9bd6f07a25221fff9ac40f99d",
+      "frames": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "board": 1,
+      "palette": "cool",
+      "cell": [
+        512,
+        768
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "headwear-cap-slim",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "face-soft-slim",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "hair-waves-slim",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "top-shirt-slim",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "bottom-straight-slim",
+      "valid": true,
+      "errors": []
+    },
+    {
+      "id": "footwear-boots-slim",
+      "valid": true,
+      "errors": []
+    }
+  ],
+  "boards": [
+    "base · warm",
+    "base · cool",
+    "existing outfit · warm",
+    "existing outfit · cool"
+  ],
+  "with": [
+    "face-soft-slim",
+    "hair-waves-slim",
+    "top-shirt-slim",
+    "bottom-straight-slim",
+    "footwear-boots-slim"
+  ],
+  "sources": {
+    "headwear-cap-slim": {
+      "path": "art/source/character-kit/hd/headwear-cap-slim.png",
+      "sha256": "05c16acba45bd66089332337d3321f9e00e20bd3fcf7c46a98f92a437b1882a1"
+    },
+    "face-soft-slim": {
+      "path": "art/source/character-kit/hd/face-soft-slim.png",
+      "sha256": "d8abb211ca904c903739a72bb36145117485707a79dcc7d9eb6b0e9536d9f681"
+    },
+    "hair-waves-slim": {
+      "path": "art/source/character-kit/hd/hair-waves-slim.png",
+      "sha256": "dadc11687efc2874985e799a5ef95eee0cd2f8f16b7a8210f1728e15fad5ea3b"
+    },
+    "top-shirt-slim": {
+      "path": "art/source/character-kit/hd/top-shirt-slim.png",
+      "sha256": "6a1045d2857a25ed90b1399f512b49c11884c4f9f0b8a6d4c25edcaf5dd680d7"
+    },
+    "bottom-straight-slim": {
+      "path": "art/source/character-kit/hd/bottom-straight-slim.png",
+      "sha256": "5c4d04323280a9782940f7fbf8ddf3bcb7cb3b288b4b5daa19230837c3fe6a9a"
+    },
+    "footwear-boots-slim": {
+      "path": "art/source/character-kit/hd/footwear-boots-slim.png",
+      "sha256": "0561da3fda8a80f1e9ca239a549705e5017707d16d6e8ab1970d0ffebccd1150"
+    }
+  },
+  "ruleTrace": [
+    {
+      "board": 0,
+      "facing": "down",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "headwear-cap-slim"
+      ],
+      "hidden": [
+        "hair-waves-slim"
+      ]
+    },
+    {
+      "board": 0,
+      "facing": "right",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "headwear-cap-slim"
+      ],
+      "hidden": [
+        "hair-waves-slim"
+      ]
+    },
+    {
+      "board": 0,
+      "facing": "up",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "headwear-cap-slim"
+      ],
+      "hidden": [
+        "hair-waves-slim"
+      ]
+    },
+    {
+      "board": 0,
+      "facing": "left",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "headwear-cap-slim"
+      ],
+      "hidden": [
+        "hair-waves-slim"
+      ]
+    },
+    {
+      "board": 1,
+      "facing": "down",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "headwear-cap-slim"
+      ],
+      "hidden": [
+        "hair-waves-slim"
+      ]
+    },
+    {
+      "board": 1,
+      "facing": "right",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "headwear-cap-slim"
+      ],
+      "hidden": [
+        "hair-waves-slim"
+      ]
+    },
+    {
+      "board": 1,
+      "facing": "up",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "headwear-cap-slim"
+      ],
+      "hidden": [
+        "hair-waves-slim"
+      ]
+    },
+    {
+      "board": 1,
+      "facing": "left",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "headwear-cap-slim"
+      ],
+      "hidden": [
+        "hair-waves-slim"
+      ]
+    },
+    {
+      "board": 2,
+      "facing": "down",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "headwear-cap-slim"
+      ],
+      "hidden": [
+        "hair-waves-slim"
+      ]
+    },
+    {
+      "board": 2,
+      "facing": "right",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "headwear-cap-slim"
+      ],
+      "hidden": [
+        "hair-waves-slim"
+      ]
+    },
+    {
+      "board": 2,
+      "facing": "up",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "headwear-cap-slim"
+      ],
+      "hidden": [
+        "hair-waves-slim"
+      ]
+    },
+    {
+      "board": 2,
+      "facing": "left",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "headwear-cap-slim"
+      ],
+      "hidden": [
+        "hair-waves-slim"
+      ]
+    },
+    {
+      "board": 3,
+      "facing": "down",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "headwear-cap-slim"
+      ],
+      "hidden": [
+        "hair-waves-slim"
+      ]
+    },
+    {
+      "board": 3,
+      "facing": "right",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "headwear-cap-slim"
+      ],
+      "hidden": [
+        "hair-waves-slim"
+      ]
+    },
+    {
+      "board": 3,
+      "facing": "up",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "headwear-cap-slim"
+      ],
+      "hidden": [
+        "hair-waves-slim"
+      ]
+    },
+    {
+      "board": 3,
+      "facing": "left",
+      "visible": [
+        "face-soft-slim",
+        "bottom-straight-slim",
+        "footwear-boots-slim",
+        "top-shirt-slim",
+        "headwear-cap-slim"
+      ],
+      "hidden": [
+        "hair-waves-slim"
+      ]
+    }
+  ],
+  "approved": false,
+  "note": "Diagnostic proof; visual review and a passing check are required before approval."
+}

@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "c545de7baa189b1e2a881bf7f82b864de4f8290adfa255f31f2d164c43902d29",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "85b294c3a8b9a6527807718ea7ae631bc0d894174b6d34b37a03a3ce87a42b13",
+  "promptSha256": "97e820b8e62d2d83d3642fbe8da001d6ddea681f0dfa58897ba1fd7c675106a3",
+  "generationPromptSha256": "f9a140d59d1b6d77349e97f1efe986982387b197707e3c8d7c956ea061bf806c",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "c347f46c2dcc0c1425ad5b6d2e89de7beac3ffe7b2eddeb63cedae76dd7fbde5",
+  "candidate": "art/source/character-kit/hd/headwear-bucket-slim-candidate.png",
+  "lockedSha256": "2021bc9241b1828819d8117d673ba2fec8cd603382e12934434666314e8d5241"
+}

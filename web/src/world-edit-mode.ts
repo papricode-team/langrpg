@@ -1,3 +1,5 @@
+import {getInterior} from './interiors';
+import {roomLayoutFingerprint} from './room-layout';
 /**
  * In-game edit mode for admins. The town keeps running: the admin walks with
  * the keyboard, and the pointer selects and drags objects instead of walking.
@@ -8,7 +10,7 @@ import type {MapId} from './maps';
 import type {NavigationGrid} from './navigation';
 import {sceneryFootprints} from './placed-scenery';
 import {getWorldScene,sceneDocument} from './scene-data';
-import {getSceneryGeometryMap,sceneEntrancePoint,type SceneInteriorKind,type SceneScenery,type ScenePoint} from './scene-schema';
+import {buildingRoomKind,getSceneryGeometryMap,sceneEntrancePoint,type SceneInteriorKind,type SceneScenery,type ScenePoint} from './scene-schema';
 import {applyEditOps,type WorldEditOp} from './world-edit-ops';
 import {defaultActivities,newPlacement,paletteChoices,type PaletteChoice} from './world-edit-palette';
 import {variantChoices} from './world-edit-catalogue';
@@ -125,7 +127,10 @@ export class WorldEditController {
     this.publish();
   }
 
+  private roomEditor?: {destroy():void};
+
   destroy(): void {
+    this.roomEditor?.destroy();
     const scene = this.scene;
     scene.input.off('pointerdown', this.pointerDown, this);
     scene.input.off('pointermove', this.pointerMove, this);
@@ -325,6 +330,16 @@ export class WorldEditController {
   // Inspector commands ---------------------------------------------------------------
 
   private selectedItem(): SceneScenery | undefined { return this.selected?.kind === 'scenery' ? this.item(this.selected.id) : undefined; }
+
+  async editRoom(): Promise<void> {
+    const item = this.selectedItem(), kind = item && buildingRoomKind(item);
+    if (!item || !kind || this.busy || this.bridge.locks.has(item.id)) return;
+    const map = this.map, expected = roomLayoutFingerprint(item.roomLayout);
+    const {openRoomEditor} = await import('./admin-room-editor');
+    if (this.bridge.controller !== this) return;
+    this.roomEditor?.destroy();
+    this.roomEditor = openRoomEditor(getInterior(kind),item.roomLayout,layout=>this.commit([{kind:'room',map,id:item.id,layout,expected}]),objectLabel(getWorldScene(map),item.id));
+  }
 
   setVariant(frame: string): void {
     const item = this.selectedItem();

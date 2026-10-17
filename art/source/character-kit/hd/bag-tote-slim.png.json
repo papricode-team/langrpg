@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "candidateSha256": "84e8008d2ba42b3e6e2f43cad4bfc27b8e5532b4b2c5293a29eebf04488ac855",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "c0382c1435b89296a17e0e1afc62f27045f8f5b87700599789e681ce0ff9aa1c",
+  "promptSha256": "7a80a34e6d465893c799cf09f1867800030abfb41bfece1f25df4d0570a80ab7",
+  "generationPromptSha256": "601fe37cd17da7c49ae133d21180710117941c1210c490e36bf1a79bc5b1c3dd",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailReach": 2,
+    "detailMaterial": "primary"
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "down": 2,
+      "right": 3,
+      "left": 3
+    },
+    "regionReason": "The near arm divides the shoulder tote and strap; the far-side tote peeks around both the torso and swinging arm. Rear tote and strap remain connected.",
+    "materialReason": "The far-side tote is almost fully occluded in right profile; the swinging arm reveals different fractions of the cloth. Other facings retain the usual minimum coverage and every frame retains its upper area limit.",
+    "optionalMaterialFacings": {
+      "primary": [
+        "right"
+      ]
+    }
+  },
+  "preparationSha256": "1eda7f894fb7575b492a2fd8b59a2af273362160af39d85f787cc9cc70f0d95d",
+  "candidate": "art/source/character-kit/hd/bag-tote-slim-candidate.png",
+  "lockedSha256": "0f556cf42d7569bf8e72cd69b5d42bcea3ddced4944b4fa5977df48b03d13c7f"
+}

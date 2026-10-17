@@ -436,6 +436,19 @@ describe('conversation scene lifecycle', () => {
     expect(document.querySelector('.dialogue-feedback')?.textContent ?? '').not.toContain('complete');
     expect(document.querySelector('[data-dialogue-choice="protect"]')).toBeNull();
   });
+  it('moves past a saved choice even when the town fails to react to the completion', async () => {
+    const f=fixture('choice');
+    const failure=new TypeError('reaction failed');
+    f.options.onComplete.mockImplementation(()=>{throw failure;});
+    const logged=vi.spyOn(console,'error').mockImplementation(()=>{});
+    await f.controller.open('a1-arrival');until('[data-dialogue-choice="protect"]');
+    f.click('[data-dialogue-choice="protect"]');
+    await vi.waitFor(()=>expect(f.options.onComplete).toHaveBeenCalledTimes(1));
+    expect(f.api.storyTransition).toHaveBeenCalledTimes(1);
+    expect(document.querySelector('[data-dialogue-choice="protect"]')).toBeNull();
+    expect(document.querySelector('.dialogue-feedback')).toBeNull();
+    expect(logged.mock.lastCall?.[1]).toBe(failure);
+  });
   it('keeps the investigation stage when its transition is temporarily rejected', async () => {
     const f=fixture();f.progress.story!.inspections['a1-arrival']=questGraphs.find(graph => graph.questId === 'a1-arrival')!.investigations.map(item=>item.objectId);
     f.progress.story!.flags['reply:a1-arrival-exercise-1']=true;
@@ -647,6 +660,15 @@ describe('server content loading', () => {
     await vi.waitFor(() => expect(document.querySelector('.dialogue-line')).not.toBeNull());
     expect(loadGraph).toHaveBeenCalledWith(graph.questId);
     expect(loadSentence.mock.calls.map(([line]) => line.id)).toEqual(graph.nodes.find(node => node.stage === 'intro')!.lines.slice(0, 2).map(line => line.id));
+  });
+  it('names the evidence clip after the authored object slug when the API translated its id', async () => {
+    const f = fixture('intro', 'a1-arrival');
+    const source = questGraphs.find(graph => graph.questId === 'a1-arrival')!;
+    const item = source.investigations.find(entry => entry.objectId === 'lindenhafen-noticeboard')!;
+    const graph = { ...source, investigations: [{ ...item, objectId: '1a95fad2-4b59-5b5c-9671-5982225d82f9', worldId: item.objectId }] };
+    Object.assign(f.options, { loadGraph: vi.fn(async () => graph) });
+    expect(await f.controller.inspect('a1-arrival', '1a95fad2-4b59-5b5c-9671-5982225d82f9')).toBe(true);
+    expect(f.options.speak).toHaveBeenCalledWith(item.german, 'Evidence', `artifact-a1-arrival-${item.objectId}`, undefined);
   });
   it('does not display a late sentence response after the conversation closes', async () => {
     const f = fixture('intro');

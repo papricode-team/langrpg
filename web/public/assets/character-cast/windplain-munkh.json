@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/windplain-munkh.png",
   "proofSha256": "d12b305d394d36bcf9e526f5059019caf257b79689b29340812e7f84f52f13ba",
   "editorSha256": "b1bc1643c12b7c0d2daf87871adc91d1aa0ab0c8c8a9f33f770d98eefa91f947",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "b68238247934713baa6eb104d8ab42a2a59ac53e5b4f36cc6f314c0aa8165f99"
+  }
 }

@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-slim-broad-page-0-candidate-2.png",
+      "sha256": "a04a2cf981064fd066c2c538e342ec439b33d96ba88d938fea90f4a5607c2fc8"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-slim-broad-page-0-candidate-2.txt",
+      "sha256": "75559297a0b4ee0b08955008f52a7536e18ff8ba049b1cd3536efd9dfb776208"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-0.json",
+      "sha256": "081ac1e8ce12a0772254093462119cc244ba2297ae4b20e4c697960ab371c3a4"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-slim-broad-page-1-candidate-2.png",
+      "sha256": "462e57e1ef0ce3bd716e100ee24b5a3b4ec42743fb90387a3190af215781d759"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-slim-broad-page-1-candidate-2.txt",
+      "sha256": "824c2a3a41d7c72ed9c7e580d93c68beca0c6596f3a7c5fd73fab0ed18e1712c"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-1.json",
+      "sha256": "6c709f3a0d3218c7782deceb16dcdf546cfa0621785fbf74d41c2597fc796da4"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-slim-broad-page-2-candidate-2.png",
+      "sha256": "567090c491bb4dd37d1104e6d91da55148b2cf127ded5a9bc069e58b7f3f1492"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-slim-broad-page-2-candidate-2.txt",
+      "sha256": "7580477f3f70a467a90dc5c6d7bd85c79cb6072a4c74eb2df10aa13f13e21ef4"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-2.json",
+      "sha256": "f63b3d1d376a06d233ff5ad4687d96752e1153682f60672398ba0d4b92be0b89"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-slim-broad-page-3-candidate-2.png",
+      "sha256": "2fdb35de65442d5f7ffa7195fae47a29cb63dec6a9e886699e002954e1c3f749"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-slim-broad-page-3-candidate-2.txt",
+      "sha256": "afcd3d38d77106a7d4083527c19a6cda300b3a0f8c93a6804640360c45e75a55"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-3.json",
+      "sha256": "3b46fffa1465a306aa00e010971ca6315af366f178587e983bf8b2e31897e97b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-slim-broad-page-4-candidate-2.png",
+      "sha256": "a410caa2938a6b92650284ce2f2372582349a0c2dc130b4075576bfa01ba7437"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-slim-broad-page-4-candidate-2.txt",
+      "sha256": "a71acb94f61c5d801ab774dca44646d3ad81e0bb15f4785bce3a262c8fa0c71c"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-4.json",
+      "sha256": "684241bf10acc2a2d152cdc5d1ea4fc486a14f3c3ea02592e2a6b3a5c685c5be"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/bottom-slim-broad-page-5-candidate-2.png",
+      "sha256": "069dea8b8fa537b3a9d8066dc025696561d03bedcc1f652f3ca26977727bb705"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/bottom-slim-broad-page-5-candidate-2.txt",
+      "sha256": "12e99883f06930689d99baebed6b45d7380f5875b5b5c0c05f6cf295367d038b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-lower/page-5.json",
+      "sha256": "4aceb63188de2b8ab6ff2f340339316e17998395c2eb23742bec567d1d778330"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "8d16802e6818674df78caaaa9324e703059ed43a7d06ac6c14f59dd4107fdcb5"
+}

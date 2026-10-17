@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-scarf-broad-page-0-candidate-1.png",
+      "sha256": "2b924978500e3bb5d439714138c42f32945a21961679f88062181ee84f82d8f6"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-scarf-broad-page-0-candidate-1.txt",
+      "sha256": "3c9d32e33332d82bddf98e44e451395111dccc01fe285e9d995b7e1421a803e0"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-0.json",
+      "sha256": "d4c597d609eaced853a49300a3c916edad44486d2083661e2e1f72015c5fb832"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-scarf-broad-page-1-candidate-1.png",
+      "sha256": "17cfdc2d8bfa60328ce96ebef6db4f72fb11cad9d6f6e589630d0f99dd24602c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-scarf-broad-page-1-candidate-1.txt",
+      "sha256": "3c9d32e33332d82bddf98e44e451395111dccc01fe285e9d995b7e1421a803e0"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-1.json",
+      "sha256": "597ae57a47283b3583f871d7ecfb79f8eb0d069ec363f819db5347b622c0eec5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-scarf-broad-page-2-candidate-1.png",
+      "sha256": "2901fc0d81b7c7ad009e931ddda50a69eb8d0da0380221e3376aae73a2628a12"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-scarf-broad-page-2-candidate-1.txt",
+      "sha256": "685128f6d9327a31d33325a9ee30b023f3fc86c6c177355b887cb3cffd23af8c"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-2.json",
+      "sha256": "3822b1501237a22f8d5952fa86901bb95b3a7ca3e1637d7063b13b8b5a890e21"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-scarf-broad-page-3-candidate-1.png",
+      "sha256": "5f7e3ff9ae118f1130394db9c547d087059687d9de4033147216defdc3576928"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-scarf-broad-page-3-candidate-1.txt",
+      "sha256": "3aad7c5dc9c9708af66bb76e70e119c91083191879ccc83c8aa02d9bcb1972ca"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-3.json",
+      "sha256": "09412f0261449be2e3d6bacbb0fb474dfa77e215dc568cef97a5387d7eceba7e"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-scarf-broad-page-4-candidate-1.png",
+      "sha256": "9f054bc70e3bee87f74da66fef7a51b586b73d5e69dea0d9c527e36b4a314ae3"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-scarf-broad-page-4-candidate-1.txt",
+      "sha256": "14b4b8de852f0323827676aad854d315adfdcbf0483d74806259e446098c7a17"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-4.json",
+      "sha256": "5252f9b6b506aeba7aa6b065493407dc63e3afa72771694c1fc3d3f025c359a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-scarf-broad-page-5-candidate-1.png",
+      "sha256": "230563f311558930c20a4d3c4cbe25470b64b09496dd9b1594776915e17dae4b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-scarf-broad-page-5-candidate-1.txt",
+      "sha256": "0b7eaca2ff405027c4c9d76e2d1494d8048123f2dabdfaee5d662ada57a3420c"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-5.json",
+      "sha256": "72beb8597382255bf7cfde12b003f50107cce66fee1e4d12ba961c28edfdb6dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-scarf-broad-page-6-candidate-1.png",
+      "sha256": "055c1714e0eee30b79b773ddeb3fcfc7c7100c216b98ef482f10d0e0d1adf536"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-scarf-broad-page-6-candidate-1.txt",
+      "sha256": "258b03a55c1d65862a98044110112c4643f9c845a21e7765be020149ac985505"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-6.json",
+      "sha256": "369c87b8e1c6db5e23506f6c9c049b8866e3b95c4a57ebb3e5fdb50cff738546"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-scarf-broad-page-7-candidate-1.png",
+      "sha256": "f1f68c12eded01ae2fdfbe82cd32f39ccc464e74942ef0a6679f4b8e0c9dcaf8"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-scarf-broad-page-7-candidate-1.txt",
+      "sha256": "82dfc4b7e027a276657f6539092afbd8df5043ee8f86180bda67ae289da731d6"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-7.json",
+      "sha256": "594be292ae2bb672b79bc0f64091efc6184647dc4159416c469120e9794ae6a2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-scarf-broad-page-8-candidate-1.png",
+      "sha256": "284450a8fc6393d458fb2f3a57a931b726951cd9548d2be410ca5d396004d934"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-scarf-broad-page-8-candidate-1.txt",
+      "sha256": "82dfc4b7e027a276657f6539092afbd8df5043ee8f86180bda67ae289da731d6"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-8.json",
+      "sha256": "59b98d4a2e80d5eda70982582ea13bff1711eca74a22fd82e4b3ed6ef6f68734"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "9fd5583c4b5e5ae1842b271ae403c3f8b5997418f139439b7f582aa979f4109b"
+}

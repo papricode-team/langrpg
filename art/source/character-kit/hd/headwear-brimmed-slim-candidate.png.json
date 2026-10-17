@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-brimmed-slim-page-0-candidate-1.png",
+      "sha256": "fc24dcd936ce1222b9d085cd7c8bc2497c4e78f1063fc2fe123f0a951b892355"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-brimmed-slim-page-0-candidate-1.txt",
+      "sha256": "5bef5b06f8e51fe8869c99d4dd6774d3747b57566db6f333ccc2eb9ccec1906a"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-0.json",
+      "sha256": "9207c077e0be3b69b427bf2fef3c5c6ec2cba6cd90360ea2f21dee3997475f8b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-brimmed-slim-page-1-candidate-1.png",
+      "sha256": "66707c78c07c1d33600f1fcee9c458d2a9e6d2dc596e4f38882e7fa274382714"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-brimmed-slim-page-1-candidate-1.txt",
+      "sha256": "5bef5b06f8e51fe8869c99d4dd6774d3747b57566db6f333ccc2eb9ccec1906a"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-1.json",
+      "sha256": "f25ab7ae6f2211a6dcf84a772de156dca1aea4c9a1667b243da9303f7f1651ae"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-brimmed-slim-page-2-candidate-1.png",
+      "sha256": "4cfbe7a05cc253113fa77c3816644eeff851f1bb250f3d68f26a479fcebd2761"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-brimmed-slim-page-2-candidate-1.txt",
+      "sha256": "5bef5b06f8e51fe8869c99d4dd6774d3747b57566db6f333ccc2eb9ccec1906a"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-2.json",
+      "sha256": "114454392f0cfb9ed7f499b8732bbd8ea3acae965a2db03ac0e20f8ab4e31746"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-brimmed-slim-page-3-candidate-1.png",
+      "sha256": "f73e51f3e9fbf37a87052bd51e6cafbe9a86119250a3142f7ed5ba0dbf1eae6a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-brimmed-slim-page-3-candidate-1.txt",
+      "sha256": "5bef5b06f8e51fe8869c99d4dd6774d3747b57566db6f333ccc2eb9ccec1906a"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-3.json",
+      "sha256": "9aef7f92c4a053f1ceb57baa15a3a3771a2c646922f5b26f7f9c0ac68ec0b4bd"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "f9432d20ca16f4dbc8d3c922523f95903ece559288ccd837c9b6acb82949841f"
+}

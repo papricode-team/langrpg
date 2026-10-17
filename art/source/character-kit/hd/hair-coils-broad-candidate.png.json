@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-coils-broad-page-0-candidate-1.png",
+      "sha256": "ac54fc8b79809f7d22210002c8d4c61cf28a4ceba04010675d3665943d0759e1"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-coils-broad-page-0-candidate-1.txt",
+      "sha256": "93f3a6acda018e5da97816e6312f67715360d97eb1aafc41490ccc81d3d2f001"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-coils-broad-page-1-candidate-1.png",
+      "sha256": "51431b6fcdce7d8f2e288aaa132373fd49e8d79b743f4dbf647cc75418fd3c6e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-coils-broad-page-1-candidate-1.txt",
+      "sha256": "642bd5462fbc1eea5f9e3770d43cce4690df5cba428046bcb44b93c6cff01a79"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-coils-broad-page-2-candidate-1.png",
+      "sha256": "4a2e3219ee78615957bfdb88dd89dac2f36e2e307725adebd8785debe9386823"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-coils-broad-page-2-candidate-1.txt",
+      "sha256": "0c2590b09131c3219214c86aba0315502a92b2e4bf06300ed3780b674a0b916b"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-coils-broad-page-3-candidate-1.png",
+      "sha256": "9681ee58ec30e515f3d25b82b8ef8090b479c45a8ee73a2ee2fe60ed1113525b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-coils-broad-page-3-candidate-1.txt",
+      "sha256": "ad21357971222556ef6096b751d1f6bf1f78ef026683f7d19ed43049900b6013"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "b3ce9723f5ef2bece760b2d3cf0093771b6f1f6964589000574e7435aa6737b3"
+}

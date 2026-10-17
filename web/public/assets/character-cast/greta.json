@@ -16,7 +16,7 @@
   "proof": "art/proofs/character-cast/greta.png",
   "proofSha256": "cc9f91da44810458fb3ede5965b0f9513c2a6adc50552bd0dd00849793cd0f87",
   "editorSha256": "8dec5fcb9126b8c7d5a8a5dea87afb270970f4c99d2e6a058a081cea0236c34f",
-  "assetVersion": "4c9d233bf71007a9",
+  "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-greta-native",
@@ -46,5 +46,10 @@
     ],
     "source": "art/proofs/character-cast/greta.webp",
     "sourceSha256": "8dec5fcb9126b8c7d5a8a5dea87afb270970f4c99d2e6a058a081cea0236c34f"
+  },
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "dee84541e3817edcb4f5be835f498c60d7e5f2c427171beca56e3ccdbf0c534c"
   }
 }

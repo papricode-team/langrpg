@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-bob-broad-page-0-candidate-1.png",
+      "sha256": "e44f49eed381c685e9c42c2342bd21673b844078a07f19d1fd9cf3c10ea9056c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-bob-broad-page-0-candidate-1.txt",
+      "sha256": "73374dd73c95bbf765da5df59ec52e9c273a3d914b3a4bc785fa08de0f426be0"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-bob-broad-page-1-candidate-1.png",
+      "sha256": "7b0d2cb28b9b6aea7f02d8a4b0fb4ecf188d8e0659d7d2fbcf61c56b346fa0d8"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-bob-broad-page-1-candidate-1.txt",
+      "sha256": "73374dd73c95bbf765da5df59ec52e9c273a3d914b3a4bc785fa08de0f426be0"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-bob-broad-page-2-candidate-1.png",
+      "sha256": "164e794697f15c7dc022416a51b3966076f4c9c5d2880e96b469dc8a653d4645"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-bob-broad-page-2-candidate-1.txt",
+      "sha256": "73374dd73c95bbf765da5df59ec52e9c273a3d914b3a4bc785fa08de0f426be0"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-bob-broad-page-3-candidate-1.png",
+      "sha256": "9ceea2d57c7df7a5273a611fe5ef2ad0ae5203ea047c865b66ac4a2c9b4bc4d0"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-bob-broad-page-3-candidate-1.txt",
+      "sha256": "73374dd73c95bbf765da5df59ec52e9c273a3d914b3a4bc785fa08de0f426be0"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "949e3e0fb971d80b4cd88af793f2fcb703b83295c55dc65c6581bca75c5bffb5"
+}

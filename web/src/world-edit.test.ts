@@ -150,7 +150,7 @@ describe('placement rules', () => {
   });
   it('derive size limits and room eligibility from the artwork', () => {
     const scene = town(), host = scene.scenery.find(item => item.interior)!, tree = scene.scenery.find(item => item.asset === 'tree')!;
-    expect(roomOptions(scene.id, host)).toEqual(['cafe', 'bakery', 'supermarket', 'inn', 'train-compartment', 'train-dining']);
+    expect(roomOptions(scene.id, host)).toEqual(['cafe', 'bakery', 'supermarket', 'inn', 'library', 'workshop', 'station', 'greenhouse', 'home']);
     expect(roomOptions(scene.id, tree)).toEqual([]);
     const plain = sizeRange(scene.id, {...host, interior: undefined}), room = sizeRange(scene.id, host);
     expect(room.min).toBeGreaterThanOrEqual(plain.min);

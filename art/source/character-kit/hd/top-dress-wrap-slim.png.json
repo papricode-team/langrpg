@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "candidateSha256": "ee6f1cc77096057bf2b5e5b9e0853f84e9ada264f326258ee25380c02f41b9f3",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "968c40b89d96b2edc132cf850cb9ff745e492a0dcb56baae774f3ade329c41d0",
+  "promptSha256": "0096580661d5becc7fa4de672f65d8f130f5829123960bc34e5325ad9f199c49",
+  "generationPromptSha256": "0bfdda34ddddf2e9c791bffa5460b6a44439302b7f130bdcab22e24f269ae392",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailReach": 2,
+    "detailMaterial": "primary"
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "down": 2
+    },
+    "regionReason": "The near hand separates a small visible waist panel from the main dress."
+  },
+  "preparationSha256": "0d1c9af5ef918db05ea416c0b18535816a055689896d4e2bbd04ee0d8c17fc0e",
+  "candidate": "art/source/character-kit/hd/top-dress-wrap-slim-candidate.png",
+  "lockedSha256": "35b2b1d5a3f4a7823ec103e89610989289b82b37cb74fa45dc42eaf214da8164"
+}

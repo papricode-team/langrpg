@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-waistcoat-broad-page-0-candidate-1.png",
+      "sha256": "2c238963ddff061670c556c4c9c4c3ff63971a412e55af81010fff09647ce989"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-waistcoat-broad-page-0-candidate-1.txt",
+      "sha256": "73540b99cebc3952e080f6d21bd2aaf0ef748d36c07e2476b930e90f1825c886"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-0.json",
+      "sha256": "d4c597d609eaced853a49300a3c916edad44486d2083661e2e1f72015c5fb832"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-waistcoat-broad-page-1-candidate-1.png",
+      "sha256": "736e9e32294053c7ff87bd7baca9c4758628b964dd4e9094ec311f54486cf89c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-waistcoat-broad-page-1-candidate-1.txt",
+      "sha256": "73540b99cebc3952e080f6d21bd2aaf0ef748d36c07e2476b930e90f1825c886"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-1.json",
+      "sha256": "597ae57a47283b3583f871d7ecfb79f8eb0d069ec363f819db5347b622c0eec5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-waistcoat-broad-page-2-candidate-1.png",
+      "sha256": "7f478a6502d9cec9c97e69c26afd52f404e22001e2ef5f195586303e4e34e56c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-waistcoat-broad-page-2-candidate-1.txt",
+      "sha256": "73540b99cebc3952e080f6d21bd2aaf0ef748d36c07e2476b930e90f1825c886"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-2.json",
+      "sha256": "3822b1501237a22f8d5952fa86901bb95b3a7ca3e1637d7063b13b8b5a890e21"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-waistcoat-broad-page-3-candidate-1.png",
+      "sha256": "7476fc31115e3d17183888d5f19fe953d4adab5f7c42bcb6cdb5d7fe69467531"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-waistcoat-broad-page-3-candidate-1.txt",
+      "sha256": "73540b99cebc3952e080f6d21bd2aaf0ef748d36c07e2476b930e90f1825c886"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-3.json",
+      "sha256": "09412f0261449be2e3d6bacbb0fb474dfa77e215dc568cef97a5387d7eceba7e"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-waistcoat-broad-page-4-candidate-1.png",
+      "sha256": "b69076089dba796530cd2f43e122f09395ff82a0f342eaa1f516ff5c9f563352"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-waistcoat-broad-page-4-candidate-1.txt",
+      "sha256": "73540b99cebc3952e080f6d21bd2aaf0ef748d36c07e2476b930e90f1825c886"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-4.json",
+      "sha256": "5252f9b6b506aeba7aa6b065493407dc63e3afa72771694c1fc3d3f025c359a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-waistcoat-broad-page-5-candidate-2.png",
+      "sha256": "c284408834d22f7eadc12bc8c0e779b9979ba9fe6922554aa0737bc9a073d9f4"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-waistcoat-broad-page-5-candidate-2.txt",
+      "sha256": "f07cc54a08c0521b811872f679de6ed0dd992f2f2a654273ce8b1c6e8ffb7d78"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-5.json",
+      "sha256": "72beb8597382255bf7cfde12b003f50107cce66fee1e4d12ba961c28edfdb6dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-waistcoat-broad-page-6-candidate-1.png",
+      "sha256": "5a6ca489e5a92db78165cd8bd64a45cc938730542bd58980039c26d45d8f8bb9"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-waistcoat-broad-page-6-candidate-1.txt",
+      "sha256": "73540b99cebc3952e080f6d21bd2aaf0ef748d36c07e2476b930e90f1825c886"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-6.json",
+      "sha256": "369c87b8e1c6db5e23506f6c9c049b8866e3b95c4a57ebb3e5fdb50cff738546"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-waistcoat-broad-page-7-candidate-1.png",
+      "sha256": "dbe509c6728e03e509aaa7a0b7984eac2a365f374a8b773b3ab52b51ff3a994e"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-waistcoat-broad-page-7-candidate-1.txt",
+      "sha256": "73540b99cebc3952e080f6d21bd2aaf0ef748d36c07e2476b930e90f1825c886"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-7.json",
+      "sha256": "594be292ae2bb672b79bc0f64091efc6184647dc4159416c469120e9794ae6a2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-waistcoat-broad-page-8-candidate-1.png",
+      "sha256": "cea34bffc7b3ae7b0d2f98156bd39dd8f1caec94941fb92aa9d820ac37dd529b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-waistcoat-broad-page-8-candidate-1.txt",
+      "sha256": "73540b99cebc3952e080f6d21bd2aaf0ef748d36c07e2476b930e90f1825c886"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-8.json",
+      "sha256": "59b98d4a2e80d5eda70982582ea13bff1711eca74a22fd82e4b3ed6ef6f68734"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "f183c3b30d3a355f400b559d7f5b908d8339048d9ad8baf27d3ecbf700681111"
+}

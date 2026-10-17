@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "candidateSha256": "523e59ea872b95c35080fc0ef7b97c991c973f234742803042884a7dc1b6c065",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "2aa2b30428afc35ec2a1d87971a5ee6e8ac4376100ce3b789bba5947dc283eb4",
+  "promptSha256": "9e57613d71c5b57504bcc32c06db2ac71fce09d09c7c5c267138b35e2147f980",
+  "generationPromptSha256": "66fcc3c38293acfbff053f3530b68bb521037d73385baba8fade1a4f316ce6c4",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailReach": 2,
+    "detailMaterial": "primary"
+  },
+  "preparationSha256": "846b6ea0eb1265ebbf5f736b5d333589b72dcb221faf3e8de7c2a7a9d306b758",
+  "candidate": "art/source/character-kit/hd/neck-cowl-slim-candidate.png",
+  "lockedSha256": "c3c995b10f83b6010206b56fa0d3db5a894dd2561267aa499a912e41273e4499"
+}

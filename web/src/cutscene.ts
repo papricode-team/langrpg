@@ -5,6 +5,8 @@ export {cinematicBeats,type CutsceneKind,type CameraBeat} from './cinematic-cont
 /** Whether a story beat was shown. A skipped beat (no town to show it over) has not been seen. */
 export type CutsceneOutcome='played'|'skipped';
 import { baseLanguage, localizedName, translatedText } from './i18n';
+import { getWorldScene } from './scene-data';
+import { stageBeats, stationStage } from './cinematic-staging';
 
 /** A real transparent Phaser scene above the live world; keyboard/click skippable. */
 export class CutsceneScene extends Phaser.Scene {
@@ -22,7 +24,7 @@ export class CutsceneScene extends Phaser.Scene {
   /** Reduced motion keeps the story: lines appear whole, the camera cuts instead of panning and no train passes. */
   private reduced=false;
   create(data: {kind:CutsceneKind;mapId:MapId;ending?:string;reduced?:boolean;complete:()=>void}) {
-    this.beats = cinematicBeats(data.kind,data.mapId,data.ending); this.index = 0; this.finish = data.complete;
+    this.beats = stageBeats(data.kind,cinematicBeats(data.kind,data.mapId,data.ending),stationStage(getWorldScene(data.mapId))); this.index = 0; this.finish = data.complete;
     this.kind=data.kind; this.reduced=!!data.reduced;
     const {width,height} = this.scale, density = Math.min(2, window.devicePixelRatio || 1);
     if(!this.reduced&&['arrival','travel'].includes(data.kind)&&this.textures.exists('greenhouse-train')){

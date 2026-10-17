@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "candidateSha256": "43f85d61b93956ff507792d7239bf3e471533fe442467bff3fa3f25d2dc050e5",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "2c3b86d1afa9758cc10f086f6bb7e4b6767e933f34c07a584ad726a9f6353b5f",
+  "promptSha256": "39f4facf69978faaeef57688707f983c5286aa091172f4650e2c5545fd4680e6",
+  "generationPromptSha256": "4e9f9da5799a5611a08591d8997b7e938f611be6b33d868f192b325aea2b4b94",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "validation": {
+    "maxRegions": 2,
+    "regionReason": "A pair of shoes has two separate visible regions when the feet are apart. Every region must touch its mannequin foot."
+  },
+  "preparationSha256": "cc1787c28a4671e9aad2e704aaf2af7f801a62126cb5db6e40743af6339b6722",
+  "candidate": "art/source/character-kit/hd/footwear-tall-boots-slim-candidate.png",
+  "lockedSha256": "3a781c4d460141c16f58ecb783f304dfad581cf486ef74583f78ec90255dc945"
+}

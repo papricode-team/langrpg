@@ -379594,7 +379594,9 @@
       "caseSensitive": true,
       "acceptedAnswers": [
         "Ich möchte einen Tee, bitte.",
-        "Ich hätte gern einen Tee, bitte."
+        "Ich hätte gern einen Tee.",
+        "Ich hätte gern einen Tee, bitte.",
+        "Ich hätte bitte gern einen Tee."
       ],
       "hint": "State what you would like, add bitte and close with danke.\nModel: Ich möchte bitte einen Tee.",
       "explanation": "State what you would like, add bitte and close with danke.\nModel: Ich möchte bitte einen Tee.",
@@ -379760,7 +379762,9 @@
       "answer": "Können Sie mir bitte helfen?",
       "caseSensitive": true,
       "acceptedAnswers": [
-        "Können Sie mir helfen, bitte?"
+        "Können Sie mir helfen, bitte?",
+        "Könnten Sie mir bitte helfen?",
+        "Könnten Sie mir helfen, bitte?"
       ],
       "hint": "Name the problem and make a simple request.\nModel: Können Sie mir bitte helfen?",
       "explanation": "Name the problem and make a simple request.\nModel: Können Sie mir bitte helfen?",

@@ -416,7 +416,7 @@ export async function loadContexts(category: string, ownerId?: string, level?: s
   }
   return { loaded, remaining: Math.max(0, selected.length - loaded) };
 }
-export async function loadInterior(id: string): Promise<void> { await loadContexts('interior', id); await loadContexts('interiorWordFacts', id); }
+export async function loadInterior(id: string): Promise<void> { id = id.split('::')[0].split('--')[0]; await loadContexts('interior', id); await loadContexts('interiorWordFacts', id); }
 export function invalidateContext(category: string, ownerId?: string): void {
   for (const [id] of matchingContexts(category, ownerId)) {
     resolvedContexts.delete(id); contextPending.delete(id); contentApi.invalidate(`contexts/${id}`);

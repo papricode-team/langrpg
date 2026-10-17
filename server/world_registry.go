@@ -34,6 +34,16 @@ func publishedSpawn(mapID string) MapSpawn {
 	return MapSpawn{}
 }
 
+// startingSpawn is where a new player first appears: the published spawn of
+// the first town, which is its station forecourt, or the original fallback
+// before any world has been published.
+func startingSpawn() MapSpawn {
+	if spawn := publishedSpawn(DefaultMapID); world.ValidCoordinate(spawn.X) && world.ValidCoordinate(spawn.Y) && (spawn.X != 0 || spawn.Y != 0) {
+		return spawn
+	}
+	return MapSpawn{X: .52, Y: .61}
+}
+
 // worldSeedPath is the seed world relative to the server directory. It fills
 // an empty database and introduces the story anchors a release adds; the
 // database owns the world after that.

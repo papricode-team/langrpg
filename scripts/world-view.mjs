@@ -67,6 +67,22 @@ export async function townViewPNG(document, town, {region, scale, period = 'day'
   }
 }
 
+/** A single room, drawn by the same WorldInterior used during play. */
+export async function roomViewPNG(spec,{timeout=90000}={}) {
+  session ??= startSession();
+  const {browser,origin}=await session;
+  const page=await browser.newPage({viewport:{width:1536,height:1024}});
+  try {
+    const errors=[];page.on('pageerror',error=>errors.push(error.message));
+    await page.addInitScript(value=>{window.__ROOM_SPEC__=value;},spec);
+    await page.goto(`${origin}/room-view.html`);
+    await page.waitForFunction(()=>window.__ROOM_VIEW__?.ready || window.__ROOM_VIEW__?.error,undefined,{timeout});
+    const failure=await page.evaluate(()=>window.__ROOM_VIEW__?.error);
+    if(failure || errors.length)throw new Error(`Room view failed: ${failure ?? errors.join('; ')}`);
+    return await page.locator('canvas').screenshot();
+  }finally{await page.close();}
+}
+
 async function main() {
   const [town, out, ...rest] = process.argv.slice(2);
   if (!town || !out) throw new Error('Usage: node scripts/world-view.mjs <town> <out.png> [--file world.json] [--region x,y,w,h] [--scale s] [--period day|night]');

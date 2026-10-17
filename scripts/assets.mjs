@@ -16,7 +16,7 @@ const paint = [
   ['prepare-resident-action-art.mjs'],
   ['prepare-world-art.mjs'], ['prepare-world-variations.mjs'],
   ['prepare-world-animations.mjs', '--set', 'day'], ['prepare-world-animations.mjs', '--set', 'night'],
-  ['prepare-prologue-art.mjs'], ['prepare-interior-art.mjs'], ['prepare-interior-stills.mjs'], ['prepare-interior-effects.mjs'],
+  ['prepare-prologue-art.mjs'], ['prepare-room-kit.mjs'], ['prepare-interior-art.mjs'], ['prepare-interior-stills.mjs'], ['prepare-interior-effects.mjs'],
   ['prepare-story-cast.mjs'], ['prepare-static-buildings.mjs'],
   ['prepare-map-quality-art.mjs'],
 ];

@@ -1,3 +1,4 @@
+import {roomLayoutFingerprint} from './room-layout';
 import { describe, expect, it } from 'vitest';
 import type * as Phaser from 'phaser';
 import { getInterior, type InteriorId } from './interiors';
@@ -28,8 +29,8 @@ function fixture(id: InteriorId) {
     const sprite = new Sprite(x, y, key, frame); sprites.push(sprite); return sprite;
   };
   const scene = {
-    add: { image: create, sprite: create, rectangle: (x:number,y:number) => create(x,y,'dawn') },
-    textures: { exists: () => true, get: () => ({ has: () => true }) },
+    add: { image: create, sprite: create },
+    textures: { exists: () => true, get: () => ({ has: () => true, customData: {layout:roomLayoutFingerprint(undefined)} }) },
     cache: { json: { get: (key: string) => key === 'interior-animations' ? furniture
       : key === 'interior-stills' ? stills : key === 'interior-train-stills' ? trainStills : key === 'interior-train-effects' ? trainEffects : key === 'interior-effect-animations' ? details : undefined } },
   } as unknown as Phaser.Scene;
@@ -69,7 +70,8 @@ describe('stable interior rendering', () => {
   });
   it('gives the inn a stable tea table with steam confined to the kettle', () => {
     const { room, bodies, effects } = fixture('inn');
-    expect(room.objectCount).toBe(3);
+    expect(room.objectCount).toBe(6);
+    expect(bodies.filter(sprite => sprite.key === 'room-kit-furniture').map(sprite => sprite.frame)).toEqual(['bed', 'desk', 'lamp']);
     expect(room.animatedObjectCount).toBe(1);
     expect(bodies.some(sprite => sprite.frame === 'cafe-table-still')).toBe(true);
     expect(effects).toHaveLength(2);

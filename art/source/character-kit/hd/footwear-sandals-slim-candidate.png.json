@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-sandals-slim-page-0-candidate-1.png",
+      "sha256": "308f853b4d21a808fb34c0f34309f9da40dc1c12babe54dfb4ef457027031e77"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-sandals-slim-page-0-candidate-1.txt",
+      "sha256": "7717efcd31503fc9cb82952d55af802e4622d146af5137fa2fc583bb57a09485"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-0.json",
+      "sha256": "20014db774338283b835bae4a718ed4bc1a4f0d2d20f8f318ce7c52ca501f232"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-sandals-slim-page-1-candidate-1.png",
+      "sha256": "702056468a72accf144c92fc9c99059a464669336dfbf973f4b817953008380a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-sandals-slim-page-1-candidate-1.txt",
+      "sha256": "7717efcd31503fc9cb82952d55af802e4622d146af5137fa2fc583bb57a09485"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-1.json",
+      "sha256": "6fe4f1dc4b750a67e1335eb0702e00c0b6543a66ed5a764c0a8b69a10710c3d7"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-sandals-slim-page-2-candidate-1.png",
+      "sha256": "b1994584b4a8691e43b45e706ebd043a8f0730703ef701d05dd86d8158d4da69"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-sandals-slim-page-2-candidate-1.txt",
+      "sha256": "7717efcd31503fc9cb82952d55af802e4622d146af5137fa2fc583bb57a09485"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-2.json",
+      "sha256": "9aa1849174bbb1a10d345c50c1b53b2fb63737f6cc9074252e27b772921da15d"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-sandals-slim-page-3-candidate-1.png",
+      "sha256": "b3981cc22ddf7ed1c6412efe34f622cdf81e69cc5d429da4a7e3b4a6c4f3b362"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-sandals-slim-page-3-candidate-1.txt",
+      "sha256": "7717efcd31503fc9cb82952d55af802e4622d146af5137fa2fc583bb57a09485"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-3.json",
+      "sha256": "181335a5e008fbe12d8c36da80a45ea6712b8b560e5f87858d1186a6b60e2f39"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-sandals-slim-page-4-candidate-1.png",
+      "sha256": "dea7a9109d7ca6359302c7221b21e82dfaeba2a86d6092e6b366ac3e7c3a28f2"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-sandals-slim-page-4-candidate-1.txt",
+      "sha256": "7717efcd31503fc9cb82952d55af802e4622d146af5137fa2fc583bb57a09485"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-4.json",
+      "sha256": "747e7e354d5a379b8e1a41670dddb775d1a7d7379105b6abf73fa7f2d59ff3c0"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-sandals-slim-page-5-candidate-1.png",
+      "sha256": "f84be68db4ddeafc25e1af6d21cd528bc8d533fc3d940fca63d61f966d467850"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-sandals-slim-page-5-candidate-1.txt",
+      "sha256": "7717efcd31503fc9cb82952d55af802e4622d146af5137fa2fc583bb57a09485"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-5.json",
+      "sha256": "b326219e6c771fcade0ddd91b7f690ea11c878cd82e65370054da0269488316f"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "3947591df084d058776409320405053c2a0cef6e034f455024b3114a92f87b04"
+}

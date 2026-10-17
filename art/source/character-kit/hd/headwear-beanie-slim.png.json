@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "candidateSha256": "61b9444c30be2ffcec03e40a4a9ee98f299097ed827c8c1b7a9a91fb5ea38dca",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "85b294c3a8b9a6527807718ea7ae631bc0d894174b6d34b37a03a3ce87a42b13",
+  "promptSha256": "285a5007e36034e104d37e8db67282774e2f1a0805c058bb1545637a0121ed20",
+  "generationPromptSha256": "c94a9571e27ab731cb2e58688fc7fb9288b6d793f0708972dfc22d192a46cd97",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailMaterial": "primary"
+  },
+  "preparationSha256": "09d0fa026af756f9472be1add7f5b87f7f5e176293825eb31a6258dae08ce187",
+  "candidate": "art/source/character-kit/hd/headwear-beanie-slim-candidate.png",
+  "lockedSha256": "10fcff1e4184812085fe527365bbf6c347c3eb01ec7b7f27a9bb4ee1eea419d4"
+}

@@ -1,0 +1,18 @@
+---
+import SiteLayout from './SiteLayout.astro';
+import { guides } from '../data/guides';
+interface Props { frontmatter: { slug: string }; headings: { depth: number; slug: string; text: string }[] }
+const { frontmatter, headings = [] } = Astro.props;
+const guide = guides.find(guide => guide.slug === frontmatter.slug);
+if (!guide) throw new Error(`Missing guide metadata: ${frontmatter.slug}`);
+const url = new URL(`/learn-german/${guide.slug}/`, Astro.site).href;
+const related = guides.filter(item => item.slug !== guide.slug).slice(0,3);
+const schema = [
+  { '@type': 'Article', '@id': `${url}#article`, headline: guide.seoTitle, description: guide.description, mainEntityOfPage: url, image: 'https://glotworld.com/images/glotworld-social.jpg', inLanguage: 'en', author: { '@type': 'Organization', name: 'glotworld', url: 'https://glotworld.com/about/' }, publisher: { '@id': 'https://glotworld.com/#organization' } },
+  { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: 'https://glotworld.com/' }, { '@type': 'ListItem', position: 2, name: 'Learn German', item: 'https://glotworld.com/learn-german/' }, { '@type': 'ListItem', position: 3, name: guide.seoTitle, item: url }] },
+];
+---
+<SiteLayout title={`${guide.seoTitle} | glotworld`} description={guide.description} schema={schema}>
+  <header class="article-header"><div class="container"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/learn-german/">Field notes</a><span aria-hidden="true">/</span><span aria-current="page">{guide.category}</span></nav><p class="eyebrow">{guide.category} · {guide.level}</p><h1>{guide.seoTitle}</h1><p class="dek">{guide.description}</p><p class="article-meta"><span>By glotworld</span><span aria-hidden="true">✧</span><span>{guide.minutes} minute read</span><span aria-hidden="true">✧</span><span>Examples you can use today</span></p></div></header>
+  <div class="reading-surface"><div class="article-layout container"><aside class="article-toc"><p>IN THIS FIELD NOTE</p><nav aria-label="Article contents">{headings.filter(h => h.depth === 2).map(h => <a href={`#${h.slug}`}>{h.text}</a>)}</nav><a href="/learn-german/">← All field notes</a></aside><article class="article-body"><slot /><aside class="article-cta"><h3>Give these words somewhere to go.</h3><p>Meet the people of glotworld and practise German through a story you can explore in your browser.</p><a class="button" href="/game/" data-play>Start your adventure <svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12h15M13 5l7 7-7 7" /></svg></a></aside><aside class="related-guides"><h3>Another page for your journey</h3>{related.map(item => <a href={`/learn-german/${item.slug}/`}>{item.title} <svg class="arrow-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12h15M13 5l7 7-7 7" /></svg></a>)}</aside></article></div></div>
+</SiteLayout>

@@ -1,0 +1,49 @@
+/* Independent, optimized copies of the painted game art. No game runtime. */
+.world-sprite {
+  --sprite-frames: 1;
+  --sprite-duration: 1.2s;
+  display: inline-block;
+  position: relative;
+  flex: 0 0 auto;
+  width: var(--sprite-width, 128px);
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  pointer-events: none;
+  vertical-align: bottom;
+  contain: layout paint;
+}
+
+.world-sprite .world-sprite__strip {
+  display: block;
+  width: calc(100% * var(--sprite-frames));
+  max-width: none;
+  height: 100%;
+  object-fit: fill;
+  animation: world-sprite-frames var(--sprite-duration) steps(var(--sprite-frames)) infinite;
+  animation-play-state: paused;
+}
+
+.world-sprite.is-visible .world-sprite__strip { animation-play-state: running; }
+.world-sprite--player-idle .world-sprite__strip {
+  transform-origin: center 90%;
+  animation: world-sprite-breathe 4s ease-in-out infinite;
+  animation-play-state: paused;
+}
+.world-sprite--player-walk, .world-sprite--marta-walk, .world-sprite--otto-walk { --sprite-frames: 8; --sprite-duration: 1.05s; }
+.world-sprite--marta, .world-sprite--otto { --sprite-frames: 6; --sprite-duration: 2s; }
+.world-sprite--cat, .world-sprite--chicken { --sprite-frames: 4; aspect-ratio: 1; }
+.world-sprite--cat { --sprite-duration: 0.8s; }
+.world-sprite--chicken { --sprite-duration: 0.65s; }
+
+@keyframes world-sprite-frames { to { transform: translateX(-100%); } }
+@keyframes world-sprite-breathe {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.012); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .world-sprite .world-sprite__strip {
+    animation: none !important;
+    transform: none !important;
+  }
+}

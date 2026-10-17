@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sleeveless-slim-page-0-candidate-1.png",
+      "sha256": "877117c6e6bea4882a51587c997f084828c0d9f6053aeda9b8f565abd24c91cb"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sleeveless-slim-page-0-candidate-1.txt",
+      "sha256": "9f456d5bb6b3c4a5d17de47d4412e709d6f1e6017eee7eb7c1a79e26638886dd"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-0.json",
+      "sha256": "a6c84addbfd340ec426f28ea82ae85b2cc2b70137b1516da583c89ea1fd9c3c8"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sleeveless-slim-page-1-candidate-1.png",
+      "sha256": "0f8f56c94b17468e80fae06c1dcfc6b9eb46530da235e048294254b6a4b51e4f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sleeveless-slim-page-1-candidate-1.txt",
+      "sha256": "9f456d5bb6b3c4a5d17de47d4412e709d6f1e6017eee7eb7c1a79e26638886dd"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-1.json",
+      "sha256": "200f02d5272755448caa8ff37144a13da72062cdd95a20c1a7ff61ef7ff62814"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sleeveless-slim-page-2-candidate-1.png",
+      "sha256": "c3cc14e34cdac4b67bb319a31b856449c42c2834ce31119658fed5c7fc9813d9"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sleeveless-slim-page-2-candidate-1.txt",
+      "sha256": "9f456d5bb6b3c4a5d17de47d4412e709d6f1e6017eee7eb7c1a79e26638886dd"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-2.json",
+      "sha256": "30efcafbe9d7830013cf5b7b68ce9c0f1f7e02a3753d8c70007005f678193dd2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sleeveless-slim-page-3-candidate-1.png",
+      "sha256": "5814e77e13368a749e052da4089542dda06043f82690cfc3f36138bb36b05e0b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sleeveless-slim-page-3-candidate-1.txt",
+      "sha256": "9f456d5bb6b3c4a5d17de47d4412e709d6f1e6017eee7eb7c1a79e26638886dd"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-3.json",
+      "sha256": "c3b47bcc3acbc328ad2378c245359a6a3c2b8edd6d4ac6fd90495f1b180f8485"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sleeveless-slim-page-4-candidate-1.png",
+      "sha256": "165984c9eadce871a5c6ec40b411f88b0b8506ea558acd68d949642796138005"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sleeveless-slim-page-4-candidate-1.txt",
+      "sha256": "9f456d5bb6b3c4a5d17de47d4412e709d6f1e6017eee7eb7c1a79e26638886dd"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-4.json",
+      "sha256": "3e12d382498d7598725fce3e44099a593cbd15caa44e9c7bc572e3931559e2ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sleeveless-slim-page-5-candidate-1.png",
+      "sha256": "b3420a6c99ac56c1068b6a58556ba4d0589881ec7cc4c90c25ff983b57990842"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sleeveless-slim-page-5-candidate-1.txt",
+      "sha256": "9f456d5bb6b3c4a5d17de47d4412e709d6f1e6017eee7eb7c1a79e26638886dd"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-5.json",
+      "sha256": "9801f02cbaa07933d6c115805b6442f6e7adf1db9ca8bd68a1185df134371b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sleeveless-slim-page-6-candidate-1.png",
+      "sha256": "c96ec2fb403266a6e4fd848707e60f547117d472bb2191067d76e897df51f253"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sleeveless-slim-page-6-candidate-1.txt",
+      "sha256": "9f456d5bb6b3c4a5d17de47d4412e709d6f1e6017eee7eb7c1a79e26638886dd"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-6.json",
+      "sha256": "b376d6ff991750e64f8e4e02d1eee9baecab7f17b23cfca6d0d24ea933096ab6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sleeveless-slim-page-7-candidate-1.png",
+      "sha256": "32efa87af9f6d3c67222a000deb450807aec101df55f9e35a08e916e87d49f54"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sleeveless-slim-page-7-candidate-1.txt",
+      "sha256": "9f456d5bb6b3c4a5d17de47d4412e709d6f1e6017eee7eb7c1a79e26638886dd"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-7.json",
+      "sha256": "54b515875467084c2615401a4aa41788ff7ea91081d871208308ecdfda0f48d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sleeveless-slim-page-8-candidate-1.png",
+      "sha256": "3aa399fa74353ec5fad43126bf9f49c769962ad4216d387856942109a2f0b0da"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sleeveless-slim-page-8-candidate-1.txt",
+      "sha256": "9f456d5bb6b3c4a5d17de47d4412e709d6f1e6017eee7eb7c1a79e26638886dd"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-8.json",
+      "sha256": "a907bceabc2de3865bb70e4f875dcc255387929f55bac0e8f698706c5c1bcdb1"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "99552ba85616085b2a14ba0730540f6db3ea318502dbee89acf355b2910ed08a"
+}

@@ -321,7 +321,7 @@ func (a *App) publicRecord(record contentstore.Record, lang string) map[string]a
 	return map[string]any{"id": record.ID, "courseId": record.CourseID, "kind": record.Kind, "version": record.Version, "body": stripContent(value, lang, "")}
 }
 
-var secretContentKeys = map[string]bool{"answer": true, "acceptedAnswers": true, "explanation": true, "orderExplanation": true, "modelAnswer": true, "correctedAnswer": true, "correctAnswer": true, "correct": true, "answerIndex": true, "correctIndex": true, "solution": true, "solutions": true, "validValues": true, "answers": true, "canonical": true, "response": true, "expected": true, "localId": true, "legacyId": true}
+var secretContentKeys = map[string]bool{"answer": true, "acceptedAnswers": true, "answerPattern": true, "explanation": true, "orderExplanation": true, "modelAnswer": true, "correctedAnswer": true, "correctAnswer": true, "correct": true, "answerIndex": true, "correctIndex": true, "solution": true, "solutions": true, "validValues": true, "answers": true, "canonical": true, "response": true, "expected": true, "localId": true, "legacyId": true}
 
 func stripContent(value any, lang, parent string) any {
 	switch v := value.(type) {

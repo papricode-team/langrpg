@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/sunpatch-resident-2.png",
   "proofSha256": "01fed9391af68a9da8884ec6e2f9c6b2f83fb83812a792de4d74a50b57ed2dd4",
   "editorSha256": "05a3d75c18206d7ee04c920f3c946badf141f60f7de154d521b2038b64347be4",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "8e661c2bf6bea6a04933f3565d042922e70e716d6939b5b3c142abcd3787c8a0"
+  }
 }

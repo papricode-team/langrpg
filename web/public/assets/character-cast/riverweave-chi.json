@@ -31,6 +31,11 @@
   "proof": "art/proofs/character-cast/riverweave-chi.png",
   "proofSha256": "275f18681fdbb1007a70e0406dafaa4b4467d0dfa7cabdc3f2214532876fa751",
   "editorSha256": "e3288b93f7dbe77d0e9023631b1e010ca4b2568014a51471d0e19b2934ffb5dc",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "cef5d026995342eca3b65d8d75657ae9ad9543837090a8cb05f002dff1d23fb3"
+  }
 }

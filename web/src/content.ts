@@ -25,6 +25,8 @@ export interface Exercise {
   hint: string;
   explanation: string;
   acceptedAnswers?: string[];
+  /** Authoring only: {A|B} and [optional] syntax the build expands into the server's accepted answers. */
+  answerPattern?: string;
   /** Sentence starts, German nouns and formal Sie retain their authored capitals. */
   caseSensitive?: boolean;
 }

@@ -1,0 +1,42 @@
+{
+  "version": 2,
+  "candidateSha256": "6907af5db918e98771f1004623a75090c2ec86c5c68480c591f8ed739e0dda33",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "45421bbdb988635efaee1248786985cb50d050673922c94f40ea1450b8b3ec3f",
+  "promptSha256": "23873cafecd49412f57550f56b4ef41ecab59fa36da39f1da7ad352eecbba776",
+  "generationPromptSha256": "856bf4c0be65b2b45047f870d70430a6d5ecd3efb56208af98de9567bf2eb234",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "detailReach": 1,
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "matte": {
+      "color": "#fafafa",
+      "tolerance": 32
+    },
+    "detailMaterial": "primary",
+    "maxSpeckPixels": 16
+  },
+  "validation": {
+    "maxRegions": 1,
+    "visibleFacings": [
+      "down",
+      "right",
+      "left"
+    ],
+    "visibilityReason": "Facial hair is visible from the front and profiles, never on the back of the head.",
+    "maxRegionsByFacing": {
+      "down": 2
+    },
+    "regionReason": "The philtrum separates the two tapered moustache halves."
+  },
+  "preparationSha256": "8b71a05c1fb97986f8cdb6a611f9250bf90b8c866154190704da11ab147ce927",
+  "candidate": "art/source/character-kit/hd/facial-hair-moustache-slim-candidate.png",
+  "lockedSha256": "dbe75d761b3973ab7fd6b839cad90b636feb9f39dd370d840a4844f1cf1eb76d"
+}

@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "candidateSha256": "a46c222c0caf462d9d1e2c4fde56d1db9ea948d9dbec9a89b4e611ca36e8aaa2",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "2aa2b30428afc35ec2a1d87971a5ee6e8ac4376100ce3b789bba5947dc283eb4",
+  "promptSha256": "9e57613d71c5b57504bcc32c06db2ac71fce09d09c7c5c267138b35e2147f980",
+  "generationPromptSha256": "d90678fb5a5a30cd89713330fb78ec1601e685f2951d468113b9c8299b0c7899",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailReach": 2,
+    "detailMaterial": "primary"
+  },
+  "preparationSha256": "978b4bf32cf0acf64280b43fa6fd287ba12ea3fc8e85d62f5618b6f236005793",
+  "candidate": "art/source/character-kit/hd/neck-cowl-broad-candidate.png",
+  "lockedSha256": "eaea17b0f7b07239a798f801f60c86f1f53a01c305c4592dd42618641d183525"
+}

@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/kigalights-aline.png",
   "proofSha256": "8d91d6d30abf86779c3a43b6114c5b186279c0161d98c83a3d2abcf939c06c05",
   "editorSha256": "a6f0f4728021b997092e670aae41a240331cdca1f24c8a2f7f43b158d5d30e22",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "f51b1ee96e169e48a56ca8d061e244a0ae38753f308ba2eecaa22f5735dd9df2"
+  }
 }

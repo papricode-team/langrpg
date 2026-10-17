@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "candidateSha256": "948ac724554440d6ca0341f53fb8bebc2085741abcff07a182a4f965517b348a",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "7aaf52b0d7bc99f52ffd5599149cd0d28c54f5da0719bb4927c7e7b4c5788433",
+  "promptSha256": "441b6290e92eb058ccde7e89b03755b8610df682f7b1fc220514a653194e979e",
+  "generationPromptSha256": "e6509913c89d2ea9d980df450499718435ace5d497991eb623082a6321f23645",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 360,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32,
+      "includeEnclosed": true
+    },
+    "detailMaterial": "primary"
+  },
+  "preparationSha256": "a18d8fe060db7174a7f20a9e51fd6e7e0dc49334642e3f8d27f6793843e667bd",
+  "candidate": "art/source/character-kit/hd/hair-afro-slim-candidate.png",
+  "lockedSha256": "3619698a0f3d0a2b0275cc335383081ca18d22a167c286f8845c3db169859a8a"
+}

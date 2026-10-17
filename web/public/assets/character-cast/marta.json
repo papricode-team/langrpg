@@ -16,7 +16,7 @@
   "proof": "art/proofs/character-cast/marta.png",
   "proofSha256": "808b347c38d9a5eb82d415eff3b3062d18bfc1a9bb3b90a0da3384d9348353a9",
   "editorSha256": "e06e9432124b5b5e2dbbba372545e13191bb5c9509ab16104f2f1791ace04e3b",
-  "assetVersion": "4c9d233bf71007a9",
+  "assetVersion": "e80b2c9758205a2f",
   "frames": 36,
   "native": {
     "key": "character-cast-marta-native",
@@ -46,5 +46,10 @@
     ],
     "source": "art/proofs/character-cast/marta.webp",
     "sourceSha256": "e06e9432124b5b5e2dbbba372545e13191bb5c9509ab16104f2f1791ace04e3b"
+  },
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "12670b2fbbd521063e1fb2dc304ff04c4e2871d33e64d9dd83adbbe7a03a30ba"
   }
 }

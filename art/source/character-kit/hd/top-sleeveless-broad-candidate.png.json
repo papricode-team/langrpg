@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sleeveless-broad-page-0-candidate-1.png",
+      "sha256": "93a82eae29a08c0e4242458a3077a8a770271dc9a3718b808f2e3620e691e1c9"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sleeveless-broad-page-0-candidate-1.txt",
+      "sha256": "2d2ab32abb75c38f8a6330da589dff199a39d4dc8133890d175e71b9d2427675"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-0.json",
+      "sha256": "d4c597d609eaced853a49300a3c916edad44486d2083661e2e1f72015c5fb832"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sleeveless-broad-page-1-candidate-1.png",
+      "sha256": "99c4aadc7102595de63a910830ae354fe8a312d424f64ff07b7b23cf5f652c80"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sleeveless-broad-page-1-candidate-1.txt",
+      "sha256": "2d2ab32abb75c38f8a6330da589dff199a39d4dc8133890d175e71b9d2427675"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-1.json",
+      "sha256": "597ae57a47283b3583f871d7ecfb79f8eb0d069ec363f819db5347b622c0eec5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sleeveless-broad-page-2-candidate-1.png",
+      "sha256": "2d0f4221bab6515a696d7fd6bb6fa09eee0c497bccf89cc9c04a2f4321ec7fb5"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sleeveless-broad-page-2-candidate-1.txt",
+      "sha256": "2d2ab32abb75c38f8a6330da589dff199a39d4dc8133890d175e71b9d2427675"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-2.json",
+      "sha256": "3822b1501237a22f8d5952fa86901bb95b3a7ca3e1637d7063b13b8b5a890e21"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sleeveless-broad-page-3-candidate-1.png",
+      "sha256": "2163a2fd350631e6dd5623de4d89db13aa4f49d72ad7a0aa639c836700c4519b"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sleeveless-broad-page-3-candidate-1.txt",
+      "sha256": "2d2ab32abb75c38f8a6330da589dff199a39d4dc8133890d175e71b9d2427675"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-3.json",
+      "sha256": "09412f0261449be2e3d6bacbb0fb474dfa77e215dc568cef97a5387d7eceba7e"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sleeveless-broad-page-4-candidate-1.png",
+      "sha256": "0a98e582fee716ea6ac0d3bf159b36646cd8342065702de154e2b8f6ffc81708"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sleeveless-broad-page-4-candidate-1.txt",
+      "sha256": "2d2ab32abb75c38f8a6330da589dff199a39d4dc8133890d175e71b9d2427675"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-4.json",
+      "sha256": "5252f9b6b506aeba7aa6b065493407dc63e3afa72771694c1fc3d3f025c359a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sleeveless-broad-page-5-candidate-1.png",
+      "sha256": "099e29bccb1667304cdf6210dcfb7fde92b8bde3250d04289ccb13c3be1a3884"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sleeveless-broad-page-5-candidate-1.txt",
+      "sha256": "2d2ab32abb75c38f8a6330da589dff199a39d4dc8133890d175e71b9d2427675"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-5.json",
+      "sha256": "72beb8597382255bf7cfde12b003f50107cce66fee1e4d12ba961c28edfdb6dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sleeveless-broad-page-6-candidate-1.png",
+      "sha256": "6be85616c36e73ae5826660c86e4a70d80a15773ac5588f6a2e77d03294a5473"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sleeveless-broad-page-6-candidate-1.txt",
+      "sha256": "2d2ab32abb75c38f8a6330da589dff199a39d4dc8133890d175e71b9d2427675"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-6.json",
+      "sha256": "369c87b8e1c6db5e23506f6c9c049b8866e3b95c4a57ebb3e5fdb50cff738546"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sleeveless-broad-page-7-candidate-1.png",
+      "sha256": "54c06ebb8640d956d9b74d8c85c0ebc819844357adc83e3bf0f623955e90eceb"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sleeveless-broad-page-7-candidate-1.txt",
+      "sha256": "2d2ab32abb75c38f8a6330da589dff199a39d4dc8133890d175e71b9d2427675"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-7.json",
+      "sha256": "594be292ae2bb672b79bc0f64091efc6184647dc4159416c469120e9794ae6a2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/top-sleeveless-broad-page-8-candidate-1.png",
+      "sha256": "612d10869c6fb0b10c991067a97c1a3caf429174c039f1dcf38d63677fd77ccf"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/top-sleeveless-broad-page-8-candidate-1.txt",
+      "sha256": "2d2ab32abb75c38f8a6330da589dff199a39d4dc8133890d175e71b9d2427675"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-8.json",
+      "sha256": "59b98d4a2e80d5eda70982582ea13bff1711eca74a22fd82e4b3ed6ef6f68734"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "fdc832aa26e5afe1d76d3679beb41db84d29baae732212d8814235f664795935"
+}

@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-tall-boots-slim-page-0-candidate-1.png",
+      "sha256": "f8745ce16febe10e8caaeb18ba08677c86b2948ac2a03172b831f8bef59e84c1"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-tall-boots-slim-page-0-candidate-1.txt",
+      "sha256": "4e9f9da5799a5611a08591d8997b7e938f611be6b33d868f192b325aea2b4b94"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-0.json",
+      "sha256": "20014db774338283b835bae4a718ed4bc1a4f0d2d20f8f318ce7c52ca501f232"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-tall-boots-slim-page-1-candidate-1.png",
+      "sha256": "87a1e61de31997c24a9eb71867ed7ca605a54a7f79a1b36a75bcd01a93d6003a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-tall-boots-slim-page-1-candidate-1.txt",
+      "sha256": "4e9f9da5799a5611a08591d8997b7e938f611be6b33d868f192b325aea2b4b94"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-1.json",
+      "sha256": "6fe4f1dc4b750a67e1335eb0702e00c0b6543a66ed5a764c0a8b69a10710c3d7"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-tall-boots-slim-page-2-candidate-1.png",
+      "sha256": "61a43b321fe8be523c87f4b851d22540eb685c3179e1c83058507e94b46eaa75"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-tall-boots-slim-page-2-candidate-1.txt",
+      "sha256": "4e9f9da5799a5611a08591d8997b7e938f611be6b33d868f192b325aea2b4b94"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-2.json",
+      "sha256": "9aa1849174bbb1a10d345c50c1b53b2fb63737f6cc9074252e27b772921da15d"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-tall-boots-slim-page-3-candidate-1.png",
+      "sha256": "6ba897068eacf65f916f31e31c86899fef6ff97e32a6862bdebefd40e78e8cd1"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-tall-boots-slim-page-3-candidate-1.txt",
+      "sha256": "4e9f9da5799a5611a08591d8997b7e938f611be6b33d868f192b325aea2b4b94"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-3.json",
+      "sha256": "181335a5e008fbe12d8c36da80a45ea6712b8b560e5f87858d1186a6b60e2f39"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-tall-boots-slim-page-4-candidate-1.png",
+      "sha256": "20f02b8ef35d1579ea86efe5b1735a6c52b9ee1b60b90c824e62ffce4447ba4c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-tall-boots-slim-page-4-candidate-1.txt",
+      "sha256": "4e9f9da5799a5611a08591d8997b7e938f611be6b33d868f192b325aea2b4b94"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-4.json",
+      "sha256": "747e7e354d5a379b8e1a41670dddb775d1a7d7379105b6abf73fa7f2d59ff3c0"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/footwear-tall-boots-slim-page-5-candidate-1.png",
+      "sha256": "0c2c6a953a72a50d412bbc8b82cb7571c453f61e0b29a7f1fc7f7a415a9bc741"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/footwear-tall-boots-slim-page-5-candidate-1.txt",
+      "sha256": "4e9f9da5799a5611a08591d8997b7e938f611be6b33d868f192b325aea2b4b94"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-lower/page-5.json",
+      "sha256": "b326219e6c771fcade0ddd91b7f690ea11c878cd82e65370054da0269488316f"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "43f85d61b93956ff507792d7239bf3e471533fe442467bff3fa3f25d2dc050e5"
+}

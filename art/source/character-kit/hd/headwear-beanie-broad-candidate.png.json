@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-beanie-broad-page-0-candidate-1.png",
+      "sha256": "69850b225a468b41e30d172b2e8dbe1766ebd2e3c6c5912e504de6a04ed0992d"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-beanie-broad-page-0-candidate-1.txt",
+      "sha256": "9b8502b8bf704ca39a6982498bbdbb482647c4ec95fe2d241a9f357234f12c57"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-beanie-broad-page-1-candidate-1.png",
+      "sha256": "33db688e575d2c6ec54a9071e89fb81c448709553a2fb8c50d42c8f6308aa55f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-beanie-broad-page-1-candidate-1.txt",
+      "sha256": "9b8502b8bf704ca39a6982498bbdbb482647c4ec95fe2d241a9f357234f12c57"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-beanie-broad-page-2-candidate-1.png",
+      "sha256": "f676b60d13c44b952c72c85199ec8b21220f222ceb84569718710982ca9a1bb6"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-beanie-broad-page-2-candidate-1.txt",
+      "sha256": "9b8502b8bf704ca39a6982498bbdbb482647c4ec95fe2d241a9f357234f12c57"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-beanie-broad-page-3-candidate-1.png",
+      "sha256": "4e90d4ccd15e6250185994f7c1bddfb31c8764ac55aff24f0a5d82bd1f75b107"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-beanie-broad-page-3-candidate-1.txt",
+      "sha256": "9b8502b8bf704ca39a6982498bbdbb482647c4ec95fe2d241a9f357234f12c57"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "55c2fc6fdc4617529a01f35ea35e50ff0bc1267e7eaf017711cca6de90b0f4d4"
+}

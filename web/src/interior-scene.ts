@@ -1,4 +1,5 @@
 import { storyQuestId, storyQuestComplete } from './prologue-progress';
+import {buildingRoomId, buildingRoomRoot} from './room-layout';
 import * as Phaser from 'phaser';
 import type { MapId } from './maps';
 import { quests } from './content';
@@ -12,20 +13,28 @@ import { worldAssetUrl } from './world-asset-url';
 import {castActor,castAssetUrl,castAtlasUrl} from './character-cast';
 import { ExploreScene, type Character, type WorldObject } from './explore-scene';
 import { emitWorld, readWorld, SceneKeys, WorldEvents, writeWorld, type WorldPlayer } from './world-state';
+import {roomMaterials} from './room-kit';
+import {terrainMaterial, terrainMaterialKey} from './terrain-materials';
 import type { WorldScene } from './world-scene';
 
-export interface InteriorSceneData { id: InteriorId; mapId: MapId; instant?: boolean }
+export interface InteriorSceneData { id: InteriorId; mapId: MapId; instant?: boolean; stairs?: boolean }
 const sharedSheets = ['cafe-objects', 'bakery-objects', 'supermarket-objects', 'decor', 'furniture'] as const;
 
 /** Rooms load their own painting on first entry; shared furniture sheets stay cached afterwards. */
 export function loadInteriorAssets(load: Phaser.Loader.LoaderPlugin, spec: InteriorSpec): void {
-  load.image(`interior-${spec.id}-room`, worldAssetUrl(spec.asset));
-  if (spec.id.startsWith('train-')) {
+  if (spec.presentation === 'backdrop') {
+    load.image(`interior-${spec.id}-room`, worldAssetUrl(spec.asset));
     load.image('brandt-backdrop', '/assets/story-cast/brandt-conductor.webp');
     load.atlas('interior-train-furniture', '/assets/interior-train-furniture.webp', '/assets/interior-train-furniture.json');
     load.json('interior-train-stills', '/assets/interior-train-stills.json');
     load.atlas('interior-train-fog', '/assets/interior-train-fog.webp', '/assets/interior-train-fog.json');
     load.json('interior-train-effects', '/assets/interior-train-effects.json');
+  } else {
+    load.image('room-kit-furniture', worldAssetUrl('/assets/room-kit-furniture.webp'));
+    for (const id of roomMaterials) {
+      const material = terrainMaterial(id)!;
+      load.image(terrainMaterialKey(id), worldAssetUrl(material.asset));
+    }
   }
   for (const sheet of sharedSheets) load.atlas(`interior-${sheet}`, worldAssetUrl(`/assets/interior-${sheet}.webp`), worldAssetUrl(`/assets/interior-${sheet}.json`));
   load.json('interior-animations', worldAssetUrl('/assets/interior-animations.json'));
@@ -44,6 +53,7 @@ export class InteriorScene extends ExploreScene {
   private propTargets: Phaser.GameObjects.Zone[] = [];
   private doorLabels: Phaser.GameObjects.Text[] = [];
   private instant = false;
+  private stairTransition = false;
   private leaving = false;
   private completedSounds = new Set<string>();
 
@@ -59,10 +69,11 @@ export class InteriorScene extends ExploreScene {
 
   init(data: InteriorSceneData): void {
     super.init();
-    this.spec = getInterior(data.id);
+    this.spec = getInterior(data.id, data.mapId);
     this.mapId = data.mapId;
     this.regionId = data.mapId;
     this.instant = !!data.instant;
+    this.stairTransition = !!data.stairs;
     this.room = undefined; this.propTargets = []; this.doorLabels = []; this.leaving = false; this.completedSounds = new Set(readWorld(this.registry, 'storyState').completedQuestIds);
   }
 
@@ -92,7 +103,19 @@ export class InteriorScene extends ExploreScene {
     }
   }
 
-  protected createNavigation(): NavigationGrid { return createInteriorNavigation(this.spec.id); }
+  syncPlayers(players: readonly WorldPlayer[], selfId: string): void {
+    if (this.backdrop) { super.syncPlayers(players, selfId); return; }
+    // A live wall edit can strand an existing position in an empty, sealed area.
+    const spawn = this.spawnPoint();
+    const adjusted = this.spec.layout ? players.map(player => {
+      if (!this.ownsPlayer(player)) return player;
+      const point = this.navigation.closestPoint(player.x * this.worldWidth, player.y * this.worldHeight, spawn);
+      return {...player,x:point.x/this.worldWidth,y:point.y/this.worldHeight};
+    }) : players;
+    super.syncPlayers(adjusted, selfId);
+  }
+
+  protected createNavigation(): NavigationGrid { return createInteriorNavigation(this.spec.id, {}, this.mapId); }
   protected spawnPoint(): MapPoint { return this.navigation.closestPoint(this.spec.spawn.x * this.worldWidth, this.spec.spawn.y * this.worldHeight); }
   protected spawnFacing(): number { return 2; }
   protected ownsPlayer(player: WorldPlayer): boolean {
@@ -116,6 +139,10 @@ export class InteriorScene extends ExploreScene {
       if (door) this.doorLabels.push(this.add.text(door.x * this.worldWidth, door.y * this.worldHeight - 62, spec.id === 'train-compartment' ? '7' : 'WC', {fontFamily:'Georgia, serif',fontSize:'32px',fontStyle:'bold',color:'#f3d291',backgroundColor:'#18342d',padding:{x:12,y:6}}).setOrigin(.5).setDepth(worldDepth(door.y * this.worldHeight, 'prop')).setVisible(!this.terrainOnly));
     }
     this.createPropTargets();
+    for(const door of spec.layout?.links ?? []) {
+      const destination=getInterior(buildingRoomId(spec.id,door.targetRoom) as InteriorId,this.mapId);
+      this.createPortal(`room-door:${door.id}`,door.x,door.y,door.kind==='stairs'?`Stairs ${spec.stairDirections?.[door.id]} · ${destination.name}`:destination.name);
+    }
     if (!this.backdrop) this.createPortal(`exit:${spec.id}`, spec.exit.x * this.worldWidth, spec.exit.y * this.worldHeight, 'Return to town', undefined, true);
   }
 
@@ -140,12 +167,21 @@ export class InteriorScene extends ExploreScene {
   }
 
   transitionRoom(): void {
-    this.audio?.effect(this.spec.id.startsWith('train-') ? 'train-door' : 'door', .16);
+    if (!this.stairTransition) this.audio?.effect(this.spec.id.startsWith('train-') ? 'train-door' : 'door', .16);
     this.cameras.main.resetFX();
     if (!this.reducedMotion) this.cameras.main.fadeIn(220, 29, 35, 30);
   }
 
-  protected usePortal(): void { this.leave(); }
+  protected usePortal(id:string): void {
+    const door=this.spec.layout?.links?.find(d=>`room-door:${d.id}`===id);
+    if(!door){this.leave();return;}
+    if(this.leaving)return;
+    this.leaving=true;this.suspended=true;this.clearControls();
+    const target=buildingRoomId(this.spec.id,door.targetRoom) as InteriorId;
+    writeWorld(this.registry,'interiorId',target);
+    this.scene.restart({id:target,mapId:this.mapId,stairs:door.kind==='stairs'});
+    emitWorld(this.game,WorldEvents.InteriorChange,target,door.id);
+  }
 
   /** Hand the frame back to the town, which places the player at this room's door. */
   leave(instant = false): void {
@@ -155,7 +191,7 @@ export class InteriorScene extends ExploreScene {
     this.clearControls();
     writeWorld(this.registry, 'interiorId', undefined);
     const town = this.scene.get(SceneKeys.World) as WorldScene;
-    town.resumeFromInterior({ returnFrom: this.spec.id, instant });
+    town.resumeFromInterior({ returnFrom: buildingRoomRoot(this.spec.id) as InteriorId, instant });
     this.scene.stop();
     emitWorld(this.game, WorldEvents.InteriorChange, undefined);
   }

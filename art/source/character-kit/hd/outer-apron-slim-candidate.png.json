@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-apron-slim-page-0-candidate-2.png",
+      "sha256": "98eaa17bda56bc49c746df36c2e69aa2beb01046d1e6753965baf1077892c776"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-apron-slim-page-0-candidate-2.txt",
+      "sha256": "06c21445fd01a34c3f0c2cc3e53b0b5dba098a06c3376ba5432b031666fe8324"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-0.json",
+      "sha256": "a6c84addbfd340ec426f28ea82ae85b2cc2b70137b1516da583c89ea1fd9c3c8"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-apron-slim-page-1-candidate-3.png",
+      "sha256": "93b70272dc927d70cbcaaaaf4d006d32eb988569cf1481ff81b6efddbf79786c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-apron-slim-page-1-candidate-3.txt",
+      "sha256": "39850c0780881245f4ce9b575a8451b4135cabc076afccf361a7f8cec0239c5a"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-1.json",
+      "sha256": "200f02d5272755448caa8ff37144a13da72062cdd95a20c1a7ff61ef7ff62814"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-apron-slim-page-2-candidate-1.png",
+      "sha256": "1542843f72f22ed86162f44d38a551de0b126df55d5c14561e75832994ab93a4"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-apron-slim-page-2-candidate-1.txt",
+      "sha256": "b232c44e353bbf8567e10044a386ede939083224f4d156789b53850d76857653"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-2.json",
+      "sha256": "30efcafbe9d7830013cf5b7b68ce9c0f1f7e02a3753d8c70007005f678193dd2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-apron-slim-page-3-candidate-3.png",
+      "sha256": "d14cd8c0c16ae9e281ba945cad4db55e19b0ccaa9f7541d6712e5867e0ddbff8"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-apron-slim-page-3-candidate-3.txt",
+      "sha256": "4abd39487c5a6681feb71fd7ecaf10d2495a4d3e3a1d600f88c09e313f861904"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-3.json",
+      "sha256": "c3b47bcc3acbc328ad2378c245359a6a3c2b8edd6d4ac6fd90495f1b180f8485"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-apron-slim-page-4-candidate-1.png",
+      "sha256": "4b8dcbd4118383afb81622bdd669fcb7fd6c665f7026535be9ef4581d0b5030c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-apron-slim-page-4-candidate-1.txt",
+      "sha256": "b232c44e353bbf8567e10044a386ede939083224f4d156789b53850d76857653"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-4.json",
+      "sha256": "3e12d382498d7598725fce3e44099a593cbd15caa44e9c7bc572e3931559e2ad"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-apron-slim-page-5-candidate-2.png",
+      "sha256": "361b3b17b04d38e613f081890be6bdfc2ed09a3d581f28dab938063d5a9e82ef"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-apron-slim-page-5-candidate-2.txt",
+      "sha256": "63ff7cf7288075fe34438b4bc842c1402e73e0f7d0df3412f6c837a001bbb219"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-5.json",
+      "sha256": "9801f02cbaa07933d6c115805b6442f6e7adf1db9ca8bd68a1185df134371b95"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-apron-slim-page-6-candidate-1.png",
+      "sha256": "7c1f020e1a697c8dc8209ce540cd8a2f44ab0336fd737a930378f1baad3f2eeb"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-apron-slim-page-6-candidate-1.txt",
+      "sha256": "b232c44e353bbf8567e10044a386ede939083224f4d156789b53850d76857653"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-6.json",
+      "sha256": "b376d6ff991750e64f8e4e02d1eee9baecab7f17b23cfca6d0d24ea933096ab6"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-apron-slim-page-7-candidate-1.png",
+      "sha256": "0c1459bada2817f360dbc6224b017e2f611910f2fee5543d11bef0bd4ded3db1"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-apron-slim-page-7-candidate-1.txt",
+      "sha256": "b232c44e353bbf8567e10044a386ede939083224f4d156789b53850d76857653"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-7.json",
+      "sha256": "54b515875467084c2615401a4aa41788ff7ea91081d871208308ecdfda0f48d1"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/outer-apron-slim-page-8-candidate-1.png",
+      "sha256": "eee753498183e83ee4fe99551a0dcbc2eb96fa5c044af1b32c925fd2f4e4b182"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/outer-apron-slim-page-8-candidate-1.txt",
+      "sha256": "b232c44e353bbf8567e10044a386ede939083224f4d156789b53850d76857653"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-full/page-8.json",
+      "sha256": "a907bceabc2de3865bb70e4f875dcc255387929f55bac0e8f698706c5c1bcdb1"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "998449a1493a5b4578901151555665d57fab5d4de5991d80d1b21379105cbd74"
+}

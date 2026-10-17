@@ -1,3 +1,4 @@
+import {parseRoomLayout, type RoomLayout} from './room-layout.ts';
 import {animalSpecies, animalVariants, type AnimalSpawn, type AnimalSpecies} from './animal-types.ts';
 import {terrainMaterial} from './terrain-materials.ts';
 import {terrainFeature,featureBounds,type TerrainFeature} from './terrain-features.ts';
@@ -5,6 +6,7 @@ import {terrainObjectGeometry} from './terrain-objects.ts';
 import {groundProblem,type Ground} from './ground.ts';
 import {groundFromHazards,groundFromModularTerrain,legacyGroundStyle,type LegacyModularTerrain} from './ground-convert.ts';
 import {residentActionLooks,type ResidentActionLook} from './resident-action-art.ts';
+import {allRoomKinds, type RoomId, type RoomKind} from './room-kind.ts';
 import sceneryGeometry from './data/scenery-geometry.json' with {type:'json'};
 /** Canonical scene coordinates are world units, independent of image resolution. */
 export interface ScenePoint { x: number; y: number; }
@@ -47,6 +49,7 @@ export interface SceneScenery extends SceneAnchor {
   groupId?: string; generatorId?: string; pinned?: boolean;
   /** A building with a painted door can host one room. Its doorway follows the artwork. */
   interior?: SceneInterior;
+  roomLayout?: RoomLayout;
 }
 export interface SceneDistrict { id: string; label?: string; polygon: ScenePolygon; }
 export interface SceneActivity {
@@ -71,7 +74,7 @@ export interface SceneResident {
   actionArt?:ResidentActionLook;
   schedule:SceneResidentTask[];
 }
-export const sceneInteriorIds = ['cafe', 'bakery', 'supermarket', 'inn', 'train-compartment', 'train-dining'] as const;
+export const sceneInteriorIds = allRoomKinds;
 export type SceneInteriorKind = typeof sceneInteriorIds[number];
 export interface SceneInterior {
   kind: SceneInteriorKind;
@@ -79,7 +82,7 @@ export interface SceneInterior {
   returnOffset?: ScenePoint;
 }
 /** A placed doorway, derived from its building. */
-export interface SceneEntrance { id: string; ownerId: string; interiorId: SceneInteriorKind; owner: SceneScenery; }
+export interface SceneEntrance { id: string; ownerId: string; interiorId: RoomId; owner: SceneScenery; }
 export interface SceneGenerationZone {
   id: string; polygon: ScenePolygon; seed: number; rulesVersion: number;
   palette: string[]; pinnedIds?: string[];
@@ -130,20 +133,37 @@ export function sceneActivityUsers(scene:WorldScene,ids:ReadonlySet<string>):str
 export function sceneryHasDoor(mapId:string,placement:{asset:string;frame?:string}):boolean {
   return !!getSceneryGeometry(mapId,placement)?.door;
 }
-/** Every building that hosts a room, in scenery order. */
+/** Buildings always have an inside, even when older artwork has no registered door. */
+export function buildingRoomKind(owner: SceneScenery): RoomKind | undefined {
+  if (owner.interior) return owner.interior.kind;
+  if (!['house', 'archive', 'cafe', 'station', 'workshop', 'greenhouse'].includes(owner.asset)) return undefined;
+  if (owner.frame === 'house-grocery') return 'supermarket';
+  if (owner.frame === 'house-bakery') return 'bakery';
+  if (/library|archive|council/.test(owner.id) || owner.asset === 'archive') return 'library';
+  if (/workshop|clockmill/.test(owner.id) || owner.asset === 'workshop') return 'workshop';
+  if (owner.asset === 'station') return 'station';
+  if (owner.asset === 'greenhouse') return 'greenhouse';
+  return 'home';
+}
+/** Legacy named rooms retain their IDs. Every other building owns a stable, separate instance. */
 export function sceneEntrances(scene: WorldScene): SceneEntrance[] {
   const station = scene.id === 'lindenhafen' ? scene.scenery.find(item => item.id === 'station') : undefined;
   // Boarding the train uses the station platform; rooms share the same outdoor return.
   const train: SceneEntrance[] = station ? (['train-compartment', 'train-dining'] as const).map(interiorId => ({id:`${interiorId}-entrance`,ownerId:station.id,interiorId,owner:station})) : [];
-  return [...train, ...scene.scenery.flatMap(owner=>owner.interior?[{id:`${owner.interior.kind}-entrance`,ownerId:owner.id,interiorId:owner.interior.kind,owner}]:[])]
-    .sort((a,b)=>sceneInteriorIds.indexOf(a.interiorId)-sceneInteriorIds.indexOf(b.interiorId));
+  return [...train, ...scene.scenery.flatMap(owner => {
+    const kind = buildingRoomKind(owner);
+    if (!kind) return [];
+    const interiorId: RoomId = owner.interior ? kind : `${kind}--${owner.id}`;
+    return [{id: owner.interior ? `${kind}-entrance` : owner.id, ownerId: owner.id, interiorId, owner}];
+  }).sort((a, b) => Number(!a.owner.interior) - Number(!b.owner.interior)
+    || allRoomKinds.indexOf(buildingRoomKind(a.owner)!) - allRoomKinds.indexOf(buildingRoomKind(b.owner)!) )];
 }
 /** The doorway step, or the outdoor return point, of a building that hosts a room. */
 export function sceneEntrancePoint(scene: WorldScene, entrance: Pick<SceneEntrance,'owner'>|SceneScenery, returning = false): ScenePoint {
   const owner='owner' in entrance?entrance.owner:entrance;
   const geometry=getSceneryGeometry(scene.id,owner),door=geometry?.door,scale=owner.width/(geometry?.referenceWidth??owner.width);
-  const approach=door?{x:(door.x+door.width/2)*scale*(owner.flipX?-1:1),y:(door.y+door.height)*scale}:{x:0,y:0};
-  const offset = returning ? owner.interior?.returnOffset??{x:approach.x,y:approach.y+PERSON_HEIGHT} : approach;
+  const approach=door?{x:(door.x+door.width/2)*scale*(owner.flipX?-1:1),y:(door.y+door.height)*scale}: {x:0,y: Math.max(0, ...(geometry?.footprint?.map(point => point[1]) ?? [0])) * scale + 20};
+  const offset = returning ? owner.interior ? owner.interior.returnOffset ?? {x:approach.x,y:approach.y+PERSON_HEIGHT} : approach : approach;
   return {x:owner.x+offset.x,y:owner.y+offset.y};
 }
 /** Earlier documents kept doors in a separate list. Attach each to its building. */
@@ -343,6 +363,11 @@ export function parseWorldSceneDocument(value: unknown): WorldSceneDocument {
       if (item.motion !== undefined && !['tree', 'cloth', 'boat', 'lamp', 'building', 'water', 'still'].includes(String(item.motion))) fail(`${id} scenery ${item.id} has invalid motion`);
       for (const key of ['variant', 'flipX', 'collidable', 'pinned']) if (item[key] !== undefined && typeof item[key] !== 'boolean') fail(`${id} scenery ${item.id} has invalid ${key}`);
       for (const key of ['groupId', 'generatorId']) if (item[key] !== undefined && !validId(item[key])) fail(`${id} scenery ${item.id} has invalid ${key}`);
+      if (item.roomLayout !== undefined) {
+        const layout = parseRoomLayout(item.roomLayout);
+        if (buildingRoomKind(item as unknown as SceneScenery) !== layout.kind) fail(`${id} room layout does not match its building`);
+        item.roomLayout = layout;
+      }
       if (item.interior !== undefined) {
         const interior = item.interior;
         if (!record(interior) || !sceneInteriorIds.includes(interior.kind as SceneInteriorKind)) fail(`${id} scenery ${item.id} has an unknown room`);

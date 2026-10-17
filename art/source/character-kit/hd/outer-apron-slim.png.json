@@ -1,0 +1,48 @@
+{
+  "version": 2,
+  "candidateSha256": "998449a1493a5b4578901151555665d57fab5d4de5991d80d1b21379105cbd74",
+  "baseSha256": "8cd0851a6d13dd5101bd3336fa5c19306975c46a0f92d0fd96dcb4846ff9cff1",
+  "registrationSha256": "788e47437494c96393faacb772a8aa33987b77064e75cf45faceaf14fb718e24",
+  "maskSha256": "84a775130c78e0db3e444a3e83dc6c7818cfafdd83f15060585a09d8c26b8432",
+  "promptSha256": "b4c95d2dfc21c8f702f32b376b9d4f452f71617f152788b675f9fbda1fbe928d",
+  "generationPromptSha256": "06c21445fd01a34c3f0c2cc3e53b0b5dba098a06c3376ba5432b031666fe8324",
+  "materials": [
+    "primary",
+    "secondary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin"
+    ],
+    "maxSpeckPixels": 360,
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailReach": 2,
+    "detailMaterial": "primary"
+  },
+  "validation": {
+    "maxRegionsByFacing": {
+      "down": 2,
+      "right": 3,
+      "up": 5,
+      "left": 4
+    },
+    "regionReason": "Neck loop and waist ties are separated by the body; arms and legs occlude the connections to visible side panels and rear hem corners.",
+    "materialReason": "The rear view shows neck loop, waist ties and only narrow edges of the front skirt visible around the legs and torso.",
+    "materialCountByFacing": [
+      "primary",
+      "secondary"
+    ],
+    "optionalMaterialFacings": {
+      "primary": [
+        "up"
+      ]
+    }
+  },
+  "preparationSha256": "8aea6726a2cf5021ab2fa8736490adf82ac443db1d745446a1bb178ed61e035c",
+  "candidate": "art/source/character-kit/hd/outer-apron-slim-candidate.png",
+  "lockedSha256": "653a004e461b370b34dc64d5fdc5f464ea8c60cf80cf9535792c7315bb179906"
+}

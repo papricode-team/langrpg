@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/dunegarden-resident-7.png",
   "proofSha256": "31dc9af465a087548e7f2c033d16cf019ae69525ed65294b717e011728d1afbc",
   "editorSha256": "8e4c5950181660957771a0e4af78451cd7509f7995737c87685fc8fe6e6b5e27",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "d3ad9ee6d86ba0cae22d9255e738c346c4f51a20b08c1e293c54ac9ec8b5e2ab"
+  }
 }

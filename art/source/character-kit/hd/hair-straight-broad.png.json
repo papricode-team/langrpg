@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "candidateSha256": "ef85181363ee63d0d5dab7463a92784f147bb715224984ac623879fb4da2f603",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "58e849238e8230a54a86b15959cc6dc65ccf2535146587380d0c021a89a77ff1",
+  "promptSha256": "b31391dfbbc93492c5e1047f2d7116b4fae13ae8d2bb19692e116b3860622541",
+  "generationPromptSha256": "cfe1b052010c87d8cb5f292af52549886335a09a6dcfce4638017b40aa39d667",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 360,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    },
+    "detailMaxChroma": 0.15
+  },
+  "preparationSha256": "8ec3462445e0d0588389073b36410f2d998ebf9e16b0850d880a750772e5ee4c",
+  "candidate": "art/source/character-kit/hd/hair-straight-broad-candidate.png",
+  "lockedSha256": "42894d8d20472636a249ea48b16671a074b3542bbc5ff481f995851cd5413b98"
+}

@@ -16,6 +16,11 @@
   "proof": "art/proofs/character-cast/terracielo-resident-5.png",
   "proofSha256": "af128863ecfb2cf9c71b4267696006a93cbb171fb048f7ce8537ed294bb8d792",
   "editorSha256": "d609a25c3e587b5008e528627d9daf61c6222dab3288315649be9bc2bb9d8b8d",
-  "assetVersion": "4c9d233bf71007a9",
-  "frames": 36
+  "assetVersion": "e80b2c9758205a2f",
+  "frames": 36,
+  "componentRevisionRebind": {
+    "from": "16c07b05d127d438",
+    "to": "e80b2c9758205a2f",
+    "unchangedResolvedInputsSha256": "84a05fb332e98049c7ae5ee422bc47ca81e6d96143c889db4e79d51e4d1ebf33"
+  }
 }

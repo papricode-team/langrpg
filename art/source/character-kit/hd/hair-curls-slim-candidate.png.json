@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-curls-slim-page-0-candidate-1.png",
+      "sha256": "863988399b30188f36a2c16a5398cd29f8ba097dcb1e292fc39936c3fe6e83eb"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-curls-slim-page-0-candidate-1.txt",
+      "sha256": "0571cb7b9dc59dbea22ce875692eca1dd393a69089ca41b50aa885f7fe039f74"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-0.json",
+      "sha256": "9207c077e0be3b69b427bf2fef3c5c6ec2cba6cd90360ea2f21dee3997475f8b"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-curls-slim-page-1-candidate-1.png",
+      "sha256": "58f802c8b5def6fcf356b8217c9c26e909effce7c617e1b589ef43848c6eb63a"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-curls-slim-page-1-candidate-1.txt",
+      "sha256": "0571cb7b9dc59dbea22ce875692eca1dd393a69089ca41b50aa885f7fe039f74"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-1.json",
+      "sha256": "f25ab7ae6f2211a6dcf84a772de156dca1aea4c9a1667b243da9303f7f1651ae"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-curls-slim-page-2-candidate-1.png",
+      "sha256": "7ae31e027d8a86c841a3e42ea71668d51068772942dbcf0ac9ed0fcd000711ed"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-curls-slim-page-2-candidate-1.txt",
+      "sha256": "0571cb7b9dc59dbea22ce875692eca1dd393a69089ca41b50aa885f7fe039f74"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-2.json",
+      "sha256": "114454392f0cfb9ed7f499b8732bbd8ea3acae965a2db03ac0e20f8ab4e31746"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/hair-curls-slim-page-3-candidate-1.png",
+      "sha256": "449891e72618db49518551f18bc7bdaee22a58547269516be5d38d2d5e688988"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/hair-curls-slim-page-3-candidate-1.txt",
+      "sha256": "0571cb7b9dc59dbea22ce875692eca1dd393a69089ca41b50aa885f7fe039f74"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-slim-native-head/page-3.json",
+      "sha256": "9aef7f92c4a053f1ceb57baa15a3a3771a2c646922f5b26f7f9c0ac68ec0b4bd"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-slim.png",
+      "sha256": "521362195be46e6d1e275536b0f7e31899478434f109ecd3000f6299d80fd844"
+    }
+  ],
+  "outputSha256": "acdd50310d86e8dbf5d3d6ebbb0d37ea21afaaa8795f83f57bb7eeb846d9c19a"
+}

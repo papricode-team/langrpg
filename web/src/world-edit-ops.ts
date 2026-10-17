@@ -1,3 +1,6 @@
+import {parseRoomLayout, roomLayoutFingerprint, type RoomLayout} from './room-layout';
+import {getInterior} from './interiors';
+import {roomLayoutProblems} from './room-layout-validation';
 import {animalSpawns} from './animal-spawns';
 import {animalSpecies, animalVariants, type AnimalSpawn, type AnimalSpecies} from './animal-types';
 import {MAX_BRUSH_RADIUS,MAX_STROKE_POINTS,groundFingerprint,paintGround,type Ground} from './ground';
@@ -8,7 +11,7 @@ import {MAX_BRUSH_RADIUS,MAX_STROKE_POINTS,groundFingerprint,paintGround,type Gr
  */
 import {paletteChoices,usesVariationAtlas,variantChoices} from './world-edit-catalogue';
 import {
-  sceneActivityUsers,sceneInteriorIds,sceneSceneryAssets,
+  buildingRoomKind,sceneActivityUsers,sceneInteriorIds,sceneSceneryAssets,
   type SceneActivity,type SceneInterior,type SceneResident,type SceneScenery,type ScenePoint,type WorldScene,type WorldSceneDocument,
 } from './scene-schema';
 import {objectLabel,problem,WorldEditError} from './world-edit-rules';
@@ -17,6 +20,7 @@ import {objectLabel,problem,WorldEditError} from './world-edit-rules';
 type ArtworkState = Pick<SceneScenery, 'frame' | 'variant' | 'collision' | 'sortLine'>;
 
 export type WorldEditOp =
+  | {kind: 'room'; map: string; id: string; layout: RoomLayout | null; expected: string}
   /** Replace a town's whole ground, including its features. `expected` fingerprints the ground it replaces. */
   | {kind: 'ground'; map: string; ground: Ground; expected: string}
   /** One brush stroke: `strength` (0–1) of `material` under a soft round brush along `points`. */
@@ -47,6 +51,12 @@ export function parseEditOps(value: unknown): WorldEditOp[] {
     const needId = () => { if (typeof id !== 'string' || !slug.test(id)) throw invalid(map, 'An edit needs an object.'); };
     const needPoint = () => { if (!finite(op.x) || !finite(op.y)) throw invalid(map, 'A move needs a position.'); };
     switch (op.kind) {
+      case 'room': {
+        needId();
+        if (typeof op.expected !== 'string') throw invalid(map, 'Refresh this room before editing.');
+        try { return {kind:'room',map,id:id as string,layout:op.layout === null ? null : parseRoomLayout(op.layout),expected:op.expected}; }
+        catch (error) { throw invalid(map, (error as Error).message); }
+      }
       case 'ground':
         if (!record(op.ground) || typeof op.expected !== 'string') throw invalid(map, 'Choose valid ground.');
         return {kind:'ground',map,ground:op.ground as unknown as Ground,expected:op.expected};
@@ -164,6 +174,20 @@ function applyOne(document: WorldSceneDocument, op: WorldEditOp): WorldSceneDocu
   const scene = sceneOf(document, op);
   let next: WorldScene;
   switch (op.kind) {
+    case 'room': {
+      const item = itemOf(scene, op.id), kind = buildingRoomKind(item);
+      if (!kind) throw invalid(scene.id, 'Choose a building with an interior.');
+      if (roomLayoutFingerprint(item.roomLayout) !== op.expected) throw new WorldEditError([problem('stale',scene.id,'This room changed while you were editing. Reopen its layout before saving.',[item.id])]);
+      const layout = op.layout === null ? undefined : parseRoomLayout(op.layout);
+      if (layout) {
+        const problems = roomLayoutProblems(getInterior(kind), layout);
+        if (problems.length) throw invalid(scene.id, problems[0]);
+      }
+      const changed = {...item};
+      if (layout) changed.roomLayout = layout; else delete changed.roomLayout;
+      next = {...scene,scenery:scene.scenery.map(value=>value===item ? changed : value)};
+      break;
+    }
     case 'ground': {
       if (groundFingerprint(scene.ground) !== op.expected) throw new WorldEditError([problem('stale', scene.id, 'The ground changed since you started. Your view has been refreshed; try again.')]);
       next = {...scene, ground: structuredClone(op.ground)};
@@ -207,6 +231,7 @@ function applyOne(document: WorldSceneDocument, op: WorldEditOp): WorldSceneDocu
         for (const key of ['frame', 'variant', 'collision', 'sortLine'] as const) delete changed[key];
         Object.assign(changed, structuredClone(op.restoreArtwork));
       }
+      if (buildingRoomKind(changed) !== buildingRoomKind(item)) delete changed.roomLayout;
       next = transformOwned({...scene, scenery: scene.scenery.map(value => value === item ? changed : value)}, item, changed);
       break;
     }
@@ -280,6 +305,7 @@ export function applyEditOps(document: WorldSceneDocument, ops: readonly WorldEd
 export function inverseEditOps(document: WorldSceneDocument, op: WorldEditOp): WorldEditOp[] {
   const scene = sceneOf(document, op);
   switch (op.kind) {
+    case 'room': return [{...op,layout:structuredClone(itemOf(scene,op.id).roomLayout ?? null),expected:roomLayoutFingerprint(op.layout)}];
     case 'ground': return [{kind:'ground',map:op.map,ground:structuredClone(scene.ground),expected:groundFingerprint(op.ground)}];
     case 'paint': return [{kind:'ground',map:op.map,ground:structuredClone(scene.ground),expected:groundFingerprint(paintGround(scene.ground,scene.width,scene.height,op))}];
     case 'move': { const item = itemOf(scene, op.id); return [{kind: 'move', map: op.map, id: op.id, x: item.x, y: item.y}]; }
@@ -298,6 +324,8 @@ export function inverseEditOps(document: WorldSceneDocument, op: WorldEditOp): W
       if (op.flipX !== undefined) undo.flipX = !!item.flipX;
       if (op.collidable !== undefined) undo.collidable = item.collidable !== false;
       if (op.interior !== undefined) undo.interior = item.interior ?? null;
+      const after = {...item,...(op.frame !== undefined ? {frame:op.frame} : {}),...(op.interior !== undefined ? {interior:op.interior ?? undefined} : {})};
+      if (item.roomLayout && buildingRoomKind(after) !== buildingRoomKind(item)) return [undo,{kind:'room',map:op.map,id:op.id,layout:structuredClone(item.roomLayout),expected:roomLayoutFingerprint(null)}];
       return [undo];
     }
     case 'place': return [{kind: 'remove', map: op.map, id: op.item.id}];

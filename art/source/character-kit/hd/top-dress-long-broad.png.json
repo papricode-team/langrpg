@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "candidateSha256": "473ea70aea7296fb450f555771c7d825b666b954104dfe2d9e7c4284a82c1042",
+  "baseSha256": "b0ad8e11df9d33e9d116bc3caedbb2ff64252726c285f2bf66d19d26b3d619ba",
+  "registrationSha256": "407d93cb0f0e6d80d67d900e23c26ec78f324309f760933bca87681d0e5c39bf",
+  "maskSha256": "968c40b89d96b2edc132cf850cb9ff745e492a0dcb56baae774f3ade329c41d0",
+  "promptSha256": "6ff06b3584f78ecd0b7ae8c71abc05a3b7c375fb017aa64ff228812c7e53e9db",
+  "generationPromptSha256": "f2dc0f50ac22056d6371f8e9bbc5f966a289b310f779c96035ba66b7982eb7cb",
+  "materials": [
+    "primary",
+    "detail"
+  ],
+  "lock": {
+    "ignoreKeys": [
+      "skin",
+      "secondary"
+    ],
+    "maxSpeckPixels": 48,
+    "detailEnclosedBy": "primary",
+    "matte": {
+      "color": "#ffffff",
+      "tolerance": 32
+    }
+  },
+  "preparationSha256": "29c26745a00f083852265ddf0edb24cb97a62d225b959e4137f8461d9fc1f2c4",
+  "candidate": "art/source/character-kit/hd/top-dress-long-broad-candidate.png",
+  "lockedSha256": "e77e119deb1732c5b244780f455c4819466845b8d479a326e7ff15b6bfe73421"
+}

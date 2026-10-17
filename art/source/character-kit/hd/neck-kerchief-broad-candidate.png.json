@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-kerchief-broad-page-0-candidate-1.png",
+      "sha256": "cfa0ed42a857f51f4f27ce04a85ba163a925c333911a529689186eee031633dd"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-kerchief-broad-page-0-candidate-1.txt",
+      "sha256": "a8c9d68d036e08d972252c064578ea5f994e5163154941429c371fe1dfd06068"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-0.json",
+      "sha256": "d4c597d609eaced853a49300a3c916edad44486d2083661e2e1f72015c5fb832"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-kerchief-broad-page-1-candidate-1.png",
+      "sha256": "0225d0e79b65f18279ac1695befea8a13935e78a1108cb34eeb6fa3123f4fee7"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-kerchief-broad-page-1-candidate-1.txt",
+      "sha256": "a8c9d68d036e08d972252c064578ea5f994e5163154941429c371fe1dfd06068"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-1.json",
+      "sha256": "597ae57a47283b3583f871d7ecfb79f8eb0d069ec363f819db5347b622c0eec5"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-kerchief-broad-page-2-candidate-1.png",
+      "sha256": "9861a45e794f85c9ee1286dc07029b1725468710d67f719f89b363c4cb5e1dad"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-kerchief-broad-page-2-candidate-1.txt",
+      "sha256": "e9fafcb9e7add42c7b3716bc393f995623e4cf88528ad217fd5265537adfe254"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-2.json",
+      "sha256": "3822b1501237a22f8d5952fa86901bb95b3a7ca3e1637d7063b13b8b5a890e21"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-kerchief-broad-page-3-candidate-1.png",
+      "sha256": "92883b83a95554b896fd65a4bd96f5546618d36f28e4f8b406e211a3174eb1ce"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-kerchief-broad-page-3-candidate-1.txt",
+      "sha256": "ed5aa55f9550ffc87453b9d8572a4fe777b82a2371978689e6691856c410e097"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-3.json",
+      "sha256": "09412f0261449be2e3d6bacbb0fb474dfa77e215dc568cef97a5387d7eceba7e"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-kerchief-broad-page-4-candidate-1.png",
+      "sha256": "7ce2b51455f871e9585b299a5e6229a448d713d837b14f010f87cb18420a826f"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-kerchief-broad-page-4-candidate-1.txt",
+      "sha256": "82a43cfc41bc90d6f52651ebef3060a6f5012abd56243b33b7ddc3f10b7f19c0"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-4.json",
+      "sha256": "5252f9b6b506aeba7aa6b065493407dc63e3afa72771694c1fc3d3f025c359a3"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-kerchief-broad-page-5-candidate-1.png",
+      "sha256": "6a71b3528087127dc5874ff136d4026a7961b8cd7b31c51c03cdf3eaa1d52185"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-kerchief-broad-page-5-candidate-1.txt",
+      "sha256": "53babb5703e3cfc25d3108d3f8c3017011b96650af0e8f6f6089d569db2c300e"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-5.json",
+      "sha256": "72beb8597382255bf7cfde12b003f50107cce66fee1e4d12ba961c28edfdb6dc"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-kerchief-broad-page-6-candidate-1.png",
+      "sha256": "0354ee3b3253db38739a9e3f1631022c0caf63a8ac5745d3e432b4d91c7b7fa3"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-kerchief-broad-page-6-candidate-1.txt",
+      "sha256": "5098e9bb6a77cde170434a6de3f717f0c2e779a9a6ca7e07c230fa7ab6118a79"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-6.json",
+      "sha256": "369c87b8e1c6db5e23506f6c9c049b8866e3b95c4a57ebb3e5fdb50cff738546"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-kerchief-broad-page-7-candidate-1.png",
+      "sha256": "3f38cb95285a8fae14894c38504da5276977b293248bfc4235bfde63fac18643"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-kerchief-broad-page-7-candidate-1.txt",
+      "sha256": "a09973fedb000d44e9ebf8020d7a3481948af57f378cc587b2a0a3d6b4c47700"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-7.json",
+      "sha256": "594be292ae2bb672b79bc0f64091efc6184647dc4159416c469120e9794ae6a2"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/neck-kerchief-broad-page-8-candidate-1.png",
+      "sha256": "f72377a3d42813e3ec1feed49125f9070c13685555f38039e66ab4da48dea58d"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/neck-kerchief-broad-page-8-candidate-1.txt",
+      "sha256": "a09973fedb000d44e9ebf8020d7a3481948af57f378cc587b2a0a3d6b4c47700"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-full/page-8.json",
+      "sha256": "59b98d4a2e80d5eda70982582ea13bff1711eca74a22fd82e4b3ed6ef6f68734"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "54fc9550ef0978d630621fe058c3a40cacd1362e80b05b8ae97c6a86a38b2cc2"
+}

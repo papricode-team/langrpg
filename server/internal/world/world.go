@@ -17,6 +17,7 @@ import (
 	"regexp"
 	"slices"
 	"sort"
+	"strings"
 	"sync"
 	"time"
 
@@ -81,6 +82,9 @@ type worldClient struct {
 	messageCount  int
 	authorizeMap  func(context.Context, string) error
 	admin         bool
+	// moved marks a position others have not seen yet; corrected marks a
+	// move the server shortened, which the mover must hear about too.
+	moved, corrected bool
 }
 
 type World struct {
@@ -116,23 +120,100 @@ func New(maxPlayers int, origins []string, identity Identity, compiled MapRegist
 	return w
 }
 
+// The tick batches movement into one small delta per room. Rosters go out only
+// when someone arrives, leaves or changes; clients extrapolate the shared clock
+// and only need an occasional resync.
+const (
+	moveTick      = 100 * time.Millisecond
+	clockInterval = 30 * time.Second
+)
+
 func (w *World) run(ctx context.Context) {
 	defer close(w.done)
-	ticker := time.NewTicker(100 * time.Millisecond)
+	ticker := time.NewTicker(moveTick)
 	defer ticker.Stop()
+	lastClock := time.Now()
 	for {
 		select {
 		case <-ctx.Done():
 			return
-		case <-ticker.C:
+		case now := <-ticker.C:
 			w.mu.Lock()
-			for _, mapID := range mapIDs {
-				if w.mapCountLocked(mapID) > 0 {
-					w.broadcastPlayersLocked(mapID)
-				}
+			w.flushMovesLocked()
+			if now.Sub(lastClock) >= clockInterval {
+				lastClock = now
+				w.broadcastClockLocked()
 			}
 			w.mu.Unlock()
 		}
+	}
+}
+
+type locationKey struct{ mapID, interiorID string }
+
+// flushMovesLocked sends each room the positions that changed since the last
+// tick as [id, x, y] entries. Movers do not hear their own position back
+// unless the server shortened their move.
+func (w *World) flushMovesLocked() {
+	var moved map[locationKey][]any
+	for _, client := range w.clients {
+		if client.moved {
+			key := locationKey{client.player.MapID, client.player.InteriorID}
+			if moved == nil {
+				moved = map[locationKey][]any{}
+			}
+			moved[key] = append(moved[key], moveEntry(client.player))
+		}
+	}
+	shared := map[locationKey][]byte{}
+	for _, client := range w.clients {
+		key := locationKey{client.player.MapID, client.player.InteriorID}
+		entries := moved[key]
+		if !client.moved && !client.corrected {
+			if len(entries) == 0 {
+				continue
+			}
+			b, ok := shared[key]
+			if !ok {
+				b = movesMessage(key, entries)
+				shared[key] = b
+			}
+			w.enqueueLocked(client, b)
+			continue
+		}
+		own := moveEntry(client.player)
+		filtered := make([]any, 0, len(entries)+1)
+		for _, entry := range entries {
+			if entry.([]any)[0] != client.player.ID {
+				filtered = append(filtered, entry)
+			}
+		}
+		if client.corrected {
+			filtered = append(filtered, own)
+		}
+		if len(filtered) > 0 {
+			w.enqueueLocked(client, movesMessage(key, filtered))
+		}
+	}
+	for _, client := range w.clients {
+		client.moved, client.corrected = false, false
+	}
+}
+
+func moveEntry(player Player) any { return []any{player.ID, player.X, player.Y} }
+
+func movesMessage(key locationKey, entries []any) []byte {
+	b, _ := json.Marshal(map[string]any{"type": "moves", "mapId": key.mapID, "interiorId": key.interiorID, "moves": entries})
+	return b
+}
+
+func (w *World) broadcastClockLocked() {
+	b, err := json.Marshal(map[string]any{"type": "clock", "clock": w.Clock()})
+	if err != nil {
+		return
+	}
+	for _, client := range w.clients {
+		w.enqueueLocked(client, b)
 	}
 }
 
@@ -356,6 +437,7 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 			Y                 *float64 `json:"y"`
 			MapID             string   `json:"mapId"`
 			InteriorID        string   `json:"interiorId"`
+			DoorID            string   `json:"doorId"`
 			CoordinateVersion *int     `json:"coordinateVersion"`
 			ObjectID          string   `json:"objectId"`
 		}
@@ -373,7 +455,7 @@ func (w *World) ServeHTTP(rw http.ResponseWriter, r *http.Request, player Player
 				w.clientError(client, err)
 			}
 		case "joinInterior":
-			if err := w.joinInterior(client, message.MapID, message.InteriorID, now); err != "" {
+			if err := w.joinInterior(client, message.MapID, message.InteriorID, now, message.DoorID); err != "" {
 				w.clientError(client, err)
 			}
 		case "joinMap":
@@ -495,6 +577,8 @@ func (w *World) moveInLocationVersioned(client *worldClient, mapID, interiorID s
 	client.player.X += dx / distance * step / definition.Width
 	client.player.Y += dy / distance * step / definition.Height
 	memory.movementCredit -= step
+	client.moved = client.moved || step > 0
+	client.corrected = client.corrected || step < distance
 	position := MapSpawn{X: client.player.X, Y: client.player.Y}
 	if interiorID == "" {
 		memory.rememberPosition(client.player.MapID, position, definition.CoordinateFrame)
@@ -515,8 +599,15 @@ func (w *World) mapCountLocked(mapID string) int {
 	return count
 }
 
+// broadcastPlayersLocked sends the full roster, which also carries every
+// pending position on the map, so those moves need no separate delta.
 func (w *World) broadcastPlayersLocked(mapID string) {
 	w.broadcastLocked(mapID, map[string]any{"type": "players", "mapId": mapID, "players": w.playersLocked(mapID), "clock": w.Clock()})
+	for _, client := range w.clients {
+		if client.player.MapID == mapID {
+			client.moved, client.corrected = false, false
+		}
+	}
 }
 
 func (w *World) enqueueMapLocked(client *worldClient, kind string) {
@@ -622,6 +713,7 @@ func (w *World) UpdateProfile(player Player) Player {
 	defer w.mu.Unlock()
 	if client := w.clients[player.ID]; client != nil {
 		client.player.Name, client.player.Avatar = player.Name, player.Avatar
+		w.broadcastPlayersLocked(client.player.MapID)
 		return client.player
 	}
 	return player
@@ -799,11 +891,22 @@ type MapDefinition struct {
 	Entrances map[string]Entrance `json:"entrances,omitempty"`
 }
 
+type RoomDoor struct {
+	Kind    string   `json:"kind,omitempty"`
+	Target  string   `json:"target"`
+	Arrival MapSpawn `json:"arrival"`
+}
+
 type Entrance struct {
-	ID       string   `json:"id"`
-	OwnerID  string   `json:"ownerId"`
-	Approach MapSpawn `json:"approach"`
-	Return   MapSpawn `json:"return"`
+	Level    int                 `json:"level,omitempty"`
+	Building string              `json:"building,omitempty"`
+	Doors    map[string]RoomDoor `json:"doors,omitempty"`
+	// Spawn is optional for legacy room layouts. Published custom rooms own their arrival point.
+	Spawn    *MapSpawn `json:"spawn,omitempty"`
+	ID       string    `json:"id"`
+	OwnerID  string    `json:"ownerId"`
+	Approach MapSpawn  `json:"approach"`
+	Return   MapSpawn  `json:"return"`
 }
 
 type MapRegistry struct {
@@ -826,9 +929,38 @@ func ParseRegistry(data []byte) (MapRegistry, error) {
 			return registry, fmt.Errorf("world map registry: invalid definition for %q", id)
 		}
 		for interior, entrance := range definition.Entrances {
+			if entrance.Level < -15 || entrance.Level > 15 || entrance.Building == "" && entrance.Level != 0 {
+				return registry, fmt.Errorf("world map registry: invalid floor for %q", interior)
+			}
+			if entrance.Building != "" {
+				root, ok := definition.Entrances[entrance.Building]
+				if !ok || root.Building != "" || root.OwnerID != entrance.OwnerID || !strings.HasPrefix(interior, entrance.Building+"::") {
+					return registry, fmt.Errorf("world map registry: invalid room owner %q", interior)
+				}
+			} else if strings.Contains(interior, "::") {
+				return registry, fmt.Errorf("world map registry: missing room owner %q", interior)
+			}
+			for id, door := range entrance.Doors {
+				target, ok := definition.Entrances[door.Target]
+				if door.Kind != "" && door.Kind != "door" && door.Kind != "stairs" || (door.Kind == "stairs") != (entrance.Level != target.Level) {
+					return registry, fmt.Errorf("world map registry: invalid stairs or floor connection %q", id)
+				}
+				root := entrance.Building
+				if root == "" {
+					root = interior
+				}
+				targetRoot := target.Building
+				if targetRoot == "" {
+					targetRoot = door.Target
+				}
+				if !safeID.MatchString(id) || !ok || root != targetRoot || door.Target == interior || !ValidCoordinate(door.Arrival.X) || !ValidCoordinate(door.Arrival.Y) {
+					return registry, fmt.Errorf("world map registry: invalid room door %q", id)
+				}
+			}
 			if !KnownInterior(interior) || !safeID.MatchString(entrance.ID) || !safeID.MatchString(entrance.OwnerID) ||
 				!ValidCoordinate(entrance.Approach.X) || !ValidCoordinate(entrance.Approach.Y) ||
-				!ValidCoordinate(entrance.Return.X) || !ValidCoordinate(entrance.Return.Y) {
+				!ValidCoordinate(entrance.Return.X) || !ValidCoordinate(entrance.Return.Y) ||
+				(entrance.Spawn != nil && (!ValidCoordinate(entrance.Spawn.X) || !ValidCoordinate(entrance.Spawn.Y))) {
 				return registry, fmt.Errorf("world map registry: invalid entrance %q in %q", interior, id)
 			}
 		}
@@ -864,7 +996,11 @@ func (w *World) Definition(mapID string) MapDefinition { return w.maps[mapID] }
 
 func (w *World) LocationDefinition(mapID, interiorID string) MapDefinition {
 	if interiorID != "" {
-		return MapDefinition{CoordinateFrame: LegacyFrame(), Spawn: interiorSpawns[interiorID]}
+		spawn := InteriorSpawn(interiorID)
+		if entrance, exists := w.Definition(mapID).Entrances[interiorID]; exists && entrance.Spawn != nil {
+			spawn = *entrance.Spawn
+		}
+		return MapDefinition{CoordinateFrame: LegacyFrame(), Spawn: spawn}
 	}
 	return w.Definition(mapID)
 }
@@ -951,11 +1087,25 @@ var interiorSpawns = map[string]MapSpawn{
 	"bakery":            {X: 1000.0 / 1536, Y: 800.0 / 1024},
 	"supermarket":       {X: 1230.0 / 1536, Y: 790.0 / 1024},
 	"inn":               {X: .50, Y: .75},
+	"library":           {X: .5, Y: 790.0 / 1024},
+	"workshop":          {X: .5, Y: 790.0 / 1024},
+	"station":           {X: .5, Y: 790.0 / 1024},
+	"greenhouse":        {X: .5, Y: 790.0 / 1024},
+	"home":              {X: .5, Y: 790.0 / 1024},
 }
 
 func KnownInterior(id string) bool {
 	// Keep this independent of the registry's package initialization.
-	return id == "train-compartment" || id == "train-dining" || id == "cafe" || id == "bakery" || id == "supermarket" || id == "inn"
+	root, room, child := strings.Cut(id, "::")
+	if child && !safeID.MatchString(room) {
+		return false
+	}
+	kind, instance, scoped := strings.Cut(root, "--")
+	if scoped && !safeID.MatchString(instance) {
+		return false
+	}
+	_, known := interiorSpawns[kind]
+	return known
 }
 
 // knownInterior checks a room against the published registry.
@@ -976,7 +1126,7 @@ func (w *World) validInteriorLocked(mapID, interiorID string) bool {
 	return exists && KnownInterior(interiorID)
 }
 
-func (w *World) joinInterior(client *worldClient, mapID, interiorID string, now time.Time) string {
+func (w *World) joinInterior(client *worldClient, mapID, interiorID string, now time.Time, doorIDs ...string) string {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 	if w.clients[client.player.ID] != client {
@@ -989,11 +1139,25 @@ func (w *World) joinInterior(client *worldClient, mapID, interiorID string, now 
 	if interiorID != "" && (!entranceExists || !KnownInterior(interiorID)) {
 		return "unknown building in this region"
 	}
+	var arrival *MapSpawn
+	if len(doorIDs) > 0 && doorIDs[0] != "" {
+		source := w.Definition(mapID).Entrances[client.player.InteriorID]
+		door, exists := source.Doors[doorIDs[0]]
+		if !exists || door.Target != interiorID {
+			return "unknown room door"
+		}
+		arrival = &door.Arrival
+	} else if interiorID != "" && w.Definition(mapID).Entrances[interiorID].Building != "" && client.player.InteriorID != interiorID {
+		return "enter this room through a connecting door"
+	}
 	if client.player.InteriorID != interiorID {
 		position := client.memory.restorePosition(mapID, w.Definition(mapID))
 		if interiorID != "" {
 			definition := w.LocationDefinition(mapID, interiorID)
 			position = definition.Spawn
+			if arrival != nil {
+				position = *arrival
+			}
 			client.memory.interiorFrame = definition.CoordinateFrame
 		} else if entrance, exists := w.Definition(mapID).Entrances[client.player.InteriorID]; exists {
 			position = entrance.Return
@@ -1066,7 +1230,7 @@ func (w *World) AtInn(playerID string) bool {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 	client := w.clients[playerID]
-	return client != nil && client.player.InteriorID == "inn"
+	return client != nil && strings.SplitN(strings.SplitN(client.player.InteriorID, "::", 2)[0], "--", 2)[0] == "inn"
 }
 
 // DaySeconds is the real-time length of one world day.
@@ -1147,6 +1311,32 @@ func (w *World) PublishContent(registry MapRegistry) {
 		}
 	}
 	for _, client := range w.clients {
+		if id := client.player.InteriorID; id != "" {
+			next := registry.Maps[client.player.MapID]
+			if _, exists := next.Entrances[id]; !exists {
+				old := w.maps[client.player.MapID].Entrances[id]
+				target := ""
+				position := next.Spawn
+				frame := next.CoordinateFrame
+				if root, exists := next.Entrances[old.Building]; old.Building != "" && exists {
+					target = old.Building
+					position = InteriorSpawn(target)
+					frame = LegacyFrame()
+					if root.Spawn != nil {
+						position = *root.Spawn
+					}
+				}
+				client.player.InteriorID = target
+				client.player.X = position.X
+				client.player.Y = position.Y
+				if client.memory != nil {
+					client.memory.interiorID = target
+					client.memory.interiorPosition = position
+					client.memory.interiorFrame = frame
+				}
+				continue
+			}
+		}
 		if client.player.InteriorID == "" {
 			before := w.maps[client.player.MapID]
 			next := registry.Maps[client.player.MapID]

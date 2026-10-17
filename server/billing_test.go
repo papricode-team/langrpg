@@ -120,7 +120,7 @@ func TestCreemCheckoutBindsAccountAndSyncPortal(t *testing.T) {
 						SuccessURL string            `json:"success_url"`
 					}
 					json.NewDecoder(r.Body).Decode(&input)
-					if input.ProductID != plan+"-product" || input.Customer != nil || input.Metadata["account_id"] != player.ID || len(input.Metadata["billing_reference"]) < 24 || input.SuccessURL != "https://game.example/?billing=success" {
+					if input.ProductID != plan+"-product" || input.Customer != nil || input.Metadata["account_id"] != player.ID || len(input.Metadata["billing_reference"]) < 24 || input.SuccessURL != "https://game.example/game/?billing=success" {
 						t.Error("checkout identity/config not server bound")
 					}
 					f.Checkout.RequestID = input.RequestID

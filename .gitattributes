@@ -48,3 +48,8 @@ art/source/animals/*.png filter=lfs diff=lfs merge=lfs -text
 art/source/interiors/*.png filter=lfs diff=lfs merge=lfs -text
 
 art/source/minigames/prologue/*.png filter=lfs diff=lfs merge=lfs -text
+# Original public website campaign art.
+art/source/marketing/*.png filter=lfs diff=lfs merge=lfs -text
+
+# Reusable room-component masters; runtime WebP remains a regular asset.
+art/source/interiors/room-kit-*.png filter=lfs diff=lfs merge=lfs -text

@@ -100,7 +100,7 @@ func (a *App) referralLink(w http.ResponseWriter, r *http.Request) {
 		apiFailure(w, err)
 		return
 	}
-	u.Path = strings.TrimRight(u.Path, "/") + "/"
+	u.Path = strings.TrimRight(u.Path, "/") + "/game/"
 	u.RawQuery = url.Values{"ref": {account.Player.ID}}.Encode()
 	writeJSON(w, 200, map[string]any{"url": u.String(), "bonusMinutes": 90, "dailyLimit": referralDailyLimit, "lifetimeLimit": referralLifetimeLimit, "successfulSignups": account.Referrals.SuccessfulSignups, "access": a.accessState(account, a.now().UTC())})
 }

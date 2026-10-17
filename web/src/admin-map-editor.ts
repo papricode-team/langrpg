@@ -1,3 +1,5 @@
+import {getInterior} from './interiors';
+import {roomLayoutFingerprint} from './room-layout';
 import {animalSpawns} from './animal-spawns';
 import {animalSpecies, animalVariants, animalName, type AnimalSpecies} from './animal-types';
 /**
@@ -19,7 +21,7 @@ import {escapeHtml as escape,icon} from './icons';
 import {MapEditStore,type StoreFailure} from './map-edit-store';
 import {maps,type MapId} from './maps';
 import {getWorldScene,loadPublishedWorld,replacePublishedWorld,sceneContentVersion,sceneDocument} from './scene-data';
-import {parseWorldSceneDocument,sceneEntrances,type SceneInteriorKind,type ScenePoint,type SceneScenery,type WorldScene} from './scene-schema';
+import {buildingRoomKind,parseWorldSceneDocument,sceneEntrances,type SceneInteriorKind,type ScenePoint,type SceneScenery,type WorldScene} from './scene-schema';
 import {catalogueGroups,variantChoices,variantLabel} from './world-edit-catalogue';
 import {applyEditOps,nextObjectId,type WorldEditOp} from './world-edit-ops';
 import {defaultActivities,paletteChoices,type PaletteChoice} from './world-edit-palette';
@@ -146,6 +148,7 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
 
   // Store -------------------------------------------------------------------------------------------
   let renderQueued = false;
+  let roomSave: {map:string;id:string;fingerprint:string;resolve:(saved:boolean)=>void;reject:(error:Error)=>void;error?:string} | undefined;
   const store = new MapEditStore(sceneDocument, sceneContentVersion, {send: ops => session.send(ops)}, {
     changed: changedMaps => {
       replacePublishedWorld(store.document, store.version);
@@ -153,6 +156,7 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
       queueRender();
     },
     failed: (failure: StoreFailure) => {
+      if (roomSave && failure.label === 'Edit room layout') roomSave.error = failure.message;
       const first = failure.problems.find(problem => problem.severity === 'error');
       if (first) problemToast({...first, message: `${failure.label} was undone: ${first.message}`});
       else toast(`${failure.label} was undone: ${failure.message}`, true);
@@ -163,7 +167,15 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
       for (const problem of problems.filter(value => value.severity === 'warning').slice(0, 2))
         toast(problem.message, false, problem.objectIds.length || problem.point ? {ids: problem.objectIds, point: problem.point} : undefined);
     },
-    saving: active => saveState(active ? 'saving' : 'idle'),
+    saving: active => {
+      saveState(active ? 'saving' : 'idle');
+      if (!active && roomSave) {
+        const pending = roomSave; roomSave = undefined;
+        const saved = store.document.maps[pending.map]?.scenery.find(item=>item.id===pending.id)?.roomLayout;
+        if (pending.error || roomLayoutFingerprint(saved) !== pending.fingerprint) pending.reject(new Error(pending.error ?? 'The room changed before it could be saved. Reopen its layout to refresh.'));
+        else pending.resolve(true);
+      }
+    },
   });
   let saveError = 0;
   const saveState = (state: 'saving' | 'idle' | 'error') => {
@@ -186,6 +198,19 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
     return undefined;
   };
   /** Check operations against the shape rules and apply them. Routes are checked by the server. */
+  let roomEditor: {destroy():void} | undefined;
+  const editRoom = async () => {
+    const item = getWorldScene(mapId).scenery.find(item=>selection.length===1 && item.id===selection[0].id), kind = item && buildingRoomKind(item);
+    if (!item || !kind || locks.has(item.id)) return;
+    const editingMap = mapId, expected = roomLayoutFingerprint(item.roomLayout);
+    const {openRoomEditor} = await import('./admin-room-editor');
+    if (destroyed) return;
+    roomEditor?.destroy();
+    roomEditor = openRoomEditor(getInterior(kind),item.roomLayout,layout=>new Promise<boolean>((resolve,reject)=>{
+      roomSave = {map:editingMap,id:item.id,fingerprint:roomLayoutFingerprint(layout),resolve,reject};
+      if (!commit([{kind:'room',map:editingMap,id:item.id,layout,expected}],'Edit room layout')) {roomSave = undefined;reject(new Error('The room changed or is no longer editable. Reopen its layout to refresh.'));}
+    }),objectLabel(getWorldScene(editingMap),item.id));
+  };
   const commit = (ops: WorldEditOp[], label: string, check = true): boolean => {
     if (!ops.length) return false;
     const problem = check ? problemIn(ops) : undefined;
@@ -432,8 +457,9 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
         <input type="number" name="size-value" min="${size.min}" max="${size.max}" step="1" value="${Math.round(item.width)}"${disabled || size.min === size.max ? ' disabled' : ''} aria-label="Width"></div></div>
       <div class="me-toggles"><button type="button" data-cmd="flip" aria-pressed="${!!item.flipX}"${disabled}>Flipped <kbd>X</kbd></button>
         <button type="button" data-cmd="solid" aria-pressed="${item.collidable !== false}"${disabled} title="Players walk around it">Solid</button></div>
-      ${rooms.length ? `<label class="me-field"><span>Room inside</span><select name="room"${disabled}><option value=""${room ? '' : ' selected'}>No room</option>
+      ${rooms.length ? `<label class="me-field"><span>Room inside</span><select name="room"${disabled}><option value=""${room ? '' : ' selected'}>Default for this building</option>
         ${rooms.map(kind => `<option value="${kind}"${kind === room ? ' selected' : ''}>${escape(capital(roomNames[kind]))}</option>`).join('')}</select></label>` : ''}
+      ${buildingRoomKind(item) ? `<button type="button" data-cmd="edit-room"${disabled}>Edit room layout</button><p class="me-note">Place walls, doors, furniture and games inside this building.</p>` : ''}
       ${variants.length > 1 ? `<div class="me-field"><span>Version</span><div class="me-variants">${variants.map(choice => {
         const active = choice.frame === (item.frame ?? item.asset), picture = scene.thumbnail(choice.frame);
         return `<button type="button" data-variant="${escape(choice.frame)}" aria-pressed="${active}" title="${escape(capital(variantLabel(choice)))}"${disabled}>${picture ? `<img src="${escape(picture)}" alt="">` : ''}<span>${escape(capital(variantLabel(choice)))}</span></button>`;
@@ -512,6 +538,7 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
     for (const source of sources) {
       const copy: SceneScenery = {...structuredClone(source), id: nextObjectId(town, source.frame ?? source.asset), x: Math.round(source.x + dx), y: Math.round(source.y + dy)};
       delete copy.interior;
+      if (copy.roomLayout && copy.roomLayout.kind !== buildingRoomKind(copy)) delete copy.roomLayout;
       const activities = defaultActivities(town, copy);
       ops.push({kind: 'place', map: mapId, item: copy, ...(activities.length ? {activities} : {})});
       ids.push(copy.id);
@@ -657,6 +684,7 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
       return;
     }
     switch (button.dataset.cmd) {
+      case 'edit-room': void editRoom(); break;
       case 'undo': undo(); break;
       case 'redo': redo(); break;
       case 'zoom-in': scene.zoomBy(1.25); break;
@@ -793,6 +821,7 @@ export async function mountMapEditor(host: HTMLElement, options: MapEditorOption
       window.removeEventListener('blur', blur);
       window.removeEventListener('beforeunload', beforeUnload);
       document.removeEventListener('pointerdown', closeMenus);
+      roomEditor?.destroy();
       terrainEditor.destroy();
       session.dispose();
       game.destroy(true);

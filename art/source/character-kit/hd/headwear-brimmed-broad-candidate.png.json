@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "operation": "registered rectangular crops; only whole-page downsampling, never enlargement or part transforms",
+  "sources": [
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-brimmed-broad-page-0-candidate-1.png",
+      "sha256": "ec2ea1557ebfbffc4ff3c89333c4f39f3a8fedcabc59bb3ca1c66a4db08ece8c"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-brimmed-broad-page-0-candidate-1.txt",
+      "sha256": "4eff9e5e78b5f4900cc789a07030ce4e0821acf32d3d40146a3252095e951623"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-0.json",
+      "sha256": "4ea71e914eb3e377f8768b6aaba5b3961283eaaffedd875ed852e03ea01a7e81"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-brimmed-broad-page-1-candidate-1.png",
+      "sha256": "4e67a7c1ee0cd91c6b74a33ffc0ee55d1807fe54b44667f4a0da7553a9d65134"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-brimmed-broad-page-1-candidate-1.txt",
+      "sha256": "4eff9e5e78b5f4900cc789a07030ce4e0821acf32d3d40146a3252095e951623"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-1.json",
+      "sha256": "e335d5694ab257cb7a33349d845a2fc7c36e5b0d0291d4ecf4322ab2c934bb58"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-brimmed-broad-page-2-candidate-1.png",
+      "sha256": "ed3e18d60d2fd5333e64087700fc9e5188e111985c4bc05cc29b52c6047845f7"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-brimmed-broad-page-2-candidate-1.txt",
+      "sha256": "4eff9e5e78b5f4900cc789a07030ce4e0821acf32d3d40146a3252095e951623"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-2.json",
+      "sha256": "a1b4e3f89517da78599945f50889558c4cfe319921f54eda7cd5ff6968eda870"
+    },
+    {
+      "path": "art/source/character-kit/hd/candidates/headwear-brimmed-broad-page-3-candidate-1.png",
+      "sha256": "3ba10d77e3afeb9df031f0020eb2742e910669cd6c13172ffc31bc4ba4844252"
+    },
+    {
+      "path": "art/source/character-kit/hd/prompts/headwear-brimmed-broad-page-3-candidate-1.txt",
+      "sha256": "4eff9e5e78b5f4900cc789a07030ce4e0821acf32d3d40146a3252095e951623"
+    },
+    {
+      "path": "art/source/character-kit/hd/references/body-broad-native-head/page-3.json",
+      "sha256": "ebd21da1dc0c907603656144aa9a8ff409646d67ba5f969d917958697a2d346d"
+    },
+    {
+      "path": "art/source/character-kit/hd/body-broad.png",
+      "sha256": "d107397418bfed1d074fe04807d1ce1262a386c951e03e025aef9e5ef76dd6b1"
+    }
+  ],
+  "outputSha256": "f920fd57f5b35fac7ac4144663f76769067bae977814c9343e843d10918b8cb3"
+}
