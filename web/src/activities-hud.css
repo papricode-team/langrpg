@@ -1,9 +1,19 @@
 /* Activity HUD skin and type scale. Continues activities-overlays.css; imported after it. */
 /* Mission boards share the world's forest glass HUD; orders and evidence retain
    their paper surfaces. The room painting now remains visible behind the play. */
-/* The shell material lives in activities.css. This file only skins its contents. */
+.dialog.activity-dialog {
+  background:#102a22;
+  border:2px solid #ba9a59;
+  color:#f0e8cb
+}
+
+.activity-shell {
+  color:#eee5c9;
+  background:linear-gradient(130deg,#0d231deb,#112d23ce),var(--activity-art) center/cover
+}
+
 .activity-banner {
-  border-bottom:2px solid var(--brass)
+  border-bottom:2px solid #b89d61
 }
 
 .activity-task-header h2,.activity-intermission h2 {
@@ -11,34 +21,34 @@
 }
 
 .activity-task-header p,.activity-no-pressure,.activity-navigation>p {
-  color:var(--text-muted)
+  color:#c1cbb4
 }
 
 .activity-bench-label,.activity-service-settings>div>span {
-  color:var(--brass-light)
+  color:#dbbd79
 }
 
 .activity-kitchen,.activity-change-purse,.activity-route-instructions {
   background:#132e23e6;
-  border:1px solid color-mix(in srgb, var(--brass) 40.0%, transparent);
+  border:1px solid #b99a5a66;
   backdrop-filter:blur(8px)
 }
 
 .activity-stock-item,.activity-tool,.activity-choice {
-  color:var(--text);
+  color:#eee3bf;
   background:linear-gradient(#38523c,#233d2e);
-  border-color:color-mix(in srgb, var(--brass) 46.7%, transparent);
+  border-color:#b99a5a77;
   box-shadow:0 3px 0 #071a1277;
   transition:transform 120ms ease,border-color 120ms ease
 }
 
 .activity-stock-item:hover:not(:disabled),.activity-tool:hover:not(:disabled) {
   transform:translateY(-2px);
-  border-color:var(--brass-light)
+  border-color:#dfbf77
 }
 
 .activity-stock-item>.icon:first-child,.activity-tool .icon {
-  color:var(--brass)
+  color:#d2b16c
 }
 
 .activity-stock-item .caption,.activity-stock-item b {
@@ -47,19 +57,19 @@
 
 .activity-choice.selected {
   background:#506445;
-  border-color:var(--brass-light);
+  border-color:#e2c47c;
   color:#fff0c9
 }
 
 .activity-panel-tabs button {
   color:#d4dac0;
   background:#203b2f;
-  border-color:color-mix(in srgb, var(--brass) 46.7%, transparent)
+  border-color:#b99a5a77
 }
 
 .activity-panel-tabs button[aria-pressed='true'] {
   background:#4b603e;
-  border-color:var(--brass-light);
+  border-color:#e0bf74;
   color:#fff0c9
 }
 
@@ -74,21 +84,21 @@
 .activity-trade-offer {
   color:#e8e3c5;
   background:#394c2f99;
-  border-color:color-mix(in srgb, var(--brass) 53.3%, transparent)
+  border-color:#b99a5a88
 }
 
 .activity-trade-offer strong {
-  color:var(--brass-light)
+  color:#e1c27a
 }
 
 .activity-recipe-track li {
   color:#e9e4c5;
   background:#314b36;
-  border-color:color-mix(in srgb, var(--brass) 40.0%, transparent)
+  border-color:#b99a5a66
 }
 
 .activity-recipe-track li.activity-empty {
-  color:var(--text-muted)
+  color:#bbcab1
 }
 
 .activity-link,.activity-response {
@@ -100,16 +110,16 @@
 }
 
 .activity-active-direction .caption {
-  color:var(--text-muted)
+  color:#bdc9ae
 }
 
 .activity-active-direction>button {
-  color:var(--brass-light);
-  border-color:color-mix(in srgb, var(--brass) 53.3%, transparent)
+  color:#e4c882;
+  border-color:#b99a5a88
 }
 
 .activity-task-actions {
-  border-color:color-mix(in srgb, var(--brass) 40.0%, transparent)
+  border-color:#b99a5a66
 }
 
 .activity-intermission>p,.activity-reward,.activity-reward>strong {
@@ -117,20 +127,20 @@
 }
 
 .activity-guide,.activity-feedback-details,.activity-route-list {
-  color:var(--text);
+  color:#eee5c6;
   background:#152f25f5;
   border:2px solid #bea160;
   box-shadow:0 16px 45px #04100ccc
 }
 
 .activity-guide h3,.activity-feedback-details h3,.activity-route-list h3,.activity-clarification {
-  color:var(--brass-light)
+  color:#efdba9
 }
 
 .activity-guide>header>button,.activity-feedback-details>header>button,.activity-route-list>header>button {
-  color:var(--brass-light);
+  color:#e8d39c;
   background:#2a4533;
-  border-color:color-mix(in srgb, var(--brass) 46.7%, transparent)
+  border-color:#b99a5a77
 }
 
 .activity-route-list li,.activity-route-list li button {
@@ -138,7 +148,7 @@
 }
 
 .activity-guide .activity-no-pressure {
-  color:var(--text-muted)
+  color:#bdcbb4
 }
 
 .activity-inventory-piece {
@@ -154,7 +164,7 @@
 }
 
 .activity-tray.drag-target {
-  outline:3px solid var(--brass-light);
+  outline:3px solid #f2cf78;
   outline-offset:2px;
   filter:brightness(1.1)
 }
@@ -285,43 +295,4 @@
   .activity-content {
     grid-template-columns:minmax(252px,.85fr) minmax(0,1.55fr);
   }
-}
-
-/* Forest glass controls and popovers; paper is reserved for the order/evidence props. */
-.activity-dialog :is(.activity-kitchen,.activity-service-settings,.activity-change-purse,.activity-route-instructions,.activity-route-current,.activity-discoveries,.activity-guide,.activity-feedback-details,.activity-route-list) {
-  background:var(--forest);
-  color:var(--text);
-  border-color:var(--line);
-  border-radius:var(--radius-sm);
-}
-.activity-dialog :is(.activity-tool,.activity-stock-item,.activity-choice,.activity-panel-tabs button) {
-  background:var(--forest-raised);
-  color:var(--text);
-  border-color:var(--line);
-  border-radius:var(--radius-sm);
-  box-shadow:var(--shadow-sm);
-}
-.activity-dialog :is(.activity-task-header p,.activity-link,.activity-no-pressure,.activity-navigation>p,.activity-intermission>p,.activity-response,.activity-route-instructions li,.activity-route-list li,.activity-active-direction .caption,.activity-discoveries p,.activity-clarification) {
-  color:var(--text-muted);
-}
-.activity-dialog :is(.activity-stock-item .caption,.activity-stock-item b,.activity-stock-item>.icon,.activity-market-ledger b,.activity-change-purse>strong,.activity-active-direction>button,.activity-route-current button,.activity-route-instructions li button,.activity-route-list li button) {
-  color:var(--brass-light);
-}
-.activity-dialog :is(.activity-choice.selected,.activity-panel-tabs button[aria-selected='true'],.activity-panel-tabs button[aria-pressed='true']) {
-  color:var(--text);
-  background:var(--forest-raised);
-  border-color:var(--brass);
-}
-.activity-dialog :is(.activity-guide h3,.activity-feedback-details h3,.activity-route-list h3,.activity-intermission h2,.activity-active-direction b) {
-  color:var(--text);
-}
-.activity-dialog :is(.activity-scene-board,.activity-task-actions,.activity-recipe-track,.activity-market-ledger) {
-  border-color:var(--line);
-}
-.activity-dialog .activity-primary {
-  background:var(--button-primary);
-  color:var(--forest-deep);
-  border:1px solid var(--brass-light);
-  border-radius:var(--radius-sm);
-  box-shadow:var(--shadow-sm);
 }

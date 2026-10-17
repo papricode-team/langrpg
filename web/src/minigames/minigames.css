@@ -173,7 +173,7 @@
   touch-action:manipulation
 }
 
-.minigame-object:hover,.minigame-object:focus-visible,.minigame-object.is-selected {
+.minigame-object:hover,.minigame-object.is-selected {
   border-color:#f1cc7b;
   transform:translateY(-5px);
   outline:2px solid #f1cc7b;
@@ -410,11 +410,6 @@
 .minigame button.primary-button {
   background:#d1ad64;
   color:#183c32
-}
-
-.minigame input:focus {
-  outline:2px solid #f1cc7b;
-  outline-offset:3px
 }
 
 .minigame-summary {

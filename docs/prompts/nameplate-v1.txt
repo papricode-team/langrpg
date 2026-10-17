@@ -1,0 +1,13 @@
+Use case: stylized-concept
+Asset type: production 2D game UI art for glotworld, a cozy hand-painted European village story RPG with a premium, Blizzard/Hearthstone-quality painted interface in aged brass, deep forest-green enamel and warm ivory parchment.
+Primary request: The HUD player nameplate: on the left a round brass portrait ring (thick brass ring with beaded edge, empty transparent centre hole for a portrait), joined on its right to a horizontal dark-green enamel banner plate with a thin brass rim that ends on the right in a gentle pointed tip. A small brass laurel sprig decorates where the ring meets the plate.
+Composition: 1536 x 384, straight-on. The portrait ring is a full circle on the left, about 340 pixels in diameter, vertically centred; its centre hole (about 250 pixels across) is transparent. The banner plate runs from the ring to the right edge, about 200 pixels tall, its middle section plain and uniform for the player name text.
+Materials: softly worn warm brass #c4a567, pale gold highlights #e8d39b, dark bronze #5b4520, deep forest green #16332d to #0f241e, emerald #2f7a5a, ivory parchment #efe2bf. Soft light from upper left, rich hand-painted edge highlights and gentle wear, no photorealism, no pixel art.
+Constraints: no letters, no words, no numbers, no watermark, no characters, no drop shadow outside the silhouette. Everything outside the object must be genuine alpha transparency.
+
+Generated with Codex's built-in image generation tool, transparent background.
+Original: art/ui/nameplate-v1.png
+Runtime: web/public/assets/ui/nameplate-v1.webp, drawn as a border-image (slice 0 30 0 170, width 0 18px 0 102px, behind the HUD player plate).
+
+Runtime export (Node with sharp):
+await sharp(await sharp('art/ui/nameplate-v1.png').trim().toBuffer()).resize({height:160}).webp({quality:72,alphaQuality:90,effort:6}).toFile('web/public/assets/ui/nameplate-v1.webp');

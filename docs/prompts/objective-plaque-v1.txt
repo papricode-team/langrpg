@@ -1,0 +1,13 @@
+Use case: stylized-concept
+Asset type: production transparent 2D game UI quest-objective plaque for glotworld, a cozy hand-painted European village story RPG.
+Primary request: A wide horizontal objective banner that frames the player's current task. A long rectangular plate of warm ivory parchment (#efe2bf with faint fibres and soft aged edges) set into a thin aged-brass rim. On the left and right ends are matching small brass end caps shaped like curled scrolls with a tiny engraved leaf. The middle section of the plate is calm, flat and uniform so it can stretch horizontally and carry text.
+Composition: 1536 x 384 canvas, straight-on orthographic, perfectly left-right symmetric. Plate fills about 96 percent of width and 72 percent of height, vertically centered. End caps occupy no more than 140 pixels at each end. The middle 70 percent of width is uniform with no ornament.
+Materials: warm brass #c4a567, pale gold highlights #e8d39b, ivory parchment #efe2bf, faint sepia shading #b89a62. Soft light from upper left, painterly edge highlights, no photorealism, no pixel art.
+Constraints: no letters or words, no icons in the middle, no wax seal in the middle, no background, no cast shadow outside the silhouette, no watermark. Genuine alpha transparency outside the plaque.
+
+Generated with Codex's built-in image generation tool, transparent background.
+Original: art/ui/objective-plaque-v1.png
+Runtime: web/public/assets/ui/objective-plaque-v1.webp (1165 x 180), drawn as a border-image (slice 48 110, width 24px 55px) on .dialogue-objective.
+
+Runtime export (Node with sharp):
+await sharp('art/ui/objective-plaque-v1.png').trim().resize({height:180}).webp({quality:72,alphaQuality:90,effort:6}).toFile('web/public/assets/ui/objective-plaque-v1.webp');

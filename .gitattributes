@@ -2,6 +2,21 @@
 # 2026-10-15; earlier history still holds them as ordinary blobs.
 art/ui/lantern-*.png filter=lfs diff=lfs merge=lfs -text
 art/ui/world-*.png filter=lfs diff=lfs merge=lfs -text
+art/ui/dialogue-frame-*.png filter=lfs diff=lfs merge=lfs -text
+art/ui/objective-plaque-*.png filter=lfs diff=lfs merge=lfs -text
+art/ui/brass-button-*.png filter=lfs diff=lfs merge=lfs -text
+art/ui/quill-emblem-*.png filter=lfs diff=lfs merge=lfs -text
+art/ui/panel-texture-*.png filter=lfs diff=lfs merge=lfs -text
+art/ui/card-frame-*.png filter=lfs diff=lfs merge=lfs -text
+art/ui/parchment-card-*.png filter=lfs diff=lfs merge=lfs -text
+art/ui/enamel-button-*.png filter=lfs diff=lfs merge=lfs -text
+art/ui/tab-plate-*.png filter=lfs diff=lfs merge=lfs -text
+art/ui/rail-ribbon-*.png filter=lfs diff=lfs merge=lfs -text
+art/ui/round-button-*.png filter=lfs diff=lfs merge=lfs -text
+art/ui/nameplate-*.png filter=lfs diff=lfs merge=lfs -text
+art/ui/town-banner-*.png filter=lfs diff=lfs merge=lfs -text
+art/ui/divider-*.png filter=lfs diff=lfs merge=lfs -text
+art/ui/menu-header-*.png filter=lfs diff=lfs merge=lfs -text
 art/source/*.png filter=lfs diff=lfs merge=lfs -text
 art/source/expeditions/*.png filter=lfs diff=lfs merge=lfs -text
 art/source/story-cast/*.png filter=lfs diff=lfs merge=lfs -text

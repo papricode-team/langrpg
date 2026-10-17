@@ -630,11 +630,6 @@
   touch-action:manipulation
 }
 
-.expedition-game button:focus-visible {
-  outline:3px solid #f2ce79;
-  outline-offset:3px
-}
-
 .expedition-game-heading>p,.expedition-glossary,.expedition-order>p {
   color:#bbcbbb
 }

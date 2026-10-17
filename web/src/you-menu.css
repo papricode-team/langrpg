@@ -13,7 +13,7 @@
   max-width:420px;
   border-radius:4px;
   color:var(--game-text);
-  background:var(--forest-deep);
+  background:#0d1e19;
   font-family:inherit;
   font-size:var(--type-body);
 }
@@ -34,7 +34,7 @@
 
 #menu-layer .builder-preview p {
   color:var(--game-muted);
-  font:400 var(--type-caption)/1.5 var(--font-body);
+  font:400 var(--type-caption)/1.5 'DM Sans',sans-serif;
   margin-top:12px;
 }
 
@@ -43,9 +43,9 @@
 }
 
 #menu-layer :is(.builder-turns,.builder-actions) :is(button,select),#menu-layer .builder-tile {
-  border:1px solid color-mix(in srgb, var(--brass) 25.1%, transparent);
+  border:1px solid #d8bb8040;
   border-radius:4px;
-  background:var(--forest-deep);
+  background:#0d1e19;
   color:var(--game-text);
   min-height:44px;
 }
@@ -57,14 +57,14 @@
 }
 
 #menu-layer .builder-tabs button[aria-selected=true],#menu-layer .builder-tile[aria-pressed=true] {
-  background:color-mix(in srgb, var(--brass) 10.2%, transparent);
+  background:#d8bb801a;
   color:var(--game-text);
   border-color:var(--game-gold);
 }
 
 #menu-layer .builder-rule {
   border-radius:4px;
-  background:color-mix(in srgb, var(--brass) 7.1%, transparent);
+  background:#d8bb8012;
   color:var(--game-muted);
 }
 
@@ -78,7 +78,7 @@
 }
 
 #menu-layer .builder-colours button {
-  border-color:var(--forest-deep);
+  border-color:#10211f;
   box-shadow:0 0 0 1px var(--game-line);
 }
 
@@ -114,7 +114,7 @@
 
 .controls-help-row h3 {
   color:var(--game-text);
-  font:500 var(--type-body)/1.6 var(--font-body);
+  font:500 var(--type-body)/1.6 'DM Sans',sans-serif;
 }
 
 .controls-help-row p {
@@ -141,10 +141,10 @@
   gap:8px;
   min-height:48px;
   padding:10px 14px;
-  border:1px solid color-mix(in srgb, var(--brass) 25.1%, transparent);
+  border:1px solid #d8bb8040;
   border-radius:4px;
   color:var(--game-gold);
-  background:var(--forest-deep);
+  background:#0d1e19;
   cursor:pointer;
   list-style:none;
 }
@@ -164,10 +164,10 @@
   min-width:0;
   min-height:48px;
   padding:10px 12px;
-  border:1px solid color-mix(in srgb, var(--brass) 25.1%, transparent);
+  border:1px solid #d8bb8040;
   border-radius:4px;
   color:var(--game-text);
-  background:var(--forest-deep);
+  background:#0d1e19;
 }
 
 .account-credential-editor label { color:var(--game-text); }
@@ -180,7 +180,7 @@
   border-color:var(--game-line);
   border-radius:4px;
   color:var(--game-text);
-  background:color-mix(in srgb, var(--forest) 40.0%, transparent);
+  background:#14292366;
 }
 
 #menu-layer .course-picker label {
@@ -204,10 +204,10 @@
   min-width:0;
   max-width:100%;
   padding:12px 40px 12px 14px;
-  border:1px solid color-mix(in srgb, var(--brass) 25.1%, transparent);
+  border:1px solid #d8bb8040;
   border-radius:4px;
   color:var(--game-text);
-  background-color:var(--forest-deep);
+  background-color:#0d1e19;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%23d8bb80' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat:no-repeat;
   background-position:right 14px center;
@@ -215,8 +215,8 @@
 }
 
 #menu-layer .course-picker select:hover:not(:disabled) {
-  border-color:color-mix(in srgb, var(--brass) 43.9%, transparent);
-  background-color:var(--forest);
+  border-color:#d8bb8070;
+  background-color:#142923;
 }
 
 #menu-layer .course-picker select:disabled {
@@ -226,31 +226,15 @@
 
 #menu-layer .course-picker option {
   color:var(--game-text);
-  background:var(--forest-deep);
+  background:#0d1e19;
 }
 
 #menu-layer .course-picker [role=status]:empty { display:none; }
-
-/* Keyboard and gamepad navigation share the brass focus ring across modes. */
-#menu-layer :is(button,input:where(:not([type=radio],[type=checkbox])),select,textarea,summary,a[href]):focus-visible,
-#menu-layer[data-input='keys'] :is(button,input:where(:not([type=radio],[type=checkbox])),select,textarea,summary,a[href]):focus-visible,
-#menu-layer[data-input='pad'] :is(button,input:where(:not([type=radio],[type=checkbox])),select,textarea,summary,a[href]):focus {
-  outline:2px solid var(--brass-light);
-  outline-offset:3px;
-  box-shadow:var(--focus-ring);
-}
 
 @media (forced-colors:active) {
   #menu-layer .course-picker select {
     appearance:auto;
     background-image:none;
-  }
-
-  #menu-layer :is(button,input,select,textarea,summary,a[href]):focus-visible,
-  #menu-layer[data-input='pad'] :is(button,input,select,textarea,summary,a[href]):focus {
-    border-image:none;
-    outline:2px solid Highlight;
-    outline-offset:3px;
   }
 }
 

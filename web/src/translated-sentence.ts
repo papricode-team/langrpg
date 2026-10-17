@@ -116,7 +116,7 @@ export function wordTargetRanges(presentation: SentencePresentation, index: numb
   return mapping?.targetRanges ?? [];
 }
 
-export function sourceSentenceMarkup(presentation: SentencePresentation, options: { selectedIndex?: number; dialogue?: boolean; wordlight?: boolean } = {}): string {
+export function sourceSentenceMarkup(presentation: SentencePresentation, options: { selectedIndex?: number; dialogue?: boolean } = {}): string {
   const { text, sentence } = presentation;
   if (!sentence) return e(text);
   let cursor = 0, result = '';
@@ -126,7 +126,7 @@ export function sourceSentenceMarkup(presentation: SentencePresentation, options
     const gloss = word.glosses[presentation.supportLanguage] ?? '', selected = options.selectedIndex === index;
     const token = text.slice(word.range.start, word.range.end), prefix = options.dialogue ? 'dialogue' : 'sentence';
     result += e(text.slice(cursor, word.range.start));
-    result += `<button type="button" class="${prefix}-word ${options.wordlight ? 'wordlight-lit' : ''} ${selected ? 'is-selected' : ''}" data-${prefix}-gloss="${e(gloss)}" data-${prefix}-word-index="${index}" data-sentence-ranges="${e(JSON.stringify(wordTargetRanges(presentation, index)))}" aria-label="${e(t('Meaning of {word}', { word: token }))}" aria-pressed="${selected}">${e(token)}</button>`;
+    result += `<button type="button" class="${prefix}-word ${selected ? 'is-selected' : ''}" data-${prefix}-gloss="${e(gloss)}" data-${prefix}-word-index="${index}" data-sentence-ranges="${e(JSON.stringify(wordTargetRanges(presentation, index)))}" aria-label="${e(t('Meaning of {word}', { word: token }))}" aria-pressed="${selected}">${e(token)}</button>`;
     cursor = word.range.end;
   }
   return result + e(text.slice(cursor));

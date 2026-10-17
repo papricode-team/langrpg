@@ -69,7 +69,7 @@
   font: inherit
 }
 
-.story-game button:focus-visible,.story-game button.is-selected {
+.story-game button.is-selected {
   outline:2px solid #f1ce7a;
   outline-offset:2px;
   border-color:#f1ce7a
@@ -417,11 +417,6 @@
   font: var(--type-title) 'DM Sans',sans-serif;
   background:#e6dcc1;
   color:#233a2e
-}
-
-.story-address input:focus {
-  outline:2px solid #eed296;
-  outline-offset:2px
 }
 
 .story-umlauts {
